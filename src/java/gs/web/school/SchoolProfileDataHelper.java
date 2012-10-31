@@ -875,8 +875,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                             PerformanceRatingObj performanceRatingObj = new PerformanceRatingObj();
                             performanceRatingObj.setLevelCode(levelCode);
                             //Round the score to 1 decimal place.
-                            //Cast float to double.Since its a small value,precision did not matter.
-                            Double roundedScore = (Math.round((double)value.getValueFloat()*10))/10.0;
+                            Double roundedScore = (Math.round(value.getValueFloat()*10))/10.0;
                             performanceRatingObj.setScore(roundedScore);
                             performanceRatingObj.setLevelText(getLevelText(levelCode));
                             performanceManagementRatingList.add(performanceRatingObj);
