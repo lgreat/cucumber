@@ -874,7 +874,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         if (levelCode != null && value.getValueFloat() != null) {
                             PerformanceRatingObj performanceRatingObj = new PerformanceRatingObj();
                             performanceRatingObj.setLevelCode(levelCode);
-                            performanceRatingObj.setScore(value.getValueFloat().intValue());
+                            //Round the score to 1 decimal place.
+                            //Cast float to double.Since its a small value,precision did not matter.
+                            Double roundedScore = (Math.round((double)value.getValueFloat()*10))/10.0;
+                            performanceRatingObj.setScore(roundedScore);
                             performanceRatingObj.setLevelText(getLevelText(levelCode));
                             performanceManagementRatingList.add(performanceRatingObj);
                         }
@@ -932,7 +935,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     public static class PerformanceRatingObj implements Comparable<PerformanceRatingObj> {
        LevelCode _levelCode;
-       Integer _score;
+       Double _score;
        String _levelText;
 
         public LevelCode getLevelCode() {
@@ -943,11 +946,11 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             _levelCode = levelCode;
         }
 
-        public Integer getScore() {
+        public Double getScore() {
             return _score;
         }
 
-        public void setScore(Integer score) {
+        public void setScore(Double score) {
             _score = score;
         }
 
