@@ -109,6 +109,7 @@
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
     <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
     <ad:enableGptAsynchronousMode />
+    <ad:setGptSlotLevelTargetingKeyAssignment adKeyword="template" jsLookupVariable="GS.ad.profile.tabNameForAdTargeting"/>
     <ad:disableGptGhostTextHiding position="Header_728x90"/>
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
     <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
@@ -314,6 +315,7 @@
     <c:set target="${requestScope.schoolProfileTabMap}" property="${param.tab}" value="selected"/>
 
     <!-- Configure which sub-tabs live under which master tabs -->
+    <!-- IMPORTANT: if you make any changes to the tabs below, make sure to update profilePage.js - GS.ad.profile.tabNameForAdTargeting -->
     <c:if test="${empty param.tab or param.tab eq 'overview'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="overview-master" value="selected"/>
     </c:if>

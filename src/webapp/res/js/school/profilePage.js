@@ -50,6 +50,30 @@
 
 var GS = GS || {};
 GS.util = GS.util || {};
+
+GS.ad = GS.ad || {};
+GS.ad.profile = GS.ad.profile || {};
+
+// should be initialized in xGAMSetup.tagx but also initialize here to guarantee code doesn't fail
+GS.ad.targeting = GS.ad.targeting || {};
+GS.ad.targeting.pageLevel = GS.ad.targeting.pageLevel || {};
+GS.ad.targeting.pageLevel['template'] = GS.ad.targeting.pageLevel['template'] || [];
+
+GS.ad.profile.tabNameForAdTargeting = {
+    ''                   : 'overview',
+    'overview'           : 'overview',
+    'reviews'            : 'reviews',
+    'test-scores'        : 'testscores',
+    'ratings'            : 'testscores',
+    'demographics'       : 'studteach',
+    'teachers'           : 'studteach',
+    'programs-culture'   : 'progcult',
+    'culture'            : 'progcult',
+    'programs-resources' : 'progcult',
+    'extracurriculars'   : 'progcult',
+    'enrollment'         : 'enrollment'
+};
+
 GS.profile = GS.profile || (function() {
     "use strict";
 
@@ -147,11 +171,11 @@ GS.profile = GS.profile || (function() {
 
     var refreshAdsForTab = function(tabName) {
         if (tabName === "overview") {
-            refreshOverviewAds();
+            refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
         } else if (tabName === 'reviews') {
-            refreshReviewsAds();
+            refreshReviewsAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
         } else {
-            refreshNonOverviewAds();
+            refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
         }
     };
 
@@ -253,17 +277,17 @@ GS.profile = GS.profile || (function() {
         }
     };
 
-    var refreshOverviewAds = function() {
+    var refreshOverviewAds = function(tabName) {
         //console.log('refreshing overview ads', refreshableOverviewAdSlotKeys);
-        GS.ad.refreshAds(refreshableOverviewAdSlotKeys);
+        GS.ad.setTargetingAndRefresh(refreshableOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
-    var refreshReviewsAds = function() {
+    var refreshReviewsAds = function(tabName) {
         //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
-        GS.ad.refreshAds(refreshableReviewsAdSlotKeys);
+        GS.ad.setTargetingAndRefresh(refreshableReviewsAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
-    var refreshNonOverviewAds = function() {
+    var refreshNonOverviewAds = function(tabName) {
         //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
-        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
+        GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var initializeOverviewAds = function() {
         //console.log('init overview ads', refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));

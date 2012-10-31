@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.77 2012/09/05 22:02:45 yfan Exp $
+ * $Id: SessionContext.java,v 1.78 2012/10/31 15:47:25 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -117,6 +117,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _gptEnabled = false;
     private boolean _gptAsynchronousModeEnabled = false;
     private boolean _gptAsynchronousModeOnMobileEnabled = false;
+    private Map<String,String> _gptSlotLevelTargetingKeyAssignments = new HashMap<String,String>();
 
     private Boolean _fbCommentsEnabledOverride = null;
     private Boolean _gptEnabledOverride = null;
@@ -494,6 +495,22 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setGptAsynchronousModeOnMobileEnabledOverride(boolean gptAsynchronousModeOnMobileEnabledOverride) {
         _gptAsynchronousModeOnMobileEnabledOverride = gptAsynchronousModeOnMobileEnabledOverride;
+    }
+
+    public boolean isGptSlotLevelTargetingEnabled() {
+        return !_gptSlotLevelTargetingKeyAssignments.isEmpty();
+    }
+
+    public void setGptSlotLevelTargetingKeyAssignment(String adKeyword, String jsLookupVariable) {
+        if (StringUtils.isEmpty(adKeyword) || StringUtils.isEmpty(jsLookupVariable)) {
+            // just a basic check; not checking for permitted characters/syntax of either variable here
+            throw new IllegalArgumentException("Ad keyword and JavaScript lookup variable cannot be null");
+        }
+        _gptSlotLevelTargetingKeyAssignments.put(adKeyword, jsLookupVariable);
+    }
+
+    public Map<String,String> getGptSlotLevelTargetingKeyAssignments() {
+        return _gptSlotLevelTargetingKeyAssignments;
     }
 
     /**

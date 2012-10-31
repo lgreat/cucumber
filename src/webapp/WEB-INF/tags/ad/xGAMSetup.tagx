@@ -143,6 +143,8 @@
         <script type="text/javascript">
             var GS = GS || {};
             GS.ad = GS.ad || {};
+            GS.ad.targeting = GS.ad.targeting || {};
+            GS.ad.targeting.pageLevel = GS.ad.targeting.pageLevel || {};
             GS.ad.slots = GS.ad.slots || {};
             GS.ad.slotTimers = GS.ad.slotTimers || {};
         ]]>
@@ -163,10 +165,65 @@
                     }
                     return false;
                 };
-
+                ]]>
+        </c:if>
+        <!-- WARNING: GS.ad.tabParamValue is needed whenever we're on any new school profile page -->
+        <c:if test="${not empty requestScope.pageHelper.adPositionsWithIfConditionOnAdCalls or
+                      requestScope.context.gptSlotLevelTargetingEnabled}">
+            <![CDATA[
                 GS.ad.tabParamValue = '${param.tab}';
             ]]>
         </c:if>
+
+        <![CDATA[
+                GS.ad.refreshAds = function(slotKeys) {
+                    if(typeof(googletag) !== 'undefined' && googletag.pubads) {
+            ]]>
+        <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
+            <![CDATA[
+                        var adSlots = [];
+                        for(key in slotKeys) {
+                            if(GS.ad.slotTimers[slotKeys[key]] === undefined ||
+                                    ((new Date().getTime()) - GS.ad.slotTimers[slotKeys[key]].timestamp >= 1000)) {
+                                GS.ad.slotTimers[slotKeys[key]] = new Timer(slotKeys[key]);
+                                adSlots.push(GS.ad.slots[slotKeys[key]]);
+                            }
+                        }
+                        googletag.pubads().refresh(adSlots);
+            ]]>
+        </c:if>
+        <![CDATA[
+                    }
+                };
+            ]]>
+
+        <![CDATA[
+                GS.ad.setTargeting = function(slotKeys, key, value) {
+            ]]>
+        <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
+            <![CDATA[
+                    for (slotKey in slotKeys) {
+                        var slot = GS.ad.slots[slotKeys[slotKey]];
+                        if (slot !== undefined) {
+                            slot.clearTargeting();
+                            slot.setTargeting(key, value);
+                        }
+                    }
+            ]]>
+        </c:if>
+        <![CDATA[
+                };
+
+                GS.ad.setTargetingAndRefresh = function(slotKeys, key, value) {
+                    GS.ad.setTargeting(slotKeys, key, value);
+                    GS.ad.refreshAds(slotKeys);
+                };
+
+                function Timer(adSlot) {
+                    this.adSlot = adSlot;
+                    this.timestamp = new Date().getTime();
+                }
+            ]]>
 
         <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
             <![CDATA[
@@ -178,7 +235,15 @@
             if(typeof(googletag) !== 'undefined' && googletag.pubads) {
         ]]>
             <c:set var="compfilter" value="${gsweb:randomNumber(4)+1}"/>
-            <c:forEach var="slotName" items="${GAMadNames}">
+            <c:forEach var="keywordEntry" items="${GAMadKeywords}">
+                GS.ad.targeting.pageLevel["${keywordEntry.key}"] = [<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>];
+                googletag.pubads().setTargeting("${keywordEntry.key}", GS.ad.targeting.pageLevel["${keywordEntry.key}"]);
+            </c:forEach>
+        <![CDATA[
+                googletag.pubads().setTargeting("compfilter", "${compfilter}");
+        ]]>
+
+        <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
                 <c:set var="adSizes" value="${gsweb:contains(requestScope.pageHelper.adPositionsWithOmittedCompanionSizes,adPosition) ? adPosition.sizes : adPosition.allSizes}"/>
 
@@ -197,6 +262,12 @@
                 </c:choose>);
                 GS.ad.slots['${slotName}'].addService(googletag.pubads());
 
+                <c:if test="${requestScope.context.gptSlotLevelTargetingEnabled}">
+                    <c:forEach var="keywordEntry" items="${requestScope.context.gptSlotLevelTargetingKeyAssignments}">
+                        GS.ad.slots['${slotName}'].setTargeting('${keywordEntry.key}',GS.ad.targeting.pageLevel['${keywordEntry.key}'].concat(${keywordEntry.value}[GS.ad.tabParamValue]));
+                    </c:forEach>
+                </c:if>
+
                 <c:if test="${associatedTab != null}">
                 } else {
                     $(function() {
@@ -205,16 +276,6 @@
                 }
                 </c:if>
             </c:forEach>
-
-            <c:forEach var="keywordEntry" items="${GAMadKeywords}">
-                googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
-                <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
-                <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
-            </c:choose>);
-            </c:forEach>
-            <![CDATA[
-            googletag.pubads().setTargeting("compfilter", "${compfilter}");
-            ]]>
 
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
@@ -235,33 +296,6 @@
                 });
             ]]>
             </c:if>
-
-            <![CDATA[
-                GS.ad.refreshAds = function(slotKeys) {
-                    if(typeof(googletag) !== 'undefined' && googletag.pubads) {
-            ]]>
-                    <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
-            <![CDATA[
-                        var adSlots = [];
-                        for(key in slotKeys) {
-                            if(GS.ad.slotTimers[slotKeys[key]] === undefined ||
-                                    ((new Date().getTime()) - GS.ad.slotTimers[slotKeys[key]].timestamp >= 1000)) {
-                                GS.ad.slotTimers[slotKeys[key]] = new Timer(slotKeys[key]);
-                                adSlots.push(GS.ad.slots[slotKeys[key]]);
-                            }
-                        }
-                        googletag.pubads().refresh(adSlots);
-            ]]>
-                    </c:if>
-            <![CDATA[
-                    }
-                };
-
-                function Timer(adSlot) {
-                    this.adSlot = adSlot;
-                    this.timestamp = new Date().getTime();
-                }
-            ]]>
         <![CDATA[
         </script>
         ]]>
