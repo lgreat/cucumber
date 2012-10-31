@@ -849,25 +849,37 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
                         break;
                     case TestDataType.ACT_SCORE:
-                        dataMap.put(DATA_SCHOOL_ACT_SCORE, value.getValueFloat().intValue());
+                        if (value.getValueFloat() != null) {
+                            dataMap.put(DATA_SCHOOL_ACT_SCORE, Math.round(value.getValueFloat()));
+                        }
                         break;
                     case TestDataType.ACT_PERCENT_TESTED:
-                        dataMap.put(DATA_SCHOOL_ACT_GRADE, grade);
-                        dataMap.put(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
+                        if (value.getValueFloat() != null) {
+                            dataMap.put(DATA_SCHOOL_ACT_GRADE, grade);
+                            dataMap.put(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST, Math.round(value.getValueFloat()));
+                        }
                         break;
                     case TestDataType.SAT_SCORE:
-                        dataMap.put(DATA_SCHOOL_SAT_SCORE, value.getValueFloat().intValue());
+                        if (value.getValueFloat() != null) {
+                            dataMap.put(DATA_SCHOOL_SAT_SCORE, Math.round(value.getValueFloat()));
+                        }
                         break;
                     case TestDataType.SAT_PERCENT_TESTED:
-                        dataMap.put(DATA_SCHOOL_SAT_GRADE, grade);
-                        dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
+                        if (value.getValueFloat() != null) {
+                            dataMap.put(DATA_SCHOOL_SAT_GRADE, grade);
+                            dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, Math.round(value.getValueFloat()));
+                        }
                         break;
                     case TestDataType.ACT_SAT_PARTICIPATION:
-                        dataMap.put(DATA_SCHOOL_ACT_SAT_PARTICIPATION, value.getValueFloat().intValue());
+                        if (value.getValueFloat() != null) {
+                            dataMap.put(DATA_SCHOOL_ACT_SAT_PARTICIPATION, Math.round(value.getValueFloat()));
+                        }
                         break;
                     case TestDataType.ACT_SAT_COLLEGE_READY:
-                        dataMap.put(DATA_SCHOOL_ACT_SAT_GRADE, grade);
-                        dataMap.put(DATA_SCHOOL_ACT_SAT_COLLEGE_READY, value.getValueFloat().intValue());
+                        if (value.getValueFloat() != null) {
+                            dataMap.put(DATA_SCHOOL_ACT_SAT_GRADE, grade);
+                            dataMap.put(DATA_SCHOOL_ACT_SAT_COLLEGE_READY, Math.round(value.getValueFloat()));
+                        }
                         break;
                     case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
                         LevelCode levelCode = dataSet.getLevelCode();
