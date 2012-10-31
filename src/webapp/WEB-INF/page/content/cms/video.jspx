@@ -53,6 +53,7 @@
     <pageHelper:addMetaProperty property="og:video:height" content="256" />
     <pageHelper:addMetaProperty property="og:site_name" content="GreatSchools" />
 
+    <!-- GS-13412 for IE10 / Windows 8 -->
     <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true" />
 
     <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
