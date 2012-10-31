@@ -119,29 +119,29 @@
 
                 <ul class="star-rating large-star">
                     <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-                    <li><a href="#"
+                    <li><a href="javascript: void(0);"
                            title="1 star out of 5"
                            class="one-star"
                            onclick="this.hideFocus=true;setStars(1);return false;"
                            onmouseover="showStars(1);"
                            onmouseout="resetStars();"
                             >1</a></li>
-                    <li><a href="#" title="2 stars out of 5" class="two-stars"
+                    <li><a href="javascript: void(0);" title="2 stars out of 5" class="two-stars"
                            onclick="this.hideFocus=true;setStars(2);return false;"
                            onmouseover="showStars(2);"
                            onmouseout="resetStars();"
                             >2</a></li>
-                    <li><a href="#" title="3 stars out of 5" class="three-stars"
+                    <li><a href="javascript: void(0);" title="3 stars out of 5" class="three-stars"
                            onclick="this.hideFocus=true;setStars(3);return false;"
                            onmouseover="showStars(3);"
                            onmouseout="resetStars();"
                             >3</a></li>
-                    <li><a href="#" title="4 stars out of 5" class="four-stars"
+                    <li><a href="javascript: void(0);" title="4 stars out of 5" class="four-stars"
                            onclick="this.hideFocus=true;setStars(4);return false;"
                            onmouseover="showStars(4);"
                            onmouseout="resetStars();"
                             >4</a></li>
-                    <li><a href="#" title="5 stars out of 5" class="five-stars"
+                    <li><a href="javascript: void(0);" title="5 stars out of 5" class="five-stars"
                            onclick="this.hideFocus=true;setStars(5);return false;"
                            onmouseover="showStars(5);"
                            onmouseout="resetStars();"
