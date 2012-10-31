@@ -2050,7 +2050,8 @@ jQuery(function() {
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
     //Omniture tracking for facebook share button on school review hovers.GS-12508
-    jQuery('#js_fbshare_schoolReviewPosted').click(function() {
+
+    jQuery('.js_fbshare_schoolReviewPosted').on('click', function() {
         if (s) {
             pageTracking.clear();
             pageTracking.successEvents = "event61";

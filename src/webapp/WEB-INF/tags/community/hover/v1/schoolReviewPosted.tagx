@@ -35,7 +35,7 @@
                 a.FBConnectButton_RTL_Small:active{background-position:right -371px}
             </style>
                 <div  class="prl fl" id="js_fbshare_div">
-                    <a class="button-1" name="fb_share" type="button" href="http://www.facebook.com/sharer.php?u=${relCanonical}"
+                    <a class="button-1 js_fbshare_schoolReviewPosted" name="fb_share" type="button" href="http://www.facebook.com/sharer.php?u=${relCanonical}"
                        id="js_fbshare_schoolReviewPosted" target='_blank'>Share on Facebook</a>
                 </div>
 
