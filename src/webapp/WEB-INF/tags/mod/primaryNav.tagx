@@ -340,7 +340,7 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
+<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
     <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
@@ -371,17 +371,21 @@
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="college hot topic"/>-->
                     <!-- for java pages -->
                     <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66"
-                              alt="college hot topic"/></div>
+                                              alt="college hot topic"/></div>
 
-                        <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
-                          id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions<br />anxiety</a></p></div>
+                        <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
+                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions<br />anxiety</a></p></div>
                 </div>
             </div>
         </div>
     </div>
 </td>
+<td class="${(pw == tabs.GIFT_GUIDE ? 'selected' : '')} menuItem lastNavUnit">
+   <link:college id="PN-Gift" styleClass="menuItemAnchorText GS_CI9_"><span class="navSprite i-pn-gg"><!-- do not collapse --></span> Holiday Learning Gifts</link:college>
+</td>
+
 </tr>
 </tbody>
 </table>
