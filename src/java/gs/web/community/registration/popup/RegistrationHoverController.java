@@ -228,7 +228,6 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
         if (userCommand.getPartnerNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("sponsor"), state));
-            subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("savvy"), state));
         }
         if (userCommand.getLdNewsletter()) {
             subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("learning_dis"), state));

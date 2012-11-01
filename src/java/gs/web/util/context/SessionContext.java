@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.78 2012/10/31 15:47:25 yfan Exp $
+ * $Id: SessionContext.java,v 1.79 2012/11/01 02:03:21 rramachandran Exp $
  */
 package gs.web.util.context;
 
@@ -308,11 +308,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         List<String> districtCodesList = Arrays.asList(districtCodes);
         Set<String> codes = new HashSet<String>(districtCodesList);
         return codes;
-    }
-
-    public String getSavvyEmailSubscriptionName() {
-        // GS-11171 later, we may want to change the default to "Great Edventures&#8480; - Smart family activities for less"
-        return _propertyDao.getProperty(IPropertyDao.SAVVY_EMAIL_SUBSCRIPTION_NAME, "Savvy Savings &amp; Scholarships");
     }
 
     public boolean isPartnerOptInCheckedByDefault() {

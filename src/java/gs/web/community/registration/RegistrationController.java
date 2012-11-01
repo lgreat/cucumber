@@ -313,12 +313,6 @@ public class RegistrationController extends SimpleFormController implements Read
                 subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
                 subscription.setState(userCommand.getUserProfile().getState());
                 userCommand.addSubscription(subscription);
-
-                Subscription savvySubscription = new Subscription();
-                savvySubscription.setUser(user);
-                savvySubscription.setProduct(SubscriptionProduct.SAVVY_OPT_IN);
-                savvySubscription.setState(userCommand.getUserProfile().getState());
-                userCommand.addSubscription(savvySubscription);
             }
 
             if (userCommand.getBrainDrainNewsletter()) {

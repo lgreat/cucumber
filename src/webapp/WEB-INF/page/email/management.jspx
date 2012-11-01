@@ -341,33 +341,6 @@
 <fieldset>
 
     <div class="newsletterInfo">
-        <p class="newsletterHeader text2bold">${requestScope.context.savvyEmailSubscriptionName}<a
-                name="savvy_anchor">&amp;nbsp;</a></p>
-
-        <p class="newsletterDescription text2">
-            Save money on fantastic local activities for the entire
-            family. With each offer, we give 5% of your purchase
-            to a school of your choice.
-        </p>
-        <ol class="none">
-            <li>
-                <fieldset>
-                    <ol class="none">
-                        <li>
-                            <form:checkbox path="savvy" cssClass="newsletterCheckbox"
-                                           id="savvy_checkbox"/>
-                            <label for="savvy_checkbox">Subscribe to this newsletter</label></li>
-                    </ol>
-                </fieldset>
-            </li>
-            <form:hidden path="savvyId"/></ol>
-    </div>
-
-</fieldset>
-
-<fieldset>
-
-    <div class="newsletterInfo">
         <p class="newsletterHeader text2bold">Send me valuable offers and information from GreatSchools partners<a
                 name="sponsor_anchor">&amp;nbsp;</a></p>
         <ol class="none">

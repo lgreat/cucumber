@@ -208,9 +208,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
                     command.setChooser(true);
                     command.setChooserpack_h(true);
                     command.setChooserpack_hId(s.getId());
-                }else if(s.getProduct().equals(SubscriptionProduct.SAVVY_OPT_IN)){
-                    command.setSavvy(true);
-                    command.setSavvyId(s.getId());
                 }else if(s.getProduct().equals(SubscriptionProduct.SPONSOR_OPT_IN)){
                     command.setSponsor(true);
                     command.setSponsorId(s.getId());
@@ -459,14 +456,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         if(command.getBtsTip_hId() >0 && (!command.isBtsTip() || !"h".equals(command.getBtsTipVersion()))){
             _subscriptionDao.removeSubscription(command.getBtsTip_hId());
-        }
-
-        if((!(command.getSavvyId() >0)) && command.isSavvy()){
-            Subscription s = new Subscription(user,SubscriptionProduct.SAVVY_OPT_IN, state);
-            subscriptions.add(s);
-        }
-        if(command.getSavvyId() >0 && !command.isSavvy()){
-            _subscriptionDao.removeSubscription(command.getSavvyId());
         }
 
         if((!(command.getSponsorId() >0)) && command.isSponsor()){
