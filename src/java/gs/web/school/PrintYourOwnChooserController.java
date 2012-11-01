@@ -25,7 +25,7 @@ import java.util.*;
 
 @RequestMapping("/print-your-own-chooser/chooser")
 @Component("printYourOwnChooserController")
-public class PrintYourOwnChooserController implements BeanFactoryAware, NoCookieController {
+public class PrintYourOwnChooserController implements BeanFactoryAware {
 
     private BeanFactory _beanFactory;
 
@@ -78,7 +78,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, NoCookie
 
             Set<String> displayTarget = new HashSet<String>();
             displayTarget.add(TestDataSetDisplayTarget.ratings.name());
-            /*Map<String, Object> dataMap = _schoolProfileDataHelper.getDataMap(school, displayTarget);
+            Map<String, Object> dataMap = _schoolProfileDataHelper.getDataMap(school, displayTarget);
 
 
             schoolData.put(DATA_OVERALL_RATING, dataMap.get(DATA_OVERALL_RATING));
@@ -89,7 +89,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, NoCookie
             Object academicRating = dataMap.get(DATA_OVERALL_ACADEMIC_RATING);
             if (academicRating != null) {
                 schoolData.put(DATA_OVERALL_ACADEMIC_RATING, formatRating((Integer) academicRating));
-            }*/
+            }
         }
 
         modelMap.put("schoolData", schoolData);
