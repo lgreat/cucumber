@@ -4,7 +4,6 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.TestDataSetDisplayTarget;
-import gs.web.util.NoCookieController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
