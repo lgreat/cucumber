@@ -582,9 +582,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                 gsRatings.add("4");
                 gsRatings.add("5");
                 gsRatings.add("6");
+                gsRatings.add("7");
             }
             if (ArrayUtils.contains(ratingCategories, "high")) {
-                gsRatings.add("7");
                 gsRatings.add("8");
                 gsRatings.add("9");
                 gsRatings.add("10");
