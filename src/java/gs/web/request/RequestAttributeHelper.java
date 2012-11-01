@@ -88,7 +88,11 @@ public class RequestAttributeHelper {
         if (schoolId == null) {
             DirectoryStructureUrlFields fields = getDirectoryStructureUrlFields(request);
             if (fields != null && fields.hasSchoolID()) {
-                schoolId = new Integer(fields.getSchoolID());
+                try {
+                    schoolId = new Integer(fields.getSchoolID());
+                } catch (NumberFormatException e) {
+                    // URL might contain params in an unexpected format
+                }
             } else {
                 String schoolIdStr = request.getParameter("schoolId");
                 if (schoolIdStr == null) {

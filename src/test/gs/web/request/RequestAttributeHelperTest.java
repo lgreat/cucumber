@@ -7,6 +7,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.AbstractSchoolController;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import static org.easymock.EasyMock.*;
@@ -149,5 +150,18 @@ public class RequestAttributeHelperTest extends BaseControllerTestCase {
         replay(_schoolDao);
         assertNull(_requestAttributeHelper.getSchool(_request));
         verify(_schoolDao);
+    }
+
+    public void testGetSchoolId_handlesInvalidSchoolId() {
+        MockHttpServletRequest request = getRequest();
+        request.setRequestURI("/alabama/alabaster/preschools/search;relocateDeferredContent/search;relocateDeferredContent");
+
+        try {
+            RequestAttributeHelper.getSchoolId(request);
+
+            // pass
+        } catch (NumberFormatException e) {
+            fail("Expect no NFE to be thrown");
+        }
     }
 }
