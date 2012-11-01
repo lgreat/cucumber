@@ -54,7 +54,7 @@
             </c:when>
 
             <c:when test="${not empty pageScope.title or not empty noclear}">
-                <div class="mod standard_6-3" style="width: 160px;">
+                <div class="mod standard_6-3" style="width: 166px;">
                     <div class="bd" style="height:63px;">
                         <jsp:doBody/>
                     </div>
