@@ -24,7 +24,7 @@
       gsweb:matchesRegex(param.cc,alphaNumericHyphenRegex)}">${param.cc}</c:if></c:set>
 
     <c:set var="backgroundImage"><c:choose>
-            <c:when test="${param.bg != null and fn:length(param.bg) gt 0 and gsweb:matchesRegex(param.bg,alphaNumericHyphenRegex)}">${param.bg}</c:when>
+            <c:when test="${param.bg != null}"><c:if test="${fn:length(param.bg) gt 0 and gsweb:matchesRegex(param.bg,alphaNumericHyphenRegex)}">${param.bg}</c:if></c:when>
             <c:otherwise>${campaignCode}</c:otherwise>
     </c:choose></c:set>
 
