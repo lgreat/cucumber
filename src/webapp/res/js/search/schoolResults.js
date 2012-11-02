@@ -453,6 +453,7 @@ GS.search.results = GS.search.results || (function() {
         pageNav.show();
 
         updatePageNav(page);
+        updateSideBarPageNav(page);
 
         var showHomesForSale = 'block';
         if(!data.salePromo[1].homesForSale) {
@@ -586,6 +587,19 @@ GS.search.results = GS.search.results || (function() {
             });
         }
         GS.map.getMap.refreshMarkers(points);
+    }
+
+    var updateSideBarPageNav = function(page) {
+        var currentPage = page.pageNumber;
+        var sidebarPageNav = $('#sidebarPageNav');
+        var pageNav = '';
+        if(currentPage > 1) {
+            pageNav += setPageNavIndex(currentPage - 1, page.pageSize, '«Prev');
+        }
+        if(currentPage < page.totalPages) {
+            pageNav += setPageNavIndex(currentPage +  1, page.pageSize, 'Next»');
+        }
+        sidebarPageNav.html(pageNav);
     }
 
     var updatePageNav = function(page) {
