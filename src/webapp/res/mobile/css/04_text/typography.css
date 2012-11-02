@@ -96,6 +96,8 @@ ul.list2 li{ list-style-type: none; border-bottom: thin solid #E6E6E6; font-size
 
 ul.list3 li { list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: 1em; line-height: 21px; }
 
+ul.list4 li { list-style-type: none; border-bottom: thin solid #BCDEED; font-size: 1em; line-height: 21px; }
+
 /****************************************************************************
 
 This is for definition list,  currently not used.

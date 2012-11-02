@@ -131,7 +131,7 @@ Viewport: the width and height of each icon is 12px x 12px, the background posit
 
 .iconx24 {
     display: inline-block;
-    background-size:408px 48px;
+    background-size:432px 48px;
     width: 24px;
     height: 24px;
 }
@@ -205,6 +205,9 @@ Viewport: the width and height of each icon is 12px x 12px, the background posit
 
 .i-24-low-key {
     background-position: -384px 0;
+}
+.i-24-preschool {
+    background-position: -408px 0;
 }
 
 /*row 24 */

@@ -967,6 +967,15 @@
         </constructor-arg>
     </bean>
 
+    <bean name="/mobile/ratingsKey.page"
+          class="gs.web.mobile.MobileParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="controllerFamily" value="MOBILE"/>
+        <property name="viewName">
+            <value>/search/ratingsKey-mobile</value>
+        </property>
+    </bean>
+
     <bean name="/about/senior-management.page"
           class="gs.web.content.cms.AboutUsPageController"
           autowire="byName" lazy-init="true">

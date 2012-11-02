@@ -190,30 +190,31 @@
 
 <!-- GS-13256 : ratings key -->
     <div class="contain_2-1" id='ratingsKey'>
-        <div class='vam mbs' style="height: 60px; text-align: center;">
-            <div style="width:280px; height: 28px; margin: 10px auto 0;">
 
+        <div class="">
+            <div class="mha tac" style="width: 271px;">
                 <div class="fl">
-                    <span class='ratingx24-private-O r-24-NR fl'><!-- do not close--></span>
-                    <span class='smaller fl pls pt4 mrl'>Private</span>
+                    <!--<span class="ratingx24-private-O r-24-NR fl">&lt;!&ndash; do not close&ndash;&gt;</span>-->
+                    <span class="iconx24 i-24-private-key fl"><!-- do not close--></span>
+                    <span class="smaller bottom pls pt4 mrl fl">Private</span>
                 </div>
 
                 <div class="fl">
-                    <div class="public-O r-24 fl"><!-- do not close --></div>
-                    <span class='smaller fl pls pt4 mrl'>Private</span>
+                    <!--<span class="ratingx24-public-O r-24-NR fl">&lt;!&ndash; do not close &ndash;&gt;</span>-->
+                    <span class="iconx24 i-24-public-key fl"><!-- do not close--></span>
+                    <span class="smaller bottom pls pt4 mrl fl">Public</span>
                 </div>
 
                 <div class="fl">
-                    <div class="ratingx24-preschool r-24-NR fl"><!-- do not close --></div>
-                    <span class='smaller fl pls pt4 mrl'>Preschool</span>
+                    <!--<span class="ratingx24-preschool r-24-NR fl">&lt;!&ndash; do not close &ndash;&gt;</span>-->
+                    <span class="iconx24 i-24-preschool fl"><!-- do not close--></span>
+                    <span class="smaller bottom pls pt4 mrl fl">Preschool</span>
                 </div>
             </div>
-
-            <div class='mtm' style='width: 280px; height: 28px; margin-left: auto; margin-right: auto;'>
-                <!-- GS-13256 : Link to new ratings key page goes here... -->
-                <span class="smaller"><a href="/search/ratingsKey-mobile.jspx"> Full ratings key >> </a></span>
+            <br style="clear:both;"/>
+            <div class="mha tac">
+                <span class="smaller"><a href="/mobile/ratingsKey.page"> Full ratings key &amp;raquo; </a></span>
             </div>
-
 
         </div>
     </div>
