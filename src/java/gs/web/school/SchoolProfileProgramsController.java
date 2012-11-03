@@ -363,7 +363,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             resultsModel.put( "programs_resources/Basics/administrator_name", administratorList );
         }
 
-        if (school != null) {
+        if (school != null && !("".equals(school.getFax()))) {
             List<String> faxList = new ArrayList<String>(1);
             faxList.add(school.getFax());
             resultsModel.put( "programs_resources/Basics/school_fax_office_code", faxList );
