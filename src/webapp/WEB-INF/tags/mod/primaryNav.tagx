@@ -383,7 +383,8 @@
     </div>
 </td>
 <td class="${(pw == tabs.GIFT_GUIDE ? 'selected' : '')} menuItem lastNavUnit">
-   <link:college id="PN-Gift" styleClass="menuItemAnchorText GS_CI9_"><span class="navSprite i-pn-gg"><!-- do not collapse --></span> Holiday Learning Gifts</link:college>
+   <a id="PN-Gift" class="menuItemAnchorText GS_CI9_" href="/holiday-gift-guide.topic?content=5083"><span class="navSprite i-pn-gg"><!-- do not collapse --></span> Learning Gifts</a>
+    <!--/holiday-gift-guide.topic?content=5083-->
 </td>
 
 </tr>
