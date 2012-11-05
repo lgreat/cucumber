@@ -39,10 +39,10 @@
 <c:set var="pageName" value="Overview" scope="request"/>
 <c:choose>
     <c:when test="${school.preschoolOnly}">
-        <c:set var="pageName" value="Preschool Overview"/>
+        <c:set var="pageName" value="Preschool Overview" scope="request"/>
     </c:when>
     <c:when test="${school.type.schoolTypeName == 'private'}">
-        <c:set var="pageName" value="Private School Overview"/>
+        <c:set var="pageName" value="Private School Overview" scope="request"/>
     </c:when>
 </c:choose>
 <jsp:scriptlet>
