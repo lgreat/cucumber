@@ -83,9 +83,7 @@
 
     </div>
 
-    <!--<mod:mobileTracking pageName="aboutUs"-->
-                        <!--hier1="Home,Corporate,AboutUs,AboutUsOverview"-->
-            <!--/>-->
+    <mod:mobileTracking pageName="Mobile Ratings Icon Key"/>
     </body>
     </html>
 </jsp:root>
