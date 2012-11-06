@@ -67,14 +67,26 @@
          get you where you need. May also need the private sprite actually. -->
     <c:if test="${not empty gs_rating}">
         <div class="fl mrm ">
-            <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
+            <c:set scope="page" var="linkContent">
                 <div class="vam fl">
                     <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
                                                   schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
                                                   spriteSize="32" privateSpriteSize="32"/>
                 </div>
                 <div class="tal pls fl">GreatSchools<br/>Rating</div>
-            </link:schoolProfileTestscore>
+            </c:set>
+            <c:choose>
+                <c:when test="${school.schoolForNewProfile}">
+                    <link:schoolProfileRating school="${school}" styleClass="but but-sm but-2 but-overview">
+                        ${linkContent}
+                    </link:schoolProfileRating>
+                </c:when>
+                <c:otherwise>
+                    <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
+                        ${linkContent}
+                    </link:schoolProfileTestscore>
+                </c:otherwise>
+            </c:choose>
         </div>
     </c:if>
     <div class="fl">
