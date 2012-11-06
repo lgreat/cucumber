@@ -683,8 +683,8 @@ GS.search.results = GS.search.results || (function() {
     }
 
     var setPageNavIndex = function(pageNum, pageSize, indexValue) {
-        var index = "<span class='js-prev' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
-            indexValue + "</span>\n";
+        var index = "<a class='js-prev noUnderline' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
+            indexValue + "</a>\n";
         return index;
     }
 

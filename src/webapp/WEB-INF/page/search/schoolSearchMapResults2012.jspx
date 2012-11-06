@@ -771,24 +771,28 @@ that this is updated for ajax refresh -->
     </div>
     <div class="unit size3of5 fltrt lastUnit" id="sidebarPageNav">
         <c:if test="${page.pageNumber gt 1}">
+            <a href="javascript:void(0)" class="noUnderline">
             <search:easierPaginationPage useJavascriptPaging="${true}"
                                          mode="${true}"
                                          pageSize="${page.pager.pageSize}"
                                          url=""
-                                         linkText="&amp;#171; Prev"
+                                         linkText="&amp;#171;  Prev"
                                          indexNumber="${page.pageNumber - 1}"
                                          javascriptMethod="GS.search.results.pagination"
                                          addClassPrevNext="prv_nxt"/>
+            </a>
         </c:if>
         <c:if test="${page.pageNumber lt page.pager.lastPageNumber}">
+            <a href="javascript:void(0)" class="noUnderline">
             <search:easierPaginationPage useJavascriptPaging="${true}"
                                          mode="${true}"
                                          pageSize="${page.pager.pageSize}"
                                          url=""
-                                         linkText="Next &amp;#187;"
+                                         linkText="Next  &amp;#187;"
                                          indexNumber="${page.pageNumber + 1}"
                                          javascriptMethod="GS.search.results.pagination"
                                          addClassPrevNext="prv_nxt"/>
+            </a>
         </c:if>
     </div>
 </div>
