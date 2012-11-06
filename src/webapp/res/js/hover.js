@@ -356,7 +356,7 @@ GSType.hover.JoinHover = function() {
         this.showHoverOnExit(GSType.hover.joinHover.showJoinAuto);
     };
     this.showNthHoverOnExit = function() {
-        this.showHoverOnExit(GSType.hover.joinHover.showJoinNth);
+        this.showHoverOnExit(GSType.hover.joinHover.showJoinTrackGradeAuto);
     };
     this.showHoverOnExit = function(showHoverFunction) {
         var arr = GS.getElementsByCondition(
@@ -526,6 +526,11 @@ GSType.hover.JoinHover = function() {
     this.showJoinTrackGrade = function() {
         GSType.hover.joinHover.setJoinHoverType("TrackGrade");
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
+        GSType.hover.joinHover.showJoinNth();
+    };
+    this.showJoinTrackGradeAuto = function() {
+        GSType.hover.joinHover.setJoinHoverType("TrackGradeAuto");
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGradeAuto;
         GSType.hover.joinHover.showJoinNth();
     };
     this.showJoinGlobalHeader = function() {

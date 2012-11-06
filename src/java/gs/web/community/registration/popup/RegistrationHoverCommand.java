@@ -13,11 +13,12 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         LearningDifficultiesNewsletter,
         PostComment,
         TrackGrade,
+        TrackGradeAuto,
         GlobalHeader,
         FooterNewsletter,
         SchoolReview,
         BTSTip,
-        MSL,
+        MSL
     }
     private boolean _mslOnly;
     private String _how;

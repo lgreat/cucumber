@@ -457,7 +457,7 @@ GSType.hover.JoinHover = function() {
     };
     // just a newer version of showNthHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
     this.showNthHoverOnPageExit = function(postInterruptCallback) {
-        this.showInterruptHoverOnPageExit(GSType.hover.joinHover.showJoinNth, postInterruptCallback);
+        this.showInterruptHoverOnPageExit(GSType.hover.joinHover.showJoinTrackGradeAuto, postInterruptCallback);
     };
     // new version of showHoverOnExit
     this.showInterruptHoverOnPageExit = function(showHoverFunction, postInterruptCallback) {
@@ -628,6 +628,11 @@ GSType.hover.JoinHover = function() {
     this.showJoinTrackGrade = function() {
         GSType.hover.joinHover.setJoinHoverType("TrackGrade");
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
+        GSType.hover.joinHover.showJoinNth();
+    };
+    this.showJoinTrackGradeAuto = function() {
+        GSType.hover.joinHover.setJoinHoverType("TrackGradeAuto");
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinTrackGradeAuto;
         GSType.hover.joinHover.showJoinNth();
     };
     this.showJoinGlobalHeader = function() {

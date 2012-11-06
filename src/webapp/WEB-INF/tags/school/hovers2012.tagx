@@ -38,7 +38,7 @@
             <script type="text/javascript">
                 $(function() {
                     if ('${school.levelCode}' === 'p' || '${school.type.schoolTypeName}' === 'private') {
-                        GSType.hover.joinHover.showNthHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');
+                        GSType.hover.joinHover.showNthHoverOnPageExit();
                     } else {
                         GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');
                     }

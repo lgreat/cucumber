@@ -263,6 +263,8 @@ public class RegistrationHoverController extends RegistrationController implemen
                 return "hover_community";
             case TrackGrade:
                 return "hover_greatnews";
+            case TrackGradeAuto:
+                return "hover_greatnews_auto";
             case GlobalHeader:
                 return "hover_headerjoin";
             case FooterNewsletter:
