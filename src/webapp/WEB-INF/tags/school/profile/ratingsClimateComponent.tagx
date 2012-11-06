@@ -28,7 +28,7 @@
 
     <hr class="keyline2"/>
     <div class="tac ${spacingTitle}">
-        <div><h6 class="mvm medium_bold bottom">${climateVarName}</h6></div>
+        <div><h3 class="mvm medium_bold bottom">${climateVarName}</h3></div>
 
         <div class="ratingsClimateBar">
             <div class="barShort ratingsRed"><!-- do not collapse --></div>

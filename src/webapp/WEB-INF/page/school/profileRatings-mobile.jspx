@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="bd pam ratingsGraphicMakesUp ptl">
-                        <h5>Rating legend</h5>
+                        <h3 class="mbm">Rating legend</h3>
                         <div class="small ratingsLegend">
 
                             <div class="ratingx24-public-RYG r-24-1 fl"><!-- do not collapse --></div>
@@ -144,15 +144,15 @@
 
                             <div class="spacerFirst">
                                 <div class="bracketUp3"><!-- do not collapse --></div>
-                                <span>Below<br />average</span>
+                                <span class="smaller">Below<br />average</span>
                             </div>
                             <div class="spacerBetween">
                                 <div class="bracketUp4"><!-- do not collapse --></div>
-                                <span>Average</span>
+                                <span class="smaller">Average</span>
                             </div>
                             <div class="spacerBetween">
                                 <div class="bracketUp3"><!-- do not collapse --></div>
-                                <span>Above<br />average</span>
+                                <span class="smaller">Above<br />average</span>
                             </div>
 
                         </div>
@@ -190,7 +190,7 @@
                                     <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
                                     <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
                                     <div class="">
-                                        <h5><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h5>
+                                        <h3><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h3>
                                     </div>
                                     <!--<div class="">-->
                                         <!--<h3>${overallAcademicRating}</h3>-->
@@ -224,7 +224,7 @@
 
                     <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
                         <div class="pvm fl">
-                            <h6 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}*</h6>
+                            <h3 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}*</h3>
                             <profile:ratingsBarChart ratingDivId="ratingTestResults1"
                                                      schoolRating="${schoolTestScoreRating}"
                                                      cityRating="${cityTestScoreRating}"
@@ -240,7 +240,7 @@
 
                     <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
                         <div class="pbm ptm">
-                            <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
+                            <h3 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h3>
                             <profile:ratingsBarChart ratingDivId="ratingTestResults2"
                                                      schoolRating="${schoolStudentGrowthRating}"
                                                      cityRating="${cityStudentGrowthRating}"
@@ -254,8 +254,6 @@
 
                         <hr class="keyline2"/>
                     </c:if>
-
-                    <div style="color:red">TODO: Legend</div>
 
                     <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
                         <div class="pbm ptm">
@@ -323,7 +321,14 @@
 
 
                         <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
-                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>
+                        <div class="tac">
+                            <div class="grayBox tac mbm">
+                                Overall climate rating is
+                                <h3>${overallClimateRating} / 10</h3>
+                                <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
+                            </div>
+                        </div>
+                        <!--<h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>-->
 
                         <div class="pbm"><profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" mobileSize="${true}" /></div>
 
