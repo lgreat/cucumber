@@ -321,13 +321,15 @@
 
 
                         <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
-                        <div class="tac">
-                            <div class="grayBox tac mbm">
-                                Overall climate rating is
-                                <h3>${overallClimateRating} / 10</h3>
-                                <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
+                        <c:if test="${not empty overallClimateRating}">
+                            <div class="tac">
+                                <div class="grayBox tac mbm">
+                                    Overall climate rating is
+                                    <h3>${overallClimateRating} / 10</h3>
+                                    <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
                         <!--<h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>-->
 
                         <div class="pbm"><profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" mobileSize="${true}" /></div>
