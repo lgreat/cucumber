@@ -316,7 +316,6 @@
                             </div>
                         </c:if>
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
-                        <hr class="keyline2"/>
                         <c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
 
 
