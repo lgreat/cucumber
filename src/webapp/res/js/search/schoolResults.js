@@ -111,9 +111,25 @@ GS.search.results = GS.search.results || (function() {
         data.decorator="emptyDecorator";
         data.confirm="true";
 
+
+        // patch the response from getQueryStringFromObject, because if we pass an empty string into
+        // window.History.replaceState, it's treated the same as a null, and the query string isn't modified at all
+        if (queryString === '') {
+            queryString = ' ';
+        } else if (queryString !== undefined) {
+            queryString = queryString.trim();
+        }
+
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             window.History.replaceState(null, document.title, queryString);
+
+            // *sigh*  if a single space is passed into replaceState, and we want to change it to something else later
+            // such as '?st=private', then History.js will append %20/ to the end of the URL first.
+            // so we have to pass is a single space, and then call replaceState *again* with an empty string
+            if (queryString === ' ') {
+                window.History.replaceState(null, document.title, '');
+            }
         }
 
         refreshAds();
