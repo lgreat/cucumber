@@ -118,7 +118,7 @@ GS.search.results = GS.search.results || (function() {
             if (queryString === '') {
                 queryString = ' ';
             } else if (queryString !== undefined) {
-                    queryString = $.trim(queryString);
+                queryString = $.trim(queryString);
             }
 
             // use HTML 5 history API to rewrite the current URL to represent the new state.
@@ -705,8 +705,8 @@ GS.search.results = GS.search.results || (function() {
     }
 
     var setPageNavIndex = function(pageNum, pageSize, indexValue) {
-        var index = "<a class='js-prev noUnderline' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
-            indexValue + "</a>\n";
+        var index = "<span><a class='js-prev noUnderline' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
+            indexValue + "</a></span>\n";
         return index;
     }
 
