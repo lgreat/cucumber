@@ -135,3 +135,17 @@ General comments:
 .size100of100 {width: 100%;}
 
 .lastUnit{float:none;width:auto;_position:relative;_left:-3px;_margin-right:-3px;}
+
+.clearfix:before,
+.clearfix:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
