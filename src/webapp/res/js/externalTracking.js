@@ -66,7 +66,7 @@ GS.tracking.registerTrackingData = function(key, data) {
         }
     }
 };
-GS.tracking.sendOmnitureData = function(key) {
+GS.tracking.sendOmnitureData = function(key, preserveSuccessEvents) {
     var data = GS.tracking.data[key];
     var sharedData = GS.tracking.data['_shared'];
     if (data !== undefined) {
@@ -74,6 +74,13 @@ GS.tracking.sendOmnitureData = function(key) {
         $.extend(pageTracking, data);
         if (sharedData !== undefined) {
             $.extend(true, pageTracking, sharedData);
+        }
+        if (preserveSuccessEvents && s.events != '') {
+            if (pageTracking.successEvents != '') {
+                pageTracking.successEvents = pageTracking.successEvents + ";" + s.events;
+            } else {
+                pageTracking.successEvents = s.events;
+            }
         }
         pageTracking.send();
     }

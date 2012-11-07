@@ -282,7 +282,7 @@
         <c:choose>
             <c:when test="${not empty augmentInitialRequestWithDataForTab}">
                 <script type="text/javascript" language="JavaScript">
-                GS.tracking.sendOmnitureData('${augmentInitialRequestWithDataForTab}');
+                GS.tracking.sendOmnitureData('${augmentInitialRequestWithDataForTab}', true);
                 </script>
             </c:when>
             <c:otherwise>
