@@ -191,11 +191,11 @@
                                     <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
                                     <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
 
-                                    <div class="clearfix phm">
+                                    <div class="clearfix phm pvs">
                                         <div class="fl pvm small">Overall academic rating:</div>
                                         <div class="fr tal">
                                             <h2 class="lh1"><strong class="pbn mbn">${overallAcademicRating}</strong></h2>
-                                            <em class="small lh1 ${overallAcademicRatingColor}">${overallAcademicRatingContent}</em>
+                                            <em class="small lh1 ${overallAcademicRatingColor}"><strong>${overallAcademicRatingContent}</strong></em>
                                         </div>
                                     </div>
                                 </div>
@@ -319,8 +319,8 @@
                         <c:if test="${not empty overallClimateRating}">
                             <div class="tac">
                                 <div class="grayBox tac mbm">
-                                    <div class="clearfix phm">
-                                        <div class="fl ptm small">Overall climate rating is</div>
+                                    <div class="clearfix phm pvs">
+                                        <div class="fl ptm small">Overall climate rating:</div>
                                         <div class="fr tal">
                                         <h2 class="lh1">${overallClimateRating}</h2>
                                         <em class="small lh1 ${overallClimateRatingColor}"><strong>${overallClimateRatingLabel}</strong></em>
