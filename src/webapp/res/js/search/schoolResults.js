@@ -112,16 +112,15 @@ GS.search.results = GS.search.results || (function() {
         data.decorator="emptyDecorator";
         data.confirm="true";
 
-
-        // patch the response from getQueryStringFromObject, because if we pass an empty string into
-        // window.History.replaceState, it's treated the same as a null, and the query string isn't modified at all
-        if (queryString === '') {
-            queryString = ' ';
-        } else if (queryString !== undefined) {
-            queryString = queryString.trim();
-        }
-
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            // patch the response from getQueryStringFromObject, because if we pass an empty string into
+            // window.History.replaceState, it's treated the same as a null, and the query string isn't modified at all
+            if (queryString === '') {
+                queryString = ' ';
+            } else if (queryString !== undefined) {
+                    queryString = $.trim(queryString);
+            }
+
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             window.History.replaceState(null, document.title, queryString);
 
