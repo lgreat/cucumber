@@ -479,11 +479,13 @@
         </div>
         <!-- end schoolProfileLeftColumn -->
 
+    <c:if test="${param._showSavvy eq 'true'}">
         <c:if test="${fn:contains(school.levelCode, 'p')}">
             <c:set var="savvySource">
                 <promo:savvysource state="${state}" cityName="${city}" omniturePageName="${omniturePageName}"/>
             </c:set>
         </c:if>
+    </c:if>
 
         <!--<div id="schoolProfileRightColumn" class="col">-->
         <div class="grid_8">
