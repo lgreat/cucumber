@@ -192,23 +192,20 @@
     <div class="contain_2-1" id='ratingsKey'>
 
         <div class="">
-            <div class="mha tac" style="width: 271px;">
+            <div class="mha tac" style="width: 290px;">
                 <div class="fl">
-                    <!--<span class="ratingx24-private-O r-24-NR fl">&lt;!&ndash; do not close&ndash;&gt;</span>-->
                     <span class="iconx24 i-24-private-key fl"><!-- do not close--></span>
-                    <span class="smaller bottom pls pt4 mrl fl">Private</span>
+                    <span class="smaller bottom pls pt4 mrm fl">Private</span>
                 </div>
 
                 <div class="fl">
-                    <!--<span class="ratingx24-public-O r-24-NR fl">&lt;!&ndash; do not close &ndash;&gt;</span>-->
                     <span class="iconx24 i-24-public-key fl"><!-- do not close--></span>
-                    <span class="smaller bottom pls pt4 mrl fl">Public</span>
+                    <span class="smaller bottom pls pt4 mrm fl">Public/Charter</span>
                 </div>
 
                 <div class="fl">
-                    <!--<span class="ratingx24-preschool r-24-NR fl">&lt;!&ndash; do not close &ndash;&gt;</span>-->
                     <span class="iconx24 i-24-preschool fl"><!-- do not close--></span>
-                    <span class="smaller bottom pls pt4 mrl fl">Preschool</span>
+                    <span class="smaller bottom pls pt4 mrm fl">Preschool</span>
                 </div>
             </div>
             <br style="clear:both;"/>
