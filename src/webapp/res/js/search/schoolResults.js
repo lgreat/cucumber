@@ -106,7 +106,6 @@ GS.search.results = GS.search.results || (function() {
 
 
     var search = function(callback, errorCallback, queryStringData) {
-        console.log('queryStringData', queryStringData);
         var queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
         var data = {};
         data.requestType = "ajax";
@@ -121,8 +120,6 @@ GS.search.results = GS.search.results || (function() {
         } else if (queryString !== undefined) {
             queryString = queryString.trim();
         }
-
-        console.log('a',queryString);
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
