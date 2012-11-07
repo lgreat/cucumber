@@ -672,7 +672,7 @@ General comments:
 
 .bargraph .graphLabelsX { position:relative; clear:both; }
 .bargraph .graphLabelsX .spacerOffset { width:10px; height:10px; float:left; }
-.bargraph .graphLabelsX .spacerWNumbers { width:20px; float:left; padding-top:10px; text-align:center; }
+.bargraph .graphLabelsX .spacerWNumbers { width:20px; float:left; padding-top:10px; text-align:center; font-size: .750em }
 
 .bargraph .graphContainer .barContainer { height:10px;margin-top:10px; }
 .bargraph .graphContainer .barContainer div { width:100%; height:100%; }
