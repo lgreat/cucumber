@@ -10,6 +10,7 @@ GS.search.results = GS.search.results || (function() {
     var mapResultsLinkSelector = '.js-mapResultsLink';
     var body = 'body';
     var numResultsPerPage;
+    var setProp15ForMap = false;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -187,6 +188,7 @@ GS.search.results = GS.search.results || (function() {
                 }
                 pageTracking.clear();
                 pageTracking.pageName = $('#jq-omniturePageName').val();
+                pageTracking.props['prop15'] = '';
                 pageTracking.send();
                 GS_notifyQuantcastComscore();
             };
@@ -297,10 +299,8 @@ GS.search.results = GS.search.results || (function() {
 
         var queryStringData = GS.uri.Uri.getQueryData(queryString);
 
+        setProp15ForMap = true;
         mapSearch(1, 25, queryStringData);
-        if (s) {
-            s.prop15 = clickCapture.getProp(15,$('#map-sort').val());
-        }
     };
 
     var page = function(pageNumber, pageSize) {
@@ -386,8 +386,15 @@ GS.search.results = GS.search.results || (function() {
                 }
                 pageTracking.clear();
                 pageTracking.pageName = data.page[1].omniturePageName;
+                if(setProp15ForMap) {
+                    pageTracking.props['prop15'] = $('#map-sort').val();
+                }
+                else {
+                    pageTracking.props['prop15'] = '';
+                }
                 pageTracking.send();
                 GS_notifyQuantcastComscore();
+                setProp15ForMap = false;
             }
         ).fail(function() {
                 alert("error");
