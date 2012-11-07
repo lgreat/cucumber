@@ -78,6 +78,8 @@ p,
 .small-lt { font-size: .875em; color: #999; }
 .smaller-lt { font-size: .75em; color: #999;}
 
+.lh1 { line-height: 1; }
+
 /*  Lists
 ****************************************************************************/
 

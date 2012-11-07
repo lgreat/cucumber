@@ -187,26 +187,17 @@
                         <c:when test="${overallAcademicRating != null}">
                             <div class="tac">
                                 <div class="grayBox tac mbm">
-                                    <!--<div class="">-->
-                                        <!--Overall academic rating<br />-->
-                                        <!--<h3>${overallAcademicRating}</h3>-->
-                                    <!--</div>-->
-                                    <div class="clearfix phm">
-                                        <div class="fl ptm">Overall academic rating is</div>
-                                        <div class="fr tal">
-                                            <h2>${overallAcademicRating}</h2>
-                                            <!--<em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>-->
 
                                     <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
                                     <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
 
-                                        <em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em>
+                                    <div class="clearfix phm">
+                                        <div class="fl pvm small">Overall academic rating:</div>
+                                        <div class="fr tal">
+                                            <h2 class="lh1"><strong class="pbn mbn">${overallAcademicRating}</strong></h2>
+                                            <em class="small lh1 ${overallAcademicRatingColor}">${overallAcademicRatingContent}</em>
+                                        </div>
                                     </div>
-                                            </div>
-                                    <!--<div class="">-->
-                                        <!--<h3>${overallAcademicRating}</h3>-->
-                                    <!--</div>-->
-                                    <div class="clearfloat"><!-- do not collapse --></div>
                                 </div>
                             </div>
                             <div>
@@ -329,10 +320,10 @@
                             <div class="tac">
                                 <div class="grayBox tac mbm">
                                     <div class="clearfix phm">
-                                        <div class="fl ptm">Overall climate rating is</div>
+                                        <div class="fl ptm small">Overall climate rating is</div>
                                         <div class="fr tal">
-                                        <h2>${overallClimateRating}</h2>
-                                        <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
+                                        <h2 class="lh1">${overallClimateRating}</h2>
+                                        <em class="small lh1 ${overallClimateRatingColor}"><strong>${overallClimateRatingLabel}</strong></em>
                                         </div>
                                     </div>
                                 </div>
