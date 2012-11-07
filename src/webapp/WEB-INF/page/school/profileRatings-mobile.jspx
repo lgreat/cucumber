@@ -187,19 +187,16 @@
                         <c:when test="${overallAcademicRating != null}">
                             <div class="tac">
                                 <div class="grayBox tac mbm">
-                                    <div class="">
-                                        Overall academic rating<br />
-                                        <h3>${overallAcademicRating}</h3>
-                                    </div>
                                     <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
                                     <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
-                                    <div class="">
-                                        <h3><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h3>
+
+                                    <div class="clearfix phm">
+                                        <div class="fl ptm">Overall academic rating is</div>
+                                        <div class="fr tal">
+                                            <h2>${overallAcademicRating}</h2>
+                                            <em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em>
+                                        </div>
                                     </div>
-                                    <!--<div class="">-->
-                                        <!--<h3>${overallAcademicRating}</h3>-->
-                                    <!--</div>-->
-                                    <div class="clearfloat"><!-- do not collapse --></div>
                                 </div>
                             </div>
                             <div>
@@ -312,13 +309,7 @@
                     </div>
                     <c:if test="${true or showClimateRatingsDetails}">
 
-                        <c:if test="${climateRatingNumResponses gt 0}">
-                            <div class="tac">
-                                <div class="grayBox  tac mbm">
-                                Number of responses<br /><span class="numberFormat">${climateRatingNumResponses}</span>
-                                </div>
-                            </div>
-                        </c:if>
+
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
                         <c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
 
@@ -327,12 +318,22 @@
                         <c:if test="${not empty overallClimateRating}">
                             <div class="tac">
                                 <div class="grayBox tac mbm">
-                                    Overall climate rating is
-                                    <h3>${overallClimateRating} / 10</h3>
-                                    <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
+                                    <div class="clearfix phm">
+                                        <div class="fl ptm">Overall climate rating is</div>
+                                        <div class="fr tal">
+                                        <h2>${overallClimateRating}</h2>
+                                        <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
+                            <c:if test="${climateRatingNumResponses gt 0}">
+                                <div class="tac">
+                                    <div class="mvm">
+                                        <p class="smaller">Based on <span class="numberFormat">${climateRatingNumResponses}</span> teacher responses </p>
+                                    </div>
+                                </div>
+                            </c:if>
                             <div class="pbm"><profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" mobileSize="${true}" /></div>
 
                             <div class="pbm"><profile:ratingsClimateComponent climateVarName="Creating healthy, respectful relationships." climateVarRating="${socialEmotionalLearningRating}" climateVarContent="${socialEmotionalLearningCopy}" mobileSize="${true}" /></div>
