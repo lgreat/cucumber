@@ -57,12 +57,13 @@
 </head>
 
 <body>
-<div class="contain_1-2"  style="min-width: 320px;">
-    <div>
+<div style="min-width: 320px;">
+<div class="contain_1-2">
+<div>
         <h6>RATINGS DETAILS</h6>
     </div>
     <mobile:schoolProfileIntro school="${school}" linkSchool="${true}"/>
-
+</div>
             <div class="mod standard_6-1 mts">
                 <div class="inner">
                     <div class="hd plm">
@@ -70,55 +71,58 @@
                             <h2>What makes up this rating?</h2>
                         </div>
                     </div>
-                    <div class="bd pam ratingsGraphicMakesUp ptl">
-                            <div class="iconTop">
-                                <c:set var="overallRatingBadge" value="NR"/>
-                                <c:if test="${not empty overallRating}">
-                                    <c:set var="overallRatingBadge" value="${overallRating}"/>
-                                </c:if>
-                                <c:set var="schoolType" value="public"/>
-                                <c:if test="${school.type.schoolTypeName eq 'private'}">
-                                    <c:set var="schoolType" value="private"/>
-                                </c:if>
-                                <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom"><!-- do not collapse --></div>
-                            </div>
-                            <div class="lineDown"><!-- do not collapse --></div>
-                            <div class="splitConnect"><!-- do not collapse --></div>
-                            <div class="pll">
-                                <div class="grayBox mrl small">
-                                    Academic rating
-                                    <br /><strong>
-                                        <c:choose>
-                                            <c:when test="${overallAcademicRating != null}">
-                                                ${overallAcademicRating} / 10
-                                            </c:when>
-                                            <c:otherwise>
-                                                Not available
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </strong>
+                    <div class="contain_1-2 bd">
+                        <div class="pam ratingsGraphicMakesUp ptl">
+                                <div class="iconTop">
+                                    <c:set var="overallRatingBadge" value="NR"/>
+                                    <c:if test="${not empty overallRating}">
+                                        <c:set var="overallRatingBadge" value="${overallRating}"/>
+                                    </c:if>
+                                    <c:set var="schoolType" value="public"/>
+                                    <c:if test="${school.type.schoolTypeName eq 'private'}">
+                                        <c:set var="schoolType" value="private"/>
+                                    </c:if>
+                                    <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom"><!-- do not collapse --></div>
                                 </div>
-                                <div class="grayBox small">
-                                    Climate rating
-                                    <br /><strong>
-                                        <c:choose>
-                                            <c:when test="${not empty climateRatingAvailabilityText}">
-                                                ${climateRatingAvailabilityText}
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${overallClimateRating} / 10
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </strong>
+                                <div class="lineDown"><!-- do not collapse --></div>
+                                <div class="splitConnect"><!-- do not collapse --></div>
+                                <div class="pll">
+                                    <div class="grayBox mrl small">
+                                        Academic rating
+                                        <br /><strong>
+                                            <c:choose>
+                                                <c:when test="${overallAcademicRating != null}">
+                                                    ${overallAcademicRating} / 10
+                                                </c:when>
+                                                <c:otherwise>
+                                                    Not available
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </strong>
+                                    </div>
+                                    <div class="grayBox small">
+                                        Climate rating
+                                        <br /><strong>
+                                            <c:choose>
+                                                <c:when test="${not empty climateRatingAvailabilityText}">
+                                                    ${climateRatingAvailabilityText}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${overallClimateRating} / 10
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </strong>
+                                    </div>
+                                    <div class="clear"><!-- do not collapse --></div>
                                 </div>
-                                <div class="clear"><!-- do not collapse --></div>
-                            </div>
 
+                        </div>
                     </div>
                 </div>
-                <p class="small bottom tal">${section1Copy}</p>
-            </div>
+                        <p class="pam small bottom tal">${section1Copy}</p>
 
+
+            </div>
 
             <div class="mod standard_6-1 mts">
                 <div class="inner">
@@ -309,8 +313,8 @@
                     <c:if test="${true or showClimateRatingsDetails}">
 
                         <c:if test="${climateRatingNumResponses gt 0}">
-                            <div class="ratingsClimateHeader size25of100 fr">
-                                <div class="grayBox small">
+                            <div class="tac">
+                                <div class="grayBox  tac mbm">
                                 Number of responses<br /><span class="numberFormat">${climateRatingNumResponses}</span>
                                 </div>
                             </div>
@@ -328,19 +332,17 @@
                                     <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em>
                                 </div>
                             </div>
+
+                            <div class="pbm"><profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" mobileSize="${true}" /></div>
+
+                            <div class="pbm"><profile:ratingsClimateComponent climateVarName="Creating healthy, respectful relationships." climateVarRating="${socialEmotionalLearningRating}" climateVarContent="${socialEmotionalLearningCopy}" mobileSize="${true}" /></div>
+
+                            <div class="pbm"><profile:ratingsClimateComponent climateVarName="Promoting high academic expectations for all students." climateVarRating="${highExpectationsRating}" climateVarContent="${highExpectationsCopy}" mobileSize="${true}" /></div>
+
+                            <div class="pbm"><profile:ratingsClimateComponent climateVarName="Supporting its teachers." climateVarRating="${teacherSupportRating}" climateVarContent="${teacherSupportCopy}" mobileSize="${true}" /></div>
+
+                            <div class="pbm"><profile:ratingsClimateComponent climateVarName="Informing and including families." climateVarRating="${familyEngagementRating}" climateVarContent="${familyEngagementCopy}" mobileSize="${true}" /></div>
                         </c:if>
-                        <!--<h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>-->
-
-                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" mobileSize="${true}" /></div>
-
-                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Creating healthy, respectful relationships." climateVarRating="${socialEmotionalLearningRating}" climateVarContent="${socialEmotionalLearningCopy}" mobileSize="${true}" /></div>
-
-                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Promoting high academic expectations for all students." climateVarRating="${highExpectationsRating}" climateVarContent="${highExpectationsCopy}" mobileSize="${true}" /></div>
-
-                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Supporting its teachers." climateVarRating="${teacherSupportRating}" climateVarContent="${teacherSupportCopy}" mobileSize="${true}" /></div>
-
-                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Informing and including families." climateVarRating="${familyEngagementRating}" climateVarContent="${familyEngagementCopy}" mobileSize="${true}" /></div>
-
                     </c:if>
 
                 </div>
