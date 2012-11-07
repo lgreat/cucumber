@@ -350,13 +350,13 @@
                                            pageAdRatioKey="RDC_PCT_CITY" showAdPct="0" style="2011"/>
             </td>
         </tr>
-        <c:if test="${param._showSavvy eq 'true'}">
+        <!--<c:if test="${fn:contains(school.levelCode, 'p')}">-->
         <tr>
             <td>
                 <promo:savvysource state="${cityObject.state.abbreviation}" cityName="${cityObject.name}" omniturePageName="${pageName}"/>
             </td>
         </tr>
-        </c:if>
+        <!--</c:if>-->
         <tr>
             <td>
                 <c:set var="recentDiscussion" value=""/>
