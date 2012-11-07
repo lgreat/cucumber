@@ -173,8 +173,8 @@
             </div>
 
             <div style="float:left;padding:0 20px 0 20px;">
-                <p>Academic:<span class="strong"><br />${schoolData['overallAcademicRating']}</span></p>
-                <p>Climate:<span class="strong"><br />${schoolData['overallClimateRating']}</span></p>
+                <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']}</span></p>
+                <p>Climate:<br /><span class="strong">${schoolData['overallClimateRating']}</span></p>
             </div>
 
             <div>
@@ -208,7 +208,7 @@
                 </div>
                 <div class="header_column">
                     <p>
-                        Type:<span class="strong"> ${school.type.schoolTypeName}</span><br />
+                        Type:<span class="strong capitalize"> ${school.type.schoolTypeName}</span><br />
                         Grades:<span class="strong"> ${school.gradeLevels.rangeString}</span><br />
                         No. of students:<span class="strong"> ${school.enrollmentOrCapacity}</span>
                     </p>
@@ -221,44 +221,53 @@
 
         <div id="header_container">
 
-            <div class="bd_column">
+            <div class="bd_column" style="width:26%; margin-right: 40px;">
                 <c:if test="${not empty schoolData['ethnicityMap'] and fn:length(schoolData['ethnicityMap']) gt 0}">
                     <h2>Diversity</h2>
                     <ul>
                         <c:forEach items="${schoolData['ethnicityMap']}" var="ethnicityItem">
-                            <li>${ethnicityItem.value}  ${ethnicityItem.key}</li>
+                            <li><span class="floatLeft">${ethnicityItem.key}</span><span class="floatRight">${ethnicityItem.value}</span>
+                                <br class="clearFloat"/>
+                            </li>
                         </c:forEach>
                     </ul>
                 </c:if>
             </div>
 
-            <div class="bd_column">
+            <div class="bd_column" style="width:25%; margin-right: 40px;">
                 <h2>Application</h2>
                 <p>
                     <c:if test="${not empty schoolData['application_deadline_date']}">
-                        Deadline:<span class="strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span><br />
+                        <span class="floatLeft">Deadline:</span><span class="strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span>
+                        <br class="clearFloat"/>
                     </c:if>
-                Tuition:<span class="strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span><br />
-                Financial Aid:<span class="strong"> ${schoolData['financial_aid']}</span><br />
-                Voucher accepted:<span class="strong"> ${schoolData['students_vouchers']}</span>
+                    <span class="floatLeft">Tuition:</span><span class="floatRight strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span>
+                    <br class="clearFloat"/>
+                    <span class="floatLeft">Financial Aid:</span><span class="floatRight strong"> ${schoolData['financial_aid']}</span>
+                    <br class="clearFloat"/>
+                    <span class="floatLeft">Voucher accepted:</span><span class="floatRight strong"> ${schoolData['students_vouchers']}</span>
+                    <br class="clearFloat"/>
                 </p>
                 <h2>School Stats</h2>
                 <p>
-                    Uniforms/Dress code:<span class="strong"> ${schoolData['dress_code']}</span><br />
-                    Before care:<span class="strong"> Starts ${schoolData['before_after_care_start']}</span><br />
-                    After care:<span class="strong"> Ends ${schoolData['before_after_care_end']}</span><br />
-                    Transportation:<span class="strong">${schoolData['transportation']}</span>
+                    <span class="floatLeft">Uniforms/Dress code:</span><span class="floatRight strong"> ${schoolData['dress_code']}</span>
+                    <br class="clearFloat"/>
+                    <span class="floatLeft">Before care:</span><span class="floatRight strong"> Starts ${schoolData['before_after_care_start']}</span>
+                    <br class="clearFloat"/>
+                    <span class="floatLeft">After care:</span><span class="floatRight strong"> Ends ${schoolData['before_after_care_end']}</span>
+                    <br class="clearFloat"/>
+                    <span class="floatLeft">Transportation:</span><span class="floatRight strong">${schoolData['transportation']}</span>
+                    <br class="clearFloat"/>
                 </p>
             </div>
 
-            <div class="bd_column">
+            <div class="bd_column" style="width:30%;">
                 <h2>Special education services</h2>
                 <p><span class="strong uppercase">INTENSIVE</span></p>
                 <h2>ELL services</h2>
                 <p><span class="strong uppercase">${schoolData['ell_level']}</span></p>
                 <h2>Our grads typically go to</h2>
-                <p></p>
-                <p>${schoolData['destination_schools']}</p>
+                <p><span class="strong uppercase">${schoolData['destination_schools']}</span></p>
             </div>
         </div>
 

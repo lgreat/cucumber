@@ -47,32 +47,33 @@
 
         h1	{
             color:#0578AA;
-            font-size:.875em;
+            font-size: 7pt;
             font-weight:normal;
-            line-height:1.2em;
+            line-height:120%;
             margin-bottom:1em;
         }
 
         h2	{
             color:#0578AA;
-            font-size:.47em;
+            font-size:7pt;
             text-transform:uppercase;
             letter-spacing:1px;
-            margin-bottom:.5em;
+            margin-bottom:1em;
         }
 
         p	{
             font-size:7pt;
+            font-weight: normal;
             line-height:140%;
-            margin:0 0 .5em 0;
+            margin:0 0 1em 0;
         }
 
         ul	{
             font-size:.47em;
             line-height:140%;
             margin:0;
-            padding-left:12px;
-            list-style-type:disc;
+            /*padding-left:12px;*/
+            list-style-type:none;
         }
 
         #container	{
@@ -107,7 +108,7 @@
 
         .bd_column	{
             float:left;
-            width:33%;
+            /*width:33%;*/
             margin-bottom:.5em;
         }
 
@@ -142,6 +143,10 @@
             text-transform:uppercase;
         }
 
+        .capitalize {
+            text-transform: capitalize;
+        }
+
         .alignCenter	{
             text-align:center;
         }
@@ -151,14 +156,14 @@
         }
 
         hr	{
-            border:solid 2px #DDD;
+            border:solid 2px #DDDDDD;
             margin:0;
             clear:both;
         }
 
         hr.rulethin	{
             width:100%;
-            border:solid 1px #EEE;
+            border:solid 1px #EEEEEE;
             margin:0 0 .5em 0;
             clear:both;
         }
