@@ -64,25 +64,26 @@
             <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">
 
                 <c:set var='schoolLevel' scope="page">${entry.levelText}</c:set>
-
-                <c:if test="${entry.score lt 35}">
-                    <c:set var="schoolPerformanceManagementRatingTier">3</c:set>
-                    <c:set var="schoolPerformanceTierIcon"><span
-                            class='ratingx-32-charter r-32-3'><!-- do not close --></span></c:set>
-                    <c:set var="schoolPerformanceManagementRatingBand">Low</c:set>
-                </c:if>
-                <c:if test="${entry.score ge 35.0 and entry.score lt 65}">
-                    <c:set var="schoolPerformanceManagementRatingTier">2</c:set>
-                    <c:set var="schoolPerformanceTierIcon"><span
-                            class='ratingx-32-charter r-32-2'><!-- do not close --></span></c:set>
-                    <c:set var="schoolPerformanceManagementRatingBand">Mid</c:set>
-                </c:if>
-                <c:if test="${entry.score ge 65.0}">
-                    <c:set var="schoolPerformanceManagementRatingTier">1</c:set>
-                    <c:set var="schoolPerformanceTierIcon"><span
-                            class='ratingx-32-charter r-32-1'><!-- do not close --></span></c:set>
-                    <c:set var="schoolPerformanceManagementRatingBand">High</c:set>
-                </c:if>
+                <c:choose>
+                    <c:when test="${entry.score lt 34.50}">
+                        <c:set var="schoolPerformanceManagementRatingTier">3</c:set>
+                        <c:set var="schoolPerformanceTierIcon"><span
+                                class='ratingx-32-charter r-32-3'><!-- do not close --></span></c:set>
+                        <c:set var="schoolPerformanceManagementRatingBand">Low</c:set>
+                    </c:when>
+                    <c:when test="${entry.score ge 34.50 and entry.score lt 64.50}">
+                        <c:set var="schoolPerformanceManagementRatingTier">2</c:set>
+                        <c:set var="schoolPerformanceTierIcon"><span
+                                class='ratingx-32-charter r-32-2'><!-- do not close --></span></c:set>
+                        <c:set var="schoolPerformanceManagementRatingBand">Mid</c:set>
+                    </c:when>
+                    <c:when test="${entry.score ge 64.50}">
+                        <c:set var="schoolPerformanceManagementRatingTier">1</c:set>
+                        <c:set var="schoolPerformanceTierIcon"><span
+                                class='ratingx-32-charter r-32-1'><!-- do not close --></span></c:set>
+                        <c:set var="schoolPerformanceManagementRatingBand">High</c:set>
+                    </c:when>
+                </c:choose>
 
 
                 <div id='charterRatingDiv' style="height: 60px;" class='make-555555'>
