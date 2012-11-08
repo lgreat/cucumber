@@ -616,10 +616,10 @@ GS.search.results = GS.search.results || (function() {
         var sidebarPageNav = $('#sidebarPageNav');
         var pageNav = '';
         if(currentPage > 1) {
-            pageNav += setPageNavIndex(currentPage - 1, page.pageSize, '«Prev');
+            pageNav += setPageNavIndex(currentPage - 1, page.pageSize, '« Prev')+" ";
         }
         if(currentPage < page.totalPages) {
-            pageNav += setPageNavIndex(currentPage +  1, page.pageSize, 'Next»');
+            pageNav += setPageNavIndex(currentPage +  1, page.pageSize, 'Next »');
         }
         sidebarPageNav.html(pageNav);
     }
@@ -705,7 +705,7 @@ GS.search.results = GS.search.results || (function() {
     }
 
     var setPageNavIndex = function(pageNum, pageSize, indexValue) {
-        var index = "<span><a class='js-prev noUnderline' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
+        var index = "<span><a class='js-prev noUnderline' href='javascript:void(0)' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
             indexValue + "</a></span>\n";
         return index;
     }
