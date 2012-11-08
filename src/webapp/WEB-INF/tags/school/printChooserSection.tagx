@@ -238,7 +238,7 @@
                 <h2>Application</h2>
                 <p>
                     <c:if test="${not empty schoolData['application_deadline_date']}">
-                        <span class="floatLeft">Deadline:</span><span class="strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span>
+                        <span class="floatLeft">Deadline:</span><span class="floatRight strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span>
                         <br class="clearFloat"/>
                     </c:if>
                     <span class="floatLeft">Tuition:</span><span class="floatRight strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span>
