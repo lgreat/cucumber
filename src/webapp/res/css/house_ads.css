@@ -26,6 +26,7 @@
 .integratedTextAds{
     background-color: #FDF5E6;
 }
+.integratedTextAds .schoolName{color:#0066BB}
 
 .integratedTextAds.singleLine{
     height: 30px;
@@ -71,3 +72,4 @@
 .integratedTextAds.adLogo .sponsoredText{
     width: 95px;
 }
+a.ads:hover{text-decoration: none;}
