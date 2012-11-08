@@ -1446,7 +1446,7 @@ GS.joinHover_checkValidationResponse = function(data, sendTracking) {
             GSType.hover.joinHover.hide();
         }
     }
-    jQuery('.joinBtn').prop('disabled', false);
+    jQuery('#joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
