@@ -543,6 +543,9 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinFooterNewsletter;
         GSType.hover.joinHover.showJoinNth();
     };
+    // WARNING: do not call showJoinNth directly without first calling setJoinHoverType with a valid value from
+    // RegistrationHoverCommand.JoinHoverType enum and modifying RegistrationHoverController.joinTypeToHow()
+    // see GS-13450
     this.showJoinNth = function() {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
