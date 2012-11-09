@@ -2066,3 +2066,13 @@ jQuery(function() {
     });
 
 });
+
+
+GSType.hover.PrintSchoolChooser = function() {
+    this.show = function() {
+        GSType.hover.printSchoolChooser.showModal();
+        return false;
+    };
+};
+GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser');
+GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
