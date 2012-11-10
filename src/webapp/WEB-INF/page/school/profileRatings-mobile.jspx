@@ -310,19 +310,18 @@
                     </div>
                     <c:if test="${true or showClimateRatingsDetails}">
 
-
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
-                        <c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
+                        <!--<c:set var="overallClimateRatingColor"><c:if test="${fn:equal(overallClimateRatingLabel,'Below average')}">ratingsRedText</c:if><c:if test="${fn:equal(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:equal(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>-->
 
 
-                        <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
+                        <c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Below average'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>
                         <c:if test="${not empty overallClimateRating}">
                             <div class="tac">
                                 <div class="grayBox tac mbm">
                                     <div class="clearfix phm pvs">
                                         <div class="fl ptm small">Overall climate rating:</div>
                                         <div class="fr tal">
-                                        <h2 class="lh1">${overallClimateRating}</h2>
+                                        <h2 class="lh1"><strong>${overallClimateRating}</strong></h2>
                                         <em class="small lh1 ${overallClimateRatingColor}"><strong>${overallClimateRatingLabel}</strong></em>
                                         </div>
                                     </div>
