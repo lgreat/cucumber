@@ -1,0 +1,305 @@
+html {
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside,  figure, footer, header,
+hgroup, nav, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.chooser-pb{
+    page-break-after: always;
+}
+
+div.divFooter {
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    color:#2B2B2B;
+    font-size: 6pt;
+}
+div.divFooter .logo{
+    width:100px;
+    vertical-align: middle;
+}
+/*bottom-right-corner*/
+@page {
+    font:normal 7pt Arial, Helvetica, sans-serif;
+
+    @bottom-center{
+            content: counter(page);
+            /*font:normal 7pt Arial, Helvetica, sans-serif ;*/
+    }
+    @bottom-right{
+            /*content:'<img src="/res/img/pdfChooser/28634_thumb_logo.png" class="logo" alt="greatschools" /> | www.greatschools.org'*/
+            /*content: counter(page);*/
+            /*font:normal 7pt Arial, Helvetica, sans-serif ;*/
+    }
+}
+
+body	{
+    font:normal 7pt Arial, Helvetica, sans-serif ;
+}
+
+h1	{
+    color:#0578AA;
+    font-size: 12pt;
+    font-weight:normal;
+    line-height:120%;
+    /*margin:0 0 20px 0;*/
+}
+
+h2	{
+    color:#0578AA;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    /*margin-bottom:.5em;*/
+    margin-top:1.5em;
+    font-weight: bold;
+}
+
+p	{
+    font-weight: normal;
+    line-height:140%;
+    margin:0 0 1em 0;
+}
+
+ul	{
+    line-height:140%;
+    margin:0;
+    padding: 0;
+    /*padding-left:12px;*/
+    list-style-type:none;
+}
+
+#container	{
+
+
+}
+
+#header_container	{
+    /*width:100%;*/
+}
+
+.left_column{
+    float:left;
+    margin-bottom:.5em;
+    width:30%;
+    margin-right:10px;
+}
+
+.header_column	{
+    float:left;
+    margin-bottom:.5em;
+    width:21%;
+    margin-right:10px;
+}
+
+.rating_container	{
+    padding:0 10px 5px 0;
+    float:left;
+}
+
+.climate_container	{
+    padding:5px 30px 5px 10px;
+    float:left;
+}
+
+.schoolInfo_container	{
+    border:solid 1px red;
+}
+
+.bd_column	{
+    float:left;
+    /*width:25%;*/
+    margin-bottom:.5em;
+    padding-right: 30px;
+}
+
+#footer	{
+    width:100%;
+    font-size:.47em;
+    line-height:140%;
+    margin-top:1.5em;
+}
+
+.fl	{
+    float:left;
+}
+
+.fr	{
+    float:right;
+}
+
+.labels{
+    font-size: 7pt
+}
+
+.lightText	{
+    color:#999;
+}
+
+.strong	{
+    font-weight:bold;
+}
+
+.uppercase	{
+    text-transform:uppercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.alignCenter	{
+    text-align:center;
+}
+
+.topMargin	{
+    margin-top:.5em;
+}
+
+hr	{
+    border:solid 2px #DDDDDD;
+    margin:0;
+    clear:both;
+}
+
+hr.rulethin	{
+    width:100%;
+    border:solid 1px #EEEEEE;
+    margin:0 0 .5em 0;
+    clear:both;
+}
+
+a:link	{
+    color:#0066BB;
+    text-decoration:none;
+}
+
+a:hover {
+    text-decoration:underline;
+}
+.mbm, .mvm {margin-bottom: 10px;}
+.mtm, .mvm {margin-top: 10px;}
+
+/* **************** SPRITE ***************** */
+
+.iconx60-orange {
+    display: inline-block;
+    background-image: url(/res/img/pdfChooser/x60/60x60_orange.png);
+    width: 60px;
+    height: 60px;
+}
+
+.iconx60-orangePrivate {
+    display: inline-block;
+    background-image: url(/res/img/pdfChooser/x60/60x60_private_orange.png);
+    width: 60px;
+    height: 60px;
+}
+
+.iconx60-RYG {
+    display: inline-block;
+    background-image: url(/res/img/pdfChooser/x60/60x60_RYG.png);
+    width: 60px;
+    height: 60px;
+}
+
+.iconx60-RYGPrivate {
+    display: inline-block;
+    background-image: url(/res/img/pdfChooser/x60/60x60_private_RYG.png);
+    width: 60px;
+    height: 60px;
+}
+
+.iconx60-preschool {
+    display: inline-block;
+    background-image: url(/res/img/pdfChooser/x60/60x60_preschool.png);
+    width: 60px;
+    height: 60px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-60-1 {
+    background-position: 0 0;
+}
+
+.i-60-2 {
+    background-position: -60px 0;
+}
+
+.i-60-3 {
+    background-position: -120px 0;
+}
+
+.i-60-4 {
+    background-position: -180px 0;
+}
+
+.i-60-5 {
+    background-position: -240px 0;
+}
+
+.i-60-6 {
+    background-position: -300px 0;
+}
+
+.i-60-7 {
+    background-position: -360px 0;
+}
+
+.i-60-8 {
+    background-position: -420px 0;
+}
+
+.i-60-9{
+    background-position: -480px 0;
+}
+
+.i-60-10{
+    background-position: -540px 0;
+}
+.i-60-NR{
+    background-position: -600px 0;
+}
+
+
+.clearfix:before,
+.clearfix:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix {
+    zoom: 1;
+}
