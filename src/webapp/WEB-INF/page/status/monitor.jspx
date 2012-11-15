@@ -67,6 +67,18 @@
         <td class="statustitle">GSWeb Version</td>
         <td class="statusvalue" colspan="2">${version}</td>
     </tr>
+    <c:if test="${not empty gitCommitId}">
+        <tr>
+            <td class="statustitle">GSWeb's git sha1</td>
+            <td class="statusvalue-2" colspan="2">${gitCommitId}</td>
+        </tr>
+    </c:if>
+    <c:if test="${not empty gsDataGitCommitId}">
+        <tr>
+            <td class="statustitle">GSData's git sha1</td>
+            <td class="statusvalue-2" colspan="2">${gsDataGitCommitId}</td>
+        </tr>
+    </c:if>
     <tr>
         <td class="statustitle">Tomcat host serving request</td>
         <td class="statusvalue" colspan="2">${hostname}</td>

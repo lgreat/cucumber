@@ -113,6 +113,9 @@ public class MonitorController implements ReadWriteController {
         String buildtime = _versionProperties.getProperty("gsweb.buildtime");
         String version = _versionProperties.getProperty("gsweb.version");
         String branch = _versionProperties.getProperty("gsweb.branch");
+        String sha1 = _versionProperties.getProperty("gsweb.sha");
+        String sha2 = _versionProperties.getProperty("gsdata.sha");
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         try {
             Date buildTimeDate = sdf.parse(buildtime);
@@ -123,6 +126,8 @@ public class MonitorController implements ReadWriteController {
         }
         model.put("buildtime", buildtime);
         model.put("version", version);
+        model.put("gitCommitId", sha1);
+        model.put("gsDataGitCommitId", sha2);
 
         // Set the fisheye url to compare against
         model.put("branch", branch);
