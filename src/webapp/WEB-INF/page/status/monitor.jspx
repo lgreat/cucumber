@@ -57,7 +57,6 @@
 
 <body>
 <h1>GSWeb Status Page</h1>
-<!-- adding comment to monitor.jspx to test git -->
 <!-- Opted for a table instead of pure CSS since this truly is a table -->
 <table class="statusbox">
     <tr>
