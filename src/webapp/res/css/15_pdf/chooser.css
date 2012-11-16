@@ -25,38 +25,38 @@ hgroup, nav, section {
 }
 
 div.divFooter {
-    position: fixed;
-    bottom: 0;
-    width:100%;
-    color:#2B2B2B;
-    font-size: 6pt;
+    font:normal 7pt Arial, Helvetica, sans-serif;
+    color:#878787;
+    position: running(divFooter);
 }
 div.divFooter .logo{
     width:100px;
     vertical-align: middle;
 }
-/*bottom-right-corner*/
-@page {
-    font:normal 7pt Arial, Helvetica, sans-serif;
-
-    @bottom-center{
-            content: counter(page);
-            /*font:normal 7pt Arial, Helvetica, sans-serif ;*/
-    }
-    @bottom-right{
-            /*content:'<img src="/res/img/pdfChooser/28634_thumb_logo.png" class="logo" alt="greatschools" /> | www.greatschools.org'*/
-            /*content: counter(page);*/
-            /*font:normal 7pt Arial, Helvetica, sans-serif ;*/
-    }
+div.dateFooter {
+    position: running(dateFooter);
 }
 
+@page {
+@bottom-center{
+        font:normal 7pt Arial, Helvetica, sans-serif;
+        content: counter(page);
+    }
+@bottom-left{
+        content:   element(dateFooter );
+    }
+@bottom-right{
+        content:   element(divFooter );
+    }
+    }
+
 body	{
-    font:normal 7pt Arial, Helvetica, sans-serif ;
+    font:normal 8pt Arial, Helvetica, sans-serif ;
 }
 
 h1	{
     color:#0578AA;
-    font-size: 12pt;
+    font-size: 14pt;
     font-weight:normal;
     line-height:120%;
     /*margin:0 0 20px 0;*/
@@ -124,9 +124,9 @@ ul	{
 
 .bd_column	{
     float:left;
-    /*width:25%;*/
+    width:27%;
     margin-bottom:.5em;
-    padding-right: 30px;
+    padding-right: 50px;
 }
 
 #footer	{
@@ -145,7 +145,7 @@ ul	{
 }
 
 .labels{
-    font-size: 7pt
+    /*font-size: 7pt*/
 }
 
 .lightText	{
@@ -173,7 +173,7 @@ ul	{
 }
 
 hr	{
-    border:solid 2px #DDDDDD;
+    border:solid 2px #AAAAAA;
     margin:0;
     clear:both;
 }
