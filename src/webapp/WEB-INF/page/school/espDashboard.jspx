@@ -29,7 +29,7 @@
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
-        <c:if test="${school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC'}">
+        <c:if test="${isProvisional ne true and (school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC')}">
             <school:espOtherEditorsHover otherEspMemberships="${allEspMemberships}"/>
             <c:set value="true" var="showOtherEditorsHover"/>
         </c:if>
@@ -67,8 +67,10 @@
                                         <p class="small bottom">
                                             <link:schoolProfileOverview
                                                     school="${school}">View profile</link:schoolProfileOverview><br/>
-                                            <link:schoolPrincipalReview
-                                                    school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                            <c:if test="${isProvisional ne true}">
+                                                <link:schoolPrincipalReview
+                                                        school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                            </c:if>
                                             <c:if test="${showOtherEditorsHover eq true}">
                                                 <br/>
                                                 <a href="#" id="js_otherEspEditors"
@@ -83,14 +85,14 @@
                 </div>
                 <div class="grid_10">
                     <div class="spacer_25"><!-- do not collapse --></div>
-                    <c:if test="${!anyPageStarted}">
-                        <div class="alpha grid_5">
-                            <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
-                        </div>
-                        <div class="grid_4 suffix_1 omega">
-                            <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
-                        </div>
-                    </c:if>
+                        <c:if test="${isProvisional eq true or !anyPageStarted}">
+                            <div class="alpha grid_5">
+                                <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
+                            </div>
+                            <div class="grid_4 suffix_1 omega">
+                                <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
+                            </div>
+                        </c:if>
                 </div>
 
 
@@ -102,6 +104,10 @@
                     <div class="grid_12 alpha">
                         <c:set var="tabGetStartedLabel">Get started</c:set>
                         <c:set var="tabEditLabel">Edit</c:set>
+                        <c:if test="${isProvisional eq true}">
+                            <!-- short cut to complicating every conditional below. Provisional users should always see "Edit" -->
+                            <c:set var="tabGetStartedLabel" value="Edit"/>
+                        </c:if>
 
                         <div class="mod osp-dashboard">
                             <div class="inner">
@@ -269,7 +275,7 @@
                             </div>
                         </div>
 
-                        <c:if test="${isFruitcakeSchool}">
+                        <c:if test="${isFruitcakeSchool and isProvisional ne true}">
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
@@ -380,6 +386,26 @@
 
                 <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
             </div>
+
+        <c:if test="${showProvisionalHover eq true}">
+            <div id="welcomeProvisionalUserHover" class="dialog_white" style="display:none;">
+                <h2>Welcome provisional user!</h2>
+                <p>Feel free to start editing your school's profile while we verify your account.</p>
+                <button class="button-1 welcomeProvisionalUserHover_hideHover" type="button">OK</button>
+            </div>
+            <script type="text/javascript">
+                GSType.hover.WelcomeProvisionalUser = function() {
+                    this.showHover = function() {
+                        GSType.hover.welcomeProvisionalUser.show();
+                    };
+                };
+                GSType.hover.WelcomeProvisionalUser.prototype = new GSType.hover.HoverDialog('welcomeProvisionalUserHover',320);
+                GSType.hover.welcomeProvisionalUser = new GSType.hover.WelcomeProvisionalUser();
+                jQuery(function() {
+                    GSType.hover.welcomeProvisionalUser.show();
+                });
+            </script>
+        </c:if>
         </div>
         <!--</div>-->
 

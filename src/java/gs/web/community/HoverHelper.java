@@ -1,6 +1,7 @@
 package gs.web.community;
 
 import gs.web.util.context.SubCookie;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,8 @@ public class HoverHelper {
         EMAIL_VERIFIED("emailValidated"),
         NEW_EMAIL_VERIFIED("editEmailValidated"),
         SUBSCRIPTION_EMAIL_VERIFIED("subscriptionEmailValidated"),
-        ESP_ACCOUNT_VERIFIED("espAccountVerified");
+        ESP_ACCOUNT_VERIFIED("espAccountVerified"),
+        ESP_ACCOUNT_PROVISIONAL("espAccountProvisional");
 
         private String _id;
 
@@ -53,5 +55,9 @@ public class HoverHelper {
 
     public void setHoverCookie(Hover hover) {
         _cookie.setProperty(COOKIE_PROPERTY, hover.getId());
+    }
+
+    public boolean isHoverCookieSet(Hover hover) {
+        return StringUtils.equals(hover.getId(), _cookie.getProperty(COOKIE_PROPERTY));
     }
 }

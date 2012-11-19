@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.security.Role;
@@ -40,6 +41,9 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     private ReviewService _reviewService;
     private ISubscriptionDao _subscriptionDao;
     private ExactTargetAPI _exactTargetAPI;
+    private IEspMembershipDao _espMembershipDao;
+    private ISchoolDao _schoolDao;
+    private IEspResponseDao _espResponseDao;
 
     protected enum UserState {
         EMAIL_ONLY,
@@ -157,6 +161,20 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
                 if (user.hasRole(Role.ESP_MEMBER)) {
                     hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_VERIFIED);
+                } else {
+                    // check if user has an esp membership row in processing state
+                    EspMembership membership = getProcessingMembershipForUser(user);
+                    if (membership != null) {
+                        if (isMembershipEligibleForPromotionToProvisional(membership)) {
+                            // bump this user to provisional
+                            membership.setStatus(EspMembershipStatus.PROVISIONAL);
+                            getEspMembershipDao().updateEspMembership(membership);
+                            System.out.println("Setting hover cookie");
+                            hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_PROVISIONAL);
+                            urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                            viewName = "redirect:" + urlBuilder.asFullUrl(request);
+                        }
+                    }
                 }
 
                 user.setEmailValidated();  //upgrades the user to registered member
@@ -222,6 +240,53 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         _log.info("Email confirmed, forwarding user to " + viewName);
         return new ModelAndView(viewName);
 
+    }
+
+    protected boolean isMembershipEligibleForPromotionToProvisional(EspMembership membership) {
+        List<EspMembership> schoolMemberships;
+        School school;
+        try {
+            school = getSchoolDao().getSchoolById
+                    (membership.getState(), membership.getSchoolId());
+            if (school == null) {
+                return false;
+            }
+            schoolMemberships = _espMembershipDao.findEspMembershipsBySchool(school, false);
+        } catch (Exception e) {
+            _log.error("Can't find school for membership: " + membership, e);
+            return false;
+        }
+        // if there is no existing provisional membership
+        if (schoolMemberships != null && schoolMemberships.size() > 1) {
+            for (EspMembership schoolMembership: schoolMemberships) {
+                if (schoolMembership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                    return false;
+                }
+            }
+        }
+        // check most recent timestamp on active rows in esp_response for the school
+        Date maxCreated = getEspResponseDao().getMaxCreatedForSchool(school, false);
+        if (maxCreated == null) {
+            // no esp responses, so we're golden
+            return true;
+        }
+        Calendar aWeekAgo = Calendar.getInstance(); aWeekAgo.add(Calendar.DAY_OF_YEAR, -7);
+        Calendar lastModified = Calendar.getInstance(); lastModified.setTime(maxCreated);
+
+        // if that date is older than 7 days
+        return lastModified.before(aWeekAgo);
+    }
+
+    protected EspMembership getProcessingMembershipForUser(User user) {
+        List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+        if (memberships != null && memberships.size() > 0) {
+            for (EspMembership membership: memberships) {
+                if (membership.getStatus() == EspMembershipStatus.PROCESSING) {
+                    return membership;
+                }
+            }
+        }
+        return null;
     }
 
     public void sendTriggeredEmails(HttpServletRequest request, User user) {
@@ -415,5 +480,27 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         _subscriptionDao = subscriptionDao;
     }
 
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
 
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
+    }
 }

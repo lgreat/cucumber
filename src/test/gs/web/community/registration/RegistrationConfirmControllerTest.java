@@ -2,7 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
@@ -21,8 +21,7 @@ import org.springframework.validation.BindException;
 import javax.servlet.http.Cookie;
 import java.util.*;
 
-import static org.easymock.EasyMock.*;
-import static org.easymock.classextension.EasyMock.createStrictMock;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * Provides testing for RegistrationConfirmController
@@ -46,6 +45,10 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private ISubscriptionDao _subscriptionDao;
 
+    private IEspMembershipDao _espMembershipDao;
+    private ISchoolDao _schoolDao;
+    private IEspResponseDao _espResponseDao;
+
     public void setUp() throws Exception {
         super.setUp();
         _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
@@ -53,6 +56,9 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _controller = new RegistrationConfirmController();
         _sitePrefCookie = createStrictMock(SitePrefCookie.class);
         _subscriptionDao = createStrictMock(ISubscriptionDao.class);
+        _espMembershipDao = createStrictMock(IEspMembershipDao.class);
+        _schoolDao = createStrictMock(ISchoolDao.class);
+        _espResponseDao = createStrictMock(IEspResponseDao.class);
 
         _userDao = createStrictMock(IUserDao.class);
         _reviewDao = createStrictMock(IReviewDao.class);
@@ -62,6 +68,9 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _controller.setExactTargetAPI(_exactTargetAPI);
         _controller.setReviewService(_reviewService);
         _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setEspMembershipDao(_espMembershipDao);
+        _controller.setSchoolDao(_schoolDao);
+        _controller.setEspResponseDao(_espResponseDao);
 
         Map<String,String> map = new HashMap<String,String>();
         MapBindingResult mapBindingResult = new MapBindingResult(map, "emailVerificationLink");
@@ -485,17 +494,144 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED.toString()));
     }
 
+    public void testGetProcessingMembershipForUser() {
+        resetAllMocks();
+        User user = new User();
+        user.setId(1);
+        expect(_espMembershipDao.findEspMembershipsByUserId(1, false)).andReturn(null);
+        replayAllMocks();
+        assertNull(_controller.getProcessingMembershipForUser(user));
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        List<EspMembership> memberships = new ArrayList<EspMembership>();
+        expect(_espMembershipDao.findEspMembershipsByUserId(1, false)).andReturn(memberships);
+        replayAllMocks();
+        assertNull(_controller.getProcessingMembershipForUser(user));
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        EspMembership memRejected = new EspMembership();
+        memRejected.setStatus(EspMembershipStatus.REJECTED);
+        memberships.add(memRejected);
+        expect(_espMembershipDao.findEspMembershipsByUserId(1, false)).andReturn(memberships);
+        replayAllMocks();
+        assertNull(_controller.getProcessingMembershipForUser(user));
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        EspMembership memProcessing = new EspMembership();
+        memProcessing.setStatus(EspMembershipStatus.PROCESSING);
+        memberships.add(memProcessing);
+        expect(_espMembershipDao.findEspMembershipsByUserId(1, false)).andReturn(memberships);
+        replayAllMocks();
+        EspMembership rval = _controller.getProcessingMembershipForUser(user);
+        assertNotNull(rval);
+        assertSame(memProcessing, rval);
+        verifyAllMocks();
+    }
+
+    public void testIsMembershipEligibleForPromotionToProvisional() {
+        resetAllMocks();
+        boolean rval;
+        EspMembership membership = new EspMembership();
+        membership.setStatus(EspMembershipStatus.PROCESSING);
+        membership.setSchoolId(1);
+        membership.setState(State.CA);
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andThrow(new RuntimeException("testIsMembershipEligibleForPromotionToProvisional"));
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertFalse("Expect failure to retrieve school to disallow provisional osp", rval);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(null);
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertFalse("Expect failure to retrieve school to disallow provisional osp", rval);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        School school = new School();
+        List<EspMembership> memberships = new ArrayList<EspMembership>();
+        memberships.add(membership);
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
+        expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(null);
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertTrue("Expect no pre-existing responses to allow provisional osp", rval);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        Date lastUpdated;
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -1);
+        lastUpdated = cal.getTime();
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
+        expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(lastUpdated);
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertTrue("Expect year old response to allow provisional osp", rval);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -8);
+        lastUpdated = cal.getTime();
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
+        expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(lastUpdated);
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertTrue("Expect 8 day old response to allow provisional osp", rval);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -6);
+        lastUpdated = cal.getTime();
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
+        expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(lastUpdated);
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertFalse("Expect a response 6 days ago to prevent provisional osp", rval);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        EspMembership provisionalMembership = new EspMembership();
+        provisionalMembership.setStatus(EspMembershipStatus.PROVISIONAL);
+        memberships.add(provisionalMembership);
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
+        replayAllMocks();
+        rval = _controller.isMembershipEligibleForPromotionToProvisional(membership);
+        assertFalse("Expect existing provisional membership to prevent new one", rval);
+        verifyAllMocks();
+    }
 
     public void replayAllMocks() {
-        replayMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao);
+        replayMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao, _espMembershipDao, _schoolDao, _espResponseDao);
     }
 
     public void resetAllMocks() {
-        resetMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao);
+        resetMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao, _espMembershipDao, _schoolDao, _espResponseDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao);
+        verifyMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao, _espMembershipDao, _schoolDao, _espResponseDao);
     }
 }
 

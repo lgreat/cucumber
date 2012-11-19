@@ -4,9 +4,12 @@ import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
+import gs.web.community.HoverHelper;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SubCookie;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -39,7 +43,7 @@ public class EspDashboardController {
     private ISchoolDao _schoolDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showLandingPage(ModelMap modelMap, HttpServletRequest request,
+    public String showLandingPage(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
         User user = getValidUser(request);
@@ -90,6 +94,24 @@ public class EspDashboardController {
                     school = validMemberships.get(0).getSchool();
                 }
             }
+        } else {
+            EspMembership provisionalMembership = null;
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            for (EspMembership membership: espMemberships) {
+                if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                    provisionalMembership = membership;
+                }
+            }
+            if (provisionalMembership != null) {
+                school = getSchool(provisionalMembership);
+            }
+            modelMap.put("isProvisional", true);
+            System.out.println("Found provisional user");
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
+            System.out.println(cookie.getProperty("showHover"));
+            HoverHelper hoverHelper = new HoverHelper(cookie);
+            modelMap.put("showProvisionalHover", hoverHelper.isHoverCookieSet(HoverHelper.Hover.ESP_ACCOUNT_PROVISIONAL));
+            System.out.println(hoverHelper.isHoverCookieSet(HoverHelper.Hover.ESP_ACCOUNT_PROVISIONAL));
         }
 
         modelMap.put("school", school);
@@ -178,6 +200,16 @@ public class EspDashboardController {
         }
         if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
             return user;
+        }
+        if (user != null) {
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            if (!espMemberships.isEmpty()) {
+                for (EspMembership membership: espMemberships) {
+                    if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                        return user;
+                    }
+                }
+            }
         }
         return null;
     }

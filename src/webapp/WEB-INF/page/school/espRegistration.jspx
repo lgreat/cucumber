@@ -61,7 +61,7 @@
 <div class="mod form">
 <div class="inner">
 <div class="bd">
-<form:form commandName="espRegistrationCommand">
+<form:form commandName="espRegistrationCommand" action="/official-school-profile/register.page">
 <fieldset>
     <legend>Your account</legend>
     <hr class="legend"/>
@@ -110,6 +110,17 @@
                     </div>
                 </div>
             </div>
+            <c:if test="${newUserFromSignIn eq true}">
+                <div style="display: block" class="notice js_emailErr">
+                    <div class="media">
+                        <span class="iconx16 i-16-information img mrs"><!-- do not collapse --></span>
+
+                        <div class="bd">
+                            It looks like you don't have an account yet. Please register here.
+                        </div>
+                    </div>
+                </div>
+            </c:if>
 
         </div>
     </div>

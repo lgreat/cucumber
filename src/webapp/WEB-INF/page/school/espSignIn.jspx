@@ -64,7 +64,7 @@
                 <div class="mod form">
                     <div class="inner">
                         <div class="bd">
-                            <form:form commandName="espRegistrationCommand">
+                            <form:form commandName="espRegistrationCommand" action="/official-school-profile/signin.page">
 
                                 <fieldset>
                                     <legend>School official sign in</legend>

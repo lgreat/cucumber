@@ -53,7 +53,7 @@ public class EspModerationController extends AbstractEspModerationController {
         boolean isPendingView = Boolean.TRUE == modelMap.get("isPendingView");
         HashSet<EspMembership> toRemove = new HashSet<EspMembership>(memberships.size());
         for(EspMembership m : memberships) {
-            if(m.getStatus() != EspMembershipStatus.PROCESSING) 
+            if(m.getStatus() != EspMembershipStatus.PROCESSING && m.getStatus() != EspMembershipStatus.PROVISIONAL)
                 toRemove.add(m);
             else {
                 if(isPendingView) {
