@@ -1,6 +1,8 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.school.EspMembership;
+import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.School;
 import gs.data.security.Role;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -76,12 +79,27 @@ public class EspFormValidationHelper {
         }
         return errors;
     }
-    
+
     protected Object getSingleValue(Map<String, Object[]> requestParameterMap, String key) {
         Object[] values = requestParameterMap.get(key);
         if (values != null && values.length == 1) {
             return values[0];
         }
         return null;
+    }
+
+    /**
+     * Checks if the user is provisional
+     */
+    protected boolean isUserProvisional(User user) {
+        List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
+        if (memberships != null && !memberships.isEmpty()) {
+            return memberships.get(0).getStatus().equals(EspMembershipStatus.PROVISIONAL);
+        }
+        return false;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
     }
 }

@@ -246,69 +246,81 @@ public class EspFormExternalDataHelper {
     /**
      * Return error message on error.
      */
-    public String saveExternalValue(String key, Object[] values, School school, User user, Date now) {
+    public String saveExternalValue(String key, Object[] values, School school, User user, Date now,
+                                    boolean isProvisionalData) {
         if (values == null || values.length == 0 && school == null) {
             return null; // early exit
         }
         if (StringUtils.equals("student_enrollment", key)) {
             try {
                 _log.debug("Saving student_enrollment elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.STUDENTS_ENROLLMENT, user);
+                int censusData =  Integer.parseInt((String) values[0]);
+                if (!isProvisionalData) {
+                    saveCensusInteger(school, censusData, CensusDataType.STUDENTS_ENROLLMENT, user);
+                }
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
         } else if (StringUtils.equals("administrator_name", key)) {
             _log.debug("Saving administrator_name elsewhere: " + values[0]);
-            saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
+            if (!isProvisionalData) {
+                saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
+            }
         } else if (StringUtils.equals("administrator_email", key)) {
             _log.debug("Saving administrator_email elsewhere: " + values[0]);
-            saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_EMAIL, user);
+            if (!isProvisionalData) {
+                saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_EMAIL, user);
+            }
         } else if (StringUtils.equals("school_url", key)) {
             _log.debug("Saving school home_page_url elsewhere: " + values[0]);
             String url = (String) values[0];
-            if (!StringUtils.equals(url, school.getWebSite())) {
+            if (!StringUtils.equals(url, school.getWebSite()) && !isProvisionalData) {
                 school.setWebSite(StringEscapeUtils.escapeHtml(url));
                 saveSchool(school, user, now);
             }
         } else if (StringUtils.equals("grade_levels", key)) {
             _log.debug("Saving grade_levels " + Arrays.toString(values) + " elsewhere for school:" + school.getName());
-            return saveGradeLevels(school, (String[])values, user, now);
+            return saveGradeLevels(school, (String[])values, user, now, isProvisionalData);
         } else if (StringUtils.equals("school_type", key)) {
             _log.debug("Saving school type " + values[0] + " elsewhere for school:" + school.getName());
-            return saveSchoolType(school, (String)values[0], user, now);
+            return saveSchoolType(school, (String)values[0], user, now, isProvisionalData);
         } else if (StringUtils.equals("school_type_affiliation", key)) {
-            _log.error("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
-            school.getSubtype().remove("religious");
-            String subtype = (String) values[0];
-            if (StringUtils.equals("religious", subtype)) {
-                school.getSubtype().add("religious");
+            _log.debug("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
+            if (!isProvisionalData) {
+                school.getSubtype().remove("religious");
+                String subtype = (String) values[0];
+                if (StringUtils.equals("religious", subtype)) {
+                    school.getSubtype().add("religious");
+                }
+                saveSchool(school, user, now);
             }
-            saveSchool(school, user, now);
         } else if (StringUtils.equals("school_type_affiliation_other", key)) {
-            _log.error("Saving affiliation " + values[0] + " elsewhere for school:" + school.getName());
+            _log.debug("Saving affiliation " + values[0] + " elsewhere for school:" + school.getName());
             String affiliation = (String) values[0];
-            if (!StringUtils.equals(school.getAffiliation(), affiliation)) {
+            if (!StringUtils.equals(school.getAffiliation(), affiliation) && !isProvisionalData) {
                 school.setAffiliation(StringEscapeUtils.escapeHtml(affiliation));
                 saveSchool(school, user, now);
             }
         } else if (StringUtils.equals("coed", key)) {
-            _log.error("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
-            school.getSubtype().remove("coed");
-            school.getSubtype().remove("all_male");
-            school.getSubtype().remove("all_female");
-            String subtype = (String) values[0];
-            if (StringUtils.equals("coed", subtype)) {
-                school.getSubtype().add("coed");
-            } else if (StringUtils.equals("all_boys", subtype)) {
-                school.getSubtype().add("all_male");
-            } else if (StringUtils.equals("all_girls", subtype)) {
-                school.getSubtype().add("all_female");
+            _log.debug("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
+            if(!isProvisionalData){
+                school.getSubtype().remove("coed");
+                school.getSubtype().remove("all_male");
+                school.getSubtype().remove("all_female");
+                String subtype = (String) values[0];
+                if (StringUtils.equals("coed", subtype)) {
+                    school.getSubtype().add("coed");
+                } else if (StringUtils.equals("all_boys", subtype)) {
+                    school.getSubtype().add("all_male");
+                } else if (StringUtils.equals("all_girls", subtype)) {
+                    school.getSubtype().add("all_female");
+                }
+                saveSchool(school, user, now);
             }
-            saveSchool(school, user, now);
         } else if (StringUtils.equals("address", key)) {
             Address address = (Address) values[0];
             // only save if different
-            if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet())) {
+            if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet()) && !isProvisionalData) {
                 _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
                 school.getPhysicalAddress().setStreet(StringEscapeUtils.escapeHtml(address.getStreet()));
                 setSchoolLatLon(school);
@@ -322,8 +334,10 @@ public class EspFormExternalDataHelper {
                 if (containsBadChars(phone)) {
                     return "Contains invalid characters.";
                 }
-                school.setPhone(StringEscapeUtils.escapeHtml(phone));
-                saveSchool(school, user, now);
+                if(!isProvisionalData){
+                    school.setPhone(StringEscapeUtils.escapeHtml(phone));
+                    saveSchool(school, user, now);
+                }
             }
             return null;
         } else if (StringUtils.equals("school_fax", key)) {
@@ -333,28 +347,34 @@ public class EspFormExternalDataHelper {
                 if (containsBadChars(fax)) {
                     return "Contains invalid characters.";
                 }
-                school.setFax(fax);
-                saveSchool(school, user, now);
+                if(!isProvisionalData){
+                    school.setFax(fax);
+                    saveSchool(school, user, now);
+                }
             }
             return null;
         } else if (StringUtils.equals("census_ethnicity", key)) {
             Map<Integer, Integer> breakdownIdToValueMap = (Map<Integer, Integer>) values[0];
-            return handleEthnicity(breakdownIdToValueMap, school, user);
+            return handleEthnicity(breakdownIdToValueMap, school, user, isProvisionalData);
         } else if (StringUtils.startsWith(key, "census_")) {
             if (STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()) != null) {
                 for (EspCensusDataTypeConfiguration dataTypeConfig: STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState())) {
                     if (StringUtils.equals("census_" + dataTypeConfig.getId(), key)) {
                         return saveCensusPercentFromString
-                                (school, CensusDataType.getEnum(dataTypeConfig.getId()), user, key, (String) values[0]);
+                                (school, CensusDataType.getEnum(dataTypeConfig.getId()), user, key, (String) values[0], isProvisionalData);
                     }
                 }
             } else {
                 _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
             }
         } else if (StringUtils.equals("school_video", key)) {
-            updateSchoolMetadata( school, values, "school_video", user, now, false);
+            if(!isProvisionalData){
+                updateSchoolMetadata( school, values, "school_video", user, now, false);
+            }
         } else if (StringUtils.equals("facebook_url", key)) {
-            updateSchoolMetadata( school, values, "facebook_url", user, now, true);
+            if (!isProvisionalData) {
+                updateSchoolMetadata(school, values, "facebook_url", user, now, true);
+            }
         } else {
             _log.error("Unknown external key: " + key);
         }
@@ -402,15 +422,18 @@ public class EspFormExternalDataHelper {
 
     static boolean containsBadChars(String val) {
         return StringUtils.contains(val, "<") || StringUtils.contains(val, "\"");
-    } 
-    
-    String saveCensusPercentFromString(School school, CensusDataType censusDataType, User user, String key, String value) {
+    }
+
+    String saveCensusPercentFromString(School school, CensusDataType censusDataType, User user, String key, String value,
+                                       boolean isProvisionalData) {
         if (StringUtils.isBlank(value)) {
-            // deactivate existing value
-            SchoolCensusValue manualValue = school.getCensusInfo().getManualValue(school, censusDataType);
-            if (manualValue != null) {
-                _dataSetDao.deactivateDataValue(manualValue, getCensusModifiedBy(user));
-                _censusCacheManager.deleteBySchool(school);
+            if(!isProvisionalData){
+                // deactivate existing value
+                SchoolCensusValue manualValue = school.getCensusInfo().getManualValue(school, censusDataType);
+                if (manualValue != null) {
+                    _dataSetDao.deactivateDataValue(manualValue, getCensusModifiedBy(user));
+                    _censusCacheManager.deleteBySchool(school);
+                }
             }
         } else {
             try {
@@ -419,7 +442,9 @@ public class EspFormExternalDataHelper {
                 if (val < 0 || val > 100) {
                     return "Must be a number between 0 and 100.";
                 }
-                saveCensusInteger(school, val, censusDataType, user);
+                if (!isProvisionalData) {
+                    saveCensusInteger(school, val, censusDataType, user);
+                }
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
@@ -453,7 +478,7 @@ public class EspFormExternalDataHelper {
         return dataSet;
     }
 
-    String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user) {
+    String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user, boolean isProvisionalData) {
         int sum = 0;
         EspCensusDataTypeConfiguration ethnicityConfig = STATE_TO_ETHNICITY.get(school.getDatabaseState());
         if (ethnicityConfig == null) {
@@ -470,26 +495,30 @@ public class EspFormExternalDataHelper {
             }
         }
         if (sum == 100) {
-            for (EspCensusBreakdownConfiguration breakdownConfig: ethnicityConfig.getBreakdowns()) {
-                Integer breakdownId = breakdownConfig.getId();
-                Integer value = breakdownIdToValueMap.get(breakdownId);
-                Breakdown breakdown = new Breakdown(breakdownId);
-                CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
-                _dataSetDao.addValue(dataSet, school, value, getCensusModifiedBy(user));
-                _censusCacheManager.deleteBySchool(school);
+            if (!isProvisionalData) {
+                for (EspCensusBreakdownConfiguration breakdownConfig : ethnicityConfig.getBreakdowns()) {
+                    Integer breakdownId = breakdownConfig.getId();
+                    Integer value = breakdownIdToValueMap.get(breakdownId);
+                    Breakdown breakdown = new Breakdown(breakdownId);
+                    CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
+                    _dataSetDao.addValue(dataSet, school, value, getCensusModifiedBy(user));
+                    _censusCacheManager.deleteBySchool(school);
+                }
             }
         } else if (sum == 0) {
-            List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
-            for (SchoolCensusValue val: censusValues) {
-                _dataSetDao.deactivateDataValue(val, getCensusModifiedBy(user));
-                _censusCacheManager.deleteBySchool(school);
+            if (!isProvisionalData) {
+                List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
+                for (SchoolCensusValue val : censusValues) {
+                    _dataSetDao.deactivateDataValue(val, getCensusModifiedBy(user));
+                    _censusCacheManager.deleteBySchool(school);
+                }
             }
         } else {
             return "Your ethnicity percents must add up to 100%.";
         }
         return null;
     }
-    
+
     /**
      * Calculate the new lat, lon if the school address has been changed by the user.
      */
@@ -537,8 +566,8 @@ public class EspFormExternalDataHelper {
                                     lat = null;
                                 }
                             } else {
-                                _log.error("Geocoded address state " + stateStr + 
-                                        " does not match physical address state " + 
+                                _log.error("Geocoded address state " + stateStr +
+                                        " does not match physical address state " +
                                         school.getPhysicalAddress().getState() + " for address " + address);
                             }
                         } else {
@@ -564,7 +593,7 @@ public class EspFormExternalDataHelper {
     /**
      * Save grade levels to the db. Return error string if necessary.
      */
-    String saveGradeLevels(School school, String[] data, User user, Date now) {
+    String saveGradeLevels(School school, String[] data, User user, Date now, boolean isProvisionalData) {
         List<String> gradesList = new ArrayList<String>();
         Collections.addAll(gradesList, data);
         if (!gradesList.isEmpty()) {
@@ -576,15 +605,18 @@ public class EspFormExternalDataHelper {
             if (newLevelCode.equals(LevelCode.PRESCHOOL)) {
                 return "You can not set preschool as your only grade.";
             }
-            // GS-12570 Preserve 'UG'
-            if (school.getGradeLevels().contains(Grade.UNGRADED)) {
-                grades.addLevel(Grade.UNGRADED);
+            if (!isProvisionalData) {
+                // GS-12570 Preserve 'UG'
+                if (school.getGradeLevels().contains(Grade.UNGRADED)) {
+                    grades.addLevel(Grade.UNGRADED);
+                }
+                if (!grades.equals(school.getGradeLevels())) {
+                    school.setGradeLevels(grades);
+                    school.setLevelCode(newLevelCode);
+                    saveSchool(school, user, now);
+                }
             }
-            if (!grades.equals(school.getGradeLevels())) {
-                school.setGradeLevels(grades);
-                school.setLevelCode(newLevelCode);
-                saveSchool(school, user, now);
-            }
+
         } else {
             return "You must select a grade level.";
         }
@@ -602,11 +634,11 @@ public class EspFormExternalDataHelper {
     /**
      * Save grade levels to the db
      */
-    String saveSchoolType(School school, String data, User user, Date now) {
+    String saveSchoolType(School school, String data, User user, Date now, boolean isProvisionalData) {
         SchoolType type = SchoolType.getSchoolType(data);
         if (type != null) {
             // only save if different
-            if (type != school.getType()) {
+            if (type != school.getType() && !isProvisionalData) {
                 school.setType(type);
                 saveSchool(school, user, now);
             }
@@ -738,7 +770,7 @@ public class EspFormExternalDataHelper {
                             CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL)
         ));
     }};
-    
+
     public static final Map<State, EspCensusDataTypeConfiguration> STATE_TO_ETHNICITY =
             new HashMap<State, EspCensusDataTypeConfiguration>() {{
             put(State.WI, new EspCensusDataTypeConfiguration
