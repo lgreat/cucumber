@@ -54,7 +54,7 @@
                 </style>
                 <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.7.2.min.js"></script>]]>
             </head>
-            <!-- git idea test - adding a comment -->
+
             <body>
             <h1>GSWeb Status Page</h1>
             <!-- Opted for a table instead of pure CSS since this truly is a table -->
@@ -194,7 +194,7 @@
 </table>
 
 <br/>
-            <!-- git idea test - adding a comment -->
+
 <table class="statusbox">
     <c:forEach items="${environment}" var="item">
         <tr>
@@ -283,7 +283,7 @@
         </tr>
     </table>
 </c:forEach>
-            <!-- git idea test - adding a comment -->
+
 <script type="text/javascript">
     <![CDATA[
     var enabled = typeof(Storage) !== "undefined";
