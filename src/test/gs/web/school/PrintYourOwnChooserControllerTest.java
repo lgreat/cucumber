@@ -39,7 +39,7 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testGetSchoolsFromParams() throws Exception {
 
-        State states[] = {State.CA, State.DC, State.AK};
+        String states[] = {"CA", "DC", "AK"};
         Integer[] ids = {1,2,3};
 
         expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School());
@@ -57,7 +57,7 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testGetSchoolsFromParams_onlyOneState() throws Exception {
 
-        State states[] = {State.CA};
+        String states[] = {"CA"};
         Integer[] ids = {1,2,3};
 
         expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School());
@@ -75,7 +75,7 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testException_nullInputs() throws Exception {
 
-        State states[] = null;
+        String states[] = null;
         Integer[] ids = {1,2,3};
 
         try {
@@ -89,7 +89,7 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testException_emptyInputs() throws Exception {
 
-        State states[] = {};
+        String states[] = {};
         Integer[] ids = {};
 
         try {
@@ -103,7 +103,7 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testException_stateAndIDsInequal_moreThanOneState() throws Exception {
 
-        State states[] = {State.CA, State.AK};
+        String states[] = {"CA", "AK"};
         Integer[] ids = {1,2,3};
 
         try {

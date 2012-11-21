@@ -54,7 +54,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
      */
     @RequestMapping(method= RequestMethod.GET)
     public String get(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
-                      @RequestParam(value="states", required=true, defaultValue="CA") State[] states,
+                      @RequestParam(value="states", required=true, defaultValue="CA") String[] states,
                       @RequestParam(value="schoolIds", required=true, defaultValue="1") Integer[] schoolIds) {
 
         AbstractDataHelper.initialize(request);
@@ -89,7 +89,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             if (academicRating != null) {
                 schoolData.put(DATA_OVERALL_ACADEMIC_RATING, formatRating((Integer) academicRating));
             }*/
-        }
+            }
 
         modelMap.put("schoolData", schoolData);
 
@@ -200,7 +200,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         return espData;
     }
 
-    public List<School> getSchoolsFromParams(State[] states, Integer[] schoolIds) {
+    public List<School> getSchoolsFromParams(String[] states, Integer[] schoolIds) {
         List<School> schools = new ArrayList<School>();
 
         if (states == null || schoolIds == null || states.length == 0 || schoolIds.length == 0) {
@@ -211,15 +211,21 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         }
 
         for (int i = 0; i < schoolIds.length; i++) {
-            State state;
+            String stateString;
             if (states.length > 1) {
-                state = states[i];
+                stateString = states[i];
             } else {
-                state = states[0];
+                stateString = states[0];
             }
 
-            School s = _schoolDaoHibernate.getSchoolById(state, schoolIds[i]);
-            schools.add(s);
+            try {
+                State state = State.fromString(stateString);
+                School s = _schoolDaoHibernate.getSchoolById(state, schoolIds[i]);
+                schools.add(s);
+            } catch (IllegalArgumentException e) {
+
+            }
+
         }
 
         return schools;
