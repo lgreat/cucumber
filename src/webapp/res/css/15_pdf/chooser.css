@@ -51,7 +51,7 @@ div.dateFooter {
     }
 
 body	{
-    font:normal 8pt Arial, Helvetica, sans-serif ;
+    font:normal 7pt Arial, Helvetica, sans-serif ;
 }
 
 h1	{
@@ -132,6 +132,7 @@ hr.rulethin	{
     width:100%;
     border:solid 1px #EEEEEE;
     margin:0 0 0 0;
+    padding:0 0 0 0;
     clear:both;
 }
 

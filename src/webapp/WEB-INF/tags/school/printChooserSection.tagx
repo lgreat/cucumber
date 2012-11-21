@@ -13,11 +13,11 @@
     <jsp:directive.attribute name="schoolData" type="java.util.Map" />
 
 
-    <div id="container" class="chooser-section container_24">
-        <div id="header_container" class="clearfix">
+    <div class="chooser-section container_24">
+        <div class="clearfix" style="padding: 0 0 15px 0;">
 
             <!--<div class="fl" style="width:7%">&lt;!&ndash; co not collapse &ndash;&gt;</div>-->
-            <div class="fl clearfix" style=" width:510px">
+            <div class="fl clearfix" style=" width:480px">
                 <h1 class="clearfix" style="padding: 0 0 10px 0">${school.name}</h1>
                 <!--<p><br /></p>-->
                 <div class="fl" style="width:178px; padding-right: 10px;">
@@ -59,8 +59,8 @@
             </div>
             <div class="fr clearfix" style="border-left: 1px solid #cccccc;">
                 <div style="float:left; padding: 20px 25px 0 25px">
-                    <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']}</span></p>
-                    <p>Climate:<br /><span class="strong">${schoolData['overallClimateRating']}</span></p>
+                    <p>Academic:<br /><span class="strong">Above Average / 10 ${schoolData['overallAcademicRating']}</span></p>
+                    <p>Climate:<br /><span class="strong">Above Average / 10 ${schoolData['overallClimateRating']}</span></p>
                 </div>
                 <div style="float:left;text-align:center; padding-left:10px; border-left: 1px solid #cccccc;">
                     <span class="iconx60-RYG i-60-6"><!-- do not collapse --></span>
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div><!-- end header_container -->
-        <br />
+
         <hr class="rulethin" />
 
         <div id="">
