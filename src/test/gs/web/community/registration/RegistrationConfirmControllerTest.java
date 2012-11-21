@@ -163,6 +163,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         summary.setStatus(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED);
 
         expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
+        expect(_espMembershipDao.findEspMembershipsByUserId(234, false)).andReturn(null);
         _userDao.saveUser(user);
 
         replayAllMocks();
@@ -205,6 +206,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
 
         expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
+        expect(_espMembershipDao.findEspMembershipsByUserId(234, false)).andReturn(null);
 
         User user2 = new User();
         user2.setId(user.getId());
@@ -242,6 +244,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         emailVerificationLinkCommand.setDate(String.valueOf(dateSent));
         ModelAndView mAndV;
 
+        expect(_espMembershipDao.findEspMembershipsByUserId(234, false)).andReturn(null);
         getRequest().setParameter("redirect", "/path");
         setupForRedirect(user);
         replayAllMocks();
@@ -253,6 +256,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
         expect(_subscriptionDao.getUserSubscriptions(isA(User.class))).andReturn(subscriptions);
+        expect(_espMembershipDao.findEspMembershipsByUserId(234, false)).andReturn(null);
 
         getRequest().setParameter("redirect", "/path?foo=bar");
         setupForRedirect(user);
@@ -264,6 +268,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         resetAllMocks();
 
         expect(_subscriptionDao.getUserSubscriptions(isA(User.class))).andReturn(subscriptions);
+        expect(_espMembershipDao.findEspMembershipsByUserId(234, false)).andReturn(null);
 
         getRequest().setParameter("redirect", "/path?foo=bar#anchor");
         setupForRedirect(user);
