@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+    <div id="printSchoolChooser" class=" dn">
+        <div class="mod modal_3 width_13 " id="printSchoolChooser">
+            <div class="outer">
+                <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner">
+                    <div class="bd">
+                        <!--<div id="valNewEmailDone" class="dialog_white" style="display:none;">-->
+                        <h2>Your email change is complete</h2>
+
+                        <p>Thanks for verifying your updated email address.</p>
+
+                        <button class="button-1 js_closeHover" type="button">Finish</button>
+                    </div></div></div></div>
+        <form id="printSchoolChooserSubmit" method="POST">
+            <input type="hidden" name="schoolsChoosen" value="" />
+            <input type="hidden" name="appendExtraPDFs" value="yes" />
+        </form>
+    </div>
+
+
+</jsp:root>

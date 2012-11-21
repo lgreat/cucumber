@@ -400,7 +400,7 @@ GSType.hover.JoinHover = function() {
         this.showHoverOnExit(GSType.hover.joinHover.showJoinAuto);
     };
     this.showNthHoverOnExit = function() {
-        this.showHoverOnExit(GSType.hover.joinHover.showJoinNth);
+        this.showHoverOnExit(GSType.hover.joinHover.showJoinTrackGradeAuto);
     };
     this.showHoverOnExit = function(showHoverFunction) {
         var arr = GS.getElementsByCondition(
@@ -645,6 +645,9 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinFooterNewsletter;
         GSType.hover.joinHover.showJoinNth();
     };
+    // WARNING: do not call showJoinNth directly without first calling setJoinHoverType with a valid value from
+    // RegistrationHoverCommand.JoinHoverType enum and modifying RegistrationHoverController.joinTypeToHow()
+    // see GS-13450
     this.showJoinNth = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
@@ -2066,3 +2069,13 @@ jQuery(function() {
     });
 
 });
+
+
+GSType.hover.PrintSchoolChooser = function() {
+    this.show = function() {
+        GSType.hover.printSchoolChooser.showModal();
+        return false;
+    };
+};
+GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser');
+GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();

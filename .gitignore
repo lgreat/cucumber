@@ -1,0 +1,40 @@
+*.log
+*.log.*[0-9]
+*.class
+target/
+classes/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Mac OSX hidden files created by Finder
+.DS_Store
+
+# IntelliJ IDEA files
+*.ipr
+*.iws
+*.iml
+.#*.*[0-9]
+
+# Vim
+*.swp
+.*un~
+
+# stuff from cvsignore
+coverage.db*
+gsdata.log.*
+junit*.properties
+
+# combined / minified JS and CSS
+src/webapp/res/js/combined*.min.js
+src/webapp/res/js/combined*.js
+src/webapp/res/css/combined.*.css
+src/webapp/res/css/*combined.css
+src/webapp/res/css/*.combined.*.css
+src/webapp/res/mobile/css/combined.*.css
+src/webapp/res/mobile/css/*combined.css
+src/webapp/res/mobile/css/*.combined.*.css
+src/webapp/res/js/school-profile.js
+src/webapp/res/js/school-profile.min.js

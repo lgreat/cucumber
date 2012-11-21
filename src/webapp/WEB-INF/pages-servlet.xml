@@ -2565,8 +2565,7 @@
             <map>
                 <entry key="json" value="application/json" />
                 <entry key="xml" value="application/xml" />
-                <!-- commenting out for 21.4 since this needs to be tested more -->
-                <!--<entry key="pdf" value="application/pdf" /> -->
+                <entry key="pdf" value="application/pdf" />
             </map>
         </property>
         <property name="defaultViews">
@@ -2580,8 +2579,7 @@
             </list>
         </property>
         <property name="ignoreAcceptHeader" value="true" />
-        <!-- commenting out for 21.4 since this needs to be tested more -->
-       <!-- <property name="viewResolvers">
+        <property name="viewResolvers">
             <list>
                 <bean class="gs.web.HTML2PDFViewResolver">
                     <property name="viewResolver">
@@ -2589,7 +2587,7 @@
                     </property>
                 </bean>
             </list>
-        </property>-->
+        </property>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">

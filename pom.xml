@@ -18,6 +18,7 @@
 
     <properties>
         <org.springframework.version>3.0.6.RELEASE</org.springframework.version>
+        <warName>${project.artifactId}</warName>
     </properties>
 
     <build>
@@ -92,6 +93,7 @@
                 <configuration>
                     <warSourceDirectory>${basedir}/src/webapp</warSourceDirectory>
                     <warSourceExcludes>**/mobile/*.js</warSourceExcludes>
+                    <warName>${warName}</warName>
                     <!--<webResources>
                         <resource>
                             <directory>target/gs-web/res/js/mobile</directory>

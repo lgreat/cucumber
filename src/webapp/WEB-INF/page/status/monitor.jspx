@@ -1,146 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-        >
-<html lang="en">
+            <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+                      xmlns="http://www.w3.org/1999/xhtml"
+                      xmlns:c="http://java.sun.com/jsp/jstl/core"
+                      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+                      xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+                    >
+            <html lang="en">
 
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+            <jsp:output doctype-root-element="html"
+                        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
+            <jsp:directive.page contentType="text/html"/>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="wrapperstate" content="FL"/>
-    <title>GreatSchools GSWeb Status Page</title>
-    <style type="text/css">
-        body {
-            text-align: center;
-        }
+            <head>
+                <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+                <meta name="wrapperstate" content="FL"/>
+                <title>GreatSchools GSWeb Status Page</title>
+                <style type="text/css">
+                    body {
+                        text-align: center;
+                    }
 
-        h1 {
-            font-family: Georgia, serif;
-            font-variant: small-caps;
-            font-size: 12pt;
-        }
+                    h1 {
+                        font-family: Georgia, serif;
+                        font-variant: small-caps;
+                        font-size: 12pt;
+                    }
 
-        .statusbox {
-            width: 500px;
-            border: thin dashed black;
-            padding: 10px;
-            background: #E8E8E8;
-            margin: 0 auto;
-        }
+                    .statusbox {
+                        width: 500px;
+                        border: thin dashed black;
+                        padding: 10px;
+                        background: #E8E8E8;
+                        margin: 0 auto;
+                    }
 
-        .statustitle {
-            text-align: left;
-            color: #333399;
-        }
+                    .statustitle {
+                        text-align: left;
+                        color: #333399;
+                    }
 
-        .statusvalue {
-            text-align: left;
-            text-transform: capitalize;
-            color: #AA3333;
-        }
+                    .statusvalue {
+                        text-align: left;
+                        text-transform: capitalize;
+                        color: #AA3333;
+                    }
 
-        .statusvalue-2 {
-            text-align: left;
-            color: #AA3333;
-        }
-    </style>
-    <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.7.2.min.js"></script>]]>
-</head>
+                    .statusvalue-2 {
+                        text-align: left;
+                        color: #AA3333;
+                    }
+                </style>
+                <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.7.2.min.js"></script>]]>
+            </head>
 
-<body>
-<h1>GSWeb Status Page</h1>
-<!-- Opted for a table instead of pure CSS since this truly is a table -->
-<table class="statusbox">
-    <tr>
-        <td class="statustitle">GSWeb build date/time (PST)</td>
-        <td class="statusvalue" colspan="2">${buildtime}</td>
-    </tr>
-    <tr>
-        <td class="statustitle">GSWeb Version</td>
-        <td class="statusvalue" colspan="2">${version}</td>
-    </tr>
-    <tr>
-        <td class="statustitle">Tomcat host serving request</td>
-        <td class="statusvalue" colspan="2">${hostname}</td>
-    </tr>
-    <tr>
-        <td class="statustitle">Main database read/write test</td>
-        <td class="statusvalue">${mainReadWrite}</td>
-        <td class="statuserror">${mainError}</td>
-    </tr>
-    <tr>
-        <td class="statustitle">State database read/write test</td>
-        <td class="statusvalue">${stateReadWrite}</td>
-        <td class="statuserror">${stateError}</td>
-    </tr>
-    <tr>
-        <td class="statustitle">Session test previous host</td>
-        <td class="statusvalue">${lasthost}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <tr>
-        <td class="statustitle">Session test view count</td>
-        <td class="statusvalue">${hitcount}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <tr>
-        <td class="statustitle">Lucene index version</td>
-        <td class="statusvalue">${indexVersion}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <tr>
-        <td class="statustitle">AB Configuration</td>
-        <td class="statusvalue">${abConfiguration}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <tr>
-        <td class="statustitle">Your AB version</td>
-        <td class="statusvalue">${requestScope.context.ABVersion}</td>
-        <td class="statuserror">
-            <form action="/status/monitor.page" method="get">
-                 <input type="submit" name="increment" value="Next version"/>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td class="statustitle">
-            Mobile site
-        </td>
-        <td class="statusvalue">
-            <c:choose>
-                <c:when test="${mobileSiteEnabled}">
-                    enabled
-                </c:when>
-                <c:otherwise>
-                    disabled
-                </c:otherwise>
-            </c:choose>
-        </td>
-        <td class="statuserror">
-            <!-- not empty -->
-        </td>
-    </tr>
-    <tr>
-        <td class="statustitle">HTTP_X_CLUSTER_CLIENT_IP attribute</td>
-        <td class="statusvalue">${x_cluster_client_ip_attr}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <tr>
-        <td class="statustitle">REMOTE_ADDR</td>
-        <td class="statusvalue">${remote_addr}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <c:if test="${showExtra}">
-        <tr>
-            <td class="statustitle">avatarURLPrefix</td>
+            <body>
+            <h1>GSWeb Status Page</h1>
+            <!-- Opted for a table instead of pure CSS since this truly is a table -->
+            <table class="statusbox">
+                <tr>
+                    <td class="statustitle">GSWeb build date/time (PST)</td>
+                    <td class="statusvalue" colspan="2">${buildtime}</td>
+                </tr>
+                <tr>
+                    <td class="statustitle">GSWeb Version</td>
+                    <td class="statusvalue" colspan="2">${version}</td>
+                </tr>
+                <c:if test="${not empty gitCommitId}">
+                    <tr>
+                        <td class="statustitle">GSWeb's git sha1</td>
+                        <td class="statusvalue-2" colspan="2">${gitCommitId}</td>
+                    </tr>
+                </c:if>
+                <c:if test="${not empty gsDataGitCommitId}">
+                    <tr>
+                        <td class="statustitle">GSData's git sha1</td>
+                        <td class="statusvalue-2" colspan="2">${gsDataGitCommitId}</td>
+                    </tr>
+                </c:if>
+                <tr>
+                    <td class="statustitle">Tomcat host serving request</td>
+                    <td class="statusvalue" colspan="2">${hostname}</td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Main database read/write test</td>
+                    <td class="statusvalue">${mainReadWrite}</td>
+                    <td class="statuserror">${mainError}</td>
+                </tr>
+                <tr>
+                    <td class="statustitle">State database read/write test</td>
+                    <td class="statusvalue">${stateReadWrite}</td>
+                    <td class="statuserror">${stateError}</td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Session test previous host</td>
+                    <td class="statusvalue">${lasthost}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Session test view count</td>
+                    <td class="statusvalue">${hitcount}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Lucene index version</td>
+                    <td class="statusvalue">${indexVersion}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">AB Configuration</td>
+                    <td class="statusvalue">${abConfiguration}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Your AB version</td>
+                    <td class="statusvalue">${requestScope.context.ABVersion}</td>
+                    <td class="statuserror">
+                        <form action="/status/monitor.page" method="get">
+                            <input type="submit" name="increment" value="Next version"/>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="statustitle">
+                        Mobile site
+                    </td>
+                    <td class="statusvalue">
+                        <c:choose>
+                            <c:when test="${mobileSiteEnabled}">
+                                enabled
+                            </c:when>
+                            <c:otherwise>
+                                disabled
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td class="statuserror">
+                        <!-- not empty -->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="statustitle">HTTP_X_CLUSTER_CLIENT_IP attribute</td>
+                    <td class="statusvalue">${x_cluster_client_ip_attr}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">REMOTE_ADDR</td>
+                    <td class="statusvalue">${remote_addr}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <c:if test="${showExtra}">
+                    <tr>
+                        <td class="statustitle">avatarURLPrefix</td>
             <td class="statusvalue">${avatarURLPrefix}</td>
             <td class="statuserror"></td>
         </tr>

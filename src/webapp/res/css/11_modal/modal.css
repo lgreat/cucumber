@@ -234,3 +234,38 @@ box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
 .modal_22 .inner .hd span.reportHoverHeader {
     margin: 0px;
 }
+
+/* ------------------- modal_3 ------------------- */
+
+.modal_3 {
+    margin: 0 auto 20px;
+    position: relative;
+}
+.modal_3 .outer{
+    padding:10px 13px;
+    padding:10px 13px;
+    /*border:2px solid #bcdeed;*/
+    background-color:#FFFFFF;
+    /*Rounded corners*/
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6)";
+    *filter: progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6);
+}
+.modal_3 .inner{
+    padding: 20px 20px;
+}
+.modal_3 .inner .hd{}
+.modal_3 .inner .hd h3{
+    line-height: 2.7;
+}
+.modal_3 .inner .hd span{
+    margin: 10px;
+}
+.modal_3 .inner .hd span.reportHoverHeader {
+    margin: 0px;
+}
