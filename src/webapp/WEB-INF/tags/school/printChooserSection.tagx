@@ -17,7 +17,7 @@
         <div id="header_container" class="clearfix">
 
             <!--<div class="fl" style="width:7%">&lt;!&ndash; co not collapse &ndash;&gt;</div>-->
-            <div class="fl clearfix" style=" width:514px">
+            <div class="fl clearfix" style=" width:510px">
                 <h1 class="clearfix" style="padding: 0 0 10px 0">${school.name}</h1>
                 <!--<p><br /></p>-->
                 <div class="fl" style="width:178px; padding-right: 10px;">
@@ -40,7 +40,7 @@
                 <div class="fl" style="width:178px; padding-right: 10px;">
                     <p>
                         <c:if test="${not empty school.district.name}">
-                        ${school.district.name}<br />
+                            ${school.district.name}<br />
                         </c:if>
                         <c:if test="${not empty school.phone}">
                             Phone:<span class="strong"> ${school.phone}</span><br />
@@ -58,13 +58,13 @@
                 </div>
             </div>
             <div class="fr clearfix" style="border-left: 1px solid #cccccc;">
-                <div style="float:left; padding: 15px 15px 0 15px">
+                <div style="float:left; padding: 20px 25px 0 25px">
                     <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']}</span></p>
                     <p>Climate:<br /><span class="strong">${schoolData['overallClimateRating']}</span></p>
                 </div>
                 <div style="float:left;text-align:center; padding-left:10px; border-left: 1px solid #cccccc;">
                     <span class="iconx60-RYG i-60-6"><!-- do not collapse --></span>
-                    <p style="margin:0">GreatSchools Rating</p>
+                    <p style="padding:5px 0 0 0 ;font:normal 6pt Arial, Helvetica, sans-serif ;">GreatSchools Rating</p>
                 </div>
             </div>
         </div><!-- end header_container -->
@@ -111,7 +111,7 @@
                 </p>
             </div>
 
-            <div class="bd_column" style="">
+            <div class="bd_column" style="padding-right: 0px;">
                 <h2>Special education services</h2>
                 <p><span class="strong uppercase">INTENSIVE</span></p>
                 <h2>ELL services</h2>
@@ -120,13 +120,5 @@
                 <p><span class=" ">${schoolData['destination_schools']}</span></p>
             </div>
         </div>
-
-        <!--<hr  />-->
-
-
     </div><!-- end container -->
-
-
-
-
 </jsp:root>
