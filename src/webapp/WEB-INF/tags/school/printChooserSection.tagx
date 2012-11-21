@@ -28,7 +28,6 @@
                             <br/>
                             ${school.physicalAddress.streetLine2}
                         </c:if>
-
                         <br/>
                         <span>${school.physicalAddress.city}</span>,
                         <span>${school.physicalAddress.state.abbreviation} </span>
