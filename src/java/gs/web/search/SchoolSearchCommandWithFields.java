@@ -6,16 +6,13 @@ import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.FieldSort;
-import gs.data.search.filters.SchoolFilters;
 import gs.data.state.State;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 
 public class SchoolSearchCommandWithFields {
     
@@ -194,8 +191,6 @@ public class SchoolSearchCommandWithFields {
     public City getCity() {
         if (isDistrictBrowse() || isCityBrowse()) {
             return getCityFromUrl();
-        } else if (isNearbySearchByLocation()) {
-            return getCity(getState(), _command.getCity());
         } else {
             return getCityFromSearchString();
         }
