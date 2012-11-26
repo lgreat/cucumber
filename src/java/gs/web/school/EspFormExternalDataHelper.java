@@ -57,8 +57,8 @@ public class EspFormExternalDataHelper {
      * Fetch the keys whose values live outside of esp_response and put them in responseMap
      * (overwriting existing keys if present).
      */
-    public void fetchExternalValues(Map<String, EspFormResponseStruct> responseMap, School school) {
-        for (String key: getKeysForExternalData(school)) {
+    public void fetchExternalValues(Map<String, EspFormResponseStruct> responseMap, School school,Set<String> externalKeys) {
+        for (String key: externalKeys) {
 
             // for keys where the external data doesn't map 1:1 between EspResponse and the form, handle them here
             if (StringUtils.equals("address", key)) {
@@ -85,6 +85,10 @@ public class EspFormExternalDataHelper {
                 }
             }
         }
+    }
+
+    public void fetchExternalValues(Map<String, EspFormResponseStruct> responseMap, School school) {
+        fetchExternalValues(responseMap, school, getKeysForExternalData(school)) ;
     }
 
     /**

@@ -86,17 +86,173 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         // required for photo uploader
         modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
-        List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
-        modelMap.put("schoolMedias", schoolMedias);
 
-        putResponsesInModel(school, modelMap); // fetch responses for school, including external data
+        boolean isProvisionalUser = _espFormValidationHelper.isUserProvisional(user);
+        if(isProvisionalUser){
+            getProvisionalData(user,school, modelMap);
+            //TODO school media
+            List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllProvisionalAndProvisionalPendingBySchool(school.getId(), school.getDatabaseState());
+            if(schoolMedias != null && !schoolMedias.isEmpty()){
+                modelMap.put("schoolMedias", schoolMedias);
+            }else{
+                schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
+                modelMap.put("schoolMedias", schoolMedias);
+            }
+
+        }else{
+            putResponsesInModel(school, modelMap); // fetch responses for school, including external data
+            List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
+            modelMap.put("schoolMedias", schoolMedias);
+        }
+        //TODO do the below lines for provisional also?
         putPercentCompleteInModel(school, modelMap);
+
         modelMap.put("ethnicityBreakdowns", EspFormExternalDataHelper.STATE_TO_ETHNICITY.get(school.getDatabaseState()));
         modelMap.put("censusDataTypes", EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()));
 
         modelMap.put("stateLocked", _noEditDao.isStateLocked(state));
 
         return VIEW;
+    }
+
+    protected void getProvisionalData(User user, School school, ModelMap modelMap) {
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+        Map<String, String> provisionalKeyToResponse = new HashMap<String, String>();
+
+        List<EspResponse> provisionalPageKeys = _espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true);
+        if (provisionalPageKeys != null && !provisionalPageKeys.isEmpty()) {
+            for (EspResponse espResponse : provisionalPageKeys) {
+                String[] keys = espResponse.getValue().split(",");
+                for (int i = 0; i < keys.length; i++) {
+                    provisionalKeyToResponse.put(keys[i], "");
+                }
+            }
+        }
+
+        List<EspResponse> provisionalResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+        for (EspResponse espResponse : provisionalResponses) {
+            if(!espResponse.isActive()){
+                provisionalKeyToResponse.put(espResponse.getKey(), espResponse.getSafeValue());
+            }
+        }
+
+        List<EspResponse> responses = _espResponseDao.getResponses(school);
+
+        //TODO refactor into a common method with  putResponsesInModel?
+        for (EspResponse espResponse : responses) {
+            String value = "";
+            if (provisionalKeyToResponse.containsKey(espResponse.getKey())) {
+                value = provisionalKeyToResponse.get(espResponse.getKey());
+            } else {
+                value = espResponse.getSafeValue();
+            }
+
+            EspFormResponseStruct responseStruct = responseMap.get(espResponse.getKey());
+            if (responseStruct == null) {
+                responseStruct = new EspFormResponseStruct();
+                responseMap.put(espResponse.getKey(), responseStruct);
+            }
+            responseStruct.addValue(value);
+        }
+
+        Set<String> externalKeys = _espFormExternalDataHelper.getKeysForExternalData(school);
+        List<String> externalKeysToRemove = new ArrayList<String>();
+        for(String externalKey : externalKeys){
+            if(provisionalKeyToResponse.containsKey(externalKey)){
+                externalKeysToRemove.add(externalKey);
+                handleExternalData(externalKey,provisionalKeyToResponse.get(externalKey),responseMap);
+            }
+        }
+        externalKeys.removeAll(externalKeysToRemove);
+        _espFormExternalDataHelper.fetchExternalValues(responseMap, school,externalKeys);
+        modelMap.put("responseMap", responseMap);
+    }
+
+    protected void handleExternalData(String key,String value,Map<String, EspFormResponseStruct> responseMap){
+        //TODO put address handle in address.java
+         if(key.equals("address")){
+             //TODO validate lengths etc  and also write tests with whats already in the db
+             String streetLine1 = value.substring(0,value.indexOf(", \n"));
+             int index = streetLine1.length()+3;
+             if(value.indexOf("\n",index) >=0 ){
+                 String streetLine2 = value.substring(index,value.indexOf("\n",index));
+                 if(!StringUtils.isBlank(streetLine2)){
+                     index += streetLine2.length()+1;
+                 }
+             }
+             String city = value.substring(index,value.indexOf(", ",index));
+             index += city.length()+2;
+
+             //TODO validate state
+             String state = value.substring(index,value.indexOf("  ",index));
+             index += state.length()+2;
+
+             String zip = value.substring(index,value.length());
+
+             EspFormResponseStruct streetStruct = new EspFormResponseStruct();
+             streetStruct.addValue(streetLine1);
+             responseMap.put("physical_address_street", streetStruct);
+             EspFormResponseStruct cityStruct = new EspFormResponseStruct();
+             cityStruct.addValue(city);
+             responseMap.put("physical_address_city", cityStruct);
+             EspFormResponseStruct stateStruct = new EspFormResponseStruct();
+             stateStruct.addValue(state);
+             responseMap.put("physical_address_state", stateStruct);
+             EspFormResponseStruct zipStruct = new EspFormResponseStruct();
+             zipStruct.addValue(zip);
+             responseMap.put("physical_address_zip", zipStruct);
+
+             responseMap.remove("address");
+         }else if(key.equals("school_phone") && StringUtils.isNotBlank(value)){
+             //TODO validate lengths etc and write tests with whats already in the db
+             String areaCode = value.substring(0,value.indexOf(")"));
+             String officeCode = value.substring(value.indexOf(")")+1,value.indexOf("-"));
+             String lastFour = value.substring(value.indexOf("-")+1,value.length());
+
+             EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+             areaCodeStruct.addValue(areaCode);
+             responseMap.put("school_phone_area_code", areaCodeStruct);
+
+              EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+             officeCodeStruct.addValue(officeCode);
+             responseMap.put("school_phone_office_code", officeCodeStruct);
+
+             EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+             lastFourStruct.addValue(lastFour);
+             responseMap.put("school_phone_last_four", lastFourStruct);
+
+             responseMap.remove("school_phone");
+         } else if(key.equals("school_fax") && StringUtils.isNotBlank(value)){
+
+             //TODO validate lengths etc and write tests with whats already in the db
+             String areaCode = value.substring(0,value.indexOf(")"));
+             String officeCode = value.substring(value.indexOf(")")+1,value.indexOf("-"));
+             String lastFour = value.substring(value.indexOf("-")+1,value.length());
+
+             EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+             areaCodeStruct.addValue(areaCode);
+             responseMap.put("school_fax_area_code", areaCodeStruct);
+
+             EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+             officeCodeStruct.addValue(officeCode);
+             responseMap.put("school_fax_office_code", officeCodeStruct);
+
+             EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+             lastFourStruct.addValue(lastFour);
+             responseMap.put("school_fax_last_four", lastFourStruct);
+
+             responseMap.remove("school_fax");
+         } else if(key.equals("census_ethnicity")){
+             //TODO for page 8?
+             System.out.println("---census_ethnicity-----------------"+value);
+         } else {
+             if(StringUtils.isNotBlank(value)){
+                 EspFormResponseStruct espResponse = new EspFormResponseStruct();
+                 espResponse.addValue(value);
+                 responseMap.put(key, espResponse);
+             }
+         }
+
     }
 
     protected void putPercentCompleteInModel(School school, ModelMap modelMap) {
@@ -267,9 +423,6 @@ public class EspFormController implements ReadWriteAnnotationController {
                             (key, responseValues, school, user, now, isProvisionalData);
                     if (error != null) {
                         errorFieldToMsgMap.put(key, error);
-                    }else{
-                        //TODO unit test
-                        continue;
                     }
                 }
                 active = false; // data saved elsewhere should be inactive
