@@ -43,8 +43,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
     private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
 
     public static final String DATA_OVERALL_RATING = "overallRating"; // TestDataType.id = 174
+    public static final String DATA_OVERALL_RATING_TEXT = "overallRatingText"; // TestDataType.id = 174
     public static final String DATA_OVERALL_ACADEMIC_RATING = "overallAcademicRating"; // TestDataType.id = 167
+    public static final String DATA_OVERALL_ACADEMIC_RATING_TEXT = "overallAcademicRatingText"; // TestDataType.id = 167
     public static final String DATA_OVERALL_CLIMATE_RATING = "overallClimateRating"; // TestDataType.id = 173
+    public static final String DATA_OVERALL_CLIMATE_RATING_TEXT = "overallClimateRatingText"; // TestDataType.id = 173
 
     private static final String MODEL_KEY_BEST_KNOWN_FOR = "bestKnownFor";
     private static final String MODEL_KEY_ETHNICITY_MAP = "ethnicityMap";
@@ -77,19 +80,22 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
 
             Set<String> displayTarget = new HashSet<String>();
             displayTarget.add(TestDataSetDisplayTarget.ratings.name());
-            /*Map<String, Object> dataMap = _schoolProfileDataHelper.getDataMap(school, displayTarget);
+            Map<String, Object> dataMap = _schoolProfileDataHelper.getDataMap(school, displayTarget);
 
 
             schoolData.put(DATA_OVERALL_RATING, dataMap.get(DATA_OVERALL_RATING));
             Object climateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
+
             if (climateRating != null) {
-                schoolData.put(DATA_OVERALL_CLIMATE_RATING, formatRating((Integer) climateRating));
+                schoolData.put(DATA_OVERALL_CLIMATE_RATING, climateRating);
+                schoolData.put(DATA_OVERALL_CLIMATE_RATING_TEXT, formatRating((Integer) climateRating));
             }
             Object academicRating = dataMap.get(DATA_OVERALL_ACADEMIC_RATING);
             if (academicRating != null) {
-                schoolData.put(DATA_OVERALL_ACADEMIC_RATING, formatRating((Integer) academicRating));
-            }*/
+                schoolData.put(DATA_OVERALL_ACADEMIC_RATING, academicRating);
+                schoolData.put(DATA_OVERALL_ACADEMIC_RATING_TEXT, formatRating((Integer) academicRating));
             }
+        }
 
         modelMap.put("schoolData", schoolData);
 
@@ -98,11 +104,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
 
     private String formatRating(int rating) {
         if (rating > 7) {
-            return "High";
+            return "Above average";
         } else if (rating > 3) {
             return "Average";
         } else {
-            return "Low";
+            return "Below average";
         }
     }
 
@@ -132,14 +138,24 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             data.put("application_deadline_date", applicationDeadlineDate);
         }
 
-        data.put("destination_schools", StringUtils.join(new String[]{
-            getSinglePrettyValue(espData, "destination_school_1"),
-            getSinglePrettyValue(espData, "destination_school_2"),
-            getSinglePrettyValue(espData, "destination_school_3")
-        }, "; "));
-        data.put("destination_school_1", getSinglePrettyValue(espData, "destination_school_1"));
-        data.put("destination_school_2", getSinglePrettyValue(espData, "destination_school_2"));
-        data.put("destination_school_3", getSinglePrettyValue(espData, "destination_school_3"));
+        String destinationSchool1 = getSinglePrettyValue(espData, "destination_school_1");
+        String destinationSchool2 = getSinglePrettyValue(espData, "destination_school_2");
+        String destinationSchool3 = getSinglePrettyValue(espData, "destination_school_3");
+        data.put("destination_school_1", destinationSchool1);
+        data.put("destination_school_2", destinationSchool2);
+        data.put("destination_school_3", destinationSchool3);
+        String destinationSchools = "";
+        if (destinationSchool1 != null) {
+            destinationSchools = destinationSchool1;
+        }
+        if (destinationSchool2 != null) {
+            destinationSchools += "; " + destinationSchool2;
+        }
+        if (destinationSchool3 != null) {
+            destinationSchools += "; " + destinationSchool3;
+        }
+        data.put("destination_schools", destinationSchools);
+
         data.put("students_vouchers", getSinglePrettyValue(espData, "students_vouchers"));
         data.put("ell_level", getSingleValue(espData, "ell_level"));
 

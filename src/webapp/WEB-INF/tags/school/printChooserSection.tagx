@@ -12,6 +12,10 @@
     <jsp:directive.attribute name="school" type="gs.data.school.School" />
     <jsp:directive.attribute name="schoolData" type="java.util.Map" />
 
+    <c:set var="defaultString" value="Not available"/>
+    <c:set var="isPreschool" value="${fn:contains(school.levelCode, 'p')}"/>
+    <c:set var="isPrivateSchool" value="${school.type.schoolTypeName eq 'private'}"/>
+
 
     <div class="chooser-section container_24">
         <div class="clearfix" style="padding: 0 0 15px 0;">
@@ -59,8 +63,8 @@
             </div>
             <div class="fr clearfix" style="border-left: 1px solid #cccccc;">
                 <div style="float:left; padding: 20px 25px 0 25px">
-                    <p>Academic:<br /><span class="strong">Above Average / 10 ${schoolData['overallAcademicRating']}</span></p>
-                    <p>Climate:<br /><span class="strong">Above Average / 10 ${schoolData['overallClimateRating']}</span></p>
+                    <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']} / 10 ${schoolData['overallAcademicRatingText']}</span></p>
+                    <p>Climate:<br /><span class="strong">${schoolData['overallClimateRating']} / 10 ${schoolData['overallClimateRatingText']}</span></p>
                 </div>
                 <div style="float:left;text-align:center; padding-left:10px; border-left: 1px solid #cccccc;">
                     <span class="iconx60-RYG i-60-6"><!-- do not collapse --></span>
@@ -91,22 +95,47 @@
                         <span class="fl clearfix">Deadline:</span><span class="fr strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span>
                         <br />
                     </c:if>
-                    <span class="fl clearfix">Tuition:</span><span class="fr strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span>
+                    <c:choose>
+                        <c:when test="${not empty schoolData['tuition_low'] and not empty schoolData['tuition_high']}">
+                            <span class="fl clearfix">Tuition:</span><span class="fr strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span>
+                            <br />
+                        </c:when>
+                        <c:otherwise>
+                            <span class="fl clearfix">Tuition:</span><span class="fr strong"> ${defaultString}</span>
+                            <br />
+                        </c:otherwise>
+                    </c:choose>
+
+                    <span class="fl clearfix">Financial Aid:</span><span class="fr strong">${gsweb:defaultString(schoolData['financial_aid'], defaultString)}</span>
                     <br />
-                    <span class="fl clearfix">Financial Aid:</span><span class="fr strong"> ${schoolData['financial_aid']}</span>
-                    <br />
-                    <span class="fl clearfix">Voucher accepted:</span><span class="fr strong"> ${schoolData['students_vouchers']}</span>
+                    <span class="fl clearfix">Voucher accepted:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['students_vouchers'], defaultString)}</span>
 
                 </p>
                 <h2>School Stats</h2>
                 <p class="clearfix">
-                    <span class="fl clearfix">Uniforms/Dress code:</span><span class="fr strong"> ${schoolData['dress_code']}</span>
+                    <span class="fl clearfix">Uniforms/Dress code:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['dress_code'], defaultString)}</span>
                     <br />
-                    <span class="fl clearfix">Before care:</span><span class="fr strong"> Starts ${schoolData['before_after_care_start']}</span>
-                    <br />
-                    <span class="fl clearfix">After care:</span><span class="fr strong"> Ends ${schoolData['before_after_care_end']}</span>
-                    <br />
-                    <span class="fl clearfix">Transportation:</span><span class="fr strong">${schoolData['transportation']}</span>
+                    <c:choose>
+                        <c:when test="${not empty schoolData['before_after_care_end']}">
+                            <span class="fl clearfix">Before care:</span><span class="fr strong"> Starts ${schoolData['before_after_care_start']}</span>
+                            <br />
+                        </c:when>
+                        <c:otherwise>
+                            <span class="fl clearfix">Before care:</span><span class="fr strong"> ${defaultString}</span>
+                            <br />
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${not empty schoolData['before_after_care_end']}">
+                            <span class="fl clearfix">After care:</span><span class="fr strong"> Ends ${schoolData['before_after_care_end']}</span>
+                            <br />
+                        </c:when>
+                        <c:otherwise>
+                            <span class="fl clearfix">After care:</span><span class="fr strong"> ${defaultString}</span>
+                            <br />
+                        </c:otherwise>
+                    </c:choose>
+                    <span class="fl clearfix">Transportation:</span><span class="fr strong">${gsweb:defaultString(schoolData['transportation'], defaultString)}</span>
                     <br />
                 </p>
             </div>
@@ -115,9 +144,9 @@
                 <h2>Special education services</h2>
                 <p><span class="strong uppercase">INTENSIVE</span></p>
                 <h2>ELL services</h2>
-                <p><span class="strong uppercase">${schoolData['ell_level']}</span></p>
+                <p><span class="strong uppercase">${gsweb:defaultString(schoolData['ell_level'], defaultString)}</span></p>
                 <h2>Our grads typically go to</h2>
-                <p><span class=" ">${schoolData['destination_schools']}</span></p>
+                <p><span class=" ">${gsweb:defaultString(schoolData['destination_schools'],defaultString)}</span></p>
             </div>
         </div>
     </div><!-- end container -->
