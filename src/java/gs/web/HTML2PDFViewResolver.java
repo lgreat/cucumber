@@ -114,7 +114,7 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
                 // create the PDF
                 OutputStream os = response.getOutputStream();
                 pdfRenderer.createPDF(os, false);
-                doMerge(pdfRenderer);
+                //doMerge(pdfRenderer);
                 pdfRenderer.finishPDF();
                 os.flush();
                 os.close();
