@@ -92,20 +92,20 @@
                 <c:when test="${not empty gsRating and gsRating gt 0}">
                     <c:choose>
                         <c:when test="${isNewGsRating}">
-                            <span class="ratingx${privateSpriteSize}-public-RYG r-${privateSpriteSize}-${gsRating}"><!--Do not collapse--></span>
+                            <div class="public-${gsRating} r-${size}">${gsRating}</div>
                         </c:when>
                         <c:otherwise>
-                            <span class="ratingx${privateSpriteSize}-public-O r-${privateSpriteSize}-${gsRating}"><!--Do not collapse--></span>
+                            <div class="public-O r-${size}">${gsRating}</div>
                         </c:otherwise>
                     </c:choose>
                 </c:when>
                 <c:otherwise>
                     <c:choose>
                         <c:when test="${isNewGsRating}">
-                            <span class="ratingx${privateSpriteSize}-public-RYG r-${privateSpriteSize}-NR"><!--Do not collapse--></span>
+                            <div class="public-NR r-${size}">NR</div>
                         </c:when>
                         <c:otherwise>
-                            <span class="ratingx${privateSpriteSize}-public-O r-${privateSpriteSize}-NR"><!--Do not collapse--></span>
+                            <div class="public-NR r-${size}">NR</div>
                         </c:otherwise>
                     </c:choose>
                 </c:otherwise>
