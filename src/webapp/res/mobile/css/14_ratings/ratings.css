@@ -29,6 +29,168 @@ General comments:
 
 -------------------------------------------------------------- */
 
+.ratings-round{
+    color:#FFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    background: #FF8000;
+    border: solid 1px #FF8000;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, .4);
+}
+
+.ratings-square{
+    color:#FFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    background: #2092C4;
+    border: solid 1px #2092C4;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, .4);
+}
+
+.ratings-small{
+    font: bold 14px/20px arial;
+    letter-spacing: -1px;
+    width: 24px;
+    height: 24px;
+}
+
+.ratings-medium{
+    font: bold 18px/24px arial;
+    letter-spacing: -1px;
+    width: 32px;
+    height: 32px;
+}
+
+.ratings-large{
+    font: bold 26px/32px arial;
+    letter-spacing: -2px;
+    width: 44px;
+    height: 44px;
+}
+
+.round-small {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+}
+
+.round-medium {
+    border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+}
+
+.round-large {
+    border-radius: 22px;
+    -moz-border-radius: 22px;
+    -webkit-border-radius: 22px;
+}
+
+.square-small {
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+
+.square-medium {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.square-large {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+.ratings-number{
+    position: relative;
+    text-align: center;
+}
+
+.number-small{
+    top:3px;
+}
+
+.number-medium{
+    top:5px;
+}
+
+.number-large{
+    top:6px;
+}
+
+/*New ratings styles for orange and RYG badges*/
+
+.public-O{
+    background-image: linear-gradient(bottom,#DA671E,#FD7D01);
+    background: #EC720F;
+    border: 1px solid #DA671E;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.public-1, .public-2, .public-3{
+    background-image: linear-gradient(bottom, #B9302C,#D25652);
+    background: #C5423E;
+    border: 1px solid #B9302C;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.public-4, .public-5, .public-6, .public-7{
+    background-image: linear-gradient(bottom, #EDA026,#F8C442);
+    background: #F2B133;
+    border: 1px solid #EDA026;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.public-8, .public-9, .public-10{
+    background-image: linear-gradient(bottom, #559341,#73B15E );
+    background: #64A250;
+    border: 1px solid #559341;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.public-NR{
+    background-image: linear-gradient(bottom, #555555,#787878);
+    background: #666666;
+    border: 1px solid #555555;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.r-24{
+    font: bold 14px/24px arial;
+    letter-spacing: 0px;
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    -moz-border-radius: 24px;
+    -webkit-border-radius: 24px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.r-32 {
+    font: bold 18px/32px arial;
+    letter-spacing: -1px;
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    -moz-border-radius: 32px;
+    -webkit-border-radius: 32px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.r-44 {
+    font: bold 26px/43px arial;
+    letter-spacing: -1px;
+    width: 44px;
+    height: 44px;
+    border-radius: 44px;
+    -moz-border-radius: 44px;
+    -webkit-border-radius: 44px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
 /*-------------------Private school badges-----------------------*/
 
 /* x24
@@ -120,20 +282,6 @@ General comments:
 
 /* x32
 -------------------------------------------------------------------------------------------*/
-
-.ratingx32-public-O {  /* (orange ratings) */
-    display: inline-block;
-    background-size:352px 32px;
-    width: 32px;
-    height: 32px;
-}
-
-.ratingx32-public-RYG {  /* walton (red-yellow-green ratings) */
-    display: inline-block;
-    background-size:352px 32px;
-    width: 32px;
-    height: 32px;
-}
 
 .ratingx32-private-O {  /* (orange ratings) */
     display: inline-block;
