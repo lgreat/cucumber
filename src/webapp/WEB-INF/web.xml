@@ -64,10 +64,11 @@
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
+    <!-- commenting out for 21.4 since this needs to be tested more -->
+    <!--<servlet-mapping>
         <servlet-name>pages</servlet-name>
         <url-pattern>/print-your-own-chooser/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
@@ -743,10 +744,11 @@
         <url-pattern>/videos/*</url-pattern>
     </filter-mapping>
 
-    <filter-mapping>
+    <!-- commenting out for 21.4 since this needs to be tested more -->
+    <!--<filter-mapping>
         <filter-name>disablejsessionid</filter-name>
         <url-pattern>/print-your-own-chooser/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
