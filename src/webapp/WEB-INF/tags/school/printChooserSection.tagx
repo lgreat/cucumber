@@ -64,7 +64,17 @@
             <div class="fr clearfix" style="border-left: 1px solid #cccccc;">
                 <div style="float:left; padding: 20px 25px 0 25px">
                     <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']} / 10 ${schoolData['overallAcademicRatingText']}</span></p>
-                    <p>Climate:<br /><span class="strong">${schoolData['overallClimateRating']} / 10 ${schoolData['overallClimateRatingText']}</span></p>
+
+                    <p>Climate:<br />
+                        <c:choose>
+                            <c:when test="${not empty schoolData['overallClimateRating']}">
+                                <span class="strong">${schoolData['overallClimateRating']} / 10 ${schoolData['overallClimateRatingText']}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="strong">${defaultString}</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
                 </div>
                 <div style="float:left;text-align:center; padding-left:10px; border-left: 1px solid #cccccc;">
                     <span class="iconx60-RYG i-60-6"><!-- do not collapse --></span>
