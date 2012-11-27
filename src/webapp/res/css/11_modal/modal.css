@@ -257,7 +257,7 @@ box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
     *filter: progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6);
 }
 .modal_3 .inner{
-    padding: 20px 20px;
+    padding: 20px;
 }
 .modal_3 .inner .hd{}
 .modal_3 .inner .hd h3{
@@ -268,4 +268,22 @@ box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
 }
 .modal_3 .inner .hd span.reportHoverHeader {
     margin: 0px;
+}
+
+.modal_3 .inner .bd {
+    border: 1px solid #dddddd;
+    /*-webkit-border-radius: 4px; *//* Saf3-4, iOS 1-3.2, Android <1.6 */
+    /*-moz-border-radius: 4px; *//* FF1-3.6 */
+}
+
+.modal_3 .inner .bd .schoolList{
+    border-bottom: 1px solid #dddddd;
+}
+
+.modal_3 .inner .ft {
+    background-color: #EDF5F9;
+    border: 1px solid #BBDDED;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;  /*Saf3-4, iOS 1-3.2, Android <1.6*/
+    -moz-border-radius: 4px;  /*FF1-3.6*/
 }

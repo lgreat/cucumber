@@ -85,6 +85,7 @@
 <communityHover:validateEmail/>
 <communityHover:validateEmailSchoolReview/>
 <communityHover:validateEditEmail/>
+<communityHover:printSchoolChooser/>
 <communityHover:emailNotValidated/>
 <communityHover:emailValidated/>
 <communityHover:editEmailValidated/>

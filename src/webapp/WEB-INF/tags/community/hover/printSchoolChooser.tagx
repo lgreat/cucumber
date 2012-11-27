@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+
+    <head>
+        <script>
+            function printSchoolList(){
+                console.log("check");
+                var selected = new Array();
+                $('#pyoc input:checked').each(function() {
+                    selected.push($(this).attr('value'));
+                });
+                console.log(selected);
+            }
+
+            function deselectSchool(){
+                $('#pyoc input').each(function(){
+                    $(this).attr('checked',false);
+                });
+            }
+        </script>
+    </head>
+    <div id="printSchoolChooser" class="dialog_white" style="display:none;">
+
+        <div class="modal_3 width_13 slStylesV1-0" id="printSchoolChooser">
+            <div class="outer">
+                <div class="fr"><span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner">
+                    <!--<div class="">-->
+                        <!--<div id="valNewEmailDone" class="dialog_white" style="display:none;">-->
+                        <h2 class="bottom">Print you own school chooser</h2>
+                        <p class="pts">Thanks for verifying your updated email address.</p>
+                        <div class="">
+                            <h4 class="fl bottom">You are printing <strong>4</strong> schools</h4>
+                            <a href="javascript:void(0)" class="fr" id="pyocDeselect"
+                               onclick="deselectSchool()">Deselect all</a>
+                            <div class="clearfix"><!--Do not collape--></div>
+                        </div>
+                        <div id="pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;">
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="CA,38" value="CA,38"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="DC,346" value="DC,346"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="WI,246" value="WI,246"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="CA,112" value="CA,112"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="DC,964" value="DC,964"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="CA,234" value="CA,234"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                            <div class="schoolSelectList pam">
+                                <span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>
+                                <span class="fr"><input type="checkbox" name="DC,678" value="DC,678"/></span>
+                                <div class="clearfix"><!--Do not collape--></div>
+                            </div>
+                        </div>
+                    <div class="ft pas mbl"><input type="checkbox" name="" value=""/><span class="mlm">Include a school visit Checklist</span></div>
+                        <button class="button-1 printSchoolChooser_hideHover" type="button" onclick="printSchoolList()">Download PDF</button>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <form id="printSchoolChooserSubmit" method="POST">
+            <input type="hidden" name="schoolsChoosen" value="" />
+            <input type="hidden" name="appendExtraPDFs" value="yes" />
+        </form>
+    </div>
+
+
+</jsp:root>
