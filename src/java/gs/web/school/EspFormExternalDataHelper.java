@@ -91,6 +91,27 @@ public class EspFormExternalDataHelper {
         fetchExternalValues(responseMap, school, getKeysForExternalData(school)) ;
     }
 
+    //TODO comment
+    protected void fetchProvisionalExternalValues(String key,String value,Map<String, EspFormResponseStruct> responseMap){
+        //TODO is StringUtils.isNotBlank(value) required in all the below cases?
+        if(key.equals("address") && StringUtils.isNotBlank(value)){
+            insertEspFormResponseStructForProvisionalAddress(responseMap,value);
+        }else if(key.equals("school_phone") && StringUtils.isNotBlank(value)){
+            insertEspFormResponseStructForProvisionalPhone(responseMap,value);
+        } else if(key.equals("school_fax") && StringUtils.isNotBlank(value)){
+            insertEspFormResponseStructForProvisionalFax(responseMap,value);
+        } else if(key.equals("census_ethnicity")){
+            //TODO for page 8?
+        } else {
+            // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
+            //TODO
+            EspFormResponseStruct espResponse = new EspFormResponseStruct();
+            espResponse.addValue(value);
+            responseMap.put(key, espResponse);
+
+        }
+    }
+
     /**
      * Converts an <code>Address</code> on a <code>School</code> to multiple <code>EspFormResponseStruct</code>s and adds
      * them to the specified map
@@ -247,9 +268,91 @@ public class EspFormExternalDataHelper {
         return new String[0];
     }
 
+    //TODO comment
+    void insertEspFormResponseStructForProvisionalAddress(Map<String, EspFormResponseStruct> responseMap, String addressStr) {
+        //TODO put address handle in address.java?
+        //TODO validate lengths etc  and also write tests with whats already in the db
+        String streetLine1 = addressStr.substring(0,addressStr.indexOf(", \n"));
+        int index = streetLine1.length()+3;
+        if(addressStr.indexOf("\n",index) >=0 ){
+            String streetLine2 = addressStr.substring(index,addressStr.indexOf("\n",index));
+            if(!StringUtils.isBlank(streetLine2)){
+                index += streetLine2.length()+1;
+            }
+        }
+        String city = addressStr.substring(index,addressStr.indexOf(", ",index));
+        index += city.length()+2;
+
+        //TODO validate state
+        String state = addressStr.substring(index,addressStr.indexOf("  ",index));
+        index += state.length()+2;
+
+        String zip = addressStr.substring(index,addressStr.length());
+
+        EspFormResponseStruct streetStruct = new EspFormResponseStruct();
+        streetStruct.addValue(streetLine1);
+        responseMap.put("physical_address_street", streetStruct);
+        EspFormResponseStruct cityStruct = new EspFormResponseStruct();
+        cityStruct.addValue(city);
+        responseMap.put("physical_address_city", cityStruct);
+        EspFormResponseStruct stateStruct = new EspFormResponseStruct();
+        stateStruct.addValue(state);
+        responseMap.put("physical_address_state", stateStruct);
+        EspFormResponseStruct zipStruct = new EspFormResponseStruct();
+        zipStruct.addValue(zip);
+        responseMap.put("physical_address_zip", zipStruct);
+
+        responseMap.remove("address");
+    }
+
+    //TODO comments
+    void insertEspFormResponseStructForProvisionalPhone(Map<String, EspFormResponseStruct> responseMap, String phoneStr) {
+        //TODO validate lengths etc and write tests with whats already in the db
+        String areaCode = phoneStr.substring(0,phoneStr.indexOf(")"));
+        String officeCode = phoneStr.substring(phoneStr.indexOf(")")+1,phoneStr.indexOf("-"));
+        String lastFour = phoneStr.substring(phoneStr.indexOf("-")+1,phoneStr.length());
+
+        EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+        areaCodeStruct.addValue(areaCode);
+        responseMap.put("school_phone_area_code", areaCodeStruct);
+
+        EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+        officeCodeStruct.addValue(officeCode);
+        responseMap.put("school_phone_office_code", officeCodeStruct);
+
+        EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+        lastFourStruct.addValue(lastFour);
+        responseMap.put("school_phone_last_four", lastFourStruct);
+
+        responseMap.remove("school_phone");
+    }
+
+    //TODO comments
+    void insertEspFormResponseStructForProvisionalFax(Map<String, EspFormResponseStruct> responseMap, String faxStr) {
+        //TODO validate lengths etc and write tests with whats already in the db
+        String areaCode = faxStr.substring(0,faxStr.indexOf(")"));
+        String officeCode = faxStr.substring(faxStr.indexOf(")")+1,faxStr.indexOf("-"));
+        String lastFour = faxStr.substring(faxStr.indexOf("-")+1,faxStr.length());
+
+        EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+        areaCodeStruct.addValue(areaCode);
+        responseMap.put("school_fax_area_code", areaCodeStruct);
+
+        EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+        officeCodeStruct.addValue(officeCode);
+        responseMap.put("school_fax_office_code", officeCodeStruct);
+
+        EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+        lastFourStruct.addValue(lastFour);
+        responseMap.put("school_fax_last_four", lastFourStruct);
+
+        responseMap.remove("school_fax");
+    }
+
     /**
      * Return error message on error.
      */
+    //TODO comment about provisional data
     public String saveExternalValue(String key, Object[] values, School school, User user, Date now,
                                     boolean isProvisionalData) {
         if (values == null || values.length == 0 && school == null) {
