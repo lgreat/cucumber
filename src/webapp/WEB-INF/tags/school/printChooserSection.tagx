@@ -50,7 +50,7 @@
                             Phone:<span class="strong"> ${school.phone}</span><br />
                         </c:if>
 
-                        Class hours:<span class="strong"> 7:45 AM - 2:30 PM</span>
+                        Class hours:<span class="strong"> ${schoolData['start_time']} - ${schoolData['end_time']}</span>
                     </p>
                 </div>
                 <div class="fr">
@@ -142,7 +142,7 @@
 
             <div class="bd_column" style="padding-right: 0px;">
                 <h2>Special education services</h2>
-                <p><span class="strong uppercase">INTENSIVE</span></p>
+                <p><span class="strong uppercase">${schoolData['special_ed_services']}</span></p>
                 <h2>ELL services</h2>
                 <p><span class="strong uppercase">${gsweb:defaultString(schoolData['ell_level'], defaultString)}</span></p>
                 <h2>Our grads typically go to</h2>
