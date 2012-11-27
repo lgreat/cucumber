@@ -380,6 +380,12 @@
         <function-signature>boolean matchesRegex(java.lang.String, java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>defaultString</name>
+        <function-class>gs.data.util.string.StringUtils</function-class>
+        <function-signature>java.lang.String defaultString(java.lang.String,java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>erts</name>
         <tag-class>gs.web.jsp.EspResponseListToStringTagHandler</tag-class>

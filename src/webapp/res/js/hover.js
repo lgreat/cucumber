@@ -813,7 +813,36 @@ GSType.hover.ValidateEditEmail = function() {
         //this.dialogByWidth();
     }
 };
-GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail',640);
+GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail',540);
+
+//PrintSchoolChooser Hover
+GSType.hover.PrintSchoolChooser = function() {
+    this.loadDialog = function() {
+//        this.pageName='Print My School List';
+//        this.hier1='Hovers,Verification,Verify Change Email Hover';
+//        this.dialogByWidth();
+    }
+    this.showHover = function() {
+            GSType.hover.printSchoolChooser.show();
+    };
+};
+GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser',640);
+
+
+
+//GSType.hover.SchoolEspThankYou = function() {
+//    this.loadDialog = function() {
+//    };
+//    this.showHover = function() {
+//        GSType.hover.schoolEspThankYou.show();
+//    };
+//
+//    this.onClose = function() {
+//    };
+//};
+//
+//GSType.hover.SchoolEspThankYou.prototype = new GSType.hover.HoverDialog("schoolEspThankYou",640);
+
 
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
@@ -1218,6 +1247,7 @@ GSType.hover.validateEmailSchoolReview = new GSType.hover.ValidateEmailSchoolRev
 GSType.hover.joinHover = new GSType.hover.JoinHover();
 GSType.hover.signInHover = new GSType.hover.SignInHover();
 GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
+GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
@@ -1581,6 +1611,7 @@ jQuery(function() {
     GSType.hover.joinHover.loadDialog();
     GSType.hover.signInHover.loadDialog();
     GSType.hover.validateEditEmail.loadDialog();
+    GSType.hover.printSchoolChooser.loadDialog();
     GSType.hover.validateEmail.loadDialog();
     GSType.hover.validateEmailSchoolReview.loadDialog();
     GSType.hover.validateLinkExpired.loadDialog();
@@ -1786,6 +1817,8 @@ jQuery(function() {
         GSType.hover.editEmailValidated.show();
     } else if (showHover == "validateEditEmail") {
         GSType.hover.validateEditEmail.show();
+    } else if (showHover == "printSchoolChooser") {
+            GSType.hover.printSchoolChooser.show();
     } else if (showHover == "validationLinkExpired") {
         GSType.hover.validateLinkExpired.show();
     } else if (showHover == "emailValidatedSchoolReviewPosted") {
