@@ -182,7 +182,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
                 specialEdServices.append(response.getPrettyValue());
             }
         }
-        data.put("special_ed_services", specialEdServices.toString());
+        data.put("special_ed_services", StringUtils.trimToNull(specialEdServices.toString().trim()));
 
         String dressCode = getSingleValue(espData, "dress_code");
         if (dressCode != null) {
