@@ -786,10 +786,14 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // QueryString Search Specific:  Put rel canonical value into the model
         UrlBuilder relCanonical = null;
         if (isNearbySearchByLocation) {
-            if (commandAndFields.getState() != null && commandAndFields.getCity() != null) {
+            City city = null;
+            if (commandAndFields.getState() != null && commandAndFields.getSchoolSearchCommand() != null && commandAndFields.getSchoolSearchCommand().getCity() != null) {
+                city = commandAndFields.getCity(commandAndFields.getState(), commandAndFields.getSchoolSearchCommand().getCity());
+            }
+            if (city != null) {
                 relCanonical = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
                         commandAndFields.getState(),
-                        commandAndFields.getCity().getName(),
+                        city.getName(),
                         SchoolType.getSetContainingOnlyLowestSchoolType(commandAndFields.getSchoolTypes()),
                         LevelCode.createLevelCode(commandAndFields.getGradeLevels()).getLowestNonPreSchoolLevelCode());
             } else if (commandAndFields.getState() != null) {

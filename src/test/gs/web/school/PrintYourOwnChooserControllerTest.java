@@ -39,8 +39,8 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testGetSchoolsFromParams() throws Exception {
 
-        State states[] = {State.CA, State.DC, State.AK};
-        Integer[] ids = {1,2,3};
+        String states = "CA,DC,AK";
+        String ids = "1,2,3";
 
         expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School());
         expect(_schoolDaoHibernate.getSchoolById(eq(State.DC), eq(2))).andReturn(new School());
@@ -57,8 +57,8 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testGetSchoolsFromParams_onlyOneState() throws Exception {
 
-        State states[] = {State.CA};
-        Integer[] ids = {1,2,3};
+        String states = "CA";
+        String ids = "1,2,3";
 
         expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School());
         expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(2))).andReturn(new School());
@@ -75,8 +75,8 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testException_nullInputs() throws Exception {
 
-        State states[] = null;
-        Integer[] ids = {1,2,3};
+        String states = null;
+        String ids = "1,2,3";
 
         try {
             List<School> schools = _pdfController.getSchoolsFromParams(states, ids);
@@ -89,8 +89,8 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testException_emptyInputs() throws Exception {
 
-        State states[] = {};
-        Integer[] ids = {};
+        String states = "";
+        String ids = "";
 
         try {
             List<School> schools = _pdfController.getSchoolsFromParams(states, ids);
@@ -103,8 +103,8 @@ public class PrintYourOwnChooserControllerTest {
     @Test
     public void testException_stateAndIDsInequal_moreThanOneState() throws Exception {
 
-        State states[] = {State.CA, State.AK};
-        Integer[] ids = {1,2,3};
+        String states = "CA,AK";
+        String ids = "1,2,3";
 
         try {
             List<School> schools = _pdfController.getSchoolsFromParams(states, ids);

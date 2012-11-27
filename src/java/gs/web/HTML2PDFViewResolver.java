@@ -3,6 +3,7 @@ package gs.web;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.*;
 import gs.web.util.UrlUtil;
 import org.apache.log4j.Logger;
 import org.dom4j.DocumentException;
@@ -44,7 +47,7 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
     // Spring calls resolveViewName
     public View resolveViewName(String viewName, Locale locale) throws Exception {
         // get the view that's resolved by the configured view resolver in pages-servlet
-        final View pdfView = viewResolver.resolveViewName(viewName, locale);
+        final View htmlView = viewResolver.resolveViewName(viewName, locale);
 
         // new View is created and given to Spring. This view wraps the view above
         return new View() {
@@ -84,7 +87,7 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
                 };
 
                 // does the work of rendering the html and writing to our StringWriter
-                pdfView.render(model, request, wrapper);
+                htmlView.render(model, request, wrapper);
 
                 // parse the html into a Document
                 String html = htmlWriter.toString();
@@ -106,9 +109,13 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
 
                 ITextRenderer pdfRenderer = buildITextRenderer(document, baseHref);
 
+
+
                 // create the PDF
                 OutputStream os = response.getOutputStream();
-                pdfRenderer.createPDF(os);
+                pdfRenderer.createPDF(os, false);
+                //doMerge(pdfRenderer);
+                pdfRenderer.finishPDF();
                 os.flush();
                 os.close();
             }
@@ -141,6 +148,20 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
         catch (IOException e) {
             throw new TransformerException(e);
         }
+    }
+
+    public static void doMerge(ITextRenderer iTextRenderer) throws DocumentException, IOException, com.lowagie.text.DocumentException {
+        PdfWriter writer = iTextRenderer.getWriter();
+        PdfContentByte cb = writer.getDirectContent();
+
+        com.itextpdf.text.pdf.PdfReader reader = new com.itextpdf.text.pdf.PdfReader("/Users/samson/Development/GSMeta/GSWeb/src/webapp/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf");
+        //com.itextpdf.text.Document doc = new com.itextpdf.text.Document(PageSize.A4);
+
+        PdfImportedPage page = writer.getImportedPage(reader, 1);
+        cb.getPdfDocument().newPage();
+
+        //doc.newPage();
+        cb.addTemplate(page, 0, 0);
     }
 
     public ViewResolver getViewResolver() {

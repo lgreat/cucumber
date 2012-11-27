@@ -25,30 +25,30 @@ hgroup, nav, section {
 }
 
 div.divFooter {
-    position: fixed;
-    bottom: 0;
-    width:100%;
-    color:#2B2B2B;
-    font-size: 6pt;
+    font:normal 6pt Arial, Helvetica, sans-serif;
+    color:#878787;
+    position: running(divFooter);
 }
 div.divFooter .logo{
     width:100px;
     vertical-align: middle;
 }
-/*bottom-right-corner*/
-@page {
-    font:normal 7pt Arial, Helvetica, sans-serif;
-
-    @bottom-center{
-            content: counter(page);
-            /*font:normal 7pt Arial, Helvetica, sans-serif ;*/
-    }
-    @bottom-right{
-            /*content:'<img src="/res/img/pdfChooser/28634_thumb_logo.png" class="logo" alt="greatschools" /> | www.greatschools.org'*/
-            /*content: counter(page);*/
-            /*font:normal 7pt Arial, Helvetica, sans-serif ;*/
-    }
+div.dateFooter {
+    position: running(dateFooter);
 }
+
+@page {
+@bottom-center{
+        font:normal 7pt Arial, Helvetica, sans-serif;
+        content: counter(page);
+    }
+@bottom-left{
+        content:   element(dateFooter );
+    }
+@bottom-right{
+        content:   element(divFooter );
+    }
+    }
 
 body	{
     font:normal 7pt Arial, Helvetica, sans-serif ;
@@ -85,15 +85,6 @@ ul	{
     list-style-type:none;
 }
 
-#container	{
-
-
-}
-
-#header_container	{
-    /*width:100%;*/
-}
-
 .left_column{
     float:left;
     margin-bottom:.5em;
@@ -101,40 +92,15 @@ ul	{
     margin-right:10px;
 }
 
-.header_column	{
-    float:left;
-    margin-bottom:.5em;
-    width:21%;
-    margin-right:10px;
-}
 
-.rating_container	{
-    padding:0 10px 5px 0;
-    float:left;
-}
-
-.climate_container	{
-    padding:5px 30px 5px 10px;
-    float:left;
-}
-
-.schoolInfo_container	{
-    border:solid 1px red;
-}
 
 .bd_column	{
     float:left;
-    /*width:25%;*/
+    width:27%;
     margin-bottom:.5em;
-    padding-right: 30px;
+    padding-right: 50px;
 }
 
-#footer	{
-    width:100%;
-    font-size:.47em;
-    line-height:140%;
-    margin-top:1.5em;
-}
 
 .fl	{
     float:left;
@@ -142,14 +108,6 @@ ul	{
 
 .fr	{
     float:right;
-}
-
-.labels{
-    font-size: 7pt
-}
-
-.lightText	{
-    color:#999;
 }
 
 .strong	{
@@ -164,16 +122,8 @@ ul	{
     text-transform: capitalize;
 }
 
-.alignCenter	{
-    text-align:center;
-}
-
-.topMargin	{
-    margin-top:.5em;
-}
-
 hr	{
-    border:solid 2px #DDDDDD;
+    border:solid 2px #AAAAAA;
     margin:0;
     clear:both;
 }
@@ -181,18 +131,11 @@ hr	{
 hr.rulethin	{
     width:100%;
     border:solid 1px #EEEEEE;
-    margin:0 0 .5em 0;
+    margin:0 0 0 0;
+    padding:0 0 0 0;
     clear:both;
 }
 
-a:link	{
-    color:#0066BB;
-    text-decoration:none;
-}
-
-a:hover {
-    text-decoration:underline;
-}
 .mbm, .mvm {margin-bottom: 10px;}
 .mtm, .mvm {margin-top: 10px;}
 
