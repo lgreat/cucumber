@@ -166,6 +166,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This may include information about student progress, homework help and volunteer opportunities. " +
             "At lower-rated schools, parents may not get regular updates and may feel less welcome at school.";
 
+
+    public static final String PERFORMANCE_MANAGEMENT_RATING_COPY="This school is a low-performing (Tier 3) school, " +
+            "according to the DC Public Charter School Board, the organization that regulates DC charter schools. " +
+            "Schools that are persistently or significantly low performing (Tier 3) could have their charters revoked," +
+            " resulting in closure. If a school has been identified as low performing by a local authority and that " +
+            "designation could result in school closure, the school receives a \"Below average\" GreatSchools Rating. ";
+
     // ===================== MODEL ==================================
 
     public static final String MODEL_OVERALL_RATING = "overallRating";
@@ -292,6 +299,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         populateSection3Model(school, dataMap, modelMap);
 
         populateSection4Model(school, dataMap, modelMap);
+
+        getPerformanceManagementRatingText(school,request,modelMap);
 
         // need to check which view to return
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
@@ -723,6 +732,40 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
 
         return model;
+    }
+
+    /**
+     * Checks if the school has PerformanceMangementRating of Tier 3 (i.e. < 35). If it does then put text into the model.
+     * @param school
+     * @param request
+     * @param model
+     */
+    public void getPerformanceManagementRatingText(School school, HttpServletRequest request, ModelMap model) {
+        if (SchoolProfileOverviewController.showPerformanceManagementRating(school.getDatabaseState())) {
+            Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
+            if (ratingsMap != null && !ratingsMap.isEmpty()
+                    && ratingsMap.containsKey(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST)) {
+
+                List<SchoolProfileDataHelper.PerformanceRatingObj> performanceManagementRatingList;
+
+                try {
+                    performanceManagementRatingList =
+                            (List<SchoolProfileDataHelper.PerformanceRatingObj>) ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST);
+
+                } catch (ClassCastException ex) {
+                    _log.error("Class cast exception while retrieving Performance Management Rating.");
+                    return;
+                }
+
+                //When a school has multiple tier ratings, then check to see if any of the rating is Tier 3.If it is then display the text.
+                for (SchoolProfileDataHelper.PerformanceRatingObj performanceRatingObj : performanceManagementRatingList) {
+                    if (performanceRatingObj.getScore() < 35.0) {
+                        model.put("PerformanceManagementRatingCopy", PERFORMANCE_MANAGEMENT_RATING_COPY);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     //===================== UTILITY METHODS ========================
