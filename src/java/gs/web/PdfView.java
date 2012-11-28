@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfWriter;
 import gs.web.util.UrlUtil;
+import org.apache.log4j.Logger;
 import org.dom4j.DocumentException;
 import org.springframework.web.servlet.View;
 import org.w3c.dom.Document;
@@ -21,11 +22,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-class PdfView implements View {
+public class PdfView implements View {
     View _viewToWrap;
     String _pdfToAppend; // path to PDF on disk
 
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
+
+    private static final Logger _logger = Logger.getLogger(PdfView.class);
 
     public PdfView(View viewToWrap) {
         _viewToWrap = viewToWrap;
@@ -103,7 +106,11 @@ class PdfView implements View {
         pdfRenderer.createPDF(os, false);
 
         if (_pdfToAppend != null) {
-            appendPdf(pdfRenderer, _pdfToAppend);
+            try {
+                appendPdf(pdfRenderer, _pdfToAppend);
+            } catch (IOException e) {
+                _logger.debug("Failed to read PDF to append to end of generated PDF: "+ _pdfToAppend, e);
+            }
         }
 
         pdfRenderer.finishPDF();

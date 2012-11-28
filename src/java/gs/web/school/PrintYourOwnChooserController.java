@@ -4,18 +4,26 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.TestDataSetDisplayTarget;
+import gs.web.PdfView;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
@@ -24,7 +32,9 @@ import java.util.*;
 
 @RequestMapping("/print-your-own-chooser/chooser")
 @Component("printYourOwnChooserController")
-public class PrintYourOwnChooserController implements BeanFactoryAware {
+public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware {
+
+    private ServletContext _servletContext;
 
     private BeanFactory _beanFactory;
 
@@ -40,6 +50,15 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
+    @Autowired
+    private InternalResourceViewResolver _viewResolver;
+
+    public static final int MAX_ALLOWED_SCHOOLS = 100;
+
+    private static final String VIEW_NAME = "printYourOwnChooser";
+
+    private static final String PATH_TO_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+
     private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
 
     public static final String DATA_OVERALL_RATING = "overallRating"; // TestDataType.id = 174
@@ -52,13 +71,19 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
     private static final String MODEL_KEY_BEST_KNOWN_FOR = "bestKnownFor";
     private static final String MODEL_KEY_ETHNICITY_MAP = "ethnicityMap";
 
-    /**
-     *
-     */
+    @RequestMapping(method= RequestMethod.POST)
+    public View post(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
+                      @RequestParam(value="states", required = false) String statesCsv,
+                      @RequestParam(value="schoolIds", required = false) String schoolIdsCsv,
+                      @RequestParam(value="appendChecklist", required = false) Boolean appendChecklist) {
+        return get(modelMap, request, response, statesCsv, schoolIdsCsv, appendChecklist);
+    }
+
     @RequestMapping(method= RequestMethod.GET)
-    public String get(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
-                      @RequestParam(value="states") String statesCsv,
-                      @RequestParam(value="schoolIds") String schoolIdsCsv) {
+    public View get(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
+                      @RequestParam(value="states", required = false) String statesCsv,
+                      @RequestParam(value="schoolIds", required = false) String schoolIdsCsv,
+                      @RequestParam(value="appendChecklist", required = false) Boolean appendChecklist) {
 
         AbstractDataHelper.initialize(request);
 
@@ -66,7 +91,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         try {
             schools = getSchoolsFromParams(statesCsv, schoolIdsCsv);
         } catch (IllegalArgumentException e ) {
-
+            return new RedirectView("/status/error404.page");
         }
 
         modelMap.put("schools", schools);
@@ -76,7 +101,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         for (School school : schools) {
             Map<String, Object> data = new HashMap<String, Object>();
 
-            addBestKnownForQuoteToModel(school, data);
+            addOspDataToModel(school, data);
 
             addEthnicityDataToModel(school, data);
 
@@ -100,10 +125,20 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
                 data.put(DATA_OVERALL_ACADEMIC_RATING_TEXT, formatRating((Integer) academicRating));
             }
         }
-
         modelMap.put("schoolData", schoolData);
 
-        return "printYourOwnChooser";
+        try {
+            View viewToWrap = _viewResolver.resolveViewName(VIEW_NAME, Locale.getDefault());
+
+            if (Boolean.TRUE == appendChecklist) {
+                String absolutePath =  _servletContext.getRealPath(PATH_TO_CHECKLIST_PDF);
+                return new PdfView(viewToWrap,absolutePath);
+            } else {
+                return new PdfView(viewToWrap);
+            }
+        } catch (Exception e) {
+            return new RedirectView("/status/error404.page");
+        }
     }
 
     private String formatRating(int rating) {
@@ -116,8 +151,15 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         }
     }
 
-    private void addBestKnownForQuoteToModel(School school, Map<String, Object> data) {
+    public void addOspDataToModel(School school, Map<String, Object> data) {
         Map<String, List<EspResponse>> espData = getEspData(school);
+
+        data.put("tuition_low", getSinglePrettyValue(espData, "tuition_low"));
+        data.put("tuition_high", getSinglePrettyValue(espData, "tuition_high"));
+        data.put("financial_aid", getSinglePrettyValue(espData, "financial_aid"));
+        data.put("students_vouchers", getSinglePrettyValue(espData, "students_vouchers"));
+        data.put("ell_level", getSingleValue(espData, "ell_level"));
+
 
         // esp data - "best known for" quote
         String bestKnownFor = null;
@@ -127,9 +169,8 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             data.put(MODEL_KEY_BEST_KNOWN_FOR, bestKnownFor);
         }
 
-        data.put("tuition_low", getSinglePrettyValue(espData, "tuition_low"));
-        data.put("tuition_high", getSinglePrettyValue(espData, "tuition_high"));
-        data.put("financial_aid", getSinglePrettyValue(espData, "financial_aid"));
+
+        // application deadline
         String applicationDeadline = getSingleValue(espData, "application_deadline_date");
         Date applicationDeadlineDate = null;
         if (applicationDeadline != null) {
@@ -142,6 +183,8 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             data.put("application_deadline_date", applicationDeadlineDate);
         }
 
+
+        // Destination schools (where kids go after graduating)
         String destinationSchool1 = getSinglePrettyValue(espData, "destination_school_1");
         String destinationSchool2 = getSinglePrettyValue(espData, "destination_school_2");
         String destinationSchool3 = getSinglePrettyValue(espData, "destination_school_3");
@@ -160,18 +203,18 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         }
         data.put("destination_schools", destinationSchools);
 
-        data.put("students_vouchers", getSinglePrettyValue(espData, "students_vouchers"));
-        data.put("ell_level", getSingleValue(espData, "ell_level"));
 
+        // before and after care
         data.put("before_after_care_start", getSinglePrettyValue(espData, "before_after_care_start"));
         data.put("before_after_care_end", getSinglePrettyValue(espData, "before_after_care_end"));
+
 
         // class hours
         data.put("start_time", getSinglePrettyValue(espData, "start_time"));
         data.put("end_time", getSinglePrettyValue(espData, "end_time"));
 
 
-        //special ed services
+        // special ed services
         List<EspResponse> responses = espData.get("special_ed_services");
         StringBuffer specialEdServices = new StringBuffer();
         if (responses != null) {
@@ -184,6 +227,8 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
         }
         data.put("special_ed_services", StringUtils.trimToNull(specialEdServices.toString().trim()));
 
+
+        // dress code
         String dressCode = getSingleValue(espData, "dress_code");
         if (dressCode != null) {
             data.put("dress_code",
@@ -191,10 +236,10 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             );
         }
 
+
+        // transportation
         String transportation = getSingleValue(espData, "transportation");
         data.put("transportation", (transportation != null && !transportation.equalsIgnoreCase("none"))? "Yes":"No");
-
-
     }
 
     private String getSinglePrettyValue(Map<String, List<EspResponse>> espData, String key) {
@@ -253,7 +298,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             throw new IllegalArgumentException("If more than one state is provided, the number of states and IDs must be equal");
         }
 
-        for (int i = 0; i < schoolIds.length; i++) {
+        for (int i = 0; i < schoolIds.length && i < MAX_ALLOWED_SCHOOLS; i++) {
             String stateString;
             if (states.length > 1) {
                 stateString = states[i];
@@ -261,13 +306,9 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
                 stateString = states[0];
             }
 
-            try {
-                State state = State.fromString(stateString);
-                School s = _schoolDaoHibernate.getSchoolById(state, new Integer(schoolIds[i]));
-                schools.add(s);
-            } catch (IllegalArgumentException e) {
-
-            }
+            State state = State.fromString(stateString);
+            School s = _schoolDaoHibernate.getSchoolById(state, new Integer(schoolIds[i]));
+            schools.add(s);
         }
 
         return schools;
@@ -275,5 +316,9 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
 
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         _beanFactory = beanFactory;
+    }
+
+    public void setServletContext(ServletContext servletContext) {
+        _servletContext = servletContext;
     }
 }

@@ -1,5 +1,7 @@
 package gs.web.school;
 
+import gs.data.school.EspResponseDaoHibernate;
+import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
@@ -19,11 +21,13 @@ import static org.easymock.EasyMock.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = {"classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml", "classpath:gs/data/applicationContext-data.xml", "classpath:applicationContext.xml", "classpath:annotated-tests.xml"})
+@ContextConfiguration(value = {"classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml", "classpath:gs/data/applicationContext-data.xml", "classpath:applicationContext.xml", "classpath:annotated-tests.xml", "classpath:pages-servlet.xml"})
 public class PrintYourOwnChooserControllerTest {
 
     @Autowired
     PrintYourOwnChooserController _pdfController;
+
+    IEspResponseDao _espResponseDaoHibernate;
 
     ISchoolDao _schoolDaoHibernate;
 
@@ -31,6 +35,8 @@ public class PrintYourOwnChooserControllerTest {
     public void setUp() {
 
         _schoolDaoHibernate = createStrictMock(ISchoolDao.class);
+
+        _espResponseDaoHibernate = createStrictMock(IEspResponseDao.class);
 
         ReflectionTestUtils.setField(_pdfController, "_schoolDaoHibernate", _schoolDaoHibernate);
     }
