@@ -78,6 +78,30 @@ public class PrintYourOwnChooserControllerTest {
     }
 
     @Test
+    public void testGetSchoolsFromParams_too_many() throws Exception {
+        StringBuffer states = new StringBuffer();
+        StringBuffer ids = new StringBuffer();
+
+        for (int i = 0; i < 1000; i++) {
+            if (i > 0) {
+                states.append(",");
+                ids.append(",");
+            }
+            states.append("CA");
+            ids.append("1");
+        }
+
+        expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School()).times(PrintYourOwnChooserController.MAX_ALLOWED_SCHOOLS);
+
+        replay(_schoolDaoHibernate);
+
+        List<School> schools = _pdfController.getSchoolsFromParams(states.toString(), ids.toString());
+        assertEquals("Expect number of schools returned to equal to number of IDs provided", PrintYourOwnChooserController.MAX_ALLOWED_SCHOOLS, schools.size());
+
+        verify(_schoolDaoHibernate);
+    }
+
+    @Test
     public void testGetSchoolsFromParams_onlyOneState() throws Exception {
 
         String states = "CA";
