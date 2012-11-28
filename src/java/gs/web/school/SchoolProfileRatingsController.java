@@ -75,9 +75,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
 
     public static final String SECTION_3_COPY_DC =
-            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
-                    "and their readiness for college (for high schools). " +
-                    "The graphs below compare this school's results in each area to other schools in the city and state. ";
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth and " +
+                    "their readiness for college (for high schools). If a school is designated low performing (Tier 3) by " +
+                    "the DC Public Charter School Board, the school receives a \"Below average\" GreatSchools Rating. " +
+                    "The graphs below compare this school's results to other schools in the city.";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE_DC =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "and their readiness for college (for high schools). " +
