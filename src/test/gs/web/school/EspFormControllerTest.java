@@ -51,6 +51,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         user.setId(2);
         School school = new School();
         Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("instructional_model");
         Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
         State state = State.CA;
         int pageNum = 1;
@@ -73,6 +74,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         user.setId(2);
         School school = new School();
         Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("instructional_model");
         Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
         State state = State.CA;
         int pageNum = 1;
@@ -85,6 +87,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         keysToDelete.add(key);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
         List<EspResponse> responseList = new ArrayList<EspResponse>();
+        _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
         _controller.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum,
@@ -187,6 +190,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         user.setId(2);
         School school = new School();
         Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("grade_levels");
         int pageNum = 1;
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
