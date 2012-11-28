@@ -90,7 +90,12 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         List<School> schools = new ArrayList<School>();
         try {
             schools = getSchoolsFromParams(statesCsv, schoolIdsCsv);
-        } catch (IllegalArgumentException e ) {
+        } catch (Exception e) {
+            if (statesCsv != null && schoolIdsCsv != null) {
+                _logger.debug("Exception while getting School objects with given params. States: " + statesCsv + " school IDs " + schoolIdsCsv, e);
+            } else {
+                _logger.debug("Exception while getting School objects with given params.", e);
+            }
             return new RedirectView("/status/error404.page");
         }
 
@@ -110,7 +115,9 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
             Set<String> displayTarget = new HashSet<String>();
             displayTarget.add(TestDataSetDisplayTarget.ratings.name());
             Map<String, Object> dataMap = _schoolProfileDataHelper.getDataMap(school, displayTarget);
-
+            if (dataMap == null) {
+                dataMap = new HashMap<String,Object>();
+            }
 
             data.put(DATA_OVERALL_RATING, dataMap.get(DATA_OVERALL_RATING));
             Object climateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
