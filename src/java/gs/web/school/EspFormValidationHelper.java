@@ -91,7 +91,7 @@ public class EspFormValidationHelper {
     /**
      * Checks if the user is provisional
      */
-    protected boolean isUserProvisional(User user) {
+    public boolean isUserProvisional(User user) {
         List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
         if (memberships != null && !memberships.isEmpty()) {
             return memberships.get(0).getStatus().equals(EspMembershipStatus.PROVISIONAL);

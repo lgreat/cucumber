@@ -44,6 +44,8 @@ public class EspFormExternalDataHelper {
     public static final String CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL =
             "Percentage of students that take advantage of some type of Special Education service";
 
+    public static final String DATA_DELIMITER = "-,-";
+
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
@@ -92,23 +94,36 @@ public class EspFormExternalDataHelper {
     }
 
     //TODO comment
-    protected void fetchProvisionalExternalValues(String key,String value,Map<String, EspFormResponseStruct> responseMap){
-        //TODO is StringUtils.isNotBlank(value) required in all the below cases?
-        if(key.equals("address") && StringUtils.isNotBlank(value)){
-            insertEspFormResponseStructForProvisionalAddress(responseMap,value);
-        }else if(key.equals("school_phone") && StringUtils.isNotBlank(value)){
-            insertEspFormResponseStructForProvisionalPhone(responseMap,value);
-        } else if(key.equals("school_fax") && StringUtils.isNotBlank(value)){
-            insertEspFormResponseStructForProvisionalFax(responseMap,value);
-        } else if(key.equals("census_ethnicity")){
-            //TODO for page 8?
-        } else {
-            // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
-            //TODO
-            EspFormResponseStruct espResponse = new EspFormResponseStruct();
-            espResponse.addValue(value);
-            responseMap.put(key, espResponse);
+    protected void fetchProvisionalExternalValues(Map<String, EspFormResponseStruct> responseMap, Map<String, String> KeyToValueMap) {
+        for (String key : KeyToValueMap.keySet()) {
+            String value = KeyToValueMap.get(key);
 
+            //TODO is StringUtils.isNotBlank(value) required in all the below cases?
+            if (key.equals("address") && StringUtils.isNotBlank(value)) {
+                insertEspFormResponseStructForProvisionalAddress(responseMap, value);
+            } else if (key.equals("school_phone") && StringUtils.isNotBlank(value)) {
+                insertEspFormResponseStructForProvisionalPhone(responseMap, value);
+            } else if (key.equals("school_fax") && StringUtils.isNotBlank(value)) {
+                insertEspFormResponseStructForProvisionalFax(responseMap, value);
+            } else if (key.equals("census_ethnicity")) {
+                //TODO for page 8?
+            } else {
+                // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
+                String[] vals = getProvisionalExternalValuesForKey(key, value);
+                if (vals != null && vals.length > 0) {
+                    EspFormResponseStruct espResponse = new EspFormResponseStruct();
+                    for (String val : vals) {
+                        espResponse.addValue(val);
+                    }
+                    responseMap.put(key, espResponse);
+                } else {
+                    // don't let esp_response values for external data show up on form
+                    // external data has to come from external sources!
+                    //TODO is this needed?
+                    responseMap.remove(key);
+                }
+
+            }
         }
     }
 
@@ -189,6 +204,58 @@ public class EspFormExternalDataHelper {
                 }
             }
         }
+    }
+
+    String[] getProvisionalExternalValuesForKey(String key, String value) {
+        if ((StringUtils.equals("student_enrollment", key)
+                || StringUtils.equals("administrator_name", key)
+                || StringUtils.equals("administrator_email", key)
+                || StringUtils.equals("grade_levels", key)
+                || StringUtils.equals("school_url", key)
+                || StringUtils.equals("school_type", key)
+                || StringUtils.equals("school_type_affiliation_other",key)
+                || StringUtils.equals("school_video", key)
+                || StringUtils.equals("facebook_url", key))
+                && StringUtils.isNotBlank(value)) {
+            return value.split(DATA_DELIMITER);
+        }
+        else if (StringUtils.equals("school_type_affiliation", key) && StringUtils.isNotBlank(value)) {
+            //TODO  religious?
+            return new String[]{value};
+        }
+//        else if (StringUtils.equals("school_type_affiliation_other", key) && StringUtils.isNotBlank(value)) {
+//            return new String[]{value};
+//        }
+        else if (StringUtils.equals("coed", key) && StringUtils.isNotBlank(value)) {
+            //TODO school.subtype?  and also  see the commented out code below
+            return new String[]{value};
+        }
+//            if (school.getSubtype().contains("coed")) {
+//                return new String[] {"coed"};
+//            }
+//            if (school.getSubtype().contains("all_male")) {
+//                return new String[] {"all_boys"};
+//            }
+//            if (school.getSubtype().contains("all_female")) {
+//                return new String[] {"all_girls"};
+//            }
+        else if (StringUtils.startsWith(key, "census_")) {
+            //TODO census?
+//            if (STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()) != null) {
+//                for (EspCensusDataTypeConfiguration dataTypeConfig: STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState())) {
+//                    if (StringUtils.equals("census_" + dataTypeConfig.getId(), key)) {
+//                        SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.getEnum(dataTypeConfig.getId()));
+//                        if (value != null && value.getValueInteger() != null) {
+//                            _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+//                            return new String[]{String.valueOf(value.getValueInteger())};
+//                        }
+//                    }
+//                }
+//            } else {
+//                _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
+//            }
+        }
+        return new String[0];
     }
 
     /**
@@ -308,8 +375,8 @@ public class EspFormExternalDataHelper {
     //TODO comments
     void insertEspFormResponseStructForProvisionalPhone(Map<String, EspFormResponseStruct> responseMap, String phoneStr) {
         //TODO validate lengths etc and write tests with whats already in the db
-        String areaCode = phoneStr.substring(0,phoneStr.indexOf(")"));
-        String officeCode = phoneStr.substring(phoneStr.indexOf(")")+1,phoneStr.indexOf("-"));
+        String areaCode = phoneStr.substring(1,phoneStr.indexOf(")"));
+        String officeCode = phoneStr.substring(phoneStr.indexOf(") ")+2,phoneStr.indexOf("-"));
         String lastFour = phoneStr.substring(phoneStr.indexOf("-")+1,phoneStr.length());
 
         EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
@@ -330,8 +397,8 @@ public class EspFormExternalDataHelper {
     //TODO comments
     void insertEspFormResponseStructForProvisionalFax(Map<String, EspFormResponseStruct> responseMap, String faxStr) {
         //TODO validate lengths etc and write tests with whats already in the db
-        String areaCode = faxStr.substring(0,faxStr.indexOf(")"));
-        String officeCode = faxStr.substring(faxStr.indexOf(")")+1,faxStr.indexOf("-"));
+        String areaCode = faxStr.substring(1,faxStr.indexOf(")"));
+        String officeCode = faxStr.substring(faxStr.indexOf(") ")+2,faxStr.indexOf("-"));
         String lastFour = faxStr.substring(faxStr.indexOf("-")+1,faxStr.length());
 
         EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();

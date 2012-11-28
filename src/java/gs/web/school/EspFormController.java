@@ -89,6 +89,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         //Check if the user is provisional
         boolean isProvisionalUser = _espFormValidationHelper.isUserProvisional(user);
+        modelMap.put("isProvisionalUser", isProvisionalUser);
 
         if(isProvisionalUser){
             putProvisionalResponsesInModel(user,school, modelMap); // fetch provisional responses for school
@@ -120,8 +121,8 @@ public class EspFormController implements ReadWriteAnnotationController {
 
     protected void putProvisionalResponsesInModel(User user, School school, ModelMap modelMap) {
         Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
-        Map<String, String> provisionalKeyToResponse = new HashMap<String, String>();
 
+        Map<String, String> provisionalKeysMap = new HashMap<String, String>();
         //Get all the response keys on the page that the provisional user has modified.
         //Example if a user has modified page 2 then we store:-
         //response_key = _page_2_keys and response_value = instructional_model,best_known_for...etc (all comma separated keys on page 2)
@@ -131,24 +132,54 @@ public class EspFormController implements ReadWriteAnnotationController {
             for (EspResponse espResponse : provisionalPageKeys) {
                 String[] keys = espResponse.getValue().split(",");
                 for (int i = 0; i < keys.length; i++) {
-                    //Temporarily store empty string as response value.
-                    provisionalKeyToResponse.put(keys[i], "");
+                    //value does not matter.
+                    provisionalKeysMap.put(keys[i], "");
                 }
             }
         }
+
+        Set<String> externalKeys = _espFormExternalDataHelper.getKeysForExternalData(school);
+        Map<String, String> provisionalExternalKeysToValueMap = new HashMap<String, String>();
+
+        List<String> externalKeysToRemove = new ArrayList<String>();
+        for (String externalKey : externalKeys) {
+            if (provisionalKeysMap.containsKey(externalKey)) {
+                //temporarily store empty string
+                provisionalExternalKeysToValueMap.put(externalKey, "");
+                externalKeysToRemove.add(externalKey);
+            }
+        }
+        externalKeys.removeAll(externalKeysToRemove);
 
         //TODO maybe we can make just one database call?
         //Get all the responses that the provisional user has made for this school and put them in the map created above.
         List<EspResponse> provisionalResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
         for (EspResponse espResponse : provisionalResponses) {
-            if(provisionalKeyToResponse.containsKey(espResponse.getKey())){
-                if(!espResponse.isActive()){
-                    provisionalKeyToResponse.put(espResponse.getKey(), espResponse.getSafeValue());
-                }else{
+            if (provisionalKeysMap.containsKey(espResponse.getKey())) {
+                if (!espResponse.isActive()) {
+                    String value = espResponse.getSafeValue();
+
+                    if (provisionalExternalKeysToValueMap.containsKey(espResponse.getKey())) {
+                        //Needed for external data.
+                        if (StringUtils.isNotBlank(provisionalExternalKeysToValueMap.get(espResponse.getKey()))) {
+                            value = provisionalExternalKeysToValueMap.get(espResponse.getKey())
+                                    + _espFormExternalDataHelper.DATA_DELIMITER + value;
+                        }
+                        provisionalExternalKeysToValueMap.put(espResponse.getKey(), value);
+                    } else {
+                        EspFormResponseStruct responseStruct = responseMap.get(espResponse.getKey());
+                        if (responseStruct == null) {
+                            responseStruct = new EspFormResponseStruct();
+                            responseMap.put(espResponse.getKey(), responseStruct);
+                        }
+                        responseStruct.addValue(value);
+                    }
+
+                } else {
                     _log.error("Found an active response for provisional user");
                     //TODO what?
                 }
-            }else{
+            } else {
                 _log.error("Found a key for provisional user that was not saved earlier");
                 //TODO what?
             }
@@ -161,19 +192,14 @@ public class EspFormController implements ReadWriteAnnotationController {
         //For every response for school, check if  there is a provisional response.
         // If there is a provisional response then put it in the map for the model.Else put the active response.
         for (EspResponse espResponse : responses) {
-            String value = "";
-            if (provisionalKeyToResponse.containsKey(espResponse.getKey())) {
-                value = provisionalKeyToResponse.get(espResponse.getKey());
-            } else {
-                value = espResponse.getSafeValue();
+            if (!provisionalKeysMap.containsKey(espResponse.getKey())) {
+                EspFormResponseStruct responseStruct = responseMap.get(espResponse.getKey());
+                if (responseStruct == null) {
+                    responseStruct = new EspFormResponseStruct();
+                    responseMap.put(espResponse.getKey(), responseStruct);
+                }
+                responseStruct.addValue(espResponse.getSafeValue());
             }
-
-            EspFormResponseStruct responseStruct = responseMap.get(espResponse.getKey());
-            if (responseStruct == null) {
-                responseStruct = new EspFormResponseStruct();
-                responseMap.put(espResponse.getKey(), responseStruct);
-            }
-            responseStruct.addValue(value);
         }
 
         //TODO will there be a case when there is no active response but there will be a provisional response?
@@ -181,21 +207,11 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         //TODO also there should be no mapping in the  provisionalKeyToResponse where response is "".line 135 should be overriden?
 
-        //Handle the external data.
-        //If a provisional user modified a field for external data, the data is not stored externally since its provisional.
-        //Therefore if a key is in the provisional map created above then handle those in a special way. The method fetchProvisionalExternalValues take care of that.
-        Set<String> externalKeys = _espFormExternalDataHelper.getKeysForExternalData(school);
-        List<String> externalKeysToRemove = new ArrayList<String>();
-        for(String externalKey : externalKeys){
-            if(provisionalKeyToResponse.containsKey(externalKey)){
-                externalKeysToRemove.add(externalKey);
-                _espFormExternalDataHelper.fetchProvisionalExternalValues(externalKey,provisionalKeyToResponse.get(externalKey),responseMap);
-            }
-        }
-        externalKeys.removeAll(externalKeysToRemove);
+        //TODO we doing the constructing of responseMap for external values 2 times.Can we not do this?
 
+        _espFormExternalDataHelper.fetchProvisionalExternalValues(responseMap,provisionalExternalKeysToValueMap);
         //Fetch the actual external data for non-provisional data points.
-        _espFormExternalDataHelper.fetchExternalValues(responseMap, school,externalKeys);
+        _espFormExternalDataHelper.fetchExternalValues(responseMap, school, externalKeys);
 
         modelMap.put("responseMap", responseMap);
     }
@@ -409,10 +425,10 @@ public class EspFormController implements ReadWriteAnnotationController {
             //when the provisional user is approved.
             Set<String> keysToDelete = new HashSet<String>();
             keysToDelete.addAll(keysForPage);
-            String key = getKeyForPageKeys(pageNum);
+            String key = getPageKeys(pageNum);
             keysToDelete.add(key);
             _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
-            EspResponse espResponse = createEspResponse(user, school, now, getKeyForPageKeys(pageNum), false, StringUtils.join(keysForPage, ","));
+            EspResponse espResponse = createEspResponse(user, school, now, getPageKeys(pageNum), false, StringUtils.join(keysForPage, ","));
             if (espResponse != null) {
                 responseList.add(espResponse);
             }
@@ -423,7 +439,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
     }
 
-    protected String getKeyForPageKeys(int pageNum){
+    protected String getPageKeys(int pageNum){
         return "_page_" + pageNum + "_keys";
     }
 

@@ -81,7 +81,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
-        String key = _controller.getKeyForPageKeys(pageNum);
+        String key = _controller.getPageKeys(pageNum);
         keysToDelete.add(key);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
         List<EspResponse> responseList = new ArrayList<EspResponse>();
@@ -205,7 +205,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         keysForPage.add("instructional_model");
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
-        String key = _controller.getKeyForPageKeys(pageNum);
+        String key = _controller.getPageKeys(pageNum);
         keysToDelete.add(key);
 
         List<EspResponse> responseList = new ArrayList<EspResponse>();
