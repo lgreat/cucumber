@@ -101,7 +101,7 @@ public class SchoolProfileEnrollmentControllerTest extends BaseControllerTestCas
         assertFalse((Boolean) modelMap.get("hasEsp"));
     }
 
-    public void xtestApplicationInfoTile() {
+    public void testApplicationInfoTile() {
         Calendar day = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         List<EspResponse> espResponses = new ArrayList<EspResponse>();
@@ -155,7 +155,10 @@ public class SchoolProfileEnrollmentControllerTest extends BaseControllerTestCas
         espResponses = new ArrayList<EspResponse>();
         espResponses.add(createEspResponse(ADMISSIONS_URL, "www.querty.org"));
         espResponses.add(createEspResponse(APPL_DEADLINE, "date"));
-        espResponses.add(createEspResponse(APPL_DEADLINE_DATE, "11/22/2011"));
+        Calendar sixMonthsAgo = Calendar.getInstance();
+        sixMonthsAgo.add(Calendar.MONTH, -6);
+        String appDeadline = dateFormat.format(sixMonthsAgo.getTime());
+        espResponses.add(createEspResponse(APPL_DEADLINE_DATE, appDeadline));
         espData = convertToEspData(espResponses);
         model = _schoolProfileEnrollmentController.getApplInfoEspTile(_request, _school, espData);
         assertTrue((Boolean) model.get(HAS_APPLICATION_PROCESS));

@@ -17,6 +17,9 @@
 
     <div class="alpha grid_16 omega">
         <h2>GreatSchools Rating</h2>
+        <c:if test="${not empty performanceManagementRatingCopy}">
+            ${performanceManagementRatingCopy}
+        </c:if>
     </div>
     <div class="alpha grid_16 omega">
         <div class="alpha grid_8">

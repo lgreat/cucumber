@@ -1242,7 +1242,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    protected boolean showPerformanceManagementRating(State state) {
+    protected static boolean showPerformanceManagementRating(State state) {
         return state.equals(State.DC) ? true : false;
     }
 
