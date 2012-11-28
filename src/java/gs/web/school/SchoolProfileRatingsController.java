@@ -760,7 +760,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 //When a school has multiple tier ratings, then check to see if any of the rating is Tier 3.If it is then display the text.
                 for (SchoolProfileDataHelper.PerformanceRatingObj performanceRatingObj : performanceManagementRatingList) {
                     if (performanceRatingObj.getScore() < 35.0) {
-                        model.put("PerformanceManagementRatingCopy", PERFORMANCE_MANAGEMENT_RATING_COPY);
+                        model.put("performanceManagementRatingCopy", PERFORMANCE_MANAGEMENT_RATING_COPY);
                         break;
                     }
                 }
