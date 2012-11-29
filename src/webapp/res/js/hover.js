@@ -818,12 +818,35 @@ GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEdit
 //PrintSchoolChooser Hover
 GSType.hover.PrintSchoolChooser = function() {
     this.loadDialog = function() {
-//        this.pageName='Print My School List';
-//        this.hier1='Hovers,Verification,Verify Change Email Hover';
-//        this.dialogByWidth();
     }
+    this.populateModal = function () {
+        var container = $('#js-pyoc');
+        container.empty();
+
+        $('#js-schoolListData .standard_1-1').each(function () {
+            var $this = $(this);
+            var stateID = $this.find('.compare_checkbox').val();
+            console.log('test1' + stateID);
+            var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
+            console.log('output' + output);
+            var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
+                '<span class="fl ttc">' + $this.find('.js-pyocSchoolName').html() + '<br/>' +
+                '<span class="small">' + $this.find('.js-pyocCityState').html() + '. ' + $this.find('.js-pyocSchoolType').html() + '</span>' +
+                '</span>' +
+                '<span class="fr">' +
+                '<input type="checkbox" checked="checked" value="' + output + '" class="js-stateId"/>' +
+                '</span>' +
+                '</div>';
+            container.append(pyocSchoolData);
+        });
+    };
+
+
+
+
     this.showHover = function() {
-            GSType.hover.printSchoolChooser.show();
+        this.populateModal();
+        GSType.hover.printSchoolChooser.show();
     };
 };
 GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser',640);
