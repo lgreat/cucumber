@@ -21,10 +21,10 @@
         <div class="clearfix" style="padding: 0 0 15px 0;">
 
             <!--<div class="fl" style="width:7%">&lt;!&ndash; co not collapse &ndash;&gt;</div>-->
-            <div class="fl clearfix" style=" width:480px">
+            <div class="fl clearfix" style=" width:430px">
                 <h1 class="clearfix" style="padding: 0 0 10px 0">${school.name}</h1>
                 <!--<p><br /></p>-->
-                <div class="fl" style="width:178px; padding-right: 10px;">
+                <div class="fl" style="width:155px; padding-right: 10px;">
                     <p>
                         ${school.physicalAddress.street}
 
@@ -40,7 +40,7 @@
 
                     </p>
                 </div>
-                <div class="fl" style="width:178px; padding-right: 10px;">
+                <div class="fl" style="width:155px; padding-right: 10px;">
                     <p>
                         <c:if test="${not empty school.district.name}">
                             ${school.district.name}<br />
@@ -60,7 +60,7 @@
 
                     </p>
                 </div>
-                <div class="fr">
+                <div class="fl">
                     <p>
                         Type:<span class="strong capitalize"> ${school.type.schoolTypeName}</span><br />
                         Grades:<span class="strong"> ${school.gradeLevels.rangeString}</span><br />
@@ -69,13 +69,13 @@
                 </div>
             </div>
             <div class="fr clearfix" style="border-left: 1px solid #cccccc;">
-                <div style="float:left; padding: 20px 25px 0 25px">
-                    <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']} / 10 ${schoolData['overallAcademicRatingText']}</span></p>
+                <div style="float:left; padding: 0px 25px 0 25px">
+                    <h2>Academic Rating:</h2><p><br /><span class="strong">${schoolData['overallAcademicRating']} / 10<br />${schoolData['overallAcademicRatingText']}</span></p>
 
-                    <p>Climate:<br />
+                    <h2>Climate Rating:</h2><p><br />
                         <c:choose>
                             <c:when test="${not empty schoolData['overallClimateRating']}">
-                                <span class="strong">${schoolData['overallClimateRating']} / 10 ${schoolData['overallClimateRatingText']}</span>
+                                <span class="strong">${schoolData['overallClimateRating']} / 10<br />${schoolData['overallClimateRatingText']}</span>
                             </c:when>
                             <c:otherwise>
                                 <span class="strong">${defaultString}</span>
@@ -159,11 +159,11 @@
 
             <div class="bd_column" style="padding-right: 0px;">
                 <h2>Special education services</h2>
-                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['special_ed_services'], 'Data not available'))}</span></p>
+                <p><span class="strong">${gsweb:defaultString(schoolData['special_ed_services'], 'Data not available')}</span></p>
                 <h2>ELL services</h2>
-                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['ell_level'],'Data not available'))}</span></p>
+                <p><span class="strong">${gsweb:defaultString(schoolData['ell_level'],'Data not available')}</span></p>
                 <h2>Our grads typically go to</h2>
-                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['destination_schools'],'Data not available'))}</span></p>
+                <p>${gsweb:defaultString(schoolData['destination_schools'],'Data not available')}</p>
             </div>
         </div>
     </div><!-- end container -->
