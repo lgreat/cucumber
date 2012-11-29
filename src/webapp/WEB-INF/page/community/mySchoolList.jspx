@@ -50,6 +50,8 @@
 
             <h1>My School List</h1>
 
+            <a onclick="GSType.hover.printSchoolChooser.showHover(); return false;">Print</a>
+
             <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
 
 

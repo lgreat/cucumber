@@ -32,7 +32,6 @@
                             <br/>
                             ${school.physicalAddress.streetLine2}
                         </c:if>
-
                         <br/>
                         <span>${school.physicalAddress.city}</span>,
                         <span>${school.physicalAddress.state.abbreviation} </span>
@@ -50,7 +49,15 @@
                             Phone:<span class="strong"> ${school.phone}</span><br />
                         </c:if>
 
-                        Class hours:<span class="strong"> ${schoolData['start_time']} - ${schoolData['end_time']}</span>
+                        <c:choose>
+                            <c:when test="${not empty schoolData['start_time'] and not empty schoolData['end_time']}">
+                                Class hours:<span class="strong"> ${schoolData['start_time']} - ${schoolData['end_time']}</span>
+                            </c:when>
+                            <c:otherwise>
+                                Class hours:<span class="strong"> ${defaultString}</span>
+                            </c:otherwise>
+                        </c:choose>
+
                     </p>
                 </div>
                 <div class="fr">
@@ -152,11 +159,11 @@
 
             <div class="bd_column" style="padding-right: 0px;">
                 <h2>Special education services</h2>
-                <p><span class="strong uppercase">${gsweb:defaultString(schoolData['special_ed_services'], defaultString)}</span></p>
+                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['special_ed_services'], 'Data not available'))}</span></p>
                 <h2>ELL services</h2>
-                <p><span class="strong uppercase">${gsweb:defaultString(schoolData['ell_level'], defaultString)}</span></p>
+                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['ell_level'],'Data not available'))}</span></p>
                 <h2>Our grads typically go to</h2>
-                <p><span class=" ">${gsweb:defaultString(schoolData['destination_schools'],defaultString)}</span></p>
+                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['destination_schools'],'Data not available'))}</span></p>
             </div>
         </div>
     </div><!-- end container -->
