@@ -42,6 +42,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     //===================== COPY ===================================
+    public static final String COPY_NOT_AVAILABLE = "No copy available for state.";
 
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_DC =
             "Coming 2013";
@@ -404,7 +405,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return CLIMATE_RATING_AVAILABILITY_TEXT_WI;
         } else {
-            return "No copy available for state.";
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -416,7 +417,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return SECTION_1_COPY_WI;
         } else {
-            return "No copy available for state.";
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -615,7 +616,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return TEST_SCORE_RATING_SOURCE_WI_PART_1 + year + TEST_SCORE_RATING_SOURCE_WI_PART_2;
         } else {
-            return "No copy available for state.";
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -627,7 +628,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 + year + STUDENT_GROWTH_RATING_SOURCE_WI_PART_2;
         } else {
-            return "No copy available for state.";
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -639,7 +640,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2;
         } else {
-            return "No copy available for state.";
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -710,7 +711,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             }
             return s.toString();
         } else {
-            return "No copy available for state.";
+            return COPY_NOT_AVAILABLE;
         }
     }
 
