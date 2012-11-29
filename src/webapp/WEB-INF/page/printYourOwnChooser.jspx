@@ -24,7 +24,7 @@
 
     <fmt:formatDate value="${today}" pattern="M/d/y" var="dateFooter" />
     <div class="dateFooter">${dateFooter}</div>
-    <div class="divFooter"><div class="fr"><img src="/res/img/pdfChooser/28634_thumb_logo.png" class="logo" alt="greatschools" /><span style="padding: 0 10px 0 10px">|</span>www.greatschools.org</div></div>
+    <div class="divFooter"><div class="fr"><img src="/res/img/pdfChooser/logo_3x.png" class="logo" alt="greatschools" /><span style="padding: 0 10px 0 10px">|</span>www.greatschools.org</div></div>
 
     <hr  class="mbm"/>
     <c:forEach items="${schools}" var="school" varStatus="status">

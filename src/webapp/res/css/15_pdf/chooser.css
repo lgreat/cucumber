@@ -30,7 +30,7 @@ div.divFooter {
     position: running(divFooter);
 }
 div.divFooter .logo{
-    width:100px;
+    width:90px;
     vertical-align: middle;
 }
 div.dateFooter {
@@ -59,17 +59,17 @@ h1	{
     font-size: 12pt;
     font-weight:normal;
     line-height:120%;
-    /*margin:0 0 20px 0;*/
+    padding-bottom:10px;
 }
 
 h2	{
     color:#0578AA;
     text-transform:uppercase;
     letter-spacing:1px;
-    /*margin-bottom:.5em;*/
     margin-top:1.5em;
     font-weight: bold;
 }
+h2.smallMargin { margin-top:.5em; }
 
 p	{
     font-weight: normal;
@@ -102,29 +102,17 @@ ul	{
 }
 
 
-.fl	{
-    float:left;
-}
+.fl	{ float:left; }
+.fr	{ float:right; }
 
-.fr	{
-    float:right;
-}
-
-.strong	{
-    font-weight:bold;
-}
-
-.uppercase	{
-    text-transform:uppercase;
-}
-
-.capitalize {
-    text-transform: capitalize;
-}
+.strong	{ font-weight:bold; }
+.uppercase	{ text-transform:uppercase; }
+.capitalize { text-transform: capitalize; }
 
 hr	{
-    border:solid 2px #AAAAAA;
-    margin:0;
+    border:solid 1px #BBBBBB;
+    margin:0 0 0 0;
+    padding:0 0 0 0;
     clear:both;
 }
 
@@ -138,6 +126,19 @@ hr.rulethin	{
 
 .mbm, .mvm {margin-bottom: 10px;}
 .mtm, .mvm {margin-top: 10px;}
+
+.pb15 {padding-bottom: 15px;}
+.pvRatingSpacer{padding: 0px 40px 0 20px; }
+.ptsRatingGS { padding:5px 0 0 0 ;font:normal 6pt Arial, Helvetica, sans-serif ; }
+
+.tac { text-align:center; }
+.plm { padding-left:10px; }
+
+.header-left-width{ width:430px; }
+.header-left-component{ width:170px; padding-right: 10px;}
+
+.header-vertical-border-l { border-left: 1px solid #EEEEEE; }
+.header-vertical-border-r { border-right: 1px solid #EEEEEE; }
 
 /* **************** SPRITE ***************** */
 
