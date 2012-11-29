@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.*;
 import gs.data.state.State;
+import gs.data.util.ListUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +38,14 @@ public class PrintYourOwnChooserControllerTest {
         return s;
     }
 
+    public School getASchool(State state, Integer id) {
+        School s = new School();
+        s.setId(id);
+        s.setDatabaseState(state);
+        s.setName("Test school for " + state.getAbbreviation() + " - " + id);
+        return s;
+    }
+
     public List<EspResponse> getAnEspResponse(String key, String value) {
         List<EspResponse> espResponses = new ArrayList<EspResponse>();
         EspResponse response = new EspResponse();
@@ -50,7 +59,7 @@ public class PrintYourOwnChooserControllerTest {
     @Before
     public void setUp() {
 
-        _schoolDaoHibernate = createStrictMock(ISchoolDao.class);
+        _schoolDaoHibernate = createMock(ISchoolDao.class);
 
         _espResponseDaoHibernate = createStrictMock(IEspResponseDao.class);
 
@@ -58,16 +67,15 @@ public class PrintYourOwnChooserControllerTest {
         ReflectionTestUtils.setField(_pdfController, "_espResponseDao", _espResponseDaoHibernate);
     }
 
-
     @Test
     public void testGetSchoolsFromParams() throws Exception {
 
         String states = "CA,DC,AK";
         String ids = "1,2,3";
 
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School());
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.DC), eq(2))).andReturn(new School());
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.AK), eq(3))).andReturn(new School());
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.CA), eq("1"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.CA, 1)));
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.DC), eq("2"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.DC, 2)));
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.AK), eq("3"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.AK, 3)));
 
         replay(_schoolDaoHibernate);
 
@@ -78,9 +86,47 @@ public class PrintYourOwnChooserControllerTest {
     }
 
     @Test
+    public void testGetSchoolsFromParams_missing_schools() throws Exception {
+
+        String states = "CA,CA,CA";
+        String ids = "1,2,3";
+
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.CA), eq("1,2,3"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.CA, 3)));
+
+        replay(_schoolDaoHibernate);
+
+        List<School> schools = _pdfController.getSchoolsFromParams(states, ids);
+        assertEquals("Expect number of schools returned to equal to number of IDs provided", 1, schools.size());
+
+        verify(_schoolDaoHibernate);
+    }
+
+    @Test
+    public void testGetSchoolsFromParams_preserve_order() throws Exception {
+
+        String states = "CA,DC,AK";
+        String ids = "1,2,3";
+
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.CA), eq("1"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.AK, 3)));
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.DC), eq("2"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.DC, 2)));
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.AK), eq("3"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.CA, 1)));
+
+        replay(_schoolDaoHibernate);
+
+        List<School> schools = _pdfController.getSchoolsFromParams(states, ids);
+        assertEquals("Expect order to be preserved", 1, schools.get(0).getId().intValue());
+        assertEquals("Expect order to be preserved", 2, schools.get(1).getId().intValue());
+        assertEquals("Expect order to be preserved", 3, schools.get(2).getId().intValue());
+        assertEquals("Expect number of schools returned to equal to number of IDs provided", 3, schools.size());
+
+        verify(_schoolDaoHibernate);
+    }
+
+    @Test
     public void testGetSchoolsFromParams_too_many() throws Exception {
         StringBuffer states = new StringBuffer();
         StringBuffer ids = new StringBuffer();
+        List<School> results = new ArrayList<School>();
 
         for (int i = 0; i < 1000; i++) {
             if (i > 0) {
@@ -88,10 +134,15 @@ public class PrintYourOwnChooserControllerTest {
                 ids.append(",");
             }
             states.append("CA");
-            ids.append("1");
+            ids.append(i);
         }
 
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School()).times(PrintYourOwnChooserController.MAX_ALLOWED_SCHOOLS);
+        for (int i = 0; i < 100; i++) {
+            results.add(getASchool(State.CA, i));
+        }
+
+
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.CA), eq("0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99"), eq(true))).andReturn(results).times(1);
 
         replay(_schoolDaoHibernate);
 
@@ -102,14 +153,42 @@ public class PrintYourOwnChooserControllerTest {
     }
 
     @Test
+    public void testGetSchoolsFromParams_removes_duplicates() throws Exception {
+        StringBuffer states = new StringBuffer();
+        StringBuffer ids = new StringBuffer();
+
+        for (int i = 0; i < 50; i++) {
+            if (i > 0) {
+                states.append(",");
+                ids.append(",");
+            }
+            states.append("CA");
+            ids.append("1");
+        }
+
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.CA), eq("1"), eq(true))).andReturn(ListUtils.newArrayList(getASchool(State.CA, 1))).times(1);
+
+        replay(_schoolDaoHibernate);
+
+        List<School> schools = _pdfController.getSchoolsFromParams(states.toString(), ids.toString());
+        assertEquals("Expect number of schools returned to equal to number of unique IDs provided", 1, schools.size());
+
+        verify(_schoolDaoHibernate);
+    }
+
+    @Test
     public void testGetSchoolsFromParams_onlyOneState() throws Exception {
 
         String states = "CA";
         String ids = "1,2,3";
 
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(1))).andReturn(new School());
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(2))).andReturn(new School());
-        expect(_schoolDaoHibernate.getSchoolById(eq(State.CA), eq(3))).andReturn(new School());
+        expect(_schoolDaoHibernate.getSchoolsByIds(eq(State.CA), eq("1,2,3"), eq(true))).andReturn(
+            ListUtils.newArrayList(
+                    getASchool(State.CA, 1),
+                    getASchool(State.CA, 2),
+                    getASchool(State.CA, 3)
+            )
+        );
 
         replay(_schoolDaoHibernate);
 

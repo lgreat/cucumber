@@ -5,14 +5,12 @@ import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.TestDataSetDisplayTarget;
 import gs.web.PdfView;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,6 +88,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         List<School> schools = new ArrayList<School>();
         try {
             schools = getSchoolsFromParams(statesCsv, schoolIdsCsv);
+
+            if (schools.isEmpty()) {
+                _logger.debug("No schools found. Redirecting to 404 page");
+                return new RedirectView("/status/error404.page");
+            }
         } catch (Exception e) {
             if (statesCsv != null && schoolIdsCsv != null) {
                 _logger.debug("Exception while getting School objects with given params. States: " + statesCsv + " school IDs " + schoolIdsCsv, e);
@@ -293,7 +296,6 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
     }
 
     public List<School> getSchoolsFromParams(String statesCsv, String schoolIdsCsv) {
-        List<School> schools = new ArrayList<School>();
 
         String[] states = StringUtils.split(statesCsv,',');
         String[] schoolIds = StringUtils.split(schoolIdsCsv,',');
@@ -305,6 +307,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
             throw new IllegalArgumentException("If more than one state is provided, the number of states and IDs must be equal");
         }
 
+        // this map will keep our school state / IDs ordered and associate with the Schools returned from DAO
+        // state + ID --> School
+        LinkedHashMap<String, School> orderedSchools = new LinkedHashMap<String, School>();
+
+        // seed the order map
         for (int i = 0; i < schoolIds.length && i < MAX_ALLOWED_SCHOOLS; i++) {
             String stateString;
             if (states.length > 1) {
@@ -314,8 +321,55 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
             }
 
             State state = State.fromString(stateString);
-            School s = _schoolDaoHibernate.getSchoolById(state, new Integer(schoolIds[i]));
-            schools.add(s);
+
+            String statePlusId = state.getAbbreviationLowerCase() + "_" + schoolIds[i];
+            orderedSchools.put(statePlusId, new School());
+        }
+
+        // place the placeholders into per-state buckets
+        Map<String,List<String>> statesAndIds = new HashMap<String,List<String>>();
+        for (String schoolPlaceholder : orderedSchools.keySet()) {
+            List<String> ids = statesAndIds.get(schoolPlaceholder.substring(0,2));
+            if (ids == null) {
+                ids = new ArrayList<String>();
+            }
+            ids.add(schoolPlaceholder);
+            statesAndIds.put(schoolPlaceholder.substring(0,2), ids);
+        }
+
+        // execute one DAO call per state bucket
+        Iterator<Map.Entry<String, List<String>>> iterator = statesAndIds.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, List<String>> bucketEntry = iterator.next();
+
+            StringBuffer ids = new StringBuffer();
+            // collect IDs into a csv
+            for (String placeholder : bucketEntry.getValue()) {
+                if (ids.length() > 0) {
+                    ids.append(",");
+                }
+                ids.append(placeholder.substring(3));
+            }
+
+            String state = bucketEntry.getKey();
+            // make a DAO call
+            List<School> results = _schoolDaoHibernate.getSchoolsByIds(State.fromString(state), ids.toString(), true);
+
+            // associate each result with the correct position in the order map
+            for (School result : results) {
+                String stateAndId = result.getDatabaseState().getAbbreviationLowerCase() + "_" + result.getId();
+                orderedSchools.put(stateAndId, result);
+            }
+        }
+
+        // get the results from a Map<StateAndId> to List<School>
+        List<School> schools = new ArrayList<School>();
+        Iterator<Map.Entry<String, School>> schoolIterator = orderedSchools.entrySet().iterator();
+        while (schoolIterator.hasNext()) {
+            Map.Entry<String, School> entry = schoolIterator.next();
+            if (entry.getValue().getId() != null) {
+                schools.add(entry.getValue());
+            }
         }
 
         return schools;
