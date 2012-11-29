@@ -30,8 +30,8 @@ public class HTML2PDFViewResolverTest extends BaseControllerTestCase {
 
         public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
             response.setContentType("text/html");
-            response.getWriter().write("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
-            response.getWriter().write("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">");
+            response.getWriter().write("<!DOCTYPE html>");
+            response.getWriter().write("<html>");
             response.getWriter().write("<head><title>Test html page</title></head>");
             response.getWriter().write("<body>");
             response.getWriter().write("<h1>Test</h1>");
