@@ -404,7 +404,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return CLIMATE_RATING_AVAILABILITY_TEXT_WI;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return "No copy available for state.";
         }
     }
 
@@ -416,7 +416,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return SECTION_1_COPY_WI;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return "No copy available for state.";
         }
     }
 
@@ -615,7 +615,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return TEST_SCORE_RATING_SOURCE_WI_PART_1 + year + TEST_SCORE_RATING_SOURCE_WI_PART_2;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return "No copy available for state.";
         }
     }
 
@@ -627,7 +627,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 + year + STUDENT_GROWTH_RATING_SOURCE_WI_PART_2;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return "No copy available for state.";
         }
     }
 
@@ -639,7 +639,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return "No copy available for state.";
         }
     }
 
@@ -710,7 +710,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             }
             return s.toString();
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return "No copy available for state.";
         }
     }
 
