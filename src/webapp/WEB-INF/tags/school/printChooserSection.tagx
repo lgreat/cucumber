@@ -13,7 +13,7 @@
     <jsp:directive.attribute name="schoolData" type="java.util.Map" />
 
     <c:set var="defaultString" value="Not available"/>
-    <c:set var="isPreschool" value="${fn:contains(school.levelCode, 'p')}"/>
+    <c:set var="isPreschool" value="${school.levelCode eq 'p'}"/>
     <c:set var="isPrivateSchool" value="${school.type.schoolTypeName eq 'private'}"/>
     <c:set var="isNewGSRating" value="${school.isNewGSRating}"/>
     <c:set var="overallRating" value="${school.GSRating}"/>
