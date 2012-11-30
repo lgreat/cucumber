@@ -52,14 +52,14 @@
                 <!--<p><br /></p>-->
                 <div class="fl header-left-component">
                     <p>
-                        ${school.physicalAddress.street}
+                        ${fn:escapeXml(school.physicalAddress.street)}
 
                         <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
                             <br/>
-                            ${school.physicalAddress.streetLine2}
+                            ${fn:escapeXml(school.physicalAddress.streetLine2)}
                         </c:if>
                         <br/>
-                        <span>${school.physicalAddress.city}</span>,
+                        <span>${fn:escapeXml(school.physicalAddress.city)}</span>,
                         <span>${school.physicalAddress.state.abbreviation} </span>
                         <span>${school.physicalAddress.zip}</span>
 
