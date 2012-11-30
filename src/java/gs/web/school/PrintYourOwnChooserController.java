@@ -62,8 +62,6 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
 
-    public static final String DATA_OVERALL_RATING = "overallRating"; // TestDataType.id = 174
-    public static final String DATA_OVERALL_RATING_TEXT = "overallRatingText"; // TestDataType.id = 174
     public static final String DATA_OVERALL_ACADEMIC_RATING = "overallAcademicRating"; // TestDataType.id = 167
     public static final String DATA_OVERALL_ACADEMIC_RATING_TEXT = "overallAcademicRatingText"; // TestDataType.id = 167
     public static final String DATA_OVERALL_CLIMATE_RATING = "overallClimateRating"; // TestDataType.id = 173
@@ -125,7 +123,6 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
                 dataMap = new HashMap<String,Object>();
             }
 
-            data.put(DATA_OVERALL_RATING, dataMap.get(DATA_OVERALL_RATING));
             Object climateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
 
             if (climateRating != null) {
