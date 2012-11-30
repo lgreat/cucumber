@@ -48,7 +48,7 @@
 
             <!--<div class="fl" style="width:7%">&lt;!&ndash; co not collapse &ndash;&gt;</div>-->
             <div class="fl header-left-width clearfix">
-                <h1>${school.name}</h1>
+                <h1>${fn:escapeXml(school.name)}</h1>
                 <!--<p><br /></p>-->
                 <div class="fl header-left-component">
                     <p>
@@ -69,7 +69,7 @@
                 <div class="fl header-left-component">
                     <p>
                         <c:if test="${not empty school.district.name}">
-                            ${school.district.name}<br />
+                            ${fn:escapeXml(school.district.name)}<br />
                         </c:if>
                         <c:if test="${not empty school.phone}">
                             Phone:<span class="strong"> ${school.phone}</span><br />
