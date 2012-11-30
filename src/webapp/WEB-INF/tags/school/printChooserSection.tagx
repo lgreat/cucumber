@@ -192,12 +192,10 @@
                 <h2>ELL services</h2>
                 <p><span class="strong">${gsweb:defaultString(schoolData['ell_level'],'Data not available')}</span></p>
                 <h2>Our grads typically go to</h2>
-
                 <c:set var="destinationSchoolsContent"><span class="strong">Data not available</span></c:set>
                 <c:if test="${not empty schoolData['destination_schools']}">
                     <c:set var="destinationSchoolsContent" value="${schoolData['destination_schools']}" />
                 </c:if>
-
                 <p>${destinationSchoolsContent}</p>
             </div>
         </div>
