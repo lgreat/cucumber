@@ -55,10 +55,10 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     private static final String VIEW_NAME = "printYourOwnChooser";
 
-    private static final String PATH_TO_PRESCHOOL_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_PRESCHOOL_CHECKLIST_PDF = "/res/pdf/DC/DC_School_Chooser_2012-2013.pdf";
     private static final String PATH_TO_ELEMENTARY_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
     private static final String PATH_TO_MIDDLE_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
-    private static final String PATH_TO_HIGH_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_HIGH_CHECKLIST_PDF = "/res/pdf/DC/Listado_de_Escuelas_de_DC_2012-2013.pdf";
 
     private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
 
