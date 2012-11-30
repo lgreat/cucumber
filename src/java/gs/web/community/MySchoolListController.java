@@ -38,6 +38,23 @@ import java.util.*;
 public class MySchoolListController extends AbstractController implements ReadWriteController {
     protected static final Log _log = LogFactory.getLog(MySchoolListController.class);
 
+    // parallel arrays to track states/cities that control whether Print Your Own Chooser module is displayed
+    public static final State[] CHOOSER_STATES = new State[] {
+            State.WI,
+            State.DC,
+            State.IN,
+            State.IN,
+            State.IN
+    };
+    public static final String[] CHOOSER_CITIES = new String[] {
+            "Milwaukee",
+            "Washington",
+            "Indianapolis",
+            "Speedway",
+            "Beech Grove"
+    };
+
+
     /** Spring bean id */
     public static final String BEAN_ID = "/mySchoolList.page";
     
@@ -71,6 +88,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_CITY_NAME = "cityName";
     public static final String MODEL_RECENT_REVIEWS = "recentReviews";
     public static final String MODEL_CURRENT_DATE = "currentDate";
+    public static final String MODEL_SHOW_PYOC_MODULE = "showPYOCModule"; // pyoc = Print Your Own Chooser
 
     /** constants */
     public static final int RECENT_REVIEWS_LIMIT = 3;
@@ -272,6 +290,20 @@ public class MySchoolListController extends AbstractController implements ReadWr
         List<School> schools = convertFavoriteSchoolsToSchools(new ArrayList<FavoriteSchool>(favs));
         Collections.sort(schools, getSchoolNameComparator());
         model.put(MODEL_SCHOOLS, schools);
+
+        // For PYOC: Track whether any PYOC school is in one of the "chooser" cities.
+        boolean showPYOCModule = false;
+        for (School school : schools) {
+            String city = school.getCity();
+            int position = 0;
+            for (String chooserCity : CHOOSER_CITIES) {
+                if (city.equalsIgnoreCase(chooserCity) && school.getStateAbbreviation().equals(CHOOSER_STATES[position])) {
+                    showPYOCModule = true;
+                }
+            }
+            position++;
+        }
+        model.put(MODEL_SHOW_PYOC_MODULE, showPYOCModule);
 
         String preschoolOnly = "true";
 
