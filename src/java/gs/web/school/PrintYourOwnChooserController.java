@@ -55,7 +55,10 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     private static final String VIEW_NAME = "printYourOwnChooser";
 
-    private static final String PATH_TO_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_PRESCHOOL_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_ELEMENTARY_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_MIDDLE_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_HIGH_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
 
     private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
 
@@ -141,14 +144,39 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
             View viewToWrap = _viewResolver.resolveViewName(VIEW_NAME, Locale.getDefault());
 
             if (Boolean.TRUE == appendChecklist) {
-                String absolutePath =  _servletContext.getRealPath(PATH_TO_CHECKLIST_PDF);
-                return new PdfView(viewToWrap,absolutePath);
+                String[] pdfsToAppend = getPdfsToAppend(schools);
+                return new PdfView(viewToWrap,pdfsToAppend);
             } else {
                 return new PdfView(viewToWrap);
             }
         } catch (Exception e) {
             return new RedirectView("/status/error404.page");
         }
+    }
+
+    public String[] getPdfsToAppend(List<School> schools) {
+
+        SortedSet<LevelCode.Level> levelCodes = new TreeSet<LevelCode.Level>();
+        List<String> paths = new ArrayList<String>();
+
+        for (School school : schools) {
+            levelCodes.addAll(school.getLevelCode().getIndividualLevelCodes());
+        }
+
+        if (levelCodes.contains(LevelCode.Level.PRESCHOOL_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_PRESCHOOL_CHECKLIST_PDF));
+        }
+        if (levelCodes.contains(LevelCode.Level.ELEMENTARY_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_ELEMENTARY_CHECKLIST_PDF));
+        }
+        if (levelCodes.contains(LevelCode.Level.MIDDLE_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_MIDDLE_CHECKLIST_PDF));
+        }
+        if (levelCodes.contains(LevelCode.Level.HIGH_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_HIGH_CHECKLIST_PDF));
+        }
+
+        return paths.toArray(new String[0]);
     }
 
     private String formatRating(int rating) {
