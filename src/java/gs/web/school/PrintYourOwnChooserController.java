@@ -193,7 +193,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         data.put("tuition_high", getSinglePrettyValue(espData, "tuition_high"));
         data.put("financial_aid", getSinglePrettyValue(espData, "financial_aid"));
         data.put("students_vouchers", getSinglePrettyValue(espData, "students_vouchers"));
-        data.put("ell_level", getSingleValue(espData, "ell_level"));
+        data.put("ell_level", getSinglePrettyValue(espData, "ell_level"));
 
 
         // esp data - "best known for" quote
