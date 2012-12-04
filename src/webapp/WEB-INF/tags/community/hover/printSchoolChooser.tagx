@@ -37,10 +37,9 @@
             <c:set var="pyocCount" value="${requestScope.context.mslCount}"/>
             <div class="outer">
                 <div class="inner">
-                    <h2 class="bottom">Print you own school chooser</h2>
-                    <p class="pts">Thanks for verifying your updated email address.</p>
+                    <h2 class="">Choose the schools you'd like to download:</h2>
                     <div class="clearfix">
-                        <h4 class="fl bottom">You are printing <strong>${pyocCount}</strong> schools <span class="default make-555555">(1 page)</span></h4>
+                        <h4 class="fl bottom">Your file currently includes <strong>${pyocCount}</strong> schools <span class="default make-555555">(1 page)</span></h4>
                         <a href="javascript:void(0)" class="fr" id="pyocDeselect" onclick="deselectSchool()">Deselect all</a>
                     </div>
                     <div id="js-pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;"><!--do not collapse--></div>
@@ -49,7 +48,7 @@
                         <input type="hidden" id="selectedId" name="schoolIds" value="" />
                         <div id="js-pyocChecklist" class="ft pas mbl">
                             <input type="checkbox" checked="checked" id="js-appendCheckList" name="appendChecklist" value="yes"/>
-                            <span class="mlm">Include a school visit Checklist</span>
+                            <span class="mlm">Include our handy School Visit Checklist</span>
                             <div class="pa" style="top:-13px; right:40px;">
                                 <img src="/res/img/pdfChooser/icon_checklist.png" alt="checklist background"/>
                             </div>
