@@ -38,21 +38,16 @@ import java.util.*;
 public class MySchoolListController extends AbstractController implements ReadWriteController {
     protected static final Log _log = LogFactory.getLog(MySchoolListController.class);
 
-    // parallel arrays to track states/cities that control whether Print Your Own Chooser module is displayed
-    public static final State[] CHOOSER_STATES = new State[] {
-            State.WI,
-            State.DC,
-            State.IN,
-            State.IN,
-            State.IN
-    };
-    public static final String[] CHOOSER_CITIES = new String[] {
-            "Milwaukee",
-            "Washington",
-            "Indianapolis",
-            "Speedway",
-            "Beech Grove"
-    };
+    // states/cities that control whether Print Your Own Chooser module is displayed
+    public static Set<String> CHOOSER_CITIES = new HashSet<String>();
+    static {
+        // comparisons are to lowercase
+        CHOOSER_CITIES.add("milwaukee, wi");
+        CHOOSER_CITIES.add("washington, dc");
+        CHOOSER_CITIES.add("indianapolis, in");
+        CHOOSER_CITIES.add("speedway, in");
+        CHOOSER_CITIES.add("beech grove, in");
+    }
 
 
     /** Spring bean id */
@@ -292,18 +287,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
         model.put(MODEL_SCHOOLS, schools);
 
         // For PYOC: Track whether any PYOC school is in one of the "chooser" cities.
-        boolean showPYOCModule = false;
-        for (School school : schools) {
-            String city = school.getCity();
-            int position = 0;
-            for (String chooserCity : CHOOSER_CITIES) {
-                if (city.equalsIgnoreCase(chooserCity) && school.getStateAbbreviation().equals(CHOOSER_STATES[position])) {
-                    showPYOCModule = true;
-                }
-            }
-            position++;
-        }
-        model.put(MODEL_SHOW_PYOC_MODULE, showPYOCModule);
+        model.put(MODEL_SHOW_PYOC_MODULE, shouldShowPYOCModule(schools));
 
         String preschoolOnly = "true";
 
@@ -324,6 +308,18 @@ public class MySchoolListController extends AbstractController implements ReadWr
         model.put(MODEL_PRESCHOOL_ONLY, preschoolOnly);
 
         return model;
+    }
+
+    static boolean shouldShowPYOCModule(Collection<School> schools) {
+        boolean showPYOCModule = false;
+        Iterator<School> schoolsIterator = schools.iterator();
+        while (!showPYOCModule && schoolsIterator.hasNext()) {
+            School school = schoolsIterator.next();
+            if (school != null) {
+                showPYOCModule = CHOOSER_CITIES.contains((school.getCity() + ", " + school.getStateAbbreviation()).toLowerCase());
+            }
+        }
+        return showPYOCModule;
     }
 
     private Comparator<School> getSchoolNameComparator() {
