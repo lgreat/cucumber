@@ -95,23 +95,34 @@
                 </div>
             </div>
             <div class="fr clearfix header-vertical-border-l">
-                <c:if test="${not empty schoolData['overallAcademicRating'] or not empty schoolData['overallClimateRating']}">
+                <c:if test="${school.isNewGSRating and (not empty schoolData['overallAcademicRating'] or not empty schoolData['overallClimateRating'])}">
+                    <c:set var="ratingBreakdownDefaultString" value="Not available"/>
                     <div class="fl header-vertical-border-r pvRatingSpacer">
-                        <c:if test="${not empty schoolData['overallAcademicRating']}">
-                            <h2 class="smallMargin">Academic Rating:</h2>
-                            <p>
-                            <span class="strong">${schoolData['overallAcademicRating']} / 10<br/>
-                                ${schoolData['overallAcademicRatingText']}</span>
-                            </p>
-                        </c:if>
+                        <h2 class="smallMargin">Academic Rating:</h2>
+                        <p>
+                            <c:choose>
+                                <c:when test="${not empty schoolData['overallAcademicRating']}">
+                                            <span class="strong">${schoolData['overallAcademicRating']} / 10<br/>
+                                                ${schoolData['overallAcademicRatingText']}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="strong">${ratingBreakdownDefaultString}</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
 
-                        <c:if test="${not empty schoolData['overallClimateRating']}">
-                            <h2 class="${empty schoolData['overallAcademicRating'] ? 'smallMargin' : ''}">Climate Rating:</h2>
-                            <p>
-                                <span class="strong">${schoolData['overallClimateRating']} / 10<br/>
-                                ${schoolData['overallClimateRatingText']}</span>
-                            </p>
-                        </c:if>
+                        <h2>Climate Rating:</h2>
+                        <p>
+                            <c:choose>
+                                <c:when test="${not empty schoolData['overallClimateRating']}">
+                                    <span class="strong">${schoolData['overallClimateRating']} / 10<br />
+                                    ${schoolData['overallClimateRatingText']}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="strong">${ratingBreakdownDefaultString}</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
                     </div>
                 </c:if>
                 <div class="fl plm tac" >
@@ -191,11 +202,11 @@
 
             <div class="bd_column" style="padding-right: 0px;">
                 <h2>Special education services</h2>
-                <p><span class="strong">${gsweb:defaultString(schoolData['special_ed_services'], 'Unknown')}</span></p>
+                <p><span class="strong">${gsweb:defaultString(schoolData['special_ed_services'], defaultString)}</span></p>
                 <h2>ELL services</h2>
-                <p><span class="strong">${gsweb:defaultString(schoolData['ell_level'],'Unknown')}</span></p>
+                <p><span class="strong">${gsweb:defaultString(schoolData['ell_level'], defaultString)}</span></p>
                 <h2>Our grads typically go to</h2>
-                <c:set var="destinationSchoolsContent"><span class="strong">Unknown</span></c:set>
+                <c:set var="destinationSchoolsContent"><span class="strong">${defaultString}</span></c:set>
                 <c:if test="${not empty schoolData['destination_schools']}">
                     <c:set var="destinationSchoolsContent" value="${schoolData['destination_schools']}" />
                 </c:if>
