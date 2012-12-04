@@ -50,9 +50,6 @@
 
             <h1>My School List</h1>
 
-            Should show PYOC? ${showPYOCModule}
-            <a onclick="GSType.hover.printSchoolChooser.showHover(); return false;">Print</a>
-
             <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
 
 
@@ -94,11 +91,26 @@
         </div>
 
         <div class="grid_8">
-
-
+            <c:if test="${showPYOCModule eq true}">
+                <div class="standard_3-1">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="clearfix">
+                            <div class="fl">
+                                <h3>Download My<br/> School List to<br/> save, share<br/> or print.</h3>
+                                <a onclick="GSType.hover.printSchoolChooser.showHover(); return false;"><button class="button-1" type="button">Download</button></a>
+                            </div>
+                            <div class="fr">
+                                <img src="/res/img/pdfChooser/icon_chooser.png" alt=""/>
+                                <!--/Users/pdeshwal/GSMeta/GSWeb/src/webapp/res/img/pdfChooser/icon_chooser.png-->
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
             <ad:AboveFold_300x250/>
             <ad:Top_300x137/>
-
         </div>
         <div class="spacer">
             <!-- don't collapse -->

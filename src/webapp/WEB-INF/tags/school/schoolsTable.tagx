@@ -34,7 +34,7 @@
             </c:if>
 
                 <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
-                <h4 class="bottom js-pyocSchoolName"><link:schoolProfileOverview school="${school}" title="${school.name} ">
+                <h4 class="bottom"><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="js-pyocSchoolName">
                     <c:out value="${school.name}"/>
                 </link:schoolProfileOverview></h4>
                 <p class="small bottom quiet">

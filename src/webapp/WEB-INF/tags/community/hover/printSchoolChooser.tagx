@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
     <head>
@@ -15,7 +16,7 @@
                 });
                 $('#selectedState').val(state.join(','));
                 $('#selectedId').val(schoolID.join(','));
-                if($('#js-pyocChecklist:checked')){
+                if($('#js-pyocChecklist input:checked')){
                     $('#js-appendCheckList').val('yes');
                 }
                 else{
@@ -25,47 +26,39 @@
             }
 
             function deselectSchool() {
-                $('#pyoc input').each(function () {
+                $('#js-pyoc input').each(function () {
                     $(this).attr('checked', false);
                 });
             }
-
         </script>
     </head>
     <div id="printSchoolChooser" class="dialog_white" style="display:none;">
-
         <div class="modal_3 width_13 slStylesV1-0" id="printSchoolChooser">
+            <c:set var="pyocCount" value="${requestScope.context.mslCount}"/>
             <div class="outer">
-                <!--<div class="fr"><span class="iconx24 i-24-close printSchoolChooser_hideHover">&lt;!&ndash; do not collapse &ndash;&gt;</span></div>-->
                 <div class="inner">
-                        <h2 class="bottom">Print you own school chooser</h2>
-                        <p class="pts">Thanks for verifying your updated email address.</p>
-                        <div class="">
-                            <h4 class="fl bottom">You are printing <strong>${requestScope.context.mslCount}</strong> schools</h4>
-                            <a href="javascript:void(0)" class="fr" id="pyocDeselect"
-                               onclick="deselectSchool()">Deselect all</a>
-                            <div class="clearfix"><!--Do not collape--></div>
-                        </div>
-                        <div id="js-pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;">
-                            <!--<div class="schoolSelectList pam clearfix">-->
-                                <!--<span class="fl">Cooper School<br/><span class="small">Milwaukee, WI. Public 3-8</span></span>-->
-                                <!--<span class="fr"><input type="checkbox" checked="checked" name="WI,1" value="WI,1" class="checkStatus"/></span>-->
-                            <!--</div>-->
-                        </div>
-                    <div class="ft pas mbl">
-                        <input type="checkbox" checked="checked" id="js-pyocChecklist" name="" value="yes"/>
-                        <span class="mlm">Include a school visit Checklist</span>
+                    <h2 class="bottom">Print you own school chooser</h2>
+                    <p class="pts">Thanks for verifying your updated email address.</p>
+                    <div class="clearfix">
+                        <h4 class="fl bottom">You are printing <strong>${pyocCount}</strong> schools <span class="default make-555555">(1 page)</span></h4>
+                        <a href="javascript:void(0)" class="fr" id="pyocDeselect" onclick="deselectSchool()">Deselect all</a>
                     </div>
-                    <button class="button-1 printSchoolChooser_hideHover" type="button" onclick="printSchoolList()">Download PDF</button>
+                    <div id="js-pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;"><!--do not collapse--></div>
+                    <form id="js-printSchoolChooserSubmit" method="POST" action="print-your-own-chooser/chooser.pdf" target="_blank">
+                        <input type="hidden" id="selectedState" name="states" value="" />
+                        <input type="hidden" id="selectedId" name="schoolIds" value="" />
+                        <div id="js-pyocChecklist" class="ft pas mbl">
+                            <input type="checkbox" checked="checked" id="js-appendCheckList" name="appendChecklist" value="yes"/>
+                            <span class="mlm">Include a school visit Checklist</span>
+                            <div class="pa" style="top:-13px; right:40px;">
+                                <img src="/res/img/pdfChooser/icon_checklist.png" alt="checklist background"/>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="javascript:void(0)"><button class="button-1 printSchoolChooser_hideHover" type="button" onclick="printSchoolList()">Download PDF</button></a>
+                    <!--<c:if test="${pyocCount eq 0}">Please select atleast one school</c:if>-->
                 </div>
             </div>
         </div>
-        <form id="js-printSchoolChooserSubmit" method="POST" action="print-your-own-chooser/chooser.pdf" target="_blank">
-            <input type="hidden" id="selectedState" name="states" value="" />
-            <input type="hidden" id="selectedId" name="schoolIds" value="" />
-            <input type="hidden" id="js-appendCheckList" name="appendChecklist" value="yes"/>
-        </form>
     </div>
-
-
 </jsp:root>

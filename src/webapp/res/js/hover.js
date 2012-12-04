@@ -826,11 +826,9 @@ GSType.hover.PrintSchoolChooser = function() {
         $('#js-schoolListData .standard_1-1').each(function () {
             var $this = $(this);
             var stateID = $this.find('.compare_checkbox').val();
-            console.log('test1' + stateID);
             var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
-            console.log('output' + output);
             var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
-                '<span class="fl ttc">' + $this.find('.js-pyocSchoolName').html() + '<br/>' +
+                '<span class="fl ttc"><span class="make-06b">' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
                 '<span class="small">' + $this.find('.js-pyocCityState').html() + '. ' + $this.find('.js-pyocSchoolType').html() + '</span>' +
                 '</span>' +
                 '<span class="fr">' +
@@ -841,8 +839,13 @@ GSType.hover.PrintSchoolChooser = function() {
         });
     };
 
-
-
+//    this.getCheckCount = function (){
+//        $('.js-stateId').on(function(){
+//            $('input')
+//
+//        });
+//
+//    }
 
     this.showHover = function() {
         this.populateModal();
