@@ -501,3 +501,94 @@ Created by Mitchell Seltzer
 .r-32-3{
     background-position: -64px 0;
 }
+
+
+/*---Temp css added for district boundary page---*/
+.square-large{
+    color:#FFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    background-image: linear-gradient(bottom,#2092C4,#39AFE2);
+    background: #2EA2D4;
+    border: solid 1px #2092C4;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, .3);
+    font: bold 26px/44px arial;
+    letter-spacing: -1px;
+    width: 44px;
+    height: 44px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    text-align: center;
+}
+
+.square-large-grey{
+    color:#FFF;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    background-image:linear-gradient(bottom,#555555,#787878);
+    background: #666666;
+    border: solid 1px #555555;
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, .3);
+    font: bold 26px/44px arial;
+    letter-spacing: -1px;
+    width: 44px;
+    height: 44px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    text-align: center;
+}
+
+
+/* **************** 48 px ***************** */
+
+.ratingx48-district {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x48/121204-ratingsx48-district.png);
+    width: 48px;
+    height: 48px;
+}
+
+/* row 0 */
+.r-48-1 {
+    background-position: 0 0;
+}
+
+.r-48-2 {
+    background-position: -48px 0;
+}
+
+.r-48-3 {
+    background-position: -96px 0;
+}
+
+.r-48-4 {
+    background-position: -144px 0;
+}
+
+.r-48-5 {
+    background-position: -192px 0;
+}
+
+.r-48-6 {
+    background-position: -240px 0;
+}
+
+.r-48-7 {
+    background-position: -288px 0;
+}
+
+.r-48-8 {
+    background-position: -336px 0;
+}
+
+.r-48-9 {
+    background-position: -384px 0;
+}
+
+.r-48-10 {
+    background-position: -432px 0;
+}
+
+.r-48-NR {
+    background-position: -480px 0;
+}
