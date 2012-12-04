@@ -259,7 +259,7 @@ GS.form.EspForm = function() {
 
         if (data && data[fieldName]) {
             GS.form.espForm.addWarningClassToElem(elem);
-            fieldError.find('.bk').html(data[fieldName]); // set error message
+            fieldError.find('.bd').html(data[fieldName]); // set error message
             fieldError.show();
             return false;
         } else {
