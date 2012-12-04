@@ -28,7 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@RequestMapping("/print-your-own-chooser/chooser")
+@RequestMapping("/my-school-list")
 @Component("printYourOwnChooserController")
 public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware {
 
