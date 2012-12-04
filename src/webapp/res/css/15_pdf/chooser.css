@@ -85,15 +85,6 @@ ul	{
     list-style-type:none;
 }
 
-.left_column{
-    float:left;
-    margin-bottom:.5em;
-    width:30%;
-    margin-right:10px;
-}
-
-
-
 .bd_column	{
     float:left;
     width:27%;
@@ -134,7 +125,7 @@ hr.rulethin	{
 .tac { text-align:center; }
 .plm { padding-left:10px; }
 
-.header-left-width{ width:430px; }
+.header-left-width{ width:440px; }
 .header-left-component{ width:170px; padding-right: 10px;}
 
 .header-vertical-border-l { border-left: 1px solid #EEEEEE; }
