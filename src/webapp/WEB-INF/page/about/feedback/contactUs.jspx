@@ -70,7 +70,16 @@
                 $("#mainFeedbackTopicSelect option[value='" + feedbackType + "']").prop('selected', true);
                 mainSelect.change()
             }
-
+//            addSchoolToSiteSubTopicSelect
+            var addSchoolToSiteSubSelect = $j("#addSchoolToSiteSubTopicSelect");
+            addSchoolToSiteSubSelect.change(function() {
+                var selectedValue = addSchoolToSiteSubSelect.val();
+                if (selectedValue == '') {
+                    return;
+                }
+                $j('div.jqaddSchoolToSiteSubFeedback').hide();
+                $j('#' + selectedValue + 'SubFeedback').show();
+            });
             var incorrectSchoolSubSelect = $j("#incorrectSchoolDistrictSubTopicSelect");
             incorrectSchoolSubSelect.change(function() {
                 var selectedValue = incorrectSchoolSubSelect.val();
@@ -200,14 +209,15 @@
         <label for="mainFeedbackTopicSelect" class="label2 text1bold">I'd like to contact GreatSchools about</label>
         <select id="mainFeedbackTopicSelect" disabled="disabled">
             <option value="defaultOption">- Select an option -</option>
-            <option value="incorrectSchoolDistrictInfo">Incorrect or missing school/district information</option>
+            <option value="incorrectSchoolDistrictInfo">Incorrect school/district information</option>
+            <option value="addSchoolToSite">Add a preschool or private school listing</option>
+            <option value="join">Trouble joining or signing in</option>
+            <option value="esp">Official School Profiles for school administrators</option>
             <option value="gsRatings">GreatSchools Ratings &amp;amp; test scores</option>
             <option value="schoolRatingsReviews">School ratings &amp;amp; reviews</option>
             <option value="newsletters">Newsletters</option>
-            <option value="esp">Official School Profiles for school administrators</option>
             <option value="advertising">Advertising</option>
             <option value="licensing">Licensing</option>
-            <option value="join">Trouble joining or signing in</option>
             <option value="other">Something else</option>
         </select>
     </li>
@@ -230,9 +240,6 @@
 </c:choose>
 
 <div id="incorrectSchoolDistrictInfoFeedback" class="jqFeedback" style="display: none;">
-    <p class="text2">
-        Note: We can add preschools and private schools individually, but not public or charter schools. <gsml:a href="/about/gsFaq.page#faq-datapublic">Find out why</gsml:a>.
-    </p>
 <div class="spacer_15"><!-- do not collapse --></div>
 <ol class="formlist2">
     <li class="fl2-item">
@@ -241,8 +248,6 @@
             <option value="default">- Select an option -</option>
             <option value="incorrectSchool">Report incorrect school information</option>
             <option value="incorrectDistrict">Report incorrect district information</option>
-            <option value="addPreSchool">Get a preschool added to the GreatSchools site</option>
-            <option value="addPrivateSchool">Get a private school added to the GreatSchools site</option>
         </select>
     </li>
 </ol>
@@ -645,19 +650,34 @@
         </div>
         <div class="spacer_15"><!-- do not collapse --></div>
     </div>
+</div>
 
-<!-- ******************************************************* -->
-<!-- ** 3. Get a preschool added to the GreatSchools site ** -->
-<!-- ******************************************************* -->
-    <div id="addPreSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback" style="display: none;">
+<div id="addSchoolToSiteFeedback" class="jqFeedback" style="display: none;">
+    <p class="text2">
+        Note: We can add preschools and private schools individually, but not public or charter schools. <gsml:a href="/about/gsFaq.page#faq-datapublic">Find out why</gsml:a>.
+    </p>
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <ol class="formlist2">
+        <li class="fl2-item">
+            <label for="addSchoolToSiteSubTopicSelect" class="label1 text2bold">Provide more detail about your feedback</label>
+            <select id="addSchoolToSiteSubTopicSelect">
+                <option value="default">- Select an option -</option>
+                <option value="addPreSchool">Get a preschool added to the GreatSchools site</option>
+                <option value="addPrivateSchool">Get a private school added to the GreatSchools site</option>
+            </select>
+        </li>
+    </ol>
+    <!-- ******************************************************* -->
+    <!-- ** 3. Get a preschool added to the GreatSchools site ** -->
+    <!-- ******************************************************* -->
+    <div id="addPreSchoolSubFeedback" class="jqaddSchoolToSiteSubFeedback" style="display: none;">
         <p><gsml:a href="/about/feedback/submitPreschool.page">Please click here to add a preschool to our site.</gsml:a></p>
     </div>
 
-<!-- ***************************************************** -->
-<!-- ** 4. Get a private added to the GreatSchools site ** -->
-<!-- ***************************************************** -->
-    <div id="addPrivateSchoolSubFeedback" class="jqIncorrectSchoolDistrictSubFeedback"
-         style="display: none;">
+    <!-- ***************************************************** -->
+    <!-- ** 4. Get a private added to the GreatSchools site ** -->
+    <!-- ***************************************************** -->
+    <div id="addPrivateSchoolSubFeedback" class="jqaddSchoolToSiteSubFeedback" style="display: none;">
         <p><gsml:a href="/about/feedback/submitPrivateSchool.page">Please click here to add a private school to our site.</gsml:a></p>
     </div>
 </div>
