@@ -358,16 +358,16 @@ public class PrintYourOwnChooserControllerTest {
         Map<String, Object> data = new HashMap<String,Object>();
         School school = getASchool();
 
-        List<EspResponse> espResponse = getAnEspResponse("destination_school_1", "One");
-        espResponse.addAll(getAnEspResponse("destination_school_2", "Two"));
-        espResponse.addAll(getAnEspResponse("destination_school_3", "Three"));
+        List<EspResponse> espResponse = getAnEspResponse("college_destination_1", "One");
+        espResponse.addAll(getAnEspResponse("college_destination_2", "Two"));
+        espResponse.addAll(getAnEspResponse("college_destination_3", "Three"));
 
         expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
         replay(_espResponseDaoHibernate);
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "One; Two; Three", data.get("destination_schools"));
+        assertEquals("Expect OSP data to have been inserted into map", "One; Two; Three", data.get("college_destinations"));
     }
 
     @Test
@@ -375,14 +375,14 @@ public class PrintYourOwnChooserControllerTest {
         Map<String, Object> data = new HashMap<String,Object>();
         School school = getASchool();
 
-        List<EspResponse> espResponse = getAnEspResponse("destination_school_1", "One");
+        List<EspResponse> espResponse = getAnEspResponse("college_destination_1", "One");
 
         expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
         replay(_espResponseDaoHibernate);
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "One", data.get("destination_schools"));
+        assertEquals("Expect OSP data to have been inserted into map", "One", data.get("college_destinations"));
     }
 
     @Test
@@ -397,7 +397,7 @@ public class PrintYourOwnChooserControllerTest {
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "", data.get("destination_schools"));
+        assertEquals("Expect OSP data to have been inserted into map", "", data.get("college_destinations"));
     }
 
     @Test

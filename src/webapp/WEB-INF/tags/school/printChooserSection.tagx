@@ -217,11 +217,11 @@
                 <h2>ELL services</h2>
                 <p><span class="strong">${gsweb:defaultString(schoolData['ell_level'], defaultString)}</span></p>
                 <h2>Our grads typically go to</h2>
-                <c:set var="destinationSchoolsContent"><span class="strong">${defaultString}</span></c:set>
-                <c:if test="${not empty schoolData['destination_schools']}">
-                    <c:set var="destinationSchoolsContent" value="${schoolData['destination_schools']}" />
+                <c:set var="collegeDestinationContent"><span class="strong">${defaultString}</span></c:set>
+                <c:if test="${not empty schoolData['college_destinations']}">
+                    <c:set var="collegeDestinationContent" value="${schoolData['college_destinations']}" />
                 </c:if>
-                <p>${destinationSchoolsContent}</p>
+                <p>${collegeDestinationContent}</p>
             </div>
         </div>
     </div><!-- end container -->
