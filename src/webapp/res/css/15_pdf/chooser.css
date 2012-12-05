@@ -119,14 +119,14 @@ hr.rulethin	{
 .mtm, .mvm {margin-top: 10px;}
 
 .pb15 {padding-bottom: 15px;}
-.pvRatingSpacer{padding: 0px 40px 0 20px; }
+.pvRatingSpacer{padding: 0px 30px 0 20px; }
 .ptsRatingGS { padding:5px 0 0 0 ;font:normal 6pt Arial, Helvetica, sans-serif ; }
 
 .tac { text-align:center; }
 .plm { padding-left:10px; }
 .dn {display:none;}
 
-.header-left-width{ width:460px; }
+.header-left-width{ width:455px; }
 .header-left-component{ width:160px; padding-right: 10px;}
 
 .header-vertical-border-l { border-left: 1px solid #EEEEEE; }
