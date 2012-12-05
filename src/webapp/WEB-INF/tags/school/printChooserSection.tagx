@@ -25,6 +25,9 @@
     <c:if test="${isPreschool and empty overallRating}">
         <c:set var="showHideSprite" value="dn" />
     </c:if>
+    <c:if test="${empty overallRating or overallRating == 0}">
+        <c:set var="overallRating" value="NR"/>
+    </c:if>
 
     <!--<c:choose>-->
         <!--<c:when test="${isPreschool}">-->
