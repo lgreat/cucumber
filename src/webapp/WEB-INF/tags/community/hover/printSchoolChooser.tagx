@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
         >
 
     <head>
@@ -9,11 +10,21 @@
             function printSchoolList() {
                 var state = [];
                 var schoolID = [];
+                var count = 0;
                 $('#js-pyoc input:checked').each(function () {
+                    count++;
                     var selected = $(this).attr('value').split(",");
                     state.push(selected[0]);
                     schoolID.push(selected[1]);
                 });
+                if (count == 0) {
+                    $('.js-showError').show();
+                    return false;
+                }
+                else{
+                    $('.js-showError').hide();
+                }
+
                 $('#selectedState').val(state.join(','));
                 $('#selectedId').val(schoolID.join(','));
                 if($('#js-pyocChecklist input:checked')){
@@ -28,6 +39,7 @@
             function deselectSchool() {
                 $('#js-pyoc input').each(function () {
                     $(this).attr('checked', false);
+//                    $('.schoolSelectList').addClass('make-b8b8b8');
                 });
             }
         </script>
@@ -35,11 +47,13 @@
     <div id="printSchoolChooser" class="dialog_white" style="display:none;">
         <div class="modal_3 width_13 slStylesV1-0" id="printSchoolChooser">
             <c:set var="pyocCount" value="${requestScope.context.mslCount}"/>
+            <c:set var="pageCount" value=""/>
+            <c:set var="num" value="3" />
             <div class="outer">
                 <div class="inner">
                     <h2 class="">Choose the schools you'd like to download:</h2>
                     <div class="clearfix">
-                        <h4 class="fl bottom">Your file currently includes <strong>${pyocCount}</strong> schools <span class="default make-555555">(1 page)</span></h4>
+                        <h5 class="fl bottom">Your file currently includes <span class="pyocCount">${pyocCount}</span> schools <span class="default make-555555 pageCount">(${gsweb:getNumPages(pyocCount,num)} page)</span></h5>
                         <a href="javascript:void(0)" class="fr" id="pyocDeselect" onclick="deselectSchool()">Deselect all</a>
                     </div>
                     <div id="js-pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;"><!--do not collapse--></div>
@@ -54,8 +68,8 @@
                             </div>
                         </div>
                     </form>
-                    <a href="javascript:void(0)"><button class="button-1 printSchoolChooser_hideHover" type="button" onclick="printSchoolList()">Download PDF</button></a>
-                    <!--<c:if test="${pyocCount eq 0}">Please select atleast one school</c:if>-->
+                    <a href="javascript:void(0)"><button class="button-1" type="button" onclick="printSchoolList()">Download PDF</button></a>
+                    <span class="js-showError mlm error_msg small" style="display: none;"><span class="iconx16 i-16-alert vam"><!-- do not collapse --></span><span class="mls vam">Please select at least one school</span></span>
                 </div>
             </div>
         </div>

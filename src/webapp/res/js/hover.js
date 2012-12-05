@@ -828,7 +828,7 @@ GSType.hover.PrintSchoolChooser = function() {
             var stateID = $this.find('.compare_checkbox').val();
             var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
             var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
-                '<span class="fl ttc"><span class="make-06b">' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
+                '<span class="fl ttc"><span>' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
                 '<span class="small">' + $this.find('.js-pyocCityState').html() + '. ' + $this.find('.js-pyocSchoolType').html() + '</span>' +
                 '</span>' +
                 '<span class="fr">' +
@@ -839,16 +839,22 @@ GSType.hover.PrintSchoolChooser = function() {
         });
     };
 
-//    this.getCheckCount = function (){
-//        $('.js-stateId').on(function(){
-//            $('input')
-//
-//        });
-//
-//    }
-
+    this.getCheckCount = function (){
+        $('.js-stateId, #pyocDeselect').click(function() {
+            var pyocCounter = $('#js-pyoc').find('input.js-stateId:checked').length;
+            $('.pyocCount').html(pyocCounter);
+            var pageCount = (Math.ceil(pyocCounter/3));
+            if(pageCount <= 1 ){
+                $('.pageCount').html('(' + pageCount + ' page)');
+            }
+            else{
+                $('.pageCount').html('(' + pageCount + ' pages)');
+            }
+        });
+    }
     this.showHover = function() {
         this.populateModal();
+        this.getCheckCount();
         GSType.hover.printSchoolChooser.show();
     };
 };
