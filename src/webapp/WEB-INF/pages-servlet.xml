@@ -2565,7 +2565,7 @@
             <map>
                 <entry key="json" value="application/json" />
                 <entry key="xml" value="application/xml" />
-                <!-- commenting out for 21.4 since this needs to be tested more -->
+                <!-- force PYOC code to generate PDFs, dont use ContentNegotiatingViewResolver for that for now -->
                 <!--<entry key="pdf" value="application/pdf" /> -->
             </map>
         </property>
@@ -2580,7 +2580,7 @@
             </list>
         </property>
         <property name="ignoreAcceptHeader" value="true" />
-        <!-- commenting out for 21.4 since this needs to be tested more -->
+        <!-- force PYOC code to generate PDFs, dont use ContentNegotiatingViewResolver for that for now -->
        <!-- <property name="viewResolvers">
             <list>
                 <bean class="gs.web.HTML2PDFViewResolver">

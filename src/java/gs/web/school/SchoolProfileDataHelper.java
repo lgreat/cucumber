@@ -758,179 +758,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 return null;
             }
 
-            //Get the test data sets for all the data type ids(school and state data type ids).
-            List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
-                    school.getDatabaseState(), null, RATING_TEST_DATA_TYPE_IDS,
-                    null, null, null, null, true, null, displayTarget);
-
-            //Get the school test values.
-            List<SchoolTestValue> schoolTestValues = new ArrayList<SchoolTestValue>();
-            if (!testDataSets.isEmpty()) {
-                schoolTestValues = _testDataSchoolValueDao.findValues(testDataSets, school);
-            }
-
-            //Construct a list that contains the test data sets for only state rating.This is the subset of the
-            //testDataSets defined above.Therefore no need to make an additional call to the database to
-            //get the data sets.We already have them.
-            List<TestDataSet> stateTestDataSets = new ArrayList<TestDataSet>();
-            for (TestDataSet dataSet : testDataSets) {
-                if (STATE_RATING_TEST_DATA_TYPE_IDS.contains(dataSet.getDataTypeId())) {
-                    stateTestDataSets.add(dataSet);
-                }
-            }
-
-            if (!schoolTestValues.isEmpty() || !stateTestDataSets.isEmpty()) {
-                dataMap = new HashMap<String, Object>();
-            }
-
-            Map<String,String> subjectLabelToValueMap = new HashMap<String,String>();
-            List<PerformanceRatingObj> performanceManagementRatingList = new ArrayList<PerformanceRatingObj>();
-            //Get the school ratings.
-            // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
-            for (SchoolTestValue value : schoolTestValues) {
-                TestDataSet dataSet = value.getDataSet();
-                Grade grade = dataSet.getGrade();
-                switch (value.getDataSet().getDataTypeId()) {
-                    // overall ratings
-                    case TestDataType.RATING_OVERALL:
-                        dataMap.put(DATA_OVERALL_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_OVERALL_ACADEMIC:
-                        dataMap.put(DATA_OVERALL_ACADEMIC_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_OVERALL_CLIMATE:
-                        dataMap.put(DATA_OVERALL_CLIMATE_RATING, value.getValueFloat().intValue());
-                        dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, value.getNumberTested());
-                        break;
-
-                    // academic ratings
-                    case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
-                        dataMap.put(DATA_TEST_SCORE_RATING_YEAR, value.getDataSet().getYear());
-                        dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
-                        Subject subject = dataSet.getSubject();
-                        if(subject != null && subject.getSubjectId() != 1){
-                            String subjectLabel = "";
-                            try {
-                                subjectLabel = _subjectDao.findSubjectName(subject, school.getDatabaseState());
-                            } catch (IllegalArgumentException e) {
-                                subjectLabel = Subject.getName(subject);
-                            }
-
-                            subjectLabelToValueMap.put(subjectLabel+ " growth", value.getValueText());
-                            //The value in dataMap gets overridden each time there is breakdown data.
-                            dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP, subjectLabelToValueMap);
-                        }else{
-                            dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, dataSet.getYear());
-                            dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
-                        }
-
-                        break;
-                    case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
-                        dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
-                        dataMap.put(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
-                        break;
-
-                    // climate ratings
-                    case TestDataType.RATING_CLIMATE_SCHOOL_ENVIRONMENT:
-                        dataMap.put(DATA_SCHOOL_ENVIRONMENT_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING:
-                        dataMap.put(DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS:
-                        dataMap.put(DATA_HIGH_EXPECTATIONS_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_CLIMATE_TEACHER_SUPPORT:
-                        dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT:
-                        dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
-                        break;
-                    case TestDataType.ACT_SCORE:
-                        if (value.getValueFloat() != null) {
-                            dataMap.put(DATA_SCHOOL_ACT_SCORE, Math.round(value.getValueFloat()));
-                        }
-                        break;
-                    case TestDataType.ACT_PERCENT_TESTED:
-                        if (value.getValueFloat() != null) {
-                            dataMap.put(DATA_SCHOOL_ACT_GRADE, grade);
-                            dataMap.put(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST, Math.round(value.getValueFloat()));
-                        }
-                        break;
-                    case TestDataType.SAT_SCORE:
-                        if (value.getValueFloat() != null) {
-                            dataMap.put(DATA_SCHOOL_SAT_SCORE, Math.round(value.getValueFloat()));
-                        }
-                        break;
-                    case TestDataType.SAT_PERCENT_TESTED:
-                        if (value.getValueFloat() != null) {
-                            dataMap.put(DATA_SCHOOL_SAT_GRADE, grade);
-                            dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, Math.round(value.getValueFloat()));
-                        }
-                        break;
-                    case TestDataType.ACT_SAT_PARTICIPATION:
-                        if (value.getValueFloat() != null) {
-                            dataMap.put(DATA_SCHOOL_ACT_SAT_PARTICIPATION, Math.round(value.getValueFloat()));
-                        }
-                        break;
-                    case TestDataType.ACT_SAT_COLLEGE_READY:
-                        if (value.getValueFloat() != null) {
-                            dataMap.put(DATA_SCHOOL_ACT_SAT_GRADE, grade);
-                            dataMap.put(DATA_SCHOOL_ACT_SAT_COLLEGE_READY, Math.round(value.getValueFloat()));
-                        }
-                        break;
-                    case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
-                        LevelCode levelCode = dataSet.getLevelCode();
-                        if (levelCode != null && value.getValueFloat() != null) {
-                            PerformanceRatingObj performanceRatingObj = new PerformanceRatingObj();
-                            performanceRatingObj.setLevelCode(levelCode);
-                            //Round the score to 1 decimal place.
-                            Double roundedScore = (Math.round(value.getValueFloat()*10))/10.0;
-                            performanceRatingObj.setScore(roundedScore);
-                            performanceRatingObj.setLevelText(getLevelText(levelCode));
-                            performanceManagementRatingList.add(performanceRatingObj);
-                        }
-                }
-            }
-
-            if (!performanceManagementRatingList.isEmpty()) {
-                Collections.sort(performanceManagementRatingList);
-                dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST, performanceManagementRatingList);
-            }
-
-
-            if (!stateTestDataSets.isEmpty() && (SchoolProfileRatingsController.isShowStateTestScoreRating(school.getDatabaseState())
-                    || SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState())
-                    || SchoolProfileRatingsController.isShowStatePostSecondaryReadinessRating(school.getDatabaseState()))) {
-
-                List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
-                for (StateTestValue value : stateTestValues) {
-                    switch (value.getDataSet().getDataTypeId()) {
-                        case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
-                            //Get the state test score only if there is school test score info.
-                            if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
-                                dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat());
-                            }
-                            break;
-                        case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
-                            //Get the year for the Rating from the data set for the state value.
-                            if(!dataMap.containsKey(DATA_STUDENT_GROWTH_RATING_YEAR)){
-                                dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
-                            }
-                            //Get the state growth rating even if there is no school growth rating.
-                            dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat());
-                            break;
-                        case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
-                            //Get the state test score only if there is school post secondary info.
-                            if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING)) {
-                                dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
-                            }
-                            break;
-                    }
-                }
-            }
+            dataMap = getDataMap(school, displayTarget);
 
             if (dataMap == null || dataMap.isEmpty()) {
                 // Set flag to prevent this DB request again
@@ -943,6 +771,185 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return dataMap;
     }
 
+    public Map<String, Object> getDataMap(School school, Set<String> displayTarget) {
+        Map<String,Object> dataMap = null;
+
+        //Get the test data sets for all the data type ids(school and state data type ids).
+        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
+                school.getDatabaseState(), null, RATING_TEST_DATA_TYPE_IDS,
+                null, null, null, null, true, null, displayTarget);
+
+        //Get the school test values.
+        List<SchoolTestValue> schoolTestValues = new ArrayList<SchoolTestValue>();
+        if (!testDataSets.isEmpty()) {
+            schoolTestValues = _testDataSchoolValueDao.findValues(testDataSets, school);
+        }
+
+        //Construct a list that contains the test data sets for only state rating.This is the subset of the
+        //testDataSets defined above.Therefore no need to make an additional call to the database to
+        //get the data sets.We already have them.
+        List<TestDataSet> stateTestDataSets = new ArrayList<TestDataSet>();
+        for (TestDataSet dataSet : testDataSets) {
+            if (STATE_RATING_TEST_DATA_TYPE_IDS.contains(dataSet.getDataTypeId())) {
+                stateTestDataSets.add(dataSet);
+            }
+        }
+
+        if (!schoolTestValues.isEmpty() || !stateTestDataSets.isEmpty()) {
+            dataMap = new HashMap<String, Object>();
+        }
+
+        Map<String,String> subjectLabelToValueMap = new HashMap<String,String>();
+        List<PerformanceRatingObj> performanceManagementRatingList = new ArrayList<PerformanceRatingObj>();
+        //Get the school ratings.
+        // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
+        for (SchoolTestValue value : schoolTestValues) {
+            TestDataSet dataSet = value.getDataSet();
+            Grade grade = dataSet.getGrade();
+            switch (value.getDataSet().getDataTypeId()) {
+                // overall ratings
+                case TestDataType.RATING_OVERALL:
+                    dataMap.put(DATA_OVERALL_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_OVERALL_ACADEMIC:
+                    dataMap.put(DATA_OVERALL_ACADEMIC_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_OVERALL_CLIMATE:
+                    dataMap.put(DATA_OVERALL_CLIMATE_RATING, value.getValueFloat().intValue());
+                    dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, value.getNumberTested());
+                    break;
+
+                // academic ratings
+                case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
+                    dataMap.put(DATA_TEST_SCORE_RATING_YEAR, value.getDataSet().getYear());
+                    dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
+                    Subject subject = dataSet.getSubject();
+                    if(subject != null && subject.getSubjectId() != 1){
+                        String subjectLabel = "";
+                        try {
+                            subjectLabel = _subjectDao.findSubjectName(subject, school.getDatabaseState());
+                        } catch (IllegalArgumentException e) {
+                            subjectLabel = Subject.getName(subject);
+                        }
+
+                        subjectLabelToValueMap.put(subjectLabel+ " growth", value.getValueText());
+                        //The value in dataMap gets overridden each time there is breakdown data.
+                        dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP, subjectLabelToValueMap);
+                    }else{
+                        dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, dataSet.getYear());
+                        dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                    }
+
+                    break;
+                case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
+                    dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
+                    dataMap.put(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
+                    break;
+
+                // climate ratings
+                case TestDataType.RATING_CLIMATE_SCHOOL_ENVIRONMENT:
+                    dataMap.put(DATA_SCHOOL_ENVIRONMENT_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING:
+                    dataMap.put(DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS:
+                    dataMap.put(DATA_HIGH_EXPECTATIONS_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_CLIMATE_TEACHER_SUPPORT:
+                    dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT:
+                    dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
+                    break;
+                case TestDataType.ACT_SCORE:
+                    if (value.getValueFloat() != null) {
+                        dataMap.put(DATA_SCHOOL_ACT_SCORE, Math.round(value.getValueFloat()));
+                    }
+                    break;
+                case TestDataType.ACT_PERCENT_TESTED:
+                    if (value.getValueFloat() != null) {
+                        dataMap.put(DATA_SCHOOL_ACT_GRADE, grade);
+                        dataMap.put(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST, Math.round(value.getValueFloat()));
+                    }
+                    break;
+                case TestDataType.SAT_SCORE:
+                    if (value.getValueFloat() != null) {
+                        dataMap.put(DATA_SCHOOL_SAT_SCORE, Math.round(value.getValueFloat()));
+                    }
+                    break;
+                case TestDataType.SAT_PERCENT_TESTED:
+                    if (value.getValueFloat() != null) {
+                        dataMap.put(DATA_SCHOOL_SAT_GRADE, grade);
+                        dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, Math.round(value.getValueFloat()));
+                    }
+                    break;
+                case TestDataType.ACT_SAT_PARTICIPATION:
+                    if (value.getValueFloat() != null) {
+                        dataMap.put(DATA_SCHOOL_ACT_SAT_PARTICIPATION, Math.round(value.getValueFloat()));
+                    }
+                    break;
+                case TestDataType.ACT_SAT_COLLEGE_READY:
+                    if (value.getValueFloat() != null) {
+                        dataMap.put(DATA_SCHOOL_ACT_SAT_GRADE, grade);
+                        dataMap.put(DATA_SCHOOL_ACT_SAT_COLLEGE_READY, Math.round(value.getValueFloat()));
+                    }
+                    break;
+                case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
+                    LevelCode levelCode = dataSet.getLevelCode();
+                    if (levelCode != null && value.getValueFloat() != null) {
+                        PerformanceRatingObj performanceRatingObj = new PerformanceRatingObj();
+                        performanceRatingObj.setLevelCode(levelCode);
+                        //Round the score to 1 decimal place.
+                        Double roundedScore = (Math.round(value.getValueFloat()*10))/10.0;
+                        performanceRatingObj.setScore(roundedScore);
+                        performanceRatingObj.setLevelText(getLevelText(levelCode));
+                        performanceManagementRatingList.add(performanceRatingObj);
+                    }
+            }
+        }
+
+        if (!performanceManagementRatingList.isEmpty()) {
+            Collections.sort(performanceManagementRatingList);
+            dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST, performanceManagementRatingList);
+        }
+
+
+        if (!stateTestDataSets.isEmpty() && (SchoolProfileRatingsController.isShowStateTestScoreRating(school.getDatabaseState())
+                || SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState())
+                || SchoolProfileRatingsController.isShowStatePostSecondaryReadinessRating(school.getDatabaseState()))) {
+
+            List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
+            for (StateTestValue value : stateTestValues) {
+                switch (value.getDataSet().getDataTypeId()) {
+                    case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
+                        //Get the state test score only if there is school test score info.
+                        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
+                            dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat());
+                        }
+                        break;
+                    case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
+                        //Get the year for the Rating from the data set for the state value.
+                        if(!dataMap.containsKey(DATA_STUDENT_GROWTH_RATING_YEAR)){
+                            dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
+                        }
+                        //Get the state growth rating even if there is no school growth rating.
+                        dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat());
+                        break;
+                    case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
+                        //Get the state test score only if there is school post secondary info.
+                        if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING)) {
+                            dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
+                        }
+                        break;
+                }
+            }
+        }
+
+        return dataMap;
+    }
 
     public static class PerformanceRatingObj implements Comparable<PerformanceRatingObj> {
        LevelCode _levelCode;

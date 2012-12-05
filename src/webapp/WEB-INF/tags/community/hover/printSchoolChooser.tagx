@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+        >
+
+    <div id="printSchoolChooser" class="dialog_white" style="display:none;">
+        <div class="modal_3 width_13 slStylesV1-0" id="printSchoolChooser">
+            <c:set var="pyocCount" value="${requestScope.context.mslCount}"/>
+            <c:set var="pageCount" value=""/>
+            <c:set var="num" value="3" />
+            <div class="outer">
+                <div class="inner">
+                    <h2 class="">Choose the schools you'd like to download:</h2>
+                    <div class="clearfix">
+                        <h5 class="fl bottom">Your file currently includes <span class="pyocCount">${pyocCount}</span> schools <span class="default make-555555 pageCount">(${gsweb:getNumPages(pyocCount,num)} page)</span></h5>
+                        <a href="javascript:void(0)" class="fr" id="pyocDeselect">Deselect all</a>
+                    </div>
+                    <div id="js-pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;"><!--do not collapse--></div>
+                    <form id="js-printSchoolChooserSubmit" method="POST" action="/my-school-list.pdf" target="_blank">
+                        <input type="hidden" id="selectedState" name="states" value="" />
+                        <input type="hidden" id="selectedId" name="schoolIds" value="" />
+                        <div id="js-pyocChecklist" class="ft pas mbl">
+                            <input type="checkbox" checked="checked" id="js-appendCheckList" name="appendChecklist" value="yes"/>
+                            <span class="mlm">Include our handy School Visit Checklist</span>
+                            <div class="pa" style="top:-13px; right:40px;">
+                                <img src="/res/img/pdfChooser/icon_checklist.png" alt="checklist background"/>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="javascript:void(0)"><button class="button-1 downloadPYOC" type="button">Download PDF</button></a>
+                    <span class="js-showError mlm error_msg small" style="display: none;"><span class="iconx16 i-16-alert vam"><!-- do not collapse --></span><span class="mls vam">Please select at least one school</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>

@@ -17,6 +17,18 @@
 
     <div class="alpha grid_16 omega">
         <h2>GreatSchools Rating</h2>
+        <c:if test="${not empty performanceManagementRatingCopy}">
+            <div class="alert-yellow smaller">
+                <div class="pam clearfix">
+                    <div class="fl">
+                        <span class="iconx16 i-16-notice"><!-- do not collapse --></span>
+                    </div>
+                    <div class="fr" style="width:580px;">
+                        ${performanceManagementRatingCopy}
+                    </div>
+                </div>
+            </div>
+        </c:if>
     </div>
     <div class="alpha grid_16 omega">
         <div class="alpha grid_8">

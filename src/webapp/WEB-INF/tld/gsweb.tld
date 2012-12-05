@@ -369,6 +369,12 @@
     </function>
 
     <function>
+        <name>getNumPages</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>long getNumPages(int,int)</function-signature>
+    </function>
+
+    <function>
         <name>onSchoolProfileTab</name>
         <function-class>gs.web.util.UrlUtil</function-class>
         <function-signature>boolean onSchoolProfileTab(java.lang.String, java.lang.String, java.lang.String)</function-signature>
@@ -378,6 +384,12 @@
         <name>matchesRegex</name>
         <function-class>gs.data.util.string.StringUtils</function-class>
         <function-signature>boolean matchesRegex(java.lang.String, java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>defaultString</name>
+        <function-class>gs.data.util.string.StringUtils</function-class>
+        <function-signature>java.lang.String defaultString(java.lang.String,java.lang.String)</function-signature>
     </function>
 
     <tag>

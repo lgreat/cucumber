@@ -205,16 +205,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_IN, copy);
 
         // unsupported state
-        boolean threwException = false;
         s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getClimateRatingAvailabilityText(s);
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getClimateRatingAvailabilityText(s);
+        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
     public void testGetSection1Copy() {
@@ -237,16 +230,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(SchoolProfileRatingsController.SECTION_1_COPY_IN, copy);
 
         // unsupported state
-        boolean threwException = false;
         s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getSection1Copy(s);
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getSection1Copy(s);
+        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
     // see individual tests for section 3 copy, section 3 post-secondary readiness, etc.
@@ -538,16 +524,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(source, copy);
 
         // unsupported state
-        boolean threwException = false;
         s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getTestScoreRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR));
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getTestScoreRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR));
+        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
     public void testGetStudentGrowthRatingSource() {
@@ -579,16 +558,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(source, copy);
 
         // unsupported state
-        boolean threwException = false;
         s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getStudentGrowthRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR));
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getStudentGrowthRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR));
+        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
     public void testGetPostSecondaryReadinessRatingSource() {
@@ -620,16 +592,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(source, copy);
 
         // unsupported state
-        boolean threwException = false;
         s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
+        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
     public void testIsShowStateTestScoreRating() {
@@ -738,16 +703,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_IN, copy);
 
         // unsupported state
-        boolean threwException = false;
         s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getSection4Copy(s, _dataMap);
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getSection4Copy(s, _dataMap);
+        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
     public void testIsShowClimateRatingDetails() {

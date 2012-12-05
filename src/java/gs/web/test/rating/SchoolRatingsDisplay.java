@@ -178,6 +178,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 else if(state.equals(State.DC)){
                     label = "DC-CAS - All Grades";
                 }
+                else if(state.equals(State.GA)){
+                    label = "EOCT - All Grades";
+                }
                 else if(state.equals(State.KY)){
                     label = "KCCT - All Grades";
                 }

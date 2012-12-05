@@ -42,6 +42,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     //===================== COPY ===================================
+    public static final String COPY_NOT_AVAILABLE = "No copy available for state.";
 
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_DC =
             "Coming 2013";
@@ -75,9 +76,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
 
     public static final String SECTION_3_COPY_DC =
-            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
-                    "and their readiness for college (for high schools). " +
-                    "The graphs below compare this school's results in each area to other schools in the city and state. ";
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth and " +
+                    "their readiness for college (for high schools). If a school is designated low performing (Tier 3) by " +
+                    "the DC Public Charter School Board, the school receives a \"Below average\" GreatSchools Rating. " +
+                    "The graphs below compare this school's results to other schools in the city.";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE_DC =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "and their readiness for college (for high schools). " +
@@ -164,6 +166,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "(e.g. newsletters, emails, and meetings) between administrators, teachers and parents. " +
             "This may include information about student progress, homework help and volunteer opportunities. " +
             "At lower-rated schools, parents may not get regular updates and may feel less welcome at school.";
+
+
+    public static final String PERFORMANCE_MANAGEMENT_RATING_COPY="This school is a low-performing (Tier 3) school, " +
+            "according to the DC Public Charter School Board, the organization that regulates DC charter schools. " +
+            "Schools that are persistently or significantly low performing (Tier 3) could have their charters revoked," +
+            " resulting in closure. If a school has been identified as low performing by a local authority and that " +
+            "designation could result in school closure, the school receives a \"Below average\" GreatSchools Rating. ";
 
     // ===================== MODEL ==================================
 
@@ -292,6 +301,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         populateSection4Model(school, dataMap, modelMap);
 
+        getPerformanceManagementRatingText(school,request,modelMap);
+
         // need to check which view to return
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
         if (requestInfo != null && requestInfo.shouldRenderMobileView()) {
@@ -394,7 +405,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return CLIMATE_RATING_AVAILABILITY_TEXT_WI;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -406,7 +417,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return SECTION_1_COPY_WI;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -605,7 +616,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return TEST_SCORE_RATING_SOURCE_WI_PART_1 + year + TEST_SCORE_RATING_SOURCE_WI_PART_2;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -617,7 +628,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 + year + STUDENT_GROWTH_RATING_SOURCE_WI_PART_2;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -629,7 +640,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2;
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -700,7 +711,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             }
             return s.toString();
         } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+            return COPY_NOT_AVAILABLE;
         }
     }
 
@@ -722,6 +733,40 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
 
         return model;
+    }
+
+    /**
+     * Checks if the school has PerformanceMangementRating of Tier 3 (i.e. < 35). If it does then put text into the model.
+     * @param school
+     * @param request
+     * @param model
+     */
+    public void getPerformanceManagementRatingText(School school, HttpServletRequest request, ModelMap model) {
+        if (SchoolProfileOverviewController.showPerformanceManagementRating(school.getDatabaseState())) {
+            Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
+            if (ratingsMap != null && !ratingsMap.isEmpty()
+                    && ratingsMap.containsKey(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST)) {
+
+                List<SchoolProfileDataHelper.PerformanceRatingObj> performanceManagementRatingList;
+
+                try {
+                    performanceManagementRatingList =
+                            (List<SchoolProfileDataHelper.PerformanceRatingObj>) ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST);
+
+                } catch (ClassCastException ex) {
+                    _log.error("Class cast exception while retrieving Performance Management Rating.");
+                    return;
+                }
+
+                //When a school has multiple tier ratings, then check to see if any of the rating is Tier 3.If it is then display the text.
+                for (SchoolProfileDataHelper.PerformanceRatingObj performanceRatingObj : performanceManagementRatingList) {
+                    if (performanceRatingObj.getScore() < 35.0) {
+                        model.put("performanceManagementRatingCopy", PERFORMANCE_MANAGEMENT_RATING_COPY);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     //===================== UTILITY METHODS ========================

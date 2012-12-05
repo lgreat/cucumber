@@ -67,8 +67,8 @@
     <!-- commenting out for 21.4 since this needs to be tested more -->
     <!--<servlet-mapping>
         <servlet-name>pages</servlet-name>
-        <url-pattern>/print-your-own-chooser/*</url-pattern>
-    </servlet-mapping>-->
+        <url-pattern>/my-school-list.pdf</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>

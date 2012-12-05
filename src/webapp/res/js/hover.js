@@ -813,7 +813,108 @@ GSType.hover.ValidateEditEmail = function() {
         //this.dialogByWidth();
     }
 };
-GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail',640);
+GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail',540);
+
+//PrintSchoolChooser Hover
+GSType.hover.PrintSchoolChooser = function() {
+    this.loadDialog = function() {
+    }
+    this.populateModal = function () {
+        var container = $('#js-pyoc');
+        container.empty();
+
+        $('#js-schoolListData .standard_1-1').each(function () {
+            var $this = $(this);
+            var stateID = $this.find('.compare_checkbox').val();
+            var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
+            var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
+                '<span class="fl ttc"><span>' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
+                '<span class="small">' + $this.find('.js-pyocCityState').html() + '. ' + $this.find('.js-pyocSchoolType').html() + '</span>' +
+                '</span>' +
+                '<span class="fr">' +
+                '<input type="checkbox" checked="checked" value="' + output + '" class="js-stateId"/>' +
+                '</span>' +
+                '</div>';
+            container.append(pyocSchoolData);
+        });
+    };
+
+    this.getCheckCount = function (){
+        $('.js-stateId, #pyocDeselect').click(function() {
+            var pyocCounter = $('#js-pyoc').find('input.js-stateId:checked').length;
+            $('.pyocCount').html(pyocCounter);
+            var pageCount = (Math.ceil(pyocCounter/3));
+            if(pageCount <= 1 ){
+                $('.pageCount').html('(' + pageCount + ' page)');
+            }
+            else{
+                $('.pageCount').html('(' + pageCount + ' pages)');
+            }
+        });
+    }
+    this.printSchoolList = function () {
+        $('.downloadPYOC').click(function () {
+            var state = [];
+            var schoolID = [];
+            var count = 0;
+            $('#js-pyoc input:checked').each(function () {
+                count++;
+                var selected = $(this).attr('value').split(",");
+                state.push(selected[0]);
+                schoolID.push(selected[1]);
+            });
+            if (count == 0) {
+                $('.js-showError').show();
+                return false;
+            }
+            else {
+                $('.js-showError').hide();
+            }
+
+            $('#selectedState').val(state.join(','));
+            $('#selectedId').val(schoolID.join(','));
+            if ($('#js-pyocChecklist input:checked')) {
+                $('#js-appendCheckList').val('yes');
+            }
+            else {
+                $('#js-appendCheckList').val('no');
+            }
+            $('#js-printSchoolChooserSubmit').submit();
+        });
+    }
+
+    this.deselectSchool = function () {
+        $('#pyocDeselect').click(function () {
+            $('#js-pyoc input').each(function () {
+                $(this).attr('checked', false);
+            });
+        });
+    }
+    this.showHover = function() {
+        this.populateModal();
+        this.printSchoolList();
+        this.deselectSchool();
+        this.getCheckCount();
+        GSType.hover.printSchoolChooser.show();
+    };
+};
+GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser',640);
+
+
+
+//GSType.hover.SchoolEspThankYou = function() {
+//    this.loadDialog = function() {
+//    };
+//    this.showHover = function() {
+//        GSType.hover.schoolEspThankYou.show();
+//    };
+//
+//    this.onClose = function() {
+//    };
+//};
+//
+//GSType.hover.SchoolEspThankYou.prototype = new GSType.hover.HoverDialog("schoolEspThankYou",640);
+
 
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
@@ -1218,6 +1319,7 @@ GSType.hover.validateEmailSchoolReview = new GSType.hover.ValidateEmailSchoolRev
 GSType.hover.joinHover = new GSType.hover.JoinHover();
 GSType.hover.signInHover = new GSType.hover.SignInHover();
 GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
+GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
@@ -1581,6 +1683,7 @@ jQuery(function() {
     GSType.hover.joinHover.loadDialog();
     GSType.hover.signInHover.loadDialog();
     GSType.hover.validateEditEmail.loadDialog();
+    GSType.hover.printSchoolChooser.loadDialog();
     GSType.hover.validateEmail.loadDialog();
     GSType.hover.validateEmailSchoolReview.loadDialog();
     GSType.hover.validateLinkExpired.loadDialog();
@@ -1786,6 +1889,8 @@ jQuery(function() {
         GSType.hover.editEmailValidated.show();
     } else if (showHover == "validateEditEmail") {
         GSType.hover.validateEditEmail.show();
+    } else if (showHover == "printSchoolChooser") {
+            GSType.hover.printSchoolChooser.show();
     } else if (showHover == "validationLinkExpired") {
         GSType.hover.validateLinkExpired.show();
     } else if (showHover == "emailValidatedSchoolReviewPosted") {

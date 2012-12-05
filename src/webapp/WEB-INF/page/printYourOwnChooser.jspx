@@ -1,38 +1,46 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:gsweb="gstaglib"
-          version="2.0" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
-<html>
-<jsp:directive.page contentType="text/html"/>
-<head>
-    <title>Find a School In Your State | GreatSchools</title>
-    <meta name="description"
-          content="Find and compare schools across the country by searching near an address or by name. Search for public, private, and charter schools, preschools, elementary, middle, and high schools."/>
-    <meta name="decorator" content="minimalDecorator"/>
-    <link href="/res/css/15_pdf/chooser.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<!--<h1>${schools[0].city} Chooser [Year-1]-[Year]</h1>-->
-<div class="divFooter"><div class="pageNumber" /><div class="fr"><img src="/res/img/pdfChooser/28634_thumb_logo.png" class="logo" alt="greatschools" /> | www.greatschools.org</div></div>
-<!--<hr  class="mbm"/>-->
-<c:set var="pageBreakCounter" value="0" />
-<c:set var="countPerPage" value="3"/>
-<c:forEach items="${schools}" var="school">
-    <c:set var="pageBreakCounter" value="${pageBreakCounter + 1}" />
-    <c:set var="schoolIdString" scope="page">${school.id}</c:set>
-    <c:set var="key" scope="page">${school.databaseState.abbreviationLowerCase}${schoolIdString}</c:set>
 
-    <school:printChooserSection school="${school}" schoolData="${schoolData[key]}"/>
-    <hr class="mvm"><!-- do not collapse --></hr>
-    <c:if test="${pageBreakCounter % countPerPage == 0}">
-        <div class="chooser-pb" />
-        <!--<hr  class="mbm"/>-->
-    </c:if>
+    <html>
+    <jsp:directive.page contentType="text/html"/>
 
-</c:forEach>
+    <c:set var="countPerPage" value="3"/>
+    <head>
+        <title>Find a School In Your State | GreatSchools</title>
+        <meta name="description"
+              content="Find and compare schools across the country by searching near an address or by name. Search for public, private, and charter schools, preschools, elementary, middle, and high schools."/>
+        <meta name="decorator" content="minimalDecorator"/>
+        <link href="/res/css/15_pdf/chooser.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    <jsp:scriptlet>
+        request.setAttribute("today", new java.util.Date());
+    </jsp:scriptlet>
+
+    <fmt:formatDate value="${today}" pattern="M/d/y" var="dateFooter" />
+    <div class="dateFooter">${dateFooter}</div>
+    <div class="divFooter"><div class="fr"><img src="/res/img/pdfChooser/logo_3x.png" class="logo" alt="greatschools" /><span style="padding: 0 10px 0 10px">|</span>www.greatschools.org</div></div>
+
+    <hr  class="mbm"/>
+    <c:forEach items="${schools}" var="school" varStatus="status">
+        <c:set var="schoolIdString" scope="page">${school.id}</c:set>
+        <c:set var="key" scope="page">${school.databaseState.abbreviationLowerCase}${schoolIdString}</c:set>
+
+        <school:printChooserSection school="${school}" schoolData="${schoolData[key]}"/>
+        <hr class="mvm"><!-- do not collapse --></hr>
+        <c:if test="${(status.count % countPerPage eq 0) and status.last ne true}">
+            <div class="chooser-pb" />
+            <hr  class="mbm"/>
+        </c:if>
+
+    </c:forEach>
 
 
-</body>
-</html>
+    </body>
+    </html>
 </jsp:root>
