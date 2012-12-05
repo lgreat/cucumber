@@ -274,7 +274,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         // transportation
         String transportation = getSingleValue(espData, "transportation");
-        data.put("transportation", (transportation != null && !transportation.equalsIgnoreCase("none"))? "Yes":"No");
+        if (transportation != null) {
+            data.put("transportation",
+                    (!transportation.equalsIgnoreCase("none"))? "Yes":"No"
+            );
+        }
     }
 
     private String getSinglePrettyValue(Map<String, List<EspResponse>> espData, String key) {
