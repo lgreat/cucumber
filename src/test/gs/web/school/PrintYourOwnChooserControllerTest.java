@@ -14,7 +14,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.fail;
 import static org.easymock.EasyMock.*;
 
@@ -340,7 +340,6 @@ public class PrintYourOwnChooserControllerTest {
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DATE, 2);
         calendar.set(Calendar.YEAR, 2000);
-        calendar.set(Calendar.MINUTE, 1); // I didnt expect this, but apparently SimpleDateFormat sets minute at 1 if no time specified
         Date date = calendar.getTime();
 
         List<EspResponse> espResponse = getAnEspResponse("application_deadline_date", "01/02/2000");
@@ -569,6 +568,6 @@ public class PrintYourOwnChooserControllerTest {
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("transportation"));
+        assertNull("Expect no OSP data to have been inserted into map", data.get("transportation"));
     }
 }
