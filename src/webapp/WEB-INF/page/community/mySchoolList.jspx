@@ -12,6 +12,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           version="2.0">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -39,6 +40,7 @@
     <!--<gsml:equalizeColumns ids="'col_left','col_right'"/>-->
 </head>
 <gsml:body adPageName="mySchoolList" pageLayout="nocol">
+    <communityHover:printSchoolChooser/>
 
     <div class="slStylesV1-0">
         <div class="spacer_20"><!-- do not collapse --></div>
