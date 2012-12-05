@@ -818,12 +818,84 @@ GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEdit
 //PrintSchoolChooser Hover
 GSType.hover.PrintSchoolChooser = function() {
     this.loadDialog = function() {
-//        this.pageName='Print My School List';
-//        this.hier1='Hovers,Verification,Verify Change Email Hover';
-//        this.dialogByWidth();
+    }
+    this.populateModal = function () {
+        var container = $('#js-pyoc');
+        container.empty();
+
+        $('#js-schoolListData .standard_1-1').each(function () {
+            var $this = $(this);
+            var stateID = $this.find('.compare_checkbox').val();
+            var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
+            var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
+                '<span class="fl ttc"><span>' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
+                '<span class="small">' + $this.find('.js-pyocCityState').html() + '. ' + $this.find('.js-pyocSchoolType').html() + '</span>' +
+                '</span>' +
+                '<span class="fr">' +
+                '<input type="checkbox" checked="checked" value="' + output + '" class="js-stateId"/>' +
+                '</span>' +
+                '</div>';
+            container.append(pyocSchoolData);
+        });
+    };
+
+    this.getCheckCount = function (){
+        $('.js-stateId, #pyocDeselect').click(function() {
+            var pyocCounter = $('#js-pyoc').find('input.js-stateId:checked').length;
+            $('.pyocCount').html(pyocCounter);
+            var pageCount = (Math.ceil(pyocCounter/3));
+            if(pageCount <= 1 ){
+                $('.pageCount').html('(' + pageCount + ' page)');
+            }
+            else{
+                $('.pageCount').html('(' + pageCount + ' pages)');
+            }
+        });
+    }
+    this.printSchoolList = function () {
+        $('.downloadPYOC').click(function () {
+            var state = [];
+            var schoolID = [];
+            var count = 0;
+            $('#js-pyoc input:checked').each(function () {
+                count++;
+                var selected = $(this).attr('value').split(",");
+                state.push(selected[0]);
+                schoolID.push(selected[1]);
+            });
+            if (count == 0) {
+                $('.js-showError').show();
+                return false;
+            }
+            else {
+                $('.js-showError').hide();
+            }
+
+            $('#selectedState').val(state.join(','));
+            $('#selectedId').val(schoolID.join(','));
+            if ($('#js-pyocChecklist input:checked')) {
+                $('#js-appendCheckList').val('yes');
+            }
+            else {
+                $('#js-appendCheckList').val('no');
+            }
+            $('#js-printSchoolChooserSubmit').submit();
+        });
+    }
+
+    this.deselectSchool = function () {
+        $('#pyocDeselect').click(function () {
+            $('#js-pyoc input').each(function () {
+                $(this).attr('checked', false);
+            });
+        });
     }
     this.showHover = function() {
-            GSType.hover.printSchoolChooser.show();
+        this.populateModal();
+        this.printSchoolList();
+        this.deselectSchool();
+        this.getCheckCount();
+        GSType.hover.printSchoolChooser.show();
     };
 };
 GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser',640);

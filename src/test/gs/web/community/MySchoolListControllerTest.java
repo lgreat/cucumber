@@ -357,4 +357,78 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         }};
         assertEquals("Set should contain 1,2,5", s_2, ids);
     }
+
+    public void testShowPyocModule() throws Exception {
+        List<School> schools = new ArrayList<School>();
+
+        School s = new School();
+        s.setCity("Milwaukee");
+        s.setStateAbbreviation(State.WI);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("Washington");
+        s.setStateAbbreviation(State.DC);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("Indianapolis");
+        s.setStateAbbreviation(State.IN);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("Speedway");
+        s.setStateAbbreviation(State.IN);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("Beech Grove");
+        s.setStateAbbreviation(State.IN);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("Sacramento");
+        s.setStateAbbreviation(State.CA);
+        schools.add(s);
+        s = new School();
+        s.setCity("Beech Grove");
+        s.setStateAbbreviation(State.IN);
+        schools.add(s);
+        s = new School();
+        s.setCity("San Francisco");
+        s.setStateAbbreviation(State.CA);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("San Francisco");
+        s.setStateAbbreviation(State.CA);
+        schools.add(s);
+        assertFalse(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        schools.add(null);
+        assertFalse(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        assertFalse(MySchoolListController.shouldShowPYOCModule(schools));
+
+        schools.clear();
+        s = new School();
+        s.setCity("bEeCH gRoVe");
+        s.setStateAbbreviation(State.IN);
+        schools.add(s);
+        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+    }
 }

@@ -135,6 +135,7 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
 .error, .error2, .alert, .notice, .success, .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}
 .error, .error2, .alert {background:transparent;color:#cc0033;border-color:transparent;}
 .notice {background:transparent;color:#514721;border-color:transparent;}
+.alert-yellow {background:#FCEEE7;color:#2B2B2B;border:1px solid #FFCC66; border-radius: 4px;}
 .success {background:transparent;color:#118800;border-color:transparent;}
 .info {background:transparent;color:#205791;border-color:transparent;}
 .error a, .alert a { color:#cc0033; text-decoration:underline; }

@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class PdfView implements View {
     View _viewToWrap;
-    String _pdfToAppend; // path to PDF on disk
+    String[] _pdfToAppend; // path to PDFs on disk
 
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
 
@@ -34,9 +34,9 @@ public class PdfView implements View {
         _viewToWrap = viewToWrap;
     }
 
-    public PdfView(View viewToWrap, String pdfToAppend) {
+    public PdfView(View viewToWrap, String... pdfsToAppend) {
         this(viewToWrap);
-        _pdfToAppend = pdfToAppend;
+        _pdfToAppend = pdfsToAppend;
     }
 
     public String getContentType() {
@@ -107,7 +107,7 @@ public class PdfView implements View {
 
         if (_pdfToAppend != null) {
             try {
-                appendPdf(pdfRenderer, _pdfToAppend);
+                appendPdfs(pdfRenderer, _pdfToAppend);
             } catch (IOException e) {
                 _logger.debug("Failed to read PDF to append to end of generated PDF: "+ _pdfToAppend, e);
             }
@@ -133,16 +133,19 @@ public class PdfView implements View {
         return iTextRenderer;
     }
 
-    public static void appendPdf(ITextRenderer iTextRenderer, String pathToPdf) throws DocumentException, IOException, com.lowagie.text.DocumentException {
+    public static void appendPdfs(ITextRenderer iTextRenderer, String[] pathsToPdfs) throws DocumentException, IOException, com.lowagie.text.DocumentException {
         PdfWriter writer = iTextRenderer.getWriter();
         PdfContentByte cb = writer.getDirectContent();
 
-        com.itextpdf.text.pdf.PdfReader reader = new com.itextpdf.text.pdf.PdfReader(pathToPdf);
+        for (String pdfToAppend : pathsToPdfs) {
+            com.itextpdf.text.pdf.PdfReader reader = new com.itextpdf.text.pdf.PdfReader(pdfToAppend);
 
-        PdfImportedPage page = writer.getImportedPage(reader, 1);
-        cb.getPdfDocument().newPage();
+            PdfImportedPage page = writer.getImportedPage(reader, 1);
+            cb.getPdfDocument().newPage();
 
-        cb.addTemplate(page, 0, 0);
+            cb.addTemplate(page, 0, 0);
+        }
+
     }
 }
 

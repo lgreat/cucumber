@@ -38,6 +38,18 @@ import java.util.*;
 public class MySchoolListController extends AbstractController implements ReadWriteController {
     protected static final Log _log = LogFactory.getLog(MySchoolListController.class);
 
+    // states/cities that control whether Print Your Own Chooser module is displayed
+    public static Set<String> CHOOSER_CITIES = new HashSet<String>();
+    static {
+        // comparisons are to lowercase
+        CHOOSER_CITIES.add("milwaukee, wi");
+        CHOOSER_CITIES.add("washington, dc");
+        CHOOSER_CITIES.add("indianapolis, in");
+        CHOOSER_CITIES.add("speedway, in");
+        CHOOSER_CITIES.add("beech grove, in");
+    }
+
+
     /** Spring bean id */
     public static final String BEAN_ID = "/mySchoolList.page";
     
@@ -71,6 +83,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_CITY_NAME = "cityName";
     public static final String MODEL_RECENT_REVIEWS = "recentReviews";
     public static final String MODEL_CURRENT_DATE = "currentDate";
+    public static final String MODEL_SHOW_PYOC_MODULE = "showPYOCModule"; // pyoc = Print Your Own Chooser
 
     /** constants */
     public static final int RECENT_REVIEWS_LIMIT = 3;
@@ -273,6 +286,9 @@ public class MySchoolListController extends AbstractController implements ReadWr
         Collections.sort(schools, getSchoolNameComparator());
         model.put(MODEL_SCHOOLS, schools);
 
+        // For PYOC: Track whether any PYOC school is in one of the "chooser" cities.
+        model.put(MODEL_SHOW_PYOC_MODULE, shouldShowPYOCModule(schools));
+
         String preschoolOnly = "true";
 
         SortedSet<State> stateSet = new TreeSet<State>();
@@ -292,6 +308,18 @@ public class MySchoolListController extends AbstractController implements ReadWr
         model.put(MODEL_PRESCHOOL_ONLY, preschoolOnly);
 
         return model;
+    }
+
+    static boolean shouldShowPYOCModule(Collection<School> schools) {
+        boolean showPYOCModule = false;
+        Iterator<School> schoolsIterator = schools.iterator();
+        while (!showPYOCModule && schoolsIterator.hasNext()) {
+            School school = schoolsIterator.next();
+            if (school != null) {
+                showPYOCModule = CHOOSER_CITIES.contains((school.getCity() + ", " + school.getStateAbbreviation()).toLowerCase());
+            }
+        }
+        return showPYOCModule;
     }
 
     private Comparator<School> getSchoolNameComparator() {

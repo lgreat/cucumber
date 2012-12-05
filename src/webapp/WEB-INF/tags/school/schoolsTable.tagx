@@ -19,7 +19,7 @@
 
     <!--<div id="searchResults">-->
     <!--<div id="schoolsTable">-->
-        <form method="get" action="/compareSchools.page">
+        <form method="get" id="js-schoolListData" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
         <input type="hidden" name="source" value="msl"/>
 
@@ -34,19 +34,19 @@
             </c:if>
 
                 <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
-                <h4 class="bottom"><link:schoolProfileOverview school="${school}" title="${school.name}">
+                <h4 class="bottom"><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="js-pyocSchoolName">
                     <c:out value="${school.name}"/>
                 </link:schoolProfileOverview></h4>
                 <p class="small bottom quiet">
                     <c:set var="schoolTypeRangeString">
-                        <span class="st ttc">${school.type.schoolTypeName}</span>
+                        <span class="st ttc js-pyocSchoolType">${school.type.schoolTypeName}</span>
                         <c:if test="${not empty school.gradeLevels.rangeString}">
-                            &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
+                            &#183; <span class="gl js-pyocGradeRange">${school.gradeLevels.rangeString}</span>
                         </c:if>
                     </c:set>
                     <c:if test="${school.levelCode eq 'p'}">
                         <c:set var="schoolTypeRangeString">
-                            <span class="st">Preschool</span>
+                            <span class="st js-pyocGradeRange">Preschool</span>
                         </c:set>
                     </c:if>
                     ${schoolTypeRangeString}
@@ -60,33 +60,38 @@
                     <link:mapSchool school="${school}" styleClass="mapSchoolText">Map it</link:mapSchool>
                     <c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if>
                 </p>
-                <p class="small bottom">${school.physicalAddress.cityStateZip}</p>
+                <p class="small bottom js-pyocCityState">${school.physicalAddress.cityStateZip}</p>
                 <p class="small bottom fl">${school.phone}</p>
 
                         <div class="clearfloat"><!-- do not collapse --></div>
-
-                        <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
-                            <div class="compare_schools_row">
+                        <c:choose>
+                            <c:when test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
+                                <div class="compare_schools_row">
+                                    <c:set var="statePlusId" value="${school.databaseState.abbreviation}${school.id}"/>
+                                    <gsml:checkbox
+                                                 name="sc"
+                                                                        value="${statePlusId}"
+                                                                        styleClass="compare_checkbox"
+                                                                        styleId="compare_schools_${statePlusId}"
+                                                                        onclick="return evaluateCheckboxes(this);"/>
+                                                                <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
+                                                                <label class="compare_label small bottom" id="compare_schools_label_${statePlusId}" onclick="document.getElementById('compare_schools_${statePlusId}').click();">
+                                                                    Check to compare
+                                                                </label>
+                                                                <label class="compare_error small bottom" id="compare_schools_error_${statePlusId}"
+                                                                       style="display: none;" onclick="document.getElementById('compare_schools_${statePlusId}').click();">
+                                                                    <dfn>Check 2 or more to compare</dfn>
+                                                                </label>
+                                                          		<span class="compare_submit vam pls pts" id="compare_schools_submit_${statePlusId}" style="display: none;">
+                                                          		    <input type="image" name="compare" src="/res/img/button/button_compare_now.gif" alt="Compare now" onclick="return GS_launchCompare();"/>
+                                                          		</span>
+                                                            </div>
+                            </c:when>
+                            <c:otherwise>
                                 <c:set var="statePlusId" value="${school.databaseState.abbreviation}${school.id}"/>
-                                <gsml:checkbox
-                                        name="sc"
-                                        value="${statePlusId}"
-                                        styleClass="compare_checkbox"
-                                        styleId="compare_schools_${statePlusId}"
-                                        onclick="return evaluateCheckboxes(this);"/>
-                                <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
-                                <label class="compare_label small bottom" id="compare_schools_label_${statePlusId}" onclick="document.getElementById('compare_schools_${statePlusId}').click();">
-                                    Check to compare
-                                </label>
-                                <label class="compare_error small bottom" id="compare_schools_error_${statePlusId}"
-                                       style="display: none;" onclick="document.getElementById('compare_schools_${statePlusId}').click();">
-                                    <dfn>Check 2 or more to compare</dfn>
-                                </label>
-                          		<span class="compare_submit vam pls pts" id="compare_schools_submit_${statePlusId}" style="display: none;">
-                          		    <input type="image" name="compare" src="/res/img/button/button_compare_now.gif" alt="Compare now" onclick="return GS_launchCompare();"/>
-                          		</span>
-                            </div>
-                        </c:if>
+                                <gsml:input type="hidden" name="${statePlusId}" styleClass="compare_checkbox" value="${statePlusId}"/>
+                            </c:otherwise>
+                        </c:choose>
 
                 <c:if test="${not empty school.district}">
                     <p class="clearfloat small bottom fl">

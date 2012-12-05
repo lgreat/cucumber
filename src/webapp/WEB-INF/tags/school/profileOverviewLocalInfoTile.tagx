@@ -166,11 +166,11 @@
                     -->
                     <c:if test="${not empty districtGrades}">
                         <div class="line mvs ie-mp0">
-                            <div class="unit size60of100">
+                            <div class="unit size30of100">
                                 <p class="small bottom">Grades:</p>
                             </div>
-                            <div class="unit size40of100 lastUnit">
-                                <p class="small_bold bottom fr">${gsweb:abbreviateAtWhitespace(districtGrades,10)}</p>
+                            <div class="unit size60of100 lastUnit">
+                                <p class="small_bold bottom fr">${gsweb:abbreviateAtWhitespace(districtGrades,19)}</p>
                             </div>
                         </div>
                     </c:if>

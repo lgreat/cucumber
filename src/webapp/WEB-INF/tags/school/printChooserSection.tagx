@@ -12,38 +12,75 @@
     <jsp:directive.attribute name="school" type="gs.data.school.School" />
     <jsp:directive.attribute name="schoolData" type="java.util.Map" />
 
-    <c:set var="defaultString" value="Not available"/>
-    <c:set var="isPreschool" value="${fn:contains(school.levelCode, 'p')}"/>
+    <c:set var="defaultString" value="Unknown"/>
+    <c:set var="isPreschool" value="${school.levelCode eq 'p'}"/>
     <c:set var="isPrivateSchool" value="${school.type.schoolTypeName eq 'private'}"/>
+    <c:set var="isNewGSRating" value="${school.isNewGSRating}"/>
+    <c:set var="overallRating" value="${school.GSRating}"/>
 
+    <c:set var="showHideSprite" value="display:block"/>
+    <c:if test="${not isNewGSRating and isPrivateSchool}">
+        <c:set var="showHideSprite" value="dn" />
+    </c:if>
+    <c:if test="${isPreschool and empty overallRating}">
+        <c:set var="showHideSprite" value="dn" />
+    </c:if>
+    <c:if test="${empty overallRating or overallRating == 0}">
+        <c:set var="overallRating" value="NR"/>
+    </c:if>
+
+    <!--<c:choose>-->
+        <!--<c:when test="${isPreschool}">-->
+            <!--<c:set var="iconString" value="iconx60-preschool i-60-NR" />-->
+        <!--</c:when>-->
+        <!--<c:otherwise>-->
+            <c:set var="ratingType" value="orange" />
+            <c:if test="${isNewGSRating}">
+                <c:set var="ratingType" value="RYG" />
+            </c:if>
+            <c:set var="privateSchool" value="" />
+            <c:if test="${isPrivateSchool}">
+                <c:set var="privateSchool" value="Private" />
+            </c:if>
+            <c:set var="iconString">iconx60-${ratingType}${privateSchool} i-60-${overallRating}</c:set>
+        <!--</c:otherwise>-->
+    <!--</c:choose>-->
+    <!--iconx60-RYG i-60-6-->
+    <!--Which Sprite to use?-->
+
+    <!--iconx60-orangePrivate-->
+    <!--iconx60-orange-->
+    <!--iconx60-RYGPrivate-->
+    <!--iconx60-RYG-->
+    <!--iconx60-preschool-->
 
     <div class="chooser-section container_24">
-        <div class="clearfix" style="padding: 0 0 15px 0;">
+        <div class="clearfix pb15">
 
             <!--<div class="fl" style="width:7%">&lt;!&ndash; co not collapse &ndash;&gt;</div>-->
-            <div class="fl clearfix" style=" width:480px">
-                <h1 class="clearfix" style="padding: 0 0 10px 0">${school.name}</h1>
+            <div class="fl header-left-width clearfix">
+                <h1>${fn:escapeXml(school.name)}</h1>
                 <!--<p><br /></p>-->
-                <div class="fl" style="width:178px; padding-right: 10px;">
+                <div class="fl header-left-component">
                     <p>
-                        ${school.physicalAddress.street}
+                        ${fn:escapeXml(school.physicalAddress.street)}
 
                         <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
                             <br/>
-                            ${school.physicalAddress.streetLine2}
+                            ${fn:escapeXml(school.physicalAddress.streetLine2)}
                         </c:if>
                         <br/>
-                        <span>${school.physicalAddress.city}</span>,
+                        <span>${fn:escapeXml(school.physicalAddress.city)}</span>,
                         <span>${school.physicalAddress.state.abbreviation} </span>
                         <span>${school.physicalAddress.zip}</span>
 
 
                     </p>
                 </div>
-                <div class="fl" style="width:178px; padding-right: 10px;">
+                <div class="fl header-left-component">
                     <p>
                         <c:if test="${not empty school.district.name}">
-                            ${school.district.name}<br />
+                            ${fn:escapeXml(school.district.name)}<br />
                         </c:if>
                         <c:if test="${not empty school.phone}">
                             Phone:<span class="strong"> ${school.phone}</span><br />
@@ -60,7 +97,7 @@
 
                     </p>
                 </div>
-                <div class="fr">
+                <div class="fl">
                     <p>
                         Type:<span class="strong capitalize"> ${school.type.schoolTypeName}</span><br />
                         Grades:<span class="strong"> ${school.gradeLevels.rangeString}</span><br />
@@ -68,24 +105,41 @@
                     </p>
                 </div>
             </div>
-            <div class="fr clearfix" style="border-left: 1px solid #cccccc;">
-                <div style="float:left; padding: 20px 25px 0 25px">
-                    <p>Academic:<br /><span class="strong">${schoolData['overallAcademicRating']} / 10 ${schoolData['overallAcademicRatingText']}</span></p>
+            <div class="fr clearfix header-vertical-border-l">
+                <c:if test="${school.isNewGSRating and (not empty schoolData['overallAcademicRating'] or not empty schoolData['overallClimateRating'])}">
+                    <c:set var="ratingBreakdownDefaultString" value="Not available"/>
+                    <div class="fl header-vertical-border-r pvRatingSpacer">
+                        <h2 class="smallMargin">Academic Rating:</h2>
+                        <p>
+                            <c:choose>
+                                <c:when test="${not empty schoolData['overallAcademicRating']}">
+                                            <span class="strong">${schoolData['overallAcademicRating']} / 10<br/>
+                                                ${schoolData['overallAcademicRatingText']}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="strong">${ratingBreakdownDefaultString}</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
 
-                    <p>Climate:<br />
-                        <c:choose>
-                            <c:when test="${not empty schoolData['overallClimateRating']}">
-                                <span class="strong">${schoolData['overallClimateRating']} / 10 ${schoolData['overallClimateRatingText']}</span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="strong">${defaultString}</span>
-                            </c:otherwise>
-                        </c:choose>
-                    </p>
-                </div>
-                <div style="float:left;text-align:center; padding-left:10px; border-left: 1px solid #cccccc;">
-                    <span class="iconx60-RYG i-60-6"><!-- do not collapse --></span>
-                    <p style="padding:5px 0 0 0 ;font:normal 6pt Arial, Helvetica, sans-serif ;">GreatSchools Rating</p>
+                        <h2>Climate Rating:</h2>
+                        <p>
+                            <c:choose>
+                                <c:when test="${not empty schoolData['overallClimateRating']}">
+                                    <span class="strong">${schoolData['overallClimateRating']} / 10<br />
+                                    ${schoolData['overallClimateRatingText']}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="strong">${ratingBreakdownDefaultString}</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
+                    </div>
+                </c:if>
+                <div class="fl plm tac ${showHideSprite}" >
+
+                    <span class="${iconString}"><!-- do not collapse --></span>
+                    <p class="ptsRatingGS">GreatSchools Rating</p>
                 </div>
             </div>
         </div><!-- end header_container -->
@@ -94,7 +148,7 @@
 
         <div id="">
 
-            <div class="bd_column" style="">
+            <div class="bd_column">
                 <c:if test="${not empty schoolData['ethnicityMap'] and fn:length(schoolData['ethnicityMap']) gt 0}">
                     <h2>Student Diversity</h2>
                     <ul>
@@ -109,61 +163,65 @@
                 <h2>Application</h2>
                 <p class="clearfix">
                     <c:if test="${not empty schoolData['application_deadline_date']}">
-                        <span class="fl clearfix">Deadline:</span><span class="fr strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span>
+                        <span class="fl">Deadline:</span><span class="fr strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span>
                         <br />
                     </c:if>
                     <c:choose>
                         <c:when test="${not empty schoolData['tuition_low'] and not empty schoolData['tuition_high']}">
-                            <span class="fl clearfix">Tuition:</span><span class="fr strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span>
+                            <span class="fl">Tuition:</span><span class="fr strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span>
                             <br />
                         </c:when>
                         <c:otherwise>
-                            <span class="fl clearfix">Tuition:</span><span class="fr strong"> ${defaultString}</span>
+                            <span class="fl">Tuition:</span><span class="fr strong"> ${defaultString}</span>
                             <br />
                         </c:otherwise>
                     </c:choose>
 
-                    <span class="fl clearfix">Financial Aid:</span><span class="fr strong">${gsweb:defaultString(schoolData['financial_aid'], defaultString)}</span>
+                    <span class="fl">Financial Aid:</span><span class="fr strong">${gsweb:defaultString(schoolData['financial_aid'], defaultString)}</span>
                     <br />
-                    <span class="fl clearfix">Voucher accepted:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['students_vouchers'], defaultString)}</span>
+                    <span class="fl">Voucher accepted:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['students_vouchers'], defaultString)}</span>
 
                 </p>
                 <h2>School Stats</h2>
                 <p class="clearfix">
-                    <span class="fl clearfix">Uniforms/Dress code:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['dress_code'], defaultString)}</span>
+                    <span class="fl">Uniforms/Dress code:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['dress_code'], defaultString)}</span>
                     <br />
                     <c:choose>
                         <c:when test="${not empty schoolData['before_after_care_end']}">
-                            <span class="fl clearfix">Before care:</span><span class="fr strong"> Starts ${schoolData['before_after_care_start']}</span>
+                            <span class="fl">Before care:</span><span class="fr strong"> Starts ${schoolData['before_after_care_start']}</span>
                             <br />
                         </c:when>
                         <c:otherwise>
-                            <span class="fl clearfix">Before care:</span><span class="fr strong"> ${defaultString}</span>
+                            <span class="fl">Before care:</span><span class="fr strong"> ${defaultString}</span>
                             <br />
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
                         <c:when test="${not empty schoolData['before_after_care_end']}">
-                            <span class="fl clearfix">After care:</span><span class="fr strong"> Ends ${schoolData['before_after_care_end']}</span>
+                            <span class="fl">After care:</span><span class="fr strong"> Ends ${schoolData['before_after_care_end']}</span>
                             <br />
                         </c:when>
                         <c:otherwise>
-                            <span class="fl clearfix">After care:</span><span class="fr strong"> ${defaultString}</span>
+                            <span class="fl">After care:</span><span class="fr strong"> ${defaultString}</span>
                             <br />
                         </c:otherwise>
                     </c:choose>
-                    <span class="fl clearfix">Transportation:</span><span class="fr strong">${gsweb:defaultString(schoolData['transportation'], defaultString)}</span>
+                    <span class="fl">Transportation:</span><span class="fr strong">${gsweb:defaultString(schoolData['transportation'], defaultString)}</span>
                     <br />
                 </p>
             </div>
 
             <div class="bd_column" style="padding-right: 0px;">
                 <h2>Special education services</h2>
-                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['special_ed_services'], 'Data not available'))}</span></p>
+                <p><span class="strong">${gsweb:defaultString(schoolData['special_ed_services'], defaultString)}</span></p>
                 <h2>ELL services</h2>
-                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['ell_level'],'Data not available'))}</span></p>
+                <p><span class="strong">${gsweb:defaultString(schoolData['ell_level'], defaultString)}</span></p>
                 <h2>Our grads typically go to</h2>
-                <p><span class="strong">${gsweb:capitalize(gsweb:defaultString(schoolData['destination_schools'],'Data not available'))}</span></p>
+                <c:set var="destinationSchoolsContent"><span class="strong">${defaultString}</span></c:set>
+                <c:if test="${not empty schoolData['destination_schools']}">
+                    <c:set var="destinationSchoolsContent" value="${schoolData['destination_schools']}" />
+                </c:if>
+                <p>${destinationSchoolsContent}</p>
             </div>
         </div>
     </div><!-- end container -->

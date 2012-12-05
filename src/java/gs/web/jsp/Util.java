@@ -552,4 +552,11 @@ public class Util {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         return Double.valueOf(decimalFormat.format(num));
     }
+
+    public static long getNumPages(int items, int itemsPerPage) {
+        if (items < 1 || itemsPerPage < 1) {
+            throw new IllegalArgumentException("Both items and itemsPerPage must be greater than 0");
+        }
+        return (long) Math.ceil((double) items / itemsPerPage);
+    }
 }

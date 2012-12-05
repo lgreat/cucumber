@@ -28,7 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@RequestMapping("/print-your-own-chooser/chooser")
+@RequestMapping("/my-school-list")
 @Component("printYourOwnChooserController")
 public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware {
 
@@ -55,12 +55,13 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     private static final String VIEW_NAME = "printYourOwnChooser";
 
-    private static final String PATH_TO_CHECKLIST_PDF = "/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf";
+    private static final String PATH_TO_PRESCHOOL_CHECKLIST_PDF = "/res/pdf/schoolchooser/preschool-checklist.pdf";
+    private static final String PATH_TO_ELEMENTARY_CHECKLIST_PDF = "/res/pdf/schoolchooser/elementary-school-checklist.pdf";
+    private static final String PATH_TO_MIDDLE_CHECKLIST_PDF = "/res/pdf/schoolchooser/middle-school-checklist.pdf";
+    private static final String PATH_TO_HIGH_CHECKLIST_PDF = "/res/pdf/schoolchooser/high-school-checklist.pdf";
 
     private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
 
-    public static final String DATA_OVERALL_RATING = "overallRating"; // TestDataType.id = 174
-    public static final String DATA_OVERALL_RATING_TEXT = "overallRatingText"; // TestDataType.id = 174
     public static final String DATA_OVERALL_ACADEMIC_RATING = "overallAcademicRating"; // TestDataType.id = 167
     public static final String DATA_OVERALL_ACADEMIC_RATING_TEXT = "overallAcademicRatingText"; // TestDataType.id = 167
     public static final String DATA_OVERALL_CLIMATE_RATING = "overallClimateRating"; // TestDataType.id = 173
@@ -122,7 +123,6 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
                 dataMap = new HashMap<String,Object>();
             }
 
-            data.put(DATA_OVERALL_RATING, dataMap.get(DATA_OVERALL_RATING));
             Object climateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
 
             if (climateRating != null) {
@@ -141,14 +141,39 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
             View viewToWrap = _viewResolver.resolveViewName(VIEW_NAME, Locale.getDefault());
 
             if (Boolean.TRUE == appendChecklist) {
-                String absolutePath =  _servletContext.getRealPath(PATH_TO_CHECKLIST_PDF);
-                return new PdfView(viewToWrap,absolutePath);
+                String[] pdfsToAppend = getPdfsToAppend(schools);
+                return new PdfView(viewToWrap,pdfsToAppend);
             } else {
                 return new PdfView(viewToWrap);
             }
         } catch (Exception e) {
             return new RedirectView("/status/error404.page");
         }
+    }
+
+    public String[] getPdfsToAppend(List<School> schools) {
+
+        SortedSet<LevelCode.Level> levelCodes = new TreeSet<LevelCode.Level>();
+        List<String> paths = new ArrayList<String>();
+
+        for (School school : schools) {
+            levelCodes.addAll(school.getLevelCode().getIndividualLevelCodes());
+        }
+
+        if (levelCodes.contains(LevelCode.Level.PRESCHOOL_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_PRESCHOOL_CHECKLIST_PDF));
+        }
+        if (levelCodes.contains(LevelCode.Level.ELEMENTARY_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_ELEMENTARY_CHECKLIST_PDF));
+        }
+        if (levelCodes.contains(LevelCode.Level.MIDDLE_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_MIDDLE_CHECKLIST_PDF));
+        }
+        if (levelCodes.contains(LevelCode.Level.HIGH_LEVEL)) {
+            paths.add(_servletContext.getRealPath(PATH_TO_HIGH_CHECKLIST_PDF));
+        }
+
+        return paths.toArray(new String[0]);
     }
 
     private String formatRating(int rating) {
@@ -168,7 +193,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         data.put("tuition_high", getSinglePrettyValue(espData, "tuition_high"));
         data.put("financial_aid", getSinglePrettyValue(espData, "financial_aid"));
         data.put("students_vouchers", getSinglePrettyValue(espData, "students_vouchers"));
-        data.put("ell_level", getSingleValue(espData, "ell_level"));
+        data.put("ell_level", getSinglePrettyValue(espData, "ell_level"));
 
 
         // esp data - "best known for" quote

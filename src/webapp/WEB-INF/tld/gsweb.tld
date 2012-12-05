@@ -369,6 +369,12 @@
     </function>
 
     <function>
+        <name>getNumPages</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>long getNumPages(int,int)</function-signature>
+    </function>
+
+    <function>
         <name>onSchoolProfileTab</name>
         <function-class>gs.web.util.UrlUtil</function-class>
         <function-signature>boolean onSchoolProfileTab(java.lang.String, java.lang.String, java.lang.String)</function-signature>

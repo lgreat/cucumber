@@ -60,6 +60,16 @@ public class SurveyResultsControllerTest extends BaseControllerTestCase {
         reset(_surveyDao);
     }
 
+    public void testHandleRequest_RedirectForNewSchoolProfile() throws Exception {
+        //School Id 2 in CA is marked for new profile in sample data.
+        School school = _schoolDao.getSchoolById(State.CA, 2);
+        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+        getRequest().setParameter("level", "h");
+
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView);
+    }
+
     public void testHandleRequest_specificPages() throws Exception {
         // if no page is specified, page 1 should be returned.
     }

@@ -47,7 +47,7 @@ public class TableMoverService {
     public static final String TABLE_LIST_QUERY = "select " + DATABASE_COLUMN + ", " + TABLE_COLUMN + " from information_schema.tables " +
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
-    public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
+    public static final String COPY_TABLES_COMMAND = "/usr/local/bin/dumpcopy --yes ";
     public static final String OUTDIR_FLAG_FOR_BACKUP_COMMAND = "--outdir /var/gsbackups/tablecopy";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
         
