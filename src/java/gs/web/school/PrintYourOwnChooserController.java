@@ -209,7 +209,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         String applicationDeadline = getSingleValue(espData, "application_deadline_date");
         Date applicationDeadlineDate = null;
         if (applicationDeadline != null) {
-            SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
             try {
                 applicationDeadlineDate = format.parse(applicationDeadline);
             } catch (ParseException e) {
