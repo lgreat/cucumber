@@ -18,11 +18,19 @@
     <c:set var="isNewGSRating" value="${school.isNewGSRating}"/>
     <c:set var="overallRating" value="${school.GSRating}"/>
 
-    <c:choose>
-        <c:when test="${isPreschool}">
-            <c:set var="iconString" value="iconx60-preschool i-60-NR" />
-        </c:when>
-        <c:otherwise>
+    <c:set var="showHideSprite" value="display:block"/>
+    <c:if test="${not isNewGSRating and isPrivateSchool}">
+        <c:set var="showHideSprite" value="dn" />
+    </c:if>
+    <c:if test="${isPreschool and empty overallRating}">
+        <c:set var="showHideSprite" value="dn" />
+    </c:if>
+
+    <!--<c:choose>-->
+        <!--<c:when test="${isPreschool}">-->
+            <!--<c:set var="iconString" value="iconx60-preschool i-60-NR" />-->
+        <!--</c:when>-->
+        <!--<c:otherwise>-->
             <c:set var="ratingType" value="orange" />
             <c:if test="${isNewGSRating}">
                 <c:set var="ratingType" value="RYG" />
@@ -32,8 +40,8 @@
                 <c:set var="privateSchool" value="Private" />
             </c:if>
             <c:set var="iconString">iconx60-${ratingType}${privateSchool} i-60-${overallRating}</c:set>
-        </c:otherwise>
-    </c:choose>
+        <!--</c:otherwise>-->
+    <!--</c:choose>-->
     <!--iconx60-RYG i-60-6-->
     <!--Which Sprite to use?-->
 
@@ -125,7 +133,7 @@
                         </p>
                     </div>
                 </c:if>
-                <div class="fl plm tac" >
+                <div class="fl plm tac ${showHideSprite}" >
 
                     <span class="${iconString}"><!-- do not collapse --></span>
                     <p class="ptsRatingGS">GreatSchools Rating</p>

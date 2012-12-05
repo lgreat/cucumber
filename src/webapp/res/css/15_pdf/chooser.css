@@ -124,9 +124,10 @@ hr.rulethin	{
 
 .tac { text-align:center; }
 .plm { padding-left:10px; }
+.dn {display:none;}
 
-.header-left-width{ width:440px; }
-.header-left-component{ width:170px; padding-right: 10px;}
+.header-left-width{ width:460px; }
+.header-left-component{ width:160px; padding-right: 10px;}
 
 .header-vertical-border-l { border-left: 1px solid #EEEEEE; }
 .header-vertical-border-r { border-right: 1px solid #EEEEEE; }
