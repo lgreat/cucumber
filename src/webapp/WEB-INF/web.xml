@@ -64,8 +64,7 @@
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
 
-    <!-- commenting out for 21.4 since this needs to be tested more -->
-    <!--<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>pages</servlet-name>
         <url-pattern>/my-school-list.pdf</url-pattern>
     </servlet-mapping>
