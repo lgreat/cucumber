@@ -219,24 +219,24 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         }
 
 
-        // Destination schools (where kids go after graduating)
-        String destinationSchool1 = getSinglePrettyValue(espData, "destination_school_1");
-        String destinationSchool2 = getSinglePrettyValue(espData, "destination_school_2");
-        String destinationSchool3 = getSinglePrettyValue(espData, "destination_school_3");
-        data.put("destination_school_1", destinationSchool1);
-        data.put("destination_school_2", destinationSchool2);
-        data.put("destination_school_3", destinationSchool3);
-        String destinationSchools = "";
-        if (destinationSchool1 != null) {
-            destinationSchools = destinationSchool1;
+        // College destinations (where kids go after graduating)
+        String collegeDestination1 = getSinglePrettyValue(espData, "college_destination_1");
+        String collegeDestination2 = getSinglePrettyValue(espData, "college_destination_2");
+        String collegeDestination3 = getSinglePrettyValue(espData, "college_destination_3");
+        data.put("college_destination_1", collegeDestination1);
+        data.put("college_destination_2", collegeDestination2);
+        data.put("college_destination_3", collegeDestination3);
+        String collegeDestinations = "";
+        if (collegeDestination1 != null) {
+            collegeDestinations = collegeDestination1;
         }
-        if (destinationSchool2 != null) {
-            destinationSchools += "; " + destinationSchool2;
+        if (collegeDestination2 != null) {
+            collegeDestinations += "; " + collegeDestination2;
         }
-        if (destinationSchool3 != null) {
-            destinationSchools += "; " + destinationSchool3;
+        if (collegeDestination3 != null) {
+            collegeDestinations += "; " + collegeDestination3;
         }
-        data.put("destination_schools", destinationSchools);
+        data.put("college_destinations", collegeDestinations);
 
 
         // before and after care
