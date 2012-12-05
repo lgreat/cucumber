@@ -16,6 +16,12 @@
         >
 
     <jsp:directive.attribute name="localInfoModel" type="java.lang.Object" required="true"/>
+    <jsp:directive.attribute name="adjustHeight" type="java.lang.Boolean" required="false"/>
+
+    <c:set var="moduleHeight" value="height:149px;" />
+    <c:if test="${adjustHeight eq true}">
+        <c:set var="moduleHeight" value="height:139px;" />
+    </c:if>
 
     <c:set var="content" value="${localInfoModel['content']}" scope="page"/>
 
@@ -48,7 +54,7 @@
                 </div>
 
                 <div class='bd clearfix'>
-                    <div class="mam" style='height: 149px;'>
+                    <div class="mam" style="${moduleHeight}" >
                         <div class='small' id='PMFContent'>
 
             <!-- if only 1 rating -->
@@ -134,7 +140,7 @@
             <div id="js-tile-13-1">
             <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_district'); }" styleClass="tdn make-555555 js-trigger">
             <school:profileOverviewCell1 title="${t13s1}">
-                <div class="mam clearfix" style="height:149px;">
+                <div class="mam clearfix" style="${moduleHeight}">
                     <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
                     <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
                     <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>

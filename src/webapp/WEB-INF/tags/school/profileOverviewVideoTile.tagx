@@ -10,6 +10,13 @@
 
     <jsp:directive.attribute name="videoModel" type="java.lang.Object" required="true"/>
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
+    <jsp:directive.attribute name="adjustHeight" type="java.lang.Boolean" required="false"/>
+
+
+    <c:set var="moduleHeight" value="height:139px;" />
+    <c:if test="${adjustHeight eq true}">
+        <c:set var="moduleHeight" value="height:149px;" />
+    </c:if>
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
@@ -37,7 +44,7 @@
                         </div>
                         <a class="tdn make-555555" href="${videoUrl}" target="_blank">
                             <div class="bd">
-                                <div class="mam" style="height:139px;">
+                                <div class="mam" style="${moduleHeight}}">
                                     <div class="media mls ptm">
                                         <span class="iconx48 i-48-video_placeholder img mrs"><!-- do not collapse --></span>
                                         <div class="bd fl">
