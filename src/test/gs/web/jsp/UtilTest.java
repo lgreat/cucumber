@@ -326,4 +326,42 @@ public class UtilTest extends TestCase {
         assertFalse(Util.showBasicError404Page("/somejpg.page"));
         assertFalse(Util.showBasicError404Page("/somepng.page"));
     }
+
+    public void testGetNumPages() throws Exception {
+        assertEquals(4L, Util.getNumPages(10,3));
+        assertEquals(3L, Util.getNumPages(9,3));
+        assertEquals(1L, Util.getNumPages(2,3));
+
+        boolean threwException = false;
+        try {
+            Util.getNumPages(-1,3);
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+
+        threwException = false;
+        try {
+            Util.getNumPages(0,3);
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+
+        threwException = false;
+        try {
+            Util.getNumPages(3,0);
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+
+        threwException = false;
+        try {
+            Util.getNumPages(3,-1);
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+    }
 }
