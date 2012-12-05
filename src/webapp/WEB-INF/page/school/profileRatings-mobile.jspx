@@ -259,7 +259,7 @@
 
                     <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
                         <div class="pbm ptm">
-                            <h6 class="mtm medium_bold bottom pbm">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
+                            <h6 class="mtm medium_bold bottom pbm">College readiness rating ${postSecondaryReadinessRatingYear}***</h6>
 
                             <profile:ratingsBarChart ratingDivId="ratingTestResults3"
                                                           schoolRating="${schoolPostSecondaryReadinessRating}"
