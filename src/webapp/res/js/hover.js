@@ -852,8 +852,48 @@ GSType.hover.PrintSchoolChooser = function() {
             }
         });
     }
+    this.printSchoolList = function () {
+        $('.downloadPYOC').click(function () {
+            var state = [];
+            var schoolID = [];
+            var count = 0;
+            $('#js-pyoc input:checked').each(function () {
+                count++;
+                var selected = $(this).attr('value').split(",");
+                state.push(selected[0]);
+                schoolID.push(selected[1]);
+            });
+            if (count == 0) {
+                $('.js-showError').show();
+                return false;
+            }
+            else {
+                $('.js-showError').hide();
+            }
+
+            $('#selectedState').val(state.join(','));
+            $('#selectedId').val(schoolID.join(','));
+            if ($('#js-pyocChecklist input:checked')) {
+                $('#js-appendCheckList').val('yes');
+            }
+            else {
+                $('#js-appendCheckList').val('no');
+            }
+            $('#js-printSchoolChooserSubmit').submit();
+        });
+    }
+
+    this.deselectSchool = function () {
+        $('#pyocDeselect').click(function () {
+            $('#js-pyoc input').each(function () {
+                $(this).attr('checked', false);
+            });
+        });
+    }
     this.showHover = function() {
         this.populateModal();
+        this.printSchoolList();
+        this.deselectSchool();
         this.getCheckCount();
         GSType.hover.printSchoolChooser.show();
     };
