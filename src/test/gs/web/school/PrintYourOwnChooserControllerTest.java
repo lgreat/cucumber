@@ -575,50 +575,207 @@ public class PrintYourOwnChooserControllerTest {
     }
 
     @Test
-    public void testSpecialEdServices() throws Exception {
+    public void testSpecialEd_level_only() throws Exception {
         Map<String, Object> data = new HashMap<String,Object>();
         School school = getASchool();
 
-        List<EspResponse> espResponse = getAnEspResponse("special_ed_services", "One");
-        espResponse.addAll(getAnEspResponse("special_ed_services", "Two"));
-        espResponse.addAll(getAnEspResponse("special_ed_services", "Three"));
+        List<EspResponse> espResponse = getAnEspResponse("spec_ed_level", "none");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "None", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "basic");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Basic", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "moderate");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Moderate", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "intensive");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Intensive", data.get("special_ed"));
+    }
+
+    @Test
+    public void testSpecialEd_level_and_exists() throws Exception {
+        Map<String, Object> data = new HashMap<String,Object>();
+        School school = getASchool();
+
+        List<EspResponse> espResponse = getAnEspResponse("spec_ed_level", "none");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "Yes"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "None", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "basic");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "Yes"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Basic", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "moderate");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "Yes"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Moderate", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "intensive");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "Yes"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Intensive", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "none");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "No"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "None", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "basic");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "No"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Basic", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "moderate");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "No"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Moderate", data.get("special_ed"));
+
+        data.clear();
+        espResponse = getAnEspResponse("spec_ed_level", "intensive");
+        espResponse.addAll(getAnEspResponse("special_ed_programs_exists", "No"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Intensive", data.get("special_ed"));
+    }
+
+    @Test
+    public void testSpecialEd_exists_only() throws Exception {
+        Map<String, Object> data = new HashMap<String,Object>();
+        School school = getASchool();
+
+        List<EspResponse> espResponse = getAnEspResponse("special_ed_programs_exists", "yes");
 
         expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
         replay(_espResponseDaoHibernate);
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "One; Two; Three", data.get("special_ed_services"));
-    }
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("special_ed"));
 
-    @Test
-    public void testSpecialEdServices_one() throws Exception {
-        Map<String, Object> data = new HashMap<String,Object>();
-        School school = getASchool();
+        data.clear();
+        espResponse = getAnEspResponse("special_ed_programs_exists", "no");
 
-        List<EspResponse> espResponse = getAnEspResponse("special_ed_services", "One");
-
+        reset(_espResponseDaoHibernate);
         expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
         replay(_espResponseDaoHibernate);
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "One", data.get("special_ed_services"));
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("special_ed"));
     }
 
     @Test
-    public void testSpecialEdServices_none() throws Exception {
+    public void testSpecialEd_no_info() throws Exception {
         Map<String, Object> data = new HashMap<String,Object>();
         School school = getASchool();
 
         List<EspResponse> espResponse = new ArrayList<EspResponse>();
 
+        reset(_espResponseDaoHibernate);
         expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
         replay(_espResponseDaoHibernate);
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", null, data.get("special_ed_services"));
+        assertEquals("Expect OSP data to have been inserted into map", null, data.get("special_ed"));
+
+        // ignoring the 'special_ed_programs' data point, per spec - GS-13327
+        data.clear();
+        espResponse = getAnEspResponse("special_ed_programs", "any-valid-or-invalid-value");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", null, data.get("special_ed"));
     }
 
     @Test
@@ -741,7 +898,6 @@ public class PrintYourOwnChooserControllerTest {
 
         assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("transportation"));
 
-        espResponse.clear();
         data.clear();
         espResponse = getAnEspResponse("transportation", "busses");
 
@@ -753,7 +909,6 @@ public class PrintYourOwnChooserControllerTest {
 
         assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("transportation"));
 
-        espResponse.clear();
         data.clear();
         espResponse = getAnEspResponse("transportation", "shared_bus");
 
