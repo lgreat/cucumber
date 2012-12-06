@@ -827,9 +827,12 @@ GSType.hover.PrintSchoolChooser = function() {
             var $this = $(this);
             var stateID = $this.find('.compare_checkbox').val();
             var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
+            var cityState = $this.find('.js-pyocCityState').html().split(' ',2);
+            var city = cityState[0];
+            var state = cityState[1];
             var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
                 '<span class="fl ttc"><span>' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
-                '<span class="small">' + $this.find('.js-pyocCityState').html() + '. ' + $this.find('.js-pyocSchoolType').html() + '</span>' +
+                '<span class="small">' + city +' '+ state + '. ' + $this.find('.js-pyocSchoolType').html() + ', '+ $this.find('.js-pyocGradeRange').html() + '</span>' +
                 '</span>' +
                 '<span class="fr">' +
                 '<input type="checkbox" checked="checked" value="' + output + '" class="js-stateId"/>' +
@@ -842,9 +845,14 @@ GSType.hover.PrintSchoolChooser = function() {
     this.getCheckCount = function (){
         $('.js-stateId, #pyocDeselect').click(function() {
             var pyocCounter = $('#js-pyoc').find('input.js-stateId:checked').length;
-            $('.pyocCount').html(pyocCounter);
+            if(pyocCounter == 1){
+                $('.pyocCount').html(pyocCounter + ' school ');
+            }
+            else{
+                $('.pyocCount').html(pyocCounter + ' schools ');
+            }
             var pageCount = (Math.ceil(pyocCounter/3));
-            if(pageCount <= 1 ){
+            if(pageCount == 1 ){
                 $('.pageCount').html('(' + pageCount + ' page)');
             }
             else{
@@ -899,21 +907,6 @@ GSType.hover.PrintSchoolChooser = function() {
     };
 };
 GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser',640);
-
-
-
-//GSType.hover.SchoolEspThankYou = function() {
-//    this.loadDialog = function() {
-//    };
-//    this.showHover = function() {
-//        GSType.hover.schoolEspThankYou.show();
-//    };
-//
-//    this.onClose = function() {
-//    };
-//};
-//
-//GSType.hover.SchoolEspThankYou.prototype = new GSType.hover.HoverDialog("schoolEspThankYou",640);
 
 
 //ValidateEmailHover Hover
