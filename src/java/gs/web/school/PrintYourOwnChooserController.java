@@ -274,9 +274,18 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         // transportation
         String transportation = getSingleValue(espData, "transportation");
         if (transportation != null) {
-            data.put("transportation",
-                    (!transportation.equalsIgnoreCase("none"))? "Yes":"No"
-            );
+            String transportationValueForModel = null;
+            if (transportation.equalsIgnoreCase("none") || transportation.equalsIgnoreCase("special_ed_only")) {
+                transportationValueForModel = "No";
+            } else if (transportation.equalsIgnoreCase("passes") ||
+                       transportation.equalsIgnoreCase("busses") ||
+                       transportation.equalsIgnoreCase("shared_bus")) {
+                transportationValueForModel = "Yes";
+            }
+
+            if (transportationValueForModel != null) {
+                data.put("transportation", transportationValueForModel);
+            }
         }
     }
 
