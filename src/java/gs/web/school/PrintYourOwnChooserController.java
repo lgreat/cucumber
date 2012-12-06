@@ -249,17 +249,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
 
         // special ed services
-        List<EspResponse> responses = espData.get("special_ed_services");
-        StringBuffer specialEdServices = new StringBuffer();
-        if (responses != null) {
-            for (EspResponse response : responses) {
-                if (specialEdServices.length() > 0) {
-                    specialEdServices.append("; ");
-                }
-                specialEdServices.append(response.getPrettyValue());
-            }
-        }
-        data.put("special_ed_services", StringUtils.trimToNull(specialEdServices.toString().trim()));
+        addSpecialEdToModel(data, espData);
 
 
         // dress code
@@ -272,21 +262,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
 
         // transportation
-        String transportation = getSingleValue(espData, "transportation");
-        if (transportation != null) {
-            String transportationValueForModel = null;
-            if (transportation.equalsIgnoreCase("none") || transportation.equalsIgnoreCase("special_ed_only")) {
-                transportationValueForModel = "No";
-            } else if (transportation.equalsIgnoreCase("passes") ||
-                       transportation.equalsIgnoreCase("busses") ||
-                       transportation.equalsIgnoreCase("shared_bus")) {
-                transportationValueForModel = "Yes";
-            }
-
-            if (transportationValueForModel != null) {
-                data.put("transportation", transportationValueForModel);
-            }
-        }
+        addTransportationToModel(data, espData);
     }
 
     private String getSinglePrettyValue(Map<String, List<EspResponse>> espData, String key) {
@@ -363,6 +339,41 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         }
         if (foundNeither || (!foundBefore && foundAfter)) {
             data.put("before_care", "No");
+        }
+    }
+
+    public void addTransportationToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        String transportation = getSingleValue(espData, "transportation");
+        if (transportation != null) {
+            String transportationValueForModel = null;
+            if (transportation.equalsIgnoreCase("none") || transportation.equalsIgnoreCase("special_ed_only")) {
+                transportationValueForModel = "No";
+            } else if (transportation.equalsIgnoreCase("passes") ||
+                    transportation.equalsIgnoreCase("busses") ||
+                    transportation.equalsIgnoreCase("shared_bus")) {
+                transportationValueForModel = "Yes";
+            }
+
+            if (transportationValueForModel != null) {
+                data.put("transportation", transportationValueForModel);
+            }
+        }
+    }
+
+    public void addSpecialEdToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        String level = getSingleValue(espData, "spec_ed_level");
+        String exists = getSingleValue(espData, "special_ed_programs_exists");
+
+        if (StringUtils.isNotBlank(level) && (
+                level.equalsIgnoreCase("none") ||
+                level.equalsIgnoreCase("basic") ||
+                level.equalsIgnoreCase("moderate") ||
+                level.equalsIgnoreCase("intensive"))) {
+            data.put("special_ed", StringUtils.capitalize(level.toLowerCase()));
+        } else if (StringUtils.isNotBlank(exists) && (
+                exists.equalsIgnoreCase("yes") ||
+                exists.equalsIgnoreCase("no"))) {
+            data.put("special_ed", StringUtils.capitalize(exists.toLowerCase()));
         }
     }
 
