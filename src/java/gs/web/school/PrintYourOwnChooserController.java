@@ -315,6 +315,8 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     public void addBeforeAfterCareToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
         List<EspResponse> beforeAfter = espData.get("before_after_care");
+        boolean foundBefore = false;
+        boolean foundAfter = false;
         boolean foundNeither = false;
 
         if (beforeAfter != null && beforeAfter.size() > 0) {
@@ -328,6 +330,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
                     else {
                         data.put("before_care", "Yes");
                     }
+                    foundBefore = true;
                 }
                 if (e.getSafeValue().equalsIgnoreCase("after")) {
                     // Have before now check for time
@@ -338,6 +341,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
                     else {
                         data.put("after_care", "Yes");
                     }
+                    foundAfter = true;
                 }
                 if (e.getSafeValue().equalsIgnoreCase("neither")) {
                     foundNeither = true;
@@ -345,9 +349,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
             }
         }
 
-        if (foundNeither) {
-            data.put("before_care", "No");
+        if (foundNeither || (foundBefore && !foundAfter)) {
             data.put("after_care", "No");
+        }
+        if (foundNeither || (!foundBefore && foundAfter)) {
+            data.put("before_care", "No");
         }
     }
 

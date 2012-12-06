@@ -405,16 +405,156 @@ public class PrintYourOwnChooserControllerTest {
         Map<String, Object> data = new HashMap<String,Object>();
         School school = getASchool();
 
-        List<EspResponse> espResponse = getAnEspResponse("before_after_care_start", "5:00");
-        espResponse.addAll(getAnEspResponse("before_after_care_end", "7:00"));
+        List<EspResponse> espResponse = getAnEspResponse("before_after_care_start", "5:00 AM");
+        espResponse.addAll(getAnEspResponse("before_after_care_end", "7:00 PM"));
+        espResponse.addAll(getAnEspResponse("before_after_care", "before"));
+        espResponse.addAll(getAnEspResponse("before_after_care", "after"));
 
         expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
         replay(_espResponseDaoHibernate);
         _pdfController.addOspDataToModel(school, data);
         verify(_espResponseDaoHibernate);
 
-        assertEquals("Expect OSP data to have been inserted into map", "5:00", data.get("before_after_care_start"));
-        assertEquals("Expect OSP data to have been inserted into map", "7:00", data.get("before_after_care_end"));
+        assertEquals("Expect OSP data to have been inserted into map", "Starts 5:00 a.m.", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Ends 7:00 p.m.", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care_start", "5:00 AM");
+        espResponse.addAll(getAnEspResponse("before_after_care", "before"));
+        espResponse.addAll(getAnEspResponse("before_after_care", "after"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Starts 5:00 a.m.", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care_end", "7:00 PM");
+        espResponse.addAll(getAnEspResponse("before_after_care", "before"));
+        espResponse.addAll(getAnEspResponse("before_after_care", "after"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Ends 7:00 p.m.", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care_start", "5:00 AM");
+        espResponse.addAll(getAnEspResponse("before_after_care", "before"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Starts 5:00 a.m.", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care_end", "7:00 PM");
+        espResponse.addAll(getAnEspResponse("before_after_care", "after"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Ends 7:00 p.m.", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care", "before");
+        espResponse.addAll(getAnEspResponse("before_after_care", "after"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care", "before");
+        espResponse.addAll(getAnEspResponse("before_after_care", "after"));
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care", "before");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care", "after");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "Yes", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("before_after_care", "neither");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("before_care"));
+        assertEquals("Expect OSP data to have been inserted into map", "No", data.get("after_care"));
+
+        espResponse.clear();
+        data.clear();
+        espResponse = getAnEspResponse("unrelated_key", "some_value");
+
+        reset(_espResponseDaoHibernate);
+        expect(_espResponseDaoHibernate.getResponses(eq(school))).andReturn(espResponse);
+        replay(_espResponseDaoHibernate);
+        _pdfController.addOspDataToModel(school, data);
+        verify(_espResponseDaoHibernate);
+
+        assertNull("Expect no OSP data to have been inserted into map", data.get("before_care"));
+        assertNull("Expect no OSP data to have been inserted into map", data.get("after_care"));
     }
 
     @Test
