@@ -5,8 +5,8 @@
           xmlns:gsweb="gstaglib"
         >
 
-    <div id="printSchoolChooser" class="dialog_white" style="display:none;">
-        <div class="modal_3 width_13 slStylesV1-0" id="printSchoolChooser">
+    <div id="printSchoolChooser" class="dialog_white modal_3" style="display:none;">
+        <div class="width_13 slStylesV1-0" id="printSchoolChooser">
             <c:set var="pyocCount" value="${requestScope.context.mslCount}"/>
             <c:set var="pageCount" value=""/>
             <c:set var="num" value="3" />
@@ -14,7 +14,27 @@
                 <div class="inner">
                     <h2 class="">Choose the schools you'd like to download:</h2>
                     <div class="clearfix">
-                        <h5 class="fl bottom">Your file currently includes <span class="pyocCount">${pyocCount}</span> schools <span class="default make-555555 pageCount">(${gsweb:getNumPages(pyocCount,num)} page)</span></h5>
+                        <h5 class="fl bottom">Your file currently includes <span class="pyocCount">
+                            <c:choose>
+                                <c:when test="${pyocCount eq 1}">
+                                    ${pyocCount} school
+                                </c:when>
+                                <c:otherwise>
+                                    ${pyocCount} schools
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                            <span class="default make-555555 pageCount">(${gsweb:getNumPages(pyocCount,num)}
+                                <c:choose>
+                                    <c:when test="${gsweb:getNumPages(pyocCount,num) eq 1}">
+                                         page)
+                                    </c:when>
+                                    <c:otherwise>
+                                         pages)
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
+                        </h5>
                         <a href="javascript:void(0)" class="fr" id="pyocDeselect">Deselect all</a>
                     </div>
                     <div id="js-pyoc" class="bd mtm mbl" style="overflow: auto; height:175px;"><!--do not collapse--></div>
