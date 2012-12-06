@@ -14,8 +14,10 @@
 
 
     <c:set var="moduleHeight" value="height:139px;" />
+    <c:set var="moduleHeightDistrict" value="height:100px;" />
     <c:if test="${adjustHeight eq true}">
         <c:set var="moduleHeight" value="height:149px;" />
+        <c:set var="moduleHeightDistrict" value="height:110px;" />
     </c:if>
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
@@ -72,7 +74,7 @@
                             <div class="hd">
                                 <h3 class="bottom">What schools are available to you?</h3>
                             </div>
-                            <div class="bd" style="height:100px;">
+                            <div class="bd" style="${moduleHeightDistrict}}">
                                 <p class="small mtm">Find attendance<br />
                                     zones for your<br />
                                     address &amp;raquo;
