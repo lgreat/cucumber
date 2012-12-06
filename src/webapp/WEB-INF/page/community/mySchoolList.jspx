@@ -40,7 +40,9 @@
     <!--<gsml:equalizeColumns ids="'col_left','col_right'"/>-->
 </head>
 <gsml:body adPageName="mySchoolList" pageLayout="nocol">
-    <communityHover:printSchoolChooser/>
+    <c:if test="${showPYOCModule}">
+        <communityHover:printSchoolChooser/>
+    </c:if>
 
     <div class="slStylesV1-0">
         <div class="spacer_20"><!-- do not collapse --></div>

@@ -240,8 +240,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
 
         // before and after care
-        data.put("before_after_care_start", getSinglePrettyValue(espData, "before_after_care_start"));
-        data.put("before_after_care_end", getSinglePrettyValue(espData, "before_after_care_end"));
+        addBeforeAfterCareToModel(data, espData);
 
 
         // class hours
@@ -312,6 +311,44 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         Map<String, String> ethnicityLabelValueMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(censusDataSets);
         data.put(MODEL_KEY_ETHNICITY_MAP, ethnicityLabelValueMap);
+    }
+
+    public void addBeforeAfterCareToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        List<EspResponse> beforeAfter = espData.get("before_after_care");
+        boolean foundNeither = false;
+
+        if (beforeAfter != null && beforeAfter.size() > 0) {
+            for (EspResponse e : beforeAfter) {
+                if (e.getSafeValue().equalsIgnoreCase("before")) {
+                    // Have before now check for time
+                    List<EspResponse> start = espData.get("before_after_care_start");
+                    if (start != null && start.size() > 0) {
+                        data.put("before_care", "Starts " + SchoolProfileProgramsController.formatAmPm(start.get(0).getSafeValue()));
+                    }
+                    else {
+                        data.put("before_care", "Yes");
+                    }
+                }
+                if (e.getSafeValue().equalsIgnoreCase("after")) {
+                    // Have before now check for time
+                    List<EspResponse> end = espData.get("before_after_care_end");
+                    if (end != null && end.size() > 0) {
+                        data.put("after_care", "Ends " + SchoolProfileProgramsController.formatAmPm(end.get(0).getSafeValue()));
+                    }
+                    else {
+                        data.put("after_care", "Yes");
+                    }
+                }
+                if (e.getSafeValue().equalsIgnoreCase("neither")) {
+                    foundNeither = true;
+                }
+            }
+        }
+
+        if (foundNeither) {
+            data.put("before_care", "No");
+            data.put("after_care", "No");
+        }
     }
 
     public Map<String, List<EspResponse>> getEspData(School school) {
