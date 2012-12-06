@@ -100,7 +100,7 @@
                 <div class="fl">
                     <p>
                         Type:<span class="strong capitalize"> ${school.type.schoolTypeName}</span><br />
-                        Grades:<span class="strong"> ${school.gradeLevels.rangeString}</span><br />
+                        Grades:<span class="strong"> ${fn:escapeXml(school.gradeLevels.rangeString)}</span><br />
                         Enrollment:<span class="strong"> ${school.enrollmentOrCapacity}</span>
                     </p>
                 </div>
@@ -187,8 +187,8 @@
                     <span class="fl">Uniforms/Dress code:</span><span class="fr strong"> ${gsweb:defaultString(schoolData['dress_code'], defaultString)}</span>
                     <br />
                     <c:choose>
-                        <c:when test="${not empty schoolData['before_after_care_end']}">
-                            <span class="fl">Before care:</span><span class="fr strong"> Starts ${schoolData['before_after_care_start']}</span>
+                        <c:when test="${not empty schoolData['before_care']}">
+                            <span class="fl">Before care:</span><span class="fr strong"> ${schoolData['before_care']}</span>
                             <br />
                         </c:when>
                         <c:otherwise>
@@ -197,8 +197,8 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${not empty schoolData['before_after_care_end']}">
-                            <span class="fl">After care:</span><span class="fr strong"> Ends ${schoolData['before_after_care_end']}</span>
+                        <c:when test="${not empty schoolData['after_care']}">
+                            <span class="fl">After care:</span><span class="fr strong"> ${schoolData['after_care']}</span>
                             <br />
                         </c:when>
                         <c:otherwise>
