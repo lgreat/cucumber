@@ -318,107 +318,107 @@ General comments:
 /* =5 x24
 -------------------------------------------------------------------------------------------*/
 
-.ratingx24-city {
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120906-ratingsx24-city.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-city {*/
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120906-ratingsx24-city.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-district {
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-district.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-district {*/
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-district.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-preschool {
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-preschool.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-preschool {*/
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-preschool.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-private-O {  /* (orange ratings) */
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-O.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-private-O {  *//* (orange ratings) */
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-O.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-private-RYG {  /* walton (red-yellow-green ratings) */
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-RYG.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-private-RYG {  *//* walton (red-yellow-green ratings) */
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-RYG.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-public-O {  /* (orange ratings) */
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-public-O.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-public-O {  *//* (orange ratings) */
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-public-O.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-public-RYG {  /* walton (red-yellow-green ratings) */
-    display: inline-block;
-    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-public-RYG.png);
-    width: 24px;
-    height: 24px;
-}
+/*.ratingx24-public-RYG {  *//* walton (red-yellow-green ratings) */
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-public-RYG.png);*/
+    /*width: 24px;*/
+    /*height: 24px;*/
+/*}*/
 
-.ratingx24-public-RYG.r-24-legend{
-    width:240px;
-}
+/*.ratingx24-public-RYG.r-24-legend{*/
+    /*width:240px;*/
+/*}*/
 
 /* **************** VIEWPORT ***************** */
 
 /* row 0 */
-.r-24-1 {
-    background-position: 0 0;
-}
+/*.r-24-1 {*/
+    /*background-position: 0 0;*/
+/*}*/
 
-.r-24-2 {
-    background-position: -24px 0;
-}
+/*.r-24-2 {*/
+    /*background-position: -24px 0;*/
+/*}*/
 
-.r-24-3 {
-    background-position: -48px 0;
-}
+/*.r-24-3 {*/
+    /*background-position: -48px 0;*/
+/*}*/
 
-.r-24-4 {
-    background-position: -72px 0;
-}
+/*.r-24-4 {*/
+    /*background-position: -72px 0;*/
+/*}*/
 
-.r-24-5 {
-    background-position: -96px 0;
-}
+/*.r-24-5 {*/
+    /*background-position: -96px 0;*/
+/*}*/
 
-.r-24-6 {
-    background-position: -120px 0;
-}
+/*.r-24-6 {*/
+    /*background-position: -120px 0;*/
+/*}*/
 
-.r-24-7 {
-    background-position: -144px 0;
-}
+/*.r-24-7 {*/
+    /*background-position: -144px 0;*/
+/*}*/
 
-.r-24-8 {
-    background-position: -168px 0;
-}
+/*.r-24-8 {*/
+    /*background-position: -168px 0;*/
+/*}*/
 
-.r-24-9 {
-    background-position: -192px 0;
-}
+/*.r-24-9 {*/
+    /*background-position: -192px 0;*/
+/*}*/
 
-.r-24-10 {
-    background-position: -216px 0;
-}
+/*.r-24-10 {*/
+    /*background-position: -216px 0;*/
+/*}*/
 
-.r-24-na,
-.r-24-NA,
-.r-24-NR {
-    background-position: -240px 0;
-}
+/*.r-24-na,*/
+/*.r-24-NA,*/
+/*.r-24-NR {*/
+    /*background-position: -240px 0;*/
+/*}*/
 
 
 
