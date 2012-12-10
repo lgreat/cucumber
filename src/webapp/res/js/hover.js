@@ -843,7 +843,7 @@ GSType.hover.PrintSchoolChooser = function() {
     };
 
     this.getCheckCount = function (){
-        $('.js-stateId, #pyocDeselect').click(function() {
+        $('.js-pyocCountCheck, .js-stateId, #pyocDeselect').click(function() {
             var pyocCounter = $('#js-pyoc').find('input.js-stateId:checked').length;
             if(pyocCounter == 1){
                 $('.pyocCount').html(pyocCounter + ' school ');
