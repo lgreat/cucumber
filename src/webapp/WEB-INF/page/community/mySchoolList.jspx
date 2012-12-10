@@ -102,7 +102,7 @@
                             <div class="clearfix">
                             <div class="fl">
                                 <h3>Download My<br/> School List to<br/> save, share<br/> or print.</h3>
-                                <a onclick="GSType.hover.printSchoolChooser.showHover(); return false;"><button class="button-1" type="button">Download</button></a>
+                                <a class="js-pyocCountCheck" onclick="GSType.hover.printSchoolChooser.showHover(); return false;"><button class="button-1" type="button">Download</button></a>
                             </div>
                             <div class="fr">
                                 <img src="/res/img/pdfChooser/icon_chooser.png" alt=""/>
