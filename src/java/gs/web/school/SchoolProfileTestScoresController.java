@@ -1,7 +1,6 @@
 package gs.web.school;
 
 import gs.data.school.*;
-import gs.data.state.State;
 import gs.data.test.*;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -315,6 +313,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             School school, Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> map,
             Map<Integer, TestDescription> testDataTypeToDescription) {
 
+        boolean schoolHasData = false;
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (CustomTestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
@@ -380,6 +379,9 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                                 testScoreValue = m.group();
                             }
 
+                            if (!StringUtils.equals(LABEL_DATA_NOT_AVAILABLE, testScoreValue)) {
+                                schoolHasData = true;
+                            }
                             //For a year set the test score.
                             TestValues testValue = new TestValues();
                             testValue.setYear(testDataSet.getYear());
@@ -411,7 +413,13 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         }
         //Sort the tests.
         Collections.sort(testToGradesList);
-        return testToGradesList;
+        if (schoolHasData) {
+            return testToGradesList;
+        } else {
+            // if every value for the school is "not available", then this school has no test score data
+            // see GS-13489
+            return new ArrayList<TestToGrades>();
+        }
     }
 
     protected Map<Integer, TestDescription> getTestDataTypeToTestDescription(School school, Set<Integer> dataTypeIds) {
