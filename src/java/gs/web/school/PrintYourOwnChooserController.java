@@ -220,23 +220,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
 
         // College destinations (where kids go after graduating)
-        String collegeDestination1 = getSinglePrettyValue(espData, "college_destination_1");
-        String collegeDestination2 = getSinglePrettyValue(espData, "college_destination_2");
-        String collegeDestination3 = getSinglePrettyValue(espData, "college_destination_3");
-        data.put("college_destination_1", collegeDestination1);
-        data.put("college_destination_2", collegeDestination2);
-        data.put("college_destination_3", collegeDestination3);
-        String collegeDestinations = "";
-        if (collegeDestination1 != null) {
-            collegeDestinations = collegeDestination1;
-        }
-        if (collegeDestination2 != null) {
-            collegeDestinations += "; " + collegeDestination2;
-        }
-        if (collegeDestination3 != null) {
-            collegeDestinations += "; " + collegeDestination3;
-        }
-        data.put("college_destinations", collegeDestinations);
+        addDestinationSchoolsOrCollegesToModel(data, espData);
 
 
         // before and after care
@@ -296,6 +280,41 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         Map<String, String> ethnicityLabelValueMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(censusDataSets);
         data.put(MODEL_KEY_ETHNICITY_MAP, ethnicityLabelValueMap);
+    }
+
+    public void addDestinationSchoolsOrCollegesToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        String schoolDestination1 = getSinglePrettyValue(espData, "destination_school_1");
+        String schoolDestination2 = getSinglePrettyValue(espData, "destination_school_2");
+        String schoolDestination3 = getSinglePrettyValue(espData, "destination_school_3");
+
+        String collegeDestination1 = getSinglePrettyValue(espData, "college_destination_1");
+        String collegeDestination2 = getSinglePrettyValue(espData, "college_destination_2");
+        String collegeDestination3 = getSinglePrettyValue(espData, "college_destination_3");
+
+        String destinations = "";
+        if (schoolDestination1 != null) {
+            destinations = schoolDestination1;
+        }
+        if (schoolDestination2 != null) {
+            destinations += "; " + schoolDestination2;
+        }
+        if (schoolDestination3 != null) {
+            destinations += "; " + schoolDestination3;
+        }
+
+        if (StringUtils.isEmpty(destinations)) {
+            if (collegeDestination1 != null) {
+                destinations = collegeDestination1;
+            }
+            if (collegeDestination2 != null) {
+                destinations += "; " + collegeDestination2;
+            }
+            if (collegeDestination3 != null) {
+                destinations += "; " + collegeDestination3;
+            }
+        }
+
+        data.put("destinations", destinations);
     }
 
     public void addBeforeAfterCareToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
