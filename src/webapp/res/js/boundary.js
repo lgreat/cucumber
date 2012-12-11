@@ -381,7 +381,7 @@ var Boundary = (function (){
         $list.empty();
         var itemTemplate = '<div class="js-listItem media skin-1 attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>'
             , spriteTemplate = '<span class="img mrm"><!-- do not collapse --></span>'
-            , nameTemplate = '<div class="small bd" id=""></div>'
+            , nameTemplate = '<div class="small bottom bd" id=""></div>'
             , htmlString = '';
         schools.sort(sort);
         for (var i = 0; i < schools.length; i++) {
