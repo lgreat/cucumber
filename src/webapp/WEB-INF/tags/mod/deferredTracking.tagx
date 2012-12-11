@@ -19,6 +19,7 @@
     <jsp:directive.attribute name="schoolPhotosTracking" required="false" />
     <jsp:directive.attribute name="schoolGSRating" required="false" />
     <jsp:directive.attribute name="school" required="false" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="DC_PCSB_Rating" required="false"/>
 
     <script type="text/javascript">
         GS.tracking.registerTrackingData("${not empty pageScope.key? pageScope.key : '_shared'}", {
@@ -32,7 +33,8 @@
                     prop31 : clickCapture.getProp(31,'${schoolGSRating}'),
                     prop34 : clickCapture.getProp(34,'${schoolPhotosTracking}'),
                     prop48 : clickCapture.getProp(48,'${pageScope.hasOsp}'),
-                    prop49 : clickCapture.getProp(49,"${pageScope.numberOfReviews}")
+                    prop49 : clickCapture.getProp(49,"${pageScope.numberOfReviews}"),
+                    prop51 : clickCapture.getProp(51,"${DC_PCSB_Rating}")
                 };
 
                 // if page name was not passed in, setting these props (that use page name) here will overwrite these props with potentially incorrect values

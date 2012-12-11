@@ -19,7 +19,10 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}"/>
-
+<c:set var="dcNcsbRating" value=""/>
+<c:if test="${localInfo['content']  eq 'performanceManagementRating'}">
+    <c:set var="dcNcsbRating" value="DC PCSB Rating"/>
+</c:if>
     <!-- Even though profileOverview.jspx is curently a module included in school profile,
         SessionContext is not shared among the modules, and so asyncronous mode must be enabled here -->
     <ad:enableGptAsynchronousMode />
@@ -328,6 +331,6 @@
 
     <mod:deferredTracking key="overview" pageName="${pageName}"  hier1="School,SchoolProfileSuite,Overview"/>
 
-    <mod:deferredTracking hier1="School,SchoolProfileSuite" hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}"/>
+    <mod:deferredTracking hier1="School,SchoolProfileSuite" hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}" DC_PCSB_Rating="${dcNcsbRating}"/>
 
 </jsp:root>
