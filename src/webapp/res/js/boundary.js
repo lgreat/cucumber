@@ -202,7 +202,7 @@ var Boundary = (function (){
 
     var nearbyhomes = function (data) {
         if (data && data.address && data.address.zip) {
-            $nearby.show().removeClass('hidden');
+            $nearby.show().removeClass('dn');
             $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ data.address.zip + '?gate=gs&cid=PRT300014');
         }
     }
@@ -245,7 +245,7 @@ var Boundary = (function (){
         $map.boundaries('refresh');
         $dropdown.html('').append('<option>Select a district</option>');
         $list.html('');
-        $header.addClass('hidden');
+        $header.addClass('dn');
     }
 
     var geocode = function (e,obj) {
@@ -474,7 +474,7 @@ var Boundary = (function (){
     }
 
     var updateDistrictHeader = function( district ){
-        $header.removeClass('hidden');
+        $header.removeClass('dn');
         if (district.rating>0 && district.rating<11){
             $header.find('#ratings-test').html(district.rating);
         } else {

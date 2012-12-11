@@ -52,6 +52,7 @@
             <gsml:url var="tabcss" value="/res/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <!--<gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
             <!--<gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
+            <gsml:url var="districtboundary" value="/res/css/38_special/district_boundary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <!--<gsml:url var="themeroller" value="/res/css/97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
             <!--<gsml:url var="timepicker" value="/res/css/97_jQueryUI/timepicker/jquery.ptTimeSelect.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
             <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -96,9 +97,10 @@
             <!-- 27 --> <![CDATA[<link rel="stylesheet" href="${tabcss}" type="text/css" />]]>
             <!--<![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>-->
+            <!-- 28 --> <![CDATA[<link rel="stylesheet" href="${districtboundary}" type="text/css" />]]>
             <!--<![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>-->
-            <!-- 28 --> <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
+            <!-- 29 --> <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
             <!--&lt;!&ndash; 29 &ndash;&gt; <![CDATA[<link rel="stylesheet" href="${hovercss}" type="text/css" />]]>-->
             <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
             <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
