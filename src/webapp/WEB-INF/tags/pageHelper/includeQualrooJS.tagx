@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 
 
     <jsp:scriptlet>
-        gs.web.util.PageHelper.setIncludeQualroo(request,  true);
+        gs.web.util.context.SessionContext context = gs.web.util.context.SessionContextUtil.getSessionContext(request);
+        if (!context.isCobranded()) {
+            gs.web.util.PageHelper.setIncludeQualroo(request,  true);
+        }
     </jsp:scriptlet>
 </jsp:root>
