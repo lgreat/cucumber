@@ -46,6 +46,8 @@ public class ManagementController extends SimpleFormController implements ReadWr
     private IUserContentDao _userContentDao;
     private IDiscussionDao _discussionDao;
 
+    public static final int MAX_MSS_SUBSCRIPTIONS = 4;
+
     public IDiscussionDao getDiscussionDao() {
         return _discussionDao;
     }
@@ -252,7 +254,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
             // verify that this school exists
             if (school != null) {
                 List<Subscription> myStats = _subscriptionDao.findMssSubscriptionsByUser(user);
-                if (myStats != null && myStats.size() >= 4) {
+                if (myStats != null && myStats.size() >= MAX_MSS_SUBSCRIPTIONS) {
                     // error!
                     command.setTooManySchoolsError(true);
                 } else {
@@ -270,8 +272,8 @@ public class ManagementController extends SimpleFormController implements ReadWr
         List<Subscription> myStats = new ArrayList<Subscription>(_subscriptionDao.findMssSubscriptionsByUser(user));
         List<Integer> myStatIds = new ArrayList<Integer>();
 
-        int myStatNum = 1;
-        for (Subscription myStat: myStats ) {
+        for (int myStatNum = 1; myStatNum <= myStats.size() && myStatNum <= MAX_MSS_SUBSCRIPTIONS; myStatNum++) {
+            Subscription myStat = myStats.get(myStatNum-1);
             try{
                 School school;
                 school = _schoolDao.getSchoolById(myStat.getState(), myStat.getSchoolId());
@@ -283,7 +285,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
                 Method meth2 = dummyClass.getMethod("setName" + myStatNum,String.class);
                 meth.invoke(command,true);
                 meth2.invoke(command,school.getName());
-                myStatNum++;
             }catch(ObjectRetrievalFailureException orfe){
                     // ain't doin' nathan cos i don't care about schools that don't exist
             }
