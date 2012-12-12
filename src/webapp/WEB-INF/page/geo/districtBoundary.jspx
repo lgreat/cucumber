@@ -57,7 +57,7 @@
 
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
-<div class="slStylesV1-0  slFormsV1-0 mtl tac">
+<div class="mtl tac">
 <div class="phs tal"><h1 class="bottom">School and District Boundaries Map</h1>
     <p class="mtm">Researching schools in your neighborhood is a snap with our interactive map tool. Enter an address to see school attendance and district boundary lines. Go ahead and give it a spin.</p>
 </div>

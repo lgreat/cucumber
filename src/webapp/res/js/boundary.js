@@ -367,7 +367,7 @@ var Boundary = (function (){
             var $comments = $element.find('.js_comments');
             $wrapper.removeClass("mbm");
             $comments.html('');
-            if (!obj.isPolygonShown() && (obj.schoolType!='private' && !obj.charterOnly)) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
+            if (!obj.isPolygonShown() && (obj.schoolType!='private' && !obj.charterOnly)) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img mrm"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
             if (obj.schoolType=='private') $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Private schools are not in the district.</div></div></div>');
             if (obj.schoolType=='charter' && obj.charterOnly)
                 $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Charter schools are not in the district.</div></div></div>');
