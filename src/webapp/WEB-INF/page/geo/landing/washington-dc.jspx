@@ -177,7 +177,7 @@
                             </li>
                         </c:if>
 
-                        <li><gsml:a href="http://www.adw.org/education/edu.asp?region=1"
+                        <li><gsml:a href="http://site.adw.org/catholic-schools"
                                     styleClass="treb12 tint39a link"
                                     target="_blank">Archdiocese of Washington, D.C.</gsml:a></li>
                         <li><gsml:a href="http://dcps.dc.gov/" styleClass="treb12 tint39a link"
