@@ -86,12 +86,12 @@
         <div class="mainLeft" id="partners">
             <h3><span>Our Partners</span></h3>
             <ul class="none">
-                <li><a href="http://www.archmil.org/education/default.asp" target="_blank">Archdiocese of Milwaukee</a></li>
+                <li><a href="http://www.archmil.org/Education.htm" target="_blank">Archdiocese of Milwaukee</a></li>
                 <li><a href="http://www.itlmuonline.com/" target="_blank">Institute for Transformation of Learning</a></li>
                 <li><a href="http://milwaukee.baeo.org/" target="_blank">Milwaukee Chapter - BAEO</a></li>
                 <li><a href="http://www.pave.org/" target="_blank">PAVE</a></li>
                 <li><a href="http://www.schoolchoiceinfo.org/" target="_blank">School Choice Wisconsin</a></li>
-                <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
+                <li><gsml:a href="http://www.wicharterschools.org/" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
                 <li><a href="http://www.wels.net/" target="_blank">Wisconsin Evangelical Lutheran Schools</a></li>
             </ul>
         </div>

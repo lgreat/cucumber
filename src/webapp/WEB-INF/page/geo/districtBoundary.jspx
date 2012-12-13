@@ -13,6 +13,7 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content=" Enter zip code or address to see school and district boundary lines on our interactive map."
           name="description"/>
@@ -31,9 +32,9 @@
 
         $(function(){
             var $loading = $('#js_loading');
-            $(document).ajaxStart(function() {$loading.show().removeClass('hidden');});
-            $(document).ajaxStop(function(){$loading.hide().addClass('hidden');});
-            $(document).ajaxError(function(){$loading.hide().addClass('hidden');});
+            $(document).ajaxStart(function() {$loading.show().removeClass('dn');});
+            $(document).ajaxStop(function(){$loading.hide().addClass('dn');});
+            $(document).ajaxError(function(){$loading.hide().addClass('dn');});
 
             var boundary = new Boundary();
 
@@ -56,15 +57,15 @@
 
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
-<div class="slStylesV1-0  slFormsV1-0 mtl tac">
+<div class="mtl tac">
 <div class="phs tal"><h1 class="bottom">School and District Boundaries Map</h1>
     <p class="mtm">Researching schools in your neighborhood is a snap with our interactive map tool. Enter an address to see school attendance and district boundary lines. Go ahead and give it a spin.</p>
 </div>
 <div class="mod standard_4-1 tal">
     <div class="outer">
         <div class="inner">
-            <div class="hd">
-                <div class="fltlft">
+            <div class="hd clearfix">
+                <div class="fl">
                     <form action="" id="searchLocationForm" onsubmit="return false;">
                         <!--placeholder="Enter an address to see available schools"-->
                         <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
@@ -77,16 +78,16 @@
                         </button>
                     </form>
                 </div>
-                <div id="js_nearbyHomesForSale" class="fltrt hidden">
+                <div id="js_nearbyHomesForSale" class="fr dn">
                     <div class="di vam mrs"><span class="iconx16 i-16-home-sales"><!-- do not collapse --></span></div>
                     <div class="di vam"><a href="#" class="small" target="_blank">Nearby homes for sale</a></div>
             </div>
 
             </div>
-            <div class="bd">
+            <div class="bd clearfix">
                 <div class="alpha grid_7 omega mtm">
-                    <div class="js_showWithMap hidden">
-                        <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
+                    <div class="js_showWithMap dn">
+                        <div id="js_districtHeader" class="dn mlm mbm"><!-- not empty -->
                             <div class="media skin-1 attribution">
                                 <div class="img mrm">
                                     <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
@@ -132,7 +133,7 @@
                             </div>
                         </div>
 
-                        <div id="schoolListWrapper" class="hidden  ptm">
+                        <div id="schoolListWrapper" class="dn  ptm">
                             <h6 class="mlm bottom">Schools in District</h6>
 
                             <div id="schoolListDiv">
@@ -155,12 +156,12 @@
                         <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
                     </div>
 
-                    <!--<div class="js_showWithMap hidden">-->
+                    <!--<div class="js_showWithMap dn">-->
                     <!--<div id="districtListDiv">-->
                     <!--<p>Nearby districts:</p>-->
                     <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
                     <!--</div>-->
-                    <!--<div id="schoolListWrapper" class="hidden">-->
+                    <!--<div id="schoolListWrapper" class="dn">-->
                     <!--<div>Schools:</div>-->
                     <!--<div id="schoolListDiv">-->
                     <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
@@ -168,12 +169,12 @@
                     <!--</div>-->
                     <!--</div>-->
                 </div>
-                <div class="alpha grid_17 omega fltrt">
-                    <div class="js_showWithMap hidden">
+                <div class="alpha grid_17 omega fr">
+                    <div class="js_showWithMap dn">
                         <div id="map-wrapper">
 
                             <div id="map-canvas"><!-- not empty --></div>
-                            <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
+                            <div id="js_loading" class="but but-sm but-2 dn">Loading ...</div>
                             <button class="but but-sm but-2 db-reload" id="js_reloadMap">Redo search at this location
                             </button>
                         </div>
@@ -185,10 +186,10 @@
                                     class="">Debug: Draw all districts
                             </button>
                             <button name="getSAZ" id="js_getSAZ"
-                                    class="hidden">Debug: Load SAZ for selected district
+                                    class="dn">Debug: Load SAZ for selected district
                             </button>
                             <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ"
-                                    class="hidden">Debug: Draw all districts and SAZ (Warning!)
+                                    class="dn">Debug: Draw all districts and SAZ (Warning!)
                             </button>
                             <div class="options">
                                 Map click behavior:
@@ -202,7 +203,7 @@
                             </div>
                         </c:if>
                     </div>
-                    <div class="hidden">
+                    <div class="dn">
                         <div id="boundaryMapDistrictInfoWindow">
                             <div class="hd small bottom">
                                 <div class="js_name"><!-- not empty --></div>
@@ -259,7 +260,7 @@
             <h6 class="bottom">Show schools that are not part of a district:</h6>
         </div>
         <div class="grid_10 omega tal">
-            <div class="di vam"><gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
+            <div class="di vam"><gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="dn"
                            checked="${true}"/></div>
             <div class="di vam"><label style="display:none;" for="js_schoolType_public"
                    class="checkbox">Public/Charter schools (in district)</label></div>

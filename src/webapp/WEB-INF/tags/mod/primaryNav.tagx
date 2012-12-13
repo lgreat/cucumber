@@ -340,7 +340,7 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
+<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
     <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
@@ -381,10 +381,6 @@
             </div>
         </div>
     </div>
-</td>
-<td class="${(pw == tabs.GIFT_GUIDE ? 'selected' : '')} menuItem lastNavUnit">
-   <a id="PN-Gift" class="menuItemAnchorText GS_CI9_" href="/holiday-gift-guide.topic?content=5083"><span class="navSprite i-pn-gg"><!-- do not collapse --></span> Learning Gifts</a>
-    <!--/holiday-gift-guide.topic?content=5083-->
 </td>
 
 </tr>

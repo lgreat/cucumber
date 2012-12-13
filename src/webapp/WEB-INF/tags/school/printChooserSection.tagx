@@ -29,24 +29,16 @@
         <c:set var="overallRating" value="NR"/>
     </c:if>
 
-    <!--<c:choose>-->
-        <!--<c:when test="${isPreschool}">-->
-            <!--<c:set var="iconString" value="iconx60-preschool i-60-NR" />-->
-        <!--</c:when>-->
-        <!--<c:otherwise>-->
-            <c:set var="ratingType" value="orange" />
-            <c:if test="${isNewGSRating}">
-                <c:set var="ratingType" value="RYG" />
-            </c:if>
-            <c:set var="privateSchool" value="" />
-            <c:if test="${isPrivateSchool}">
-                <c:set var="privateSchool" value="Private" />
-            </c:if>
-            <c:set var="iconString">iconx60-${ratingType}${privateSchool} i-60-${overallRating}</c:set>
-        <!--</c:otherwise>-->
-    <!--</c:choose>-->
-    <!--iconx60-RYG i-60-6-->
-    <!--Which Sprite to use?-->
+
+    <c:set var="ratingType" value="orange" />
+    <c:if test="${isNewGSRating}">
+        <c:set var="ratingType" value="RYG" />
+    </c:if>
+    <c:set var="privateSchool" value="" />
+    <c:if test="${isPrivateSchool}">
+        <c:set var="privateSchool" value="Private" />
+    </c:if>
+    <c:set var="iconString">iconx60-${ratingType}${privateSchool} i-60-${overallRating}</c:set>
 
     <!--iconx60-orangePrivate-->
     <!--iconx60-orange-->
@@ -56,8 +48,6 @@
 
     <div class="chooser-section container_24">
         <div class="clearfix pb15">
-
-            <!--<div class="fl" style="width:7%">&lt;!&ndash; co not collapse &ndash;&gt;</div>-->
             <div class="fl header-left-width clearfix">
                 <h1>${fn:escapeXml(school.name)}</h1>
                 <!--<p><br /></p>-->
@@ -73,8 +63,6 @@
                         <span>${fn:escapeXml(school.physicalAddress.city)}</span>,
                         <span>${school.physicalAddress.state.abbreviation} </span>
                         <span>${school.physicalAddress.zip}</span>
-
-
                     </p>
                 </div>
                 <div class="fl header-left-component">

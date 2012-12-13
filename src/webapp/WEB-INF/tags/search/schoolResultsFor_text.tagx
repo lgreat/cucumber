@@ -42,13 +42,21 @@
     </c:if>
 
     <c:if test="${commandAndFields.cityBrowse}">
-        <h1 class="bottom">${schoolResultsFor} Schools</h1>
+        <h1 class="bottom" id="js_seoTitle">
+            <c:choose>
+                <c:when test="${not empty seoTitle}">
+                    ${seoTitle} in ${schoolResultsFor}
+                </c:when>
+                <c:otherwise>
+                    ${schoolResultsFor} Schools
+                </c:otherwise>
+            </c:choose>
+        </h1>
         <div class="small bottom">
             View city information for
             <link:city city="${city.name}" state="${city.state}">
             ${schoolResultsFor} <span>&amp;raquo;</span>
             </link:city>
-
         </div>
     </c:if>
     <c:if test="${commandAndFields.districtBrowse}">

@@ -42,6 +42,7 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
@@ -113,6 +114,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
     public static final String MODEL_IS_SEARCH = "isSearch";
     public static final String MODEL_IS_AJAX_REQUEST = "isAjaxRequest";
+
+    public static final String MODEL_SEO_TITLE = "seoTitle";
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -218,6 +221,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
+            model.put(MODEL_SEO_TITLE, buildSeoTitle(commandAndFields));
             modelAndView = handleCityBrowse(request, response, commandAndFields, model, showAdvancedFilters);
         } else if (commandAndFields.isDistrictBrowse()) {
             modelAndView = handleDistrictBrowse(request, response, commandAndFields, model, showAdvancedFilters);
@@ -246,6 +250,51 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return modelAndView;
     }
 
+    protected String buildSeoTitle(SchoolSearchCommandWithFields commandAndFields) {
+        StringBuilder seoTitle = new StringBuilder();
+        String[] schoolTypes = commandAndFields.getSchoolTypes();
+        int numSchoolTypes = schoolTypes != null ? schoolTypes.length : 0;
+        String[] gradeLevels = commandAndFields.getGradeLevels() != null ? commandAndFields.getGradeLevelNames() : null;
+        int numGradeLevels = gradeLevels != null ? gradeLevels.length : 0;
+        if(numGradeLevels > 0) {
+            for(int i = 0; i < numGradeLevels; i++) {
+                seoTitle.append(WordUtils.capitalizeFully(gradeLevels[i]));
+                if(i == numGradeLevels - 2 && numSchoolTypes == 0) {
+                    seoTitle.append(" and ");
+                }
+                else if(i == numGradeLevels - 1) {
+                    seoTitle.append(" Schools");
+                }
+                else {
+                    seoTitle.append(", ");
+                }
+            }
+        }
+        if(numSchoolTypes > 0) {
+            if(numGradeLevels > 0) {
+                seoTitle.append(", ");
+            }
+            for(int i = 0; i < numSchoolTypes; i++) {
+                if("charter".equals(schoolTypes[i])) {
+                    seoTitle.append("Public Charter");
+                }
+                else {
+                    seoTitle.append(WordUtils.capitalizeFully(schoolTypes[i]));
+                }
+                if(i == numSchoolTypes - 2) {
+                    seoTitle.append(" and ");
+                }
+                else if(i == numSchoolTypes - 1) {
+                    seoTitle.append(" Schools");
+                }
+                else {
+                    seoTitle.append(", ");
+                }
+            }
+        }
+        return seoTitle.toString();
+    }
+
     protected void buildJsonResponse(Map<String, Object> model,
                                      HttpServletRequest request,
                                      SessionContext sessionContext,
@@ -259,6 +308,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             searchResults = new HashMap<String, Object>();
             searchResults.put("noSchoolsFound", true);
             searchResults.put("omniturePageName", model.get("omniturePageName"));
+            searchResults.put("seoTitle", model.get(MODEL_SEO_TITLE));
             responseJson.accumulate(MODEL_PAGE, searchResults);
             return;
         }
@@ -379,7 +429,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             searchResults.put("homesForSale", false);
         }
         responseJson.accumulate("salePromo", searchResults);
-
+        responseJson.accumulate("seoTitle", model.get(MODEL_SEO_TITLE));
         responseJson.accumulate("pageview_candidate", "pageview_candidate");
     }
 

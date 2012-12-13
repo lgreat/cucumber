@@ -231,7 +231,7 @@ Boundaries.prototype = {
                     opacity: 1,
                     width: "300px"
                 },
-                closeBoxMargin: "20px 8px 8px 8px",
+                closeBoxMargin: "8px 8px 8px 8px",
                 closeBoxURL: "/res/img/googleMaps/16x16_close.png",
                 infoBoxClearance: new google.maps.Size(1, 1),
                 isHidden: false,

@@ -124,7 +124,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This rating is based on composite ACT scores for all 12th graders in ";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2 =
             ". This rating takes into account how many students took the ACT, giving more credit to schools with a higher" +
-                    " percentage of graduates taking the ACT exam. The ACT data is provided by Milwaukee Public Schools.";
+                    " percentage of graduates taking the ACT exam. The ACT data is provided by the Wisconsin Department of Public Instruction.";
 
 
     public static final String SECTION_4_COPY_DC =

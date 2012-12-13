@@ -2,8 +2,8 @@
 /* CSS Document */
 
 /*
-Theme Name: District boundary
-Description: Unique css for district boundary google maps
+Theme Name: Global map styles
+Description:
 Author: Priyanshi Deshwal
 Version: 1.0
 .
@@ -14,6 +14,8 @@ General comments:
 
 */
 
+
+/*------------Styles for google map on district boundary page--------------*/
 #schoolListDiv {
     height: 290px;
     width: 288px;
@@ -58,3 +60,4 @@ General comments:
     /*-webkit-box-shadow: inset 0 0 10px #000000;*/
     /*box-shadow:         inset 0 0 10px #000000;*/
 /*}*/
+

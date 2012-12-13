@@ -1275,6 +1275,54 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         System.out.println( "testTransportSubstitute1H successful" );
     }
 
+    // IL is special case state that shows only studentsPerTeacherValue.
+    public void testTransportSubstituteSpecialCaseStatesIL() {
+
+        String stateAbbrev = "IL";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals("testTransportSubstitute1SpecialCaseStates: students per teacher expected for special cased states", (int) studentsPerTeacherValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1ClassSize"));
+    }
+
+    // TX is a special case state that shows only studentsPerTeacherValue.
+    public void testTransportSubstituteSpecialCaseStatesTX() {
+
+        String stateAbbrev = "TX";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals("testTransportSubstitute1SpecialCaseStatesTX: students per teacher expected for special cased states", (int) studentsPerTeacherValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1ClassSize"));
+    }
+
+    // NY is a special case state that shows only studentsPerTeacherValue.
+    public void testTransportSubstituteSpecialCaseStatesNY() {
+
+        String stateAbbrev = "NY";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals("testTransportSubstitute1SpecialCaseStatesNY: students per teacher expected for special cased states", (int) studentsPerTeacherValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1ClassSize"));
+    }
+
     private Map<String, Object> runTransportationForCensusController(String stateAbbrev, float classSizeValue, int classSizeYear, float studentsPerTeacherValue, int studentsPerTeacherYear) {
 
         List<EspResponse> l = new ArrayList<EspResponse>();

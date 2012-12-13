@@ -174,6 +174,10 @@ GS.search.results = GS.search.results || (function() {
                     'linear',
                     afterFadeIn
                 );
+                var seoTitle = jQuery('#js_seoCityBrowseTitle').text();
+                if(seoTitle !== '') {
+                    jQuery('#js_seoTitle').text(seoTitle);
+                }
                 GS.util.htmlMirrors.updateAll();
                 if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
                     if(jQuery("#js_totalResultsCountReturn").html() == ""){jQuery("#js_totalResultsCountReturn").html("0");jQuery("#js-moreThanOne").show()}
@@ -445,6 +449,12 @@ GS.search.results = GS.search.results || (function() {
 
     var renderDataForMap = function(data) {
         var pageNav = $('#js-mapPageNav');
+        if(data.seoTitle !== '') {
+            $('#js_seoTitle').text(data.seoTitle + ' in ' + data.schoolSearchResults[1].city);
+        }
+        else {
+            $('#js_seoTitle').text(data.schoolSearchResults[1].city + ' Schools');
+        }
         if(data.page !== undefined && data.page[1].noSchoolsFound === true) {
             $('.js-rightResultsGrid').hide();
             pageNav.find('#total-results-count').html('');

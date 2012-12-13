@@ -76,6 +76,13 @@
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${requestScope.bodyClass}">
 
+<c:if test="${requestScope.pageHelper.includeQualaroo}">
+    <!-- Qualaroo for greatschools.org -->
+    <!-- Paste this code right after the <body> tag on every page of your site. -->
+    <script type="text/javascript">var _kiq = _kiq || [];</script>
+    <script type="text/javascript" src="//s3.amazonaws.com/ki.js/45194/8Vo.js" async="true"><!-- //do not collapse --></script>
+</c:if>
+
 <div class="container_24">
 
 <!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->

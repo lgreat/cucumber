@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.data.state.State;
 import gs.data.test.*;
 import gs.web.BaseControllerTestCase;
 
@@ -42,6 +43,10 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
 
     private void verifyAllMocks() {
         verifyMocks(_testDataSetDao, _testDataTypeDao, _subjectDao, _testBreakdownDao, _testDescriptionDao);
+    }
+
+    private void resetAllMocks() {
+        resetMocks(_testDataSetDao, _testDataTypeDao, _subjectDao, _testBreakdownDao, _testDescriptionDao);
     }
 
     public void testSortOrderOfTestsWithSameTestSameGrades(){
@@ -127,5 +132,49 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         assertEquals(testToGradesList.get(4),noSubgroupGradeAllE);
         assertEquals(testToGradesList.get(5),noSubgroupGradeAllEM);
         assertEquals(testToGradesList.get(6),subgroupGradeAllEM);
+    }
+
+    // Regression test for GS-13489
+    public void testPopulateTestScoresBeanPrunesSchoolsWithNoValues() {
+        expect(_subjectDao.findSubjectName(Subject.ENGLISH, State.IN)).andReturn("English");
+        replayAllMocks();
+        School school = new School();
+        school.setDatabaseState(State.IN);
+        Map<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, String>>>>>
+                dataMap = new HashMap<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>>>();
+        Map<SchoolProfileTestScoresController.CustomTestDataSet,String> map2 = new HashMap<SchoolProfileTestScoresController.CustomTestDataSet, String>();
+        SchoolProfileTestScoresController.CustomTestDataSet notAvailableDataSet = new SchoolProfileTestScoresController.CustomTestDataSet();
+        notAvailableDataSet.setYear(2012);
+        notAvailableDataSet.setId(1);
+        map2.put(notAvailableDataSet, SchoolProfileTestScoresController.LABEL_DATA_NOT_AVAILABLE);
+        Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>> map3 = new HashMap<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, String>>();
+        map3.put(Subject.ENGLISH, map2);
+        Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>> map4 = new HashMap<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>();
+        map4.put(LevelCode.ELEMENTARY_MIDDLE_HIGH, map3);
+        Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>> map5 = new HashMap<Grade, Map<LevelCode, Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>>();
+        map5.put(Grade.G_3, map4);
+        SchoolProfileTestScoresController.CustomTestDataType dataType = new SchoolProfileTestScoresController.CustomTestDataType();
+        dataType.setId(10);
+        dataType.setLabel("Aroy Test");
+        dataMap.put(dataType, map5);
+        Map<Integer, TestDescription> testDescriptionMap = new HashMap<Integer, TestDescription>();
+        List<SchoolProfileTestScoresController.TestToGrades> rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertTrue("Expect school with only \"Not available\" values to have test scores pruned", rval.isEmpty());
+
+        resetAllMocks();
+        expect(_subjectDao.findSubjectName(Subject.ENGLISH, State.IN)).andReturn("English");
+        replayAllMocks();
+        // If school has a valid value, expect test scores to be retained, including any not availables
+        SchoolProfileTestScoresController.CustomTestDataSet availableDataSet = new SchoolProfileTestScoresController.CustomTestDataSet();
+        availableDataSet.setYear(2011);
+        availableDataSet.setId(2);
+        map2.put(availableDataSet, "15");
+
+        rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertFalse("Expect school with real values to have test scores retained", rval.isEmpty());
     }
 }

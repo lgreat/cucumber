@@ -588,6 +588,7 @@
                                 <param>11_modal/modal.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
+                                <param>14_maps/maps.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>house_ads.css</param>
                                 <param>jquery.autocomplete.css</param>

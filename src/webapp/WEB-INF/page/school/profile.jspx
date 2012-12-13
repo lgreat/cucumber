@@ -350,16 +350,9 @@
     <c:set var="schoolAddressWithName"
            value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
 
-    <!-- overallRatingForMap gets set in the head block -->
-    <c:choose>
-        <c:when test="${school.type.schoolTypeName eq 'private'}">
-            <c:set var="mapMarkerUrl" value="/res/img/mapPins/private/RYG/private_RGY_${overallRatingForMap}.png"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="mapMarkerUrl" value="/res/img/mapPins/public/RYG/RGY_${overallRatingForMap}.png"/>
-        </c:otherwise>
-    </c:choose>
-    <c:set var="mapMarkerParam" value="icon:http://www.greatschools.org${mapMarkerUrl}|${schoolAddress}"/>
+    <!-- ratings:ratingsMapPinUrl sets the mapPinUrl variable which is used below. -->
+    <ratings:ratingsMapPinUrl school="${school}"/>
+    <c:set var="mapMarkerParam" value="icon:http://www.greatschools.org${mapPinUrl}|${schoolAddress}"/>
 
     <div class="media">
         <div class="img mrm">

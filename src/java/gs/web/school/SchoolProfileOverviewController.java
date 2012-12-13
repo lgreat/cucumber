@@ -888,9 +888,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                         // Nothing to do
                     }
                 }
-                String state = school.getStateAbbreviation().getAbbreviation();
-                // Special rules for NY and TX.  Only use studentsPerTeacher otherwise do substitute 2
-                if( (state.equals("NY") || state.equals("TX")) ) {
+                State state = school.getDatabaseState();
+                // Special rules for NY and TX and IL.  Only use studentsPerTeacher otherwise do substitute 2
+                if( (state.equals(State.NY) || state.equals(State.TX) || state.equals(State.IL)) ) {
                     if( studentsPerTeacher > 0 ) {
                         model.put("substitute1StudentsPerTeacher", studentsPerTeacher);
                         model.put("substitute1StudentsPerTeacherYear", new Integer(studentsPerTeacherYear));

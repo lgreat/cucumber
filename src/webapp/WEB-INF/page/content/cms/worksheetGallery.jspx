@@ -84,6 +84,7 @@
 
     <c:set var="slotPrefixName" value="Library_Article_Page"/>
     <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
+    <pageHelper:includeQualarooJS/>
 </head>
 
 <gsml:body adPageName="${pageName}" pageLayout="">

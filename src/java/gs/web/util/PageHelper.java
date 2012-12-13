@@ -259,6 +259,7 @@ public class PageHelper {
     private boolean _betaPage = false;
     private String _pageName = "";
     private String _yahooRealEstateCity = "";
+    private boolean _includeQualaroo;
 
     private Properties _versionProperties ;
 
@@ -1115,5 +1116,22 @@ public class PageHelper {
 
     public Map<String,String> getMetaProperties() {
         return _metaProperties;
+    }
+
+    public static void setIncludeQualaroo(HttpServletRequest request, boolean includeQualaroo) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setIncludeQualaroo(includeQualaroo);
+        } else {
+            _log.error("No PageHelper object available, can't include Qualaroo JS");
+        }
+    }
+
+    public void setIncludeQualaroo(boolean includeQualaroo) {
+        _includeQualaroo = includeQualaroo;
+    }
+
+    public boolean isIncludeQualaroo() {
+        return _includeQualaroo;
     }
 }
