@@ -76,7 +76,7 @@
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${requestScope.bodyClass}">
 
-<c:if test="${requestScope.pageHelper.includeQualroo}">
+<c:if test="${requestScope.pageHelper.includeQualaroo}">
     <!-- Qualaroo for greatschools.org -->
     <!-- Paste this code right after the <body> tag on every page of your site. -->
     <script type="text/javascript">var _kiq = _kiq || [];</script>

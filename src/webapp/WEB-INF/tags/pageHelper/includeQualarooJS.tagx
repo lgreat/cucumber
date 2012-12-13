@@ -8,7 +8,7 @@
     <jsp:scriptlet>
         gs.web.util.context.SessionContext context = gs.web.util.context.SessionContextUtil.getSessionContext(request);
         if (!context.isCobranded()) {
-            gs.web.util.PageHelper.setIncludeQualroo(request,  true);
+            gs.web.util.PageHelper.setIncludeQualaroo(request, true);
         }
     </jsp:scriptlet>
 </jsp:root>
