@@ -477,6 +477,8 @@ var Boundary = (function (){
         $header.removeClass('dn');
         if (district.rating>0 && district.rating<11){
             $header.find('#ratings-test').html(district.rating);
+            $header.find('#ratings-test').removeClass('square-large-grey');
+            $header.find('#ratings-test').addClass('square-large');
         } else {
             $header.find('#ratings-test').html('NR');
             $header.find('#ratings-test').removeClass('square-large');
