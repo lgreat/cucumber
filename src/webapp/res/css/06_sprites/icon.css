@@ -315,7 +315,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/121009-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/121213-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -413,6 +413,12 @@ a:active .i-16-search-filter-arrow-up {
 
 .i-24-gallery-close {
     background-position: -528px 0;
+}
+.i-24-twitter {
+    background-position: -552px 0;
+}
+.i-24-rss {
+    background-position: -576px 0;
 }
 /* row 24 */
 

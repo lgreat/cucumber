@@ -428,7 +428,7 @@
     <div class="">
         <ad:AboveFold_300x600 />
 
-        <!--<promo:emailSignUp-v1 userIsAlreadySignedUp="false" style="2012" hideMobileIcon="true" />-->
+        <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
 
         <compare:persistentCompare school="${school}"/>
         <school:profileNearby nearbySchools="${nearbySchools}" />
