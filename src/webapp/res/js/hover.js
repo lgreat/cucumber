@@ -887,6 +887,11 @@ GSType.hover.PrintSchoolChooser = function() {
             else {
                 $('#js-appendCheckList').val('no');
             }
+
+            if (s.tl) {
+                s.tl(true, 'o', 'MSL_download_printable');
+            }
+
             $('#js-printSchoolChooserSubmit').submit();
         });
     }
