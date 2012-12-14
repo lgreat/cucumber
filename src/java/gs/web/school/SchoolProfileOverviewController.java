@@ -408,14 +408,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map<String, Object> getGsRatingsModel(HttpServletRequest request, School school) {
+    protected Map<String, Object> getGsRatingsModel(HttpServletRequest request, School school) {
 
         // Default action
         Map<String, Object> model = null;
 
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
-        //Only display ratings tile if there is overall rating and academic rating.
-        if (ratingsMap != null && !ratingsMap.isEmpty()
+        //Only display ratings tile if there is overall rating and academic rating, and if school should show new rating
+        if (Boolean.TRUE == school.getIsNewGSRating() && ratingsMap != null && !ratingsMap.isEmpty()
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING) != null
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING) != null) {
             model = new HashMap<String, Object>(5);

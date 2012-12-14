@@ -17,6 +17,7 @@ import gs.web.search.CmsFeatureSearchService;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
@@ -1755,6 +1756,52 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         verify(_schoolProfileDataHelper);
         assertNotNull("Expect school's last modified to be returned", rval);
         assertSame("Expect school's last modified to be returned", _school.getModified(), rval);
+    }
+
+    public void testGetGsRatingsModel() throws Exception {
+        Map<String,Object> ratings = new HashMap<String, Object>();
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING, 9);
+
+        School school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Test school");
+        school.setNewProfileSchool(1);
+
+        expect(_schoolProfileDataHelper.getGsRatings(eq(_request))).andReturn(ratings);
+        replay(_schoolProfileDataHelper);
+
+        Map<String,Object> result = _schoolProfileOverviewController.getGsRatingsModel(_request, school);
+
+        assertEquals("Expect content of ratings module to be GSRatings since ratings contained overall, academic, and climage ratings", "GsRatings", result.get("content"));
+
+        verify(_schoolProfileDataHelper);
+        reset(_schoolProfileDataHelper);
+
+
+        // test not a GsRatings tile if ratings doesnt return climate rating
+        ratings = new HashMap<String, Object>();
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING, 9);
+
+        school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Test school");
+        school.setNewProfileSchool(2);
+
+        expect(_schoolProfileDataHelper.getGsRatings(eq(_request))).andReturn(ratings);
+        replay(_schoolProfileDataHelper);
+
+        result = _schoolProfileOverviewController.getGsRatingsModel(_request, school);
+
+        assertNull("Expect content of ratings module to not be GSRatings since newProfileSchool value is 2", result);
+
+        verify(_schoolProfileDataHelper);
+        reset(_schoolProfileDataHelper);
     }
 
     /*
