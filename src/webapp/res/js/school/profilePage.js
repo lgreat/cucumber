@@ -399,7 +399,7 @@ jQuery(document).ready(function() {
             GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
         });
 
-        ratingsSubgroupLabels.on('hover',
+        ratingsSubgroupLabels.hover(
             function () {
                 if (!$(this).parent().hasClass("selected")) {
                     $(this).parent().css("background-color", "#F1F1F1");
