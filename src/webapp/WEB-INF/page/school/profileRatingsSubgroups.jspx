@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib">
+ß
+    <c:set var="ratingsDisplay" value="${ratingsCmd.ratingsDisplay}"/>
+
+    <div class="${(!empty requestScope.schoolProfileTabMap.ratings and requestScope.schoolProfileTabMap.ratings eq 'selected'?'':'dn')}">
+        <div class="alpha grid_16 omega">
+            <h2>Breaking down the GreatSchools Rating</h2>
+
+            Overall Rating: ${school.GSRating}<br/>
+
+            <p>
+                GreatSchools Ratings are based on the most recent standardized test results for schools.
+                Use the breakdown ratings below to compare types of students at this school.
+                <a href="/find-a-school/defining-your-ideal/2423-ratings.gs" target="_blank">Learn more &amp;raquo;</a>
+            </p>
+
+            <hr class="keyline1"/>
+            <div class="clear mbl"><!-- do not collapse --></div>
+
+            <div class="grid_4 alpha" id="js_ratings_cat_menu">
+                <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}" varStatus="i">
+                    <div class="small bottom" style="padding:3px 5px; width:90%; background:#FFFFFF;">
+                        <a id="js_ratings_cat_${i.index}"
+                           class="js_ratings_cat_label"
+                           style="text-decoration:none;"
+                           href="javascript:void(0);">
+                            ${gsweb:capitalize(fn:toLowerCase(fn:replace(rowGroup.label,'By ','')))}
+                        </a>
+                    </div>
+                </c:forEach>
+            </div>
+
+            <div class="grid_12 omega" id="js_ratings_cat_content_wrapper">
+                <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}" varStatus="i">
+                    <div style="display: none;"
+                         id="js_ratings_cat_${i.index}_content"
+                         class="js_ratings_cat_content">
+                        <c:set var="lowercaseCategoryName"
+                               value="${fn:toLowerCase(fn:replace(rowGroup.label,'By ',''))}"/>
+                        <h4 class="pbn mbs">By ${lowercaseCategoryName}</h4>
+
+                        <!--
+                        Below is how to get subject group labels, if we wanted to show them. Only applicable rowGroups
+                        that are not By Grade (see tags/ratings/table.tagx)
+                        The back-end work is in place; we'd just need to change the value of
+                        SchoolProfileRatingsSubgroupsController._showingSubjectGroups from false to true
+                        For now, leave the c:forEach loop commented out because the visual design
+                        was not created to accommodate them, and we haven't been showing them on old profile.
+                        -->
+                        <!--
+                        <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
+                          ${subject}
+                        </c:forEach>
+                        -->
+
+                        <div class="mod standard_1-1">
+                            <div class="inner">
+                                <div class="bd">
+                                    <c:forEach var="row" items="${rowGroup.rows}">
+                                        <div class="line">
+                                            ${row.label}:
+                                            <!--
+                                            This is a loop because if we showed subject groups, there would be multiple
+                                            cells per row. When there are no subject groups, it's reasonable to assume
+                                            that there is only one cell per row.
+                                            -->
+                                            <c:forEach var="cell" items="${row.cells}">
+                                                <c:if test="${not empty cell.rating}">
+                                                    ${cell.rating}
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                    </c:forEach>
+                                    All students: ${school.GSRating}<br/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <c:if test="${lowercaseCategoryName eq 'gender' or lowercaseCategoryName eq 'ethnicity'}">
+                            <c:choose>
+                                <c:when test="${lowercaseCategoryName eq 'gender'}">
+                                    <c:set var="articleUrl"
+                                           value="/students/academic-skills/1121-gender-differences-learning.gs"/>
+                                    <c:set var="articleLinkText"
+                                           value="Girls' and boys' brains: How different are they?"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="articleUrl"
+                                           value="/find-a-school/school-visit/35-the-achievement-gap-is-your-school-helping-all-students-succeed.gs"/>
+                                    <c:set var="articleLinkText"
+                                           value="The achievement gap: Is your school helping all students succeed?"/>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <div class="mod standard_2-1">
+                                <div class="inner">
+                                    <div class="bd">
+                                        <h5 class="bottom">Recommended reading</h5>
+                                        <a href="${articleUrl}">${articleLinkText}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+
+                    </div>
+
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+
+    <mod:deferredTracking key="ratings" pageName="Ratings" hier1="School,SchoolProfileSuite,Ratings"/>
+
+</jsp:root>

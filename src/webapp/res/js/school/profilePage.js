@@ -289,6 +289,9 @@ GS.profile = GS.profile || (function() {
         //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
+    var refreshNonOverviewAdsWithoutTargetingChange = function() {
+        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
+    };
     var initializeOverviewAds = function() {
         //console.log('init overview ads', refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
         //GS.ad.refreshAds(refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
@@ -310,7 +313,8 @@ GS.profile = GS.profile || (function() {
         refreshAdsForTab:refreshAdsForTab,
         initializeOverviewAds:initializeOverviewAds,
         initializeNonOverviewAds:initializeNonOverviewAds,
-        getAlternateSitePath:getAlternateSitePath
+        getAlternateSitePath:getAlternateSitePath,
+        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange
     };
 }());
 
@@ -374,7 +378,44 @@ jQuery(document).ready(function() {
     if ($teachers) $teachers.on('click', ratings);
 //
 
+    // ratings subgroup interactions with menu
+    var ratingsSubgroupsMenu = $('#js_ratings_cat_menu');
+    var ratingsSubgroupsContentWrapper = $('#js_ratings_cat_content_wrapper');
+    if (ratingsSubgroupsMenu.length === 1 && ratingsSubgroupsContentWrapper.length === 1) {
+        var ratingsSubgroupLabels = ratingsSubgroupsMenu.find('.js_ratings_cat_label');
+        ratingsSubgroupLabels.on('click', function() {
+            var catSelected = $(this).attr('id');
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
 
+            //Hide all the data
+            ratingsSubgroupsContentWrapper.find('.js_ratings_cat_content').hide();
+
+            //Show the data for the grade selected.
+            $('#' + catSelected + '_content').show();
+
+            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+        });
+
+        ratingsSubgroupLabels.on('hover',
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
+
+        //Select the first category by default and trigger its click event, so that the data is displayed.
+        var firstCategoryToSelect = ratingsSubgroupsMenu.children(":first").find("a");
+        firstCategoryToSelect.trigger('click');
+    }
 });
 
 /********************************************************************************************************

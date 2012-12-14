@@ -8,17 +8,12 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.data.test.ITestDataSetDao;
-import gs.data.test.SchoolTestValue;
-import gs.data.test.TestManager;
-import gs.data.test.rating.IRatingsConfig;
-import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import gs.web.school.AbstractSchoolController;
 import gs.web.school.SchoolProfileHeaderHelper;
-import gs.web.util.PageHelper;
+import gs.web.school.SchoolProfileRatingsHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
@@ -48,10 +43,8 @@ public class RatingsController extends AbstractCommandController implements ICon
 
     private String _viewName;
     private ISchoolDao _schoolDao;
-    private IRatingsConfigDao _ratingsConfigDao;
-    private ITestDataSetDao _testDataSetDao;
+    private SchoolProfileRatingsHelper _schoolProfileRatingsHelper;
     private List _onLoadValidators;
-    private TestManager _testManager;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
     private boolean _showingSubjectGroups = false;
     private ControllerFamily _controllerFamily;
@@ -117,36 +110,7 @@ public class RatingsController extends AbstractCommandController implements ICon
         RatingsCommand ratingsCommand = (RatingsCommand) command;
 
         if (!errors.hasErrors()) {
-
-            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            boolean isFromCache = true;
-
-            if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
-                isFromCache = false;
-            }
-            IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(ratingsCommand.getState(), isFromCache);
-
-            if (null != ratingsConfig) {
-                ratingsCommand.setRatingYear(ratingsConfig.getYear());
-
-                SchoolTestValue schoolTestValue =
-                        getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
-
-                if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-                    IRatingsDisplay.IRowGroup.IRow.ICell overallRatingCell = new Cell(schoolTestValue.getValueInteger());
-                    ratingsCommand.setOverallRating(overallRatingCell);
-
-                    SchoolRatingsDisplay ratingsDisplay =
-                            new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
-
-                    if (_showingSubjectGroups) {
-                        ratingsCommand.setRatingsDisplay(ratingsDisplay);
-                    } else {
-                        OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
-                        ratingsCommand.setRatingsDisplay(ratingDecorator);
-                    }
-                }
-            }
+            _schoolProfileRatingsHelper.populateRatingsCommandWithData(request, ratingsCommand, _showingSubjectGroups);
         }
 
         model.put(getCommandName(), ratingsCommand);
@@ -169,28 +133,12 @@ public class RatingsController extends AbstractCommandController implements ICon
         _schoolDao = schoolDao;
     }
 
-    public void setRatingsConfigDao(final IRatingsConfigDao ratingsConfigDao) {
-        _ratingsConfigDao = ratingsConfigDao;
-    }
-
-    public void setTestDataSetDao(final ITestDataSetDao testDataSetDao) {
-        _testDataSetDao = testDataSetDao;
-    }
-
     public List getOnLoadValidators() {
         return _onLoadValidators;
     }
 
     public void setOnLoadValidators(List onLoadValidators) {
         _onLoadValidators = onLoadValidators;
-    }
-
-    public TestManager getTestManager() {
-        return _testManager;
-    }
-
-    public void setTestManager(TestManager testManager) {
-        _testManager = testManager;
     }
 
     public void setShowingSubjectGroups(final boolean showingSubjectGroups) {
@@ -203,6 +151,10 @@ public class RatingsController extends AbstractCommandController implements ICon
 
     public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
         _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileRatingsHelper(SchoolProfileRatingsHelper schoolProfileRatingsHelper) {
+        _schoolProfileRatingsHelper = schoolProfileRatingsHelper;
     }
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
