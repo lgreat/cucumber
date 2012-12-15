@@ -12,8 +12,6 @@
         <div class="alpha grid_16 omega">
             <h2>Breaking down the GreatSchools Rating</h2>
 
-            Overall Rating: ${school.GSRating}<br/>
-
             <p>
                 GreatSchools Ratings are based on the most recent standardized test results for schools.
                 Use the breakdown ratings below to compare types of students at this school.
