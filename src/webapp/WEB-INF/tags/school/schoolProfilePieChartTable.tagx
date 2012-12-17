@@ -9,13 +9,11 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
         >
-    <jsp:directive.tag import="gs.data.school.census.CensusDescription"/>
     <jsp:directive.tag import="java.util.Set"/>
     <jsp:directive.tag import="java.util.Map"/>
-    <jsp:directive.tag import="gs.web.school.SchoolProfileStatsController"/>
     <jsp:directive.tag import="java.util.List"/>
-    <jsp:directive.tag import="java.util.HashSet"/>
     <jsp:directive.tag import="gs.web.school.SchoolProfileStatsDisplayRow"/>
+    <jsp:directive.tag import="gs.web.school.SchoolProfileCensusSourceHelper"/>
 
     <jsp:directive.attribute name="groupId" type="java.lang.Long" description="Must be long to look up map entry via jstl"/>
     <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
@@ -38,13 +36,6 @@
         <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
     </c:forEach>
 
-
-<jsp:scriptlet>
-    <![CDATA[
-               java.util.Set footnotesForThisTable = new java.util.TreeSet<Integer>();
-                jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
-            ]]>
-</jsp:scriptlet>
 <c:if test="${fn:length(rows) gt 0}">
     <div class="mod standard_1-1">
         <div class="inner">
@@ -87,32 +78,27 @@
                 colorList.add("#414F7B");
                 jspContext.setAttribute("pieChartColorList", colorList);
             ]]>
+
+            <![CDATA[
+                Map<Long, SchoolProfileCensusSourceHelper> footnotesMap = (Map<Long, SchoolProfileCensusSourceHelper>) request.getAttribute("footnotesMap");
+                if (footnotesMap != null) {
+                    jspContext.setAttribute("censusSourceHelper", footnotesMap.get(groupId));
+                }
+            ]]>
         </jsp:scriptlet>
         <c:set var="counterPie" value="0" />
         <c:forEach items="${rows}" var="row" varStatus="status">
 
             <jsp:scriptlet>
                 <![CDATA[
-                java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-                //java.util.Map footnotes = new java.util.HashMap();
-                java.util.List descriptions = (java.util.ArrayList) footnotes.get(statsTab);
-                if (descriptions == null) {
-                    descriptions = new java.util.ArrayList();
-                }
-                for (CensusDescription description : (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
-                    if (!descriptions.contains(description)) {
-                        descriptions.add(description);
-                    }
-                }
-                if (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).isManualOverride()) {
-                    jspContext.setAttribute("thisFootnote", "*");
-                    jspContext.setAttribute("hasManualOverride", true);
-                } else {
-                    if (descriptions.size() > 0) {
-                        footnotes.put(statsTab, descriptions);
-                        jspContext.setAttribute("footnotes", footnotes);
-                        footnotesForThisTable.add(descriptions.size());
-                        jspContext.setAttribute("thisFootnote", descriptions.size());
+                SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
+                SchoolProfileStatsDisplayRow row = (SchoolProfileStatsDisplayRow)jspContext.getAttribute("row");
+                if (censusSourceHelper != null) {
+                    int myfootnote = censusSourceHelper.recordSource(row);
+                    if (myfootnote > 0) {
+                        jspContext.setAttribute("thisFootnote", myfootnote);
+                    } else {
+                        jspContext.removeAttribute("thisFootnote");
                     }
                 }
                 ]]>
@@ -163,7 +149,7 @@
                 </c:if>
                 <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
                 <td>${row.text}
-                    <c:if test="${hasManualOverride eq true or fn:length(footnotesForThisTable) gt 0}">
+                    <c:if test="${not empty thisFootnote}">
                         <sup>${thisFootnote}</sup>
                     </c:if>
                 </td>
@@ -197,26 +183,10 @@
 </div>
         </div>
     <div class="smaller pbm tar">
-        <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
+        <c:forEach items="${censusSourceHelper.censusSources}" var="source" varStatus="status">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
-            Source <sup>${footnoteIndex}</sup> ${(footnotes[statsTab])[footnoteIndex-1].source}<c:if test="${rows[0].year != 0}">, ${rows[0].year-1}-${rows[0].year}</c:if><br/>
+            Source:<c:if test="${status.count gt 1}"><sup> ${status.index+1}</sup></c:if> ${source.obj1.source}<c:if test="${not empty source.obj2}">, ${source.obj2-1}-${source.obj2}</c:if><br/>
         </c:forEach>
-        <c:if test="${hasManualOverride}">
-            <c:if test="${fn:length(footnotesForThisTable) gt 0}">
-                <br/>
-            </c:if>
-            * Manually entered by a school official
-        </c:if>
     </div>
 </c:if>
-
-<jsp:scriptlet>
-    <![CDATA[
-    java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-    java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
-    if (descriptions != null) {
-        request.setAttribute("footnotesCount", descriptions.size());
-    }
-        ]]>
-</jsp:scriptlet>
 </jsp:root>

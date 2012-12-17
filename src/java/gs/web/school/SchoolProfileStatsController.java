@@ -82,6 +82,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
                     buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
 
+            statsModel.put("footnotesMap", getFootnotesMap(groupIdToStatsRows));
 
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
             statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
@@ -99,6 +100,24 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         model.putAll(statsModel);
         return model;
+    }
+
+    /**
+     * Pre-calculate all footnotes
+     */
+    protected Map<Long, SchoolProfileCensusSourceHelper> getFootnotesMap(Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows) {
+        Map<Long, SchoolProfileCensusSourceHelper> rval = new HashMap<Long, SchoolProfileCensusSourceHelper>();
+        if (groupIdToStatsRows == null) {
+            return rval;
+        }
+        for (Long groupId: groupIdToStatsRows.keySet()) {
+            SchoolProfileCensusSourceHelper sourceHelper = new SchoolProfileCensusSourceHelper();
+            for (SchoolProfileStatsDisplayRow row: groupIdToStatsRows.get(groupId)) {
+                sourceHelper.recordSource(row);
+            }
+            rval.put(groupId, sourceHelper);
+        }
+        return rval;
     }
 
     public void cacheStatsModel(Map<String,Object> statsModel, School school) {
