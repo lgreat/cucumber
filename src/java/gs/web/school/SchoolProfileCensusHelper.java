@@ -129,14 +129,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
                     Map<Integer,CensusDataSet>> // CensusDataSet ID --> CensusDataSet
                     triplet = censusStateConfig.splitCensusDataSets(censusDataSetMap);
 
-            for (Map.Entry<Integer,CensusDataSet> entry : censusDataSetMap.entrySet()) {
-                // since the group of data sets retrieved from CensusStateConfig only contain data types that
-                // should be displayed on the stats tab, we have to add back in the datasets retrieved from getCensusDataSets method
-                if (dataTypeIdsForOverview.contains(entry.getValue().getDataType().getId())) {
-                    triplet.getObj1().put(entry.getKey(), entry.getValue());
-                }
-            }
-
             censusDataHolder = (CensusDataHolder) _beanFactory.getBean("censusDataHandler", new Object[] {
                     school, censusDataSetMap, triplet.getObj1(), triplet.getObj2(), triplet.getObj3()
             });
@@ -179,7 +171,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
 
         LinkedHashMap<String,String> ethnicityLabelMap = new LinkedHashMap<String,String>();
 
-        // stackoverflow.com/questions/109383/É
+        // stackoverflow.com/questions/109383/
         Comparator<String> valueComparator = Ordering.from(new EthnicityComparator()).onResultOf(Functions.forMap(ethnicityLabelMap)).compound(Ordering.natural());
 
         Integer ethnicityDataTypeId = CensusDataType.STUDENTS_ETHNICITY.getId();

@@ -96,37 +96,31 @@
                             <sup>${thisFootnote}</sup>
                         </c:if>
                     </td>
-                    <c:if test="${showSchoolData}">
-                        <c:choose>
-                            <c:when test="${not empty row.schoolValue}">
-                                <td class="tac">${row.schoolValue}</td>
-                                <c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>
-                            </c:when>
-                            <c:otherwise>
-                                <td class="tac">N/A</td>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:if>
-                    <c:if test="${showDistrictData}">
-                        <c:choose>
-                            <c:when test="${not empty row.districtValue}">
-                                <td class="tac">${row.districtValue}</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td class="tac">N/A</td>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:if>
-                    <c:if test="${showStateAverages}">
-                        <c:choose>
-                            <c:when test="${not empty row.stateValue}">
-                                <td class="tac">${row.stateValue}</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td class="tac">N/A</td>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${showSchoolData and not empty row.schoolValue}">
+                            <td class="tac">${row.schoolValue}</td>
+                            <c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="tac">N/A</td>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${showDistrictData and not empty row.districtValue}">
+                            <td class="tac">${row.districtValue}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="tac">N/A</td>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${showStateAverages and not empty row.stateValue}">
+                            <td class="tac">${row.stateValue}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="tac">N/A</td>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
 
             </c:forEach>

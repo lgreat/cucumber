@@ -2,6 +2,7 @@ package gs.web.school;
 
 
 import gs.data.school.EspResponse;
+import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.school.census.*;
 import gs.web.util.ReadWriteAnnotationController;
@@ -150,6 +151,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             if (breakdown != null) {
                 breakdownId = breakdown.getId();
             }
+            Grades grades = censusDataSet.getGradeLevels();
 
             // if this dataset has year zero, it's an override dataset, and it's school value should have been assigned
             // to the companion dataset that doesn't have year zero. If a non-year-zero dataset didn't exist, this
@@ -184,9 +186,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // If there are more than one config entry per data type, then there should be
             // a config entry for each breakdown within the data type
             if (censusDataConfigEntries.size() > 1) {
-                // Find the entry that cooresponds with the data type and breakdown on this data set.
+                // Find the entry that cooresponds with the data type, breakdown and grade on this data set.
                 // If none exist, skip this data set
-                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId);
+                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId, grades);
 
                 // If config doesnt exist for data type + breakdown, skip this data set
                 if (configEntry == null) {
@@ -203,6 +205,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                         }
                     }
                 };
+
             } else {
                 // there's only one config entry for this one data type
                 ICensusDataConfigEntry configEntry = censusDataConfigEntries.get(0);
