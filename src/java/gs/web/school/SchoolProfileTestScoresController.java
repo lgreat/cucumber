@@ -202,6 +202,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 //Build a new custom test data type.
                 CustomTestDataType customTestDataType = new CustomTestDataType();
                 customTestDataType.setId(testDataTypeId);
+                customTestDataType.setDisplayName(testDataType.getDisplayName());
                 //Group the subgroup data for a test into a new map of custom test data type.
                 customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? LABEL_SUBGROUP_TEST_SUFFIX : ""));
                 //Fill the map with the test data type, grade, level code, subjects, test data set and value.
@@ -320,6 +321,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             testToGrades.setTestLabel(testDataType.getLabel());
             testToGrades.setTestDataTypeId(testDataType.getId());
             testToGrades.setIsSubgroup((testDataType.getLabel().indexOf(LABEL_SUBGROUP_TEST_SUFFIX) > 0));
+            testToGrades.setDisplayName(testDataType.getDisplayName());
 
             //Get the test information, like the source, scale and description.
             String description = "";
@@ -470,6 +472,15 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         Grade _lowestGradeInTest;
         Integer _testDataTypeId;
         Boolean _isSubgroup;
+        String _displayName;
+
+        public String getDisplayName() {
+            return _displayName;
+        }
+
+        public void setDisplayName(String _displayName) {
+            this._displayName = _displayName;
+        }
 
         public String getTestLabel() {
             return _testLabel;
@@ -708,6 +719,15 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public Integer _id;
         public String _label;
+        public String _displayName;
+
+        public String getDisplayName() {
+            return _displayName;
+        }
+
+        public void setDisplayName(String _displayName) {
+            this._displayName = _displayName;
+        }
 
         public Integer getId() {
             return _id;
