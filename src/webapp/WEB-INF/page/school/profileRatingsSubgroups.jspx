@@ -61,19 +61,29 @@
                             <div class="inner">
                                 <div class="bd">
                                     <c:forEach var="row" items="${rowGroup.rows}">
-                                        <div class="line">
-                                            ${row.label}:
+                                        <!--
+                                        The c:set for row_value is to handle the edge case of a school having no values
+                                        for any of the subgroup rows. Don't know if that ever happens, but checking for
+                                        an empty row_value makes this code safe for that scenario.
+                                        -->
+                                        <c:set var="rowValue">
                                             <!--
                                             This is a loop because if we showed subject groups, there would be multiple
                                             cells per row. When there are no subject groups, it's reasonable to assume
                                             that there is only one cell per row.
+                                            If we showed subject groups, we'd have to change the UI and front-end code.
                                             -->
                                             <c:forEach var="cell" items="${row.cells}">
                                                 <c:if test="${not empty cell.rating}">
                                                     ${cell.rating}
                                                 </c:if>
                                             </c:forEach>
-                                        </div>
+                                        </c:set>
+                                        <c:if test="${not empty rowValue}">
+                                            <div class="line">
+                                                ${row.label}: ${rowValue}
+                                            </div>
+                                        </c:if>
                                     </c:forEach>
                                     All students: ${school.GSRating}<br/>
                                 </div>
