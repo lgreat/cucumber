@@ -273,7 +273,7 @@
                     </form>
 
                     <a href="http://www.realtor.com/?gate=gs&amp;amp;cid=PRT300014"
-                       onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_browseLogo');} return true;"
+                       onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${omniturePageName}_${size}_browseLogo');} return true;"
                        target="_blank" rel="nofollow">
                         <span class="sprite i-RDC-small logo"><!-- do not collapse --></span>
                     </a>
