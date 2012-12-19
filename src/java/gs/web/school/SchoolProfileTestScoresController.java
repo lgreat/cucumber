@@ -329,15 +329,18 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
             //Get the test information, like the source, scale and description.
             String description = "";
+            String subgroupDescription = "";
             String scale = "";
             String source = "";
             TestDescription testDescription = testDataTypeToDescription.get(testDataType.getId());
             if (testDescription != null) {
                 description = StringUtils.isNotBlank(testDescription.getDescription()) ? testDescription.getDescription() : "";
+                subgroupDescription = StringUtils.isNotBlank(testDescription.getSubgroupDescription()) ? testDescription.getSubgroupDescription() : "";
                 scale = StringUtils.isNotBlank(testDescription.getScale()) ? StringEscapeUtils.escapeHtml(testDescription.getScale()) : "";
                 source = StringUtils.isNotBlank(testDescription.getSource()) ? StringEscapeUtils.escapeHtml(testDescription.getSource()) : "";
             }
             testToGrades.setDescription(description);
+            testToGrades.setSubgroupDescription(subgroupDescription);
             testToGrades.setScale(scale);
             testToGrades.setSource(source);
 

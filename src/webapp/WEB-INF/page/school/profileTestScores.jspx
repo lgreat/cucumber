@@ -123,6 +123,9 @@
                                                             <hr class="keyline1"/>
                                                             <div class="clear mbl"><!-- do not collapse --></div>
                                                             <p class="quiet">${testToGrades.description}</p>
+                                                            <c:if test="${testToGrades.isSubgroup and not empty testToGrades.subgroupDescription}">
+                                                                <p class="quiet">${testToGrades.subgroupDescription}</p>
+                                                            </c:if>
                                                             <c:set var="stateCheck" value="${school.physicalAddress.state}"/>
                                                             <c:choose>
                                                                 <c:when test="${(stateCheck eq 'IL') and (testToGrades.isSubgroup eq false )}"><a
