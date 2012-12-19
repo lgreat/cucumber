@@ -25,6 +25,8 @@
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+        java.text.SimpleDateFormat formatNowYear = new java.text.SimpleDateFormat("yyyy");
+        request.setAttribute("currentYear", formatNowYear.format(java.util.Calendar.getInstance().getTime()));
     </jsp:scriptlet>
 
     <c:if test="${requestScope.pageHelper.showingFooter}">
@@ -63,7 +65,7 @@
 
                 <c:set var="footerCopyright">
                 <p id="footerCopyright" class="copyright smaller bottom">
-                          &amp;#169;1998-2012 GreatSchools Inc. All Rights Reserved.
+                          &amp;#169;1998-${currentYear} GreatSchools Inc. All Rights Reserved.
                           GreatSchools is a 501(c)(3) not-for-profit organization
                           <link:termsOfUse>Terms of Use</link:termsOfUse>
                           <link:privacyPolicy>Privacy Policy</link:privacyPolicy>
