@@ -41,44 +41,27 @@ Created by Mitchell Seltzer
 */
 
 .bar_container{
-    border:1px solid #B8B8B8;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
     height:14px;
     width:100%;
+    background: #DDDDDD;
 }
 
-.bar_container.blue { border:1px solid #a6d3e7; }
+/*.bar_container.blue { border:1px solid #a6d3e7; }*/
 
 .bar_container.thin { height:8px; margin: 5px auto; }
 .bar_container.medium { height:14px; }
 .bar_container.thck { height:20px; }
 
 .bar_container div{
-    background: #777777; /* for non-css3 browsers */
+    background: #999999; /* for non-css3 browsers */
     width:0;
     height:100%;
-
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#777777)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #FFFFFF, #777777); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #FFFFFF, #777777); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #FFFFFF, #777777); /* IE10 */
-    background-image:      -o-linear-gradient(top, #FFFFFF, #777777); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #FFFFFF, #777777); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#777777'); /* IE6�IE9 */
 }
 
 .bar_container.blue div{
-    background: #79BEDC; /* for non-css3 browsers */
+    background: #327FA0; /* for non-css3 browsers */
     width:0;
     height:100%;
-
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#79BEDC)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #FFFFFF, #79BEDC); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #FFFFFF, #79BEDC); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #FFFFFF, #79BEDC); /* IE10 */
-    background-image:      -o-linear-gradient(top, #FFFFFF, #79BEDC); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #FFFFFF, #79BEDC); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#79BEDC'); /* IE6�IE9 */
 }
 
 /*************************************************************************************************************************

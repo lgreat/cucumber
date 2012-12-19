@@ -9,10 +9,11 @@
     <c:when test="${! empty testScores}">
         <c:set var="dataNAText" value="Data not available"/>
         <div class="grid_16 alpha omega">
-            <div class="fl vab">
-                <!--Display the test dropdowns-->
-                <label for="js_testSelect" class="medium_bold">
-                    Select a test
+        <div class="fl standard_1-3">
+            <!--Display the test dropdowns-->
+            <div class="hd">
+                <label for="js_testSelect" class="medium_bold mhs">
+                    Select a test:
                 </label>
                 <select id="js_testSelect">
                     <c:forEach var="testToGrades" items="${testScores}">
@@ -22,139 +23,156 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="clearfloat"><!-- do not collapse --></div>
-            <div class="fl pbn">
-                <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>
-            </div>
-            <hr class="keyline1" />
-            <div class="clear mbl"><!-- do not collapse --></div>
+        </div>
+        <div class="grid_16 alpha omega clearfix">
+            <div class="mod standard_1-4">
+                <div class="inner">
+                    <div class="bd clearfix mal">
+                        <h3 class="" id="js_testLabelHeader"><!-- not empty --></h3>
+                        <div class="alpha grid_4 omega fl">
+                            <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
+                            <!--Display the grades for the test selected-->
+                            <c:forEach var="testToGrades" items="${testScores}">
 
-            <div class="grid_4 alpha">
-                <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
-                <!--Display the grades for the test selected-->
-                <c:forEach var="testToGrades" items="${testScores}">
+                                <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
+                                     style="display: none" class="js_grades">
 
-                    <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
-                         style="display: none" class="js_grades">
-
-                        <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                            <div class="small bottom" style="padding:3px 5px; width:90%; background:#FFFFFF;">
-                                <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
-                                   class="js_grade"
-                                   style="text-decoration:none;"
-                                   href="javascript:void(0);">${gradeToSubjects.gradeLabel}</a>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </c:forEach>
-
-            </div>
-
-        <div class="grid_12 omega">
-        <!--Display the data for the test and grade selected-->
-        <c:forEach var="testToGrades" items="${testScores}">
-            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
-                     style="display: none" class="js_subjects">
-
-                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-
-                        <c:choose>
-                            <c:when test="${testToGrades.isSubgroup}">
-                                <c:set var="scalesUsed" value="" />
-                                <div class="mod standard_1-1">
-                                <div class="inner">
-                                <div class="hd">
-                                    <h4 class="pvm plm bottom">${subjectToYears.subjectLabel}</h4>
-                                </div>
-                                <div class="bd pan bottom">
-                                <table class="tableType1 bottom">
-                                <!--<tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>-->
-                                <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="status">
-                                    <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                    <c:if test="${testValue.testScoreLabel == dataNAText}"><c:set var="thePercentage" value="n/a" /></c:if>
-                                    <c:choose>
-                                        <c:when test='${(status.index+1)%2 eq 0}'>
-                                            <c:set var="rowColor" value="even" scope="page"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="rowColor" value="odd" scope="page"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                    <tr class="${rowColor}" ><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
-                                </c:forEach>
-                                </table>
-                                </div>
-                                </div>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="scalesUsed"><div class="smaller fr">Scale:${testToGrades.scale}</div></c:set>
-                                <c:set var="scoresContent">
-                                        <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
-                                            <c:set var="firstTimeBlue" value="" />
-                                            <!--Display the state average for only the latest year-->
-                                            <c:if test="${loopCount.count eq 1}">
-                                                <c:set var="stateAvg" value="${testValue.stateAvg}" />
-                                                <c:set var="testYearAvg" value="${testValue.year}" />
-                                                <c:set var="firstTimeBlue" value="blue" />
-                                            </c:if>
-                                            <div class="line">
-                                                <div class="unit size12of100">
-                                                    <p class="small bottom"><strong>${testValue.year}</strong></p>
-                                                </div>
-                                                <div class="unit size5of100">&amp;nbsp;</div>
-                                                <div class="unit size66of100">
-                                                    <div class="bar_container thin ${firstTimeBlue}">
-                                                        <div style="width:${testValue.testScoreLabel}%"><!-- not empty --></div>
-                                                    </div>
-                                                </div>
-                                                <div class="unit size5of100">&amp;nbsp;</div>
-                                                <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                                <c:if test="${testValue.testScoreLabel == dataNAText}">
-                                                    <c:set var="thePercentage" value="n/a" />
-                                                </c:if>
-                                                <div class="unit size12of100 small lastUnit bottom"><strong>${thePercentage}</strong></div>
-                                            </div>
-
-                                        </c:forEach>
-                                </c:set>
-
-                                <div class="mod standard_1-1">
-                                    <div class="inner">
-                                        <div class="bd">
-                                            <div class="line">
-
-                                                    <div class="unit size38of100 pam">
-                                                        <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
-                                                        <c:if test="${stateAvg != dataNAText}">
-                                                        <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
-                                                        </c:if>
-                                                    </div>
-                                                <div class="unit size62of100 lastUnit pam">
-                                                    <c:out value="${scoresContent}" escapeXml="false"/>
-                                                </div>
-                                            </div>
+                                    <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+                                        <div class="small bottom"
+                                             style="padding:3px 5px; width:90%; background:#FFFFFF;">
+                                            <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
+                                               class="js_grade"
+                                               style="text-decoration:none;"
+                                               href="javascript:void(0);">${gradeToSubjects.gradeLabel}</a>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
+                            </c:forEach>
+                        </div>
+                        <div class="alpha grid_11 omega fr">
+                            <!--Display the data for the test and grade selected-->
+                            <c:forEach var="testToGrades" items="${testScores}">
+                                <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+                                    <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
+                                         style="display: none" class="js_subjects">
+                                        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                                            <c:choose>
+                                                <c:when test="${testToGrades.isSubgroup}">
+                                                    <c:set var="scalesUsed" value=""/>
+                                                    <div class="mod standard_1-1">
+                                                        <div class="inner">
+                                                            <div class="hd">
+                                                                <h4 class="pvm plm bottom">${subjectToYears.subjectLabel}</h4>
+                                                            </div>
+                                                            <div class="bd pan bottom">
+                                                                <table class="tableType1 bottom">
+                                                                    <!--<tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>-->
+                                                                    <c:forEach var="testValue"
+                                                                               items="${subjectToYears.testValues}"
+                                                                               varStatus="status">
+                                                                        <c:set var="thePercentage"
+                                                                               value="${testValue.testScoreLabel}%"/>
+                                                                        <c:if test="${testValue.testScoreLabel == dataNAText}"><c:set
+                                                                                var="thePercentage" value="n/a"/></c:if>
+                                                                        <c:choose>
+                                                                            <c:when test='${(status.index+1)%2 eq 0}'>
+                                                                                <c:set var="rowColor" value="even"
+                                                                                       scope="page"/>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <c:set var="rowColor" value="odd"
+                                                                                       scope="page"/>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                        <c:set var="rowCounterTable"
+                                                                               value="${rowCounterTable +1}"/>
+                                                                        <tr class="${rowColor}">
+                                                                            <td>${testValue.breakdownLabel}</td>
+                                                                            <td style="text-align: right;">
+                                                                                <strong>${thePercentage}</strong></td>
+                                                                        </tr>
+                                                                    </c:forEach>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="scalesUsed">
+                                                        <div class="smaller fr">Scale:${testToGrades.scale}</div>
+                                                    </c:set>
+                                                    <c:set var="scoresContent">
+                                                        <c:forEach var="testValue" items="${subjectToYears.testValues}"
+                                                                   varStatus="loopCount">
+                                                            <c:set var="firstTimeBlue" value=""/>
+                                                            <c:set var="firstTimeDarkGrey" value="quiet"/>
+                                                            <!--Display the state average for only the latest year-->
+                                                            <c:if test="${loopCount.count eq 1}">
+                                                                <c:set var="stateAvg" value="${testValue.stateAvg}"/>
+                                                                <c:set var="testYearAvg" value="${testValue.year}"/>
+                                                                <c:set var="firstTimeBlue" value="blue"/>
+                                                                <c:set var="firstTimeDarkGrey" value="make-2b2b2b"/>
+                                                            </c:if>
 
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <c:out value="${scalesUsed}" escapeXml="false" />
-                    <div class="clearfloat"><!-- not empty --></div>
-                    <h4 class="pbn mbs">About the tests</h4>
-                    <hr class="keyline1"/>
-                    <div class="clear mbl"><!-- do not collapse --></div>
-                    <p class="quiet">${testToGrades.description}</p>
+                                                            <div class="line">
+                                                                <div class="unit size10of100">
+                                                                    <p class="small bottom">
+                                                                        <strong class="${firstTimeDarkGrey}">${testValue.year}</strong></p>
+                                                                </div>
+                                                                <div class="unit size4of100">&amp;nbsp;</div>
+                                                                <div class="unit size70of100">
+                                                                    <div class="bar_container thin ${firstTimeBlue}">
+                                                                        <div style="width:${testValue.testScoreLabel}%"><!-- not empty --></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="unit size3of100">&amp;nbsp;</div>
+                                                                <c:set var="thePercentage"
+                                                                       value="${testValue.testScoreLabel}%"/>
+                                                                <c:if test="${testValue.testScoreLabel == dataNAText}">
+                                                                    <c:set var="thePercentage" value="n/a"/>
+                                                                </c:if>
+                                                                <div class="unit size12of100 small lastUnit bottom">
+                                                                    <strong class="${firstTimeDarkGrey}">${thePercentage}</strong></div>
+                                                            </div>
 
-                    <p class="small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+                                                        </c:forEach>
+                                                    </c:set>
+
+                                                    <div class="mod standard_1-1">
+                                                        <div class="inner">
+                                                            <div class="bd">
+                                                                <div class="line">
+                                                                    <div class="unit size35of100 pam">
+                                                                        <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
+                                                                        <c:if test="${stateAvg != dataNAText}">
+                                                                            <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                                                        </c:if>
+                                                                    </div>
+                                                                    <div class="unit size62of100 lastUnit pam">
+                                                                        <c:out value="${scoresContent}"
+                                                                               escapeXml="false"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <c:out value="${scalesUsed}" escapeXml="false"/>
+                                        <div class="clearfloat"><!-- not empty --></div>
+                                        <h4 class="pbn mbs">About the tests</h4>
+                                        <hr class="keyline1"/>
+                                        <div class="clear mbl"><!-- do not collapse --></div>
+                                        <p class="quiet">${testToGrades.description}</p>
+                                        <p class="small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+                                    </div>
+                                </c:forEach>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
-            </c:forEach>
-        </c:forEach>
-
+            </div>
         </div>
 
         <!--TODO - move to a different file.-->
