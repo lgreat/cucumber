@@ -4,7 +4,8 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:gsweb="gstaglib">
+          xmlns:gsweb="gstaglib"
+          xmlns:schoolProfile="urn:jsptagdir:/WEB-INF/tags/school/profile">
 
     <c:set var="ratingsDisplay" value="${ratingsCmd.ratingsDisplay}"/>
 
@@ -41,7 +42,7 @@
                          class="js_ratings_cat_content">
                         <c:set var="lowercaseCategoryName"
                                value="${fn:toLowerCase(fn:replace(rowGroup.label,'By ',''))}"/>
-                        <h4 class="pbn mbs">By ${lowercaseCategoryName}</h4>
+                        <h3 class="pbn mbs">By ${lowercaseCategoryName}</h3>
 
                         <!--
                         Below is how to get subject group labels, if we wanted to show them. Only applicable rowGroups
@@ -59,7 +60,7 @@
 
                         <div class="mod standard_1-1">
                             <div class="inner">
-                                <div class="bd">
+                                <div class="bd pal">
                                     <c:forEach var="row" items="${rowGroup.rows}">
                                         <!--
                                         The c:set for row_value is to handle the edge case of a school having no values
@@ -73,12 +74,10 @@
                                         -->
                                         <c:set var="rowValue" value="${fn:length(row.cells) gt 0 ? row.cells[0].rating : null}"/>
                                         <c:if test="${not empty rowValue}">
-                                            <div class="line">
-                                                ${row.label}: ${rowValue}
-                                            </div>
+                                            <schoolProfile:profileRatingsDrawBar label="${row.label}" score="${rowValue}"/>
                                         </c:if>
                                     </c:forEach>
-                                    All students: ${school.GSRating}<br/>
+                                    <schoolProfile:profileRatingsDrawBar label="All students" score="${school.GSRating}"/>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +102,7 @@
                                 <div class="inner">
                                     <div class="bd">
                                         <h5 class="bottom">Recommended reading</h5>
-                                        <a href="${articleUrl}">${articleLinkText}</a>
+                                        <a href="${articleUrl}" class="small">${articleLinkText}</a>
                                     </div>
                                 </div>
                             </div>
