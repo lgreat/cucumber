@@ -77,7 +77,7 @@
                                             <schoolProfile:profileRatingsDrawBar label="${row.label}" score="${rowValue}"/>
                                         </c:if>
                                     </c:forEach>
-                                    <schoolProfile:profileRatingsDrawBar label="All students" score="${school.GSRating}"/>
+                                    <schoolProfile:profileRatingsDrawBar label="All students" score="${school.GSRating}" padBelow="true" />
                                 </div>
                             </div>
                         </div>
