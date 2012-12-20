@@ -47,8 +47,8 @@
                                         <c:set var="imageCounter" value="0"/>
                                         <c:forEach var="img" items="${images}">
                                             <li>
-                                                <div class="js-photo-gallery-trigger addMousePointer qaCucumber-2 imagecounter-${imageCounter}">
-                                                    <img src="${basePath}${img.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
+                                                <div class="js-photo-gallery-trigger addMousePointer imagecounter-${imageCounter}">
+                                                    <img src="${basePath}${img.mediumSizeFile}" alt="Photos of this school" width="130" height="130" class="qaCucumber-2"/>
                                                 </div>
                                                 <c:set var="imageCounter" value="${imageCounter+1}"/>
                                             </li>
