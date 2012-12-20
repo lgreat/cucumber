@@ -228,6 +228,11 @@
                 </c:if>
                 <school:schoolProfileStatsTable groupId="5" title="Student-Teacher ratio" statsTab="teachers"/>
 
+                <c:if test="${! empty statsRows[4]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="4" title="Class size" statsTab="teachers"/>
+
 
                 <c:if test="${! empty statsRows[14]}">
                     <c:set var="hasTeacherData" value="yes"/>
