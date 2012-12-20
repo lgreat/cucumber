@@ -130,9 +130,9 @@ function rdcSearchSubmit() {
     }
 
     submitForm.action = searchURL;
-
+    var omniture = 'RealtorModule_'+omniturePageNameRealtorDotCom+'_'+sizeRealtorDotCom+'_searchGo';
     if (s.tl) {
-        s.tl(this, 'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_searchGo');
+        s.tl(this, 'o', omniture);
     }
     submitForm.submit();
     return false;

@@ -30,7 +30,12 @@
 <c:if test="${empty size}">
     <c:set var="size" value="300x250"/>
 </c:if>
-
+<![CDATA[
+<script language="javascript">
+    var omniturePageNameRealtorDotCom =  "${omniturePageName}";
+    var sizeRealtorDotCom =  "${size}";
+</script>
+]]>
 <pageHelper:externalJavascript head="false" file="/res/js/ad-support/search.realtor.com.js"/>
 
 <c:set var="longFormND">
