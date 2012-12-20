@@ -870,9 +870,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
                 if( isNotEmpty(classSizeCensusDataSet) ) {
                     try {
-                        SchoolCensusValue [] csv = (SchoolCensusValue [])classSizeCensusDataSet.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
-                        classSize = csv[0].getValueInteger();
-                        classSizeYear = classSizeCensusDataSet.get(0).getYear();
+                        Map<String,CensusDataSet> classSizes = getClassSizes(classSizeCensusDataSet);
+                        if (classSizes.containsKey("All grades")) {
+                            CensusDataSet classSizeDataSet = classSizes.get("All grades");
+                            classSize = classSizeDataSet.getTheOnlySchoolValue().getValueInteger();
+                            classSizeYear = classSizeDataSet.getYear();
+                        }
                     }
                     catch( NullPointerException e ) {
                         // Nothing to do
@@ -888,20 +891,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                         // Nothing to do
                     }
                 }
-                State state = school.getDatabaseState();
-                // Special rules for NY and TX and IL.  Only use studentsPerTeacher otherwise do substitute 2
-                if( (state.equals(State.NY) || state.equals(State.TX) || state.equals(State.IL)) ) {
-                    if( studentsPerTeacher > 0 ) {
-                        model.put("substitute1StudentsPerTeacher", studentsPerTeacher);
-                        model.put("substitute1StudentsPerTeacherYear", new Integer(studentsPerTeacherYear));
-                        model.put( "content", "substitute1" );
-                        substitute1Ok = true;
-                    }
-                    else {
-                        // No students/teacher data - fall through to substitute2
-                    }
-                }
-                else if( classSize > 0 && studentsPerTeacher > 0) {
+                // this should not happen anymore, since census config table will contain one or the other
+                if( classSize > 0 && studentsPerTeacher > 0) {
                     // If we have both, use the one with the later year
                     if( classSizeYear >= studentsPerTeacherYear ) {
                         model.put("substitute1ClassSize", classSize);
@@ -1750,6 +1741,55 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     // The following setter dependency injection is just for the tester
     public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {
         _schoolProfileDataHelper = schoolProfileDataHelper;
+    }
+
+    public Map<String,CensusDataSet> getClassSizes(List<CensusDataSet> censusDataSets) {
+        if (censusDataSets == null) {
+            throw new IllegalArgumentException("List of CensusDataSets cannot be null");
+        }
+
+        Map<String,CensusDataSet> aggregatedByLevel = new HashMap<String,CensusDataSet>();
+        Map<String,CensusDataSet> individualGrades = new HashMap<String,CensusDataSet>();
+
+        for (CensusDataSet censusDataSet : censusDataSets) {
+            SchoolCensusValue value = censusDataSet.getTheOnlySchoolValue();
+
+            if ((censusDataSet.getGradeLevels() == null || censusDataSet.getGradeLevels().asList().isEmpty()) && censusDataSet.getLevelCode() != null) {
+
+                // construct the text that will display in the view tile
+                /*LevelCode levelCode = censusDataSet.getLevelCode();
+                List<String> levelCodeNames = new ArrayList<String>();
+                for (LevelCode.Level l : levelCode.getIndividualLevelCodes()) {
+                    if (LevelCode.Level.PRESCHOOL_LEVEL.equals(l)) {
+                        levelCodeNames.add(l.getLongName());
+                    } else {
+                        levelCodeNames.add(l.getLongName() + " school");
+                    }
+                }
+                String levelCodeNameSummary = StringUtils.join(levelCodeNames, ", ");*/
+
+                // Replace last comma with word "and"
+                // int lastComma = levelCodeNameSummary.lastIndexOf(",");
+                // levelCodeNameSummary = levelCodeNameSummary.substring(0,lastComma-1) + " and" + levelCodeNameSummary.substring(lastComma);
+
+
+                String levelCodeNameSummary = "All grades";
+                aggregatedByLevel.put(levelCodeNameSummary, censusDataSet);
+            } else if (censusDataSet.getGradeLevels() != null) {
+                individualGrades.put(
+                        "Grade " + censusDataSet.getGradeLevels().getCommaSeparatedString(),
+                        censusDataSet
+                );
+            }
+
+        }
+
+        /*if (aggregatedByLevel.size() > 0) {
+            return aggregatedByLevel;
+        } else {
+            return individualGrades;
+        }*/
+        return aggregatedByLevel; // It was decided to only use aggregated class sizes for now, since it's simpler
     }
 
 
