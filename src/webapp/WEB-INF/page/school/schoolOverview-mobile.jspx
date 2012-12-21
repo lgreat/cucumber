@@ -7,6 +7,7 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
@@ -186,6 +187,10 @@ Android seems to require the address to be blank for the same behavior -->
 <!-- SMS / Email / Save buttons -->
 <c:set var="schoolUrl" value="${relCanonical}" scope="request"/>
 <mobile:share school="${school}"/>
+
+<c:if test="${requestScope.context.showRealtorDotComPromos}">
+    <gslink:realtorDotComLink address="${school.physicalAddress}">Nearby homes for sale</gslink:realtorDotComLink>
+</c:if>
 
 <c:if test="${hasTestScores}">
     <link:schoolProfileTestscore school="${school}">

@@ -27,6 +27,11 @@
         <c:if test="${not empty requestScope.omniturePageName}">
             <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
         </c:if>
+
+        <!--
+        TODO-13614 Mitch, you might need to pass in another jsp:directive.attribute to key off of here
+        if the HTML/CSS for mobile is significantly different than for the places on the desktop site where this is used
+        -->
         <div class="media skin-1">
         <span class="${styleClass} img mrs"><!-- icon --></span>
         <a class="bd small bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
