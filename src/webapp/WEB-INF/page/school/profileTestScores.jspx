@@ -165,7 +165,12 @@
                                         <hr class="keyline1"/>
                                         <div class="clear mbl"><!-- do not collapse --></div>
                                         <p class="quiet">${testToGrades.description}</p>
-                                        <p class="small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+                                        <c:set var="stateCheck" value="${school.physicalAddress.state}"/>
+                                        <c:choose>
+                                            <c:when test="${stateCheck eq 'WI'}"><a href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}" class="small">See Wisconsin's state standards</a></c:when>
+                                            <c:when test="${stateCheck eq 'LA'}"><a href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}" class="small">See Louisiana's state standards</a></c:when>
+                                        </c:choose>
+                                        <p class="mtl small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
                                     </div>
                                 </c:forEach>
                             </c:forEach>
