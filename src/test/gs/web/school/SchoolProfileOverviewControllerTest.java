@@ -1152,9 +1152,9 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         int studentsPerTeacherYear = 2011;
 
         Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
-        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
 
-        assertEquals( "testTransportSubstitute1A: students per teacher wrong", (int)studentsPerTeacherValue, resultInteger.intValue() );
+        assertEquals( "testTransportSubstitute1A: expected to receive class size", (int)classSizeValue, resultInteger.intValue() );
         System.out.println( "testTransportSubstitute1A successful" );
     }
 
@@ -1171,7 +1171,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
         Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
 
-        assertEquals( "testTransportSubstitute1B: substitute2 content expected", "substitute2", resultsModel.get("content") );
+        assertEquals( "testTransportSubstitute1B: substitute1 content expected since TX is no longer prevented from using class size", "substitute1", resultsModel.get("content") );
         System.out.println("testTransportSubstitute1B successful");
     }
 
@@ -1303,10 +1303,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         int studentsPerTeacherYear = 2011;
 
         Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
-        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
 
-        assertEquals("testTransportSubstitute1SpecialCaseStatesTX: students per teacher expected for special cased states", (int) studentsPerTeacherValue, resultInteger.intValue());
-        assertNull(resultsModel.get("substitute1ClassSize"));
+        assertEquals("testTransportSubstitute1SpecialCaseStatesTX: class size expected since years were equal", (int) classSizeValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1StudentsPerTeacher"));
     }
 
     // NY is a special case state that shows only studentsPerTeacherValue.
@@ -1319,10 +1319,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         int studentsPerTeacherYear = 2011;
 
         Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
-        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
 
-        assertEquals("testTransportSubstitute1SpecialCaseStatesNY: students per teacher expected for special cased states", (int) studentsPerTeacherValue, resultInteger.intValue());
-        assertNull(resultsModel.get("substitute1ClassSize"));
+        assertEquals("testTransportSubstitute1SpecialCaseStatesNY: class size expected since years were equal", (int) classSizeValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1StudentsPerTeacher"));
     }
 
     private Map<String, Object> runTransportationForCensusController(String stateAbbrev, float classSizeValue, int classSizeYear, float studentsPerTeacherValue, int studentsPerTeacherYear) {
