@@ -861,7 +861,7 @@ GSType.hover.PrintSchoolChooser = function() {
         });
     }
     this.printSchoolList = function () {
-        $('.downloadPYOC').click(function () {
+        $('.downloadPYOC').unbind('click').click(function() {
             var state = [];
             var schoolID = [];
             var count = 0;
