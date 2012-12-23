@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.*;
 import gs.data.test.*;
+import gs.web.school.test.SubjectToTestValues;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -203,6 +204,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 CustomTestDataType customTestDataType = new CustomTestDataType();
                 customTestDataType.setId(testDataTypeId);
                 customTestDataType.setDisplayName(testDataType.getDisplayName());
+                customTestDataType.setDisplayType(testDataType.getDisplayType());
                 //Group the subgroup data for a test into a new map of custom test data type.
                 customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? LABEL_SUBGROUP_TEST_SUFFIX : ""));
                 //Fill the map with the test data type, grade, level code, subjects, test data set and value.
@@ -322,6 +324,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             testToGrades.setTestDataTypeId(testDataType.getId());
             testToGrades.setIsSubgroup((testDataType.getLabel().indexOf(LABEL_SUBGROUP_TEST_SUFFIX) > 0));
             testToGrades.setDisplayName(testDataType.getDisplayName());
+            testToGrades.setDisplayType(testDataType.getDisplayType());
 
             //Get the test information, like the source, scale and description.
             String description = "";
@@ -473,6 +476,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         Integer _testDataTypeId;
         Boolean _isSubgroup;
         String _displayName;
+        TestDataTypeDisplayType _displayType;
 
         public String getDisplayName() {
             return _displayName;
@@ -546,6 +550,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             _isSubgroup = isSubgroup;
         }
 
+        public TestDataTypeDisplayType getDisplayType() {
+            return _displayType;
+        }
+
+        public void setDisplayType(TestDataTypeDisplayType displayType) {
+            _displayType = displayType;
+        }
+
         //The tests should be sorted in the order of - the lowest grade in the test followed by test data type id.
         //However if the test has subgroup data then the test should be followed by subgroup test.
         public int compareTo(TestToGrades testToGrades) {
@@ -610,31 +622,6 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 return TestScoresHelper.getGradeNum(getGrade()).compareTo(TestScoresHelper.getGradeNum(gradeToSubjects.getGrade()));
             }
             return 0;
-        }
-    }
-
-    public static class SubjectToTestValues implements Comparable<SubjectToTestValues> {
-        String _subjectLabel;
-        List<TestValues> _testValues;
-
-        public String getSubjectLabel() {
-            return _subjectLabel;
-        }
-
-        public void setSubjectLabel(String subjectLabel) {
-            _subjectLabel = subjectLabel;
-        }
-
-        public List<TestValues> getTestValues() {
-            return _testValues;
-        }
-
-        public void setTestValues(List<TestValues> testValues) {
-            _testValues = testValues;
-        }
-
-        public int compareTo(SubjectToTestValues subjectToTestValues) {
-            return getSubjectLabel().compareTo(subjectToTestValues.getSubjectLabel());
         }
     }
 
@@ -720,6 +707,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         public Integer _id;
         public String _label;
         public String _displayName;
+        public TestDataTypeDisplayType _displayType;
 
         public String getDisplayName() {
             return _displayName;
@@ -743,6 +731,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public void setLabel(String label) {
             _label = label;
+        }
+
+        public TestDataTypeDisplayType getDisplayType() {
+            return _displayType;
+        }
+
+        public void setDisplayType(TestDataTypeDisplayType displayType) {
+            _displayType = displayType;
         }
 
         public boolean equals(Object o) {

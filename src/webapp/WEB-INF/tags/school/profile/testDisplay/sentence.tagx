@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
+
+    <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
+        <c:if test="${loopCount.count lt 4}">
+            <!-- testValue.testScoreLabel is a processed version of testScoreStr.
+            For this test type we don't need any processing, so just use testScoreStr. -->
+            In ${testValue.year-1}-${testValue.year} this school was rated
+            <strong>"${testValue.testScoreStr}"</strong><c:if test="${loopCount.count eq 1}"> by the Texas Education Agency</c:if>.
+        </c:if>
+    </c:forEach>
+</jsp:root>
