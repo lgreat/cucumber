@@ -18,9 +18,9 @@
     <c:if test="${styleClass eq null}">
         <c:set var="styleClass" value="img iconx16 i-16-home-sales mrs"/>
     </c:if>
-    <c:set var="mobileFont" value=""/>
+    <c:set var="mobileFontUse" value=""/>
     <c:if test="${mobileFont eq null}">
-        <c:set var="mobileFont" value="small"/>
+        <c:set var="mobileFontUse" value="small"/>
     </c:if>
 
     <c:if test="${not isFramed or not isCobranded}">
@@ -35,7 +35,7 @@
 
         <div class="media skin-1">
         <span class="${styleClass} img mrs"><!-- icon --></span>
-        <a class="bd ${mobileFont} bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
+        <a class="bd ${mobileFontUse} bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
             <jsp:doBody/>
         </a>
         </div>
