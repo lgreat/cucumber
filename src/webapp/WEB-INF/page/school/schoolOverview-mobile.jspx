@@ -189,7 +189,7 @@ Android seems to require the address to be blank for the same behavior -->
 <mobile:share school="${school}"/>
 
 <c:if test="${requestScope.context.showRealtorDotComPromos}">
-    <gslink:realtorDotComLink address="${school.physicalAddress}" styleClass="iconx24 i-24-real-estate mhm" mobileFont="true">Nearby homes for sale</gslink:realtorDotComLink>
+    <gslink:realtorDotComLink address="${school.physicalAddress}" styleClass="iconx24 i-24-real-estate mhm" mobileFont="nullStyle">Nearby homes for sale</gslink:realtorDotComLink>
 </c:if>
 
 <c:if test="${hasTestScores}">
