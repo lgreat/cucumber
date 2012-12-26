@@ -84,7 +84,9 @@ General comments:
 .standard_1-1 .compareScroll{
     max-height: 200px; overflow-y: auto; position: relative;  overflow-x:hidden;
 }
-
+.standard_1-1 .bd input.height18 {
+    height:18px;
+}
 /*  ///////////////////
   used for the header map image
 */
