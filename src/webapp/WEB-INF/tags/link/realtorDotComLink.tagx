@@ -7,6 +7,7 @@
     <jsp:directive.attribute name="address" required="true" type="gs.data.util.Address"/>
     <jsp:directive.attribute name="customLinkSuffix" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="mobileFont" required="false" type="java.lang.String"/>
 
     <jsp:scriptlet>
         SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -16,6 +17,10 @@
 
     <c:if test="${styleClass eq null}">
         <c:set var="styleClass" value="img iconx16 i-16-home-sales mrs"/>
+    </c:if>
+    <c:set var="mobileFont" value=""/>
+    <c:if test="${mobileFont eq null}">
+        <c:set var="mobileFont" value="small"/>
     </c:if>
 
     <c:if test="${not isFramed or not isCobranded}">
@@ -28,13 +33,9 @@
             <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
         </c:if>
 
-        <!--
-        TODO-13614 Mitch, you might need to pass in another jsp:directive.attribute to key off of here
-        if the HTML/CSS for mobile is significantly different than for the places on the desktop site where this is used
-        -->
         <div class="media skin-1">
         <span class="${styleClass} img mrs"><!-- icon --></span>
-        <a class="bd small bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
+        <a class="bd ${mobileFont} bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
             <jsp:doBody/>
         </a>
         </div>
