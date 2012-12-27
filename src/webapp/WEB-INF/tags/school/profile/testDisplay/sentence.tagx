@@ -2,26 +2,39 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-    <!-- TODO-13589 / TODO-13610
+    <!-- TODO-13610 Need to remove/hide the grade level left nav from sentence display types. Be careful with affected JavaScript. -->
+    <!-- TODO-13610 The missing "About the tests" text and Source will appear once data team loads data into gs_schooldb.test_description. Display happens on profileTestScores.jspx. -->
 
-         Three years of test scores:
-         http://localhost:8080/texas/houston/3433-Houston-Gardens-Elementary-School/?tab=test-scores
-         http://www.greatschools.org/modperl/achievement/tx/3433
-
-         No test scores at all:
-         http://localhost:8080/texas/lewisville/19935-Lewisville-9th-10th-Grade-Center/?tab=test-scores
-         http://www.greatschools.org/modperl/achievement/tx/19935
-
-         Some test scores but no Accountability data:
-         http://localhost:8080/texas/lancaster/11810-Texas-Serenity-Academy/?tab=test-scores
-         http://www.greatschools.org/modperl/achievement/tx/11810
+    <!--
+    TODO-13589 / TODO-13610 TEMPORARY ONLY, to limit what data points show up. REMOVE ME WHEN THE FOLLOWING IS DONE:
+    Data team needs to deactivate test data sets for older years, or remove these tests from the desktop display target.
+    This is how we'll only display the correct number of years of data.
     -->
+    <jsp:scriptlet>
+    <![CDATA[
+        // 3 years only to simulate Perl code, until data team deactivates old test data sets or adjusts display target
+        java.util.List testValues = subjectToYears.getTestValues();
+        while (testValues.size() > 3) {
+            testValues.remove(3);
+        }
+    ]]>
+    </jsp:scriptlet>
 
-    <!-- TODO-13610 lib/perl/GS/TestScore/Display/SchoolGrade.pm -->
+    <!-- figure out if there's any data across the several years of test values -->
+    <c:set var="hasData" value="${false}"/>
+    <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
+        <c:set var="hasData" value="${hasData || testValue.hasData}"/>
+    </c:forEach>
+
+    <!-- For our reference, Perl code snippets are copied from www/lib/perl/GS/TestScore/Display/SchoolGrade.pm -->
+
+    <!-- testValue.testScoreLabel is a processed version of testScoreStr.
+         For this display type, we don't need any processing, so just use testScoreStr. -->
 
     <c:choose>
         <c:when test="${pageScope.state eq 'AZ'}">
@@ -33,6 +46,9 @@
                 "nogrades_at_all"=>"The Arizona Department of Education did not report AZ LEARNS results for this $lcentity.",
             },
             -->
+            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was designated [GRADE] by the Arizona Department of Education."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a rating in [SCHOOL_YEAR]."/>
+            <c:set var="noDataAtAllTemplate" value="The Arizona Department of Education did not report AZ LEARNS results for this school."/>
         </c:when>
         <c:when test="${pageScope.state eq 'FL'}">
             <!--
@@ -47,34 +63,53 @@
                 "lettergrade" => 1,
             },
             -->
+            <c:set var="withDataMostRecentYearTemplate" value="This school was given a grade of [GRADE] by the Florida Department of Education in [SCHOOL_YEAR]."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school received [GRADE]."/>
+            <c:set var="noDataMostRecentYearTemplate" value="This school did not receive a grade by the Florida Department of Education in [SCHOOL_YEAR]."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a grade in [SCHOOL_YEAR]."/>
+            <!-- TODO-13610 - Confirm with Ben/PM that this is okay: Perl template hard-coded most recent 3 school years. For simplicity, changed this to most recent school year only. -->
+            <c:set var="noDataAtAllTemplate" value="This school did not receive a grade in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:when>
         <c:when test="${pageScope.state eq 'MI'}">
             <!--
             "mi"=>{
-            "2008" => "This school was given a Composite Grade of  GRADE1 by the Michigan Department of Education in SCHOOLYEAR. ",
-            "nograde2008" => "This school did not receive a grade in SCHOOLYEAR.",
-            "nogrades_at_all"=>"This school did not receive a grade in 2007-2008.",
+                "2008" => "This school was given a Composite Grade of  GRADE1 by the Michigan Department of Education in SCHOOLYEAR. ",
+                "nograde2008" => "This school did not receive a grade in SCHOOLYEAR.",
+                "nogrades_at_all"=>"This school did not receive a grade in 2007-2008.",
             },
             -->
+            <c:set var="withDataMostRecentYearTemplate" value="This school was given a Composite Grade of [GRADE] by the Michigan Department of Education in [SCHOOL_YEAR]."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a grade in [SCHOOL_YEAR]."/>
+            <c:set var="noDataAtAllTemplate" value="This school did not receive a grade in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:when>
         <c:when test="${pageScope.state eq 'NC'}">
             <!--
             "nc"=>{
-            "2008"=>"This school received the designation of GRADE1 by the North Carolina Department of Public Instruction for the SCHOOLYEAR school year.",
-            "2007"=>"In SCHOOLYEAR, this school received the designation of GRADE2.",
-            "nograde2008" => "This school was not rated by the North Carolina Department of Public Instruction for the SCHOOLYEAR school year.",
-            "nograde2007" => "In SCHOOLYEAR, this school was not rated.",
-            "nogrades_at_all"=>"No ABCs data was reported for this $lcentity.",
+                "2008"=>"This school received the designation of GRADE1 by the North Carolina Department of Public Instruction for the SCHOOLYEAR school year.",
+                "2007"=>"In SCHOOLYEAR, this school received the designation of GRADE2.",
+                "nograde2008" => "This school was not rated by the North Carolina Department of Public Instruction for the SCHOOLYEAR school year.",
+                "nograde2007" => "In SCHOOLYEAR, this school was not rated.",
+                "nogrades_at_all"=>"No ABCs data was reported for this $lcentity.",
             },
             -->
+            <c:set var="withDataMostRecentYearTemplate" value="This school received the designation of [GRADE] by the North Carolina Department of Public Instruction for the [SCHOOL_YEAR] school year."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school received the designation of [GRADE]."/>
+            <c:set var="noDataMostRecentYearTemplate" value="This school was not rated by the North Carolina Department of Public Instruction for the [SCHOOL_YEAR] school year."/>
+            <c:set var="noDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was not rated."/>
+            <c:set var="noDataAtAllTemplate" value="No ABCs data was reported for this school."/>
         </c:when>
         <c:when test="${pageScope.state eq 'OH'}">
             <!--
             "oh"=>{
-            "2011"=>"In 2010-2011, this school received an Overall Rating of GRADE1.",
-            "nogrades_at_all"=>"No Value-Added data was reported for this $lcentity.",
+                "2011"=>"In 2010-2011, this school received an Overall Rating of GRADE1.",
+                "nogrades_at_all"=>"No Value-Added data was reported for this $lcentity.",
             },
             -->
+            <!--
+            TODO-13589 / TODO-13610 This is the overall rating that is displayed above the OH Value-Added Measure. Need to move out of this .tagx into ohValueAdded.tagx
+            -->
+            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school received an Overall Rating of [GRADE]."/>
+            <c:set var="noDataAtAllTemplate" value="No Value-Added data was reported for this school."/>
         </c:when>
         <c:when test="${pageScope.state eq 'TX'}">
             <!--
@@ -86,78 +121,99 @@
                 "nogrades_at_all"=>"This $lcentity did not receive a rating in 2010-2011.",
             },
             -->
-            <!--
-            TODO-13610 - currently, 2003-2004 thru 20010-2011 are all active. Data team needs to deactivate some.
-            For now, use this to hide the other years to simulate data team having deactivated the older data:
-            <c:if test="${loopCount.count lt 4}">...</c:if>
-
-            TX/11810
-            In 2010-2011 this school was rated "Data not available" by the Texas Education Agency.
-            In 2009-2010 this school was rated "Data not available".
-            In 2008-2009 this school was rated "Data not available".
-            In 2007-2008 this school was rated "Data not available".
-            In 2006-2007 this school was rated "Data not available".
-            In 2005-2006 this school was rated "Academically Unacceptable".
-            In 2004-2005 this school was rated "Data not available".
-            In 2003-2004 this school was rated "Data not available".
-            Prod:
-            This school did not receive a rating in 2010-2011.
-
-            TX/3433
-            In 2010-2011 this school was rated "Exemplary" by the Texas Education Agency.
-            In 2009-2010 this school was rated "Exemplary".
-            In 2008-2009 this school was rated "Exemplary".
-            In 2007-2008 this school was rated "Academically Acceptable".
-            In 2006-2007 this school was rated "Academically Acceptable".
-            In 2005-2006 this school was rated "Academically Unacceptable".
-            In 2004-2005 this school was rated "Academically Acceptable".
-            In 2003-2004 this school was rated "Academically Unacceptable".
-
-            Prod:
-            In 2010-2011 this school was rated "Exemplary" by the Texas Education Agency.
-            In 2009-2010, this school was rated "Exemplary".
-            In 2008-2009, this school was rated "Exemplary".
-
-            TX/19339
-            In 2010-2011 this school was rated "Recognized" by the Texas Education Agency.
-            In 2009-2010 this school was rated "Data not available".
-            In 2008-2009 this school was rated "Data not available".
-            In 2007-2008 this school was rated "Data not available".
-            In 2006-2007 this school was rated "Data not available".
-            In 2005-2006 this school was rated "Data not available".
-            In 2004-2005 this school was rated "Data not available".
-            In 2003-2004 this school was rated "Data not available".
-
-            Prod:
-            In 2010-2011 this school was rated "Recognized" by the Texas Education Agency.
-            This school did not receive a rating in 2009-2010.
-            This school did not receive a rating in 2008-2009.
-            -->
-            <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
-                <c:if test="${loopCount.count gt -1}">
-                    <!-- testValue.testScoreLabel is a processed version of testScoreStr.
-                    For this display type, we don't need any processing, so just use testScoreStr. -->
-                    In ${testValue.year-1}-${testValue.year} this school was rated
-                    <strong>"${testValue.testScoreStr}"</strong><c:if test="${loopCount.count eq 1}"> by the Texas Education Agency</c:if>.
-                </c:if>
-            </c:forEach>
+            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE] by the Texas Education Agency."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a rating in [SCHOOL_YEAR]."/>
+            <c:set var="noDataAtAllTemplate" value="This school did not receive a rating in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:when>
         <c:when test="${pageScope.state eq 'VA'}">
             <!--
             "va"=>{
-            "2010"=>"This $lcentity was rated GRADE1 by the Virginia Department of Education for the SCHOOLYEAR school year. ",
-            "2009"=>"In SCHOOLYEAR, this $lcentity was rated as GRADE2.",
-            "2008"=>"In SCHOOLYEAR, this $lcentity was rated as GRADE2.",
-            "nograde2010" => "No accreditation rating was reported by the Virginia Department of Education for this $lcentity for the SCHOOLYEAR school year.",
-            "nograde2009" => "No accreditation rating was reported for this $lcentity for the SCHOOLYEAR school year.",
-            "nograde2008" => "No accreditation rating was reported for this $lcentity for the SCHOOLYEAR school year.",
-            "nogrades_at_all"=>"No accreditation rating data was reported for this $lcentity.",
+                "2010"=>"This $lcentity was rated GRADE1 by the Virginia Department of Education for the SCHOOLYEAR school year. ",
+                "2009"=>"In SCHOOLYEAR, this $lcentity was rated as GRADE2.",
+                "2008"=>"In SCHOOLYEAR, this $lcentity was rated as GRADE2.",
+                "nograde2010" => "No accreditation rating was reported by the Virginia Department of Education for this $lcentity for the SCHOOLYEAR school year.",
+                "nograde2009" => "No accreditation rating was reported for this $lcentity for the SCHOOLYEAR school year.",
+                "nograde2008" => "No accreditation rating was reported for this $lcentity for the SCHOOLYEAR school year.",
+                "nogrades_at_all"=>"No accreditation rating data was reported for this $lcentity.",
             },
             -->
+            <c:set var="withDataMostRecentYearTemplate" value="This school was rated [GRADE] by the Virginia Department of Education for the [SCHOOL_YEAR] school year."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was rated as [GRADE]."/>
+            <c:set var="noDataMostRecentYearTemplate" value="No accreditation rating was reported by the Virginia Department of Education for this school for the [SCHOOL_YEAR] school year."/>
+            <c:set var="noDataSpecificYearTemplate" value="No accreditation rating was reported for this school for the [SCHOOL_YEAR] school year."/>
+            <c:set var="noDataAtAllTemplate" value="No accreditation rating data was reported for this school."/>
         </c:when>
         <c:otherwise>
-            <!-- TODO-13610 default -->
+            <!-- TODO-13610 get default wording from Ben/PM -->
+            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a rating in [SCHOOL_YEAR]."/>
+            <c:set var="noDataAtAllTemplate" value="This school did not receive a rating in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:otherwise>
     </c:choose>
+
+    <!--
+    AZ has no: withDataSpecificYearTemplate, noDataMostRecentYearTemplate
+    TX has no: noDataMostRecentYearTemplate
+    -->
+
+    <!--
+    For debugging only:
+    <strong>REQUIRED:</strong> withDataMostRecentYearTemplate: ${withDataMostRecentYearTemplate}<br/>
+    <strong>OPTIONAL:</strong> withDataSpecificYearTemplate: ${withDataSpecificYearTemplate}<br/>
+    <strong>OPTIONAL:</strong> noDataMostRecentYearTemplate: ${noDataMostRecentYearTemplate}<br/>
+    <strong>REQUIRED:</strong> noDataSpecificYearTemplate: ${noDataSpecificYearTemplate}<br/>
+    <strong>REQUIRED:</strong> noDataAtAllTemplate: ${noDataAtAllTemplate}<br/>
+    -->
+
+    <!-- check for required variables -->
+    <c:if test="${not empty withDataMostRecentYearTemplate and not empty noDataSpecificYearTemplate and not empty noDataAtAllTemplate}">
+
+        <!-- generate and display the output using state-specific templates and values -->
+        <c:choose>
+            <c:when test="${hasData}">
+                <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
+                    <c:set var="schoolYear" value="${testValue.year-1}-${testValue.year}"/>
+                    <c:set var="grade"><strong>&amp;quot;${testValue.testScoreStr}&amp;quot;</strong></c:set>
+                    <c:set var="isMostRecentYear" value="${loopCount.count eq 1}"/>
+
+                    <c:choose>
+                        <c:when test="${testValue.hasData}">
+                            <c:choose>
+                                <c:when test="${isMostRecentYear}">
+                                    ${fn:replace(fn:replace(withDataMostRecentYearTemplate,'[SCHOOL_YEAR]', schoolYear), '[GRADE]', grade)}
+                                </c:when>
+                                <c:when test="${not empty withDataSpecificYearTemplate}">
+                                    ${fn:replace(fn:replace(withDataSpecificYearTemplate,'[SCHOOL_YEAR]', schoolYear), '[GRADE]', grade)}
+                                </c:when>
+                                <!-- withDataSpecificYearTemplate is optional, so display nothing if it's provided -->
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                <c:when test="${isMostRecentYear and not empty noDataMostRecentYearTemplate}">
+                                    ${fn:replace(noDataMostRecentYearTemplate,'[SCHOOL_YEAR]', schoolYear)}
+                                </c:when>
+                                <!-- noDataMostRecentYearTemplate is optional, so noDataSpecificYearTemplate is the fallback for most recent year -->
+                                <c:otherwise>
+                                    ${fn:replace(noDataSpecificYearTemplate,'[SCHOOL_YEAR]', schoolYear)}
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <c:if test="${fn:length(pageScope.subjectToYears.testValues) > 0}">
+                    <c:set var="endYear" value="${pageScope.subjectToYears.testValues[0].year}"/>
+                    <c:set var="startYear" value="${endYear - 1}"/>
+                    <c:set var="mostRecentSchoolYear" value="${startYear}-${endYear}"/>
+                    ${fn:replace(noDataAtAllTemplate,'[MOST_RECENT_SCHOOL_YEAR]', mostRecentSchoolYear)}
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+
+    </c:if>
 
 </jsp:root>

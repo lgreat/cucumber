@@ -685,6 +685,10 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             _breakdownSortOrder = breakdownSortOrder;
         }
 
+        public boolean getHasData() {
+            return (!StringUtils.equals(LABEL_DATA_NOT_AVAILABLE, _testScoreStr));
+        }
+
         //For subgroup data , the sort order is based on the subgroup's(breakdown) sort order.
         //For non-subgroup data, the sort order is based on the year.
         public int compareTo(TestValues testValues) {

@@ -5,6 +5,18 @@
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
 
-    <!-- TODO-13589 -->
+    <!-- TODO-13589
+    http://localhost:8080/ohio/columbus/5049-International-Academy-Of-Columbus/?tab=test-scores
+    http://www.greatschools.org/modperl/achievement/oh/5049#toc
+    -->
+    ${subjectToYears.subjectLabel}<br/>
+
+    <!-- TODO-13589 the text at the top, e.g. "In 2010-2011, this school received an Overall Rating of "Met Expected Growth"."
+         needs to be moved from sentence.tagx to here.
+    -->
+
+    <!-- TODO-13589 Need to remove/hide the grade level left nav from sentence display types. Be careful with affected JavaScript. -->
+
+    <!-- TODO-13589 All grades need to be shown together on the same view, unlike for other tests. Need to restructure profileTestScores.jspx for this. -->
 
 </jsp:root>
