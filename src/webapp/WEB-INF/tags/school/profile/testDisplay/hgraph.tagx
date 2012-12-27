@@ -5,6 +5,9 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
+    <jsp:directive.attribute name="maxValue" type="java.lang.Integer" required="true"/>
+
+    <!-- TODO-13589 front-end code needed to use maxValue. Possible values so far: 100 and 120 -->
 
     <c:set var="scoresContent">
         <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}"

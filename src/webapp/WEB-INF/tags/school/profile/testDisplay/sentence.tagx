@@ -4,13 +4,113 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
+    <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-    <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
-        <c:if test="${loopCount.count lt 4}">
-            <!-- testValue.testScoreLabel is a processed version of testScoreStr.
-            For this test type we don't need any processing, so just use testScoreStr. -->
-            In ${testValue.year-1}-${testValue.year} this school was rated
-            <strong>"${testValue.testScoreStr}"</strong><c:if test="${loopCount.count eq 1}"> by the Texas Education Agency</c:if>.
-        </c:if>
-    </c:forEach>
+    <!-- TODO-13589 / TODO-13610
+
+         Three years of test scores:
+         http://localhost:8080/texas/houston/3433-Houston-Gardens-Elementary-School/?tab=test-scores
+         http://www.greatschools.org/modperl/achievement/tx/3433
+
+         No test scores at all:
+         http://localhost:8080/texas/lewisville/19935-Lewisville-9th-10th-Grade-Center/?tab=test-scores
+         http://www.greatschools.org/modperl/achievement/tx/19935
+
+         Some test scores but no Accountability data:
+         http://localhost:8080/texas/lancaster/11810-Texas-Serenity-Academy/?tab=test-scores
+         http://www.greatschools.org/modperl/achievement/tx/11810
+    -->
+
+    <!-- TODO-13610 lib/perl/GS/TestScore/Display/SchoolGrade.pm -->
+
+    <c:choose>
+        <c:when test="${pageScope.state eq 'AZ'}">
+            <!--
+            "az"=>{
+                "2010"=>"In SCHOOLYEAR this $lcentity was designated GRADE1 by the Arizona Department of Education. ",
+                #"2006"=>"In SCHOOLYEAR this $lcentity was designated GRADE1 by the Arizona Department of Education. ",
+                "nograde" => "This $lcentity did not receive a rating in SCHOOLYEAR. ",
+                "nogrades_at_all"=>"The Arizona Department of Education did not report AZ LEARNS results for this $lcentity.",
+            },
+            -->
+        </c:when>
+        <c:when test="${pageScope.state eq 'FL'}">
+            <!--
+            "fl"=>{
+                "2011"=>"This $lcentity was given a grade of GRADE1 by the Florida Department of Education in SCHOOLYEAR. ",
+                "2010"=>"In SCHOOLYEAR, this $lcentity received GRADE2.",
+                "2009"=>"In SCHOOLYEAR, this $lcentity received GRADE2.",
+                "nograde2011" => "This $lcentity did not receive a grade by the Florida Department of Education in SCHOOLYEAR. ",
+                "nograde2010" => "This $lcentity did not receive a grade in SCHOOLYEAR. ",
+                "nograde2009" => "This $lcentity did not receive a grade in SCHOOLYEAR. ",
+                "nogrades_at_all"=>"This $lcentity did not receive a grade in 2008-2009, 2009-2010 or 2010-2011.",
+                "lettergrade" => 1,
+            },
+            -->
+        </c:when>
+        <c:when test="${pageScope.state eq 'MI'}">
+            <!--
+            "mi"=>{
+            "2008" => "This school was given a Composite Grade of  GRADE1 by the Michigan Department of Education in SCHOOLYEAR. ",
+            "nograde2008" => "This school did not receive a grade in SCHOOLYEAR.",
+            "nogrades_at_all"=>"This school did not receive a grade in 2007-2008.",
+            },
+            -->
+        </c:when>
+        <c:when test="${pageScope.state eq 'NC'}">
+            <!--
+            "nc"=>{
+            "2008"=>"This school received the designation of GRADE1 by the North Carolina Department of Public Instruction for the SCHOOLYEAR school year.",
+            "2007"=>"In SCHOOLYEAR, this school received the designation of GRADE2.",
+            "nograde2008" => "This school was not rated by the North Carolina Department of Public Instruction for the SCHOOLYEAR school year.",
+            "nograde2007" => "In SCHOOLYEAR, this school was not rated.",
+            "nogrades_at_all"=>"No ABCs data was reported for this $lcentity.",
+            },
+            -->
+        </c:when>
+        <c:when test="${pageScope.state eq 'OH'}">
+            <!--
+            "oh"=>{
+            "2011"=>"In 2010-2011, this school received an Overall Rating of GRADE1.",
+            "nogrades_at_all"=>"No Value-Added data was reported for this $lcentity.",
+            },
+            -->
+        </c:when>
+        <c:when test="${pageScope.state eq 'TX'}">
+            <!--
+            "tx"=>{
+                "2011"=>"In SCHOOLYEAR this $lcentity was rated GRADE1 by the Texas Education Agency. ",
+                "2010"=>"In SCHOOLYEAR, this $lcentity was rated GRADE2.",
+                "2009"=>"In SCHOOLYEAR, this $lcentity was rated GRADE2.",
+                "nograde" => "This $lcentity did not receive a rating in SCHOOLYEAR. ",
+                "nogrades_at_all"=>"This $lcentity did not receive a rating in 2010-2011.",
+            },
+            -->
+            <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
+                <c:if test="${loopCount.count lt 4}">
+                    <!-- testValue.testScoreLabel is a processed version of testScoreStr.
+                    For this display type, we don't need any processing, so just use testScoreStr. -->
+                    In ${testValue.year-1}-${testValue.year} this school was rated
+                    <strong>"${testValue.testScoreStr}"</strong><c:if test="${loopCount.count eq 1}"> by the Texas Education Agency</c:if>.
+                </c:if>
+            </c:forEach>
+        </c:when>
+        <c:when test="${pageScope.state eq 'VA'}">
+            <!--
+            "va"=>{
+            "2010"=>"This $lcentity was rated GRADE1 by the Virginia Department of Education for the SCHOOLYEAR school year. ",
+            "2009"=>"In SCHOOLYEAR, this $lcentity was rated as GRADE2.",
+            "2008"=>"In SCHOOLYEAR, this $lcentity was rated as GRADE2.",
+            "nograde2010" => "No accreditation rating was reported by the Virginia Department of Education for this $lcentity for the SCHOOLYEAR school year.",
+            "nograde2009" => "No accreditation rating was reported for this $lcentity for the SCHOOLYEAR school year.",
+            "nograde2008" => "No accreditation rating was reported for this $lcentity for the SCHOOLYEAR school year.",
+            "nogrades_at_all"=>"No accreditation rating data was reported for this $lcentity.",
+            },
+            -->
+        </c:when>
+        <c:otherwise>
+            <!-- TODO-13610 default -->
+        </c:otherwise>
+    </c:choose>
+
 </jsp:root>

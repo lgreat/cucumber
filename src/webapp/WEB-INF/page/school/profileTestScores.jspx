@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:testDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/testDisplay"
         >
@@ -56,20 +57,22 @@
                                     <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
                                          style="display: none" class="js_subjects">
                                         <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                                            <c:set var="scalesUsed" value=""/>
                                             <c:choose>
                                                 <c:when test="${testToGrades.displayType eq 'sentence'}">
-                                                    <c:set var="scalesUsed" value="" />
-                                                    <testDisplay:sentence subjectToYears="${subjectToYears}" />
+                                                    <testDisplay:sentence subjectToYears="${subjectToYears}" state="${school.databaseState}" />
                                                 </c:when>
                                                 <c:when test="${testToGrades.isSubgroup}">
-                                                    <c:set var="scalesUsed" value=""/>
                                                     <testDisplay:subgroup subjectToYears="${subjectToYears}" />
                                                 </c:when>
-                                                <c:otherwise>
+                                                <c:when test="${fn:startsWith(testToGrades.displayType, 'hgraph')}">
                                                     <c:set var="scalesUsed">
                                                         <div class="smaller fr">Scale:${testToGrades.scale}</div>
                                                     </c:set>
-                                                    <testDisplay:hgraph subjectToYears="${subjectToYears}" />
+                                                    <testDisplay:hgraph subjectToYears="${subjectToYears}" maxValue="${testToGrades.displayType.maxValue}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <!-- not showing test data type id ${testToGrades.testDataTypeId} because display type ${testToGrades.displayType} not supported -->
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
