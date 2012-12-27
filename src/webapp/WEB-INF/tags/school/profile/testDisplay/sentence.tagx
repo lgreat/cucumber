@@ -86,8 +86,55 @@
                 "nogrades_at_all"=>"This $lcentity did not receive a rating in 2010-2011.",
             },
             -->
+            <!--
+            TODO-13610 - currently, 2003-2004 thru 20010-2011 are all active. Data team needs to deactivate some.
+            For now, use this to hide the other years to simulate data team having deactivated the older data:
+            <c:if test="${loopCount.count lt 4}">...</c:if>
+
+            TX/11810
+            In 2010-2011 this school was rated "Data not available" by the Texas Education Agency.
+            In 2009-2010 this school was rated "Data not available".
+            In 2008-2009 this school was rated "Data not available".
+            In 2007-2008 this school was rated "Data not available".
+            In 2006-2007 this school was rated "Data not available".
+            In 2005-2006 this school was rated "Academically Unacceptable".
+            In 2004-2005 this school was rated "Data not available".
+            In 2003-2004 this school was rated "Data not available".
+            Prod:
+            This school did not receive a rating in 2010-2011.
+
+            TX/3433
+            In 2010-2011 this school was rated "Exemplary" by the Texas Education Agency.
+            In 2009-2010 this school was rated "Exemplary".
+            In 2008-2009 this school was rated "Exemplary".
+            In 2007-2008 this school was rated "Academically Acceptable".
+            In 2006-2007 this school was rated "Academically Acceptable".
+            In 2005-2006 this school was rated "Academically Unacceptable".
+            In 2004-2005 this school was rated "Academically Acceptable".
+            In 2003-2004 this school was rated "Academically Unacceptable".
+
+            Prod:
+            In 2010-2011 this school was rated "Exemplary" by the Texas Education Agency.
+            In 2009-2010, this school was rated "Exemplary".
+            In 2008-2009, this school was rated "Exemplary".
+
+            TX/19339
+            In 2010-2011 this school was rated "Recognized" by the Texas Education Agency.
+            In 2009-2010 this school was rated "Data not available".
+            In 2008-2009 this school was rated "Data not available".
+            In 2007-2008 this school was rated "Data not available".
+            In 2006-2007 this school was rated "Data not available".
+            In 2005-2006 this school was rated "Data not available".
+            In 2004-2005 this school was rated "Data not available".
+            In 2003-2004 this school was rated "Data not available".
+
+            Prod:
+            In 2010-2011 this school was rated "Recognized" by the Texas Education Agency.
+            This school did not receive a rating in 2009-2010.
+            This school did not receive a rating in 2008-2009.
+            -->
             <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
-                <c:if test="${loopCount.count lt 4}">
+                <c:if test="${loopCount.count gt -1}">
                     <!-- testValue.testScoreLabel is a processed version of testScoreStr.
                     For this display type, we don't need any processing, so just use testScoreStr. -->
                     In ${testValue.year-1}-${testValue.year} this school was rated

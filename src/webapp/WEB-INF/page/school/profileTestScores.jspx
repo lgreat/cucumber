@@ -62,6 +62,9 @@
                                                 <c:when test="${testToGrades.displayType eq 'sentence'}">
                                                     <testDisplay:sentence subjectToYears="${subjectToYears}" state="${school.databaseState}" />
                                                 </c:when>
+                                                <c:when test="${testToGrades.displayType eq 'oh_value_added'}">
+                                                    <testDisplay:ohValueAdded subjectToYears="${subjectToYears}" />
+                                                </c:when>
                                                 <c:when test="${testToGrades.isSubgroup}">
                                                     <testDisplay:subgroup subjectToYears="${subjectToYears}" />
                                                 </c:when>
