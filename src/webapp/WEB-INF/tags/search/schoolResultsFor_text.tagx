@@ -42,7 +42,7 @@
     </c:if>
 
     <c:if test="${commandAndFields.cityBrowse}">
-        <h1 class="bottom" id="js_seoTitle">
+        <h1 class="bottom" id="js_seoTitle" style="width: 500px;">
             <c:choose>
                 <c:when test="${not empty seoTitle}">
                     ${seoTitle} in ${schoolResultsFor}
