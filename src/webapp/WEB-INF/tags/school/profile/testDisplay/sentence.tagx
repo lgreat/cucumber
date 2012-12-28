@@ -170,6 +170,14 @@
     <!-- check for required variables -->
     <c:if test="${not empty withDataMostRecentYearTemplate and not empty noDataSpecificYearTemplate and not empty noDataAtAllTemplate}">
 
+        <c:set var="isMultiSentenceWithData" value="${fn:length(pageScope.subjectToYears.testValues) > 1 and hasData}"/>
+
+        <c:if test="${isMultiSentenceWithData}">
+            <![CDATA[
+                    <ul>
+            ]]>
+        </c:if>
+
         <!-- generate and display the output using state-specific templates and values -->
         <c:choose>
             <c:when test="${hasData}">
@@ -177,6 +185,12 @@
                     <c:set var="schoolYear" value="${testValue.year-1}-${testValue.year}"/>
                     <c:set var="grade"><strong>&amp;quot;${testValue.testScoreStr}&amp;quot;</strong></c:set>
                     <c:set var="isMostRecentYear" value="${loopCount.count eq 1}"/>
+
+                    <c:if test="${isMultiSentenceWithData}">
+                        <![CDATA[
+                            <li>
+                        ]]>
+                    </c:if>
 
                     <c:choose>
                         <c:when test="${testValue.hasData}">
@@ -202,6 +216,12 @@
                             </c:choose>
                         </c:otherwise>
                     </c:choose>
+
+                    <c:if test="${isMultiSentenceWithData}">
+                        <![CDATA[
+                            </li>
+                        ]]>
+                    </c:if>
                 </c:forEach>
             </c:when>
             <c:otherwise>
@@ -213,6 +233,12 @@
                 </c:if>
             </c:otherwise>
         </c:choose>
+
+        <c:if test="${isMultiSentenceWithData}">
+            <![CDATA[
+                    </ul>
+            ]]>
+        </c:if>
 
     </c:if>
 
