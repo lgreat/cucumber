@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="customLinkSuffix" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="mobileFont" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="omniturePageName" required="false" type="java.lang.String"/>
 
     <jsp:scriptlet>
         SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -18,18 +19,21 @@
     <c:if test="${styleClass eq null}">
         <c:set var="styleClass" value="img iconx16 i-16-home-sales mrs"/>
     </c:if>
+    <c:if test="${omniturePageName eq null}">
+        <c:set var="omniturePageName" value="${requestScope.omniturePageName}"/>
+    </c:if>
     <c:set var="mobileFontUse" value=""/>
     <c:if test="${mobileFont eq null}">
         <c:set var="mobileFontUse" value="small"/>
     </c:if>
 
     <c:if test="${not isFramed or not isCobranded}">
-        <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelink"/>
+        <c:set var="customLinkValue" value="RealtorModule_${omniturePageName}_inlinelink"/>
         <c:if test="${not empty customLinkSuffix}">
-            <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_${customLinkSuffix}"/>
+            <c:set var="customLinkValue" value="RealtorModule_${omniturePageName}_${customLinkSuffix}"/>
         </c:if>
         <c:set var="onclick" value=""/>
-        <c:if test="${not empty requestScope.omniturePageName}">
+        <c:if test="${not empty omniturePageName}">
             <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
         </c:if>
 

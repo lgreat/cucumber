@@ -415,7 +415,7 @@
                 </c:if>
                 <c:if test="${requestScope.context.showRealtorDotComPromos}">
                     <gslink:realtorDotComLink address="${school.physicalAddress}"
-                                              customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
+                                              customLinkSuffix="inlinelinkheader" omniturePageName="${pageName}">Nearby homes for sale</gslink:realtorDotComLink>
                 </c:if>
             </p>
 
