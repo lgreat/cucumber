@@ -69,6 +69,14 @@
                                                             <testDisplay:ohValueAdded
                                                                     subjectToYears="${subjectToYears}"/>
                                                         </c:when>
+                                                        <c:when test="${fn:startsWith(testToGrades.displayType, 'ca_api')'}">
+                                                            <testDisplay:caApi
+                                                                    subjectToYears="${subjectToYears}"/>
+                                                        </c:when>
+                                                        <c:when test="${fn:startsWith(testToGrades.displayType, 'nyc_progress_report')'}">
+                                                            <testDisplay:nycProgressReport
+                                                                    subjectToYears="${subjectToYears}"/>
+                                                        </c:when>
                                                         <c:when test="${testToGrades.isSubgroup}">
                                                             <testDisplay:subgroup subjectToYears="${subjectToYears}"/>
                                                         </c:when>
