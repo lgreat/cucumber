@@ -19,7 +19,7 @@
                         </label>
                         <select id="js_testSelect">
                             <c:forEach var="testToGrades" items="${testScores}">
-                                <option class="${testToGrades.displayType eq 'sentence' ? 'js_hideGrades' : ''}"
+                                <option class="${testToGrades.hideGradesNav ? 'js_hideGrades' : ''}"
                                         value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">
                                     ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by subgroup' : ''}
                                 </option>
@@ -86,7 +86,9 @@
                                                                 <div class="smaller fr">Scale:${testToGrades.scale}</div>
                                                             </c:set>
                                                             <testDisplay:hgraph subjectToYears="${subjectToYears}"
-                                                                                maxValue="${testToGrades.displayType.maxValue}"/>
+                                                                                maxValue="${testToGrades.displayType.maxValue}"
+                                                                                hideSubject="${testToGrades.hideSubject}"
+                                                                    />
                                                         </c:when>
                                                         <c:otherwise>
                                                             <!-- not showing test data type id ${testToGrades.testDataTypeId} because display type ${testToGrades.displayType} not supported -->

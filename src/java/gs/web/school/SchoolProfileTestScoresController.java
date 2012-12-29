@@ -478,6 +478,17 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         String _displayName;
         TestDataTypeDisplayType _displayType;
 
+        public static int OHIO_PERFORMANCE_INDEX_DATA_TYPE_ID = 64;
+
+        public boolean isHideGradesNav() {
+            return _displayType == TestDataTypeDisplayType.sentence ||
+                   _testDataTypeId == OHIO_PERFORMANCE_INDEX_DATA_TYPE_ID;
+        }
+
+        public boolean isHideSubject() {
+            return _testDataTypeId == OHIO_PERFORMANCE_INDEX_DATA_TYPE_ID;
+        }
+
         public String getDisplayName() {
             return _displayName;
         }

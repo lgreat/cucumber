@@ -6,8 +6,10 @@
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
     <jsp:directive.attribute name="maxValue" type="java.lang.Integer" required="true"/>
+    <jsp:directive.attribute name="hideSubject" type="java.lang.Boolean" required="true"/>
 
     <!-- TODO-13589 front-end code needed to use maxValue. Possible values so far: 100 and 120 -->
+    <!-- TODO-13589 front-end code tweaks needed around where hideSubject is used; this is true for OH Performance Index -->
 
     <c:set var="scoresContent">
         <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}"
@@ -50,12 +52,14 @@
         <div class="inner">
             <div class="bd">
                 <div class="line">
-                    <div class="unit size35of100 pam">
-                        <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
-                        <c:if test="${stateAvg != dataNAText}">
-                            <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
-                        </c:if>
-                    </div>
+                    <c:if test="${!hideSubject}">
+                        <div class="unit size35of100 pam">
+                            <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
+                            <c:if test="${stateAvg != dataNAText}">
+                                <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                            </c:if>
+                        </div>
+                    </c:if>
                     <div class="unit size62of100 lastUnit pam">
                         <c:out value="${scoresContent}"
                                escapeXml="false"/>
