@@ -423,6 +423,7 @@ jQuery(document).ready(function() {
     var gradeLabel = testScoresGrades.find('.js_grade');
     var testScoresValues = $('#js_testScoresValues');
     var subjectContent = testScoresValues.find('.js_subjects');
+    var specialTestsContent = testScoresValues.find('.js_specialTests');
     if (testsMenu.length === 1 && testScoresGrades.length === 1 && testScoresValues.length === 1) {
         testsMenu.on('change', function(e) {
             var select = e.target;
@@ -436,12 +437,18 @@ jQuery(document).ready(function() {
             testScoresGrades.find('.js_grades').hide();
             subjectContent.hide();
 
+            //Hide special tests
+            specialTestsContent.hide();
+
             //Show the grades for the test.
             $('#js_' + testSelected + '_grades').show();
 
             //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
             var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
             firstGradeToSelect.trigger('click');
+
+            //Show special test if it's selected
+            $('#js_' + testSelected).show();
 
             if (hideGrades) {
                 $('#js_testScoresGrades').removeClass('grid_4').addClass('hide');

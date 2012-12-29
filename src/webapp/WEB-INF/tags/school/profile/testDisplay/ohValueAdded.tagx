@@ -2,21 +2,134 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
-    <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
+    <jsp:directive.attribute name="testToGrades" type="gs.web.school.test.TestToGrades" required="true"/>
 
-    <!-- TODO-13589
-    http://localhost:8080/ohio/columbus/5049-International-Academy-Of-Columbus/?tab=test-scores
-    http://www.greatschools.org/modperl/achievement/oh/5049#toc
-    -->
-    ${subjectToYears.subjectLabel}<br/>
+    <!-- whether or not test data was found for the first test value (i.e. most recent year) in any grade-subject combo -->
+    <c:set var="foundData" value="${false}"/>
 
-    <!-- TODO-13589 the text at the top, e.g. "In 2010-2011, this school received an Overall Rating of "Met Expected Growth"."
-         needs to be moved from sentence.tagx to here.
-    -->
+    <!-- whether or not to show debug data -->
+    <c:set var="showDebugData" value="${debug eq 'ohValueAdded'}"/>
+    <!-- initialize debug data; to be appended to later -->
+    <c:set var="debugData" value=""/>
 
-    <!-- TODO-13589 Need to remove/hide the grade level left nav from sentence display types. Be careful with affected JavaScript. -->
+    <!-- build up the table to display and set variables for later use, but don't display table yet because we might need to hide it -->
+    <c:set var="ohValueAddedTable">
+        <table>
 
-    <!-- TODO-13589 All grades need to be shown together on the same view, unlike for other tests. Need to restructure profileTestScores.jspx for this. -->
+            <tr>
+                <th>Grade</th>
+                <th>Subject</th>
+                <th>Above</th>
+                <th>Met</th>
+                <th>Below</th>
+            </tr>
+
+            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+
+                <!-- loop through all data to see if there is any to show, and build up debug data -->
+                <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                    <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
+                    <c:set var="foundData" value="${foundData or mostRecentTestValue.hasData}"/>
+
+                    <!-- for debugging only: -->
+                    <c:if test="${showDebugData}">
+                        <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
+                            <c:set var="schoolYear" value="${testValue.year-1}-${testValue.year}"/>
+                            <c:set var="rating">${testValue.testScoreStr}</c:set>
+                            <c:set var="debugData">
+                                ${debugData}
+                                ${gradeToSubjects.grade.name}: ${subjectToYears.subjectLabel}: ${schoolYear}: ${rating}
+                                <br/>
+                            </c:set>
+                        </c:forEach>
+                    </c:if>
+                </c:forEach>
+
+                <c:choose>
+
+                    <!-- set variables for showing overall rating (the sentence above the table) -->
+                    <c:when test="${gradeToSubjects.grade.name eq 'All'}">
+                        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                            <c:if test="${subjectToYears.subjectLabel eq 'All Subjects' and
+                                              fn:length(subjectToYears.testValues) > 0}">
+                                <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
+                                <c:set var="overallSchoolYear"
+                                       value="${mostRecentTestValue.year-1}-${mostRecentTestValue.year}"/>
+                                <c:set var="overallRating" value="${mostRecentTestValue.testScoreStr}"/>
+                            </c:if>
+                        </c:forEach>
+                    </c:when>
+
+                    <!-- generate table row for grade-subject data -->
+                    <c:otherwise>
+
+                        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                            <c:if test="${fn:length(subjectToYears.testValues) > 0}">
+                                <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
+                                <c:set var="rating" value="${mostRecentTestValue.testScoreStr}"/>
+
+                                <c:choose>
+                                    <c:when test="${subjectToYears.subjectLabel eq 'Reading'}">
+                                        <c:set var="readingRating" value="${rating}"/>
+                                    </c:when>
+                                    <c:when test="${subjectToYears.subjectLabel eq 'Math'}">
+                                        <c:set var="mathRating" value="${rating}"/>
+                                    </c:when>
+                                </c:choose>
+                            </c:if>
+                        </c:forEach>
+
+                        <tr>
+                            <td rowspan="2">${gradeToSubjects.grade.name}</td>
+                            <td>Reading</td>
+                            <td>${readingRating eq 'Above' ? 'X' : ''}</td>
+                            <td>${readingRating eq 'Met' ? 'X' : ''}</td>
+                            <td>${readingRating eq 'Below' ? 'X' : ''}</td>
+                        </tr>
+                        <tr>
+                            <td>Math</td>
+                            <td>${mathRating eq 'Above' ? 'X' : ''}</td>
+                            <td>${mathRating eq 'Met' ? 'X' : ''}</td>
+                            <td>${mathRating eq 'Below' ? 'X' : ''}</td>
+                        </tr>
+
+                    </c:otherwise>
+
+                </c:choose>
+
+            </c:forEach>
+
+        </table>
+    </c:set>
+
+    <!-- show appropriate overall intro message / overall rating -->
+    <c:choose>
+        <c:when test="${foundData}">
+            <p>In ${overallSchoolYear}, this school received an Overall Rating of
+                <strong>&amp;quot;${overallRating} Expected Growth&amp;quot;</strong>.</p>
+
+            ${ohValueAddedTable}
+        </c:when>
+        <c:otherwise>
+            <p>No Value-Added data was reported for this school.</p>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- for debugging only: -->
+    <c:if test="${showDebugData}">
+        ${debugData}
+    </c:if>
+
+    <!-- test source -->
+    <div class="mtl small quiet fr"><strong>Source:</strong> ${testToGrades.source}</div>
+
+    <!-- test description -->
+    <div class="clearfloat"><!-- not empty --></div>
+    <h4 class="pbn mbs">About the ${testToGrades.displayName}</h4>
+    <hr class="keyline1"/>
+    <div class="clear mbl"><!-- do not collapse --></div>
+    <p class="quiet">${testToGrades.description}</p>
 
 </jsp:root>

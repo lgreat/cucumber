@@ -4,11 +4,6 @@ import gs.web.school.SchoolProfileTestScoresController;
 
 import java.util.List;
 
-/**
-* Created 12/22/12
-*
-* @author yfan@greatschools.org
-*/
 public class SubjectToTestValues implements Comparable<SubjectToTestValues> {
     String _subjectLabel;
     List<SchoolProfileTestScoresController.TestValues> _testValues;

@@ -7,9 +7,6 @@
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-    <!-- TODO-13610 Need to remove/hide the grade level left nav from sentence display types. Be careful with affected JavaScript. -->
-    <!-- TODO-13610 The missing "About the tests" text and Source will appear once data team loads data into gs_schooldb.test_description. Display happens on profileTestScores.jspx. -->
-
     <!--
     TODO-13589 / TODO-13610 TEMPORARY ONLY, to limit what data points show up. REMOVE ME WHEN THE FOLLOWING IS DONE:
     Data team needs to deactivate test data sets for older years, or remove these tests from the desktop display target.
@@ -97,19 +94,6 @@
             <c:set var="noDataMostRecentYearTemplate" value="This school was not rated by the North Carolina Department of Public Instruction for the [SCHOOL_YEAR] school year."/>
             <c:set var="noDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was not rated."/>
             <c:set var="noDataAtAllTemplate" value="No ABCs data was reported for this school."/>
-        </c:when>
-        <c:when test="${pageScope.state eq 'OH'}">
-            <!--
-            "oh"=>{
-                "2011"=>"In 2010-2011, this school received an Overall Rating of GRADE1.",
-                "nogrades_at_all"=>"No Value-Added data was reported for this $lcentity.",
-            },
-            -->
-            <!--
-            TODO-13589 / TODO-13610 This is the overall rating that is displayed above the OH Value-Added Measure. Need to move out of this .tagx into ohValueAdded.tagx
-            -->
-            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school received an Overall Rating of [GRADE]."/>
-            <c:set var="noDataAtAllTemplate" value="No Value-Added data was reported for this school."/>
         </c:when>
         <c:when test="${pageScope.state eq 'TX'}">
             <!--
