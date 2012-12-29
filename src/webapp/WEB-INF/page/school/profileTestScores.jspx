@@ -19,7 +19,8 @@
                         </label>
                         <select id="js_testSelect">
                             <c:forEach var="testToGrades" items="${testScores}">
-                                <option value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">
+                                <option class="${testToGrades.displayType eq 'sentence' ? 'js_hideGrades' : ''}"
+                                        value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">
                                     ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by subgroup' : ''}
                                 </option>
                             </c:forEach>
@@ -32,7 +33,7 @@
                             <div class="bd clearfix mal">
                                 <h3 class="" id="js_testLabelHeader"><!-- not empty --></h3>
 
-                                <div class="alpha grid_4 omega fl">
+                                <div class="alpha grid_4 omega fl" id="js_testScoresGrades">
                                     <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
                                     <!--Display the grades for the test selected-->
                                     <c:forEach var="testToGrades" items="${testScores}">
@@ -52,7 +53,7 @@
                                         </div>
                                     </c:forEach>
                                 </div>
-                                <div class="alpha grid_11 omega fr">
+                                <div class="alpha grid_11 omega fr" id="js_testScoresValues">
                                     <!--Display the data for the test and grade selected-->
                                     <c:forEach var="testToGrades" items="${testScores}">
                                         <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
@@ -124,8 +125,13 @@
                 <script type="text/javascript">
 
                     //Add the handler for changing the test drop-down.
-                    $('#js_testSelect').on('change', function () {
+                    $('#js_testSelect').on('change', function (e) {
                         var testSelected = $('#js_testSelect').val();
+
+                        var select = e.target;
+                        var option = select.options[select.selectedIndex];
+                        var hideGrades = $(option).hasClass('js_hideGrades');
+
                         $("#js_testLabelHeader").html($("#js_testSelect option[value='" + testSelected + "']").text());
 
                         //Hide all the grades and the subject data
@@ -138,6 +144,14 @@
                         //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
                         var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
                         firstGradeToSelect.trigger('click');
+
+                        if (hideGrades) {
+                            $('#js_testScoresGrades').removeClass('grid_4').addClass('hide');
+                            $('#js_testScoresValues').removeClass('grid_11').addClass('grid_15');
+                        } else {
+                            $('#js_testScoresGrades').removeClass('hide').addClass('grid_4');
+                            $('#js_testScoresValues').removeClass('grid_15').addClass('grid_11');
+                        }
 
                         refreshAds();
                     });
