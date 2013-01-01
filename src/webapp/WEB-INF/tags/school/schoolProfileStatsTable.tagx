@@ -56,12 +56,8 @@
                 <th class="tac" style="text-align: center;">
                     This school
                 </th>
-                <c:if test="${showDistrictData}">
-                    <th class="tac" style="text-align: center;">District average</th>
-                </c:if>
-                <c:if test="${showStateAverages}">
-                    <th class="tac" style="text-align: center;">State Average</th>
-                </c:if>
+                <th class="tac" style="text-align: center;">District average</th>
+                <th class="tac" style="text-align: center;">State average</th>
             </tr>
             </thead>
             <tbody>
