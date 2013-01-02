@@ -1,6 +1,7 @@
 package gs.web.school;
 
 
+import gs.data.admin.IPropertyDao;
 import gs.data.school.EspResponse;
 import gs.data.school.Grades;
 import gs.data.school.School;
@@ -42,9 +43,11 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
-
     @Autowired
     ICensusCacheDao _censusCacheDao;
+
+    @Autowired
+    IPropertyDao _propertyDao;
 
     Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
 
@@ -58,7 +61,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         School school = getSchool(request);
 
         Map<String,Object> statsModel = null;
-        statsModel = _censusCacheDao.getMapForSchool(school);
+
+        String prop = _propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY);
+        boolean censusCacheEnabled = "true".equalsIgnoreCase(prop);
+        if (censusCacheEnabled) {
+            statsModel = _censusCacheDao.getMapForSchool(school);
+        }
 
         if (statsModel == null) {
             statsModel = new HashMap<String,Object>();
@@ -92,7 +100,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
             statsModel.put("ethnicityMap", ethnicityMap);
 
-            cacheStatsModel(statsModel, school);
+            if (censusCacheEnabled) {
+                cacheStatsModel(statsModel, school);
+            }
         }
 
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
@@ -399,5 +409,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     public void setCensusCacheDao(ICensusCacheDao censusCacheDao) {
         _censusCacheDao = censusCacheDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

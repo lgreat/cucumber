@@ -3,13 +3,14 @@ package gs.web.school;
 import gs.data.school.census.CensusDescription;
 import gs.data.state.State;
 import gs.data.util.Pair;
+import java.io.Serializable;
 
 import java.util.*;
 
 /**
  * @author aroy@greatschools.org
  */
-public class SchoolProfileCensusSourceHelper {
+public class SchoolProfileCensusSourceHelper implements Serializable {
     private final static CensusDescription MANUAL_OVERRIDE =
             new CensusDescription(-1, State.CA, -1, "Manually entered by school official",
                     "Manually entered by school official", null);
