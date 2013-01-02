@@ -17,6 +17,7 @@ import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolProfileHeaderHelper;
+import gs.web.school.SchoolProfileRatingsHelper;
 import org.easymock.MockControl;
 import org.springframework.validation.BindException;
 
@@ -37,6 +38,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
     State _state;
     Integer _schoolId;
     School _school;
+    SchoolProfileRatingsHelper _schoolProfileRatingsHelper;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -44,6 +46,8 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         _state = State.CA;
         _schoolId = Integer.valueOf("1");
         _controller = (RatingsController) getApplicationContext().getBean("ratingsController");
+        _schoolProfileRatingsHelper = (SchoolProfileRatingsHelper) getApplicationContext().getBean("schoolProfileRatingsHelper");
+        _controller.setSchoolProfileRatingsHelper(_schoolProfileRatingsHelper);
 
         MockControl schoolResultControl = MockControl.createControl(ISchoolDao.class);
         ISchoolDao mockSchoolDao = (ISchoolDao) schoolResultControl.getMock();
@@ -79,7 +83,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         ratingsConfigDaoControl.setDefaultReturnValue(mockRatingsConfig);
         ratingsConfigDaoControl.replay();
 
-        _controller.setRatingsConfigDao(mockRatingsConfigDao);
+        _schoolProfileRatingsHelper.setRatingsConfigDao(mockRatingsConfigDao);
 
         //Mock testdataset
         //set up test manager
@@ -106,8 +110,8 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         testManager.getOverallRating(_school, 2004);
         testManager.setTestDataSetDao(mockTestDataSetDao);
 
-        _controller.setTestManager(testManager);
-        _controller.setTestDataSetDao(mockTestDataSetDao);
+        _schoolProfileRatingsHelper.setTestManager(testManager);
+        _schoolProfileRatingsHelper.setTestDataSetDao(mockTestDataSetDao);
 
     }
 
@@ -160,7 +164,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         mockRatingsConfigDao.restoreRatingsConfig(_state, true);
         ratingsConfigControl.setDefaultReturnValue(null);
         ratingsConfigControl.replay();
-        _controller.setRatingsConfigDao(mockRatingsConfigDao);
+        _schoolProfileRatingsHelper.setRatingsConfigDao(mockRatingsConfigDao);
 
         RatingsCommand command = new RatingsCommand();
         BindException errors = new BindException(command, "");

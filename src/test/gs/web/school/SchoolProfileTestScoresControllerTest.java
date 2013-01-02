@@ -4,6 +4,7 @@ import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.test.*;
 import gs.web.BaseControllerTestCase;
+import gs.web.school.test.TestToGrades;
 
 import java.util.*;
 
@@ -51,16 +52,16 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
 
     public void testSortOrderOfTestsWithSameTestSameGrades(){
         replayAllMocks();
-        List<SchoolProfileTestScoresController.TestToGrades> testToGradesList = new ArrayList<SchoolProfileTestScoresController.TestToGrades>();
+        List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
 
         //Test with subgroup data.(Same test and same grade)
-        SchoolProfileTestScoresController.TestToGrades testWithSubgroup = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades testWithSubgroup = new TestToGrades();
         testWithSubgroup.setLowestGradeInTest(Grade.G_1);
         testWithSubgroup.setIsSubgroup(true);
         testWithSubgroup.setTestDataTypeId(1);
 
         //Test with no subgroup data.(Same test and same grade)
-        SchoolProfileTestScoresController.TestToGrades testWithNoSubgroup = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades testWithNoSubgroup = new TestToGrades();
         testWithNoSubgroup.setLowestGradeInTest(Grade.G_1);
         testWithNoSubgroup.setIsSubgroup(false);
         testWithNoSubgroup.setTestDataTypeId(1);
@@ -77,39 +78,39 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
     }
 
     public void testSortOrderOfTestsWithMultipleTests(){
-        List<SchoolProfileTestScoresController.TestToGrades> testToGradesList = new ArrayList<SchoolProfileTestScoresController.TestToGrades>();
+        List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
 
-        SchoolProfileTestScoresController.TestToGrades noSubgroupGrade9 = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades noSubgroupGrade9 = new TestToGrades();
         noSubgroupGrade9.setLowestGradeInTest(Grade.G_9);
         noSubgroupGrade9.setIsSubgroup(false);
         noSubgroupGrade9.setTestDataTypeId(5);
 
-        SchoolProfileTestScoresController.TestToGrades subgroupGradeAllEM = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades subgroupGradeAllEM = new TestToGrades();
         subgroupGradeAllEM.setLowestGradeInTest(Grade.ALLEM);
         subgroupGradeAllEM.setIsSubgroup(true);
         subgroupGradeAllEM.setTestDataTypeId(4);
 
-        SchoolProfileTestScoresController.TestToGrades noSubgroupGrade1 = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades noSubgroupGrade1 = new TestToGrades();
         noSubgroupGrade1.setLowestGradeInTest(Grade.G_1);
         noSubgroupGrade1.setIsSubgroup(false);
         noSubgroupGrade1.setTestDataTypeId(1);
 
-        SchoolProfileTestScoresController.TestToGrades noSubgroupGradeAllE = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades noSubgroupGradeAllE = new TestToGrades();
         noSubgroupGradeAllE.setLowestGradeInTest(Grade.ALLE);
         noSubgroupGradeAllE.setIsSubgroup(false);
         noSubgroupGradeAllE.setTestDataTypeId(2);
 
-        SchoolProfileTestScoresController.TestToGrades noSubgroupGrade3 = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades noSubgroupGrade3 = new TestToGrades();
         noSubgroupGrade3.setLowestGradeInTest(Grade.G_3);
         noSubgroupGrade3.setIsSubgroup(false);
         noSubgroupGrade3.setTestDataTypeId(3);
 
-        SchoolProfileTestScoresController.TestToGrades noSubgroupGradeAllEM = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades noSubgroupGradeAllEM = new TestToGrades();
         noSubgroupGradeAllEM.setLowestGradeInTest(Grade.ALLEM);
         noSubgroupGradeAllEM.setIsSubgroup(false);
         noSubgroupGradeAllEM.setTestDataTypeId(4);
 
-        SchoolProfileTestScoresController.TestToGrades withSubgroupGrade1 = new SchoolProfileTestScoresController.TestToGrades();
+        TestToGrades withSubgroupGrade1 = new TestToGrades();
         withSubgroupGrade1.setLowestGradeInTest(Grade.G_1);
         withSubgroupGrade1.setIsSubgroup(true);
         withSubgroupGrade1.setTestDataTypeId(1);
@@ -158,7 +159,7 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         dataType.setLabel("Aroy Test");
         dataMap.put(dataType, map5);
         Map<Integer, TestDescription> testDescriptionMap = new HashMap<Integer, TestDescription>();
-        List<SchoolProfileTestScoresController.TestToGrades> rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
+        List<TestToGrades> rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
         verifyAllMocks();
         assertNotNull(rval);
         assertTrue("Expect school with only \"Not available\" values to have test scores pruned", rval.isEmpty());

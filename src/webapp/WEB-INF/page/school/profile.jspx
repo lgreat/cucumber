@@ -213,17 +213,23 @@
 
 <!-- Begin profile header -->
 <div class="hreview-aggregate grid_16 ptm">
-
-    <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
-        <div class="alpha grid_4 tac">
-            <!-- New GS Rating -->
-            <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${overallRating}"
-                                   schoolType="${school.type.name}" isPreschoolOnly="${school.preschoolOnly}" spriteSize="large"/>
-            <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
-        </div>
-    </gslink:linkToTab>
-
-    <div class="grid_12 omega">
+    <!--This is used to stretch all the way across the header with the line, when no icon shows up.-->
+    <c:set var="defaultClassHeaderWidth">alpha grid_16 omega</c:set>
+    <c:set var="spriteString"><ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${overallRating}"
+                                                     schoolType="${school.type.name}" isPreschoolOnly="${school.preschoolOnly}" spriteSize="large"/></c:set>
+    <c:set var="largeOrangeDiamond" value="ratingx96-private-O r-96-NR" />
+    <!--If the large orange diamond is going to show, don't do it-->
+    <c:if test="${!fn:contains(spriteString, largeOrangeDiamond)}">
+        <c:set var="defaultClassHeaderWidth">grid_12 omega</c:set>
+        <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
+            <div class="alpha grid_4 tac">
+                <!-- New GS Rating -->
+                ${spriteString}
+                <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
+            </div>
+        </gslink:linkToTab>
+    </c:if>
+    <div class="${defaultClassHeaderWidth}">
         <!-- School name and sub data -->
         <h1 class="mbm"><gslink:linkToTab tabName="overview" cssClass="noUnderline"><span class="item"><span class="fn">${school.name}</span></span></gslink:linkToTab></h1>
         <div class="mbs" style="height:23px;">
@@ -409,7 +415,7 @@
                 </c:if>
                 <c:if test="${requestScope.context.showRealtorDotComPromos}">
                     <gslink:realtorDotComLink address="${school.physicalAddress}"
-                                              customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
+                                              customLinkSuffix="inlinelinkheader" omniturePageName="${pageName}">Nearby homes for sale</gslink:realtorDotComLink>
                 </c:if>
             </p>
 
@@ -428,8 +434,12 @@
     <div class="">
         <ad:AboveFold_300x600 />
 
+        <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
+
         <compare:persistentCompare school="${school}"/>
         <school:profileNearby nearbySchools="${nearbySchools}" />
+
+        <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0" style="ND" size="300x137" defaultCity="${school.physicalAddress.city}" defaultState="${school.physicalAddress.state}"/>
 
         <ad:adTag position="Community_Ad_300x50"/>
 

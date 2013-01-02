@@ -11,11 +11,14 @@
     <jsp:directive.attribute name="schoolName" required="true" type="java.lang.String"
                              description="Name of the school"/>
     <jsp:directive.attribute name="showTestScores" type="java.lang.Boolean" description="False to hide the test scores nav"/>
+    <jsp:directive.attribute name="showRatingsDetails" type="java.lang.Boolean" description="False to hide the ratings details nav"/>
 
     <ul class="tabStyle-5">
         <c:if test="${empty showTestScores or showTestScores eq true}">
             <profile:gsTab tabName="test-scores" title="Test Scores" tabText="Test scores" cssClass="${requestScope.schoolProfileTabMap['test-scores']}" />
         </c:if>
-        <profile:gsTab tabName="ratings" title="School Ratings" tabText="Ratings details" cssClass="${requestScope.schoolProfileTabMap.ratings}" addDivider="${empty showTestScores or showTestScores eq true}" />
+        <c:if test="${empty showRatingsDetails or showRatingsDetails eq true}">
+            <profile:gsTab tabName="ratings" title="School Ratings" tabText="Ratings details" cssClass="${requestScope.schoolProfileTabMap.ratings}" addDivider="${empty showTestScores or showTestScores eq true}" />
+        </c:if>
     </ul>
 </jsp:root>

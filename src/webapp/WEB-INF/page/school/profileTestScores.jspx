@@ -3,250 +3,172 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:testDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/testDisplay"
         >
-<c:choose>
-    <c:when test="${! empty testScores}">
-        <c:set var="dataNAText" value="Data not available"/>
-        <div class="grid_16 alpha omega">
-            <div class="fl pbn">
-                <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>
-            </div>
-            <div class="fr vab">
-                <!--Display the test dropdowns-->
-                <select id="js_testSelect">
-                    <c:forEach var="testToGrades" items="${testScores}">
-                        <option value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">${testToGrades.testLabel}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <hr class="keyline1" />
-            <div class="clear mbl"><!-- do not collapse --></div>
+    <c:choose>
+        <c:when test="${! empty testScores}">
+            <c:set var="dataNAText" value="Data not available"/>
 
-            <div class="grid_4 alpha">
-                <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
-                <!--Display the grades for the test selected-->
-                <c:forEach var="testToGrades" items="${testScores}">
-
-                    <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
-                         style="display: none" class="js_grades">
-
-                        <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                            <div class="small bottom" style="padding:3px 5px; width:90%; background:#FFFFFF;">
-                                <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
-                                   class="js_grade"
-                                   style="text-decoration:none;"
-                                   href="javascript:void(0);">${gradeToSubjects.gradeLabel}</a>
-                            </div>
-                        </c:forEach>
+            <div class="grid_16 alpha omega">
+                <div class="fl standard_1-3">
+                    <!--Display the test dropdowns-->
+                    <div class="hd">
+                        <label for="js_testSelect" class="medium_bold mhs">
+                            Select a test:
+                        </label>
+                        <select id="js_testSelect">
+                            <c:forEach var="testToGrades" items="${testScores}">
+                                <option class="${testToGrades.hideGradesNav ? 'js_hideGrades' : ''}"
+                                        value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">
+                                    ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by subgroup' : ''}
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
-                </c:forEach>
+                </div>
+                <div class="grid_16 alpha omega clearfix">
+                    <div class="mod standard_1-4">
+                        <div class="inner">
+                            <div class="bd clearfix mal">
+                                <h3 class="" id="js_testLabelHeader"><!-- not empty --></h3>
 
-            </div>
+                                <div class="alpha grid_4 omega fl" id="js_testScoresGrades">
+                                    <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
+                                    <!--Display the grades for the test selected-->
+                                    <c:forEach var="testToGrades" items="${testScores}">
 
-        <div class="grid_12 omega">
-        <!--Display the data for the test and grade selected-->
-        <c:forEach var="testToGrades" items="${testScores}">
-            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
-                     style="display: none" class="js_subjects">
+                                        <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
+                                             style="display: none" class="js_grades">
 
-                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-
-                        <c:choose>
-                            <c:when test="${testToGrades.isSubgroup}">
-                                <c:set var="scalesUsed" value="" />
-                                <div class="mod standard_1-1">
-                                <div class="inner">
-                                <div class="hd">
-                                    <h4 class="pvm plm bottom">${subjectToYears.subjectLabel}</h4>
-                                </div>
-                                <div class="bd pan bottom">
-                                <table class="tableType1 bottom">
-                                <!--<tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>-->
-                                <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="status">
-                                    <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                    <c:if test="${testValue.testScoreLabel == dataNAText}"><c:set var="thePercentage" value="n/a" /></c:if>
-                                    <c:choose>
-                                        <c:when test='${(status.index+1)%2 eq 0}'>
-                                            <c:set var="rowColor" value="even" scope="page"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="rowColor" value="odd" scope="page"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                    <tr class="${rowColor}" ><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
-                                </c:forEach>
-                                </table>
-                                </div>
-                                </div>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="scalesUsed"><div class="smaller fr">Scale:${testToGrades.scale}</div></c:set>
-                                <c:set var="scoresContent">
-                                        <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
-                                            <c:set var="firstTimeBlue" value="" />
-                                            <!--Display the state average for only the latest year-->
-                                            <c:if test="${loopCount.count eq 1}">
-                                                <c:set var="stateAvg" value="${testValue.stateAvg}" />
-                                                <c:set var="testYearAvg" value="${testValue.year}" />
-                                                <c:set var="firstTimeBlue" value="blue" />
-                                            </c:if>
-                                            <div class="line">
-                                                <div class="unit size12of100">
-                                                    <p class="small bottom"><strong>${testValue.year}</strong></p>
+                                            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+                                                <div class="small bottom"
+                                                     style="padding:3px 5px; width:90%; background:#FFFFFF;">
+                                                    <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
+                                                       class="js_grade"
+                                                       style="text-decoration:none;"
+                                                       href="javascript:void(0);">${gradeToSubjects.gradeLabel}</a>
                                                 </div>
-                                                <div class="unit size5of100">&amp;nbsp;</div>
-                                                <div class="unit size66of100">
-                                                    <div class="bar_container thin ${firstTimeBlue}">
-                                                        <div style="width:${testValue.testScoreLabel}%"><!-- not empty --></div>
-                                                    </div>
-                                                </div>
-                                                <div class="unit size5of100">&amp;nbsp;</div>
-                                                <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                                <c:if test="${testValue.testScoreLabel == dataNAText}">
-                                                    <c:set var="thePercentage" value="n/a" />
-                                                </c:if>
-                                                <div class="unit size12of100 small lastUnit bottom"><strong>${thePercentage}</strong></div>
-                                            </div>
-
-                                        </c:forEach>
-                                </c:set>
-
-                                <div class="mod standard_1-1">
-                                    <div class="inner">
-                                        <div class="bd">
-                                            <div class="line">
-
-                                                    <div class="unit size38of100 pam">
-                                                        <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
-                                                        <c:if test="${stateAvg != dataNAText}">
-                                                        <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
-                                                        </c:if>
-                                                    </div>
-                                                <div class="unit size62of100 lastUnit pam">
-                                                    <c:out value="${scoresContent}" escapeXml="false"/>
-                                                </div>
-                                            </div>
+                                            </c:forEach>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
+                                <div class="alpha grid_11 omega fr" id="js_testScoresValues">
+                                    <!--Display the data for the test and grade selected-->
+                                    <c:forEach var="testToGrades" items="${testScores}">
+                                        <c:set var="isSpecialTest" value="${testToGrades.displayType eq 'oh_value_added'}"/>
+                                        <c:choose>
+                                            <c:when test="${isSpecialTest}">
+                                                <div id="js_${testToGrades.testDataTypeId}"
+                                                     style="display: none" class="js_specialTests">
+                                                    <testDisplay:ohValueAdded testToGrades="${testToGrades}"/>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+                                                    <c:if test="${!isSpecialTest}">
+                                                        <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
+                                                             style="display: none" class="js_subjects">
+                                                            <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                                                                <c:set var="scalesUsed" value=""/>
+                                                                <c:choose>
+                                                                    <c:when test="${testToGrades.displayType eq 'sentence'}">
+                                                                        <testDisplay:sentence subjectToYears="${subjectToYears}"
+                                                                                              state="${school.databaseState}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${fn:startsWith(testToGrades.displayType, 'ca_api')}">
+                                                                        <testDisplay:caApi
+                                                                                subjectToYears="${subjectToYears}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${fn:startsWith(testToGrades.displayType, 'nyc_progress_report')}">
+                                                                        <testDisplay:nycProgressReport
+                                                                                subjectToYears="${subjectToYears}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${testToGrades.isSubgroup}">
+                                                                        <testDisplay:subgroup subjectToYears="${subjectToYears}"/>
+                                                                    </c:when>
+                                                                    <c:when test="${fn:startsWith(testToGrades.displayType, 'hgraph')}">
+                                                                        <c:set var="scalesUsed">
+                                                                            <div class="smaller fr">Scale:${testToGrades.scale}</div>
+                                                                        </c:set>
+                                                                        <testDisplay:hgraph subjectToYears="${subjectToYears}"
+                                                                                            maxValue="${testToGrades.displayType.maxValue}"
+                                                                                            hideSubject="${testToGrades.hideSubject}"
+                                                                                />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <!-- not showing test data type id ${testToGrades.testDataTypeId} because display type ${testToGrades.displayType} not supported -->
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                            <c:out value="${scalesUsed}" escapeXml="false"/>
 
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <c:out value="${scalesUsed}" escapeXml="false" />
-                    <div class="clearfloat"><!-- not empty --></div>
-                    <h4 class="pbn mbs">About the tests</h4>
-                    <hr class="keyline1"/>
-                    <div class="clear mbl"><!-- do not collapse --></div>
-                    <p class="quiet">${testToGrades.description}</p>
+                                                            <div class="clearfloat"><!-- not empty --></div>
+                                                            <h4 class="pbn mbs">About the tests</h4>
+                                                            <hr class="keyline1"/>
+                                                            <div class="clear mbl"><!-- do not collapse --></div>
+                                                            <p class="quiet">${testToGrades.description}</p>
+                                                            <c:set var="stateCheck" value="${school.physicalAddress.state}"/>
+                                                            <c:choose>
+                                                                <c:when test="${(stateCheck eq 'IL') and (testToGrades.isSubgroup eq false )}"><a
+                                                                        href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
+                                                                        class="small">See Illinois' state standards</a></c:when>
+                                                                <c:when test="${stateCheck eq 'LA'}"><a
+                                                                        href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
+                                                                        class="small">See Louisiana's state standards</a></c:when>
+                                                            </c:choose>
 
-                    <p class="small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
-                </div>
-            </c:forEach>
-        </c:forEach>
-
-        </div>
-
-        <!--TODO - move to a different file.-->
-        <script type="text/javascript">
-
-            //Add the handler for changing the test drop-down.
-            $('#js_testSelect').on('change', function() {
-                var testSelected = $('#js_testSelect').val();
-                $("#js_testLabelHeader").html($("#js_testSelect option[value='"+testSelected+"']").text());
-
-                //Hide all the grades and the subject data
-                $('.js_grades').hide();
-                $('.js_subjects').hide();
-
-                //Show the grades for the test.
-                $('#js_' + testSelected + '_grades').show();
-
-                //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
-                var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
-                firstGradeToSelect.trigger('click');
-
-                refreshAds();
-            });
-
-            //Add the handler for clicking a specific grade.
-            $('.js_grade').on('click', function() {
-                var gradeSelected = $(this).attr('id');
-                $(this).parent().css("background-color", "#C9E4F1");
-                $(this).parent().addClass("selected");
-                $(this).parent().siblings().removeClass("selected");
-                $(this).parent().siblings().css("background-color", "#FFFFFF");
-
-                //Hide all the data
-                $('.js_subjects').hide();
-
-                //Show the data for the grade selected.
-                $('#' + gradeSelected + '_subjects').show();
-
-                refreshAds();
-            });
-
-            $('.js_grade').hover( function() {
-                    if(!$(this).parent().hasClass( "selected" )){
-                        $(this).parent().css("background-color", "#F1F1F1");
-                    }
-                },
-                function() {
-                    if(!$(this).parent().hasClass( "selected" )){
-                        $(this).parent().css("background-color", "#FFFFFF");
-                    }
-                }
-            );
-
-            function refreshAds() {
-                var adSlotKeys = ['School_Profile_Page_Footer_728x90', 'School_Profile_Page_Header_728x90', 'School_Profile_Page_AboveFold_300x600',
-                    'School_Profile_Page_BelowFold_Top_300x125', 'School_Profile_Page_BelowFold_300x250'];
-                GS.ad.refreshAds(adSlotKeys);
-            }
-
-            //Trigger the test change event.
-            $('#js_testSelect').change();
-        </script>
-        </div>
-        <mod:deferredTracking key="test-scores" pageName="Test Scores" hier1="School,SchoolProfileSuite,TestScores"/>
-    </c:when>
-    <c:otherwise>
-        <!-- No data is available -->
-        <!-- The message varies by school type which has been placed in the model -->
-        <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
-        <c:choose>
-            <c:when test="${schoolType eq 'private'}">
-                <div class="rnd4 tac mbm noDataBox">
-                    <div  class="padAmount">
-                        <h3><strong>We currently do not have any test score information for this school.</strong>
-                            Unlike public schools, private schools are not always required to report data about their schools or not required to take the same tests as public schools. Many private schools take different standardized tests; however, that information is often made available only to families of enrolled students. We strive to acquire additional private school data whenever available.
-
-                        </h3>
-
+                                                            <p class="mtl small quiet">
+                                                                <strong>Source:</strong> ${testToGrades.source}</p>
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <mod:deferredTracking key="test-scores" pageName="Test Scores"
+                                  hier1="School,SchoolProfileSuite,TestScores"/>
+        </c:when>
+        <c:otherwise>
+            <!-- No data is available -->
+            <!-- The message varies by school type which has been placed in the model -->
+            <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
+            <c:choose>
+                <c:when test="${schoolType eq 'private'}">
+                    <div class="rnd4 tac mbm noDataBox">
+                        <div class="padAmount">
+                            <h3><strong>We currently do not have any test score information for this school.</strong>
+                                Unlike public schools, private schools are not always required to report data about their schools or not required to take the same tests as public schools. Many private schools take different standardized tests; however, that information is often made available only to families of enrolled students. We strive to acquire additional private school data whenever available.
 
-            </c:when>
-            <c:otherwise>
-                <!-- must be public or charter -->
-                <div class="rnd4 tac mbm noDataBox">
-                    <div  class="padAmount">
-                        <h3><strong>Oops! We currently do not have any test score information for this school.</strong> Public and charter school test scores for most states come from the state Department of Education.
-                        The most common reasons we might not have this data are either that not enough students took the test or that the school was recently opened, and its scores have not yet been reported.
+                            </h3>
 
-                        </h3>
-
+                        </div>
                     </div>
-                </div>
-            </c:otherwise>
-        </c:choose>
 
-        <!-- FRONTEND: -->
-    </c:otherwise>
-</c:choose>
+                </c:when>
+                <c:otherwise>
+                    <!-- must be public or charter -->
+                    <div class="rnd4 tac mbm noDataBox">
+                        <div class="padAmount">
+                            <h3>
+                                <strong>Oops! We currently do not have any test score information for this school.</strong> Public and charter school test scores for most states come from the state Department of Education.
+                                The most common reasons we might not have this data are either that not enough students took the test or that the school was recently opened, and its scores have not yet been reported.
+
+                            </h3>
+
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+            <!-- FRONTEND: -->
+        </c:otherwise>
+    </c:choose>
 
 </jsp:root>

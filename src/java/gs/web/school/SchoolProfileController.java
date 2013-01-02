@@ -97,6 +97,11 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 
+        // allow turning on/off debugging via request parameter;
+        // pass-through needed here for individual modules to have access to request params,
+        // since e.g. profileTestScores.jspx doesn't have direct access to the request params of original/parent request
+        model.put("debug", request.getParameter("gs_debug"));
+
         // Google Ad Manager ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {

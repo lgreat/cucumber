@@ -1,7 +1,9 @@
 package gs.web.school;
 
 
+import gs.data.admin.IPropertyDao;
 import gs.data.school.EspResponse;
+import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.school.census.*;
 import gs.web.util.ReadWriteAnnotationController;
@@ -41,9 +43,11 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
-
     @Autowired
     ICensusCacheDao _censusCacheDao;
+
+    @Autowired
+    IPropertyDao _propertyDao;
 
     Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
 
@@ -57,7 +61,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         School school = getSchool(request);
 
         Map<String,Object> statsModel = null;
-        statsModel = _censusCacheDao.getMapForSchool(school);
+
+        String prop = _propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY);
+        boolean censusCacheEnabled = "true".equalsIgnoreCase(prop);
+        if (censusCacheEnabled) {
+            statsModel = _censusCacheDao.getMapForSchool(school);
+        }
 
         if (statsModel == null) {
             statsModel = new HashMap<String,Object>();
@@ -82,6 +91,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
                     buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
 
+            statsModel.put("footnotesMap", getFootnotesMap(groupIdToStatsRows));
 
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
             statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
@@ -90,7 +100,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
             statsModel.put("ethnicityMap", ethnicityMap);
 
-            cacheStatsModel(statsModel, school);
+            if (censusCacheEnabled) {
+                cacheStatsModel(statsModel, school);
+            }
         }
 
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
@@ -99,6 +111,24 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         model.putAll(statsModel);
         return model;
+    }
+
+    /**
+     * Pre-calculate all footnotes
+     */
+    protected Map<Long, SchoolProfileCensusSourceHelper> getFootnotesMap(Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows) {
+        Map<Long, SchoolProfileCensusSourceHelper> rval = new HashMap<Long, SchoolProfileCensusSourceHelper>();
+        if (groupIdToStatsRows == null) {
+            return rval;
+        }
+        for (Long groupId: groupIdToStatsRows.keySet()) {
+            SchoolProfileCensusSourceHelper sourceHelper = new SchoolProfileCensusSourceHelper();
+            for (SchoolProfileStatsDisplayRow row: groupIdToStatsRows.get(groupId)) {
+                sourceHelper.recordSource(row);
+            }
+            rval.put(groupId, sourceHelper);
+        }
+        return rval;
     }
 
     public void cacheStatsModel(Map<String,Object> statsModel, School school) {
@@ -131,6 +161,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             if (breakdown != null) {
                 breakdownId = breakdown.getId();
             }
+            Grades grades = censusDataSet.getGradeLevels();
 
             // if this dataset has year zero, it's an override dataset, and it's school value should have been assigned
             // to the companion dataset that doesn't have year zero. If a non-year-zero dataset didn't exist, this
@@ -165,9 +196,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // If there are more than one config entry per data type, then there should be
             // a config entry for each breakdown within the data type
             if (censusDataConfigEntries.size() > 1) {
-                // Find the entry that cooresponds with the data type and breakdown on this data set.
+                // Find the entry that cooresponds with the data type, breakdown and grade on this data set.
                 // If none exist, skip this data set
-                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId);
+                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId, grades);
 
                 // If config doesnt exist for data type + breakdown, skip this data set
                 if (configEntry == null) {
@@ -184,6 +215,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                         }
                     }
                 };
+
             } else {
                 // there's only one config entry for this one data type
                 ICensusDataConfigEntry configEntry = censusDataConfigEntries.get(0);
@@ -377,5 +409,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     public void setCensusCacheDao(ICensusCacheDao censusCacheDao) {
         _censusCacheDao = censusCacheDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

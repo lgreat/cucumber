@@ -2,6 +2,8 @@ package gs.web.school;
 
 import gs.data.school.*;
 import gs.data.test.*;
+import gs.web.school.test.SubjectToTestValues;
+import gs.web.school.test.TestToGrades;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -202,6 +204,8 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 //Build a new custom test data type.
                 CustomTestDataType customTestDataType = new CustomTestDataType();
                 customTestDataType.setId(testDataTypeId);
+                customTestDataType.setDisplayName(testDataType.getDisplayName());
+                customTestDataType.setDisplayType(testDataType.getDisplayType());
                 //Group the subgroup data for a test into a new map of custom test data type.
                 customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? LABEL_SUBGROUP_TEST_SUFFIX : ""));
                 //Fill the map with the test data type, grade, level code, subjects, test data set and value.
@@ -320,6 +324,8 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             testToGrades.setTestLabel(testDataType.getLabel());
             testToGrades.setTestDataTypeId(testDataType.getId());
             testToGrades.setIsSubgroup((testDataType.getLabel().indexOf(LABEL_SUBGROUP_TEST_SUFFIX) > 0));
+            testToGrades.setDisplayName(testDataType.getDisplayName());
+            testToGrades.setDisplayType(testDataType.getDisplayType());
 
             //Get the test information, like the source, scale and description.
             String description = "";
@@ -458,105 +464,6 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         }
     }
 
-    /**
-     * Beans to encapsulate the test scores for the school.This bean is used to present data to the view.
-     */
-    public static class TestToGrades implements Comparable<TestToGrades> {
-        String _testLabel;
-        List<GradeToSubjects> _grades;
-        String _description;
-        String _source;
-        String _scale;
-        Grade _lowestGradeInTest;
-        Integer _testDataTypeId;
-        Boolean _isSubgroup;
-
-        public String getTestLabel() {
-            return _testLabel;
-        }
-
-        public void setTestLabel(String testLabel) {
-            _testLabel = testLabel;
-        }
-
-        public List<GradeToSubjects> getGrades() {
-            return _grades;
-        }
-
-        public void setGrades(List<GradeToSubjects> grades) {
-            _grades = grades;
-        }
-
-        public String getDescription() {
-            return _description;
-        }
-
-        public void setDescription(String description) {
-            _description = description;
-        }
-
-        public String getSource() {
-            return _source;
-        }
-
-        public void setSource(String source) {
-            _source = source;
-        }
-
-        public String getScale() {
-            return _scale;
-        }
-
-        public void setScale(String scale) {
-            _scale = scale;
-        }
-
-        public Grade getLowestGradeInTest() {
-            return _lowestGradeInTest;
-        }
-
-        public void setLowestGradeInTest(Grade lowestGradeInTest) {
-            _lowestGradeInTest = lowestGradeInTest;
-        }
-
-        public Integer getTestDataTypeId() {
-            return _testDataTypeId;
-        }
-
-        public void setTestDataTypeId(Integer testDataTypeId) {
-            _testDataTypeId = testDataTypeId;
-        }
-
-        public Boolean getIsSubgroup() {
-            return _isSubgroup;
-        }
-
-        public void setIsSubgroup(Boolean isSubgroup) {
-            _isSubgroup = isSubgroup;
-        }
-
-        //The tests should be sorted in the order of - the lowest grade in the test followed by test data type id.
-        //However if the test has subgroup data then the test should be followed by subgroup test.
-        public int compareTo(TestToGrades testToGrades) {
-            Integer gradeNum1 = TestScoresHelper.getGradeNum(getLowestGradeInTest());
-            Integer gradeNum2 = TestScoresHelper.getGradeNum(testToGrades.getLowestGradeInTest());
-            Integer dataTypeId1 = getTestDataTypeId();
-            Integer dataTypeId2 = testToGrades.getTestDataTypeId();
-
-            int rval;
-            if (gradeNum1.compareTo(gradeNum2) == 0) {
-                if (dataTypeId1.compareTo(dataTypeId2) == 0) {
-                    rval = getIsSubgroup() ? 1 : -1;
-                } else {
-                    rval = dataTypeId1.compareTo(dataTypeId2);
-                }
-            } else {
-                rval = gradeNum1.compareTo(gradeNum2);
-            }
-            return rval;
-        }
-    }
-
     public static class GradeToSubjects implements Comparable<GradeToSubjects> {
         String _gradeLabel;
         Grade _grade;
@@ -599,31 +506,6 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 return TestScoresHelper.getGradeNum(getGrade()).compareTo(TestScoresHelper.getGradeNum(gradeToSubjects.getGrade()));
             }
             return 0;
-        }
-    }
-
-    public static class SubjectToTestValues implements Comparable<SubjectToTestValues> {
-        String _subjectLabel;
-        List<TestValues> _testValues;
-
-        public String getSubjectLabel() {
-            return _subjectLabel;
-        }
-
-        public void setSubjectLabel(String subjectLabel) {
-            _subjectLabel = subjectLabel;
-        }
-
-        public List<TestValues> getTestValues() {
-            return _testValues;
-        }
-
-        public void setTestValues(List<TestValues> testValues) {
-            _testValues = testValues;
-        }
-
-        public int compareTo(SubjectToTestValues subjectToTestValues) {
-            return getSubjectLabel().compareTo(subjectToTestValues.getSubjectLabel());
         }
     }
 
@@ -687,6 +569,10 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             _breakdownSortOrder = breakdownSortOrder;
         }
 
+        public boolean getHasData() {
+            return (!StringUtils.equals(LABEL_DATA_NOT_AVAILABLE, _testScoreStr));
+        }
+
         //For subgroup data , the sort order is based on the subgroup's(breakdown) sort order.
         //For non-subgroup data, the sort order is based on the year.
         public int compareTo(TestValues testValues) {
@@ -708,6 +594,16 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public Integer _id;
         public String _label;
+        public String _displayName;
+        public TestDataTypeDisplayType _displayType;
+
+        public String getDisplayName() {
+            return _displayName;
+        }
+
+        public void setDisplayName(String _displayName) {
+            this._displayName = _displayName;
+        }
 
         public Integer getId() {
             return _id;
@@ -723,6 +619,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public void setLabel(String label) {
             _label = label;
+        }
+
+        public TestDataTypeDisplayType getDisplayType() {
+            return _displayType;
+        }
+
+        public void setDisplayType(TestDataTypeDisplayType displayType) {
+            _displayType = displayType;
         }
 
         public boolean equals(Object o) {

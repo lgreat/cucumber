@@ -135,7 +135,7 @@ GS.search.results = GS.search.results || (function() {
         refreshAds();
         jQuery.ajax({
             type: "get",
-            url: url() + queryString,
+            url: url() + $.trim(queryString),
             data:data,
             success: callback,
             error: errorCallback,

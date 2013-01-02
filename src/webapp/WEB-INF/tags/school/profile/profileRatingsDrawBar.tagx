@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <!--Used on the Ratings Subgroups page for profile being expanded nationally-->
+
+    <jsp:directive.attribute name="label" required="true" description="the title for the bar"/>
+    <jsp:directive.attribute name="score" required="true" description="The score for the label"/>
+    <jsp:directive.attribute name="padBelow" required="false" description="Add padding under this entry"/>
+
+    <c:set var="paddingBelow" value="pbm"/>
+    <c:if test="${padBelow eq true}">
+        <c:set var="paddingBelow" value=""/>
+    </c:if>
+
+    <div class="line ${paddingBelow}">
+    <div class="unit size35of100 tar">
+        <p class="smaller bottom">
+            <strong class="make-2b2b2b" style="line-height: 9px;">${label}</strong></p>
+    </div>
+    <div class="unit size3of100">&amp;nbsp;</div>
+    <div class="unit size55of100">
+        <div class="bar_container thin blue">
+            <div style="width:${score * 10}%"><!-- not empty --></div>
+        </div>
+    </div>
+    <div class="unit size3of100">&amp;nbsp;</div>
+
+    <div class="unit size4of100 smaller lastUnit bottom">
+        <strong class="make-2b2b2b">${score}</strong>
+    </div>
+
+
+</div>
+</jsp:root>

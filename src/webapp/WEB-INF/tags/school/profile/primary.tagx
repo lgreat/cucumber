@@ -33,7 +33,14 @@
     </c:set>
     <c:set var="ratings">
         <!--<gsweb:cache key="profileRatings-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="ratings" page="/school/profileRatings.page" />
+        <c:choose>
+            <c:when test="${school.isNewGSRating}">
+                <school:profileModuleInclude tabName="ratings" page="/school/profileRatings.page" />
+            </c:when>
+            <c:when test="${school.GSRating != null}">
+                <school:profileModuleInclude tabName="ratings" page="/school/profileRatingsSubgroups.page" />
+            </c:when>
+        </c:choose>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="schoolstats">
@@ -102,7 +109,7 @@
         <c:if test="${(!empty testscores || !empty ratings)}">
             <div style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
                 <div data-gs-tabs="testsAndRatings" class="gsTabs">
-                    <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"/>
+                    <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}" showRatingsDetails="${not empty ratings}"/>
                     <c:if test="${(!empty testscores)}">
                         <div class="${(!empty requestScope.schoolProfileTabMap['test-scores'] and requestScope.schoolProfileTabMap['test-scores'] eq 'selected'?'':'dn')}">
                             <c:out value='${testscores}' escapeXml="false"/>

@@ -289,6 +289,9 @@ GS.profile = GS.profile || (function() {
         //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
+    var refreshNonOverviewAdsWithoutTargetingChange = function() {
+        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
+    };
     var initializeOverviewAds = function() {
         //console.log('init overview ads', refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
         //GS.ad.refreshAds(refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
@@ -310,7 +313,8 @@ GS.profile = GS.profile || (function() {
         refreshAdsForTab:refreshAdsForTab,
         initializeOverviewAds:initializeOverviewAds,
         initializeNonOverviewAds:initializeNonOverviewAds,
-        getAlternateSitePath:getAlternateSitePath
+        getAlternateSitePath:getAlternateSitePath,
+        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange
     };
 }());
 
@@ -374,7 +378,122 @@ jQuery(document).ready(function() {
     if ($teachers) $teachers.on('click', ratings);
 //
 
+    // ratings subgroup interactions with menu
+    var ratingsSubgroupsMenu = $('#js_ratings_cat_menu');
+    var ratingsSubgroupsContentWrapper = $('#js_ratings_cat_content_wrapper');
+    if (ratingsSubgroupsMenu.length === 1 && ratingsSubgroupsContentWrapper.length === 1) {
+        var ratingsSubgroupLabels = ratingsSubgroupsMenu.find('.js_ratings_cat_label');
+        ratingsSubgroupLabels.on('click', function() {
+            var catSelected = $(this).attr('id');
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
 
+            //Hide all the data
+            ratingsSubgroupsContentWrapper.find('.js_ratings_cat_content').hide();
+
+            //Show the data for the grade selected.
+            $('#' + catSelected + '_content').show();
+
+            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+        });
+
+        ratingsSubgroupLabels.hover(
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
+
+        //Select the first category by default and trigger its click event, so that the data is displayed.
+        var firstCategoryToSelect = ratingsSubgroupsMenu.children(":first").find("a");
+        firstCategoryToSelect.trigger('click');
+    }
+
+    // test scores interactions with grade or test menus
+    var testsMenu = $('#js_testSelect');
+    var testScoresGrades = $('#js_testScoresGrades');
+    var gradeLabel = testScoresGrades.find('.js_grade');
+    var testScoresValues = $('#js_testScoresValues');
+    var subjectContent = testScoresValues.find('.js_subjects');
+    var specialTestsContent = testScoresValues.find('.js_specialTests');
+    if (testsMenu.length === 1 && testScoresGrades.length === 1 && testScoresValues.length === 1) {
+        testsMenu.on('change', function(e) {
+            var select = e.target;
+            var option = select.options[select.selectedIndex];
+            var testSelected = $(option).val();
+            var hideGrades = $(option).hasClass('js_hideGrades');
+
+            $("#js_testLabelHeader").html($(option).text());
+
+            //Hide all the grades and the subject data
+            testScoresGrades.find('.js_grades').hide();
+            subjectContent.hide();
+
+            //Hide special tests
+            specialTestsContent.hide();
+
+            //Show the grades for the test.
+            $('#js_' + testSelected + '_grades').show();
+
+            //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
+            var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
+            firstGradeToSelect.trigger('click');
+
+            //Show special test if it's selected
+            $('#js_' + testSelected).show();
+
+            if (hideGrades) {
+                $('#js_testScoresGrades').removeClass('grid_4').addClass('hide');
+                $('#js_testScoresValues').removeClass('grid_11').addClass('grid_15');
+            } else {
+                $('#js_testScoresGrades').removeClass('hide').addClass('grid_4');
+                $('#js_testScoresValues').removeClass('grid_15').addClass('grid_11');
+            }
+
+            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+        });
+
+        //Add the handler for clicking a specific grade.
+        gradeLabel.on('click', function () {
+            var gradeSelected = $(this).attr('id');
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
+
+            //Hide all the data
+            subjectContent.hide();
+
+            //Show the data for the grade selected.
+            $('#' + gradeSelected + '_subjects').show();
+
+            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+        });
+
+        gradeLabel.hover(
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
+
+        // Trigger the test change event.
+        testsMenu.change();
+    }
 });
 
 /********************************************************************************************************

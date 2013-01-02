@@ -7,6 +7,7 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
@@ -18,6 +19,19 @@
 
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
+
+<!--- Omniture  - moved up to support parameter to realtorDotComLink -->
+<c:set var="pageName" value="Overview" scope="request"/>
+<c:choose>
+    <c:when test="${school.levelCode == 'p'}">
+        <c:set var="pageName" value="Preschool Overview"/>
+    </c:when>
+    <c:otherwise>
+        <c:if test="${school.type.schoolTypeName == 'private'}">
+            <c:set var="pageName" value="Private School Overview"/>
+        </c:if>
+    </c:otherwise>
+</c:choose>
 
 <head>
     <c:set var="gomezPageId" scope="request">SchoolProfileOverview</c:set>
@@ -187,6 +201,10 @@ Android seems to require the address to be blank for the same behavior -->
 <c:set var="schoolUrl" value="${relCanonical}" scope="request"/>
 <mobile:share school="${school}"/>
 
+<c:if test="${requestScope.context.showRealtorDotComPromos}">
+    <gslink:realtorDotComLink address="${school.physicalAddress}" styleClass="iconx24 i-24-real-estate mhm" mobileFont="nullStyle" omniturePageName="${pageName}">Nearby homes for sale</gslink:realtorDotComLink>
+</c:if>
+
 <c:if test="${hasTestScores}">
     <link:schoolProfileTestscore school="${school}">
         <span class="iconx24 i-24-stats vam mam"><!-- do not collapse --></span>View this school's test scores
@@ -264,18 +282,7 @@ Android seems to require the address to be blank for the same behavior -->
 <search:nearbyDistricts lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
 
 <mobile:topOfPage/>
-<!--- Omniture -->
-<c:set var="pageName" value="Overview" scope="request"/>
-<c:choose>
-    <c:when test="${school.levelCode == 'p'}">
-        <c:set var="pageName" value="Preschool Overview"/>
-    </c:when>
-    <c:otherwise>
-        <c:if test="${school.type.schoolTypeName == 'private'}">
-            <c:set var="pageName" value="Private School Overview"/>
-        </c:if>
-    </c:otherwise>
-</c:choose>
+
 <mod:mobileTracking pageName="${pageName}"
                     hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
                     school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
