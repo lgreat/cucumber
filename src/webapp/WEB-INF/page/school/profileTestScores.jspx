@@ -85,7 +85,7 @@
                                                                                 subjectToYears="${subjectToYears}"/>
                                                                     </c:when>
                                                                     <c:when test="${testToGrades.isSubgroup}">
-                                                                        <testDisplay:subgroup subjectToYears="${subjectToYears}"/>
+                                                                        <testDisplay:subgroup subjectToYears="${subjectToYears}" dataNAText="${dataNAText}"/>
                                                                     </c:when>
                                                                     <c:when test="${fn:startsWith(testToGrades.displayType, 'hgraph')}">
                                                                         <c:set var="scalesUsed">
@@ -94,6 +94,7 @@
                                                                         <testDisplay:hgraph subjectToYears="${subjectToYears}"
                                                                                             maxValue="${testToGrades.displayType.maxValue}"
                                                                                             hideSubject="${testToGrades.hideSubject}"
+                                                                                            dataNAText="${dataNAText}"
                                                                                 />
                                                                     </c:when>
                                                                     <c:otherwise>
