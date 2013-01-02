@@ -167,6 +167,9 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         if (showAdvancedFilters) {
             _searchAdHelper.addAdvancedFiltersKeywords(pageHelper, showAdvancedFilters);
         }
+
+        // GS-13607 - county
+        _searchAdHelper.addCountyAdKeywords(pageHelper, schoolResults);
     }
 
     public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {

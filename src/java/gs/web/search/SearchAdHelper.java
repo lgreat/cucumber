@@ -35,6 +35,22 @@ public class SearchAdHelper {
         }
     }
 
+    public void addCountyAdKeywords(PageHelper pageHelper, List<SolrSchoolSearchResult> schoolResults) {
+        // GS-13607 - county name
+        if (schoolResults != null) {
+            Set<String> countyNames = new HashSet<String>();
+            for (SolrSchoolSearchResult schoolResult : schoolResults) {
+                String county = schoolResult.getCounty();
+                if (county != null) {
+                    countyNames.add(county);
+                }
+            }
+            for (String countyName : countyNames) {
+                pageHelper.addAdKeywordMulti("county", countyName);
+            }
+        }
+    }
+
     public void addSchoolTypeAdKeywords(PageHelper pageHelper, String[] schoolTypes) {
         // GS-10003 - school type
         if (schoolTypes != null) {
