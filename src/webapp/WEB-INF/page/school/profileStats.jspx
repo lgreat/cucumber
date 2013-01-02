@@ -234,7 +234,7 @@
                 <school:schoolProfileStatsTable groupId="4" title="Class size" statsTab="teachers"/>
 
 
-                <c:if test="${! empty statsRows[14]}">
+                <c:if test="${! empty statsRows[2]}">
                     <c:set var="hasTeacherData" value="yes"/>
                 </c:if>
                 <school:schoolProfileStatsTable groupId="2" title="Teacher experience" statsTab="teachers"/>
