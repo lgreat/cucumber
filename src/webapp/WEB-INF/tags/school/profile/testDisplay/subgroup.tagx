@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
+    <jsp:directive.attribute name="dataNAText" type="java.lang.String" required="true"/>
 
     <div class="mod standard_1-1">
         <div class="inner">
@@ -18,7 +19,7 @@
                                varStatus="status">
                         <c:set var="thePercentage"
                                value="${testValue.testScoreLabel}%"/>
-                        <c:if test="${testValue.testScoreLabel == dataNAText}"><c:set
+                        <c:if test="${testValue.testScoreLabel == pageScope.dataNAText}"><c:set
                                 var="thePercentage" value="n/a"/></c:if>
                         <c:choose>
                             <c:when test='${(status.index+1)%2 eq 0}'>
