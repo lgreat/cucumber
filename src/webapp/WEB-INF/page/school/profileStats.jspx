@@ -237,7 +237,7 @@
                 <c:if test="${! empty statsRows[14]}">
                     <c:set var="hasTeacherData" value="yes"/>
                 </c:if>
-                <school:schoolProfileStatsTable groupId="14" title="Teacher experience" statsTab="teachers"/>
+                <school:schoolProfileStatsTable groupId="2" title="Teacher experience" statsTab="teachers"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
