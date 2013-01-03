@@ -272,8 +272,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
             Set<CensusDescription> source = censusDataSet.getCensusDescription();
 
-            // filter out rows where school, district, and state values are all N/A
-            if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue) || censusValueNotEmpty(stateValue) ) {
+            // filter out rows where school and district values are N/A
+            if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue)) {
 
                 SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
                     groupId,
