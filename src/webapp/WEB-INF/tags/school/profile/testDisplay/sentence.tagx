@@ -64,7 +64,6 @@
             <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school received [GRADE]."/>
             <c:set var="noDataMostRecentYearTemplate" value="This school did not receive a grade by the Florida Department of Education in [SCHOOL_YEAR]."/>
             <c:set var="noDataSpecificYearTemplate" value="This school did not receive a grade in [SCHOOL_YEAR]."/>
-            <!-- TODO-13610 - Confirm with Ben/PM that this is okay: Perl template hard-coded most recent 3 school years. For simplicity, changed this to most recent school year only. -->
             <c:set var="noDataAtAllTemplate" value="This school did not receive a grade in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:when>
         <c:when test="${pageScope.state eq 'MI'}">
@@ -129,11 +128,10 @@
             <c:set var="noDataAtAllTemplate" value="No accreditation rating data was reported for this school."/>
         </c:when>
         <c:otherwise>
-            <!-- TODO-13610 get default wording from Ben/PM -->
-            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
-            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
-            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a rating in [SCHOOL_YEAR]."/>
-            <c:set var="noDataAtAllTemplate" value="This school did not receive a rating in [MOST_RECENT_SCHOOL_YEAR]."/>
+            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was designated [GRADE]."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was designated [GRADE]."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a designation in [SCHOOL_YEAR]."/>
+            <c:set var="noDataAtAllTemplate" value="This school did not receive a designation in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:otherwise>
     </c:choose>
 
