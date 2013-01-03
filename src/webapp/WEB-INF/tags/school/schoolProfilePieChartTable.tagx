@@ -58,7 +58,10 @@
             <th class="tac">
                 This school
             </th>
-            <th class="tac">State Average</th>
+
+            <c:if test="${showStateAverages}">
+                <th class="tac">State Average</th>
+            </c:if>
         </tr>
         </thead>
         <tbody class="striped">
