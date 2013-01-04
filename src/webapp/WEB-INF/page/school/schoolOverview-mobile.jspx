@@ -90,7 +90,7 @@
                 <div class="tal pls fl">GreatSchools<br/>Rating</div>
             </c:set>
             <c:choose>
-                <c:when test="${school.schoolForNewProfile}">
+                <c:when test="${school.isNewGSRating}">
                     <link:schoolProfileRating school="${school}" styleClass="but but-sm but-2 but-overview">
                         ${linkContent}
                     </link:schoolProfileRating>
