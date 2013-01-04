@@ -8,10 +8,11 @@
     <jsp:directive.attribute name="tabName" required="true" description="name of this tab"/>
     <jsp:directive.attribute name="tabToLinkTo" required="false"
                              description="You might need to the link's href to go to a specific subtab. If empty, uses self tab for href"/>
-    <jsp:directive.attribute name="title" required="false" description="Title attribute on the tab's A tag. If blank, tabText is used"/>
+    <jsp:directive.attribute name="title" required="false"
+                             description="Title attribute on the tab's A tag. If blank, tabText is used"/>
     <jsp:directive.attribute name="tabText" required="true" description="Text to display within the tab"/>
-    <jsp:directive.attribute name="cssClass" required="false" />
-    <jsp:directive.attribute name="addDivider" required="false" />
+    <jsp:directive.attribute name="cssClass" required="false"/>
+    <jsp:directive.attribute name="addDivider" required="false"/>
 
     <c:if test="${empty tabToLinkTo}">
         <c:set scope="page" var="tabToLinkTo" value="${tabName}"/>
@@ -23,19 +24,21 @@
 
     <c:choose>
         <c:when test="${tabName eq 'overview'}">
-            <c:set scope="page" var="href" value="${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}"/>
+            <c:set scope="page" var="href"
+                   value="${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}"/>
         </c:when>
         <c:otherwise>
-            <c:set scope="page" var="href" value="${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tabToLinkTo)}"/>
+            <c:set scope="page" var="href"
+                   value="${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tabToLinkTo)}"/>
         </c:otherwise>
     </c:choose>
 
 
     <li data-gs-tab="${tabName}">
 
-        <c:if test="${addDivider eq true}">
-            <span class="graydivider">|</span>
-        </c:if>
+        <!--<c:if test="${addDivider eq true}">-->
+        <!--<span class="graydivider">|</span>-->
+        <!--</c:if>-->
 
         <a id="js_${tabName}"
            href="${href}"
