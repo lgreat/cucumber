@@ -1,10 +1,13 @@
 package gs.web.school;
 
+import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.TestDataSetDisplayTarget;
 import gs.web.PdfView;
+import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -30,7 +33,7 @@ import java.util.*;
 
 @RequestMapping("/my-school-list")
 @Component("printYourOwnChooserController")
-public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware {
+public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware, ReadWriteAnnotationController {
 
     private ServletContext _servletContext;
 
@@ -50,6 +53,12 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     @Autowired
     private InternalResourceViewResolver _viewResolver;
+
+    @Autowired
+    private IPyocUserDao _pyocUserDaoHibernate;
+
+    @Autowired
+    private IPyocUserSchoolMappingDao _pyocUserSchoolDaoHibernate;
 
     public static final int MAX_ALLOWED_SCHOOLS = 100;
 
@@ -105,6 +114,10 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         modelMap.put("schools", schools);
 
+        User user = SessionContextUtil.getSessionContext(request).getUser();
+        PyocUser pyocUser = new PyocUser(user);
+        _pyocUserDaoHibernate.savePyocUser(pyocUser);
+
         Map<String,Object> schoolData = new HashMap<String,Object>();
 
         for (School school : schools) {
@@ -134,6 +147,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
                 data.put(DATA_OVERALL_ACADEMIC_RATING, academicRating);
                 data.put(DATA_OVERALL_ACADEMIC_RATING_TEXT, formatRating((Integer) academicRating));
             }
+
+            PyocUserSchoolMapping pyocUserSchoolMapping = new PyocUserSchoolMapping(pyocUser);
+            pyocUserSchoolMapping.setSchoolId(school.getId());
+            pyocUserSchoolMapping.setState(school.getStateAbbreviation());
+            _pyocUserSchoolDaoHibernate.savePyocUserSchoolMapping(pyocUserSchoolMapping);
         }
         modelMap.put("schoolData", schoolData);
 
