@@ -13,7 +13,6 @@
     margin: 0;
     border-bottom: 1px solid #bcdeed;
     margin-bottom: 20px;
-
     background-color: #d2e9f3; /* for non-css3 browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#F3FAFD), to(#E2F1F7)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #F3FAFD, #E2F1F7); /* Chrome 10+, Saf5.1+, iOS 5+ */
@@ -183,6 +182,8 @@
     text-decoration: none;
     margin-left: 5px;
     border: 1px solid #DDDDDD;
+    text-shadow: 0 1px 0 #FFFFFF;
+    *zoom: 1;
     background-color: #E6E6E6; /* for non-css3 browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(E6E6E6)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #F5F5F5, #E6E6E6); /* Chrome 10+, Saf5.1+, iOS 5+ */
@@ -191,8 +192,6 @@
     background-image: -o-linear-gradient(top, #F5F5F5, #E6E6E6); /* Opera 11.10+ */
     background-image: linear-gradient(top, #F5F5F5, #E6E6E6); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFF5F5F5', EndColorStr = '#FFE6E6E6'); /* IE6�IE9 */
-    text-shadow: 0 1px 0 #FFFFFF;
-    *zoom: 1;
 }
 
 .gsTabs1 ul.tabStyle-2-1 li a {
@@ -221,12 +220,12 @@
 
 #preSelected {
     background: #FFFFFF none;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFFFFF', EndColorStr = '#FFFFFF'); /* IE6�IE9 */
     color: #2B2B2B;
     border: 1px solid #DDDDDD;
     border-bottom: none;
     padding-bottom: 12px;
     outline: 0 none;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFFFFF', EndColorStr = '#FFFFFF'); /* IE6�IE9 */
 }
 
 /*  TAB STYLE 3
@@ -383,7 +382,6 @@
     top: 100%;
     left: 50%;
     margin-left: -4px;
-
 }
 
 #arrowdiv.selected {
@@ -490,7 +488,6 @@
     display: inline-block;
     *display: inline;
     font: normal 12px/36px Arial, Helvetica, sans-serif;
-    margin-bottom: 20px;
     outline: 0 none;
     *line-height: 21px;
 }
@@ -509,7 +506,6 @@
 .gsTabs ul.tabStyle-8 li a:hover {
     background: #79BEDC none;
     color: #0066BB;
-    outline: 0 none;
     outline: 0 none;
 }
 
