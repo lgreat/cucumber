@@ -228,7 +228,7 @@
                                             <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
                                         </div>
                                         <div class="di mln pln">
-                                            <a href="" class="vam" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_DistrictBoundary_inlinelink');} return true;">Homes for sale</a>
+                                            <a href="" class="vam" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_BoundariesMap_inlinelink');} return true;">Homes for sale</a>
                                         </div>
                                     </div>
                                 </div>
