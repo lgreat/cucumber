@@ -39,7 +39,7 @@
                                     <c:forEach var="testToGrades" items="${testScores}">
 
                                         <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
-                                             style="display: none" class="js_grades">
+                                             class="js_grades dn">
 
                                             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
                                                 <div class="small bottom"
@@ -53,14 +53,14 @@
                                         </div>
                                     </c:forEach>
                                 </div>
-                                <div class="alpha grid_11 omega fr" id="js_testScoresValues">
+                                <div class="alpha grid_11 omega fr clearfix" id="js_testScoresValues">
                                     <!--Display the data for the test and grade selected-->
                                     <c:forEach var="testToGrades" items="${testScores}">
                                         <c:set var="isSpecialTest" value="${testToGrades.displayType eq 'oh_value_added'}"/>
                                         <c:choose>
                                             <c:when test="${isSpecialTest}">
                                                 <div id="js_${testToGrades.testDataTypeId}"
-                                                     style="display: none" class="js_specialTests">
+                                                     class="js_specialTests dn clearfix">
                                                     <testDisplay:ohValueAdded testToGrades="${testToGrades}"/>
                                                 </div>
                                             </c:when>
@@ -68,9 +68,9 @@
                                                 <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
                                                     <c:if test="${!isSpecialTest}">
                                                         <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
-                                                             style="display: none" class="js_subjects">
+                                                             class="js_subjects dn clearfix">
                                                             <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                                                                <c:set var="scalesUsed" value=""/>
+                                                                <c:set var="scalesUsed"><div class='smaller fr'><!-- do not display --></div></c:set>
                                                                 <c:choose>
                                                                     <c:when test="${testToGrades.displayType eq 'sentence'}">
                                                                         <testDisplay:sentence subjectToYears="${subjectToYears}"

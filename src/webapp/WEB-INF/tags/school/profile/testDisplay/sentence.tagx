@@ -156,7 +156,7 @@
 
         <c:if test="${isMultiSentenceWithData}">
             <![CDATA[
-                    <ul>
+                    <ul class="small mln pll">
             ]]>
         </c:if>
 
