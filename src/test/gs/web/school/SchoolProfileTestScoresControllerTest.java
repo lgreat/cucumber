@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.test.*;
+import gs.data.util.Pair;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.test.TestToGrades;
 
@@ -141,18 +142,18 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         replayAllMocks();
         School school = new School();
         school.setDatabaseState(State.IN);
-        Map<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, String>>>>>
-                dataMap = new HashMap<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>>>();
-        Map<SchoolProfileTestScoresController.CustomTestDataSet,String> map2 = new HashMap<SchoolProfileTestScoresController.CustomTestDataSet, String>();
+        Map<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String,Integer>>>>>>
+                dataMap = new HashMap<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>>>();
+        Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>> map2 = new HashMap<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String,Integer>>();
         SchoolProfileTestScoresController.CustomTestDataSet notAvailableDataSet = new SchoolProfileTestScoresController.CustomTestDataSet();
         notAvailableDataSet.setYear(2012);
         notAvailableDataSet.setId(1);
-        map2.put(notAvailableDataSet, SchoolProfileTestScoresController.LABEL_DATA_NOT_AVAILABLE);
-        Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>> map3 = new HashMap<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, String>>();
+        map2.put(notAvailableDataSet, new Pair<String,Integer>(SchoolProfileTestScoresController.LABEL_DATA_NOT_AVAILABLE,null));
+        Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>> map3 = new HashMap<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String,Integer>>>();
         map3.put(Subject.ENGLISH, map2);
-        Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>> map4 = new HashMap<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>();
+        Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>> map4 = new HashMap<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>();
         map4.put(LevelCode.ELEMENTARY_MIDDLE_HIGH, map3);
-        Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>> map5 = new HashMap<Grade, Map<LevelCode, Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,String>>>>();
+        Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>> map5 = new HashMap<Grade, Map<LevelCode, Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>>();
         map5.put(Grade.G_3, map4);
         SchoolProfileTestScoresController.CustomTestDataType dataType = new SchoolProfileTestScoresController.CustomTestDataType();
         dataType.setId(10);
@@ -171,7 +172,7 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         SchoolProfileTestScoresController.CustomTestDataSet availableDataSet = new SchoolProfileTestScoresController.CustomTestDataSet();
         availableDataSet.setYear(2011);
         availableDataSet.setId(2);
-        map2.put(availableDataSet, "15");
+        map2.put(availableDataSet, new Pair<String,Integer>("15", null));
 
         rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
         verifyAllMocks();
@@ -205,5 +206,50 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         assertNull("The test data type was not found.Hence put nothing in the map.",testDataTypeIdToTestDataType.get(testDataTypeId));
     }
 
+    public void testPopulateTestScoresBeanSetsNumberTested() {
+        expect(_subjectDao.findSubjectName(Subject.ENGLISH, State.IN)).andReturn("English");
+        replayAllMocks();
+        School school = new School();
+        school.setDatabaseState(State.IN);
+        Map<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String,Integer>>>>>>
+                dataMap = new HashMap<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>>>();
+        Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>> map2 = new HashMap<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String,Integer>>();
+        SchoolProfileTestScoresController.CustomTestDataSet notAvailableDataSet = new SchoolProfileTestScoresController.CustomTestDataSet();
+        notAvailableDataSet.setYear(2012);
+        notAvailableDataSet.setId(1);
+        map2.put(notAvailableDataSet, new Pair<String,Integer>(SchoolProfileTestScoresController.LABEL_DATA_NOT_AVAILABLE,null));
+        Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>> map3 = new HashMap<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String,Integer>>>();
+        map3.put(Subject.ENGLISH, map2);
+        Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>> map4 = new HashMap<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>();
+        map4.put(LevelCode.ELEMENTARY_MIDDLE_HIGH, map3);
+        Map<Grade, Map<LevelCode,Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>> map5 = new HashMap<Grade, Map<LevelCode, Map<Subject,Map<SchoolProfileTestScoresController.CustomTestDataSet,Pair<String,Integer>>>>>();
+        map5.put(Grade.G_3, map4);
+        SchoolProfileTestScoresController.CustomTestDataType dataType = new SchoolProfileTestScoresController.CustomTestDataType();
+        dataType.setId(10);
+        dataType.setLabel("SSprouse Test");
+        dataMap.put(dataType, map5);
+        Map<Integer, TestDescription> testDescriptionMap = new HashMap<Integer, TestDescription>();
+        List<TestToGrades> rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertTrue("Expect school with only \"Not available\" values to have test scores pruned", rval.isEmpty());
 
+        resetAllMocks();
+        expect(_subjectDao.findSubjectName(Subject.ENGLISH, State.IN)).andReturn("English");
+        replayAllMocks();
+        // If school has a valid value, expect test scores to be retained, including any not availables
+        SchoolProfileTestScoresController.CustomTestDataSet availableDataSet = new SchoolProfileTestScoresController.CustomTestDataSet();
+        availableDataSet.setYear(2011);
+        availableDataSet.setId(2);
+        map2.put(availableDataSet, new Pair<String,Integer>("15", 999));
+
+        rval = _controller.populateTestScoresBean(school, dataMap, testDescriptionMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertFalse("Expect school with real values to have test scores retained", rval.isEmpty());
+        assertNull("Expect number tested value to be null",
+                rval.get(0).getGrades().get(0).getSubjects().get(0).getTestValues().get(0).getNumberTested());
+        assertEquals("Expect number tested value to be set correctly", new Integer(999),
+                rval.get(0).getGrades().get(0).getSubjects().get(0).getTestValues().get(1).getNumberTested());
+    }
 }
