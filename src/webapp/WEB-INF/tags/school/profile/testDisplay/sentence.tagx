@@ -139,11 +139,18 @@
 
         <c:set var="isMultiSentenceWithData" value="${fn:length(pageScope.subjectToYears.testValues) > 1 and hasData}"/>
 
-        <c:if test="${isMultiSentenceWithData}">
-            <![CDATA[
+        <c:choose>
+            <c:when test="${isMultiSentenceWithData}">
+                <![CDATA[
                     <ul class="small mln pll">
-            ]]>
-        </c:if>
+                ]]>
+            </c:when>
+            <c:otherwise>
+                <![CDATA[
+                    <div class="small">
+                ]]>
+            </c:otherwise>
+        </c:choose>
 
         <!-- generate and display the output using state-specific templates and values -->
         <c:choose>
@@ -200,13 +207,18 @@
                 </c:if>
             </c:otherwise>
         </c:choose>
-
-        <c:if test="${isMultiSentenceWithData}">
-            <![CDATA[
+        <c:choose>
+            <c:when test="${isMultiSentenceWithData}">
+                <![CDATA[
                     </ul>
-            ]]>
-        </c:if>
-
+                ]]>
+            </c:when>
+            <c:otherwise>
+                <![CDATA[
+                    </div>
+                ]]>
+            </c:otherwise>
+        </c:choose>
     </c:if>
 
 </jsp:root>
