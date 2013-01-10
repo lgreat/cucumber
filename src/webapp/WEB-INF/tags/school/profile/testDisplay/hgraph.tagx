@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
-    <jsp:directive.attribute name="maxValue" type="java.lang.Integer" required="true"/>
     <jsp:directive.attribute name="hideSubject" type="java.lang.Boolean" required="true"/>
     <jsp:directive.attribute name="dataNAText" type="java.lang.String" required="true"/>
-
-    <!-- TODO-13589 front-end code needed to use maxValue. Possible values so far: 100 and 120 -->
-    <!-- TODO-13589 front-end code tweaks needed around where hideSubject is used; this is true for OH Performance Index -->
 
     <c:set var="scoresContent">
         <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}"
