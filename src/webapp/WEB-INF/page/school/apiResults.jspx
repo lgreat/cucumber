@@ -1,0 +1,77 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          version="2.0">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>CA API page</title>
+
+        <pageHelper:externalJavascript file="/res/js/history.min.js"/>
+    </head>
+
+    <gsml:body adPageName="CA API" pageLayout="nocol">
+        API Results ${apiTestResult.year}  <br/>
+        This school's API scrore ${apiTestResult.total}  <br/><br/>
+        API Results by Subgroups <br/>
+
+        All Students (${apiTestResult.total}) <br/>
+        <c:if test="${not empty apiTestResult.africanAmerican}">
+            African American (${apiTestResult.africanAmerican}) <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.americanIndian}">
+            American Indian (${apiTestResult.americanIndian})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.asian}">
+            Asian (${apiTestResult.asian})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.filipino}">
+            Finipino (${apiTestResult.filipino}) <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.hispanic}">
+            Hispanic (${apiTestResult.hispanic})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.pacificIslander}">
+            Pacific Islander (${apiTestResult.pacificIslander})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.white}">
+            White (${apiTestResult.white})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.socioEconDisadv}">
+            Socioeconomic Disadvantage (${apiTestResult.socioEconDisadv})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.englishLangLearners}">
+            English Language Learners (${apiTestResult.englishLangLearners})  <br/>
+        </c:if>
+        <c:if test="${not empty apiTestResult.disabled}">
+            Students with disability (${apiTestResult.disabled})  <br/>
+        </c:if>
+
+        <br/>
+
+        <c:if test="${not empty apiTestResult.apiSchoolWide}">
+           Did this school meet its schoolwide growth target for ${apiTestResult.year}? ${apiTestResult.apiSchoolWide} <br/>
+        </c:if>
+
+        <c:if test="${not empty apiTestResult.apiComparable}">
+            Did this school meet its all subgroup growth targets for ${apiTestResult.year}? ${apiTestResult.apiComparable} <br/>
+        </c:if>
+
+        <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+                 API Statewide Rank (${apiStateRank.year}) <br/> ${apiRanks.apiStateRank}   <br/>
+        </c:if>
+
+    </gsml:body>
+    </html>
+</jsp:root>
