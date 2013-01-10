@@ -88,14 +88,28 @@
                                                                         <testDisplay:subgroup subjectToYears="${subjectToYears}" dataNAText="${dataNAText}"/>
                                                                     </c:when>
                                                                     <c:when test="${fn:startsWith(testToGrades.displayType, 'hgraph')}">
-                                                                        <c:set var="scalesUsed">
-                                                                            <div class="smaller fr">Scale:${testToGrades.scale}</div>
-                                                                        </c:set>
-                                                                        <testDisplay:hgraph subjectToYears="${subjectToYears}"
-                                                                                            maxValue="${testToGrades.displayType.maxValue}"
-                                                                                            hideSubject="${testToGrades.hideSubject}"
-                                                                                            dataNAText="${dataNAText}"
-                                                                                />
+                                                                        <c:choose>
+                                                                            <!--This is used for the Ohio Performance Index Ranking
+                                                                            I need a better way of know this -->
+                                                                            <c:when test="${testToGrades.displayType.maxValue eq 120}">
+                                                                                <testDisplay:hgraphOhPerformanceIndex subjectToYears="${subjectToYears}"
+                                                                                                    maxValue="${testToGrades.displayType.maxValue}"
+                                                                                                    hideSubject="${testToGrades.hideSubject}"
+                                                                                                    dataNAText="${dataNAText}"
+                                                                                        />
+
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <c:set var="scalesUsed">
+                                                                                    <div class="smaller fr">Scale:${testToGrades.scale}</div>
+                                                                                </c:set>
+                                                                                <testDisplay:hgraph subjectToYears="${subjectToYears}"
+                                                                                                    maxValue="${testToGrades.displayType.maxValue}"
+                                                                                                    hideSubject="${testToGrades.hideSubject}"
+                                                                                                    dataNAText="${dataNAText}"
+                                                                                        />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <!-- not showing test data type id ${testToGrades.testDataTypeId} because display type ${testToGrades.displayType} not supported -->
