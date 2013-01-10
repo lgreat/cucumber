@@ -15,7 +15,7 @@
                     <!--Display the test dropdowns-->
                     <div class="hd">
                         <label for="js_testSelect" class="medium_bold mhs">
-                            Select a test:
+                            See results for:
                         </label>
                         <select id="js_testSelect">
                             <c:forEach var="testToGrades" items="${testScores}">
