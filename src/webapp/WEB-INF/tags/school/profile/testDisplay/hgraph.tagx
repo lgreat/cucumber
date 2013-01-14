@@ -15,6 +15,7 @@
             <!--Display the state average for only the latest year-->
             <c:if test="${loopCount.count eq 1}">
                 <c:set var="stateAvg" value="${testValue.stateAvg}"/>
+                <c:set var="numberTested" value="${testValue.numberTested}"/>
                 <c:set var="testYearAvg" value="${testValue.year}"/>
                 <c:set var="firstTimeBlue" value="blue"/>
                 <c:set var="firstTimeDarkGrey" value="make-2b2b2b"/>
@@ -52,7 +53,10 @@
                         <div class="unit size35of100 pam">
                             <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
                             <c:if test="${stateAvg != pageScope.dataNAText}">
-                                <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}.</p>
+                            </c:if>
+                            <c:if test="${not empty numberTested}">
+                                <p class="small bottom">${numberTested} students were tested at this location in ${testYearAvg}.</p>
                             </c:if>
                         </div>
                     </c:if>
