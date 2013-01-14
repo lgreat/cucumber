@@ -302,7 +302,9 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataTypeId);
         if (testDataTypeId != null && testDataType == null) {
             testDataType = _testDataTypeDao.getDataType(testDataTypeId);
-            testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
+            if(testDataType != null){
+                testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
+            }
         }
         return testDataType;
     }

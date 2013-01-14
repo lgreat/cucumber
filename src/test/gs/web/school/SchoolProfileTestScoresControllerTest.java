@@ -178,4 +178,32 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         assertNotNull(rval);
         assertFalse("Expect school with real values to have test scores retained", rval.isEmpty());
     }
+
+    /**
+     * Tests that null pointer exception is
+     * not thrown if a Test data type is not found in the DB for the test data type id.
+     * This may occur if the display target is set and the TestDataSet table is moved up,
+     * however the TestDataType table is not moved up.
+     */
+
+    public void testGetTestDataTypeWithNoTestDataTypeRowInDB() {
+        Integer testDataTypeId = 1;
+
+        //An empty map.
+        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
+
+        //Test data type row not found for test data type id 1.
+        TestDataType testDataType = null;
+
+        resetAllMocks();
+        //Test data type row not found for test data type id 1.
+        expect(_testDataTypeDao.getDataType(testDataTypeId)).andReturn(testDataType);
+        replayAllMocks();
+        TestDataType rval = _controller.getTestDataType(testDataTypeIdToTestDataType,testDataTypeId);
+        verifyAllMocks();
+        assertNull("The test data type was not found.Hence return null",rval);
+        assertNull("The test data type was not found.Hence put nothing in the map.",testDataTypeIdToTestDataType.get(testDataTypeId));
+    }
+
+
 }
