@@ -494,7 +494,7 @@
 
 .gsTabs ul.tabStyle-8 li a {
     font-weight: bold;
-    padding: 11px;
+    padding: 10px 11px 11px 11px;
     color: #0066BB;
     text-decoration: none;
     background-color: #BCDEED;
@@ -526,6 +526,6 @@
 
 .gsTabs ul.tabStyle-8 li a.selected {
     border-bottom: none;
-    padding: 13px 10px 12px 10px;
+    padding: 13px 10px 12px 11px;
     outline: 0 none;
 }
