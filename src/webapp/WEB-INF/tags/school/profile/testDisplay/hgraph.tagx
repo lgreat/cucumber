@@ -57,7 +57,7 @@
                                 <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}.</p>
                             </c:if>
                             <c:if test="${not empty numberTested}">
-                                <p class="small bottom">${numberTested} students were tested at this location in ${testYearAvg}.</p>
+                                <p class="small bottom">${numberTested} students were tested at this school in ${testYearAvg}.</p>
                             </c:if>
                         </div>
                     </c:if>
