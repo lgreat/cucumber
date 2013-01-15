@@ -21,7 +21,7 @@
                             <c:forEach var="testToGrades" items="${testScores}">
                                 <option class="${testToGrades.hideGradesNav ? 'js_hideGrades' : ''}"
                                         value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">
-                                    ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by subgroup' : ''}
+                                    ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by Subgroup' : ''}
                                 </option>
                             </c:forEach>
                         </select>
