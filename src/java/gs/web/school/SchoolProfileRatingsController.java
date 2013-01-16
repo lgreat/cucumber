@@ -481,10 +481,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return !State.DC.equals(state);
     }
 
-    public static boolean isShowClimateRatingDetails(State state) {
-        return State.WI.equals(state);
-    }
-
     public static void populateTestScoreRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
         if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
@@ -687,9 +683,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         // SECTION 4 CLIMATE DETAILS
 
-        boolean showClimateRatingDetails = isShowClimateRatingDetails(school.getDatabaseState());
         Map<String, Object> climateRatingDetailsMap = getClimateRatingDetailsModel(school, dataMap);
-        showClimateRatingDetails = showClimateRatingDetails && climateRatingDetailsMap != null && !climateRatingDetailsMap.isEmpty();
+        boolean showClimateRatingDetails = climateRatingDetailsMap != null && !climateRatingDetailsMap.isEmpty();
         model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, showClimateRatingDetails);
 
         if (showClimateRatingDetails) {
