@@ -23,8 +23,18 @@ General comments:
 
 .vertical-ghost-text {
     /* layout properties */
-    top:0;
-    left:-1px;
+    top: 0;
+    left: -1px;
     /* vendor specific properties */
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation = 3);
+}
+
+/*************************************************************************************************************
+
+tab fix
+
+**************************************************************************************************************/
+
+.gsTabs ul.tabStyle-8 li a.selected {
+    padding: 13px 10px 11px 10px;
 }

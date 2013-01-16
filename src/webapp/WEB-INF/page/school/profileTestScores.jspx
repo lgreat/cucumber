@@ -15,13 +15,13 @@
                     <!--Display the test dropdowns-->
                     <div class="hd">
                         <label for="js_testSelect" class="medium_bold mhs">
-                            Select a test:
+                            See results for:
                         </label>
                         <select id="js_testSelect">
                             <c:forEach var="testToGrades" items="${testScores}">
                                 <option class="${testToGrades.hideGradesNav ? 'js_hideGrades' : ''}"
                                         value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">
-                                    ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by subgroup' : ''}
+                                    ${testToGrades.displayName}${testToGrades.isSubgroup eq true ?' by Subgroup' : ''}
                                 </option>
                             </c:forEach>
                         </select>
@@ -39,7 +39,7 @@
                                     <c:forEach var="testToGrades" items="${testScores}">
 
                                         <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
-                                             style="display: none" class="js_grades">
+                                             class="js_grades dn">
 
                                             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
                                                 <div class="small bottom"
@@ -53,14 +53,14 @@
                                         </div>
                                     </c:forEach>
                                 </div>
-                                <div class="alpha grid_11 omega fr" id="js_testScoresValues">
+                                <div class="alpha grid_11 omega fr clearfix" id="js_testScoresValues">
                                     <!--Display the data for the test and grade selected-->
                                     <c:forEach var="testToGrades" items="${testScores}">
                                         <c:set var="isSpecialTest" value="${testToGrades.displayType eq 'oh_value_added'}"/>
                                         <c:choose>
                                             <c:when test="${isSpecialTest}">
                                                 <div id="js_${testToGrades.testDataTypeId}"
-                                                     style="display: none" class="js_specialTests">
+                                                     class="js_specialTests dn clearfix">
                                                     <testDisplay:ohValueAdded testToGrades="${testToGrades}"/>
                                                 </div>
                                             </c:when>
@@ -68,9 +68,9 @@
                                                 <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
                                                     <c:if test="${!isSpecialTest}">
                                                         <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
-                                                             style="display: none" class="js_subjects">
+                                                             class="js_subjects dn clearfix">
                                                             <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                                                                <c:set var="scalesUsed" value=""/>
+                                                                <c:set var="scalesUsed"><div class='smaller fr'><!-- do not display --></div></c:set>
                                                                 <c:choose>
                                                                     <c:when test="${testToGrades.displayType eq 'sentence'}">
                                                                         <testDisplay:sentence subjectToYears="${subjectToYears}"
@@ -87,12 +87,17 @@
                                                                     <c:when test="${testToGrades.isSubgroup}">
                                                                         <testDisplay:subgroup subjectToYears="${subjectToYears}" dataNAText="${dataNAText}"/>
                                                                     </c:when>
-                                                                    <c:when test="${fn:startsWith(testToGrades.displayType, 'hgraph')}">
+                                                                    <c:when test="${testToGrades.displayType eq 'oh_performance_index'}">
+                                                                        <testDisplay:hgraphOhPerformanceIndex subjectToYears="${subjectToYears}"
+                                                                                                              hideSubject="${testToGrades.hideSubject}"
+                                                                                                              dataNAText="${dataNAText}"
+                                                                                />
+                                                                    </c:when>
+                                                                    <c:when test="${testToGrades.displayType eq 'hgraph'}">
                                                                         <c:set var="scalesUsed">
-                                                                            <div class="smaller fr">Scale:${testToGrades.scale}</div>
+                                                                            <div class="smaller fr">Scale: ${testToGrades.scale}</div>
                                                                         </c:set>
                                                                         <testDisplay:hgraph subjectToYears="${subjectToYears}"
-                                                                                            maxValue="${testToGrades.displayType.maxValue}"
                                                                                             hideSubject="${testToGrades.hideSubject}"
                                                                                             dataNAText="${dataNAText}"
                                                                                 />
@@ -109,6 +114,9 @@
                                                             <hr class="keyline1"/>
                                                             <div class="clear mbl"><!-- do not collapse --></div>
                                                             <p class="quiet">${testToGrades.description}</p>
+                                                            <c:if test="${testToGrades.isSubgroup and not empty testToGrades.subgroupDescription}">
+                                                                <p class="quiet">${testToGrades.subgroupDescription}</p>
+                                                            </c:if>
                                                             <c:set var="stateCheck" value="${school.physicalAddress.state}"/>
                                                             <c:choose>
                                                                 <c:when test="${(stateCheck eq 'IL') and (testToGrades.isSubgroup eq false )}"><a

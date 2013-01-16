@@ -7,21 +7,6 @@
     <jsp:directive.attribute name="subjectToYears" type="gs.web.school.test.SubjectToTestValues" required="true"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-    <!--
-    TODO-13589 / TODO-13610 TEMPORARY ONLY, to limit what data points show up. REMOVE ME WHEN THE FOLLOWING IS DONE:
-    Data team needs to deactivate test data sets for older years, or remove these tests from the desktop display target.
-    This is how we'll only display the correct number of years of data.
-    -->
-    <jsp:scriptlet>
-    <![CDATA[
-        // 3 years only to simulate Perl code, until data team deactivates old test data sets or adjusts display target
-        java.util.List testValues = subjectToYears.getTestValues();
-        while (testValues.size() > 3) {
-            testValues.remove(3);
-        }
-    ]]>
-    </jsp:scriptlet>
-
     <!-- figure out if there's any data across the several years of test values -->
     <c:set var="hasData" value="${false}"/>
     <c:forEach var="testValue" items="${pageScope.subjectToYears.testValues}" varStatus="loopCount">
@@ -64,7 +49,6 @@
             <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school received [GRADE]."/>
             <c:set var="noDataMostRecentYearTemplate" value="This school did not receive a grade by the Florida Department of Education in [SCHOOL_YEAR]."/>
             <c:set var="noDataSpecificYearTemplate" value="This school did not receive a grade in [SCHOOL_YEAR]."/>
-            <!-- TODO-13610 - Confirm with Ben/PM that this is okay: Perl template hard-coded most recent 3 school years. For simplicity, changed this to most recent school year only. -->
             <c:set var="noDataAtAllTemplate" value="This school did not receive a grade in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:when>
         <c:when test="${pageScope.state eq 'MI'}">
@@ -129,11 +113,10 @@
             <c:set var="noDataAtAllTemplate" value="No accreditation rating data was reported for this school."/>
         </c:when>
         <c:otherwise>
-            <!-- TODO-13610 get default wording from Ben/PM -->
-            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
-            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was rated [GRADE]."/>
-            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a rating in [SCHOOL_YEAR]."/>
-            <c:set var="noDataAtAllTemplate" value="This school did not receive a rating in [MOST_RECENT_SCHOOL_YEAR]."/>
+            <c:set var="withDataMostRecentYearTemplate" value="In [SCHOOL_YEAR], this school was designated [GRADE]."/>
+            <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school was designated [GRADE]."/>
+            <c:set var="noDataSpecificYearTemplate" value="This school did not receive a designation in [SCHOOL_YEAR]."/>
+            <c:set var="noDataAtAllTemplate" value="This school did not receive a designation in [MOST_RECENT_SCHOOL_YEAR]."/>
         </c:otherwise>
     </c:choose>
 
@@ -156,11 +139,18 @@
 
         <c:set var="isMultiSentenceWithData" value="${fn:length(pageScope.subjectToYears.testValues) > 1 and hasData}"/>
 
-        <c:if test="${isMultiSentenceWithData}">
-            <![CDATA[
-                    <ul>
-            ]]>
-        </c:if>
+        <c:choose>
+            <c:when test="${isMultiSentenceWithData}">
+                <![CDATA[
+                    <ul class="small mln pll">
+                ]]>
+            </c:when>
+            <c:otherwise>
+                <![CDATA[
+                    <div class="small">
+                ]]>
+            </c:otherwise>
+        </c:choose>
 
         <!-- generate and display the output using state-specific templates and values -->
         <c:choose>
@@ -217,13 +207,18 @@
                 </c:if>
             </c:otherwise>
         </c:choose>
-
-        <c:if test="${isMultiSentenceWithData}">
-            <![CDATA[
+        <c:choose>
+            <c:when test="${isMultiSentenceWithData}">
+                <![CDATA[
                     </ul>
-            ]]>
-        </c:if>
-
+                ]]>
+            </c:when>
+            <c:otherwise>
+                <![CDATA[
+                    </div>
+                ]]>
+            </c:otherwise>
+        </c:choose>
     </c:if>
 
 </jsp:root>

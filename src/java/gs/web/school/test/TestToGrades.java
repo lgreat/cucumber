@@ -14,6 +14,7 @@ public class TestToGrades implements Comparable<TestToGrades> {
     String _testLabel;
     List<SchoolProfileTestScoresController.GradeToSubjects> _grades;
     String _description;
+    String _subgroupDescription;
     String _source;
     String _scale;
     Grade _lowestGradeInTest;
@@ -64,6 +65,14 @@ public class TestToGrades implements Comparable<TestToGrades> {
 
     public void setDescription(String description) {
         _description = description;
+    }
+
+    public String getSubgroupDescription() {
+        return _subgroupDescription;
+    }
+
+    public void setSubgroupDescription(String subgroupDescription) {
+        _subgroupDescription = subgroupDescription;
     }
 
     public String getSource() {

@@ -136,35 +136,40 @@ hr.rulethin	{
 
 .iconx60-orange {
     display: inline-block;
-    background-image: url(/res/img/pdfChooser/x60/60x60_orange.png);
+    background-image: url(/res/img/pdfChooser/x72/72x72_3x_badges_orange.png);
+    background-size: 660px 60px;
     width: 60px;
     height: 60px;
 }
 
 .iconx60-orangePrivate {
     display: inline-block;
-    background-image: url(/res/img/pdfChooser/x60/60x60_private_orange.png);
+    background-image: url(/res/img/pdfChooser/x72/72x72_3x_badges_private_orange.png);
+    background-size: 660px 60px;
     width: 60px;
     height: 60px;
 }
 
 .iconx60-RYG {
     display: inline-block;
-    background-image: url(/res/img/pdfChooser/x60/60x60_RYG.png);
+    background-image: url(/res/img/pdfChooser/x72/72x72_3x_badges.png);
+    background-size: 660px 60px;
     width: 60px;
     height: 60px;
 }
 
 .iconx60-RYGPrivate {
     display: inline-block;
-    background-image: url(/res/img/pdfChooser/x60/60x60_private_RYG.png);
+    background-image: url(/res/img/pdfChooser/x72/72x72_3x_badges_private.png);
+    background-size: 660px 60px;
     width: 60px;
     height: 60px;
 }
 
 .iconx60-preschool {
     display: inline-block;
-    background-image: url(/res/img/pdfChooser/x60/60x60_preschool.png);
+    background-image: url(/res/img/pdfChooser/x72/72x72_3x_preschool.png);
+    background-size: 660px 60px;
     width: 60px;
     height: 60px;
 }

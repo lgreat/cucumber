@@ -431,7 +431,7 @@ jQuery(document).ready(function() {
             var testSelected = $(option).val();
             var hideGrades = $(option).hasClass('js_hideGrades');
 
-            $("#js_testLabelHeader").html($(option).text());
+            $("#js_testLabelHeader").html($(option).text() + ' Results');
 
             //Hide all the grades and the subject data
             testScoresGrades.find('.js_grades').hide();

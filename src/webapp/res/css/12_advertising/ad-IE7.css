@@ -23,10 +23,10 @@ General comments:
 
 .vertical-ghost-text {
     /* layout properties */
-    top:0;
-    left:-1px;
+    top: 0;
+    left: -1px;
     /* vendor specific properties */
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation = 3);
 }
 
 /* --------------------------------------------------------------
@@ -35,46 +35,109 @@ General comments:
 
 -------------------------------------------------------------- */
 
-.standard_3-1 .outer{
+.standard_3-1 .outer {
     display: inline-block;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    background-color:#f3fafd;
-    padding:5px;
+    background-color: #f3fafd;
+    padding: 5px;
 }
-.ie-moduleHeight-66{height:66px;}
-.ie-moduleHeight-69{height:69px;}
-.ie-moduleHeight-117{height:117px;}
-.ie-moduleHeight-162{height:162px;}
-.ie-moduleHeight-171{height:171px;}
-.ie-mp0{ margin-top: 0px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px;}
-.ie-over-ratings0{ margin-top: 0px; margin-bottom: 0px; padding-bottom: 0px; padding-top: 2px}
-.ie-enroll-chances-mvm{ margin-top: 10px; margin-bottom: 10px; }
-.ie-enroll-chances-pvs{ padding-bottom: 5px; padding-top: 5px}
+
+.ie-moduleHeight-66 {
+    height: 66px;
+}
+
+.ie-moduleHeight-69 {
+    height: 69px;
+}
+
+.ie-moduleHeight-117 {
+    height: 117px;
+}
+
+.ie-moduleHeight-162 {
+    height: 162px;
+}
+
+.ie-moduleHeight-171 {
+    height: 171px;
+}
+
+.ie-mp0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.ie-over-ratings0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    padding-top: 2px
+}
+
+.ie-enroll-chances-mvm {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ie-enroll-chances-pvs {
+    padding-bottom: 5px;
+    padding-top: 5px
+}
 
 /*************************************************************************************************************
 
 Secondary nav fix
 
 **************************************************************************************************************/
-#gs-secondary .dropdown_1{min-width:0;width:245px;}
-#gs-secondary .dropdown_2{min-width:0;width:174px;}
-#gs-secondary .dropdown_3{min-width:0;width:131px;}
-#gs-secondary .dropdown_4{min-width:0;width:157px;}
-#gs-secondary .dropdown_5{min-width:0;width:145px;}
-#gs-secondary .dropdown_6{min-width:0;width:188px;}
+#gs-secondary .dropdown_1 {
+    min-width: 0;
+    width: 245px;
+}
+
+#gs-secondary .dropdown_2 {
+    min-width: 0;
+    width: 174px;
+}
+
+#gs-secondary .dropdown_3 {
+    min-width: 0;
+    width: 131px;
+}
+
+#gs-secondary .dropdown_4 {
+    min-width: 0;
+    width: 157px;
+}
+
+#gs-secondary .dropdown_5 {
+    min-width: 0;
+    width: 145px;
+}
+
+#gs-secondary .dropdown_6 {
+    min-width: 0;
+    width: 188px;
+}
 
 /*************************************************************************************************************
 
 tab fix
 
 **************************************************************************************************************/
-.gsTabs ul.tabStyle-8 li a {padding-bottom: 8px;}
-.gsTabs ul.tabStyle-8 li a:hover {padding-bottom: 8px;}
-.gsTabs ul.tabStyle-8 li a.selected { filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"; padding-bottom: 8px;}
+.gsTabs ul.tabStyle-8 li a {
+    margin-top: -3px;
+    padding-bottom: 12px;
+    line-height: 14px;
+}
 
-
+.gsTabs ul.tabStyle-8 li a.selected {
+    filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+    line-height: 14px;
+}
 
 /*************************************************************************************************************
 
@@ -82,6 +145,9 @@ fix for Pinterest button layout in the new school profile, in ie7
 
 ******/
 
-#schoolProfilePinIt{
-    zoom:1; _height:25px; *display: inline; margin-right: 5px;
+#schoolProfilePinIt {
+    zoom: 1;
+    _height: 25px;
+    *display: inline;
+    margin-right: 5px;
 }

@@ -5,15 +5,17 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
 
-    <jsp:directive.attribute name="title" required="false" type="java.lang.String" description="title" />
-    <jsp:directive.attribute name="id" required="false" type="java.lang.String" description="DOM ID" />
-    <jsp:directive.attribute name="cssClass" required="false" type="java.lang.String" description="DOM class attribute" />
+    <jsp:directive.attribute name="title" required="false" type="java.lang.String" description="title"/>
+    <jsp:directive.attribute name="id" required="false" type="java.lang.String" description="DOM ID"/>
+    <jsp:directive.attribute name="cssClass" required="false" type="java.lang.String"
+                             description="DOM class attribute"/>
     <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
 
     <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="noclear" required="false" type="java.lang.Boolean"/>
 
-    <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}" noclear="${noclear}">
+    <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}"
+                         hideApplyReset="${hideApplyReset}" noclear="${noclear}">
         <c:choose>
             <c:when test="${not empty pageScope.title or not hideApplyReset}">
                 <div class="mod standard_6-3" style="width: 250px;">
@@ -21,7 +23,9 @@
                         <div class="hd">
                             <div class="line">
                                 <div class="unit size85of100">
-                                    <div class="small bottom">Results will show schools with at least <strong>one</strong> of these:</div>
+                                    <div class="small bottom">Results will show schools with at least
+                                        <strong>one</strong> of these:
+                                    </div>
                                 </div>
                                 <div class="unit size15of100 lastUnit">
                                     <span class="fltrt" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">
@@ -54,7 +58,7 @@
             </c:when>
 
             <c:when test="${not empty pageScope.title or not empty noclear}">
-                <div class="mod standard_6-3" style="width: 174px;">
+                <div class="mod standard_6-3" style="width: 175px;">
                     <div class="bd" style="height:63px;">
                         <jsp:doBody/>
                     </div>

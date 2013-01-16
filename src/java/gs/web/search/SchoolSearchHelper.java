@@ -143,6 +143,9 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         if (showAdvancedFilters) {
             _searchAdHelper.addAdvancedFiltersKeywords(pageHelper, showAdvancedFilters);
         }
+
+        // GS-13607 - county
+        _searchAdHelper.addCountyAdKeywords(pageHelper, schoolResults);
     }
 
     public ModelAndView checkForRedirectConditions(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {

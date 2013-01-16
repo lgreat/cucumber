@@ -1088,6 +1088,19 @@
         <property name="leftNavSelectedItem" value=""/>
     </bean>
 
+    <!-- example CMS-driven page; copy XML block below and change bean name to URL path -->
+    <bean name="/sample-cms-page.page"
+          class="gs.web.content.cms.CmsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/><!-- for mobile-enabled URL, see bean name="/about/aboutUs.page" as example -->
+        <property name="viewName" value="content/cms/page"/><!-- only change this if you need a custom template -->
+        <property name="contentId" value="6837"/><!-- change me -->
+        <property name="adSlotPrefix" value="AboutUs_Advisors"/><!-- change me -->
+        <property name="omniturePageName" value="Meet Our Advisors"/><!-- change me -->
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Meet Our Advisors"/><!-- change me -->
+    </bean>
+
     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
