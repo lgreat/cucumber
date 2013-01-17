@@ -286,13 +286,16 @@ public class BoundaryAjaxController {
         State state = State.fromString(stateParam);
         LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
         List<Map> features = new ArrayList<Map>();
-        List<School> schools = new ArrayList();
+        List<School> schools = new ArrayList<School>();
 
         try {
             schools.add(_schoolDao.getSchoolById(state, id));
             List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatingsNewGSRating(state, schools);
             for (SchoolWithRatings s : schoolsWithRatings){
-                Map schoolMap = map(s.getSchool(), null, s.getRating(), request);
+                if (!s.getSchool().isActive()) {
+                    continue;
+                }
+                Map<String, Object> schoolMap = map(s.getSchool(), null, s.getRating(), request);
                 SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, level);
                 if (schoolBoundary!=null){
                     schoolMap.put("coordinates", map(schoolBoundary.getGeometry()));
@@ -384,7 +387,7 @@ public class BoundaryAjaxController {
                     continue;
                 }
                 School school = _schoolDao.getSchoolById(boundary.getState(), boundary.getSchoolId());
-                if (school == null) {
+                if (school == null || !school.isActive()) {
                     continue;
                 }
                 schools.add(school);
@@ -504,8 +507,8 @@ public class BoundaryAjaxController {
         model.addAttribute("schools", features);
     }
 
-    private Map map(School school, District district, int rating, HttpServletRequest request){
-        Map map = new HashMap();
+    private Map<String, Object> map(School school, District district, int rating, HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("state", school.getDatabaseState().toString());
         map.put("id", school.getId());
         map.put("name", school.getName());
@@ -517,7 +520,7 @@ public class BoundaryAjaxController {
         map.put("isNewGSRating",school.getIsNewGSRating());
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         map.put("url", urlBuilder.asSiteRelative(request));
-        Map address = new HashMap();
+        Map<String, String> address = new HashMap<String, String>();
         address.put("street1", school.getPhysicalAddress().getStreet());
         address.put("street2", school.getPhysicalAddress().getStreetLine2());
         address.put("cityStateZip", school.getPhysicalAddress().getCityStateZip());
@@ -532,8 +535,8 @@ public class BoundaryAjaxController {
         return map;
     }
 
-    private Map map ( SolrSchoolSearchResult school, District district, int rating, HttpServletRequest request) {
-        Map data = new HashMap();
+    private Map<String, Object> map ( SolrSchoolSearchResult school, District district, int rating, HttpServletRequest request) {
+        Map<String, Object> data = new HashMap<String, Object>();
         data.put("state", school.getDatabaseState().toString());
         data.put("id", school.getId());
         data.put("lat", school.getLatLon().getLat());
@@ -551,7 +554,7 @@ public class BoundaryAjaxController {
         schoolFacade.setLevelCode(LevelCode.createLevelCode(school.getLevelCode()));
         UrlBuilder urlBuilder = new UrlBuilder(schoolFacade, UrlBuilder.SCHOOL_PROFILE);
         data.put("url", urlBuilder.asSiteRelative(request));
-        Map address = new HashMap();
+        Map<String, String> address = new HashMap<String, String>();
         address.put("street1", school.getAddress().getStreet());
         address.put("street2", school.getAddress().getStreetLine2());
         address.put("cityStateZip", school.getAddress().getCityStateZip());
