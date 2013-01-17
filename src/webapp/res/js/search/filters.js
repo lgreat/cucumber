@@ -16,7 +16,7 @@ GS.search.filters = GS.search.filters || (function() {
                 /*}*/
                 var queryString = window.location.search;
                 var queryStringData = GS.uri.Uri.getQueryData(queryString);
-                if(queryStringData['view'] === 'map') {
+                if(queryStringData['view'] === 'map' && queryStringData['lat'] !== undefined && queryStringData['lon'] !== undefined) {
                     var districtBoundaryLink = $('#js-showDistrictBoundaryLink').find('a');
                     var districtBoundaryUri = "/school-district-boundaries-map/?lat=" + queryStringData['lat']  + "&lon=" +
                                                 queryStringData['lon'];
