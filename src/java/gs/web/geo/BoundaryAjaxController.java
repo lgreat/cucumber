@@ -1,13 +1,9 @@
 package gs.web.geo;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.TopologyException;
 import gs.data.geo.*;
-import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
-import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -15,17 +11,12 @@ import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.IDistrictSearchResult;
-import gs.data.search.beans.ISchoolSearchResult;
-import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.services.DistrictSearchService;
 import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
-import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
-import gs.data.test.rating.IRatingsConfig;
-import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -34,11 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
@@ -46,7 +35,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -387,7 +375,7 @@ public class BoundaryAjaxController {
                     continue;
                 }
                 School school = _schoolDao.getSchoolById(boundary.getState(), boundary.getSchoolId());
-                if (school == null || !school.isActive()) {
+                if (school == null || !school.isActive() || !school.getLevelCode().containsLevelCode(level)) {
                     continue;
                 }
                 schools.add(school);

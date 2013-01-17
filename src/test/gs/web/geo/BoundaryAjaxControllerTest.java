@@ -93,6 +93,7 @@ public class BoundaryAjaxControllerTest extends BaseControllerTestCase {
         rval.setName("School " + id);
         rval.setActive(active);
         rval.setCity("City");
+        rval.setLevelCode(LevelCode.ELEMENTARY);
         return rval;
     }
 
@@ -168,6 +169,30 @@ public class BoundaryAjaxControllerTest extends BaseControllerTestCase {
         expect(_schoolBoundaryDao.getSchoolBoundariesContainingPoint(1d, 2d, LevelCode.Level.ELEMENTARY_LEVEL)).andReturn(boundaries);
         School firstSchool = createSchool(1, true);
         School secondSchool = createSchool(2, false);
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(firstSchool);
+        expect(_schoolDao.getSchoolById(State.CA, 2)).andReturn(secondSchool);
+        List<SchoolWithRatings> schoolsWithRatings = new ArrayList<SchoolWithRatings>();
+        SchoolWithRatings firstSchoolWithRatings = createSchoolWithRatings(firstSchool);
+        schoolsWithRatings.add(firstSchoolWithRatings);
+        expect(_schoolDao.populateSchoolsWithRatingsNewGSRating(eq(State.CA), eqListSize(1, School.class))).andReturn(schoolsWithRatings);
+        replayAllMocks();
+        ModelAndView mAndV = _controller.getSchoolsForLocation(1d, 2d, "e", new ExtendedModelMap(), getRequest(), getResponse());
+        List schools = (List) mAndV.getModel().get("schools");
+        assertNotNull(schools);
+        assertEquals(1, schools.size());
+        verifyAllMocks();
+    }
+
+    public void testGetSchoolsForLocation_IgnoreWrongLevel() {
+        List<SchoolBoundary> boundaries = new ArrayList<SchoolBoundary>();
+        SchoolBoundary firstBoundary = createSchoolBoundary(1);
+        boundaries.add(firstBoundary);
+        SchoolBoundary secondBoundary = createSchoolBoundary(2);
+        boundaries.add(secondBoundary);
+        expect(_schoolBoundaryDao.getSchoolBoundariesContainingPoint(1d, 2d, LevelCode.Level.ELEMENTARY_LEVEL)).andReturn(boundaries);
+        School firstSchool = createSchool(1, true);
+        School secondSchool = createSchool(2, true);
+        secondSchool.setLevelCode(LevelCode.MIDDLE);
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(firstSchool);
         expect(_schoolDao.getSchoolById(State.CA, 2)).andReturn(secondSchool);
         List<SchoolWithRatings> schoolsWithRatings = new ArrayList<SchoolWithRatings>();
