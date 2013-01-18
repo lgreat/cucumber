@@ -708,26 +708,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
     }
 
-    public void testIsShowClimateRatingDetails() {
-        Boolean showStateRating;
-
-        // Milwaukee
-        showStateRating = _controller.isShowClimateRatingDetails(State.WI);
-        assertTrue(showStateRating);
-
-        // DC
-        showStateRating = _controller.isShowClimateRatingDetails(State.DC);
-        assertFalse(showStateRating);
-
-        // Indy
-        showStateRating = _controller.isShowClimateRatingDetails(State.IN);
-        assertFalse(showStateRating);
-
-        // other state
-        showStateRating = _controller.isShowClimateRatingDetails(State.AK);
-        assertFalse(showStateRating);
-    }
-
     public void testGetClimateRatingDetailsModel() {
         Map<String,Object> model;
         School s = new School();
