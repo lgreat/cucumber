@@ -19,11 +19,9 @@
         <table>
 
             <tr>
-                <th>Grade</th>
-                <th>Subject</th>
-                <th>Above</th>
-                <th>Met</th>
-                <th>Below</th>
+                <th></th>
+                <th>Math</th>
+                <th>Reading</th>
             </tr>
 
             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
@@ -53,7 +51,7 @@
                     <c:when test="${gradeToSubjects.grade.name eq 'All'}">
                         <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
                             <c:if test="${subjectToYears.subjectLabel eq 'All Subjects' and
-                                              fn:length(subjectToYears.testValues) > 0}">
+                                              fn:length(subjectToYears.testValues) gt 0}">
                                 <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
                                 <c:set var="overallSchoolYear"
                                        value="${mostRecentTestValue.year-1}-${mostRecentTestValue.year}"/>
@@ -66,7 +64,7 @@
                     <c:otherwise>
 
                         <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                            <c:if test="${fn:length(subjectToYears.testValues) > 0}">
+                            <c:if test="${fn:length(subjectToYears.testValues) gt 0}">
                                 <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
                                 <c:set var="rating" value="${mostRecentTestValue.testScoreStr}"/>
 
@@ -82,17 +80,9 @@
                         </c:forEach>
 
                         <tr>
-                            <td rowspan="2">${gradeToSubjects.grade.name}</td>
-                            <td>Reading</td>
-                            <td>${readingRating eq 'Above' ? 'X' : ''}</td>
-                            <td>${readingRating eq 'Met' ? 'X' : ''}</td>
-                            <td>${readingRating eq 'Below' ? 'X' : ''}</td>
-                        </tr>
-                        <tr>
-                            <td>Math</td>
-                            <td>${mathRating eq 'Above' ? 'X' : ''}</td>
-                            <td>${mathRating eq 'Met' ? 'X' : ''}</td>
-                            <td>${mathRating eq 'Below' ? 'X' : ''}</td>
+                            <td>Grade ${gradeToSubjects.grade.name}</td>
+                            <td>${mathRating}</td>
+                            <td>${readingRating}</td>
                         </tr>
 
                     </c:otherwise>
