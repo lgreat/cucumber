@@ -112,14 +112,4 @@
         ${debugData}
     </c:if>
 
-    <!-- test source -->
-    <div class="mtl small quiet fr"><strong>Source:</strong> ${testToGrades.source}</div>
-
-    <!-- test description -->
-    <div class="clearfloat"><!-- not empty --></div>
-    <h4 class="pbn mbs">About the ${testToGrades.displayName}</h4>
-    <hr class="keyline1"/>
-    <div class="clear mbl"><!-- do not collapse --></div>
-    <p class="quiet">${testToGrades.description}</p>
-
 </jsp:root>
