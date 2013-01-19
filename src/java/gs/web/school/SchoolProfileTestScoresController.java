@@ -141,11 +141,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
             //If the grade=all then display only the level codes that the school has.
             //Note:This may or may not work with extra data.Re-visit this when working on GS-12963
-            if (Grade.ALL.equals(grade)) {
-                Set<LevelCode.Level> levelCodes = levelCode.getIndividualLevelCodes();
-                for (LevelCode.Level level : levelCodes) {
-                    if (!school.getLevelCode().containsLevelCode(level)) {
-                        levelCode.remove(level);
+            // Do not do this for NYC Progress Report so as not to incorrectly combine data that doesn't belong together
+            if (testDataType.getDisplayType() != TestDataTypeDisplayType.nyc_progress_report_grade) {
+                if (Grade.ALL.equals(grade)) {
+                    Set<LevelCode.Level> levelCodes = levelCode.getIndividualLevelCodes();
+                    for (LevelCode.Level level : levelCodes) {
+                        if (!school.getLevelCode().containsLevelCode(level)) {
+                            levelCode.remove(level);
+                        }
                     }
                 }
             }
