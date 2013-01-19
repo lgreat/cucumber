@@ -108,6 +108,12 @@ public class SchoolProfileController extends AbstractSchoolController implements
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
         }
 
+        if (school.getIsNewGSRating()) {
+            pageHelper.addAdKeywordMulti("template", "NewRating");
+        } else if (school.getIsOldGSRating()) {
+            pageHelper.addAdKeywordMulti("template", "OldRating");
+        }
+
         return new ModelAndView(_viewName, model);
     }
 
