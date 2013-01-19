@@ -146,6 +146,9 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
         // GS-13607 - county
         _searchAdHelper.addCountyAdKeywords(pageHelper, schoolResults);
+
+        // GS-13671 - template: srchbrowse
+        _searchAdHelper.addSearchBrowseAdKeyword(pageHelper);
     }
 
     public ModelAndView checkForRedirectConditions(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {

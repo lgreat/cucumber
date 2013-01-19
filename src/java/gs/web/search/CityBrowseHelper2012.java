@@ -267,6 +267,9 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
 
         // GS-13607 - county
         _searchAdHelper.addCountyAdKeywords(pageHelper, schoolResults);
+
+        // GS-13671 - template: srchbrowse
+        _searchAdHelper.addSearchBrowseAdKeyword(pageHelper);
     }
 
     public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {

@@ -120,6 +120,11 @@ public class SearchAdHelper {
         }
     }
 
+    public void addSearchBrowseAdKeyword(PageHelper pageHelper) {
+        // srchbrowse is not a typo -- we're currently limited to 10 characters for ad keyword values
+        pageHelper.addAdKeywordMulti("template", "srchbrowse");
+    }
+
     public void addRealtorDotComAdKeywords(PageHelper pageHelper, State state, City city) {
         if (state != null && city != null) {
             String cityName = city.getName();
