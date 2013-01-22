@@ -47,8 +47,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_DC =
             "Coming 2013";
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_IN =
-            "Coming soon";
+            "Not available";
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_WI =
+            "Not available";
+    public static final String CLIMATE_RATING_AVAILABILITY_TEXT_ALL_STATES =
             "Not available";
 
     public static final String SECTION_1_COPY_DC =
@@ -132,15 +134,18 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     " The climate rating will be based on survey data about various aspects of this school's climate, such as safety, " +
                     "cleanliness, expectations for students, parent involvement, and more.";
     public static final String SECTION_4_COPY_IN =
-            "Starting in fall 2012, we plan to include a climate rating as part of this school's overall GreatSchools Rating." +
-                    " The climate rating will be based on feedback from teachers about various aspects of their school's climate," +
-                    " such as safety, cleanliness, expectations for students, parent involvement, and more.";
+            "This rating encompasses five elements of school climate: safety and cleanliness, respect and relationships, " +
+                    "expectations for students, teacher collaboration and support, and parent involvement. The results are " +
+                    "based on analysis of the Indianapolis Teacher Climate Survey conducted in 2012 by GreatSchools " +
+                    "and the Indiana Department of Education.";
+    public static final String SECTION_4_COPY_DATA_UNAVAILABLE_IN =
+            "Climate rating for this school is not yet available.";
     public static final String SECTION_4_COPY_WI =
             "This rating encompasses five elements of school climate: safety and cleanliness, respect and " +
                     "relationships, expectations for students, teacher collaboration and support, and parent " +
                     "involvement. This school's climate ratings are the result of GreatSchools' analysis of teacher " +
                     "survey data from the Spring 2012 School Climate Survey developed by Milwaukee Public Schools.";
-    public static final String SECTION_4_COPY_DATA_UNAVAILABLE =
+    public static final String SECTION_4_COPY_DATA_UNAVAILABLE_WI =
            "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
     public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
             "environment, based on its safety, order, cleanliness and more.  More highly rated schools have well-kept facilities " +
@@ -381,11 +386,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // CLIMATE RATING
 
         Object overallClimateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
-        boolean hasClimateRating = (overallClimateRating != null);
-        if ((State.DC.equals(school.getDatabaseState()) || State.IN.equals(school.getDatabaseState())) ||
-                (State.WI.equals(school.getDatabaseState()) && !hasClimateRating)) {
+        if (overallClimateRating == null) {
             model.put(MODEL_CLIMATE_RATING_AVAILABILITY_TEXT, getClimateRatingAvailabilityText(school));
-        } else if (hasClimateRating) {
+        } else if (overallClimateRating != null) {
             model.put(MODEL_OVERALL_CLIMATE_RATING, overallClimateRating);
             // TODO-13012 replace with better call to more permanent rating-to-label helper method for new rating; fix object->string->float->string conversion
             model.put(MODEL_OVERALL_CLIMATE_RATING_LABEL,
@@ -405,7 +408,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.WI.equals(school.getDatabaseState())) {
             return CLIMATE_RATING_AVAILABILITY_TEXT_WI;
         } else {
-            return COPY_NOT_AVAILABLE;
+            return CLIMATE_RATING_AVAILABILITY_TEXT_ALL_STATES;
         }
     }
 
@@ -697,12 +700,16 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         if (State.DC.equals(school.getDatabaseState())) {
             return SECTION_4_COPY_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
-            return SECTION_4_COPY_IN;
+            if (!dataMap.containsKey(DATA_OVERALL_CLIMATE_RATING)) {
+                return SECTION_4_COPY_DATA_UNAVAILABLE_IN;
+            } else {
+                return SECTION_4_COPY_IN;
+            }
         } else if (State.WI.equals(school.getDatabaseState())) {
             StringBuilder s = new StringBuilder(SECTION_4_COPY_WI);
             if (!dataMap.containsKey(DATA_OVERALL_CLIMATE_RATING)) {
                 s.append(" ");
-                s.append(SECTION_4_COPY_DATA_UNAVAILABLE);
+                s.append(SECTION_4_COPY_DATA_UNAVAILABLE_WI);
             }
             return s.toString();
         } else {

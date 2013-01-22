@@ -166,15 +166,17 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertNull(overallClimateRatingLabel);
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_WI, climateRatingAvailabilityText);
 
-        // restore rating
-        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
 
         // DC
         s.setDatabaseState(State.DC);
         _controller.populateSection1Model(s, _dataMap,model);
+        //There is no rating, therefore there should be text to indicate data not available.
         climateRatingAvailabilityText =
                 model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_DC, climateRatingAvailabilityText);
+
+        // restore rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
 
         // SECTION 1 COPY
 
@@ -207,7 +209,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // unsupported state
         s.setDatabaseState(State.AK);
         copy = _controller.getClimateRatingAvailabilityText(s);
-        assertEquals(SchoolProfileRatingsController.COPY_NOT_AVAILABLE, copy);
+        assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_ALL_STATES, copy);
     }
 
     public void testGetSection1Copy() {
@@ -682,7 +684,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         s.setDatabaseState(State.WI);
         copy = _controller.getSection4Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI + " " + SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE, copy);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI + " " + SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE_WI, copy);
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
