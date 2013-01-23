@@ -83,7 +83,7 @@
     <c:if test="${showDebugData}">
         ${debugData}
     </c:if>
-
+    <div class="pbl">
     <!-- now display the info on the page -->
     <c:choose>
         <c:when test="${foundData}">
@@ -146,6 +146,7 @@
                     </ul>
                 ]]>
             </c:if>
+
         </c:when>
         <c:otherwise>
             <c:if test="${mostRecentYear gt 0}">
@@ -156,5 +157,5 @@
             </c:if>
         </c:otherwise>
     </c:choose>
-
+    </div>
 </jsp:root>
