@@ -25,12 +25,12 @@ hgroup, nav, section {
 }
 
 div.divFooter {
-    font:normal 6pt Arial, Helvetica, sans-serif;
+    font:normal 8pt Arial, Helvetica, sans-serif;
     color:#878787;
     position: running(divFooter);
 }
 div.divFooter .logo{
-    width:90px;
+    width:150px;
     vertical-align: middle;
 }
 div.dateFooter {
