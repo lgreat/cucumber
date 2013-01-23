@@ -6,14 +6,15 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
+    <jsp:directive.attribute name="position" required="false" description="Ad slot position"/>
 
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
-
-        <div class="prefix_3 grid_19 suffix_2">
-            <ad:Header_728x90 position="${position}"/>
+        <div class="container_24">
+            <div class="prefix_3 grid_19 suffix_2">
+                <ad:Header_728x90 position="${position}"/>
+            </div>
+            <div class="clear"><!-- do not collapse --></div>
         </div>
-        <div class="clear"><!-- do not collapse --></div>
 
     </c:if>
 

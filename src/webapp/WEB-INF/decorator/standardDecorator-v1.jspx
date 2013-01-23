@@ -19,9 +19,9 @@
         xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
 
-<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
-<jsp:output omit-xml-declaration="true" />
-<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="true"/>
+    <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat"/>
 
     <c:choose>
         <c:when test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
@@ -32,10 +32,12 @@
         </c:otherwise>
     </c:choose>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml"
+          xmlns:og="http://opengraphprotocol.org/schema/">
     <head profile="${profile}">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title><decorator:title default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title><decorator:title
+                default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
         <pageHelper:addCss-v1/>
 
         <pageHelper:addJavaScript-v1
@@ -53,31 +55,36 @@
     </head>
 
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
-          onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="site-gradient">
+          onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}">
 
-    <div class="container_24">
+    <div class="">
 
-
-        <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-            <ad:x22 position="Header_728x90"/>
-        </c:if>
-        <cobrand:header/>
-        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-            <mod:header/>
-        </c:if>
-
-        <div class="page-shadow clearfix">
-            <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                <mod:primaryNav/>
-                <mod:secondaryNav/>
-                <mod:belowNavAds/>
+        <div class="site-gradient">
+            <c:if test="${requestScope.pageHelper.showingLeaderboard}">
+                <ad:x22 position="Header_728x90"/>
             </c:if>
-            <div class="phs clearfix">
-            <decorator:body/>
-            </div>
-            <mod:footer showAd="true" showSeoFooter="true"/>
-            <div style="text-align:center"><cobrand:footer/></div>
+            <cobrand:header/>
+            <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+                <mod:header/>
+            </c:if>
+            <mod:primaryNav/>
+            <mod:secondaryNav/>
         </div>
+
+        <div class="container_24">
+            <div class="clearfix">
+                <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+                    <mod:belowNavAds/>
+                </c:if>
+
+                <div class="phs clearfix">
+                    <decorator:body/>
+                </div>
+            </div>
+        </div>
+        <mod:footer showAd="true" showSeoFooter="true"/>
+
+        <div style="text-align:center"><cobrand:footer/></div>
 
     </div>
     ${modTracking}
@@ -111,7 +118,7 @@
     <communityHover:espAccountVerified/>
     <communityHover:schoolEspThankYou/>
 
- <![CDATA[
+    <![CDATA[
     <!--[if IE 7]>
     <script type="text/javascript">
        $(document).ready(function() {
@@ -121,6 +128,6 @@
     <![endif]-->   ]]>
     <mobile:desktopSiteSwitchJS/>
     </body>
-  </html>
+    </html>
 
 </jsp:root>

@@ -24,6 +24,7 @@
 <c:set var="pw" value="${requestScope.context.pathway}"/>
 
 <div class="menuContainer">
+<div class="container_24">
 <table id="gs-primary">
 <tbody>
 <tr>
@@ -60,7 +61,7 @@
                 <div class="col_content">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <!--<li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"-->
-                                                    <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
+                        <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
                         <!--</li>-->
                         <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool"
                                class="GS_CI9_">Defining Your Ideal School</a></li>
@@ -74,8 +75,9 @@
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-20.9.jpg" width="130" height="66"
-                              alt="find a school hot topic"/>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-20.9.jpg"
+                                              width="130" height="66"
+                                              alt="find a school hot topic"/>
                     </div>
                     <!-- GS-12882 -->
                     <!--<p class="text3 allCaps">Hot Topic</p>-->
@@ -85,8 +87,9 @@
                     <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
                     <div class="fl"><p class="text3 allCaps">NEW!</p>
 
-                    <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap" styleClass="GS_CI9_"
-                        school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
+                        <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap"
+                                                      styleClass="GS_CI9_"
+                                                      school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
                         </p></div>
                 </div>
             </div>
@@ -129,15 +132,16 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66" alt="preschool hot topic" />-->
                     <!-- for java pages -->
-                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-preschool-19.3.jpg" width="130" height="66"
-                              alt="preschool hot topic"/>
+                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-preschool-19.3.jpg"
+                                               width="130" height="66"
+                                               alt="preschool hot topic"/>
                     </div>
                     <div class="fl">
-                    <p class="text3 allCaps">Hot Topic</p>
+                        <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/parenting/social-skills/1579-making-friends-in-preschool.gs"
-                          id="PN_P_HT-HowCanIHelpMyPreschoolerMakeFriends"
-                          class="GS_CI9_">How can I help my<br />preschooler make friends?</a></p></div>
+                        <p><a href="/parenting/social-skills/1579-making-friends-in-preschool.gs"
+                              id="PN_P_HT-HowCanIHelpMyPreschoolerMakeFriends"
+                              class="GS_CI9_">How can I help my<br/>preschooler make friends?</a></p></div>
                 </div>
             </div>
         </div>
@@ -167,7 +171,8 @@
                         <li><a href="/fifth-grade.topic?content=2664" id="PN_E_1-FifthGrade"
                                class="GS_CI9_">Fifth Grade</a>
                         </li>
-                        <li><a href="/elementary-school-math.topic?content=5069" id="PN_E_1-Math" class="GS_CI9_">Math</a>
+                        <li><a href="/elementary-school-math.topic?content=5069" id="PN_E_1-Math"
+                               class="GS_CI9_">Math</a>
                         </li>
                         <li class="lastone"><a href="/elementary-school-reading.topic?content=5256" id="PN_E_1-Reading"
                                                class="GS_CI9_">Reading</a></li>
@@ -204,13 +209,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130" height="66" alt="elementary school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-elementaryschool-19.3.jpg" width="130"
-                              height="66" alt="elementary school hot topic"/></div>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-elementaryschool-19.3.jpg"
+                                              width="130"
+                                              height="66" alt="elementary school hot topic"/></div>
 
                     <div class="fl"><p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/students/academic-skills/2430-teaching-persistence-3rd-through-5th-grade.gs?page=1"
-                          id="PN_E_HT-TeachingPersistence" class="GS_CI9_">Teaching persistence</a></p></div>
+                        <p><a href="/students/academic-skills/2430-teaching-persistence-3rd-through-5th-grade.gs?page=1"
+                              id="PN_E_HT-TeachingPersistence" class="GS_CI9_">Teaching persistence</a></p></div>
                 </div>
             </div>
         </div>
@@ -237,7 +243,7 @@
                                class="GS_CI9_">Science</a>
                         </li>
                         <li><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
-                                               class="GS_CI9_">Social Studies</a></li>
+                               class="GS_CI9_">Social Studies</a></li>
                         <li class="lastone"><a href="/Tween-Troubles.topic?content=4885" id="PN_M_1-TweenTroubles"
                                                class="GS_CI9_">Tween Troubles</a></li>
                     </ul>
@@ -265,14 +271,15 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130" height="66" alt="middle school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-middleschool-19.3.jpg" width="130"
-                              height="66" alt="middle school hot topic"/></div>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-middleschool-19.3.jpg"
+                                              width="130"
+                                              height="66" alt="middle school hot topic"/></div>
 
-                        <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/parenting/bullying/5063-when-the-teacher-is-the-bully.gs?page=1"
-                          id="PN_M_HT-WhenTheTeacherIsTheBully"
-                          class="GS_CI9_">When the teacher is the<br />bully</a></p></div>
+                        <p><a href="/parenting/bullying/5063-when-the-teacher-is-the-bully.gs?page=1"
+                              id="PN_M_HT-WhenTheTeacherIsTheBully"
+                              class="GS_CI9_">When the teacher is the<br/>bully</a></p></div>
                 </div>
             </div>
         </div>
@@ -317,8 +324,9 @@
                         <li><a href="/improvement.topic?content=1543" id="PN_H_2-ImproveYourSchool"
                                class="GS_CI9_">Improve Your School</a></li>
                         <li><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community"
-                                               class="GS_CI9_">Community</a></li>
-                        <li class="lastone"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="PN_H_2-SexDrugsAndYourTeen"
+                               class="GS_CI9_">Community</a></li>
+                        <li class="lastone"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880"
+                                               id="PN_H_2-SexDrugsAndYourTeen"
                                                class="GS_CI9_">Sex, Drugs &amp;amp; Your Teen</a></li>
                     </ul>
                 </div>
@@ -328,13 +336,15 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66" alt="high school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-highschool-19.3.jpg" width="130" height="66"
-                              alt="high school hot topic"/></div>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-highschool-19.3.jpg"
+                                              width="130" height="66"
+                                              alt="high school hot topic"/></div>
 
                     <div class="fl"><p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/parenting/4486-parent-rules-teen-alcohol-drug-use.gs?page=1"
-                          id="PN_H_HT-HouseRulesOnDrugsAndAlcohol" class="GS_CI9_">House rules on drugs and<br />alcohol</a></p></div>
+                        <p><a href="/parenting/4486-parent-rules-teen-alcohol-drug-use.gs?page=1"
+                              id="PN_H_HT-HouseRulesOnDrugsAndAlcohol" class="GS_CI9_">House rules on drugs and<br/>alcohol</a>
+                        </p></div>
                 </div>
             </div>
         </div>
@@ -370,13 +380,15 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="college hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66"
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130"
+                                              height="66"
                                               alt="college hot topic"/></div>
 
                     <div class="fl"><p class="text3 allCaps">Hot Topic</p>
 
                         <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
-                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions<br />anxiety</a></p></div>
+                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions<br/>anxiety</a>
+                        </p></div>
                 </div>
             </div>
         </div>
@@ -386,6 +398,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 </jsp:root>

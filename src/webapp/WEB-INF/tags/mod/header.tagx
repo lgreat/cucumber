@@ -10,176 +10,179 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="http://java.sun.com/jsp/jstl/core" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
-<jsp:directive.tag import="gs.web.util.PageHelper"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.tag body-content="empty"/>
-<jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
-                         description="True if topnav is loaded via community iframe"/>
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
+                             description="True if topnav is loaded via community iframe"/>
 
-<jsp:scriptlet>
-    request.setAttribute("tabs", PageHelper.pageIds);
-</jsp:scriptlet>
-
-<c:set var="communityClassSearch" value=""/>
-
-<div id="header">
     <jsp:scriptlet>
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+        request.setAttribute("tabs", PageHelper.pageIds);
     </jsp:scriptlet>
-    <c:if test="${!requestScope.context.crawler}">
-        <div class="line">
-            <div class="unit size1of1 lastUnit">
+
+    <c:set var="communityClassSearch" value=""/>
+
+    <div id="header" class="container_24">
+        <jsp:scriptlet>
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+        </jsp:scriptlet>
+        <c:if test="${!requestScope.context.crawler}">
+            <div class="line">
+                <div class="unit size1of1 lastUnit">
+                    <c:choose>
+                        <!-- Not logged in case -->
+                        <c:when test="${empty requestScope.context.memberId}">
+                            <mod:nonCommunityAccountHeader/>
+                        </c:when>
+                        <c:otherwise>
+                            <jsp:scriptlet>
+                                request.setAttribute("communityAuth",
+                                        Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                            </jsp:scriptlet>
+                            <c:choose>
+                                <!-- full community login case -->
+                                <c:when test="${communityAuth eq true}">
+                                    <!-- communityClassSearch is used to modify the margin above the search box below -->
+                                    <c:set var="communityClassSearch" value="communityHeader"/>
+                                    <mod:communityAccountHeader communityHost="${communityHost}"
+                                                                inCommunity="${inCommunity}"/>
+                                </c:when>
+                                <!-- msl only login case -->
+                                <c:otherwise>
+                                    <mod:nonCommunityAccountHeader/>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+
+            <!--<c:set var="pw" value="${requestScope.context.pathway}"/>-->
+
+            <div class="line">
+                <div class="unit size40of100">
+                    <div id="logoBox">
+                        <gsml:a href="/">
+                            <gsml:img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" width="369" height="83"
+                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        </gsml:a>
+                    </div>
+                </div>
+
+                <!-- variables holding the search form actions for local and community searches -->
+                <c:set var="localSearchAction" value="/search/search.page"/>
+                <c:set var="articlesAndCommunitySearchAction" value="/search/contentSearch.page"/>
+                <!-- variable that holds the actual search form action, populated with one of the above vars -->
+                <c:set var="searchFormAction" value="${localSearchAction}"/>
+                <!-- variables holding which search radio should be checked when the page is loaded (overridden below) -->
+                <c:set var="searchRadioArticlesAndCommunityChecked" value="false"/>
+                <c:set var="searchRadioSchoolChecked" value="false"/>
+                <!-- variables controlling search box width and whether the state drop down is shown or hidden -->
+                <c:set var="searchBoxStyle" value="width:247px;"/>
+                <c:set var="searchStateStyle" value="display:none;"/>
+                <!-- search box on click value ... as this never changes, why is this in a variable?? -->
+                <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
                 <c:choose>
-                    <!-- Not logged in case -->
-                    <c:when test="${empty requestScope.context.memberId}">
-                        <mod:nonCommunityAccountHeader/>
+                    <c:when test="${requestScope.context.topicPage or (inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING)}">
+                        <!-- Following variable is also hard-coded into global.js -->
+                        <c:set var="searchBoxValue" value="Search by keyword"/>
+                        <c:set var="searchFormAction" value="${articlesAndCommunitySearchAction}"/>
+                        <c:set var="searchRadioArticlesAndCommunityChecked" value="true"/>
+                        <c:set var="searchStateStyle" value="display:none;"/>
                     </c:when>
                     <c:otherwise>
-                        <jsp:scriptlet>
-                            request.setAttribute("communityAuth",
-                                    Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                        </jsp:scriptlet>
-                        <c:choose>
-                            <!-- full community login case -->
-                            <c:when test="${communityAuth eq true}">
-                                <!-- communityClassSearch is used to modify the margin above the search box below -->
-                                <c:set var="communityClassSearch" value="communityHeader"/>
-                                <mod:communityAccountHeader communityHost="${communityHost}"
-                                                            inCommunity="${inCommunity}"/>
-                            </c:when>
-                            <!-- msl only login case -->
-                            <c:otherwise>
-                                <mod:nonCommunityAccountHeader/>
-                            </c:otherwise>
-                        </c:choose>
+                        <!-- Following variable is also hard-coded into global.js -->
+                        <c:set var="searchBoxValue" value="Search for school, district, or city"/>
+                        <c:set var="searchRadioSchoolChecked" value="true"/>
+                        <!-- shorten text box and show state drop down -->
+                        <c:set var="searchBoxStyle" value="width:190px;"/>
+                        <c:set var="searchStateStyle" value="display:inline;"/>
                     </c:otherwise>
                 </c:choose>
-            </div>
-        </div>
-
-        <!--<c:set var="pw" value="${requestScope.context.pathway}"/>-->
-
-        <div class="line">
-            <div class="unit size40of100">
-                <div id="logoBox">
-                    <gsml:a href="/">
-                        <gsml:img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" width="369" height="83"
-                                  alt="GreatSchools: Involved Parents. Successful Kids"/>
-                    </gsml:a>
-                </div>
-            </div>
-
-            <!-- variables holding the search form actions for local and community searches -->
-            <c:set var="localSearchAction" value="/search/search.page"/>
-            <c:set var="articlesAndCommunitySearchAction" value="/search/contentSearch.page"/>
-            <!-- variable that holds the actual search form action, populated with one of the above vars -->
-            <c:set var="searchFormAction" value="${localSearchAction}"/>
-            <!-- variables holding which search radio should be checked when the page is loaded (overridden below) -->
-            <c:set var="searchRadioArticlesAndCommunityChecked" value="false"/>
-            <c:set var="searchRadioSchoolChecked" value="false"/>
-            <!-- variables controlling search box width and whether the state drop down is shown or hidden -->
-            <c:set var="searchBoxStyle" value="width:247px;"/>
-            <c:set var="searchStateStyle" value="display:none;"/>
-            <!-- search box on click value ... as this never changes, why is this in a variable?? -->
-            <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
-            <c:choose>
-                <c:when test="${requestScope.context.topicPage or (inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING)}">
-                    <!-- Following variable is also hard-coded into global.js -->
-                    <c:set var="searchBoxValue" value="Search by keyword"/>
-                    <c:set var="searchFormAction" value="${articlesAndCommunitySearchAction}"/>
-                    <c:set var="searchRadioArticlesAndCommunityChecked" value="true"/>
-                    <c:set var="searchStateStyle" value="display:none;"/>
-                </c:when>
-                <c:otherwise>
-                    <!-- Following variable is also hard-coded into global.js -->
-                    <c:set var="searchBoxValue" value="Search for school, district, or city"/>
-                    <c:set var="searchRadioSchoolChecked" value="true"/>
-                    <!-- shorten text box and show state drop down -->
-                    <c:set var="searchBoxStyle" value="width:190px;"/>
-                    <c:set var="searchStateStyle" value="display:inline;"/>
-                </c:otherwise>
-            </c:choose>
-            <!-- text in following script also hard-coded into global.js -->
-            <script type="text/javascript">
-                function clearValueInBox(x) {
-                    if (x.value == 'Search by keyword' || x.value == 'Search for school, district, or city') {
-                        x.value = '';
+                <!-- text in following script also hard-coded into global.js -->
+                <script type="text/javascript">
+                    function clearValueInBox(x) {
+                        if (x.value == 'Search by keyword' || x.value == 'Search for school, district, or city') {
+                            x.value = '';
+                        }
                     }
-                }
-            </script>
-            <div class="unit size60of100 lastUnit">
-                <div class="topnav_search_container">
-                    <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
-                                action="${articlesAndCommunitySearchAction}">
-                        <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
-                    </gsweb:form>
-                    <gsweb:form method="get" id="topnav_search" action="${localSearchAction}"
-                                onsubmit="return topNavNewCommunitySubmitSearch(this)">
-                        <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                            <input type="hidden" name="st" value="charter"/>
-                        </c:if>
-                        <input type="hidden" name="search_type" value="0"/>
-                        <fieldset>
-                            <ul>
-                                <li id="srch1" class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
-                                    <label for="topnavSchoolRadio" class="radLabel">Schools</label>
-                                </li>
-                                <li id="srch2" class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
-                                    <label for="topnavArticlesAndCommunityRadio"
-                                           class="radLabel">Articles, Worksheets &amp;amp; More</label></li>
-                            </ul>
-                            <input type="text" name="q" id="qNew"
-                                   value="${searchBoxValue}" onfocus="${searchBoxOnClick}"/>
-                            <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                                 noStateLabel="--"
-                                                 usingLongNames="false"
-                                                 state="${requestScope.context.state}"
-                                                 styleClass="stateSelect"
-                                                 style="${searchStateStyle}"
-                                                 styleId="stateSelector"
-                                    />
-                            <button type="submit" class="button-1">Search</button>
-                            <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
+                </script>
+                <div class="unit size60of100 lastUnit">
+                    <div class="topnav_search_container">
+                        <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
+                                    action="${articlesAndCommunitySearchAction}">
+                            <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
+                        </gsweb:form>
+                        <gsweb:form method="get" id="topnav_search" action="${localSearchAction}"
+                                    onsubmit="return topNavNewCommunitySubmitSearch(this)">
+                            <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                                <input type="hidden" name="st" value="charter"/>
+                            </c:if>
+                            <input type="hidden" name="search_type" value="0"/>
+                            <fieldset>
+                                <ul>
+                                    <li id="srch1"
+                                        class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
+                                        <label for="topnavSchoolRadio" class="radLabel">Schools</label>
+                                    </li>
+                                    <li id="srch2"
+                                        class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
+                                        <label for="topnavArticlesAndCommunityRadio"
+                                               class="radLabel">Articles, Worksheets &amp;amp; More</label></li>
+                                </ul>
+                                <input type="text" name="q" id="qNew"
+                                       value="${searchBoxValue}" onfocus="${searchBoxOnClick}"/>
+                                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                                     noStateLabel="--"
+                                                     usingLongNames="false"
+                                                     state="${requestScope.context.state}"
+                                                     styleClass="stateSelect"
+                                                     style="${searchStateStyle}"
+                                                     styleId="stateSelector"
+                                        />
+                                <button type="submit" class="button-1">Search</button>
+                                <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
+                                    <script type="text/javascript">
+                                        jQuery(function () {
+                                            GS.attachSchoolAutocomplete("qNew");
+                                        });
+                                    </script>
+                                </c:if>
                                 <script type="text/javascript">
-                                    jQuery(function() {
-                                        GS.attachSchoolAutocomplete("qNew");
+                                    jQuery(function () {
+                                        jQuery('#srch2 label').click(function () {
+                                            GS.detachSchoolAutocomplete("qNew");
+                                        });
+                                        jQuery('#srch1 label').click(function () {
+                                            GS.attachSchoolAutocomplete("qNew");
+                                        });
                                     });
                                 </script>
-                            </c:if>
-                            <script type="text/javascript">
-                                jQuery(function() {
-                                    jQuery('#srch2 label').click(function() {
-                                        GS.detachSchoolAutocomplete("qNew");
-                                    });
-                                    jQuery('#srch1 label').click(function() {
-                                        GS.attachSchoolAutocomplete("qNew");
-                                    });
-                                });
-                            </script>
-                        </fieldset>
-                        <fieldset id="radBtns">
-                            <gsml:radio name="c" styleId="topnavSchoolRadio" value="school"
-                                        onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
-                                        checked="${searchRadioSchoolChecked}"/>
-                            <gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio" value="articlesAndCommunity"
-                                        onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"
-                                        checked="${searchRadioArticlesAndCommunityChecked}"/>
+                            </fieldset>
+                            <fieldset id="radBtns">
+                                <gsml:radio name="c" styleId="topnavSchoolRadio" value="school"
+                                            onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
+                                            checked="${searchRadioSchoolChecked}"/>
+                                <gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio"
+                                            value="articlesAndCommunity"
+                                            onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"
+                                            checked="${searchRadioArticlesAndCommunityChecked}"/>
 
-                        </fieldset>
-                    </gsweb:form>
+                            </fieldset>
+                        </gsweb:form>
+                    </div>
                 </div>
+                <script type="text/javascript">document.forms['topnav_search'].reset();</script>
+
             </div>
-            <script type="text/javascript">document.forms['topnav_search'].reset();</script>
 
-        </div>
+        </c:if>
+    </div>
 
-    </c:if>
-</div>
-
-<script type="text/javascript">
-    GS_loadSubnav();
-</script>
+    <script type="text/javascript">
+        GS_loadSubnav();
+    </script>
 
 </jsp:root>
