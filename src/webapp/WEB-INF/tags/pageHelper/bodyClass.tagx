@@ -5,10 +5,9 @@
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
-    <jsp:directive.attribute name="omitSiteGradient" required="false"
-                             description="Whether or not to include the site-gradient class"/>
+    <!--<jsp:directive.attribute name="omitSiteGradient" required="false" description="Whether or not to include the site-gradient class"/>-->
 
-    <c:set var="siteGradientClass" value="${pageScope.omitSiteGradient == null or pageScope.omitSiteGradient eq false ? 'site-gradient' : ''}"/>
+    <!--<c:set var="siteGradientClass" value="${pageScope.omitSiteGradient == null or pageScope.omitSiteGradient eq false ? 'site-gradient' : ''}"/>-->
 
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
 
@@ -30,7 +29,8 @@
     <c:set var="osClass" value="${osClass}${fn:contains(agent, 'windows') ? 'win ' : ''}"/>
 
     <c:set var="scopeClass" value="${requestScope.context.cobranded ? 'cobranded ' : 'www '}"/>
-    <c:set var="scopeClass" value="${scopeClass}${requestScope.context.cobranded ?  requestScope.context.cobrand : ''}"/>
+    <c:set var="scopeClass"
+           value="${scopeClass}${requestScope.context.cobranded ?  requestScope.context.cobrand : ''}"/>
     <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageHelper.framed ? 'framed ' : 'unframed '}"/>
     <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageLayout}"/>
 

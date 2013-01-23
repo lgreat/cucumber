@@ -57,36 +57,31 @@
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
           onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}">
 
-    <div class="">
-
-        <div class="site-gradient">
-            <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-                <ad:x22 position="Header_728x90"/>
-            </c:if>
-            <cobrand:header/>
-            <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                <mod:header/>
-            </c:if>
-            <mod:primaryNav/>
-            <mod:secondaryNav/>
-        </div>
-
-        <div class="container_24">
-            <div class="clearfix">
-                <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                    <mod:belowNavAds/>
-                </c:if>
-
-                <div class="phs clearfix">
-                    <decorator:body/>
-                </div>
-            </div>
-        </div>
-        <mod:footer showAd="true" showSeoFooter="true"/>
-
-        <div style="text-align:center"><cobrand:footer/></div>
-
+    <div class="site-gradient">
+        <c:if test="${requestScope.pageHelper.showingLeaderboard}">
+            <ad:x22 position="Header_728x90"/>
+        </c:if>
+        <cobrand:header/>
+        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+            <mod:header/>
+        </c:if>
+        <mod:primaryNav/>
+        <mod:secondaryNav/>
     </div>
+
+    <div class="container_24 clearfix">
+        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+            <mod:belowNavAds/>
+        </c:if>
+
+        <div class="phs clearfix">
+            <decorator:body/>
+        </div>
+    </div>
+    <mod:footer showAd="true" showSeoFooter="true"/>
+
+    <div style="text-align:center"><cobrand:footer/></div>
+
     ${modTracking}
     <ad:hideGhostText/>
 
