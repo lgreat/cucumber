@@ -137,7 +137,6 @@ GS.profile = GS.profile || (function() {
         handleHashBang();
 
         var currentTab = GS.tabManager.getCurrentTab();
-        //refreshAdsForTab(currentTab.name);
         initialTab = currentTab;
         if (initialTab.name === 'overview') {
             refreshableOverviewAdSlotKeys.push('School_Profile_Page_Sponsor_630x40');
@@ -279,27 +278,22 @@ GS.profile = GS.profile || (function() {
 
     var refreshOverviewAds = function(tabName) {
         //console.log('refreshing overview ads', refreshableOverviewAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableOverviewAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshReviewsAds = function(tabName) {
         //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableReviewsAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableReviewsAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshNonOverviewAds = function(tabName) {
         //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshNonOverviewAdsWithoutTargetingChange = function() {
+        GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
         GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
-    };
-    var initializeOverviewAds = function() {
-        //console.log('init overview ads', refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
-        //GS.ad.refreshAds(refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
-        GS.ad.refreshAds(['School_Profile_Page_Header_728x90']);
-    };
-    var initializeNonOverviewAds = function() {
-        //console.log('init non overview ads');
-        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys.concat(otherAdSlotKeys));
     };
 
     var getAlternateSitePath = function() {
@@ -311,8 +305,6 @@ GS.profile = GS.profile || (function() {
     return {
         init:init,
         refreshAdsForTab:refreshAdsForTab,
-        initializeOverviewAds:initializeOverviewAds,
-        initializeNonOverviewAds:initializeNonOverviewAds,
         getAlternateSitePath:getAlternateSitePath,
         refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange
     };
