@@ -32,6 +32,16 @@ public class ApiResultsController implements ReadWriteAnnotationController {
         if (apiTestResult != null && apiTestResult.getYear() != null && apiTestResult.getTotal() != null) {
             modelMap.put("apiTestResult", apiTestResult);
 
+            int recentYear = apiTestResult.getYear();
+            int previousYear = recentYear - 1;
+            modelMap.put("previousYear", previousYear);
+            ApiResult previousYearApiTestResult = _apiResultDao.getApiScoresByYear(school,previousYear);
+
+            if (previousYearApiTestResult != null && previousYearApiTestResult.getTotalBase() != null) {
+                Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
+                modelMap.put("scoreChange", scoreChange);
+            }
+
             ApiResult apiStateRank = _apiResultDao.getMostRecentStateRank(school);
             if (apiStateRank != null && apiStateRank.getYear() != null && apiStateRank.getApiStateRank() != null) {
                 modelMap.put("apiStateRank", apiStateRank);

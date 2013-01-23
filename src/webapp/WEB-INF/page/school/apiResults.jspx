@@ -68,9 +68,35 @@
             Did this school meet its all subgroup growth targets for ${apiTestResult.year}? ${apiTestResult.apiComparable} <br/>
         </c:if>
 
+        <br/>
+        <br/>
+
         <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
-                 API Statewide Rank (${apiStateRank.year}) <br/> ${apiRanks.apiStateRank}   <br/>
+                 API Statewide Rank (${apiStateRank.year}) <br/> ${apiStateRank.apiStateRank}   <br/>
         </c:if>
+
+        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+            API similar schools Rank (${apiSimilarSchoolsRank.year}) <br/> ${apiSimilarSchoolsRank.apiSimilarRank}   <br/>
+        </c:if>
+
+        <br/>
+        <br/>
+        Change from ${apiTestResult.year} to ${previousYear}
+        <c:choose>
+            <c:when test="${not empty scoreChange}">
+                <c:choose>
+                    <c:when test="${scoreChange > 0}">
+                        +${scoreChange}
+                    </c:when>
+                    <c:otherwise>
+                        ${scoreChange}
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>
+                Not available
+            </c:otherwise>
+        </c:choose>
 
     </gsml:body>
     </html>
