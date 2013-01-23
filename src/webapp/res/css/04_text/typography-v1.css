@@ -230,6 +230,7 @@ table.tableLayout1 tr td{ text-align:center; border-right: #DDDDDD 1px solid; bo
 table.tableLayout1 tr td.grade{ text-align:center; border-left: #DDDDDD 1px solid; background-color:#F5F5F5; }
 table.tableLayout1 .ohValueBelow { color: #D62243; }
 table.tableLayout1 .ohValueAbove { color: #3F9333; }
+table.tableLayout1 .ohValueMet { color: #555555; }
 
 
 

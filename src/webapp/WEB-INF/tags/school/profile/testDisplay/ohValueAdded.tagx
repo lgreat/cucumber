@@ -83,14 +83,14 @@
                                 </c:choose>
                             </c:if>
                         </c:forEach>
-                        <c:set var="mathColorClass" value=""/>
+                        <c:set var="mathColorClass" value="ohValueMet"/>
                         <c:if test="${mathRating eq 'Below'}">
                             <c:set var="mathColorClass" value="ohValueBelow"/>
                         </c:if>
                         <c:if test="${mathRating eq 'Above'}">
                             <c:set var="mathColorClass" value="ohValueAbove"/>
                         </c:if>
-                        <c:set var="readingColorClass" value=""/>
+                        <c:set var="readingColorClass" value="ohValueMet"/>
                         <c:if test="${readingRating eq 'Below'}">
                             <c:set var="readingColorClass" value="ohValueBelow"/>
                         </c:if>
