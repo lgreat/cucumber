@@ -16,7 +16,7 @@
     <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false"/>
 
     <div id="connectWithUs" class="clearfix">
-        <div class="connectContent jq-emailSignUpWrapper">
+        <div class="connectContent jq-emailSignUpWrapper clearfix">
             <div class="fl jq-emailSignUpNoEmailSentThankYou dn">
                 <p><span class="medium subtitles bottom">Thank you. </span>
                     <span class="small">You've successfully subscribed to the GreatSchools newsletter.</span></p>
@@ -42,16 +42,16 @@
                             </div>
                         </form>
                     </div>
-                    <div class="media error jq-emailSignUpError jq-emailSignUpError-emailInvalid dn">
+                    <div class="media pts jq-emailSignUpError jq-emailSignUpError-emailInvalid dn">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bd">Please enter your email address to sign up.</div>
+                        <div class="bd smaller bottom">Please enter your email address to sign up.</div>
                     </div>
 
-                    <div class="media error jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp dn">
+                    <div class="media pts jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp dn">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bd">The email address is already signed up.</div>
+                        <div class="bd smaller bottom">The email address is already signed up.</div>
                     </div>
                 </div>
             </div>
