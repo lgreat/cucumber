@@ -1,109 +1,188 @@
-/* reset default browser styles */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline:0; vertical-align: baseline; background: transparent;}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after, q:before, q:after {
-    content: '';
-    content: none;
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Official School Profile Mahjong Navigation - Tiles
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* Menu Container */
+
+h1.sfooter,
+h1#sfooter,
+.sfooter,
+div#testScoreLandingLinks {
+    margin-left: 43px;
 }
 
-/* remember to define focus styles! */
-:focus {
-    outline: 1px dotted;
+h1.sfooter,
+div.sfooter,
+#testScoreLandingLinks a.testScoreLandingLink,
+div#YahooRealEstateLink {
+    color: #888888;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 10px 20px 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* remember to highlight inserts somehow! */
-ins {
-    text-decoration: none;
+#footerAd,
+#homepageFooterAd {
+    /*background: url(/res/img/gs_content_bg.png) repeat-y;*/
+    padding: 15px 0;
+    background-color: #ffffff;
 }
-del {
-    text-decoration: line-through;
+
+#footerFrm {
+    /*background: url(/res/img/gs_content_bg.png) repeat-y;*/
+    padding: 0 5px;
+    background-color: #ffffff;
 }
-ul, li {
-    list-style: none;
+
+#footerFrm #footerAd {
+    background: #fff;
 }
-/* tables still need 'cellspacing="0"' in the markup */
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-body {
-    font: 13px/1.3 Arial, sans-serif;
-    color: #333;
-    background: none;
-    margin: 0;
-    padding: 0;
-}
-#footerAd {
-    padding: 6px 0;
-}
-#footerAd table {
+
+#footerAd table,
+#homepageFooterAd table {
     margin: auto;
 }
 
-
-#footerAd, #homepageFooterAd {
-    background: none;
-}
 #footer {
-    background: none;
-    font-size: 11px;
-    color: #666;
-    padding: 0;
+    background-color: #333333;
+    /*font-size: 11px;*/
+    color: #CCCCCC;
+    font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;
+    margin-bottom: 0;
+    padding: 10px 0 10px 0;
 }
 
 #footnav {
-    border-top: 3px dotted #ccc;
-    list-style: none;
-    width: 928px;
+    /*border-top: 3px dotted #ccc;*/
+    /*list-style: none;*/
     padding: 10px 0 0;
     margin: 0 auto;
-    text-align: center;
+    /*text-align: center;*/
+    width: 860px;
 }
-#footnav li {
-    display: inline;
-    margin: 0 9px;
-    font-weight: 700;
+
+/*#footnav li {*/
+/*display: inline;*/
+/*margin: 0 9px;*/
+/*font-weight: 700;*/
+/*}*/
+
+#footnav li a,
+.cities ul a,
+.copyright a,
+#navFooter .allCities a {
+    color: #999;
 }
-#footnav li a, .cities ul a, .copyright a {
-    color: #666;
-}
+
 .copyright {
-    margin: 1em;
+    /*margin:  0;*/
     text-align: center;
 }
+
 .copyright a {
     margin: 0 10px;
 }
+
 .cities {
     margin: 20px auto 0;
-    padding: 12px 0 12px 54px;
-    width: 913px;
-    background: #ebebeb;
+    padding: 12px 54px;
+    background: #333333;
     overflow: hidden;
 }
-.cities h4 {
-    margin: 0 auto 1em;
-    font: 400 12px/1.3 Arial, sans-serif;
-    color: #444;
-    text-align: center;
-    text-transform: uppercase;
+
+.popularCities {
+    padding: 0px 24px 0 54px;
+    width: 890px;
 }
+
+/*.cities h4 {*/
+/*margin: 0 auto 1em;*/
+/*font: normal 12px / 1.3 Arial, Helvetica, sans-serif;*/
+/*color: #444;*/
+/*text-align: center;*/
+/*text-transform: uppercase;*/
+/*}*/
+
 .cities ul {
     float: left;
     margin: 0 3px 0 0;
-    list-style: none;
-    width: 13.93%;
+    width: 16.30%;
     padding: 0;
 }
-.cities ul li {
-    text-align: left;
+
+
+
+.cities li {
+    list-style: none;
+    line-height: normal;
+    padding-bottom: 2px;;
 }
 
-.cities ul li a {
-    text-decoration: none;
+
+
+#navFooter .allCities {
+    padding-top: 25px;
+    padding-bottom: 10px;
+    margin-right: 30px;
+    text-align: center;
+    color: #CCCCCC;
 }
-.cities ul li a:hover {
-    text-decoration: underline;
+
+#navFooter .allCities a {
+    margin: 0 3px 0 3px;
+}
+
+#footer .subtitles{
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+}
+#footer hr.keyline3 {background:#555555;color:#555555;height:1px;border:none; width: 860px;}
+
+#footer .navFoot {
+    float: left;
+    margin: 0 3px 0 0;
+    width: 16.30%;
+    padding: 0;
+    /*width: 100%;*/
+}
+#footer .navAbout {
+    float: left;
+    margin: 0 20px 0 0;
+    width: 32.60%;
+    padding: 0;
+}
+
+#footer .navFoot  ul {
+    float: left;
+    margin: 0 3px 0 0;
+    padding: 0;
+}
+
+#footer .navFoot  li {
+    list-style: none;
+    line-height: normal;
+    padding-bottom: 2px;;
+}
+
+#connectWithUs{
+    background-color: #2B2B2B;
+    height: 48px;
+    margin-top: 20px;
+}
+#connectWithUs .connectContent{
+    width: 860px;
 }

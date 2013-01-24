@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
@@ -64,53 +65,71 @@
             s = s_backup;
         </script>
 
+        <!--<div id="connectWithUs">-->
+            <!--<div class="connectContent">-->
+                <!--<p class="medium subtitles bottom pbm">Sign up for email updates</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
         <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
+            <promo:footerConnectWithUs userIsAlreadySignedUp="false" />
 
-
-            <c:set var="footerCopyright">
-                <p id="footerCopyright" class="copyright smaller bottom">
-                    &amp;#169;1998-${currentYear} GreatSchools Inc. All Rights Reserved.
-                    GreatSchools is a 501(c)(3) not-for-profit organization
-                    <link:termsOfUse>Terms of Use</link:termsOfUse>
-                    <link:privacyPolicy>Privacy Policy</link:privacyPolicy>
-                </p>
-            </c:set>
-
-            <ul id="footnav">
-                <li><gsml:a href="/about/aboutUs.page">About Us</gsml:a></li>
-                <li><link:contactUs>Contact Us</link:contactUs></li>
-                <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
-                <li><link:newsletterManagement
-                        onclick="return GS.showJoinHover('${requestScope.context.email}', this.href, GSType.hover.joinHover.showJoinFooterNewsletter);">Newsletters</link:newsletterManagement>
-                </li>
-                <li><gsml:a href="/about/linkToUs.page">Data Widgets &amp;#38; Tools</gsml:a></li>
-                <li><gsml:a href="/about/advertiserOpportunities.page">Advertise With Us</gsml:a></li>
-                <li><gsml:a href="/about/partnerOpportunities.page">Partner With Us</gsml:a></li>
-                <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
-                <li><link:pressRoom>Media Room</link:pressRoom></li>
-                <li><gsml:a href="http://blogs.greatschools.org" target="_blank">Blog</gsml:a></li>
-            </ul>
-            <p class="copyright smaller bottom">GreatSchools, Inc. 160 Spear Street, Suite 1020, San Francisco, CA 94105</p>
-
-            <p class="copyright smaller bottom">
-                GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become<br/>
-                effective champions of their children's education at home and in their communities.
-            </p>
-
-            <p class="copyright smaller bottom">${footerCopyright}</p>
+            <div id="footnav" class="clearfix">
+                <div class="navAbout">
+                    <p class="medium subtitles bottom pbm">About GreatSchools</p>
+                    <p class="small bottom prl">GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
+                        effective champions of their children's education at home and in their communities.<br />
+                        <span class="footerLink"><gsml:a href="/about/aboutUs.page">More &amp;#187;</gsml:a></span></p>
+                </div>
+                <div class="navFoot">
+                    <p class="medium subtitles bottom pbm">Company</p>
+                    <ul class="none">
+                        <li><gsml:a href="/about/aboutUs.page">Our Mission</gsml:a></li>
+                        <li><gsml:a href="/about/senior-management.page">Our People</gsml:a></li>
+                        <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
+                        <li><link:contactUs>Contact Us</link:contactUs></li>
+                    </ul>
+                </div>
+                <div class="navFoot">
+                    <p class="medium subtitles bottom pbm">Media</p>
+                    <ul class="none">
+                        <li><gsml:a href="/about/advertiserOpportunities.page">Advertise With Us</gsml:a></li>
+                        <li><gsml:a href="/about/partnerOpportunities.page">Partners</gsml:a></li>
+                        <li><link:pressRoom>Media Room</link:pressRoom></li>
+                        <li><gsml:a href="/about/linkToUs.page">Data Widgets &amp;#38; Tools</gsml:a></li>
+                    </ul>
+                </div>
+                <div class="navFootLast">
+                    <p class="medium subtitles bottom pbm">Policies</p>
+                    <ul class="none">
+                        <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
+                        <li><link:termsOfUse>Terms of Use</link:termsOfUse></li>
+                        <li><link:privacyPolicy>Privacy Policy</link:privacyPolicy></li>
+                    </ul>
+                </div>
+            </div>
 
             <c:set var="hidePopularCitiesModule"
                    value="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)}"/>
-
+            <hr class="keyline3 mtl" />
             <div id="navFooter"
-                 class="cities ${not empty stateForPopularCities? 'popularCities':''} ${hidePopularCitiesModule? 'hidden':'' }">
+                 class="cities popularCities ${hidePopularCitiesModule? 'dn':'' }">
                 <c:set var="popularCitiesKey" value="/geo/popularCities.module?state=${stateForPopularCities}"/>
 
                 <gsweb:cache key="${popularCitiesKey}" cacheName="gs.web.cache.fragment.geo.PopularCities">
                     <jsp:include page="${popularCitiesKey}"/>
                 </gsweb:cache>
             </div>
+            <hr class="keyline3" />
+            <div class="pvs">
+                <p class="copyright smaller bottom">GreatSchools, Inc. 160 Spear Street, Suite 1020, San Francisco, CA 94105</p>
 
+                <p class="copyright smaller bottom">
+                    &amp;#169;1998-${currentYear} GreatSchools Inc. All Rights Reserved.
+                    GreatSchools is a 501(c)(3) not-for-profit organization
+
+                </p>
+            </div>
         </div>
     </c:if>
 </jsp:root>
