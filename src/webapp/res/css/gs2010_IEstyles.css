@@ -114,10 +114,6 @@ body.ie7 #next .inner, body.ie6 #next .inner {
     height: 127px;
 }
 
-body.ie7 #footer {
-    height: 293px;
-}
-
 body.ie7 #footerAd {
     height: 91px;
 }
@@ -198,10 +194,6 @@ body.ie7 #pickGrade, * + html #pickGrade {
 
 *+html #navbar {
     position: relative;
-}
-
-*+html #footer {
-    height: 293px;
 }
 
 *+html #footerGSIframe {
