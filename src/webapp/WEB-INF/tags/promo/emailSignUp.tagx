@@ -13,7 +13,7 @@
                              description="The visual style to use, e.g. '2011' or '2012'"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false"/>
+    <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false" allowCdn="false"/>
 
     <c:set var="emailSignUpFooter">
         <div class="${pageScope.style eq '2011' ? 'section2' : 'ft padtop_15 plm'}">
