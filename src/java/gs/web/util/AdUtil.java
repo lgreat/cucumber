@@ -12,27 +12,14 @@ public class AdUtil {
     final private static StateManager STATE_MANAGER = new StateManager();
 
     final private static String K12_CLICK_THROUGH_URL_PREFIX = "http://ww2.k12.com/cm/?affl=gr8t";
-    final private static String OTHER_TRAFFIC_DRIVER = "ot";
 
     /**
      * Return the click-through url to use on ads to send users to specific pages of the k12.com site
-     * @param referrer e.g. http://www.greatschools.org/search/search.page?search_type=0&q=san+francisco&state=CA&c=school
-     * @param k12School e.g. CA, INT
-     * @param trafficDriverParam e.g. ot, sr, rc, cp, so, ar
+     * @param school e.g. cava, txva
+     * @param page e.g. ot, sr, rc, cp, so, ar
      * @return url
      */
-    public static String getK12ClickThroughUrl(String referrer, String k12School, String trafficDriverParam) {
-        boolean hasReferrer = StringUtils.isNotBlank(referrer);
-
-        String page;
-        if (hasReferrer && trafficDriverParam != null && trafficDriverParam.matches("^\\w{2}$")) {
-            page = trafficDriverParam;
-        } else {
-            page = OTHER_TRAFFIC_DRIVER;
-        }
-
-        String school = K12AdvertiserPageHelper.getClickthruSchoolParam(k12School);
-
+    public static String getK12ClickThroughUrl(String school, String page) {
         return K12_CLICK_THROUGH_URL_PREFIX + "&page=" + page + "&school=" + school;
     }
 
