@@ -9,6 +9,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,7 +75,8 @@ public class CensusDataHolder {
             if (_dataSetsForSchoolData != null && !_dataSetsForSchoolData.isEmpty()) {
                 _censusDataSchoolValueDao.addInSchoolCensusValues(_school.getDatabaseState(), _dataSetsForSchoolData.values(), ListUtils.newArrayList(_school));
                 CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());
-                CensusDataHelper.postProcessEthnicityData(_dataSetsForSchoolData.values());
+                CensusDataHelper.postProcessEthnicityData(_allCensusDataSets);
+                CensusDataHelper.postProcessEthnicityData(_dataSetsForSchoolData);
             }
             setSchoolDataDoneLoading(true);
         }

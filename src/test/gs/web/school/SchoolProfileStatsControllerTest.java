@@ -59,38 +59,7 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
         assertNotNull(_controller);
     }
 
-    public void testFormatValueAsFloat() {
-        assertEquals(0f, _controller.formatValueAsFloat(null));
-        assertEquals(0f, _controller.formatValueAsFloat(""));
-        assertEquals(0f, _controller.formatValueAsFloat("three"));
-        assertEquals(5f, _controller.formatValueAsFloat("5"));
-        assertEquals(5f, _controller.formatValueAsFloat("xx5yy"));
-        assertEquals(new Float("5.5"), _controller.formatValueAsFloat("5.5"));
-        assertEquals(new Float("5.5"), _controller.formatValueAsFloat("xx5.5yy"));
-        assertEquals(-5f, _controller.formatValueAsFloat("-5"));
-        assertEquals(0f, _controller.formatValueAsFloat("5.5.6")); // nfe
-        assertEquals(0f, _controller.formatValueAsFloat("-5-6")); // nfe
-    }
 
-    public void testFormatValueAsString() {
-        // PERCENT
-        assertEquals("0%", _controller.formatValueAsString(0f, CensusDataType.ValueType.PERCENT));
-        assertEquals("0%", _controller.formatValueAsString(0.2f, CensusDataType.ValueType.PERCENT));
-        assertEquals("1%", _controller.formatValueAsString(0.5f, CensusDataType.ValueType.PERCENT));
-        assertEquals("100%", _controller.formatValueAsString(99.9f, CensusDataType.ValueType.PERCENT));
-
-        // MONETARY
-        assertEquals("$0.0", _controller.formatValueAsString(0f, CensusDataType.ValueType.MONETARY));
-        assertEquals("$15.0", _controller.formatValueAsString(15f, CensusDataType.ValueType.MONETARY));
-        assertEquals("$15.5", _controller.formatValueAsString(15.5f, CensusDataType.ValueType.MONETARY));
-        assertEquals("$15.55", _controller.formatValueAsString(15.55f, CensusDataType.ValueType.MONETARY));
-
-        // DEFAULT
-        assertEquals("0", _controller.formatValueAsString(0f, CensusDataType.ValueType.NUMBER));
-        assertEquals("0", _controller.formatValueAsString(0.2f, CensusDataType.ValueType.NUMBER));
-        assertEquals("1", _controller.formatValueAsString(0.5f, CensusDataType.ValueType.NUMBER));
-        assertEquals("100", _controller.formatValueAsString(99.9f, CensusDataType.ValueType.NUMBER));
-    }
 
     public void testCensusValueNotEmpty() {
         assertFalse(_controller.censusValueNotEmpty(null));
@@ -105,6 +74,13 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
     }
 
     public void testSortEthnicityValues() {
+        SchoolCensusValue schoolCensusValue = new SchoolCensusValue();
+        schoolCensusValue.setValueFloat(5.0f);
+        DistrictCensusValue districtCensusValue = new DistrictCensusValue();
+        districtCensusValue.setValueFloat(5.0f);
+        StateCensusValue stateCensusValue = new StateCensusValue();
+        stateCensusValue.setValueFloat(5.0f);
+
         try {
             _controller.sortEthnicityValues(null);
         } catch (Exception e) {
@@ -115,7 +91,7 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
         _controller.sortEthnicityValues(statsRows);
         assertEquals(0, statsRows.size());
 
-        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, "first", "5.0", "5.0", "5.0", null, 2012, false);
+        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false);
         statsRows.add(row1);
         _controller.sortEthnicityValues(statsRows);
         assertEquals(1, statsRows.size());
