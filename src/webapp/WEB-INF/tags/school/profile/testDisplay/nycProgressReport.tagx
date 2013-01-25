@@ -14,30 +14,7 @@
     <!-- initialize debug data; to be appended to later -->
     <c:set var="debugData" value=""/>
 
-    <!-- from achievement.ny.pl -->
-    <!--
-    my $year = 2010;
-    my $year_range = ($year - 1) . "-$year";
-    my $details = "This school was not given a Progress Report Grade by the NYC Department of Education for the $year_range school year.";
-
-    my %levelhash = (
-        'e' => "elementary",
-        'e,m' => "elementary and middle",
-        'm' => "middle",
-        'h' => "high",
-     );
-
-    while (my ($value_text,$data_set_id) = $sth->fetchrow_array()) {
-        if($hasdata){
-            $details .= "  The school received a grade of <b>\"$value_text\"</b> for the $levelhash{$level_code{$data_set_id}} school level.";
-        }else{
-            $details = "In $year_range, this school was given a grade of <b>\"$value_text\"</b> by the New York City Department of Education for the $levelhash{$level_code{$data_set_id}} school level.";
-            $hasdata=1;
-        }
-    }
-    -->
-
-    <c:set var="withDataFirstTestValueTemplate" value="In [SCHOOL_YEAR], this school was given a grade of [GRADE] by the New York City Department of Education for the [LEVEL_CODE] school level."/>
+    <c:set var="withDataFirstTestValueTemplate" value="In [SCHOOL_YEAR], this school was given a grade of [GRADE] for the [LEVEL_CODE] school level."/>
     <c:set var="withDataSubsequentTestValueTemplate" value="The school received a grade of [GRADE] for the [LEVEL_CODE] school level."/>
     <c:set var="noDataAtAllTemplate" value="This school was not given a Progress Report Grade by the NYC Department of Education for the [MOST_RECENT_SCHOOL_YEAR] school year."/>
 
@@ -67,18 +44,6 @@
         </c:forEach>
     </c:forEach>
 
-    <!-- now that we know the most recent year, find how many test values for that year have data -->
-    <c:set var="numDataPointsToShow" value="${0}"/>
-    <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-            <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
-            <c:if test="${mostRecentTestValue.year eq mostRecentYear and mostRecentTestValue.hasData}">
-                <c:set var="numDataPointsToShow" value="${numDataPointsToShow + 1}"/>
-            </c:if>
-        </c:forEach>
-    </c:forEach>
-    <c:set var="isMultiSentenceWithData" value="${numDataPointsToShow gt 1}"/>
-
     <!-- for debugging only: -->
     <c:if test="${showDebugData}">
         ${debugData}
@@ -88,12 +53,6 @@
     <c:choose>
         <c:when test="${foundData}">
             <c:set var="schoolYear" value="${mostRecentYear - 1}-${mostRecentYear}"/>
-
-            <c:if test="${isMultiSentenceWithData}">
-                <![CDATA[
-                    <ul>
-                ]]>
-            </c:if>
 
             <c:set var="alreadyProcessedFirstTestValue" value="${false}"/>
             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
@@ -123,29 +82,11 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <c:if test="${isMultiSentenceWithData}">
-                            <![CDATA[
-                            <li>
-                        ]]>
-                        </c:if>
-
                         ${sentence}
-
-                        <c:if test="${isMultiSentenceWithData}">
-                            <![CDATA[
-                            </li>
-                        ]]>
-                        </c:if>
 
                     </c:if>
                 </c:forEach>
             </c:forEach>
-
-            <c:if test="${isMultiSentenceWithData}">
-                <![CDATA[
-                    </ul>
-                ]]>
-            </c:if>
 
         </c:when>
         <c:otherwise>
