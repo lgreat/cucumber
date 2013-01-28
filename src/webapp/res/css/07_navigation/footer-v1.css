@@ -58,6 +58,7 @@ div#YahooRealEstateLink {
 
 #footer {
     background-color: #333333;
+    width: 100%;
     /*font-size: 11px;*/
     color: #CCCCCC;
     font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;
@@ -101,6 +102,7 @@ div#YahooRealEstateLink {
 }
 
 #footer .cities ul {
+    list-style: none;
     float: left;
     margin: 0 3px 0 0;
     width: 16.30%;
@@ -169,3 +171,6 @@ div#YahooRealEstateLink {
    margin: 0px auto;
    padding: 14px 0 10px 0;
 }
+.fl{ float:left; }
+.fr{ float:right; }
+.dn{ display:none; }
