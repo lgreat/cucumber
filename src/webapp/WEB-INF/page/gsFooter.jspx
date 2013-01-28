@@ -26,20 +26,20 @@
         <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
         <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
         <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
-        <!--<style type="text/css">-->
-            <!--*html body {-->
-                <!--background: none;-->
-                <!--margin: 0;-->
-                <!--padding: 0;-->
-            <!--}-->
-            <!--#toggleLinks {-->
-                <!--display: none;-->
-            <!--}-->
+        <style type="text/css">
+            *html body {
+                background: none;
+                margin: 0;
+                padding: 0;
+            }
+            #toggleLinks {
+                display: none;
+            }
 
-            <!--#footerGS {-->
-                <!--font-size: xx-small;-->
-            <!--}-->
-        <!--</style>-->
+            #footerGS {
+                font-size: xx-small;
+            }
+        </style>
         <base target="_top"/>
     </head>
     <body>
