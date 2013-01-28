@@ -53,7 +53,7 @@
                         <ad:footerAd/>
                     </div>
                 </div>
-                <div class="clear"><!-- do not collapse --></div>
+                <div class="clear mbl"><!-- do not collapse --></div>
             </c:when>
             <c:otherwise>
                 <!--do not show a footer ad-->

@@ -64,7 +64,7 @@ div#YahooRealEstateLink {
     font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;
     margin-bottom: 0;
     padding: 0px 0 10px 0;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 #footnav {
@@ -171,6 +171,3 @@ div#YahooRealEstateLink {
    margin: 0px auto;
    padding: 14px 0 10px 0;
 }
-.fl{ float:left; }
-.fr{ float:right; }
-.dn{ display:none; }
