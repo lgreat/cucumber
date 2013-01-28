@@ -28,34 +28,74 @@
 
         All Students (${apiTestResult.total}) <br/>
         <c:if test="${not empty apiTestResult.africanAmerican}">
-            African American (${apiTestResult.africanAmerican}) <br/>
+            African American (${apiTestResult.africanAmerican})
+            <c:if test="${not empty apiTestResult.africanAmericanNumTested}">
+                 Num Tested:${apiTestResult.africanAmericanNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.americanIndian}">
-            American Indian (${apiTestResult.americanIndian})  <br/>
+            American Indian (${apiTestResult.americanIndian})
+            <c:if test="${not empty apiTestResult.americanIndianNumTested}">
+                Num Tested:${apiTestResult.americanIndianNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.asian}">
-            Asian (${apiTestResult.asian})  <br/>
+            Asian (${apiTestResult.asian})
+            <c:if test="${not empty apiTestResult.asianNumTested}">
+                Num Tested:${apiTestResult.asianNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.filipino}">
-            Finipino (${apiTestResult.filipino}) <br/>
+            Finipino (${apiTestResult.filipino})
+            <c:if test="${not empty apiTestResult.filipinoNumTested}">
+                Num Tested:${apiTestResult.filipinoNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.hispanic}">
-            Hispanic (${apiTestResult.hispanic})  <br/>
+            Hispanic (${apiTestResult.hispanic})
+            <c:if test="${not empty apiTestResult.hispanicNumTested}">
+                Num Tested:${apiTestResult.hispanicNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.pacificIslander}">
-            Pacific Islander (${apiTestResult.pacificIslander})  <br/>
+            Pacific Islander (${apiTestResult.pacificIslander})
+            <c:if test="${not empty apiTestResult.pacificIslanderNumTested}">
+                Num Tested:${apiTestResult.pacificIslanderNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.white}">
-            White (${apiTestResult.white})  <br/>
+            White (${apiTestResult.white})
+            <c:if test="${not empty apiTestResult.whiteNumTested}">
+                Num Tested:${apiTestResult.whiteNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.socioEconDisadv}">
-            Socioeconomic Disadvantage (${apiTestResult.socioEconDisadv})  <br/>
+            Socioeconomic Disadvantage (${apiTestResult.socioEconDisadv})
+            <c:if test="${not empty apiTestResult.socioEconDisadvNumTested}">
+                Num Tested:${apiTestResult.socioEconDisadvNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.englishLangLearners}">
-            English Language Learners (${apiTestResult.englishLangLearners})  <br/>
+            English Language Learners (${apiTestResult.englishLangLearners})
+            <c:if test="${not empty apiTestResult.englishLangLearnersNumTested}">
+                Num Tested:${apiTestResult.englishLangLearnersNumTested}
+            </c:if>
+            <br/>
         </c:if>
         <c:if test="${not empty apiTestResult.disabled}">
-            Students with disability (${apiTestResult.disabled})  <br/>
+            Students with disability (${apiTestResult.disabled})
+            <c:if test="${not empty apiTestResult.disabledNumTested}">
+                Num Tested:${apiTestResult.disabledNumTested}
+            </c:if>
+            <br/>
         </c:if>
 
         <br/>
