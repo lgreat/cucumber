@@ -22,10 +22,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>gsFooter</title>
-        <!--<gsml:url var="footercss" value="/res/css/footer-v1.css"/>-->
-        <!--<![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>-->
-        <!--<gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>-->
-        <!--<![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>-->
+        <gsml:url var="footercss" value="/res/css/07_navigation/footer-v1.css"/>
+        <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
+        <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
+        <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
         <!--<style type="text/css">-->
             <!--*html body {-->
                 <!--background: none;-->
