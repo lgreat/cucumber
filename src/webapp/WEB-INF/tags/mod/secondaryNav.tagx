@@ -24,7 +24,7 @@
     <c:set var="pw" value="${requestScope.context.pathway}"/>
 
     <!-- Begin Secondary Navigation -->
-    <div class="menuContainer">
+    <div class="menuContainer-secondary">
         <div class="container_24">
             <ul id="gs-secondary"> <!-- bullet type: disc/square/circle-->
                 <li class="menuItem"><a href="/hot-topics.topic?content=4932" id="SN-HotTopics"
@@ -184,7 +184,7 @@
                                                    class="subMenuItemAnchorText GS_CI9_">Assistive Technology</a></li>
                     </ul>
                 </li>
-                <li class="menuItem"><a href="/raising-a-reader.topic?content=7082" id="SN-RaisingAReader"
+                <li class="menuItem last"><a href="/raising-a-reader.topic?content=7082" id="SN-RaisingAReader"
                                         class="last menuItemAnchorText GS_CI9_ ">Raising a Reader&amp;nbsp;</a>
                 </li>
             </ul>

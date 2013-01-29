@@ -23,16 +23,15 @@
 
 <c:set var="pw" value="${requestScope.context.pathway}"/>
 
-<div class="menuContainer">
+<div class="menuContainer-primary">
 <div class="container_24">
 <table id="gs-primary">
 <tbody>
 <tr>
 <td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem home">
     <div class="dropdownReference">
-        <link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">
-            <span class="navSprite i-pn-home"><!-- do not collapse --></span>
-        </link:home>
+        <link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">Home</link:home>
+        <!--<span class="navSprite i-pn-home">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
     </div>
 </td>
 <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
@@ -64,7 +63,7 @@
                         <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
                         <!--</li>-->
                         <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool"
-                               class="GS_CI9_">Defining Your Ideal School</a></li>
+                               class="S_CI9_">Defining Your Ideal School</a></li>
                         <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids"
                                class="GS_CI9_">Moving with Kids</a></li>
                         <li class="lastone"><a href="/tips-moving-school-district.topic?content=4248"
@@ -85,10 +84,10 @@
                     <!--<p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"-->
                     <!--id="PN_F_HT-ChoosingASchoolFromADistance"-->
                     <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
-                    <div class="fl"><p class="text3 allCaps">NEW!</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">New!</p>
 
                         <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap"
-                                                      styleClass="GS_CI9_"
+                                                      styleClass="small GS_CI9_"
                                                       school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
                         </p></div>
                 </div>
@@ -350,7 +349,7 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
+<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
     <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
@@ -392,6 +391,13 @@
                 </div>
             </div>
         </div>
+    </div>
+</td>
+<td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem lastNavUnit">
+    <div class="dropdownReference clearfix">
+        <a href="/raising-successful-students.topic?content=7213" id="PN_LearningGifts" class="menuItemAnchorText GS_CI9_">
+            <span class="navSprite i-pn-gg mrm"><!-- do not collapse --></span>Learning Gifts
+        </a>
     </div>
 </td>
 

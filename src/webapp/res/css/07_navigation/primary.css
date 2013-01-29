@@ -16,8 +16,17 @@ General comments:
 
 /* Menu Container */
 
-.menuContainer{
+.menuContainer-primary{
     margin: 0 auto;
+    background-color: #248CB8; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2387B2), to(#2590BE)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #2387B2, #2590BE); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(bottom, #2387B2, #2590BE); /* FF3.6 */
+    background-image:     -ms-linear-gradient(bottom, #2387B2, #2590BE); /* IE10 */
+    background-image:      -o-linear-gradient(bottom, #2387B2, #2590BE); /* Opera 11.10+ */
+    background-image:         linear-gradient(bottom, #2387B2, #2590BE); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2387B2', EndColorStr='#2590BE'); /* IE6�IE9 */
+    border-bottom: 3px solid #FFB943;
 }
 
 #gs-primary {
@@ -29,12 +38,10 @@ General comments:
     margin: 0;
     padding: 0;
     table-layout: auto;
-
     /* Borders */
-
-    border: 1px solid #157daa;
-    border-bottom:0 none transparent;
-    border-collapse: collapse;
+    /*border: 1px solid #157daa;*/
+    /*border-bottom:0 none transparent;*/
+    /*border-collapse: collapse;*/
 
 }
 
@@ -46,18 +53,14 @@ General comments:
     border: 0 none;
     /*border-right: 1px solid #c6c6c6;*/
 
-    /* Background
-    color and gradients */
-
-    background-color: #2092C4; /* Old browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6DC8FD), color-stop(33%,#2092C4), color-stop(75%,#2092C4), color-stop(95%,#42AADD), color-stop(100%,#1187B8)); /* Chrome,Safari4+ */
-    background-image: -webkit-linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* Chrome10+,Safari5.1+ */
-    background-image:    -moz-linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* FF3.6+ */
-    background-image:     -ms-linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* IE10+ */
-    background-image:      -o-linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* Opera11.10+ */
-    background-image:         linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* W3C */
-              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF6DC8FD', endColorstr='#FF1187B8',GradientType=0 ); /* IE6-9 */
-
+    background-color: #248CB8; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2387B2), to(#2590BE)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #2387B2, #2590BE); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(bottom, #2387B2, #2590BE); /* FF3.6 */
+    background-image:     -ms-linear-gradient(bottom, #2387B2, #2590BE); /* IE10 */
+    background-image:      -o-linear-gradient(bottom, #2387B2, #2590BE); /* Opera 11.10+ */
+    background-image:         linear-gradient(bottom, #2387B2, #2590BE); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2387B2', EndColorStr='#2590BE'); /* IE6�IE9 */
     zoom:1;
 }
 
@@ -67,64 +70,55 @@ General comments:
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
 }
 
-#gs-primary .menuItem:focus {
-    background-color: white;
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
-}
+/*#gs-primary .menuItem:focus {*/
+    /*background-color: white;*/
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');*/
+/*}*/
 
 #gs-primary .drop:hover {
     background-color: white;
-    height: 32px;
+    /*height: 32px;*/
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
 }
 
-#gs-primary .menuItem.selected {
+/*#gs-primary .menuItem.selected {*/
     /* Background color and gradients */
-    background-color: #FFBD00; /* Old browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFE9BE), color-stop(33%,#FFC14B), color-stop(75%,#FFA72B), color-stop(95%,#FFC65B), color-stop(100%,#FFA529)); /* Chrome,Safari4+ */
-    background-image: -webkit-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); /* Chrome10+,Safari5.1+ */
-    background-image:    -moz-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); /* FF3.6+ */
-    background-image:     -ms-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); /* IE10+ */
-    background-image:      -o-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); /* Opera11.10+ */
-    background-image:         linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFE9BE', endColorstr='#FFFFA529',GradientType=0 ); /* IE6-9 */
-    outline:0 none;
-
-    zoom:1;
-}
+    /*background-color: #FFBD00; *//* Old browsers */
+    /*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFE9BE), color-stop(33%,#FFC14B), color-stop(75%,#FFA72B), color-stop(95%,#FFC65B), color-stop(100%,#FFA529)); *//* Chrome,Safari4+ */
+    /*background-image: -webkit-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); *//* Chrome10+,Safari5.1+ */
+    /*background-image:    -moz-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); *//* FF3.6+ */
+    /*background-image:     -ms-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); *//* IE10+ */
+    /*background-image:      -o-linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); *//* Opera11.10+ */
+    /*background-image:         linear-gradient(top, #FFE9BE 0%,#FFC14B 33%,#FFA72B 75%,#FFC65B 95%,#FFA529 100%); *//* W3C */
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFE9BE', endColorstr='#FFFFA529',GradientType=0 ); *//* IE6-9 */
+    /*outline:0 none;*/
+    /*zoom:1;*/
+/*}*/
 
 #gs-primary .menuItem .menuItemAnchorText {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 16px;
-    line-height: 32px;
+    font: normal 12px/36px Arial, Helvetica, sans-serif;
+    /*margin-bottom: 20px;*/
     color: #fff;
     display: block;
     outline: 0 none;
     text-decoration: none;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
     white-space: nowrap;
     width:100%;
     position: relative;
     text-align: center;
 }
 
-#gs-primary .menuItem.home {
-    width: 35px;
-}
-
-#gs-primary .menuItem.home .menuItemAnchorText{
-    line-height: 0;
-}
-
-#gs-primary .menuItem.selected .menuItemAnchorText{
-    text-shadow: none;
-    color:#333;
-}
+/*#gs-primary .menuItem.selected .menuItemAnchorText{*/
+    /*text-shadow: none;*/
+    /*color:#333;*/
+/*}*/
 
 #gs-primary .menuItem:hover .menuItemAnchorText {
-    color: #06b;
+    font: normal 12px/36px Arial, Helvetica, sans-serif;
+    color: #2B2B2B;
     text-shadow: none;
     background-color: white;
 }
@@ -134,12 +128,13 @@ General comments:
 #gs-primary .dropdownReference{
     position:relative;
     display: block;
-    border-right: 1px solid #c6c6c6;
+    border-left:1px solid #1881A9;
+    border-right: 1px solid #3196C6;
 }
 
-#gs-primary .lastNavUnit .dropdownReference{
-    border-right: none;
-}
+/*#gs-primary .lastNavUnit .dropdownReference{*/
+    /*border-right: none;*/
+/*}*/
 
 #gs-primary .dropdown_1,
 #gs-primary .dropdown_2,
@@ -152,7 +147,7 @@ General comments:
     left: -999em; /* Hides the drop down */
     text-align: left;
     padding: 0;
-    border: 1px solid #c6c6c6;
+    border: 1px solid #B8B8B8;
     border-top: none;
 
     /* Background */
@@ -179,6 +174,7 @@ General comments:
 #gs-primary .menuItem:hover .dropdown_6 {
     left: -1px;
     top: auto;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 }
 
 #gs-primary .menuItem:hover .dropdown_align_right {
@@ -213,7 +209,7 @@ General comments:
 /* Primary Menu Content Stylings */
 
 #gs-primary .col_content {
-    margin: 15px 0 20px;
+    margin: 20px 0;
     padding: 0 20px;
 }
 
@@ -238,10 +234,11 @@ General comments:
 }
 
 #gs-primary .ft_content {
-    padding: 15px 20px;
-    background-color: #ececec;
+    padding: 20px;
+    background-color: #F1F1F1;
     outline:0 none;
     border:0 none;
+    border-top: 1px solid #F1F1F1;
 }
 
 #gs-primary .ft_content p {
@@ -249,5 +246,5 @@ General comments:
 }
 
 #gs-primary .ft_content img {
-    margin-right: 20px;
+    margin-right: 10px;
 }
