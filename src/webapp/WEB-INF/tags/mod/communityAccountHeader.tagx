@@ -29,6 +29,7 @@
                 <span class="iconx24 i-24-rss"><!-- do not collapse --></span>
             </a>
         </div>
+
         <ul id="utilLinks">
             <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
                 <li style="display:none;" id="js_header_view_mobile_site"><a
