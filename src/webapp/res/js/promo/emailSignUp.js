@@ -5,7 +5,7 @@ Function.prototype.email_sign_up_bind = function(obj) {
     };
 };
 
-GS = GS || {};
+var GS = GS || {};
 GS.form = GS.form || {};
 GS.form.EmailSignUp = function() {
 
