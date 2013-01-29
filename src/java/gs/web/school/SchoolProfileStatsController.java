@@ -259,7 +259,13 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             );
 
             // filter out rows where school and district values are N/A
-            if (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()) || censusValueNotEmpty(row.getStateValue())) {
+            boolean showRow;
+            if (dataTypeId == 9) {
+                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()) || censusValueNotEmpty(row.getStateValue()));
+            } else {
+                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()));
+            }
+            if (showRow) {
                 List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(groupId);
                 if (statsRows == null) {
                     statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
