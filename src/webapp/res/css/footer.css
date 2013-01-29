@@ -253,12 +253,12 @@ div#YahooRealEstateLink {
     /*list-style: none;*/
 /*}*/
 
-#footer .footerLink a{
+#footer a{
     color: #999;
     text-decoration: none;
 }
 
-#footer .footerLink a:hover{
+#footer a:hover{
     text-decoration: underline;
 }
 
