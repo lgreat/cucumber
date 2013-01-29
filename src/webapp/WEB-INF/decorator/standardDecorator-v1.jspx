@@ -64,9 +64,9 @@
         <cobrand:header/>
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
             <mod:header/>
+            <mod:primaryNav/>
+            <mod:secondaryNav/>
         </c:if>
-        <mod:primaryNav/>
-        <mod:secondaryNav/>
     </div>
 
     <div class="container_24 clearfix">
