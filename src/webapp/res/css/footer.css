@@ -31,6 +31,15 @@ General comments:
 
 */
 
+/*
+    As far as I can tell this file is only being used by the perl pages
+        - thru Java gsFooter.jspx
+        - it is included as an iframe from perl.  bottomnav.tmpl
+    /// Mitch
+*/
+
+
+
 html {
     margin:0;
     padding:0;
