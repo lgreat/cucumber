@@ -1,14 +1,6 @@
 GS_loadSubnav = function() {
     /* Subnav menus */
 
-//    $(".selectSchoolArticle").onchange(){
-//        var test = jQuery('.selectSchoolArticle').text();
-//        alert(test);
-//        if(".selectSchoolArticle"){
-//
-//        }
-//    }
-
     var stateValue = function (selectedState) {
         $("#topnav_search .showState").text(selectedState === "" ? "State" : selectedState);
     };
@@ -20,16 +12,16 @@ GS_loadSubnav = function() {
         stateValue($(this).val());
     });
 
-    var schoolArticleSelect = function (selectedSchoolArticle) {
-        $("#topnav_search .showSchoolArticle").text(selectedSchoolArticle === "" ? "State" : selectedSchoolArticle);
-    };
-    $("#topnav_search .selectSchoolArticle").change(function () {
-        schoolArticleSelect($(this).val());
-    }).trigger("change");
-
-    $("#topnav_search .selectSchoolArticle").keyup(function () {
-        schoolArticleSelect($(this).val());
-    });
+//    var schoolArticleSelect = function (selectedSchoolArticle) {
+//        $("#topnav_search .showSchoolArticle").text(selectedSchoolArticle === "" ? "State" : selectedSchoolArticle);
+//    };
+//    $("#topnav_search .selectSchoolArticle").change(function () {
+//        schoolArticleSelect($(this).val());
+//    }).trigger("change");
+//
+//    $("#topnav_search .selectSchoolArticle").keyup(function () {
+//        schoolArticleSelect($(this).val());
+//    });
 
     var srchArtTab = jQuery('#srch2').hasClass('active');
     if(srchArtTab){

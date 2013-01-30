@@ -139,8 +139,9 @@ General comments:
     padding: 0;
     position: absolute;
     top:4px;
-    width: 55px;
+    width: 54px;
     z-index: 5;
+    margin: 0;
 }
 
 #topnav_search fieldset .showState {
@@ -161,7 +162,7 @@ General comments:
     border-radius: 6px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
-#topnav_search fieldset .selectSchoolArticle {
+#topnav_search .searchBarSchool .selectSchoolArticle {
     border: 0 none;
     /*color: #0066BB;*/
     left:0;
@@ -172,6 +173,19 @@ General comments:
     width: 152px;
     z-index: 5;
 }
+
+#topnav_search .searchBarArticle .selectSchoolArticle {
+    border: 0 none;
+    /*color: #0066BB;*/
+    left:0;
+    opacity: 0;
+    /*padding: 0;*/
+    position: absolute;
+    top:6px;
+    width: 152px;
+    z-index: 5;
+}
+
 
 #topnav_search .showSchoolArticle{
     background-color: #F1F1F1;
