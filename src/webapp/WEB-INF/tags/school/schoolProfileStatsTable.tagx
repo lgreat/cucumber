@@ -26,13 +26,9 @@
         <c:set var="showDistrictData" value="${false}"/>
         <c:set var="showStateAverages" value="${false}"/>
         <c:forEach items="${rows}" var="row">
-            <!-- This showRow condition varies between schoolProfileStatsTable and schoolProfilePieChartTable -->
-            <c:set var="showRow" value="${not empty row.schoolValue or not empty row.districtValue}"/>
-            <c:if test="${showRow}">
-                <c:set var="showSchoolData" value="${showSchoolData or not empty row.schoolValue}"/>
-                <c:set var="showDistrictData" value="${showDistrictData or not empty row.districtValue}"/>
-                <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
-            </c:if>
+            <c:set var="showSchoolData" value="${showSchoolData or not empty row.schoolValue}"/>
+            <c:set var="showDistrictData" value="${showDistrictData or not empty row.districtValue}"/>
+            <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
         </c:forEach>
 
     <c:if test="${fn:length(rows) gt 0}">
@@ -67,9 +63,6 @@
             <tbody>
 
             <c:forEach items="${rows}" var="row" varStatus="status">
-                <!-- This showRow condition varies between schoolProfileStatsTable and schoolProfilePieChartTable -->
-                <c:set var="showRow" value="${not empty row.schoolValue or not empty row.districtValue}"/>
-                <c:if test="${showRow}">
                     <jsp:scriptlet>
                     <![CDATA[
                         SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
@@ -125,7 +118,6 @@
                             </c:otherwise>
                         </c:choose>
                     </tr>
-                </c:if>
 
             </c:forEach>
 

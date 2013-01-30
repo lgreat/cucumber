@@ -31,8 +31,6 @@
     <c:set var="showDistrictData" value="${false}"/>
     <c:set var="showStateAverages" value="${false}"/>
     <c:forEach items="${rows}" var="row">
-        <!-- This showRow condition varies between schoolProfileStatsTable and schoolProfilePieChartTable -->
-        <c:set var="showRow" value="${not empty row.schoolValue or not empty row.districtValue or not empty row.stateValue}"/>
         <c:set var="showSchoolData" value="${showSchoolData or not empty row.schoolValue}"/>
         <c:set var="showDistrictData" value="${showDistrictData or not empty row.districtValue}"/>
         <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
@@ -50,16 +48,18 @@
         <col width="32%"><!-- do not collapse --></col>
         <col width="4%"><!-- do not collapse --></col>
         <col width="31%"><!-- do not collapse --></col>
-        <col width="15%"><!-- do not collapse --></col>
+        <c:if test="${showSchoolData}"><col width="15%"><!-- do not collapse --></col></c:if>
         <c:if test="${showStateAverages}"><col width="18%"><!-- do not collapse --></col> </c:if>
 
         <thead>
         <tr>
             <th></th><th></th>
             <th>Ethnicity</th>
-            <th class="tac">
-                This school
-            </th>
+            <c:if test="${showSchoolData}">
+                <th class="tac">
+                    This school
+                </th>
+            </c:if>
 
             <c:if test="${showStateAverages}">
                 <th class="tac">State Average</th>
@@ -90,9 +90,6 @@
         </jsp:scriptlet>
         <c:set var="counterPie" value="0" />
         <c:forEach items="${rows}" var="row" varStatus="status">
-            <!-- This showRow condition varies between schoolProfileStatsTable and schoolProfilePieChartTable -->
-            <c:set var="showRow" value="${not empty row.schoolValue or not empty row.districtValue or not empty row.stateValue}"/>
-            <c:if test="${showRow}">
                 <jsp:scriptlet>
                     <![CDATA[
                     SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
@@ -179,7 +176,6 @@
                         </c:choose>
                     </c:if>
                 </tr>
-            </c:if>
 
         </c:forEach>
         </tbody>

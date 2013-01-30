@@ -260,7 +260,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
             // filter out rows where school and district values are N/A
             boolean showRow;
-            if (dataTypeId == 9) {
+            if (CensusDataType.STUDENTS_ETHNICITY.getId().equals(dataTypeId)) {
                 showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()) || censusValueNotEmpty(row.getStateValue()));
             } else {
                 showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()));
