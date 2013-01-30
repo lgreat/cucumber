@@ -1,5 +1,36 @@
 GS_loadSubnav = function() {
     /* Subnav menus */
+
+//    $(".selectSchoolArticle").onchange(){
+//        var test = jQuery('.selectSchoolArticle').text();
+//        alert(test);
+//        if(".selectSchoolArticle"){
+//
+//        }
+//    }
+
+    var stateValue = function (selectedState) {
+        $("#topnav_search .showState").text(selectedState === "" ? "State" : selectedState);
+    };
+    $("#topnav_search #stateSelector").change(function () {
+        stateValue($(this).val());
+    }).trigger("change");
+
+   $("#topnav_search #stateSelector").keyup(function () {
+        stateValue($(this).val());
+    });
+
+    var schoolArticleSelect = function (selectedSchoolArticle) {
+        $("#topnav_search .showSchoolArticle").text(selectedSchoolArticle === "" ? "State" : selectedSchoolArticle);
+    };
+    $("#topnav_search .selectSchoolArticle").change(function () {
+        schoolArticleSelect($(this).val());
+    }).trigger("change");
+
+    $("#topnav_search .selectSchoolArticle").keyup(function () {
+        schoolArticleSelect($(this).val());
+    });
+
     var srchArtTab = jQuery('#srch2').hasClass('active');
     if(srchArtTab){
         jQuery('#qNew').attr('style','width:300px')
@@ -19,7 +50,7 @@ GS_loadSubnav = function() {
     });
 
     jQuery('#topnav_search .radLabel').click(function(){
-        jQuery(this).parent('li').removeClass('inactive').addClass('active');
-        jQuery(this).parent('li').siblings().removeClass('active').addClass('inactive');
+        jQuery(this).removeClass('inactive').addClass('active');
+        jQuery(this).siblings().removeClass('active').addClass('inactive');
     });
 };

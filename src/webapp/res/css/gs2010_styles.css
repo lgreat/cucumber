@@ -2734,6 +2734,7 @@ div .gallery-thumbnail-selected:hover {
 .topnav_search_container {
     /*position:relative;*/
     _zoom: 1;
+    margin-bottom: 40px;
 }
 
 #topnav_search_articlesAndCommunity {
@@ -2741,20 +2742,20 @@ div .gallery-thumbnail-selected:hover {
 }
 
 #topnav_search {
-    position: absolute;
-    top: 40px;
-    right: 0;
+    /*position: absolute;*/
+    /*top: 40px;*/
+    /*right: 0;*/
     width: 416px;
     height: 59px;
     z-index: 1;
 }
 
-#topnav_search fieldset {
-    position: absolute;
-    background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;
-    height: 59px;
-    width: 416px;
-}
+/*#topnav_search fieldset {*/
+    /*position: absolute;*/
+    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;*/
+    /*height: 59px;*/
+    /*width: 416px;*/
+/*}*/
 
 #topnav_search ul {
     position: absolute;
@@ -2801,23 +2802,23 @@ div .gallery-thumbnail-selected:hover {
     cursor: pointer;
 }
 
-#topnav_search ul #srch1 label {
-    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
-    font: bold 11px/16px Arial, Helvetica, sans-serif;
-}
+/*#topnav_search ul #srch1 label {*/
+    /*background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;*/
+    /*font: bold 11px/16px Arial, Helvetica, sans-serif;*/
+/*}*/
 
-#topnav_search ul #srch2 label {
-    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
-    font: bold 11px/16px Arial, Helvetica, sans-serif;
-}
+/*#topnav_search ul #srch2 label {*/
+    /*background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;*/
+    /*font: bold 11px/16px Arial, Helvetica, sans-serif;*/
+/*}*/
 
 #topnav_search ul #srch1.active .radLabel {
-    background-position: 100% -158px;
+    /*background-position: 100% -158px;*/
     color: #333;
 }
 
 #topnav_search ul #srch2.active .radLabel {
-    background-position: 100% -158px;
+    /*background-position: 100% -158px;*/
     color: #333;
 }
 
@@ -2844,8 +2845,63 @@ div .gallery-thumbnail-selected:hover {
 
 #topnav_search #radBtns {
     position: absolute;
-    left: -10000px;
+    /*left: -10000px;*/
 }
+
+#topnav_search fieldset .stateSelect {
+    border: 0 none;
+    color: #0066BB;
+    left:331px;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    top:4px;
+    width: 55px;
+    z-index: 5;
+}
+
+#topnav_search fieldset .showState {
+    color: #2B2B2B;
+    font-size: 12px;
+    left: 161px;
+    position: absolute;
+    top:5px;
+    left:339px;
+}
+
+#topnav_search .searchBar {
+    background-color: #FFFFFF;
+    height: 30px;
+    width: 415px;
+    -webkit-border-radius: 6px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 6px; /* FF1-3.6 */
+    border-radius: 6px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+#topnav_search fieldset .selectSchoolArticle {
+    border: 0 none;
+    /*color: #0066BB;*/
+    left:0;
+    opacity: 0;
+    /*padding: 0;*/
+    position: absolute;
+    top:6px;
+    width: 152px;
+    z-index: 5;
+}
+
+#topnav_search .showSchoolArticle{
+    background-color: #F1F1F1;
+    color: #2B2B2B;
+    /*padding: 3px;*/
+    height:20px;
+    width: auto;
+    -webkit-border-radius: 6px 0 0 6px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 6px 0 0 6px; /* FF1-3.6 */
+    border-radius: 6px 0 0 6px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    padding: 5px 7px;
+}
+
 
 /* =11d global navigation
 -------------------------------------------------------------------------------------------*/
