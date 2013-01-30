@@ -57,7 +57,7 @@ General comments:
     display: block;
     outline: 0;
     text-decoration: none;
-    padding: 0 13px;
+    padding-right: 24px;
 }
 
 /*#gs-secondary .menuItem .last {*/
