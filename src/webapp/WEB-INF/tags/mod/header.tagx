@@ -122,12 +122,12 @@
                             </c:if>
                             <input type="hidden" name="search_type" value="0"/>
                             <fieldset class="pr">
-                                <div class="searchBar">
+                                <div class="searchBarSchool">
                                     <div class="unit size19of100">
                                     <!--<div class="fl">-->
-                                        <div class="showSchoolArticle small bottom"><!-- Do not collapse--></div>
+                                        <div class="showSchoolArticle small bottom">Schools</div>
                                         <select class="selectSchoolArticle">
-                                            <option id="srch1"
+                                            <option id="srch1" slected="selected"
                                                     class="radLabel ${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
                                                     onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');">Schools
                                             </option>
@@ -140,10 +140,9 @@
                                             <span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span>
                                         </span>
                                     </div>
-                                    <div class="unit size74of100">
-                                    <!--<div class="fl">-->
+                                    <div class="unit size74of100" style="background-color:#FFFFFF; ">
                                         <input type="text" name="q" id="qNew" value="${searchBoxValue}"
-                                               onfocus="${searchBoxOnClick}"/>
+                                               onfocus="${searchBoxOnClick}" style="width:246px;"/>
                                         <span class="quiet bottom"> | </span>
                                         <span class="showState make-06b"><!-- Do not collapse--></span>
                                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
@@ -157,54 +156,40 @@
                                             class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                    <!--<div class="fr">-->
                                         <!--<button type="submit">-->
                                             <span class="iconx32g i-32-search"><!-- do not collapse --></span>
                                         <!--</button>-->
                                     </div>
                                 </div>
-                                <!--<div class="searchBar dn">-->
-                                    <!--<div class="unit size19of100">-->
-                                        <!--&lt;!&ndash;<div class="fl">&ndash;&gt;-->
-                                        <!--<div class="showSchoolArticle small bottom">&lt;!&ndash; Do not collapse&ndash;&gt;</div>-->
-                                        <!--<select class="selectSchoolArticle">-->
-                                            <!--<option id="srch1"-->
-                                                    <!--class="radLabel ${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"-->
-                                                    <!--onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');">Schools-->
-                                            <!--</option>-->
-                                            <!--<option id="srch2"-->
-                                                    <!--class="radLabel ${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"-->
-                                                    <!--onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');">Articles &amp;amp; Worksheets-->
-                                            <!--</option>-->
-                                        <!--</select>-->
-                                                                        <!--<span class="fr">-->
-                                                                            <!--<span class="iconx16 i-16-sort-list-arrow-down mrgtop_3">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                                                        <!--</span>-->
-                                    <!--</div>-->
-                                    <!--<div class="unit size74of100">-->
-                                        <!--&lt;!&ndash;<div class="fl">&ndash;&gt;-->
-                                        <!--<input type="text" name="q" id="qNew" value="${searchBoxValue}"-->
-                                               <!--onfocus="${searchBoxOnClick}"/>-->
-                                        <!--<span class="quiet bottom"> | </span>-->
-                                        <!--<span class="showState make-06b">&lt;!&ndash; Do not collapse&ndash;&gt;</span>-->
-                                        <!--<gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"-->
-                                                             <!--noStateLabel="State"-->
-                                                             <!--usingLongNames="false"-->
-                                                             <!--state="${requestScope.context.state}"-->
-                                                             <!--styleClass="stateSelect"-->
-                                                             <!--style="${searchStateStyle}"-->
-                                                             <!--styleId="stateSelector"/>-->
-                                                                        <!--<span class="pa"-->
-                                                                              <!--style="left:367px; top:7px;"><span-->
-                                                                                <!--class="iconx16 i-16-sort-list-arrow-down mrgtop_3">&lt;!&ndash; do not collapse &ndash;&gt;</span></span>-->
-                                    <!--</div>-->
-                                    <!--<div class="unit size20of100 lastUnit">-->
-                                        <!--&lt;!&ndash;<div class="fr">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<button type="submit">&ndash;&gt;-->
-                                        <!--<span class="iconx32g i-32-search">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                        <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                <div id="showSchoolArticle" class="searchBarArticle dn">
+                                    <div class="unit size36of100">
+                                        <!--<div class="fl">-->
+                                        <div class="showSchoolArticle small bottom">Articles &amp;amp; Worksheets</div>
+                                        <select class="selectSchoolArticle">
+                                            <option id="srch1"
+                                                    class="radLabel ${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
+                                                    onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');">Schools
+                                            </option>
+                                            <option id="srch2" slected="selected"
+                                                    class="radLabel ${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
+                                                    onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');">Articles &amp;amp; Worksheets
+                                            </option>
+                                        </select>
+                                        <span class="pa" style="left: 127px; top:8px;">
+                                            <span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span>
+                                        </span>
+                                    </div>
+                                    <div class="unit size50of100">
+                                        <input type="text" name="q" id="qNew" value="${searchBoxValue}"
+                                               onfocus="${searchBoxOnClick}" style="width:210px"/>
+
+                                    </div>
+                                    <div class="unit size20of100 lastUnit">
+                                        <!--<button type="submit">-->
+                                        <span class="iconx32g i-32-search"><!-- do not collapse --></span>
+                                        <!--</button>-->
+                                    </div>
+                                </div>
                                 <!--<ul>-->
                                     <!--<li id="srch1"-->
                                         <!--class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">-->
