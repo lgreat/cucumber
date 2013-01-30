@@ -10,34 +10,53 @@
         >
     <jsp:directive.tag body-content="empty"/>
 
-    <ul id="utilLinks">
+    <div class="clearfix">
+        <div class="fr">
+            <![CDATA[
+            <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fgreatschools&amp;send=false&amp;layout=button_count&amp;width=77&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:77px; height:21px;" allowTransparency="true"></iframe>
+        ]]>
+            <a href="http://twitter.com/greatschools" target="_blank">
+                <span class="iconx24 i-24-twitter"><!-- do not collapse --></span>
+            </a>
+            <a href="http://pinterest.com/greatschools/" target="_blank">
+                <span class="iconx24 i-24-pinterest"><!-- do not collapse --></span>
+            </a>
+            <a href="http://blogs.greatschools.org/greatschoolsblog/" target="_blank">
+                <span class="iconx24 i-24-rss"><!-- do not collapse --></span>
+            </a>
+        </div>
 
-        <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
-            <li style="display:none;" id="js_header_view_mobile_site"><a href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
-        </c:if>
-        <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
-        <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
-            <c:set var="myUrl" value=""/>
-        </c:if>
-        <li><link:schoolEspRegister styleClass="no_interrupt">School Officials</link:schoolEspRegister></li>
-        <li><link:aboutUs>About GreatSchools</link:aboutUs></li>
-        <li><link:registration
-                onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
-                email="${requestScope.context.email}">Join Us</link:registration></li>
+        <ul id="utilLinks">
 
-        <li><link:loginOrRegister email="${requestScope.context.email}"
-                                  onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
-                                  redirect="${myUrl}">Sign In</link:loginOrRegister></li>
-        <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
-        <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
-        <li class="last">
-            <link:mySchoolList onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinMsl);">My School List (${requestScope.context.mslCount})</link:mySchoolList>
-            <!--<link:communityLanding><span-->
-                <!--class="sprite community-2f85eb-sm">&lt;!&ndash; community icon &ndash;&gt;</span><strong>&amp;nbsp;Community</strong></link:communityLanding>-->
+            <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
+                <li style="display:none;" id="js_header_view_mobile_site"><a
+                        href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
+            </c:if>
+            <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
+            <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
+                <c:set var="myUrl" value=""/>
+            </c:if>
+            <li><link:schoolEspRegister styleClass="no_interrupt">School Officials</link:schoolEspRegister></li>
+            <!--<li><link:aboutUs>About GreatSchools</link:aboutUs></li>-->
+            <li><link:registration
+                    onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
+                    email="${requestScope.context.email}">Join Us</link:registration></li>
+
+            <li class="last"><link:loginOrRegister email="${requestScope.context.email}"
+                                                   onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
+                                                   redirect="${myUrl}">Sign In</link:loginOrRegister></li>
+            <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
+            <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->
+            <!--<li class="last">-->
+            <!--<link:mySchoolList onclick="return GS.showJoinHover('', this.href, GSType.hover.joinHover.showJoinMsl);">My School List (${requestScope.context.mslCount})</link:mySchoolList>-->
+            <!--&lt;!&ndash;<link:communityLanding><span&ndash;&gt;-->
+            <!--&lt;!&ndash;class="sprite community-2f85eb-sm">&lt;!&ndash; community icon &ndash;&gt;</span><strong>&amp;nbsp;Community</strong></link:communityLanding>&ndash;&gt;-->
 
 
-        </li>
-    </ul>
+            <!--</li>-->
+        </ul>
+    </div>
+
     <!--<div id="bts2010ChkLst" class="smallText">
         <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"><span class="sprite pencil_sm">&lt;!&ndash; not empty &ndash;&gt;</span> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
     </div>-->

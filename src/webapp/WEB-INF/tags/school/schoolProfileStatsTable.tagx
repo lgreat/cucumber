@@ -63,61 +63,61 @@
             <tbody>
 
             <c:forEach items="${rows}" var="row" varStatus="status">
-                <jsp:scriptlet>
-                <![CDATA[
-                    SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
-                    SchoolProfileStatsDisplayRow row = (SchoolProfileStatsDisplayRow)jspContext.getAttribute("row");
-                    if (censusSourceHelper != null) {
-                        int myfootnote = censusSourceHelper.recordSource(row);
-                        if (myfootnote > 0) {
-                            jspContext.setAttribute("thisFootnote", myfootnote);
-                        } else {
-                            jspContext.removeAttribute("thisFootnote");
+                    <jsp:scriptlet>
+                    <![CDATA[
+                        SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
+                        SchoolProfileStatsDisplayRow row = (SchoolProfileStatsDisplayRow)jspContext.getAttribute("row");
+                        if (censusSourceHelper != null) {
+                            int myfootnote = censusSourceHelper.recordSource(row);
+                            if (myfootnote > 0) {
+                                jspContext.setAttribute("thisFootnote", myfootnote);
+                            } else {
+                                jspContext.removeAttribute("thisFootnote");
+                            }
                         }
-                    }
-                ]]>
-                </jsp:scriptlet>
+                    ]]>
+                    </jsp:scriptlet>
 
-                <c:choose>
-                    <c:when test='${(status.index+1)%2 eq 0}'>
-                        <c:set var="rowColor" value="even" scope="page"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="rowColor" value="odd" scope="page"/>
-                    </c:otherwise>
-                </c:choose>
-                <tr class="${rowColor}" >
-                    <td>${row.text}
-                        <c:if test="${not empty thisFootnote}">
-                            <sup>${thisFootnote}</sup>
-                        </c:if>
-                    </td>
                     <c:choose>
-                        <c:when test="${showSchoolData and not empty row.schoolValue}">
-                            <td class="tac">${row.schoolValue}</td>
-                            <c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>
+                        <c:when test='${(status.index+1)%2 eq 0}'>
+                            <c:set var="rowColor" value="even" scope="page"/>
                         </c:when>
                         <c:otherwise>
-                            <td class="tac">N/A</td>
+                            <c:set var="rowColor" value="odd" scope="page"/>
                         </c:otherwise>
                     </c:choose>
-                    <c:choose>
-                        <c:when test="${showDistrictData and not empty row.districtValue}">
-                            <td class="tac">${row.districtValue}</td>
-                        </c:when>
-                        <c:otherwise>
-                            <td class="tac">N/A</td>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:choose>
-                        <c:when test="${showStateAverages and not empty row.stateValue}">
-                            <td class="tac">${row.stateValue}</td>
-                        </c:when>
-                        <c:otherwise>
-                            <td class="tac">N/A</td>
-                        </c:otherwise>
-                    </c:choose>
-                </tr>
+                    <tr class="${rowColor}" >
+                        <td>${row.text}
+                            <c:if test="${not empty thisFootnote}">
+                                <sup>${thisFootnote}</sup>
+                            </c:if>
+                        </td>
+                        <c:choose>
+                            <c:when test="${showSchoolData and not empty row.schoolValue}">
+                                <td class="tac">${row.schoolValue}</td>
+                                <c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="tac">N/A</td>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${showDistrictData and not empty row.districtValue}">
+                                <td class="tac">${row.districtValue}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="tac">N/A</td>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${showStateAverages and not empty row.stateValue}">
+                                <td class="tac">${row.stateValue}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="tac">N/A</td>
+                            </c:otherwise>
+                        </c:choose>
+                    </tr>
 
             </c:forEach>
 

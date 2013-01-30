@@ -8,12 +8,16 @@
                        description="Indicates that the given external Javascript file should be included for this page. This tag tells the PageHelper, and then it is sitemesh's reponsibility to include the proper code."/>
     <jsp:directive.attribute name="file" required="true"/>
     <jsp:directive.attribute name="head" required="false" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="allowCdn" required="false" type="java.lang.Boolean"/>
     <jsp:scriptlet>
         if (head == null) {
             head = true;
         }
+        if (allowCdn == null) {
+            allowCdn = true;
+        }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
-        String s = urlUtil.buildUrl(file, request, true);
+        String s = urlUtil.buildUrl(file, request, allowCdn);
         gs.web.util.PageHelper.addJavascriptSource(request, s, head);
     </jsp:scriptlet>
 

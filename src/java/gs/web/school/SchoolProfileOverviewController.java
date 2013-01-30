@@ -174,7 +174,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Titles 11&12 - Default: Application info version 1, Substitute 1: Application info version 2, Substitute 2: School visit checklist
         model.put( APPL_INFO_MODEL_KEY, getApplInfoEspTile(request, school, espData) );
 
-        // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info
+        // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info, Substitute 3: Mobile Promo
         model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Titles 14&15 - Default: Related content, Substitute 1:
@@ -1309,7 +1309,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             }
             model.put( "neighborhoodInfo", sentence.toString()  );
             model.put( "content", "neighborhoodInfo" );
+            return model;
         }
+
+        // fall-back (GS-13517)
+        model.put("content", "mobilePromo");
 
         return model;
     }
@@ -1478,7 +1482,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Title 8 - Default: School visit checklist
         model.put( VIDEO_TOUR_MODEL_KEY, getTourVideoModel(request, school) );
 
-        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundary tool promo
+        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundary tool promo, Substitute 3: Mobile Promo
         model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Row 4 - Default: Related content

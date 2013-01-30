@@ -202,7 +202,12 @@ public class CityController extends AbstractController  implements IDirectoryStr
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
 
-        List topRatedSchools = _schoolDao.findTopRatedSchoolsInCityNewGSRating(city, 1, null, 5);
+        List topRatedSchools;
+        if (city.getState() == State.WI && city.getName().equals("Milwaukee")) {
+            topRatedSchools = _schoolDao.findTopRatedSchoolsInCityNewGSRating(city, 1, null, 5);
+        } else {
+            topRatedSchools = _schoolDao.findTopRatedPublicSchoolsInCityNewGSRating(city, 1, null, 5);
+        }
         if (topRatedSchools.size() > 0) {
             model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 

@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 
     <jsp:directive.attribute name="city" type="java.lang.String" required="true"/>
@@ -10,19 +11,19 @@
 
     <!-- set hotline# & Outsmarting CMS ID-->
     <c:choose>
-        <c:when test="${state eq 'DC'}">
+        <c:when test="${fn:toLowerCase(city) eq 'washington'}">
             <c:set var="hotlinePhoneNbr" value="202-431-5538" scope="page"/>
             <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/3775-outsmarting-the-system-dc.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" scope="page"/>
             <c:set var="titleCity" value="Washington, D.C." scope="page"/>
         </c:when>
-        <c:when test="${state eq 'WI'}">
+        <c:when test="${fn:toLowerCase(city) eq 'milwaukee'}">
             <c:set var="hotlinePhoneNbr" value="414-748-1211" scope="page"/>
             <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/3428-outsmarting-milwaukee.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailMilwaukee.jpg" scope="page"/>
             <c:set var="titleCity" value="Milwaukee" scope="page"/>
         </c:when>
-        <c:when test="${state eq 'IN'}">
+        <c:when test="${fn:toLowerCase(city) eq 'indianapolis'}">
             <c:set var="titleCity" value="Indianapolis" scope="page"/>
             <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/6996-outsmarting-indianapolis.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailIndianapolis.jpg" scope="page"/>

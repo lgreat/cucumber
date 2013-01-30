@@ -205,6 +205,10 @@
 
             </school:profileOverviewCell1>
         </c:when>
+
+        <c:when test="${content eq 'mobilePromo'}">
+            <school:profileOverviewMobileTile/>
+        </c:when>
     </c:choose>
 
 

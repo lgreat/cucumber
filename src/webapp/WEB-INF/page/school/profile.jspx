@@ -86,7 +86,7 @@
 
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
     </gsml:combinedJavascript>
-
+    <!--[if IE]><script type="text/javascript" src="/res/js/util/excanvas.complied.js"></script><![endif]-->
     <script type="text/javascript">
         var GS_PieLoader = [];
         $.getScript("https://www.google.com/jsapi", function() {
@@ -443,7 +443,11 @@
 
         <ad:adTag position="Community_Ad_300x50"/>
 
-        <school:profileChooser city="${school.physicalAddress.city}" state="${school.physicalAddress.state}"/>
+        <c:if test="${not empty school and not empty school.physicalAddress and not empty school.physicalAddress.city and
+        ((fn:toLowerCase(school.physicalAddress.city) eq 'indianapolis') or (fn:toLowerCase(school.physicalAddress.city) eq 'washington')
+        or (fn:toLowerCase(school.physicalAddress.city) eq 'milwaukee'))}">
+            <school:profileChooser city="${school.physicalAddress.city}" state="${school.physicalAddress.state}"/>
+        </c:if>
 
         <ad:BelowFold_300x250/>
 

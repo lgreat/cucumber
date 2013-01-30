@@ -16,18 +16,21 @@
 
     <!-- build up the table to display and set variables for later use, but don't display table yet because we might need to hide it -->
     <c:set var="ohValueAddedTable">
-        <table>
+        <div class="grid_11 alpha pbl">
+        <table cellspacing="0" class="tableLayout1 ">
+            <thead>
+                <th class="none grid_2"></th>
+                <th class="all subject-left"><h4 class="bottom">Math</h4></th>
+                <th class="all subject-right"><h4 class="bottom">Reading</h4></th>
+            </thead>
+            <tbody>
 
-            <tr>
-                <th>Grade</th>
-                <th>Subject</th>
-                <th>Above</th>
-                <th>Met</th>
-                <th>Below</th>
-            </tr>
+            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="status">
 
-            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-
+                <c:set var="zebraStriping" value="" />
+                <c:if test="${status.count % 2 == 0}">
+                    <c:set var="zebraStriping" value=" even" />
+                </c:if>
                 <!-- loop through all data to see if there is any to show, and build up debug data -->
                 <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
                     <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
@@ -53,7 +56,7 @@
                     <c:when test="${gradeToSubjects.grade.name eq 'All'}">
                         <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
                             <c:if test="${subjectToYears.subjectLabel eq 'All Subjects' and
-                                              fn:length(subjectToYears.testValues) > 0}">
+                                              fn:length(subjectToYears.testValues) gt 0}">
                                 <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
                                 <c:set var="overallSchoolYear"
                                        value="${mostRecentTestValue.year-1}-${mostRecentTestValue.year}"/>
@@ -66,7 +69,7 @@
                     <c:otherwise>
 
                         <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                            <c:if test="${fn:length(subjectToYears.testValues) > 0}">
+                            <c:if test="${fn:length(subjectToYears.testValues) gt 0}">
                                 <c:set var="mostRecentTestValue" value="${subjectToYears.testValues[0]}"/>
                                 <c:set var="rating" value="${mostRecentTestValue.testScoreStr}"/>
 
@@ -80,19 +83,24 @@
                                 </c:choose>
                             </c:if>
                         </c:forEach>
-
-                        <tr>
-                            <td rowspan="2">${gradeToSubjects.grade.name}</td>
-                            <td>Reading</td>
-                            <td>${readingRating eq 'Above' ? 'X' : ''}</td>
-                            <td>${readingRating eq 'Met' ? 'X' : ''}</td>
-                            <td>${readingRating eq 'Below' ? 'X' : ''}</td>
-                        </tr>
-                        <tr>
-                            <td>Math</td>
-                            <td>${mathRating eq 'Above' ? 'X' : ''}</td>
-                            <td>${mathRating eq 'Met' ? 'X' : ''}</td>
-                            <td>${mathRating eq 'Below' ? 'X' : ''}</td>
+                        <c:set var="mathColorClass" value="ohValueMet"/>
+                        <c:if test="${mathRating eq 'Below'}">
+                            <c:set var="mathColorClass" value="ohValueBelow"/>
+                        </c:if>
+                        <c:if test="${mathRating eq 'Above'}">
+                            <c:set var="mathColorClass" value="ohValueAbove"/>
+                        </c:if>
+                        <c:set var="readingColorClass" value="ohValueMet"/>
+                        <c:if test="${readingRating eq 'Below'}">
+                            <c:set var="readingColorClass" value="ohValueBelow"/>
+                        </c:if>
+                        <c:if test="${readingRating eq 'Above'}">
+                            <c:set var="readingColorClass" value="ohValueAbove"/>
+                        </c:if>
+                        <tr class="${zebraStriping}">
+                            <td class="grade small">Grade ${gradeToSubjects.grade.name}</td>
+                            <td class="small none ${mathColorClass}">${mathRating}</td>
+                            <td class="small none ${readingColorClass}">${readingRating}</td>
                         </tr>
 
                     </c:otherwise>
@@ -100,8 +108,9 @@
                 </c:choose>
 
             </c:forEach>
-
+            </tbody>
         </table>
+        </div>
     </c:set>
 
     <!-- show appropriate overall intro message / overall rating -->
@@ -121,15 +130,5 @@
     <c:if test="${showDebugData}">
         ${debugData}
     </c:if>
-
-    <!-- test source -->
-    <div class="mtl small quiet fr"><strong>Source:</strong> ${testToGrades.source}</div>
-
-    <!-- test description -->
-    <div class="clearfloat"><!-- not empty --></div>
-    <h4 class="pbn mbs">About the ${testToGrades.displayName}</h4>
-    <hr class="keyline1"/>
-    <div class="clear mbl"><!-- do not collapse --></div>
-    <p class="quiet">${testToGrades.description}</p>
 
 </jsp:root>

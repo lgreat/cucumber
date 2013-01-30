@@ -88,12 +88,16 @@
 
                         <p class="small bottom tal mbn">
                             <c:choose>
-                                <c:when test="${city eq 'Washington'}">
+                                <c:when test="${state eq 'DC' and city eq 'Washington'}">
                                     <a href="/catalog/pdf/New_Ratings_Methodology_DC.pdf"><span class="iconx16 i-16-pdf">
                                         <!-- do not collapse --></span> Learn more about our methodology</a>
                                 </c:when>
-                                <c:when test="${city eq 'Milwaukee'}">
+                                <c:when test="${state eq 'WI' and city eq 'Milwaukee'}">
                                     <a href="/catalog/pdf/New_Ratings_Methodology_MKE.pdf"><span class="iconx16 i-16-pdf">
+                                        <!-- do not collapse --></span> Learn more about our methodology</a>
+                                </c:when>
+                                <c:when test="${state eq 'IN'}">
+                                    <a href="/catalog/pdf/New_Ratings_Methodology_IN.pdf"><span class="iconx16 i-16-pdf">
                                         <!-- do not collapse --></span> Learn more about our methodology</a>
                                 </c:when>
                             </c:choose>

@@ -234,59 +234,38 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 }
             }
 
-            String schoolValue = "";
             SchoolCensusValue schoolCensusValue = null;
             if (censusDataSet.getSchoolOverrideValue() != null) {
                 schoolCensusValue = censusDataSet.getSchoolOverrideValue();
             } else {
                 schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
             }
-            if (schoolCensusValue != null) {
-                if (schoolCensusValue.getValueFloat() != null) {
-                    schoolValue = formatValueAsString(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());
-                } else {
-                    schoolValue = String.valueOf(schoolCensusValue.getValueText());
-                }
-            }
-
-            String districtValue = "";
             DistrictCensusValue districtCensusValue = censusDataSet.getTheOnlyDistrictValue();
-            if (districtCensusValue != null) {
-                if (districtCensusValue.getValueFloat() != null) {
-                    districtValue = formatValueAsString(districtCensusValue.getValueFloat(), dataTypeEnum.getValueType());
-                } else {
-                    districtValue = String.valueOf(districtCensusValue.getValueText());
-                }
-            }
-
-
-            String stateValue = "";
             StateCensusValue stateCensusValue = censusDataSet.getStateCensusValue();
-            if (stateCensusValue != null) {
-                if (stateCensusValue.getValueFloat() != null) {
-                    stateValue = formatValueAsString(stateCensusValue.getValueFloat(), dataTypeEnum.getValueType());
-                } else {
-                    stateValue = String.valueOf(stateCensusValue.getValueText());
-                }
-            }
 
             Set<CensusDescription> source = censusDataSet.getCensusDescription();
 
+            SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
+                groupId,
+                dataTypeId,
+                censusDataSetId,
+                label,
+                schoolCensusValue,
+                districtCensusValue,
+                stateCensusValue,
+                source,
+                entry.getValue().getYear(),
+                censusDataSet.getSchoolOverrideValue() != null
+            );
+
             // filter out rows where school and district values are N/A
-            if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue)) {
-
-                SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
-                    groupId,
-                    censusDataSetId,
-                    label,
-                    schoolValue,
-                    districtValue,
-                    stateValue,
-                    source,
-                    entry.getValue().getYear(),
-                    censusDataSet.getSchoolOverrideValue() != null
-                );
-
+            boolean showRow;
+            if (CensusDataType.STUDENTS_ETHNICITY.getId().equals(dataTypeId)) {
+                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()) || censusValueNotEmpty(row.getStateValue()));
+            } else {
+                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()));
+            }
+            if (showRow) {
                 List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(groupId);
                 if (statsRows == null) {
                     statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
@@ -309,8 +288,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         if (statsRows != null && statsRows.size() > 1) {
             Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
                 public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {
-                    Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
-                    Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
+                    Float row1Value = CensusDataHelper.formatValueAsFloat(statsRow1.getSchoolValue());
+                    Float row2Value = CensusDataHelper.formatValueAsFloat(statsRow2.getSchoolValue());
                     int compare = row2Value.compareTo(row1Value);
                     // reverse sort
                     if(compare == 0 && statsRow1.getText() != null && statsRow2.getText() != null) {
@@ -324,37 +303,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     protected boolean censusValueNotEmpty(String value) {
         return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
-    }
-
-    protected String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
-        String result;
-        if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
-            result = String.valueOf(Math.round(value)) + "%";
-        } else if (CensusDataType.ValueType.MONETARY.equals(valueType)) {
-            result = "$" + String.valueOf(value);
-        } else {
-            result = String.valueOf(Math.round(value));
-        }
-
-        return result;
-    }
-
-    protected Float formatValueAsFloat(String value) {
-        Float result = 0f;
-
-        if (StringUtils.isBlank(value)) {
-            return result;
-        }
-
-        value = value.replaceAll("[^0-9.\\-]", "");
-
-        try {
-            result = new Float(value);
-        } catch (NumberFormatException e) {
-            _log.debug("Could not format " + value + " to float.", e);
-        }
-
-        return result;
     }
 
     /**

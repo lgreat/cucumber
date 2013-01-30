@@ -13,6 +13,7 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +62,12 @@ public class SurveyResultsController extends AbstractController {
         }
 
         String level = request.getParameter(LEVEL_PARAM);
+        if (level == null || LevelCode.Level.getLevelCode(level) == null) {
+            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
+            builder.addParameter("level", school.getLevelCode().getLowestLevel().getName());
+            return new ModelAndView(new RedirectView(builder.asSiteRelative(request)));
+        }
+
         String levelString = null;
         Set<LevelCode.Level> levelCodes = school.getLevelCode().getIndividualLevelCodes();
         if (levelCodes.size() > 1) {

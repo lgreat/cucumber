@@ -24,21 +24,39 @@
         <title>gsFooter</title>
         <gsml:url var="footercss" value="/res/css/footer.css"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
-        <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
-        <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+        <gsml:url var="spritecss" value="/res/css/06_sprites/icon.css"/>
+        <![CDATA[<link rel="stylesheet" type="text/css" href="${spritecss}"></link>]]>
+        <gsml:url var="jqueryFile" value="/res/js/jquery/jquery-1.7.2.min.js"/>
+        <![CDATA[<script type="text/javascript" src="${jqueryFile}"></script>]]>
+        <gsml:url var="omnitureEventNotifier" value="/res/js/omnitureEventNotifier.js"/>
+        <![CDATA[<script type="text/javascript" src="${omnitureEventNotifier}"></script>]]>
+        <gsml:url var="emailSignUp" value="/res/js/promo/emailSignUp.js"/>
+        <![CDATA[<script type="text/javascript" src="${emailSignUp}"></script>]]>
+
+        <!--<gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>-->
+        <!--<![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>-->
+        <script type="text/javascript">
+            // Swaps text value with another
+            function GS_textSwitch(el, target, replace) {
+                if (el.value == replace) {
+                el.value = target;
+                }
+            }
+        </script>
         <style type="text/css">
             *html body {
                 background: none;
                 margin: 0;
                 padding: 0;
+                width:100%;
             }
-            #toggleLinks {
-                display: none;
-            }
+            /*#toggleLinks {*/
+                /*display: none;*/
+            /*}*/
 
-            #footerGS {
-                font-size: xx-small;
-            }
+            /*#footerGS {*/
+                /*font-size: xx-small;*/
+            /*}*/
         </style>
         <base target="_top"/>
     </head>

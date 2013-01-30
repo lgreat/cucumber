@@ -57,79 +57,117 @@ div#YahooRealEstateLink {
 }
 
 #footer {
-    background-color: #ffffff;
-    font-size: 11px;
-    color: #666;
+    background-color: #333333;
+    width: 100%;
+    /*font-size: 11px;*/
+    color: #CCCCCC;
+    font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;
+    margin-bottom: 0;
+    padding: 0px 0 10px 0;
+    /*margin-top: 20px;*/
 }
 
 #footnav {
-    border-top: 3px dotted #ccc;
-    list-style: none;
-    padding: 10px 0 0;
+    padding: 20px 0 0;
     margin: 0 auto;
-    text-align: center;
-}
-
-#footnav li {
-    display: inline;
-    margin: 0 9px;
-    font-weight: 700;
+    width: 860px;
 }
 
 #footnav li a,
 .cities ul a,
 .copyright a,
 #navFooter .allCities a {
-    color: #666;
+    color: #999;
 }
 
-.copyright {
-    margin: 1em 0;
+#footer .copyright {
+    margin:  0;
     text-align: center;
 }
 
-.copyright a {
+#footer .copyright a {
     margin: 0 10px;
 }
 
-.cities {
+#footer .cities {
     margin: 20px auto 0;
     padding: 12px 54px;
-    background: #ebebeb;
+    background: #333333;
     overflow: hidden;
 }
 
-.popularCities {
-    padding: 12px 24px 0 54px;
+#footer .popularCities {
+    padding: 0px 24px 0 54px;
     width: 890px;
 }
 
-.cities h4 {
-    margin: 0 auto 1em;
-    font: normal 12px / 1.3 Arial, Helvetica, sans-serif;
-    color: #444;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.cities ul {
+#footer .cities ul {
+    list-style: none;
     float: left;
     margin: 0 3px 0 0;
-    width: 13.93%;
+    width: 16.30%;
     padding: 0;
 }
 
-.cities li {
-    list-style: none;
-    line-height: normal;
-}
-
-#navFooter .allCities {
+#footer .allCities {
     padding-top: 25px;
+    padding-bottom: 10px;
     margin-right: 30px;
     text-align: center;
+    color: #CCCCCC;
 }
 
-#navFooter .allCities a {
+#footer .allCities a {
     margin: 0 3px 0 3px;
+}
+
+#footer .subtitles{
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+}
+#footer hr.keyline3 {background:#555555;color:#555555;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
+
+#footer .navFoot {
+    float: left;
+    margin: 0 3px 0 0;
+    width: 16.30%;
+    padding: 0;
+    /*width: 100%;*/
+}
+#footer .navFootLast {
+    float: left;
+    margin: 0 3px 0 0;
+    width: 25%;
+    padding: 0;
+    /*width: 100%;*/
+}
+#footer .navAbout {
+    float: left;
+    margin: 0 20px 0 0;
+    width: 32.60%;
+    padding: 0;
+}
+
+#footer .footerLink a{
+    color: #999;
+    text-decoration: none;
+}
+
+#footer .footerLink a:hover{
+    text-decoration: underline;
+}
+
+#connectWithUs .height18{
+   height:18px;
+}
+
+#connectWithUs{
+    background-color: #2B2B2B;
+    border-bottom:solid 1px #242424;
+}
+#connectWithUs .connectContent{
+   width: 860px;
+   margin: 0px auto;
+   padding: 14px 0 10px 0;
 }

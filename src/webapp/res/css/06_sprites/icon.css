@@ -315,7 +315,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/121213-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/130124-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -414,11 +414,17 @@ a:active .i-16-search-filter-arrow-up {
 .i-24-gallery-close {
     background-position: -528px 0;
 }
-.i-24-twitter {
+.i-24-facebook {
     background-position: -552px 0;
 }
-.i-24-rss {
+.i-24-twitter {
     background-position: -576px 0;
+}
+.i-24-rss {
+    background-position: -600px 0;
+}
+.i-24-pinterest {
+    background-position: -624px 0;
 }
 /* row 24 */
 
@@ -438,7 +444,7 @@ span:hover.i-24-gallery-close {
 
 .iconx32g {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x32/121009-32x32.png);
+    background-image: url(/res/img/sprites/icon/x32/130124-32x32.png);
     width: 32px;
     height: 32px;
 }
@@ -454,6 +460,34 @@ span:hover.i-24-gallery-close {
     background-position: -32px 0;
 }
 
+.i-32-twitteri {
+    background-position: -64px 0;
+}
+
+.i-32-rss {
+    background-position: -96px 0;
+}
+
+.i-32-facebooki {
+    background-position: -128px 0;
+}
+
+.i-32-pinterest {
+    background-position: -160px 0;
+}
+
+.i-32-youtube {
+    background-position: -192px 0;
+}
+
+.i-32-mobile {
+    background-position: -224px 0;
+}
+
+.i-32-search {
+    background-position: -256px 0;
+}
+
 span:hover.i-32-arrow-left {
     background-position: 0 -32px;
 }
@@ -462,7 +496,9 @@ span:hover.i-32-arrow-right {
     background-position: -32px -32px;
 }
 
-
+span:hover.i-32-search {
+    background-position: -256px -32px;
+}
 
 /* **************** SPRITE ***************** */
 

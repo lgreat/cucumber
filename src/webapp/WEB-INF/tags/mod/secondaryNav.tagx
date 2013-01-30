@@ -10,93 +10,184 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="http://java.sun.com/jsp/jstl/core" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
-<jsp:directive.tag import="gs.web.util.PageHelper"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.tag body-content="empty"/>
-<jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
-                         description="True if topnav is loaded via community iframe"/>
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
+                             description="True if topnav is loaded via community iframe"/>
 
-<jsp:scriptlet>
-    request.setAttribute("tabs", PageHelper.pageIds);
-</jsp:scriptlet>
+    <jsp:scriptlet>
+        request.setAttribute("tabs", PageHelper.pageIds);
+    </jsp:scriptlet>
 
     <c:set var="pw" value="${requestScope.context.pathway}"/>
 
     <!-- Begin Secondary Navigation -->
-      <ul id="gs-secondary"> <!-- bullet type: disc/square/circle-->
-        <li class="menuItem"><a href="/hot-topics.topic?content=4932" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
-            <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-              <li class="subMenuItem"><a href="/digital-parent.topic?content=6766" id="SN_HT-DigitalParent" class="subMenuItemAnchorText GS_CI9_">Digital Parent</a></li>
-              <li class="subMenuItem"><a href="/parenting/health-nutrition/5134-5-surprising-tricks-for-keeping-your-child-healthy-this-season.gs?page=1" id="SN_HT-5WaysToKeepYourChildHealthy" class="subMenuItemAnchorText GS_CI9_">5 ways to keep your child healthy</a></li>
-              <li class="subMenuItem"><a href="/parenting/5085-raising-transgender-child.gs?page=1" id="SN_HT-RaisingMySonAsAGirl" class="subMenuItemAnchorText GS_CI9_">Raising my son as a girl</a></li>
-              <li class="subMenuItem"><a href="/parenting/bullying/4923-a-father-fights-bullying.gs?page=1" id="SN_HT-AGrievingFatherFightsBullying" class="subMenuItemAnchorText GS_CI9_">A grieving father fights bullying</a></li>
-              <li class="subMenuItem"><a href="/parenting/4503-dangerous-teen-trends.gs?page=1" id="SN_HT-7DangerousTeenTrends" class="subMenuItemAnchorText GS_CI9_">7 dangerous teen trends</a></li>
-              <li class="subMenuItem"><a href="/parenting/slideshows/4325-teens-and-sex-statistics.gs" id="SN_HT-TeensAndSexByTheNumbers" class="subMenuItemAnchorText GS_CI9_">Teens and sex by the numbers</a></li>
-              <li class="subMenuItem"><a href="/improvement/teacher-quality/4907-bad-teacher.gs?page=1" id="SN_HT-DealingWithABadTeacher" class="subMenuItemAnchorText GS_CI9_">Dealing with a bad teacher</a></li>
-              <!--<li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System</a></li>-->
-              <!--<li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report</a></li>-->
+    <div class="menuContainer-secondary">
+        <div class="container_24">
+            <ul id="gs-secondary"> <!-- bullet type: disc/square/circle-->
+                <li class="menuItem"><a href="/hot-topics.topic?content=4932" id="SN-HotTopics"
+                                        class="menuItemAnchorText GS_CI9_">Hot Topics&amp;nbsp;<span
+                        class="sn-arrow"><!-- do not collapse --></span></a>
+                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="/digital-parent.topic?content=6766" id="SN_HT-DigitalParent"
+                                                   class="subMenuItemAnchorText GS_CI9_">Digital Parent</a></li>
+                        <li class="subMenuItem"><a
+                                href="/parenting/health-nutrition/5134-5-surprising-tricks-for-keeping-your-child-healthy-this-season.gs?page=1"
+                                id="SN_HT-5WaysToKeepYourChildHealthy"
+                                class="subMenuItemAnchorText GS_CI9_">5 ways to keep your child healthy</a></li>
+                        <li class="subMenuItem"><a href="/parenting/5085-raising-transgender-child.gs?page=1"
+                                                   id="SN_HT-RaisingMySonAsAGirl"
+                                                   class="subMenuItemAnchorText GS_CI9_">Raising my son as a girl</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/parenting/bullying/4923-a-father-fights-bullying.gs?page=1"
+                                                   id="SN_HT-AGrievingFatherFightsBullying"
+                                                   class="subMenuItemAnchorText GS_CI9_">A grieving father fights bullying</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/parenting/4503-dangerous-teen-trends.gs?page=1"
+                                                   id="SN_HT-7DangerousTeenTrends"
+                                                   class="subMenuItemAnchorText GS_CI9_">7 dangerous teen trends</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/parenting/slideshows/4325-teens-and-sex-statistics.gs"
+                                                   id="SN_HT-TeensAndSexByTheNumbers"
+                                                   class="subMenuItemAnchorText GS_CI9_">Teens and sex by the numbers</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/improvement/teacher-quality/4907-bad-teacher.gs?page=1"
+                                                   id="SN_HT-DealingWithABadTeacher"
+                                                   class="subMenuItemAnchorText GS_CI9_">Dealing with a bad teacher</a>
+                        </li>
+                        <!--<li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System</a></li>-->
+                        <!--<li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report</a></li>-->
+                    </ul>
+                </li>
+                <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities"
+                                        class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities&amp;nbsp;<span
+                        class="sn-arrow"><!-- do not collapse --></span></a>
+                    <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets"
+                                                   class="subMenuItemAnchorText GS_CI9_">Math Worksheets</a></li>
+                        <li class="subMenuItem"><a href="/worksheets/reading/" id="SN_WA-ReadingWorksheets"
+                                                   class="subMenuItemAnchorText GS_CI9_">Reading Worksheets</a></li>
+                        <li class="subMenuItem"><a href="/worksheets/writing/" id="SN_WA-WritingWorksheets"
+                                                   class="subMenuItemAnchorText GS_CI9_">Writing Worksheets</a></li>
+                        <li class="subMenuItem"><a href="/worksheets/science/" id="SN_WA-ScienceWorksheets"
+                                                   class="subMenuItemAnchorText GS_CI9_">Science Worksheets</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=209"
+                                                   id="SN_WA-MathActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Math Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=211"
+                                                   id="SN_WA-ReadingActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Reading Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=216"
+                                                   id="SN_WA-WritingActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Writing Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=207"
+                                                   id="SN_WA-ArtActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Art Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=212"
+                                                   id="SN_WA-ScienceActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Science Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=218" id="SN_WA-TravelActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Travel Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=150" id="SN_WA-SummerActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Summer Activities</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=246" id="SN_WA-HolidayActivities"
+                                                   class="subMenuItemAnchorText GS_CI9_">Holiday Activities</a></li>
+                    </ul>
+                </li>
+                <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp"
+                                        class="menuItemAnchorText GS_CI9_">Homework Help&amp;nbsp;<span
+                        class="sn-arrow"><!-- do not collapse --></span></a>
+                    <ul class="dropdown_3"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="/homework-help-math.topic?content=5254" id="SN_HH-Math"
+                                                   class="subMenuItemAnchorText GS_CI9_">Math</a></li>
+                        <li class="subMenuItem"><a href="/homework-help-reading.topic?content=5255" id="SN_HH-Reading"
+                                                   class="subMenuItemAnchorText GS_CI9_">Reading</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=140&amp;subjects=216" id="SN_HH-Writing"
+                                                   class="subMenuItemAnchorText GS_CI9_">Writing</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=148" id="SN_HH-StudySkills"
+                                                   class="subMenuItemAnchorText GS_CI9_">Study Skills</a></li>
+                        <li class="subMenuItem"><a href="/homework-help-tutoring.topic?content=5263" id="SN_HH-Tutoring"
+                                                   class="subMenuItemAnchorText GS_CI9_">Tutoring</a></li>
+                        <li class="subMenuItem"><a href="/online-learning.topic?content=4351" id="SN_HH-OnlineLearning"
+                                                   class="subMenuItemAnchorText GS_CI9_">Online Learning</a></li>
+                        <li class="subMenuItem"><a href="/test-prep/" id="SN_HH-TestPrep"
+                                                   class="subMenuItemAnchorText GS_CI9_">Test Prep</a></li>
+                    </ul>
+                </li>
+                <li class="menuItem"><a href="/parenting-dilemmas.topic?content=4321" id="SN-ParentingDilemmas"
+                                        class="menuItemAnchorText GS_CI9_">Parenting Dilemmas&amp;nbsp;<span
+                        class="sn-arrow"><!-- do not collapse --></span></a>
+                    <ul class="dropdown_4"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_PD-Bullying"
+                                                   class="subMenuItemAnchorText GS_CI9_">Bullying</a></li>
+                        <li class="subMenuItem"><a href="/Too-Much-Homework.topic?content=4886"
+                                                   id="SN_PD-TooMuchHomework"
+                                                   class="subMenuItemAnchorText GS_CI9_">Too Much Homework?</a></li>
+                        <li class="subMenuItem"><a href="/screen-use-and-abuse.topic?content=4882"
+                                                   id="SN_PD-ScreenUseAndAbuse"
+                                                   class="subMenuItemAnchorText GS_CI9_">Screen Use &amp;amp; Abuse</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/Sex-ed.topic?content=4352" id="SN_PD-SexEducation"
+                                                   class="subMenuItemAnchorText GS_CI9_">Sex Education</a></li>
+                        <li class="subMenuItem"><a href="/Managing-Kids-Stress.topic?content=4888"
+                                                   id="SN_PD-ManagingKidsStress"
+                                                   class="subMenuItemAnchorText GS_CI9_">Managing Kids' Stress</a></li>
+                        <li class="subMenuItem"><a href="/Teaching-Character.topic?content=4889"
+                                                   id="SN_PD-TeachingCharacter"
+                                                   class="subMenuItemAnchorText GS_CI9_">Teaching Character</a></li>
+                        <li class="subMenuItem"><a href="/Teacher-Issues.topic?content=4884" id="SN_PD-TeacherIssues"
+                                                   class="subMenuItemAnchorText GS_CI9_">Teacher Issues</a></li>
+                        <!--<li class="subMenuItem"><a href="/summer-learning.topic?content=4353" id="SN_PD-SummerSchoolWork" class="subMenuItemAnchorText GS_CI9_">Summer School Work</a></li>-->
+                    </ul>
+                </li>
+                <li class="menuItem"><a href="/parenting.topic?content=1539" id="SN-HealthBehavior"
+                                        class="menuItemAnchorText GS_CI9_">Health &amp; Behavior&amp;nbsp;<span
+                        class="sn-arrow"><!-- do not collapse --></span></a>
+                    <ul class="dropdown_5"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="/content/healthyKids.page" id="SN_HB-HealthNutrition"
+                                                   class="subMenuItemAnchorText GS_CI9_">Health &amp; Nutrition</a></li>
+                        <li class="subMenuItem"><a href="/behavior-and-discipline.topic?content=5009"
+                                                   id="SN_HB-BehaviorDiscipline"
+                                                   class="subMenuItemAnchorText GS_CI9_">Behavior &amp; Discipline</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/articles/?topics=157" id="SN_HB-SocialSkills"
+                                                   class="subMenuItemAnchorText GS_CI9_">Social Skills</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=136" id="SN_HB-EmotionalWellBeing"
+                                                   class="subMenuItemAnchorText GS_CI9_">Emotional Well-Being</a></li>
+                        <li class="subMenuItem"><a href="/your-childs-brain.topic?content=4881"
+                                                   id="SN_HB-YourChildsBrain"
+                                                   class="subMenuItemAnchorText GS_CI9_">Your Child's Brain</a></li>
+                    </ul>
+                </li>
+                <li class="menuItem"><a href="/special-education.topic?content=1541" id="SN-LearningDifficulties"
+                                        class="menuItemAnchorText GS_CI9_">Learning Difficulties&amp;nbsp;<span
+                        class="sn-arrow"><!-- do not collapse --></span></a>
+                    <ul class="dropdown_6"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="/learning-disabilities-and-adhd.topic?content=5264"
+                                                   id="SN_LD-LearningDisabilitiesADHD"
+                                                   class="subMenuItemAnchorText GS_CI9_">Learning Disabilities &amp; ADHD</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/autism.topic?content=5265" id="SN_LD-AutismOtherDisorders"
+                                                   class="subMenuItemAnchorText GS_CI9_">Autism &amp; Other Disorders</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/articles/?topics=185" id="SN_LD-FamilySupport"
+                                                   class="subMenuItemAnchorText GS_CI9_">Family Support</a></li>
+                        <li class="subMenuItem"><a href="/articles/?topics=231" id="SN_LD-HealthDevelopment"
+                                                   class="subMenuItemAnchorText GS_CI9_">Health &amp; Development</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/articles/?topics=190" id="SN_LD-LegalRightsAdvocacy"
+                                                   class="subMenuItemAnchorText GS_CI9_">Legal Rights &amp; Advocacy</a>
+                        </li>
+                        <li class="subMenuItem"><a href="/articles/?topics=188" id="SN_LD-AssistiveTechnology"
+                                                   class="subMenuItemAnchorText GS_CI9_">Assistive Technology</a></li>
+                    </ul>
+                </li>
+                <li class="menuItem last"><a href="/raising-a-reader.topic?content=7082" id="SN-RaisingAReader"
+                                        class="last menuItemAnchorText GS_CI9_ ">Raising a Reader&amp;nbsp;</a>
+                </li>
             </ul>
-        </li>
-        <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities" class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
-          <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets" class="subMenuItemAnchorText GS_CI9_">Math Worksheets</a></li>
-            <li class="subMenuItem"><a href="/worksheets/reading/" id="SN_WA-ReadingWorksheets" class="subMenuItemAnchorText GS_CI9_">Reading Worksheets</a></li>
-            <li class="subMenuItem"><a href="/worksheets/writing/" id="SN_WA-WritingWorksheets" class="subMenuItemAnchorText GS_CI9_">Writing Worksheets</a></li>
-            <li class="subMenuItem"><a href="/worksheets/science/" id="SN_WA-ScienceWorksheets" class="subMenuItemAnchorText GS_CI9_">Science Worksheets</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=209" id="SN_WA-MathActivities" class="subMenuItemAnchorText GS_CI9_">Math Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=211" id="SN_WA-ReadingActivities" class="subMenuItemAnchorText GS_CI9_">Reading Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=216" id="SN_WA-WritingActivities" class="subMenuItemAnchorText GS_CI9_">Writing Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=207" id="SN_WA-ArtActivities" class="subMenuItemAnchorText GS_CI9_">Art Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=212" id="SN_WA-ScienceActivities" class="subMenuItemAnchorText GS_CI9_">Science Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=218" id="SN_WA-TravelActivities" class="subMenuItemAnchorText GS_CI9_">Travel Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=150" id="SN_WA-SummerActivities" class="subMenuItemAnchorText GS_CI9_">Summer Activities</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=246" id="SN_WA-HolidayActivities" class="subMenuItemAnchorText GS_CI9_">Holiday Activities</a></li>
-          </ul>
-        </li>
-        <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp" class="menuItemAnchorText GS_CI9_">Homework Help&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
-          <ul class="dropdown_3"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/homework-help-math.topic?content=5254" id="SN_HH-Math" class="subMenuItemAnchorText GS_CI9_">Math</a></li>
-            <li class="subMenuItem"><a href="/homework-help-reading.topic?content=5255" id="SN_HH-Reading" class="subMenuItemAnchorText GS_CI9_">Reading</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=140&amp;subjects=216" id="SN_HH-Writing" class="subMenuItemAnchorText GS_CI9_">Writing</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=148" id="SN_HH-StudySkills" class="subMenuItemAnchorText GS_CI9_">Study Skills</a></li>
-            <li class="subMenuItem"><a href="/homework-help-tutoring.topic?content=5263" id="SN_HH-Tutoring" class="subMenuItemAnchorText GS_CI9_">Tutoring</a></li>
-            <li class="subMenuItem"><a href="/online-learning.topic?content=4351" id="SN_HH-OnlineLearning" class="subMenuItemAnchorText GS_CI9_">Online Learning</a></li>
-            <li class="subMenuItem"><a href="/test-prep/" id="SN_HH-TestPrep" class="subMenuItemAnchorText GS_CI9_">Test Prep</a></li>
-          </ul>
-        </li>
-        <li class="menuItem"><a href="/parenting-dilemmas.topic?content=4321" id="SN-ParentingDilemmas" class="menuItemAnchorText GS_CI9_">Parenting Dilemmas&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
-          <ul class="dropdown_4"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_PD-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying</a></li>
-            <li class="subMenuItem"><a href="/Too-Much-Homework.topic?content=4886" id="SN_PD-TooMuchHomework" class="subMenuItemAnchorText GS_CI9_">Too Much Homework?</a></li>
-            <li class="subMenuItem"><a href="/screen-use-and-abuse.topic?content=4882" id="SN_PD-ScreenUseAndAbuse" class="subMenuItemAnchorText GS_CI9_">Screen Use &amp;amp; Abuse</a></li>
-            <li class="subMenuItem"><a href="/Sex-ed.topic?content=4352" id="SN_PD-SexEducation" class="subMenuItemAnchorText GS_CI9_">Sex Education</a></li>
-            <li class="subMenuItem"><a href="/Managing-Kids-Stress.topic?content=4888" id="SN_PD-ManagingKidsStress" class="subMenuItemAnchorText GS_CI9_">Managing Kids' Stress</a></li>
-            <li class="subMenuItem"><a href="/Teaching-Character.topic?content=4889" id="SN_PD-TeachingCharacter" class="subMenuItemAnchorText GS_CI9_">Teaching Character</a></li>
-            <li class="subMenuItem"><a href="/Teacher-Issues.topic?content=4884" id="SN_PD-TeacherIssues" class="subMenuItemAnchorText GS_CI9_">Teacher Issues</a></li>
-            <!--<li class="subMenuItem"><a href="/summer-learning.topic?content=4353" id="SN_PD-SummerSchoolWork" class="subMenuItemAnchorText GS_CI9_">Summer School Work</a></li>-->
-          </ul>
-        </li>
-        <li class="menuItem"><a href="/parenting.topic?content=1539" id="SN-HealthBehavior" class="menuItemAnchorText GS_CI9_">Health &amp; Behavior&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
-          <ul class="dropdown_5"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/content/healthyKids.page" id="SN_HB-HealthNutrition" class="subMenuItemAnchorText GS_CI9_">Health &amp; Nutrition</a></li>
-            <li class="subMenuItem"><a href="/behavior-and-discipline.topic?content=5009" id="SN_HB-BehaviorDiscipline" class="subMenuItemAnchorText GS_CI9_">Behavior &amp; Discipline</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=157" id="SN_HB-SocialSkills" class="subMenuItemAnchorText GS_CI9_">Social Skills</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=136" id="SN_HB-EmotionalWellBeing" class="subMenuItemAnchorText GS_CI9_">Emotional Well-Being</a></li>
-            <li class="subMenuItem"><a href="/your-childs-brain.topic?content=4881" id="SN_HB-YourChildsBrain" class="subMenuItemAnchorText GS_CI9_">Your Child's Brain</a></li>
-          </ul>
-        </li>
-        <li class="menuItem"><a href="/special-education.topic?content=1541" id="SN-LearningDifficulties" class="menuItemAnchorText GS_CI9_">Learning Difficulties&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
-          <ul class="dropdown_6"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/learning-disabilities-and-adhd.topic?content=5264" id="SN_LD-LearningDisabilitiesADHD" class="subMenuItemAnchorText GS_CI9_">Learning Disabilities &amp; ADHD</a></li>
-            <li class="subMenuItem"><a href="/autism.topic?content=5265" id="SN_LD-AutismOtherDisorders" class="subMenuItemAnchorText GS_CI9_">Autism &amp; Other Disorders</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=185" id="SN_LD-FamilySupport" class="subMenuItemAnchorText GS_CI9_">Family Support</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=231" id="SN_LD-HealthDevelopment" class="subMenuItemAnchorText GS_CI9_">Health &amp; Development</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=190" id="SN_LD-LegalRightsAdvocacy" class="subMenuItemAnchorText GS_CI9_">Legal Rights &amp; Advocacy</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=188" id="SN_LD-AssistiveTechnology" class="subMenuItemAnchorText GS_CI9_">Assistive Technology</a></li>
-          </ul>
-        </li>
-        <li class="menuItem"><a href="/raising-a-reader.topic?content=7082" id="SN-RaisingAReader" class="last menuItemAnchorText GS_CI9_ ">Raising a Reader&amp;nbsp;</a>
-        </li>
-      </ul>
+        </div>
+    </div>
 </jsp:root>

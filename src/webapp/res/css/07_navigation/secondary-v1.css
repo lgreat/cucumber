@@ -16,21 +16,21 @@ General comments:
 
 /* Menu Container */
 
+.menuContainer-secondary {
+    margin: 0 auto;
+    background-color: #F5F5F5; /* for non-css3 browsers */
+    border-bottom: 1px solid #DDDDDD;
+}
+
 #gs-secondary {
     z-index: 3;
     position: relative;
     list-style: none;
     margin: 0 auto;
-    height: 32px;
+    height: 36px;
     padding: 0;
-    zoom:1;
-
-    /* Background color */
-    background-color: white;
-
-    /* Borders */
-    border-top: 1px solid #157daa;
-    border-bottom: 2px solid #aaaaaa;
+    zoom: 1;
+    background-color: #F5F5F5;
 }
 
 /* Menu Items */
@@ -45,37 +45,35 @@ General comments:
     border: none;
 }
 
-#gs-secondary .menuItem:hover {
+/*#gs-secondary .menuItem:hover {*/
     /* Background color */
-    background-color: #06b;
-    outline:0;
-}
+    /*background-color: #06b;*/
+    /*outline: 0;*/
+/*}*/
 
 #gs-secondary .menuItem .menuItemAnchorText {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    line-height: 32px;
+    font: normal 12px/36px Arial, Helvetica, sans-serif;
     color: #06b;
     display: block;
     outline: 0;
     text-decoration: none;
-    padding: 0 13px;
+    padding-right: 24px;
 }
 
-#gs-secondary .menuItem .last {
+/*#gs-secondary .menuItem .last {*/
     /*padding: 0 8px 0 1px;*/
-    padding: 0 5px 0 4px;
-}
+    /*padding: 0 5px 0 4px;*/
+/*}*/
 
-#gs-secondary .menuItem:hover .menuItemAnchorText {
-    color: white;
-}
+/*#gs-secondary .menuItem:hover .menuItemAnchorText {*/
+    /*color: white;*/
+/*}*/
 
 .ie7 #gs-secondary .menuItem .i-sn-arrow {
     vertical-align: middle;
 }
 
-.sn-arrow{
+.sn-arrow {
     font-size: 0;
     line-height: 0;
     width: 0;
@@ -86,23 +84,9 @@ General comments:
     border-top: 5px solid #808080;
     border-right: 4px solid white;
     *border-right: 5px solid white;
-    opacity:1;
+    opacity: 1;
     *filter: alpha(opacity = 100);
-}
-
-.menuItem:hover .sn-arrow{
-    font-size: 0;
-    line-height: 0;
-    width: 0;
-    vertical-align: baseline;
-    display: inline-block;
-    background: none;
-    border-left: 4px solid #06b;
-    border-top: 5px solid white;
-    border-right: 4px solid #06b;
-    *border-right: 5px solid #06b;
-    opacity:1;
-    *filter: alpha(opacity = 100);
+    margin-left: 6px;
 }
 
 /* Drop Down Containers */
@@ -118,10 +102,10 @@ General comments:
     left: -999em; /* Hides the drop down */
     text-align: left;
     padding: 0;
-    border: 1px solid #06b;
-
+    border: 1px solid #B8B8B8;
     /* Background */
-    background: white;
+    background: #FFFFFF;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.4);
 }
 
 #gs-secondary .dropdown_1,
@@ -133,12 +117,35 @@ General comments:
     min-width: 100%;
 }
 
-.ie7 #gs-secondary .dropdown_1{min-width:0;width:245px;}
-.ie7 #gs-secondary .dropdown_2{min-width:0;width:174px;}
-.ie7 #gs-secondary .dropdown_3{min-width:0;width:131px;}
-.ie7 #gs-secondary .dropdown_4{min-width:0;width:157px;}
-.ie7 #gs-secondary .dropdown_5{min-width:0;width:145px;}
-.ie7 #gs-secondary .dropdown_6{min-width:0;width:188px;}
+.ie7 #gs-secondary .dropdown_1 {
+    min-width: 0;
+    width: 245px;
+}
+
+.ie7 #gs-secondary .dropdown_2 {
+    min-width: 0;
+    width: 174px;
+}
+
+.ie7 #gs-secondary .dropdown_3 {
+    min-width: 0;
+    width: 131px;
+}
+
+.ie7 #gs-secondary .dropdown_4 {
+    min-width: 0;
+    width: 157px;
+}
+
+.ie7 #gs-secondary .dropdown_5 {
+    min-width: 0;
+    width: 145px;
+}
+
+.ie7 #gs-secondary .dropdown_6 {
+    min-width: 0;
+    width: 188px;
+}
 
 #gs-secondary .menuItem:hover .dropdown_2,
 #gs-secondary .menuItem:hover .dropdown_3,
@@ -149,8 +156,8 @@ General comments:
     top: auto;
 }
 
-#gs-secondary .menuItem:hover .dropdown_1{
-    left:-1px;
+#gs-secondary .menuItem:hover .dropdown_1 {
+    left: -1px;
     top: auto;
 }
 
@@ -185,8 +192,8 @@ General comments:
 #gs-secondary .dropdown_5 .subMenuItem:hover,
 #gs-secondary .dropdown_6 .subMenuItem:hover {
     /* Background color */
-    background-color: #06b;
-    outline:0;
+    background-color: #207AA0;
+    outline: 0;
 }
 
 #gs-secondary .dropdown_1 .subMenuItem .subMenuItemAnchorText,
@@ -203,7 +210,7 @@ General comments:
     outline: 0;
     text-decoration: none;
     white-space: nowrap;
-    padding: 0 13px;
+    padding: 0 12px;
 }
 
 #gs-secondary .dropdown_1 .subMenuItem:hover .subMenuItemAnchorText,

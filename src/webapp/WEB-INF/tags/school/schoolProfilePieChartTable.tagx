@@ -48,16 +48,18 @@
         <col width="32%"><!-- do not collapse --></col>
         <col width="4%"><!-- do not collapse --></col>
         <col width="31%"><!-- do not collapse --></col>
-        <col width="15%"><!-- do not collapse --></col>
+        <c:if test="${showSchoolData}"><col width="15%"><!-- do not collapse --></col></c:if>
         <c:if test="${showStateAverages}"><col width="18%"><!-- do not collapse --></col> </c:if>
 
         <thead>
         <tr>
             <th></th><th></th>
             <th>Ethnicity</th>
-            <th class="tac">
-                This school
-            </th>
+            <c:if test="${showSchoolData}">
+                <th class="tac">
+                    This school
+                </th>
+            </c:if>
 
             <c:if test="${showStateAverages}">
                 <th class="tac">State Average</th>
@@ -88,93 +90,92 @@
         </jsp:scriptlet>
         <c:set var="counterPie" value="0" />
         <c:forEach items="${rows}" var="row" varStatus="status">
-
-            <jsp:scriptlet>
-                <![CDATA[
-                SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
-                SchoolProfileStatsDisplayRow row = (SchoolProfileStatsDisplayRow)jspContext.getAttribute("row");
-                if (censusSourceHelper != null) {
-                    int myfootnote = censusSourceHelper.recordSource(row);
-                    if (myfootnote > 0) {
-                        jspContext.setAttribute("thisFootnote", myfootnote);
-                    } else {
-                        jspContext.removeAttribute("thisFootnote");
+                <jsp:scriptlet>
+                    <![CDATA[
+                    SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) jspContext.getAttribute("censusSourceHelper");
+                    SchoolProfileStatsDisplayRow row = (SchoolProfileStatsDisplayRow)jspContext.getAttribute("row");
+                    if (censusSourceHelper != null) {
+                        int myfootnote = censusSourceHelper.recordSource(row);
+                        if (myfootnote > 0) {
+                            jspContext.setAttribute("thisFootnote", myfootnote);
+                        } else {
+                            jspContext.removeAttribute("thisFootnote");
+                        }
                     }
-                }
-                ]]>
-            </jsp:scriptlet>
-
-            <c:choose>
-                <c:when test='${(status.index+1)%2 eq 0}'>
-                    <c:set var="rowColor" value="even" scope="page"/>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="rowColor" value="odd" scope="page"/>
-                </c:otherwise>
-            </c:choose>
-            <tr class="${rowColor}" >
+                    ]]>
+                </jsp:scriptlet>
 
                 <c:choose>
-                    <c:when test="${status.first}">
-                        <c:set var="addRowSpan">${fn:length(rows)}</c:set>
-                        <c:set var="addPieGraph"><div class="plm ptm"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="160"/></div></c:set>
-                        <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
-
+                    <c:when test='${(status.index+1)%2 eq 0}'>
+                        <c:set var="rowColor" value="even" scope="page"/>
                     </c:when>
                     <c:otherwise>
-                        <c:set var="graphRow" value=""/>
+                        <c:set var="rowColor" value="odd" scope="page"/>
                     </c:otherwise>
                 </c:choose>
-                ${graphRow}
-
-                <c:set var="schoolScoreToShow" value="" />
-                <c:set var="schoolColorToShow" value="#FFFFFF" />
-                <c:if test="${showSchoolData}">
+                <tr class="${rowColor}" >
 
                     <c:choose>
-                        <c:when test="${not empty row.schoolValue}">
+                        <c:when test="${status.first}">
+                            <c:set var="addRowSpan">${fn:length(rows)}</c:set>
+                            <c:set var="addPieGraph"><div class="plm ptm"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="160"/></div></c:set>
+                            <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
 
-                            <c:set var="schoolScoreToShow"><td class="tac">${row.schoolValue}</td></c:set>
-                            <c:set var="pieValueNoPercent" value="${fn:replace(row.schoolValue, '%', '')}" />
-                            <c:if test="${pieValueNoPercent > 0}">
-                                <c:set var="schoolColorToShow" value="${pieChartColorList[counterPie]}" />
-                                <c:set var="counterPie" value="${counterPie + 1}" />
-                            </c:if>
-                            <!--<c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>-->
                         </c:when>
                         <c:otherwise>
-                            <c:set var="schoolScoreToShow"><td class="tac">N/A</td></c:set>
+                            <c:set var="graphRow" value=""/>
                         </c:otherwise>
                     </c:choose>
-                </c:if>
-                <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
-                <td>${row.text}
-                    <c:if test="${not empty thisFootnote}">
-                        <sup>${thisFootnote}</sup>
+                    ${graphRow}
+
+                    <c:set var="schoolScoreToShow" value="" />
+                    <c:set var="schoolColorToShow" value="#FFFFFF" />
+                    <c:if test="${showSchoolData}">
+
+                        <c:choose>
+                            <c:when test="${not empty row.schoolValue}">
+
+                                <c:set var="schoolScoreToShow"><td class="tac">${row.schoolValue}</td></c:set>
+                                <c:set var="pieValueNoPercent" value="${fn:replace(row.schoolValue, '%', '')}" />
+                                <c:if test="${pieValueNoPercent > 0}">
+                                    <c:set var="schoolColorToShow" value="${pieChartColorList[counterPie]}" />
+                                    <c:set var="counterPie" value="${counterPie + 1}" />
+                                </c:if>
+                                <!--<c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>-->
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="schoolScoreToShow"><td class="tac">N/A</td></c:set>
+                            </c:otherwise>
+                        </c:choose>
                     </c:if>
-                </td>
-                ${schoolScoreToShow}
-                <!--<c:if test="${showDistrictData}">-->
-                    <!--<c:choose>-->
-                        <!--<c:when test="${not empty row.districtValue}">-->
-                            <!--<td class="tac">${row.districtValue}</td>-->
-                        <!--</c:when>-->
-                        <!--<c:otherwise>-->
-                            <!--<td class="tac">N/A</td>-->
-                        <!--</c:otherwise>-->
-                    <!--</c:choose>-->
-                <!--</c:if>-->
-                <c:if test="${showStateAverages}">
-                    <c:choose>
-                        <c:when test="${not empty row.stateValue}">
-                            <td class="tac">${row.stateValue}</td>
-                        </c:when>
-                        <c:otherwise>
-                            <td class="tac">N/A</td>
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
-            </tr>
+                    <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
+                    <td>${row.text}
+                        <c:if test="${not empty thisFootnote}">
+                            <sup>${thisFootnote}</sup>
+                        </c:if>
+                    </td>
+                    ${schoolScoreToShow}
+                    <!--<c:if test="${showDistrictData}">-->
+                        <!--<c:choose>-->
+                            <!--<c:when test="${not empty row.districtValue}">-->
+                                <!--<td class="tac">${row.districtValue}</td>-->
+                            <!--</c:when>-->
+                            <!--<c:otherwise>-->
+                                <!--<td class="tac">N/A</td>-->
+                            <!--</c:otherwise>-->
+                        <!--</c:choose>-->
+                    <!--</c:if>-->
+                    <c:if test="${showStateAverages}">
+                        <c:choose>
+                            <c:when test="${not empty row.stateValue}">
+                                <td class="tac">${row.stateValue}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="tac">N/A</td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                </tr>
 
         </c:forEach>
         </tbody>

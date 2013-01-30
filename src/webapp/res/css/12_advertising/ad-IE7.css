@@ -151,3 +151,13 @@ fix for Pinterest button layout in the new school profile, in ie7
     *display: inline;
     margin-right: 5px;
 }
+
+/*************************************************************************************************************
+
+fix for footer spacing in list
+
+******/
+
+#footer .navFoot  li {
+    padding-bottom: 0px;;
+}
