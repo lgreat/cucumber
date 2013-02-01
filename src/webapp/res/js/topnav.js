@@ -2,7 +2,7 @@ GS_loadSubnav = function() {
     /* Subnav menus */
 
     var stateValue = function (selectedState) {
-        $("#topnav_search .showState").text(selectedState === "" ? "State" : selectedState);
+        $("#topnav_search .showStateHeader").text(selectedState === "" ? "State" : selectedState);
     };
     $("#topnav_search #stateSelector").change(function () {
         stateValue($(this).val());
