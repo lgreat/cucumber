@@ -349,7 +349,7 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
+<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
     <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
@@ -391,13 +391,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</td>
-<td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem lastNavUnit">
-    <div class="dropdownReference clearfix">
-        <a href="/raising-successful-students.topic?content=7213" id="PN_LearningGifts" class="menuItemAnchorText GS_CI9_">
-            <span class="navSprite i-pn-gg mrm"><!-- do not collapse --></span>Learning Gifts
-        </a>
     </div>
 </td>
 
