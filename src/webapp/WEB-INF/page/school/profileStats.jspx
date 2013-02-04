@@ -39,6 +39,10 @@
                 </c:if>
                 <school:schoolProfileStatsTable groupId="13" title="Student subgroups" statsTab="students"/>
 
+                <c:if test="${! empty statsRows[8]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="8" title="Attendance" statsTab="students"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
@@ -233,11 +237,20 @@
                 </c:if>
                 <school:schoolProfileStatsTable groupId="4" title="Class size" statsTab="teachers"/>
 
-
                 <c:if test="${! empty statsRows[2]}">
                     <c:set var="hasTeacherData" value="yes"/>
                 </c:if>
                 <school:schoolProfileStatsTable groupId="2" title="Teacher experience" statsTab="teachers"/>
+
+                <c:if test="${! empty statsRows[3]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="3" title="Teacher Education Levels" statsTab="teachers"/>
+
+                <c:if test="${! empty statsRows[1]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
