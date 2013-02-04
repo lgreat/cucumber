@@ -16,17 +16,42 @@ GS.search.filters = GS.search.filters || (function() {
                 /*}*/
                 var queryString = window.location.search;
                 var queryStringData = GS.uri.Uri.getQueryData(queryString);
-                if(queryStringData['view'] === 'map' && queryStringData['lat'] !== undefined && queryStringData['lon'] !== undefined) {
+                if(queryStringData['view'] === 'map') {
                     var districtBoundaryLink = $('#js-showDistrictBoundaryLink').find('a');
-                    var districtBoundaryUri = "/school-district-boundaries-map/?lat=" + queryStringData['lat']  + "&lon=" +
-                                                queryStringData['lon'];
+                    var districtBoundaryUri = "/school-district-boundaries-map/?";
+                    // if we can pull lat/lon from query, do so
+                    if (queryStringData['lat'] !== undefined && queryStringData['lon'] !== undefined) {
+                        districtBoundaryUri += "lat=" + queryStringData['lat']  + "&lon=" +
+                            queryStringData['lon'] + "&";
+                    } else {
+                        // otherwise parse them out of the pre-written link
+                        var existingHref = districtBoundaryLink.attr('href');
+                        var queryStart = existingHref.indexOf("?");
+                        if (queryStart > -1) {
+                            var existingQuery = existingHref.substring(queryStart);
+                            var existingQueryData = GS.uri.Uri.getQueryData(existingQuery);
+                            if (existingQueryData.passThroughURI) {
+                                existingHref = decodeURIComponent(existingQueryData.passThroughURI);
+                                queryStart = existingHref.indexOf("?");
+                                existingQuery = existingHref.substring(queryStart);
+                                existingQueryData = GS.uri.Uri.getQueryData(existingQuery);
+                            }
+                            if (existingQueryData.lat !== undefined && existingQueryData.lon !== undefined) {
+                                districtBoundaryUri += "lat=" + existingQueryData['lat']  + "&lon=" +
+                                    existingQueryData['lon'] + "&";
+                            }
+                        }
+                    }
                     if(queryStringData['gradeLevels'] === undefined || queryStringData['gradeLevels'].length > 1){
-                        districtBoundaryUri += '&level=e';
+                        districtBoundaryUri += 'level=e';
+                    } else {
+                        districtBoundaryUri += 'level=' + queryStringData['gradeLevels'];
                     }
-                    else {
-                        districtBoundaryUri += '&level=' + queryStringData['gradeLevels'];
+                    if (districtBoundaryUri.indexOf('lat') > -1 &&
+                        districtBoundaryUri.indexOf('lon') > -1 &&
+                        districtBoundaryUri.indexOf('level') > -1) {
+                        districtBoundaryLink.attr('href', districtBoundaryUri);
                     }
-                    districtBoundaryLink.attr('href', districtBoundaryUri);
                 }
             });
         });
