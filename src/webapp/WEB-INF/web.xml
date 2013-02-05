@@ -667,6 +667,11 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/jobs/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
        <servlet-name>pages</servlet-name>
        <url-pattern>/morgan-stanley</url-pattern>
     </servlet-mapping>

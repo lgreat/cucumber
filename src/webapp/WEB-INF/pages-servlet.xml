@@ -1101,6 +1101,20 @@
         <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Meet Our Advisors"/><!-- change me -->
     </bean>
 
+    <bean name="/jobs/"
+          class="gs.web.content.cms.CmsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="content/cms/page"/>
+        <property name="contentId" value="7261"/>
+        <property name="adSlotPrefix" value="Jobs"/>
+        <property name="omniturePageName" value="Jobs"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,EmploymentOpportunities"/>
+    </bean>
+
+
+
     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
