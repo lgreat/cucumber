@@ -171,3 +171,11 @@ div#YahooRealEstateLink {
    margin: 0px auto;
    padding: 14px 0 10px 0;
 }
+
+#interruptSurvey .logo{
+    background: transparent url(/res/img/logo/logo_GS_200x50.png) no-repeat right bottom;
+    _background: transparent url(/res/img/logo/logo_GS_200x50.gif) no-repeat right bottom;
+    width:200px;
+    height:50px;
+    float:right;
+}
