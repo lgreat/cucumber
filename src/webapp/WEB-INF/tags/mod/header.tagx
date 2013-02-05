@@ -148,12 +148,12 @@
                                                onfocus="${searchBoxOnClick}" style="width:240px;" class="pls qNew"/>
                                         <span class="quiet bottom"> | </span>
                                         <span class="showStateHeader make-06b"><!-- Do not collapse--></span>
-                                        <c:set var="currentStateValue" value="State"/>
-                                        <c:if test="${not empty requestScope.context.state}">
-                                            <c:set var="currentStateValue" value="${requestScope.context.state}"/>
-                                        </c:if>
+                                        <!--<c:set var="currentStateValue" value="State"/>-->
+                                        <!--<c:if test="${not empty requestScope.context.state}">-->
+                                            <!--<c:set var="currentStateValue" value="${requestScope.context.state}"/>-->
+                                        <!--</c:if>-->
                                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                                             noStateLabel="${currentStateValue}"
+                                                             noStateLabel="State"
                                                              usingLongNames="false"
                                                              state="${requestScope.context.state}"
                                                              styleClass="stateSelect"
