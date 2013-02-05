@@ -86,7 +86,7 @@
                     <ul class="none">
                         <li><gsml:a href="/about/aboutUs.page">Our Mission</gsml:a></li>
                         <li><gsml:a href="/about/senior-management.page">Our People</gsml:a></li>
-                        <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
+                        <li><gsml:a href="/jobs/">Jobs</gsml:a></li>
                         <li><link:contactUs>Contact Us</link:contactUs></li>
                     </ul>
                 </div>
