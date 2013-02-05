@@ -125,7 +125,7 @@
                             </c:if>
                             <input type="hidden" name="search_type" value="0"/>
                             <fieldset class="pr">
-                                <div class="searchBarSchool">
+                                <div class="searchBarSchool line">
                                     <div class="unit size19of100" style="margin-top: 2px">
                                         <div class="showSchoolArticle small bottom">Schools</div>
                                         <select class="selectSchoolArticle">
@@ -178,7 +178,7 @@
                             <!--</c:if>-->
                             <!--<input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>-->
                             <fieldset class="pr">
-                                <div id="showSchoolArticle" class="searchBarArticle">
+                                <div id="showSchoolArticle" class="searchBarArticle line">
                                     <div class="unit size36of100" style="margin-top: 2px">
                                         <div class="showSchoolArticle small bottom">Articles &amp;amp; Worksheets</div>
                                         <select class="selectSchoolArticle">
