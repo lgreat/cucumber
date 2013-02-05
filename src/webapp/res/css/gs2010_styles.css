@@ -2905,6 +2905,7 @@ div .gallery-thumbnail-selected:hover {
 #topnav_search .showSchoolArticle{
     background-color: #F1F1F1;
     color: #2B2B2B;
+    font: 12px/20px Arial,Helvetica,sans-serif;
     /*padding: 3px;*/
     height:18px;
     width: auto;
