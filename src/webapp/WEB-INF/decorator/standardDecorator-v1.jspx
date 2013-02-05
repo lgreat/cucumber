@@ -105,7 +105,6 @@
     <communityHover:forgotPassword/>
     <communityHover:schoolReviewThankYou/>
     <communityHover:schoolReviewPosted schoolName="${schoolName}"/>
-    <communityHover:interruptSurvey surveyType="overview"/>
     <communityHover:emailValidatedSchoolReview/>
     <profile:principalConfirmHover/>
     <profile:principalReviewSubmitted/>
