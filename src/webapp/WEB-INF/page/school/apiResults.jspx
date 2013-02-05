@@ -138,6 +138,14 @@
             </c:otherwise>
         </c:choose>
 
+        <br/><br/>
+        <c:forEach items="${apiGrowthTrend}" var="trendList">
+        <c:forEach items="${trendList}" var="trendMap">
+                Year:-${trendMap.key} <br/>
+                API growth:-${trendMap.value} <br/>
+        </c:forEach>
+        </c:forEach>
+
     </gsml:body>
     </html>
 </jsp:root>
