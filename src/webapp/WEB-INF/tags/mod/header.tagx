@@ -23,7 +23,7 @@
 
     <c:set var="communityClassSearch" value=""/>
 
-    <div id="header" class="container_24">
+    <div id="header" class="container_24 slStylesV1-0">
         <jsp:scriptlet>
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
@@ -81,24 +81,28 @@
                 <c:set var="searchRadioSchoolChecked" value="false"/>
                 <!-- variables controlling search box width and whether the state drop down is shown or hidden -->
                 <c:set var="searchBoxStyle" value="width:247px;"/>
-                <c:set var="searchStateStyle" value="display:none;"/>
+                <!--<c:set var="searchStateStyle" value="display:none;"/>-->
                 <!-- search box on click value ... as this never changes, why is this in a variable?? -->
                 <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
                 <c:choose>
                     <c:when test="${requestScope.context.topicPage or (inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING)}">
                         <!-- Following variable is also hard-coded into global.js -->
-                        <c:set var="searchBoxValue" value="Search by keyword"/>
-                        <c:set var="searchFormAction" value="${articlesAndCommunitySearchAction}"/>
-                        <c:set var="searchRadioArticlesAndCommunityChecked" value="true"/>
-                        <c:set var="searchStateStyle" value="display:none;"/>
+                        <!--<c:set var="searchBoxValue" value="Search by keyword"/>-->
+                        <!--<c:set var="searchFormAction" value="${articlesAndCommunitySearchAction}"/>-->
+                        <!--<c:set var="searchRadioArticlesAndCommunityChecked" value="true"/>-->
+                        <!--<c:set var="searchStateStyle" value="display:none;"/>-->
+                        <c:set var="showSearchSchoolForm" value="dn"/>
+                        <c:set var="showSearchArticleForm" value="db"/>
                     </c:when>
                     <c:otherwise>
                         <!-- Following variable is also hard-coded into global.js -->
-                        <c:set var="searchBoxValue" value="Search for school, district, or city"/>
-                        <c:set var="searchRadioSchoolChecked" value="true"/>
+                        <!--<c:set var="searchBoxValue" value="Search for school, district, or city"/>-->
+                        <!--<c:set var="searchRadioSchoolChecked" value="true"/>-->
                         <!-- shorten text box and show state drop down -->
-                        <c:set var="searchBoxStyle" value="width:190px;"/>
-                        <c:set var="searchStateStyle" value="display:inline;"/>
+                        <!--<c:set var="searchBoxStyle" value="width:190px;"/>-->
+                        <!--<c:set var="searchStateStyle" value="display:inline;"/>-->
+                        <c:set var="showSearchSchoolForm" value="db"/>
+                        <c:set var="showSearchArticleForm" value="dn"/>
                     </c:otherwise>
                 </c:choose>
                 <!-- text in following script also hard-coded into global.js -->
@@ -110,13 +114,12 @@
                     }
                 </script>
                 <div class="unit size60of100 lastUnit">
-                    <div class="topnav_search_container">
-                        <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
-                                    action="${articlesAndCommunitySearchAction}">
-                            <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
-                        </gsweb:form>
-                        <gsweb:form method="get" id="topnav_search" action="${localSearchAction}"
-                                    onsubmit="return topNavNewCommunitySubmitSearch(this)">
+                    <div id="topnav_search" class="topnav_search_container">
+                        <!--<gsweb:form method="get" id="topnav_search_articlesAndCommunity"-->
+                                    <!--action="${articlesAndCommunitySearchAction}">-->
+                            <!--<input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>-->
+                        <!--</gsweb:form>-->
+                        <gsweb:form method="get" id="topnav_search_school" action="/search/search.page" styleClass="${showSearchSchoolForm}" onsubmit="return topNavNewSearchSubmit()">
                             <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                                 <input type="hidden" name="st" value="charter"/>
                             </c:if>
@@ -124,7 +127,6 @@
                             <fieldset class="pr">
                                 <div class="searchBarSchool">
                                     <div class="unit size19of100" style="margin-top: 2px">
-                                        <!--<div class="fl">-->
                                         <div class="showSchoolArticle small bottom">Schools</div>
                                         <select class="selectSchoolArticle">
                                             <option id="srch1" slected="selected"
@@ -136,37 +138,48 @@
                                                     onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');">Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
-                                                                        <span class="pa" style="top:8px; left:60px;">
-                                                                            <span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span>
-                                                                        </span>
+                                            <span class="pa" style="top:8px; left:60px;">
+                                                <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
+                                            </span>
                                     </div>
                                     <div class="unit size74of100"
                                          style="background-color:#FFFFFF; margin-top: 2px; height: 28px;">
-                                        <input type="text" name="q" id="qNew" value="${searchBoxValue}"
-                                               onfocus="${searchBoxOnClick}" style="width:240px;" class="pls"/>
+                                        <input type="text" name="q" id="qNew" value="Search for school, district, or city"
+                                               onfocus="${searchBoxOnClick}" style="width:240px;" class="pls qNew"/>
                                         <span class="quiet bottom"> | </span>
                                         <span class="showStateHeader make-06b"><!-- Do not collapse--></span>
+                                        <c:set var="currentStateValue" value="State"/>
+                                        <c:if test="${not empty requestScope.context.state}">
+                                            <c:set var="currentStateValue" value="${requestScope.context.state}"/>
+                                        </c:if>
                                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                                             noStateLabel="State"
+                                                             noStateLabel="${currentStateValue}"
                                                              usingLongNames="false"
                                                              state="${requestScope.context.state}"
                                                              styleClass="stateSelect"
-                                                             style="${searchStateStyle}"
+                                                             style=""
                                                              styleId="stateSelector"/>
-                                                                        <span class="pa"
-                                                                              style="left:367px; top:7px;"><span
-                                                                                class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
+                                        <span class="pa" style="left:367px; top:7px;">
+                                            <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
+                                        </span>
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <!--<button type="submit">-->
-                                        <span class="iconx32g i-32-search"
-                                              style="margin-left: -2px;"><!-- do not collapse --></span>
-                                        <!--</button>-->
+                                        <div class="" onclick="$('#topnav_search_school').submit()" tabindex="0" onkeypress="keyPressSchool(event)">
+                                            <span class="iconx32g i-32-search" style="margin-left: -2px;"><!-- do not collapse --></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="showSchoolArticle" class="searchBarArticle dn">
+                            </fieldset>
+                        </gsweb:form>
+                        <gsweb:form method="get" id="topnav_search_articlesAndCommunity" action="/search/contentSearch.page" styleClass="${showSearchArticleForm}">
+
+                            <!--<c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">-->
+                                <!--<input type="hidden" name="st" value="charter"/>-->
+                            <!--</c:if>-->
+                            <!--<input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>-->
+                            <fieldset class="pr">
+                                <div id="showSchoolArticle" class="searchBarArticle">
                                     <div class="unit size36of100" style="margin-top: 2px">
-                                        <!--<div class="fl">-->
                                         <div class="showSchoolArticle small bottom">Articles &amp;amp; Worksheets</div>
                                         <select class="selectSchoolArticle">
                                             <option id="srch1"
@@ -178,59 +191,40 @@
                                                     onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');">Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
-                                                                        <span class="pa" style="left: 127px; top:8px;">
-                                                                            <span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span>
-                                                                        </span>
+                                            <span class="pa" style="left: 127px; top:8px;">
+                                                <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
+                                            </span>
                                     </div>
-                                    <div class="unit size50of100" style="margin-top: 2px">
-                                        <input type="text" name="q" id="qNew" value="${searchBoxValue}"
-                                               onfocus="${searchBoxOnClick}" style="width:210px" class="pls"/>
+                                    <div class="unit size57of100" style="margin-top: 2px">
+                                        <input type="text" name="q" id="qNew" value="Search by keyword"
+                                               onfocus="${searchBoxOnClick}" style="width:234px" class="pls qNew"/>
 
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <!--<button type="submit">-->
-                                        <span class="iconx32g i-32-search"><!-- do not collapse --></span>
-                                        <!--</button>-->
+                                        <div class="" onclick="$('#topnav_search_articlesAndCommunity').submit()" tabindex="0" onkeypress="keyPressArticle(event)">
+                                            <span class="iconx32g i-32-search"><!-- do not collapse --></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <!--<ul>-->
-                                    <!--<li id="srch1"-->
-                                        <!--class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">-->
-                                        <!--<label for="topnavSchoolRadio" class="radLabel">Schools</label>-->
-                                    <!--</li>-->
-                                    <!--<li id="srch2"-->
-                                        <!--class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">-->
-                                        <!--<label for="topnavArticlesAndCommunityRadio"-->
-                                               <!--class="radLabel">Articles, Worksheets &amp;amp; More</label></li>-->
-                                <!--</ul>-->
-                                <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
-                                    <script type="text/javascript">
-                                        jQuery(function () {
-                                            GS.attachSchoolAutocomplete("qNew");
-                                        });
-                                    </script>
-                                </c:if>
-                                <script type="text/javascript">
-                                    jQuery(function () {
-                                        jQuery('#srch2').click(function () {
-                                            GS.detachSchoolAutocomplete("qNew");
-                                        });
-                                        jQuery('#srch1').click(function () {
-                                            GS.attachSchoolAutocomplete("qNew");
-                                        });
-                                    });
-                                </script>
                             </fieldset>
-                            <!--<fieldset id="radBtns">-->
-                                <!--<gsml:radio name="c" styleId="topnavSchoolRadio" value="school"-->
-                                            <!--onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"-->
-                                            <!--checked="${searchRadioSchoolChecked}"/>-->
-                                <!--<gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio"-->
-                                            <!--value="articlesAndCommunity"-->
-                                            <!--onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"-->
-                                            <!--checked="${searchRadioArticlesAndCommunityChecked}"/>-->
-                            <!--</fieldset>-->
                         </gsweb:form>
+                        <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
+                            <script type="text/javascript">
+                                jQuery(function () {
+                                    GS.attachSchoolAutocomplete("qNew");
+                                });
+                            </script>
+                        </c:if>
+                        <script type="text/javascript">
+                            jQuery(function () {
+                                jQuery('#srch2').click(function () {
+                                    GS.detachSchoolAutocomplete("qNew");
+                                });
+                                jQuery('#srch1').click(function () {
+                                    GS.attachSchoolAutocomplete("qNew");
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
                 <script type="text/javascript">document.forms['topnav_search'].reset();</script>
