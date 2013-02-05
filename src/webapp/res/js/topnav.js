@@ -2,26 +2,15 @@ GS_loadSubnav = function() {
     /* Subnav menus */
 
     var stateValue = function (selectedState) {
-        $("#topnav_search .showStateHeader").text(selectedState === "" ? "State" : selectedState);
+        $("#topnav_search_school .showStateHeader").text(selectedState === "" ? "State" : selectedState);
     };
-    $("#topnav_search #stateSelector").change(function () {
+    $("#topnav_search_school #stateSelector").change(function () {
         stateValue($(this).val());
     }).trigger("change");
 
-   $("#topnav_search #stateSelector").keyup(function () {
+   $("#topnav_search_school #stateSelector").keyup(function () {
         stateValue($(this).val());
     });
-
-//    var schoolArticleSelect = function (selectedSchoolArticle) {
-//        $("#topnav_search .showSchoolArticle").text(selectedSchoolArticle === "" ? "State" : selectedSchoolArticle);
-//    };
-//    $("#topnav_search .selectSchoolArticle").change(function () {
-//        schoolArticleSelect($(this).val());
-//    }).trigger("change");
-//
-//    $("#topnav_search .selectSchoolArticle").keyup(function () {
-//        schoolArticleSelect($(this).val());
-//    });
 
     var srchArtTab = jQuery('#srch2').hasClass('active');
     if(srchArtTab){
