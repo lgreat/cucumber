@@ -86,21 +86,10 @@
                 <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
                 <c:choose>
                     <c:when test="${requestScope.context.topicPage or (inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING)}">
-                        <!-- Following variable is also hard-coded into global.js -->
-                        <!--<c:set var="searchBoxValue" value="Search by keyword"/>-->
-                        <!--<c:set var="searchFormAction" value="${articlesAndCommunitySearchAction}"/>-->
-                        <!--<c:set var="searchRadioArticlesAndCommunityChecked" value="true"/>-->
-                        <!--<c:set var="searchStateStyle" value="display:none;"/>-->
                         <c:set var="showSearchSchoolForm" value="dn"/>
                         <c:set var="showSearchArticleForm" value="db"/>
                     </c:when>
                     <c:otherwise>
-                        <!-- Following variable is also hard-coded into global.js -->
-                        <!--<c:set var="searchBoxValue" value="Search for school, district, or city"/>-->
-                        <!--<c:set var="searchRadioSchoolChecked" value="true"/>-->
-                        <!-- shorten text box and show state drop down -->
-                        <!--<c:set var="searchBoxStyle" value="width:190px;"/>-->
-                        <!--<c:set var="searchStateStyle" value="display:inline;"/>-->
                         <c:set var="showSearchSchoolForm" value="db"/>
                         <c:set var="showSearchArticleForm" value="dn"/>
                     </c:otherwise>
@@ -115,10 +104,7 @@
                 </script>
                 <div class="unit size60of100 lastUnit">
                     <div id="topnav_search" class="topnav_search_container">
-                        <!--<gsweb:form method="get" id="topnav_search_articlesAndCommunity"-->
-                                    <!--action="${articlesAndCommunitySearchAction}">-->
-                            <!--<input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>-->
-                        <!--</gsweb:form>-->
+
                         <gsweb:form method="get" id="topnav_search_school" action="/search/search.page" styleClass="${showSearchSchoolForm}" onsubmit="return topNavNewSearchSubmit()">
                             <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                                 <input type="hidden" name="st" value="charter"/>
@@ -129,13 +115,13 @@
                                     <div class="unit size19of100" style="margin-top: 2px">
                                         <div class="showSchoolArticle small bottom">Schools</div>
                                         <select class="selectSchoolArticle">
-                                            <option id="srch1" slected="selected"
+                                            <option id="opt1 srch1" selected="selected" value="S"
                                                     class="radLabel ${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
-                                                    onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');">Schools
+                                                   >Schools
                                             </option>
-                                            <option id="srch2"
-                                                    class="radLabel ${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
-                                                    onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');">Articles &amp;amp; Worksheets
+                                            <option id="srch2" value="A"
+                                                    class="opt2 radLabel ${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
+                                                    >Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
                                             <span class="pa" style="top:8px; left:60px;">
@@ -148,10 +134,7 @@
                                                onfocus="${searchBoxOnClick}" style="width:240px;" class="pls qNew"/>
                                         <span class="quiet bottom"> | </span>
                                         <span class="showStateHeader make-06b"><!-- Do not collapse--></span>
-                                        <!--<c:set var="currentStateValue" value="State"/>-->
-                                        <!--<c:if test="${not empty requestScope.context.state}">-->
-                                            <!--<c:set var="currentStateValue" value="${requestScope.context.state}"/>-->
-                                        <!--</c:if>-->
+
                                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                                              noStateLabel="State"
                                                              usingLongNames="false"
@@ -173,22 +156,18 @@
                         </gsweb:form>
                         <gsweb:form method="get" id="topnav_search_articlesAndCommunity" action="/search/contentSearch.page" styleClass="${showSearchArticleForm}">
 
-                            <!--<c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">-->
-                                <!--<input type="hidden" name="st" value="charter"/>-->
-                            <!--</c:if>-->
-                            <!--<input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>-->
                             <fieldset class="pr">
                                 <div id="showSchoolArticle" class="searchBarArticle line">
                                     <div class="unit size36of100" style="margin-top: 2px">
                                         <div class="showSchoolArticle small bottom">Articles &amp;amp; Worksheets</div>
                                         <select class="selectSchoolArticle">
-                                            <option id="srch1"
-                                                    class="radLabel ${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
-                                                    onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');">Schools
+                                            <option id="srch1"  value="S"
+                                                    class="opt1 radLabel ${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
+                                                    >Schools
                                             </option>
-                                            <option id="srch2" slected="selected"
-                                                    class="radLabel ${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
-                                                    onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');">Articles &amp;amp; Worksheets
+                                            <option id="srch2" selected="selected" value="A"
+                                                    class="opt2 radLabel ${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}"
+                                                    >Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
                                             <span class="pa" style="left: 127px; top:8px;">
@@ -208,26 +187,67 @@
                                 </div>
                             </fieldset>
                         </gsweb:form>
-                        <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
-                            <script type="text/javascript">
-                                jQuery(function () {
-                                    GS.attachSchoolAutocomplete("qNew");
-                                });
-                            </script>
-                        </c:if>
+
+
                         <script type="text/javascript">
-                            jQuery(function () {
-                                jQuery('#srch2').click(function () {
-                                    GS.detachSchoolAutocomplete("qNew");
-                                });
-                                jQuery('#srch1').click(function () {
-                                    GS.attachSchoolAutocomplete("qNew");
-                                });
-                            });
+                        jQuery(".selectSchoolArticle").on("change", function(){
+                            if($(this).val() == "S"){
+                                var e = $('#stateSelector');
+
+                                jQuery("#topnav_search_school").show();
+                                jQuery("#topnav_search_articlesAndCommunity").hide();
+                                $(".selectSchoolArticle option[value='S']").attr('selected', 'selected');
+                                e.focus();
+                                e.select();
+                            }
+                            else{
+                                $(".selectSchoolArticle option[value='A']").attr('selected', 'selected');
+                                jQuery("#topnav_search_school").hide();
+                                jQuery("#topnav_search_articlesAndCommunity").show();
+
+                            }
+                        });
+                        function keyPressSchool(e){
+                            if(e.keyCode == 13){
+                                topNavNewSearchSubmit();
+                            }
+                        }
+
+                        function keyPressArticle(e){
+                            if(e.keyCode == 13){
+                                topNavNewSearchSubmitArt();
+                            }
+                        }
+                        $("#topnav_search_school").on("submit", function(){
+                            topNavNewSearchSubmit();
+                        });
+                        $("#topnav_search_articlesAndCommunity").on("submit", function(){
+                            topNavNewSearchSubmitArt();
+                        });
+                        function topNavNewSearchSubmit() {
+                            var val = $('#stateSelector').val();
+
+                            var returnVal = true;
+                            if (val == "--" || val == "") {
+                                alert("Please select a state.");
+                                returnVal = false;
+                            }
+
+                            if ($("#topnav_search_school  .qNew").val() == 'Search for school, district, or city') {
+                                $("#topnav_search_school  .qNew").val('');
+                            }
+                            return returnVal;
+                        }
+                        function topNavNewSearchSubmitArt() {
+                            if ($("#topnav_search_articlesAndCommunity  .qNew").val() == 'Search by keyword') {
+                                $("#topnav_search_articlesAndCommunity  .qNew").val('');
+                            }
+                            return true;
+                        }
+
                         </script>
                     </div>
                 </div>
-                <script type="text/javascript">document.forms['topnav_search'].reset();</script>
 
             </div>
 
