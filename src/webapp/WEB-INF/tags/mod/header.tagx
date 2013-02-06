@@ -95,17 +95,11 @@
                     </c:otherwise>
                 </c:choose>
                 <!-- text in following script also hard-coded into global.js -->
-                <script type="text/javascript">
-                    function clearValueInBox(x) {
-                        if (x.value == 'Search by keyword' || x.value == 'Search for school, district, or city') {
-                            x.value = '';
-                        }
-                    }
-                </script>
+
                 <div class="unit size60of100 lastUnit">
                     <div id="topnav_search" class="topnav_search_container">
 
-                        <gsweb:form method="get" id="topnav_search_school" action="/search/search.page" styleClass="${showSearchSchoolForm}" onsubmit="return topNavNewSearchSubmit()">
+                        <gsweb:form method="get" id="topnav_search_school" action="/search/search.page" styleClass="${showSearchSchoolForm}">
                             <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                                 <input type="hidden" name="st" value="charter"/>
                             </c:if>
@@ -186,50 +180,49 @@
 
 
                         <script type="text/javascript">
-                        jQuery(".selectSchoolArticle").on("change", function(){
-                            if($(this).val() == "S"){
-                                var e = $('#stateSelector');
+                            jQuery(".selectSchoolArticle").on("change", function(){
+                                if($(this).val() == "S"){
+                                    var e = $('#stateSelector');
 
-                                jQuery("#topnav_search_school").show();
-                                jQuery("#topnav_search_articlesAndCommunity").hide();
-                                $(".selectSchoolArticle option[value='S']").attr('selected', 'selected');
-                                e.focus();
-                                e.select();
-                            }
-                            else{
-                                $(".selectSchoolArticle option[value='A']").attr('selected', 'selected');
-                                jQuery("#topnav_search_school").hide();
-                                jQuery("#topnav_search_articlesAndCommunity").show();
+                                    jQuery("#topnav_search_school").show();
+                                    jQuery("#topnav_search_articlesAndCommunity").hide();
+                                    $(".selectSchoolArticle option[value='S']").attr('selected', 'selected');
+                                    e.focus();
+                                    e.select();
+                                }
+                                else{
+                                    $(".selectSchoolArticle option[value='A']").attr('selected', 'selected');
+                                    jQuery("#topnav_search_school").hide();
+                                    jQuery("#topnav_search_articlesAndCommunity").show();
 
-                            }
-                        });
-                        $("#topnav_search_school").on("submit", function(){
-                            topNavNewSearchSubmit();
-                        });
-                        $("#topnav_search_articlesAndCommunity").on("submit", function(){
-                            topNavNewSearchSubmitArt();
-                        });
-                        function topNavNewSearchSubmit() {
-                            var val = $('#stateSelector').val();
+                                }
+                            });
+                            $("#topnav_search_school").on("submit", function(){
+                                var val = $('#stateSelector').val();
 
-                            var returnVal = true;
-                            if (val == "--" || val == "") {
-                                alert("Please select a state.");
-                                returnVal = false;
-                            }
+                                var returnVal = true;
+                                if (val == "--" || val == "") {
+                                    alert("Please select a state.");
+                                    returnVal = false;
+                                }
 
-                            if ($("#topnav_search_school  .qNew").val() == 'Search for school, district, or city') {
-                                $("#topnav_search_school  .qNew").val('');
-                            }
-                            return returnVal;
-                        }
-                        function topNavNewSearchSubmitArt() {
-                            if ($("#topnav_search_articlesAndCommunity  .qNew").val() == 'Search by keyword') {
-                                $("#topnav_search_articlesAndCommunity  .qNew").val('');
-                            }
-                            return true;
-                        }
+                                if ($("#topnav_search_school  .qNew").val() == 'Search for school, district, or city') {
+                                    $("#topnav_search_school  .qNew").val('');
+                                }
+                                return returnVal;
+                            });
+                            $("#topnav_search_articlesAndCommunity").on("submit", function(){
+                                if ($("#topnav_search_articlesAndCommunity  .qNew").val() == 'Search by keyword') {
+                                    $("#topnav_search_articlesAndCommunity  .qNew").val('');
+                                }
+                                return true;
+                            });
 
+                            function clearValueInBox(x) {
+                                if (x.value == 'Search by keyword' || x.value == 'Search for school, district, or city') {
+                                    x.value = '';
+                                }
+                            }
                         </script>
                     </div>
                 </div>
