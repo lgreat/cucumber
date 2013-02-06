@@ -203,28 +203,6 @@
 
                             }
                         });
-//                        $("#topnav_search_school").on("click",  "#search_button", function(){
-//                            topNavNewSearchSubmit();
-//                        });
-//                        $("#topnav_search_articlesAndCommunity").on("click",  "#search_button", function(){
-//                            topNavNewSearchSubmitArt();
-//                        });
-//                        $("#topnav_search_school").on("keypress",  "#search_button", function(e){
-//                            if(e.keyCode == 13){
-//                                topNavNewSearchSubmit();
-//                            }
-//                        });
-//                        $("#topnav_search_articlesAndCommunity").on("keypress",  "#search_button", function(e){
-//                            if(e.keyCode == 13){
-//                                topNavNewSearchSubmitArt();
-//                            }
-//                        });
-
-//                        function keyPressArticle(e){
-//                            if(e.keyCode == 13){
-//                                topNavNewSearchSubmitArt();
-//                            }
-//                        }
                         $("#topnav_search_school").on("submit", function(){
                             topNavNewSearchSubmit();
                         });
