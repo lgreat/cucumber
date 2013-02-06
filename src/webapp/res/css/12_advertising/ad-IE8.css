@@ -38,3 +38,10 @@ tab fix
 .gsTabs ul.tabStyle-8 li a.selected {
     padding: 13px 10px 11px 10px;
 }
+
+#topnav_search fieldset input {
+    height:16px;
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
