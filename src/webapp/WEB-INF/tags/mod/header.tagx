@@ -141,7 +141,7 @@
                                         </span>
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <button type="submit" class="iconx32g i-32-search" style="background-color: transparent; margin-left: -2px;" form="topnav_search_school"><!-- do not collapse --></button>
+                                        <button type="submit" class="iconx32g i-32-search vam" style="background-color: transparent; margin-left: -2px;" form="topnav_search_school"><!-- do not collapse --></button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -172,7 +172,7 @@
 
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <button type="submit" form="topnav_search_articlesAndCommunity" style="background-color: transparent; margin-left: -2px;" class="iconx32g i-32-search"><!-- do not collapse --></button>
+                                        <button type="submit" form="topnav_search_articlesAndCommunity" style="background-color: transparent; margin-left: -2px;" class="iconx32g i-32-search vam"><!-- do not collapse --></button>
                                     </div>
                                 </div>
                             </fieldset>
