@@ -147,9 +147,11 @@
                                         </span>
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <div class="" onclick="$('#topnav_search_school').submit()" tabindex="0" onkeypress="keyPressSchool(event)">
+                                        <!--<div class="" onclick="$('#topnav_search_school').submit()" tabindex="0" onkeypress="keyPressSchool(event)">-->
+                                        <button type="submit"  form="topnav_search_school">
                                             <span class="iconx32g i-32-search" style="margin-left: -2px;"><!-- do not collapse --></span>
-                                        </div>
+                                        </button>
+                                        <!--</div>-->
                                     </div>
                                 </div>
                             </fieldset>
@@ -180,9 +182,9 @@
 
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <div class="" onclick="$('#topnav_search_articlesAndCommunity').submit()" tabindex="0" onkeypress="keyPressArticle(event)">
+                                        <button type="submit"  form="topnav_search_articlesAndCommunity">
                                             <span class="iconx32g i-32-search"><!-- do not collapse --></span>
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                             </fieldset>
