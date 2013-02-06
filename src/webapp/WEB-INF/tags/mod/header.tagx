@@ -125,7 +125,7 @@
                                     <div class="unit size74of100"
                                          style="background-color:#FFFFFF; margin-top: 2px; height: 28px;">
                                         <input type="text" name="q" id="qNew" value="Search for school, district, or city"
-                                               onfocus="${searchBoxOnClick}" style="width:240px;" class="pls qNew"/>
+                                               onfocus="${searchBoxOnClick}" style="width:240px;" class="pls qNew small bottom"/>
                                         <span class="quiet bottom"> | </span>
                                         <span class="showStateHeader make-06b"><!-- Do not collapse--></span>
 
@@ -166,13 +166,13 @@
                                                 <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
                                             </span>
                                     </div>
-                                    <div class="unit size57of100" style="margin-top: 2px">
+                                    <div class="unit size57of100" style="margin-top: 2px; background-color: #FFFFFF; height: 28px;">
                                         <input type="text" name="q" id="qNew" value="Search by keyword"
-                                               onfocus="${searchBoxOnClick}" style="width:234px" class="pls qNew"/>
+                                               onfocus="${searchBoxOnClick}" style="width:234px" class="pls qNew small bottom"/>
 
                                     </div>
                                     <div class="unit size20of100 lastUnit">
-                                        <button type="submit" form="topnav_search_articlesAndCommunity" style="background-color: transparent;" class="iconx32g i-32-search"><!-- do not collapse --></button>
+                                        <button type="submit" form="topnav_search_articlesAndCommunity" style="background-color: transparent; margin-left: -2px;" class="iconx32g i-32-search"><!-- do not collapse --></button>
                                     </div>
                                 </div>
                             </fieldset>

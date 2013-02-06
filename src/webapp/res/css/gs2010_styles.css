@@ -2828,13 +2828,22 @@ div .gallery-thumbnail-selected:hover {
     border:0;
 
 }
+.ie8 #topnav_search fieldset input {
+    height:16px;
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+.ie7 #topnav_search fieldset input {
+   height:20px;
+   padding-top: 4px;
+   padding-bottom: 2px;
+}
 
 #topnav_search fieldset select {
     height: 24px;
     margin: 0 7px 0 0;
     position: relative;
     top: -1px;
-
 }
 
 #topnav_search button {
@@ -2852,6 +2861,7 @@ div .gallery-thumbnail-selected:hover {
     color: #0066BB;
     left:331px;
     opacity: 0;
+    filter: alpha(opacity = 0);
     padding: 0;
     position: absolute;
     top:4px;
@@ -2883,6 +2893,7 @@ div .gallery-thumbnail-selected:hover {
     /*color: #0066BB;*/
     left:0;
     opacity: 0;
+    filter: alpha(opacity = 0);
     /*padding: 0;*/
     position: absolute;
     top:6px;
@@ -2895,6 +2906,7 @@ div .gallery-thumbnail-selected:hover {
     /*color: #0066BB;*/
     left:0;
     opacity: 0;
+    filter: alpha(opacity = 0);
     /*padding: 0;*/
     position: absolute;
     top:6px;

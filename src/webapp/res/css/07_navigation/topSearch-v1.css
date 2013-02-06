@@ -107,7 +107,7 @@ General comments:
 
 #topnav_search fieldset input {
     width: 232px;
-    height: 26px;
+    height: 27px;
     outline: 0;
     border:0;
 
@@ -136,6 +136,7 @@ General comments:
     color: #0066BB;
     left:331px;
     opacity: 0;
+    filter: alpha(opacity = 0);
     padding: 0;
     position: absolute;
     top:4px;
@@ -167,6 +168,7 @@ General comments:
     /*color: #0066BB;*/
     left:0;
     opacity: 0;
+    filter: alpha(opacity = 0);
     /*padding: 0;*/
     position: absolute;
     top:6px;
@@ -179,6 +181,7 @@ General comments:
     /*color: #0066BB;*/
     left:0;
     opacity: 0;
+    filter: alpha(opacity = 0);
     /*padding: 0;*/
     position: absolute;
     top:6px;

@@ -161,3 +161,9 @@ fix for footer spacing in list
 #footer .navFoot  li {
     padding-bottom: 0px;;
 }
+
+#topnav_search fieldset input {
+    height:20px;
+    padding-top: 4px;
+    padding-bottom: 2px;
+}
