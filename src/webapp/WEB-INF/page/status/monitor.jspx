@@ -94,6 +94,31 @@
                     <td class="statuserror">${stateError}</td>
                 </tr>
                 <tr>
+                    <td class="statustitle">Solr Read Only Url</td>
+                    <td class="statusvalue-2">${solrRoUrl}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Solr Read Only Test</td>
+                    <td class="statusvalue">${solrRoTest}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Solr Read/Write Url</td>
+                    <td class="statusvalue-2">${solrRwUrl}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Solr Read/Write Test</td>
+                    <td class="statusvalue">${solrRwTest}</td>
+                    <td class="statuserror">${solrRwTestError}</td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Solr Read Only Index Populated</td>
+                    <td class="statusvalue">${solrRead?'True':'False'}</td>
+                    <td class="statuserror"></td>
+                </tr>
+                <tr>
                     <td class="statustitle">Session test previous host</td>
                     <td class="statusvalue">${lasthost}</td>
                     <td class="statuserror"></td>
