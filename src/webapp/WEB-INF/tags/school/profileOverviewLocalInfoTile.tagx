@@ -102,13 +102,13 @@
                             <em>${schoolPerformanceManagementRatingBand} performing</em>
                         </span>
                     </div><!-- END charterRatingInfo  -->
+                    <c:if test="${!(schoolId == 613 || schoolId == 265 || schoolId == 837)}">
+                        <div id='tierIconDiv' style='width:49px; float:right; text-align: center; border-left: 1px solid #e6e6e6;'>
+                            <span class="small_bold make-uppercase">Tier</span>
+                            ${schoolPerformanceTierIcon}
 
-                    <div id='tierIconDiv' style='width:49px; float:right; text-align: center; border-left: 1px solid #e6e6e6;'>
-                        <span class="small_bold make-uppercase">Tier</span>
-                        ${schoolPerformanceTierIcon}
-
-                    </div><!-- END tierIconDiv  -->
-
+                        </div><!-- END tierIconDiv  -->
+                    </c:if>
                 </div><!-- END charterRatingDiv  -->
 
                 <c:if test="${ (fn:length(localInfoModel['schoolPerformanceManagementRating']) gt 1) and ! status.last }">
