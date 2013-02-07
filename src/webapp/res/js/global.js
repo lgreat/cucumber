@@ -119,9 +119,7 @@ function getState() {
 
 
 
-jQuery(function () {
-    GS.attachSchoolAutocomplete("#topnav_search_school #qNew");
-});
+
 
 //inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
 var BoxHeights = {
