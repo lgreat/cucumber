@@ -223,6 +223,9 @@
                                     x.value = '';
                                 }
                             }
+                            jQuery(function () {
+                                GS.attachSchoolAutocomplete("#topnav_search_school #qNew");
+                            });
                         </script>
                     </div>
                 </div>
