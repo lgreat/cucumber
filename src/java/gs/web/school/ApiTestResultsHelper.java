@@ -33,6 +33,7 @@ public class ApiTestResultsHelper {
             List<ApiResult> historicalApiTestResults = _apiResultDao.getApiScoresOrderByMostRecent(school, NUM_YEARS_FOR_HISTORICAL_DATA);
             if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
 
+                //Assumes that the API test results are in descending order of year.
                 ApiResult apiTestResultForLatestYear = historicalApiTestResults.get(0);
 
                 //To display API results, there should be results for at least 1 year of data.
@@ -54,53 +55,56 @@ public class ApiTestResultsHelper {
         return null;
     }
 
+    /**
+     * This method gets the data to display the trend line for api growth.
+     * @param historicalApiTestResults
+     * @param modelMap
+     */
     protected void putTrendDataForApiGrowth(List<ApiResult> historicalApiTestResults, Map modelMap) {
         if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
-            List<Map<Integer, Integer>> apiGrowthTrend = new ArrayList<Map<Integer, Integer>>();
-            int previousYear = 0;
+            List<Map<String, Integer>> apiGrowthTrend = new ArrayList<Map<String, Integer>>();
             for (ApiResult apiResult : historicalApiTestResults) {
                 if (apiResult.getYear() != null && apiResult.getTotal() != null) {
 
-                    int year = apiResult.getYear();
-                    if (previousYear == 0) {
-                        //continue;
-                    } else if (previousYear == (year - 1)) {
-                        //consecutive
-                    }else if(year > previousYear){
-                        Map<Integer, Integer> apiYearAndGrowth = new HashMap<Integer, Integer>();
-                        apiYearAndGrowth.put((year-1), -1);
-                        apiGrowthTrend.add(apiYearAndGrowth);
-                    }
-                    Map<Integer, Integer> apiYearAndGrowth = new HashMap<Integer, Integer>();
-                    apiYearAndGrowth.put(apiResult.getYear(), apiResult.getTotal());
+                    Map<String, Integer> apiYearAndGrowth = new HashMap<String, Integer>();
+                    apiYearAndGrowth.put("apiGrowth", apiResult.getTotal());
+                    apiYearAndGrowth.put("year", apiResult.getYear());
+                    apiYearAndGrowth.put("numTested", apiResult.getTotalNumTested());
                     apiGrowthTrend.add(apiYearAndGrowth);
                 }
-                previousYear = apiResult.getYear();
             }
-            //TODO check for consecutive years
             modelMap.put(MODEL_API_GROWTH_TREND, apiGrowthTrend);
         }
     }
 
+    /**
+     * This method gets the change in API test score.
+     * @param historicalApiTestResults
+     * @param modelMap
+     */
     protected void putApiTestScoreChange(List<ApiResult> historicalApiTestResults, Map modelMap) {
+        //This method assumes that the API test results are in descending order of year.
         if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
             ApiResult apiTestResult = historicalApiTestResults.get(0);
             int recentYear = apiTestResult.getYear();
             int previousYear = recentYear - 1;
             modelMap.put(MODEL_PREVIOUS_YEAR, previousYear);
-
-            for (ApiResult apiResult : historicalApiTestResults) {
-                if (previousYear == apiResult.getYear()) {
-                    ApiResult previousYearApiTestResult = apiResult;
-                    if (previousYearApiTestResult != null && previousYearApiTestResult.getTotalBase() != null) {
-                        Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
-                        modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
-                    }
-                }
+            ApiResult previousYearApiTestResult = historicalApiTestResults.get(1);
+            if (previousYear == previousYearApiTestResult.getYear() && previousYearApiTestResult != null
+                    && previousYearApiTestResult.getTotalBase() != null) {
+                Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
+                modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
             }
         }
+
     }
 
+    /**
+     * Method to get the most recent state rank.
+     * The most recent year for state rank need not always be the most recent year of API test results.Hence a separate query.
+     * @param school
+     * @param modelMap
+     */
     protected void putMostRecentStateRank(School school, Map modelMap) {
         ApiResult apiStateRank = _apiResultDao.getMostRecentStateRank(school);
         if (apiStateRank != null && apiStateRank.getYear() != null && apiStateRank.getApiStateRank() != null) {
@@ -108,6 +112,12 @@ public class ApiTestResultsHelper {
         }
     }
 
+    /**
+     * Method to get the most recent similar school rank.
+     * The most recent year for similar school rank need not always be the most recent year of API test results.Hence a separate query.
+     * @param school
+     * @param modelMap
+     */
     protected void putMostRecentSimilarSchoolsRank(School school, Map modelMap) {
         ApiResult apiSimilarSchoolsRank = _apiResultDao.getMostRecentSimilarSchoolsRank(school);
         if (apiSimilarSchoolsRank != null && apiSimilarSchoolsRank.getYear() != null && apiSimilarSchoolsRank.getApiSimilarRank() != null) {

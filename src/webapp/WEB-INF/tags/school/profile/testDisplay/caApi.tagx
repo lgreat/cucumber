@@ -129,12 +129,14 @@
         </c:otherwise>
     </c:choose>
 
+
     <br/><br/>
-    <c:forEach items="${apiGrowthTrend}" var="trendList">
-        <c:forEach items="${trendList}" var="trendMap">
-            Year:-${trendMap.key} <br/>
-            API growth:-${trendMap.value} <br/>
-        </c:forEach>
+    API TREND LINE: <br/>
+    <c:forEach items="${apiGrowthTrend}" var="trendMap">
+        Year:-${trendMap['year']}<br/>
+        Api Growth:-${trendMap['apiGrowth']}<br/>
+        Num Tested:-${trendMap['numTested']}<br/>
+        <br/><br/>
     </c:forEach>
 
 </jsp:root>
