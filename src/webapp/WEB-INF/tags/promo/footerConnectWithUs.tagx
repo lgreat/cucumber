@@ -26,7 +26,7 @@
                     <span class="small">Please confirm your subscription by clicking the link in the email we just sent you.</span></p>
             </div>
             <div class="fl js-connectForm">
-                <div class="fl medium subtitles bottom mrm">Sign up for email updates</div>
+                <div class="fl medium subtitles bottom mrm">Sign Up For Email Updates</div>
                 <div class="fl">
                     <div class="clearfix">
                         <form class="jq-emailSignUpForm" action="#" method="POST" autocomplete="off">
@@ -83,13 +83,13 @@
                         <span class="iconx32g i-32-youtube"><!-- do not collapse --></span>
                     </a>
                 </div>
-                <div class="fl">
-                    <a href="${requestScope.context.iphoneAppItunesStoreUrl}"
-                       onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Connect');}return true;"
-                       target="_blank">
-                        <span class="iconx32g i-32-mobile"><!-- do not collapse --></span>
-                    </a>
-                </div>
+                <!--<div class="fl">-->
+                    <!--<a href="${requestScope.context.iphoneAppItunesStoreUrl}"-->
+                       <!--onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Connect');}return true;"-->
+                       <!--target="_blank">-->
+                        <!--<span class="iconx32g i-32-mobile">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                    <!--</a>-->
+                <!--</div>-->
                 </div>
             </div>
 

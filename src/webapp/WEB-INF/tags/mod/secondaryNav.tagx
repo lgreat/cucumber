@@ -62,8 +62,8 @@
                     </ul>
                 </li>
                 <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities"
-                                        class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities&amp;nbsp;<span
-                        class="sn-arrow"><!-- do not collapse --></span></a>
+                                        class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities&amp;nbsp;
+                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
                     <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets"
                                                    class="subMenuItemAnchorText GS_CI9_">Math Worksheets</a></li>

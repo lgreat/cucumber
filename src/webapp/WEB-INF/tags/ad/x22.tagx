@@ -9,7 +9,7 @@
     <jsp:directive.attribute name="position" required="false" description="Ad slot position"/>
 
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
-        <div class="container_24">
+        <div class="container_24 pbs">
             <div class="prefix_3 grid_19 suffix_2">
                 <ad:Header_728x90 position="${position}"/>
             </div>
