@@ -292,6 +292,7 @@ GS.profile = GS.profile || (function() {
         GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshNonOverviewAdsWithoutTargetingChange = function() {
+        //console.log('refresh non overview ads without targeting change', refreshableNonOverviewAdSlotKeys);
         GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
         GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
     };
@@ -450,7 +451,9 @@ jQuery(document).ready(function() {
                 $('#js_testScoresValues').removeClass('grid_15').addClass('grid_11');
             }
 
-            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            if (testsMenu.is(':visible')) {
+                GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            }
         });
 
         //Add the handler for clicking a specific grade.
@@ -467,7 +470,9 @@ jQuery(document).ready(function() {
             //Show the data for the grade selected.
             $('#' + gradeSelected + '_subjects').show();
 
-            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            if (gradeLabel.is(':visible')) {
+                GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            }
         });
 
         gradeLabel.hover(
