@@ -25,8 +25,8 @@ public class ApiTestResultsHelper {
     private ISchoolDao _schoolDao;
 
     public Map<String, Object> getApiTestResults(School school) {
-        if (school != null && school.isActive()) {
-            //TODO remove hard coded school
+        if (school != null && school.isActive() && school.getId() != null) {
+//            //TODO remove hard coded school
             school = _schoolDao.getSchoolById(State.CA, 1);
 
             //Get API results for the last 4 years order by the most recent first.
@@ -61,7 +61,7 @@ public class ApiTestResultsHelper {
      * @param modelMap
      */
     protected void putTrendDataForApiGrowth(List<ApiResult> historicalApiTestResults, Map modelMap) {
-        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
+        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty() && historicalApiTestResults.size() > 1) {
             List<Map<String, Integer>> apiGrowthTrend = new ArrayList<Map<String, Integer>>();
             for (ApiResult apiResult : historicalApiTestResults) {
                 if (apiResult.getYear() != null && apiResult.getTotal() != null) {
@@ -84,7 +84,8 @@ public class ApiTestResultsHelper {
      */
     protected void putApiTestScoreChange(List<ApiResult> historicalApiTestResults, Map modelMap) {
         //This method assumes that the API test results are in descending order of year.
-        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
+        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()
+                && historicalApiTestResults.size() > 1 ) {
             ApiResult apiTestResult = historicalApiTestResults.get(0);
             int recentYear = apiTestResult.getYear();
             int previousYear = recentYear - 1;
@@ -123,6 +124,14 @@ public class ApiTestResultsHelper {
         if (apiSimilarSchoolsRank != null && apiSimilarSchoolsRank.getYear() != null && apiSimilarSchoolsRank.getApiSimilarRank() != null) {
             modelMap.put(MODEL_API_SIMILAR_SCHOOLS_RANK, apiSimilarSchoolsRank);
         }
+    }
+
+    void setApiResultDao(IApiResultDao apiResultDao) {
+        _apiResultDao = apiResultDao;
+    }
+
+    void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 
 }
