@@ -131,16 +131,16 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66" alt="preschool hot topic" />-->
                     <!-- for java pages -->
-                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-preschool-19.3.jpg"
+                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_preschool.jpg"
                                                width="130" height="66"
                                                alt="preschool hot topic"/>
                     </div>
                     <div class="fl">
-                        <p class="text3 allCaps">Hot Topic</p>
+                        <p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/parenting/social-skills/1579-making-friends-in-preschool.gs"
-                              id="PN_P_HT-HowCanIHelpMyPreschoolerMakeFriends"
-                              class="GS_CI9_">How can I help my<br/>preschooler make friends?</a></p></div>
+                        <p><a href="/reading/6990-young-children-reading.gs"
+                              id="PN_P_HT-ShouldYourPreschoolerAlreadyBeReading"
+                              class="small GS_CI9_">Should your preschooler already<br/> be reading?</a></p></div>
                 </div>
             </div>
         </div>
@@ -208,14 +208,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130" height="66" alt="elementary school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-elementaryschool-19.3.jpg"
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_elementary.jpg"
                                               width="130"
                                               height="66" alt="elementary school hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/students/academic-skills/2430-teaching-persistence-3rd-through-5th-grade.gs?page=1"
-                              id="PN_E_HT-TeachingPersistence" class="GS_CI9_">Teaching persistence</a></p></div>
+                        <p><a href="/students/homework-help/60-five-skills-for-academic-success.gs"
+                              id="PN_E_HT-5KeySkillsForAcademicSuccess" class="small GS_CI9_">5 key skills for academic success</a></p></div>
                 </div>
             </div>
         </div>
@@ -270,15 +270,15 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130" height="66" alt="middle school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-middleschool-19.3.jpg"
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_middle.jpg"
                                               width="130"
                                               height="66" alt="middle school hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/parenting/bullying/5063-when-the-teacher-is-the-bully.gs?page=1"
-                              id="PN_M_HT-WhenTheTeacherIsTheBully"
-                              class="GS_CI9_">When the teacher is the<br/>bully</a></p></div>
+                        <p><a href="/raising-successful-students.topic?content=7213"
+                              id="PN_M_HT-SecretsToMiddleSchoolSuccess"
+                              class="small GS_CI9_">Secrets to middle school success</a></p></div>
                 </div>
             </div>
         </div>
@@ -335,14 +335,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66" alt="high school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-highschool-19.3.jpg"
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_highschool.jpg"
                                               width="130" height="66"
                                               alt="high school hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/parenting/4486-parent-rules-teen-alcohol-drug-use.gs?page=1"
-                              id="PN_H_HT-HouseRulesOnDrugsAndAlcohol" class="GS_CI9_">House rules on drugs and<br/>alcohol</a>
+                        <p><a href="/parenting/behavior-discipline/slideshows/4414-brain-high-school.gs"
+                              id="PN_H_HT-AnInsideLookAtYourTeensBrain" class="small GS_CI9_">An inside look at your teen's<br/> brain</a>
                         </p></div>
                 </div>
             </div>
@@ -383,10 +383,10 @@
                                               height="66"
                                               alt="college hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
                         <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
-                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions<br/>anxiety</a>
+                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="small GS_CI9_">Easing college admissions<br/>anxiety</a>
                         </p></div>
                 </div>
             </div>

@@ -77,7 +77,7 @@
                 </div>
 
                 <c:set var="learnMoreHereButton">
-                    <a href="#" class="button-1 jq-k12ClickThrough">Learn More Here &amp;raquo;</a>
+                    <a href="${k12ClickThroughUrl}" class="button-1 jq-k12ClickThrough">Learn More Here &amp;raquo;</a>
                 </c:set>
 
                 ${learnMoreHereButton}

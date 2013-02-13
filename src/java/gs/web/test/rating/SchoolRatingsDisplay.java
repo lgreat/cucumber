@@ -13,10 +13,7 @@ import gs.data.test.ITestDataSetDao;
 import gs.data.test.TestDataSet;
 import gs.data.test.rating.IRatingsConfig;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Generates to display based on a RatingsConfig object.
@@ -130,19 +127,19 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             IRatingsConfig.ISubjectGroupConfig [] subjects = _ratingsConfig.getSubjectGroupConfigs();
 
             for (int numSubjectGroups = 0; numSubjectGroups < subjects.length; numSubjectGroups++) {
-                List dataSetIds = new ArrayList();
+                Set<Integer> dataSetIds = new HashSet<Integer>();
 
                 for (Iterator rowConfigIter = rowConfigs.iterator(); rowConfigIter.hasNext();) {
                     IRatingsConfig.IRowConfig rowConfig = (IRatingsConfig.IRowConfig) rowConfigIter.next();
-                    dataSetIds = addIntArrayToList(dataSetIds,_ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
+                    dataSetIds = addIntArrayToSet(dataSetIds, _ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
                 }
 
                 int count = 0;
                 int total = 0;
 
-                int ids[] = getValuesFromIntList(dataSetIds);
+                int ids[] = getValuesFromIntCollection(dataSetIds);
                 for (int i = 0; i < ids.length; i++) {
-                    Integer testDataSetId = new Integer(ids[i]);
+                    Integer testDataSetId = ids[i];
                     if (_rawResults.containsKey(testDataSetId)) {
                         ITestDataSetDao.IRawResult result = (ITestDataSetDao.IRawResult) _rawResults.get(testDataSetId);
                         int decile = result.getDecile();
@@ -268,6 +265,15 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         return a;
     }
 
+    public static Set<Integer> addIntArrayToSet(Set<Integer> a,int [] b) {
+
+        for (int aB : b) {
+            a.add(aB);
+        }
+
+        return a;
+    }
+
     public static int[] getValuesFromIntList(List a) {
 
         int[] ids = new int[a.size()];
@@ -276,6 +282,17 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             Integer ID = (Integer) iter.next();
             int id = ID.intValue();
             ids[indexInt] = id;
+            indexInt++;
+        }
+
+        return ids;
+    }
+    public static int[] getValuesFromIntCollection(Collection<Integer> a) {
+
+        int[] ids = new int[a.size()];
+        int indexInt = 0;
+        for (Integer ID : a) {
+            ids[indexInt] = ID;
             indexInt++;
         }
 

@@ -1,20 +1,22 @@
 package gs.web.status;
 
+import gs.data.search.GsSolrQuery;
+import gs.data.search.GsSolrSearcher;
+import gs.data.search.SolrConnectionManager;
+import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.admin.IPropertyDao;
-import java.text.ParseException;
+import org.apache.solr.client.solrj.SolrServer;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
-import java.io.IOException;
 import java.util.Map;
 import java.lang.management.MemoryUsage;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * Tests the MonitorController
@@ -23,19 +25,44 @@ public class MonitorControllerTest extends BaseControllerTestCase {
 
     private MonitorController _controller;
     private IPropertyDao _propertyDao;
+    private SolrConnectionManager _solrConnectionManager;
+    private GsSolrSearcher _gsSolrSearcher;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (MonitorController) getApplicationContext().getBean(MonitorController.BEAN_ID);
         _propertyDao = createStrictMock(IPropertyDao.class);
         _controller.setPropertyDao(_propertyDao);
+        _solrConnectionManager = createStrictMock(SolrConnectionManager.class);
+        _gsSolrSearcher = createStrictMock(GsSolrSearcher.class);
+        _controller.setSolrConnectionManager(_solrConnectionManager);
+        _controller.setGsSolrSearcher(_gsSolrSearcher);
+    }
+
+    private void replayAllMocks() {
+        replayMocks(_solrConnectionManager, _gsSolrSearcher);
+    }
+
+    private void resetAllMocks() {
+        resetMocks(_solrConnectionManager, _gsSolrSearcher);
+    }
+
+    private void verifyAllMocks() {
+        verifyMocks(_solrConnectionManager, _gsSolrSearcher);
     }
 
     /**
      * The handle request method connects to the database and gets the build version
      */
-    public void testHandleRequest() throws IOException, ServletException, ParseException {
+    public void testHandleRequest() throws Exception {
+        expect(_solrConnectionManager.getSolrReadOnlyServerUrl()).andReturn("foo");
+        expect(_solrConnectionManager.getSolrReadWriteServerUrl()).andReturn("bar");
+        expect(_solrConnectionManager.getReadOnlySolrServer()).andReturn(createStrictMock(SolrServer.class));
+        expect(_solrConnectionManager.getReadWriteSolrServer()).andReturn(createStrictMock(SolrServer.class));
+        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class))).andReturn(null);
+        replayAllMocks();
         ModelAndView mv = _controller.handleRequest(getRequest(), getResponse());
+        verifyAllMocks();
 
         assertTrue(mv.getViewName().indexOf("status") > -1);
         Map model = mv.getModel();
@@ -63,7 +90,15 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         request.addParameter("logmessage", "test");
         request.setMethod("POST");
         // This exercises the logging code and tests hitcount incrementing
+        resetAllMocks();
+        expect(_solrConnectionManager.getSolrReadOnlyServerUrl()).andReturn("foo");
+        expect(_solrConnectionManager.getSolrReadWriteServerUrl()).andReturn("bar");
+        expect(_solrConnectionManager.getReadOnlySolrServer()).andReturn(createStrictMock(SolrServer.class));
+        expect(_solrConnectionManager.getReadWriteSolrServer()).andReturn(createStrictMock(SolrServer.class));
+        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class))).andReturn(null);
+        replayAllMocks();
         mv = _controller.handleRequest(getRequest(), getResponse());
+        verifyAllMocks();
         assertNotNull(mv);
         HttpSession session = request.getSession(true);
         assertEquals(2, session.getAttribute("hitcount"));

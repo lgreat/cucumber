@@ -121,6 +121,7 @@ function getState() {
 
 
 
+
 //inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
 var BoxHeights = {
 	equalize: function() {

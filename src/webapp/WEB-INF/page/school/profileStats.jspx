@@ -32,7 +32,12 @@
                 <c:if test="${! empty statsRows[6]}">
                     <c:set var="hasStudentData" value="yes"/>
                 </c:if>
-                <school:schoolProfilePieChartTable groupId="6" title="Student ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
+                <school:schoolProfilePieChartTable groupId="6" title="Student ethnicity" statsTab="students" labelColumnHeader="Ethnicity" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
+
+                <c:if test="${! empty statsRows[10]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
+                <school:schoolProfilePieChartTable groupId="10" title="Home Language of English Learners" labelColumnHeader="Language" statsTab="students" pieDivId="homeLangPieChart" pieDataSet="${homeLanguageMap}"/>
 
                 <c:if test="${! empty statsRows[13]}">
                     <c:set var="hasStudentData" value="yes"/>
