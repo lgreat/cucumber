@@ -19,6 +19,7 @@
     <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="title" type="java.lang.String"/>
     <jsp:directive.attribute name="pieDivId" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="labelColumnHeader" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="pieDataSet" type="java.util.Map" required="true"/>
 
 
@@ -54,7 +55,7 @@
         <thead>
         <tr>
             <th></th><th></th>
-            <th>Ethnicity</th>
+            <th>${labelColumnHeader}</th>
             <c:if test="${showSchoolData}">
                 <th class="tac">
                     This school

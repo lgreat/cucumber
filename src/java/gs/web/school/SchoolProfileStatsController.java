@@ -123,6 +123,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
             statsModel.put("ethnicityMap", ethnicityMap);
 
+            Map<String,String> homeLanguageMap = _schoolProfileCensusHelper.getHomeLanguageLabelValueMap(request);
+            statsModel.put("homeLanguageMap", homeLanguageMap);
+
             if (censusCacheEnabled) {
                 cacheStatsModel(statsModel, school);
             }
@@ -252,6 +255,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 if (breakdown != null && breakdown.getEthnicity() != null) {
                     // set label to the breakdown's ethnicity name
                     label = breakdown.getEthnicity().getName();
+                } else if (breakdown != null && breakdown.getLanguage() != null) {
+                    // set label to the language name
+                    label = breakdown.getLanguage().getName();
                 } else if (configEntry.getLabel() != null) {
                     // no breakdown available, but label was set on the config entry, so use that
                     label = configEntry.getLabel();
@@ -311,12 +317,16 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         // Sort ethnicities based on school / state value
         Long ethnicityTableGroupId = 6l;
-        sortEthnicityValues(statsRowMap.get(ethnicityTableGroupId));
+        sortDisplayRowsBySchoolValuesDesc(statsRowMap.get(ethnicityTableGroupId));
+
+        // Sort home language learners based on school / state value
+        Long homeLanguageLearnersTableGroupId = 10l;
+        sortDisplayRowsBySchoolValuesDesc(statsRowMap.get(homeLanguageLearnersTableGroupId));
 
         return statsRowMap;
     }
 
-    protected void sortEthnicityValues(List<SchoolProfileStatsDisplayRow> statsRows) {
+    protected void sortDisplayRowsBySchoolValuesDesc(List<SchoolProfileStatsDisplayRow> statsRows) {
         if (statsRows != null && statsRows.size() > 1) {
             Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
                 public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {

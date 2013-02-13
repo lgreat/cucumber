@@ -83,18 +83,18 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
         stateCensusValue.setValueFloat(5.0f);
 
         try {
-            _controller.sortEthnicityValues(null);
+            _controller.sortDisplayRowsBySchoolValuesDesc(null);
         } catch (Exception e) {
             fail("Unexpected exception when passing null list to sort. Should handle it gracefully. " + e);
         }
 
         List<SchoolProfileStatsDisplayRow> statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
-        _controller.sortEthnicityValues(statsRows);
+        _controller.sortDisplayRowsBySchoolValuesDesc(statsRows);
         assertEquals(0, statsRows.size());
 
         SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
         statsRows.add(row1);
-        _controller.sortEthnicityValues(statsRows);
+        _controller.sortDisplayRowsBySchoolValuesDesc(statsRows);
         assertEquals(1, statsRows.size());
     }
 
