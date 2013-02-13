@@ -248,3 +248,6 @@ General comments:
 #gs-primary .ft_content img {
     margin-right: 10px;
 }
+
+#gs-primary .small { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+#gs-primary .small_bold { font: bold   12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }

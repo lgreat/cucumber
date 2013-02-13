@@ -29,7 +29,8 @@
             <ul id="gs-secondary"> <!-- bullet type: disc/square/circle-->
                 <li class="menuItem"><a href="/hot-topics.topic?content=4932" id="SN-HotTopics"
                                         class="menuItemAnchorText GS_CI9_">Hot Topics
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
+                    <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <span class="sn-arrow"><!-- do not collapse --></span></a>
                     <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/reading/7094-importance-of-reading-success.gs" id="SN_HT-TheRightWayToTeachReading"
                                                    class="subMenuItemAnchorText GS_CI9_">The "right" way to teach reading</a></li>
@@ -62,8 +63,8 @@
                     </ul>
                 </li>
                 <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities" class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
-                    <!--<span class="sn-arrow">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <span class="sn-arrow"><!-- do not collapse --></span></a>
                 <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets"
                                                    class="subMenuItemAnchorText GS_CI9_">Math Worksheets</a></li>
@@ -98,7 +99,8 @@
                 </li>
                 <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp"
                                         class="menuItemAnchorText GS_CI9_">Homework Help
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
+                    <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <span class="sn-arrow"><!-- do not collapse --></span></a>
                     <ul class="dropdown_3"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/homework-help-math.topic?content=5254" id="SN_HH-Math"
                                                    class="subMenuItemAnchorText GS_CI9_">Math</a></li>
@@ -118,7 +120,8 @@
                 </li>
                 <li class="menuItem"><a href="/parenting-dilemmas.topic?content=4321" id="SN-ParentingDilemmas"
                                         class="menuItemAnchorText GS_CI9_">Parenting Dilemmas
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
+                    <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <span class="sn-arrow"><!-- do not collapse --></span></a>
                     <ul class="dropdown_4"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_PD-Bullying"
                                                    class="subMenuItemAnchorText GS_CI9_">Bullying</a></li>
@@ -144,7 +147,8 @@
                 </li>
                 <li class="menuItem"><a href="/parenting.topic?content=1539" id="SN-HealthBehavior"
                                         class="menuItemAnchorText GS_CI9_">Health &amp; Behavior
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
+                    <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <span class="sn-arrow"><!-- do not collapse --></span></a>
                     <ul class="dropdown_5"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/content/healthyKids.page" id="SN_HB-HealthNutrition"
                                                    class="subMenuItemAnchorText GS_CI9_">Health &amp; Nutrition</a></li>
@@ -163,7 +167,8 @@
                 </li>
                 <li class="menuItem"><a href="/special-education.topic?content=1541" id="SN-LearningDifficulties"
                                         class="menuItemAnchorText GS_CI9_">Learning Difficulties
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
+                    <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <span class="sn-arrow"><!-- do not collapse --></span></a>
                     <ul class="dropdown_6"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/learning-disabilities-and-adhd.topic?content=5264"
                                                    id="SN_LD-LearningDisabilitiesADHD"
