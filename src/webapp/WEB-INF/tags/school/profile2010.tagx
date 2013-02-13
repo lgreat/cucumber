@@ -232,10 +232,9 @@
                     <c:if test="${not empty requestScope.pq_hours}">
                         <p><span class="infoLabel">HOURS: </span>${requestScope.pq_hours}</p>
                     </c:if>
-                    <c:if test="${not empty school.webSitePrettyUrl or not empty k12AffiliateUrl}">
-                        <c:set var="schoolWebsiteUrl" value="${not empty k12AffiliateUrl ? k12AffiliateUrl : school.webSitePrettyUrl}"/>
+                    <c:if test="${not empty school.webSitePrettyUrl}">
                         <p>
-                            <a href="${schoolWebsiteUrl}" target="_blank" class="url">School Website</a>
+                            <a href="${school.webSitePrettyUrl}" target="_blank" class="url">School Website</a>
                         </p>
                     </c:if>
                     <c:if test="${requestScope.context.showRealtorDotComPromos}">

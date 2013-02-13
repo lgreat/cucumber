@@ -8,7 +8,6 @@ import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
-import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -113,12 +112,6 @@ public class SchoolProfileController extends AbstractSchoolController implements
             pageHelper.addAdKeywordMulti("template", "NewRating");
         } else if (school.getIsOldGSRating()) {
             pageHelper.addAdKeywordMulti("template", "OldRating");
-        }
-
-        // TODO-13689 need to confirm or change the traffic driver code passed in
-        String k12AffiliateUrl = AdUtil.getK12AffiliateLinkForSchool(school, "so");
-        if (k12AffiliateUrl != null) {
-            model.put("k12AffiliateUrl", k12AffiliateUrl);
         }
 
         return new ModelAndView(_viewName, model);

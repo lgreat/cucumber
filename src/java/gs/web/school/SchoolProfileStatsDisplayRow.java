@@ -21,9 +21,7 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
 
     private CensusDataType _dataTypeEnum;
 
-    private Integer _sort;
-
-    public SchoolProfileStatsDisplayRow(Long groupId, Integer dataTypeId, Integer censusDataSetId, String text, SchoolCensusValue schoolValue, DistrictCensusValue districtValue, StateCensusValue stateCensusValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride, Integer sort) {
+    public SchoolProfileStatsDisplayRow(Long groupId, Integer dataTypeId, Integer censusDataSetId, String text, SchoolCensusValue schoolValue, DistrictCensusValue districtValue, StateCensusValue stateCensusValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride) {
         _groupId = groupId;
         _dataTypeId = dataTypeId;
         _censusDataSetId = censusDataSetId;
@@ -36,7 +34,6 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
         _manualOverride = manualOverride;
 
         _dataTypeEnum = CensusDataType.getEnum(_dataTypeId);
-        _sort = sort;
     }
 
     public Long getGroupId() {
@@ -117,9 +114,5 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
 
     public void setManualOverride(boolean manualOverride) {
         _manualOverride = manualOverride;
-    }
-
-    public Integer getSort() {
-        return _sort;
     }
 }

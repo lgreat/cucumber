@@ -51,23 +51,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
 
-    class DisplayRowSortOrderComparator implements Comparator<SchoolProfileStatsDisplayRow> {
-        public int compare(SchoolProfileStatsDisplayRow row1, SchoolProfileStatsDisplayRow row2) {
-            Integer label1 = row1.getSort();
-            Integer label2 = row2.getSort();
-            if (label1 == null && label2 == null) {
-                return 0;
-            } else if (label1 == null) {
-                return -1;
-            } else if (label2 == null) {
-                return 1;
-            } else {
-                return label1.compareTo(label2);
-            }
-        }
-    }
-    DisplayRowSortOrderComparator DISPLAY_ROW_SORT_ORDER_COMPARATOR = new DisplayRowSortOrderComparator();
-
     @RequestMapping(method= RequestMethod.GET)
     public Map<String,Object> handle(HttpServletRequest request,
                                      HttpServletResponse response
@@ -107,12 +90,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // group ID --> List of StatsRow
             Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
                     buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
-
-            // sort just the teacher years experience for now
-            Long teacherExperienceGroupId = 2l;
-            if (groupIdToStatsRows.get(teacherExperienceGroupId) != null) {
-                Collections.sort(groupIdToStatsRows.get(teacherExperienceGroupId), DISPLAY_ROW_SORT_ORDER_COMPARATOR);
-            }
 
             statsModel.put("footnotesMap", getFootnotesMap(groupIdToStatsRows));
 
@@ -188,7 +165,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 breakdownId = breakdown.getId();
             }
             Grades grades = censusDataSet.getGradeLevels();
-            Integer sort = null;
 
             // if this dataset has year zero, it's an override dataset, and it's school value should have been assigned
             // to the companion dataset that doesn't have year zero. If a non-year-zero dataset didn't exist, this
@@ -233,9 +209,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 } else {
                     // use the label specified in the census config entry
                     label = configEntry.getLabel();
-
-                    // apply the sort order from the config entry
-                    sort = configEntry.getSort();
                     if (label == null) {
                         // no entry was specified; if we have an ethnicity, use the ethnicity name. otherwise use data type description
                         if (breakdown != null && breakdown.getEthnicity() != null) {
@@ -261,13 +234,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 } else if (configEntry.getLabel() != null) {
                     // no breakdown available, but label was set on the config entry, so use that
                     label = configEntry.getLabel();
-                    // apply the sort order from the config entry
-                    sort = configEntry.getSort();
                 } else {
                     // no labels specified; use data type's description
                     label = configEntry.getDataType().getDescription();
-                    // apply the sort order from the config entry
-                    sort = configEntry.getSort();
                 }
             }
 
@@ -292,8 +261,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 stateCensusValue,
                 source,
                 entry.getValue().getYear(),
-                censusDataSet.getSchoolOverrideValue() != null,
-                sort
+                censusDataSet.getSchoolOverrideValue() != null
             );
 
             // filter out rows where school and district values are N/A
@@ -362,10 +330,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         }
 
         return sourceFootnoteMap;
-    }
-
-    public void sortBySortOrder(List<SchoolProfileStatsDisplayRow> displayRows) {
-        Collections.sort(displayRows, DISPLAY_ROW_SORT_ORDER_COMPARATOR);
     }
 
 

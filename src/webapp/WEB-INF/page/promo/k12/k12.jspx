@@ -32,7 +32,15 @@
                             if (s.tl) {
                                 s.tl(true, 'o', 'K12_ClickThrough_${k12School}');
                             }
-                            return true;
+
+                            var href = jQuery(this).attr('href');
+                            var gamClickTracking = (href !== '#' ? href : '');
+                            if (gamClickTracking === '') {
+                                window.open('${k12ClickThroughUrl}', '_blank');
+                            } else {
+                                window.open(gamClickTracking + encodeURIComponent('${k12ClickThroughUrl}'), '_blank');
+                            }
+                            return false;
                         });
             });
         </script>

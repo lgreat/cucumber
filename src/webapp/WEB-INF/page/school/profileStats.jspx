@@ -49,6 +49,11 @@
                 </c:if>
                 <school:schoolProfileStatsTable groupId="8" title="Attendance" statsTab="students"/>
 
+                <c:if test="${! empty statsRows[16]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="16" title="Attendance and Completion" statsTab="students"/>
+
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
                 <c:if test="${fn:contains(school.levelCode, 'h') and (fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0
