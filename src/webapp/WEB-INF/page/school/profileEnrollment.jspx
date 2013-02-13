@@ -164,5 +164,6 @@
 
     <mod:deferredTracking key="enrollment" pageName="enrollment" hier1="School,SchoolProfileSuite,Enrollment"
             applyNowUrl="${applyNowUrl}"/>
+    <mod:tabSpecificTracking pageName="enrollment" propNumber="prop52" />
 
 </jsp:root>

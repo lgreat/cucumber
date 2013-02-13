@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        >
+
+    <jsp:directive.attribute name="propNumber" required="false"/>
+    <jsp:directive.attribute name="pageName" required="false"/>
+
+    <script type="text/javascript">
+        GS.tracking.addTabSpecificProps('${pageName}', '${propNumber}');
+    </script>
+
+</jsp:root>
