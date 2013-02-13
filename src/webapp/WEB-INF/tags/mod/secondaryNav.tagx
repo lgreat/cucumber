@@ -61,10 +61,10 @@
                         <!--<li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report</a></li>-->
                     </ul>
                 </li>
-                <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities"
-                                        class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities
+                <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities" class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities
                     <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
-                    <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
+                    <!--<span class="sn-arrow">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
                         <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets"
                                                    class="subMenuItemAnchorText GS_CI9_">Math Worksheets</a></li>
                         <li class="subMenuItem"><a href="/worksheets/reading/" id="SN_WA-ReadingWorksheets"
