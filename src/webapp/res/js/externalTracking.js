@@ -69,6 +69,7 @@ GS.tracking.registerTrackingData = function(key, data) {
 GS.tracking.sendOmnitureData = function(key, preserveSuccessEvents) {
     var data = GS.tracking.data[key];
     var sharedData = GS.tracking.data['_shared'];
+    GS.tracking.removeTabSpecificProps(key, data);
     if (data !== undefined) {
         pageTracking.clear();
         $.extend(pageTracking, data);
@@ -83,5 +84,32 @@ GS.tracking.sendOmnitureData = function(key, preserveSuccessEvents) {
             }
         }
         pageTracking.send();
+    }
+};
+
+GS.tracking.tabSpecificPropsMap = GS.tracking.tabSpecificPropsMap || {};
+GS.tracking.addTabSpecificProps = function(tabName, propNumber) {
+    if(GS.tracking.tabSpecificPropsMap[tabName] === undefined) {
+        GS.tracking.tabSpecificPropsMap[tabName] = {};
+        GS.tracking.tabSpecificPropsMap[tabName].props = [];
+    }
+
+    var propsMap = GS.tracking.tabSpecificPropsMap[tabName].props;
+
+    if(propNumber !== undefined) {
+        propsMap.push(propNumber);
+    }
+};
+
+GS.tracking.removeTabSpecificProps = function(currentTab, data) {
+    for(var tab in GS.tracking.tabSpecificPropsMap) {
+        if(tab !== currentTab && GS.tracking.tabSpecificPropsMap.hasOwnProperty(tab) && GS.tracking.tabSpecificPropsMap[tab].props !== undefined) {
+            for(var i in GS.tracking.tabSpecificPropsMap[tab].props) {
+                var prop = GS.tracking.tabSpecificPropsMap[tab].props[i];
+                if(prop !== undefined) {
+                    data.props[prop] = '';
+                }
+            }
+        }
     }
 };
