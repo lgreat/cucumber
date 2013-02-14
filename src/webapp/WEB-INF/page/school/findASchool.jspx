@@ -447,13 +447,13 @@
         </div>
     </div>
     </div>
-    <div class="grid_8">
+    <div class="grid_8  slStylesV1-0">
         <!-- not empty -->
         <ad:AboveFold_300x250/>
 
         <jsp:include page="/promo/emailSignUp.module"/>
 
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PERCENT_FIND_A_SCHOOL" style="2011"/>
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PERCENT_FIND_A_SCHOOL" style="2012"/>
     </div>
     <!--</div>-->
 
