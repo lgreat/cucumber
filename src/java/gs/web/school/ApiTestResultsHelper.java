@@ -26,6 +26,8 @@ public class ApiTestResultsHelper {
 
     public Map<String, Object> getApiTestResults(School school) {
         if (school != null && school.isActive() && school.getId() != null) {
+            //TODO remove hard coded school
+            school = _schoolDao.getSchoolById(State.CA, 1);
 
             //Get API results for the last 4 years order by the most recent first.
             List<ApiResult> historicalApiTestResults = _apiResultDao.getApiScoresOrderByMostRecent(school, NUM_YEARS_FOR_HISTORICAL_DATA);
