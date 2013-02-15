@@ -54,7 +54,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 model.put("testScores", testToGradesList);
 
                 //If state is CA, then get the API results.API has its own table.
-                if(school.getDatabaseState().equals(State.CO)){
+                if(school.getDatabaseState().equals(State.CA)){
                     putApiTestScoreResults(school,testToGradesList,model);
                 }
             } else {
@@ -785,6 +785,9 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         api.setLowestGradeInTest(Grade.G_1);
         api.setTestDataTypeId(-1);
 
+        if(testToGradesList == null){
+            testToGradesList = new ArrayList<TestToGrades>();
+        }
         //API should always be displayed first.
         testToGradesList.add(0, api);
     }
