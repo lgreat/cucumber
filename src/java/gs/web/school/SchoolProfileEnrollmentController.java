@@ -533,6 +533,7 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         String applyUrl = null;
         if(school.getWebSite() != null) {
             applyUrl = school.getWebSite();
+            model.put(MODEL_IS_ADMISSION_URL, false);
         }
         model.put(MODEL_LEARN_MORE_URL, applyUrl);
         return model;
