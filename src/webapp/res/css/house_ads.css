@@ -14,6 +14,13 @@
 /* .line overflow override is a workaround to prevent mouseover in Mac FF15+ from hiding form field */
 .jq-leadGen2Wrapper .jq-leadGenForm .line, .jq-leadGen2Wrapper .jq-leadGenForm .lastUnit {overflow:visible;}
 
+/* GS-13698 Custom primrose lead gen widget */
+.jq-leadGen2Wrapper .primrose2013 .hd.wrapper {width:300px; height:75px;}
+.jq-leadGen2Wrapper .primrose2013 .jq-leadGenError {color: #f00; font-style: normal; font-weight: normal;}
+.jq-leadGen2Wrapper .primrose2013 .jq-leadGenError .bd {position: relative; top: 2px;}
+.primrose-mom-daughter-2013 .primrose2013 .jq-leadGenError {top: 105px; left: 14px;}
+.jq-leadGen2Wrapper .primrose2013 .leadGenThankYou{left: 14px; font-size: 11px; color:#333;}
+
 /* GS-12784 reusable lead gen widget: .formErrorText in use by older widgets, pre-GS-13218 */
 
 .leadGenErrors .formErrorText {
