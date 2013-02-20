@@ -139,4 +139,13 @@
         <br/><br/>
     </c:forEach>
 
+    <br/><br/>
+    STATE API TREND LINE: <br/>
+    <c:forEach items="${apiStateGrowthTrend}" var="trendMap">
+        Year:-${trendMap['year']}<br/>
+        Api Growth:-${trendMap['apiGrowth']}<br/>
+        Num Tested:-${trendMap['numTested']}<br/>
+        <br/><br/>
+    </c:forEach>
+
 </jsp:root>
