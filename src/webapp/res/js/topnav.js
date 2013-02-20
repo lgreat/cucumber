@@ -2,14 +2,14 @@ GS_loadSubnav = function() {
     /* Subnav menus */
 
     var stateValue = function (selectedState) {
-        $("#topnav_search_school .showStateHeader").text(selectedState === "" ? "State" : selectedState);
+        jQuery("#topnav_search_school .showStateHeader").text(selectedState === "" ? "State" : selectedState);
     };
-    $("#topnav_search_school #stateSelector").change(function () {
-        stateValue($(this).val());
+    jQuery("#topnav_search_school #stateSelector").change(function () {
+        stateValue(jQuery(this).val());
     }).trigger("change");
 
-   $("#topnav_search_school #stateSelector").keyup(function () {
-        stateValue($(this).val());
+    jQuery("#topnav_search_school #stateSelector").keyup(function () {
+        stateValue(jQuery(this).val());
     });
 
     var srchArtTab = jQuery('#srch2').hasClass('active');
