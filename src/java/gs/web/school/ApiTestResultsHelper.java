@@ -29,7 +29,18 @@ public class ApiTestResultsHelper {
     @Autowired
     private ITestDataStateValueDao _testDataStateValueDao;
 
-    public Map<String, Object> getApiTestResults(School school) {
+    public Map<String,Object> getApiTestResults(School school) {
+        if (school == null) {
+            throw new IllegalArgumentException("School must not be null");
+        }
+
+        Map<String,Object> apiTestResultsMap = new HashMap<String,Object>();
+        apiTestResultsMap.putAll(getApiTestResultsForSchool(school));
+        apiTestResultsMap.put(MODEL_STATE_API_GROWTH_TREND, getDataForStateApiGrowth(school.getDatabaseState()));
+        return apiTestResultsMap;
+    }
+
+    public Map<String, Object> getApiTestResultsForSchool(School school) {
         if (school != null && school.isActive() && school.getId() != null) {
             //TODO remove hard coded school
             school = _schoolDao.getSchoolById(State.CA, 1);
@@ -61,11 +72,24 @@ public class ApiTestResultsHelper {
     }
 
     public List<Map<String,Integer>> getDataForStateApiGrowth(State state) {
+        if (state == null) {
+            throw new IllegalArgumentException("State must not be null");
+        }
+
         List<Map<String,Integer>> results = new ArrayList<Map<String,Integer>>();
         List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(state, null,  API_STATE_GROWTH_DATA_TYPE_ID, ListUtils.newArrayList(TestDataSetDisplayTarget.desktop.name()), Boolean.TRUE);
-        for (StateTestValue stateTestValue : stateTestValues) {
-            Map<String,Integer> stateApiYearAndGrowth = convertStateTestValueToMap(stateTestValue);
-            results.add(stateApiYearAndGrowth);
+
+        //To display API results, there should be results for at least 1 year of data.
+        if (!stateTestValues.isEmpty() && stateTestValues.size() > 1) {
+            int mostRecentYear = stateTestValues.get(0).getDataSet().getYear();
+
+            // skip any results that are not within (number years for historical data)
+            for (StateTestValue stateTestValue : stateTestValues) {
+                if (stateTestValue.getDataSet().getYear() > mostRecentYear-NUM_YEARS_FOR_HISTORICAL_DATA) {
+                    Map<String,Integer> stateApiYearAndGrowth = convertStateTestValueToMap(stateTestValue);
+                    results.add(stateApiYearAndGrowth);
+                }
+            }
         }
         return results;
     }

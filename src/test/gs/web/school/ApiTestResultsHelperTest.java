@@ -4,7 +4,6 @@ import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
-import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.*;
 import gs.data.util.ListUtils;
@@ -53,12 +52,12 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
 
     public void testApiTestResults(){
         School school = null;
-        Map<String, Object> results = _helper.getApiTestResults(school);
+        Map<String, Object> results = _helper.getApiTestResultsForSchool(school);
         assertNull("School is null",results);
 
         school = new School();
         school.setActive(false);
-        results = _helper.getApiTestResults(school);
+        results = _helper.getApiTestResultsForSchool(school);
         assertNull("School is inactive",results);
 
         school = new School();
@@ -68,7 +67,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         expect(_schoolDao.getSchoolById(State.CA,1)).andReturn(school);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA)).andReturn(null);
         replayAllMocks();
-        results = _helper.getApiTestResults(school);
+        results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
         assertNull("Query returns null",results);
 
@@ -81,7 +80,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(new ArrayList<ApiResult>());
         replayAllMocks();
-        results = _helper.getApiTestResults(school);
+        results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
         assertNull("Query returns empty list",results);
 
@@ -96,7 +95,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
         replayAllMocks();
-        results = _helper.getApiTestResults(school);
+        results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
         assertNull("First item in list has null year and null total",results);
 
@@ -111,7 +110,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
         replayAllMocks();
-        results = _helper.getApiTestResults(school);
+        results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
         assertNull("First item in list is null",results);
 
@@ -131,7 +130,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         expect(_apiResultDao.getMostRecentSimilarSchoolsRank(school))
                 .andReturn(null);
         replayAllMocks();
-        results = _helper.getApiTestResults(school);
+        results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
         assertNotNull("Query returns only 1 year of API test score results",results);
         ApiResult apiTestResultForLatestYear = (ApiResult)results.get(_helper.MODEL_MOST_RECENT_API_RESULT);
@@ -152,9 +151,11 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         Integer testYear = null;
         Integer dataTypeId = _helper.API_STATE_GROWTH_DATA_TYPE_ID;
         String displayTarget = TestDataSetDisplayTarget.desktop.name();
-
         Boolean eagerFetch = true;
+        List<Map<String,Integer>> results = null;
 
+
+        resetAllMocks();
         expect(_testDataStateValueDao.findValues(eq(state), eq(testYear), eq(dataTypeId), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
             .andReturn(ListUtils.newArrayList(
                 getSampleStateTestValue(1, 2010, 500, 10000)
@@ -162,10 +163,24 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         );
         replayAllMocks();
 
-        List<Map<String,Integer>> results = _helper.getDataForStateApiGrowth(state);
+        results = _helper.getDataForStateApiGrowth(state);
 
         verifyAllMocks();
+        assertTrue("Expect results to be empty since only one year of data was provided, and multiple are needed", results.isEmpty());
 
+
+        resetAllMocks();
+        expect(_testDataStateValueDao.findValues(eq(state), eq(testYear), eq(dataTypeId), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
+            .andReturn(ListUtils.newArrayList(
+                getSampleStateTestValue(1, 2010, 500, 10000),
+                getSampleStateTestValue(1, 2011, 500, 10000)
+            )
+        );
+        replayAllMocks();
+
+        results = _helper.getDataForStateApiGrowth(state);
+
+        verifyAllMocks();
         assertTrue("Expect results to be populated since valid data was provided", !results.isEmpty());
         assertEquals("Expect first item in list to have correct keys filled", new Integer(500), results.get(0).get("apiGrowth"));
         assertEquals("Expect first item in list to have correct keys filled", new Integer(2010), results.get(0).get("year"));
