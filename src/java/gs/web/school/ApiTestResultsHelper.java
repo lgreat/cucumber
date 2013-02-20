@@ -4,6 +4,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.*;
+import gs.data.util.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +15,19 @@ public class ApiTestResultsHelper {
     public static final Integer NUM_YEARS_FOR_HISTORICAL_DATA = 4;
     public static final String MODEL_MOST_RECENT_API_RESULT = "mostRecentApiTestResult";
     public static final String MODEL_API_GROWTH_TREND = "apiGrowthTrend";
+    public static final String MODEL_STATE_API_GROWTH_TREND = "apiStateGrowthTrend";
     public static final String MODEL_PREVIOUS_YEAR = "previousYear";
     public static final String MODEL_API_SCORE_CHANGE = "scoreChange";
     public static final String MODEL_API_STATE_RANK = "apiStateRank";
     public static final String MODEL_API_SIMILAR_SCHOOLS_RANK = "apiSimilarSchoolsRank";
+    Integer API_STATE_GROWTH_DATA_TYPE_ID = TestDataType.SAT_SCORE;
 
     @Autowired
     private IApiResultDao _apiResultDao;
     @Autowired
     private ISchoolDao _schoolDao;
+    @Autowired
+    private ITestDataStateValueDao _testDataStateValueDao;
 
     public Map<String, Object> getApiTestResults(School school) {
         if (school != null && school.isActive() && school.getId() != null) {
@@ -53,6 +58,24 @@ public class ApiTestResultsHelper {
             }
         }
         return null;
+    }
+
+    public List<Map<String,Integer>> getDataForStateApiGrowth(State state) {
+        List<Map<String,Integer>> results = new ArrayList<Map<String,Integer>>();
+        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(state, null,  API_STATE_GROWTH_DATA_TYPE_ID, ListUtils.newArrayList(TestDataSetDisplayTarget.desktop.name()), Boolean.TRUE);
+        for (StateTestValue stateTestValue : stateTestValues) {
+            Map<String,Integer> stateApiYearAndGrowth = convertStateTestValueToMap(stateTestValue);
+            results.add(stateApiYearAndGrowth);
+        }
+        return results;
+    }
+
+    protected Map<String,Integer> convertStateTestValueToMap(StateTestValue stateTestValue) {
+        Map<String,Integer> map = new HashMap<String,Integer>();
+        map.put("apiGrowth", Math.round(stateTestValue.getValueFloat()));
+        map.put("year", stateTestValue.getDataSet().getYear());
+        map.put("numTested", stateTestValue.getNumberTested());
+        return map;
     }
 
     /**
@@ -134,4 +157,7 @@ public class ApiTestResultsHelper {
         _schoolDao = schoolDao;
     }
 
+    public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {
+        _testDataStateValueDao = testDataStateValueDao;
+    }
 }

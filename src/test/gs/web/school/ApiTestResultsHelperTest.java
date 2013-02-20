@@ -1,23 +1,27 @@
 package gs.web.school;
 
+import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.*;
+import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.*;
 
 public class ApiTestResultsHelperTest extends BaseControllerTestCase {
     private ApiTestResultsHelper _helper;
 
     private IApiResultDao _apiResultDao;
     private ISchoolDao _schoolDao;
+    private ITestDataStateValueDao _testDataStateValueDao;
 
     @Override
     public void setUp() throws Exception {
@@ -27,21 +31,23 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
 
         _apiResultDao = createMock(IApiResultDao.class);
         _schoolDao = createMock(ISchoolDao.class);
+        _testDataStateValueDao = createStrictMock(ITestDataStateValueDao.class);
 
         _helper.setApiResultDao(_apiResultDao);
         _helper.setSchoolDao(_schoolDao);
+        _helper.setTestDataStateValueDao(_testDataStateValueDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_apiResultDao, _schoolDao);
+        replayMocks(_apiResultDao, _schoolDao, _testDataStateValueDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_apiResultDao, _schoolDao);
+        verifyMocks(_apiResultDao, _schoolDao, _testDataStateValueDao);
     }
 
     private void resetAllMocks() {
-        resetMocks(_apiResultDao, _schoolDao);
+        resetMocks(_apiResultDao, _schoolDao, _testDataStateValueDao);
     }
 
 
@@ -140,6 +146,41 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         assertEquals(new Integer(2008),apiStateRankResult.getYear());
         assertNull("",results.get(_helper.MODEL_API_SIMILAR_SCHOOLS_RANK));
     }
+
+    public void testGetStateTestValues() {
+        State state = State.CA;
+        Integer testYear = null;
+        Integer dataTypeId = _helper.API_STATE_GROWTH_DATA_TYPE_ID;
+        String displayTarget = TestDataSetDisplayTarget.desktop.name();
+
+        Boolean eagerFetch = true;
+
+        expect(_testDataStateValueDao.findValues(eq(state), eq(testYear), eq(dataTypeId), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
+            .andReturn(ListUtils.newArrayList(
+                getSampleStateTestValue(1, 2010, 500, 10000)
+            )
+        );
+        replayAllMocks();
+
+        List<Map<String,Integer>> results = _helper.getDataForStateApiGrowth(state);
+
+        verifyAllMocks();
+
+        assertTrue("Expect results to be populated since valid data was provided", !results.isEmpty());
+        assertEquals("Expect first item in list to have correct keys filled", new Integer(500), results.get(0).get("apiGrowth"));
+        assertEquals("Expect first item in list to have correct keys filled", new Integer(2010), results.get(0).get("year"));
+        assertEquals("Expect first item in list to have correct keys filled", new Integer(10000), results.get(0).get("numTested"));
+    }
+
+    public StateTestValue getSampleStateTestValue(Integer id, Integer year, Integer apiGrowth, Integer numTested) {
+        Integer dataTypeId = _helper.API_STATE_GROWTH_DATA_TYPE_ID;
+        return new StateTestValue(1,
+            new TestDataSet(
+                    id, year, Grade.ALL, LevelCode.ELEMENTARY_MIDDLE_HIGH, dataTypeId, Subject.MATH, 0, 0, true
+            ),
+            Float.valueOf(apiGrowth), String.valueOf(apiGrowth), numTested, true
+        );
+    };
 
     private ApiResult constructApiResultObj(Integer total,Integer year){
         ApiResult apiResult = new ApiResult();
