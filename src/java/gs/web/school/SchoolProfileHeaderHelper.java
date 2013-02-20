@@ -16,8 +16,8 @@ import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -121,6 +121,13 @@ public class SchoolProfileHeaderHelper {
                 // TODO: we could refactor handlePinItButton to reuse urlbuilder used for relCanonical
                 _schoolProfileHelper.handlePinItButton(request, school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling PinIt button");
+
+                startTime = System.currentTimeMillis();
+                String k12AffiliateUrl = AdUtil.getK12AffiliateLinkForSchool(school, "sp");
+                if (k12AffiliateUrl != null) {
+                    model.put("k12AffiliateUrl", k12AffiliateUrl);
+                }
+                logDuration(System.currentTimeMillis() - startTime, "Handling K12 affiliate URL");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);

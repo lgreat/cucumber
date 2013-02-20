@@ -405,9 +405,10 @@
                     <!--<strong>Fax: </strong>${school.fax}-->
                 <!--</c:if>-->
 
-                <c:if test="${not empty school.webSitePrettyUrl}">
+                <c:if test="${not empty school.webSitePrettyUrl or not empty k12AffiliateUrl}">
+                    <c:set var="schoolWebsiteUrl" value="${not empty k12AffiliateUrl ? k12AffiliateUrl : school.webSitePrettyUrl}"/>
                     <br/>
-                    <strong>Website: </strong><a href="${school.webSitePrettyUrl}" target="_blank">Click here</a>
+                    <strong>Website: </strong><a href="${schoolWebsiteUrl}" target="_blank">Click here</a>
                 </c:if>
                 <c:if test="${not empty school.phone}">
                     <br/>
