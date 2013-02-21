@@ -20,7 +20,7 @@ public class ApiTestResultsHelper {
     public static final String MODEL_API_SCORE_CHANGE = "scoreChange";
     public static final String MODEL_API_STATE_RANK = "apiStateRank";
     public static final String MODEL_API_SIMILAR_SCHOOLS_RANK = "apiSimilarSchoolsRank";
-    Integer API_STATE_GROWTH_DATA_TYPE_ID = TestDataType.SAT_SCORE;
+    Integer API_STATE_GROWTH_DATA_TYPE_ID = 89;
 
     @Autowired
     private IApiResultDao _apiResultDao;
@@ -36,7 +36,7 @@ public class ApiTestResultsHelper {
 
         Map<String,Object> apiTestResultsMap = new HashMap<String,Object>();
         apiTestResultsMap.putAll(getApiTestResultsForSchool(school));
-        apiTestResultsMap.put(MODEL_STATE_API_GROWTH_TREND, getDataForStateApiGrowth(school.getDatabaseState()));
+        apiTestResultsMap.put(MODEL_STATE_API_GROWTH_TREND, getDataForStateApiGrowth(State.CA));
         return apiTestResultsMap;
     }
 
@@ -77,7 +77,7 @@ public class ApiTestResultsHelper {
         }
 
         List<Map<String,Integer>> results = new ArrayList<Map<String,Integer>>();
-        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(state, null,  API_STATE_GROWTH_DATA_TYPE_ID, ListUtils.newArrayList(TestDataSetDisplayTarget.desktop.name()), Boolean.TRUE);
+        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(state, API_STATE_GROWTH_DATA_TYPE_ID, null, ListUtils.newArrayList(TestDataSetDisplayTarget.desktop.name()), Boolean.TRUE);
 
         //To display API results, there should be results for at least 1 year of data.
         if (!stateTestValues.isEmpty() && stateTestValues.size() > 1) {

@@ -156,7 +156,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
 
 
         resetAllMocks();
-        expect(_testDataStateValueDao.findValues(eq(state), eq(testYear), eq(dataTypeId), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
+        expect(_testDataStateValueDao.findValues(eq(state), eq(dataTypeId), eq(testYear), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
             .andReturn(ListUtils.newArrayList(
                 getSampleStateTestValue(1, 2010, 500, 10000)
             )
@@ -170,7 +170,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
 
 
         resetAllMocks();
-        expect(_testDataStateValueDao.findValues(eq(state), eq(testYear), eq(dataTypeId), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
+        expect(_testDataStateValueDao.findValues(eq(state), eq(dataTypeId), eq(testYear), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
             .andReturn(ListUtils.newArrayList(
                 getSampleStateTestValue(1, 2010, 500, 10000),
                 getSampleStateTestValue(1, 2011, 500, 10000)
