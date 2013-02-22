@@ -6,6 +6,7 @@
     <jsp:directive.attribute name="apiTestResultsMap" type="java.util.Map" required="true"/>
     <c:set var="apiTestResult" value="${apiTestResultsMap.mostRecentApiTestResult}"></c:set>
     <c:set var="apiGrowthTrend" value="${apiTestResultsMap.apiGrowthTrend}"></c:set>
+    <c:set var="apiStateGrowthTrend" value="${apiTestResultsMap.apiStateGrowthTrend}"></c:set>
     <c:set var="apiTestResult" value="${apiTestResultsMap.mostRecentApiTestResult}"></c:set>
     <c:set var="previousYear" value="${apiTestResultsMap.previousYear}"></c:set>
     <c:set var="scoreChange" value="${apiTestResultsMap.scoreChange}"></c:set>
