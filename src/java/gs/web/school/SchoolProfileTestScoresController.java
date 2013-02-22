@@ -54,7 +54,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 model.put("testScores", testToGradesList);
 
                 //If state is CA, then get the API results.API has its own table.
-                if(school.getDatabaseState().equals(State.CO)){
+                if(school.getDatabaseState().equals(State.CA)){
                     putApiTestScoreResults(school,testToGradesList,model);
                 }
             } else {

@@ -36,14 +36,14 @@ public class ApiTestResultsHelper {
 
         Map<String,Object> apiTestResultsMap = new HashMap<String,Object>();
         apiTestResultsMap.putAll(getApiTestResultsForSchool(school));
-        apiTestResultsMap.put(MODEL_STATE_API_GROWTH_TREND, getDataForStateApiGrowth(State.CA));
+        apiTestResultsMap.put(MODEL_STATE_API_GROWTH_TREND, getDataForStateApiGrowth(school.getDatabaseState()));
         return apiTestResultsMap;
     }
 
     public Map<String, Object> getApiTestResultsForSchool(School school) {
         if (school != null && school.isActive() && school.getId() != null) {
             //TODO remove hard coded school
-            school = _schoolDao.getSchoolById(State.CA, 1);
+            //school = _schoolDao.getSchoolById(State.CA, 1);
 
             //Get API results for the last 4 years order by the most recent first.
             List<ApiResult> historicalApiTestResults = _apiResultDao.getApiScoresOrderByMostRecent(school, NUM_YEARS_FOR_HISTORICAL_DATA);
