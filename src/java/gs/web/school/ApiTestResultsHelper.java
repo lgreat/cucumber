@@ -20,12 +20,9 @@ public class ApiTestResultsHelper {
     public static final String MODEL_API_SCORE_CHANGE = "scoreChange";
     public static final String MODEL_API_STATE_RANK = "apiStateRank";
     public static final String MODEL_API_SIMILAR_SCHOOLS_RANK = "apiSimilarSchoolsRank";
-    Integer API_STATE_GROWTH_DATA_TYPE_ID = 89;
 
     @Autowired
     private IApiResultDao _apiResultDao;
-    @Autowired
-    private ISchoolDao _schoolDao;
     @Autowired
     private ITestDataStateValueDao _testDataStateValueDao;
 
@@ -42,8 +39,6 @@ public class ApiTestResultsHelper {
 
     public Map<String, Object> getApiTestResultsForSchool(School school) {
         if (school != null && school.isActive() && school.getId() != null) {
-            //TODO remove hard coded school
-            //school = _schoolDao.getSchoolById(State.CA, 1);
 
             //Get API results for the last 4 years order by the most recent first.
             List<ApiResult> historicalApiTestResults = _apiResultDao.getApiScoresOrderByMostRecent(school, NUM_YEARS_FOR_HISTORICAL_DATA);
@@ -77,7 +72,7 @@ public class ApiTestResultsHelper {
         }
 
         List<Map<String,Integer>> results = new ArrayList<Map<String,Integer>>();
-        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(state, API_STATE_GROWTH_DATA_TYPE_ID, null, ListUtils.newArrayList(TestDataSetDisplayTarget.desktop.name()), Boolean.TRUE);
+        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(state, TestDataType.API_GROWTH, null, ListUtils.newArrayList(TestDataSetDisplayTarget.desktop.name()), Boolean.TRUE);
 
         //To display API results, there should be results for at least 1 year of data.
         if (!stateTestValues.isEmpty() && stateTestValues.size() > 1) {
@@ -175,10 +170,6 @@ public class ApiTestResultsHelper {
 
     void setApiResultDao(IApiResultDao apiResultDao) {
         _apiResultDao = apiResultDao;
-    }
-
-    void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
     }
 
     public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {

@@ -1,7 +1,6 @@
 package gs.web.school;
 
 import gs.data.school.Grade;
-import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
@@ -19,7 +18,6 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
     private ApiTestResultsHelper _helper;
 
     private IApiResultDao _apiResultDao;
-    private ISchoolDao _schoolDao;
     private ITestDataStateValueDao _testDataStateValueDao;
 
     @Override
@@ -29,24 +27,22 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         _helper = new ApiTestResultsHelper();
 
         _apiResultDao = createMock(IApiResultDao.class);
-        _schoolDao = createMock(ISchoolDao.class);
         _testDataStateValueDao = createStrictMock(ITestDataStateValueDao.class);
 
         _helper.setApiResultDao(_apiResultDao);
-        _helper.setSchoolDao(_schoolDao);
         _helper.setTestDataStateValueDao(_testDataStateValueDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_apiResultDao, _schoolDao, _testDataStateValueDao);
+        replayMocks(_apiResultDao, _testDataStateValueDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_apiResultDao, _schoolDao, _testDataStateValueDao);
+        verifyMocks(_apiResultDao, _testDataStateValueDao);
     }
 
     private void resetAllMocks() {
-        resetMocks(_apiResultDao, _schoolDao, _testDataStateValueDao);
+        resetMocks(_apiResultDao, _testDataStateValueDao);
     }
 
 
@@ -64,7 +60,6 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         school.setActive(true);
         school.setId(1);
         resetAllMocks();
-        expect(_schoolDao.getSchoolById(State.CA,1)).andReturn(school);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA)).andReturn(null);
         replayAllMocks();
         results = _helper.getApiTestResultsForSchool(school);
@@ -76,7 +71,6 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         school.setActive(true);
         school.setId(1);
         resetAllMocks();
-        expect(_schoolDao.getSchoolById(State.CA,1)).andReturn(school);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(new ArrayList<ApiResult>());
         replayAllMocks();
@@ -91,7 +85,6 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         resetAllMocks();
         List<ApiResult> apiResults = new ArrayList<ApiResult>();
         apiResults.add(constructApiResultObj(null, null));
-        expect(_schoolDao.getSchoolById(State.CA,1)).andReturn(school);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
         replayAllMocks();
@@ -106,7 +99,6 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         resetAllMocks();
         apiResults = new ArrayList<ApiResult>();
         apiResults.add(null);
-        expect(_schoolDao.getSchoolById(State.CA,1)).andReturn(school);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
         replayAllMocks();
@@ -119,7 +111,6 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         school.setActive(true);
         school.setId(1);
         resetAllMocks();
-        expect(_schoolDao.getSchoolById(State.CA,1)).andReturn(school);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(constructApiResultObjListWith1Item());
         ApiResult apiStateRank = new ApiResult();
@@ -149,7 +140,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
     public void testGetStateTestValues() {
         State state = State.CA;
         Integer testYear = null;
-        Integer dataTypeId = _helper.API_STATE_GROWTH_DATA_TYPE_ID;
+        Integer dataTypeId = TestDataType.API_GROWTH;
         String displayTarget = TestDataSetDisplayTarget.desktop.name();
         Boolean eagerFetch = true;
         List<Map<String,Integer>> results = null;
@@ -185,10 +176,31 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         assertEquals("Expect first item in list to have correct keys filled", new Integer(500), results.get(0).get("apiGrowth"));
         assertEquals("Expect first item in list to have correct keys filled", new Integer(2010), results.get(0).get("year"));
         assertEquals("Expect first item in list to have correct keys filled", new Integer(10000), results.get(0).get("numTested"));
+
+
+        resetAllMocks();
+        expect(_testDataStateValueDao.findValues(eq(state), eq(dataTypeId), eq(testYear), eq(ListUtils.newArrayList(displayTarget)), eq(eagerFetch)))
+                .andReturn(ListUtils.newArrayList(
+                        getSampleStateTestValue(1, 2010, 500, 10000),
+                        getSampleStateTestValue(2, 2009, 500, 10000),
+                        getSampleStateTestValue(3, 2008, 500, 10000),
+                        getSampleStateTestValue(4, 2007, 500, 10000),
+                        getSampleStateTestValue(5, 2006, 500, 10000)
+                )
+                );
+        replayAllMocks();
+
+        results = _helper.getDataForStateApiGrowth(state);
+
+        verifyAllMocks();
+        assertEquals("Expect maximum number of results to be returned", (int) ApiTestResultsHelper.NUM_YEARS_FOR_HISTORICAL_DATA, results.size());
+        assertEquals("Expect first item in list to have correct keys filled", new Integer(500), results.get(0).get("apiGrowth"));
+        assertEquals("Expect first item in list to have correct keys filled", new Integer(2010), results.get(0).get("year"));
+        assertEquals("Expect first item in list to have correct keys filled", new Integer(10000), results.get(0).get("numTested"));
     }
 
     public StateTestValue getSampleStateTestValue(Integer id, Integer year, Integer apiGrowth, Integer numTested) {
-        Integer dataTypeId = _helper.API_STATE_GROWTH_DATA_TYPE_ID;
+        Integer dataTypeId = TestDataType.API_GROWTH;
         return new StateTestValue(1,
             new TestDataSet(
                     id, year, Grade.ALL, LevelCode.ELEMENTARY_MIDDLE_HIGH, dataTypeId, Subject.MATH, 0, 0, true
