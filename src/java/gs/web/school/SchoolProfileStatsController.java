@@ -53,16 +53,16 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     class DisplayRowSortOrderComparator implements Comparator<SchoolProfileStatsDisplayRow> {
         public int compare(SchoolProfileStatsDisplayRow row1, SchoolProfileStatsDisplayRow row2) {
-            Integer label1 = row1.getSort();
-            Integer label2 = row2.getSort();
-            if (label1 == null && label2 == null) {
+            Integer sort1 = row1.getSort();
+            Integer sort2 = row2.getSort();
+            if (sort1 == null && sort2 == null) {
                 return 0;
-            } else if (label1 == null) {
+            } else if (sort1 == null) {
                 return -1;
-            } else if (label2 == null) {
+            } else if (sort2 == null) {
                 return 1;
             } else {
-                return label1.compareTo(label2);
+                return sort1.compareTo(sort2);
             }
         }
     }
@@ -108,11 +108,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
                     buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
 
-            // sort just the teacher years experience for now
-            Long teacherExperienceGroupId = 2l;
-            if (groupIdToStatsRows.get(teacherExperienceGroupId) != null) {
-                Collections.sort(groupIdToStatsRows.get(teacherExperienceGroupId), DISPLAY_ROW_SORT_ORDER_COMPARATOR);
-            }
+            sortMapOfCensusGroupsByConfiguredSortField(groupIdToStatsRows);
 
             statsModel.put("footnotesMap", getFootnotesMap(groupIdToStatsRows));
 
@@ -137,6 +133,16 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         model.putAll(statsModel);
         return model;
+    }
+
+    protected void sortMapOfCensusGroupsByConfiguredSortField(Map<Long, List<SchoolProfileStatsDisplayRow>> groups) {
+        Iterator<Map.Entry<Long, List<SchoolProfileStatsDisplayRow>>> iterator = groups.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<Long, List<SchoolProfileStatsDisplayRow>> groupEntry = iterator.next();
+            List<SchoolProfileStatsDisplayRow> displayRows = groupEntry.getValue();
+            Collections.sort(displayRows, DISPLAY_ROW_SORT_ORDER_COMPARATOR);
+        }
     }
 
     /**
@@ -326,6 +332,11 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         return statsRowMap;
     }
 
+    /**
+     * Tries to reverse sort by the DisplayRow's float value. If there's no float value, try to reverse sort by the
+     * DisplayRow's text label instead.
+     * @param statsRows
+     */
     protected void sortDisplayRowsBySchoolValuesDesc(List<SchoolProfileStatsDisplayRow> statsRows) {
         if (statsRows != null && statsRows.size() > 1) {
             Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
