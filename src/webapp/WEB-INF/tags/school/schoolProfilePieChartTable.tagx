@@ -14,28 +14,21 @@
     <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag import="gs.web.school.SchoolProfileStatsDisplayRow"/>
     <jsp:directive.tag import="gs.web.school.SchoolProfileCensusSourceHelper"/>
+    <jsp:directive.tag import="gs.web.school.GroupOfStudentTeacherViewRows"/>
 
+    <jsp:directive.attribute name="rows" type="gs.web.school.GroupOfStudentTeacherViewRows" required="true"/>
     <jsp:directive.attribute name="groupId" type="java.lang.Long" description="Must be long to look up map entry via jstl"/>
-    <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="title" type="java.lang.String"/>
     <jsp:directive.attribute name="pieDivId" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="labelColumnHeader" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="pieDataSet" type="java.util.Map" required="true"/>
 
 
-    <c:set var="groupIdDataTypeMap" value="${censusStateConfig.groupIdDataTypeMap}"/>
-    <c:set var="teacherCredentialsDataTypes" value="${groupIdDataTypeMap[groupId]}"/>
-
-
-    <c:set var="rows" value="${statsRows[groupId]}"/>
-    <c:set var="showSchoolData" value="${false}"/>
-    <c:set var="showDistrictData" value="${false}"/>
-    <c:set var="showStateAverages" value="${false}"/>
-    <c:forEach items="${rows}" var="row">
-        <c:set var="showSchoolData" value="${showSchoolData or not empty row.schoolValue}"/>
-        <c:set var="showDistrictData" value="${showDistrictData or not empty row.districtValue}"/>
-        <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
-    </c:forEach>
+    <jsp:scriptlet>
+        jspContext.setAttribute("showSchoolData", rows.isAnySchoolData());
+        jspContext.setAttribute("showDistrictData", rows.isAnyDistrictData());
+        jspContext.setAttribute("showStateAverages", rows.isAnyStateData());
+    </jsp:scriptlet>
 
 <c:if test="${fn:length(rows) gt 0}">
     <div class="mod standard_1-1">
@@ -63,7 +56,7 @@
             </c:if>
 
             <c:if test="${showStateAverages}">
-                <th class="tac">State Average</th>
+                <th class="tac">State average</th>
             </c:if>
         </tr>
         </thead>
@@ -169,16 +162,7 @@
                         </c:if>
                     </td>
                     ${schoolScoreToShow}
-                    <!--<c:if test="${showDistrictData}">-->
-                        <!--<c:choose>-->
-                            <!--<c:when test="${not empty row.districtValue}">-->
-                                <!--<td class="tac">${row.districtValue}</td>-->
-                            <!--</c:when>-->
-                            <!--<c:otherwise>-->
-                                <!--<td class="tac">N/A</td>-->
-                            <!--</c:otherwise>-->
-                        <!--</c:choose>-->
-                    <!--</c:if>-->
+
                     <c:if test="${showStateAverages}">
                         <c:choose>
                             <c:when test="${not empty row.stateValue}">
@@ -199,7 +183,6 @@
         </div>
     <div class="smaller pbm tar">
         <c:forEach items="${censusSourceHelper.censusSources}" var="source" varStatus="status">
-            <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
             Source:<c:if test="${status.count gt 1}"><sup> ${status.index+1}</sup></c:if> ${source.obj1.source}<c:if test="${not empty source.obj2}">, ${source.obj2-1}-${source.obj2}</c:if><br/>
         </c:forEach>
     </div>

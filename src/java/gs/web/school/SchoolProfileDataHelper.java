@@ -14,7 +14,6 @@ import gs.data.test.*;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.search.CmsRelatedFeatureSearchService;
-import gs.web.search.CmsRelatedFeatureSearchServiceSolrImpl;
 import gs.web.search.ICmsFeatureSearchResult;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -517,7 +516,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     protected Map<CensusDataType, List<CensusDataSet>> getSchoolCensusValues(HttpServletRequest request) {
         // CensusDataSet ID --> CensusDataSet
         Map<Integer, CensusDataSet> censusDataSets = _schoolProfileCensusHelper.getCensusDataSets(request);
-        CensusDataHolder cdh = _schoolProfileCensusHelper.getGroupedCensusDataSets(request);
+        CensusDataHolder cdh = _schoolProfileCensusHelper.getCensusDataHolder(request);
 
         // CensusDataSet ID --> CensusDataSet
         Map<Integer, CensusDataSet> censusDataSetMap = _schoolProfileCensusHelper.getCensusDataSetsWithSchoolData(request);

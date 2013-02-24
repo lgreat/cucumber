@@ -14,6 +14,20 @@
     <jsp:directive.page import="java.util.Set"/>
     <jsp:directive.page import="java.util.HashSet"/>
     <jsp:directive.page import="gs.data.school.census.CensusDescription"/>
+
+    <c:set var="hasStudentCensusData" value="${studentsTab.anyData}"/>
+    <c:set var="hasTeacherCensusData" value="${teachersTab.anyData}"/>
+
+    <c:set var="hasStudentEspData" value="${fn:contains(school.levelCode, 'h') and (fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0
+        or fn:length(espResults['post_graduation_2yr']) gt 0 or fn:length(espResults['post_graduation_4yr']) gt 0 or fn:length(espResults['post_graduation_military']) gt 0
+        or fn:length(espResults['post_graduation_vocational']) gt 0 or fn:length(espResults['post_graduation_workforce']) gt 0
+        or fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0
+    )}"/>
+
+    <c:set var="hasTeacherEspData" value="${fn:length(espResults['administrator_name']) gt 0 or fn:length(espResults['staff_resources']) gt 0
+        or fn:length(espResults['staff_languages']) gt 0 or fn:length(espResults['staff_languages_other']) gt 0
+    }"/>
+
     <jsp:scriptlet>
         <![CDATA[
                 java.util.Map<String,Set<CensusDescription>> footnotes = new HashMap<String,Set<CensusDescription>>();
@@ -28,40 +42,13 @@
                 <profile:gsTab tabName="teachers" title="Teacher information" tabText="Teachers" cssClass="${requestScope.schoolProfileTabMap.teachers}" addDivider="true"/>
             </ul>
             <div class="alpha omega grid_16 ${(!empty requestScope.schoolProfileTabMap.demographics and requestScope.schoolProfileTabMap.demographics eq 'selected'?'':'dn')}">
-                <!-- Determine if there is any dat put on the display and if not show the "no data" message -->
-                <c:if test="${! empty statsRows[6]}">
-                    <c:set var="hasStudentData" value="yes"/>
-                </c:if>
-                <school:schoolProfilePieChartTable groupId="6" title="Student ethnicity" statsTab="students" labelColumnHeader="Ethnicity" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
 
-                <c:if test="${! empty statsRows[10]}">
-                    <c:set var="hasStudentData" value="yes"/>
-                </c:if>
-                <school:schoolProfilePieChartTable groupId="10" title="Home Languages of English Learners" labelColumnHeader="Language" statsTab="students" pieDivId="homeLangPieChart" pieDataSet="${homeLanguageMap}"/>
-
-                <c:if test="${! empty statsRows[13]}">
-                    <c:set var="hasStudentData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="13" title="Student subgroups" statsTab="students"/>
-
-                <c:if test="${! empty statsRows[8]}">
-                    <c:set var="hasStudentData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="8" title="Attendance" statsTab="students"/>
-
-                <c:if test="${! empty statsRows[16]}">
-                    <c:set var="hasStudentData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="16" title="Attendance and Completion" statsTab="students"/>
-
+                <c:forEach items="${studentsTab.groupToGroupOfRowsMap}" var="groupOfRows">
+                    <school:schoolProfileStudentTeacherTableWrapper rows="${groupOfRows.value}" />
+                </c:forEach>
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
-                <c:if test="${fn:contains(school.levelCode, 'h') and (fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0
-                    or fn:length(espResults['post_graduation_2yr']) gt 0 or fn:length(espResults['post_graduation_4yr']) gt 0 or fn:length(espResults['post_graduation_military']) gt 0
-                    or fn:length(espResults['post_graduation_vocational']) gt 0 or fn:length(espResults['post_graduation_workforce']) gt 0
-                    or fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0
-                )}">
-                    <c:set var="hasStudentData" value="yes"/>
+                <c:if test="${hasStudentEspData}">
                     <div class="mod standard_1-1">
                     <div class="inner">
                     <div class="hd">
@@ -69,21 +56,11 @@
                     </div>
                     <div class="bd pan">
                     <table class="tableType1">
-
                         <tbody>
                         <c:set var="rowColorCounter" value="1" />
 
-
                             <c:if test="${(fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0)}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Students typically attend these schools prior to attending this school</td>
                                     <td>
                                         <school:espPrettyValueList key="feeder_school_1" useBullets="${false}"/>
@@ -94,15 +71,7 @@
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
                             <c:if test="${fn:length(espResults['post_graduation_2yr']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Percentage of students going to 2-year college</td>
                                     <td>
                                         ${espResults['post_graduation_2yr'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
@@ -111,15 +80,7 @@
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
                             <c:if test="${fn:length(espResults['post_graduation_4yr']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Percentage of students going to 4-year college</td>
                                     <td>
                                         ${espResults['post_graduation_4yr'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
@@ -128,15 +89,7 @@
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
                             <c:if test="${fn:length(espResults['post_graduation_military']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Percentage of students going to the military</td>
                                     <td>
                                         ${espResults['post_graduation_military'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
@@ -145,15 +98,7 @@
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
                             <c:if test="${fn:length(espResults['post_graduation_vocational']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Percentage of students going to vocational programs</td>
                                     <td>
                                         ${espResults['post_graduation_vocational'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
@@ -162,15 +107,7 @@
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
                             <c:if test="${fn:length(espResults['post_graduation_workforce']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Percentage of students going directly into the workforce</td>
                                     <td>
                                         ${espResults['post_graduation_workforce'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
@@ -179,15 +116,7 @@
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
                             <c:if test="${fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <tr class="${rowColor}" >
+                                <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                     <td>Colleges most students attend after graduation</td>
                                     <td>
                                         <school:espPrettyValueList key="college_destination_1" useBullets="${false}"/>
@@ -197,15 +126,7 @@
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
-                        <c:choose>
-                            <c:when test='${(rowColorCounter)%2 eq 0}'>
-                                <c:set var="rowColor" value="even" scope="page"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="rowColor" value="odd" scope="page"/>
-                            </c:otherwise>
-                        </c:choose>
-                        <tr class="${rowColor}" >
+                        <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                 <td colspan="2">
                                     <gslink:linkToTab tabName="programs-resources" anchor="Resources_table">
                                         Read more about resources at this school
@@ -221,54 +142,28 @@
                     <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
                 </c:if>
 
-                <c:if test="${hasStudentData ne 'yes'}">
+                <c:if test="${!hasStudentCensusData and !hasStudentEspData}">
                     <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
-                <div class="rnd4 tac mbm noDataBox ">
-                    <div  class="padAmount">
-                        <h3><strong>Oops! We currently do not have any student information for this school.</strong> We rely on the state Department of Education, the National Center for Education Statistics (NCES),
-                            and in some cases school administrators such as registrars and principals for this data.
-                        </h3>
+                    <div class="rnd4 tac mbm noDataBox ">
+                        <div  class="padAmount">
+                            <h3><strong>Oops! We currently do not have any student information for this school.</strong> We rely on the state Department of Education, the National Center for Education Statistics (NCES),
+                                and in some cases school administrators such as registrars and principals for this data.
+                            </h3>
 
+                        </div>
                     </div>
-                </div>
-
-
                 </c:if>
             </div>
             <div class="grid_16 alpha omega ${(!empty requestScope.schoolProfileTabMap.teachers and requestScope.schoolProfileTabMap.teachers eq 'selected'?'':'dn')}">
                 <!-- Determine if there is any dat put on the display and if not show the "no data" message -->
-                <c:if test="${! empty statsRows[5]}">
-                    <c:set var="hasTeacherData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="5" title="Student-Teacher ratio" statsTab="teachers"/>
 
-                <c:if test="${! empty statsRows[4]}">
-                    <c:set var="hasTeacherData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="4" title="Class size" statsTab="teachers"/>
-
-                <c:if test="${! empty statsRows[2]}">
-                    <c:set var="hasTeacherData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="2" title="Teacher experience" statsTab="teachers"/>
-
-                <c:if test="${! empty statsRows[3]}">
-                    <c:set var="hasTeacherData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="3" title="Teacher Education Levels" statsTab="teachers"/>
-
-                <c:if test="${! empty statsRows[1]}">
-                    <c:set var="hasTeacherData" value="yes"/>
-                </c:if>
-                <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
+                <c:forEach items="${teachersTab.groupToGroupOfRowsMap}" var="groupOfRows">
+                    <school:schoolProfileStudentTeacherTableWrapper rows="${groupOfRows.value}" />
+                </c:forEach>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
-                <c:if test="${fn:length(espResults['administrator_name']) gt 0 or fn:length(espResults['staff_resources']) gt 0
-                or fn:length(espResults['staff_languages']) gt 0 or fn:length(espResults['staff_languages_other']) gt 0
-                }">
-                    <c:set var="hasTeacherData" value="yes"/>
-
+                <c:if test="${hasTeacherEspData}">
                     <c:set var="staffResources" value="${espResults['staff_resources']}" property="java.util.List"/>
                     <c:set var="numStaffResources" value="${fn:length(staffResources)}"/>
                     <c:set var="staffLanguages" value="${espResults['staff_languages']}" property="java.util.List"/>
@@ -281,26 +176,11 @@
                                 </div>
                                 <div class="bd pan">
                                     <table class="tableType1">
-                                        <!--<thead>-->
-                                        <!--<tr>-->
-                                        <!--<th colspan="2">-->
-                                        <!--Schools-->
-                                        <!--</th>-->
-                                        <!--</tr>-->
-                                        <!--</thead>-->
                                         <c:set var="rowCounterTable" value="1" scope="page"/>
                                         <tbody>
                                         <c:if test="${fn:length(espResults['administrator_name']) gt 0}">
-                                            <c:choose>
-                                                <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                                    <c:set var="rowColor" value="even" scope="page"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="rowColor" value="odd" scope="page"/>
-                                                </c:otherwise>
-                                            </c:choose>
                                             <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                            <tr class="${rowColor}" >
+                                            <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                                 <td>School leader&apos;s name</td>
                                                 <td>
                                                     <school:espPrettyValueList key="administrator_name" useBullets="${false}"/>
@@ -308,16 +188,8 @@
                                             </tr>
                                         </c:if>
                                         <c:if test="${numStaffResources gt 0}">
-                                            <c:choose>
-                                                <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                                    <c:set var="rowColor" value="even" scope="page"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="rowColor" value="odd" scope="page"/>
-                                                </c:otherwise>
-                                            </c:choose>
                                             <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                            <tr class="${rowColor}" >
+                                            <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                                 <td>Special staff resources available to students</td>
                                                 <td>
                                                     <school:espPrettyValueList key="staff_resources" useBullets="${false}"/>
@@ -325,16 +197,8 @@
                                             </tr>
                                         </c:if>
                                         <c:if test="${numStaffLanguages gt 0}">
-                                            <c:choose>
-                                                <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                                    <c:set var="rowColor" value="even" scope="page"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="rowColor" value="odd" scope="page"/>
-                                                </c:otherwise>
-                                            </c:choose>
                                             <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                            <tr class="${rowColor}" >
+                                            <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                                 <td>Foreign languages spoken by school staff</td>
                                                 <td>
                                                     <school:espPrettyValueList key="staff_languages" useBullets="${false}"/>
@@ -342,16 +206,8 @@
                                                 </td>
                                             </tr>
                                         </c:if>
-                                        <c:choose>
-                                            <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                                <c:set var="rowColor" value="even" scope="page"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="rowColor" value="odd" scope="page"/>
-                                            </c:otherwise>
-                                        </c:choose>
                                         <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                        <tr class="${rowColor}" >
+                                        <tr class="${rowColorCounter%2 eq 0? 'even':'odd'}" >
                                             <td colspan="2">
                                                 <gslink:linkToTab tabName="programs-resources" anchor="Programs_table">
                                                     Read more about programs at this school
@@ -367,7 +223,7 @@
                     </c:if>
 
                 </c:if>
-                <c:if test="${hasTeacherData ne 'yes'}">
+                <c:if test="${!hasTeacherCensusData and !hasTeacherEspData}">
                     <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > Teachers, no data for styling guidelines -->
 
                     <div class="rnd4 tac mbm noDataBox">

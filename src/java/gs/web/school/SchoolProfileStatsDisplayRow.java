@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.census.*;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -11,31 +12,34 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
     private Integer _censusDataSetId;
     private String _text;
 
-    private SchoolCensusValue _schoolCensusValue;
-    private DistrictCensusValue _districtCensusValue;
-    private StateCensusValue _stateCensusValue;
+
+    private String _schoolValue;
+    private String _districtValue;
+    private String _stateValue;
 
     private Set<CensusDescription> _censusDescriptions;
     private Integer _year;
     private boolean _manualOverride;
 
-    private CensusDataType _dataTypeEnum;
-
     private Integer _sort;
 
+
     public SchoolProfileStatsDisplayRow(Long groupId, Integer dataTypeId, Integer censusDataSetId, String text, SchoolCensusValue schoolValue, DistrictCensusValue districtValue, StateCensusValue stateCensusValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride, Integer sort) {
+        CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
         _groupId = groupId;
         _dataTypeId = dataTypeId;
         _censusDataSetId = censusDataSetId;
         _text = text;
-        _schoolCensusValue = schoolValue;
-        _districtCensusValue = districtValue;
-        _stateCensusValue = stateCensusValue;
+
+        _schoolValue = getStringValue(schoolValue, dataTypeEnum);
+        _districtValue = getStringValue(districtValue, dataTypeEnum);
+        _stateValue = getStringValue(stateCensusValue, dataTypeEnum);
+
+
         _censusDescriptions = censusDescriptions;
         _year = year;
         _manualOverride = manualOverride;
 
-        _dataTypeEnum = CensusDataType.getEnum(_dataTypeId);
         _sort = sort;
     }
 
@@ -48,51 +52,33 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
     }
 
     public String getSchoolValue() {
-        String schoolValue = "";
-        if (_schoolCensusValue != null) {
-            if (_schoolCensusValue.getValueFloat() != null) {
-                schoolValue = CensusDataHelper.formatValueAsString(_schoolCensusValue.getValueFloat(), _dataTypeEnum.getValueType());
-            } else {
-                schoolValue = String.valueOf(_schoolCensusValue.getValueText());
-            }
-        }
-        return schoolValue;
+        return _schoolValue;
     }
 
     public String getDistrictValue() {
-        String value = "";
-
-        if (_districtCensusValue != null) {
-            if (_districtCensusValue.getValueFloat() != null) {
-                value = CensusDataHelper.formatValueAsString(_districtCensusValue.getValueFloat(), _dataTypeEnum.getValueType());
-            } else {
-                value = String.valueOf(_districtCensusValue.getValueText());
-            }
-        }
-
-        return value;
+        return _districtValue;
     }
 
     public String getStateValue() {
+        return _stateValue;
+    }
+
+    public static String getStringValue(AbstractCensusValue censusValue, CensusDataType dataTypeEnum) {
         String value = "";
 
-        if (_stateCensusValue != null) {
-            if (_stateCensusValue.getValueFloat() != null) {
-                value = CensusDataHelper.formatValueAsString(_stateCensusValue.getValueFloat(), _dataTypeEnum.getValueType());
+        if (censusValue != null) {
+            if (censusValue.getValueFloat() != null) {
+                value = CensusDataHelper.formatValueAsString(censusValue.getValueFloat(), dataTypeEnum.getValueType());
             } else {
-                value = String.valueOf(_stateCensusValue.getValueText());
+                value = String.valueOf(censusValue.getValueText());
             }
         }
 
         return value;
     }
 
-    public Float getSchoolValueFloat() {
-        return _schoolCensusValue.getValueFloat();
-    }
-
-    public Float getDistrictValueFloat() {
-        return _districtCensusValue.getValueFloat();
+    protected static boolean censusValueNotEmpty(String value) {
+        return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
     }
 
     public Set<CensusDescription> getCensusDescriptions() {
@@ -121,5 +107,9 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
 
     public Integer getSort() {
         return _sort;
+    }
+
+    public Integer getDataTypeId() {
+        return _dataTypeId;
     }
 }

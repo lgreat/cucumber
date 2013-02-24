@@ -125,7 +125,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
             addOspDataToModel(school, data);
 
-            addEthnicityDataToModel(school, data);
+            addEthnicityDataToModel(request, school, data);
 
             schoolData.put(school.getStateAbbreviation().getAbbreviationLowerCase() + String.valueOf(school.getId()), data);
 
@@ -283,7 +283,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         return null;
     }
 
-    private void addEthnicityDataToModel(School school, Map<String, Object> data) {
+    private void addEthnicityDataToModel(HttpServletRequest request, School school, Map<String, Object> data) {
         // ethnicity data
         Set<Integer> censusDataTypeIds = new HashSet<Integer>();
         censusDataTypeIds.add(9); // ethnicity
@@ -296,8 +296,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         censusDataHolder.retrieveDataSetsAndSchoolData(); // after this operation, the censusDataSets will contain school values
 
-        Map<String, String> ethnicityLabelValueMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(censusDataSets);
-        data.put(MODEL_KEY_ETHNICITY_MAP, ethnicityLabelValueMap);
+        // group ID --> List of StatsRow
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> groupIdToStatsRows =
+                _schoolProfileCensusHelper.buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), censusDataSets);
+
+        data.put(MODEL_KEY_ETHNICITY_MAP, groupIdToStatsRows.get(CensusGroup.Student_Ethnicity).getSchoolValueMap());
     }
 
     public void addDestinationSchoolsOrCollegesToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
