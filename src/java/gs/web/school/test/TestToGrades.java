@@ -29,7 +29,8 @@ public class TestToGrades implements Comparable<TestToGrades> {
         return _displayType == TestDataTypeDisplayType.sentence ||
                 _displayType == TestDataTypeDisplayType.oh_value_added ||
                 _displayType == TestDataTypeDisplayType.nyc_progress_report_grade ||
-               _testDataTypeId == OHIO_PERFORMANCE_INDEX_DATA_TYPE_ID;
+                _testDataTypeId == OHIO_PERFORMANCE_INDEX_DATA_TYPE_ID ||
+                _displayType == TestDataTypeDisplayType.ca_api_growth;
     }
 
     public boolean isHideSubject() {

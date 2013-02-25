@@ -563,7 +563,8 @@ function drawPieChart(dataIn, divNameId, dimensions, catchClick) {
         height: dimensions,
         legend: 'none',
         tooltip: {showColorCode: true,text:'value',textStyle:{color: '#2b2b2b', fontName: 'Arial', fontSize: '10'}},
-        colors:['#327FA0','#E2B66C','#DB7258','#A4B41E','#38A37A','#B66483','#7B498F','#414F7B'],
+        colors:['#4393B5','#38A37A','#84D07C','#E2B66C','#E2937D','#DA5F6E','#B66483','#7B498F','#414F7B','#A7A7A7','#7CC7CE','#489A9D','#A4CEBB','#649644','#E0D152','#F1A628','#A3383A','#8C734D','#EA6394','#CE92C0','#5A78B1'],
+//        colors:['#327FA0','#E2B66C','#DB7258','#A4B41E','#38A37A','#B66483','#7B498F','#414F7B'],
         pieSliceText: 'none',
         chartArea:{left:15,top:15,bottom:10,right:10,width:"80%",height:"80%"},
         pieSliceBorderColor:'white'
@@ -817,5 +818,282 @@ GS.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
         getSrc: getSrc,
         setLoaded: function( b ){setLoaded(b);},
         getImageHeight: getImageHeight
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////     CA API Charts - line graph and bar graph
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+var color_lines = { colors:['#4393B5','#38A37A','#84D07C','#E2B66C','#E2937D','#DA5F6E','#B66483','#7B498F','#414F7B','#A7A7A7','#7CC7CE','#489A9D','#A4CEBB','#649644','#E0D152','#F1A628','#A3383A','#8C734D','#EA6394','#CE92C0','#5A78B1'] };
+
+// specific to the ca api to generate graph with 200 as min or 400 as min
+function getMinYLines() {
+    var min = 400;
+    for(var i = 0; i < data[0].values.length; i ++) {
+        if(data[0].values[i].Y < min) {
+            min = 200;
+        }
+    }
+    return min;
+}
+
+function getMinYBar() {
+    var min = 400;
+    for(var i = 0; i < data_bar.values.length; i ++) {
+        if(data_bar.values[i].Y < min) {
+            min = 200;
+        }
+    }
+    return min;
+}
+
+function drawGraphContainer (options) {
+    var settings = $.extend( {
+        'layerId' : 'not set',
+        'width' : '600',
+        'height' : '200',
+        'x_axis_increments' : 1,
+        'y_axis_increments' : 200,
+        'y_max' : 1050,
+        'y_min' : 400,
+        'colors' : '',
+        'data' : '',
+        'graph_type' : 'line_graph',
+        'legend_width' : 120
+    }, options);
+
+    var w = settings['width'] - settings['legend_width'];
+    var data = settings['data'];
+    var col = settings['colors'];
+
+    var drawLegend = function(c, d){
+        for(i=0; i < d.length; i++){
+            drawSquareAndText(c, col.colors[i], d[i].title, i, w);
+        }
+        drawDashedLineAndText(c, "#CCC", "Statewide goal", d.length, w);
+
+    }
+
+    var drawSquareAndText = function(c, color, text, i , w){
+        var offsetx = w+20;
+        var offsety = 20;
+        var linespacer = 20;
+        c.strokeStyle = "#000";
+        c.fillStyle = color;
+        c.font = '9pt sans-serif';
+        c.textAlign = "left";
+        c.beginPath();
+        c.fillRect(offsetx,(offsety - 5 + linespacer*i),10,10);
+        //c.strokeRect(offsetx,(offsety - 5 + linespacer*i),10,10);
+        c.fillStyle = "#777";
+        c.fillText(text,(offsetx + 20), (offsety + linespacer*i));
+    }
+
+    var drawDashedLineAndText = function(c, color, text, i , w){
+        var offsetx = w+20;
+        var offsety = 20;
+        var linespacer = 20;
+        c.strokeStyle = "#CCC";
+        c.fillStyle = color;
+        c.font = '9pt sans-serif';
+        c.textAlign = "left";
+        c.beginPath();
+        drawHorizontalDashedLine(c, (offsety + linespacer*i), offsetx, (offsetx+10), color);
+        c.fillStyle = "#777";
+        c.fillText(text,(offsetx + 20), (offsety + linespacer*i));
+    }
+
+    var yearToInt = new Array();
+    var yearXCounter = 0;
+    var createYearRange = function(){
+        //CREATE year range
+        var yearMin = 3000;
+        var yearMax = 2000;
+        for(var j=0; j < data.length; j++){
+            for(var i = 0; i < data[j].values.length; i++) {
+                if(data[j].values[i].X < yearMin) yearMin = data[j].values[i].X;
+                if(data[j].values[i].X > yearMax) yearMax = data[j].values[i].X;
+            }
+        }
+        //build year array
+        for(var i = yearMin; i <= yearMax; i++) {
+            yearToInt[i] = yearXCounter;
+            yearXCounter++;
+        }
+    }
+
+    var drawFrameLines = function(c){
+
+        c.lineWidth = 1;
+        c.strokeStyle = '#777';
+        c.font = '8pt sans-serif';
+        c.textAlign = "center";
+        c.beginPath();
+        //c.moveTo(xPadding, 0);
+        c.moveTo(xPadding, settings['height'] - yPadding);
+        c.lineTo(w, settings['height'] - yPadding);
+        c.stroke();
+        c.fillStyle = "#777";
+
+        // Draw the X value texts
+        if(settings['graph_type'] == "bar_graph"){
+            c.fillText(data.x_axis_title, ((w + xPadding)/2), settings['height'] - yPadding + 20);
+        }
+        else{
+            createYearRange();
+            $.each(yearToInt, function(key, value) {
+                c.fillText(key, getXPixel(value), settings['height'] - yPadding + 20);
+            });
+        }
+
+        // Draw the Y value texts
+        c.textAlign = "right"
+        c.textBaseline = "middle";
+
+        for(var i = settings['y_min']; i <= settings['y_max']; i += settings['y_axis_increments']) {
+
+            if(i == 800){
+                c.fillStyle = "#000";
+                c.font = 'bold 8pt sans-serif';
+                c.fillText(i, xPadding - 20, getYPixel(i));
+                drawHorizontalDashedLine(c, getYPixel(i), (xPadding+1), w, "#CCC");
+            }
+            else{
+                c.fillStyle = "#777";
+                c.font = '8pt sans-serif';
+                c.fillText(i, xPadding - 20, getYPixel(i));
+                drawHorizontalLine(c, i, (xPadding+1), w, "#ccc");
+            }
+        }
+    }
+
+    var drawBarGraph = function(c){
+        var bottom = settings['height'] - yPadding -1;
+        var top = 0;
+        var left = 0;
+        for(i=0; i < data.values.length; i++){
+            var offsetx = xPadding*1.5;
+            var offsety = yPadding;
+            var barspacer = 30;
+            c.fillStyle = col.colors[i];
+            top = getYPixel(data.values[i].Y);
+            left = offsetx+(i*barspacer);
+            c.beginPath();
+            c.fillRect(left,top,10,bottom-top);
+            var h = bottom-top;
+            var classname = "graphBar"+i;
+            var areaTag = "<div class='"+classname+"' style='cursor:pointer; position:absolute; top:"+ top + "px; left:" + left + "px; width:10px; height:"+h+"px;'><!--Do not collapse--></div>";
+            graph.after(areaTag);
+            var content_popup =  data.values[i].title + "<br />Api score: " + data.values[i].Y;
+            $("."+classname).popover({content: content_popup, placement:'top', delay:{ show: 100, hide: 100 }});
+        }
+    }
+
+    var drawFullLineGraph = function(c){
+        c.lineWidth = 2;
+        for(var i=0; i < data.length; i++){
+            c.strokeStyle = col.colors[i];
+            c.fillStyle = col.colors[i];
+
+            // Draw the line graph
+            drawLineGraph(c, data[i].values);
+
+            // Draw the dots
+            drawLineDots(c, data[i].values, i);
+        }
+    }
+
+    var drawLineGraph = function(c, v) {
+        c.beginPath();
+        c.moveTo(getXPixel(yearToInt[v[0].X]), getYPixel(v[0].Y));
+        for(var i = 0; i < v.length; i ++) {
+            c.lineTo(getXPixel(yearToInt[v[i].X]), getYPixel(v[i].Y));
+        }
+        c.stroke();
+    }
+
+    var drawLineDots = function(c, v, linecount) {
+        for(var i = 0; i < v.length; i ++) {
+            c.beginPath();
+            c.arc(getXPixel(yearToInt[v[i].X]), getYPixel(v[i].Y), 3, 0, Math.PI * 2, true);
+            c.fill();
+            var hit_area = 10;
+            var classname = "graphPoint"+i+linecount;
+            var areaTag = "<div class='"+classname+
+                "' style='cursor:pointer; position:absolute; top:"+ (getYPixel(v[i].Y) - hit_area/2) + "px; left:" + (getXPixel(yearToInt[v[i].X]) - hit_area/2) +
+                "px; width:"+hit_area+"px; height:"+hit_area+"px;'><!--Do not collapse--></div>"
+            graph.after(areaTag);
+            var content_popup =  v[i].X + "<br />Api score: " + v[i].Y;
+            if(v[i].N != 0){
+                content_popup += "<br />No. students: "+ v[i].N;
+            }
+            $("."+classname).popover({content: content_popup, placement:'top', delay:{ show: 100, hide: 100 }});
+        }
+    }
+    var drawHorizontalLine = function(c, y, xStart, xEnd, color) {
+        c.lineWidth = 1;
+        c.strokeStyle = color;
+        c.beginPath();
+        c.moveTo(xStart, getYPixel(y));
+        c.lineTo(xEnd, getYPixel(y));
+        c.stroke();
+    }
+
+    var drawHorizontalDashedLine = function(c, y, xStart, xEnd, color) {
+        c.lineWidth = 1;
+        c.beginPath();
+        var dashLength = 3;
+        var dashSpace = 3;
+        var x = xStart;
+        var y = y;
+        var drawline = true;
+        c.moveTo(x, y);
+
+        while(xEnd > x){
+            if(drawline){
+                x += dashLength;
+                c.strokeStyle = color;
+                c.lineTo(x, y);
+            }
+            else{
+                x += dashSpace;
+                c.moveTo(x, y);
+            }
+            c.stroke();
+            drawline = !drawline;
+        }
+    }
+
+
+    var getXPixel = function(val) {
+        return ((w - xPadding*3) / (yearXCounter-1)) * val + (xPadding * 2);
+    }
+
+    // Return the y pixel for a graph point
+    var getYPixel = function(val) {
+        return settings['height'] - (((settings['height'] - yPadding) / (settings['y_max']- settings['y_min'])) * (val - settings['y_min'])) - yPadding;
+    }
+
+    var xPadding = 50;
+    var yPadding = 30;
+    var graph = $('#'+settings['layerId']);
+    graph[0].width = settings['width'];
+    graph[0].height = settings['height'];
+    var canvas_obj = graph[0].getContext('2d');
+
+
+    if(settings['graph_type'] == "line_graph"){
+        drawFrameLines(canvas_obj);
+        drawFullLineGraph(canvas_obj);
+        drawLegend(canvas_obj, data);
+    }
+    if(settings['graph_type'] == "bar_graph"){
+        drawFrameLines(canvas_obj);
+        drawBarGraph(canvas_obj);
+        drawLegend(canvas_obj, data.values);
     }
 };
