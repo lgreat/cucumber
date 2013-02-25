@@ -33,10 +33,14 @@
     <!--API Results ${apiTestResult.year}  <br/>-->
     <p class="small">The API reflects the year-over-year schools performance based on STAR test score results from spring ${apiTestResult.year}.</p>
     <div class="clearfix mbm">
-        <div class="containerGrayBox fl mrs" style="width:121px;">
-        <div class="small">This school's API scrore</div>
-            <h1 class="bold bottom">${apiTestResult.total}</h1>
-        </div>
+        <a href="#apiExplanation" class="noUnderline">
+            <div class="containerGrayBox fl mrs" style="width:121px;">
+
+                <div class="small">This school's API scrore</div>
+                <h1 class="bold bottom">${apiTestResult.total}</h1>
+            </div>
+        </a>
+        <a href="#apiExplanation" class="noUnderline">
         <div class="containerGrayBox fl mrs" style="width:121px;">
             <div class="small">Change from ${apiTestResult.year} to ${previousYear}</div>
             <c:choose>
@@ -55,18 +59,23 @@
                 </c:otherwise>
             </c:choose>
         </div>
+        </a>
+        <a href="#apiExplanation" class="noUnderline">
         <div class="containerGrayBox fl mrs" style="width:121px;">
             <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
                 <div class="small">API Statewide Rank<br/> (${apiStateRank.year})</div>
                 <h1 class="bold bottom">${apiStateRank.apiStateRank}</h1>
             </c:if>
         </div>
+        </a>
+        <a href="#apiExplanation" class="noUnderline">
         <div class="containerGrayBox fl" style="width:121px;">
             <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
                 <div class="small">API similar schools Rank (${apiSimilarSchoolsRank.year})</div>
                 <h1 class="bold bottom">${apiSimilarSchoolsRank.apiSimilarRank}</h1>
             </c:if>
         </div>
+        </a>
     </div>
 
     <div class="small">
@@ -128,7 +137,6 @@
             ];</c:set>
 
     <c:if test="${not empty apiTestResult.apiSchoolWide}">
-            <!--Did this school meet its schoolwide growth target for ${apiTestResult.year}? ${apiTestResult.apiSchoolWide} <br/>-->
         <h5 class="bold bottom">Did this school meet the API goal this year?</h5>
         <div class="small">The state goal for API is 800. All schools that are below 800 are assigned an API improvment target each year.</div>
         <ul class="disc small">
@@ -225,14 +233,29 @@
     <!--<br/>-->
 
     <c:if test="${not empty apiTestResult.apiComparable}">
-        Did this school meet its all subgroup growth targets for ${apiTestResult.year}? ${apiTestResult.apiComparable} <br/>
+        <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
+        <div class="small">
+            The state goal for the API is 800. All the student subgroups at a school that a below 800 are assigned an API improvement target each year.
+        </div>
+        <ul class="disc small">
+            <c:choose>
+                <c:when test="${apiTestResult.apiComparable == 'yes'}">
+                    <li>This school met all student subgroup API targets for ${apiTestResult.year}</li>
+                </c:when>
+                <c:otherwise>
+                    <li>This school did not meet all student subgroup API targets for ${apiTestResult.year}</li>
+                </c:otherwise>
+            </c:choose>
+            <!--<li>This school met(did not meet) all student subgroup API targets for ${apiTestResult.year}</li>-->
+        </ul>
+        <!--Did this school meet its all subgroup growth targets for ${apiTestResult.year}? ${apiTestResult.apiComparable} <br/>-->
     </c:if>
 
     <hr class="keyline1"/>
-    <div class="mtl">
+    <div id="apiExplanation" class="mtl">
         <div class="clearfix mbl">
-            <div class="containerGrayBox fl mrl" style="width:121px;">
-                <div class="small">This school's API scrore</div>
+            <div id="api" class="containerGrayBox fl mrl" style="width:121px;">
+                <div class="small make-2b2b2b">This school's API scrore</div>
                 <h1 class="bold bottom">${apiTestResult.total}</h1>
             </div>
             <div class="fr" style="width:400px">
@@ -243,7 +266,7 @@
 
         <div class="clearfix mbl">
             <div class="containerGrayBox fl mrl" style="width:121px;">
-                <div class="small">Change from ${apiTestResult.year} to ${previousYear}</div>
+                <div class="small make-2b2b2b">Change from ${apiTestResult.year} to ${previousYear}</div>
                 <c:choose>
                     <c:when test="${not empty scoreChange}">
                         <c:choose>
@@ -269,7 +292,7 @@
         <div class="clearfix mbl">
             <div class="containerGrayBox fl mrl" style="width:121px;">
                 <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
-                    <div class="small">API Statewide Rank<br/> (${apiStateRank.year})</div>
+                    <div class="small make-2b2b2b">API Statewide Rank<br/> (${apiStateRank.year})</div>
                     <h1 class="bold bottom">${apiStateRank.apiStateRank}</h1>
                 </c:if>
             </div>
@@ -281,7 +304,7 @@
         <div class="clearfix mbl">
             <div class="containerGrayBox fl mrl" style="width:121px;">
                 <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
-                    <div class="small">API similar schools Rank (${apiSimilarSchoolsRank.year})</div>
+                    <div class="small make-2b2b2b">API similar schools Rank (${apiSimilarSchoolsRank.year})</div>
                     <h1 class="bold bottom">${apiSimilarSchoolsRank.apiSimilarRank}</h1>
                 </c:if>
             </div>
@@ -291,6 +314,7 @@
             </div>
         </div>
     </div>
+    <div class="fr" style="width: 400px"><a href="#" class="small bottom">Back to top &amp;uarr;</a></div>
 
     <![CDATA[
         <script>
