@@ -1,6 +1,5 @@
 package gs.web.school;
 
-import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.*;
@@ -20,6 +19,7 @@ public class ApiTestResultsHelper {
     public static final String MODEL_API_SCORE_CHANGE = "scoreChange";
     public static final String MODEL_API_STATE_RANK = "apiStateRank";
     public static final String MODEL_API_SIMILAR_SCHOOLS_RANK = "apiSimilarSchoolsRank";
+    public static final String MODEL_API_TEST_ETHNICITY_MAP = "apiTestEthnicityMap";
 
     @Autowired
     private IApiResultDao _apiResultDao;
@@ -54,6 +54,8 @@ public class ApiTestResultsHelper {
 
                     apiTestResultsMap.put(MODEL_MOST_RECENT_API_RESULT, apiTestResultForLatestYear);
 
+                    apiTestResultsMap.put(MODEL_API_TEST_ETHNICITY_MAP, buildApiTestResultsMap(apiTestResultForLatestYear));
+
                     putApiTestScoreChange(historicalApiTestResults, apiTestResultsMap);
                     putTrendDataForApiGrowth(historicalApiTestResults, apiTestResultsMap);
                     putMostRecentStateRank(school, apiTestResultsMap);
@@ -64,6 +66,110 @@ public class ApiTestResultsHelper {
             }
         }
         return null;
+    }
+
+    /**
+     * Builds of a map of ethnicity name to ApiResult, so that view logic is simpler and doesnt need to check
+     * if each ethnicity exists
+     * @param originalApiResult
+     * @return
+     */
+    public Map<String, ApiResultForView> buildApiTestResultsMap(ApiResult originalApiResult) {
+
+        Map<String, ApiResultForView> map = new HashMap<String, ApiResultForView>();
+
+        if (originalApiResult.getAfricanAmerican() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "African American",
+                originalApiResult.getAfricanAmerican(),
+                originalApiResult.getAfricanAmericanNumTested(),
+                originalApiResult
+            );
+            map.put("African American", apiResultForView);
+        }
+        if (originalApiResult.getAmericanIndian() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "American Indian",
+                originalApiResult.getAmericanIndianNumTested(),
+                originalApiResult.getAmericanIndianNumTested(),
+                originalApiResult
+            );
+            map.put("American Indian", apiResultForView);
+        }
+        if (originalApiResult.getAsian() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "Asian",
+                originalApiResult.getAsian(),
+                originalApiResult.getAsianNumTested(),
+                originalApiResult
+            );
+            map.put("Asian", apiResultForView);
+        }
+        if (originalApiResult.getFilipino() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "Filipino",
+                originalApiResult.getFilipino(),
+                originalApiResult.getFilipinoNumTested(),
+                originalApiResult
+            );
+            map.put("Filipino", apiResultForView);
+        }
+        if (originalApiResult.getHispanic() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "Hispanic",
+                originalApiResult.getHispanic(),
+                originalApiResult.getHispanicNumTested(),
+                originalApiResult
+            );
+            map.put("Hispanic", apiResultForView);
+        }
+        if (originalApiResult.getPacificIslander() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "Pacific Islander",
+                originalApiResult.getPacificIslander(),
+                originalApiResult.getPacificIslanderNumTested(),
+                originalApiResult
+            );
+            map.put("Pacific Islander", apiResultForView);
+        }
+        if (originalApiResult.getWhite() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "White",
+                originalApiResult.getWhite(),
+                originalApiResult.getWhiteNumTested(),
+                originalApiResult
+            );
+            map.put("White", apiResultForView);
+        }
+        if (originalApiResult.getSocioEconDisadv() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "Socioeconomic Disadvantage",
+                originalApiResult.getSocioEconDisadv(),
+                originalApiResult.getSocioEconDisadvNumTested(),
+                originalApiResult
+            );
+            map.put("Socioeconomic Disadvantage", apiResultForView);
+        }
+        if (originalApiResult.getEnglishLangLearners() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "English Language Learners",
+                originalApiResult.getEnglishLangLearners(),
+                originalApiResult.getEnglishLangLearnersNumTested(),
+                originalApiResult
+            );
+            map.put("English Language Learners", apiResultForView);
+        }
+        if (originalApiResult.getDisabled() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "Students with disability",
+                originalApiResult.getDisabled(),
+                originalApiResult.getDisabledNumTested(),
+                originalApiResult
+            );
+            map.put("Students with disability", apiResultForView);
+        }
+
+        return map;
     }
 
     public List<Map<String,Integer>> getDataForStateApiGrowth(State state) {
@@ -174,5 +280,52 @@ public class ApiTestResultsHelper {
 
     public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {
         _testDataStateValueDao = testDataStateValueDao;
+    }
+}
+
+class ApiResultForView {
+    private String _title;
+    private Integer _apiScore;
+    private Integer _numTested;
+
+    private ApiResult _originalApiResult;
+
+    ApiResultForView(String title, Integer apiScore, Integer numTested, ApiResult originalApiResult) {
+        _title = title;
+        _apiScore = apiScore;
+        _numTested = numTested;
+        _originalApiResult = originalApiResult;
+    }
+
+    public String getTitle() {
+        return _title;
+    }
+
+    public void setTitle(String title) {
+        _title = title;
+    }
+
+    public Integer getApiScore() {
+        return _apiScore;
+    }
+
+    public void setApiScore(Integer apiScore) {
+        _apiScore = apiScore;
+    }
+
+    public Integer getNumTested() {
+        return _numTested;
+    }
+
+    public void setNumTested(Integer numTested) {
+        _numTested = numTested;
+    }
+
+    public ApiResult getOriginalApiResult() {
+        return _originalApiResult;
+    }
+
+    public void setOriginalApiResult(ApiResult originalApiResult) {
+        _originalApiResult = originalApiResult;
     }
 }
