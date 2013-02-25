@@ -281,51 +281,51 @@ public class ApiTestResultsHelper {
     public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {
         _testDataStateValueDao = testDataStateValueDao;
     }
-}
+    // Public class so view layer can access
+    public static class ApiResultForView {
+        private String _title;
+        private Integer _apiScore;
+        private Integer _numTested;
 
-class ApiResultForView {
-    private String _title;
-    private Integer _apiScore;
-    private Integer _numTested;
+        private ApiResult _originalApiResult;
 
-    private ApiResult _originalApiResult;
+        ApiResultForView(String title, Integer apiScore, Integer numTested, ApiResult originalApiResult) {
+            _title = title;
+            _apiScore = apiScore;
+            _numTested = numTested;
+            _originalApiResult = originalApiResult;
+        }
 
-    ApiResultForView(String title, Integer apiScore, Integer numTested, ApiResult originalApiResult) {
-        _title = title;
-        _apiScore = apiScore;
-        _numTested = numTested;
-        _originalApiResult = originalApiResult;
-    }
+        public String getTitle() {
+            return _title;
+        }
 
-    public String getTitle() {
-        return _title;
-    }
+        public void setTitle(String title) {
+            _title = title;
+        }
 
-    public void setTitle(String title) {
-        _title = title;
-    }
+        public Integer getApiScore() {
+            return _apiScore;
+        }
 
-    public Integer getApiScore() {
-        return _apiScore;
-    }
+        public void setApiScore(Integer apiScore) {
+            _apiScore = apiScore;
+        }
 
-    public void setApiScore(Integer apiScore) {
-        _apiScore = apiScore;
-    }
+        public Integer getNumTested() {
+            return _numTested;
+        }
 
-    public Integer getNumTested() {
-        return _numTested;
-    }
+        public void setNumTested(Integer numTested) {
+            _numTested = numTested;
+        }
 
-    public void setNumTested(Integer numTested) {
-        _numTested = numTested;
-    }
+        public ApiResult getOriginalApiResult() {
+            return _originalApiResult;
+        }
 
-    public ApiResult getOriginalApiResult() {
-        return _originalApiResult;
-    }
-
-    public void setOriginalApiResult(ApiResult originalApiResult) {
-        _originalApiResult = originalApiResult;
+        public void setOriginalApiResult(ApiResult originalApiResult) {
+            _originalApiResult = originalApiResult;
+        }
     }
 }

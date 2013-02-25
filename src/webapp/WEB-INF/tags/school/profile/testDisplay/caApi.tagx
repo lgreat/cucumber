@@ -12,7 +12,7 @@
     <c:set var="scoreChange" value="${apiTestResultsMap.scoreChange}"></c:set>
     <c:set var="apiStateRank" value="${apiTestResultsMap.apiStateRank}"></c:set>
     <c:set var="apiSimilarSchoolsRank" value="${apiTestResultsMap.apiSimilarSchoolsRank}"></c:set>
-    <c:set var="apiTestEthnicityMap" value="${apiTestEthnicityMap}"></c:set>
+    <c:set var="apiTestEthnicityMap" value="${apiTestResultsMap.apiTestEthnicityMap}"></c:set>
 
 
 
@@ -21,7 +21,7 @@
         values:[</c:set>
     <c:forEach items="${apiTestEthnicityMap}" var="barMap" varStatus="status">
         <c:set var="barGraphDataCaApi">${barGraphDataCaApi}
-            { title: "${barMap.title}", Y: ${barMap.apiScore}, N: ${barMap.numTested} }</c:set>
+            { title: "${barMap.value.title}", Y: ${barMap.value.apiScore}, N: ${barMap.value.numTested} }</c:set>
         <c:if test="${!status.last}">
             <c:set var="barGraphDataCaApi">${barGraphDataCaApi},</c:set>
         </c:if>
@@ -36,7 +36,7 @@
         <a href="#apiExplanation" class="noUnderline">
             <div class="containerGrayBox fl mrs" style="width:121px;">
 
-                <div class="small">This school's API scrore</div>
+                <div class="small">This school's API score</div>
                 <h1 class="bold bottom">${apiTestResult.total}</h1>
             </div>
         </a>
@@ -255,7 +255,7 @@
     <div id="apiExplanation" class="mtl">
         <div class="clearfix mbl">
             <div id="api" class="containerGrayBox fl mrl" style="width:121px;">
-                <div class="small make-2b2b2b">This school's API scrore</div>
+                <div class="small make-2b2b2b">This school's API score</div>
                 <h1 class="bold bottom">${apiTestResult.total}</h1>
             </div>
             <div class="fr" style="width:400px">
