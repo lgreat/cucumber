@@ -70,14 +70,27 @@
         <jsp:scriptlet>
             <![CDATA[
                 java.util.List colorList = new java.util.ArrayList();
-                colorList.add("#327FA0");
-                colorList.add("#E2B66C");
-                colorList.add("#DB7258");
-                colorList.add("#A4B41E");
+                colorList.add("#4393B5");
                 colorList.add("#38A37A");
+                colorList.add("#84D07C");
+                colorList.add("#E2B66C");
+                colorList.add("#E2937D");
+                colorList.add("#DA5F6E");
                 colorList.add("#B66483");
                 colorList.add("#7B498F");
                 colorList.add("#414F7B");
+                colorList.add("#A7A7A7");
+                colorList.add("#7CC7CE");
+                colorList.add("#489A9D");
+                colorList.add("#A4CEBB");
+                colorList.add("#649644");
+                colorList.add("#E0D152");
+                colorList.add("#F1A628");
+                colorList.add("#A3383A");
+                colorList.add("#8C734D");
+                colorList.add("#EA6394");
+                colorList.add("#CE92C0");
+                colorList.add("#5A78B1");
                 jspContext.setAttribute("pieChartColorList", colorList);
             ]]>
 
