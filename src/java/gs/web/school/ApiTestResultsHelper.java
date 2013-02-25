@@ -90,7 +90,7 @@ public class ApiTestResultsHelper {
         if (originalApiResult.getAmericanIndian() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
                 "American Indian",
-                originalApiResult.getAmericanIndianNumTested(),
+                originalApiResult.getAmericanIndian(),
                 originalApiResult.getAmericanIndianNumTested(),
                 originalApiResult
             );
