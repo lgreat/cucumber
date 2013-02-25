@@ -86,7 +86,7 @@
 
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
     </gsml:combinedJavascript>
-    <!--[if IE]><script type="text/javascript" src="/res/js/util/excanvas.complied.js"></script><![endif]-->
+    <!--[if lt IE 9]><script type="text/javascript" src="/res/js/util/excanvas.js"></script><![endif]-->
     <script type="text/javascript">
         var GS_PieLoader = [];
         $.getScript("https://www.google.com/jsapi", function() {
