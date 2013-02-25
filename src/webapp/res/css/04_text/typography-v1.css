@@ -112,6 +112,7 @@ pre         { margin: 1.5em 0; white-space: pre; }
 pre,
 code,
 tt { font: 1em/1.5 'andale mono','lucida console', monospace; margin-left: 20px; color: #2b2b2b; }
+.bold{ font-weight: bold; }
 
 
 /* Lists
