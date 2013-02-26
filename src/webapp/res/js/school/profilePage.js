@@ -1102,3 +1102,21 @@ function drawGraphContainer (options) {
         drawLegend(canvas_obj, data.values);
     }
 };
+
+// School review moderation
+function disableReview(reviewId) {
+    jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/deactivateContent.page', {
+        contentId:reviewId,
+        contentType:'schoolReview'}).done(function() {
+            window.location.reload();
+        });
+}
+
+function enableReview(reviewId) {
+    jQuery.post(GS.uri.Uri.getBaseHostname () + '/community/deactivateContent.page', {
+        contentId:reviewId,
+        contentType:'schoolReview',
+        reactivate:true}).done(function() {
+            window.location.reload();
+        });
+}
