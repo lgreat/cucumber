@@ -24,6 +24,12 @@ public class AdUtilTest extends BaseTestCase {
 
         school1.setId(12222);
         assertNotNull("Expect CA-12222 to be a k12 affiliate", AdUtil.getK12AffiliateLinkForSchool(school1, "te"));
+        assertTrue("Expect CA-12222 to be a k12 affiliate", AdUtil.getK12AffiliateLinkForSchool(school1, "te").contains("&school="));
+
+        school1.setId(24782);
+        assertNotNull("Expect CA-24782 to be a k12 affiliate with url template", AdUtil.getK12AffiliateLinkForSchool(school1, "te"));
+        assertTrue("Expect CA-24782 to be a k12 affiliate with url template", AdUtil.getK12AffiliateLinkForSchool(school1, "te").contains("&url="));
+
         assertTrue(AdUtil.getK12AffiliateLinkForSchool(school1, "zz").contains("zz"));
     }
 }
