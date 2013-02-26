@@ -54,7 +54,7 @@ public class ApiTestResultsHelper {
 
                 //To display API results, there should be results for at least 1 year of data.
                 if (apiTestResultForLatestYear != null && apiTestResultForLatestYear.getYear() != null
-                        && apiTestResultForLatestYear.getTotal() != null) {
+                        && apiTestResultForLatestYear.getTotal() != null && apiTestResultForLatestYear.getTotal() != 0) {
                     Map<String, Object> apiTestResultsMap = new HashMap<String, Object>();
 
                     apiTestResultsMap.put(MODEL_MOST_RECENT_API_RESULT, apiTestResultForLatestYear);
@@ -217,7 +217,7 @@ public class ApiTestResultsHelper {
         if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty() && historicalApiTestResults.size() > 1) {
             List<Map<String, Integer>> apiGrowthTrend = new ArrayList<Map<String, Integer>>();
             for (ApiResult apiResult : historicalApiTestResults) {
-                if (apiResult.getYear() != null && apiResult.getTotal() != null) {
+                if (apiResult.getYear() != null && apiResult.getTotal() != null && apiResult.getTotal() != 0) {
 
                     Map<String, Integer> apiYearAndGrowth = new HashMap<String, Integer>();
                     apiYearAndGrowth.put("apiGrowth", apiResult.getTotal());
@@ -245,7 +245,7 @@ public class ApiTestResultsHelper {
             modelMap.put(MODEL_PREVIOUS_YEAR, previousYear);
             ApiResult previousYearApiTestResult = historicalApiTestResults.get(1);
             if (previousYear == previousYearApiTestResult.getYear() && previousYearApiTestResult != null
-                    && previousYearApiTestResult.getTotalBase() != null) {
+                    && previousYearApiTestResult.getTotalBase() != null && previousYearApiTestResult.getTotalBase() != 0) {
                 Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
                 modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
             }
