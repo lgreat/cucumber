@@ -15,11 +15,7 @@
     <c:set var="apiTestEthnicityMap" value="${apiTestResultsMap.apiTestEthnicityMap}"></c:set>
 
 
-    <![CDATA[
-        <!--[if lte IE 8]>
-            <script type="text/javascript" src="/res/js/util/excanvas.js"></script>
-        <![endif]-->
-        ]]>
+
     <c:set var="barGraphDataCaApi">var data_bar =
         {
         values:[</c:set>
