@@ -78,9 +78,10 @@
                                                         href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
                                                         class="small">See Louisiana's state standards</a></c:when>
                                             </c:choose>
-
-                                            <p class="mtl small quiet">
-                                                <strong>Source:</strong> ${testToGrades.source}</p>
+                                            <c:if test="${not empty testToGrades.source}">
+                                                <p class="mtl small quiet">
+                                                    <strong>Source:</strong> ${testToGrades.source}</p>
+                                            </c:if>
                                         </c:set>
 
                                         <c:choose>

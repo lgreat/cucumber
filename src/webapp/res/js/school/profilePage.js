@@ -907,7 +907,7 @@ function drawGraphContainer (options) {
         c.fillText(text,(offsetx + 20), (offsety + linespacer*i));
     }
 
-    var yearToInt = new Array();
+    var yearToInt = {};
     var yearXCounter = 0;
     var createYearRange = function(){
         //CREATE year range
@@ -921,7 +921,7 @@ function drawGraphContainer (options) {
         }
         //build year array
         for(var i = yearMin; i <= yearMax; i++) {
-            yearToInt[i] = yearXCounter;
+            yearToInt[i.toString()] = yearXCounter;
             yearXCounter++;
         }
     }
@@ -944,8 +944,13 @@ function drawGraphContainer (options) {
             c.fillText(data.x_axis_title, ((w + xPadding)/2), settings['height'] - yPadding + 20);
         }
         else{
+            console.log("TEST BEFORE");
             createYearRange();
+            console.log("TEST After");
+            console.log("TEST yearToInt:"+yearToInt);
+
             $.each(yearToInt, function(key, value) {
+                console.log("TEST key:"+key);
                 c.fillText(key, getXPixel(value), settings['height'] - yPadding + 20);
             });
         }
