@@ -30,19 +30,15 @@
     x_axis_title: "Sub Groups"
     };
     </c:set>
-    <!--API Results ${apiTestResult.year}  <br/>-->
-    <p class="small">The API reflects the year-over-year schools performance based on STAR test score results from spring ${apiTestResult.year}.</p>
+    <p class="small">The API reflects year-over-year schools performance based on STAR test score results from spring ${apiTestResult.year}.</p>
     <div class="clearfix mbm">
-        <a href="#apiExplanation" class="noUnderline">
             <div class="containerGrayBox fl mrs" style="width:121px;">
 
                 <div class="small">This school's API score</div>
                 <h1 class="bold bottom">${apiTestResult.total}</h1>
             </div>
-        </a>
-        <a href="#apiExplanation" class="noUnderline">
         <div class="containerGrayBox fl mrs" style="width:121px;">
-            <div class="small">Change from ${apiTestResult.year} to ${previousYear}</div>
+            <div class="small">Change from ${previousYear} to ${apiTestResult.year}</div>
             <c:choose>
                 <c:when test="${not empty scoreChange}">
                     <c:choose>
@@ -55,36 +51,31 @@
                     </c:choose>
                 </c:when>
                 <c:otherwise>
-                    Not available
+                    <h1 class="bold bottom">N/A</h1>
                 </c:otherwise>
             </c:choose>
         </div>
-        </a>
-        <a href="#apiExplanation" class="noUnderline">
         <div class="containerGrayBox fl mrs" style="width:121px;">
             <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
                 <div class="small">API Statewide Rank<br/> (${apiStateRank.year})</div>
-                <h1 class="bold bottom">${apiStateRank.apiStateRank}</h1>
+                <h1 class="bold bottom">${apiStateRank.apiStateRank} / 10</h1>
             </c:if>
         </div>
-        </a>
-        <a href="#apiExplanation" class="noUnderline">
         <div class="containerGrayBox fl" style="width:121px;">
             <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
                 <div class="small">API similar schools Rank (${apiSimilarSchoolsRank.year})</div>
-                <h1 class="bold bottom">${apiSimilarSchoolsRank.apiSimilarRank}</h1>
+                <h1 class="bold bottom">${apiSimilarSchoolsRank.apiSimilarRank} / 10</h1>
             </c:if>
         </div>
-        </a>
     </div>
 
     <div class="small">
-        <a>What do those number mean?</a>
+        <a href="#apiExplanation">What do those number mean? &amp;raquo;</a>
     </div>
 
     <hr class="keyline1"/>
 
-    <h4 class="mtl">API scores over time</h4>
+    <h3 class="mtl">API scores over time</h3>
         <div style="position:relative">
             <canvas id="graph" width="400" height="200"></canvas>
         </div>
@@ -142,95 +133,22 @@
         <ul class="disc small">
             <c:choose>
                 <c:when test="${apiTestResult.apiSchoolWide == 'Yes'}">
-                    <c:if test="${apiTestResult.total lt '800'}"><li>This school met its schoolwide API target for ${apiTestResult.year}.</li></c:if>
-                    <li>This school met the state goal of 800.</li>
+                    <c:if test="${apiTestResult.total lt '800'}"><li>This school <span class="bold">met</span> its schoolwide API target for ${apiTestResult.year}.</li></c:if>
+                    <li>This school <span class="bold">met</span> the state goal of 800.</li>
                 </c:when>
                 <c:otherwise>
-                    <c:if test="${apiTestResult.total lt '800'}"><li>This school did not meet its schoolwide API target for ${apiTestResult.year}.</li></c:if>
-                    <li>This school has not yet met the state goal of 800.</li>
+                    <c:if test="${apiTestResult.total lt '800'}"><li>This school <span class="bold">did not meet</span> its schoolwide API target for ${apiTestResult.year}.</li></c:if>
+                    <li>This school <span class="bold">has not yet met</span> the state goal of 800.</li>
                 </c:otherwise>
             </c:choose>
         </ul>
     </c:if>
 
-    <h4 class="mtl">API Results by Subgroups</h4>
+    <h4 class="mtl">API results by subgroups</h4>
 
     <div style="position:relative">
         <canvas id="graph2" width="400" height="200"></canvas>
     </div>
-    <!--All Students (${apiTestResult.total}) <br/>-->
-    <!--<c:if test="${not empty apiTestResult.africanAmerican}">-->
-        <!--African American (${apiTestResult.africanAmerican})-->
-        <!--<c:if test="${not empty apiTestResult.africanAmericanNumTested}">-->
-            <!--Num Tested:${apiTestResult.africanAmericanNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.americanIndian}">-->
-        <!--American Indian (${apiTestResult.americanIndian})-->
-        <!--<c:if test="${not empty apiTestResult.americanIndianNumTested}">-->
-            <!--Num Tested:${apiTestResult.americanIndianNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.asian}">-->
-        <!--Asian (${apiTestResult.asian})-->
-        <!--<c:if test="${not empty apiTestResult.asianNumTested}">-->
-            <!--Num Tested:${apiTestResult.asianNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.filipino}">-->
-        <!--Finipino (${apiTestResult.filipino})-->
-        <!--<c:if test="${not empty apiTestResult.filipinoNumTested}">-->
-            <!--Num Tested:${apiTestResult.filipinoNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.hispanic}">-->
-        <!--Hispanic (${apiTestResult.hispanic})-->
-        <!--<c:if test="${not empty apiTestResult.hispanicNumTested}">-->
-            <!--Num Tested:${apiTestResult.hispanicNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.pacificIslander}">-->
-        <!--Pacific Islander (${apiTestResult.pacificIslander})-->
-        <!--<c:if test="${not empty apiTestResult.pacificIslanderNumTested}">-->
-            <!--Num Tested:${apiTestResult.pacificIslanderNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.white}">-->
-        <!--White (${apiTestResult.white})-->
-        <!--<c:if test="${not empty apiTestResult.whiteNumTested}">-->
-            <!--Num Tested:${apiTestResult.whiteNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.socioEconDisadv}">-->
-        <!--Socioeconomic Disadvantage (${apiTestResult.socioEconDisadv})-->
-        <!--<c:if test="${not empty apiTestResult.socioEconDisadvNumTested}">-->
-            <!--Num Tested:${apiTestResult.socioEconDisadvNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.englishLangLearners}">-->
-        <!--English Language Learners (${apiTestResult.englishLangLearners})-->
-        <!--<c:if test="${not empty apiTestResult.englishLangLearnersNumTested}">-->
-            <!--Num Tested:${apiTestResult.englishLangLearnersNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-    <!--<c:if test="${not empty apiTestResult.disabled}">-->
-        <!--Students with disability (${apiTestResult.disabled})-->
-        <!--<c:if test="${not empty apiTestResult.disabledNumTested}">-->
-            <!--Num Tested:${apiTestResult.disabledNumTested}-->
-        <!--</c:if>-->
-        <!--<br/>-->
-    <!--</c:if>-->
-
-    <!--<br/>-->
 
     <c:if test="${not empty apiTestResult.apiComparable}">
         <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
@@ -240,15 +158,13 @@
         <ul class="disc small">
             <c:choose>
                 <c:when test="${apiTestResult.apiComparable == 'yes'}">
-                    <li>This school met all student subgroup API targets for ${apiTestResult.year}</li>
+                    <li>This school <span class="bold">met</span> all student subgroup API targets for ${apiTestResult.year}</li>
                 </c:when>
                 <c:otherwise>
-                    <li>This school did not meet all student subgroup API targets for ${apiTestResult.year}</li>
+                    <li>This school <span class="bold">did not meet</span> all student subgroup API targets for ${apiTestResult.year}</li>
                 </c:otherwise>
             </c:choose>
-            <!--<li>This school met(did not meet) all student subgroup API targets for ${apiTestResult.year}</li>-->
         </ul>
-        <!--Did this school meet its all subgroup growth targets for ${apiTestResult.year}? ${apiTestResult.apiComparable} <br/>-->
     </c:if>
 
     <hr class="keyline1"/>
@@ -259,7 +175,7 @@
                 <h1 class="bold bottom">${apiTestResult.total}</h1>
             </div>
             <div class="fr" style="width:400px">
-                <h3 class="bold bottom">What is the API?</h3>
+                <h5 class="bold bottom">What is the API?</h5>
                 <div class="mtm">The Academic Performance Index (API) is a single number assigned to each school by the California Department of Education to measure overall school performance and improvement over time on statewide testing. The API ranges from 200 and 1000, with 800 as the state goal for all schools.</div>
             </div>
         </div>
@@ -284,7 +200,7 @@
                 </c:choose>
             </div>
             <div class="fr" style="width:400px">
-                <h3 class="bold bottom">Change from 2011 to 2012</h3>
+                <h5 class="bold bottom">Change from 2011 to 2012</h5>
                 <div class="mtm">Comparing the API Growth to the Base shows whether or not this school’s test score performance improved between Spring 2011 and Spring 2012. The API ranges between 200 and 1000, with 800 as the statewide goal for all schools. Schools scoring below an 800 are given at least a 5 point target for the next year.</div>
             </div>
         </div>
@@ -297,7 +213,7 @@
                 </c:if>
             </div>
             <div class="fr" style="width:400px">
-                <h3 class="bold bottom">API Statewide Rank (2011)</h3>
+                <h5 class="bold bottom">API Statewide Rank (2011)</h5>
                 <div class="mtm">The API Statewide Rank ranges from 1 to 10. A rank of 10, for example, means that the school’s API fell into the top 10% of all schools in the state with a comparable grade range. The 2011 rank is based on results from tests students took in Spring 2011.</div>
             </div>
         </div>
@@ -309,7 +225,7 @@
                 </c:if>
             </div>
             <div class="fr" style="width:400px">
-                <h3 class="bold bottom">API Similar Schools Rank (2011)</h3>
+                <h5 class="bold bottom">API Similar Schools Rank (2011)</h5>
                 <div class="mtm">The API Similar Schools Rank ranges from 1 to 10. It shows how the school compares to other schools with similar student demographic profiles. The California Department of Education uses parent education level, poverty level, student ethnicity and other data to identify similar schools.</div>
             </div>
         </div>
