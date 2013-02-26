@@ -133,12 +133,18 @@
         <div class="small">The state goal for API is 800. All schools that are below 800 are assigned an API improvment target each year.</div>
         <ul class="disc small">
             <c:choose>
-                <c:when test="${fn:toLowerCase(apiTestResult.apiSchoolWide) eq 'yes'}">
-                    <c:if test="${apiTestResult.total lt '800'}"><li>This school <span class="bold">met</span> its schoolwide API target for ${apiTestResult.year}.</li></c:if>
+                <c:when test="${apiTestResult.total ge 800}">
                     <li>This school <span class="bold">met</span> the state goal of 800.</li>
                 </c:when>
                 <c:otherwise>
-                    <c:if test="${apiTestResult.total lt '800'}"><li>This school <span class="bold">did not meet</span> its schoolwide API target for ${apiTestResult.year}.</li></c:if>
+                    <c:choose>
+                        <c:when test="${fn:toLowerCase(apiTestResult.apiSchoolWide) eq 'yes'}">
+                            <li>This school <span class="bold">met</span> its schoolwide API target for ${apiTestResult.year}.</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>This school <span class="bold">did not meet</span> its schoolwide API target for ${apiTestResult.year}.</li>
+                        </c:otherwise>
+                    </c:choose>
                     <li>This school <span class="bold">has not yet met</span> the state goal of 800.</li>
                 </c:otherwise>
             </c:choose>
