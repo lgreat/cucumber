@@ -32,7 +32,12 @@ public class ApiTestResultsHelper {
         }
 
         Map<String,Object> apiTestResultsMap = new HashMap<String,Object>();
-        apiTestResultsMap.putAll(getApiTestResultsForSchool(school));
+        Map<String, Object> testResultsForSchool = getApiTestResultsForSchool(school);
+        if (testResultsForSchool != null && testResultsForSchool.size() > 0) {
+            apiTestResultsMap.putAll(testResultsForSchool);
+        } else {
+            return null;
+        }
         apiTestResultsMap.put(MODEL_STATE_API_GROWTH_TREND, getDataForStateApiGrowth(school.getDatabaseState()));
         return apiTestResultsMap;
     }
