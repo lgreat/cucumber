@@ -72,7 +72,8 @@
         <!--[if lte IE 8]>
             <script type="text/javascript" src="/res/js/util/excanvas.js"></script>
         <![endif]-->
-        ]]>
+    ]]>
+
     <gsml:combinedJavascript src="/res/js/school-profile.min.js">
         <!-- files to includes on dev workstations... must also exist in gsweb's pom.xml -->
         <gsml:javascript src="/res/js/json2.js"/>
@@ -92,6 +93,8 @@
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
     </gsml:combinedJavascript>
 
+
+
     <script type="text/javascript">
         var GS_PieLoader = [];
         $.getScript("https://www.google.com/jsapi", function() {
@@ -107,6 +110,7 @@
                 return "sphead_overview_${school.databaseState}${school.id}";
             });
         });
+
     </script>
 
     <k12:trafficDriverIncludes/>

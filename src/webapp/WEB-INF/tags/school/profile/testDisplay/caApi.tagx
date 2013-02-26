@@ -78,7 +78,7 @@
 
     <h3 class="mtl">API scores over time</h3>
         <div style="position:relative">
-            <canvas id="graph" width="400" height="200"></canvas>
+            <canvas id="graphCanvasCaApi" width="400" height="200"></canvas>
         </div>
         <c:set var="lineGraphDataCaApi">var data = [</c:set>
         <c:forEach items="${apiGrowthTrend}" var="trendMap" varStatus="status">
@@ -238,10 +238,8 @@
             ${lineGraphDataCaApi}
             ${barGraphDataCaApi}
             $(document).ready(function() {
-                <!--window.setTimeout(function(){loadGraphsCaApi()},1000);-->
-                <!--function loadGraphsCaApi(){-->
 				drawGraphContainer({
-					'layerId' :  'graph',
+					'layerId' :  'graphCanvasCaApi',
 					'data' : data,
 					'colors' : color_lines,
 					'y_min' : getMinYLines(),
@@ -259,7 +257,6 @@
 					'graph_type' : 'bar_graph',
 					'legend_width' : 140
 				});
-				<!--}-->
 			});
         </script>
     ]]>
