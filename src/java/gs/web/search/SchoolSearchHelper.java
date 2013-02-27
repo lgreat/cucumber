@@ -337,4 +337,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         return gsSolrQuery;
     }
 
+    public void setSearchAdHelper(SearchAdHelper _searchAdHelper) {
+        this._searchAdHelper = _searchAdHelper;
+    }
 }
