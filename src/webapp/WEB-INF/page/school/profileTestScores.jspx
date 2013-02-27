@@ -60,25 +60,35 @@
                                         or testToGrades.displayType eq 'nyc_progress_report_grade' or testToGrades.displayType eq 'ca_api_growth'}"/>
 
                                         <!-- test source and description -->
+                                        <c:set var="testAboutAndSourceShow" value="false"/>
                                         <c:set var="testSourceAndDescription">
                                             <div class="clearfloat"><!-- not empty --></div>
                                             <h4 class="pbn mbs">About the tests</h4>
                                             <hr class="keyline1"/>
                                             <div class="clear mbl"><!-- do not collapse --></div>
                                             <p class="quiet">${testToGrades.description}</p>
+                                            <c:if test="${not empty testToGrades.description}">
+                                                <c:set var="testAboutAndSourceShow" value="true"/>
+                                            </c:if>
                                             <c:if test="${testToGrades.isSubgroup and not empty testToGrades.subgroupDescription}">
+                                                <c:if test="${not empty testToGrades.subgroupDescription}">
+                                                    <c:set var="testAboutAndSourceShow" value="true"/>
+                                                </c:if>
                                                 <p class="quiet">${testToGrades.subgroupDescription}</p>
                                             </c:if>
                                             <c:set var="stateCheck" value="${school.physicalAddress.state}"/>
                                             <c:choose>
-                                                <c:when test="${(stateCheck eq 'IL') and (testToGrades.isSubgroup eq false )}"><a
-                                                        href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
+                                                <c:when test="${(stateCheck eq 'IL') and (testToGrades.isSubgroup eq false )}">
+                                                    <c:set var="testAboutAndSourceShow" value="true"/>
+                                                    <a href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
                                                         class="small">See Illinois' state standards</a></c:when>
-                                                <c:when test="${stateCheck eq 'LA'}"><a
-                                                        href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
+                                                <c:when test="${stateCheck eq 'LA'}">
+                                                    <c:set var="testAboutAndSourceShow" value="true"/>
+                                                    <a href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
                                                         class="small">See Louisiana's state standards</a></c:when>
                                             </c:choose>
                                             <c:if test="${not empty testToGrades.source}">
+                                                <c:set var="testAboutAndSourceShow" value="true"/>
                                                 <p class="mtl small quiet">
                                                     <strong>Source:</strong> ${testToGrades.source}</p>
                                             </c:if>
@@ -99,8 +109,9 @@
                                                             <testDisplay:caApi apiTestResultsMap="${apiTestResultsMap}"/>
                                                         </c:when>
                                                     </c:choose>
-
-                                                    ${testSourceAndDescription}
+                                                    <c:if test="${testAboutAndSourceShow == true}">
+                                                        ${testSourceAndDescription}
+                                                    </c:if>
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
@@ -139,8 +150,9 @@
                                                                 </c:choose>
                                                             </c:forEach>
                                                             <c:out value="${scalesUsed}" escapeXml="false"/>
-
-                                                            ${testSourceAndDescription}
+                                                            <c:if test="${testAboutAndSourceShow == true}">
+                                                                ${testSourceAndDescription}
+                                                            </c:if>
                                                         </div>
                                                     </c:if>
                                                 </c:forEach>
