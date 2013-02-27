@@ -143,17 +143,18 @@
             ${lineGraphDataCaApi}
             ];</c:set>
 
-    <c:if test="${not empty apiTestResult.apiSchoolWide}">
-        <div class="containerBlueBox mbl">
-            <h5 class="bold bottom">Did this school meet the API goal this year?</h5>
 
-            <div class="small">The state goal for API is 800. All schools that are below 800 are assigned an API improvement target each year.</div>
-            <ul class="disc small bottom">
-                <c:choose>
-                    <c:when test="${apiTestResult.total ge 800}">
-                        <li>This school <span class="bold">met</span> the state goal of 800.</li>
-                    </c:when>
-                    <c:otherwise>
+    <div class="containerBlueBox mbl">
+        <h5 class="bold bottom">Did this school meet the API goal this year?</h5>
+
+        <div class="small">The state goal for API is 800. All schools that are below 800 are assigned an API improvement target each year.</div>
+        <ul class="disc small bottom">
+            <c:choose>
+                <c:when test="${apiTestResult.total ge 800}">
+                    <li>This school <span class="bold">met</span> the state goal of 800.</li>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${not empty apiTestResult.apiSchoolWide}">
                         <c:choose>
                             <c:when test="${fn:toLowerCase(apiTestResult.apiSchoolWide) eq 'yes'}">
                                 <li>This school <span
@@ -166,12 +167,12 @@
                                 </li>
                             </c:otherwise>
                         </c:choose>
-                        <li>This school <span class="bold">has not yet met</span> the state goal of 800.</li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
-        </div>
-    </c:if>
+                    </c:if>
+                    <li>This school <span class="bold">has not yet met</span> the state goal of 800.</li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </div>
 
     <hr class="keyline1"/>
 
