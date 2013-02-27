@@ -144,26 +144,33 @@
             ];</c:set>
 
     <c:if test="${not empty apiTestResult.apiSchoolWide}">
-        <h5 class="bold bottom">Did this school meet the API goal this year?</h5>
-        <div class="small">The state goal for API is 800. All schools that are below 800 are assigned an API improvement target each year.</div>
-        <ul class="disc small">
-            <c:choose>
-                <c:when test="${apiTestResult.total ge 800}">
-                    <li>This school <span class="bold">met</span> the state goal of 800.</li>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${fn:toLowerCase(apiTestResult.apiSchoolWide) eq 'yes'}">
-                            <li>This school <span class="bold">met</span> its schoolwide API target for ${apiTestResult.year}.</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li>This school <span class="bold">did not meet</span> its schoolwide API target for ${apiTestResult.year}.</li>
-                        </c:otherwise>
-                    </c:choose>
-                    <li>This school <span class="bold">has not yet met</span> the state goal of 800.</li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+        <div class="containerBlueBox mbl">
+            <h5 class="bold bottom">Did this school meet the API goal this year?</h5>
+
+            <div class="small">The state goal for API is 800. All schools that are below 800 are assigned an API improvement target each year.</div>
+            <ul class="disc small bottom">
+                <c:choose>
+                    <c:when test="${apiTestResult.total ge 800}">
+                        <li>This school <span class="bold">met</span> the state goal of 800.</li>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${fn:toLowerCase(apiTestResult.apiSchoolWide) eq 'yes'}">
+                                <li>This school <span
+                                        class="bold">met</span> its schoolwide API target for ${apiTestResult.year}.
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>This school <span
+                                        class="bold">did not meet</span> its schoolwide API target for ${apiTestResult.year}.
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <li>This school <span class="bold">has not yet met</span> the state goal of 800.</li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
     </c:if>
 
     <hr class="keyline1"/>
@@ -175,20 +182,26 @@
     </div>
 
     <c:if test="${not empty apiTestResult.apiComparable}">
-        <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
-        <div class="small">
-            The state goal for the API is 800. All the student subgroups at a school that a below 800 are assigned an API improvement target each year.
+        <div class="containerBlueBox mbl">
+            <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
+
+            <div class="small">
+                The state goal for the API is 800. All the student subgroups at a school that a below 800 are assigned an API improvement target each year.
+            </div>
+            <ul class="disc small bottom">
+                <c:choose>
+                    <c:when test="${fn:toLowerCase(apiTestResult.apiComparable) eq 'yes'}">
+                        <li>This school <span
+                                class="bold">met</span> all student subgroup API targets for ${apiTestResult.year}</li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>This school <span
+                                class="bold">did not meet</span> all student subgroup API targets for ${apiTestResult.year}
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
         </div>
-        <ul class="disc small">
-            <c:choose>
-                <c:when test="${fn:toLowerCase(apiTestResult.apiComparable) eq 'yes'}">
-                    <li>This school <span class="bold">met</span> all student subgroup API targets for ${apiTestResult.year}</li>
-                </c:when>
-                <c:otherwise>
-                    <li>This school <span class="bold">did not meet</span> all student subgroup API targets for ${apiTestResult.year}</li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
     </c:if>
 
     <hr class="keyline1"/>
