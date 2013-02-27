@@ -944,13 +944,8 @@ function drawGraphContainer (options) {
             c.fillText(data.x_axis_title, ((w + xPadding)/2), settings['height'] - yPadding + 20);
         }
         else{
-            console.log("TEST BEFORE");
             createYearRange();
-            console.log("TEST After");
-            console.log("TEST yearToInt:"+yearToInt);
-
             $.each(yearToInt, function(key, value) {
-                console.log("TEST key:"+key);
                 c.fillText(key, getXPixel(value), settings['height'] - yPadding + 20);
             });
         }
@@ -1086,9 +1081,10 @@ function drawGraphContainer (options) {
     var xPadding = 50;
     var yPadding = 30;
     var graph = $('#'+settings['layerId']);
+    var graphcanvas = document.getElementById(settings['layerId']);
     graph[0].width = settings['width'];
     graph[0].height = settings['height'];
-    var canvas_obj = graph[0].getContext('2d');
+    var canvas_obj = graphcanvas.getContext('2d');
 
 
     if(settings['graph_type'] == "line_graph"){
