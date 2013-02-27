@@ -223,7 +223,7 @@ public class ApiTestResultsHelper {
      * @param modelMap
      */
     protected void putTrendDataForApiGrowth(List<ApiResult> historicalApiTestResults, Map modelMap) {
-        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty() && historicalApiTestResults.size() > 1) {
+        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
             List<Map<String, Integer>> apiGrowthTrend = new ArrayList<Map<String, Integer>>();
             int mostRecentYear = historicalApiTestResults.get(0).getYear();
             for (ApiResult apiResult : historicalApiTestResults) {
