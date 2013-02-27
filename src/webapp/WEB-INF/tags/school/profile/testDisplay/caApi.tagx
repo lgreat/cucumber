@@ -93,7 +93,7 @@
 
     <h3 class="mtl">API scores over time</h3>
         <div style="position:relative">
-            <canvas id="graphCanvasCaApi" width="400" height="200"></canvas>
+            <canvas id="graphCanvasCaApiLine" width="400" height="200"></canvas>
         </div>
         <c:set var="lineGraphDataCaApi">var data = [</c:set>
         <c:forEach items="${apiGrowthTrend}" var="trendMap" varStatus="status">
@@ -178,7 +178,7 @@
     <h4 class="mtl">API results by subgroups</h4>
     <div class="small">In addition to schoolwide API scores, each student subgroup receives an API score.</div>
     <div style="position:relative">
-        <canvas id="graph2" width="400" height="200"></canvas>
+        <canvas id="graphCanvasCaApiBar" width="400" height="200"></canvas>
     </div>
 
     <c:if test="${not empty apiTestResult.apiComparable}">
@@ -288,26 +288,32 @@
             ${lineGraphDataCaApi}
             ${barGraphDataCaApi}
             $(document).ready(function() {
-				drawGraphContainer({
-					'layerId' :  'graphCanvasCaApi',
-					'data' : data,
-					'colors' : color_lines,
-					'y_min' : getMinYLines(),
-					'width' : 575,
-					'height' : 175,
-					'graph_type' : 'line_graph'
-				});
-				drawGraphContainer({
-					'layerId' :  'graph2',
-					'data' : data_bar,
-					'colors' : color_lines,
-					'y_min' : getMinYBar(),
-					'width' : 575,
-					'height' : 230,
-					'graph_type' : 'bar_graph',
-					'legend_width' : 197
-				});
-			});
+                if (document.createElement('canvas').getContext) {
+                    GS.callCaApiGraphs();
+                }
+            });
+            var GS = GS || {};
+            GS.callCaApiGraphs = function(){
+                GS.drawGraphContainer({
+                    'layerId' :  'graphCanvasCaApiLine',
+                    'data' : data,
+                    'colors' : GS.color_lines,
+                    'y_min' : GS.getMinYLines(),
+                    'width' : 575,
+                    'height' : 175,
+                    'graph_type' : 'line_graph'
+                });
+                GS.drawGraphContainer({
+                    'layerId' :  'graphCanvasCaApiBar',
+                    'data' : data_bar,
+                    'colors' : GS.color_lines,
+                    'y_min' : GS.getMinYBar(),
+                    'width' : 575,
+                    'height' : 230,
+                    'graph_type' : 'bar_graph',
+                    'legend_width' : 140
+                });
+            }
         </script>
     ]]>
 </jsp:root>
