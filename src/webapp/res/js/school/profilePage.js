@@ -988,7 +988,10 @@ function drawGraphContainer (options) {
             var classname = "graphBar"+i;
             var areaTag = "<div class='"+classname+"' style='cursor:pointer; position:absolute; top:"+ top + "px; left:" + left + "px; width:10px; height:"+h+"px;'><!--Do not collapse--></div>";
             graph.after(areaTag);
-            var content_popup =  data.values[i].title + "<br />Api score: " + data.values[i].Y;
+            var content_popup = "<span class='small bottom'><span class='bold'>" + data.values[i].title + "</span><br />API: " + data.values[i].Y + "</span>";
+            if(data.values[i].N != 0){
+                content_popup += "<br /><span class='small bottom'>No. tested: "+ data.values[i].N + "</span>";
+            }
             $("."+classname).popover({content: content_popup, placement:'top', delay:{ show: 100, hide: 100 }});
         }
     }
@@ -1027,9 +1030,9 @@ function drawGraphContainer (options) {
                 "' style='cursor:pointer; position:absolute; top:"+ (getYPixel(v[i].Y) - hit_area/2) + "px; left:" + (getXPixel(yearToInt[v[i].X]) - hit_area/2) +
                 "px; width:"+hit_area+"px; height:"+hit_area+"px;'><!--Do not collapse--></div>"
             graph.after(areaTag);
-            var content_popup =  v[i].X + "<br />Api score: " + v[i].Y;
+            var content_popup =  "<span class='small bottom'><span class='bold'>" + v[i].X + "</span><br />API: " + v[i].Y + "</span>";
             if(v[i].N != 0){
-                content_popup += "<br />No. students: "+ v[i].N;
+                content_popup += "<br /><span class='small bottom'>No. tested: "+ v[i].N + "</span>";
             }
             $("."+classname).popover({content: content_popup, placement:'top', delay:{ show: 100, hide: 100 }});
         }

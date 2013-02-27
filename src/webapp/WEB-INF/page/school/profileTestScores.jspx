@@ -31,7 +31,7 @@
                     <div class="mod standard_1-4">
                         <div class="inner">
                             <div class="bd clearfix mal">
-                                <h3 class="" id="js_testLabelHeader"><!-- not empty --></h3>
+                                <h3 class="bold" id="js_testLabelHeader"><!-- not empty --></h3>
 
                                 <div class="alpha grid_4 omega fl" id="js_testScoresGrades">
                                     <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
