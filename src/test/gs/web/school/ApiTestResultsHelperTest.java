@@ -128,8 +128,8 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         assertEquals(new Integer(650),apiTestResultForLatestYear.getTotal());
         assertEquals(new Integer(2011),apiTestResultForLatestYear.getYear());
         assertNotNull("Expect growth trend line to display even if only a single year of data is available",results.get(_helper.MODEL_API_GROWTH_TREND));
-        assertNull("", results.get(_helper.MODEL_PREVIOUS_YEAR));
-        assertNull("",results.get(_helper.MODEL_API_SCORE_CHANGE));
+        assertNotNull("The previous year should always be calculated based on the recent year.", results.get(_helper.MODEL_PREVIOUS_YEAR));
+        assertNull("Since there is only one year of Data, do not calculate the change.",results.get(_helper.MODEL_API_SCORE_CHANGE));
         assertNotNull("", results.get(_helper.MODEL_API_STATE_RANK));
         ApiResult apiStateRankResult = (ApiResult)results.get(_helper.MODEL_API_STATE_RANK);
         assertEquals(new Integer(1),apiStateRankResult.getApiStateRank());
