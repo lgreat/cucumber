@@ -104,7 +104,7 @@
     <communityHover:signIn/>
     <communityHover:forgotPassword/>
     <communityHover:schoolReviewThankYou/>
-    <communityHover:schoolReviewPosted schoolName="${schoolName}"/>
+    <communityHover:schoolReviewPosted schoolName="${school.name}"/>
     <communityHover:emailValidatedSchoolReview/>
     <profile:principalConfirmHover/>
     <profile:principalReviewSubmitted/>

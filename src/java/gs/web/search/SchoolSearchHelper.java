@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.geo.City;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.*;
@@ -135,6 +136,16 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
             // GS-9323 zip code
             _searchAdHelper.addZipCodeAdKeyword(pageHelper, searchString);
+        }
+
+        SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
+        String cityName = (schoolSearchCommand != null) ? schoolSearchCommand.getCity() : null;
+        String stateName = (schoolSearchCommand != null) ? schoolSearchCommand.getState() : null;
+        State state = (stateName != null) ? State.fromString(stateName) : null;
+
+        if(commandAndFields.isNearbySearch() && cityName != null && state != null) {
+            City city = new City(cityName, state);
+            _searchAdHelper.addCityAdKeyword(pageHelper, city);
         }
 
         // GS-11511 - nearby search by zip code
@@ -326,4 +337,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         return gsSolrQuery;
     }
 
+    public void setSearchAdHelper(SearchAdHelper _searchAdHelper) {
+        this._searchAdHelper = _searchAdHelper;
+    }
 }

@@ -8,12 +8,12 @@ import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
+import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -112,6 +112,11 @@ public class SchoolProfileController extends AbstractSchoolController implements
             pageHelper.addAdKeywordMulti("template", "NewRating");
         } else if (school.getIsOldGSRating()) {
             pageHelper.addAdKeywordMulti("template", "OldRating");
+        }
+
+        String k12AffiliateUrl = AdUtil.getK12AffiliateLinkForSchool(school, "sp");
+        if (k12AffiliateUrl != null) {
+            model.put("k12AffiliateUrl", k12AffiliateUrl);
         }
 
         return new ModelAndView(_viewName, model);

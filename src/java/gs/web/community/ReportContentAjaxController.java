@@ -7,6 +7,8 @@ import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -41,7 +43,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
         }
         if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
             _log.warn("Attempt to submit with no valid user -- rejected");
-            throw new IllegalStateException("Report content submission occurred but no valid user is cookied!");
+            throw new AuthenticationException("Report content submission occurred but no valid user is cookied!");
         }
         User reporter = sessionContext.getUser();
         if (reporter == null || reporter.getUserProfile() == null) {
@@ -102,6 +104,13 @@ public class ReportContentAjaxController extends SimpleFormController implements
                                             command.getType(), command.getReason());
 
         return null;
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public class AuthenticationException extends RuntimeException {
+        public AuthenticationException(String msg) {
+            super(msg);
+        }
     }
 
     public IReportContentService getReportContentService() {

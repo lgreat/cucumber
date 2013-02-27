@@ -68,6 +68,12 @@
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
 
+    <![CDATA[
+        <!--[if lte IE 8]>
+            <script type="text/javascript" src="/res/js/util/excanvas.js"></script>
+        <![endif]-->
+    ]]>
+
     <gsml:combinedJavascript src="/res/js/school-profile.min.js">
         <!-- files to includes on dev workstations... must also exist in gsweb's pom.xml -->
         <gsml:javascript src="/res/js/json2.js"/>
@@ -86,7 +92,9 @@
 
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
     </gsml:combinedJavascript>
-    <!--[if IE]><script type="text/javascript" src="/res/js/util/excanvas.complied.js"></script><![endif]-->
+
+
+
     <script type="text/javascript">
         var GS_PieLoader = [];
         $.getScript("https://www.google.com/jsapi", function() {
@@ -102,6 +110,7 @@
                 return "sphead_overview_${school.databaseState}${school.id}";
             });
         });
+
     </script>
 
     <k12:trafficDriverIncludes/>
@@ -405,9 +414,10 @@
                     <!--<strong>Fax: </strong>${school.fax}-->
                 <!--</c:if>-->
 
-                <c:if test="${not empty school.webSitePrettyUrl}">
+                <c:if test="${not empty school.webSitePrettyUrl or not empty k12AffiliateUrl}">
+                    <c:set var="schoolWebsiteUrl" value="${not empty k12AffiliateUrl ? k12AffiliateUrl : school.webSitePrettyUrl}"/>
                     <br/>
-                    <strong>Website: </strong><a href="${school.webSitePrettyUrl}" target="_blank">Click here</a>
+                    <strong>Website: </strong><a href="${schoolWebsiteUrl}" target="_blank">Click here</a>
                 </c:if>
                 <c:if test="${not empty school.phone}">
                     <br/>

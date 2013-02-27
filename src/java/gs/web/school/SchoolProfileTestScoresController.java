@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.data.state.State;
 import gs.data.test.*;
 import gs.data.util.Pair;
 import gs.web.school.test.SubjectToTestValues;
@@ -39,14 +40,23 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
     @Autowired private ITestBreakdownDao _testBreakdownDao;
     @Autowired private ITestDescriptionDao _testDescriptionDao;
 
+    @Autowired
+    private ApiTestResultsHelper _apiTestResultsHelper;
+
     @RequestMapping(method=RequestMethod.GET)
-    public ModelAndView getTestScores(HttpServletRequest request) {
+    public ModelAndView getTestResults(HttpServletRequest request) {
         School school = getSchool(request);
         Map<String, Object> model = new HashMap<String, Object>();
 
         if (school != null) {
             if (school.isActive()) {
-                model.put("testScores", getTestScores(school));
+                List<TestToGrades> testToGradesList = getTestScores(school);
+                model.put("testScores", testToGradesList);
+
+                //If state is CA, then get the API results.API has its own table.
+                if(school.getDatabaseState().equals(State.CA)){
+                    putApiTestScoreResults(school,testToGradesList,model);
+                }
             } else {
                 _log.error("School id: " + school.getId() + " in state: " + school.getDatabaseState() + " is inactive.");
                 return new ModelAndView(ERROR_VIEW, model);
@@ -431,6 +441,8 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             testToGrades.setGrades(gradeToSubjectsList);
             testToGradesList.add(testToGrades);
         }
+
+
         //Sort the tests.
         Collections.sort(testToGradesList);
         if (schoolHasData) {
@@ -751,6 +763,33 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             return 53 * _id.hashCode();
         }
 
+    }
+
+    protected void putApiTestScoreResults(School school, List<TestToGrades> testToGradesList, Map<String, Object> model) {
+        //Get API test scores
+        Map apiTestResults = _apiTestResultsHelper.getApiTestResults(school);
+        if (apiTestResults != null && !apiTestResults.isEmpty()) {
+            model.put("apiTestResultsMap", apiTestResults);
+            //Add API to the list of tests to be displayed.
+            addApiResultsToTestToGradesList(testToGradesList);
+        }
+    }
+
+    protected void addApiResultsToTestToGradesList(List<TestToGrades> testToGradesList) {
+        //Create a new TestToGrades Object
+        TestToGrades api = new TestToGrades();
+        api.setDescription("");
+        //Hard code the test name.
+        api.setDisplayName("API");
+        api.setDisplayType(TestDataTypeDisplayType.ca_api_growth);
+        api.setLowestGradeInTest(Grade.G_1);
+        api.setTestDataTypeId(-1);
+
+        if(testToGradesList == null){
+            testToGradesList = new ArrayList<TestToGrades>();
+        }
+        //API should always be displayed first.
+        testToGradesList.add(0, api);
     }
 
     void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
