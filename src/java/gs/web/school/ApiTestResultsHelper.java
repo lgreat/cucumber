@@ -249,17 +249,18 @@ public class ApiTestResultsHelper {
      */
     protected void putApiTestScoreChange(List<ApiResult> historicalApiTestResults, Map modelMap) {
         //This method assumes that the API test results are in descending order of year.
-        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()
-                && historicalApiTestResults.size() > 1 ) {
+        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
             ApiResult apiTestResult = historicalApiTestResults.get(0);
             int recentYear = apiTestResult.getYear();
             int previousYear = recentYear - 1;
             modelMap.put(MODEL_PREVIOUS_YEAR, previousYear);
-            ApiResult previousYearApiTestResult = historicalApiTestResults.get(1);
-            if (previousYear == previousYearApiTestResult.getYear() && previousYearApiTestResult != null
-                    && previousYearApiTestResult.getTotalBase() != null && previousYearApiTestResult.getTotalBase() != 0) {
-                Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
-                modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
+            if (historicalApiTestResults.size() > 1) {
+                ApiResult previousYearApiTestResult = historicalApiTestResults.get(1);
+                if (previousYear == previousYearApiTestResult.getYear() && previousYearApiTestResult != null
+                        && previousYearApiTestResult.getTotalBase() != null && previousYearApiTestResult.getTotalBase() != 0) {
+                    Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
+                    modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
+                }
             }
         }
 
