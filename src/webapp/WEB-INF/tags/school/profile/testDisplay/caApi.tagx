@@ -116,11 +116,14 @@
                     }</c:set>
             </c:if>
         </c:forEach>
-
+        <c:if test="${not empty apiGrowthTrend}">
+            <c:set var="lineGraphDataCaApi">
+                ${lineGraphDataCaApi} ,</c:set>
+        </c:if>
         <c:forEach items="${apiStateGrowthTrend}" var="trendMap" varStatus="status">
             <c:if test="${status.first}">
                 <c:set var="lineGraphDataCaApi">
-                    ${lineGraphDataCaApi} ,{
+                    ${lineGraphDataCaApi} {
                     values:[</c:set>
             </c:if>
             <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi} { X: "${trendMap['year']}", Y: ${trendMap['apiGrowth']}, N: 0 }</c:set>
