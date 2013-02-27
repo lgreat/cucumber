@@ -81,8 +81,17 @@ public class ApiTestResultsHelper {
      */
     public Map<String, ApiResultForView> buildApiTestResultsMap(ApiResult originalApiResult) {
 
-        Map<String, ApiResultForView> map = new HashMap<String, ApiResultForView>();
+        Map<String, ApiResultForView> map = new LinkedHashMap<String, ApiResultForView>();
 
+        if (originalApiResult.getTotal() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "All Students",
+                originalApiResult.getTotal(),
+                originalApiResult.getTotalNumTested(),
+                originalApiResult
+            );
+            map.put("All Students", apiResultForView);
+        }
         if (originalApiResult.getAfricanAmerican() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
                 "African American",
@@ -109,6 +118,15 @@ public class ApiTestResultsHelper {
                 originalApiResult
             );
             map.put("Asian", apiResultForView);
+        }
+        if (originalApiResult.getEnglishLangLearners() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "English Language Learners",
+                originalApiResult.getEnglishLangLearners(),
+                originalApiResult.getEnglishLangLearnersNumTested(),
+                originalApiResult
+            );
+            map.put("English Language Learners", apiResultForView);
         }
         if (originalApiResult.getFilipino() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
@@ -137,15 +155,6 @@ public class ApiTestResultsHelper {
             );
             map.put("Pacific Islander", apiResultForView);
         }
-        if (originalApiResult.getWhite() != null) {
-            ApiResultForView apiResultForView = new ApiResultForView(
-                "White",
-                originalApiResult.getWhite(),
-                originalApiResult.getWhiteNumTested(),
-                originalApiResult
-            );
-            map.put("White", apiResultForView);
-        }
         if (originalApiResult.getSocioEconDisadv() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
                 "Socioeconomic Disadvantage",
@@ -155,15 +164,6 @@ public class ApiTestResultsHelper {
             );
             map.put("Socioeconomic Disadvantage", apiResultForView);
         }
-        if (originalApiResult.getEnglishLangLearners() != null) {
-            ApiResultForView apiResultForView = new ApiResultForView(
-                "English Language Learners",
-                originalApiResult.getEnglishLangLearners(),
-                originalApiResult.getEnglishLangLearnersNumTested(),
-                originalApiResult
-            );
-            map.put("English Language Learners", apiResultForView);
-        }
         if (originalApiResult.getDisabled() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
                 "Students with disability",
@@ -172,6 +172,15 @@ public class ApiTestResultsHelper {
                 originalApiResult
             );
             map.put("Students with disability", apiResultForView);
+        }
+        if (originalApiResult.getWhite() != null) {
+            ApiResultForView apiResultForView = new ApiResultForView(
+                "White",
+                originalApiResult.getWhite(),
+                originalApiResult.getWhiteNumTested(),
+                originalApiResult
+            );
+            map.put("White", apiResultForView);
         }
 
         return map;
