@@ -828,10 +828,10 @@ GS.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-var color_lines = { colors:['#4393B5','#38A37A','#84D07C','#E2B66C','#E2937D','#DA5F6E','#B66483','#7B498F','#414F7B','#A7A7A7','#7CC7CE','#489A9D','#A4CEBB','#649644','#E0D152','#F1A628','#A3383A','#8C734D','#EA6394','#CE92C0','#5A78B1'] };
+GS.color_lines = { colors:['#4393B5','#38A37A','#84D07C','#E2B66C','#E2937D','#DA5F6E','#B66483','#7B498F','#414F7B','#A7A7A7','#7CC7CE','#489A9D','#A4CEBB','#649644','#E0D152','#F1A628','#A3383A','#8C734D','#EA6394','#CE92C0','#5A78B1'] };
 
 // specific to the ca api to generate graph with 200 as min or 400 as min
-function getMinYLines() {
+GS.getMinYLines = function() {
     var min = 400;
     for(var i = 0; i < data[0].values.length; i ++) {
         if(data[0].values[i].Y < min) {
@@ -839,9 +839,9 @@ function getMinYLines() {
         }
     }
     return min;
-}
+};
 
-function getMinYBar() {
+GS.getMinYBar = function() {
     var min = 400;
     for(var i = 0; i < data_bar.values.length; i ++) {
         if(data_bar.values[i].Y < min) {
@@ -849,9 +849,9 @@ function getMinYBar() {
         }
     }
     return min;
-}
+};
 
-function drawGraphContainer (options) {
+GS.drawGraphContainer = function (options) {
     var settings = $.extend( {
         'layerId' : 'not set',
         'width' : '600',
@@ -1088,7 +1088,6 @@ function drawGraphContainer (options) {
     graph[0].width = settings['width'];
     graph[0].height = settings['height'];
     var canvas_obj = graphcanvas.getContext('2d');
-
 
     if(settings['graph_type'] == "line_graph"){
         drawFrameLines(canvas_obj);
