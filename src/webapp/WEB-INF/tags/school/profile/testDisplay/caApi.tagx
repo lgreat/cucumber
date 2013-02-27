@@ -16,11 +16,16 @@
     <c:set var="apiTestEthnicityMap" value="${apiTestResultsMap.apiTestEthnicityMap}"></c:set>
 
 
+    <!--BAR GRAPH DATA-->
+
+
+    <c:set var="barGraphCounter" value="0"/>
 
     <c:set var="barGraphDataCaApi">var data_bar =
         {
         values:[</c:set>
     <c:forEach items="${apiTestEthnicityMap}" var="barMap" varStatus="status">
+        <c:set var="barGraphCounter" value="${barGraphCounter + 1}"/>
         <c:set var="barGraphDataCaApi">${barGraphDataCaApi}
             { title: "${barMap.value.title}", Y: ${barMap.value.apiScore}, N: ${barMap.value.numTested} }</c:set>
         <c:if test="${!status.last}">
@@ -31,6 +36,65 @@
     x_axis_title: "Student Subgroups"
     };
     </c:set>
+
+
+
+    <!--LINE GRAPH DATA-->
+    <c:set var="lineGraphDataCaApi">var data = [</c:set>
+    <c:forEach items="${apiGrowthTrend}" var="trendMap" varStatus="status">
+        <c:if test="${status.first}">
+            <c:set var="lineGraphDataCaApi">
+                ${lineGraphDataCaApi} {
+                values:[</c:set>
+        </c:if>
+        <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi} { X: "${trendMap['year']}", Y: ${trendMap['apiGrowth']}, N: ${trendMap['numTested']} }</c:set>
+        <!--Year:-${trendMap['year']}<br/>-->
+        <!--Api Growth:-${trendMap['apiGrowth']}<br/>-->
+        <!--Num Tested:-${trendMap['numTested']}<br/>-->
+        <c:if test="${!status.last}">
+            <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi},</c:set>
+        </c:if>
+        <c:if test="${status.last}">
+            <c:set var="lineGraphDataCaApi">
+                ${lineGraphDataCaApi}
+                ],
+                title: 'This school'
+                }</c:set>
+        </c:if>
+    </c:forEach>
+    <c:if test="${not empty apiGrowthTrend}">
+        <c:set var="lineGraphDataCaApi">
+            ${lineGraphDataCaApi} ,</c:set>
+    </c:if>
+    <c:forEach items="${apiStateGrowthTrend}" var="trendMap" varStatus="status">
+        <c:if test="${status.first}">
+            <c:set var="lineGraphDataCaApi">
+                ${lineGraphDataCaApi} {
+                values:[</c:set>
+        </c:if>
+        <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi} { X: "${trendMap['year']}", Y: ${trendMap['apiGrowth']}, N: 0 }</c:set>
+        <!--Year:-${trendMap['year']}<br/>-->
+        <!--Api Growth:-${trendMap['apiGrowth']}<br/>-->
+        <!--Num Tested:-${trendMap['numTested']}<br/>-->
+        <c:if test="${!status.last}">
+            <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi},</c:set>
+        </c:if>
+        <c:if test="${status.last}">
+            <c:set var="lineGraphDataCaApi">
+                ${lineGraphDataCaApi}
+                ],
+                title: 'State average'
+                }</c:set>
+        </c:if>
+    </c:forEach>
+    <c:set var="lineGraphDataCaApi">
+        ${lineGraphDataCaApi}
+        ];</c:set>
+
+
+
+
+
     <p class="small">The API reflects year-over-year schools performance based on STAR test score results from spring ${apiTestResult.year}.</p>
     <div class="clearfix mbm">
         <div class="containerGrayBox fl mrs" style="width:121px;">
@@ -87,62 +151,15 @@
     <div class="small">
         <a href="#apiExplanation">What do these numbers mean? &amp;raquo;</a>
     </div>
+    <c:if test="${not empty apiGrowthTrend}">
+        <hr class="keyline1"/>
 
-    <hr class="keyline1"/>
-
-    <h3 class="mtl">API Growth scores over time</h3>
+        <h3 class="mtl">API Growth scores over time</h3>
         <div style="position:relative">
             <canvas id="graphCanvasCaApiLine" width="400" height="200"></canvas>
         </div>
-        <c:set var="lineGraphDataCaApi">var data = [</c:set>
-        <c:forEach items="${apiGrowthTrend}" var="trendMap" varStatus="status">
-            <c:if test="${status.first}">
-                <c:set var="lineGraphDataCaApi">
-                    ${lineGraphDataCaApi} {
-                    values:[</c:set>
-            </c:if>
-            <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi} { X: "${trendMap['year']}", Y: ${trendMap['apiGrowth']}, N: ${trendMap['numTested']} }</c:set>
-            <!--Year:-${trendMap['year']}<br/>-->
-            <!--Api Growth:-${trendMap['apiGrowth']}<br/>-->
-            <!--Num Tested:-${trendMap['numTested']}<br/>-->
-            <c:if test="${!status.last}">
-                <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi},</c:set>
-            </c:if>
-            <c:if test="${status.last}">
-                <c:set var="lineGraphDataCaApi">
-                    ${lineGraphDataCaApi}
-                    ],
-                    title: 'This school'
-                    }</c:set>
-            </c:if>
-        </c:forEach>
 
-        <c:forEach items="${apiStateGrowthTrend}" var="trendMap" varStatus="status">
-            <c:if test="${status.first}">
-                <c:set var="lineGraphDataCaApi">
-                    ${lineGraphDataCaApi} ,{
-                    values:[</c:set>
-            </c:if>
-            <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi} { X: "${trendMap['year']}", Y: ${trendMap['apiGrowth']}, N: 0 }</c:set>
-            <!--Year:-${trendMap['year']}<br/>-->
-            <!--Api Growth:-${trendMap['apiGrowth']}<br/>-->
-            <!--Num Tested:-${trendMap['numTested']}<br/>-->
-            <c:if test="${!status.last}">
-                <c:set var="lineGraphDataCaApi">${lineGraphDataCaApi},</c:set>
-            </c:if>
-            <c:if test="${status.last}">
-                <c:set var="lineGraphDataCaApi">
-                    ${lineGraphDataCaApi}
-                    ],
-                    title: 'State average'
-                    }</c:set>
-            </c:if>
-        </c:forEach>
-        <c:set var="lineGraphDataCaApi">
-            ${lineGraphDataCaApi}
-            ];</c:set>
-
-
+    </c:if>
     <div class="containerBlueBox mbl">
         <h5 class="bold bottom">Did this school meet the API goal this year?</h5>
 
@@ -173,37 +190,38 @@
         </ul>
     </div>
 
-    <hr class="keyline1"/>
+    <c:if test="${barGraphCounter gt 1}">
+        <hr class="keyline1"/>
 
-    <h3 class="mtl">API Growth scores by subgroup</h3>
-    <div class="small">In addition to schoolwide API scores, each student subgroup receives an API score.</div>
-    <div style="position:relative">
-        <canvas id="graphCanvasCaApiBar" width="400" height="200"></canvas>
-    </div>
-
-    <c:if test="${not empty apiTestResult.apiComparable}">
-        <div class="containerBlueBox mbl">
-            <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
-
-            <div class="small">
-                The state goal for the API is 800. All the student subgroups at a school that a below 800 are assigned an API improvement target each year.
-            </div>
-            <ul class="disc small bottom">
-                <c:choose>
-                    <c:when test="${fn:toLowerCase(apiTestResult.apiComparable) eq 'yes'}">
-                        <li>This school <span
-                                class="bold">met</span> all student subgroup API targets for ${apiTestResult.year}</li>
-                    </c:when>
-                    <c:otherwise>
-                        <li>This school <span
-                                class="bold">did not meet</span> all student subgroup API targets for ${apiTestResult.year}
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+        <h3 class="mtl">API Growth scores by subgroup</h3>
+        <div class="small">In addition to schoolwide API scores, each student subgroup receives an API score.</div>
+        <div style="position:relative">
+            <canvas id="graphCanvasCaApiBar" width="400" height="200"></canvas>
         </div>
-    </c:if>
 
+        <c:if test="${not empty apiTestResult.apiComparable}">
+            <div class="containerBlueBox mbl">
+                <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
+
+                <div class="small">
+                    The state goal for the API is 800. All the student subgroups at a school that a below 800 are assigned an API improvement target each year.
+                </div>
+                <ul class="disc small bottom">
+                    <c:choose>
+                        <c:when test="${fn:toLowerCase(apiTestResult.apiComparable) eq 'yes'}">
+                            <li>This school <span
+                                    class="bold">met</span> all student subgroup API targets for ${apiTestResult.year}</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>This school <span
+                                    class="bold">did not meet</span> all student subgroup API targets for ${apiTestResult.year}
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
+        </c:if>
+    </c:if>
     <hr class="keyline1"/>
     <div id="apiExplanation" class="mtl">
         <div class="clearfix mbl">
@@ -282,6 +300,41 @@
     </div>
     <div class="fr" style="width: 400px"><a href="#" class="small bottom">Back to top &amp;uarr;</a></div>
 
+
+    <c:set var="jsLineGraphCall" value=""/>
+    <c:if test="${not empty apiGrowthTrend}">
+        <c:set var="jsLineGraphCall">
+            GS.drawGraphContainer({
+            'layerId' :  'graphCanvasCaApiLine',
+            'data' : data,
+            'colors' : GS.color_lines,
+            'y_min' : GS.getMinYLines(),
+            'width' : 575,
+            'height' : 175,
+            'graph_type' : 'line_graph'
+            });
+        </c:set>
+    </c:if>
+
+
+    <c:set var="jsBarGraphCall">
+        GS.drawGraphContainer({
+        'layerId' :  'graphCanvasCaApiBar',
+        'data' : data_bar,
+        'colors' : GS.color_lines,
+        'y_min' : GS.getMinYBar(),
+        'width' : 575,
+        'height' : 230,
+        'graph_type' : 'bar_graph',
+        'legend_width' : 197
+        });
+    </c:set>
+
+    <c:if test="${barGraphCounter le 1}">
+        <c:set var="jsBarGraphCall" value=""/>
+    </c:if>
+
+
     <![CDATA[
         <script>
             ${lineGraphDataCaApi}
@@ -293,25 +346,8 @@
             });
             var GS = GS || {};
             GS.callCaApiGraphs = function(){
-                GS.drawGraphContainer({
-                    'layerId' :  'graphCanvasCaApiLine',
-                    'data' : data,
-                    'colors' : GS.color_lines,
-                    'y_min' : GS.getMinYLines(),
-                    'width' : 575,
-                    'height' : 175,
-                    'graph_type' : 'line_graph'
-                });
-                GS.drawGraphContainer({
-                    'layerId' :  'graphCanvasCaApiBar',
-                    'data' : data_bar,
-                    'colors' : GS.color_lines,
-                    'y_min' : GS.getMinYBar(),
-                    'width' : 575,
-                    'height' : 230,
-                    'graph_type' : 'bar_graph',
-                    'legend_width' : 140
-                });
+               ${jsLineGraphCall}
+               ${jsBarGraphCall}
             }
         </script>
     ]]>
