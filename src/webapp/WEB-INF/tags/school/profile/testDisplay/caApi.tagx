@@ -33,11 +33,11 @@
     </c:set>
     <p class="small">The API reflects year-over-year schools performance based on STAR test score results from spring ${apiTestResult.year}.</p>
     <div class="clearfix mbm">
-            <div class="containerGrayBox fl mrs" style="width:121px;">
+        <div class="containerGrayBox fl mrs" style="width:121px;">
 
-                <div class="small bottom make-2b2b2b">This school's<br/>API score</div>
-                <h2 class="mtm bold bottom">${apiTestResult.total}</h2>
-            </div>
+            <div class="small bottom make-2b2b2b">This school's<br/>API score</div>
+            <h2 class="mtm bold bottom">${apiTestResult.total}</h2>
+        </div>
         <div class="containerGrayBox fl mrs" style="width:121px;">
             <div class="small bottom make-2b2b2b">Change from<br/>${previousYear} to ${apiTestResult.year}</div>
             <c:choose>
@@ -56,8 +56,8 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <div class="containerGrayBox fl mrs" style="width:121px;">
-            <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+        <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+            <div class="containerGrayBox fl mrs" style="width:121px;">
                 <div class="small bottom make-2b2b2b">API Statewide Rank<br/> (${apiStateRank.year})</div>
                 <c:choose>
                     <c:when test="${apiStateRank.apiStateRank == '0'}">
@@ -67,11 +67,10 @@
                         <h2 class="bold mtm bottom">${apiStateRank.apiStateRank} / 10</h2>
                     </c:otherwise>
                 </c:choose>
-
-            </c:if>
-        </div>
-        <div class="containerGrayBox fl" style="width:121px;">
-            <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+            </div>
+        </c:if>
+        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+            <div class="containerGrayBox fl" style="width:121px;">
                 <div class="small bottom make-2b2b2b">API Similar Schools Rank (${apiSimilarSchoolsRank.year})</div>
                 <c:choose>
                     <c:when test="${apiSimilarSchoolsRank.apiSimilarRank == '0'}">
@@ -81,8 +80,8 @@
                         <h2 class="bold mtm bottom">${apiSimilarSchoolsRank.apiSimilarRank} / 10</h2>
                     </c:otherwise>
                 </c:choose>
-            </c:if>
-        </div>
+            </div>
+        </c:if>
     </div>
 
     <div class="small">
@@ -242,10 +241,9 @@
                 <div class="small">Comparing the API Growth to the Base shows whether or not this school’s test score performance improved between Spring 2011 and Spring 2012. The API ranges between 200 and 1000, with 800 as the statewide goal for all schools. Schools scoring below an 800 are given at least a 5 point target for the next year.</div>
             </div>
         </div>
-
-        <div class="clearfix mbl">
-            <div class="containerGrayBox fl mrl" style="width:121px;">
-                <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+        <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+            <div class="clearfix mbl">
+                <div class="containerGrayBox fl mrl" style="width:121px;">
                     <div class="small bottom make-2b2b2b">API Statewide Rank<br/> (${apiStateRank.year})</div>
                     <c:choose>
                         <c:when test="${apiStateRank.apiStateRank == '0'}">
@@ -255,16 +253,16 @@
                             <h2 class="bold mtm bottom">${apiStateRank.apiStateRank} / 10</h2>
                         </c:otherwise>
                     </c:choose>
-                </c:if>
+                </div>
+                <div class="fr" style="width:400px">
+                    <h5 class="bold bottom">API Statewide Rank (${apiStateRank.year})</h5>
+                    <div class="small">The API Statewide Rank ranges from 1 to 10. A rank of 10, for example, means that the school’s API fell into the top 10% of all schools in the state with a comparable grade range. The 2011 rank is based on results from tests students took in Spring 2011.</div>
+                </div>
             </div>
-            <div class="fr" style="width:400px">
-                <h5 class="bold bottom">API Statewide Rank (${apiStateRank.year})</h5>
-                <div class="small">The API Statewide Rank ranges from 1 to 10. A rank of 10, for example, means that the school’s API fell into the top 10% of all schools in the state with a comparable grade range. The 2011 rank is based on results from tests students took in Spring 2011.</div>
-            </div>
-        </div>
-        <div class="clearfix mbl">
-            <div class="containerGrayBox fl mrl" style="width:121px;">
-                <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+        </c:if>
+        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+            <div class="clearfix mbl">
+                <div class="containerGrayBox fl mrl" style="width:121px;">
                     <div class="small bottom make-2b2b2b">API Similar Schools Rank (${apiSimilarSchoolsRank.year})</div>
                     <c:choose>
                         <c:when test="${apiSimilarSchoolsRank.apiSimilarRank == '0'}">
@@ -274,13 +272,13 @@
                             <h2 class="bold mtm bottom">${apiSimilarSchoolsRank.apiSimilarRank} / 10</h2>
                         </c:otherwise>
                     </c:choose>
-                </c:if>
+                </div>
+                <div class="fr" style="width:400px">
+                    <h5 class="bold bottom">API Similar Schools Rank (${apiSimilarSchoolsRank.year})</h5>
+                    <div class="small">The API Similar Schools Rank ranges from 1 to 10. It shows how the school compares to other schools with similar student demographic profiles. The California Department of Education uses parent education level, poverty level, student ethnicity and other data to identify similar schools.</div>
+                </div>
             </div>
-            <div class="fr" style="width:400px">
-                <h5 class="bold bottom">API Similar Schools Rank (${apiSimilarSchoolsRank.year})</h5>
-                <div class="small">The API Similar Schools Rank ranges from 1 to 10. It shows how the school compares to other schools with similar student demographic profiles. The California Department of Education uses parent education level, poverty level, student ethnicity and other data to identify similar schools.</div>
-            </div>
-        </div>
+        </c:if>
     </div>
     <div class="fr" style="width: 400px"><a href="#" class="small bottom">Back to top &amp;uarr;</a></div>
 
