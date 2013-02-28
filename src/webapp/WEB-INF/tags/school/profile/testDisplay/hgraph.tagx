@@ -28,7 +28,7 @@
                         <strong class="${firstTimeDarkGrey}">${testValue.year}</strong></p>
                 </div>
                 <div class="unit size4of100">&amp;nbsp;</div>
-                <div class="unit size70of100">
+                <div class="unit size67of100">
                     <div class="bar_container thin ${firstTimeBlue}">
                         <div style="width:${testValue.testScoreStr}%"><!-- not empty --></div>
                     </div>
@@ -39,7 +39,7 @@
                 <c:if test="${testValue.testScoreLabel == pageScope.dataNAText}">
                     <c:set var="thePercentage" value="n/a"/>
                 </c:if>
-                <div class="unit size12of100 small lastUnit bottom">
+                <div class="unit size15of100 small lastUnit bottom">
                     <strong class="${firstTimeDarkGrey}">${thePercentage}</strong></div>
             </div>
 
