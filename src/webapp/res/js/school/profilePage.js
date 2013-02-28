@@ -877,6 +877,7 @@ GS.drawGraphContainer = function (options) {
         drawDashedLineAndText(c, "#CCC", "Statewide goal", d.length, w);
 
     }
+    var image_placeHolder = "/res/images/pixel.png";
 
     var drawSquareAndText = function(c, color, text, i , w){
         var offsetx = w+20;
@@ -986,7 +987,7 @@ GS.drawGraphContainer = function (options) {
             c.fillRect(left,top,10,bottom-top);
             var h = bottom-top;
             var classname = "graphBar"+i;
-            var areaTag = "<div class='"+classname+"' style='cursor:pointer; position:absolute; top:"+ top + "px; left:" + left + "px; width:10px; height:"+h+"px;'><!--Do not collapse--></div>";
+            var areaTag = '<div class="'+classname+'" style="background-image:url('+image_placeHolder+');cursor:pointer; position:absolute; top:'+ top + 'px; left:' + left + 'px; width:10px; height:' + h + 'px;"></div>';
             graph.after(areaTag);
             var content_popup = "<span class='small bottom'><span class='bold'>" + data.values[i].title + "</span><br />API: " + data.values[i].Y + "</span>";
             if(data.values[i].N != 0){
@@ -1026,9 +1027,9 @@ GS.drawGraphContainer = function (options) {
             c.fill();
             var hit_area = 10;
             var classname = "graphPoint"+i+linecount;
-            var areaTag = "<div class='"+classname+
-                "' style='cursor:pointer; position:absolute; top:"+ (getYPixel(v[i].Y) - hit_area/2) + "px; left:" + (getXPixel(yearToInt[v[i].X]) - hit_area/2) +
-                "px; width:"+hit_area+"px; height:"+hit_area+"px;'><!--Do not collapse--></div>"
+            var areaTag = '<div class="'+classname+
+                '" style="background-image:url('+image_placeHolder+');cursor:pointer; position:absolute; top:'+ (getYPixel(v[i].Y) - hit_area/2) + "px; left:" + (getXPixel(yearToInt[v[i].X]) - hit_area/2) +
+                "px; width:"+hit_area+"px; height:"+hit_area+'px;"><!--Do not collapse--></div>';
             graph.after(areaTag);
             var content_popup =  "<span class='small bottom'><span class='bold'>" + v[i].X + "</span><br />API: " + v[i].Y + "</span>";
             if(v[i].N != 0){
