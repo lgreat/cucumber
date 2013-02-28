@@ -345,6 +345,14 @@
                 }
             });
             var GS = GS || {};
+            GS.callCaApiGraphsFromIE = function(){
+               if($('#graphCanvasCaApiBar').is(':visible') || $('#graphCanvasCaApiLine').is(':visible') ){
+                    GS.callCaApiGraphs();
+                }
+                else{
+                    setTimeout("GS.callCaApiGraphsFromIE()",1000);
+                }
+            }
             GS.callCaApiGraphs = function(){
                ${jsLineGraphCall}
                ${jsBarGraphCall}
