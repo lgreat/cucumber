@@ -959,7 +959,7 @@ GS.drawGraphContainer = function (options) {
 
             if(i == 800){
                 c.fillStyle = "#000";
-                c.font = 'bold 8pt sans-serif';
+                c.font = '8pt sans-serif';
                 c.fillText(i, xPadding - 20, getYPixel(i));
                 drawHorizontalDashedLine(c, getYPixel(i), (xPadding+1), w, "#CCC");
             }
