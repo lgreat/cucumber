@@ -35,7 +35,8 @@ General comments:
     padding: 0 6px;
     border-right: 1px solid #fff;
     font-size: 10px;
-    color: #fff;
+    line-height: 11px;
+    color: #FFFFFF;
 }
 
 #utilLinks span {
