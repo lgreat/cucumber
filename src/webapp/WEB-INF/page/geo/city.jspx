@@ -344,10 +344,10 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="slStylesV1-0">
                 <promo:searchRealtorDotCom omniturePageName="${pageName}"
                                            defaultCity="${cityObject.name}, ${cityObject.state.abbreviation}"
-                                           pageAdRatioKey="RDC_PCT_CITY" showAdPct="0" style="2011"/>
+                                           pageAdRatioKey="RDC_PCT_CITY" showAdPct="0" style="2012"/>
             </td>
         </tr>
         <!--<c:if test="${fn:contains(school.levelCode, 'p')}">-->
