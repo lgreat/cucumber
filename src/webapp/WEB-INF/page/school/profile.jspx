@@ -137,6 +137,8 @@
 
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
+<div class="container_24 clearfix">
+<div class="phs clearfix">
 <div id="fb-root"><!-- do not collapse --></div>
 <!-- Breadcrumbs -->
 <div class="grid_24 clearfix">
@@ -487,7 +489,8 @@
 </div>
 
 <school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}"/>
-
+</div>
+</div>
 </gsml:body>
 </html>
 </jsp:root>

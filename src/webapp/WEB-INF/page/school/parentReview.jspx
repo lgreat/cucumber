@@ -17,6 +17,7 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <head>
     <title>Write a school review | GreatSchools</title>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
           content="Write a review for your child's school today and you can help other parents make a more informed choice about which school is right for their family."/>
@@ -32,6 +33,17 @@
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
+<div id="imageBgScale">
+    <div class="container">
+        <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt="" />
+
+    </div>
+    <div class="selectBar">
+        <p style="font-family: arial; font-size:48px; color: #FFFFFF">Finding better schools together</p>
+        <p style="font-family: arial; font-size:16px; font-style: italic; color: #CC9900">Write a review of your school to help students find a better place to learn</p>
+        <div class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto"><!-- do not collapse --></div>
+    </div>
+</div>
 <div id="oneColumn">
 
 <c:if test="${morganStanley}">

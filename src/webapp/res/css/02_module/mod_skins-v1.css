@@ -1043,3 +1043,31 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 .moduleHeight-125{ height:125px; }
 .moduleHeight-79{ height:79px; }
 .moduleHeight-69{height:69px;}
+
+#imageBgScale {
+    overflow:hidden; height:560px; width:100%; position:relative;
+}
+
+#imageBgScale .container{
+    position:absolute;
+    top:0px;
+    left:-50%;
+    width:200%;
+
+}
+
+#imageBgScale img.scaling {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    margin:auto;
+    min-width:50%;
+}
+#imageBgScale .selectBar{
+    position:absolute;
+    top:150px;
+    width: 100%;
+    text-align: center;
+    margin:auto;
+}
