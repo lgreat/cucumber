@@ -49,7 +49,7 @@
             <c:when test="${showAd}">
                 <!--<div id="footerAd">-->
                 <div class="container_24">
-                    <div class="prefix_3 grid_19 suffix_2 mvl">
+                    <div class="prefix_3 grid_19 suffix_2">
                         <ad:footerAd/>
                     </div>
                 </div>
@@ -76,13 +76,13 @@
 
             <div id="footnav" class="clearfix">
                 <div class="navAbout">
-                    <p class="medium subtitles bottom pbm">About GreatSchools</p>
-                    <p class="small bottom prl">GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
+                    <p class="small_bold make-999999 subtitles bottom pbm">About GreatSchools</p>
+                    <p class="small make-999999 bottom prl">GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
                         effective champions of their children's education at home and in their communities.<br />
                         <span class="footerLink"><gsml:a href="/about/aboutUs.page">More &amp;#187;</gsml:a></span></p>
                 </div>
                 <div class="navFoot">
-                    <p class="medium subtitles bottom pbm">Company</p>
+                    <!--<p class="medium subtitles bottom pbm">Company</p>-->
                     <ul class="none">
                         <li><gsml:a href="/about/aboutUs.page">Our Mission</gsml:a></li>
                         <li><gsml:a href="/about/senior-management.page">Our People</gsml:a></li>
@@ -91,7 +91,7 @@
                     </ul>
                 </div>
                 <div class="navFoot">
-                    <p class="medium subtitles bottom pbm">Media</p>
+                    <!--<p class="medium subtitles bottom pbm">Media</p>-->
                     <ul class="none">
                         <li><gsml:a href="/about/advertiserOpportunities.page">Advertise With Us</gsml:a></li>
                         <li><gsml:a href="/about/partnerOpportunities.page">Partners</gsml:a></li>
@@ -100,7 +100,7 @@
                     </ul>
                 </div>
                 <div class="navFootLast">
-                    <p class="medium subtitles bottom pbm">Policies</p>
+                    <!--<p class="medium subtitles bottom pbm">Policies</p>-->
                     <ul class="none">
                         <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
                         <li><link:termsOfUse>Terms of Use</link:termsOfUse></li>
@@ -115,19 +115,16 @@
             <div id="navFooter"
                  class="cities popularCities ${hidePopularCitiesModule? 'dn':'' }">
                 <c:set var="popularCitiesKey" value="/geo/popularCities.module?state=${stateForPopularCities}"/>
-
                 <gsweb:cache key="${popularCitiesKey}" cacheName="gs.web.cache.fragment.geo.PopularCities">
                     <jsp:include page="${popularCitiesKey}"/>
                 </gsweb:cache>
             </div>
             <hr class="keyline3" />
-            <div class="pvs">
+            <div class="ptm pbs">
                 <p class="copyright smaller bottom">GreatSchools, Inc. 160 Spear Street, Suite 1020, San Francisco, CA 94105</p>
-
                 <p class="copyright smaller bottom">
                     &amp;#169;1998-${currentYear} GreatSchools Inc. All Rights Reserved.
                     GreatSchools is a 501(c)(3) not-for-profit organization
-
                 </p>
             </div>
         </div>

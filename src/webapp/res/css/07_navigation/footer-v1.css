@@ -77,7 +77,12 @@ div#YahooRealEstateLink {
 .cities ul a,
 .copyright a,
 #navFooter .allCities a {
-    color: #999;
+    color: #777777;
+}
+
+#footnav li a:hover,
+#navFooter li a:hover{
+    color:#999999;
 }
 
 #footer .copyright {
@@ -122,8 +127,8 @@ div#YahooRealEstateLink {
 }
 
 #footer .subtitles{
-    font-weight: bold;
-    color: #FFFFFF;
+    /*font-weight: bold;*/
+    /*color: #999999;*/
     text-shadow: 0 -1px 0 rgba(0,0,0,.4);
 }
 #footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
@@ -164,12 +169,19 @@ div#YahooRealEstateLink {
 
 #connectWithUs{
     background-color: #2B2B2B;
-    border-bottom:solid 1px #242424;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1E1E1E), to(#333333)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #1E1E1E, #333333); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(bottom, #1E1E1E, #333333); /* FF3.6 */
+    background-image:     -ms-linear-gradient(bottom, #1E1E1E, #333333); /* IE10 */
+    background-image:      -o-linear-gradient(bottom, #1E1E1E, #333333); /* Opera 11.10+ */
+    background-image:         linear-gradient(bottom, #1E1E1E, #333333); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1E1E1E', EndColorStr='#333333'); /* IE6�IE9 */
+    border-bottom:solid 1px #414141;
 }
 #connectWithUs .connectContent{
    width: 860px;
    margin: 0px auto;
-   padding: 14px 0 10px 0;
+   padding: 12px 0 3px 0;
 }
 
 #interruptSurvey .logo{

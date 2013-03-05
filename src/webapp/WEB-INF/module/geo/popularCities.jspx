@@ -8,7 +8,7 @@
         >
     <c:choose>
         <c:when test="${not empty popularCitiesByState}">
-            <p class="medium subtitles bottom pbm">Popular Cities in ${state.longName}</p>
+            <p class="small_bold make-999999 subtitles bottom pbm">Find the great schools in ${state.longName}</p>
             <!--<div class="medium subtitles">Popular Cities in ${state.longName}</div>-->
             <div class="clearfix">
             <ul class="none">
@@ -59,7 +59,7 @@
         <c:otherwise>
             <!--<div class="medium subtitles">Popular Cities</div>-->
             <div class="pbm">
-            <p class="medium subtitles bottom pbm">Popular Cities</p>
+            <p class="small_bold make-999999 subtitles bottom pbm">Find the great schools in your community</p>
             <div class="clearfix">
             <ul class="none">
                 <li><link:city city="Albuquerque" state="NM">Albuquerque, NM</link:city></li>
@@ -75,7 +75,6 @@
                 <li><link:city city="Burlington" state="VT">Burlington, VT</link:city></li>
             </ul>
             <ul class="none">
-
                 <li><link:city city="Charleston" state="WV">Charleston, WV</link:city></li>
                 <li><link:city city="Charlotte" state="NC">Charlotte, NC</link:city></li>
                 <li><link:city city="Cheyenne" state="WY">Cheyenne, WY</link:city></li>
