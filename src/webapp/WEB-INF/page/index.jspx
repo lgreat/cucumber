@@ -218,7 +218,7 @@
             levelCode="e"
             />
 
-    <jsp:include page="/promo/emailSignUp.module"/>
+        <jsp:include page="/promo/emailSignUp.module"/>
 
     <c:choose>
         <c:when test="${requestScope.pageHelper.showingHomepageBoxAd}">

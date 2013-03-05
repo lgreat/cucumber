@@ -135,7 +135,7 @@ GS.search.results = GS.search.results || (function() {
         refreshAds();
         jQuery.ajax({
             type: "get",
-            url: url() + queryString,
+            url: url() + $.trim(queryString),
             data:data,
             success: callback,
             error: errorCallback,
@@ -174,6 +174,10 @@ GS.search.results = GS.search.results || (function() {
                     'linear',
                     afterFadeIn
                 );
+                var seoTitle = jQuery('#js_seoCityBrowseTitle').text();
+                if(seoTitle !== '') {
+                    jQuery('#js_seoTitle').text(seoTitle);
+                }
                 GS.util.htmlMirrors.updateAll();
                 if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
                     if(jQuery("#js_totalResultsCountReturn").html() == ""){jQuery("#js_totalResultsCountReturn").html("0");jQuery("#js-moreThanOne").show()}
@@ -445,6 +449,12 @@ GS.search.results = GS.search.results || (function() {
 
     var renderDataForMap = function(data) {
         var pageNav = $('#js-mapPageNav');
+        if(data.seoTitle !== '') {
+            $('#js_seoTitle').text(data.seoTitle + ' in ' + data.schoolSearchResults[1].city);
+        }
+        else {
+            $('#js_seoTitle').text(data.schoolSearchResults[1].city + ' Schools');
+        }
         if(data.page !== undefined && data.page[1].noSchoolsFound === true) {
             $('.js-rightResultsGrid').hide();
             pageNav.find('#total-results-count').html('');
@@ -730,12 +740,14 @@ GS.search.results = GS.search.results || (function() {
     var refreshAds = function() {
         var adSlotKeys = ['Search_Site_Footer_728x90', 'Search_Site_Header_728x90', 'Search_Site_AboveFold_300x250',
             'Search_Site_BelowFold_Top_300x125', 'Search_Site_Sponsor_630x40'];
+        GS.ad.unhideGhostTextForAdSlots(adSlotKeys);
         GS.ad.refreshAds(adSlotKeys);
     };
     
     var refreshMapAds = function() {
         var adSlotKeys = ['Search_Results_Map_Footer_728x90', 'Search_Results_Map_Header_728x90', 'Search_Results_Map_AboveFold_300x250',
             'Search_Results_Map_BelowFold_Top_300x125'];
+        GS.ad.unhideGhostTextForAdSlots(adSlotKeys);
         GS.ad.refreshAds(adSlotKeys);
     };
 

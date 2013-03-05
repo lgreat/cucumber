@@ -23,15 +23,15 @@
 
 <c:set var="pw" value="${requestScope.context.pathway}"/>
 
-<div class="menuContainer">
+<div class="menuContainer-primary">
+<div class="container_24">
 <table id="gs-primary">
 <tbody>
 <tr>
 <td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem home">
     <div class="dropdownReference">
-        <link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">
-            <span class="navSprite i-pn-home"><!-- do not collapse --></span>
-        </link:home>
+        <link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">Home</link:home>
+        <!--<span class="navSprite i-pn-home">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
     </div>
 </td>
 <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
@@ -60,10 +60,10 @@
                 <div class="col_content">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <!--<li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"-->
-                                                    <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
+                        <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
                         <!--</li>-->
                         <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool"
-                               class="GS_CI9_">Defining Your Ideal School</a></li>
+                               class="S_CI9_">Defining Your Ideal School</a></li>
                         <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids"
                                class="GS_CI9_">Moving with Kids</a></li>
                         <li class="lastone"><a href="/tips-moving-school-district.topic?content=4248"
@@ -74,8 +74,9 @@
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-20.9.jpg" width="130" height="66"
-                              alt="find a school hot topic"/>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-20.9.jpg"
+                                              width="130" height="66"
+                                              alt="find a school hot topic"/>
                     </div>
                     <!-- GS-12882 -->
                     <!--<p class="text3 allCaps">Hot Topic</p>-->
@@ -83,10 +84,11 @@
                     <!--<p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"-->
                     <!--id="PN_F_HT-ChoosingASchoolFromADistance"-->
                     <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
-                    <div class="fl"><p class="text3 allCaps">NEW!</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">New!</p>
 
-                    <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap" styleClass="GS_CI9_"
-                        school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
+                        <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap"
+                                                      styleClass="small GS_CI9_"
+                                                      school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
                         </p></div>
                 </div>
             </div>
@@ -129,15 +131,16 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66" alt="preschool hot topic" />-->
                     <!-- for java pages -->
-                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-preschool-19.3.jpg" width="130" height="66"
-                              alt="preschool hot topic"/>
+                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_preschool.jpg"
+                                               width="130" height="66"
+                                               alt="preschool hot topic"/>
                     </div>
                     <div class="fl">
-                    <p class="text3 allCaps">Hot Topic</p>
+                        <p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                    <p><a href="/parenting/social-skills/1579-making-friends-in-preschool.gs"
-                          id="PN_P_HT-HowCanIHelpMyPreschoolerMakeFriends"
-                          class="GS_CI9_">How can I help my<br />preschooler make friends?</a></p></div>
+                        <p><a href="/reading/6990-young-children-reading.gs"
+                              id="PN_P_HT-ShouldYourPreschoolerAlreadyBeReading"
+                              class="small GS_CI9_">Should your preschooler already<br/> be reading?</a></p></div>
                 </div>
             </div>
         </div>
@@ -167,7 +170,8 @@
                         <li><a href="/fifth-grade.topic?content=2664" id="PN_E_1-FifthGrade"
                                class="GS_CI9_">Fifth Grade</a>
                         </li>
-                        <li><a href="/elementary-school-math.topic?content=5069" id="PN_E_1-Math" class="GS_CI9_">Math</a>
+                        <li><a href="/elementary-school-math.topic?content=5069" id="PN_E_1-Math"
+                               class="GS_CI9_">Math</a>
                         </li>
                         <li class="lastone"><a href="/elementary-school-reading.topic?content=5256" id="PN_E_1-Reading"
                                                class="GS_CI9_">Reading</a></li>
@@ -204,13 +208,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130" height="66" alt="elementary school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-elementaryschool-19.3.jpg" width="130"
-                              height="66" alt="elementary school hot topic"/></div>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_elementary.jpg"
+                                              width="130"
+                                              height="66" alt="elementary school hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                    <p><a href="/students/academic-skills/2430-teaching-persistence-3rd-through-5th-grade.gs?page=1"
-                          id="PN_E_HT-TeachingPersistence" class="GS_CI9_">Teaching persistence</a></p></div>
+                        <p><a href="/students/homework-help/60-five-skills-for-academic-success.gs"
+                              id="PN_E_HT-5KeySkillsForAcademicSuccess" class="small GS_CI9_">5 key skills for academic <br/>success</a></p></div>
                 </div>
             </div>
         </div>
@@ -237,7 +242,7 @@
                                class="GS_CI9_">Science</a>
                         </li>
                         <li><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
-                                               class="GS_CI9_">Social Studies</a></li>
+                               class="GS_CI9_">Social Studies</a></li>
                         <li class="lastone"><a href="/Tween-Troubles.topic?content=4885" id="PN_M_1-TweenTroubles"
                                                class="GS_CI9_">Tween Troubles</a></li>
                     </ul>
@@ -265,14 +270,15 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130" height="66" alt="middle school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-middleschool-19.3.jpg" width="130"
-                              height="66" alt="middle school hot topic"/></div>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_middle.jpg"
+                                              width="130"
+                                              height="66" alt="middle school hot topic"/></div>
 
-                        <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                    <p><a href="/parenting/bullying/5063-when-the-teacher-is-the-bully.gs?page=1"
-                          id="PN_M_HT-WhenTheTeacherIsTheBully"
-                          class="GS_CI9_">When the teacher is the<br />bully</a></p></div>
+                        <p><a href="/raising-successful-students.topic?content=7213"
+                              id="PN_M_HT-SecretsToMiddleSchoolSuccess"
+                              class="small GS_CI9_">Secrets to middle school <br/>success</a></p></div>
                 </div>
             </div>
         </div>
@@ -317,8 +323,9 @@
                         <li><a href="/improvement.topic?content=1543" id="PN_H_2-ImproveYourSchool"
                                class="GS_CI9_">Improve Your School</a></li>
                         <li><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community"
-                                               class="GS_CI9_">Community</a></li>
-                        <li class="lastone"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="PN_H_2-SexDrugsAndYourTeen"
+                               class="GS_CI9_">Community</a></li>
+                        <li class="lastone"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880"
+                                               id="PN_H_2-SexDrugsAndYourTeen"
                                                class="GS_CI9_">Sex, Drugs &amp;amp; Your Teen</a></li>
                     </ul>
                 </div>
@@ -328,19 +335,21 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66" alt="high school hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-highschool-19.3.jpg" width="130" height="66"
-                              alt="high school hot topic"/></div>
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_highschool.jpg"
+                                              width="130" height="66"
+                                              alt="high school hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                    <p><a href="/parenting/4486-parent-rules-teen-alcohol-drug-use.gs?page=1"
-                          id="PN_H_HT-HouseRulesOnDrugsAndAlcohol" class="GS_CI9_">House rules on drugs and<br />alcohol</a></p></div>
+                        <p><a href="/parenting/behavior-discipline/slideshows/4414-brain-high-school.gs"
+                              id="PN_H_HT-AnInsideLookAtYourTeensBrain" class="small GS_CI9_">An inside look at your teen's<br/> brain</a>
+                        </p></div>
                 </div>
             </div>
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
+<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
     <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
@@ -370,26 +379,25 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="college hot topic"/>-->
                     <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66"
+                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130"
+                                              height="66"
                                               alt="college hot topic"/></div>
 
-                    <div class="fl"><p class="text3 allCaps">Hot Topic</p>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
                         <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
-                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions<br />anxiety</a></p></div>
+                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="small GS_CI9_">Easing college admissions<br/>anxiety</a>
+                        </p></div>
                 </div>
             </div>
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.GIFT_GUIDE ? 'selected' : '')} menuItem lastNavUnit">
-   <a id="PN-Gift" class="menuItemAnchorText GS_CI9_" href="/holiday-gift-guide.topic?content=5083"><span class="navSprite i-pn-gg"><!-- do not collapse --></span> Learning Gifts</a>
-    <!--/holiday-gift-guide.topic?content=5083-->
-</td>
 
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 </jsp:root>

@@ -1,31 +1,42 @@
 package gs.web.school;
 
-import gs.data.school.census.CensusDescription;
+import gs.data.school.census.*;
 
 import java.io.Serializable;
 import java.util.Set;
 
 public class SchoolProfileStatsDisplayRow implements Serializable {
     private Long _groupId;
+    private Integer _dataTypeId;
     private Integer _censusDataSetId;
     private String _text;
-    private String _schoolValue;
-    private String _districtValue;
-    private String _stateValue;
+
+    private SchoolCensusValue _schoolCensusValue;
+    private DistrictCensusValue _districtCensusValue;
+    private StateCensusValue _stateCensusValue;
+
     private Set<CensusDescription> _censusDescriptions;
     private Integer _year;
     private boolean _manualOverride;
 
-    public SchoolProfileStatsDisplayRow(Long groupId, Integer censusDataSetId, String text, String schoolValue, String districtValue, String stateValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride) {
+    private CensusDataType _dataTypeEnum;
+
+    private Integer _sort;
+
+    public SchoolProfileStatsDisplayRow(Long groupId, Integer dataTypeId, Integer censusDataSetId, String text, SchoolCensusValue schoolValue, DistrictCensusValue districtValue, StateCensusValue stateCensusValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride, Integer sort) {
         _groupId = groupId;
+        _dataTypeId = dataTypeId;
         _censusDataSetId = censusDataSetId;
         _text = text;
-        _schoolValue = schoolValue;
-        _districtValue = districtValue;
-        _stateValue = stateValue;
+        _schoolCensusValue = schoolValue;
+        _districtCensusValue = districtValue;
+        _stateCensusValue = stateCensusValue;
         _censusDescriptions = censusDescriptions;
         _year = year;
         _manualOverride = manualOverride;
+
+        _dataTypeEnum = CensusDataType.getEnum(_dataTypeId);
+        _sort = sort;
     }
 
     public Long getGroupId() {
@@ -37,15 +48,51 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
     }
 
     public String getSchoolValue() {
-        return _schoolValue;
+        String schoolValue = "";
+        if (_schoolCensusValue != null) {
+            if (_schoolCensusValue.getValueFloat() != null) {
+                schoolValue = CensusDataHelper.formatValueAsString(_schoolCensusValue.getValueFloat(), _dataTypeEnum.getValueType());
+            } else {
+                schoolValue = String.valueOf(_schoolCensusValue.getValueText());
+            }
+        }
+        return schoolValue;
     }
 
     public String getDistrictValue() {
-        return _districtValue;
+        String value = "";
+
+        if (_districtCensusValue != null) {
+            if (_districtCensusValue.getValueFloat() != null) {
+                value = CensusDataHelper.formatValueAsString(_districtCensusValue.getValueFloat(), _dataTypeEnum.getValueType());
+            } else {
+                value = String.valueOf(_districtCensusValue.getValueText());
+            }
+        }
+
+        return value;
     }
 
     public String getStateValue() {
-        return _stateValue;
+        String value = "";
+
+        if (_stateCensusValue != null) {
+            if (_stateCensusValue.getValueFloat() != null) {
+                value = CensusDataHelper.formatValueAsString(_stateCensusValue.getValueFloat(), _dataTypeEnum.getValueType());
+            } else {
+                value = String.valueOf(_stateCensusValue.getValueText());
+            }
+        }
+
+        return value;
+    }
+
+    public Float getSchoolValueFloat() {
+        return _schoolCensusValue.getValueFloat();
+    }
+
+    public Float getDistrictValueFloat() {
+        return _districtCensusValue.getValueFloat();
     }
 
     public Set<CensusDescription> getCensusDescriptions() {
@@ -70,5 +117,9 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
 
     public void setManualOverride(boolean manualOverride) {
         _manualOverride = manualOverride;
+    }
+
+    public Integer getSort() {
+        return _sort;
     }
 }

@@ -3,6 +3,9 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.test.*;
+import gs.data.util.Pair;
+import gs.web.school.test.SubjectToTestValues;
+import gs.web.school.test.TestToGrades;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -10,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,14 +40,23 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
     @Autowired private ITestBreakdownDao _testBreakdownDao;
     @Autowired private ITestDescriptionDao _testDescriptionDao;
 
+    @Autowired
+    private ApiTestResultsHelper _apiTestResultsHelper;
+
     @RequestMapping(method=RequestMethod.GET)
-    public ModelAndView getTestScores(HttpServletRequest request) {
+    public ModelAndView getTestResults(HttpServletRequest request) {
         School school = getSchool(request);
         Map<String, Object> model = new HashMap<String, Object>();
 
         if (school != null) {
             if (school.isActive()) {
-                model.put("testScores", getTestScores(school));
+                List<TestToGrades> testToGradesList = getTestScores(school);
+                model.put("testScores", testToGradesList);
+
+                //If state is CA, then get the API results.API has its own table.
+                if(school.getDatabaseState().equals(State.CA)){
+                    putApiTestScoreResults(school,testToGradesList,model);
+                }
             } else {
                 _log.error("School id: " + school.getId() + " in state: " + school.getDatabaseState() + " is inactive.");
                 return new ModelAndView(ERROR_VIEW, model);
@@ -71,8 +82,8 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         //A new map to represent a map of test data type Id to max year.This is used to query the subgroup data for a test only for the most recent year.
         Map<Integer, Integer> testDataTypeIdToMaxYear = new HashMap<Integer, Integer>();
         //A map used to store the test data type, grade, level code, subjects, test data set and test score value for the school.
-        Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap =
-                new HashMap<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>>();
+        Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>>> testScoresMap =
+                new HashMap<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>>>();
 
         //Get all the non-subgroup data points that a school should have.
         //(Fetch the data sets and the test score values if they exist.Fetch the data sets irrespective of, if the school has value or not).
@@ -128,7 +139,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
      */
     protected void
     populateTestScores(School school, Map<Integer, TestDataType> testDataTypeIdToTestDataType,
-                       Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap,
+                       Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>>> testScoresMap,
                        Map<Integer, Integer> testDataTypeIdToMaxYear, List<SchoolTestResult> testScoreResults, boolean isSubgroup) {
 
         for (SchoolTestResult testScoreResult : testScoreResults) {
@@ -140,11 +151,17 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
             //If the grade=all then display only the level codes that the school has.
             //Note:This may or may not work with extra data.Re-visit this when working on GS-12963
-            if (Grade.ALL.equals(grade)) {
-                Set<LevelCode.Level> levelCodes = levelCode.getIndividualLevelCodes();
-                for (LevelCode.Level level : levelCodes) {
-                    if (!school.getLevelCode().containsLevelCode(level)) {
-                        levelCode.remove(level);
+            // Do not do this for NYC Progress Report so as not to incorrectly combine data that doesn't belong together
+            // Do not do this for Ohio Value-Added because front-end/tagx logic requires a grade name 'All', not 'Alle',
+            //   etc. (see Grade.java). e.g. OH/1700; this would mess up the level code.
+            if (testDataType.getDisplayType() != TestDataTypeDisplayType.nyc_progress_report_grade &&
+                testDataType.getDisplayType() != TestDataTypeDisplayType.oh_value_added) {
+                if (Grade.ALL.equals(grade)) {
+                    Set<LevelCode.Level> levelCodes = levelCode.getIndividualLevelCodes();
+                    for (LevelCode.Level level : levelCodes) {
+                        if (!school.getLevelCode().containsLevelCode(level)) {
+                            levelCode.remove(level);
+                        }
                     }
                 }
             }
@@ -156,6 +173,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             Float stateAvgFloat = testScoreResult.getStateAvgFloat();
             String stateAvgText = testScoreResult.getStateAvgText();
             Integer breakdownId = testScoreResult.getBreakdownId();
+            Integer numberTested = testScoreResult.getNumberTested();
 
             if (testDataType != null && testDataSetId != null && grade != null && levelCode != null && subject != null) {
 
@@ -204,10 +222,12 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 //Build a new custom test data type.
                 CustomTestDataType customTestDataType = new CustomTestDataType();
                 customTestDataType.setId(testDataTypeId);
+                customTestDataType.setDisplayName(testDataType.getDisplayName());
+                customTestDataType.setDisplayType(testDataType.getDisplayType());
                 //Group the subgroup data for a test into a new map of custom test data type.
                 customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? LABEL_SUBGROUP_TEST_SUFFIX : ""));
                 //Fill the map with the test data type, grade, level code, subjects, test data set and value.
-                buildTestScoresMap(testScoresMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
+                buildTestScoresMap(testScoresMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue, numberTested);
             }else{
                 _log.error("Could not retrieve testDataType:" + testDataType + " testDataSetId:" + testDataSetId + " grade:" + grade + " levelCode :" + levelCode + " subject:" + subject);
             }
@@ -225,64 +245,64 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
      * @param testDataSet
      * @param testScoreValue
      */
-    protected void buildTestScoresMap(Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap,
+    protected void buildTestScoresMap(Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>>> testScoresMap,
                                       CustomTestDataType customTestDataType, Grade grade, LevelCode levelCode, Subject subject,
-                                      CustomTestDataSet testDataSet, String testScoreValue) {
-        Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = testScoresMap.get(customTestDataType);
+                                      CustomTestDataSet testDataSet, String testScoreValue, Integer numberTested) {
+        Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = testScoresMap.get(customTestDataType);
         //Check if the test is already in the map.
         if (gradeToLevelCodeToSubjectsToDataSetToValueMap != null) {
             //Test already present.
-            Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
+            Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
             //Check if grade is already in the map.
             if (levelCodeToSubjectsToDataSetToValueMap != null) {
                 //Grade already present.
-                Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
+                Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
                 //Check if level code is already in the map.
                 if (subjectToDataSet != null) {
                     //Level code already present.
-                    Map<CustomTestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
+                    Map<CustomTestDataSet, Pair<String,Integer>> dataSetToValue = subjectToDataSet.get(subject);
                     //Check if subject is already in the map.
                     if (dataSetToValue != null) {
                         //Subject already present.
                         //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
                         if (dataSetToValue.get(testDataSet) == null) {
                             //Put the DataSet in the map.
-                            dataSetToValue.put(testDataSet, testScoreValue);
+                            dataSetToValue.put(testDataSet, new Pair(testScoreValue, numberTested));
                         }
                     } else {
                         //Subject not present.
-                        dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                        dataSetToValue.put(testDataSet, testScoreValue);
+                        dataSetToValue = new HashMap<CustomTestDataSet, Pair<String,Integer>>();
+                        dataSetToValue.put(testDataSet, new Pair(testScoreValue, numberTested));
                         subjectToDataSet.put(subject, dataSetToValue);
                     }
                 } else {
                     //Level code not present
-                    Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                    dataSetToValue.put(testDataSet, testScoreValue);
-                    subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+                    Map<CustomTestDataSet, Pair<String,Integer>> dataSetToValue = new HashMap<CustomTestDataSet, Pair<String,Integer>>();
+                    dataSetToValue.put(testDataSet, new Pair(testScoreValue, numberTested));
+                    subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>();
                     subjectToDataSet.put(subject, dataSetToValue);
                     levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
                 }
             } else {
                 //Grade not present.
-                Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                dataSetToValue.put(testDataSet, testScoreValue);
-                Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+                Map<CustomTestDataSet, Pair<String,Integer>> dataSetToValue = new HashMap<CustomTestDataSet, Pair<String,Integer>>();
+                dataSetToValue.put(testDataSet, new Pair(testScoreValue, numberTested));
+                Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>();
                 subjectToDataSet.put(subject, dataSetToValue);
-                Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
+                Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>();
                 levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
                 gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
 
             }
         } else {
             //Test not present.
-            Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-            dataSetToValue.put(testDataSet, testScoreValue);
-            Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+            Map<CustomTestDataSet, Pair<String,Integer>> dataSetToValue = new HashMap<CustomTestDataSet, Pair<String,Integer>>();
+            dataSetToValue.put(testDataSet, new Pair(testScoreValue, numberTested));
+            Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>();
             subjectToDataSet.put(subject, dataSetToValue);
-            Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
+            Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>();
             levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-            gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
+            gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>>();
             gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
             testScoresMap.put(customTestDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
         }
@@ -300,7 +320,9 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataTypeId);
         if (testDataTypeId != null && testDataType == null) {
             testDataType = _testDataTypeDao.getDataType(testDataTypeId);
-            testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
+            if(testDataType != null){
+                testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
+            }
         }
         return testDataType;
     }
@@ -312,27 +334,33 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
     protected List<TestToGrades> populateTestScoresBean(
-            School school, Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> map,
+            School school, Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, Pair<String,Integer>>>>>> map,
             Map<Integer, TestDescription> testDataTypeToDescription) {
 
+        boolean schoolHasData = false;
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (CustomTestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getLabel());
             testToGrades.setTestDataTypeId(testDataType.getId());
             testToGrades.setIsSubgroup((testDataType.getLabel().indexOf(LABEL_SUBGROUP_TEST_SUFFIX) > 0));
+            testToGrades.setDisplayName(testDataType.getDisplayName());
+            testToGrades.setDisplayType(testDataType.getDisplayType());
 
             //Get the test information, like the source, scale and description.
             String description = "";
+            String subgroupDescription = "";
             String scale = "";
             String source = "";
             TestDescription testDescription = testDataTypeToDescription.get(testDataType.getId());
             if (testDescription != null) {
                 description = StringUtils.isNotBlank(testDescription.getDescription()) ? testDescription.getDescription() : "";
+                subgroupDescription = StringUtils.isNotBlank(testDescription.getSubgroupDescription()) ? testDescription.getSubgroupDescription() : "";
                 scale = StringUtils.isNotBlank(testDescription.getScale()) ? StringEscapeUtils.escapeHtml(testDescription.getScale()) : "";
                 source = StringUtils.isNotBlank(testDescription.getSource()) ? StringEscapeUtils.escapeHtml(testDescription.getSource()) : "";
             }
             testToGrades.setDescription(description);
+            testToGrades.setSubgroupDescription(subgroupDescription);
             testToGrades.setScale(scale);
             testToGrades.setSource(source);
 
@@ -371,7 +399,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                         List<TestValues> testValuesList = new ArrayList<TestValues>();
                         for (CustomTestDataSet testDataSet : map.get(testDataType).get(grade).get(levelCode).get(subject).keySet()) {
 
-                            String testScoreValue = map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet);
+                            String testScoreValue = map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet).getObj1();
                             //For masking the test score.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
                             //AK has a lot of masked school values.
                             Pattern p = Pattern.compile("\\d*(\\.*\\d+)");
@@ -380,11 +408,15 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                                 testScoreValue = m.group();
                             }
 
+                            if (!StringUtils.equals(LABEL_DATA_NOT_AVAILABLE, testScoreValue)) {
+                                schoolHasData = true;
+                            }
                             //For a year set the test score.
                             TestValues testValue = new TestValues();
                             testValue.setYear(testDataSet.getYear());
                             testValue.setTestScoreStr(testScoreValue);
-                            testValue.setTestScoreLabel(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
+                            testValue.setTestScoreLabel(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet).getObj1());
+                            testValue.setNumberTested(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet).getObj2());
                             testValue.setStateAvg(testDataSet.getStateAverage());
                             testValue.setBreakdownLabel(testDataSet.getBreakdownLabel());
                             testValue.setBreakdownSortOrder(testDataSet.getBreakdownSortOrder());
@@ -409,9 +441,17 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             testToGrades.setGrades(gradeToSubjectsList);
             testToGradesList.add(testToGrades);
         }
+
+
         //Sort the tests.
         Collections.sort(testToGradesList);
-        return testToGradesList;
+        if (schoolHasData) {
+            return testToGradesList;
+        } else {
+            // if every value for the school is "not available", then this school has no test score data
+            // see GS-13489
+            return new ArrayList<TestToGrades>();
+        }
     }
 
     protected Map<Integer, TestDescription> getTestDataTypeToTestDescription(School school, Set<Integer> dataTypeIds) {
@@ -447,105 +487,6 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * Beans to encapsulate the test scores for the school.This bean is used to present data to the view.
-     */
-    public static class TestToGrades implements Comparable<TestToGrades> {
-        String _testLabel;
-        List<GradeToSubjects> _grades;
-        String _description;
-        String _source;
-        String _scale;
-        Grade _lowestGradeInTest;
-        Integer _testDataTypeId;
-        Boolean _isSubgroup;
-
-        public String getTestLabel() {
-            return _testLabel;
-        }
-
-        public void setTestLabel(String testLabel) {
-            _testLabel = testLabel;
-        }
-
-        public List<GradeToSubjects> getGrades() {
-            return _grades;
-        }
-
-        public void setGrades(List<GradeToSubjects> grades) {
-            _grades = grades;
-        }
-
-        public String getDescription() {
-            return _description;
-        }
-
-        public void setDescription(String description) {
-            _description = description;
-        }
-
-        public String getSource() {
-            return _source;
-        }
-
-        public void setSource(String source) {
-            _source = source;
-        }
-
-        public String getScale() {
-            return _scale;
-        }
-
-        public void setScale(String scale) {
-            _scale = scale;
-        }
-
-        public Grade getLowestGradeInTest() {
-            return _lowestGradeInTest;
-        }
-
-        public void setLowestGradeInTest(Grade lowestGradeInTest) {
-            _lowestGradeInTest = lowestGradeInTest;
-        }
-
-        public Integer getTestDataTypeId() {
-            return _testDataTypeId;
-        }
-
-        public void setTestDataTypeId(Integer testDataTypeId) {
-            _testDataTypeId = testDataTypeId;
-        }
-
-        public Boolean getIsSubgroup() {
-            return _isSubgroup;
-        }
-
-        public void setIsSubgroup(Boolean isSubgroup) {
-            _isSubgroup = isSubgroup;
-        }
-
-        //The tests should be sorted in the order of - the lowest grade in the test followed by test data type id.
-        //However if the test has subgroup data then the test should be followed by subgroup test.
-        public int compareTo(TestToGrades testToGrades) {
-            Integer gradeNum1 = TestScoresHelper.getGradeNum(getLowestGradeInTest());
-            Integer gradeNum2 = TestScoresHelper.getGradeNum(testToGrades.getLowestGradeInTest());
-            Integer dataTypeId1 = getTestDataTypeId();
-            Integer dataTypeId2 = testToGrades.getTestDataTypeId();
-
-            int rval;
-            if (gradeNum1.compareTo(gradeNum2) == 0) {
-                if (dataTypeId1.compareTo(dataTypeId2) == 0) {
-                    rval = getIsSubgroup() ? 1 : -1;
-                } else {
-                    rval = dataTypeId1.compareTo(dataTypeId2);
-                }
-            } else {
-                rval = gradeNum1.compareTo(gradeNum2);
-            }
-            return rval;
         }
     }
 
@@ -594,31 +535,6 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         }
     }
 
-    public static class SubjectToTestValues implements Comparable<SubjectToTestValues> {
-        String _subjectLabel;
-        List<TestValues> _testValues;
-
-        public String getSubjectLabel() {
-            return _subjectLabel;
-        }
-
-        public void setSubjectLabel(String subjectLabel) {
-            _subjectLabel = subjectLabel;
-        }
-
-        public List<TestValues> getTestValues() {
-            return _testValues;
-        }
-
-        public void setTestValues(List<TestValues> testValues) {
-            _testValues = testValues;
-        }
-
-        public int compareTo(SubjectToTestValues subjectToTestValues) {
-            return getSubjectLabel().compareTo(subjectToTestValues.getSubjectLabel());
-        }
-    }
-
     public static class TestValues implements Comparable<TestValues> {
         //testScoreStr is used to store the value to draw the bar graph.
         //For example for masked value like '>95' testScoreStr = 95
@@ -630,6 +546,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         String _stateAvg;
         String _breakdownLabel;
         Integer _breakdownSortOrder;
+        Integer _numberTested;
 
         public String getTestScoreStr() {
             return _testScoreStr;
@@ -679,6 +596,18 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             _breakdownSortOrder = breakdownSortOrder;
         }
 
+        public boolean getHasData() {
+            return (!StringUtils.equals(LABEL_DATA_NOT_AVAILABLE, _testScoreStr));
+        }
+
+        public void setNumberTested(Integer numberTested) {
+            _numberTested = numberTested;
+        }
+
+        public Integer getNumberTested() {
+            return _numberTested;
+        }
+
         //For subgroup data , the sort order is based on the subgroup's(breakdown) sort order.
         //For non-subgroup data, the sort order is based on the year.
         public int compareTo(TestValues testValues) {
@@ -700,6 +629,16 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public Integer _id;
         public String _label;
+        public String _displayName;
+        public TestDataTypeDisplayType _displayType;
+
+        public String getDisplayName() {
+            return _displayName;
+        }
+
+        public void setDisplayName(String _displayName) {
+            this._displayName = _displayName;
+        }
 
         public Integer getId() {
             return _id;
@@ -715,6 +654,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public void setLabel(String label) {
             _label = label;
+        }
+
+        public TestDataTypeDisplayType getDisplayType() {
+            return _displayType;
+        }
+
+        public void setDisplayType(TestDataTypeDisplayType displayType) {
+            _displayType = displayType;
         }
 
         public boolean equals(Object o) {
@@ -816,6 +763,33 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             return 53 * _id.hashCode();
         }
 
+    }
+
+    protected void putApiTestScoreResults(School school, List<TestToGrades> testToGradesList, Map<String, Object> model) {
+        //Get API test scores
+        Map apiTestResults = _apiTestResultsHelper.getApiTestResults(school);
+        if (apiTestResults != null && !apiTestResults.isEmpty()) {
+            model.put("apiTestResultsMap", apiTestResults);
+            //Add API to the list of tests to be displayed.
+            addApiResultsToTestToGradesList(testToGradesList);
+        }
+    }
+
+    protected void addApiResultsToTestToGradesList(List<TestToGrades> testToGradesList) {
+        //Create a new TestToGrades Object
+        TestToGrades api = new TestToGrades();
+        api.setDescription("");
+        //Hard code the test name.
+        api.setDisplayName("API");
+        api.setDisplayType(TestDataTypeDisplayType.ca_api_growth);
+        api.setLowestGradeInTest(Grade.G_1);
+        api.setTestDataTypeId(-1);
+
+        if(testToGradesList == null){
+            testToGradesList = new ArrayList<TestToGrades>();
+        }
+        //API should always be displayed first.
+        testToGradesList.add(0, api);
     }
 
     void setTestDataSetDao(ITestDataSetDao testDataSetDao) {

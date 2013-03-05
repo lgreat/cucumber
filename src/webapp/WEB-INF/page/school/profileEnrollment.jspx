@@ -22,6 +22,12 @@
                     <span class="button-1-big mtm">Apply now</span>
                 </div>
             </c:set>
+            <c:if test="${apply.isAdmissionUrl eq true}">
+                <c:set var="applyNowUrl" value="admission_url" />
+            </c:if>
+            <c:if test="${apply.isAdmissionUrl eq false}">
+                <c:set var="applyNowUrl" value="home_page_url" />
+            </c:if>
         </c:when>
         <c:otherwise>
             <c:set var="linkFindOutMore" value="To learn more about enrolling, please call the school."/>
@@ -156,6 +162,8 @@
     </div>
     </div>
 
-    <mod:deferredTracking key="enrollment" pageName="enrollment" hier1="School,SchoolProfileSuite,Enrollment"/>
+    <mod:deferredTracking key="enrollment" pageName="enrollment" hier1="School,SchoolProfileSuite,Enrollment"
+            applyNowUrl="${applyNowUrl}"/>
+    <mod:tabSpecificTracking pageName="enrollment" propNumber="prop52" />
 
 </jsp:root>

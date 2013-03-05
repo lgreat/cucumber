@@ -1,5 +1,17 @@
 GS_loadSubnav = function() {
     /* Subnav menus */
+
+    var stateValue = function (selectedState) {
+        jQuery("#topnav_search_school .showStateHeader").text(selectedState === "" ? "State" : selectedState);
+    };
+    jQuery("#topnav_search_school #stateSelector").change(function () {
+        stateValue(jQuery(this).val());
+    }).trigger("change");
+
+    jQuery("#topnav_search_school #stateSelector").keyup(function () {
+        stateValue(jQuery(this).val());
+    });
+
     var srchArtTab = jQuery('#srch2').hasClass('active');
     if(srchArtTab){
         jQuery('#qNew').attr('style','width:300px')
@@ -19,7 +31,7 @@ GS_loadSubnav = function() {
     });
 
     jQuery('#topnav_search .radLabel').click(function(){
-        jQuery(this).parent('li').removeClass('inactive').addClass('active');
-        jQuery(this).parent('li').siblings().removeClass('active').addClass('inactive');
+        jQuery(this).removeClass('inactive').addClass('active');
+        jQuery(this).siblings().removeClass('active').addClass('inactive');
     });
 };

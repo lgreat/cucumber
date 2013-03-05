@@ -16,6 +16,44 @@ Function.prototype.k12_traffic_driver_bind = function(obj) {
 };
 
 GS = GS || {};
+
+GS.ad = GS.ad || {};
+GS.ad.hideGhostTextForSingleAd = function(wrapperDivId, isGptAsync, frameElem) {
+    var wrapperDiv = jQuery('#' + wrapperDivId);
+    if (isGptAsync) {
+        if (frameElem != null) {
+            // regular GPT Async
+            jQuery(frameElem).siblings('.jq-ghostText').hide();
+            // GPT Async with disableGptGhostTextHiding enabled for this ad slot
+            jQuery(frameElem).parent().siblings('.jq-ghostText').hide();
+        }
+    } else {
+        // GPT Sync
+        wrapperDiv.parent().siblings('.jq-ghostText').hide();
+    }
+    wrapperDiv.show();
+};
+
+GS.ad.unhideGhostTextForAdSlots = function(adSlots) {
+    var i, slotName, frameElem, jqFrameElem;
+
+    for (i = adSlots.length - 1; i >= 0; i--) {
+        slotName = adSlots[i];
+        // the _0 at the end assumes we only have one instance of the same ad slot on the page; GPT allows multiple instances but we don't use that feature yet
+        frameElem = document.getElementById('google_ads_iframe_/1002894/' + slotName + '_0');
+        if (frameElem != null) {
+            jqFrameElem = jQuery(frameElem);
+
+            // regular GPT Async - this should never be needed because ghost text would get wiped out on an ad refresh anyway, without calling disableGptGhostTextHiding
+            //jqFrameElem.siblings('.jq-ghostText').show();
+
+            // GPT Async with disableGptGhostTextHiding enabled for this ad slot
+            jqFrameElem.parent().siblings('.jq-ghostText').show();
+        }
+    }
+};
+
+
 GS.promo = GS.promo || {};
 GS.promo.K12 = GS.promo.K12 || {};
 

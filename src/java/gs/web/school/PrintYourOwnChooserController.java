@@ -1,10 +1,13 @@
 package gs.web.school;
 
+import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
 import gs.data.test.TestDataSetDisplayTarget;
 import gs.web.PdfView;
+import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -30,7 +33,7 @@ import java.util.*;
 
 @RequestMapping("/my-school-list")
 @Component("printYourOwnChooserController")
-public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware {
+public class PrintYourOwnChooserController implements BeanFactoryAware, ServletContextAware, ReadWriteAnnotationController {
 
     private ServletContext _servletContext;
 
@@ -50,6 +53,12 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
     @Autowired
     private InternalResourceViewResolver _viewResolver;
+
+    @Autowired
+    private IPyocUserDao _pyocUserDaoHibernate;
+
+    @Autowired
+    private IPyocUserSchoolMappingDao _pyocUserSchoolDaoHibernate;
 
     public static final int MAX_ALLOWED_SCHOOLS = 100;
 
@@ -105,6 +114,10 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         modelMap.put("schools", schools);
 
+        User user = SessionContextUtil.getSessionContext(request).getUser();
+        PyocUser pyocUser = new PyocUser(user);
+        _pyocUserDaoHibernate.savePyocUser(pyocUser);
+
         Map<String,Object> schoolData = new HashMap<String,Object>();
 
         for (School school : schools) {
@@ -134,6 +147,11 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
                 data.put(DATA_OVERALL_ACADEMIC_RATING, academicRating);
                 data.put(DATA_OVERALL_ACADEMIC_RATING_TEXT, formatRating((Integer) academicRating));
             }
+
+            PyocUserSchoolMapping pyocUserSchoolMapping = new PyocUserSchoolMapping(pyocUser);
+            pyocUserSchoolMapping.setSchoolId(school.getId());
+            pyocUserSchoolMapping.setState(school.getStateAbbreviation());
+            _pyocUserSchoolDaoHibernate.savePyocUserSchoolMapping(pyocUserSchoolMapping);
         }
         modelMap.put("schoolData", schoolData);
 
@@ -209,7 +227,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         String applicationDeadline = getSingleValue(espData, "application_deadline_date");
         Date applicationDeadlineDate = null;
         if (applicationDeadline != null) {
-            SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
             try {
                 applicationDeadlineDate = format.parse(applicationDeadline);
             } catch (ParseException e) {
@@ -219,29 +237,12 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         }
 
 
-        // Destination schools (where kids go after graduating)
-        String destinationSchool1 = getSinglePrettyValue(espData, "destination_school_1");
-        String destinationSchool2 = getSinglePrettyValue(espData, "destination_school_2");
-        String destinationSchool3 = getSinglePrettyValue(espData, "destination_school_3");
-        data.put("destination_school_1", destinationSchool1);
-        data.put("destination_school_2", destinationSchool2);
-        data.put("destination_school_3", destinationSchool3);
-        String destinationSchools = "";
-        if (destinationSchool1 != null) {
-            destinationSchools = destinationSchool1;
-        }
-        if (destinationSchool2 != null) {
-            destinationSchools += "; " + destinationSchool2;
-        }
-        if (destinationSchool3 != null) {
-            destinationSchools += "; " + destinationSchool3;
-        }
-        data.put("destination_schools", destinationSchools);
+        // College destinations (where kids go after graduating)
+        addDestinationSchoolsOrCollegesToModel(data, espData);
 
 
         // before and after care
-        data.put("before_after_care_start", getSinglePrettyValue(espData, "before_after_care_start"));
-        data.put("before_after_care_end", getSinglePrettyValue(espData, "before_after_care_end"));
+        addBeforeAfterCareToModel(data, espData);
 
 
         // class hours
@@ -250,17 +251,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
 
         // special ed services
-        List<EspResponse> responses = espData.get("special_ed_services");
-        StringBuffer specialEdServices = new StringBuffer();
-        if (responses != null) {
-            for (EspResponse response : responses) {
-                if (specialEdServices.length() > 0) {
-                    specialEdServices.append("; ");
-                }
-                specialEdServices.append(response.getPrettyValue());
-            }
-        }
-        data.put("special_ed_services", StringUtils.trimToNull(specialEdServices.toString().trim()));
+        addSpecialEdToModel(data, espData);
 
 
         // dress code
@@ -273,8 +264,7 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
 
         // transportation
-        String transportation = getSingleValue(espData, "transportation");
-        data.put("transportation", (transportation != null && !transportation.equalsIgnoreCase("none"))? "Yes":"No");
+        addTransportationToModel(data, espData);
     }
 
     private String getSinglePrettyValue(Map<String, List<EspResponse>> espData, String key) {
@@ -308,6 +298,120 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         Map<String, String> ethnicityLabelValueMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(censusDataSets);
         data.put(MODEL_KEY_ETHNICITY_MAP, ethnicityLabelValueMap);
+    }
+
+    public void addDestinationSchoolsOrCollegesToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        String schoolDestination1 = getSinglePrettyValue(espData, "destination_school_1");
+        String schoolDestination2 = getSinglePrettyValue(espData, "destination_school_2");
+        String schoolDestination3 = getSinglePrettyValue(espData, "destination_school_3");
+
+        String collegeDestination1 = getSinglePrettyValue(espData, "college_destination_1");
+        String collegeDestination2 = getSinglePrettyValue(espData, "college_destination_2");
+        String collegeDestination3 = getSinglePrettyValue(espData, "college_destination_3");
+
+        String destinations = "";
+        if (schoolDestination1 != null) {
+            destinations = schoolDestination1;
+        }
+        if (schoolDestination2 != null) {
+            destinations += "; " + schoolDestination2;
+        }
+        if (schoolDestination3 != null) {
+            destinations += "; " + schoolDestination3;
+        }
+
+        if (StringUtils.isEmpty(destinations)) {
+            if (collegeDestination1 != null) {
+                destinations = collegeDestination1;
+            }
+            if (collegeDestination2 != null) {
+                destinations += "; " + collegeDestination2;
+            }
+            if (collegeDestination3 != null) {
+                destinations += "; " + collegeDestination3;
+            }
+        }
+
+        data.put("destinations", destinations);
+    }
+
+    public void addBeforeAfterCareToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        List<EspResponse> beforeAfter = espData.get("before_after_care");
+        boolean foundBefore = false;
+        boolean foundAfter = false;
+        boolean foundNeither = false;
+
+        if (beforeAfter != null && beforeAfter.size() > 0) {
+            for (EspResponse e : beforeAfter) {
+                if (e.getSafeValue().equalsIgnoreCase("before")) {
+                    // Have before now check for time
+                    List<EspResponse> start = espData.get("before_after_care_start");
+                    if (start != null && start.size() > 0) {
+                        data.put("before_care", "Starts " + SchoolProfileProgramsController.formatAmPm(start.get(0).getSafeValue()));
+                    }
+                    else {
+                        data.put("before_care", "Yes");
+                    }
+                    foundBefore = true;
+                }
+                if (e.getSafeValue().equalsIgnoreCase("after")) {
+                    // Have before now check for time
+                    List<EspResponse> end = espData.get("before_after_care_end");
+                    if (end != null && end.size() > 0) {
+                        data.put("after_care", "Ends " + SchoolProfileProgramsController.formatAmPm(end.get(0).getSafeValue()));
+                    }
+                    else {
+                        data.put("after_care", "Yes");
+                    }
+                    foundAfter = true;
+                }
+                if (e.getSafeValue().equalsIgnoreCase("neither")) {
+                    foundNeither = true;
+                }
+            }
+        }
+
+        if (foundNeither || (foundBefore && !foundAfter)) {
+            data.put("after_care", "No");
+        }
+        if (foundNeither || (!foundBefore && foundAfter)) {
+            data.put("before_care", "No");
+        }
+    }
+
+    public void addTransportationToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        String transportation = getSingleValue(espData, "transportation");
+        if (transportation != null) {
+            String transportationValueForModel = null;
+            if (transportation.equalsIgnoreCase("none") || transportation.equalsIgnoreCase("special_ed_only")) {
+                transportationValueForModel = "No";
+            } else if (transportation.equalsIgnoreCase("passes") ||
+                    transportation.equalsIgnoreCase("busses") ||
+                    transportation.equalsIgnoreCase("shared_bus")) {
+                transportationValueForModel = "Yes";
+            }
+
+            if (transportationValueForModel != null) {
+                data.put("transportation", transportationValueForModel);
+            }
+        }
+    }
+
+    public void addSpecialEdToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
+        String level = getSingleValue(espData, "spec_ed_level");
+        String exists = getSingleValue(espData, "special_ed_programs_exists");
+
+        if (StringUtils.isNotBlank(level) && (
+                level.equalsIgnoreCase("none") ||
+                level.equalsIgnoreCase("basic") ||
+                level.equalsIgnoreCase("moderate") ||
+                level.equalsIgnoreCase("intensive"))) {
+            data.put("special_ed", StringUtils.capitalize(level.toLowerCase()));
+        } else if (StringUtils.isNotBlank(exists) && (
+                exists.equalsIgnoreCase("yes") ||
+                exists.equalsIgnoreCase("no"))) {
+            data.put("special_ed", StringUtils.capitalize(exists.toLowerCase()));
+        }
     }
 
     public Map<String, List<EspResponse>> getEspData(School school) {

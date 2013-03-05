@@ -5,7 +5,7 @@ Function.prototype.email_sign_up_bind = function(obj) {
     };
 };
 
-GS = GS || {};
+var GS = GS || {};
 GS.form = GS.form || {};
 GS.form.EmailSignUp = function() {
 
@@ -37,6 +37,7 @@ GS.form.EmailSignUp = function() {
                 data:params,
                 success:function(data) {
                     if (data.status.indexOf('OK') > -1) {
+                        wrapper.find('.js-connectForm').hide();
                         wrapper.find('.jq-emailSignUpIntroText').hide();
                         wrapper.find('.jq-emailSignUpForm').hide();
                         if (data.status == 'OK-emailSent') {
@@ -70,8 +71,17 @@ GS.form.EmailSignUp = function() {
 jQuery(function() {
 
     GS.form.emailSignUp = GS.form.emailSignUp || new GS.form.EmailSignUp();
-
-    jQuery('.jq-emailSignUpForm').unbind('submit').submit(function() {
+    jQuery('.jq-emailSignUpForm').on('submit', function() {
+//    jQuery('.jq-emailSignUpForm').unbind('submit').submit(function() {
         return GS.form.emailSignUp.submit(jQuery(this));
     });
+//    jQuery('.jq-emailSignUpFormFooter').unbind('submit').submit(function() {
+//        return GS.form.emailSignUp.submit(jQuery(this));
+//    });
+//    jQuery('.jq-emailSignUpFormFooter').on('submit')(function() {
+//        return GS.form.emailSignUp.submit(jQuery(this));
+//    });
+//    jQuery('.jq-emailSignUpFormFooter').on("submit", function(event){
+//        GS.form.emailSignUp.submit(jQuery(this));
+//    });
 });

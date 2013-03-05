@@ -9,18 +9,31 @@ GS = GS || {};
 GS.form = GS.form || {};
 GS.form.LeadGenCampaign2 = function() {
 
-    this.validate = function(wrapper) {
+    var isPrimrose2013 = function(campaignCode) {
+        return campaignCode == 'primrose-family-2013' || campaignCode == 'primrose-mom-daughter-2013';
+    };
+
+    var validate = function(wrapper, campaignCode) {
         wrapper.find('.jq-leadGenError').hide();
 
         var passed = true;
 
-        if (wrapper.find('.jq-leadGenFullName').val() === '') {
-            passed = false;
+        if (isPrimrose2013(campaignCode)) {
+            if (wrapper.find('.jq-leadGenFirstName').val() === '') {
+                passed = false;
+            }
+            if (wrapper.find('.jq-leadGenLastName').val() === '') {
+                passed = false;
+            }
+        } else {
+            if (wrapper.find('.jq-leadGenFullName').val() === '') {
+                passed = false;
+            }
+            if (wrapper.find('.jq-leadGenGradeLevel').val() === '') {
+                passed = false;
+            }
         }
         if (wrapper.find('.jq-leadGenEmail').val() === '') {
-            passed = false;
-        }
-        if (wrapper.find('.jq-leadGenGradeLevel').val() === '') {
             passed = false;
         }
 
@@ -38,19 +51,28 @@ GS.form.LeadGenCampaign2 = function() {
 
         wrapper.find('.jq-leadGenPrelimText').hide();
 
-        if (this.validate(wrapper)) {
+        var campaignCode = wrapper.find('.jq-leadGenCampaign').val();
+
+        if (validate(wrapper, campaignCode)) {
             wrapper.find('.jq-leadGenForm').hide();
             submitButton.hide();
             var params = {
                 campaign: wrapper.find('.jq-leadGenCampaign').val(),
-                fullName: wrapper.find('.jq-leadGenFullName').val(),
-                email: wrapper.find('.jq-leadGenEmail').val(),
-                phone: wrapper.find('.jq-leadGenPhone').val(),
-                gradeLevel: wrapper.find('.jq-leadGenGradeLevel').val()
+                email: wrapper.find('.jq-leadGenEmail').val()
             };
+            var controllerUrl = "/promo/leadGenAjax2.page";
+            if (isPrimrose2013(campaignCode)) {
+                params.firstName = wrapper.find('.jq-leadGenFirstName').val();
+                params.lastName = wrapper.find('.jq-leadGenLastName').val();
+                controllerUrl = "/promo/leadGenAjax.page";
+            } else {
+                params.fullName = wrapper.find('.jq-leadGenFullName').val(),
+                params.phone = wrapper.find('.jq-leadGenPhone').val(),
+                params.gradeLevel = wrapper.find('.jq-leadGenGradeLevel').val()
+            }
 
             jQuery.ajax({
-                url: "/promo/leadGenAjax2.page",
+                url: controllerUrl,
                 type: "POST",
                 data: params,
                 dataType: 'text',

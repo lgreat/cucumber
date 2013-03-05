@@ -11,12 +11,14 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
+import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.search.CmsFeatureSearchService;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
@@ -1150,9 +1152,9 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         int studentsPerTeacherYear = 2011;
 
         Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
-        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
 
-        assertEquals( "testTransportSubstitute1A: students per teacher wrong", (int)studentsPerTeacherValue, resultInteger.intValue() );
+        assertEquals( "testTransportSubstitute1A: expected to receive class size", (int)classSizeValue, resultInteger.intValue() );
         System.out.println( "testTransportSubstitute1A successful" );
     }
 
@@ -1169,7 +1171,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
         Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
 
-        assertEquals( "testTransportSubstitute1B: substitute2 content expected", "substitute2", resultsModel.get("content") );
+        assertEquals( "testTransportSubstitute1B: substitute1 content expected since TX is no longer prevented from using class size", "substitute1", resultsModel.get("content") );
         System.out.println("testTransportSubstitute1B successful");
     }
 
@@ -1273,6 +1275,54 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportSubstitute1H: default content expected", "substitute2", resultsModel.get("content") );
         System.out.println( "testTransportSubstitute1H successful" );
+    }
+
+    /*// IL is special case state that shows only studentsPerTeacherValue.
+    public void testTransportSubstituteSpecialCaseStatesIL() {
+
+        String stateAbbrev = "IL";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals("testTransportSubstitute1SpecialCaseStates: students per teacher expected for special cased states", (int) studentsPerTeacherValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1ClassSize"));
+    }*/
+
+    // TX is a special case state that shows only studentsPerTeacherValue.
+    public void testTransportSubstituteSpecialCaseStatesTX() {
+
+        String stateAbbrev = "TX";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
+
+        assertEquals("testTransportSubstitute1SpecialCaseStatesTX: class size expected since years were equal", (int) classSizeValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1StudentsPerTeacher"));
+    }
+
+    // NY is a special case state that shows only studentsPerTeacherValue.
+    public void testTransportSubstituteSpecialCaseStatesNY() {
+
+        String stateAbbrev = "NY";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
+
+        assertEquals("testTransportSubstitute1SpecialCaseStatesNY: class size expected since years were equal", (int) classSizeValue, resultInteger.intValue());
+        assertNull(resultsModel.get("substitute1StudentsPerTeacher"));
     }
 
     private Map<String, Object> runTransportationForCensusController(String stateAbbrev, float classSizeValue, int classSizeYear, float studentsPerTeacherValue, int studentsPerTeacherYear) {
@@ -1506,8 +1556,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoDefaultA: content wrong", "applInfoV1", contentType );
         String rate = (String) resultsModel.get( "acceptanceRate" );
-        System.out.println( "testApplInfoDefaultA acceptance Rate = " + rate );
-        assertNotNull( "testApplInfoDefaultA: acceptanceRate should not be null", rate );
+        System.out.println("testApplInfoDefaultA acceptance Rate = " + rate);
+        assertNotNull("testApplInfoDefaultA: acceptanceRate should not be null", rate);
         assertEquals( "testApplInfoDefaultA: acceptanceRate wrong", "2", rate );
 
         assertEquals( "testApplInfoDefaultA: applicationDeadlineMsg wrong", "apply", (String) resultsModel.get( "applicationDeadlineMsg" ) );
@@ -1536,7 +1586,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
 
         String contentType = (String) resultsModel.get( "content" );
-        assertEquals( "testApplInfoDefaultB: content wrong", "applInfoV1", contentType );
+        assertEquals("testApplInfoDefaultB: content wrong", "applInfoV1", contentType);
         String rate = (String) resultsModel.get( "acceptanceRate" );
         System.out.println( "testApplInfoDefaultB acceptance Rate Percent = " + rate );
         assertNotNull("testApplInfoDefaultB: acceptanceRate should not be null", rate);
@@ -1546,7 +1596,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testApplInfoDefaultB: vouchers wrong", "yes", (String) resultsModel.get( "vouchers" ) );
 
-        System.out.println( "testApplInfoDefaultB successful" );
+        System.out.println("testApplInfoDefaultB successful");
     }
 
     // application deadline = date but the date is missing and vouchers
@@ -1611,7 +1661,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "students_vouchers", "no" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
+        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile(_request, _school, espData);
 
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoSubstitute1A: content wrong", "applInfoV2", contentType );
@@ -1628,10 +1678,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     public void testSchoolVisitChecklistA() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "application_process", "no" ) );
+        l.add(createEspResponse("application_process", "no"));
 
         l.add( createEspResponse( "application_deadline", "date" ) );
-        l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
+        l.add(createEspResponse("application_deadline_date", "July 30, 2012"));
 
         l.add( createEspResponse( "students_vouchers", "no" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
@@ -1707,6 +1757,124 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         verify(_schoolProfileDataHelper);
         assertNotNull("Expect school's last modified to be returned", rval);
         assertSame("Expect school's last modified to be returned", _school.getModified(), rval);
+    }
+
+    public void testGetGsRatingsModel() throws Exception {
+        Map<String,Object> ratings = new HashMap<String, Object>();
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING, 9);
+
+        School school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Test school");
+        school.setNewProfileSchool(1);
+
+        expect(_schoolProfileDataHelper.getGsRatings(eq(_request))).andReturn(ratings);
+        replay(_schoolProfileDataHelper);
+
+        Map<String,Object> result = _schoolProfileOverviewController.getGsRatingsModel(_request, school);
+
+        assertEquals("Expect content of ratings module to be GSRatings since ratings contained overall, academic, and climage ratings", "GsRatings", result.get("content"));
+
+        verify(_schoolProfileDataHelper);
+        reset(_schoolProfileDataHelper);
+
+
+        // test not a GsRatings tile if ratings doesnt return climate rating
+        ratings = new HashMap<String, Object>();
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING, 9);
+        ratings.put(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING, 9);
+
+        school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Test school");
+        school.setNewProfileSchool(2);
+
+        expect(_schoolProfileDataHelper.getGsRatings(eq(_request))).andReturn(ratings);
+        replay(_schoolProfileDataHelper);
+
+        result = _schoolProfileOverviewController.getGsRatingsModel(_request, school);
+
+        assertNull("Expect content of ratings module to not be GSRatings since newProfileSchool value is 2", result);
+
+        verify(_schoolProfileDataHelper);
+        reset(_schoolProfileDataHelper);
+    }
+
+    public void testGetClassSizes() {
+        CensusDataSet cds1 = new CensusDataSet();
+        cds1.setGradeLevels(Grades.createGrades("1"));
+        SchoolCensusValue value1 = new SchoolCensusValue();
+        value1.setValueFloat(new Float(1.1f));
+        Set<SchoolCensusValue> set1 = new HashSet<SchoolCensusValue>();
+        set1.add(value1);
+        cds1.setSchoolData(set1);
+
+        CensusDataSet cds2 = new CensusDataSet();
+        cds2.setGradeLevels(Grades.createGrades("2"));
+        SchoolCensusValue value2 = new SchoolCensusValue();
+        value2.setValueFloat(new Float(2.0f));
+        Set<SchoolCensusValue> set2 = new HashSet<SchoolCensusValue>();
+        set2.add(value2);
+        cds2.setSchoolData(set2);
+
+        CensusDataSet cds3 = new CensusDataSet();
+        cds3.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
+        SchoolCensusValue value3 = new SchoolCensusValue();
+        value3.setValueFloat(new Float(3.0f));
+        Set<SchoolCensusValue> set3 = new HashSet<SchoolCensusValue>();
+        set3.add(value3);
+        cds3.setSchoolData(set3);
+
+
+        CensusDataSet cds4 = new CensusDataSet();
+        cds4.setLevelCode(LevelCode.ALL_LEVELS);
+        SchoolCensusValue value4 = new SchoolCensusValue();
+        value4.setValueFloat(new Float(4.0f));
+        Set<SchoolCensusValue> set4 = new HashSet<SchoolCensusValue>();
+        set4.add(value4);
+        cds4.setSchoolData(set4);
+
+
+        List<CensusDataSet> emptyCollection = ListUtils.newArrayList();
+        List<CensusDataSet> collection1 = ListUtils.newArrayList(cds1, cds2);
+        List<CensusDataSet> collection2 = ListUtils.newArrayList(cds1, cds2, cds3);
+        List<CensusDataSet> collection3 = ListUtils.newArrayList(cds1, cds2, cds4);
+
+        List<CensusDataSet> collection6 = ListUtils.newArrayList(cds4);
+
+
+        Map<String,CensusDataSet> result1 = _schoolProfileOverviewController.getClassSizes(collection1);
+        assertTrue("Expect result 1 to be empty since data sets were only for individual grades", result1.isEmpty());
+
+        Map<String,CensusDataSet> result2 = _schoolProfileOverviewController.getClassSizes(collection2);
+        Map<String,CensusDataSet> expectedResult2 = new HashMap<String,CensusDataSet>();
+        expectedResult2.put("All grades",cds3);
+        assertEquals("Expect result 2 to contain value 3 for e,m since it would be a school-wide class size value", expectedResult2, result2);
+
+        Map<String,CensusDataSet> result3 = _schoolProfileOverviewController.getClassSizes(collection3);
+        Map<String,CensusDataSet> expectedResult3 = new HashMap<String,CensusDataSet>();
+        expectedResult3.put("All grades",cds4);
+        assertEquals("Expect result 3 to contain value 4 for all level since it would be a school-wide class size value", expectedResult3, result3);
+
+        Map<String,CensusDataSet> result4 = _schoolProfileOverviewController.getClassSizes(emptyCollection);
+        assertTrue("Expect result 4 to be empty since input was empty", result4.isEmpty());
+
+        try {
+            Map<String,CensusDataSet> result5 = _schoolProfileOverviewController.getClassSizes(null);
+            fail("Expected IAE to be thrown");
+        } catch (IllegalArgumentException e) {
+            // ok
+        }
+
+        Map<String,CensusDataSet> result6 = _schoolProfileOverviewController.getClassSizes(collection6);
+        Map<String,CensusDataSet> expectedResult6 = new HashMap<String,CensusDataSet>();
+        expectedResult6.put("All grades",cds4);
+        assertEquals("Expect result 6 to contain value 4 for all level since it would be a school-wide class size value", expectedResult6, result6);
     }
 
     /*
@@ -1799,5 +1967,4 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         return sb.toString();
     }
-
 }

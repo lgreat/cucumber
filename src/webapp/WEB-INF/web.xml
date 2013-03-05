@@ -81,6 +81,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/jobs/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/school-district-boundaries-map/*</url-pattern>
     </servlet-mapping>
 
@@ -666,6 +671,7 @@
         <url-pattern>/robots.txt</url-pattern>
     </servlet-mapping>
 
+
     <servlet-mapping>
        <servlet-name>pages</servlet-name>
        <url-pattern>/morgan-stanley</url-pattern>
@@ -740,13 +746,19 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
-        <url-pattern>/videos/*</url-pattern>
+        <url-pattern>/jobs/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
-        <url-pattern>/print-your-own-chooser/*</url-pattern>
+        <url-pattern>/videos/*</url-pattern>
     </filter-mapping>
+
+    <!-- commenting out for 21.4 since this needs to be tested more -->
+    <!--<filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/print-your-own-chooser/*</url-pattern>
+    </filter-mapping>-->
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
@@ -1341,6 +1353,14 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>*.topic</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/jobs/</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2350,6 +2370,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>*.topic</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/jobs/</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

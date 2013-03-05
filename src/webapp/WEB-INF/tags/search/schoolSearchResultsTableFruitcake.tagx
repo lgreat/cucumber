@@ -32,6 +32,17 @@
             </div>
         </c:set>
 
+        <span id="js_seoCityBrowseTitle" class="hidden">
+                <c:choose>
+                    <c:when test="${not empty seoTitle}">
+                        ${seoTitle} in ${schoolSearchResults[0].address.city}
+                    </c:when>
+                    <c:otherwise>
+                        ${schoolSearchResults[0].address.city} Schools
+                    </c:otherwise>
+                </c:choose>
+        </span>
+
         <search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}" pageTotalItems="${totalResults}" tabSelect="list" />
 
         <div class="alpha grid_16 omega">

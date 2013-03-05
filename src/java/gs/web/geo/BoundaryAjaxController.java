@@ -1,13 +1,9 @@
 package gs.web.geo;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.TopologyException;
 import gs.data.geo.*;
-import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
-import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -15,17 +11,12 @@ import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.IDistrictSearchResult;
-import gs.data.search.beans.ISchoolSearchResult;
-import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.services.DistrictSearchService;
 import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
-import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
-import gs.data.test.rating.IRatingsConfig;
-import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -34,11 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
@@ -46,7 +35,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -286,13 +274,16 @@ public class BoundaryAjaxController {
         State state = State.fromString(stateParam);
         LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
         List<Map> features = new ArrayList<Map>();
-        List<School> schools = new ArrayList();
+        List<School> schools = new ArrayList<School>();
 
         try {
             schools.add(_schoolDao.getSchoolById(state, id));
             List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatingsNewGSRating(state, schools);
             for (SchoolWithRatings s : schoolsWithRatings){
-                Map schoolMap = map(s.getSchool(), null, s.getRating(), request);
+                if (!s.getSchool().isActive()) {
+                    continue;
+                }
+                Map<String, Object> schoolMap = map(s.getSchool(), null, s.getRating(), request);
                 SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, level);
                 if (schoolBoundary!=null){
                     schoolMap.put("coordinates", map(schoolBoundary.getGeometry()));
@@ -384,7 +375,7 @@ public class BoundaryAjaxController {
                     continue;
                 }
                 School school = _schoolDao.getSchoolById(boundary.getState(), boundary.getSchoolId());
-                if (school == null) {
+                if (school == null || !school.isActive() || !school.getLevelCode().containsLevelCode(level)) {
                     continue;
                 }
                 schools.add(school);
@@ -504,8 +495,8 @@ public class BoundaryAjaxController {
         model.addAttribute("schools", features);
     }
 
-    private Map map(School school, District district, int rating, HttpServletRequest request){
-        Map map = new HashMap();
+    private Map<String, Object> map(School school, District district, int rating, HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("state", school.getDatabaseState().toString());
         map.put("id", school.getId());
         map.put("name", school.getName());
@@ -517,7 +508,7 @@ public class BoundaryAjaxController {
         map.put("isNewGSRating",school.getIsNewGSRating());
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         map.put("url", urlBuilder.asSiteRelative(request));
-        Map address = new HashMap();
+        Map<String, String> address = new HashMap<String, String>();
         address.put("street1", school.getPhysicalAddress().getStreet());
         address.put("street2", school.getPhysicalAddress().getStreetLine2());
         address.put("cityStateZip", school.getPhysicalAddress().getCityStateZip());
@@ -532,8 +523,8 @@ public class BoundaryAjaxController {
         return map;
     }
 
-    private Map map ( SolrSchoolSearchResult school, District district, int rating, HttpServletRequest request) {
-        Map data = new HashMap();
+    private Map<String, Object> map ( SolrSchoolSearchResult school, District district, int rating, HttpServletRequest request) {
+        Map<String, Object> data = new HashMap<String, Object>();
         data.put("state", school.getDatabaseState().toString());
         data.put("id", school.getId());
         data.put("lat", school.getLatLon().getLat());
@@ -551,7 +542,7 @@ public class BoundaryAjaxController {
         schoolFacade.setLevelCode(LevelCode.createLevelCode(school.getLevelCode()));
         UrlBuilder urlBuilder = new UrlBuilder(schoolFacade, UrlBuilder.SCHOOL_PROFILE);
         data.put("url", urlBuilder.asSiteRelative(request));
-        Map address = new HashMap();
+        Map<String, String> address = new HashMap<String, String>();
         address.put("street1", school.getAddress().getStreet());
         address.put("street2", school.getAddress().getStreetLine2());
         address.put("cityStateZip", school.getAddress().getCityStateZip());

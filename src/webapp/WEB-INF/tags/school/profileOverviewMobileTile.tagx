@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+
+    <a class="tdn" href="/about/mobile.page" onclick="if (s.tl) { s.tl(this, 'o', 'overview_mobileapp'); }">
+        <div class="mod standard_3-1">
+            <div class="outer">
+                <div class="inner bg-mobileApp">
+                    <div class="hd">
+                        <h3 class="bottom">GreatSchools<br/>mobile</h3>
+                    </div>
+                    <div class="bd" style="height:110px;">
+                        <p class="small bottom mtm pts">
+                            Finding great<br/>
+                            schools is <br/>
+                            now at your<br/>
+                            fingertips  &amp;raquo;
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+</jsp:root>

@@ -668,7 +668,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         return null;
     }
 
-    private List<String> formatAmPm( List<String> strings ) {
+    public static List<String> formatAmPm( List<String> strings ) {
         if( strings == null ) return null;
 
         List<String> newStrings = new ArrayList<String>(strings.size());
@@ -680,7 +680,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         return newStrings;
     }
 
-    private String formatAmPm( String timeStr ) {
+    public static String formatAmPm( String timeStr ) {
         if( timeStr == null ) return null;
 
         timeStr = StringUtils.replace( timeStr, "AM", "a.m." );

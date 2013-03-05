@@ -1,7 +1,9 @@
 package gs.web.school;
 
 
+import gs.data.admin.IPropertyDao;
 import gs.data.school.EspResponse;
+import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.school.census.*;
 import gs.web.util.ReadWriteAnnotationController;
@@ -41,11 +43,30 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
-
     @Autowired
     ICensusCacheDao _censusCacheDao;
 
+    @Autowired
+    IPropertyDao _propertyDao;
+
     Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
+
+    class DisplayRowSortOrderComparator implements Comparator<SchoolProfileStatsDisplayRow> {
+        public int compare(SchoolProfileStatsDisplayRow row1, SchoolProfileStatsDisplayRow row2) {
+            Integer sort1 = row1.getSort();
+            Integer sort2 = row2.getSort();
+            if (sort1 == null && sort2 == null) {
+                return 0;
+            } else if (sort1 == null) {
+                return -1;
+            } else if (sort2 == null) {
+                return 1;
+            } else {
+                return sort1.compareTo(sort2);
+            }
+        }
+    }
+    DisplayRowSortOrderComparator DISPLAY_ROW_SORT_ORDER_COMPARATOR = new DisplayRowSortOrderComparator();
 
     @RequestMapping(method= RequestMethod.GET)
     public Map<String,Object> handle(HttpServletRequest request,
@@ -57,7 +78,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         School school = getSchool(request);
 
         Map<String,Object> statsModel = null;
-        statsModel = _censusCacheDao.getMapForSchool(school);
+
+        String prop = _propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY);
+        boolean censusCacheEnabled = "true".equalsIgnoreCase(prop);
+        if (censusCacheEnabled) {
+            statsModel = _censusCacheDao.getMapForSchool(school);
+        }
 
         if (statsModel == null) {
             statsModel = new HashMap<String,Object>();
@@ -82,6 +108,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
                     buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
 
+            sortMapOfCensusGroupsByConfiguredSortField(groupIdToStatsRows);
+
+            statsModel.put("footnotesMap", getFootnotesMap(groupIdToStatsRows));
 
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
             statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
@@ -90,7 +119,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
             statsModel.put("ethnicityMap", ethnicityMap);
 
-            cacheStatsModel(statsModel, school);
+            Map<String,String> homeLanguageMap = _schoolProfileCensusHelper.getHomeLanguageLabelValueMap(request);
+            statsModel.put("homeLanguageMap", homeLanguageMap);
+
+            if (censusCacheEnabled) {
+                cacheStatsModel(statsModel, school);
+            }
         }
 
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
@@ -99,6 +133,34 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         model.putAll(statsModel);
         return model;
+    }
+
+    protected void sortMapOfCensusGroupsByConfiguredSortField(Map<Long, List<SchoolProfileStatsDisplayRow>> groups) {
+        Iterator<Map.Entry<Long, List<SchoolProfileStatsDisplayRow>>> iterator = groups.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<Long, List<SchoolProfileStatsDisplayRow>> groupEntry = iterator.next();
+            List<SchoolProfileStatsDisplayRow> displayRows = groupEntry.getValue();
+            Collections.sort(displayRows, DISPLAY_ROW_SORT_ORDER_COMPARATOR);
+        }
+    }
+
+    /**
+     * Pre-calculate all footnotes
+     */
+    protected Map<Long, SchoolProfileCensusSourceHelper> getFootnotesMap(Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows) {
+        Map<Long, SchoolProfileCensusSourceHelper> rval = new HashMap<Long, SchoolProfileCensusSourceHelper>();
+        if (groupIdToStatsRows == null) {
+            return rval;
+        }
+        for (Long groupId: groupIdToStatsRows.keySet()) {
+            SchoolProfileCensusSourceHelper sourceHelper = new SchoolProfileCensusSourceHelper();
+            for (SchoolProfileStatsDisplayRow row: groupIdToStatsRows.get(groupId)) {
+                sourceHelper.recordSource(row);
+            }
+            rval.put(groupId, sourceHelper);
+        }
+        return rval;
     }
 
     public void cacheStatsModel(Map<String,Object> statsModel, School school) {
@@ -131,6 +193,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             if (breakdown != null) {
                 breakdownId = breakdown.getId();
             }
+            Grades grades = censusDataSet.getGradeLevels();
+            Integer sort = null;
 
             // if this dataset has year zero, it's an override dataset, and it's school value should have been assigned
             // to the companion dataset that doesn't have year zero. If a non-year-zero dataset didn't exist, this
@@ -165,9 +229,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // If there are more than one config entry per data type, then there should be
             // a config entry for each breakdown within the data type
             if (censusDataConfigEntries.size() > 1) {
-                // Find the entry that cooresponds with the data type and breakdown on this data set.
+                // Find the entry that cooresponds with the data type, breakdown and grade on this data set.
                 // If none exist, skip this data set
-                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId);
+                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId, grades);
 
                 // If config doesnt exist for data type + breakdown, skip this data set
                 if (configEntry == null) {
@@ -175,6 +239,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 } else {
                     // use the label specified in the census config entry
                     label = configEntry.getLabel();
+
+                    // apply the sort order from the config entry
+                    sort = configEntry.getSort();
                     if (label == null) {
                         // no entry was specified; if we have an ethnicity, use the ethnicity name. otherwise use data type description
                         if (breakdown != null && breakdown.getEthnicity() != null) {
@@ -184,6 +251,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                         }
                     }
                 };
+
             } else {
                 // there's only one config entry for this one data type
                 ICensusDataConfigEntry configEntry = censusDataConfigEntries.get(0);
@@ -193,68 +261,55 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 if (breakdown != null && breakdown.getEthnicity() != null) {
                     // set label to the breakdown's ethnicity name
                     label = breakdown.getEthnicity().getName();
+                } else if (breakdown != null && breakdown.getLanguage() != null) {
+                    // set label to the language name
+                    label = breakdown.getLanguage().getName();
                 } else if (configEntry.getLabel() != null) {
                     // no breakdown available, but label was set on the config entry, so use that
                     label = configEntry.getLabel();
+                    // apply the sort order from the config entry
+                    sort = configEntry.getSort();
                 } else {
                     // no labels specified; use data type's description
                     label = configEntry.getDataType().getDescription();
+                    // apply the sort order from the config entry
+                    sort = configEntry.getSort();
                 }
             }
 
-            String schoolValue = "";
             SchoolCensusValue schoolCensusValue = null;
             if (censusDataSet.getSchoolOverrideValue() != null) {
                 schoolCensusValue = censusDataSet.getSchoolOverrideValue();
             } else {
                 schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
             }
-            if (schoolCensusValue != null) {
-                if (schoolCensusValue.getValueFloat() != null) {
-                    schoolValue = formatValueAsString(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());
-                } else {
-                    schoolValue = String.valueOf(schoolCensusValue.getValueText());
-                }
-            }
-
-            String districtValue = "";
             DistrictCensusValue districtCensusValue = censusDataSet.getTheOnlyDistrictValue();
-            if (districtCensusValue != null) {
-                if (districtCensusValue.getValueFloat() != null) {
-                    districtValue = formatValueAsString(districtCensusValue.getValueFloat(), dataTypeEnum.getValueType());
-                } else {
-                    districtValue = String.valueOf(districtCensusValue.getValueText());
-                }
-            }
-
-
-            String stateValue = "";
             StateCensusValue stateCensusValue = censusDataSet.getStateCensusValue();
-            if (stateCensusValue != null) {
-                if (stateCensusValue.getValueFloat() != null) {
-                    stateValue = formatValueAsString(stateCensusValue.getValueFloat(), dataTypeEnum.getValueType());
-                } else {
-                    stateValue = String.valueOf(stateCensusValue.getValueText());
-                }
-            }
 
             Set<CensusDescription> source = censusDataSet.getCensusDescription();
 
-            // filter out rows where school, district, and state values are all N/A
-            if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue) || censusValueNotEmpty(stateValue) ) {
+            SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
+                groupId,
+                dataTypeId,
+                censusDataSetId,
+                label,
+                schoolCensusValue,
+                districtCensusValue,
+                stateCensusValue,
+                source,
+                entry.getValue().getYear(),
+                censusDataSet.getSchoolOverrideValue() != null,
+                sort
+            );
 
-                SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
-                    groupId,
-                    censusDataSetId,
-                    label,
-                    schoolValue,
-                    districtValue,
-                    stateValue,
-                    source,
-                    entry.getValue().getYear(),
-                    censusDataSet.getSchoolOverrideValue() != null
-                );
-
+            // filter out rows where school and district values are N/A
+            boolean showRow;
+            if (CensusDataType.STUDENTS_ETHNICITY.getId().equals(dataTypeId)) {
+                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()) || censusValueNotEmpty(row.getStateValue()));
+            } else {
+                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()));
+            }
+            if (showRow) {
                 List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(groupId);
                 if (statsRows == null) {
                     statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
@@ -268,17 +323,26 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         // Sort ethnicities based on school / state value
         Long ethnicityTableGroupId = 6l;
-        sortEthnicityValues(statsRowMap.get(ethnicityTableGroupId));
+        sortDisplayRowsBySchoolValuesDesc(statsRowMap.get(ethnicityTableGroupId));
+
+        // Sort home language learners based on school / state value
+        Long homeLanguageLearnersTableGroupId = 10l;
+        sortDisplayRowsBySchoolValuesDesc(statsRowMap.get(homeLanguageLearnersTableGroupId));
 
         return statsRowMap;
     }
 
-    protected void sortEthnicityValues(List<SchoolProfileStatsDisplayRow> statsRows) {
+    /**
+     * Tries to reverse sort by the DisplayRow's float value. If there's no float value, try to reverse sort by the
+     * DisplayRow's text label instead.
+     * @param statsRows
+     */
+    protected void sortDisplayRowsBySchoolValuesDesc(List<SchoolProfileStatsDisplayRow> statsRows) {
         if (statsRows != null && statsRows.size() > 1) {
             Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
                 public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {
-                    Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
-                    Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
+                    Float row1Value = CensusDataHelper.formatValueAsFloat(statsRow1.getSchoolValue());
+                    Float row2Value = CensusDataHelper.formatValueAsFloat(statsRow2.getSchoolValue());
                     int compare = row2Value.compareTo(row1Value);
                     // reverse sort
                     if(compare == 0 && statsRow1.getText() != null && statsRow2.getText() != null) {
@@ -292,37 +356,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     protected boolean censusValueNotEmpty(String value) {
         return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
-    }
-
-    protected String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
-        String result;
-        if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
-            result = String.valueOf(Math.round(value)) + "%";
-        } else if (CensusDataType.ValueType.MONETARY.equals(valueType)) {
-            result = "$" + String.valueOf(value);
-        } else {
-            result = String.valueOf(Math.round(value));
-        }
-
-        return result;
-    }
-
-    protected Float formatValueAsFloat(String value) {
-        Float result = 0f;
-
-        if (StringUtils.isBlank(value)) {
-            return result;
-        }
-
-        value = value.replaceAll("[^0-9.\\-]", "");
-
-        try {
-            result = new Float(value);
-        } catch (NumberFormatException e) {
-            _log.debug("Could not format " + value + " to float.", e);
-        }
-
-        return result;
     }
 
     /**
@@ -340,6 +373,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         }
 
         return sourceFootnoteMap;
+    }
+
+    public void sortBySortOrder(List<SchoolProfileStatsDisplayRow> displayRows) {
+        Collections.sort(displayRows, DISPLAY_ROW_SORT_ORDER_COMPARATOR);
     }
 
 
@@ -377,5 +414,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     public void setCensusCacheDao(ICensusCacheDao censusCacheDao) {
         _censusCacheDao = censusCacheDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

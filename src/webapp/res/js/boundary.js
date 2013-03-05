@@ -202,7 +202,7 @@ var Boundary = (function (){
 
     var nearbyhomes = function (data) {
         if (data && data.address && data.address.zip) {
-            $nearby.show().removeClass('hidden');
+            $nearby.show().removeClass('dn');
             $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ data.address.zip + '?gate=gs&cid=PRT300014');
         }
     }
@@ -245,7 +245,7 @@ var Boundary = (function (){
         $map.boundaries('refresh');
         $dropdown.html('').append('<option>Select a district</option>');
         $list.html('');
-        $header.addClass('hidden');
+        $header.addClass('dn');
     }
 
     var geocode = function (e,obj) {
@@ -367,7 +367,7 @@ var Boundary = (function (){
             var $comments = $element.find('.js_comments');
             $wrapper.removeClass("mbm");
             $comments.html('');
-            if (!obj.isPolygonShown() && (obj.schoolType!='private' && !obj.charterOnly)) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
+            if (!obj.isPolygonShown() && (obj.schoolType!='private' && !obj.charterOnly)) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img mrm"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
             if (obj.schoolType=='private') $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Private schools are not in the district.</div></div></div>');
             if (obj.schoolType=='charter' && obj.charterOnly)
                 $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Charter schools are not in the district.</div></div></div>');
@@ -381,7 +381,7 @@ var Boundary = (function (){
         $list.empty();
         var itemTemplate = '<div class="js-listItem media skin-1 attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>'
             , spriteTemplate = '<span class="img mrm"><!-- do not collapse --></span>'
-            , nameTemplate = '<div class="small bd" id=""></div>'
+            , nameTemplate = '<div class="small bottom bd" id=""></div>'
             , htmlString = '';
         schools.sort(sort);
         for (var i = 0; i < schools.length; i++) {
@@ -474,9 +474,11 @@ var Boundary = (function (){
     }
 
     var updateDistrictHeader = function( district ){
-        $header.removeClass('hidden');
+        $header.removeClass('dn');
         if (district.rating>0 && district.rating<11){
             $header.find('#ratings-test').html(district.rating);
+            $header.find('#ratings-test').removeClass('square-large-grey');
+            $header.find('#ratings-test').addClass('square-large');
         } else {
             $header.find('#ratings-test').html('NR');
             $header.find('#ratings-test').removeClass('square-large');

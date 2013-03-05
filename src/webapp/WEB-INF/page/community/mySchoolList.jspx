@@ -12,6 +12,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           version="2.0">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -39,6 +40,9 @@
     <!--<gsml:equalizeColumns ids="'col_left','col_right'"/>-->
 </head>
 <gsml:body adPageName="mySchoolList" pageLayout="nocol">
+    <c:if test="${showPYOCModule}">
+        <communityHover:printSchoolChooser/>
+    </c:if>
 
     <div class="slStylesV1-0">
         <div class="spacer_20"><!-- do not collapse --></div>
@@ -98,7 +102,7 @@
                             <div class="clearfix">
                             <div class="fl">
                                 <h3>Download My<br/> School List to<br/> save, share<br/> or print.</h3>
-                                <a onclick="GSType.hover.printSchoolChooser.showHover(); return false;"><button class="button-1" type="button">Download</button></a>
+                                <a class="js-pyocCountCheck" onclick="GSType.hover.printSchoolChooser.showHover(); return false;"><button class="button-1" type="button">Download</button></a>
                             </div>
                             <div class="fr">
                                 <img src="/res/img/pdfChooser/icon_chooser.png" alt=""/>

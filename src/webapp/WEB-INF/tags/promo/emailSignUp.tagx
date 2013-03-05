@@ -11,88 +11,89 @@
                              description="Whether or not the user has already signed up for the newsletter"/>
     <jsp:directive.attribute name="style" required="true" type="java.lang.String"
                              description="The visual style to use, e.g. '2011' or '2012'"/>
+    <c:if test="${context.connectWithUsRightRailEnabled == 'true'}">
+        <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
+        <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false" allowCdn="false"/>
 
-    <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false"/>
-
-    <c:set var="emailSignUpFooter">
-        <div class="${pageScope.style eq '2011' ? 'section2' : 'ft padtop_15 plm'}">
-            <div class="line">
-                <div class="unit size1of2">
-                    <div class="prm">
-                        <div class="media">
-                            <div class="img mrs">
-                                <a href="http://facebook.com/greatschools" target="_blank">
-                                    <span class="sprite i-facebook-l"><!-- do not collapse --></span>
-                                </a>
-                            </div>
-                            <div class="${pageScope.style eq '2011' ? 'bd' : ''}">
-                                <div>
-                                    <c:choose>
-                                        <c:when test="${pageScope.style eq '2012'}">
-                                            <span class="small"><a href="http://facebook.com/greatschools"
-                                                                target="_blank">GreatSchools</a>
-                                            </span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p class="text3"><a href="http://facebook.com/greatschools"
-                                                                target="_blank">GreatSchools</a>
-                                            </p>
-                                        </c:otherwise>
-                                    </c:choose>
-
+        <c:set var="emailSignUpFooter">
+            <div class="${pageScope.style eq '2011' ? 'section2' : 'ft padtop_15 plm'}">
+                <div class="line">
+                    <div class="unit size1of2">
+                        <div class="prm">
+                            <div class="media">
+                                <div class="img mrs">
+                                    <a href="http://facebook.com/greatschools" target="_blank">
+                                        <span class="sprite i-facebook-l"><!-- do not collapse --></span>
+                                    </a>
+                                </div>
+                                <div class="${pageScope.style eq '2011' ? 'bd' : ''}">
                                     <div>
-                                        <![CDATA[
-                                                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fgreatschools&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
-                                                ]]>
+                                        <c:choose>
+                                            <c:when test="${pageScope.style eq '2012'}">
+                                                <span class="small"><a href="http://facebook.com/greatschools"
+                                                                    target="_blank">GreatSchools</a>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p class="text3"><a href="http://facebook.com/greatschools"
+                                                                    target="_blank">GreatSchools</a>
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <div>
+                                            <![CDATA[
+                                                    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fgreatschools&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+                                                    ]]>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="unit size1of2 lastUnit">
-                    <div class="${pageScope.style eq '2011' ? 'brdlft_dotted' : 'brdlft'} plm">
-                        <div class="line">
-                            <div class="unit size1of3">
-                                <div class="text-align-cen">
-                                    <div class="${pageScope.style eq '2011' ? 'mbs' : ''}">
-                                        <a href="http://twitter.com/greatschools" target="_blank">
-                                            <span class="sprite i-twitter-l"><!-- do not collapse --></span>
-                                        </a>
-                                    </div>
-                                    <div class="${pageScope.style eq '2011' ? 'smallText1' : 'small'}">
-                                        <a href="http://twitter.com/greatschools" target="_blank">Twitter</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="unit size1of3">
-                                <div class="text-align-cen">
-                                    <div class="${pageScope.style eq '2011' ? 'mbs' : ''}">
-                                        <a href="http://blogs.greatschools.org/greatschoolsblog/"
-                                           target="_blank">
-                                            <span class="sprite i-blog-l"><!-- do not collapse --></span>
-                                        </a>
-                                    </div>
-                                    <div class="${pageScope.style eq '2011' ? 'smallText1' : 'small'} wsnw">
-                                        <a href="http://blogs.greatschools.org/greatschoolsblog/"
-                                           target="_blank">Blog</a>
+                    <div class="unit size1of2 lastUnit">
+                        <div class="${pageScope.style eq '2011' ? 'brdlft_dotted' : 'brdlft'} plm">
+                            <div class="line">
+                                <div class="unit size1of3">
+                                    <div class="text-align-cen">
+                                        <div class="${pageScope.style eq '2011' ? 'mbs' : ''}">
+                                            <a href="http://twitter.com/greatschools" target="_blank">
+                                                <span class="sprite i-twitter-l"><!-- do not collapse --></span>
+                                            </a>
+                                        </div>
+                                        <div class="${pageScope.style eq '2011' ? 'smallText1' : 'small'}">
+                                            <a href="http://twitter.com/greatschools" target="_blank">Twitter</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="unit size1of3 lastUnit">
-                                <div class="text-align-cen">
-                                    <div class="${pageScope.style eq '2011' ? 'mbs' : ''}">
-                                        <a href="${requestScope.context.iphoneAppItunesStoreUrl}"
-                                           onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Connect');}return true;"
-                                           target="_blank">
-                                            <span class="sprite i-iphone"><!-- do not collapse --></span>
-                                        </a>
+                                <div class="unit size1of3">
+                                    <div class="text-align-cen">
+                                        <div class="${pageScope.style eq '2011' ? 'mbs' : ''}">
+                                            <a href="http://blogs.greatschools.org/greatschoolsblog/"
+                                               target="_blank">
+                                                <span class="sprite i-blog-l"><!-- do not collapse --></span>
+                                            </a>
+                                        </div>
+                                        <div class="${pageScope.style eq '2011' ? 'smallText1' : 'small'} wsnw">
+                                            <a href="http://blogs.greatschools.org/greatschoolsblog/"
+                                               target="_blank">Blog</a>
+                                        </div>
                                     </div>
-                                    <div class="${pageScope.style eq '2011' ? 'smallText1' : 'small'}">
-                                        <a href="${requestScope.context.iphoneAppItunesStoreUrl}"
-                                           onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Connect');}return true;"
-                                           target="_blank">Mobile</a>
+                                </div>
+                                <div class="unit size1of3 lastUnit">
+                                    <div class="text-align-cen">
+                                        <div class="${pageScope.style eq '2011' ? 'mbs' : ''}">
+                                            <a href="${requestScope.context.iphoneAppItunesStoreUrl}"
+                                               onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Connect');}return true;"
+                                               target="_blank">
+                                                <span class="sprite i-iphone"><!-- do not collapse --></span>
+                                            </a>
+                                        </div>
+                                        <div class="${pageScope.style eq '2011' ? 'smallText1' : 'small'}">
+                                            <a href="${requestScope.context.iphoneAppItunesStoreUrl}"
+                                               onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Connect');}return true;"
+                                               target="_blank">Mobile</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -100,104 +101,103 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </c:set>
+        </c:set>
 
-    <div class="mod ${pageScope.style eq '2011' ? 'standard emailSignUp' : 'standard_1-1'} jq-emailSignUpWrapper">
-        <div class="inner">
-            <div class="hd">
-                <c:choose>
-                    <c:when test="${pageScope.style eq '2012'}">
-                        <h4 class="pvm plm bottom">Connect with Us</h4>
-                    </c:when>
-                    <c:otherwise>
-                        <h3>Connect With Us</h3>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-            <div class="bd ${pageScope.style eq '2011' ? '' : 'padtop_15 padbtm_15 plm bottomBorder'}">
-
-                <c:if test="${!userIsAlreadySignedUp}">
-
-                    <c:if test="${pageScope.style eq '2011'}">
-                        <![CDATA[<div class="section1">]]>
-                    </c:if>
-
+        <div class="mod ${pageScope.style eq '2011' ? 'standard emailSignUp' : 'standard_1-1'} jq-emailSignUpWrapper">
+            <div class="inner">
+                <div class="hd">
                     <c:choose>
                         <c:when test="${pageScope.style eq '2012'}">
-                            <div class="jq-emailSignUpIntroText padbtm_15 small bottom">
-                                <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
-                            </div>
-
-                            <div class="media error jq-emailSignUpError jq-emailSignUpError-emailInvalid">
-                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
-                                <div class="bd">Please enter your email address to sign up.</div>
-                            </div>
-
-                            <div class="media error jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
-                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
-                                <div class="bd">The email address is already signed up.</div>
-                            </div>
+                            <h4 class="pvm plm bottom">Connect with Us</h4>
                         </c:when>
                         <c:otherwise>
-                            <p class="jq-emailSignUpIntroText text2">
-                                <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
-                            </p>
-
-                            <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
-                                <div class="formErrorText">Please enter your email address to sign up.</div>
-                            </div>
-
-                            <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
-                                <div class="formErrorText">The email address is already signed up.</div>
-                            </div>
+                            <h3>Connect With Us</h3>
                         </c:otherwise>
                     </c:choose>
+                </div>
 
-                        <form class="jq-emailSignUpForm" action="#" method="POST" autocomplete="off">
-                            <div class="line">
+                <div class="bd ${pageScope.style eq '2011' ? '' : 'padtop_15 padbtm_15 plm bottomBorder'}">
 
-                            <input type="text" class="jq-emailSignUpEmail unit size3of5 ${pageScope.style eq '2011' ? 'formText1' : 'height18'} mrm" name="email"
-                                   onfocus="GS_textSwitch(this, '', '[Your email address]');"
-                                   onblur="GS_textSwitch(this, '[Your email address]', '');"
-                                   value="[Your email address]"
-                                   autocomplete="off"
-                                    />
+                    <c:if test="${!userIsAlreadySignedUp}">
 
-                                <div class="unit size2of5 lastUnit">
-                            <button class="button-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
+                        <c:if test="${pageScope.style eq '2011'}">
+                            <![CDATA[<div class="section1">]]>
+                        </c:if>
+
+                        <c:choose>
+                            <c:when test="${pageScope.style eq '2012'}">
+                                <div class="jq-emailSignUpIntroText padbtm_15 small bottom">
+                                    <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
                                 </div>
+
+                                <div class="media error jq-emailSignUpError jq-emailSignUpError-emailInvalid">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                    <div class="bd">Please enter your email address to sign up.</div>
+                                </div>
+
+                                <div class="media error jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                    <div class="bd">The email address is already signed up.</div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="jq-emailSignUpIntroText text2">
+                                    <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
+                                </p>
+
+                                <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
+                                    <div class="formErrorText">Please enter your email address to sign up.</div>
+                                </div>
+
+                                <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
+                                    <div class="formErrorText">The email address is already signed up.</div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+
+                            <form class="jq-emailSignUpForm" action="#" method="POST" autocomplete="off">
+                                <div class="line">
+
+                                <input type="text" class="jq-emailSignUpEmail unit size3of5 ${pageScope.style eq '2011' ? 'formText1' : 'height18'} mrm" name="email"
+                                       onfocus="GS_textSwitch(this, '', '[Your email address]');"
+                                       onblur="GS_textSwitch(this, '[Your email address]', '');"
+                                       value="[Your email address]"
+                                       autocomplete="off"
+                                        />
+
+                                    <div class="unit size2of5 lastUnit">
+                                <button class="button-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="hidden jq-emailSignUpEmailSentThankYou prm">
+                                <h3>Thank you</h3>
+
+                                <p>Please confirm your subscription by clicking the link in the email we just sent you.</p>
                             </div>
-                        </form>
-                        <div class="hidden jq-emailSignUpEmailSentThankYou prm">
-                            <h3>Thank you</h3>
+                            <div class="hidden jq-emailSignUpNoEmailSentThankYou">
+                                <h3>Thank you</h3>
 
-                            <p>Please confirm your subscription by clicking the link in the email we just sent you.</p>
-                        </div>
-                        <div class="hidden jq-emailSignUpNoEmailSentThankYou">
-                            <h3>Thank you</h3>
+                                <p>You've successfully subscribed to the GreatSchools newsletter.</p>
+                            </div>
 
-                            <p>You've successfully subscribed to the GreatSchools newsletter.</p>
-                        </div>
+                        <c:if test="${pageScope.style eq '2011'}">
+                            <![CDATA[</div>]]>
+                        </c:if>
 
-                    <c:if test="${pageScope.style eq '2011'}">
-                        <![CDATA[</div>]]>
                     </c:if>
 
-                </c:if>
-
-                <c:if test="${pageScope.style eq '2011'}">
+                    <c:if test="${pageScope.style eq '2011'}">
+                        ${pageScope.emailSignUpFooter}
+                    </c:if>
+                </div>
+                <c:if test="${pageScope.style eq '2012'}">
                     ${pageScope.emailSignUpFooter}
                 </c:if>
             </div>
-            <c:if test="${pageScope.style eq '2012'}">
-                ${pageScope.emailSignUpFooter}
-            </c:if>
         </div>
-    </div>
-
+    </c:if>
 
 </jsp:root>

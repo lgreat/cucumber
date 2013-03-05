@@ -10,6 +10,7 @@ import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.test.*;
 import junit.framework.TestCase;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.easymock.MockControl;
@@ -160,35 +161,75 @@ public class SchoolRatingsDisplayTest extends TestCase {
     }
 
     public void testAddIntArrayToList() {
-        List a = new ArrayList();
+        List<Integer> a = new ArrayList<Integer>();
         int [] b = new int[3];
         b[0] = 0;
         b[1] = 1;
         b[2] = 2;
         int [] c = new int[3];
-        c[0] = 3;
-        c[1] = 4;
-        c[2] = 5;
+        c[0] = 2;
+        c[1] = 3;
+        c[2] = 4;
 
         a = SchoolRatingsDisplay.addIntArrayToList(a,b);
         a = SchoolRatingsDisplay.addIntArrayToList(a,c);
 
-        assertEquals((new Integer(((Integer) a.get(0)).intValue())).intValue(),0);
-        assertEquals((new Integer(((Integer) a.get(3)).intValue())).intValue(),3);
-        assertEquals((new Integer(((Integer) a.get(5)).intValue())).intValue(),5);
+        assertEquals(0, (a.get(0)).intValue());
+        assertEquals(2, (a.get(3)).intValue());
+        assertEquals(4, (a.get(5)).intValue());
         assertEquals(a.size(),6);
     }
 
     public void testgetValuesFromIntList() {
-        List a = new ArrayList();
-        a.add(new Integer(0));
-        a.add(new Integer(1));
-        a.add(new Integer(2));
+        List<Integer> a = new ArrayList<Integer>();
+        a.add(0);
+        a.add(1);
+        a.add(2);
+        a.add(2);
 
         int[] ints =  SchoolRatingsDisplay.getValuesFromIntList(a);
-        assertEquals(ints[0],0);
-        assertEquals(ints[1],1);
-        assertEquals(ints[2],2);
+        assertEquals(0,ints[0]);
+        assertEquals(1,ints[1]);
+        assertEquals(2,ints[2]);
+        assertEquals(2,ints[3]);
+    }
+
+    public void testAddIntArrayToSet() {
+        Set<Integer> a = new HashSet<Integer>();
+        int [] b = new int[3];
+        b[0] = 0;
+        b[1] = 1;
+        b[2] = 2;
+        int [] c = new int[3];
+        c[0] = 2;
+        c[1] = 3;
+        c[2] = 4;
+
+        a = SchoolRatingsDisplay.addIntArrayToSet(a, b);
+        a = SchoolRatingsDisplay.addIntArrayToSet(a, c);
+
+        assertEquals("Expect duplicates to be stripped out", a.size(),5);
+        assertTrue(a.contains(0));
+        assertTrue(a.contains(1));
+        assertTrue(a.contains(2));
+        assertTrue(a.contains(3));
+        assertTrue(a.contains(4));
+        assertFalse(a.contains(5));
+    }
+
+    public void testgetValuesFromIntSet() {
+        Set<Integer> a = new HashSet<Integer>();
+        a.add(0);
+        a.add(1);
+        a.add(2);
+        a.add(2);
+
+        int[] ints =  SchoolRatingsDisplay.getValuesFromIntCollection(a);
+        assertEquals(3, ints.length);
+        assertTrue(ArrayUtils.contains(ints, 0));
+        assertTrue(ArrayUtils.contains(ints, 1));
+        assertTrue(ArrayUtils.contains(ints, 2));
+        assertFalse(ArrayUtils.contains(ints, 3));
     }
 
 }

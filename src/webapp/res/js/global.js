@@ -69,29 +69,33 @@ function toggleById(elementId) {
     }
 }
 
-function newToggleById(elementId) {
-    var layer = document.getElementById(elementId);
-    if (layer.oldDisplay && layout.style.display == 'none') {
-        layer.style.display = layer.oldDisplay;
-    } else {
-        layer.oldDisplay = layer.style.display;
-        layer.style.display = 'none';
-    }
-}
 
-function setColSpan(elementId, colspan) {
-    document.getElementById(elementId).colSpan = colspan;
-}
 
-function getRadioValue(radioButtons)
-{
-    for (var i = 0; i < radioButtons.length; i++)
-    {
-        if (radioButtons[i].checked) {
-            return radioButtons[i].value;
-        }
-    }
-}
+
+
+//function newToggleById(elementId) {
+//    var layer = document.getElementById(elementId);
+//    if (layer.oldDisplay && layout.style.display == 'none') {
+//        layer.style.display = layer.oldDisplay;
+//    } else {
+//        layer.oldDisplay = layer.style.display;
+//        layer.style.display = 'none';
+//    }
+//}
+
+//function setColSpan(elementId, colspan) {
+//    document.getElementById(elementId).colSpan = colspan;
+//}
+
+//function getRadioValue(radioButtons)
+//{
+//    for (var i = 0; i < radioButtons.length; i++)
+//    {
+//        if (radioButtons[i].checked) {
+//            return radioButtons[i].value;
+//        }
+//    }
+//}
 
 /*
   GS-site specific
@@ -113,182 +117,10 @@ function getState() {
     return readCookie('STATE3');
 }
 
-/*
-  Top-nav specific
-*/
-/*
- * Used by the global search widget to make sure that a user selects a state.
- */
-function topNavSubmitSearch(theForm) {
-    var val = document.getElementById('stateSelector').value;
-    var c = getRadioValue(theForm.c);
-    if (c != 'topic' && c != 'community') {
-        if (val == "--" || val == "") {
-            alert("Please select a state.");
-            return false;
-        }
-    }
-    var textField = document.getElementById('q');
-    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district, or city'
-            || textField.value == 'Search community by keyword') {
-        textField.value = '';
-    }
-    return true;
-}
 
-function topNavSelectSchoolSearch(x, searchFormAction) {
-    var e = document.getElementById('stateDropDown');
-    e.style.display = 'block';
-    e = document.getElementById('stateSelector');
-    e.name = 'state';
 
-    e = document.getElementById('q');
-    if (e.value == 'Search by keyword' || e.value == 'Search community by keyword') {
-        e.value = 'Search for school, district, or city';
-    }
-    e.style.width = "190px";
-    e.focus();
-    e.select();
-    var searchForm = document.getElementById('topnav_search');
-    if (searchForm && searchFormAction) {
-        searchForm.action = searchFormAction;
-    }
-    return true;
-}
 
-function topNavSelectTopicSearch(x, searchFormAction) {
-    var e = document.getElementById('stateDropDown');
-    e.style.display = 'none';
-    e = document.getElementById('stateSelector');
-    e.name = 'hiddenState';
 
-    e = document.getElementById('q');
-    if (e.value == 'Search for school, district, or city' || e.value == 'Search community by keyword') {
-        e.value = 'Search by keyword';
-    }
-    e.style.width = "247px";
-    e.focus();
-    e.select();
-    var searchForm = document.getElementById('topnav_search');
-    if (searchForm && searchFormAction) {
-        searchForm.action = searchFormAction;
-    }
-    return true;
-}
-
-function topNavSelectCommunitySearch(x, searchFormAction) {
-    var e = document.getElementById('stateDropDown');
-    e.style.display = 'none';
-    e = document.getElementById('stateSelector');
-    e.name = 'hiddenState';
-
-    e = document.getElementById('q');
-    if (e.value == 'Search for school, district, or city' || e.value == 'Search by keyword') {
-        e.value = 'Search community by keyword';
-    }
-    e.style.width = "247px";
-    e.focus();
-    e.select();
-    var searchForm = document.getElementById('topnav_search');
-    if (searchForm && searchFormAction) {
-        searchForm.action = searchFormAction;
-    }
-    return true;
-}
-
-/*
- * Used by the global search widget to make sure that a user selects a state.
- */
-function topNavNewCommunitySubmitSearch(theForm) {
-    var val = document.getElementById('stateSelector').value;
-    var articlesAndCommunity = false;
-    var c = getRadioValue(theForm.c);
-    if (c != 'articlesAndCommunity') {
-        if (val == "--" || val == "") {
-            alert("Please select a state.");
-            return false;
-        }
-        articlesAndCommunity = false;
-    } else {
-        articlesAndCommunity = true;
-    }
-    var textField = document.getElementById('qNew');
-    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district, or city') {
-        textField.value = '';
-    }
-    if (articlesAndCommunity) {
-        var q = document.getElementById('articlesAndCommunityQ');
-        q.value = textField.value;
-        document.getElementById('topnav_search_articlesAndCommunity').submit();
-    } else {
-        document.getElementById('topnav_search').submit();
-    }
-
-    return false;
-}
-
-function topNavNewCommunitySelectSchoolSearch(x, searchFormAction) {
-    var e = document.getElementById('stateSelector');
-    e.style.display = 'inline';
-    e.name = 'state';
-
-    e = document.getElementById('qNew');
-    if (e.value == 'Search by keyword' || e.value == 'Search community by keyword') {
-        e.value = 'Search for school, district, or city';
-    }
-    e.style.width = "242px";
-    e.focus();
-    e.select();
-    var searchForm = document.getElementById('topnav_search');
-    if (searchForm && searchFormAction) {
-        searchForm.action = searchFormAction;
-    }
-    return true;
-}
-
-function topNavSelectArticlesAndCommunitySearch(x, searchFormAction) {
-    var e = document.getElementById('stateSelector');
-    e.style.display = 'none';
-    e.name = 'hiddenState';
-
-    e = document.getElementById('qNew');
-    if (e.value == 'Search for school, district, or city') {
-        e.value = 'Search by keyword';
-    }
-    e.style.width = "300px";
-    e.focus();
-    e.select();
-    var searchForm = document.getElementById('topnav_search');
-    if (searchForm && searchFormAction) {
-        searchForm.action = searchFormAction;
-    }
-    return true;
-}
-
-/* Sets the search prompt in the global header */
-function setSearchPrompt(s) {
-
-    var d = document.getElementById('slabel');
-    var olddiv = document.getElementById('searchPrompt');
-    d.removeChild(olddiv);
-
-    var newdiv = document.createElement('img');
-    newdiv.setAttribute('id', 'searchPrompt');
-
-    if (s == 'Enter keyword') {
-        newdiv.setAttribute('src', '/res/img/search/enter_keyword.gif');
-        newdiv.setAttribute('alt', 'Enter Keyword')
-    } else {
-        newdiv.setAttribute('src', '/res/img/search/enter_school.gif');
-        newdiv.setAttribute('alt', 'Enter School, City or District')
-    }
-
-    d.appendChild(newdiv);
-
-    var e = document.getElementById("q");
-    e.focus();
-    e.select();
-}
 
 //inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
 var BoxHeights = {

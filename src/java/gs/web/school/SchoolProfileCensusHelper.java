@@ -129,14 +129,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
                     Map<Integer,CensusDataSet>> // CensusDataSet ID --> CensusDataSet
                     triplet = censusStateConfig.splitCensusDataSets(censusDataSetMap);
 
-            for (Map.Entry<Integer,CensusDataSet> entry : censusDataSetMap.entrySet()) {
-                // since the group of data sets retrieved from CensusStateConfig only contain data types that
-                // should be displayed on the stats tab, we have to add back in the datasets retrieved from getCensusDataSets method
-                if (dataTypeIdsForOverview.contains(entry.getValue().getDataType().getId())) {
-                    triplet.getObj1().put(entry.getKey(), entry.getValue());
-                }
-            }
-
             censusDataHolder = (CensusDataHolder) _beanFactory.getBean("censusDataHandler", new Object[] {
                     school, censusDataSetMap, triplet.getObj1(), triplet.getObj2(), triplet.getObj3()
             });
@@ -179,8 +171,8 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
 
         LinkedHashMap<String,String> ethnicityLabelMap = new LinkedHashMap<String,String>();
 
-        // stackoverflow.com/questions/109383/É
-        Comparator<String> valueComparator = Ordering.from(new EthnicityComparator()).onResultOf(Functions.forMap(ethnicityLabelMap)).compound(Ordering.natural());
+        // stackoverflow.com/questions/109383/
+        Comparator<String> valueComparator = Ordering.from(new SchoolValueComparator()).onResultOf(Functions.forMap(ethnicityLabelMap)).compound(Ordering.natural());
 
         Integer ethnicityDataTypeId = CensusDataType.STUDENTS_ETHNICITY.getId();
 
@@ -207,6 +199,37 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
         return ImmutableSortedMap.copyOf(ethnicityLabelMap, valueComparator);
     }
 
+    protected Map<String, String> getHomeLanguageLabelValueMap(Map<Integer, CensusDataSet> censusDataSetMap) {
+
+        LinkedHashMap<String,String> homeLanguageLabelMap = new LinkedHashMap<String,String>();
+
+        // stackoverflow.com/questions/109383/
+        Comparator<String> valueComparator = Ordering.from(new SchoolValueComparator()).onResultOf(Functions.forMap(homeLanguageLabelMap)).compound(Ordering.natural());
+
+        Integer homeLanguageDataTypeId = CensusDataType.HOME_LANGUAGE.getId();
+
+        for (Map.Entry<Integer, CensusDataSet> entry : censusDataSetMap.entrySet()) {
+            CensusDataSet censusDataSet = entry.getValue();
+
+            SchoolCensusValue schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
+
+            if (schoolCensusValue != null && censusDataSet.getDataType().getId().equals(homeLanguageDataTypeId)) {
+                Float floatValue = schoolCensusValue.getValueFloat();
+                String value = null;
+                if (floatValue == null) {
+                    value = schoolCensusValue.getValueText();
+                } else {
+                    value = formatValueAsString(floatValue, CensusDataType.HOME_LANGUAGE.getValueType());
+                }
+
+                if (value != null) {homeLanguageLabelMap.put(censusDataSet.getBreakdownOnly().getLanguage().getName(), value);
+                }
+            }
+        }
+
+        return ImmutableSortedMap.copyOf(homeLanguageLabelMap, valueComparator);
+    }
+
 
 
     protected Map<String, String> getEthnicityLabelValueMap(HttpServletRequest request) {
@@ -215,6 +238,14 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
         Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSetsWithSchoolData(request);
 
         return getEthnicityLabelValueMap(censusDataSetMap);
+    }
+
+    protected Map<String, String> getHomeLanguageLabelValueMap(HttpServletRequest request) {
+
+        // Data Set ID --> SchoolCensusValue
+        Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSetsWithSchoolData(request);
+
+        return getHomeLanguageLabelValueMap(censusDataSetMap);
     }
 
     private String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
@@ -253,8 +284,8 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
     }
 }
 
-class EthnicityComparator implements Comparator<String>, Serializable {
-    private final static Logger _log = Logger.getLogger(EthnicityComparator.class);
+class SchoolValueComparator implements Comparator<String>, Serializable {
+    private final static Logger _log = Logger.getLogger(SchoolValueComparator.class);
     public int compare(String value1, String value2) {
         Float row1Value = formatValueAsFloat(value1);
         Float row2Value = formatValueAsFloat(value2);

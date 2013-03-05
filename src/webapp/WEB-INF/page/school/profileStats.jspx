@@ -32,13 +32,27 @@
                 <c:if test="${! empty statsRows[6]}">
                     <c:set var="hasStudentData" value="yes"/>
                 </c:if>
-                <school:schoolProfilePieChartTable groupId="6" title="Student ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
+                <school:schoolProfilePieChartTable groupId="6" title="Student ethnicity" statsTab="students" labelColumnHeader="Ethnicity" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
+
+                <c:if test="${! empty statsRows[10]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
+                <school:schoolProfilePieChartTable groupId="10" title="Home Languages of English Learners" labelColumnHeader="Language" statsTab="students" pieDivId="homeLangPieChart" pieDataSet="${homeLanguageMap}"/>
 
                 <c:if test="${! empty statsRows[13]}">
                     <c:set var="hasStudentData" value="yes"/>
                 </c:if>
                 <school:schoolProfileStatsTable groupId="13" title="Student subgroups" statsTab="students"/>
 
+                <c:if test="${! empty statsRows[8]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="8" title="Attendance" statsTab="students"/>
+
+                <c:if test="${! empty statsRows[16]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="16" title="Attendance and Completion" statsTab="students"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
@@ -228,11 +242,25 @@
                 </c:if>
                 <school:schoolProfileStatsTable groupId="5" title="Student-Teacher ratio" statsTab="teachers"/>
 
-
-                <c:if test="${! empty statsRows[14]}">
+                <c:if test="${! empty statsRows[4]}">
                     <c:set var="hasTeacherData" value="yes"/>
                 </c:if>
-                <school:schoolProfileStatsTable groupId="14" title="Teacher experience" statsTab="teachers"/>
+                <school:schoolProfileStatsTable groupId="4" title="Class size" statsTab="teachers"/>
+
+                <c:if test="${! empty statsRows[2]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="2" title="Teacher experience" statsTab="teachers"/>
+
+                <c:if test="${! empty statsRows[3]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="3" title="Teacher Education Levels" statsTab="teachers"/>
+
+                <c:if test="${! empty statsRows[1]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
+                <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->

@@ -48,6 +48,8 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
     private static final String MODEL_OUTSMARTING_ARTICLE = "outsmartingArticle";
     private static final String MODEL_OUTSMARTING_ARTICLE_ID = "outsmartingArticleId";
 
+    private static final String MODEL_IS_ADMISSION_URL = "isAdmissionUrl";
+
     private static final String[] PLANNING_AHEAD_PG_KEYS = {"_2yr", "_4yr", "_military", "_vocational", "_workforce",
             "_year"};
 
@@ -109,9 +111,11 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
             String learnMoreUrl = null;
             if(espData.get( "admissions_url" ) != null && espData.get( "admissions_url" ).size() > 0) {
                 learnMoreUrl = espData.get( "admissions_url" ).get(0).getValue();
+                model.put(MODEL_IS_ADMISSION_URL, true);
             }
             else if(school.getWebSite() != null) {
                 learnMoreUrl = school.getWebSite();
+                model.put(MODEL_IS_ADMISSION_URL, false);
             }
 
             if(learnMoreUrl != null && learnMoreUrl.trim().length() > 0 && !learnMoreUrl.startsWith("http")) {
@@ -529,6 +533,7 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         String applyUrl = null;
         if(school.getWebSite() != null) {
             applyUrl = school.getWebSite();
+            model.put(MODEL_IS_ADMISSION_URL, false);
         }
         model.put(MODEL_LEARN_MORE_URL, applyUrl);
         return model;

@@ -137,7 +137,6 @@ GS.profile = GS.profile || (function() {
         handleHashBang();
 
         var currentTab = GS.tabManager.getCurrentTab();
-        //refreshAdsForTab(currentTab.name);
         initialTab = currentTab;
         if (initialTab.name === 'overview') {
             refreshableOverviewAdSlotKeys.push('School_Profile_Page_Sponsor_630x40');
@@ -279,24 +278,23 @@ GS.profile = GS.profile || (function() {
 
     var refreshOverviewAds = function(tabName) {
         //console.log('refreshing overview ads', refreshableOverviewAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableOverviewAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshReviewsAds = function(tabName) {
         //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableReviewsAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableReviewsAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshNonOverviewAds = function(tabName) {
         //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
-    var initializeOverviewAds = function() {
-        //console.log('init overview ads', refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
-        //GS.ad.refreshAds(refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
-        GS.ad.refreshAds(['School_Profile_Page_Header_728x90']);
-    };
-    var initializeNonOverviewAds = function() {
-        //console.log('init non overview ads');
-        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys.concat(otherAdSlotKeys));
+    var refreshNonOverviewAdsWithoutTargetingChange = function() {
+        //console.log('refresh non overview ads without targeting change', refreshableNonOverviewAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
+        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
     };
 
     var getAlternateSitePath = function() {
@@ -308,9 +306,8 @@ GS.profile = GS.profile || (function() {
     return {
         init:init,
         refreshAdsForTab:refreshAdsForTab,
-        initializeOverviewAds:initializeOverviewAds,
-        initializeNonOverviewAds:initializeNonOverviewAds,
-        getAlternateSitePath:getAlternateSitePath
+        getAlternateSitePath:getAlternateSitePath,
+        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange
     };
 }());
 
@@ -374,7 +371,126 @@ jQuery(document).ready(function() {
     if ($teachers) $teachers.on('click', ratings);
 //
 
+    // ratings subgroup interactions with menu
+    var ratingsSubgroupsMenu = $('#js_ratings_cat_menu');
+    var ratingsSubgroupsContentWrapper = $('#js_ratings_cat_content_wrapper');
+    if (ratingsSubgroupsMenu.length === 1 && ratingsSubgroupsContentWrapper.length === 1) {
+        var ratingsSubgroupLabels = ratingsSubgroupsMenu.find('.js_ratings_cat_label');
+        ratingsSubgroupLabels.on('click', function() {
+            var catSelected = $(this).attr('id');
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
 
+            //Hide all the data
+            ratingsSubgroupsContentWrapper.find('.js_ratings_cat_content').hide();
+
+            //Show the data for the grade selected.
+            $('#' + catSelected + '_content').show();
+
+            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+        });
+
+        ratingsSubgroupLabels.hover(
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
+
+        //Select the first category by default and trigger its click event, so that the data is displayed.
+        var firstCategoryToSelect = ratingsSubgroupsMenu.children(":first").find("a");
+        firstCategoryToSelect.trigger('click');
+    }
+
+    // test scores interactions with grade or test menus
+    var testsMenu = $('#js_testSelect');
+    var testScoresGrades = $('#js_testScoresGrades');
+    var gradeLabel = testScoresGrades.find('.js_grade');
+    var testScoresValues = $('#js_testScoresValues');
+    var subjectContent = testScoresValues.find('.js_subjects');
+    var specialTestsContent = testScoresValues.find('.js_specialTests');
+    if (testsMenu.length === 1 && testScoresGrades.length === 1 && testScoresValues.length === 1) {
+        testsMenu.on('change', function(e) {
+            var select = e.target;
+            var option = select.options[select.selectedIndex];
+            var testSelected = $(option).val();
+            var hideGrades = $(option).hasClass('js_hideGrades');
+
+            $("#js_testLabelHeader").html($(option).text() + ' Results');
+
+            //Hide all the grades and the subject data
+            testScoresGrades.find('.js_grades').hide();
+            subjectContent.hide();
+
+            //Hide special tests
+            specialTestsContent.hide();
+
+            //Show the grades for the test.
+            $('#js_' + testSelected + '_grades').show();
+
+            //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
+            var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
+            firstGradeToSelect.trigger('click');
+
+            //Show special test if it's selected
+            $('#js_' + testSelected).show();
+
+            if (hideGrades) {
+                $('#js_testScoresGrades').removeClass('grid_4').addClass('hide');
+                $('#js_testScoresValues').removeClass('grid_11').addClass('grid_15');
+            } else {
+                $('#js_testScoresGrades').removeClass('hide').addClass('grid_4');
+                $('#js_testScoresValues').removeClass('grid_15').addClass('grid_11');
+            }
+
+            if (testsMenu.is(':visible')) {
+                GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            }
+        });
+
+        //Add the handler for clicking a specific grade.
+        gradeLabel.on('click', function () {
+            var gradeSelected = $(this).attr('id');
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
+
+            //Hide all the data
+            subjectContent.hide();
+
+            //Show the data for the grade selected.
+            $('#' + gradeSelected + '_subjects').show();
+
+            if (gradeLabel.is(':visible')) {
+                GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            }
+        });
+
+        gradeLabel.hover(
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function () {
+                if (!$(this).parent().hasClass("selected")) {
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
+
+        // Trigger the test change event.
+        testsMenu.change();
+    }
 });
 
 /********************************************************************************************************
@@ -447,7 +563,8 @@ function drawPieChart(dataIn, divNameId, dimensions, catchClick) {
         height: dimensions,
         legend: 'none',
         tooltip: {showColorCode: true,text:'value',textStyle:{color: '#2b2b2b', fontName: 'Arial', fontSize: '10'}},
-        colors:['#327FA0','#E2B66C','#DB7258','#A4B41E','#38A37A','#B66483','#7B498F','#414F7B'],
+        colors:['#4393B5','#38A37A','#84D07C','#E2B66C','#E2937D','#DA5F6E','#B66483','#7B498F','#414F7B','#A7A7A7','#7CC7CE','#489A9D','#A4CEBB','#649644','#E0D152','#F1A628','#A3383A','#8C734D','#EA6394','#CE92C0','#5A78B1'],
+//        colors:['#327FA0','#E2B66C','#DB7258','#A4B41E','#38A37A','#B66483','#7B498F','#414F7B'],
         pieSliceText: 'none',
         chartArea:{left:15,top:15,bottom:10,right:10,width:"80%",height:"80%"},
         pieSliceBorderColor:'white'
@@ -703,3 +820,302 @@ GS.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
         getImageHeight: getImageHeight
     }
 };
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////     CA API Charts - line graph and bar graph
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+GS.color_lines = { colors:['#4393B5','#38A37A','#84D07C','#E2B66C','#E2937D','#DA5F6E','#B66483','#7B498F','#414F7B','#A7A7A7','#7CC7CE','#489A9D','#A4CEBB','#649644','#E0D152','#F1A628','#A3383A','#8C734D','#EA6394','#CE92C0','#5A78B1'] };
+
+// specific to the ca api to generate graph with 200 as min or 400 as min
+GS.getMinYLines = function() {
+    var min = 400;
+    for(var i = 0; i < data[0].values.length; i ++) {
+        if(data[0].values[i].Y < min) {
+            min = 200;
+        }
+    }
+    return min;
+};
+
+GS.getMinYBar = function() {
+    var min = 400;
+    for(var i = 0; i < data_bar.values.length; i ++) {
+        if(data_bar.values[i].Y < min) {
+            min = 200;
+        }
+    }
+    return min;
+};
+
+GS.drawGraphContainer = function (options) {
+    var settings = $.extend( {
+        'layerId' : 'not set',
+        'width' : '600',
+        'height' : '200',
+        'x_axis_increments' : 1,
+        'y_axis_increments' : 200,
+        'y_max' : 1050,
+        'y_min' : 400,
+        'colors' : '',
+        'data' : '',
+        'graph_type' : 'line_graph',
+        'legend_width' : 120
+    }, options);
+
+    var w = settings['width'] - settings['legend_width'];
+    var data = settings['data'];
+    var col = settings['colors'];
+
+    var drawLegend = function(c, d){
+        for(i=0; i < d.length; i++){
+            drawSquareAndText(c, col.colors[i], d[i].title, i, w);
+        }
+        drawDashedLineAndText(c, "#CCC", "Statewide goal", d.length, w);
+
+    }
+    var image_placeHolder = "/res/images/pixel.png";
+
+    var drawSquareAndText = function(c, color, text, i , w){
+        var offsetx = w+20;
+        var offsety = 20;
+        var linespacer = 20;
+        c.strokeStyle = "#000";
+        c.fillStyle = color;
+        c.font = '9pt sans-serif';
+        c.textAlign = "left";
+        c.beginPath();
+        c.fillRect(offsetx,(offsety - 5 + linespacer*i),10,10);
+        //c.strokeRect(offsetx,(offsety - 5 + linespacer*i),10,10);
+        c.fillStyle = "#777";
+        c.fillText(text,(offsetx + 20), (offsety + linespacer*i));
+    }
+
+    var drawDashedLineAndText = function(c, color, text, i , w){
+        var offsetx = w+20;
+        var offsety = 20;
+        var linespacer = 20;
+        c.strokeStyle = "#CCC";
+        c.fillStyle = color;
+        c.font = '9pt sans-serif';
+        c.textAlign = "left";
+        c.beginPath();
+        drawHorizontalDashedLine(c, (offsety + linespacer*i), offsetx, (offsetx+10), color);
+        c.fillStyle = "#777";
+        c.fillText(text,(offsetx + 20), (offsety + linespacer*i));
+    }
+
+    var yearToInt = {};
+    var yearXCounter = 0;
+    var createYearRange = function(){
+        //CREATE year range
+        var yearMin = 3000;
+        var yearMax = 2000;
+        for(var j=0; j < data.length; j++){
+            for(var i = 0; i < data[j].values.length; i++) {
+                if(data[j].values[i].X < yearMin) yearMin = data[j].values[i].X;
+                if(data[j].values[i].X > yearMax) yearMax = data[j].values[i].X;
+            }
+        }
+        //build year array
+        for(var i = yearMin; i <= yearMax; i++) {
+            yearToInt[i.toString()] = yearXCounter;
+            yearXCounter++;
+        }
+    }
+
+    var drawFrameLines = function(c){
+
+        c.lineWidth = 1;
+        c.strokeStyle = '#777';
+        c.font = '8pt sans-serif';
+        c.textAlign = "center";
+        c.beginPath();
+        //c.moveTo(xPadding, 0);
+        c.moveTo(xPadding, settings['height'] - yPadding);
+        c.lineTo(w, settings['height'] - yPadding);
+        c.stroke();
+        c.fillStyle = "#777";
+
+        // Draw the X value texts
+        if(settings['graph_type'] == "bar_graph"){
+            c.fillText(data.x_axis_title, ((w + xPadding)/2), settings['height'] - yPadding + 20);
+        }
+        else{
+            createYearRange();
+            $.each(yearToInt, function(key, value) {
+                c.fillText(key, getXPixel(value), settings['height'] - yPadding + 20);
+            });
+        }
+
+        // Draw the Y value texts
+        c.textAlign = "right"
+        c.textBaseline = "middle";
+
+        for(var i = settings['y_min']; i <= settings['y_max']; i += settings['y_axis_increments']) {
+
+            if(i == 800){
+                c.fillStyle = "#000";
+                c.font = '8pt sans-serif';
+                c.fillText(i, xPadding - 20, getYPixel(i));
+                drawHorizontalDashedLine(c, getYPixel(i), (xPadding+1), w, "#CCC");
+            }
+            else{
+                c.fillStyle = "#777";
+                c.font = '8pt sans-serif';
+                c.fillText(i, xPadding - 20, getYPixel(i));
+                drawHorizontalLine(c, i, (xPadding+1), w, "#ccc");
+            }
+        }
+    }
+
+    var drawBarGraph = function(c){
+        var bottom = settings['height'] - yPadding -1;
+        var top = 0;
+        var left = 0;
+        for(i=0; i < data.values.length; i++){
+            var offsetx = xPadding*1.5;
+            var offsety = yPadding;
+            var barspacer = 30;
+            c.fillStyle = col.colors[i];
+            top = getYPixel(data.values[i].Y);
+            left = offsetx+(i*barspacer);
+            c.beginPath();
+            c.fillRect(left,top,10,bottom-top);
+            var h = bottom-top;
+            var classname = "graphBar"+i;
+            var areaTag = '<div class="'+classname+'" style="background-image:url('+image_placeHolder+');cursor:pointer; position:absolute; top:'+ top + 'px; left:' + left + 'px; width:10px; height:' + h + 'px;"></div>';
+            graph.after(areaTag);
+            var content_popup = "<span class='small bottom'><span class='bold'>" + data.values[i].title + "</span><br />API: " + data.values[i].Y + "</span>";
+            if(data.values[i].N != 0){
+                content_popup += "<br /><span class='small bottom'>No. tested: "+ data.values[i].N + "</span>";
+            }
+            $("."+classname).popover({content: content_popup, placement:'top', delay:{ show: 100, hide: 100 }});
+        }
+    }
+
+    var drawFullLineGraph = function(c){
+        c.lineWidth = 2;
+        for(var i=0; i < data.length; i++){
+            c.strokeStyle = col.colors[i];
+            c.fillStyle = col.colors[i];
+
+            // Draw the line graph
+            drawLineGraph(c, data[i].values);
+
+            // Draw the dots
+            drawLineDots(c, data[i].values, i);
+        }
+    }
+
+    var drawLineGraph = function(c, v) {
+        c.beginPath();
+        c.moveTo(getXPixel(yearToInt[v[0].X]), getYPixel(v[0].Y));
+        for(var i = 0; i < v.length; i ++) {
+            c.lineTo(getXPixel(yearToInt[v[i].X]), getYPixel(v[i].Y));
+        }
+        c.stroke();
+    }
+
+    var drawLineDots = function(c, v, linecount) {
+        for(var i = 0; i < v.length; i ++) {
+            c.beginPath();
+            c.arc(getXPixel(yearToInt[v[i].X]), getYPixel(v[i].Y), 3, 0, Math.PI * 2, true);
+            c.fill();
+            var hit_area = 10;
+            var classname = "graphPoint"+i+linecount;
+            var areaTag = '<div class="'+classname+
+                '" style="background-image:url('+image_placeHolder+');cursor:pointer; position:absolute; top:'+ (getYPixel(v[i].Y) - hit_area/2) + "px; left:" + (getXPixel(yearToInt[v[i].X]) - hit_area/2) +
+                "px; width:"+hit_area+"px; height:"+hit_area+'px;"><!--Do not collapse--></div>';
+            graph.after(areaTag);
+            var content_popup =  "<span class='small bottom'><span class='bold'>" + v[i].X + "</span><br />API: " + v[i].Y + "</span>";
+            if(v[i].N != 0){
+                content_popup += "<br /><span class='small bottom'>No. tested: "+ v[i].N + "</span>";
+            }
+            $("."+classname).popover({content: content_popup, placement:'top', delay:{ show: 100, hide: 100 }});
+        }
+    }
+    var drawHorizontalLine = function(c, y, xStart, xEnd, color) {
+        c.lineWidth = 1;
+        c.strokeStyle = color;
+        c.beginPath();
+        c.moveTo(xStart, getYPixel(y));
+        c.lineTo(xEnd, getYPixel(y));
+        c.stroke();
+    }
+
+    var drawHorizontalDashedLine = function(c, y, xStart, xEnd, color) {
+        c.lineWidth = 1;
+        c.beginPath();
+        var dashLength = 3;
+        var dashSpace = 3;
+        var x = xStart;
+        var y = y;
+        var drawline = true;
+        c.moveTo(x, y);
+
+        while(xEnd > x){
+            if(drawline){
+                x += dashLength;
+                c.strokeStyle = color;
+                c.lineTo(x, y);
+            }
+            else{
+                x += dashSpace;
+                c.moveTo(x, y);
+            }
+            c.stroke();
+            drawline = !drawline;
+        }
+    }
+
+
+    var getXPixel = function(val) {
+        return ((w - xPadding*3) / (yearXCounter-1)) * val + (xPadding * 2);
+    }
+
+    // Return the y pixel for a graph point
+    var getYPixel = function(val) {
+        return settings['height'] - (((settings['height'] - yPadding) / (settings['y_max']- settings['y_min'])) * (val - settings['y_min'])) - yPadding;
+    }
+
+    var xPadding = 50;
+    var yPadding = 30;
+    var graph = $('#'+settings['layerId']);
+    var graphcanvas = document.getElementById(settings['layerId']);
+    graph[0].width = settings['width'];
+    graph[0].height = settings['height'];
+    var canvas_obj = graphcanvas.getContext('2d');
+
+    if(settings['graph_type'] == "line_graph"){
+        drawFrameLines(canvas_obj);
+        drawFullLineGraph(canvas_obj);
+        drawLegend(canvas_obj, data);
+    }
+    if(settings['graph_type'] == "bar_graph"){
+        drawFrameLines(canvas_obj);
+        drawBarGraph(canvas_obj);
+        drawLegend(canvas_obj, data.values);
+    }
+};
+
+// School review moderation
+function disableReview(reviewId) {
+    jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/deactivateContent.page', {
+        contentId:reviewId,
+        contentType:'schoolReview'}).done(function() {
+            window.location.reload();
+        });
+}
+
+function enableReview(reviewId) {
+    jQuery.post(GS.uri.Uri.getBaseHostname () + '/community/deactivateContent.page', {
+        contentId:reviewId,
+        contentType:'schoolReview',
+        reactivate:true}).done(function() {
+            window.location.reload();
+        });
+}

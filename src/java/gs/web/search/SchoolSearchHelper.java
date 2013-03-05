@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.geo.City;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.*;
@@ -137,12 +138,28 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
             _searchAdHelper.addZipCodeAdKeyword(pageHelper, searchString);
         }
 
+        SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
+        String cityName = (schoolSearchCommand != null) ? schoolSearchCommand.getCity() : null;
+        String stateName = (schoolSearchCommand != null) ? schoolSearchCommand.getState() : null;
+        State state = (stateName != null) ? State.fromString(stateName) : null;
+
+        if(commandAndFields.isNearbySearch() && cityName != null && state != null) {
+            City city = new City(cityName, state);
+            _searchAdHelper.addCityAdKeyword(pageHelper, city);
+        }
+
         // GS-11511 - nearby search by zip code
         _searchAdHelper.addNearbySearchInfoKeywords(pageHelper, request);
 
         if (showAdvancedFilters) {
             _searchAdHelper.addAdvancedFiltersKeywords(pageHelper, showAdvancedFilters);
         }
+
+        // GS-13607 - county
+        _searchAdHelper.addCountyAdKeywords(pageHelper, schoolResults);
+
+        // GS-13671 - template: srchbrowse
+        _searchAdHelper.addSearchBrowseAdKeyword(pageHelper);
     }
 
     public ModelAndView checkForRedirectConditions(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
@@ -320,4 +337,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         return gsSolrQuery;
     }
 
+    public void setSearchAdHelper(SearchAdHelper _searchAdHelper) {
+        this._searchAdHelper = _searchAdHelper;
+    }
 }

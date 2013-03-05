@@ -174,7 +174,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Titles 11&12 - Default: Application info version 1, Substitute 1: Application info version 2, Substitute 2: School visit checklist
         model.put( APPL_INFO_MODEL_KEY, getApplInfoEspTile(request, school, espData) );
 
-        // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info
+        // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info, Substitute 3: Mobile Promo
         model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Titles 14&15 - Default: Related content, Substitute 1:
@@ -408,14 +408,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map<String, Object> getGsRatingsModel(HttpServletRequest request, School school) {
+    protected Map<String, Object> getGsRatingsModel(HttpServletRequest request, School school) {
 
         // Default action
         Map<String, Object> model = null;
 
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
-        //Only display ratings tile if there is overall rating and academic rating.
-        if (ratingsMap != null && !ratingsMap.isEmpty()
+        //Only display ratings tile if there is overall rating and academic rating, and if school should show new rating
+        if (Boolean.TRUE == school.getIsNewGSRating() && ratingsMap != null && !ratingsMap.isEmpty()
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING) != null
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING) != null) {
             model = new HashMap<String, Object>(5);
@@ -870,9 +870,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
                 if( isNotEmpty(classSizeCensusDataSet) ) {
                     try {
-                        SchoolCensusValue [] csv = (SchoolCensusValue [])classSizeCensusDataSet.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
-                        classSize = csv[0].getValueInteger();
-                        classSizeYear = classSizeCensusDataSet.get(0).getYear();
+                        Map<String,CensusDataSet> classSizes = getClassSizes(classSizeCensusDataSet);
+                        if (classSizes.containsKey("All grades")) {
+                            CensusDataSet classSizeDataSet = classSizes.get("All grades");
+                            classSize = classSizeDataSet.getTheOnlySchoolValue().getValueInteger();
+                            classSizeYear = classSizeDataSet.getYear();
+                        }
                     }
                     catch( NullPointerException e ) {
                         // Nothing to do
@@ -888,20 +891,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                         // Nothing to do
                     }
                 }
-                String state = school.getStateAbbreviation().getAbbreviation();
-                // Special rules for NY and TX.  Only use studentsPerTeacher otherwise do substitute 2
-                if( (state.equals("NY") || state.equals("TX")) ) {
-                    if( studentsPerTeacher > 0 ) {
-                        model.put("substitute1StudentsPerTeacher", studentsPerTeacher);
-                        model.put("substitute1StudentsPerTeacherYear", new Integer(studentsPerTeacherYear));
-                        model.put( "content", "substitute1" );
-                        substitute1Ok = true;
-                    }
-                    else {
-                        // No students/teacher data - fall through to substitute2
-                    }
-                }
-                else if( classSize > 0 && studentsPerTeacher > 0) {
+                // this should not happen anymore, since census config table will contain one or the other
+                if( classSize > 0 && studentsPerTeacher > 0) {
                     // If we have both, use the one with the later year
                     if( classSizeYear >= studentsPerTeacherYear ) {
                         model.put("substitute1ClassSize", classSize);
@@ -1318,7 +1309,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             }
             model.put( "neighborhoodInfo", sentence.toString()  );
             model.put( "content", "neighborhoodInfo" );
+            return model;
         }
+
+        // fall-back (GS-13517)
+        model.put("content", "mobilePromo");
 
         return model;
     }
@@ -1487,7 +1482,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Title 8 - Default: School visit checklist
         model.put( VIDEO_TOUR_MODEL_KEY, getTourVideoModel(request, school) );
 
-        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundary tool promo
+        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundary tool promo, Substitute 3: Mobile Promo
         model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Row 4 - Default: Related content
@@ -1750,6 +1745,55 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     // The following setter dependency injection is just for the tester
     public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {
         _schoolProfileDataHelper = schoolProfileDataHelper;
+    }
+
+    public Map<String,CensusDataSet> getClassSizes(List<CensusDataSet> censusDataSets) {
+        if (censusDataSets == null) {
+            throw new IllegalArgumentException("List of CensusDataSets cannot be null");
+        }
+
+        Map<String,CensusDataSet> aggregatedByLevel = new HashMap<String,CensusDataSet>();
+        Map<String,CensusDataSet> individualGrades = new HashMap<String,CensusDataSet>();
+
+        for (CensusDataSet censusDataSet : censusDataSets) {
+            SchoolCensusValue value = censusDataSet.getTheOnlySchoolValue();
+
+            if ((censusDataSet.getGradeLevels() == null || censusDataSet.getGradeLevels().asList().isEmpty()) && censusDataSet.getLevelCode() != null) {
+
+                // construct the text that will display in the view tile
+                /*LevelCode levelCode = censusDataSet.getLevelCode();
+                List<String> levelCodeNames = new ArrayList<String>();
+                for (LevelCode.Level l : levelCode.getIndividualLevelCodes()) {
+                    if (LevelCode.Level.PRESCHOOL_LEVEL.equals(l)) {
+                        levelCodeNames.add(l.getLongName());
+                    } else {
+                        levelCodeNames.add(l.getLongName() + " school");
+                    }
+                }
+                String levelCodeNameSummary = StringUtils.join(levelCodeNames, ", ");*/
+
+                // Replace last comma with word "and"
+                // int lastComma = levelCodeNameSummary.lastIndexOf(",");
+                // levelCodeNameSummary = levelCodeNameSummary.substring(0,lastComma-1) + " and" + levelCodeNameSummary.substring(lastComma);
+
+
+                String levelCodeNameSummary = "All grades";
+                aggregatedByLevel.put(levelCodeNameSummary, censusDataSet);
+            } else if (censusDataSet.getGradeLevels() != null) {
+                individualGrades.put(
+                        "Grade " + censusDataSet.getGradeLevels().getCommaSeparatedString(),
+                        censusDataSet
+                );
+            }
+
+        }
+
+        /*if (aggregatedByLevel.size() > 0) {
+            return aggregatedByLevel;
+        } else {
+            return individualGrades;
+        }*/
+        return aggregatedByLevel; // It was decided to only use aggregated class sizes for now, since it's simpler
     }
 
 

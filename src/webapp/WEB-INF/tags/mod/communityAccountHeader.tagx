@@ -14,39 +14,55 @@
                              description="Hostname of community server, such as community.greatschools.org"/>
     <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
                              description="True if topnav is loaded via community iframe"/>
+    <div class="clearfix">
+        <div class="fr">
+            <![CDATA[
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fgreatschools&amp;send=false&amp;layout=button_count&amp;width=77&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:77px; height:21px;" allowTransparency="true"></iframe>
+            ]]>
+            <a href="http://twitter.com/greatschools" target="_blank">
+                <span class="iconx24 i-24-twitter"><!-- do not collapse --></span>
+            </a>
+            <a href="http://pinterest.com/greatschools/" target="_blank">
+                <span class="iconx24 i-24-pinterest"><!-- do not collapse --></span>
+            </a>
+            <a href="http://blogs.greatschools.org/greatschoolsblog/" target="_blank">
+                <span class="iconx24 i-24-rss"><!-- do not collapse --></span>
+            </a>
+        </div>
 
-    <ul id="utilLinks">
-        <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
-            <li style="display:none;" id="js_header_view_mobile_site"><a href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
-        </c:if>
-        <li>
-            Welcome,
-            <link:userProfile
-                    username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
-        </li>
-        <li>
-            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
-        </li>
-        <li class="nav_menu"><link:userAccount
-                styleClass="nav_group_heading">My Account</link:userAccount>
-            <!--<ul class="nav_group_items">-->
+        <ul id="utilLinks">
+            <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
+                <li style="display:none;" id="js_header_view_mobile_site"><a
+                        href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
+            </c:if>
+            <li>
+                Welcome,
+                <link:userProfile
+                        username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
+            </li>
+            <li>
+                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+            </li>
+            <!--<li class="nav_menu"><link:userAccount styleClass="nav_group_heading">My Account</link:userAccount>-->
+                <!--<ul class="nav_group_items">-->
                 <!--<li class="first">-->
-                    <!--<link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>-->
+                <!--<link:mySchoolList>My school list (${requestScope.context.mslCount})</link:mySchoolList>-->
                 <!--</li>-->
                 <!--<li><link:recentActivity>My recent activity</link:recentActivity></li>-->
                 <!--<li><link:userProfile-->
-                        <!--username="${requestScope.context.screenName}">My profile</link:userProfile></li>-->
+                <!--username="${requestScope.context.screenName}">My profile</link:userProfile></li>-->
                 <!--<li class="last"><link:userAccount>See all &amp;raquo;</link:userAccount></li>-->
-            <!--</ul>-->
-        </li>
-        <li class="last">
-            <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
-            <!--<link:communityLanding><span-->
+                <!--</ul>-->
+            <!--</li>-->
+            <li class="last">
+                <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
+                <!--<link:communityLanding><span-->
                 <!--class="sprite community-2f85eb-sm">&lt;!&ndash; community icon &ndash;&gt;</span><strong>&amp;nbsp;Community</strong></link:communityLanding>-->
 
 
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </div>
     <!--<div id="bts2010ChkLst" class="smallText">
         <a href = "/backToSchool/backToSchoolChecklist.page" onclick="if (s.tl) {s.tl(this,'o', 'BTS2010_Checklist_UtilityHeader');} return true;"><span class="sprite pencil_sm">&lt;!&ndash; not empty &ndash;&gt;</span> Back-to-school Checklist (${not empty backToSchoolChecklistNumberCompleted? backToSchoolChecklistNumberCompleted : 0}/5) </a>
     </div>-->

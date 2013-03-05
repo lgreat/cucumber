@@ -14,7 +14,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-<jsp:directive.tag body-content="empty"/>
+    <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schoolName" required="true" description="School Name" type="java.lang.String"/>
     <jsp:directive.attribute name="schoolId" required="true" description="School Identifier" type="java.lang.String"/>
     <jsp:directive.attribute name="schoolState" required="true" description="School State" type="java.lang.String"/>
@@ -23,38 +23,45 @@
 
     <c:set var="overview">
         <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="overview" page="/school/profileOverview.page" />
+        <school:profileModuleInclude tabName="overview" page="/school/profileOverview.page"/>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="testscores">
         <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="testscores" page="/school/profileTestScores.page" />
+        <school:profileModuleInclude tabName="testscores" page="/school/profileTestScores.page"/>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="ratings">
         <!--<gsweb:cache key="profileRatings-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="ratings" page="/school/profileRatings.page" />
+        <c:choose>
+            <c:when test="${school.isNewGSRating}">
+                <school:profileModuleInclude tabName="ratings" page="/school/profileRatings.page"/>
+            </c:when>
+            <c:when test="${school.GSRating != null}">
+                <school:profileModuleInclude tabName="ratings" page="/school/profileRatingsSubgroups.page"/>
+            </c:when>
+        </c:choose>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="schoolstats">
         <!--<gsweb:cache key="profileDemographics-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="demographics" page="/school/profileStats.page" />
+        <school:profileModuleInclude tabName="demographics" page="/school/profileStats.page"/>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="reviews">
         <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="reviews" page="/school/profileReviews.page" />
+        <school:profileModuleInclude tabName="reviews" page="/school/profileReviews.page"/>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="programs">
         <!--<gsweb:cache key="profilePrograms-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="programs" page="/school/profilePrograms.page" />
+        <school:profileModuleInclude tabName="programs" page="/school/profilePrograms.page"/>
         <!--</gsweb:cache>-->
     </c:set>
     <c:set var="enrollment">
         <!--<gsweb:cache key="profileAdmissions-${school.stateAbbreviation}-${school.id}">-->
-        <school:profileModuleInclude tabName="enrollment" page="/school/profileEnrollment.page" />
-        <!--</gsweb:cache>-->        
+        <school:profileModuleInclude tabName="enrollment" page="/school/profileEnrollment.page"/>
+        <!--</gsweb:cache>-->
     </c:set>
 
     <c:if test="${param.debug}">
@@ -70,39 +77,51 @@
     <div data-gs-tabs="profileTabs" class="gsTabs" data-gs-allow-intercept-hovers="true">
         <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
-                <profile:gsTab tabName="overview" title="${gsweb:schoolPageTitle(school)}" tabText="Overview" cssClass="${requestScope.schoolProfileTabMap['overview-master']}"/>
+                <profile:gsTab tabName="overview" title="${gsweb:schoolPageTitle(school)}" tabText="Overview"
+                               cssClass="${requestScope.schoolProfileTabMap['overview-master']}"/>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <profile:gsTab tabName="reviews" title="Parent Reviews" tabText="Reviews" cssClass="${requestScope.schoolProfileTabMap['reviews-master']}"/>
+                <profile:gsTab tabName="reviews" title="Parent Reviews" tabText="Reviews"
+                               cssClass="${requestScope.schoolProfileTabMap['reviews-master']}"/>
             </c:if>
             <c:if test="${(!empty testscores) or (!empty ratings)}">
-                <profile:gsTab tabName="testsAndRatings" tabToLinkTo="test-scores" title="Test Scores" tabText="Test scores" cssClass="${requestScope.schoolProfileTabMap['test-scores-master']}"/>
+                <profile:gsTab tabName="testsAndRatings" tabToLinkTo="test-scores" title="Test Scores"
+                               tabText="Test scores"
+                               cssClass="${requestScope.schoolProfileTabMap['test-scores-master']}"/>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <profile:gsTab tabName="studentsAndTeachersMaster" tabToLinkTo="demographics" tabText="Students &amp;amp; teachers" cssClass="${requestScope.schoolProfileTabMap['students-teachers-master']}"/>
+                <profile:gsTab tabName="studentsAndTeachersMaster" tabToLinkTo="demographics"
+                               tabText="Students &amp;amp; teachers"
+                               cssClass="${requestScope.schoolProfileTabMap['students-teachers-master']}"/>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <profile:gsTab tabName="programs-culture-master" tabToLinkTo="programs-culture" tabText="Programs &amp;amp; culture" cssClass="${requestScope.schoolProfileTabMap['programs-master']}"/>
+                <profile:gsTab tabName="programs-culture-master" tabToLinkTo="programs-culture"
+                               tabText="Programs &amp;amp; culture"
+                               cssClass="${requestScope.schoolProfileTabMap['programs-master']}"/>
             </c:if>
             <c:if test="${(!empty enrollment)}">
-                <profile:gsTab tabName="enrollment" tabText="Enrollment" cssClass="${requestScope.schoolProfileTabMap['enrollment-master']}"/>
+                <profile:gsTab tabName="enrollment" tabText="Enrollment"
+                               cssClass="${requestScope.schoolProfileTabMap['enrollment-master']}"/>
             </c:if>
         </ul>
 
         <c:if test="${(!empty overview)}">
             <div style="display:${(!empty requestScope.schoolProfileTabMap['overview-master'] and requestScope.schoolProfileTabMap['overview-master'] eq 'selected'?'block;':'none')}">
-                <c:out value='${overview}' escapeXml="false" />
+                <div class="mbl"><!--do not collapse--></div>
+                <c:out value='${overview}' escapeXml="false"/>
             </div>
         </c:if>
         <c:if test="${(!empty reviews)}">
             <div style=" display:${(!empty requestScope.schoolProfileTabMap['reviews-master'] and requestScope.schoolProfileTabMap['reviews-master'] eq 'selected'?'block;':'none')}">
-                <c:out value='${reviews}' escapeXml="false" />
+                <div class="mbm"><!--do not collapse--></div>
+                <c:out value='${reviews}' escapeXml="false"/>
             </div>
         </c:if>
         <c:if test="${(!empty testscores || !empty ratings)}">
             <div style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
                 <div data-gs-tabs="testsAndRatings" class="gsTabs">
-                    <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"/>
+                    <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"
+                                             showRatingsDetails="${not empty ratings}"/>
                     <c:if test="${(!empty testscores)}">
                         <div class="${(!empty requestScope.schoolProfileTabMap['test-scores'] and requestScope.schoolProfileTabMap['test-scores'] eq 'selected'?'':'dn')}">
                             <c:out value='${testscores}' escapeXml="false"/>
@@ -115,21 +134,27 @@
             </div>
         </c:if>
         <c:if test="${(!empty schoolstats)}">
-            <div data-gs-tab-body="stats" style="display:${(!empty requestScope.schoolProfileTabMap['students-teachers-master'] and requestScope.schoolProfileTabMap['students-teachers-master'] eq 'selected'?'block;':'none')}">
-                <c:out value='${schoolstats}' escapeXml="false" />
+            <div data-gs-tab-body="stats"
+                 style="display:${(!empty requestScope.schoolProfileTabMap['students-teachers-master'] and requestScope.schoolProfileTabMap['students-teachers-master'] eq 'selected'?'block;':'none')}">
+                <c:out value='${schoolstats}' escapeXml="false"/>
             </div>
         </c:if>
         <c:if test="${(!empty programs)}">
-            <div data-gs-tab-body="programsExtras" style="display:${(!empty requestScope.schoolProfileTabMap['programs-master'] and requestScope.schoolProfileTabMap['programs-master'] eq 'selected'?'block;':'none')}">
-                <c:out value='${programs}' escapeXml="false" />
+            <div data-gs-tab-body="programsExtras"
+                 style="display:${(!empty requestScope.schoolProfileTabMap['programs-master'] and requestScope.schoolProfileTabMap['programs-master'] eq 'selected'?'block;':'none')}">
+                <c:out value='${programs}' escapeXml="false"/>
             </div>
         </c:if>
         <c:if test="${(!empty enrollment)}">
-            <div data-gs-tab-body="enrollment" style=" display:${(!empty requestScope.schoolProfileTabMap['enrollment-master'] and requestScope.schoolProfileTabMap['enrollment-master'] eq 'selected'?'block;':'none')}">
-                <c:out value='${enrollment}' escapeXml="false" />
+            <div data-gs-tab-body="enrollment"
+                 style=" display:${(!empty requestScope.schoolProfileTabMap['enrollment-master'] and requestScope.schoolProfileTabMap['enrollment-master'] eq 'selected'?'block;':'none')}">
+                <div class="mbl"><!--do not collapse--></div>
+                <c:out value='${enrollment}' escapeXml="false"/>
             </div>
         </c:if>
     </div>
     <!-- FRONTEND - This needs to be styled - it should appear to the right of the Last modified -->
-    <div id="schoolInaccuracy" class="small bottom fr">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
+    <div id="schoolInaccuracy" class="small bottom fr">Notice an inaccuracy? <link:schoolFeedback
+            schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!
+    </div>
 </jsp:root>

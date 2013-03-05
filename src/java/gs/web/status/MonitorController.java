@@ -4,7 +4,10 @@ import gs.data.dao.DatabaseTestEntity;
 import gs.data.dao.IDao;
 import gs.data.dao.IPartitionDao;
 import gs.data.dao.PartitionedDatabaseTestEntity;
-import gs.data.search.Searcher;
+import gs.data.search.*;
+import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.search.fields.DocumentType;
+import gs.data.search.fields.SchoolFields;
 import gs.data.state.State;
 import gs.data.util.CmsUtil;
 import gs.data.util.CommunityUtil;
@@ -22,6 +25,7 @@ import java.text.ParseException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -78,13 +82,17 @@ public class MonitorController implements ReadWriteController {
      */
     private Searcher _searcher;
 
+    /** Used to verify solr **/
+    private GsSolrSearcher _gsSolrSearcher;
+    private SolrConnectionManager _solrConnectionManager;
+
     private CmsRelatedFeatureCacheManager _cmsRelatedFeatureCacheManager;
     
     long[] _blackHole;
     long[] _blackHole2;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException, ParseException, SearchException, SolrServerException, SolrReadOnlyServerUnavailableException {
         
         if (request.getParameter("die_893u4odsjf982348") != null) {
             selfDestruct();
@@ -179,6 +187,34 @@ public class MonitorController implements ReadWriteController {
         model.put("environment", getEnvironmentMap());
         model.put("management", getManagementMap());
         model.put("rtmemory", getRuntimeMemoryMap());
+
+        // Test solr connectivity
+        model.put("solrRoUrl", _solrConnectionManager.getSolrReadOnlyServerUrl());
+        model.put("solrRwUrl", _solrConnectionManager.getSolrReadWriteServerUrl());
+        try {
+            _solrConnectionManager.getReadOnlySolrServer().ping();
+        } catch (Exception e) {
+            throw new SolrReadOnlyServerUnavailableException(String.valueOf(model.get("solrRoUrl")), e);
+        }
+        model.put("solrRoTest", "true");
+        try {
+            _solrConnectionManager.getReadWriteSolrServer().ping();
+            model.put("solrRwTest", "true");
+        } catch (Exception e) {
+            model.put("solrRwTest", "false");
+            model.put("solrRwTestError", e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        // Test solr index
+        GsSolrQuery schoolSearchQuery = new GsSolrQuery(QueryType.SCHOOL_SEARCH);
+        schoolSearchQuery.filter(DocumentType.SCHOOL).page(0, 1);
+        schoolSearchQuery.filter(SchoolFields.SCHOOL_DATABASE_STATE, State.CA.getAbbreviationLowerCase());
+        SearchResultsPage<SolrSchoolSearchResult> results = _gsSolrSearcher.search(schoolSearchQuery, SolrSchoolSearchResult.class);
+        if (results != null && results.getSearchResults() != null && results.getSearchResults().size() > 0) {
+            model.put("solrRead", true);
+        } else {
+            model.put("solrRead", false);
+        }
 
         if (request.getParameter("increment") != null) {
             incrementVersion(request, response);
@@ -402,5 +438,34 @@ public class MonitorController implements ReadWriteController {
 
     public void setCmsRelatedFeatureCacheManager(CmsRelatedFeatureCacheManager cmsRelatedFeatureCacheManager) {
         _cmsRelatedFeatureCacheManager = cmsRelatedFeatureCacheManager;
+    }
+
+    public GsSolrSearcher getGsSolrSearcher() {
+        return _gsSolrSearcher;
+    }
+
+    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
+    }
+
+    public SolrConnectionManager getSolrConnectionManager() {
+        return _solrConnectionManager;
+    }
+
+    public void setSolrConnectionManager(SolrConnectionManager solrConnectionManager) {
+        _solrConnectionManager = solrConnectionManager;
+    }
+
+    private static class SolrReadOnlyServerUnavailableException extends Exception {
+        private String _url;
+        private SolrReadOnlyServerUnavailableException(String url, Exception cause) {
+            _url = url;
+            initCause(cause);
+        }
+
+        @Override
+        public String getMessage() {
+            return "Connection to Solr Read Only Server " + _url + " Failed.";
+        }
     }
 }

@@ -16,6 +16,12 @@
         >
 
     <jsp:directive.attribute name="localInfoModel" type="java.lang.Object" required="true"/>
+    <jsp:directive.attribute name="adjustHeight" type="java.lang.Boolean" required="false"/>
+
+    <c:set var="moduleHeight" value="height:149px;" />
+    <c:if test="${adjustHeight eq true}">
+        <c:set var="moduleHeight" value="height:139px;" />
+    </c:if>
 
     <c:set var="content" value="${localInfoModel['content']}" scope="page"/>
 
@@ -40,7 +46,7 @@
         <!-- Tile opening, and tile header -->
         <div class='mod standard_1-1'>
             <div class='inner box-shadow-animation-1'>
-                <a href="http://www.dcpcsb.org/PCSB-Publications/PMF-Results.aspx" target="_blank" class="noUnderline">
+                <a href="http://www.dcpcsb.org/PCSB-Publications/PMF-Results.aspx" target="_blank" class="noUnderline" onclick="if (s.tl) { s.tl(this, 'o', 'overview_dc_pcsb_link'); }">
                 <div class='hd pr'>
                     <p class="small_bold textshadow-1 pvs plm bottom make-555555">DC Public Charter School
                         Board</p>
@@ -48,7 +54,7 @@
                 </div>
 
                 <div class='bd clearfix'>
-                    <div class="mam" style='height: 149px;'>
+                    <div class="mam" style="${moduleHeight}" >
                         <div class='small' id='PMFContent'>
 
             <!-- if only 1 rating -->
@@ -96,13 +102,13 @@
                             <em>${schoolPerformanceManagementRatingBand} performing</em>
                         </span>
                     </div><!-- END charterRatingInfo  -->
+                    <c:if test="${!(schoolId == 567 || schoolId == 265 || schoolId == 837)}">
+                        <div id='tierIconDiv' style='width:49px; float:right; text-align: center; border-left: 1px solid #e6e6e6;'>
+                            <span class="small_bold make-uppercase">Tier</span>
+                            ${schoolPerformanceTierIcon}
 
-                    <div id='tierIconDiv' style='width:49px; float:right; text-align: center; border-left: 1px solid #e6e6e6;'>
-                        <span class="small_bold make-uppercase">Tier</span>
-                        ${schoolPerformanceTierIcon}
-
-                    </div><!-- END tierIconDiv  -->
-
+                        </div><!-- END tierIconDiv  -->
+                    </c:if>
                 </div><!-- END charterRatingDiv  -->
 
                 <c:if test="${ (fn:length(localInfoModel['schoolPerformanceManagementRating']) gt 1) and ! status.last }">
@@ -134,7 +140,7 @@
             <div id="js-tile-13-1">
             <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_district'); }" styleClass="tdn make-555555 js-trigger">
             <school:profileOverviewCell1 title="${t13s1}">
-                <div class="mam clearfix" style="height:149px;">
+                <div class="mam clearfix" style="${moduleHeight}">
                     <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
                     <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
                     <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
@@ -198,6 +204,10 @@
                             src="/res/img/school/overview/logo_sperlings_75x19.png" alt="Sperling's Best Places"/></a></div>
 
             </school:profileOverviewCell1>
+        </c:when>
+
+        <c:when test="${content eq 'mobilePromo'}">
+            <school:profileOverviewMobileTile/>
         </c:when>
     </c:choose>
 
