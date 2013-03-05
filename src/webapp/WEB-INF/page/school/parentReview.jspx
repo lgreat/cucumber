@@ -39,8 +39,8 @@
 
     </div>
     <div class="selectBar">
-        <p style="font-family: arial; font-size:48px; color: #FFFFFF">Finding better schools together</p>
-        <p style="font-family: arial; font-size:16px; font-style: italic; color: #CC9900">Write a review of your school to help students find a better place to learn</p>
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;">Finding better schools together</p>
+        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900">Write a review of your school to help students find a better place to learn</p>
         <div class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto"><!-- do not collapse --></div>
     </div>
 </div>

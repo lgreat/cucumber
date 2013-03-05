@@ -167,3 +167,8 @@ fix for footer spacing in list
     padding-top: 4px;
     padding-bottom: 2px;
 }
+
+
+#imageBgScale .container{
+    left:0px;
+}
