@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author aroy@greatschools.org
@@ -90,6 +92,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("schoolMedias", schoolMedias);
 
         putResponsesInModel(school, modelMap); // fetch responses for school, including external data
+        putRepeatingFormIndicatorInModel(modelMap, "after_school_", 5);  // Add index of last active after_school data into model
+        putRepeatingFormIndicatorInModel(modelMap, "summer_program_", 5);
         putPercentCompleteInModel(school, modelMap);
         modelMap.put("ethnicityBreakdowns", EspFormExternalDataHelper.STATE_TO_ETHNICITY.get(school.getDatabaseState()));
         modelMap.put("censusDataTypes", EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()));
@@ -130,6 +134,38 @@ public class EspFormController implements ReadWriteAnnotationController {
 //        handleEndTimeRead(responseMap);
 
         modelMap.put("responseMap", responseMap);
+    }
+
+    /**
+     * This function is used to support populating the "after school" and "summer programs" fields on page5.  Those sets of data
+     * have allow up to 5 sets of "after school" and "summer program" data.  When the form is drawn all of the existing
+     * sets of data are visible and the remaining blank sets hidden.  This function finds the index of the last set
+     * of data to show.  Note - if there is data for set 3 then data sets 1, 2 and 3 will be shown even if 1 and  2 are
+     * blank.
+     * @param modelMap
+     * @param prefix
+     * @param maxForms
+     */
+    protected void putRepeatingFormIndicatorInModel( ModelMap modelMap, String prefix, int maxForms ) {
+        Map<String, EspFormResponseStruct> responseMap = (Map<String, EspFormResponseStruct>)modelMap.get("responseMap");
+        if( responseMap == null || responseMap.size() == 0 ) {
+            return;
+        }
+
+        Pattern pattern = Pattern.compile("^" + prefix + ".*_\\d$");
+
+        int lastUsed = 0;
+
+        for( String key : responseMap.keySet() ) {
+            Matcher m = pattern.matcher(key);
+            if( m.find() ) {
+                int index = Character.getNumericValue( key.charAt(key.length()-1) );
+                lastUsed = (index > lastUsed) ? index : lastUsed;
+            }
+        }
+
+        modelMap.put(prefix, new Integer(lastUsed));
+
     }
 
     @RequestMapping(value="form.page", method=RequestMethod.POST)
@@ -685,6 +721,186 @@ public class EspFormController implements ReadWriteAnnotationController {
             add("student_clubs_other_1");
             add("student_clubs_other_2");
             add("student_clubs_other_3");
+            // Fields for After School programs
+            add("after_school_exists");
+            add("after_school_name_1");
+            add("after_school_description_1");
+            add("after_school_activities_1");
+            add("after_school_activities_other_1");
+            add("after_school_operator_1");
+            add("after_school_start_1");
+            add("after_school_end_1");
+            add("after_school_day_1");
+            add("after_school_attendance_restriction_1");
+            add("after_school_grade_1");
+            add("after_school_fee_1");
+            add("after_school_financial_aid_1");
+            add("after_school_fee_learn_more_1");
+            add("after_school_website_1");
+            add("after_school_phone_1");
+            add("after_school_name_2");
+            add("after_school_description_2");
+            add("after_school_activities_2");
+            add("after_school_activities_other_2");
+            add("after_school_operator_2");
+            add("after_school_start_2");
+            add("after_school_end_2");
+            add("after_school_day_2");
+            add("after_school_attendance_restriction_2");
+            add("after_school_grade_2");
+            add("after_school_fee_2");
+            add("after_school_financial_aid_2");
+            add("after_school_fee_learn_more_2");
+            add("after_school_website_2");
+            add("after_school_phone_2");
+            add("after_school_name_3");
+            add("after_school_description_3");
+            add("after_school_activities_3");
+            add("after_school_activities_other_3");
+            add("after_school_operator_3");
+            add("after_school_start_3");
+            add("after_school_end_3");
+            add("after_school_day_3");
+            add("after_school_attendance_restriction_3");
+            add("after_school_grade_3");
+            add("after_school_fee_3");
+            add("after_school_financial_aid_3");
+            add("after_school_fee_learn_more_3");
+            add("after_school_website_3");
+            add("after_school_phone_3");
+            add("after_school_name_4");
+            add("after_school_description_4");
+            add("after_school_activities_4");
+            add("after_school_activities_other_4");
+            add("after_school_operator_4");
+            add("after_school_start_4");
+            add("after_school_end_4");
+            add("after_school_day_4");
+            add("after_school_attendance_restriction_4");
+            add("after_school_grade_4");
+            add("after_school_fee_4");
+            add("after_school_financial_aid_4");
+            add("after_school_fee_learn_more_4");
+            add("after_school_website_4");
+            add("after_school_phone_4");
+            add("after_school_name_5");
+            add("after_school_description_5");
+            add("after_school_activities_5");
+            add("after_school_activities_other_5");
+            add("after_school_operator_5");
+            add("after_school_start_5");
+            add("after_school_end_5");
+            add("after_school_day_5");
+            add("after_school_attendance_restriction_5");
+            add("after_school_grade_5");
+            add("after_school_fee_5");
+            add("after_school_financial_aid_5");
+            add("after_school_fee_learn_more_5");
+            add("after_school_website_5");
+            add("after_school_phone_5");
+            // Fields for Summer programs
+            add("summer_program_exists");
+            add("summer_program_name_1");
+            add("summer_program_description_1");
+            add("summer_program_activities_1");
+            add("summer_program_activities_other_1");
+            add("summer_program_operator_1");
+            add("summer_program_date_start_1");
+            add("summer_program_date_end_1");
+            add("summer_program_start_1");
+            add("summer_program_end_1");
+            add("summer_program_day_1");
+            add("summer_program_attendance_restriction_1");
+            add("summer_program_grade_1");
+            add("summer_program_fee_1");
+            add("summer_program_financial_aid_1");
+            add("summer_program_fee_learn_more_1");
+            add("summer_program_before_after_care_1");
+            add("summer_program_before_after_care_start_1");
+            add("summer_program_before_after_care_end_1");
+            add("summer_program_website_1");
+            add("summer_program_phone_1");
+            add("summer_program_name_2");
+            add("summer_program_description_2");
+            add("summer_program_activities_2");
+            add("summer_program_activities_other_2");
+            add("summer_program_operator_2");
+            add("summer_program_date_start_2");
+            add("summer_program_date_end_2");
+            add("summer_program_start_2");
+            add("summer_program_end_2");
+            add("summer_program_day_2");
+            add("summer_program_attendance_restriction_2");
+            add("summer_program_grade_2");
+            add("summer_program_fee_2");
+            add("summer_program_financial_aid_2");
+            add("summer_program_fee_learn_more_2");
+            add("summer_program_before_after_care_2");
+            add("summer_program_before_after_care_start_2");
+            add("summer_program_before_after_care_end_2");
+            add("summer_program_website_2");
+            add("summer_program_phone_2");
+            add("summer_program_name_3");
+            add("summer_program_description_3");
+            add("summer_program_activities_3");
+            add("summer_program_activities_other_3");
+            add("summer_program_operator_3");
+            add("summer_program_date_start_3");
+            add("summer_program_date_end_3");
+            add("summer_program_start_3");
+            add("summer_program_end_3");
+            add("summer_program_day_3");
+            add("summer_program_attendance_restriction_3");
+            add("summer_program_grade_3");
+            add("summer_program_fee_3");
+            add("summer_program_financial_aid_3");
+            add("summer_program_fee_learn_more_3");
+            add("summer_program_before_after_care_3");
+            add("summer_program_before_after_care_start_3");
+            add("summer_program_before_after_care_end_3");
+            add("summer_program_website_3");
+            add("summer_program_phone_3");
+            add("summer_program_name_4");
+            add("summer_program_description_4");
+            add("summer_program_activities_4");
+            add("summer_program_activities_other_4");
+            add("summer_program_operator_4");
+            add("summer_program_date_start_4");
+            add("summer_program_date_end_4");
+            add("summer_program_start_4");
+            add("summer_program_end_4");
+            add("summer_program_day_4");
+            add("summer_program_attendance_restriction_4");
+            add("summer_program_grade_4");
+            add("summer_program_fee_4");
+            add("summer_program_financial_aid_4");
+            add("summer_program_fee_learn_more_4");
+            add("summer_program_before_after_care_4");
+            add("summer_program_before_after_care_start_4");
+            add("summer_program_before_after_care_end_4");
+            add("summer_program_website_4");
+            add("summer_program_phone_4");
+            add("summer_program_name_5");
+            add("summer_program_description_5");
+            add("summer_program_activities_5");
+            add("summer_program_activities_other_5");
+            add("summer_program_operator_5");
+            add("summer_program_date_start_5");
+            add("summer_program_date_end_5");
+            add("summer_program_start_5");
+            add("summer_program_end_5");
+            add("summer_program_day_5");
+            add("summer_program_attendance_restriction_5");
+            add("summer_program_grade_5");
+            add("summer_program_fee_5");
+            add("summer_program_financial_aid_5");
+            add("summer_program_fee_learn_more_5");
+            add("summer_program_before_after_care_5");
+            add("summer_program_before_after_care_start_5");
+            add("summer_program_before_after_care_end_5");
+            add("summer_program_website_5");
+            add("summer_program_phone_5");
+
         }});
         put(6, new HashSet<String>() {{
             add("anything_else");

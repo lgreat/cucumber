@@ -962,6 +962,15 @@ new (function() {
         if(!boysSportsIsValid || !girlsSportsIsValid) {
             $('#js_form_sports_error').show();
         }
+        // bob raker - 3/4/13 - per Michael Hicks, no validation at this time
+//        validations.push(GS.validation.validateRequired('#js_form_after_school_name_1', '#js_form_after_school_name_1_error'));
+//        validations.push(GS.validation.validateRequired('#js_form_after_school_name_2', '#js_form_after_school_name_2_error'));
+//        validations.push(GS.validation.validateRequired('#js_form_after_school_name_3', '#js_form_after_school_name_3_error'));
+//        validations.push(GS.validation.validateRequired('#js_form_after_school_name_4', '#js_form_after_school_name_4_error'));
+//        validations.push(GS.validation.validateRequired('#js_form_after_school_name_5', '#js_form_after_school_name_5_error'));
+        // The following didn't work when activated
+//        validations.push(GS.validation.validateRequired('input:checkbox[name=after_school_activities_1]', '#js_form_after_school_activities_1_error'));
+//        validations.push(GS.validation.validateRequiredIfChecked('input:text#form_after_school_activities_1_other', 'input:checkbox#form_after_school_activities_1__other', '#js_form_after_school_activities_1_other_error'));
         // END PAGE 5
 
         // PAGE 6
@@ -1079,6 +1088,9 @@ new (function() {
         GS.form.controlVisibilityOfElementWithRadio('#js_schedule','[name=schedule_exists]', 'yes');
         GS.form.controlVisibilityOfElementWithRadio('#js_special_ed_programs','[name=special_ed_programs_exists]', 'yes');
 
+        GS.form.controlVisibilityOfElementWithRadio('#form_after_school', '[name=after_school]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_summer_program', '[name=summer_program]', 'yes');
+
         GS.form.findAndApplyGhostTextSwitching('#espFormPage-' + GS.espForm.currentPage);
 
         // validate all visible fields when any input textbox value is changed
@@ -1119,6 +1131,36 @@ new (function() {
         GS.form.controlVisibilityOfElementWithRadio('#sctn_financial_aid', '[name=application_process]', 'yes');
         // END page 3 specific
 
+        // page 5
+        GS.form.controlVisibilityOfElementWithRadio('#form_after_school_fee_1', '[name=after_school_fee_1]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_after_school_fee_2', '[name=after_school_fee_2]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_after_school_fee_3', '[name=after_school_fee_3]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_after_school_fee_4', '[name=after_school_fee_4]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_after_school_fee_5', '[name=after_school_fee_5]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_1', '[name=summer_program_fee_1]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_2', '[name=summer_program_fee_2]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_3', '[name=summer_program_fee_3]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_4', '[name=summer_program_fee_4]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_5', '[name=summer_program_fee_5]', 'yes');
+        $('#js_add_after_school').click(function(){
+            $('.js_after_school:hidden').first().show();
+        });
+        $('#js_add_summer_program').click(function(){
+            $('.js_summer_program:hidden').first().show();
+        });
+
+        $('.js_clear').click(function(){
+            var r = confirm("Please verify that you want to clear the fields for this program.");
+            if( r === true ) {
+                var divContent=$(this).parent();
+                divContent.find(":text").val('');
+                divContent.find("textarea").val('');
+                divContent.find(":radio").removeAttr('checked');
+                divContent.find(":checkbox").removeAttr('checked');
+            }
+        });
+
+        // END page 5 specific
 
         // page 6
         $('#form_anything_else').on('keyup keydown blur', function() {
