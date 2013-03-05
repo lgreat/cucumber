@@ -20,7 +20,7 @@ General comments:
     position: relative;
     height: 18px;
     list-style: none;
-    top: 6px;
+    top: 8px;
     right: 4px;
     z-index: 2;
     float:right;
@@ -34,7 +34,7 @@ General comments:
     float: left;
     padding: 0 6px;
     border-right: 1px solid #fff;
-    font-size: 10px;
+    font-size: 11px;
     line-height: 11px;
     color: #FFFFFF;
 }

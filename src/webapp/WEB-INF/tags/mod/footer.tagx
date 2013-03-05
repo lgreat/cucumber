@@ -77,34 +77,34 @@
             <div id="footnav" class="clearfix">
                 <div class="navAbout">
                     <p class="small_bold make-999999 subtitles bottom pbm">About GreatSchools</p>
-                    <p class="small make-999999 bottom prl">GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become
-                        effective champions of their children's education at home and in their communities.<br />
+                    <p class="small make-999999 bottom prl">Our mission is to inspire and guide families to champion their children's education - at school, at home, and in their community. We are a national non-profit with offices in San Francisco, Milwaukee, Washington D.C. and Indianapolis.
                         <span class="footerLink"><gsml:a href="/about/aboutUs.page">More &amp;#187;</gsml:a></span></p>
                 </div>
                 <div class="navFoot">
                     <!--<p class="medium subtitles bottom pbm">Company</p>-->
                     <ul class="none">
-                        <li><gsml:a href="/about/aboutUs.page">Our Mission</gsml:a></li>
-                        <li><gsml:a href="/about/senior-management.page">Our People</gsml:a></li>
+                        <li><gsml:a href="/about/aboutUs.page">Our mission</gsml:a></li>
+                        <li><gsml:a href="/about/senior-management.page">Our people</gsml:a></li>
                         <li><gsml:a href="/jobs/">Jobs</gsml:a></li>
-                        <li><link:contactUs>Contact Us</link:contactUs></li>
+                        <li><link:contactUs>Contact us</link:contactUs></li>
                     </ul>
                 </div>
                 <div class="navFoot">
                     <!--<p class="medium subtitles bottom pbm">Media</p>-->
                     <ul class="none">
-                        <li><gsml:a href="/about/advertiserOpportunities.page">Advertise With Us</gsml:a></li>
+                        <li><gsml:a href="/about/advertiserOpportunities.page">Advertise with us</gsml:a></li>
                         <li><gsml:a href="/about/partnerOpportunities.page">Partners</gsml:a></li>
-                        <li><link:pressRoom>Media Room</link:pressRoom></li>
-                        <li><gsml:a href="/about/linkToUs.page">Data Widgets &amp;#38; Tools</gsml:a></li>
+                        <li><link:pressRoom>Media room</link:pressRoom></li>
+                        <li><gsml:a href="/about/linkToUs.page">Widgets &amp;#38; tools</gsml:a></li>
                     </ul>
                 </div>
                 <div class="navFootLast">
                     <!--<p class="medium subtitles bottom pbm">Policies</p>-->
                     <ul class="none">
-                        <li><link:parentReviewGuidelines>School Review Guidelines</link:parentReviewGuidelines></li>
-                        <li><link:termsOfUse>Terms of Use</link:termsOfUse></li>
-                        <li><link:privacyPolicy>Privacy Policy</link:privacyPolicy></li>
+                        <li><a href="">How we rate schools</a></li>
+                        <li><link:parentReviewGuidelines>School review guidelines</link:parentReviewGuidelines></li>
+                        <li><link:termsOfUse>Terms of use</link:termsOfUse></li>
+                        <li><link:privacyPolicy>Privacy policy</link:privacyPolicy></li>
                     </ul>
                 </div>
             </div>

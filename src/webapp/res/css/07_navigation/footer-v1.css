@@ -88,6 +88,7 @@ div#YahooRealEstateLink {
 #footer .copyright {
     margin:  0;
     text-align: center;
+    color: #777777;
 }
 
 #footer .copyright a {
@@ -109,8 +110,8 @@ div#YahooRealEstateLink {
 #footer .cities ul {
     list-style: none;
     float: left;
-    margin: 0 3px 0 0;
-    width: 16.30%;
+    margin: 0 2px 0 0;
+    width: 16%;
     padding: 0;
 }
 
@@ -135,22 +136,21 @@ div#YahooRealEstateLink {
 
 #footer .navFoot {
     float: left;
-    margin: 0 3px 0 0;
-    width: 16.30%;
+    margin: 0 6px 0 0;
+    width: 16%;
     padding: 0;
     /*width: 100%;*/
 }
 #footer .navFootLast {
     float: left;
-    margin: 0 3px 0 0;
-    width: 25%;
+    /*margin: 0 3px 0 0;*/
+    width: 16%;
     padding: 0;
-    /*width: 100%;*/
 }
 #footer .navAbout {
     float: left;
-    margin: 0 20px 0 0;
-    width: 32.60%;
+    margin: 0 12px 0 0;
+    width: 49%;
     padding: 0;
 }
 
