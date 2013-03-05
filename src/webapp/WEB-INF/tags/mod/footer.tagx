@@ -101,7 +101,7 @@
                 <div class="navFootLast">
                     <!--<p class="medium subtitles bottom pbm">Policies</p>-->
                     <ul class="none">
-                        <li><a href="">How we rate schools</a></li>
+                        <li><gsml:a href="/find-a-school/defining-your-ideal/2423-ratings.gs">How we rate schools</gsml:a></li>
                         <li><link:parentReviewGuidelines>School review guidelines</link:parentReviewGuidelines></li>
                         <li><link:termsOfUse>Terms of use</link:termsOfUse></li>
                         <li><link:privacyPolicy>Privacy policy</link:privacyPolicy></li>
