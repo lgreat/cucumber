@@ -9,20 +9,13 @@
 
 $(document).ready(function() {
     $('#js_testClickAnimation').on("click",function() {
-        $('#imageBgScale').fadeOut('slow', function() {
-            $('#imageBgScale').fadeIn('slow', function() {
-                // Animation complete
+        $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
+            $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
+                $('.headerBar').show().animate({
+                    top: '+=200'
+                }, 2000);
             });
         });
 
     });
-//    $('#footertab').toggle(function() {
-//        $('#footer').animate({
-//            bottom: '-=120'
-//        }, 1000);
-//    },function() {
-//        $('#footer').animate({
-//            bottom: '+=120'
-//        }, 1000);
-//    })
 });
