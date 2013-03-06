@@ -1051,7 +1051,7 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 
 *******************************************************************************************************************/
 .imageBgScale {
-    overflow:hidden; height:560px; width:100%; position:relative;
+    width:100%; position:relative; overflow:hidden;
 }
 
 .imageBgScale .img-container{
@@ -1080,11 +1080,12 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     position:absolute;
     background-color: #CC9900;
     text-align: center;
-    left:-50%;
-    width:200%;
+    /*left:-50%;*/
+    width:100%;
 }
 
 .moduleHeight-560{height:560px;}
 .moduleTop-150{top:150px;}
 .moduleTop-250{top:250px;}
+.moduleTop-200{top:200px;}
 .moduleHeaderPreAnimationTop--200{top:-200px;}

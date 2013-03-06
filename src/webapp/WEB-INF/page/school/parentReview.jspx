@@ -47,17 +47,20 @@
 </div>
 
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
+    <div style="height: 180px;">
     <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
         <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
         <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
     </div>
-    <div class="content-centered moduleTop-250">
-        <div class="container_24">
-            <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
-            <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
-        </div>
-        <!--<div id="js_testClickAnimation" class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
     </div>
+        <div class="container_24 clearfix">
+            <form>
+                <div class="fl"><textarea style="width:500px; height: 400px;"><!-- --></textarea></div>
+                <div class="fr"><input type="text" placeholder="please enter your email"/></div>
+
+            </form>
+        </div>
+
 </div>
 
 
