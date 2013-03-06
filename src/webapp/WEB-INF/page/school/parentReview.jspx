@@ -25,26 +25,28 @@
         <meta name="robots" content="follow,noindex"/>
     </c:if>
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>
-
+    <!--<pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
+    <pageHelper:externalJavascript file="/res/js/landing/reviewAnimation.js"/>
 </head>
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
-<div id="imageBgScale">
-    <div class="container">
+<div id="imageBgScale" class="moduleHeight-560">
+    <div class="img-container">
         <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt="" />
 
     </div>
-    <div class="selectBar">
-        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;">Finding better schools together</p>
-        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900">Write a review of your school to help students find a better place to learn</p>
-        <div class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto"><!-- do not collapse --></div>
+    <div class="content-centered moduleTop-150">
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
+        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
+        <div id="js_testClickAnimation" class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto"><!-- do not collapse --></div>
     </div>
 </div>
-<div id="oneColumn">
+
+
+<div id="oneColumn" class="dn">
 
 <c:if test="${morganStanley}">
     <div id="morganStanleyHeader">
