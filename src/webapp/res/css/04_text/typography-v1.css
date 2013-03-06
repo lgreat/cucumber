@@ -42,7 +42,16 @@ body {
 /* Headings
 -------------------------------------------------------------- */
 @font-face {
-    font-family: SourceSansPro-Bold;
+    font-family: 'SourceSansPro-Regular';
+    src: url('Comfortaa.eot');
+    src: local('Comfortaa Regular'),
+    local('Comfortaa'),
+    url('Comfortaa.ttf') format('truetype'),
+    url('Comfortaa.svg#font') format('svg');
+}
+
+@font-face {
+    font-family: SourceSansPro-It;
     src: url(/res/css/04_text/fonts/SourceSansPro-Bold.otf);
 }
 
