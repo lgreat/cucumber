@@ -43,29 +43,25 @@ body {
 -------------------------------------------------------------- */
 @font-face {
     font-family: 'SourceSansPro-Regular';
-    src: url('Comfortaa.eot');
-    src: local('Comfortaa Regular'),
-    local('Comfortaa'),
-    url('Comfortaa.ttf') format('truetype'),
-    url('Comfortaa.svg#font') format('svg');
+    src: url('SourceSansPro-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-Regular-webfont.woff') format('woff'),
+        url('SourceSansPro-Regular-webfont.ttf')  format('truetype'),
+        url('SourceSansPro-Regular-webfont.svg#SourceSansPro-Regular') format('svg');
 }
-
 @font-face {
-    font-family: SourceSansPro-It;
-    src: url(/res/css/04_text/fonts/SourceSansPro-Bold.otf);
+    font-family: 'SourceSansPro-It';
+    src: url('SourceSansPro-It-webfont.eot?#iefix') format('embedded-opentype'),
+    url('SourceSansPro-It-webfont.woff') format('woff'),
+    url('SourceSansPro-It-webfont.ttf')  format('truetype'),
+    url('SourceSansPro-It-webfont.svg#SourceSansPro-It') format('svg');
 }
-
 @font-face {
-    font-family: SourceSansPro-BoldIt;
-    src: url(/res/css/04_text/fonts/SourceSansPro-BoldIt.otf);
+    font-family: 'SourceSansPro-Semibold';
+    src: url('SourceSansPro-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('SourceSansPro-Semibold-webfont.woff') format('woff'),
+    url('SourceSansPro-Semibold-webfont.ttf')  format('truetype'),
+    url('SourceSansPro-Semibold-webfont.svg#SourceSansPro-Semibold') format('svg');
 }
-
-@font-face {
-    font-family: SourceSansPro-Semibold;
-    src: url(/res/css/04_text/fonts/SourceSansPro-Semibold.otf);
-}
-
-
 
 h1,
 h2,
@@ -79,7 +75,7 @@ h1 { font: normal 24px/30px SourceSansPro-Semibold, Arial, Helvetica, sans-serif
 h2 { font: normal 21px/25px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h3 { font: normal 18px/25px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h4 { font: normal 16px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h5 { font: bold   14px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h5 { font: normal 14px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h6 { font: normal 14px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 
 h1 img,
