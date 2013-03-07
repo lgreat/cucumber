@@ -204,7 +204,7 @@
                 <h5 class="bold bottom">Did this school meet all the API goals for student subgroups this year?</h5>
 
                 <div class="small">
-                    The state goal for the API is 800. All the student subgroups at a school that a below 800 are assigned an API improvement target each year.
+                    The state goal for the API is 800. All the student subgroups at a school that are below 800 are assigned an API improvement target each year.
                 </div>
                 <ul class="disc small bottom">
                     <c:choose>
