@@ -55,7 +55,7 @@
     </div>
         <div class="container_24 clearfix">
             <form>
-                <div class="fl"><textarea style="width:500px; height: 400px;"><!-- --></textarea></div>
+                <div class="fl"><textarea class="lined_paper"><!-- do not collapse --></textarea></div>
                 <div class="fr"><input type="text" placeholder="please enter your email"/></div>
 
             </form>
