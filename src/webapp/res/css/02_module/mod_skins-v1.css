@@ -1078,10 +1078,16 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 
 .imageBgScale .headerBar{
     position:absolute;
-    background-color: #CC9900;
+    background-color: #FFB725;
     text-align: center;
     /*left:-50%;*/
     width:100%;
+}
+.paper_bg{
+    background-image:url(/res/img/form/paper_bg.png);
+    background-repeat:repeat-y;
+    width:620px;
+    height:281px;
 }
 
 .moduleHeight-560{height:560px;}

@@ -201,12 +201,12 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
 
 textarea.lined_paper{
     border:none;
-    background-image:url(/res/img/form/lined-paper_temp.gif);
-    background-repeat:repeat-y;
-    width:500px;
-    height:600px;
-    line-height:24px;
-    padding:0 25px 10px 25px;
+    background-color: transparent;
+    width:580px;
+    height:210px;
+    line-height:30px;
+    padding:0 20px 10px 20px;
+    margin-top: 8px;;
     overflow: auto;
     resize:none
 }
