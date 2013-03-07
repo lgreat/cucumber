@@ -50,6 +50,13 @@ public class SchoolProfileStatsControllerIntegrationTest {
         _request = new MockHttpServletRequest();
     }
 
+    @Test
+    public void testNothing() {
+        //at least one test so build doesn't fail
+        assertTrue(true);
+
+    }
+
     /*@Test*/
     /*public void testSerialization() {
         School school = getASchool(State.CA, 1);
