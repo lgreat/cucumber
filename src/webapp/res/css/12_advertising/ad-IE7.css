@@ -169,6 +169,6 @@ fix for footer spacing in list
 }
 
 
-#imageBgScale .container{
+.imageBgScale .img-container{
     left:0px;
 }
