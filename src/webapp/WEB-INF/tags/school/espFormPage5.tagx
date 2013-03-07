@@ -365,7 +365,8 @@
           </div>
 
           <!-- After school programs -->
-          <c:if test="${school.databaseState.abbreviation eq 'CA' and (school.districtId eq 14 or school.districtId eq 717 or school.city eq 'San Francisco' or school.city eq 'Oakland') and !school.preschoolOnly}">
+          <!-- <c:if test="${school.databaseState.abbreviation eq 'CA' and (school.districtId eq 14 or school.districtId eq 717 or school.city eq 'San Francisco' or school.city eq 'Oakland') and !school.preschoolOnly}"> -->
+          <c:if test="${not empty after_school_qualified}">
               <!-- After school program fields -->
               <fieldset>
                   <legend>After school programs</legend>

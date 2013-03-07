@@ -142,26 +142,28 @@ public class EspFormController implements ReadWriteAnnotationController {
      * have allow up to 5 sets of "after school" and "summer program" data.  When the form is drawn all of the existing
      * sets of data are visible and the remaining blank sets hidden.  This function finds the index of the last set
      * of data to show.  Note - if there is data for set 3 then data sets 1, 2 and 3 will be shown even if 1 and  2 are
-     * blank.
+     * blank.  <br/> Limitations:<br/>
+     * 1. The index at the end is limited to a single digit<br/>
+     * 2. There is an underscore prior to the ending digit.
      * @param modelMap
      * @param prefix
      * @param maxForms
      */
     protected void putRepeatingFormIndicatorInModel( ModelMap modelMap, String prefix, int maxForms ) {
         Map<String, EspFormResponseStruct> responseMap = (Map<String, EspFormResponseStruct>)modelMap.get("responseMap");
-        if( responseMap == null || responseMap.size() == 0 ) {
-            return;
-        }
-
-        Pattern pattern = Pattern.compile("^" + prefix + ".*_\\d$");
-
         int lastUsed = 1;   // Always show one set of data even if it blank
 
-        for( String key : responseMap.keySet() ) {
-            Matcher m = pattern.matcher(key);
-            if( m.find() ) {
-                int index = Character.getNumericValue( key.charAt(key.length()-1) );
-                lastUsed = (index > lastUsed) ? index : lastUsed;
+        if( responseMap != null && responseMap.size() > 0 ) {
+            Pattern pattern = Pattern.compile("^" + prefix + ".*_\\d$");
+
+            for( String key : responseMap.keySet() ) {
+                Matcher m = pattern.matcher(key);
+                if( m.find() ) {
+                    int index = Character.getNumericValue( key.charAt(key.length()-1) );
+                    if( index <= maxForms ) { // Ignore any out of range datasets
+                        lastUsed = (index > lastUsed) ? index : lastUsed;
+                    }
+                }
             }
         }
 
@@ -182,7 +184,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             if( (school.getDistrictId() == 14) || (school.getDistrictId() == 717) ) {
                 qualified = true;
             }
-            if( (school.getCity().equals("san francisco")) || (school.getCity().equals("oakland")) ) {
+            if( (school.getCity().equals("San Francisco")) || (school.getCity().equals("Oakland")) ) {
                 qualified = true;
             }
         }
