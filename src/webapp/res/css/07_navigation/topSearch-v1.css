@@ -110,7 +110,12 @@ General comments:
     height: 27px;
     outline: 0;
     border:0;
+    color: #2B2B2B;
 }
+
+/*#topnav_search fieldset input[type=text]:focus{*/
+    /*color: #2B2B2B;*/
+/*}*/
 
 #topnav_search fieldset select {
     height: 24px;
@@ -149,8 +154,8 @@ General comments:
     font-size: 12px;
     left: 161px;
     position: absolute;
-    top:5px;
-    left:339px;
+    top:6px;
+    left:334px;
 }
 
 #topnav_search .searchBar {

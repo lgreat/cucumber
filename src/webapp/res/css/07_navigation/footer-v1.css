@@ -127,6 +127,10 @@ div#YahooRealEstateLink {
     margin: 0 3px 0 3px;
 }
 
+#footer .allCities a:hover{
+    color:#999999;
+}
+
 #footer .subtitles{
     /*font-weight: bold;*/
     /*color: #999999;*/

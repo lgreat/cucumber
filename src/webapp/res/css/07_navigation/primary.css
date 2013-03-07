@@ -40,9 +40,9 @@ General comments:
     padding: 0;
     table-layout: auto;
     /* Borders */
-    /*border: 1px solid #157daa;*/
-    /*border-bottom:0 none transparent;*/
-    /*border-collapse: collapse;*/
+    border:none;
+    border-left:1px solid #3196C6;
+    border-right: 1px solid #177BA2;
 
 }
 

@@ -71,14 +71,13 @@
             <!--</div>-->
         <!--</div>-->
 
-        <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
+        <div id="footer" class="slStylesV1-0 ${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
             <promo:footerConnectWithUs userIsAlreadySignedUp="false" />
 
             <div id="footnav" class="clearfix">
                 <div class="navAbout">
-                    <p class="small_bold make-999999 subtitles bottom pbm">About GreatSchools</p>
-                    <p class="small make-999999 bottom prl">Our mission is to inspire and guide families to champion their children's education - at school, at home, and in their community. We are a national non-profit with offices in San Francisco, Milwaukee, Washington D.C. and Indianapolis.
-                        <span class="footerLink"><gsml:a href="/about/aboutUs.page">More &amp;#187;</gsml:a></span></p>
+                    <p class="small_bold subtitles bottom pbm">About GreatSchools</p>
+                    <p class="small make-999999 bottom prl">Our mission is to inspire and support families to champion their children's education - at school, at home, and in their community. We are a national non-profit with offices in San Francisco, Milwaukee, Washington D.C. and Indianapolis.</p>
                 </div>
                 <div class="navFoot">
                     <!--<p class="medium subtitles bottom pbm">Company</p>-->

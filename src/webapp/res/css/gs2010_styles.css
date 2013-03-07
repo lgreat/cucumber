@@ -2715,17 +2715,7 @@ div .gallery-thumbnail-selected:hover {
 -------------------------------------------------------------------------------------------*/
 
 #logoBox {
-    /*position: relative;*/
-    /*width: 369px;*/
-    /*height: 83px;*/
-    /*z-index: 1;*/
-    /*padding-left: 17px;*/
-}
-
-#logo {
-    /*position: relative;*/
-    /*width: 369px;*/
-    /*height: 83px;*/
+    margin-bottom: 5px;
 }
 
 /* =11c search box
@@ -2826,8 +2816,12 @@ div .gallery-thumbnail-selected:hover {
     height: 26px;
     outline: 0;
     border:0;
-
+    color: #2B2B2B;
 }
+
+/*#topnav_search fieldset input[type=text]:focus{*/
+    /*color: #2B2B2B;*/
+/*}*/
 .ie8 #topnav_search fieldset input {
     height:16px;
     padding-top: 4px;
@@ -2876,7 +2870,7 @@ div .gallery-thumbnail-selected:hover {
     left: 161px;
     position: absolute;
     top:5px;
-    left:339px;
+    left:334px;
 }
 
 #topnav_search .searchBar {
@@ -9402,9 +9396,6 @@ div#YahooRealEstateLink {
 }
 
 #footer .subtitles{
-    font-weight: bold;
-    color: #999999;
-    text-shadow: 0 -1px 0 rgba(0,0,0,.4);
 }
 #footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
 
@@ -11359,8 +11350,4 @@ p#btsBubbleOpts {
     padding-bottom: 101px;
 }
 
-#footer .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#footer .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#footer .smaller     { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
-#footer .bottom {margin-bottom: 0}
 .dn {display: none;}
