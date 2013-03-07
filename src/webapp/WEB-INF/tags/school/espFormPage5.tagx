@@ -397,7 +397,7 @@
                                   <div class="grid_4 suffix_1">
                                       <gsml:input styleId="js_form_${after_school_name}" styleClass="text form_${after_school_name}" type="text"
                                                   name="${after_school_name}"
-                                                  value="${responseMap[after_school_name].value}" disabled="${stateLocked}" maxlength="30"/>
+                                                  value="${responseMap[after_school_name].value}" disabled="${stateLocked}" maxlength="100"/>
                                   </div>
                                   <div class="grid_4 omega">
                                       <div id="js_form_${after_school_name}_error"  class="error" style="display: none">
@@ -556,7 +556,7 @@
                                   <div class="lal clearfix">
                                       <c:set var="after_school_financial_aid" value="after_school_financial_aid_${cur_program}"/>
                                       <div class="grid_5 alpha">
-                                          <p class="labelGroup">If yes, is financial aid available?</p>
+                                          <p class="labelGroup">Is financial aid available?</p>
                                       </div>
                                       <div class="grid_18 omega">
                                           <school:espRadioWithLabel key="${after_school_financial_aid}" value="yes" label="Yes"/>
@@ -567,7 +567,7 @@
                                   <div class="lal clearfix">
                                       <c:set var="after_school_fee_learn_more" value="after_school_fee_learn_more_${cur_program}"/>
                                       <div class="alpha grid_5">
-                                          <p class="labelGroup">If yes, how can parents find out more about fees?</p>
+                                          <p class="labelGroup">How can parents find out more about fees?</p>
                                       </div>
                                       <div class="grid_18 omega">
                                           <school:espCheckboxWithLabel key="${after_school_fee_learn_more}" value="call" label="Call"/>
@@ -584,7 +584,7 @@
                                   <div class="grid_18 omega">
                                       <input id="form_${after_school_website}" name="${after_school_website}" class="js_otherField text input_6"
                                              value="${responseMap[after_school_website].value}" placeholder="[Website url]"
-                                             maxlength="40"/>
+                                             maxlength="100"/>
                                   </div>
                               </div>
 
@@ -604,7 +604,7 @@
                           </div>
                       </c:forEach>
                       <c:if test="${last_program lt 5}">
-                          <gsml:a href="" id="js_add_after_school">+ add another after school program</gsml:a>
+                          <gsml:a href="" id="js_add_after_school">+ add a program</gsml:a>
                       </c:if>
                   </div>
               </fieldset>
@@ -640,7 +640,7 @@
                                   <div class="grid_4 suffix_1">
                                       <gsml:input styleId="js_form_${summer_program_name}" styleClass="text form_${summer_program_name}" type="text"
                                                   name="${summer_program_name}"
-                                                  value="${responseMap[summer_program_name].value}" disabled="${stateLocked}" maxlength="30"/>
+                                                  value="${responseMap[summer_program_name].value}" disabled="${stateLocked}" maxlength="100"/>
                                   </div>
                                   <div class="grid_4 omega">
                                       <div id="js_form_${summer_program_name}_error"  class="error" style="display: none">
@@ -821,7 +821,7 @@
                                   <div class="lal clearfix">
                                       <c:set var="summer_program_financial_aid" value="summer_program_financial_aid_${cur_program}"/>
                                       <div class="grid_5 alpha">
-                                          <p class="labelGroup">If yes, is financial aid available?</p>
+                                          <p class="labelGroup">Is financial aid available?</p>
                                       </div>
                                       <div class="grid_18 omega">
                                           <school:espRadioWithLabel key="${summer_program_financial_aid}" value="yes" label="Yes"/>
@@ -832,7 +832,7 @@
                                   <div class="lal clearfix">
                                       <c:set var="summer_program_fee_learn_more" value="summer_program_fee_learn_more_${cur_program}"/>
                                       <div class="alpha grid_5">
-                                          <p class="labelGroup">If yes, how can parents find out more about fees?</p>
+                                          <p class="labelGroup">How can parents find out more about fees?</p>
                                       </div>
                                       <div class="grid_18 omega">
                                           <school:espCheckboxWithLabel key="${summer_program_fee_learn_more}" value="call" label="Call"/>
@@ -848,7 +848,7 @@
                                   <div class="grid_18 omega">
                                       <input id="form_${summer_program_website}" name="${summer_program_website}" class="js_otherField text input_6"
                                              value="${responseMap[summer_program_website].value}" placeholder="[Website url]"
-                                             maxlength="40"/>
+                                             maxlength="100"/>
                                   </div>
                               </div>
 
@@ -868,7 +868,7 @@
                           </div>
                       </c:forEach>
                       <c:if test="${last_summer_program lt 5}">
-                          <gsml:a href="" id="js_add_summer_program">+ add another summer program</gsml:a>
+                          <gsml:a href="" id="js_add_summer_program">+ add a program</gsml:a>
                       </c:if>
                   </div>
               </fieldset>

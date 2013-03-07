@@ -92,6 +92,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("schoolMedias", schoolMedias);
 
         putResponsesInModel(school, modelMap); // fetch responses for school, including external data
+        putAfterSchoolIndicatorInModel(school, modelMap);
         putRepeatingFormIndicatorInModel(modelMap, "after_school_", 5);  // Add index of last active after_school data into model
         putRepeatingFormIndicatorInModel(modelMap, "summer_program_", 5);
         putPercentCompleteInModel(school, modelMap);
@@ -154,7 +155,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         Pattern pattern = Pattern.compile("^" + prefix + ".*_\\d$");
 
-        int lastUsed = 0;
+        int lastUsed = 1;   // Always show one set of data even if it blank
 
         for( String key : responseMap.keySet() ) {
             Matcher m = pattern.matcher(key);
@@ -165,6 +166,30 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
 
         modelMap.put(prefix, new Integer(lastUsed));
+
+    }
+
+    /**
+     * Determine if this school qualifies to display the field sets for "after school" and "summer program" programs.
+     * @param modelMap
+     * @param school
+     */
+    protected void putAfterSchoolIndicatorInModel( School school, ModelMap modelMap  ) {
+
+        boolean qualified = false;
+
+        if( school.getStateId().equals("CA") ) {
+            if( (school.getDistrictId() == 14) || (school.getDistrictId() == 717) ) {
+                qualified = true;
+            }
+            if( (school.getCity().equals("san francisco")) || (school.getCity().equals("oakland")) ) {
+                qualified = true;
+            }
+        }
+
+        if( qualified ) {
+            modelMap.put("after_school_qualified", "yes");
+        }
 
     }
 
