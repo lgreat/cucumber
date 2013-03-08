@@ -36,9 +36,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
     private ICensusDataSetDao _censusDataSetDao;
 
     @Autowired
-    ICensusDataConfigEntryDao _censusDataConfigDao;
-
-    @Autowired
     ICensusDataConfigEntryDao _censusStateConfigDao;
 
     @Autowired
@@ -69,9 +66,9 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
             if (sort1 == null && sort2 == null) {
                 return 0;
             } else if (sort1 == null) {
-                return -1;
-            } else if (sort2 == null) {
                 return 1;
+            } else if (sort2 == null) {
+                return -1;
             } else {
                 return sort1.compareTo(sort2);
             }

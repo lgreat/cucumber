@@ -222,11 +222,11 @@ public class SchoolProfileCensusHelperTest {
         StateCensusValue stateCensusValue = new StateCensusValue();
         stateCensusValue.setValueFloat(5.0f);
 
-        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
-        SchoolProfileStatsDisplayRow row2 = new SchoolProfileStatsDisplayRow(1l, 2, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 1);
-        SchoolProfileStatsDisplayRow row3 = new SchoolProfileStatsDisplayRow(1l, 3, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 2);
-        SchoolProfileStatsDisplayRow row4 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 3);
-        SchoolProfileStatsDisplayRow row5 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 4);
+        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 1);
+        SchoolProfileStatsDisplayRow row2 = new SchoolProfileStatsDisplayRow(1l, 2, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 2);
+        SchoolProfileStatsDisplayRow row3 = new SchoolProfileStatsDisplayRow(1l, 3, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 3);
+        SchoolProfileStatsDisplayRow row4 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 4);
+        SchoolProfileStatsDisplayRow row5 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
 
         List<SchoolProfileStatsDisplayRow> rows = ListUtils.newArrayList(row3, row4, row5, row1, row2);
         List<SchoolProfileStatsDisplayRow> expectedRows = ListUtils.newArrayList( row1, row2, row3, row4, row5 );
