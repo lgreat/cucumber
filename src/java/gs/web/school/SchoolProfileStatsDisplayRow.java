@@ -1,6 +1,8 @@
 package gs.web.school;
 
 import gs.data.school.census.*;
+import gs.data.util.FluentInterface;
+import gs.web.school.census.SchoolProfileStatsDisplayRowFluentInterface;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
@@ -23,6 +25,8 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
 
     private Integer _sort;
 
+
+    public SchoolProfileStatsDisplayRow() {}
 
     public SchoolProfileStatsDisplayRow(Long groupId, Integer dataTypeId, Integer censusDataSetId, String text, SchoolCensusValue schoolValue, DistrictCensusValue districtValue, StateCensusValue stateCensusValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride, Integer sort) {
         CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
@@ -77,6 +81,10 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
         return value;
     }
 
+    public static SchoolProfileStatsDisplayRowFluentInterface with() {
+        return FluentInterface.create(new SchoolProfileStatsDisplayRow(), SchoolProfileStatsDisplayRowFluentInterface.class);
+    }
+
     protected static boolean censusValueNotEmpty(String value) {
         return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
     }
@@ -112,4 +120,41 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
     public Integer getDataTypeId() {
         return _dataTypeId;
     }
+
+    public void setGroupId(Long groupId) {
+        _groupId = groupId;
+    }
+
+    public void setDataTypeId(Integer dataTypeId) {
+        _dataTypeId = dataTypeId;
+    }
+
+    public void setText(String text) {
+        _text = text;
+    }
+
+    public void setSchoolValue(String schoolValue) {
+        _schoolValue = schoolValue;
+    }
+
+    public void setDistrictValue(String districtValue) {
+        _districtValue = districtValue;
+    }
+
+    public void setStateValue(String stateValue) {
+        _stateValue = stateValue;
+    }
+
+    public void setCensusDescriptions(Set<CensusDescription> censusDescriptions) {
+        _censusDescriptions = censusDescriptions;
+    }
+
+    public void setYear(Integer year) {
+        _year = year;
+    }
+
+    public void setSort(Integer sort) {
+        _sort = sort;
+    }
+
 }

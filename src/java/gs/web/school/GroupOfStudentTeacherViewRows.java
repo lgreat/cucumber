@@ -61,7 +61,9 @@ public class GroupOfStudentTeacherViewRows implements List<SchoolProfileStatsDis
     public Map<String, String> getSchoolValueMap() {
         Map<String, String> map = new LinkedHashMap<String,String>();
         for (SchoolProfileStatsDisplayRow row : _rows) {
-            map.put(row.getText(), row.getSchoolValue());
+            if (StringUtils.isNotEmpty(row.getSchoolValue())) {
+                map.put(row.getText(), row.getSchoolValue());
+            }
         }
         return map;
     }
