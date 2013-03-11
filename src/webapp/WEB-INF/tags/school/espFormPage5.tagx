@@ -368,7 +368,7 @@
           <c:if test="${not empty after_school_qualified}">
               <!-- After school program fields -->
               <fieldset>
-                  <legend>After school programs</legend>
+                  <h3 class="bottom ptl">After school programs</h3>
                   <hr class="legend"><!--Do not collapse--></hr>
 
                   <div class="lal clearfix">
@@ -386,7 +386,7 @@
                       <c:forEach var="cur_program" begin="1" end="5" >
                           <div style="${cur_program gt last_program? 'display:none' : ''}" class="js_after_school">
 
-                              <legend>After school program ${cur_program}</legend>
+                              <legend class="ptm"><strong>After school program ${cur_program}</strong></legend>
                               <hr class="legend"><!--Do not collapse--></hr>
 
                               <div class="lal clearfix">
@@ -600,18 +600,18 @@
                                   </div>
                               </div>
 
-                              <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear">Clear this form</gsml:a>
+                              <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear">Clear this after school program form</gsml:a>
                           </div>
                       </c:forEach>
                       <c:if test="${last_program lt 5}">
-                          <gsml:a href="" id="js_add_after_school">+ add a program</gsml:a>
+                          <gsml:a href="" id="js_add_after_school">+ add an after school program</gsml:a>
                       </c:if>
                   </div>
               </fieldset>
 
               <!-- After summer program fields -->
               <fieldset>
-              <legend>Summer programs</legend>
+              <h3 class="bottom ptl">Summer programs</h3>
                   <hr class="legend"><!--Do not collapse--></hr>
 
                   <div class="lal clearfix">
@@ -629,7 +629,7 @@
                       <c:forEach var="cur_program" begin="1" end="5" >
                           <div style="${cur_program gt last_summer_program? 'display:none' : ''}" class="js_summer_program">
 
-                          <legend>Summer program ${cur_program}</legend>
+                          <legend class="ptm"><strong>Summer program ${cur_program}</strong></legend>
                           <hr class="legend"><!--Do not collapse--></hr>
 
                               <div class="lal clearfix">
