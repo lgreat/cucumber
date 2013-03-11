@@ -9395,28 +9395,31 @@ div#YahooRealEstateLink {
     margin: 0 3px 0 3px;
 }
 
+#footer .allCities a:hover{
+    color:#999999;
+}
+
 #footer .subtitles{
 }
 #footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
 
 #footer .navFoot {
     float: left;
-    margin: 0 3px 0 0;
-    width: 16.30%;
+    margin: 0 6px 0 0;
+    width: 16%;
     padding: 0;
     /*width: 100%;*/
 }
 #footer .navFootLast {
     float: left;
-    margin: 0 3px 0 0;
-    width: 25%;
+    /*margin: 0 3px 0 0;*/
+    width: 16%;
     padding: 0;
-    /*width: 100%;*/
 }
 #footer .navAbout {
     float: left;
-    margin: 0 20px 0 0;
-    width: 32.60%;
+    margin: 0 12px 0 0;
+    width: 49%;
     padding: 0;
 }
 
