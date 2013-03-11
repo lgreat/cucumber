@@ -977,6 +977,14 @@ GSType.hover.SchoolReviewThankYou = function() {
         jQuery('#schoolReviewThankYou').bind('dialogclose', this.onClose.gs_bind(this));
         this.sendOmnitureTrackingInfo();
         this.show();
+        // GS-13832
+        window.google_conversion_id = 1004863430;
+        window.google_conversion_language = "en";
+        window.google_conversion_format = "3";
+        window.google_conversion_color = "ffffff";
+        window.google_conversion_label = "Gw-FCKr6qQQQxv-T3wM";
+        window.google_conversion_value = 0;
+        jQuery.getScript('http://www.googleadservices.com/pagead/conversion.js');
     };
     this.sendOmnitureTrackingInfo = function() {
         pageTracking.pageName =  this.getPageName();
@@ -1008,10 +1016,10 @@ GSType.hover.SchoolReviewPostedThankYou = function() {
         //window.location.reload();
     };
     this.getHierarchy = function() {
-        return "Account,Registration,Existing Member Review Published Hover";
+        return "Hovers,Success,School Reviews Success Hover";
     };
     this.getPageName = function() {
-        return "Existing Member Review Published Hover";
+        return "School Reviews Success Hover";
     };
 };
 GSType.hover.SchoolReviewPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
@@ -1022,10 +1030,10 @@ GSType.hover.SchoolReviewNotPostedThankYou = function() {
         return "Please note that it can take up to 48 hours for your review to be posted to our site.";
     };
     this.getHierarchy = function() {
-        return "Account,Registration,Existing Member Review Submitted Hover";
+        return "Hovers,Success,Moderated School Reviews Success Hover";
     };
     this.getPageName = function() {
-        return "Existing Member Review Submitted Hover";
+        return "Moderated School Reviews Success Hover";
     };
 };
 GSType.hover.SchoolReviewNotPostedThankYou.prototype = new GSType.hover.SchoolReviewThankYou();
@@ -1302,8 +1310,18 @@ GSType.hover.SchoolReviewPosted = function() {
     };
     this.showHover = function() {
         GSType.hover.schoolReviewPosted.show();
+        // GS-13832
+        window.google_conversion_id = 1004863430;
+        window.google_conversion_language = "en";
+        window.google_conversion_format = "3";
+        window.google_conversion_color = "ffffff";
+        window.google_conversion_label = "Gw-FCKr6qQQQxv-T3wM";
+        window.google_conversion_value = 0;
+        jQuery.getScript('http://www.googleadservices.com/pagead/conversion.js');
     };
     this.onClose = function() {};
+    this.pageName = 'School Reviews Success Hover';
+    this.hier1 = 'Hovers,Success,School Reviews Success Hover';
 };
 GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("schoolReviewPosted",640);
 
@@ -1914,7 +1932,7 @@ jQuery(function() {
     } else if (showHover == "espPreApprovalEmail") {
         GSType.hover.espPreApprovalEmail.show();
     }else if (showHover == "schoolReviewPosted") {
-        GSType.hover.schoolReviewPosted.show();
+        GSType.hover.schoolReviewPosted.showHover();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");
