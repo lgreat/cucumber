@@ -383,7 +383,7 @@
 
                   <div id="form_after_school">
                       <c:set var='last_program' value="${after_school_}"/>
-                      <c:forEach var="cur_program" begin="1" end="5" >
+                      <c:forEach var="cur_program" begin="1" end="5" varStatus="status" >
                           <div style="${cur_program gt last_program? 'display:none' : ''}" class="js_after_school">
 
                               <legend class="ptm"><strong>After school program ${cur_program}</strong></legend>
@@ -395,7 +395,7 @@
                                       <label for="form_${after_school_name}">What is your program called?</label>
                                   </div>
                                   <div class="grid_4 suffix_1">
-                                      <gsml:input styleId="js_form_${after_school_name}" styleClass="text form_${after_school_name}" type="text"
+                                      <gsml:input styleId="js_form_${after_school_name}" styleClass="text form_${after_school_name} input_6" type="text"
                                                   name="${after_school_name}"
                                                   value="${responseMap[after_school_name].value}" size="30" disabled="${stateLocked}" maxlength="100"/>
                                   </div>
@@ -599,14 +599,19 @@
                                              maxlength="14"/>
                                   </div>
                               </div>
-                              <div class="fr clearfix">
-                                <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this after school program form</gsml:a>
+                              <div class="clearfix pbm">
+                                  <div class="fr">
+                                    <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this after school program form</gsml:a>
+
+                                  </div>
                               </div>
                           </div>
                       </c:forEach>
                       <c:if test="${last_program lt 5}">
-                          <gsml:a href="" id="js_add_after_school small">Add an after school program</gsml:a>
+                          <gsml:a href="" id="js_add_after_school" styleClass="small">Add an after school program</gsml:a>
                       </c:if>
+                      <br />
+                      <span class="small">Be sure to add photos of your program on page 6.</span>
                   </div>
               </fieldset>
 
@@ -865,15 +870,18 @@
                                              maxlength="14"/>
                                   </div>
                               </div>
-                              <div class="fr clearfix">
-                                  <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this summer school program form</gsml:a>
+                              <div class="clearfix pbm">
+                                  <div class="fr">
+                                      <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this summer school program form</gsml:a><br /><br />
+                                  </div>
                               </div>
                           </div>
                       </c:forEach>
                       <c:if test="${last_summer_program lt 5}">
-                          <gsml:a href="" id="js_add_summer_program small">Add a summer program</gsml:a>
+                          <gsml:a href="" id="js_add_summer_program" styleClass="small">Add a summer program</gsml:a>
                       </c:if>
                   <br />
+                      <span class="small">Be sure to add photos of your program on page 6.</span>
                   </div>
               </fieldset>
           </c:if>
