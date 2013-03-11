@@ -9405,14 +9405,14 @@ div#YahooRealEstateLink {
 
 #footer .navFoot {
     float: left;
-    margin: 0 6px 0 0;
+    margin: 30px 6px 0 0;
     width: 16%;
     padding: 0;
     /*width: 100%;*/
 }
 #footer .navFootLast {
     float: left;
-    /*margin: 0 3px 0 0;*/
+    margin: 30px 0 0 0;
     width: 16%;
     padding: 0;
 }
