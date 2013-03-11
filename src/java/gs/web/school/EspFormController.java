@@ -180,7 +180,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         boolean qualified = false;
 
-        if( school.getStateId().equals("CA") ) {
+        if( school.getStateAbbreviation().equals(State.CA) ) {
             if( (school.getDistrictId() == 14) || (school.getDistrictId() == 717) ) {
                 qualified = true;
             }
