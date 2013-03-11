@@ -611,6 +611,7 @@
 
               <!-- After summer program fields -->
               <fieldset>
+              <br />
               <h3 class="bottom ptl">Summer programs</h3>
                   <hr class="legend"><!--Do not collapse--></hr>
 
@@ -864,11 +865,11 @@
                                   </div>
                               </div>
 
-                              <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear">Clear this form</gsml:a>
+                              <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear">Clear this summer school program form</gsml:a>
                           </div>
                       </c:forEach>
                       <c:if test="${last_summer_program lt 5}">
-                          <gsml:a href="" id="js_add_summer_program">+ add a program</gsml:a>
+                          <gsml:a href="" id="js_add_summer_program">+ add a summer program</gsml:a>
                       </c:if>
                   </div>
               </fieldset>
