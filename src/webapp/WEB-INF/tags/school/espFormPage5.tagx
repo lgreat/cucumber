@@ -397,7 +397,7 @@
                                   <div class="grid_4 suffix_1">
                                       <gsml:input styleId="js_form_${after_school_name}" styleClass="text form_${after_school_name}" type="text"
                                                   name="${after_school_name}"
-                                                  value="${responseMap[after_school_name].value}" disabled="${stateLocked}" maxlength="100"/>
+                                                  value="${responseMap[after_school_name].value}" size="30" disabled="${stateLocked}" maxlength="100"/>
                                   </div>
                                   <div class="grid_4 omega">
                                       <div id="js_form_${after_school_name}_error"  class="error" style="display: none">
@@ -463,7 +463,7 @@
                                   </div>
                                   <div class="grid_18 omega">
                                       <input id="form_${after_school_operator}" name="${after_school_operator}" class="js_otherField text input_6"
-                                             value="${responseMap[after_school_operator].value}" placeholder="[Coordinators name]"
+                                             value="${responseMap[after_school_operator].value}" placeholder="[Coordinator's name]"
                                              size="30" maxlength="100"/>
                                   </div>
                               </div>
@@ -605,7 +605,7 @@
                           </div>
                       </c:forEach>
                       <c:if test="${last_program lt 5}">
-                          <gsml:a href="" id="js_add_after_school">+ add an after school program</gsml:a>
+                          <gsml:a href="" id="js_add_after_school small">Add an after school program</gsml:a>
                       </c:if>
                   </div>
               </fieldset>
@@ -640,8 +640,8 @@
                                       <label for="form_${summer_program_name}">What is your program called?</label>
                                   </div>
                                   <div class="grid_4 suffix_1">
-                                      <gsml:input styleId="js_form_${summer_program_name}" styleClass="text form_${summer_program_name}" type="text"
-                                                  name="${summer_program_name}"
+                                      <gsml:input styleId="js_form_${summer_program_name}" styleClass="text form_${summer_program_name} input_6" type="text"
+                                                  name="${summer_program_name}" size="30"
                                                   value="${responseMap[summer_program_name].value}" disabled="${stateLocked}" maxlength="100"/>
                                   </div>
                                   <div class="grid_4 omega">
@@ -712,7 +712,7 @@
                                   </div>
                                   <div class="grid_18 omega">
                                       <input id="form_${summer_program_operator}" name="${summer_program_operator}" class="js_otherField text input_6"
-                                             value="${responseMap[summer_program_operator].value}" placeholder="[Coordinators name]"
+                                             value="${responseMap[summer_program_operator].value}" placeholder="[Coordinator's name]"
                                              size="30" maxlength="100"/>
                                   </div>
                               </div>
@@ -865,13 +865,15 @@
                                              maxlength="14"/>
                                   </div>
                               </div>
-
-                              <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear">Clear this summer school program form</gsml:a>
+                              <div class="fr clearfix">
+                                  <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this summer school program form</gsml:a>
+                              </div>
                           </div>
                       </c:forEach>
                       <c:if test="${last_summer_program lt 5}">
-                          <gsml:a href="" id="js_add_summer_program">+ add a summer program</gsml:a>
+                          <gsml:a href="" id="js_add_summer_program small">Add a summer program</gsml:a>
                       </c:if>
+                  <br />
                   </div>
               </fieldset>
           </c:if>
