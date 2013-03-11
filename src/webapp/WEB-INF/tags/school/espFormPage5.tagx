@@ -365,7 +365,6 @@
           </div>
 
           <!-- After school programs -->
-          <!-- <c:if test="${school.databaseState.abbreviation eq 'CA' and (school.districtId eq 14 or school.districtId eq 717 or school.city eq 'San Francisco' or school.city eq 'Oakland') and !school.preschoolOnly}"> -->
           <c:if test="${not empty after_school_qualified}">
               <!-- After school program fields -->
               <fieldset>
@@ -553,7 +552,7 @@
                                   </div>
                               </div>
 
-                              <div id="form_${after_school_fee}">
+                              <div id="form_${after_school_fee}" class="form_after_school_fee">
                                   <div class="lal clearfix">
                                       <c:set var="after_school_financial_aid" value="after_school_financial_aid_${cur_program}"/>
                                       <div class="grid_5 alpha">
@@ -818,7 +817,7 @@
                                   </div>
                               </div>
 
-                              <div id="form_${summer_program_fee}">
+                              <div id="form_${summer_program_fee}" class="form_summer_program_fee">
                                   <div class="lal clearfix">
                                       <c:set var="summer_program_financial_aid" value="summer_program_financial_aid_${cur_program}"/>
                                       <div class="grid_5 alpha">

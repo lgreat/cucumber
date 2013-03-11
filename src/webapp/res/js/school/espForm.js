@@ -1144,9 +1144,17 @@ new (function() {
         GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_5', '[name=summer_program_fee_5]', 'yes');
         $('#js_add_after_school').click(function(){
             $('.js_after_school:hidden').first().show();
+            // Hide the link if all of the available programs are shown
+            if($('.js_after_school:hidden').size() == 0 ) {
+                $('#js_add_after_school').hide();
+            }
         });
         $('#js_add_summer_program').click(function(){
             $('.js_summer_program:hidden').first().show();
+            // Hide the link if all of the available programs are shown
+            if($('.js_summer_program:hidden').size() == 0 ) {
+                $('#js_add_summer_program').hide();
+            }
         });
 
         $('.js_clear').click(function(){
@@ -1157,6 +1165,9 @@ new (function() {
                 divContent.find("textarea").val('');
                 divContent.find(":radio").removeAttr('checked');
                 divContent.find(":checkbox").removeAttr('checked');
+                divContent.find(".form_after_school_fee").hide();
+                divContent.find(".form_summer_program_fee").hide();
+
             }
         });
 

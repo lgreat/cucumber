@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.EspResponse;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import org.springframework.ui.ModelMap;
 
@@ -29,9 +30,9 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setId(1000000);
         school.setDatabaseState(State.CA);
-        school.setStateId("CA");
         school.setName("Chabot");
-        school.setCity("oakland");
+        school.setCity("xxxx");
+        school.setStateAbbreviation(State.CA);
         school.setDistrictId(14);
         school.setNewProfileSchool(2);
 
@@ -51,9 +52,9 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setId(1000000);
         school.setDatabaseState(State.CA);
-        school.setStateId("CA");
         school.setName("Chabot");
-        school.setCity("oakland");
+        school.setCity("xxx");
+        school.setStateAbbreviation(State.CA);
         school.setDistrictId(99);
         school.setNewProfileSchool(2);
 
@@ -72,9 +73,9 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setId(1000000);
         school.setDatabaseState(State.CA);
-        school.setStateId("CA");
         school.setName("Chabot");
-        school.setCity("oakland");
+        school.setCity("xxx");
+        school.setStateAbbreviation(State.CA);
         school.setDistrictId(999);
         school.setNewProfileSchool(2);
 
@@ -89,9 +90,9 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setId(1000000);
         school.setDatabaseState(State.CA);
-        school.setStateId("CA");
         school.setName("Chabot");
         school.setCity("Oakland");
+        school.setStateAbbreviation(State.CA);
         school.setDistrictId(999);
         school.setNewProfileSchool(2);
 
