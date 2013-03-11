@@ -93,21 +93,12 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         if(isProvisionalUser){
             putProvisionalResponsesInModel(user,school, modelMap); // fetch provisional responses for school
-
-            //First see if there are any provisional/provisional_pending school media.If there are then put those in the model.
-            //If there are no provisional/provisional_pending school media then check to see if there are any active school media.
-            List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllProvisionalAndProvisionalPendingBySchool(school.getId(), school.getDatabaseState());
-
-            if(schoolMedias == null || schoolMedias.isEmpty()){
-                schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
-            }
-            modelMap.put("schoolMedias", schoolMedias);
-
         }else{
             putResponsesInModel(school, modelMap); // fetch responses for school, including external data
-            List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
-            modelMap.put("schoolMedias", schoolMedias);
         }
+
+        List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
+        modelMap.put("schoolMedias", schoolMedias);
         putPercentCompleteInModel(school, modelMap);
 
         //TODO do the below lines for provisional also?
@@ -212,6 +203,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
 
         //TODO Will there be keys in provisionalKeysLookUpMap but wont have responses.will those need to be in the view.?
+        //TODO what happens if the keys are moved from page to page?
 
         //Get provisional external data.
         _espFormExternalDataHelper.fetchProvisionalExternalValues(responseMap,provisionalExternalKeysToValueMap);

@@ -133,7 +133,8 @@ public class EspFormExternalDataHelper {
      */
     void insertEspFormResponseStructForAddress(Map<String, EspFormResponseStruct> responseMap, School school) {
         Address address = school.getPhysicalAddress();
-        if (address != null) {
+        if (address != null && address.getStreet() != null && address.getCity() != null && address.getState() != null
+                && address.getZip() != null) {
             EspFormResponseStruct streetStruct = new EspFormResponseStruct();
             streetStruct.addValue(address.getStreet());
             responseMap.put("physical_address_street", streetStruct);
@@ -263,9 +264,12 @@ public class EspFormExternalDataHelper {
      * representing the values for that key (e.g. {"KG", "1", "2"} for grade_level or {"100"} for enrollment
      */
     String[] getExternalValuesForKey(String key, School school) {
-        if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
-            _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
-            return new String[]{String.valueOf(school.getEnrollment())};
+        if (StringUtils.equals("student_enrollment", key)) {
+            Integer schoolEnrollment = school.getEnrollment();
+            if (schoolEnrollment != null) {
+                _log.debug("Overwriting key " + key + " with value " + schoolEnrollment);
+                return new String[]{String.valueOf(schoolEnrollment)};
+            }
         } else if (StringUtils.equals("administrator_name", key)) {
             SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.HEAD_OFFICIAL_NAME);
             if (value != null && value.getValueText() != null) {
@@ -281,7 +285,7 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
             String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
             return gradeLevels.split(",");
-        } else if (StringUtils.equals("school_url", key) && school.getWebSite() != null) {
+        } else if (StringUtils.equals("school_url", key) && StringUtils.isNotBlank(school.getWebSite())) {
             return new String[] {school.getWebSite()};
         } else if (StringUtils.equals("school_type", key) && school.getType() != null) {
             return new String[]{school.getType().getSchoolTypeName()};
