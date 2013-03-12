@@ -155,18 +155,14 @@ General comments:
     width: 188px;
 }
 
+#gs-secondary .menuItem:hover .dropdown_1,
 #gs-secondary .menuItem:hover .dropdown_2,
 #gs-secondary .menuItem:hover .dropdown_3,
 #gs-secondary .menuItem:hover .dropdown_4,
 #gs-secondary .menuItem:hover .dropdown_5,
 #gs-secondary .menuItem:hover .dropdown_6 {
-    left: auto;
     top: auto;
-}
-
-#gs-secondary .menuItem:hover .dropdown_1 {
     left: -1px;
-    top: auto;
 }
 
 #gs-secondary .menuItem:hover .dropdown_align_right {
@@ -184,7 +180,7 @@ General comments:
 #gs-secondary .dropdown_5 .subMenuItem,
 #gs-secondary .dropdown_6 .subMenuItem {
     display: block;
-    text-align: center;
+    /*text-align: center;*/
     /*position:relative;*/
     padding: 0;
     margin: 0;

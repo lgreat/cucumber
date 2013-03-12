@@ -120,17 +120,12 @@ General comments:
 }
 
 
-
+#gs-secondary .menuItem:hover .dropdown_1,
 #gs-secondary .menuItem:hover .dropdown_2,
 #gs-secondary .menuItem:hover .dropdown_3,
 #gs-secondary .menuItem:hover .dropdown_4,
 #gs-secondary .menuItem:hover .dropdown_5,
 #gs-secondary .menuItem:hover .dropdown_6 {
-    left: auto;
-    top: auto;
-}
-
-#gs-secondary .menuItem:hover .dropdown_1{
     left:-1px;
     top: auto;
 }
