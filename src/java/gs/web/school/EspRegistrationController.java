@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +56,10 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     private ExactTargetAPI _exactTargetAPI;
 
     @RequestMapping(value = "register.page", method = RequestMethod.GET)
-    public String showForm(ModelMap modelMap, HttpServletRequest request) {
+    public String showForm(ModelMap modelMap, HttpServletRequest request,
+                           @RequestParam(value = "state", required = false) String state,
+                           @RequestParam(value = "city", required = false) String city,
+                           @RequestParam(value = "schoolId", required = false) String schoolId) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
         EspRegistrationCommand command = new EspRegistrationCommand();
@@ -92,6 +96,20 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
                     modelMap.addAttribute("isUserAwaitingESPMembership", true);
                 }
+            }
+        }
+
+        //set preselectSchool to false initially
+        modelMap.put("preselectSchool", false);
+
+        //Pre-select form fields
+        if(StringUtils.isNotBlank(state) && StringUtils.isNotBlank(city) && StringUtils.isNotBlank(schoolId)) {
+            try {
+                modelMap.put("state", State.fromString(state));
+                modelMap.put("preselectSchool", true);
+            }
+            catch (IllegalArgumentException ex) {
+                _log.debug("EspRegistrationController: Invalid state abbreviation passed.");
             }
         }
 
