@@ -1157,10 +1157,10 @@ new (function() {
             }
         });
 
-        $('.js_clear').click(function(){
+        $('.js_clear').on("click", function(){
             var r = confirm("Please verify that you want to clear the fields for this program.");
             if( r === true ) {
-                var divContent=$(this).parent();
+                var divContent=$(this).parent().parent().parent();
                 divContent.find(":text").val('');
                 divContent.find("textarea").val('');
                 divContent.find(":radio").removeAttr('checked');
