@@ -69,8 +69,8 @@ GS.tracking.registerTrackingData = function(key, data) {
 GS.tracking.sendOmnitureData = function(key, preserveSuccessEvents) {
     var data = GS.tracking.data[key];
     var sharedData = GS.tracking.data['_shared'];
-    GS.tracking.removeTabSpecificProps(key, data);
     if (data !== undefined) {
+        GS.tracking.removeTabSpecificProps(key, data);
         pageTracking.clear();
         $.extend(pageTracking, data);
         if (sharedData !== undefined) {
@@ -102,6 +102,10 @@ GS.tracking.addTabSpecificProps = function(tabName, propNumber) {
 };
 
 GS.tracking.removeTabSpecificProps = function(currentTab, data) {
+    if (currentTab === undefined || data === undefined) {
+        return;
+    }
+
     for(var tab in GS.tracking.tabSpecificPropsMap) {
         if(tab !== currentTab && GS.tracking.tabSpecificPropsMap.hasOwnProperty(tab) && GS.tracking.tabSpecificPropsMap[tab].props !== undefined) {
             for(var i in GS.tracking.tabSpecificPropsMap[tab].props) {
