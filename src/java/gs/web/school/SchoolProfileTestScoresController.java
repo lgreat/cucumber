@@ -149,6 +149,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             Grade grade = testScoreResult.getGrade();
             LevelCode levelCode = testScoreResult.getLevelCode();
 
+            //Show the test:- "NYC Progress Report Grade" only for school that fall under the NYC school districts.
+            if (testDataType != null && testDataType.getDisplayType() != null
+                    && TestDataTypeDisplayType.nyc_progress_report_grade == testDataType.getDisplayType()
+                    && !NYC_PROGRESS_REPORT_DISTRICT_IDS.contains(school.getDistrictId())) {
+                testDataTypeIdToTestDataType.remove(testDataTypeId);
+                continue;
+            }
+
             //If the grade=all then display only the level codes that the school has.
             //Note:This may or may not work with extra data.Re-visit this when working on GS-12963
             // Do not do this for NYC Progress Report so as not to incorrectly combine data that doesn't belong together
@@ -811,4 +819,44 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
     void setTestDescriptionDao(ITestDescriptionDao testDescriptionDao) {
         _testDescriptionDao = testDescriptionDao;
     }
+
+    private static final Set<Integer> NYC_PROGRESS_REPORT_DISTRICT_IDS = new HashSet<Integer>();
+
+    static {
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(816);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(817);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(812);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(824);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(862);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(806);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(826);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(821);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(813);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(832);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(831);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(815);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(820);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(823);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(819);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(807);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(859);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(827);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(808);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(814);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(805);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(830);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(858);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(828);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(864);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(829);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(810);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(865);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(860);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(861);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(825);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(863);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(397);
+        NYC_PROGRESS_REPORT_DISTRICT_IDS.add(436);
+    }
+
 }

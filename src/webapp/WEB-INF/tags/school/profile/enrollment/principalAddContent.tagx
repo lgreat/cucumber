@@ -5,7 +5,7 @@
         >
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
 
-    <link:schoolEspRegister styleClass="no_interrupt tdn">
+    <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
         <div class="mod standard_3-1">
             <div class="outer">
                 <div class="inner bg-principal ie-moduleHeight-162">

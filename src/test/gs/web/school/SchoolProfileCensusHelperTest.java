@@ -7,6 +7,7 @@ import gs.data.school.breakdown.EthnicityDaoJava;
 import gs.data.school.census.*;
 import gs.data.state.State;
 import gs.data.test.Subject;
+import gs.data.util.ListUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +19,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -97,7 +96,7 @@ public class SchoolProfileCensusHelperTest {
         return entries;
     }
 
-    @Test
+    /*@Test
     public void testGetEthnicityLabelMap() {
         Breakdown breakdown1 = new Breakdown();
         breakdown1.setEthnicity(new EthnicityDaoJava().getEthnicity(1));
@@ -142,7 +141,7 @@ public class SchoolProfileCensusHelperTest {
             }
             pos++;
         }
-    }
+    }*/
 
     public static <T> HashSet<T> newHashSet(T... items) {
         HashSet set = new HashSet<T>(items.length);
@@ -214,167 +213,164 @@ public class SchoolProfileCensusHelperTest {
         assertTrue("Expect returned map to contain", censusDataSetMap.values().containsAll(censusDataSets));
     }
 
-   /* @Test
-    public void testSplitDataSets() throws Exception {
-        CensusStateConfig config = censusStateConfig();
-
-        Map<Integer, CensusDataSet> censusDataSetMap = new HashMap<Integer, CensusDataSet>();
-        CensusDataSet censusDataSet = getCensusDataSet(1000000);
-        censusDataSet.setDataType(CensusDataType.STUDENT_TEACHER_RATIO);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        censusDataSet = getCensusDataSet(1000001);
-        censusDataSet.setDataType(CensusDataType.PARENT_INVOLVEMENT);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        censusDataSet = getCensusDataSet(1000002);
-        censusDataSet.setDataType(CensusDataType.TOTAL_PER_PUPIL_SPENDING);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        censusDataSet = getCensusDataSet(1000003);
-        censusDataSet.setDataType(CensusDataType.VANDALISM_INCIDENTS);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-
-        SchoolProfileCensusHelper.CensusDataHolder groupedCensusDataSets = _schoolProfileCensusHelper.splitDataSets(censusDataSetMap, config);
-
-        assertEquals("Expect dataSetsForSchoolData to only contain one item, since only one censusDataConfigEntry has schoolData flag true", 1, groupedCensusDataSets._dataSetsForSchoolData.size());
-        assertEquals("Expect dataSetsForDistrictData to contain two items, since two censusDataConfigEntry has districtData flag true", 2, groupedCensusDataSets._dataSetsForDistrictData.size());
-        assertEquals("Expect dataSetsForStateData to contain three items, since three censusDataConfigEntry has schoolData flag true", 3, groupedCensusDataSets._dataSetsForStateData.size());
-
-    }*/
-
-    /*@Test
-    public void testFindSchoolCensusValuesAndHandleOverrides() throws Exception {
-        School school = getSchool();
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // Census Data Sets
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        Map<Integer, CensusDataSet> censusDataSetMap = new HashMap<Integer, CensusDataSet>();
-        CensusDataSet censusDataSet = getCensusDataSet(1000000);
-        censusDataSet.setDataType(CensusDataType.STUDENT_TEACHER_RATIO);
-        censusDataSet.setYear(2010);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        // manual override data set
-        censusDataSet = getCensusDataSet(1000001);
-        censusDataSet.setDataType(CensusDataType.STUDENT_TEACHER_RATIO);
-        censusDataSet.setYear(0);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        censusDataSet = getCensusDataSet(1000002);
-        censusDataSet.setDataType(CensusDataType.TOTAL_PER_PUPIL_SPENDING);
-        censusDataSet.setYear(2010);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        // manual override data set
-        censusDataSet = getCensusDataSet(1000003);
-        censusDataSet.setDataType(CensusDataType.TOTAL_PER_PUPIL_SPENDING);
-        censusDataSet.setYear(0);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        censusDataSet = getCensusDataSet(1000004);
-        censusDataSet.setDataType(CensusDataType.ABSENT_MORE_THAN_21_DAYS);
-        censusDataSet.setYear(2010);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        // manual override data set
-        censusDataSet = getCensusDataSet(1000005);
-        censusDataSet.setDataType(CensusDataType.ABSENT_MORE_THAN_21_DAYS);
-        censusDataSet.setYear(0);
-        censusDataSetMap.put(censusDataSet.getId(), censusDataSet);
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // Census Values
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
-
-        SchoolCensusValue schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setDataSet(censusDataSetMap.get(1000000));
-        schoolCensusValue.setId(1000000);
-        schoolCensusValue.setSchool(school);
-        schoolCensusValue.setModified(null);
-        schoolCensusValues.add(schoolCensusValue);
-
-        schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setDataSet(censusDataSetMap.get(1000001));
-        schoolCensusValue.setId(1000001);
-        schoolCensusValue.setSchool(school);
-        schoolCensusValue.setModified(new Date()); // recent date, valid override
-        schoolCensusValues.add(schoolCensusValue);
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setDataSet(censusDataSetMap.get(1000002));
-        schoolCensusValue.setId(1000002);
-        schoolCensusValue.setSchool(school);
-        schoolCensusValue.setModified(null);
-        schoolCensusValues.add(schoolCensusValue);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2009);
-        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
-
-        schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setDataSet(censusDataSetMap.get(1000003));
-        schoolCensusValue.setId(1000003);
-        schoolCensusValue.setSchool(school);
-        schoolCensusValue.setModified(calendar.getTime()); // october of year before census data set year. recent-enough valid override
-        schoolCensusValues.add(schoolCensusValue);
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setDataSet(censusDataSetMap.get(1000004));
-        schoolCensusValue.setId(1000004);
-        schoolCensusValue.setSchool(school);
-        schoolCensusValue.setModified(null);
-        schoolCensusValues.add(schoolCensusValue);
-
-        calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2009);
-        calendar.set(Calendar.MONTH, Calendar.SEPTEMBER);
-
-        schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setDataSet(censusDataSetMap.get(1000005));
-        schoolCensusValue.setId(1000005);
-        schoolCensusValue.setSchool(school);
-        schoolCensusValue.setModified(calendar.getTime()); // october of year before census data set year. not recent enough to be considered an override
-        schoolCensusValues.add(schoolCensusValue);
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        expect(_censusDataSchoolValueDao.findSchoolCensusValues(eq(State.CA), eq(censusDataSetMap.values()), eq(Arrays.asList(new School[]{school})))).andReturn(schoolCensusValues);
-        replay(_censusDataSchoolValueDao);
-
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = _schoolProfileCensusHelper.handleSchoolValueOverrides(censusDataSetMap, school);
-
-        verify(_censusDataSchoolValueDao);
-
-        assertFalse(schoolCensusValueMap.containsKey(1000000));
-        assertTrue(schoolCensusValueMap.containsKey(1000001));
-        assertFalse(schoolCensusValueMap.containsKey(1000002));
-        assertTrue(schoolCensusValueMap.containsKey(1000003));
-        assertTrue(schoolCensusValueMap.containsKey(1000004));
-        assertFalse(schoolCensusValueMap.containsKey(1000005));
-    }*/
-/*
     @Test
-    public void testGetSchoolCensusValues() {
-        HttpServletRequest request = new MockHttpServletRequest();
+    public void testDisplayRowSortOrderComparator() {
+        SchoolCensusValue schoolCensusValue = new SchoolCensusValue();
+        schoolCensusValue.setValueFloat(5.0f);
+        DistrictCensusValue districtCensusValue = new DistrictCensusValue();
+        districtCensusValue.setValueFloat(5.0f);
+        StateCensusValue stateCensusValue = new StateCensusValue();
+        stateCensusValue.setValueFloat(5.0f);
 
-        _schoolProfileCensusHelper.getSchoolCensusValues(request);
+        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 1);
+        SchoolProfileStatsDisplayRow row2 = new SchoolProfileStatsDisplayRow(1l, 2, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 2);
+        SchoolProfileStatsDisplayRow row3 = new SchoolProfileStatsDisplayRow(1l, 3, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 3);
+        SchoolProfileStatsDisplayRow row4 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 4);
+        SchoolProfileStatsDisplayRow row5 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
+
+        List<SchoolProfileStatsDisplayRow> rows = ListUtils.newArrayList(row3, row4, row5, row1, row2);
+        List<SchoolProfileStatsDisplayRow> expectedRows = ListUtils.newArrayList( row1, row2, row3, row4, row5 );
+
+        assertFalse("Expect rows to unsorted", rows.equals(expectedRows));
+        Collections.sort(rows, SchoolProfileCensusHelper.DISPLAY_ROW_SORT_ORDER_COMPARATOR);
+        assertEquals("Expect rows to have been correctly sorted", expectedRows, rows);
+    }
+
+    @Test
+    public void testSchoolValueDescendingComparator() {
+        DistrictCensusValue districtCensusValue = new DistrictCensusValue();
+        districtCensusValue.setValueFloat(5.0f);
+        StateCensusValue stateCensusValue = new StateCensusValue();
+        stateCensusValue.setValueFloat(5.0f);
+
+        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", getASchoolValue(9f), districtCensusValue, stateCensusValue, null, 2012, false, null);
+        SchoolProfileStatsDisplayRow row2 = new SchoolProfileStatsDisplayRow(1l, 2, 1, "first", getASchoolValue(8f), districtCensusValue, stateCensusValue, null, 2012, false, 1);
+        SchoolProfileStatsDisplayRow row3 = new SchoolProfileStatsDisplayRow(1l, 3, 1, "first", getASchoolValue(7f), districtCensusValue, stateCensusValue, null, 2012, false, 2);
+        SchoolProfileStatsDisplayRow row4 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", getASchoolValue(6f), districtCensusValue, stateCensusValue, null, 2012, false, 3);
+        SchoolProfileStatsDisplayRow row5 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", getASchoolValue(5f), districtCensusValue, stateCensusValue, null, 2012, false, 4);
+
+        List<SchoolProfileStatsDisplayRow> rows = ListUtils.newArrayList(row3, row4, row5, row1, row2);
+        List<SchoolProfileStatsDisplayRow> expectedRows = ListUtils.newArrayList( row1, row2, row3, row4, row5 );
+
+        assertFalse("Expect rows to unsorted", rows.equals(expectedRows));
+        Collections.sort(rows, SchoolProfileCensusHelper.SCHOOL_VALUE_DESCENDING_COMPARATOR);
+        assertEquals("Expect rows to have been correctly sorted", expectedRows, rows);
+    }
+
+    @Test
+    public void testGetComparator() throws Exception {
+        assertEquals(SchoolProfileCensusHelper.SCHOOL_VALUE_DESCENDING_COMPARATOR, _schoolProfileCensusHelper.getComparator(CensusGroup.Student_Ethnicity));
+        assertEquals(SchoolProfileCensusHelper.SCHOOL_VALUE_DESCENDING_COMPARATOR, _schoolProfileCensusHelper.getComparator(CensusGroup.Home_Languages_of_English_Learners));
+        assertEquals(SchoolProfileCensusHelper.DISPLAY_ROW_SORT_ORDER_COMPARATOR, _schoolProfileCensusHelper.getComparator(CensusGroup.Attendance));
+    }
+
+    @Test
+    public void testGetSortConfig() throws Exception {
+        Map<CensusGroup, Comparator<SchoolProfileStatsDisplayRow>> map = _schoolProfileCensusHelper.getGroupSortConfig();
+        assertEquals(SchoolProfileCensusHelper.SCHOOL_VALUE_DESCENDING_COMPARATOR, map.get(CensusGroup.Student_Ethnicity));
+        assertEquals(SchoolProfileCensusHelper.SCHOOL_VALUE_DESCENDING_COMPARATOR, map.get(CensusGroup.Home_Languages_of_English_Learners));
+        assertNull(map.get(CensusGroup.Attendance));
+    }
+
+    @Test
+    public void testShowRow() throws Exception {
+        SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
+            1l, CensusDataType.STUDENTS_ETHNICITY.getId(), 1, "blah", getASchoolValue(10f), getADistrictValue(20f),
+            getAStateValue(30f), null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district,state) values for ethncitiy", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.STUDENTS_ETHNICITY.getId(), 1, "blah", getASchoolValue(10f), null,
+                null, null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district,state) values for ethncitiy", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.STUDENTS_ETHNICITY.getId(), 1, "blah", null, getADistrictValue(20f),
+                null, null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district,state) values for ethncitiy", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.STUDENTS_ETHNICITY.getId(), 1, "blah", null, null,
+                getAStateValue(30f), null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district,state) values for ethncitiy", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.STUDENTS_ETHNICITY.getId(), 1, "blah", null, null,
+                null, null, null, false, null );
+        assertFalse("Expect false for showRow since it doesnt have at least one of (school,district,state) values for ethncitiy", _schoolProfileCensusHelper.showRow(row));
 
 
-    }*/
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.RENEWAL_STATUS.getId(), 1, "blah", getASchoolValue(10f), getADistrictValue(20f),
+                getAStateValue(30f), null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district) values", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.RENEWAL_STATUS.getId(), 1, "blah", getASchoolValue(10f), null,
+                null, null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district) values", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.RENEWAL_STATUS.getId(), 1, "blah", null, getADistrictValue(20f),
+                null, null, null, false, null );
+        assertTrue("Expect true for showRow since it has at least one of (school,district) values", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.RENEWAL_STATUS.getId(), 1, "blah", null, null,
+                getAStateValue(30f), null, null, false, null );
+        assertFalse("Expect false for showRow since it doesnt have at least one of (school,district) values", _schoolProfileCensusHelper.showRow(row));
+
+        row = new SchoolProfileStatsDisplayRow(
+                1l, CensusDataType.RENEWAL_STATUS.getId(), 1, "blah", null, null,
+                null, null, null, false, null );
+        assertFalse("Expect false for showRow since it doesnt have at least one of (school,district) values", _schoolProfileCensusHelper.showRow(row));
+    }
+
+    @Test
+    public void testSortEthnicityValues() {
+        SchoolCensusValue schoolCensusValue = new SchoolCensusValue();
+        schoolCensusValue.setValueFloat(5.0f);
+        DistrictCensusValue districtCensusValue = new DistrictCensusValue();
+        districtCensusValue.setValueFloat(5.0f);
+        StateCensusValue stateCensusValue = new StateCensusValue();
+        stateCensusValue.setValueFloat(5.0f);
+
+        try {
+            _schoolProfileCensusHelper.sortDisplayRows(null);
+        } catch (Exception e) {
+            fail("Unexpected exception when passing null list to sort. Should handle it gracefully. " + e);
+        }
+
+        ArrayList<SchoolProfileStatsDisplayRow> statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
+        GroupOfStudentTeacherViewRows rows = new GroupOfStudentTeacherViewRows(CensusGroup.Student_Ethnicity, statsRows);
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> map = new HashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+        map.put(CensusGroup.Student_Ethnicity, rows);
+        _schoolProfileCensusHelper.sortDisplayRows(map);
+
+        assertEquals(0, statsRows.size());
+
+        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
+        statsRows.add(row1);
+        _schoolProfileCensusHelper.sortDisplayRows(map);
+        assertEquals(1, statsRows.size());
+    }
+
+    private SchoolCensusValue getASchoolValue(Float value) {
+        SchoolCensusValue censusValue = new SchoolCensusValue();
+        censusValue.setValueFloat(value);
+        return censusValue;
+    }
+
+    private DistrictCensusValue getADistrictValue(Float value) {
+        DistrictCensusValue censusValue = new DistrictCensusValue();
+        censusValue.setValueFloat(value);
+        return censusValue;
+    }
+
+    private StateCensusValue getAStateValue(Float value) {
+        StateCensusValue censusValue = new StateCensusValue();
+        censusValue.setValueFloat(value);
+        return censusValue;
+    }
 
 }

@@ -165,8 +165,6 @@
                     </div>
                 </div>
             </div>
-            <mod:deferredTracking key="test-scores" pageName="Test Scores"
-                                  hier1="School,SchoolProfileSuite,TestScores"/>
         </c:when>
         <c:otherwise>
             <!-- No data is available -->
@@ -203,5 +201,7 @@
             <!-- FRONTEND: -->
         </c:otherwise>
     </c:choose>
+    <mod:deferredTracking key="test-scores" pageName="Test Scores"
+                          hier1="School,SchoolProfileSuite,TestScores"/>
 
 </jsp:root>

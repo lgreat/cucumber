@@ -15,7 +15,7 @@
 
     <c:set var="updateThisInfoBlurb" scope="page">
         <div class="pa small bottom">
-            School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt">here</link:schoolEspRegister>.
+            School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
         </div>
     </c:set>
 
@@ -61,7 +61,7 @@ where each entry is the first bean for that section, this allows access to the s
                 <div class="rnd4 tac mbm noDataBox">
                     <div  class="padAmount">
                         <h3><strong>This school has not yet provided programming information.</strong></h3>
-                        <a class="tdn make-555555 no_interrupt" href="/official-school-profile/register.page">
+                        <link:schoolEspRegister styleClass="tdn make-555555 no_interrupt" school="${school}">
                             <div class="mod standard_3-1">
                                 <div class="outer">
                                     <div class="inner pam">
@@ -69,7 +69,7 @@ where each entry is the first bean for that section, this allows access to the s
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </link:schoolEspRegister>
                     </div>
                 </div>
             </c:otherwise>

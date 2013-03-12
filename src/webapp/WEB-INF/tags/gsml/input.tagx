@@ -14,6 +14,7 @@
     <jsp:directive.attribute name="maxlength" required="false" description="Maximum Length"/>
     <jsp:directive.attribute name="readonly" required="false" type="java.lang.Boolean" description="Read only"/>
     <jsp:directive.attribute name="placeholder" required="false" description="Placeholder attribute"/>
+    <jsp:directive.attribute name="size" required="false" description="size attibute for text input field"/>
     <![CDATA[<input ]]>
     <c:out value='type="${type}"' escapeXml="false"/>
     <c:out value='name="${name}"' escapeXml="false"/>
@@ -43,6 +44,9 @@
     </c:if>
     <c:if test="${disabled eq 'true'}">
         <c:out value=' disabled="disabled" ' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty size}">
+        <c:out value=' size="${size}"' escapeXml="false"/>
     </c:if>
     <c:out value=" />" escapeXml="false"/>
 </jsp:root>

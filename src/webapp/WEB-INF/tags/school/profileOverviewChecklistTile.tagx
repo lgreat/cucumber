@@ -32,16 +32,16 @@
                             <c:forEach var="item" items="${checklist}">
                                 <c:choose>
                                     <c:when test="${item eq 'Preschool'}">
-                                        <c:set var="url" value="/catalog/pdf/schq_visit_preschool.pdf"/>
+                                        <c:set var="url" value="/res/pdf/schoolchooser/preschool-checklist.pdf"/>
                                     </c:when>
                                     <c:when test="${item eq 'Elementary school'}">
-                                        <c:set var="url" value="/catalog/pdf/schq_visit_elem.pdf"/>
+                                        <c:set var="url" value="/res/pdf/schoolchooser/elementary-school-checklist.pdf"/>
                                     </c:when>
                                     <c:when test="${item eq 'Middle school'}">
-                                        <c:set var="url" value="/catalog/pdf/schq_visit_middle.pdf"/>
+                                        <c:set var="url" value="/res/pdf/schoolchooser/middle-school-checklist.pdf"/>
                                     </c:when>
                                     <c:when test="${item eq 'High school'}">
-                                        <c:set var="url" value="/catalog/pdf/schq_visit_high.pdf"/>
+                                        <c:set var="url" value="/res/pdf/schoolchooser/high-school-checklist.pdf"/>
                                     </c:when>
                                 </c:choose>
 

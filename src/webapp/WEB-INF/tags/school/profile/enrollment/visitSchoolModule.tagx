@@ -19,16 +19,16 @@
                                 <h4 class="bottom">Be sure to visit</h4>
                                 Take along one of<br />our checklists:<br/>
                                 <c:if test="${fn:contains(school.levelCode, 'p')}">
-                                    <a target="_blank" href="/catalog/pdf/schq_visit_preschool.pdf">Preschool</a><br />
+                                    <a target="_blank" href="/res/pdf/schoolchooser/preschool-checklist.pdf">Preschool</a><br />
                                 </c:if>
                                 <c:if test="${fn:contains(school.levelCode, 'e')}">
-                                    <a target="_blank" href="/catalog/pdf/schq_visit_elem.pdf">Elementary school</a><br />
+                                    <a target="_blank" href="/res/pdf/schoolchooser/elementary-school-checklist.pdf">Elementary school</a><br />
                                 </c:if>
                                 <c:if test="${fn:contains(school.levelCode, 'm')}">
-                                    <a target="_blank" href="/catalog/pdf/schq_visit_middle.pdf">Middle school</a><br />
+                                    <a target="_blank" href="/res/pdf/schoolchooser/middle-school-checklist.pdf">Middle school</a><br />
                                 </c:if>
                                 <c:if test="${fn:contains(school.levelCode, 'h')}">
-                                    <a target="_blank" href="/catalog/pdf/schq_visit_high.pdf">High school</a><br />
+                                    <a target="_blank" href="/res/pdf/schoolchooser/high-school-checklist.pdf">High school</a><br />
                                 </c:if>
                                 <br />
                             </div>

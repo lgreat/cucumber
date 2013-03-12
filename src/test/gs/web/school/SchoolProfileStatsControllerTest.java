@@ -1,12 +1,17 @@
 package gs.web.school;
 
+import gs.data.admin.IPropertyDao;
+import gs.data.school.EspResponse;
+import gs.data.school.School;
 import gs.data.school.census.*;
+import gs.data.state.State;
 import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
+import gs.web.request.RequestAttributeHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
@@ -15,45 +20,192 @@ import static org.easymock.classextension.EasyMock.*;
 public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
     SchoolProfileStatsController _controller;
 
-    ICensusDataConfigEntryDao _censusStateConfigDao;
-    ICensusDataSchoolValueDao _censusDataSchoolValueDao;
-    ICensusDataDistrictValueDao _censusDataDistrictValueDao;
-    ICensusDataStateValueDao _censusDataStateValueDao;
     SchoolProfileDataHelper _schoolProfileDataHelper;
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
     ICensusCacheDao _censusCacheDao;
+    IPropertyDao _propertyDao;
+    RequestAttributeHelper _requestAttributeHelper;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
 
         _controller = new SchoolProfileStatsController();
+        _requestAttributeHelper = org.easymock.classextension.EasyMock.createStrictMock(RequestAttributeHelper.class);
 
-        _censusStateConfigDao = createStrictMock(ICensusDataConfigEntryDao.class);
-        _censusDataSchoolValueDao = createStrictMock(ICensusDataSchoolValueDao.class);
-        _censusDataDistrictValueDao = createStrictMock(ICensusDataDistrictValueDao.class);
-        _censusDataStateValueDao = createStrictMock(CensusDataStateValueDaoHibernate.class);
-        _schoolProfileDataHelper = createStrictMock(SchoolProfileDataHelper.class);
-        _schoolProfileCensusHelper = createStrictMock(SchoolProfileCensusHelper.class);
+        _schoolProfileDataHelper = org.easymock.classextension.EasyMock.createStrictMock(SchoolProfileDataHelper.class);
+        _schoolProfileCensusHelper = org.easymock.classextension.EasyMock.createStrictMock(SchoolProfileCensusHelper.class);
         _censusCacheDao = createStrictMock(ICensusCacheDao.class);
+        _propertyDao = createStrictMock(IPropertyDao.class);
 
-        _controller.setCensusStateConfigDao(_censusStateConfigDao);
-        _controller.setCensusDataSchoolValueDao(_censusDataSchoolValueDao);
-        _controller.setCensusDataDistrictValueDao(_censusDataDistrictValueDao);
-        _controller.setCensusDataStateValueDao(_censusDataStateValueDao);
+        _controller.setRequestAttributeHelper(_requestAttributeHelper);
         _controller.setSchoolProfileDataHelper(_schoolProfileDataHelper);
         _controller.setSchoolProfileCensusHelper(_schoolProfileCensusHelper);
         _controller.setCensusCacheDao(_censusCacheDao);
+        _controller.setPropertyDao(_propertyDao);
+
     }
 
+    public void testHandle_cachingOn() throws Exception {
+        CensusStateConfig config = new CensusStateConfig(State.CA, new ArrayList<ICensusDataConfigEntry>());
+
+        Map<Integer, CensusDataSet> censusDataSets = new HashMap<Integer, CensusDataSet>();
+        censusDataSets.put(1, new CensusDataSet());
+
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setId(1);
+
+        // build some empty "display rows", mapped to the correct CensusGroups and students/teachers tabs
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> groupToGroupOfStudentTeacherViewRows =
+            new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+
+        GroupOfStudentTeacherViewRows studentRows = new GroupOfStudentTeacherViewRows(
+                CensusGroup.Student_Ethnicity, new ArrayList<SchoolProfileStatsDisplayRow>()
+        );
+        GroupOfStudentTeacherViewRows teacherRows = new GroupOfStudentTeacherViewRows(
+                CensusGroup.Teacher_Credentials, new ArrayList<SchoolProfileStatsDisplayRow>()
+        );
+
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> mapOfStudentRows = new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+        mapOfStudentRows.put(CensusGroup.Student_Ethnicity, studentRows);
+
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> mapOfTeacherRows = new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+        mapOfTeacherRows.put(CensusGroup.Teacher_Credentials, teacherRows);
+
+        groupToGroupOfStudentTeacherViewRows.putAll(mapOfStudentRows);
+        groupToGroupOfStudentTeacherViewRows.putAll(mapOfTeacherRows);
+
+        Map<String,Object> mockModel = new HashMap<String, Object>();
+
+        // Start expectations:
+
+        CensusDataHolder holder = org.easymock.classextension.EasyMock.createStrictMock(CensusDataHolder.class);
+
+        // controller gets the School from RequestAttributeHelper
+        expect(_requestAttributeHelper.getSchool(_request)).andReturn(school);
+
+        // controller consults property DAO for cache enabled
+        // test caching off
+        expect(_propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY)).andReturn(String.valueOf("true"));
+
+        // controller asks CensusCacheDao for the serialized model map, since caching is on
+        expect(_censusCacheDao.getMapForSchool(eq(school))).andReturn(mockModel);
+
+        // controller fetches ESP data
+        Map<String, List<EspResponse>> espResults = new HashMap<String, List<EspResponse>>();
+        expect(_schoolProfileDataHelper.getEspDataForSchool(_request)).andReturn(espResults);
+        mockModel.put(SchoolProfileStatsController.MODEL_ESP_RESULTS_MAP_KEY, espResults);
+
+        org.easymock.classextension.EasyMock.replay(holder);
+        replayAllMocks();
+
+        // go!
+        Map<String, Object> model = _controller.handle(_request);
+
+        assertEquals("Expect model returned from controller same one from cache with espResults", mockModel, model);
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(holder);
+        assertEquals("Expect EspResults to be set", espResults, model.get(SchoolProfileStatsController.MODEL_ESP_RESULTS_MAP_KEY));
+    }
+
+    public void testHandle_cachingOff() throws Exception {
+        CensusStateConfig config = new CensusStateConfig(State.CA, new ArrayList<ICensusDataConfigEntry>());
+
+        Map<Integer, CensusDataSet> censusDataSets = new HashMap<Integer, CensusDataSet>();
+        censusDataSets.put(1, new CensusDataSet());
+
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setId(1);
+
+        // build some empty "display rows", mapped to the correct CensusGroups and students/teachers tabs
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> groupToGroupOfStudentTeacherViewRows =
+                new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+
+        GroupOfStudentTeacherViewRows studentRows = new GroupOfStudentTeacherViewRows(
+                CensusGroup.Student_Ethnicity, new ArrayList<SchoolProfileStatsDisplayRow>()
+        );
+        GroupOfStudentTeacherViewRows teacherRows = new GroupOfStudentTeacherViewRows(
+                CensusGroup.Teacher_Credentials, new ArrayList<SchoolProfileStatsDisplayRow>()
+        );
+
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> mapOfStudentRows = new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+        mapOfStudentRows.put(CensusGroup.Student_Ethnicity, studentRows);
+
+        Map<CensusGroup, GroupOfStudentTeacherViewRows> mapOfTeacherRows = new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>();
+        mapOfTeacherRows.put(CensusGroup.Teacher_Credentials, teacherRows);
+
+        groupToGroupOfStudentTeacherViewRows.putAll(mapOfStudentRows);
+        groupToGroupOfStudentTeacherViewRows.putAll(mapOfTeacherRows);
+
+
+        // Start expectations:
+
+        CensusDataHolder holder = org.easymock.classextension.EasyMock.createStrictMock(CensusDataHolder.class);
+
+        // controller gets the School from RequestAttributeHelper
+        expect(_requestAttributeHelper.getSchool(_request)).andReturn(school);
+
+        // controller consults property DAO for cache enabled
+        // test caching off
+        expect(_propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY)).andReturn("false");
+
+        // controller gets CensusDataHolder (bucket of data sets for multiple profile tabs) from helper
+        expect(_schoolProfileCensusHelper.getCensusDataHolder(_request)).andReturn(holder);
+
+        // controller tells CensusDataHolder to grab school|district|state values that it doesnt have yet (ones other tabs haven't loaded)
+        expect(holder.retrieveDataSetsAndAllData()).andReturn(null);
+        expect(holder.getAllCensusDataSets()).andReturn(censusDataSets);
+
+        // controller gets the Census Config data, which tells the view how to display data
+        expect(_schoolProfileCensusHelper.getCensusStateConfig(_request)).andReturn(config);
+
+
+        // controller tells the shared buildDisplayRows(...) to construct a map of CensusGroups and "display rows"
+        // using the data sets it has
+        expect(_schoolProfileCensusHelper.buildDisplayRows(config, censusDataSets)).andReturn(groupToGroupOfStudentTeacherViewRows);
+
+        // controller fetches ESP data
+        Map<String, List<EspResponse>> espResults = new HashMap<String, List<EspResponse>>();
+        expect(_schoolProfileDataHelper.getEspDataForSchool(_request)).andReturn(espResults);
+
+
+        org.easymock.classextension.EasyMock.replay(holder);
+        replayAllMocks();
+
+        // go!
+        Map<String, Object> model = _controller.handle(_request);
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(holder);
+
+        assertEquals("Expect model to have correct TabToGroupsView for students tab",
+                mapOfStudentRows, ((SchoolProfileStatsController.TabToGroupsView)
+                model.get(SchoolProfileStatsController.MODEL_STUDENTS_TAB_KEY)).getGroupToGroupOfRowsMap());
+
+        assertEquals("Expect model to have correct TabToGroupsView for teachers tab",
+                mapOfTeacherRows, ((SchoolProfileStatsController.TabToGroupsView)
+                model.get(SchoolProfileStatsController.MODEL_TEACHERS_TAB_KEY)).getGroupToGroupOfRowsMap());
+
+        assertEquals("Expect EspResults to be set", espResults, model.get(SchoolProfileStatsController.MODEL_ESP_RESULTS_MAP_KEY));
+        assertNotNull("Expect footnotes to be set", model.get(SchoolProfileStatsController.MODEL_FOOTNOTES_MAP_KEY));
+    }
+
+
     public void replayAllMocks() {
-        replayMocks(_censusStateConfigDao, _censusDataSchoolValueDao, _censusDataDistrictValueDao,
-                _censusDataStateValueDao, _schoolProfileDataHelper, _schoolProfileCensusHelper, _censusCacheDao);
+        org.easymock.classextension.EasyMock.replay(_requestAttributeHelper);
+        org.easymock.classextension.EasyMock.replay(_schoolProfileDataHelper);
+        org.easymock.classextension.EasyMock.replay(_schoolProfileCensusHelper);
+        replayMocks(_censusCacheDao, _propertyDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_censusStateConfigDao, _censusDataSchoolValueDao, _censusDataDistrictValueDao,
-                _censusDataStateValueDao, _schoolProfileDataHelper, _schoolProfileCensusHelper, _censusCacheDao);
+        org.easymock.classextension.EasyMock.verify(_requestAttributeHelper);
+        org.easymock.classextension.EasyMock.verify(_schoolProfileDataHelper);
+        org.easymock.classextension.EasyMock.verify(_schoolProfileCensusHelper);
+        verifyMocks(_censusCacheDao, _propertyDao);
     }
 
     public void testBasics() {
@@ -62,62 +214,5 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
 
 
 
-    public void testCensusValueNotEmpty() {
-        assertFalse(_controller.censusValueNotEmpty(null));
-        assertFalse(_controller.censusValueNotEmpty(""));
-        assertFalse(_controller.censusValueNotEmpty("n/a"));
-        assertFalse(_controller.censusValueNotEmpty("N/A"));
-        assertTrue(_controller.censusValueNotEmpty("    "));
-        assertTrue(_controller.censusValueNotEmpty("0"));
-        assertTrue(_controller.censusValueNotEmpty("five"));
-        assertTrue(_controller.censusValueNotEmpty("no"));
-        assertTrue(_controller.censusValueNotEmpty("empty"));
-    }
 
-    public void testSortEthnicityValues() {
-        SchoolCensusValue schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setValueFloat(5.0f);
-        DistrictCensusValue districtCensusValue = new DistrictCensusValue();
-        districtCensusValue.setValueFloat(5.0f);
-        StateCensusValue stateCensusValue = new StateCensusValue();
-        stateCensusValue.setValueFloat(5.0f);
-
-        try {
-            _controller.sortDisplayRowsBySchoolValuesDesc(null);
-        } catch (Exception e) {
-            fail("Unexpected exception when passing null list to sort. Should handle it gracefully. " + e);
-        }
-
-        List<SchoolProfileStatsDisplayRow> statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
-        _controller.sortDisplayRowsBySchoolValuesDesc(statsRows);
-        assertEquals(0, statsRows.size());
-
-        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
-        statsRows.add(row1);
-        _controller.sortDisplayRowsBySchoolValuesDesc(statsRows);
-        assertEquals(1, statsRows.size());
-    }
-
-    public void testSortBySortOrder() {
-        SchoolCensusValue schoolCensusValue = new SchoolCensusValue();
-        schoolCensusValue.setValueFloat(5.0f);
-        DistrictCensusValue districtCensusValue = new DistrictCensusValue();
-        districtCensusValue.setValueFloat(5.0f);
-        StateCensusValue stateCensusValue = new StateCensusValue();
-        stateCensusValue.setValueFloat(5.0f);
-
-        SchoolProfileStatsDisplayRow row1 = new SchoolProfileStatsDisplayRow(1l, 1, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, null);
-        SchoolProfileStatsDisplayRow row2 = new SchoolProfileStatsDisplayRow(1l, 2, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 1);
-        SchoolProfileStatsDisplayRow row3 = new SchoolProfileStatsDisplayRow(1l, 3, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 2);
-        SchoolProfileStatsDisplayRow row4 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 3);
-        SchoolProfileStatsDisplayRow row5 = new SchoolProfileStatsDisplayRow(1l, 4, 1, "first", schoolCensusValue, districtCensusValue, stateCensusValue, null, 2012, false, 4);
-
-
-        List<SchoolProfileStatsDisplayRow> rows = ListUtils.newArrayList( row3, row4, row5, row1, row2 );
-        List<SchoolProfileStatsDisplayRow> expectedRows = ListUtils.newArrayList( row1, row2, row3, row4, row5 );
-
-        assertFalse("Expect rows to unsorted", rows.equals(expectedRows));
-        _controller.sortBySortOrder(rows);
-        assertEquals("Expect rows to have been correctly sorted", expectedRows, rows);
-    }
 }

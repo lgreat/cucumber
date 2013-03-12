@@ -3,11 +3,11 @@ package gs.web.school;
 
 import gs.data.admin.IPropertyDao;
 import gs.data.school.EspResponse;
-import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.school.census.*;
+import gs.data.util.CollectionUtils;
+import gs.data.util.ListUtils;
 import gs.web.util.ReadWriteAnnotationController;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.*;
 
@@ -24,63 +23,98 @@ import java.util.*;
 public class SchoolProfileStatsController extends AbstractSchoolProfileController implements ReadWriteAnnotationController {
 
     @Autowired
-    ICensusDataConfigEntryDao _censusStateConfigDao;
-
-    ICensusDataSetDao _censusDataSetDao;
-
-    @Autowired
-    ICensusDataSchoolValueDao _censusDataSchoolValueDao;
-
-    @Autowired
-    ICensusDataDistrictValueDao _censusDataDistrictValueDao;
-
-    @Autowired
-    ICensusDataStateValueDao _censusDataStateValueDao;
-
-    @Autowired
     SchoolProfileDataHelper _schoolProfileDataHelper;
-
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
-
     @Autowired
     ICensusCacheDao _censusCacheDao;
-
     @Autowired
     IPropertyDao _propertyDao;
 
-    Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
+    public static final String MODEL_STUDENTS_TAB_KEY = "studentsTab";
+    public static final String MODEL_TEACHERS_TAB_KEY = "teachersTab";
+    public static final String MODEL_FOOTNOTES_MAP_KEY = "footnotesMap";
+    public static final String MODEL_ESP_RESULTS_MAP_KEY = "espResults";
 
-    class DisplayRowSortOrderComparator implements Comparator<SchoolProfileStatsDisplayRow> {
-        public int compare(SchoolProfileStatsDisplayRow row1, SchoolProfileStatsDisplayRow row2) {
-            Integer sort1 = row1.getSort();
-            Integer sort2 = row2.getSort();
-            if (sort1 == null && sort2 == null) {
-                return 0;
-            } else if (sort1 == null) {
-                return -1;
-            } else if (sort2 == null) {
-                return 1;
-            } else {
-                return sort1.compareTo(sort2);
-            }
+    public enum Tab {
+        Students,
+        Teachers
+        ;
+    }
+
+    /**
+     * Maps a census Tab to the Groups of census data on that tab
+     */
+    public static class TabToGroupsView implements Serializable {
+
+        TabToGroupsView(Tab tab, Map<CensusGroup, GroupOfStudentTeacherViewRows> rows) {
+            _tab = tab;
+            _groupToGroupOfRowsMap = rows;
+        }
+
+        private Tab _tab;
+        private CensusGroup[] _possibleGroups;
+        private Map<CensusGroup, GroupOfStudentTeacherViewRows> _groupToGroupOfRowsMap;
+
+        /**
+         * @return true if there's any census data available for the tab
+         */
+        public boolean isAnyData() {
+            return !_groupToGroupOfRowsMap.isEmpty();
+        }
+        public Set<CensusGroup> getGroups() {
+            return _groupToGroupOfRowsMap.keySet();
+        }
+        public Tab getTab() {
+            return _tab;
+        }
+        public Map<CensusGroup, GroupOfStudentTeacherViewRows> getGroupToGroupOfRowsMap() {
+            return _groupToGroupOfRowsMap;
         }
     }
-    DisplayRowSortOrderComparator DISPLAY_ROW_SORT_ORDER_COMPARATOR = new DisplayRowSortOrderComparator();
+
+    /**
+     * @return A map of census Tab to the list of CensusGroups that should be shown on a tab, and according to the
+     * ordering here
+     */
+    public Map<Tab, List<CensusGroup>> defaultTabGroupsConfig() {
+        Map<Tab, List<CensusGroup>> map = new LinkedHashMap<Tab, List<CensusGroup>>();
+
+        map.put(
+            Tab.Students, ListUtils.newArrayList(
+                CensusGroup.Student_Ethnicity,
+                CensusGroup.Home_Languages_of_English_Learners,
+                CensusGroup.Student_Subgroups,
+                CensusGroup.Attendance,
+                CensusGroup.Attendance_and_Completion,
+                CensusGroup.Graduation_Rate)
+        );
+
+        map.put(
+            Tab.Teachers, ListUtils.newArrayList(
+                CensusGroup.Student_Teacher_Ratio,
+                CensusGroup.Average_Class_Size,
+                CensusGroup.Teacher_Experience,
+                CensusGroup.Teacher_Education_Levels,
+                CensusGroup.Teacher_Credentials)
+        );
+
+        return map;
+    }
+
+    Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
+
 
     @RequestMapping(method= RequestMethod.GET)
-    public Map<String,Object> handle(HttpServletRequest request,
-                                     HttpServletResponse response
-    ) {
-        Long start = System.nanoTime();
+    public Map<String,Object> handle(HttpServletRequest request) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         School school = getSchool(request);
 
         Map<String,Object> statsModel = null;
 
-        String prop = _propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY);
-        boolean censusCacheEnabled = "true".equalsIgnoreCase(prop);
+        boolean censusCacheEnabled = isCachingEnabled();
+
         if (censusCacheEnabled) {
             statsModel = _censusCacheDao.getMapForSchool(school);
         }
@@ -88,39 +122,23 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         if (statsModel == null) {
             statsModel = new HashMap<String,Object>();
 
-            // Census Data Set ID --> Source
-            Map<Integer, CensusDescription> dataTypeSourceMap = new HashMap<Integer,CensusDescription>();
+            CensusDataHolder censusDataHolder = _schoolProfileCensusHelper.getCensusDataHolder(request);
 
-            // Source --> source position (footnote)
-            /*Map<CensusDescription, Integer> sourceFootnotes = getSourceFootnotes(dataTypeSourceMap);*/
-            CensusDataHolder groupedCensusDataSets = _schoolProfileCensusHelper.getGroupedCensusDataSets(request);
+            // make the census data holder load school, district, and state data onto the census data sets
+            censusDataHolder.retrieveDataSetsAndAllData();
 
-            // make the census data holder load school data onto the census data sets
-            groupedCensusDataSets.retrieveDataSetsAndSchoolData();
+            // Build map of CensusGroup to view rows from list of data sets and census config
+            Map<CensusGroup, GroupOfStudentTeacherViewRows> groupToGroupOfViewRows =
+                _schoolProfileCensusHelper.buildDisplayRows(
+                    _schoolProfileCensusHelper.getCensusStateConfig(request),
+                    censusDataHolder.getAllCensusDataSets()
+                );
 
-            // make the census data holder load district data onto the census data sets
-            groupedCensusDataSets.retrieveDataSetsAndDistrictData();
-
-            // make the census data holder load state data onto the census data sets
-            groupedCensusDataSets.retrieveDataSetsAndStateData();
-
-            // group ID --> List of StatsRow
-            Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
-                    buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
-
-            sortMapOfCensusGroupsByConfiguredSortField(groupIdToStatsRows);
-
-            statsModel.put("footnotesMap", getFootnotesMap(groupIdToStatsRows));
-
-            statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
-            statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
-            statsModel.put("statsRows", groupIdToStatsRows);
-
-            Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
-            statsModel.put("ethnicityMap", ethnicityMap);
-
-            Map<String,String> homeLanguageMap = _schoolProfileCensusHelper.getHomeLanguageLabelValueMap(request);
-            statsModel.put("homeLanguageMap", homeLanguageMap);
+            TabToGroupsView studentsTab = buildTabToGroupsView(Tab.Students, groupToGroupOfViewRows);
+            TabToGroupsView teachersTab = buildTabToGroupsView(Tab.Teachers, groupToGroupOfViewRows);
+            statsModel.put(MODEL_STUDENTS_TAB_KEY, studentsTab);
+            statsModel.put(MODEL_TEACHERS_TAB_KEY, teachersTab);
+            statsModel.put(MODEL_FOOTNOTES_MAP_KEY, getFootnotesMap(groupToGroupOfViewRows));
 
             if (censusCacheEnabled) {
                 cacheStatsModel(statsModel, school);
@@ -128,37 +146,53 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         }
 
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
-        statsModel.put("espResults", espResults);
-
+        statsModel.put(MODEL_ESP_RESULTS_MAP_KEY, espResults);
 
         model.putAll(statsModel);
         return model;
     }
 
-    protected void sortMapOfCensusGroupsByConfiguredSortField(Map<Long, List<SchoolProfileStatsDisplayRow>> groups) {
-        Iterator<Map.Entry<Long, List<SchoolProfileStatsDisplayRow>>> iterator = groups.entrySet().iterator();
+    protected boolean isCachingEnabled() {
+        String prop = _propertyDao.getProperty(IPropertyDao.CENSUS_CACHE_ENABLED_KEY);
+        boolean censusCacheEnabled = "true".equalsIgnoreCase(prop);
 
-        while (iterator.hasNext()) {
-            Map.Entry<Long, List<SchoolProfileStatsDisplayRow>> groupEntry = iterator.next();
-            List<SchoolProfileStatsDisplayRow> displayRows = groupEntry.getValue();
-            Collections.sort(displayRows, DISPLAY_ROW_SORT_ORDER_COMPARATOR);
+        return censusCacheEnabled;
+    }
+
+    protected TabToGroupsView buildTabToGroupsView(Tab tab, Map<CensusGroup, GroupOfStudentTeacherViewRows> groupIdToStatsRows) {
+        // create default object in case something goes wrong...
+        TabToGroupsView tabView =
+                new TabToGroupsView(tab, new LinkedHashMap<CensusGroup, GroupOfStudentTeacherViewRows>());
+
+        try {
+            tabView = new TabToGroupsView(
+                tab,
+                CollectionUtils.subMap(
+                    groupIdToStatsRows,
+                    defaultTabGroupsConfig().get(tab),
+                    true
+                )
+            );
+        } catch (Exception e) {
+            _log.debug("Problem creating a submap from Map<CensusGroup, List<SchoolProfileStatsDisplayRow>>");
         }
+        return tabView;
     }
 
     /**
      * Pre-calculate all footnotes
      */
-    protected Map<Long, SchoolProfileCensusSourceHelper> getFootnotesMap(Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows) {
+    protected Map<Long, SchoolProfileCensusSourceHelper> getFootnotesMap(Map<CensusGroup, GroupOfStudentTeacherViewRows> groupIdToStatsRows) {
         Map<Long, SchoolProfileCensusSourceHelper> rval = new HashMap<Long, SchoolProfileCensusSourceHelper>();
         if (groupIdToStatsRows == null) {
             return rval;
         }
-        for (Long groupId: groupIdToStatsRows.keySet()) {
+        for (CensusGroup censusGroup: groupIdToStatsRows.keySet()) {
             SchoolProfileCensusSourceHelper sourceHelper = new SchoolProfileCensusSourceHelper();
-            for (SchoolProfileStatsDisplayRow row: groupIdToStatsRows.get(groupId)) {
+            for (SchoolProfileStatsDisplayRow row: groupIdToStatsRows.get(censusGroup)) {
                 sourceHelper.recordSource(row);
             }
-            rval.put(groupId, sourceHelper);
+            rval.put(censusGroup.getId(), sourceHelper);
         }
         return rval;
     }
@@ -170,238 +204,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             _log.debug("Error while attempting to cache stats model. ", e);
             // all is lost. don't cache
         }
-    }
-
-    // group ID --> Stats Row
-    public Map<Long,List<SchoolProfileStatsDisplayRow>> buildDisplayRows(CensusStateConfig config,
-        CensusDataHolder groupedCensusDataSets
-    ) {
-
-        Map<Integer, CensusDataSet> censusDataSets = groupedCensusDataSets.getAllCensusDataSets();
-
-        Map<Long,List<SchoolProfileStatsDisplayRow>> statsRowMap = new HashMap<Long,List<SchoolProfileStatsDisplayRow>>();
-
-        for (Map.Entry<Integer,CensusDataSet> entry : censusDataSets.entrySet()) {
-
-            Set<Integer> configuredDataTypeIds = config.allDataTypeIds();
-            CensusDataSet censusDataSet = entry.getValue();
-            Integer censusDataSetId = entry.getKey();
-            Integer dataTypeId = censusDataSet.getDataType().getId();
-            CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
-            Integer breakdownId = null;
-            Breakdown breakdown = censusDataSet.getBreakdownOnly();
-            if (breakdown != null) {
-                breakdownId = breakdown.getId();
-            }
-            Grades grades = censusDataSet.getGradeLevels();
-            Integer sort = null;
-
-            // if this dataset has year zero, it's an override dataset, and it's school value should have been assigned
-            // to the companion dataset that doesn't have year zero. If a non-year-zero dataset didn't exist, this
-            // data set will have it's schoolOverrideValue set
-            if (censusDataSet.getYear() == 0 && censusDataSet.getSchoolOverrideValue() == null) {
-                continue;
-            }
-
-            // DataType enum gives us an int
-            Integer groupIdInt = config.getDataTypeToGroupIdMap().get(censusDataSet.getDataType().getId());
-            Long groupId = null;
-            // But sometimes we store groupIds as longs, because JSTL converts number literals to longs
-            if (groupIdInt != null) {
-                groupId = groupIdInt.longValue();
-            }
-
-            // look to see if there's a data type label "override" in the config entry for this data type
-            // if not, just use the default data type label/description
-            String label = null;
-
-
-            // if this method was provided with more CensusDataSets then what was configured for the stats page,
-            // skip over them here
-            if (!configuredDataTypeIds.contains(censusDataSet.getDataType().getId())) {
-                continue;
-            }
-
-            // Get all the census data config entries for data type
-            List<ICensusDataConfigEntry> censusDataConfigEntries = config.getStateConfigEntryMap().get(dataTypeId);
-
-
-            // If there are more than one config entry per data type, then there should be
-            // a config entry for each breakdown within the data type
-            if (censusDataConfigEntries.size() > 1) {
-                // Find the entry that cooresponds with the data type, breakdown and grade on this data set.
-                // If none exist, skip this data set
-                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId, grades);
-
-                // If config doesnt exist for data type + breakdown, skip this data set
-                if (configEntry == null) {
-                    continue;
-                } else {
-                    // use the label specified in the census config entry
-                    label = configEntry.getLabel();
-
-                    // apply the sort order from the config entry
-                    sort = configEntry.getSort();
-                    if (label == null) {
-                        // no entry was specified; if we have an ethnicity, use the ethnicity name. otherwise use data type description
-                        if (breakdown != null && breakdown.getEthnicity() != null) {
-                            label = breakdown.getEthnicity().getName();
-                        } else {
-                            label = configEntry.getDataType().getDescription();
-                        }
-                    }
-                };
-
-            } else {
-                // there's only one config entry for this one data type
-                ICensusDataConfigEntry configEntry = censusDataConfigEntries.get(0);
-
-                // If breakdown is set, but there was only one census config entry, this means that
-                // we're by default supposed to display all breakdowns available
-                if (breakdown != null && breakdown.getEthnicity() != null) {
-                    // set label to the breakdown's ethnicity name
-                    label = breakdown.getEthnicity().getName();
-                } else if (breakdown != null && breakdown.getLanguage() != null) {
-                    // set label to the language name
-                    label = breakdown.getLanguage().getName();
-                } else if (configEntry.getLabel() != null) {
-                    // no breakdown available, but label was set on the config entry, so use that
-                    label = configEntry.getLabel();
-                    // apply the sort order from the config entry
-                    sort = configEntry.getSort();
-                } else {
-                    // no labels specified; use data type's description
-                    label = configEntry.getDataType().getDescription();
-                    // apply the sort order from the config entry
-                    sort = configEntry.getSort();
-                }
-            }
-
-            SchoolCensusValue schoolCensusValue = null;
-            if (censusDataSet.getSchoolOverrideValue() != null) {
-                schoolCensusValue = censusDataSet.getSchoolOverrideValue();
-            } else {
-                schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
-            }
-            DistrictCensusValue districtCensusValue = censusDataSet.getTheOnlyDistrictValue();
-            StateCensusValue stateCensusValue = censusDataSet.getStateCensusValue();
-
-            Set<CensusDescription> source = censusDataSet.getCensusDescription();
-
-            SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
-                groupId,
-                dataTypeId,
-                censusDataSetId,
-                label,
-                schoolCensusValue,
-                districtCensusValue,
-                stateCensusValue,
-                source,
-                entry.getValue().getYear(),
-                censusDataSet.getSchoolOverrideValue() != null,
-                sort
-            );
-
-            // filter out rows where school and district values are N/A
-            boolean showRow;
-            if (CensusDataType.STUDENTS_ETHNICITY.getId().equals(dataTypeId)) {
-                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()) || censusValueNotEmpty(row.getStateValue()));
-            } else {
-                showRow = (censusValueNotEmpty(row.getSchoolValue()) || censusValueNotEmpty(row.getDistrictValue()));
-            }
-            if (showRow) {
-                List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(groupId);
-                if (statsRows == null) {
-                    statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
-                    statsRowMap.put(groupId, statsRows);
-                }
-
-                statsRows.add(row);
-            }
-        }
-
-
-        // Sort ethnicities based on school / state value
-        Long ethnicityTableGroupId = 6l;
-        sortDisplayRowsBySchoolValuesDesc(statsRowMap.get(ethnicityTableGroupId));
-
-        // Sort home language learners based on school / state value
-        Long homeLanguageLearnersTableGroupId = 10l;
-        sortDisplayRowsBySchoolValuesDesc(statsRowMap.get(homeLanguageLearnersTableGroupId));
-
-        return statsRowMap;
-    }
-
-    /**
-     * Tries to reverse sort by the DisplayRow's float value. If there's no float value, try to reverse sort by the
-     * DisplayRow's text label instead.
-     * @param statsRows
-     */
-    protected void sortDisplayRowsBySchoolValuesDesc(List<SchoolProfileStatsDisplayRow> statsRows) {
-        if (statsRows != null && statsRows.size() > 1) {
-            Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
-                public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {
-                    Float row1Value = CensusDataHelper.formatValueAsFloat(statsRow1.getSchoolValue());
-                    Float row2Value = CensusDataHelper.formatValueAsFloat(statsRow2.getSchoolValue());
-                    int compare = row2Value.compareTo(row1Value);
-                    // reverse sort
-                    if(compare == 0 && statsRow1.getText() != null && statsRow2.getText() != null) {
-                        return statsRow1.getText().compareTo(statsRow2.getText());
-                    }
-                    return compare;
-                }
-            });
-        }
-    }
-
-    protected boolean censusValueNotEmpty(String value) {
-        return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
-    }
-
-    /**
-     * Converts from map of Data Type ID --> Source
-     * to
-     * map of Source --> footnote number
-     * @return
-     */
-    public Map<CensusDescription, Integer> getSourceFootnotes(Map<Integer, CensusDescription> dataTypeSourceMap) {
-        Map<CensusDescription, Integer> sourceFootnoteMap = new HashMap<CensusDescription, Integer>();
-        for (Map.Entry<Integer, CensusDescription> entry : dataTypeSourceMap.entrySet()) {
-            if (!sourceFootnoteMap.containsKey(entry.getValue())) {
-                sourceFootnoteMap.put(entry.getValue(), sourceFootnoteMap.size()+1);
-            }
-        }
-
-        return sourceFootnoteMap;
-    }
-
-    public void sortBySortOrder(List<SchoolProfileStatsDisplayRow> displayRows) {
-        Collections.sort(displayRows, DISPLAY_ROW_SORT_ORDER_COMPARATOR);
-    }
-
-
-    public ICensusDataSetDao getCensusDataSetDao() {
-        return _censusDataSetDao;
-    }
-
-    public void setCensusDataSetDao(ICensusDataSetDao censusDataSetDao) {
-        _censusDataSetDao = censusDataSetDao;
-    }
-
-    public void setCensusStateConfigDao(ICensusDataConfigEntryDao censusStateConfigDao) {
-        _censusStateConfigDao = censusStateConfigDao;
-    }
-
-    public void setCensusDataSchoolValueDao(ICensusDataSchoolValueDao censusDataSchoolValueDao) {
-        _censusDataSchoolValueDao = censusDataSchoolValueDao;
-    }
-
-    public void setCensusDataDistrictValueDao(ICensusDataDistrictValueDao censusDataDistrictValueDao) {
-        _censusDataDistrictValueDao = censusDataDistrictValueDao;
-    }
-
-    public void setCensusDataStateValueDao(ICensusDataStateValueDao censusDataStateValueDao) {
-        _censusDataStateValueDao = censusDataStateValueDao;
     }
 
     public void setSchoolProfileDataHelper(SchoolProfileDataHelper schoolProfileDataHelper) {

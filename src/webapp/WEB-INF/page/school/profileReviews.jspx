@@ -179,7 +179,7 @@
                         <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
 
                         <div class="bd"><h4 class="bottom">Are you<br/>the principal?</h4>
-                            <link:schoolEspRegister styleClass="bottom small no_interrupt" styleId="espLink">Complete your school's profile&amp;#187;</link:schoolEspRegister>
+                            <link:schoolEspRegister styleClass="bottom small no_interrupt" styleId="espLink" school="${school}">Complete your school's profile&amp;#187;</link:schoolEspRegister>
                         </div>
                     </div>
                 </div>

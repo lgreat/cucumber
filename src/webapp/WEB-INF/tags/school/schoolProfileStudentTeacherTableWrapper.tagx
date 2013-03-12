@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+    <jsp:directive.tag import="java.util.Set"/>
+    <jsp:directive.tag import="java.util.Map"/>
+    <jsp:directive.tag import="gs.web.school.SchoolProfileStatsDisplayRow"/>
+    <jsp:directive.tag import="gs.web.school.GroupOfStudentTeacherViewRows"/>
+    <jsp:directive.tag import="gs.web.school.SchoolProfileCensusSourceHelper"/>
+    <jsp:directive.tag import="gs.web.school.CensusGroup"/>
+
+    <jsp:directive.attribute name="rows" type="gs.web.school.GroupOfStudentTeacherViewRows" required="true"/>
+
+    <jsp:scriptlet>
+        jspContext.setAttribute("censusGroup", rows.getCensusGroup());
+        jspContext.setAttribute("schoolValueMap", rows.getSchoolValueMap());
+    </jsp:scriptlet>
+
+    <c:choose>
+        <c:when test="${censusGroup.id eq 6 or censusGroup.id eq 10}">
+            <c:choose>
+                <c:when test="${censusGroup.id eq 6}">
+                    <c:set var="labelColumnHeader" value="Ethnicity"/>
+                </c:when>
+                <c:when test="${censusGroup.id eq 10}">
+                    <c:set var="labelColumnHeader" value="Language"/>
+                </c:when>
+            </c:choose>
+
+            <school:schoolProfilePieChartTable rows="${rows}"
+                                               groupId="${censusGroup.id}" title="${gsweb:capitalize(gsweb:toLowerCase(censusGroup.label))}"
+                                               labelColumnHeader="${labelColumnHeader}"
+                                               pieDataSet="${schoolValueMap}"
+                                               pieDivId="${censusGroup.name}-pie" />
+            
+        </c:when>
+        <c:otherwise>
+
+            <school:schoolProfileStatsTable rows="${rows}"
+                                            groupId="${censusGroup.id}" title="${gsweb:capitalize(gsweb:toLowerCase(censusGroup.label))}" />
+
+        </c:otherwise>
+    </c:choose>
+
+
+</jsp:root>

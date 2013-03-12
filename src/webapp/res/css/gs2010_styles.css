@@ -2640,7 +2640,7 @@ div .gallery-thumbnail-selected:hover {
 
 #header {
     position: relative;
-    height: 112px;
+    /*height: 112px;*/
     z-index: 3;
 }
 
@@ -2650,7 +2650,7 @@ div .gallery-thumbnail-selected:hover {
     position: relative;
     height: 24px;
     list-style: none;
-    top: 6px;
+    top: 8px;
     right: 4px;
     z-index: 2;
     float: right;
@@ -2664,7 +2664,7 @@ div .gallery-thumbnail-selected:hover {
     float: left;
     padding: 0 6px;
     border-right: 1px solid #fff;
-    font: normal 10px/16px Arial, Helvetica, sans-serif;
+    font: normal 11px/11px Arial, Helvetica, sans-serif;
     color: #fff;
     list-style-type: none;
 }
@@ -2715,17 +2715,7 @@ div .gallery-thumbnail-selected:hover {
 -------------------------------------------------------------------------------------------*/
 
 #logoBox {
-    position: relative;
-    width: 369px;
-    height: 83px;
-    z-index: 1;
-    padding-left: 17px;
-}
-
-#logo {
-    /*position: relative;*/
-    /*width: 369px;*/
-    /*height: 83px;*/
+    margin-bottom: 5px;
 }
 
 /* =11c search box
@@ -2747,7 +2737,7 @@ div .gallery-thumbnail-selected:hover {
     /*top: 40px;*/
     /*right: 0;*/
     width: 416px;
-    height: 59px;
+    /*height: 59px;*/
     z-index: 1;
 }
 
@@ -2826,8 +2816,12 @@ div .gallery-thumbnail-selected:hover {
     height: 26px;
     outline: 0;
     border:0;
-
+    color: #2B2B2B;
 }
+
+/*#topnav_search fieldset input[type=text]:focus{*/
+    /*color: #2B2B2B;*/
+/*}*/
 .ie8 #topnav_search fieldset input {
     height:16px;
     padding-top: 4px;
@@ -2849,6 +2843,7 @@ div .gallery-thumbnail-selected:hover {
 #topnav_search button {
     padding: 0px;
     border:0px;
+    cursor: pointer;
 }
 
 #topnav_search #radBtns {
@@ -2868,6 +2863,7 @@ div .gallery-thumbnail-selected:hover {
     width: 54px;
     z-index: 5;
     margin: 0;
+    cursor: pointer;
 }
 
 #topnav_search fieldset .showStateHeader {
@@ -2876,7 +2872,8 @@ div .gallery-thumbnail-selected:hover {
     left: 161px;
     position: absolute;
     top:5px;
-    left:339px;
+    left:334px;
+    cursor: pointer;
 }
 
 #topnav_search .searchBar {
@@ -2899,6 +2896,7 @@ div .gallery-thumbnail-selected:hover {
     top:6px;
     width: 71px;
     z-index: 5;
+    cursor: pointer;
 }
 
 #topnav_search .searchBarArticle .selectSchoolArticle {
@@ -2915,16 +2913,25 @@ div .gallery-thumbnail-selected:hover {
 }
 
 #topnav_search .showSchoolArticle{
-    background-color: #F1F1F1;
+    background-color: #F1F1F1; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD), to(#F8F8F8)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image: -moz-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* FF3.6 */
+    background-image: -ms-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* IE10 */
+    background-image: -o-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Opera 11.10+ */
+    background-image: linear-gradient(bottom, #DDDDDD, #F8F8F8); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#DDDDDD', EndColorStr = '#F8F8F8'); /* IE6�IE9 */
     color: #2B2B2B;
     font: 12px/20px Arial,Helvetica,sans-serif;
     /*padding: 3px;*/
     height:18px;
     width: auto;
-    -webkit-border-radius: 6px 0 0 6px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-    -moz-border-radius: 6px 0 0 6px; /* FF1-3.6 */
-    border-radius: 6px 0 0 6px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    padding: 5px 7px;
+    border-right: 1px solid #B8B8B8;
+    -webkit-border-radius: 4px 0 0 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px 0 0 4px; /* FF1-3.6 */
+    border-radius: 4px 0 0 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    padding: 5px 10px;
+    cursor:pointer;
 }
 
 /* =11d global navigation
@@ -9342,13 +9349,20 @@ div#YahooRealEstateLink {
 #footnav li a,
 .cities ul a,
 .copyright a,
-#navFooter .allCities a {
-    color: #999;
+#navFooter .allCities a,
+#navFooter li a{
+    color: #777777;
+}
+
+#footnav li a:hover,
+#navFooter li a:hover{
+    color:#999999;
 }
 
 #footer .copyright {
     margin:  0;
     text-align: center;
+    color: #777777;
 }
 
 #footer .copyright a {
@@ -9370,7 +9384,7 @@ div#YahooRealEstateLink {
 #footer .cities ul {
     float: left;
     margin: 0 3px 0 0;
-    width: 16.30%;
+    width: 16%;
     padding: 0;
 }
 
@@ -9386,31 +9400,31 @@ div#YahooRealEstateLink {
     margin: 0 3px 0 3px;
 }
 
-#footer .subtitles{
-    font-weight: bold;
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+#footer .allCities a:hover{
+    color:#999999;
 }
-#footer hr.keyline3 {background:#555555;color:#555555;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
+
+#footer .subtitles{
+}
+#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
 
 #footer .navFoot {
     float: left;
-    margin: 0 3px 0 0;
-    width: 16.30%;
+    margin: 30px 6px 0 0;
+    width: 16%;
     padding: 0;
     /*width: 100%;*/
 }
 #footer .navFootLast {
     float: left;
-    margin: 0 3px 0 0;
-    width: 25%;
+    margin: 30px 0 0 0;
+    width: 16%;
     padding: 0;
-    /*width: 100%;*/
 }
 #footer .navAbout {
     float: left;
-    margin: 0 20px 0 0;
-    width: 32.60%;
+    margin: 0 12px 0 0;
+    width: 49%;
     padding: 0;
 }
 
@@ -11344,8 +11358,4 @@ p#btsBubbleOpts {
     padding-bottom: 101px;
 }
 
-#footer .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#footer .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#footer .smaller     { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
-#footer .bottom {margin-bottom: 0}
 .dn {display: none;}

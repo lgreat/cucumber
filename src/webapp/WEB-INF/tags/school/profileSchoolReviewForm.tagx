@@ -86,23 +86,23 @@
                             <textarea id="js-reviewText"
                                       class="small bottom"
                                       name="comments"
-                                      onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
-                                      onblur="if(this.value==''){this.value='[Enter your review here]';}"
-                                       style="width:97%" rows="5">[Enter your review here]</textarea>
+                                      onfocus="if(this.value=='[My school is ...]'){this.value='';}"
+                                      onblur="if(this.value==''){this.value='[My school is ...]';}"
+                                       style="width:97%" rows="5">[My school is ...]</textarea>
                         </div>
                     </div>
                     <div class="js-popup">
-                        <ul class="small phs prw"><strong>Don't forget</strong>
+                        <ul class="small phs prw"><strong>Helpful reviews answer questions:</strong>
+                            <li>What do you think others should know?</li>
+                            <li>What do you like?</li>
+                            <li>How could your school improve?</li>
+                        </ul>
+                        <div class="pvs"><!-- do not collapse --></div>
+                        <ul class="small phs prw"><strong>Review Guidelines</strong>
                             <br/>GreatSchools won’t post reviews that contain:
                             <li>Inappropriate language</li>
                             <li>Allegations of criminal conduct</li>
                             <li>Names of students, teachers, or staff</li>
-                        </ul>
-                        <div class="pvs"><!-- do not collapse --></div>
-                         <ul  class="small phs prw"><strong>A great school has:</strong>
-                            <li>Excellent teachers</li>
-                            <li>Strong principal/school leadership</li>
-                            <li>Challenging academic programs</li>
                         </ul>
                     </div>
                 </div>
@@ -114,44 +114,45 @@
                 </div>
 
                 <div class="line email">
-                    <div class="unit size4of7">
-                        <div class="line">
-                            <label for="frmPRModule-email" class="unit size1of4">Email:
-                                <em class="sprite i-required"><!-- do not collapse --></em>
-                            </label>
-                            <c:choose>
-                                <c:when test="${validUser.email eq null}">
-                                    <input id="frmPRModule-email" name="email" class="unit size7of10 text-padding-3"
-                                           type="text"
-                                           value="[Enter email address]"
-                                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                           onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <input id="frmPRModule-email" name="email" class="unit size7of10 text-padding-3"
-                                           type="text"
-                                           value="${validUser.email}" disabled="disabled"/>
-                                </c:otherwise>
-                            </c:choose>
-
-                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
-                        </div>
-                        <!--<div class="spacer_8">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <div class="unit size15of100">
+                        <label for="frmPRModule-email" class="">Email:
+                            <em class="sprite i-required"><!-- do not collapse --></em>
+                        </label>
                     </div>
-
-                    <div class="unit size3of7 lastUnit pts bottom"><!-- do not collapse -->
-                        <div class="formErrorText media form-error clearfix">
-                            <!--<span class="iconx16 i-16-alert img mrs">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-
-                            <!--<div class="js-msg smaller mbn error_msg">Please enter your email.</div>-->
-                            <div class="fl size7of100"><span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span></div>
-
-                            <div class="js-msg plm fl smaller error_msg size85of100 bottom">Please enter your email.</div>
+                    <div class="unit size50of100">
+                        <c:choose>
+                            <c:when test="${validUser.email eq null}">
+                                <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
+                                       type="text"
+                                       value="[Enter email address]"
+                                       onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                                       onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
+                                       type="text"
+                                       value="${validUser.email}" disabled="disabled"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <div class="smaller bottom">Don’t worry, your email address will remain private.</div>
+                    </div>
+                    <div class="unit size26of100 lastUnit">
+                        <div class="formErrorText form-error">
+                            <div class="media">
+                                <div class="img mrs">
+                                    <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                                </div>
+                                <div class="js-msg smaller bottom error_msg">Please enter your email.</div>
+                            </div>
                         </div>
-                        <div class="formErrorText media form-alert">
-                            <div class="fl size7of100"><span class="iconx16 i-16-notice img mrs"><!-- do not collapse --></span></div>
+                        <div class="formErrorText form-alert">
+                            <div class="media">
+                                <div class="img mrs">
+                                    <span class="iconx16 i-16-notice vam"><!-- do not collapse --></span>
+                                </div>
 
-                            <div class="js-msg plm fl smaller size85of100 bottom">You must verify your email address on submit.</div>
+                                <div class="js-msg smaller bottom">You must verify your email address on submit.</div>
+                            </div>
                         </div>
                     </div>
                 </div>

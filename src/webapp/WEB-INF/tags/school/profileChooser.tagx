@@ -111,19 +111,19 @@
                 var visitPdfHref = 'javascript:void(0);';
                 var visitPdfTarget = "_self";
                 if (myVal == "preschool") {
-                    visitPdfHref = '/catalog/pdf/schq_visit_preschool.pdf';
+                    visitPdfHref = '/res/pdf/schoolchooser/preschool-checklist.pdf';
                     visitPdfTarget = "_blank";
                 }
                 else if (myVal == "elementary") {
-                    visitPdfHref = '/catalog/pdf/schq_visit_elem.pdf';
+                    visitPdfHref = '/res/pdf/schoolchooser/elementary-school-checklist.pdf';
                     visitPdfTarget = "_blank";
                 }
                 else if (myVal == "middle") {
-                    visitPdfHref = '/catalog/pdf/schq_visit_middle.pdf';
+                    visitPdfHref = '/res/pdf/schoolchooser/middle-school-checklist.pdf';
                     visitPdfTarget = "_blank";
                 }
                 else if (myVal == "high") {
-                    visitPdfHref = '/catalog/pdf/schq_visit_high.pdf';
+                    visitPdfHref = '/res/pdf/schoolchooser/high-school-checklist.pdf';
                     visitPdfTarget = "_blank";
                 }
                 $('.js-downloadGuide').prop('href', visitPdfHref);

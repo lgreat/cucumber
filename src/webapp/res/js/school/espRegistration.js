@@ -62,6 +62,13 @@ GS.form.EspForm = function() {
                 }
             }
         }
+
+        var preSelectedCity = decodeURIComponent(GS.uri.Uri.getFromQueryString('city')).replace("+", " ");
+        if(citySelect.find('option[value="' + preSelectedCity + '"]').length == 1) {
+            citySelect.val(preSelectedCity);
+            GS.form.espForm.cityChange();
+            GS.form.espForm.validateRequiredFields('city');
+        }
     };
 
     this.parseSchools = function(data) {
@@ -75,6 +82,9 @@ GS.form.EspForm = function() {
                 }
             }
         }
+
+        var preSelectedSchool = GS.uri.Uri.getFromQueryString('schoolId');
+        schoolSelect.val(preSelectedSchool);
     };
 
     //Checks the various states of the user and displays messages accordingly.
@@ -310,6 +320,10 @@ GS.form.EspForm = function() {
 GS.form.espForm = new GS.form.EspForm();
 
 jQuery(function() {
+    if(jQuery('#js_stateAdd').val() !== '') {
+        GS.form.espForm.stateChange();
+        GS.form.espForm.validateRequiredFields('stateAdd');
+    }
 
     jQuery('#js_stateAdd').change(function() {
         GS.form.espForm.stateChange();

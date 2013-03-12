@@ -71,8 +71,8 @@ GS.form.EmailSignUp = function() {
 jQuery(function() {
 
     GS.form.emailSignUp = GS.form.emailSignUp || new GS.form.EmailSignUp();
-
-    jQuery('.jq-emailSignUpForm').unbind('submit').submit(function() {
+    jQuery('.jq-emailSignUpForm').on('submit', function() {
+//    jQuery('.jq-emailSignUpForm').unbind('submit').submit(function() {
         return GS.form.emailSignUp.submit(jQuery(this));
     });
 //    jQuery('.jq-emailSignUpFormFooter').unbind('submit').submit(function() {
