@@ -37,8 +37,7 @@
             </c:if>
             <li>
                 Welcome,
-                <link:userProfile
-                        username="${requestScope.context.screenName}">${requestScope.context.screenName}</link:userProfile>
+                <link:userAccount styleClass="nav_group_heading">${requestScope.context.screenName}</link:userAccount>
             </li>
             <li>
                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
