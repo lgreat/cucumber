@@ -199,7 +199,7 @@ div#YahooRealEstateLink {
     list-style: none;
     text-decoration: none;
     float: left;
-    margin: 0 3px 0 0;
+    margin: 0 2px 0 0;
     width: 16%;
     padding: 0;
 }
@@ -249,7 +249,7 @@ div#YahooRealEstateLink {
 }
 #footer .navFootLast {
     float: left;
-    margin: 30px 6px 0 0;
+    margin: 30px 0px 0 0;
     width: 16%;
     padding: 0;
     /*width: 100%;*/
