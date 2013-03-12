@@ -200,7 +200,7 @@ div#YahooRealEstateLink {
     text-decoration: none;
     float: left;
     margin: 0 3px 0 0;
-    width: 16.30%;
+    width: 16%;
     padding: 0;
 }
 #footer .pts { padding-top: 5px;}
@@ -497,3 +497,9 @@ div#YahooRealEstateLink {
 .mlm,.mhm,.mam{margin-left:10px}
 
 .make-999999 { color: #999999; }
+
+ul.none,
+ol.none     { margin: 0; padding: 0; margin-bottom: 10px; }
+
+ul.none li,
+ol.none li  { list-style-type: none; }

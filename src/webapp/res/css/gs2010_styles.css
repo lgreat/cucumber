@@ -2843,6 +2843,7 @@ div .gallery-thumbnail-selected:hover {
 #topnav_search button {
     padding: 0px;
     border:0px;
+    cursor: pointer;
 }
 
 #topnav_search #radBtns {
@@ -2862,6 +2863,7 @@ div .gallery-thumbnail-selected:hover {
     width: 54px;
     z-index: 5;
     margin: 0;
+    cursor: pointer;
 }
 
 #topnav_search fieldset .showStateHeader {
@@ -2871,6 +2873,7 @@ div .gallery-thumbnail-selected:hover {
     position: absolute;
     top:5px;
     left:334px;
+    cursor: pointer;
 }
 
 #topnav_search .searchBar {
@@ -2893,6 +2896,7 @@ div .gallery-thumbnail-selected:hover {
     top:6px;
     width: 71px;
     z-index: 5;
+    cursor: pointer;
 }
 
 #topnav_search .searchBarArticle .selectSchoolArticle {
@@ -2927,6 +2931,7 @@ div .gallery-thumbnail-selected:hover {
     -moz-border-radius: 4px 0 0 4px; /* FF1-3.6 */
     border-radius: 4px 0 0 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     padding: 5px 10px;
+    cursor:pointer;
 }
 
 /* =11d global navigation
@@ -9379,7 +9384,7 @@ div#YahooRealEstateLink {
 #footer .cities ul {
     float: left;
     margin: 0 3px 0 0;
-    width: 16.30%;
+    width: 16%;
     padding: 0;
 }
 
