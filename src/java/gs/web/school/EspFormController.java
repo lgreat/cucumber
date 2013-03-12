@@ -138,10 +138,10 @@ public class EspFormController implements ReadWriteAnnotationController {
         //Get all the external keys for the school and convert to a look up map.
         Set<String> externalKeysSet = _espFormExternalDataHelper.getKeysForExternalData(school);
         //Map of all the external keys for the school.Used for look up.
-        Map<String,String> externalKeysLookupMap = new HashMap<String, String>();
+        Map<String, String> externalKeysLookupMap = new HashMap<String, String>();
         for (String externalKey : externalKeysSet) {
             //value does not matter.This map is just used for look up.
-            externalKeysLookupMap.put(externalKey,"");
+            externalKeysLookupMap.put(externalKey, "");
         }
 
         //This list is used to remove external keys that the provisional user has modified from the master list of all external data points.
@@ -175,19 +175,26 @@ public class EspFormController implements ReadWriteAnnotationController {
                         }
                         provisionalExternalKeysToValueMap.put(espResponse.getKey(), value);
 
-                        //Add to list of external keys that the provisional user has modified.
-                        externalKeysToRemove.add(espResponse.getKey());
                     } else {
                         putInResponseMap(responseMap, espResponse);
                     }
 
                 } else {
-                    _log.error("Found an active response for provisional user.User:-"+user.getId()+ " Key:-"+ espResponse.getKey() + " Response:-" + espResponse.getSafeValue());
-                    //TODO what?
+                    _log.error("Found an active response for provisional user.User:-" + user.getId() + " Key:-" + espResponse.getKey() + " Response:-" + espResponse.getSafeValue());
                 }
             } else {
-                _log.error("Found a provisional response but the key was not marked for provisional data.Key:-"+espResponse.getKey()+" Response:-" +espResponse.getSafeValue() +" User:-" + user.getId());
-                //TODO what?
+                _log.error("Found a provisional response but the key was not marked for provisional data.Key:-" + espResponse.getKey() + " Response:-" + espResponse.getSafeValue() + " User:-" + user.getId());
+            }
+        }
+
+        //Prepare a list of external values that the user has modified.This sub-list needs to be removed
+        //the master list of all external data points.
+        //This has to be done separately and not in the loop above bcos sometimes the user may chose not to respond to
+        //the question and in that case there will not be a provisional response for that external data point.
+        for (String allProvisionalKeys : provisionalKeysLookUpMap.keySet()) {
+            if (externalKeysLookupMap.containsKey(allProvisionalKeys)) {
+                //Add to list of external keys that the provisional user has modified.
+                externalKeysToRemove.add(allProvisionalKeys);
             }
         }
 
@@ -206,7 +213,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         //TODO what happens if the keys are moved from page to page?
 
         //Get provisional external data.
-        _espFormExternalDataHelper.fetchProvisionalExternalValues(responseMap,provisionalExternalKeysToValueMap);
+        _espFormExternalDataHelper.fetchProvisionalExternalValues(responseMap, provisionalExternalKeysToValueMap);
 
         //Remove external keys that the provisional user has modified from the master list of all external data points.
         //This will enable us to get external data only for non-provisional data points.

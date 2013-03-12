@@ -246,10 +246,10 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         school.setCensusInfo(_censusInfo);
 
         //Assume that provisional user modified page 1 and 2.
-        //keys on Page 1:- early_childhood_programs, coed and boys_sports.
+        //keys on Page 1:- early_childhood_programs, facilities and boys_sports.
         //keys on Page 2:- dress_code, parent_involvement and bullying_policy.
         List<EspResponse> provisionalKeysList = new ArrayList<EspResponse>();
-        EspResponse espResponse1 = buildEspResponse("_page_1_keys","early_childhood_programs,coed,boys_sports",false);
+        EspResponse espResponse1 = buildEspResponse("_page_1_keys","early_childhood_programs,facilities,boys_sports",false);
         EspResponse espResponse2 = buildEspResponse("_page_2_keys","dress_code,parent_involvement,bullying_policy",false);
         provisionalKeysList.add(espResponse1);
         provisionalKeysList.add(espResponse2);
@@ -259,7 +259,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         //NOTE: Provisional user did not respond to bullying_policy.bullying_policy does not have an active value already.
         List<EspResponse> provisionalResponses = new ArrayList<EspResponse>();
         EspResponse espResponse4 = buildEspResponse("early_childhood_programs","no",false);
-        EspResponse espResponse5 = buildEspResponse("coed","all_boys",false);
+        EspResponse espResponse5 = buildEspResponse("facilities","gym",false);
         EspResponse espResponse6 = buildEspResponse("dress_code","no_dress_code",false);
         //There should not be a provisionalResponse with active=1. So test this edge case.
         EspResponse espResponse7 = buildEspResponse("boys_sports","basketball",true);
@@ -286,13 +286,13 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_espResponseDao.getResponses(school)).andReturn(responses);
 
         SchoolCensusValue censusValue = new SchoolCensusValue();
-        censusValue.setValueText("somemeail");
+        censusValue.setValueText("abcd@somedomain.com");
         expect(_censusInfo.getManual(school,CensusDataType.HEAD_OFFICIAL_EMAIL)).andReturn(censusValue);
 
         expect(_censusInfo.getEnrollmentAsInteger(school)).andReturn(12);
 
         SchoolCensusValue censusValue1 = new SchoolCensusValue();
-        censusValue1.setValueText("somename");
+        censusValue1.setValueText("abcd");
         expect(_censusInfo.getManual(school,CensusDataType.HEAD_OFFICIAL_NAME)).andReturn(censusValue1);
 
         replayAllMocks();
@@ -304,8 +304,8 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         assertEquals("early_childhood_programs was on the page that the provisional user modified." +
                 "Hence display the provisional value","no",responseMap.get("early_childhood_programs").getValue());
 
-        assertEquals("coed was on the page that the provisional user modified." +
-                "Hence display the provisional value","all_boys",responseMap.get("coed").getValue());
+        assertEquals("facilities was on the page that the provisional user modified." +
+                "Hence display the provisional value","gym",responseMap.get("facilities").getValue());
 
         assertNull("boys_sports was on the page that the provisional user modified." +
                 "However the response is active.This should not happen.Hence ignore the response."
@@ -332,6 +332,109 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 
     }
 
+    public void testPutProvisionalResponsesInModel_ExternalData() {
+        User user = new User();
+        user.setId(2);
+
+        ModelMap modelMap = new ModelMap();
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setCensusInfo(_censusInfo);
+        school.setType(SchoolType.CHARTER);
+        school.putMetadata("facebook_url","someurl");
+
+        //Assume that provisional user modified page 1 and 2.
+        //keys on Page 1:- student_enrollment, grade_levels.
+        //keys on Page 2:- administrator_name, administrator_email, school_phone ,coed and facebook_url.
+        List<EspResponse> provisionalKeysList = new ArrayList<EspResponse>();
+        EspResponse espResponse1 = buildEspResponse("_page_1_keys","student_enrollment,grade_levels",false);
+        EspResponse espResponse2 = buildEspResponse("_page_2_keys","administrator_name,administrator_email,school_phone,coed,facebook_url",false);
+        provisionalKeysList.add(espResponse1);
+        provisionalKeysList.add(espResponse2);
+
+        //List of responses that the provisional user made.
+        //NOTE: Provisional user did not respond to administrator_email and coed.
+        //NOTE: There is already an active response to facebook_url.
+        List<EspResponse> provisionalResponses = new ArrayList<EspResponse>();
+        EspResponse espResponse4 = buildEspResponse("student_enrollment","133",false);
+        EspResponse espResponse5 = buildEspResponse("grade_levels","4",false);
+        EspResponse espResponse6 = buildEspResponse("grade_levels","5",false);
+        EspResponse espResponse7 = buildEspResponse("grade_levels","6",false);
+        EspResponse espResponse8 = buildEspResponse("administrator_name","abcd",false);
+        EspResponse espResponse9 = buildEspResponse("facebook_url","schoolurl@facebook.com",false);
+        //There should not be a provisionalResponse with active=1. So test this edge case.
+        EspResponse espResponse10 = buildEspResponse("school_phone","1231231234",true);
+        //There should not be a provisional response where the key is not marked for provisional.So test this edge case.
+        EspResponse espResponse11 = buildEspResponse("school_fax","1231231237",true);
+        provisionalResponses.add(espResponse4);
+        provisionalResponses.add(espResponse5);
+        provisionalResponses.add(espResponse6);
+        provisionalResponses.add(espResponse7);
+        provisionalResponses.add(espResponse8);
+        provisionalResponses.add(espResponse9);
+        provisionalResponses.add(espResponse10);
+        provisionalResponses.add(espResponse11);
+
+        //List of active responses for the school.
+        List<EspResponse> responses = new ArrayList<EspResponse>();
+
+        expect(_espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true)).andReturn(provisionalKeysList);
+        expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(provisionalResponses);
+        expect(_espResponseDao.getResponses(school)).andReturn(responses);
+
+        replayAllMocks();
+        _controller.putProvisionalResponsesInModel(user, school, modelMap);
+        verifyAllMocks();
+
+        Map<String, EspFormResponseStruct> responseMap = (HashMap<String, EspFormResponseStruct>)modelMap.get("responseMap");
+
+        assertEquals("student_enrollment was on the page that the provisional user modified.Hence display the provisional value",
+                "133",responseMap.get("student_enrollment").getValue());
+
+        Map<String, Boolean> gradeValueMap = responseMap.get("grade_levels").getValueMap();
+
+        assertEquals("grade_levels was on the page that the provisional user modified." +
+                "Hence display the provisional value",3,gradeValueMap.size());
+
+        assertTrue("grade_levels was on the page that the provisional user modified." +
+                "Hence display the provisional value",gradeValueMap.containsKey("4"));
+
+        assertTrue("grade_levels was on the page that the provisional user modified." +
+                "Hence display the provisional value",gradeValueMap.containsKey("5"));
+
+        assertTrue("grade_levels was on the page that the provisional user modified." +
+                "Hence display the provisional value",gradeValueMap.containsKey("6"));
+
+        assertEquals("administrator_name was on the page that the provisional user modified." +
+                "Hence display the provisional value.",
+                "abcd",responseMap.get("administrator_name").getValue());
+
+        assertNull("administrator_email was on the page that the provisional user modified.But the user did not respond to the question." +
+                "Hence there is no provisional value to display",
+                responseMap.get("administrator_email"));
+
+        assertNull("school_phone was on the page that the provisional user modified." +
+                "However the response is active.This should not happen.Hence ignore the response."
+                ,responseMap.get("school_phone"));
+
+        assertNull("school_fax was not on the page that the provisional user modified." +
+                "However the it is returned as a provisional response.This should not happen.Hence ignore the response."
+                ,responseMap.get("school_fax"));
+
+        assertNull("coed was on the page that the provisional user modified.But the user did not respond to the question." +
+                "Hence there is no provisional value to display"
+                ,responseMap.get("coed"));
+
+        assertEquals("facebook_url has an active value.facebook_url was on the page that the provisional user modified." +
+                "Hence display the provisional value.",
+                "schoolurl@facebook.com",responseMap.get("facebook_url").getValue());
+
+        assertEquals("school_type was not on the page that the provisional user modified." +
+                "Hence display the non-provisional value","charter",responseMap.get("school_type").getValue());
+
+    }
 
     public EspResponse buildEspResponse(String key, String value,boolean active) {
         EspResponse espResponse = new EspResponse();
@@ -340,41 +443,5 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         espResponse.setActive(active);
         return espResponse;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
