@@ -457,3 +457,43 @@ div#YahooRealEstateLink {
 .button-1-inactive::-moz-focus-inner {
     border: none;
 }
+
+.slStylesV1-0 .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .small_bold  { font: bold   12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .bottom      { margin-bottom:0; }
+
+.ptn,.pvn,.pan{padding-top: 0}
+.pts,.pvs,.pas{padding-top:5px}
+.ptm,.pvm,.pam{padding-top:10px}
+.ptl,.pvl,.pal{padding-top:20px}
+.prn,.phn,.pan{padding-right: 0}
+.prs,.phs,.pas{padding-right:5px}
+.prm,.phm,.pam{padding-right:10px}
+.prl,.phl,.pal{padding-right:20px}
+.pbn,.pvn,.pan{padding-bottom: 0}
+.pbs,.pvs,.pas{padding-bottom:5px}
+.pbm,.pvm,.pam{padding-bottom:10px}
+.pbl,.pvl,.pal{padding-bottom:20px}
+.pln,.phn,.pan{padding-left: 0}
+.pls,.phs,.pas{padding-left:5px}
+.plm,.phm,.pam{padding-left:10px}
+.pll,.phl,.pal{padding-left:20px}
+.mtn,.mvn,.man{margin-top: 0}
+.mts,.mvs,.mas{margin-top:5px}
+.mtm,.mvm,.mam{margin-top:10px}
+.mtl,.mvl,.mal{margin-top:20px}
+.mrn,.mhn,.man{margin-right: 0}
+.mrs,.mhs,.mas{margin-right:5px}
+.mrm,.mhm,.mam{margin-right:10px}
+.mrl,.mhl,.mal{margin-right:20px}
+.mbn,.mvn,.man{margin-bottom: 0}
+.mbs,.mvs,.mas{margin-bottom:5px}
+.mbm,.mvm,.mam{margin-bottom:10px}
+.mbl,.mvl,.mal{margin-bottom:20px}
+.mln,.mhn,.man{margin-left: 0}
+.mls,.mhs,.mas{margin-left:5px}
+.mlm,.mhm,.mam{margin-left:10px}
+
+.make-999999 { color: #999999; }
