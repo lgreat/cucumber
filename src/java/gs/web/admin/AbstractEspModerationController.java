@@ -43,6 +43,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         private boolean _isDisabledUserReRequestingAccess;
         private boolean _hasOtherActiveEspMemberships;
         private boolean _schoolHasActiveMemberships;
+        private boolean _userHasProvisionalAccess;
         
         public ModerationRow(EspMembership _membership) {
             super();
@@ -105,6 +106,14 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         public void setSchoolHasActiveMemberships(boolean schoolHasActiveMemberships) {
             _schoolHasActiveMemberships = schoolHasActiveMemberships;
         }
+
+        public boolean isUserHasProvisionalAccess() {
+            return _userHasProvisionalAccess;
+        }
+
+        public void setUserHasProvisionalAccess(boolean userHasProvisionalAccess) {
+            _userHasProvisionalAccess = userHasProvisionalAccess;
+        }
     }
     
     protected final Log _log = LogFactory.getLog(getClass());
@@ -157,7 +166,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
                         if ("approve".equals(moderatorAction)) {
                             try {
-                                membership.setSchool(getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId()));
+                                School school =  getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId());
+                                membership.setSchool(school);
                             } catch (Exception e) {
                                 _log.error("Error fetching school for membership: " + membership, e);
                             }
@@ -190,7 +200,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                 updateMembership = true;
                             }
                         }
-    
+
                         //In case a note was added while approving or rejecting.
                         //Notes is the Map of membership id to string.
                         if (command.getNotes() != null && !command.getNotes().isEmpty() && command.getNotes().get(membership.getId()) != null) {
@@ -224,7 +234,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             }
         }
     }
-    
+
     /**
      * Hook to remove elements before they are displayed. 
      * @param memberships list to display
@@ -283,6 +293,10 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             List<EspMembership> activeMembershipsForTheSchool = getEspMembershipDao().findEspMembershipsBySchool(membership.getSchool(), true);
             if(activeMembershipsForTheSchool != null && activeMembershipsForTheSchool.size() > 0) {
                 mrow.setSchoolHasActiveMemberships(true);
+            }
+
+            if(membership.getStatus().equals(EspMembershipStatus.PROVISIONAL) && !membership.getActive()){
+                mrow.setUserHasProvisionalAccess(true);
             }
 
             // is disabled user re-requesting access?

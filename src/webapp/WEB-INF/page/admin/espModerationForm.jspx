@@ -44,6 +44,7 @@
                     <span class="emailMatch">User email matches contact email</span>
                     <span class="durra">User requesting multi-access</span>
                     <span class="schoolHasActiveMemberships">School has active memberships</span>
+                    <span class="userHasProvisionalAccess">User has Provisional Access</span>
                 </div>
                 <form:form commandName="espModerationCommand">
                     <c:if test="${not empty mrows}">
@@ -88,7 +89,8 @@
                     		<c:set var="emailMatchClass" value="${mrow.emailMatch ? 'emailMatch' : ''}"/>
                     		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess || mrow.hasOtherActiveEspMemberships ? 'durra' : ''}"/>
                             <c:set var="schoolHasActiveMembershipsClass" value="${mrow.schoolHasActiveMemberships ? 'schoolHasActiveMemberships' : ''}"/>
-                    		<table width="950" class="${emailMatchClass} ${durraClass} ${schoolHasActiveMembershipsClass}">
+                            <c:set var="userHasProvisionalAccess" value="${mrow.userHasProvisionalAccess ? 'userHasProvisionalAccess' : ''}"/>
+                    		<table width="950" class="${emailMatchClass} ${durraClass} ${schoolHasActiveMembershipsClass}${userHasProvisionalAccess}">
                             <col width="32px"/>
                             <col width="210px"/>
                             <col width="206px"/>

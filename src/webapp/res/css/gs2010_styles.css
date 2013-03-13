@@ -11311,6 +11311,11 @@ p#btsBubbleOpts {
     background-color: #90ee90 !important;
 }
 
+.espModerationTable .userHasProvisionalAccess, .userHasProvisionalAccess * {
+    background-color: #FFFF00 !important;
+}
+
+
 /*Photo delete hover styles*/
 #photoDeleteConfirmationHover h2 {
     font: normal 24px/33px Arial, Helvetica, sans-serif;
