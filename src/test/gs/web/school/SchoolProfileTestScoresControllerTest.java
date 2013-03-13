@@ -252,4 +252,68 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         assertEquals("Expect number tested value to be set correctly", new Integer(999),
                 rval.get(0).getGrades().get(0).getSubjects().get(0).getTestValues().get(1).getNumberTested());
     }
+
+    public void testPopulateTestScoresForNYC() {
+        Integer testDataTypeId = 1;
+
+        //Have at least 1 test result for the school.
+        List<SchoolTestResult> testScoreResults = new ArrayList<SchoolTestResult>();
+        Map testResultMap = new HashMap();
+        testResultMap.put("data_type_id", testDataTypeId);
+        testResultMap.put("id", 2);
+        testResultMap.put("grade", "9");
+        testResultMap.put("level_code", "e,m,h");
+        testResultMap.put("subject_id", 5);
+        testResultMap.put("year", new Date(2005));
+        testResultMap.put("value_float", new Float(23));
+        testResultMap.put("breakdown_id", 1);
+        SchoolTestResult testScoreResult = new SchoolTestResult(testResultMap);
+        testScoreResults.add(testScoreResult);
+
+        //Set the display type of the test to NYC progress report
+        TestDataType testDataType = new TestDataType();
+        testDataType.setId(testDataTypeId);
+        testDataType.setDisplayType(TestDataTypeDisplayType.nyc_progress_report_grade);
+
+        //Set the district Id of the school to a NON-NYC school district
+        School school = new School();
+        school.setId(1);
+        school.setDistrictId(23);
+        school.setDatabaseState(State.NY);
+
+        //initialise the params to pass to the  populateTestScores method
+        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
+        Map<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String, Integer>>>>>> testScoresMap =
+                new HashMap<SchoolProfileTestScoresController.CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<SchoolProfileTestScoresController.CustomTestDataSet, Pair<String, Integer>>>>>>();
+        Map<Integer, Integer> testDataTypeIdToMaxYear = new HashMap<Integer, Integer>();
+
+        resetAllMocks();
+        expect(_testDataTypeDao.getDataType(testDataTypeId)).andReturn(testDataType);
+        replayAllMocks();
+
+        //Call the populateTestScores method
+        _controller.populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, testScoreResults, false);
+
+        verifyAllMocks();
+        assertTrue("School district ID is not in the NYC school district,hence the map should be empty", testScoresMap.isEmpty());
+        assertTrue("School district ID is not in the NYC school district,hence the map should be empty", testDataTypeIdToMaxYear.isEmpty());
+        assertTrue("School district ID is not in the NYC school district,hence the map should be empty", testDataTypeIdToTestDataType.isEmpty());
+
+        //Set the district Id of the school to a NYC school district
+        school.setDistrictId(816);
+
+        resetAllMocks();
+        expect(_testDataTypeDao.getDataType(testDataTypeId)).andReturn(testDataType);
+        expect(_subjectDao.findSubject(5)).andReturn(Subject.MATH);
+        expect(_testBreakdownDao.findBreakdown(1)).andReturn(null);
+        replayAllMocks();
+
+        //Call the populateTestScores method
+        _controller.populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, testScoreResults, false);
+
+        verifyAllMocks();
+        assertTrue("School district ID is in the NYC school district,hence the map should be populated", !testScoresMap.isEmpty());
+        assertTrue("School district ID is in the NYC school district,hence the map should be populated", !testDataTypeIdToMaxYear.isEmpty());
+        assertTrue("School district ID is in the NYC school district,hence the map should be populated", !testDataTypeIdToTestDataType.isEmpty());
+    }
 }

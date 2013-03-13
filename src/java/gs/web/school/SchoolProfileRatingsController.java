@@ -137,7 +137,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This rating encompasses five elements of school climate: safety and cleanliness, respect and relationships, " +
                     "expectations for students, teacher collaboration and support, and parent involvement. The results are " +
                     "based on analysis of the Indianapolis Teacher Climate Survey conducted in 2012 by GreatSchools " +
-                    "and the Indiana Department of Education.";
+                    "in partnership with the Indiana Department of Education and the City of Indianapolis.";
     public static final String SECTION_4_COPY_DATA_UNAVAILABLE_IN =
             "Climate rating for this school is not yet available.";
     public static final String SECTION_4_COPY_WI =

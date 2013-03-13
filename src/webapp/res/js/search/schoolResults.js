@@ -132,7 +132,6 @@ GS.search.results = GS.search.results || (function() {
             }
         }
 
-        refreshAds();
         jQuery.ajax({
             type: "get",
             url: url() + $.trim(queryString),
@@ -166,6 +165,12 @@ GS.search.results = GS.search.results || (function() {
                     GS.school && GS.school.compare && GS.school.compare.triggerUpdatePageWithSchoolsEvent();
                 };
 
+                // the Sponsor_630x40 ad is in the search results response, but we don't want to execute the googletag.display
+                // call, since we will be calling refreshAds() very shortly, and the display() call would interfere.
+                // Let's just save the Sponsor_630x40 dom object, and reuse it, and then call refreshAds()
+                data = $(data).filter(':not(script:contains(googletag.display))');
+                data.find('#Sponsor_630x40').replaceWith($('#Sponsor_630x40'));
+
                 jQuery('#js-school-search-results-table').html(data);
                 jQuery('#js-school-search-results-table-body').css("opacity",.2);
                 jQuery('#js-school-search-results-table-body').animate(
@@ -189,6 +194,9 @@ GS.search.results = GS.search.results || (function() {
                 else{
                     $("#js_totalResultsCountReturn").popover('hide');
                 }
+
+                // now that DOM is updated with new search results, do an ad refresh. An ad exists within search results
+                refreshAds();
                 pageTracking.clear();
                 pageTracking.pageName = $('#jq-omniturePageName').val();
                 pageTracking.props['prop15'] = '';

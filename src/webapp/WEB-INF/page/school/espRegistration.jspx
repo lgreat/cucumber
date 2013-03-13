@@ -224,9 +224,9 @@
             <div class="grid_5">
                 <gsweb:stateSelector styleId="js_stateAdd"
                                      name="state"
-                                     useNoState="true"
+                                     useNoState="${not preselectSchool}"
                                      noStateLabel="- Choose state -"
-                                     allowNoState="false"
+                                     allowNoState="false" state="${state}"
                         />
             </div>
             <div class="prefix_1 grid_5 omega">

@@ -2,7 +2,9 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
->
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="5" maxPage="${maxPage}" headerText="Enrichment &amp;amp; extracurriculars">
     <div class="js_pageErrors error" style="display: none">
@@ -361,12 +363,569 @@
                   </ol>
               </div>
           </div>
+
+          <!-- After school programs -->
+          <c:if test="${not empty after_school_qualified}">
+              <!-- After school program fields -->
+              <fieldset>
+                  <h3 class="bottom ptl">After school programs</h3>
+                  <hr class="legend"><!--Do not collapse--></hr>
+
+                  <div class="lal clearfix">
+                      <div class="grid_5 alpha">
+                          <p class="labelGroup">Are there after school programs at your school?</p>
+                      </div>
+                      <div class="grid_18 omega">
+                          <school:espRadioWithLabel key="after_school" value="yes" label="Yes"/>
+                          <school:espRadioWithLabel key="after_school" value="no" label="No"/>
+                      </div>
+                  </div>
+
+                  <div id="form_after_school">
+                      <c:set var='last_program' value="${after_school_}"/>
+                      <c:forEach var="cur_program" begin="1" end="5" varStatus="status" >
+                          <div style="${cur_program gt last_program? 'display:none' : ''}" class="js_after_school">
+
+                              <legend class="ptm"><strong>After school program ${cur_program}</strong></legend>
+                              <hr class="legend"><!--Do not collapse--></hr>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_name" value="after_school_name_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${after_school_name}">What is your program called?</label>
+                                  </div>
+                                  <div class="grid_4 suffix_1">
+                                      <gsml:input styleId="js_form_${after_school_name}" styleClass="text form_${after_school_name} input_6" type="text"
+                                                  name="${after_school_name}"
+                                                  value="${responseMap[after_school_name].value}" size="30" disabled="${stateLocked}" maxlength="100"/>
+                                  </div>
+                                  <div class="grid_4 omega">
+                                      <div id="js_form_${after_school_name}_error"  class="error" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify.</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_description" value="after_school_description_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${after_school_description}">Please describe your program. (Please use complete sentences.)</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <textarea id="form_${after_school_description}" name="${after_school_description}" class="js_otherField text input_6" type="text"
+                                             size="120" maxlength="500" cols="80" rows="4">${responseMap[after_school_description].value}</textarea>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_activities" value="after_school_activities_${cur_program}"/>
+                                  <c:set var="after_school_activities_other" value="after_school_activities_other_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <p class="labelGroup">What types of activities are offered?</p>
+                                      <div id="js_form_${after_school_activities}_error"  class="error fltlt" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify.</div>
+                                          </div>
+                                      </div>
+                                      <div id="js_form_${after_school_activities}_other_error"  class="error fltlt" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify the other kind of transportation provided.</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espCheckboxWithLabel key="${after_school_activities}" value="arts" label="Arts (visual, literary, dance, theater, and/or music)"/>
+                                      <school:espCheckboxWithLabel key="${after_school_activities}" value="academic" label="Academic (homework help and/or standards-based programs)"/>
+                                      <school:espCheckboxWithLabel key="${after_school_activities}" value="athletic" label="Athletic"/>
+                                      <school:espCheckboxWithLabel key="${after_school_activities}" value="life_skills" label="Life skills"/>
+                                      <school:espCheckboxWithLabel key="${after_school_activities}" value="other" label="Other (please specify)"
+                                                                   nobr="true" styleClass="js_otherField_form_${after_school_activities}_other">
+                                          <input id="form_${after_school_activities_other}" type="text" name="${after_school_activities_other}"
+                                                 class="mls js_otherField text-smaller input_4"
+                                                 value="${responseMap[after_school_activities_other].value}"
+                                                 placeholder="[Please indicate]" maxlength="30"/>
+                                      </school:espCheckboxWithLabel>
+                                 </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_operator" value="after_school_operator_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${after_school_operator}">Who runs your program?</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <input id="form_${after_school_operator}" name="${after_school_operator}" class="js_otherField text input_6"
+                                             value="${responseMap[after_school_operator].value}" placeholder="[Coordinator's name]"
+                                             size="30" maxlength="100"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_time_start" value="after_school_start_${cur_program}"/>
+                                  <c:set var="after_school_time_end" value="after_school_end_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${after_school_time_start}">What time of day?</label>
+                                  </div>
+                                  <div class="grid_3">
+                                      <input id="form_${after_school_time_start}" name="${after_school_time_start}" class="text input_3"
+                                             value="${responseMap[after_school_time_start].value}" placeholder="[Select start time]"
+                                             readonly="readonly"/>
+                                  </div>
+                                  <div class="grid_3 omega">
+                                      <input id="form_${after_school_time_end}" name="${after_school_time_end}" class="text input_3"
+                                             value="${responseMap[after_school_time_end].value}" placeholder="[Select end time]"
+                                             readonly="readonly"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_day" value="after_school_day_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <p class="labelGroup">What day(s) of the week is it offered?</p>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Monday" label="Monday"/>
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Tuesday" label="Tuesday"/>
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Wednesday" label="Wednesday"/>
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Thursday" label="Thursday"/>
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Friday" label="Friday"/>
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Saturday" label="Saturday"/>
+                                      <school:espCheckboxWithLabel key="${after_school_day}" value="Sunday" label="Sunday"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_attendance_restriction" value="after_school_attendance_restriction_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">Is enrollment limited to students who attend the school?</p>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espRadioWithLabel key="${after_school_attendance_restriction}" value="yes" label="Yes"/>
+                                      <school:espRadioWithLabel key="${after_school_attendance_restriction}" value="no" label="No"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_grade" value="after_school_grade_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">What grades are eligible to participate?</p>
+                                  </div>
+                                  <div class="grid_4">
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="K" label="K"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="1" label="First Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="2" label="Second Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="3" label="Third Grade" nobr="true"/>
+                                  </div>
+                                  <div class="grid_4">
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="4" label="Fourth Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="5" label="Fifth Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="6" label="Sixth Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="7" label="Seventh Grade" nobr="true"/>
+                                  </div>
+                                  <div class="grid_4">
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="8" label="Eighth Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="9" label="Ninth Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="10" label="Tenth Grade"/>
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="11" label="Eleventh Grade" nobr="true"/>
+                                  </div>
+                                  <div class="grid_4 omega">
+                                      <school:espCheckboxWithLabel key="${after_school_grade}" value="12" label="Twelfth Grade" nobr="true"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_fee" value="after_school_fee_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">Is there a fee for your program?</p>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espRadioWithLabel key="${after_school_fee}" value="yes" label="Yes"/>
+                                      <school:espRadioWithLabel key="${after_school_fee}" value="no" label="No"/>
+                                  </div>
+                              </div>
+
+                              <div id="form_${after_school_fee}" class="form_after_school_fee">
+                                  <div class="lal clearfix">
+                                      <c:set var="after_school_financial_aid" value="after_school_financial_aid_${cur_program}"/>
+                                      <div class="grid_5 alpha">
+                                          <p class="labelGroup">Is financial aid available?</p>
+                                      </div>
+                                      <div class="grid_18 omega">
+                                          <school:espRadioWithLabel key="${after_school_financial_aid}" value="yes" label="Yes"/>
+                                          <school:espRadioWithLabel key="${after_school_financial_aid}" value="no" label="No"/>
+                                      </div>
+                                  </div>
+
+                                  <div class="lal clearfix">
+                                      <c:set var="after_school_fee_learn_more" value="after_school_fee_learn_more_${cur_program}"/>
+                                      <div class="alpha grid_5">
+                                          <p class="labelGroup">How can parents find out more about fees?</p>
+                                      </div>
+                                      <div class="grid_18 omega">
+                                          <school:espCheckboxWithLabel key="${after_school_fee_learn_more}" value="call" label="Call"/>
+                                          <school:espCheckboxWithLabel key="${after_school_fee_learn_more}" value="website" label="Visit website"/>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_website" value="after_school_website_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${after_school_website}">Contact: website</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <input id="form_${after_school_website}" name="${after_school_website}" class="js_otherField text input_6"
+                                             value="${responseMap[after_school_website].value}" placeholder="[Website url]"
+                                             maxlength="100"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="after_school_phone" value="after_school_phone_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${after_school_phone}">Contact: phone</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <input id="form_${after_school_phone}" name="${after_school_phone}" class="js_otherField text input_6"
+                                             value="${responseMap[after_school_phone].value}" placeholder="[xxx-xxx-xxxx]"
+                                             maxlength="14"/>
+                                  </div>
+                              </div>
+                              <div class="clearfix pbm">
+                                  <div class="fr">
+                                    <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this after school program form</gsml:a>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </c:forEach>
+                      <c:if test="${last_program lt 5}">
+                          <gsml:a href="" id="js_add_after_school" styleClass="small">Add an after school program</gsml:a>
+                      </c:if>
+                      <br />
+                      <span class="small">Be sure to add photos of your program on page 6.</span>
+                  </div>
+              </fieldset>
+
+              <!-- After summer program fields -->
+              <fieldset>
+              <br />
+              <h3 class="bottom ptl">Summer programs</h3>
+                  <hr class="legend"><!--Do not collapse--></hr>
+
+                  <div class="lal clearfix">
+                      <div class="grid_5 alpha">
+                          <p class="labelGroup">Are there summer programs at your school?</p>
+                      </div>
+                      <div class="grid_18 omega">
+                          <school:espRadioWithLabel key="summer_program" value="yes" label="Yes"/>
+                          <school:espRadioWithLabel key="summer_program" value="no" label="No"/>
+                      </div>
+                  </div>
+
+                  <div id="form_summer_program">
+                      <c:set var='last_summer_program' value="${summer_program_}"/>
+                      <c:forEach var="cur_program" begin="1" end="5" >
+                          <div style="${cur_program gt last_summer_program? 'display:none' : ''}" class="js_summer_program">
+
+                          <legend class="ptm"><strong>Summer program ${cur_program}</strong></legend>
+                          <hr class="legend"><!--Do not collapse--></hr>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_name" value="summer_program_name_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_name}">What is your program called?</label>
+                                  </div>
+                                  <div class="grid_4 suffix_1">
+                                      <gsml:input styleId="js_form_${summer_program_name}" styleClass="text form_${summer_program_name} input_6" type="text"
+                                                  name="${summer_program_name}" size="30"
+                                                  value="${responseMap[summer_program_name].value}" disabled="${stateLocked}" maxlength="100"/>
+                                  </div>
+                                  <div class="grid_4 omega">
+                                      <div id="js_form_${summer_program_name}_error"  class="error" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify.</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_description" value="summer_program_description_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_description}">Please describe your program. (Please use complete sentences.)</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <textarea id="form_${summer_program_description}" name="${summer_program_description}" class="js_otherField text input_6" type="text"
+                                                size="120" maxlength="500" cols="80" rows="4">${responseMap[summer_program_description].value}</textarea>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_activities" value="summer_program_activities_${cur_program}"/>
+                                  <c:set var="summer_program_activities_other" value="summer_program_activities_other_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <p class="labelGroup">What types of activities are offered?</p>
+                                      <div id="js_form_${summer_program_activities}_error"  class="error fltlt" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify.</div>
+                                          </div>
+                                      </div>
+                                      <div id="js_form_${summer_program_activities}_other_error"  class="error fltlt" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify the other kind of transportation provided.</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="arts" label="Arts (visual, literary, dance, theater, and/or music)"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="academic" label="Academic (standards-based programs)"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="athletic" label="Athletic"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="life_skills" label="Life skills"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="language" label="Language"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="science_nature" label="Science &amp; nature"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="special_needs" label="Special needs"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="technology" label="Technology"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_activities}" value="other" label="Other (please specify)"
+                                                                   nobr="true" styleClass="js_otherField_form_${summer_program_activities}_other">
+                                          <input id="form_${summer_program_activities_other}" type="text" name="${summer_program_activities_other}"
+                                                 class="mls js_otherField text-smaller input_4"
+                                                 value="${responseMap[summer_program_activities_other].value}"
+                                                 placeholder="[Please indicate]" maxlength="30"/>
+                                      </school:espCheckboxWithLabel>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_operator" value="summer_program_operator_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_operator}">Who runs your program?</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <input id="form_${summer_program_operator}" name="${summer_program_operator}" class="js_otherField text input_6"
+                                             value="${responseMap[summer_program_operator].value}" placeholder="[Coordinator's name]"
+                                             size="30" maxlength="100"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_date_start" value="summer_program_date_start_${cur_program}"/>
+                                  <c:set var="summer_program_date_end" value="summer_program_date_end_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_date_start}">When does your program take place?</label>
+                                  </div>
+                                  <div class="grid_3">
+                                      <input id="form_${summer_program_date_start}" name="${summer_program_date_start}" class="text input_3"
+                                             value="${responseMap[summer_program_date_start].value}" placeholder="[Select start date]"
+                                             readonly="readonly" maxlength="10"/>
+                                  </div>
+                                  <div class="grid_3 omega">
+                                      <input id="form_${summer_program_date_end}" name="${summer_program_date_end}" class="text input_3"
+                                             value="${responseMap[summer_program_date_end].value}" placeholder="[Select end date]"
+                                             readonly="readonly" maxlength="10"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_time_start" value="summer_program_start_${cur_program}"/>
+                                  <c:set var="summer_program_time_end" value="summer_program_end_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_time_start}">What time of day?</label>
+                                  </div>
+                                  <div class="grid_3">
+                                      <input id="form_${summer_program_time_start}" name="${summer_program_time_start}" class="text input_3"
+                                             value="${responseMap[summer_program_time_start].value}" placeholder="[Select start time]"
+                                             readonly="readonly"/>
+                                  </div>
+                                  <div class="grid_3 omega">
+                                      <input id="form_${summer_program_time_end}" name="${summer_program_time_end}" class="text input_3"
+                                             value="${responseMap[summer_program_time_end].value}" placeholder="[Select end time]"
+                                             readonly="readonly"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_day" value="summer_program_day_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <p class="labelGroup">What day(s) of the week is it offered?</p>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Monday" label="Monday"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Tuesday" label="Tuesday"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Wednesday" label="Wednesday"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Thursday" label="Thursday"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Friday" label="Friday"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Saturday" label="Saturday"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_day}" value="Sunday" label="Sunday"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_attendance_restriction" value="summer_program_attendance_restriction_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">Is enrollment limited to students who attend the school?</p>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espRadioWithLabel key="${summer_program_attendance_restriction}" value="yes" label="Yes"/>
+                                      <school:espRadioWithLabel key="${summer_program_attendance_restriction}" value="no" label="No"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_grade" value="summer_program_grade_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">What grades are eligible to participate?</p>
+                                  </div>
+                                  <div class="grid_4">
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="K" label="K"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="1" label="First Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="2" label="Second Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="3" label="Third Grade" nobr="true"/>
+                                  </div>
+                                  <div class="grid_4">
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="4" label="Fourth Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="5" label="Fifth Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="6" label="Sixth Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="7" label="Seventh Grade" nobr="true"/>
+                                  </div>
+                                  <div class="grid_4">
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="8" label="Eighth Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="9" label="Ninth Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="10" label="Tenth Grade"/>
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="11" label="Eleventh Grade" nobr="true"/>
+                                  </div>
+                                  <div class="grid_4 omega">
+                                      <school:espCheckboxWithLabel key="${summer_program_grade}" value="12" label="Twelfth Grade" nobr="true"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_fee" value="summer_program_fee_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">Is there a fee for your program?</p>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <school:espRadioWithLabel key="${summer_program_fee}" value="yes" label="Yes"/>
+                                      <school:espRadioWithLabel key="${summer_program_fee}" value="no" label="No"/>
+                                  </div>
+                              </div>
+
+                              <div id="form_${summer_program_fee}" class="form_summer_program_fee">
+                                  <div class="lal clearfix">
+                                      <c:set var="summer_program_financial_aid" value="summer_program_financial_aid_${cur_program}"/>
+                                      <div class="grid_5 alpha">
+                                          <p class="labelGroup">Is financial aid available?</p>
+                                      </div>
+                                      <div class="grid_18 omega">
+                                          <school:espRadioWithLabel key="${summer_program_financial_aid}" value="yes" label="Yes"/>
+                                          <school:espRadioWithLabel key="${summer_program_financial_aid}" value="no" label="No"/>
+                                      </div>
+                                  </div>
+
+                                  <div class="lal clearfix">
+                                      <c:set var="summer_program_fee_learn_more" value="summer_program_fee_learn_more_${cur_program}"/>
+                                      <div class="alpha grid_5">
+                                          <p class="labelGroup">How can parents find out more about fees?</p>
+                                      </div>
+                                      <div class="grid_18 omega">
+                                          <school:espCheckboxWithLabel key="${summer_program_fee_learn_more}" value="call" label="Call"/>
+                                          <school:espCheckboxWithLabel key="${summer_program_fee_learn_more}" value="website" label="Visit website"/>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_website" value="summer_program_website_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_website}">Contact: website</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <input id="form_${summer_program_website}" name="${summer_program_website}" class="js_otherField text input_6"
+                                             value="${responseMap[summer_program_website].value}" placeholder="[Website url]"
+                                             maxlength="100"/>
+                                  </div>
+                              </div>
+
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_phone" value="summer_program_phone_${cur_program}"/>
+                                  <div class="alpha grid_5">
+                                      <label for="form_${summer_program_phone}">Contact: phone</label>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <input id="form_${summer_program_phone}" name="${summer_program_phone}" class="js_otherField text input_6"
+                                             value="${responseMap[summer_program_phone].value}" placeholder="[xxx-xxx-xxxx]"
+                                             maxlength="14"/>
+                                  </div>
+                              </div>
+                              <div class="clearfix pbm">
+                                  <div class="fr">
+                                      <gsml:a href="" id='js_clear_${cur_program}' styleClass="js_clear small">Clear this summer school program form</gsml:a><br /><br />
+                                  </div>
+                              </div>
+                          </div>
+                      </c:forEach>
+                      <c:if test="${last_summer_program lt 5}">
+                          <gsml:a href="" id="js_add_summer_program" styleClass="small">Add a summer program</gsml:a>
+                      </c:if>
+                  <br />
+                      <span class="small">Be sure to add photos of your program on page 6.</span>
+                  </div>
+              </fieldset>
+          </c:if>
         </fieldset>
+
     <div class="js_pageErrors error" style="display: none">
         <div class="media">
             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
             <div class="bd">Please correct the errors above to continue.</div>
         </div>
     </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('#form_after_school_start_1').ptTimeSelect();
+            jQuery('#form_after_school_end_1').ptTimeSelect();
+            jQuery('#form_after_school_start_2').ptTimeSelect();
+            jQuery('#form_after_school_end_2').ptTimeSelect();
+            jQuery('#form_after_school_start_3').ptTimeSelect();
+            jQuery('#form_after_school_end_3').ptTimeSelect();
+            jQuery('#form_after_school_start_4').ptTimeSelect();
+            jQuery('#form_after_school_end_4').ptTimeSelect();
+            jQuery('#form_after_school_start_5').ptTimeSelect();
+            jQuery('#form_after_school_end_5').ptTimeSelect();
+            jQuery('#form_summer_program_start_1').ptTimeSelect();
+            jQuery('#form_summer_program_end_1').ptTimeSelect();
+            jQuery('#form_summer_program_start_2').ptTimeSelect();
+            jQuery('#form_summer_program_end_2').ptTimeSelect();
+            jQuery('#form_summer_program_start_3').ptTimeSelect();
+            jQuery('#form_summer_program_end_3').ptTimeSelect();
+            jQuery('#form_summer_program_start_4').ptTimeSelect();
+            jQuery('#form_summer_program_end_4').ptTimeSelect();
+            jQuery('#form_summer_program_start_5').ptTimeSelect();
+            jQuery('#form_summer_program_end_5').ptTimeSelect();
+            jQuery('#form_summer_program_date_start_1').datepicker();
+            jQuery('#form_summer_program_date_end_1').datepicker();
+            jQuery('#form_summer_program_date_start_2').datepicker();
+            jQuery('#form_summer_program_date_end_2').datepicker();
+            jQuery('#form_summer_program_date_start_3').datepicker();
+            jQuery('#form_summer_program_date_end_3').datepicker();
+            jQuery('#form_summer_program_date_start_4').datepicker();
+            jQuery('#form_summer_program_date_end_4').datepicker();
+            jQuery('#form_summer_program_date_start_5').datepicker();
+            jQuery('#form_summer_program_date_end_5').datepicker();
+        });
+    </script>
     </school:espFormTemplate>
 </jsp:root>

@@ -23,47 +23,18 @@
 
     <c:set var="communityClassSearch" value=""/>
 
-    <div id="header" class="container_24 slStylesV1-0">
+    <div id="header" class="container_24 slStylesV1-0 pbm">
         <jsp:scriptlet>
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
         </jsp:scriptlet>
         <c:if test="${!requestScope.context.crawler}">
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-                    <c:choose>
-                        <!-- Not logged in case -->
-                        <c:when test="${empty requestScope.context.memberId}">
-                            <mod:nonCommunityAccountHeader/>
-                        </c:when>
-                        <c:otherwise>
-                            <jsp:scriptlet>
-                                request.setAttribute("communityAuth",
-                                        Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                            </jsp:scriptlet>
-                            <c:choose>
-                                <!-- full community login case -->
-                                <c:when test="${communityAuth eq true}">
-                                    <!-- communityClassSearch is used to modify the margin above the search box below -->
-                                    <c:set var="communityClassSearch" value="communityHeader"/>
-                                    <mod:communityAccountHeader communityHost="${communityHost}"
-                                                                inCommunity="${inCommunity}"/>
-                                </c:when>
-                                <!-- msl only login case -->
-                                <c:otherwise>
-                                    <mod:nonCommunityAccountHeader/>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
 
             <!--<c:set var="pw" value="${requestScope.context.pathway}"/>-->
 
             <div class="line">
                 <div class="unit size40of100">
-                    <div id="logoBox">
+                    <div id="logoBox" class="ptl pbs">
                         <gsml:a href="/">
                             <gsml:img id="logo" src="/res/img/logo/logo_GS_276x50_logo.png"
                                       alt="GreatSchools: Involved Parents. Successful Kids"/>
@@ -97,9 +68,37 @@
                 <!-- text in following script also hard-coded into global.js -->
 
                 <div class="unit size60of100 lastUnit">
-                    <div id="topnav_search" class="topnav_search_container">
+                    <div class="pbs">
+                        <c:choose>
+                            <!-- Not logged in case -->
+                            <c:when test="${empty requestScope.context.memberId}">
+                                <mod:nonCommunityAccountHeader/>
+                            </c:when>
+                            <c:otherwise>
+                                <jsp:scriptlet>
+                                    request.setAttribute("communityAuth",
+                                            Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                                </jsp:scriptlet>
+                                <c:choose>
+                                    <!-- full community login case -->
+                                    <c:when test="${communityAuth eq true}">
+                                        <!-- communityClassSearch is used to modify the margin above the search box below -->
+                                        <c:set var="communityClassSearch" value="communityHeader"/>
+                                        <mod:communityAccountHeader communityHost="${communityHost}"
+                                                                    inCommunity="${inCommunity}"/>
+                                    </c:when>
+                                    <!-- msl only login case -->
+                                    <c:otherwise>
+                                        <mod:nonCommunityAccountHeader/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
 
-                        <gsweb:form method="get" id="topnav_search_school" action="/search/search.page" styleClass="${showSearchSchoolForm}">
+                    <div id="topnav_search" class="topnav_search_container">
+                        <gsweb:form method="get" id="topnav_search_school" action="/search/search.page"
+                                    styleClass="${showSearchSchoolForm}">
                             <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                                 <input type="hidden" name="st" value="charter"/>
                             </c:if>
@@ -124,9 +123,9 @@
                                     </div>
                                     <div class="unit size74of100"
                                          style="background-color:#FFFFFF; margin-top: 2px; height: 28px;">
-                                        <input type="text" name="q" id="qNew" value="Search for school, district, or city"
-                                               onfocus="${searchBoxOnClick}" style="width:240px;" class="pls qNew small bottom"/>
-                                        <span class="quiet bottom"> | </span>
+                                        <input type="text" name="q" id="qNew" placeholder="Search for school, district, or city"
+                                               onfocus="${searchBoxOnClick}" style="width:235px;" class="pls qNew small bottom"/>
+                                        <span class="make-cccccc bottom"> | </span>
                                         <span class="showStateHeader make-06b"><!-- Do not collapse--></span>
 
                                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"

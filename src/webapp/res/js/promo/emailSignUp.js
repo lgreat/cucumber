@@ -23,38 +23,40 @@ GS.form.EmailSignUp = function() {
     };
 
     this.submit = function(submitButton) {
-        var wrapper = submitButton.closest('.jq-emailSignUpWrapper');
+        var wrapper = submitButton;//submitButton.closest('.js-connectForm');
 
         if (this.validate(wrapper)) {
-            submitButton.hide();
+//            submitButton.hide();
             var params = {
                 email: wrapper.find('.jq-emailSignUpEmail').val()
             };
 
+            var urlToUse =  window.location.protocol + "//" + window.location.hostname + "/promo/emailSignUpAjax.page";
             jQuery.ajax({
-                url:'/promo/emailSignUpAjax.page',
+                url:urlToUse,
                 type:"POST",
                 data:params,
                 success:function(data) {
+
                     if (data.status.indexOf('OK') > -1) {
-                        wrapper.find('.js-connectForm').hide();
-                        wrapper.find('.jq-emailSignUpIntroText').hide();
-                        wrapper.find('.jq-emailSignUpForm').hide();
+                        jQuery('.js-connectForm').hide();
+                        jQuery('.jq-emailSignUpIntroText').hide();
+                        jQuery('.jq-emailSignUpForm').hide();
                         if (data.status == 'OK-emailSent') {
-                            wrapper.find('.jq-emailSignUpEmailSentThankYou').show();
+                            jQuery('.jq-emailSignUpEmailSentThankYou').show();
                         } else {
                             if (data.omnitureTracking != undefined) {
                                 omnitureEventNotifier.clear();
                                 omnitureEventNotifier.successEvents = data.omnitureTracking.successEvents;
                                 omnitureEventNotifier.send();
                             }
-                            wrapper.find('.jq-emailSignUpNoEmailSentThankYou').show();
+                            jQuery('.jq-emailSignUpNoEmailSentThankYou').show();
                         }
                     } else {
                         if (data.errors.indexOf('emailInvalid') > -1) {
-                            wrapper.find('.jq-emailSignUpError-emailInvalid').show();
+                            jQuery('.jq-emailSignUpError-emailInvalid').show();
                         } else if (data.errors.indexOf('emailAlreadySignedUp') > -1) {
-                            wrapper.find('.jq-emailSignUpError-emailAlreadySignedUp').show();
+                            jQuery('.jq-emailSignUpError-emailAlreadySignedUp').show();
                         }
                         submitButton.show();
                     }
@@ -64,7 +66,7 @@ GS.form.EmailSignUp = function() {
         }
 
         return false;
-    }.email_sign_up_bind(this);
+    };
 };
 
 
@@ -72,6 +74,7 @@ jQuery(function() {
 
     GS.form.emailSignUp = GS.form.emailSignUp || new GS.form.EmailSignUp();
     jQuery('.jq-emailSignUpForm').on('submit', function() {
+//        alert("HERE");
 //    jQuery('.jq-emailSignUpForm').unbind('submit').submit(function() {
         return GS.form.emailSignUp.submit(jQuery(this));
     });

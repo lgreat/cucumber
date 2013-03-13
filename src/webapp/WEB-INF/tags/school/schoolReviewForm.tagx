@@ -97,9 +97,9 @@
             <textarea id="js-reviewText"
                       class="text1-ededed text3"
                       name="comments"
-                      onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
-                      onblur="if(this.value==''){this.value='[Enter your review here]';}"
-                      rows="" cols="">[Enter your review here]</textarea>
+                      onfocus="if(this.value=='[My school is ...]'){this.value='';}"
+                      onblur="if(this.value==''){this.value='[My school is ...]';}"
+                      rows="" cols="">[My school is ...]</textarea>
         </div>
     </div>
     <div class="js-popup">
@@ -108,19 +108,18 @@
             <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
             <span class="arrow-outline-right"><!-- do not collapse --></span>
             <span class="arrow-right"><!-- do not collapse --></span>
-            <ul class="unordered-list2 text3"><span class="text3bold">Don't forget</span>
+            <ul class="unordered-list2 text3"><span class="text3bold">Helpful reviews answer questions:</span>
+                <li class="list-item"><span class="text3">What do you think others should know?</span></li>
+                <li class="list-item"><span class="text3">What do you like?</span></li>
+                <li class="list-item"><span class="text3">How could your school improve?</span></li>
+            </ul>
+            <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
+            <div class="spacer_7"><!-- do not collapse --></div>
+            <ul class="unordered-list2 text3"><span class="text3bold">Review Guidelines</span>
                 <br/>GreatSchools won’t post reviews that contain:
                 <li class="list-item"><span class="text3">Inappropriate language</span></li>
                 <li class="list-item"><span class="text3">Allegations of criminal conduct</span></li>
                 <li class="list-item"><span class="text3">Names of students, teachers, or staff</span></li>
-            </ul>
-
-            <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
-            <div class="spacer_7"><!-- do not collapse --></div>
-            <ul class="unordered-list2 text3"><span class="text3bold">A great school has:</span>
-                <li class="list-item"><span class="text3">Excellent teachers</span></li>
-                <li class="list-item"><span class="text3">Strong principal/school leadership</span></li>
-                <li class="list-item"><span class="text3">Challenging academic programs</span></li>
             </ul>
         </div>
     </div>
@@ -152,7 +151,7 @@
                            value="${validUser.email}" disabled="disabled"/>
                 </c:otherwise>
             </c:choose>
-
+            <div class="slStylesV1-0" style="margin-left: 58px;"><span class="smaller bottom">Don’t worry, your email address will remain private.</span></div>
             <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
         </div>
         <div class="spacer_8"><!-- do not collapse --></div>

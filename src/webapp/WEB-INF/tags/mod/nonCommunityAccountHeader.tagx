@@ -36,7 +36,7 @@
             <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
                 <c:set var="myUrl" value=""/>
             </c:if>
-            <li><link:schoolEspRegister styleClass="no_interrupt">School Officials</link:schoolEspRegister></li>
+            <li><link:schoolEspRegister styleClass="no_interrupt" school="${school}">School Officials</link:schoolEspRegister></li>
             <!--<li><link:aboutUs>About GreatSchools</link:aboutUs></li>-->
             <li><link:registration
                     onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"

@@ -52,7 +52,7 @@
             </c:if>
             <!-- Substitute content of the Principal CTA -->
             <!-- Randall - see the mock: School Culture, alt tiles -->
-            <link:schoolEspRegister styleClass="tdn make-555555 no_interrupt">
+            <link:schoolEspRegister styleClass="tdn make-555555 no_interrupt" school="${school}">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner">

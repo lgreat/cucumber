@@ -1,5 +1,4 @@
 package gs.web.school;
-
 import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
@@ -8,7 +7,9 @@ import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
+import gs.web.school.EspFormController;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
@@ -16,8 +17,13 @@ import java.util.*;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 
+/**
+ * User: rraker
+ * Date: 3/7/13
+ */
 public class EspFormControllerTest extends BaseControllerTestCase {
-    private EspFormController _controller;
+
+    EspFormController _espFormController;
 
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     private EspFormValidationHelper _espFormValidationHelper;
@@ -30,7 +36,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        _controller = new EspFormController();
+        _espFormController = new EspFormController();
 
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
         _espFormValidationHelper = new EspFormValidationHelper();
@@ -40,11 +46,11 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         _censusDataSetDao = createMock(ICensusDataSetDao.class);
         _censusInfo = createMock(ICensusInfo.class);
 
-        _controller.setEspFormExternalDataHelper(_espFormExternalDataHelper);
-        _controller.setEspFormValidationHelper(_espFormValidationHelper);
-        _controller.setNoEditDao(_noEditDao);
+        _espFormController.setEspFormExternalDataHelper(_espFormExternalDataHelper);
+        _espFormController.setEspFormValidationHelper(_espFormValidationHelper);
+        _espFormController.setNoEditDao(_noEditDao);
         _espFormValidationHelper.setEspMembershipDao(_espMembershipDao);
-        _controller.setEspResponseDao(_espResponseDao);
+        _espFormController.setEspResponseDao(_espResponseDao);
     }
 
     private void replayAllMocks() {
@@ -54,6 +60,189 @@ public class EspFormControllerTest extends BaseControllerTestCase {
     private void verifyAllMocks() {
         verifyMocks(_noEditDao, _espMembershipDao, _espResponseDao,_censusInfo);
     }
+
+
+    public void testAfterSchoolIndicatorDistrict1() {
+        ModelMap modelMap = new ModelMap();
+        School school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Chabot");
+        school.setCity("xxxx");
+        school.setStateAbbreviation(State.CA);
+        school.setDistrictId(14);
+        school.setNewProfileSchool(2);
+
+//        List<EspResponse> l = new ArrayList<EspResponse>();
+//        l.add(createEspResponse("academic_award_1", "Award 1"));
+//        Map<String, List<EspResponse>> espData = convertToEspData(l);
+//        modelMap.put()
+        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+
+        String result = (String)modelMap.get("after_school_qualified");
+        assertNotNull(result);
+        assertEquals("yes", result);
+    }
+
+    public void testAfterSchoolIndicatorDistrict2() {
+        ModelMap modelMap = new ModelMap();
+        School school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Chabot");
+        school.setCity("xxx");
+        school.setStateAbbreviation(State.CA);
+        school.setDistrictId(99);
+        school.setNewProfileSchool(2);
+
+//        List<EspResponse> l = new ArrayList<EspResponse>();
+//        l.add(createEspResponse("academic_award_1", "Award 1"));
+//        Map<String, List<EspResponse>> espData = convertToEspData(l);
+//        modelMap.put()
+        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+
+        String result = (String)modelMap.get("after_school_qualified");
+        assertNull(result);
+    }
+
+    public void testAfterSchoolIndicatorCity1() {
+        ModelMap modelMap = new ModelMap();
+        School school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Chabot");
+        school.setCity("xxx");
+        school.setStateAbbreviation(State.CA);
+        school.setDistrictId(999);
+        school.setNewProfileSchool(2);
+
+        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+
+        String result = (String)modelMap.get("after_school_qualified");
+        assertNull(result);
+    }
+
+    public void testAfterSchoolIndicatorCity2() {
+        ModelMap modelMap = new ModelMap();
+        School school = new School();
+        school.setId(1000000);
+        school.setDatabaseState(State.CA);
+        school.setName("Chabot");
+        school.setCity("Oakland");
+        school.setStateAbbreviation(State.CA);
+        school.setDistrictId(999);
+        school.setNewProfileSchool(2);
+
+        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+
+        String result = (String)modelMap.get("after_school_qualified");
+        assertNotNull(result);
+        assertEquals("yes", result);
+    }
+
+    public void testRepeatingFormIndicator1() {
+        ModelMap modelMap = new ModelMap();
+
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+        EspFormResponseStruct r1 = new EspFormResponseStruct();
+        r1.addValue("x");
+        responseMap.put("after_school_name_1", r1);
+        modelMap.put("responseMap", responseMap);
+
+        String prefix = "after_school_";
+
+        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+
+        Integer result = (Integer)modelMap.get(prefix);
+        assertNotNull(result);
+        assertEquals("ResponseMap includes only set 1", new Integer(1), result);
+    }
+
+    public void testRepeatingFormIndicator2() {
+        ModelMap modelMap = new ModelMap();
+
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+        EspFormResponseStruct r1 = new EspFormResponseStruct();
+        modelMap.put("responseMap", responseMap);
+
+        String prefix = "after_school_";
+
+        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+
+        Integer result = (Integer)modelMap.get(prefix);
+        assertNotNull(result);
+        assertEquals("If there are no entries for this prefix should get 1 back", new Integer(1), result);
+    }
+
+    public void testRepeatingFormIndicator3() {
+        ModelMap modelMap = new ModelMap();
+
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+        EspFormResponseStruct r1 = new EspFormResponseStruct();
+        r1.addValue("x");
+        responseMap.put("after_school_name_4", r1);
+        modelMap.put("responseMap", responseMap);
+
+        String prefix = "after_school_";
+
+        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+
+        Integer result = (Integer)modelMap.get(prefix);
+        assertNotNull(result);
+        assertEquals("ResponseMap includes only set 4", new Integer(4), result);
+    }
+
+    public void testRepeatingFormIndicator4() {
+        ModelMap modelMap = new ModelMap();
+
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+        EspFormResponseStruct r1 = new EspFormResponseStruct();
+        r1.addValue("x");
+        responseMap.put("after_school_name_6", r1);
+        modelMap.put("responseMap", responseMap);
+
+        String prefix = "after_school_";
+
+        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+
+        Integer result = (Integer)modelMap.get(prefix);
+        assertNotNull(result);
+        assertEquals("Max datasets is 5, expect the default of 1 to be returned", new Integer(1), result);
+    }
+
+    // ========================== Utility methods ===============================
+    private EspResponse createEspResponse( String key, String value ) {
+        EspResponse response = new EspResponse();
+        response.setActive( true );
+        response.setKey( key );
+        response.setValue( value );
+        response.setPrettyValue( createPrettyValue(value) );
+        return response;
+    }
+
+    private Map<String,List<EspResponse>> convertToEspData(List<EspResponse> l) {
+        return EspResponse.rollup(l);
+    }
+
+    // Create a pretty value by capitalizing thr first character and removing underscores
+    private String createPrettyValue( String value ) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( Character.toUpperCase( value.charAt(0) ) );
+        for( int i = 1; i < value.length(); i++ ) {
+            char c = value.charAt(i);
+            if( c == '_' ) {
+                sb.append( ' ' );
+            }
+            else {
+                sb.append( c );
+            }
+        }
+
+        return sb.toString();
+    }
+
+
 
     public void testSaveEspFormDataBasicUserApproved() {
         User user = new User();
@@ -72,7 +261,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
 
         replayAllMocks();
-        _controller.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap, responseList, false);
+        _espFormController.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap, responseList, false);
         verifyAllMocks();
 
         assertEquals(true, errorFieldToMsgMap.isEmpty());
@@ -92,14 +281,14 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
-        String key = _controller.getPageKeys(pageNum);
+        String key = _espFormController.getPageKeys(pageNum);
         keysToDelete.add(key);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        _controller.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum,
+        _espFormController.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum,
                 errorFieldToMsgMap, responseList, true);
         verifyAllMocks();
 
@@ -132,7 +321,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         keysForPage.add("average_class_size");
 
         replayAllMocks();
-        _controller.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum,
+        _espFormController.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum,
                 errorFieldToMsgMap, responseList, false);
         verifyAllMocks();
 
@@ -160,7 +349,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
 
         replayAllMocks();
-        _controller.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap,
+        _espFormController.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap,
                 responseList, false);
         verifyAllMocks();
 
@@ -187,7 +376,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
 
         replayAllMocks();
-        _controller.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap,
+        _espFormController.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap,
                 responseList, true);
         verifyAllMocks();
 
@@ -205,7 +394,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
 
         replayAllMocks();
-        _controller.saveESPResponses(school, keysForPage, responseList, false, user, pageNum, new Date());
+        _espFormController.saveESPResponses(school, keysForPage, responseList, false, user, pageNum, new Date());
         verifyAllMocks();
     }
 
@@ -218,7 +407,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         keysForPage.add("instructional_model");
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
-        String key = _controller.getPageKeys(pageNum);
+        String key = _espFormController.getPageKeys(pageNum);
         keysToDelete.add(key);
         keysToDelete.add(key);
 
@@ -230,7 +419,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
         _espResponseDao.saveResponses(school, responseList);
         replayAllMocks();
-        _controller.saveESPResponses(school, keysForPage, responseList, true, user, pageNum, new Date());
+        _espFormController.saveESPResponses(school, keysForPage, responseList, true, user, pageNum, new Date());
         verifyAllMocks();
     }
 
@@ -287,7 +476,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 
         SchoolCensusValue censusValue = new SchoolCensusValue();
         censusValue.setValueText("abcd@somedomain.com");
-        expect(_censusInfo.getManual(school,CensusDataType.HEAD_OFFICIAL_EMAIL)).andReturn(censusValue);
+        expect(_censusInfo.getManual(school, CensusDataType.HEAD_OFFICIAL_EMAIL)).andReturn(censusValue);
 
         expect(_censusInfo.getEnrollmentAsInteger(school)).andReturn(12);
 
@@ -296,7 +485,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_censusInfo.getManual(school,CensusDataType.HEAD_OFFICIAL_NAME)).andReturn(censusValue1);
 
         replayAllMocks();
-        _controller.putProvisionalResponsesInModel(user, school, modelMap);
+        _espFormController.putProvisionalResponsesInModel(user, school, modelMap);
         verifyAllMocks();
 
         Map<String, EspFormResponseStruct> responseMap = (HashMap<String, EspFormResponseStruct>)modelMap.get("responseMap");
@@ -385,7 +574,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_espResponseDao.getResponses(school)).andReturn(responses);
 
         replayAllMocks();
-        _controller.putProvisionalResponsesInModel(user, school, modelMap);
+        _espFormController.putProvisionalResponsesInModel(user, school, modelMap);
         verifyAllMocks();
 
         Map<String, EspFormResponseStruct> responseMap = (HashMap<String, EspFormResponseStruct>)modelMap.get("responseMap");
@@ -445,3 +634,4 @@ public class EspFormControllerTest extends BaseControllerTestCase {
     }
 
 }
+

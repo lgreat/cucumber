@@ -140,7 +140,7 @@
 <div id="fb-root"><!-- do not collapse --></div>
 <!-- Breadcrumbs -->
 <div class="grid_24 clearfix">
-    <ul class="none smaller bottom mbs">
+    <ul class="none smaller bottom mvs">
         <li class="di"><link:home>Home</link:home> &amp;gt; </li>
         <c:choose>
             <c:when test="${state eq 'DC'}">

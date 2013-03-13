@@ -4661,6 +4661,13 @@
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
         </attribute>
+        <attribute>
+            <name>school</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>Pre-selects state, city and school if reached from a school profile.</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolPrincipalReview</name>

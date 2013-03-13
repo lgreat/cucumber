@@ -85,7 +85,7 @@
                                   basePath="${basePath}"/>
         </c:when>
         <c:otherwise>
-            <link:schoolEspRegister styleClass="no_interrupt tdn">
+            <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
             <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                 <div class="outer">
                     <div class="inner bg-addPhotos ie-moduleHeight-162">

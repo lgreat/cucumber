@@ -14,7 +14,7 @@
     http request just to fetch them.
     -->
     <c:if test="${requestScope.context.cobranded and !requestScope.pageHelper.adFree}">
-        <div id="headerCobrand">
+        <div id="headerCobrand" class="container_24">
             <!-- Backup the onload function because some cobrands overwrite it -->
             <script type="text/javascript" language="javascript">
                 oldonload = window.onload;
