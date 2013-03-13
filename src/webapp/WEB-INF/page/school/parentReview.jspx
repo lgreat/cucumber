@@ -29,7 +29,14 @@
     <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>-->
     <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
     <gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>
+
     <!--<pageHelper:externalJavascript file="/res/js/landing/reviewAnimation.js"/>-->
+    <![CDATA[
+    <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
+    <script>
+        console.log("Your state is: "+geoip_region());
+    </script>
+    ]]>
 </head>
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
