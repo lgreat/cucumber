@@ -34,7 +34,13 @@
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
     <script>
-        console.log("Your state is: "+geoip_region());
+        var cookieState = "${requestScope.context.state}";
+        console.log("Your state is cookie:"+cookieState+":");
+        if(cookieState != ""){
+            console.log("Your state is maxmind: "+geoip_region());
+            var maxMindIpAddressState = geoip_region();
+            //// set state dropdown to this value.
+        }
     </script>
     ]]>
 </head>
