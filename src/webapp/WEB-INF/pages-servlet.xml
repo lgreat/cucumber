@@ -31,6 +31,8 @@
     <context:component-scan base-package="gs.web.content" />
     <context:component-scan base-package="gs.web.request" />
     <context:component-scan base-package="gs.web.feed" />
+    <context:component-scan base-package="gs.web.realEstateAgent" />
+    <context:component-scan base-package="gs.web.mediaUploader" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.

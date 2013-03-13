@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0">
+
+<div id="registrationHover" class="dn">
+    <div class="mod modal_1 width_16 registrationHover" id="registrationHover">
+        <div class="outer">
+            <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
+            <div class="inner">
+                <div class="hoverTitle hd">
+                    part 1
+                </div>
+            </div>
+
+            <div class="bd tal jq-personalInfoForm">
+                <div class="introTxt col">
+                    <p class="small_bold title">Personal info</p>
+                    <p class="small subtitle">personal info</p>
+                </div>
+
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
+                        <div class="line lal">
+                            <div class="unit fl">
+                                <gsml:input type="text" styleId="jq-fName" styleClass="text input_7" name="firstName" placeholder="First name"/>
+                            </div>
+                            <div class="unit lastUnit fr">
+                                <gsml:input type="text" styleId="jq-lName" styleClass="text input_7" name="lastName" placeholder="Last name"/>
+                            </div>
+                        </div>
+
+                        <div class="line lal">
+                            <gsml:input type="text" styleId="jq-email" styleClass="text input_15" name="email" placeholder="Email"/>
+                            <div class="spacer_60"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line lal">
+                            <gsml:input type="text" styleId="jq-cemail" styleClass="text input_15" name="confirmEmail" placeholder="Confirm email"/>
+                        </div>
+
+                        <div class="line lal">
+                            <div class="unit fl">
+                                <gsml:input type="password" styleId="jq-password" styleClass="text input_7" name="password"
+                                            placeholder="Password"/>
+                            </div>
+
+                            <div class="unit lastUnit fr">
+                                <gsml:input type="password" styleId="jq-cpassword" styleClass="text input_7" name="confirmPassword"
+                                            placeholder="Confirm password"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="line joinSubmit lal">
+                    <div class="">
+                        <a href="javascript:void(0)">
+                            <button class="button-1 jq-personalInfoSubmit" name="personalInfoSubmit">
+                                Next step
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bd tal jq-businessInfoForm dn">
+                <div class="introTxt col">
+                    <p class="small_bold title">Business info</p>
+                    <p class="small subtitle">business info</p>
+                </div>
+
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
+                        <div class="line lal">
+                            <gsml:input type="text" styleId="jq-companyName" styleClass="text input_15" name="companyName" placeholder="Company name"/>
+                            <div class="spacer_60"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line lal">
+                            <div class="unit fl">
+                                <gsml:input type="text" styleId="jq-workNumber" styleClass="text input_7" name="workNumber" placeholder="Work#"/>
+                            </div>
+                            <div class="unit lastUnit fr">
+                                <gsml:input type="text" styleId="jq-cellNumber" styleClass="text input_7" name="cellNumber" placeholder="Cell#"/>
+                            </div>
+                        </div>
+
+                        <div class="line lal">
+                            <gsml:input type="text" styleId="jq-address" styleClass="text input_15" name="address" placeholder="Address"/>
+                        </div>
+
+                        <div class="line lal">
+                            <div class="unit fl">
+                                <gsml:input type="text" styleId="jq-city" styleClass="text input_4" name="city"
+                                            placeholder="City"/>
+                            </div>
+
+                            <div class="unit">
+
+                                <gsweb:stateSelector useNoState="true" noStateLabel="State"
+                                                     usingLongNames="false"
+                                                     styleClass="stateSelect"
+                                                     styleId="jq-state" name="state"/>
+                            </div>
+
+                            <div class="unit lastUnit fr">
+                                <gsml:input type="text" styleId="jq-zip" styleClass="text input_4" name="zip"
+                                            placeholder="Zip"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="line joinSubmit lal">
+                    <div class="">
+                        <a href="javascript:void(0)">
+                            <button class="button-1 jq-businessInfoSubmit" name="businessInfoSubmit">
+                                Next step
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bd tal jq-imageUploaderForm dn">
+                <div class="introTxt col">
+                    <p class="small_bold title">Upload Image</p>
+                    <p class="small subtitle">upload image</p>
+                </div>
+
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
+
+                        <div class="line lal">
+                            <div class="unit fl">
+                                <div class="jq-photoContainer">
+                                    <button class="button-1 jq-photoButtons jq-photoUploadButton" name="photoUpload" type="button"
+                                            style="-moz-user-select: none;">
+                                        Upload photo
+                                    </button>
+                                    <button class="button-1-inactive jq-photoButtons jq-photoUploadFakeButton" id="jq-photoUploadFakeButton" type="button" disabled="true"
+                                            style="-moz-user-select: none; display:none;">Upload photo
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="unit lastUnit fr">
+                                <div class="jq-logoContainer">
+                                    <button class="button-1 jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button"
+                                            style="-moz-user-select: none;">
+                                        Upload logo
+                                    </button>
+                                    <button class="button-1-inactive jq-logoButtons jq-logoUploadFakeButton" id="jq-logoUploadFakeButton" type="button" disabled="true"
+                                            style="-moz-user-select: none; display:none;">Upload logo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="line joinSubmit lal">
+                    <div class="">
+                        <a href="javascript:void(0)">
+                            <button class="button-1 jq-finishSubmit" name="finishSubmit">
+                                Complete
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</jsp:root>
