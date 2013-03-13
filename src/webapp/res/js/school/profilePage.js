@@ -389,7 +389,11 @@ jQuery(document).ready(function() {
             //Show the data for the grade selected.
             $('#' + catSelected + '_content').show();
 
-            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            // this click event handler is getting triggered even on inital load, when
+            // the tab isn't visible. In this case we can't perform an ad refresh
+            if (ratingsSubgroupsMenu.is(':visible')) {
+                GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            }
         });
 
         ratingsSubgroupLabels.hover(
@@ -451,6 +455,8 @@ jQuery(document).ready(function() {
                 $('#js_testScoresValues').removeClass('grid_15').addClass('grid_11');
             }
 
+            // this click event handler is getting triggered even on inital load, when
+            // the tab isn't visible. In this case we can't perform an ad refresh
             if (testsMenu.is(':visible')) {
                 GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
             }
@@ -470,6 +476,8 @@ jQuery(document).ready(function() {
             //Show the data for the grade selected.
             $('#' + gradeSelected + '_subjects').show();
 
+            // this click event handler is getting triggered even on inital load, when
+            // the tab isn't visible. In this case we can't perform an ad refresh
             if (gradeLabel.is(':visible')) {
                 GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
             }
