@@ -113,7 +113,7 @@ General comments:
     border-top: 0;
     /* Background */
     background: #FFFFFF;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
 #gs-secondary .dropdown_1,
