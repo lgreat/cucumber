@@ -175,6 +175,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 else if(state.equals(State.DC)){
                     label = "DC-CAS - All Grades";
                 }
+                else if(state.equals(State.FL)){
+                    label = "EOC - All Grades";
+                }
                 else if(state.equals(State.GA)){
                     label = "EOCT - All Grades";
                 }
@@ -201,6 +204,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
                 else if(state.equals(State.OK)){
                     label = "OCCT - All Grades";
+                }
+                else if(state.equals(State.SC)){
+                    label = "EOCEP - All Grades";
                 }
                 else if(state.equals(State.SD)){
                     label = "Dakota STEP";
