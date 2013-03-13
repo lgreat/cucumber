@@ -777,3 +777,30 @@ span.i-48-gallery-next-default:hover{
 .i-96-video-add {
     background-position: -672px 0;
 }
+
+/* = 3 DcCharterBadges
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconxDcCharterBadges {
+    display: inline-block;
+    background-image: url(/res/img/sprites/130307_tile_DCrating.png);
+    width: 59px;
+    height: 104px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-DcCharterBadges-1 {
+    background-position: 0 0;
+}
+
+.i-DcCharterBadges-2 {
+    background-position: -59px 0;
+}
+
+.i-DcCharterBadges-3 {
+    background-position: -118px 0;
+}
