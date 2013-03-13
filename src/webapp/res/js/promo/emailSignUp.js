@@ -31,8 +31,10 @@ GS.form.EmailSignUp = function() {
                 email: wrapper.find('.jq-emailSignUpEmail').val()
             };
 
+            var urlToUse =  window.location.protocol + "//" + window.location.hostname + "/promo/emailSignUpAjax.page";
+
             jQuery.ajax({
-                url:'/promo/emailSignUpAjax.page',
+                url:urlToUse,
                 type:"POST",
                 data:params,
                 success:function(data) {
