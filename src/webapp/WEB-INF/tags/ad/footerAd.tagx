@@ -5,7 +5,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <c:if test="${requestScope.pageHelper.showingFooterAd}">
-        <div class="pvl">
+        <div class="ptl">
             <ad:Footer_728x90/>
         </div>
     </c:if>
