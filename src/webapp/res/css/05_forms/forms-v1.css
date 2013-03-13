@@ -192,3 +192,21 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
     background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;
     display: none;
 }
+
+/**********************************************************************************************************************
+
+    reviews landing page form elements
+
+************************************************************************************************************************/
+
+textarea.lined_paper{
+    border:none;
+    background-color: transparent;
+    width:580px;
+    height:210px;
+    line-height:30px;
+    padding:0 20px 10px 20px;
+    margin-top: 5px;;
+    overflow: auto;
+    resize:none
+}

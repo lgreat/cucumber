@@ -1043,3 +1043,55 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 .moduleHeight-125{ height:125px; }
 .moduleHeight-79{ height:79px; }
 .moduleHeight-69{height:69px;}
+
+
+/***************************************************************************************************************
+
+    Reviews Landing Page - this is to allow a bg image at 100% width with scaling
+
+*******************************************************************************************************************/
+.imageBgScale {
+    width:100%; position:relative; overflow:hidden;
+}
+
+.imageBgScale .img-container{
+    position:absolute;
+    top:0px;
+    left:-50%;
+    width:200%;
+}
+
+.imageBgScale .img-container img.scaling {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    margin:auto;
+    min-width:50%;
+}
+.imageBgScale .content-centered{
+    position:absolute;
+    width: 100%;
+    text-align: center;
+    margin:auto;
+}
+
+.imageBgScale .headerBar{
+    position:absolute;
+    background-color: #FFB725;
+    text-align: center;
+    /*left:-50%;*/
+    width:100%;
+}
+.paper_bg{
+    background-image:url(/res/img/form/paper_bg.png);
+    background-repeat:repeat-y;
+    width:620px;
+    height:281px;
+}
+
+.moduleHeight-560{height:560px;}
+.moduleTop-150{top:150px;}
+.moduleTop-250{top:250px;}
+.moduleTop-200{top:200px;}
+.moduleHeaderPreAnimationTop--200{top:-200px;}

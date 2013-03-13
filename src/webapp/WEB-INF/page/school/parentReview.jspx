@@ -17,22 +17,67 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <head>
     <title>Write a school review | GreatSchools</title>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
           content="Write a review for your child's school today and you can help other parents make a more informed choice about which school is right for their family."/>
     <c:if test="${morganStanley}">
         <meta name="robots" content="follow,noindex"/>
     </c:if>
-    <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>
-
+    <!--<pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
+    <gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/landing/reviewAnimation.js"/>-->
 </head>
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
-<div id="oneColumn">
+<div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage">
+    <div class="img-container">
+        <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt="" />
+
+    </div>
+    <div class="content-centered moduleTop-150">
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
+        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
+        <div id="js_testClickAnimation" class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto"><!-- do not collapse --></div>
+    </div>
+</div>
+
+<div class="imageBgScale js-pageTwoReviewLandingPage dn">
+    <div style="height: 180px;">
+    <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
+        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #b2811d;">Write a review of your school to help students find a better place to learn</p>
+    </div>
+    </div>
+        <div class="container_24 clearfix">
+            <form>
+                <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
+                <div class="fl clearfix">
+                    <div class="paper_bg">
+                        <div style="padding: 10px 0px 10px 20px" class="clearfix">
+                            <div class="fl"><h4 class="bottom">Rate this school</h4></div>
+                            <div id="starRatingContainerReview" class="fl pan man mlm">
+                                <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                            </div>
+                            <div class="fr pan man mrm"><span class="small bottom make-787878">1200 characters left</span></div>
+                        </div>
+                        <div><textarea class="lined_paper medium" placeholder="Great schools have excellent teachers"><!-- do not collapse --></textarea></div>
+                    </div>
+                </div>
+                <div class="fr"><input type="text" placeholder="Please enter your email" style="width: 300px"/></div>
+
+            </form>
+        </div>
+
+</div>
+
+
+<div id="oneColumn" class="dn">
 
 <c:if test="${morganStanley}">
     <div id="morganStanleyHeader">
@@ -419,6 +464,7 @@
 </div>
 </div>
 </div>
+
 <mod:tracking pageName="Rating Review Marketing Landing Page"
               hier1="School,Parent Reviews, Rating Review Marketing Landing Page "
         />
