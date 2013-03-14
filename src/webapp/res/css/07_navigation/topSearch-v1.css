@@ -206,7 +206,7 @@ General comments:
     background-image: -ms-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* IE10 */
     background-image: -o-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Opera 11.10+ */
     background-image: linear-gradient(bottom, #DDDDDD, #F8F8F8); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#DDDDDD', EndColorStr = '#F8F8F8'); /* IE6�IE9 */
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#DDDDDD', EndColorStr = '#F8F8F8'); *//* IE6�IE9 */
     color: #2B2B2B;
     /*padding: 3px;*/
     height:18px;

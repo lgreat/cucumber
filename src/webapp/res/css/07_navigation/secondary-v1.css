@@ -66,6 +66,10 @@ General comments:
     padding: 0 10px;
 }
 
+#gs-secondary .menuItem .menuItemAnchorText:hover{
+    color:#2B2B2B;
+}
+
 #gs-secondary .menuItem .last {
     padding: 0 4px;
 }
