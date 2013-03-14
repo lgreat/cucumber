@@ -63,7 +63,7 @@ GS.form.EspForm = function() {
             }
         }
 
-        var preSelectedCity = decodeURIComponent(GS.uri.Uri.getFromQueryString('city')).replace("+", " ");
+        var preSelectedCity = decodeURIComponent(GS.uri.Uri.getFromQueryString('city')).replace(/\+/g, " ");
         if(citySelect.find('option[value="' + preSelectedCity + '"]').length == 1) {
             citySelect.val(preSelectedCity);
             GS.form.espForm.cityChange();
