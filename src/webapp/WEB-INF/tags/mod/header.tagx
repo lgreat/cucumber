@@ -123,7 +123,7 @@
                                     </div>
                                     <div class="unit size74of100"
                                          style="background-color:#FFFFFF; margin-top: 2px; height: 28px;">
-                                        <input type="text" name="q" id="qNew" placeholder="Search for school, district, or city"
+                                        <input type="text" name="q" id="qNew" value="Search for school, district, or city"
                                                onfocus="${searchBoxOnClick}" style="width:235px;" class="pls qNew small bottom"/>
                                         <span class="make-cccccc bottom"> | </span>
                                         <span class="showStateHeader make-06b"><!-- Do not collapse--></span>
