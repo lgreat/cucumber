@@ -12,7 +12,9 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
+import gs.data.util.Address;
 import gs.data.util.DigestUtil;
+import gs.web.school.EspHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 
@@ -32,7 +34,7 @@ import org.springframework.ui.ModelMap;
  * @author jkirton
  */
 public abstract class AbstractEspModerationController implements ReadWriteAnnotationController {
-    
+
     /**
      * Dedicated data struct for each moderation row.
      */
@@ -44,7 +46,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         private boolean _hasOtherActiveEspMemberships;
         private boolean _schoolHasActiveMemberships;
         private boolean _userHasProvisionalAccess;
-        
+
         public ModerationRow(EspMembership _membership) {
             super();
             this._membership = _membership;
@@ -90,7 +92,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             if(_contactEmail == null || _membership.getUser() == null) return false;
             return _contactEmail.equals(_membership.getUser().getEmail());
         }
-        
+
         public String getAbsoluteWebUrl() {
             String webUrl = _membership.getWebUrl();
             if (StringUtils.isNotEmpty(webUrl) && !StringUtils.startsWithIgnoreCase(webUrl, "http://")) {
@@ -115,9 +117,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             _userHasProvisionalAccess = userHasProvisionalAccess;
         }
     }
-    
+
     protected final Log _log = LogFactory.getLog(getClass());
-    
+
     @Autowired
     protected IEspMembershipDao _espMembershipDao;
 
@@ -129,12 +131,15 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
     @Autowired
     protected IRoleDao _roleDao;
-    
+
     @Autowired
     protected IEspResponseDao _espResponseDao;
 
     protected ExactTargetAPI _exactTargetAPI;
-    
+
+    @Autowired
+    private EspHelper _espHelper;
+
     protected abstract String getViewName();
 
     /**
@@ -146,11 +151,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void updateEspMembership(EspModerationCommand command, HttpServletRequest request, HttpServletResponse response) {
         //The user has to check the check boxes in order to approve or reject.Hence we iterate over the checked check boxes for those "approve" or "reject" actions.
         //The user does not have to check the check boxes for the update action.Hence we loop over all the notes for the "update" action.
-        
+
         String moderatorAction = command.getModeratorAction();
         if(moderatorAction == null) return;
-        
-        if (("approve".equals(moderatorAction) || "reject".equals(moderatorAction) || moderatorAction.contains("deactivate")) 
+
+        if (("approve".equals(moderatorAction) || "reject".equals(moderatorAction) || moderatorAction.contains("deactivate"))
                 && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
 
             //The checkbox has a key of membership id.
@@ -177,7 +182,18 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                 membership.setActive(true);
                                 addEspRole(user);
                                 sendESPVerificationEmail(request, user, membership.getSchool());
-                                updateMembership = true;
+
+                            } else if(membership.getStatus() == EspMembershipStatus.PROVISIONAL
+                                    && !membership.getActive()){
+                                if (promoteProvisionalDataToActiveData(user, membership.getSchool())) {
+                                    membership.setStatus(EspMembershipStatus.APPROVED);
+                                    membership.setActive(true);
+                                    addEspRole(user);
+                                    updateMembership = true;
+                                    //TODO  sendESPVerificationEmail?
+                                } else {
+                                    //TODO what?
+                                }
                             } else if (!membership.getActive()) {
                                 membership.setStatus(EspMembershipStatus.APPROVED);
                                 membership.setActive(true);
@@ -207,7 +223,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                             membership.setNote(command.getNotes().get(membership.getId()));
                             updateMembership = true;
                         }
-                        
+
                         if(updateMembership) {
                             membership.setUpdated(new Date());
                             getEspMembershipDao().updateEspMembership(membership);
@@ -236,6 +252,73 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     }
 
     /**
+     * The provisional data provided by the provisional user needs to be promoted to active data.This method handles it.
+     *
+     * @param user
+     * @param school
+     * @return
+     */
+    protected boolean promoteProvisionalDataToActiveData(User user, School school) {
+        //TODO comments
+        //TODO unit tests
+        //TODO do error checking again?
+        //TODO what if state is locked?
+        //TODO omniture
+        boolean rval = false;
+
+        Set<String> keysToDeactivate = new HashSet<String>(); //Nothing to deactivate. All the provisional data should already be inactive.
+        Map<String, Object[]> requestParameterMapArrObject = new HashMap<String, Object[]>();
+        Map<String, List<Object>> requestParameterMap = new HashMap<String, List<Object>>();
+        Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+
+        //Get all the provisional responses.
+        List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+
+        //Construct the list of key to responses Map.
+        for (EspResponse espResponse : espResponses) {
+            String key = espResponse.getKey();
+            if (!key.startsWith("_page_") && !espResponse.isActive()) {
+                List<Object> ojbs = new ArrayList<Object>();
+                if (requestParameterMap.get(key) != null) {
+                    ojbs = requestParameterMap.get(key);
+                }
+                ojbs.add(espResponse.getValue());
+                requestParameterMap.put(key, ojbs);
+            }
+        }
+
+        //Perform conversions as required, since the handler methods perform type casting.
+        //grade_levels:- convert the type(list of Object) to an array of Strings.
+        //address :- convert the type Object into Address.
+        //All other keys ":- convert the type (list of Object) to an array of Objects.
+        for (String key : requestParameterMap.keySet()) {
+            if (key.equals("grade_levels")) {
+                String[] grades = requestParameterMap.get(key).toArray(new String[requestParameterMap.get(key).size()]);
+                requestParameterMapArrObject.put(key, grades);
+            } else if (key.equals("address")) {
+                String addressStr = requestParameterMap.get(key).get(0).toString();
+                Address address = Address.parseAddress(addressStr);
+                if (address != null) {
+                    Object[] objects = new Object[1];
+                    objects[0] = address;
+                    requestParameterMapArrObject.put(key, objects);
+                }
+            } else {
+                requestParameterMapArrObject.put(key, requestParameterMap.get(key).toArray());
+            }
+        }
+
+        _espHelper.saveEspFormData(user, school, keysToDeactivate, requestParameterMapArrObject, school.getDatabaseState(), -1,
+                errorFieldToMsgMap, responseList, false);
+        if (errorFieldToMsgMap.isEmpty()) {
+            rval = true;
+        }
+
+        return rval;
+    }
+
+    /**
      * Hook to remove elements before they are displayed. 
      * @param memberships list to display
      * @param modelMap map of model data
@@ -247,11 +330,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void populateModelWithMemberships(List<EspMembership> memberships, ModelMap modelMap) {
         // filter rows
         filterMembershipRows(memberships, modelMap);
-        
+
         List<ModerationRow> mrows = new ArrayList<ModerationRow>();
         //List<EspMembership> approvedMemberships = new ArrayList<EspMembership>();
         List<EspMembership> rejectedMemberships = new ArrayList<EspMembership>();
-        
+
         // first create rejected sublist
         for (EspMembership membership : memberships) {
             if(membership.getStatus() == EspMembershipStatus.REJECTED) {
@@ -272,7 +355,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
             ModerationRow mrow = new ModerationRow(membership);
             mrows.add(mrow);
-        
+
             // contact name and email
             HashSet<String> espResponseKeys = new HashSet<String>();
             espResponseKeys.add("old_contact_name");
@@ -289,7 +372,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             if (otherActiveMemberships != null && !otherActiveMemberships.isEmpty()) {
                 mrow.setHasOtherActiveEspMemberships(true);
             }
-            
+
             List<EspMembership> activeMembershipsForTheSchool = getEspMembershipDao().findEspMembershipsBySchool(membership.getSchool(), true);
             if(activeMembershipsForTheSchool != null && activeMembershipsForTheSchool.size() > 0) {
                 mrow.setSchoolHasActiveMemberships(true);
@@ -435,11 +518,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     public void setRoleDao(IRoleDao roleDao) {
         _roleDao = roleDao;
     }
-    
+
     public IEspResponseDao getEspResponseDao() {
         return _espResponseDao;
     }
-    
+
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         this._espResponseDao = espResponseDao;
     }
