@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.media.*;
 import gs.data.media.IMediaUploadDao;
+import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.web.photoUploader.SchoolPhotoProcessor;
 import gs.web.realEstateAgent.RealEstateAgentRegistrationController;
@@ -29,7 +30,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -105,10 +108,9 @@ public class MediaUploadController implements ReadWriteAnnotationController {
 
     public void upload (HttpServletRequest request, HttpServletResponse response, User user, String uploadType) {
         Map<String,String> formFields = new HashMap<String,String>();
-        MediaUpload mediaUpload = null;
-        MediaFile mediaFile = null;
+        MediaUpload mediaUpload;
+        List<MediaFile> mediaFiles = new ArrayList<MediaFile>();
 
-        boolean mediaUploadRecordInserted = false;
         boolean mediaFileRecordInserted = false;
         boolean photoPassedOnSuccessfully = false;
 
@@ -132,23 +134,22 @@ public class MediaUploadController implements ReadWriteAnnotationController {
                     if(!fileItemStream.isFormField()) {
                         if (ArrayUtils.contains(VALID_IMAGE_TYPES, fileItemStream.getContentType())) {
 
-                            if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType) && fileItemStream != null
-                                    && (formFields.containsKey("isPhoto") || formFields.containsKey("isLogo"))) {
-                                Dimension dimension = null;
+                            if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType) && fileItemStream != null && formFields.containsKey("mediaType")) {
+                                Dimension dimension;
+                                boolean isPhoto = false;
+                                boolean isLogo = false;
 
                                 try {
-                                    if(formFields.containsKey("isPhoto") && Boolean.valueOf(formFields.get("isPhoto"))) {
-                                    dimension = Dimension.DIM_144_144;
+                                    if("photo".equals(formFields.get("mediaType"))) {
+                                        dimension = Dimension.DIM_144_144;
+                                        isPhoto = true;
                                     }
-                                }
-                                catch (Exception e) {
-                                    _log.debug("Problem converting request param:", e);
-                                    return;
-                                }
-
-                                try {
-                                    if(formFields.containsKey("isLogo") && Boolean.valueOf(formFields.get("isLogo"))) {
+                                    else if("logo".equals(formFields.get("mediaType"))) {
                                         dimension = Dimension.DIM_108_108;
+                                        isLogo = true;
+                                    }
+                                    else {
+                                        throw new Exception();
                                     }
                                 }
                                 catch (Exception e) {
@@ -158,10 +159,19 @@ public class MediaUploadController implements ReadWriteAnnotationController {
 
                                 mediaUpload = insertMediaUploadRecord(fileItemStream.getName());
 
-                                mediaFile = insertMediaFileRecord(mediaUpload, dimension);
+                                MediaFile mediaFileForPreview = insertMediaFileRecord(mediaUpload, Dimension.DIM_100_100);
+                                mediaFiles.add(mediaFileForPreview);
+
+                                MediaFile mediaFileForPdf = insertMediaFileRecord(mediaUpload, dimension);
+                                mediaFiles.add(mediaFileForPdf);
+
                                 mediaFileRecordInserted = true;
 
                                 photoPassedOnSuccessfully = processPhoto(fileItemStream, user, mediaUpload.getId(), UPLOAD_TYPE_MEDIA);
+
+                                if(photoPassedOnSuccessfully) {
+                                    updateAgentAccount(user.getId(), isPhoto, isLogo, mediaUpload);
+                                }
                             }
                         }
                         else if(PDF_TYPE.equals(fileItemStream.getContentType())) {
@@ -187,8 +197,10 @@ public class MediaUploadController implements ReadWriteAnnotationController {
                 error(response, "-1", "Unknown error while uploading file.");
                 return;
             } finally {
-                if (mediaFileRecordInserted && !photoPassedOnSuccessfully && mediaFile != null) {
-                    mediaFile.setStatus(MediaFileDaoHibernate.Status.ERROR.value);
+                if (mediaFileRecordInserted && !photoPassedOnSuccessfully && !mediaFiles.isEmpty()) {
+                    for(MediaFile mediaFile : mediaFiles) {
+                        mediaFile.setStatus(MediaFileDaoHibernate.Status.ERROR.value);
+                    }
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
             }
@@ -261,10 +273,23 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     }
 
     private boolean processPhoto (FileItemStream fileItemStream, User user, int uploadId, String uploadType) throws IOException{
+        boolean photoPassedOnSuccessfully;
         PhotoProcessor processor = new PhotoProcessor(fileItemStream);
         processor.handleScaledPhoto(user, uploadId, uploadType);
+        photoPassedOnSuccessfully = true;
         processor.finish();
-        return true;
+        return photoPassedOnSuccessfully;
+    }
+
+    private void updateAgentAccount(int userId, boolean isPhoto, boolean isLogo, MediaUpload mediaUpload) {
+        AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
+        if(isPhoto) {
+            agentAccount.setPhotoMediaUpload(mediaUpload);
+        }
+        else if(isLogo) {
+            agentAccount.setLogoMediaUpload(mediaUpload);
+        }
+        getAgentAccountDao().updateAgentAccount(agentAccount);
     }
 
     public IMediaUploadDao getMediaUploadDao() {

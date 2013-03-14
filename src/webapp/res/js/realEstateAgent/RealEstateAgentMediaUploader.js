@@ -26,7 +26,7 @@ GS.RealEstateAgentCreatePhotoUploader = function() {
 
     this.browseButton = $('.registrationHover:visible .jq-photoUploadButton')[0];
     this.uploadContainer = $('.registrationHover:visible .photoContainer')[0];
-    this.params = {'isPhoto' : true};
+    this.params = {'mediaType' : 'photo'};
 
     this.createPhotoUploader();
 };
@@ -63,7 +63,7 @@ GS.RealEstateAgentCreateLogoUploader = function() {
     this.browseButton = $('.registrationHover:visible .jq-logoUploadButton')[0];
     this.uploadContainer = $('.registrationHover:visible .logoContainer')[0];
 
-    this.params = {'isLogo' : true};
+    this.params = {'mediaType' : 'logo'};
 
     this.createLogoUploader();
 };
