@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0">
+
+    <div class="jq-imageUploaderForm dn">
+
+        <div class="inner">
+            <div class="hoverTitle hd">
+                part 3
+            </div>
+        </div>
+
+        <div class="bd tal">
+            <div class="introTxt col">
+                <p class="small_bold title">Upload Image</p>
+                <p class="small subtitle">upload image</p>
+            </div>
+
+            <div class="line">
+                <div class="unit size1of1 lastUnit">
+
+                    <div class="line lal">
+                        <div class="unit fl">
+                            <div class="jq-photoContainer">
+                                <button class="button-1 jq-photoButtons jq-photoUploadButton" name="photoUpload" type="button"
+                                        style="-moz-user-select: none;">
+                                    Upload photo
+                                </button>
+                                <button class="button-1-inactive jq-photoButtons jq-photoUploadFakeButton" id="jq-photoUploadFakeButton" type="button" disabled="true"
+                                        style="-moz-user-select: none; display:none;">Upload photo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="unit lastUnit fr">
+                            <div class="jq-logoContainer">
+                                <button class="button-1 jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button"
+                                        style="-moz-user-select: none;">
+                                    Upload logo
+                                </button>
+                                <button class="button-1-inactive jq-logoButtons jq-logoUploadFakeButton" id="jq-logoUploadFakeButton" type="button" disabled="true"
+                                        style="-moz-user-select: none; display:none;">Upload logo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="line joinSubmit lal">
+                <div class="">
+                    <a href="javascript:void(0)">
+                        <button class="button-1 jq-finishSubmit" name="finishSubmit">
+                            Complete
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

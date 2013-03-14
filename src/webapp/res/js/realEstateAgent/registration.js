@@ -25,7 +25,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 data : data,
                 success : function (response) {
                     form.addClass('dn');
-                    $('.registrationHover:visible .jq-businessInfoForm').removeClass('dn');
+                    $('.js-registrationHover:visible .jq-businessInfoForm').removeClass('dn');
                 },
                 error : function (e) {
 //                    alert('error: ' + e);
@@ -33,7 +33,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
             });
         });
 
-        jQuery('.registrationHover:visible').on('click', '.jq-businessInfoSubmit:visible', function(){
+        jQuery('.js-registrationHover:visible').on('click', '.jq-businessInfoSubmit:visible', function(){
             var form = $('.jq-businessInfoForm:visible');
             var data = {};
             form.find('input').each(function() {
@@ -47,12 +47,12 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 data : data,
                 success : function (response) {
                     form.addClass('dn');
-                    $('.registrationHover:visible .jq-imageUploaderForm').removeClass('dn');
+                    $('.js-registrationHover:visible .jq-imageUploaderForm').removeClass('dn');
 
                     GS.realEstateAgentPhotoUploader = new GS.RealEstateAgentCreatePhotoUploader();
-                GS.realEstateAgentLogoUploader = new GS.RealEstateAgentCreateLogoUploader();
+                    GS.realEstateAgentLogoUploader = new GS.RealEstateAgentCreateLogoUploader();
                     GS.realEstateAgentPhotoUploader.init();
-                GS.realEstateAgentLogoUploader.init();
+                    GS.realEstateAgentLogoUploader.init();
                 },
                 error : function (e) {
 //                    alert('error: ' + e);
@@ -62,7 +62,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
     };
 };
 
-GSType.hover.RealEstateAgentRegistrationHover.prototype = new GSType.hover.HoverDialog('registrationHover', 640)
+GSType.hover.RealEstateAgentRegistrationHover.prototype = new GSType.hover.HoverDialog('js-registrationHover', 640)
 
 GSType.hover.realEstateAgentRegistrationHover = new GSType.hover.RealEstateAgentRegistrationHover();
 
