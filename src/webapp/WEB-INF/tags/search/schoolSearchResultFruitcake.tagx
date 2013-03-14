@@ -40,7 +40,7 @@
     </c:choose>
 
     <div class="mod standard_1-1">
-        <div class="line inner box-shadow-animation-1" id="school-search-result-${school.databaseState}${school.id}">
+        <div class="js-school-search-result line inner box-shadow-animation-1" id="school-search-result-${school.databaseState}${school.id}">
             <!-- School Name -->
             <div class="bd pam">
                 <div class="unit ${nameSearchWidth}"
@@ -126,6 +126,19 @@
                         </c:if>
                     </div>
                 </div>
+                <div class="alpha grid_16 omega">
+                    <div class="line">
+                    <div class="dn js-facepile"><!-- do not collapse --></div>
+                    <div class="dn js-school-data" data-gs-facebook-url="${school.facebookUrl}" data-gs-school-autotext="${school.autotext}" data-gs-school-name="${school.name}" data-gs-city="${school.address.city}" data-gs-state="${school.address.state.abbreviationLowerCase}">
+                        <!-- do not collapse -->
+                    </div>
+                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                                 databaseState="${school.databaseState}"
+                                                                 name="${school.name}"
+                                                                 styleClass="noInterstitial no_interrupt js-ask-a-friend"
+                                                                 physicalAddress="${school.address}"
+                                                                 levelCode="${school.levelCode}">Ask a friend for help</link:schoolProfileOverviewForPrimitives>
+                </div></div>
             </div>
             <div class="ft phm pvs">
                 <div class="alpha grid_11 suffix_5 omega">

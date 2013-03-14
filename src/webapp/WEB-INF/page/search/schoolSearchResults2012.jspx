@@ -18,7 +18,7 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
           xmlns:pagination="pagination"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare">
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -52,28 +52,30 @@
         </c:if>
     </c:if>
 
+
     <ad:enableGptAsynchronousMode/>
-    <!--<pageHelper:externalJavascript file="/res/js/json2.js"/>-->
+
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
-    <!--<pageHelper:externalJavascript file="/res/js/uri/uri.js"/>-->
+    <gsml:combinedJavascript src="/res/js/combined.search.min.js">
+        <!-- files to includes on dev workstations... must also exist in gsweb's pom.xml -->
+        <gsml:javascript src="/res/js/json2.js"/>
+        <gsml:javascript src="/res/js/search/schoolSearchForm.js"/>
+        <gsml:javascript src="/res/js/util/htmlMirrors.js"/>
+        <gsml:javascript src="/res/js/search/filters.js"/>
+        <gsml:javascript src="/res/js/search/compare.js"/>
+        <gsml:javascript src="/res/js/tracking/customLinks.js"/>
+        <gsml:javascript src="/res/js/search/schoolResults.js"/>
+        <gsml:javascript src="/res/js/ui/contentDropdowns.js"/>
+        <gsml:javascript src="/res/js/search/schoolSearchResultsTable2012.js"/>
+        <gsml:javascript src="/res/js/search/schoolSearchResultsPage2012.js"/>
+        <gsml:javascript src="/res/js/map/schoolSearchMap2012.js"/>
+        <gsml:javascript src="/res/js/history.min.js"/>
+        <gsml:javascript src="/res/js/compare/persistentCompare.js"/>
+        <gsml:javascript src="/res/js/facebook.js"/>
+    </gsml:combinedJavascript>
 
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>-->
-
-    <!--<pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/filters.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/compare.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>-->
-
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>-->
-    <pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>
     <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-tooltip.js"/>
     <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-popover.js"/>
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>-->
-    <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
-    <!--<pageHelper:externalJavascript file="/res/js/history.min.js"/> &lt;!&ndash; TODO: Move this to bottom of page? &ndash;&gt;-->
-    <!--<pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>-->
 
     <k12:trafficDriverIncludes/>
 
@@ -114,6 +116,14 @@
 </c:choose>
 
 <gsml:body adPageName="search" pageLayout="nocol">
+
+    <c:if test="${facebookFacepilesEnabled eq true}">
+        <pageHelper:includeFacebookInit/>
+    </c:if>
+
+    <!-- can probably be moved to a decorator, and turned on on a per jspx basis with pageHelper:includeFacebookInit -->
+    <pageHelper:addFacebookInit/>
+
     <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
         <div class="fltlft">
             <search:schoolResultsFor_text/>
@@ -154,6 +164,11 @@
         <ad:disableGptGhostTextHiding position="AboveFold_300x250"/>
         <ad:omitCompanionSizes position="AboveFold_300x250"/>
         <ad:AboveFold_300x250/>
+
+        <c:if test="${facebookFacepilesEnabled eq true}">
+            <!-- TODO: front-end code goes here -->
+            <img alt="log in with Facebook" class="js-facebook-login pas" width="300px" src="/res/img/facebookbutton"/>
+        </c:if>
 
         <compare:persistentCompare/>
 
