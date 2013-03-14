@@ -413,7 +413,7 @@
                               <div class="lal clearfix">
                                   <c:set var="after_school_description" value="after_school_description_${cur_program}"/>
                                   <div class="alpha grid_5">
-                                      <label for="form_${after_school_description}">Please describe your program. (Please use complete sentences.)</label>
+                                      <label for="form_${after_school_description}">Please describe your program. (Please use complete sentences)</label>
                                   </div>
                                   <div class="grid_18 omega">
                                       <textarea id="form_${after_school_description}" name="${after_school_description}" class="js_otherField text input_6" type="text"
@@ -623,7 +623,7 @@
 
                   <div class="lal clearfix">
                       <div class="grid_5 alpha">
-                          <p class="labelGroup">Are there summer programs at your school?</p>
+                          <p class="labelGroup">Does your school host a summer program?</p>
                       </div>
                       <div class="grid_18 omega">
                           <school:espRadioWithLabel key="summer_program" value="yes" label="Yes"/>
@@ -663,7 +663,7 @@
                               <div class="lal clearfix">
                                   <c:set var="summer_program_description" value="summer_program_description_${cur_program}"/>
                                   <div class="alpha grid_5">
-                                      <label for="form_${summer_program_description}">Please describe your program. (Please use complete sentences.)</label>
+                                      <label for="form_${summer_program_description}">Please describe your program. (Please use complete sentences)</label>
                                   </div>
                                   <div class="grid_18 omega">
                                       <textarea id="form_${summer_program_description}" name="${summer_program_description}" class="js_otherField text input_6" type="text"
