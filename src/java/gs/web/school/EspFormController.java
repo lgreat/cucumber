@@ -220,8 +220,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         //TODO Will there be keys in provisionalKeysLookUpMap but wont have responses.will those need to be in the view.?
         //TODO what happens if the keys are moved from page to page?
 
-        //Get provisional external data.
-        _espFormExternalDataHelper.fetchProvisionalExternalValues(responseMap, provisionalExternalKeysToValueMap);
+        //Transform provisional external data into a format that the view/form expects.
+        _espFormExternalDataHelper.transformProvisionalExternalValuesForDisplay(responseMap, provisionalExternalKeysToValueMap);
 
         //Remove external keys that the provisional user has modified from the master list of all external data points.
         //This will enable us to get external data only for non-provisional data points.

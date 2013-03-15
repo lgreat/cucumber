@@ -109,7 +109,6 @@ public class EspFormExternalDataHelperTest extends BaseControllerTestCase {
         err = _helper.saveExternalValue(key,values,school,user,date,isProvisionalData);
         assertEquals(null,err);
 
-        //TODO what to save in the esp_response table?
         key = "coed";
         values[0] = "all_boys";
         err = _helper.saveExternalValue(key,values,school,user,date,isProvisionalData);
@@ -181,4 +180,123 @@ public class EspFormExternalDataHelperTest extends BaseControllerTestCase {
         err = _helper.saveExternalValue(key,values,school,user,date,isProvisionalData);
         assertEquals(null,err);
     }
+
+
+    public void testInsertEspFormResponseStructForProvisionalAddress(){
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+
+        String addressStr = null;
+        _helper.insertEspFormResponseStructForProvisionalAddress(responseMap,addressStr);
+        assertEquals("Empty provisional address string, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Empty provisional address string, hence nothing should be put in the map.",
+                responseMap.get("physical_address_street"));
+
+        addressStr = "something";
+        _helper.insertEspFormResponseStructForProvisionalAddress(responseMap,addressStr);
+        assertEquals("Invalid provisional address format, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Invalid provisional address format, hence nothing should be put in the map.",
+                responseMap.get("physical_address_street"));
+
+        addressStr = "some street 1, \n" + "san francisco, "+"california  ";
+        _helper.insertEspFormResponseStructForProvisionalAddress(responseMap,addressStr);
+        assertEquals("Zip code missing, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Zip code missing, hence nothing should be put in the map.",
+                responseMap.get("physical_address_street"));
+
+        addressStr = "some street 1, \n" + "san francisco, "+"94101";
+        _helper.insertEspFormResponseStructForProvisionalAddress(responseMap,addressStr);
+        assertEquals("State missing, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("State missing, hence nothing should be put in the map.",
+                responseMap.get("physical_address_street"));
+
+        addressStr = "some street 1, \n" + "california  "+"94101";
+        _helper.insertEspFormResponseStructForProvisionalAddress(responseMap,addressStr);
+        assertEquals("City missing, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("City missing, hence nothing should be put in the map.",
+                responseMap.get("physical_address_street"));
+
+        addressStr = "some street 1, \n" + "san francisco, "+"california  "+"94101";
+        _helper.insertEspFormResponseStructForProvisionalAddress(responseMap,addressStr);
+        assertEquals("Valid provisional address format.",4,responseMap.size());
+        assertEquals("Valid provisional address format.","some street 1",
+                responseMap.get("physical_address_street").toString());
+        assertEquals("Valid provisional address format.","san francisco",
+                responseMap.get("physical_address_city").toString());
+        assertEquals("Valid provisional address format.",State.CA.getAbbreviation().toString(),
+                responseMap.get("physical_address_state").toString());
+        assertEquals("Valid provisional address format.","94101",
+                responseMap.get("physical_address_zip").toString());
+
+    }
+
+
+    public void testInsertEspFormResponseStructForProvisionalPhone(){
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+
+        String phoneStr = "";
+        _helper.insertEspFormResponseStructForProvisionalPhone(responseMap,phoneStr);
+        assertEquals("Empty provisional phone string, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Empty provisional phone string, hence nothing should be put in the map.",
+                responseMap.get("school_phone_area_code"));
+
+        phoneStr = null;
+        _helper.insertEspFormResponseStructForProvisionalPhone(responseMap,phoneStr);
+        assertEquals("Empty provisional phone string, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Empty provisional phone string, hence nothing should be put in the map.",
+                responseMap.get("school_phone_area_code"));
+
+        phoneStr = "1231231234";
+        _helper.insertEspFormResponseStructForProvisionalPhone(responseMap,phoneStr);
+        assertEquals("Invalid provisional phone format, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Invalid provisional phone format, hence nothing should be put in the map.",
+                responseMap.get("school_phone_area_code"));
+
+        phoneStr = ")1(231231234-";
+        _helper.insertEspFormResponseStructForProvisionalPhone(responseMap,phoneStr);
+        assertEquals("Invalid provisional phone format, hence nothing should be put in the map.",0,responseMap.size());
+        assertNull("Invalid provisional phone format, hence nothing should be put in the map.",
+                responseMap.get("school_phone_area_code"));
+
+        phoneStr = "(123) 123-1234";
+        _helper.insertEspFormResponseStructForProvisionalPhone(responseMap,phoneStr);
+        assertEquals("Valid provisional phone format.",3,responseMap.size());
+        assertEquals("Valid provisional phone format.","123",
+                responseMap.get("school_phone_area_code").getValue());
+        assertEquals("Valid provisional phone format.","123",
+                responseMap.get("school_phone_office_code").getValue());
+        assertEquals("Valid provisional phone format.","1234",
+                responseMap.get("school_phone_last_four").getValue());
+
+    }
+
+    public void testParsePhoneAndFaxNumber(){
+        String phoneStr = "";
+        Map<String, String> rval = _helper.parsePhoneAndFaxNumbers(phoneStr);
+        assertEquals("Empty provisional phone string, hence nothing should be put in the map.",0,rval.size());
+
+        phoneStr = null;
+        rval = _helper.parsePhoneAndFaxNumbers(phoneStr);
+        assertEquals("Null provisional phone string, hence nothing should be put in the map.",0,rval.size());
+
+        phoneStr = ")-122(31213 ";
+        rval = _helper.parsePhoneAndFaxNumbers(phoneStr);
+        assertEquals("Invalid provisional phone string, hence nothing should be put in the map.",0,rval.size());
+
+        phoneStr = ")122(31213-";
+        rval = _helper.parsePhoneAndFaxNumbers(phoneStr);
+        assertEquals("Invalid provisional phone string, hence nothing should be put in the map.",0,rval.size());
+
+        phoneStr = "(1234) 4123-12346";
+        rval = _helper.parsePhoneAndFaxNumbers(phoneStr);
+        assertEquals("Invalid provisional phone string, hence nothing should be put in the map.",0,rval.size());
+
+        phoneStr = "(123) 123-1234";
+        rval = _helper.parsePhoneAndFaxNumbers(phoneStr);
+        assertEquals("Valid provisional phone string.",3,rval.size());
+        assertEquals("Valid provisional phone string.","123",rval.get("areaCode"));
+        assertEquals("Valid provisional phone string.","123",rval.get("officeCode"));
+        assertEquals("Valid provisional phone string.","1234",rval.get("lastFour"));
+    }
+
+
 }

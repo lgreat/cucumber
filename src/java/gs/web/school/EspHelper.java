@@ -348,4 +348,22 @@ public class EspHelper {
         }
         return null;
     }
+
+    public void setNoEditDao(INoEditDao noEditDao) {
+        _noEditDao = noEditDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
+    }
+
+    public void setEspFormExternalDataHelper(EspFormExternalDataHelper espFormExternalDataHelper) {
+        _espFormExternalDataHelper = espFormExternalDataHelper;
+    }
+
+    public void setEspFormValidationHelper(EspFormValidationHelper espFormValidationHelper) {
+        _espFormValidationHelper = espFormValidationHelper;
+    }
+
+
 }
