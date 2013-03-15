@@ -12,14 +12,13 @@
 
         <div class="inner">
             <div class="hoverTitle hd">
-                part 2
+                2 Company Info
             </div>
         </div>
 
         <div class="bd tal">
             <div class="introTxt col">
-                <p class="small_bold title">Business info</p>
-                <p class="small subtitle">business info</p>
+                <p class="small_bold title">Company information</p>
             </div>
 
             <div class="line">
@@ -69,7 +68,7 @@
                 <div class="">
                     <a href="javascript:void(0)">
                         <button class="button-1 jq-businessInfoSubmit" name="businessInfoSubmit">
-                            Next step
+                            Complete
                         </button>
                     </a>
                 </div>

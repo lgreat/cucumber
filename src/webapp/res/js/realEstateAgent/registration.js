@@ -1,8 +1,5 @@
 var GS = GS || {};
 GS.realEstateAgent = GS.realEstateAgent || {};
-GS.realEstateAgent.signUp = function(){
-//    alert('submit');
-};
 
 GSType.hover.RealEstateAgentRegistrationHover = function() {
     this.loadDialog = function() {};
@@ -10,7 +7,9 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
     this.show = function() {
         GSType.hover.realEstateAgentRegistrationHover.showModal();
 
-        jQuery('.jq-personalInfoSubmit:visible').on('click', function(){
+        var hover = jQuery('.js-registrationHover:visible');
+
+        hover.on('click', '.jq-personalInfoSubmit:visible', function() {
             var form = $('.jq-personalInfoForm:visible');
             var data = {};
             form.find('input').each(function() {
@@ -25,7 +24,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 data : data,
                 success : function (response) {
                     form.addClass('dn');
-                    $('.js-registrationHover:visible .jq-businessInfoForm').removeClass('dn');
+                    hover.find('.jq-businessInfoForm').removeClass('dn');
                 },
                 error : function (e) {
 //                    alert('error: ' + e);
@@ -33,7 +32,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
             });
         });
 
-        jQuery('.js-registrationHover:visible').on('click', '.jq-businessInfoSubmit:visible', function(){
+        hover.on('click', '.jq-businessInfoSubmit:visible', function() {
             var form = $('.jq-businessInfoForm:visible');
             var data = {};
             form.find('input').each(function() {
@@ -47,7 +46,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 data : data,
                 success : function (response) {
                     form.addClass('dn');
-                    $('.js-registrationHover:visible .jq-imageUploaderForm').removeClass('dn');
+                    hover.find('.jq-imageUploaderForm').removeClass('dn');
 
                     GS.realEstateAgentPhotoUploader = new GS.RealEstateAgentCreatePhotoUploader();
                     GS.realEstateAgentLogoUploader = new GS.RealEstateAgentCreateLogoUploader();
@@ -59,6 +58,11 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 }
             });
         });
+
+        hover.on('click', '.jq-completeRegistration', function() {
+            window.location.href = window.location.protocol + '//' + window.location.host +
+                '/realEstateAgent/createReport.page';
+        })
     };
 };
 

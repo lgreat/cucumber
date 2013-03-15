@@ -28,6 +28,13 @@
                     <div class="line lal">
                         <div class="unit fl">
                             <div class="jq-photoContainer">
+                                <div style="" id="js-photoPreview">
+                                    <img id="js-photo-preview"
+                                         class="js-photo-pending"
+                                         src="http://avatarmaker.net/free-avatars/avatars/games_225/super_mario_259/super_mario_panic_avatar_100x100_25831.gif"
+                                         width="100" height="100"
+                                         alt="photo"/>
+                                </div>
                                 <button class="button-1 jq-photoButtons jq-photoUploadButton" name="photoUpload" type="button"
                                         style="-moz-user-select: none;">
                                     Upload photo
@@ -39,6 +46,13 @@
                         </div>
                         <div class="unit lastUnit fr">
                             <div class="jq-logoContainer">
+                                <div style="" id="js-logoPreview">
+                                    <img id="js-logo-preview"
+                                         class="js-logo-pending"
+                                         src="http://avatarmaker.net/free-avatars/avatars/games_225/super_mario_259/super_mario_panic_avatar_100x100_25831.gif"
+                                         width="100" height="100"
+                                         alt="photo"/>
+                                </div>
                                 <button class="button-1 jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button"
                                         style="-moz-user-select: none;">
                                     Upload logo
@@ -56,7 +70,7 @@
             <div class="line joinSubmit lal">
                 <div class="">
                     <a href="javascript:void(0)">
-                        <button class="button-1 jq-finishSubmit" name="finishSubmit">
+                        <button class="button-1 jq-completeRegistration" name="completeRegistration" >
                             Complete
                         </button>
                     </a>
