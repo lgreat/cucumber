@@ -131,6 +131,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_SEARCH = new VPage("vpage:schoolSearch");
     public static final VPage ARTICLE_SEARCH = new VPage("vpage:articleSearch");
     public static final VPage CONTENT_SEARCH = new VPage("vpage:contentSearch");
+    public static final VPage BY_LOCATION_SEARCH = new VPage("vpage:byLocationSearch");
 
     /**
      * This page lists all districts in a state
@@ -150,6 +151,11 @@ public class UrlBuilder {
      */
     public static final VPage NEWSLETTER_MANAGEMENT = new VPage("vpage:newsletterManagement");
     public static final VPage NEWSLETTER_UNSUBSCRIBE = new VPage("vpage:newsletterUnsubscribe");
+
+    /**
+     * QR Code
+     */
+    public static final VPage QR_CODE_GENERATOR = new VPage("vpage:qrCodeGen");
 
     /**
      * New state page: research and compare, with optional state.
@@ -854,6 +860,19 @@ public class UrlBuilder {
         init(page, state, null);
     }
 
+    public UrlBuilder(String state, String lat, String lon, VPage page) {
+        _vPage = page;
+        if (BY_LOCATION_SEARCH.equals(page) && state != null && lat != null && lon != null) {
+            _perlPage = false;
+            _path = "/search/search.page";
+            this.setParameter("lat", lat);
+            this.setParameter("lon", lon);
+            this.setParameter("state", state);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
     /**
      * for pages that do not require parameters in URL.  Default is perlpage is false.
      *
@@ -1006,7 +1025,10 @@ public class UrlBuilder {
         }  else if (NEWSLETTER_UNSUBSCRIBE.equals(page)) {
             _perlPage = false;
             _path = "/email/unsubscribe.page";
-        } else {
+        } else if (QR_CODE_GENERATOR.equals(page)) {
+            _perlPage = false;
+            _path = "/qr-code-gen.png";
+        }else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
     }
