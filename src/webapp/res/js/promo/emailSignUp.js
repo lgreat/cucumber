@@ -1,3 +1,5 @@
+jQuery.noConflict();
+var $j = jQuery;
 Function.prototype.email_sign_up_bind = function(obj) {
     var method = this;
     return function() {
@@ -14,8 +16,8 @@ GS.form.EmailSignUp = function() {
 
         var passed = true;
 
-        if (wrapper.find('.jq-emailSignUpEmail').val() == '') {
-            wrapper.find('.jq-emailSignUpError-emailInvalid').show();
+        if (jQuery('.jq-emailSignUpEmail').val() == '') {
+            jQuery('.jq-emailSignUpError-emailInvalid').show();
             passed = false;
         }
 
@@ -70,21 +72,8 @@ GS.form.EmailSignUp = function() {
 };
 
 
-jQuery(function() {
 
-    GS.form.emailSignUp = GS.form.emailSignUp || new GS.form.EmailSignUp();
-    jQuery('.jq-emailSignUpForm').on('submit', function() {
-//        alert("HERE");
-//    jQuery('.jq-emailSignUpForm').unbind('submit').submit(function() {
-        return GS.form.emailSignUp.submit(jQuery(this));
-    });
-//    jQuery('.jq-emailSignUpFormFooter').unbind('submit').submit(function() {
-//        return GS.form.emailSignUp.submit(jQuery(this));
-//    });
-//    jQuery('.jq-emailSignUpFormFooter').on('submit')(function() {
-//        return GS.form.emailSignUp.submit(jQuery(this));
-//    });
-//    jQuery('.jq-emailSignUpFormFooter').on("submit", function(event){
-//        GS.form.emailSignUp.submit(jQuery(this));
-//    });
+GS.form.emailSignUp = GS.form.emailSignUp || new GS.form.EmailSignUp();
+jQuery('.jq-emailSignUpForm').on('submit', function() {
+    return GS.form.emailSignUp.submit(jQuery(this));
 });

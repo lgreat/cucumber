@@ -39,7 +39,7 @@
         gs.web.util.PageHelper.addMetaProperty(request, "og:description", plainTextSummary);
         gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", CmsUtil.getFacebookAppId());
 
-        request.setAttribute("pageUrlOnFacebook", encodedUrl);
+        request.setAttribute("pageUrlOnFacebook", unEncodedUrl);
         request.setAttribute("pinterestUrl", unEncodedUrl);
         request.setAttribute("schoolPlainTextSummary", plainTextSummary);
 
