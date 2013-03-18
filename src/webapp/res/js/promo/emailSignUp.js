@@ -1,5 +1,4 @@
-jQuery.noConflict();
-var $j = jQuery;
+
 Function.prototype.email_sign_up_bind = function(obj) {
     var method = this;
     return function() {
@@ -74,6 +73,6 @@ GS.form.EmailSignUp = function() {
 
 
 GS.form.emailSignUp = GS.form.emailSignUp || new GS.form.EmailSignUp();
-$j('.jq-emailSignUpForm').on('submit', function() {
+jQuery('.jq-emailSignUpForm').on('submit', function() {
     return GS.form.emailSignUp.submit(jQuery(this));
 });
