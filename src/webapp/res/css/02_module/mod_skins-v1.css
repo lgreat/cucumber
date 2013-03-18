@@ -1095,3 +1095,11 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 .moduleTop-250{top:250px;}
 .moduleTop-200{top:200px;}
 .moduleHeaderPreAnimationTop--200{top:-200px;}
+
+.reviewsLanding .searchBox{
+    background: #DDDDDD;
+    opacity: 0.75;
+    filter: alpha(opacity = 0.75);
+    height:60px; width: 500px;
+    margin: 50px auto;
+}

@@ -43,11 +43,51 @@
         }
     </script>
     ]]>
+    <style type="text/css">
+        .selectBox {
+            width: 50px;
+            height: 58px;
+            /*border: 1px solid #2b2b2b;*/
+        }
+
+        .selectDropDown {
+            width: 50px;
+            height: 100px;
+            background-color: #dddddd;
+            overflow-y: scroll;
+        }
+
+        .ddValuesHighlight {
+            background-color: #999999;
+        }
+
+            /*::-webkit-scrollbar {*/
+            /*width: 12px;*/
+            /*}*/
+
+            /* Track */
+            /*::-webkit-scrollbar-track {*/
+            /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+            /*-webkit-border-radius: 10px;*/
+            /*border-radius: 10px;*/
+            /*}*/
+
+            /* Handle */
+            /*::-webkit-scrollbar-thumb {*/
+            /*-webkit-border-radius: 10px;*/
+            /*border-radius: 10px;*/
+            /*background: rgba(255,0,0,0.8);*/
+            /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+            /*}*/
+            /*::-webkit-scrollbar-thumb:window-inactive {*/
+            /*background: rgba(255,0,0,0.4);*/
+            /*}*/
+    </style>
 </head>
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
-<div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage">
+<div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding">
     <div class="img-container">
         <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt="" />
 
@@ -55,7 +95,24 @@
     <div class="content-centered moduleTop-150">
         <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
         <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
-        <div id="js_testClickAnimation" class="rnd4" style="height:60px; width: 500px; background-color: #DDDDDD; margin: 50px auto"><!-- do not collapse --></div>
+        <div id="js_testClickAnimation" class="searchBox pr rnd4" style=""><!--do not colapse-->
+            <!--<div class="fl"><input type="text" placeholder="Search string" class="reviewsLanding" style=""/></div>-->
+            <!--<div class="pa" style="right:0; top:0; height:58px;">-->
+                <!--<div class="selectBox">Select</div>-->
+                <!--<div class="selectDropDown" style="display: none;padding-top: 46px;">-->
+                    <!--<div class="ddValues">CA</div>-->
+                    <!--<div class="ddValues">NY</div>-->
+                    <!--<div class="ddValues">WI</div>-->
+                    <!--<div class="ddValues">DC</div>-->
+                    <!--<div class="ddValues">AZ</div>-->
+                    <!--<div class="ddValues">CA</div>-->
+                    <!--<div class="ddValues">NY</div>-->
+                    <!--<div class="ddValues">WI</div>-->
+                    <!--<div class="ddValues">DC</div>-->
+                    <!--<div class="ddValues">AZ</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
     </div>
 </div>
 

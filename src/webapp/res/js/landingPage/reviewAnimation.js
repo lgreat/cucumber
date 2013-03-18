@@ -18,6 +18,31 @@ $(document).ready(function() {
         });
 
     });
+    $(".selectBox").click(function () {
+            $(".selectDropDown").toggle();
+        });
+        $("body").click(function(event){
+            if($(".selectDropDown").css('display') == 'block'){
+//                alert("test");
+//                $(".selectDropDown").css("display", "none");
+//                event.stopPropagation();
+            }
+            else{
+
+            }
+        });
+        $(".ddValues").mouseover(function () {
+            $(this).addClass("ddValuesHighlight");
+        });
+        $(".ddValues").mouseout(function () {
+            $(this).removeClass("ddValuesHighlight");
+        });
+        $(".ddValues").click(function () {
+            var $this = $(this);
+            var selectedValue = $this.html();
+            $(".selectBox").html(selectedValue);
+            $(".selectDropDown").toggle();
+        });
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
 });
 
