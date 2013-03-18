@@ -26,7 +26,7 @@
         // add page=1 as only query parameter
         String unEncodedUrl = baseUrl + uri + "?page=1";
         String encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
-        request.setAttribute("pageUrlOnFacebook", unEncodedUrl);
+        request.setAttribute("pageUrlOnFacebook", encodedUrl);
 
         gs.web.util.PageHelper.addMetaProperty(request, "og:type", "article");
         gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");

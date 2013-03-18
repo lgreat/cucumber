@@ -47,9 +47,6 @@
                     s.tl(true, 'o', 'FBLike_School_${state}_${schoolId}');
                 }
             });
-            FB.Event.subscribe('comment.create', function(response) {
-                alert('The status of the session is: ' + response);
-            });
         };
 
     </script>
