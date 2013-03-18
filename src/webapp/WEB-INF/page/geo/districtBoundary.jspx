@@ -57,6 +57,7 @@
 
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
+<div class="container_24 clearfix">
 <div class="mtl tac">
 <div class="phs tal"><h1 class="bottom">School and District Boundaries Map</h1>
     <p class="mtm">Researching schools in your neighborhood is a snap with our interactive map tool. Enter an address to see school attendance and district boundary lines. Go ahead and give it a spin.</p>
@@ -386,6 +387,7 @@
 
 <div style="display:none;">
     <mod:tracking pageName="BoundariesMap" hier1="Search, DistrictBoundaries" boundariesSearchQuery="${param.address}" gradeLevelFilter="${(!empty param.level) ? param.level : 'e'}" />
+</div>
 </div>
 </div>
 </gsml:body>
