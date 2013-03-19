@@ -17,22 +17,141 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <head>
     <title>Write a school review | GreatSchools</title>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
           content="Write a review for your child's school today and you can help other parents make a more informed choice about which school is right for their family."/>
     <c:if test="${morganStanley}">
         <meta name="robots" content="follow,noindex"/>
     </c:if>
-    <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
+    <gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>
 
+    <!--<pageHelper:externalJavascript file="/res/js/landing/reviewAnimation.js"/>-->
+    <![CDATA[
+    <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
+    <script>
+        var cookieState = "${requestScope.context.state}";
+        console.log("Your state is cookie:"+cookieState+":");
+        if(cookieState != ""){
+            console.log("Your state is maxmind: "+geoip_region());
+            var maxMindIpAddressState = geoip_region();
+            //// set state dropdown to this value.
+        }
+    </script>
+    ]]>
+    <style type="text/css">
+        .selectBox {
+            width: 50px;
+            height: 58px;
+            /*border: 1px solid #2b2b2b;*/
+        }
+
+        .selectDropDown {
+            width: 50px;
+            height: 100px;
+            background-color: #dddddd;
+            overflow-y: scroll;
+        }
+
+        .ddValuesHighlight {
+            background-color: #999999;
+        }
+
+            /*::-webkit-scrollbar {*/
+            /*width: 12px;*/
+            /*}*/
+
+            /* Track */
+            /*::-webkit-scrollbar-track {*/
+            /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+            /*-webkit-border-radius: 10px;*/
+            /*border-radius: 10px;*/
+            /*}*/
+
+            /* Handle */
+            /*::-webkit-scrollbar-thumb {*/
+            /*-webkit-border-radius: 10px;*/
+            /*border-radius: 10px;*/
+            /*background: rgba(255,0,0,0.8);*/
+            /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+            /*}*/
+            /*::-webkit-scrollbar-thumb:window-inactive {*/
+            /*background: rgba(255,0,0,0.4);*/
+            /*}*/
+    </style>
 </head>
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
-<div id="oneColumn">
+<div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding">
+    <div class="img-container">
+        <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt="" />
+
+    </div>
+    <div class="content-centered moduleTop-150">
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
+        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
+        <div id="js_testClickAnimation" class="searchBox pr rnd4" style=""><!--do not colapse-->
+            <!--<div class="fl"><input type="text" placeholder="Search string" class="reviewsLanding" style=""/></div>-->
+            <!--<div class="pa" style="right:0; top:0; height:58px;">-->
+                <!--<div class="selectBox">Select</div>-->
+                <!--<div class="selectDropDown" style="display: none;padding-top: 46px;">-->
+                    <!--<div class="ddValues">CA</div>-->
+                    <!--<div class="ddValues">NY</div>-->
+                    <!--<div class="ddValues">WI</div>-->
+                    <!--<div class="ddValues">DC</div>-->
+                    <!--<div class="ddValues">AZ</div>-->
+                    <!--<div class="ddValues">CA</div>-->
+                    <!--<div class="ddValues">NY</div>-->
+                    <!--<div class="ddValues">WI</div>-->
+                    <!--<div class="ddValues">DC</div>-->
+                    <!--<div class="ddValues">AZ</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<div class="imageBgScale js-pageTwoReviewLandingPage dn">
+    <div style="height: 180px;">
+    <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">You know your school best!</p>
+        <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #b2811d;">Help others find their great school – rate and review yours now</p>
+    </div>
+    </div>
+        <div class="container_24 clearfix">
+            <form action="">
+                <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
+                <div class="fl clearfix">
+                    <div class="paper_bg">
+                        <div style="padding: 10px 0px 10px 20px" class="clearfix">
+                            <div class="fl"><h4 class="bottom">Rate this school</h4></div>
+                            <div id="starRatingContainerReview" class="fl pan man mlm">
+                                <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                            </div>
+                            <div class="fr pan man mrm"><div class="small bottom make-787878" id="js-charCount">1200 characters remaining</div></div>
+                        </div>
+                        <div><textarea id="js-reviewContent" class="lined_paper medium" placeholder="Tell us about your school"><!-- do not collapse --></textarea></div>
+                    </div>
+                </div>
+                <div class="fr">
+                    <input class="text1" type="text" placeholder="Please enter your email" style="width: 300px"/><br /><br />
+                    <input class="text1" type="text" placeholder="Select List" style="width: 300px"/>
+
+                </div>
+
+            </form>
+        </div>
+
+</div>
+
+
+<div id="oneColumn" class="dn">
 
 <c:if test="${morganStanley}">
     <div id="morganStanleyHeader">
@@ -419,6 +538,7 @@
 </div>
 </div>
 </div>
+
 <mod:tracking pageName="Rating Review Marketing Landing Page"
               hier1="School,Parent Reviews, Rating Review Marketing Landing Page "
         />

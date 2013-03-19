@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0">
+
+    <div class = "jq-personalInfoForm">
+        <div class="inner">
+            <div class="hoverTitle hd"><!--yellow header-->
+                1 Contact Info
+            </div>
+        </div>
+
+        <div class="bd">
+            <div class="tac">
+                <h2>Contact information</h2>
+            </div>
+
+            <div class="line mbt">
+                <div class="unit size1of1 lastUnit">
+                    <div class="line lal">
+                        <div class="unit fl">
+                            <gsml:input type="text" styleId="jq-fName" styleClass="text1 input_7" name="firstName" placeholder="First name"/>
+                        </div>
+                        <div class="unit lastUnit fr">
+                            <gsml:input type="text" styleId="jq-lName" styleClass="text1 input_7" name="lastName" placeholder="Last name"/>
+                        </div>
+                    </div>
+
+                    <div class="line lal">
+                        <gsml:input type="text" styleId="jq-email" styleClass="text1 input_15" name="email" placeholder="Email"/>
+                    </div>
+
+                    <div class="line lal">
+                        <gsml:input type="password" styleId="jq-password" styleClass="text1 input_15" name="password"
+                                    placeholder="Password"/>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="line joinSubmit lal">
+                <div class="">
+                    <a href="javascript:void(0)">
+                        <button class="button-1 jq-personalInfoSubmit" name="personalInfoSubmit">
+                            Complete
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

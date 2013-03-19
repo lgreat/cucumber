@@ -69,15 +69,15 @@
         </c:if>
     </div>
 
-    <div class="container_24 clearfix">
-        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-            <mod:belowNavAds/>
-        </c:if>
 
-        <div class="phs clearfix">
-            <decorator:body/>
+    <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+        <div class="container_24 clearfix">
+            <mod:belowNavAds/>
         </div>
-    </div>
+    </c:if>
+
+    <decorator:body/>
+
     <mod:footer showAd="true" showSeoFooter="true"/>
 
     <div style="text-align:center"><cobrand:footer/></div>

@@ -26,6 +26,8 @@ Misc classes
    typography.css
    * Sets up some sensible default typography.
 
+
+
 -------------------------------------------------------------- */
 
 /* Default font settings
@@ -39,6 +41,27 @@ body {
 
 /* Headings
 -------------------------------------------------------------- */
+@font-face {
+    font-family: 'SourceSansPro-Regular';
+    src: url('SourceSansPro-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-Regular-webfont.woff') format('woff'),
+        url('SourceSansPro-Regular-webfont.ttf')  format('truetype'),
+        url('SourceSansPro-Regular-webfont.svg#SourceSansPro-Regular') format('svg');
+}
+@font-face {
+    font-family: 'SourceSansPro-It';
+    src: url('SourceSansPro-It-webfont.eot?#iefix') format('embedded-opentype'),
+    url('SourceSansPro-It-webfont.woff') format('woff'),
+    url('SourceSansPro-It-webfont.ttf')  format('truetype'),
+    url('SourceSansPro-It-webfont.svg#SourceSansPro-It') format('svg');
+}
+@font-face {
+    font-family: 'SourceSansPro-Semibold';
+    src: url('SourceSansPro-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('SourceSansPro-Semibold-webfont.woff') format('woff'),
+    url('SourceSansPro-Semibold-webfont.ttf')  format('truetype'),
+    url('SourceSansPro-Semibold-webfont.svg#SourceSansPro-Semibold') format('svg');
+}
 
 h1,
 h2,
@@ -48,12 +71,12 @@ h5,
 h6 { font-weight: normal; color: #2b2b2b; }
 /*h1 {color: #FF8000; }*/
 
-h1 { font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h2 { font: normal 21px/25px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h3 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h5 { font: bold   14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h1 { font: normal 24px/30px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h2 { font: normal 21px/25px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h3 { font: normal 18px/25px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h4 { font: normal 16px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h5 { font: normal 14px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h6 { font: normal 14px/20px SourceSansPro-Semibold, Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 
 h1 img,
 h2 img,
@@ -330,3 +353,5 @@ ul.disc li  { list-style-type: disc }
 .enrollmentApply .grayBox .numberFormat{ font-size: 24px; line-height: 24px; font-weight: bold}
 
 .addMousePointer{cursor: pointer;}
+
+
