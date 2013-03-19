@@ -80,24 +80,15 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     @RequestMapping(method = RequestMethod.POST, value = "realEstateAgentUpload.page")
     public void onAgentUpload (HttpServletRequest request,
                                HttpServletResponse response) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = sessionContext.getUser();
 
-        if(user != null && user.getId() != null) {
-            if(getAgentAccountDao().findAgentAccountByUserId(user.getId()) == null) {
-                Integer userId = _realEstateAgentHelper.getUserIdFromCookie(request);
+        Integer userId = _realEstateAgentHelper.getUserId(request);
 
-                if(userId == -1 || userId == null) {
-                    error(response, "-1", UNAUTHORIZED_ERROR);
-                    return;
-                }
+        if(userId != null && getAgentAccountDao().findAgentAccountByUserId(userId) != null) {
+            User user = getUserDao().findUserFromId(userId);
 
-                user = getUserDao().findUserFromId(userId);
-
-                if(user == null || user.getId() == null) {
-                    error(response, "-1", UNAUTHORIZED_ERROR);
-                    return;
-                }
+            if(user == null || user.getId() == null) {
+                error(response, "-1", UNAUTHORIZED_ERROR);
+                return;
             }
 
             upload(request, response, user, REAL_ESTATE_AGENT_UPLOAD);

@@ -36,7 +36,7 @@ public class RealEstateAgentHelper {
 
     public void setUserCookie(User user, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()), String.valueOf(user.getId()));
-        cookie.setPath("/real-estate/");
+        cookie.setPath("/");
         cookie.setMaxAge(-1);
         if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             // don't set domain for developer workstations so they can still access the cookie!!
@@ -54,11 +54,11 @@ public class RealEstateAgentHelper {
                     return Integer.parseInt(cookie.getValue());
                 }
                 catch (NumberFormatException ex) {
-                    return -1;
+                    return null;
                 }
             }
         }
-        return -1;
+        return null;
     }
 
     public Integer getUserId (HttpServletRequest request) {
@@ -66,7 +66,7 @@ public class RealEstateAgentHelper {
 
         Integer userIdFromCookie = getUserIdFromCookie(request);
 
-        if(userIdFromCookie != null && userIdFromCookie != -1) {
+        if(userIdFromCookie != null) {
             return userIdFromCookie;
         }
         else if (user != null && user.getId() != null){

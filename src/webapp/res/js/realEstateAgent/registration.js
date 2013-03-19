@@ -20,7 +20,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 
             $.ajax({
                 type : 'POST',
-                url : '/realEstateAgent/savePersonalInfo.page',
+                url : '/real-estate/savePersonalInfo.page',
                 data : data,
                 success : function (response) {
                     form.addClass('dn');
@@ -42,7 +42,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 
             $.ajax({
                 type : 'POST',
-                url : '/realEstateAgent/saveBusinessInfo.page',
+                url : '/real-estate/saveBusinessInfo.page',
                 data : data,
                 success : function (response) {
                     form.addClass('dn');
@@ -61,7 +61,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 
         hover.on('click', '.jq-completeRegistration', function() {
             window.location.href = window.location.protocol + '//' + window.location.host +
-                '/realEstateAgent/createReport.page';
+                '/real-estate/create-guide.page';
         })
     };
 };
