@@ -66,7 +66,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
     };
 };
 
-GSType.hover.RealEstateAgentRegistrationHover.prototype = new GSType.hover.HoverDialog('js-registrationHover', 640)
+GSType.hover.RealEstateAgentRegistrationHover.prototype = new GSType.hover.HoverDialog('js-registrationHover', 540)
 
 GSType.hover.realEstateAgentRegistrationHover = new GSType.hover.RealEstateAgentRegistrationHover();
 
