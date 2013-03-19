@@ -9,6 +9,7 @@ import gs.web.PdfView;
 import gs.web.util.UrlBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,8 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/real-estate-school-report")
+@RequestMapping("/real-estate/guides/neighborhood-guide")
+@Component("realEstateSchoolsReportController")
 public class RealEstateSchoolsReportController {
 
     @Autowired
@@ -41,9 +43,12 @@ public class RealEstateSchoolsReportController {
     @Autowired
     private InternalResourceViewResolver _viewResolver;
 
-    public static final int MAX_ALLOWED_SCHOOLS = 100;
+    @Autowired
+    private RealEstateAgentHelper _realEstateAgentHelper;
 
-    private static final String VIEW_NAME = "realEstateSchoolReport";
+    public static final int MAX_ALLOWED_SCHOOLS = 6;
+
+    private static final String VIEW_NAME = "/realEstateAgent/realEstateSchoolReport";
     public static final String MODEL_SCHOOL_SEARCH_RESULTS = "schoolSearchResults";
 
     private static Logger _logger = Logger.getLogger(RealEstateSchoolsReportController.class);
@@ -63,6 +68,12 @@ public class RealEstateSchoolsReportController {
                     @RequestParam(value="state", required = false) String state) {
 
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
+
+        Integer userId = _realEstateAgentHelper.getUserId(request);
+
+        if(userId == null && request.getParameter("skipUserCheck") == null) {
+            return new RedirectView(_realEstateAgentHelper.getRegistrationHomeUrl(request));
+        }
 
         try {
             searchResultsPage = searchForSchools(lat, lon, state.toLowerCase());
@@ -122,7 +133,7 @@ public class RealEstateSchoolsReportController {
 
         GsSolrQuery q = createGsSolrQuery();
 
-        q.filter(DocumentType.SCHOOL).page(0, 5);
+        q.filter(DocumentType.SCHOOL).page(0, MAX_ALLOWED_SCHOOLS);
 
         String[] gradeLevels = {"e","m","h"};
         q.filter(SchoolFields.GRADE_LEVEL, gradeLevels);

@@ -27,7 +27,7 @@
                 <div class="mod form">
                     <div class="inner">
                         <div class="bd">
-                            <form action='/real-estate-school-report.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
+                            <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
                                 <div class="lal clearfix">
                                     <gsml:input type="text" styleId="jq-address" styleClass="text input_12" name="address"
                                                 placeholder="Property Address"/>

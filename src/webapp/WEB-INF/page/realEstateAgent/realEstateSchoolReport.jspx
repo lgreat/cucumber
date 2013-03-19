@@ -1,6 +1,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
         >
     <html>
     <jsp:directive.page contentType="text/html"/>
@@ -73,7 +74,9 @@
 
         <!-- TODO: header for second page to be inserted here -->
 
-        <!-- agent photo -->
+        <div class="">
+            <img src="" alt="Agent Photo" height="144" width="144"/>
+        </div>
 
         <div class="fl">
             <![CDATA[

@@ -9,7 +9,6 @@ import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,13 +30,13 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/realEstateAgent/")
+@RequestMapping("/real-estate/")
 public class RealEstateAgentRegistrationController implements ReadWriteAnnotationController {
     private static Logger _logger = Logger.getLogger(RealEstateAgentRegistrationController.class);
 
     private static final String REGISTRATION_PAGE_VIEW = "/realEstateAgent/registrationHome";
 
-    public static final String NEW_USER_COOKIE_HASH = "newAgentRegistration12830";
+    private static final String CREATE_REPORT_PAGE_VIEW = "/realEstateAgent/createReport";
 
     @Autowired
     private IAgentAccountDao _agentAccountDao;
@@ -46,10 +44,30 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @Autowired
     private IUserDao _userDao;
 
-    @RequestMapping(value = "registration.page", method = RequestMethod.GET)
-    public String showForm (HttpServletRequest request,
+    @Autowired
+    private RealEstateAgentHelper _realEstateAgentHelper;
+
+    @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
+    public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
         return REGISTRATION_PAGE_VIEW;
+    }
+
+    @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
+    public String showCreateReportForm (HttpServletRequest request,
+                            HttpServletResponse response) {
+
+        if("true".equals(request.getParameter("skipUserCheck"))) {
+            return CREATE_REPORT_PAGE_VIEW;
+        }
+
+        Integer userId = _realEstateAgentHelper.getUserId(request);
+
+        if(userId != null) {
+            return _realEstateAgentHelper.getViewForUser(request, userId, CREATE_REPORT_PAGE_VIEW);
+        }
+
+        return "redirect:" + _realEstateAgentHelper.getRegistrationHomeUrl(request);
     }
 
     @RequestMapping(value = "savePersonalInfo.page", method = RequestMethod.POST)
@@ -86,7 +104,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         updateUserProfile(user);
         _userDao.updateUser(user);
 
-        setUserCookie(user, request, response);
+        _realEstateAgentHelper.setUserCookie(user, request, response);
 
         outputJson(response, true);
     }
@@ -104,7 +122,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
         response.setContentType("application/json");
 
-        int userId = getUserIdFromCookie(request, response);
+        int userId = _realEstateAgentHelper.getUserIdFromCookie(request);
 
         if(userId == -1) {
             outputJson(response, false);
@@ -118,15 +136,15 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             return;
         }
 
-        AgentAccount agentAccount = _agentAccountDao.findAgentAccountByUserId(user.getId());
+        AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(user.getId());
         if (agentAccount == null) {
             agentAccount = new AgentAccount(user);
             setAgentAccountFields(agentAccount, companyName, workNumber, cellNumber, address, city, state, zip);
-            _agentAccountDao.save(agentAccount);
+            getAgentAccountDao().save(agentAccount);
         }
         else {
             setAgentAccountFields(agentAccount, companyName, workNumber, cellNumber, address, city, state, zip);
-            _agentAccountDao.updateAgentAccount(agentAccount);
+            getAgentAccountDao().updateAgentAccount(agentAccount);
         }
 
         outputJson(response, true);
@@ -167,34 +185,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
         }
-    }
-
-    private void setUserCookie(User user, HttpServletRequest request, HttpServletResponse response) {
-        Cookie cookie = new Cookie(String.valueOf(("newAgentRegistration12830").hashCode()), String.valueOf(user.getId()));
-        cookie.setPath("/");
-        cookie.setMaxAge(-1);
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            // don't set domain for developer workstations so they can still access the cookie!!
-            cookie.setDomain(".greatschools.org");
-        }
-        response.addCookie(cookie);
-    }
-
-    private Integer getUserIdFromCookie (HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-
-        for(Cookie cookie : cookies) {
-            if(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()).equals(cookie.getName())) {
-                try {
-                    response.addCookie(cookie);
-                    return Integer.parseInt(cookie.getValue());
-                }
-                catch (NumberFormatException ex) {
-                    return -1;
-                }
-            }
-        }
-        return -1;
     }
 
     public void setAgentAccountFields(AgentAccount agentAccount, String companyName, String workNumber, String cellNumber,

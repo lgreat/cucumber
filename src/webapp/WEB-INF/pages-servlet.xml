@@ -3139,11 +3139,4 @@
         </property>
     </bean>
 
-    <bean name="/realEstateAgent/createReport.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>/realEstateAgent/createReport</value>
-        </property>
-    </bean>
-
 </beans>

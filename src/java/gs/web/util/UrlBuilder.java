@@ -153,6 +153,11 @@ public class UrlBuilder {
     public static final VPage NEWSLETTER_UNSUBSCRIBE = new VPage("vpage:newsletterUnsubscribe");
 
     /**
+     * Real estate agent.
+     */
+    public static final VPage REAL_ESTATE_SCHOOL_GUIDES = new VPage("vpage:realEstateSchoolGuides");
+
+    /**
      * QR Code
      */
     public static final VPage QR_CODE_GENERATOR = new VPage("vpage:qrCodeGen");
@@ -1025,6 +1030,9 @@ public class UrlBuilder {
         }  else if (NEWSLETTER_UNSUBSCRIBE.equals(page)) {
             _perlPage = false;
             _path = "/email/unsubscribe.page";
+        } else if (REAL_ESTATE_SCHOOL_GUIDES.equals(page)) {
+            _perlPage = false;
+            _path = "/real-estate/school-guides.page";
         } else if (QR_CODE_GENERATOR.equals(page)) {
             _perlPage = false;
             _path = "/qr-code-gen.png";
