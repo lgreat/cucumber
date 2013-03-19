@@ -8,6 +8,7 @@
 
 
 $(document).ready(function() {
+    $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_testClickAnimation').on("click",function() {
         $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
             $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
