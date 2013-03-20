@@ -168,6 +168,14 @@ div#grid div.gridbox {
     font-family:Arial,Arial,sans-serif;
 }
 
+div#grid div.gridboxTaller {
+    position:absolute;
+    border:3px solid #66CCCC;
+    width:315px;
+    height:305px;
+    font-family:Arial,Arial,sans-serif;
+}
+
     div#grid div.left {
         left:0;
     }

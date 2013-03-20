@@ -144,7 +144,7 @@
                     <li>Call our hotline: 414-748-1211</li>
                 </ul>
             </div>
-            <div class="gridbox bottom left" id="greatschoolsGuides">
+            <div class="gridboxTaller bottom left" id="greatschoolsGuides">
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
                 </h3>
@@ -154,20 +154,23 @@
                     <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
                 </ul>
             </div>
-            <div class="gridbox bottom right" id="resources">
+            <div class="gridboxTaller bottom right" id="resources">
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
                 </h3>
                 <ul class="none">
                     <li><a href="mailto:milwaukee@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="http://www.greatschools.org/catalog/pdf/gs-mkeFair-poster-11x17.pdf" target="_blank">2012 Milwaukee School Fair Poster</gsml:a>
+                        <gsml:a href="http://www.greatschools.org/catalog/pdf/2013%20GreatSchools%20Milwaukee%20PreK-8%20Profiles.pdf" target="_blank">Milwaukee School Chooser, Grades PreK-8</gsml:a>
                     </li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/res/pdf/schoolchooser/GreatSchools_Milwaukee_Chooser_2012-2013_English.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
+                        <gsml:a href="http://www.greatschools.org/catalog/pdf/2013%20GreatSchools%20Milwaukee%209-12%20Profiles.pdf" target="_blank">Milwaukee School Chooser, Grades 9-12</gsml:a>
                     </li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/res/pdf/schoolchooser/GreatSchools_Listado_Escuelas_Milwaukee_2012-2013_Spanish.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
+                        <gsml:a href="http://www.greatschools.org/catalog/pdf/2013%20GreatSchools%20Milwaukee%20Perfiles%20de%20Escuela%20-%20De%20Kindergarten%20a%208vo%20Grado.pdf" target="_blank">Listado de Escuelas de Milwaukee de Kindergarten a 8vo Grado</gsml:a>
+                    </li>
+                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
+                        <gsml:a href="http://www.greatschools.org/catalog/pdf/2013%20GreatSchools%20Milwaukee%20Perfiles%20de%20Escuela%20-%20De%20Noveno%20a%20Doceavo%20Grado.pdf" target="_blank">Listado de Escuelas de Milwaukee de Noveno a Doceavo Grado</gsml:a>
                     </li>
                     <li><gsml:a href="/schoolreports/StatisticalMethodologyForTheMilwaukeeSchoolChooser.doc" target="_blank">Statistical methodology for the Milwaukee School Chooser</gsml:a></li>
                 </ul>
