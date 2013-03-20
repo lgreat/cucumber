@@ -89,13 +89,13 @@
                                             <div id='tierIconDiv' class="ptm tac" style="width: 77px;">
                                                 <div class="small make-uppercase bottom">Tier</div>
                                                 <c:if test="${tierScore lt 35}">
-                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='mrs iconxDcCharterBadges_sm i-DcCharterBadges-3'><!-- do not close --></span></div></c:set>
+                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='mrs iconxDcCharterBadges_sm i-DcCharterBadges_sm-3'><!-- do not close --></span></div></c:set>
                                                 </c:if>
                                                 <c:if test="${tierScore ge 35.0 and tierScore lt 65}">
-                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='iconxDcCharterBadges_sm i-DcCharterBadges-2'><!-- do not close --></span></div></c:set>
+                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='iconxDcCharterBadges_sm i-DcCharterBadges_sm-2'><!-- do not close --></span></div></c:set>
                                                 </c:if>
                                                 <c:if test="${tierScore ge 65.0}">
-                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='iconxDcCharterBadges_sm i-DcCharterBadges-1'><!-- do not close --></span></div></c:set>
+                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='iconxDcCharterBadges_sm i-DcCharterBadges_sm-1'><!-- do not close --></span></div></c:set>
                                                 </c:if>
                                                 ${schoolPerformanceTierIcon}
                                                 <div class="small bottom">${schoolLevel}</div>
