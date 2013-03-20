@@ -27,19 +27,18 @@
         <a href="javascript:void(0)">
             <button class="button-1" name="registerBtn" id="jq-realEstAgentRegisterBtn">Sign up now, FREE!</button>
         </a>
-
         <div id="js-registrationHover" class="dn">
-            <div class="mod modal_1 width_16 js-registrationHover" id="js-registrationHover">
-                <div class="outer">
-                    <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
-
-                    <realEstate:personalInfoHover/>
-
-                    <realEstate:businessInfoHover/>
-
-                    <realEstate:imageUploadHover/>
+            <div class="mod modal_4 width_12 js-registrationHover" id="js-registrationHover">
+                <div class="modalClose">
+                    <span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span>
                 </div>
-
+                <div class="outer">
+                    <div class="inner">
+                        <realEstate:personalInfoHover/>
+                        <realEstate:businessInfoHover/>
+                        <realEstate:imageUploadHover/>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

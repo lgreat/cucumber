@@ -9,69 +9,57 @@
           version="2.0">
 
     <div class="jq-businessInfoForm dn">
-
-        <div class="inner">
-            <div class="hoverTitle hd">
-                2 Company Info
+        <div class="hd"><!--yellow header-->
+            2 Company Info
+        </div>
+        <div class="bd" style="height: 300px;">
+            <div class="tac">
+                <h2>Company information</h2>
+            </div>
+            <div class="ptl">
+                <div class="">
+                    <gsml:input type="text" styleId="jq-companyName" styleClass="text1 input_10" name="companyName"
+                                value="Company Name" placeholder="Company Name"/>
+                </div>
+                <div class="mtl clearfix">
+                    <div class="fl">
+                        <gsml:input type="text" styleId="jq-workNumber" styleClass="text1 input_5" name="workNumber"
+                                    value="Work #"/>
+                    </div>
+                    <div class="fr">
+                        <gsml:input type="text" styleId="jq-cellNumber" styleClass="text1 input_5" name="cellNumber"
+                                    value="Cell #" placeholder="Cell #"/>
+                    </div>
+                </div>
+                <div class="mtl">
+                    <gsml:input type="text" styleId="jq-address" styleClass="text1 input_10" name="address"
+                                value="Address" placeholder="Address"/>
+                </div>
+                <div class="mtl clearfix">
+                    <div class="fl">
+                        <gsml:input type="text" styleId="jq-city" styleClass="text1 input_3" name="city" value="City"
+                                    placeholder="City"/>
+                    </div>
+                    <div class="mhl fl">
+                        <gsweb:stateSelector useNoState="true" noStateLabel="State"
+                                             usingLongNames="false"
+                                             styleClass="stateSelect"
+                                             styleId="jq-state" name="state"/>
+                    </div>
+                    <div class="fr">
+                        <gsml:input type="text" styleId="jq-zip" styleClass="text1 input_3" name="zip"
+                                    placeholder="Zip"/>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="bd tal">
-            <div class="introTxt col">
-                <p class="small_bold title">Company information</p>
-            </div>
-
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-                    <div class="line lal">
-                        <gsml:input type="text" styleId="jq-companyName" styleClass="text input_15" name="companyName" placeholder="Company name"/>
-                        <div class="spacer_60"><!-- do not collapse --></div>
-                    </div>
-
-                    <div class="line lal">
-                        <div class="unit fl">
-                            <gsml:input type="text" styleId="jq-workNumber" styleClass="text input_7" name="workNumber" placeholder="Work#"/>
-                        </div>
-                        <div class="unit lastUnit fr">
-                            <gsml:input type="text" styleId="jq-cellNumber" styleClass="text input_7" name="cellNumber" placeholder="Cell#"/>
-                        </div>
-                    </div>
-
-                    <div class="line lal">
-                        <gsml:input type="text" styleId="jq-address" styleClass="text input_15" name="address" placeholder="Address"/>
-                    </div>
-
-                    <div class="line lal">
-                        <div class="unit fl">
-                            <gsml:input type="text" styleId="jq-city" styleClass="text input_4" name="city"
-                                        placeholder="City"/>
-                        </div>
-
-                        <div class="unit">
-
-                            <gsweb:stateSelector useNoState="true" noStateLabel="State"
-                                                 usingLongNames="false"
-                                                 styleClass="stateSelect"
-                                                 styleId="jq-state" name="state"/>
-                        </div>
-
-                        <div class="unit lastUnit fr">
-                            <gsml:input type="text" styleId="jq-zip" styleClass="text input_4" name="zip"
-                                        placeholder="Zip"/>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="line joinSubmit lal">
-                <div class="">
-                    <a href="javascript:void(0)">
-                        <button class="button-1 jq-businessInfoSubmit" name="businessInfoSubmit">
-                            Complete
-                        </button>
-                    </a>
-                </div>
+        <div class="ft joinSubmit">
+            <div class="tac">
+                <a href="javascript:void(0)">
+                    <button class="button-1 jq-businessInfoSubmit" name="businessInfoSubmit">
+                        Complete
+                    </button>
+                </a>
             </div>
         </div>
     </div>
