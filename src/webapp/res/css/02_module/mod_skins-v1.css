@@ -1103,3 +1103,5 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     height:60px; width: 500px;
     margin: 50px auto;
 }
+
+.br{border-right: #cccccc solid 1px;}

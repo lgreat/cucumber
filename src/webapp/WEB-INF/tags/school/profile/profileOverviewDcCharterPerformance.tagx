@@ -37,138 +37,111 @@
             <!--</div>-->
 
             <div class='bd clearfix'>
-                <div class="mam" style="${moduleHeight}" >
+                <div class="mam clearfix" style="${moduleHeight}" >
                     <c:choose>
                         <c:when test="${showBadges eq true}">
-                            <c:if test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 2}">
+                            <c:choose>
+                                <!--Badges Show Up and One School Shown-->
+                                <c:when test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 1}">
+                                    <c:set var="tierScore" value="${localInfoModel['schoolPerformanceManagementRating'][0].score}"/>
+                                    <div id='charterRatingInfo' class="fl tac ptm" style="width: 92px;">
+                                        <p class="small_bold textshadow-1 plm bottom pbm  make-555555">DC Public Charter School Board</p>
+                                        <div id='charterRatingDiv' style=" background-color: #F4F4F4; width: 86px;" class='pam tac'>
+                                            <span class='small bottom'>Total Score<br /><h3 class="bottom"><strong>${tierScore}%</strong></h3></span>
+                                        </div><!-- END charterRatingInfo  -->
+                                    </div>
 
-                            </c:if>
-                            <c:set var="tierScore" value="${localInfoModel['schoolPerformanceManagementRating'][0].score}"/>
-                            <div id='charterRatingInfo' class="fl tac ptm" style="width: 92px;">
-                                <p class="small_bold textshadow-1 plm bottom pbm  make-555555">DC Public Charter School Board</p>
-                                <div id='charterRatingDiv' style=" background-color: #F4F4F4; width: 86px;" class='pam tac'>
-                                    <span class='small bottom'>Total Score<br /><h3 class="bottom"><strong>${tierScore}%</strong></h3></span>
-                                </div><!-- END charterRatingInfo  -->
-                            </div>
+                                    <div class="fr">
+                                        <div id='tierIconDiv' style="width: 59px;" class="ptm tar">
+                                            <span class="small make-uppercase bottom prm">Tier</span>
+                                            <c:if test="${tierScore lt 35}">
+                                                <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-3'><!-- do not close --></span></c:set>
+                                            </c:if>
+                                            <c:if test="${tierScore ge 35.0 and tierScore lt 65}">
+                                                <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-2'><!-- do not close --></span></c:set>
+                                            </c:if>
+                                            <c:if test="${tierScore ge 65.0}">
+                                                <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-1'><!-- do not close --></span></c:set>
+                                            </c:if>
+                                            ${schoolPerformanceTierIcon}
 
-                                <div class="fr">
-                                    <div id='tierIconDiv' style="width: 59px;" class="ptm tar">
-                                        <span class="small make-uppercase bottom prm">Tier</span>
-                                        <c:if test="${tierScore lt 35}">
-                                            <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-3'><!-- do not close --></span></c:set>
+                                        </div><!-- END tierIconDiv  -->
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <!--Badges Show Up and Two Schools Shown-->
+                                    <div id='charterRatingInfo' class="tac ptm">
+                                        <p class="small_bold textshadow-1 plm bottom pbm  make-555555">DC Public Charter<br />School Board</p>
+                                    </div>
+                                    <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">
+                                        <c:set var="tierScore" value="${entry.score}"/>
+                                        <c:set var='schoolLevel' scope="page">${entry.levelText}</c:set>
+                                        <!--<div id='charterRatingDiv' style=" background-color: #F4F4F4;" class='pam tac'>-->
+                                            <!--<span class='small bottom'>Total Score<br /><h3 class="bottom"><strong>${tierScore}%</strong></h3>${schoolLevel}</span>-->
+                                        <!--</div>&lt;!&ndash; END charterRatingInfo  &ndash;&gt;-->
+                                        <c:set var="floatDirection" value="fl" />
+                                        <c:if test="${status.last}">
+                                            <c:set var="floatDirection" value="fr" />
+                                            <div class="fl br mtm" style="height: 90px; padding-right: 10px;">&amp;nbsp;</div>
                                         </c:if>
-                                        <c:if test="${tierScore ge 35.0 and tierScore lt 65}">
-                                            <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-2'><!-- do not close --></span></c:set>
-                                        </c:if>
-                                        <c:if test="${tierScore ge 65.0}">
-                                            <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-1'><!-- do not close --></span></c:set>
-                                        </c:if>
-                                        ${schoolPerformanceTierIcon}
 
-                                    </div><!-- END tierIconDiv  -->
-                                </div>
+                                        <div class="${floatDirection}">
+                                            <div id='tierIconDiv' class="ptm tac" style="width: 77px;">
+                                                <div class="small make-uppercase bottom">Tier</div>
+                                                <c:if test="${tierScore lt 35}">
+                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='mrs iconxDcCharterBadges_sm i-DcCharterBadges-3'><!-- do not close --></span></div></c:set>
+                                                </c:if>
+                                                <c:if test="${tierScore ge 35.0 and tierScore lt 65}">
+                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='iconxDcCharterBadges_sm i-DcCharterBadges-2'><!-- do not close --></span></div></c:set>
+                                                </c:if>
+                                                <c:if test="${tierScore ge 65.0}">
+                                                    <c:set var="schoolPerformanceTierIcon"><div><span class='iconxDcCharterBadges_sm i-DcCharterBadges-1'><!-- do not close --></span></div></c:set>
+                                                </c:if>
+                                                ${schoolPerformanceTierIcon}
+                                                <div class="small bottom">${schoolLevel}</div>
 
+                                            </div><!-- END tierIconDiv  -->
+                                        </div>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </c:when>
                         <c:otherwise>
-                            <!--<c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">-->
+                            <c:choose>
+                                <!--Badges Not Show Up and One School Shown-->
+                                <c:when test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 1}">
+                                    <div id='charterRatingInfo' class="tac ptm pbl">
+                                        <p class="small_bold textshadow-1 plm bottom pbm  make-555555">DC Public Charter<br />School Board</p>
+                                    </div>
+                                    <c:set var="tierScore" value="${localInfoModel['schoolPerformanceManagementRating'][0].score}"/>
+                                    <div id='charterRatingDiv' style="background-color: #F4F4F4;" class='pam tac mlh'>
+                                        <span class='small bottom'>Total Score<br /><h3 class="bottom"><strong>${tierScore}%</strong></h3></span>
+                                    </div><!-- END charterRatingInfo  -->
+                                </c:when>
+                                <c:otherwise>
+                                    <!--Badges Not Show Up and Two Schools Shown-->
+                                    <div id='charterRatingInfo' class="tac ptm">
+                                        <p class="small_bold textshadow-1 plm bottom pbm  make-555555">DC Public Charter<br />School Board</p>
+                                    </div>
+                                    <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">
+                                        <c:set var="tierScore" value="${entry.score}"/>
+                                        <c:set var='schoolLevel' scope="page">${entry.levelText}</c:set>
+                                        <c:set var="floatDirection" value="fl" />
+                                        <c:if test="${status.last}">
+                                            <c:set var="floatDirection" value="fr" />
+                                            <div class="fl br mtm" style="height: 90px; padding-right: 10px;">&amp;nbsp;</div>
+                                        </c:if>
 
-                            <c:set var='schoolLevel' scope="page">${entry.levelText}</c:set>
-
-                            <c:if test="${entry.score lt 35}">
-                                <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-3'><!-- do not close --></span></c:set>
-                            </c:if>
-                            <c:if test="${entry.score ge 35.0 and entry.score lt 65}">
-                                <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-2'><!-- do not close --></span></c:set>
-                            </c:if>
-                            <c:if test="${entry.score ge 65.0}">
-                                <c:set var="schoolPerformanceTierIcon"><span class='iconxDcCharterBadges i-DcCharterBadges-1'><!-- do not close --></span></c:set>
-                            </c:if>
-
-
-
-                            <c:if test="${!(schoolId == 567 || schoolId == 265 || schoolId == 837)}">
-                                <div id='tierIconDiv' style='width:49px; float:right; text-align: center;'>
-                                    <span class="small_bold make-uppercase">Tier</span>
-                                    ${schoolPerformanceTierIcon}
-
-                                </div><!-- END tierIconDiv  -->
-                            </c:if>
-                            <!--</div>&lt;!&ndash; END charterRatingDiv  &ndash;&gt;-->
-
-                            <c:if test="${ (fn:length(localInfoModel['schoolPerformanceManagementRating']) gt 1) and ! status.last }">
-                                <hr class="keyline2" style='margin: 10px 0;' />
-                            </c:if>
-
-                        <!--</c:forEach>-->
-
+                                        <div class="${floatDirection}">
+                                            <div id='tierIconDiv' class="ptl tac" style="width: 77px;">
+                                                <div class='small bottom'>Total Score<br /><h3 class="bottom"><strong>${tierScore}%</strong></h3>${schoolLevel}</div>
+                                            </div><!-- END tierIconDiv  -->
+                                        </div>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
-                    <!--<div id='charterRatingInfo' style="width: 120px; float: left;">-->
-                        <!--<p class="small_bold textshadow-1 pvs plm bottom make-555555">DC Public Charter School Board</p>-->
-                        <!--<div id='charterRatingDiv' style="height: 60px; background-color: #F4F4F4; text-align: center" class='make-555555'>-->
-                            <!--<span class='small'>Total Score<br /><h3><strong>${entry.score}%</strong></h3></span>-->
-                        <!--</div>&lt;!&ndash; END charterRatingInfo  &ndash;&gt;-->
-                    <!--</div>-->
-                            <!--<span class='small_bold'>${schoolLevel} </span>-->
-                            <!--<br />-->
-                            <!--<br />-->
-                            <!--<span class='small_bold'>-->
-                            <!--<em>${schoolPerformanceManagementRatingBand} performing</em>-->
-                            <!--</span>-->
-
-                    <!--<div class='small' id='PMFContent'>-->
-
-                        <!-- if only 1 rating -->
-                        <!--<c:if test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 1}">-->
-
-                            <!--<span class='PMF-text'>This school's Performance Management Framework (PMF) Rating:</span>-->
-                            <!--<hr class="keyline2" style='margin: 10px 0;' />-->
-
-                        <!--</c:if>&lt;!&ndash; END if only 1 rating &ndash;&gt;-->
-
-
-
-                        <!--<c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">-->
-
-                            <!--<c:set var='schoolLevel' scope="page">${entry.levelText}</c:set>-->
-
-                            <!--<c:if test="${entry.score lt 35}">-->
-                                <!--<c:set var="schoolPerformanceManagementRatingTier">3</c:set>-->
-                                <!--<c:set var="schoolPerformanceTierIcon"><span-->
-                                        <!--class='ratingx-32-charter r-32-3'>&lt;!&ndash; do not close &ndash;&gt;</span></c:set>-->
-                                <!--<c:set var="schoolPerformanceManagementRatingBand">Low</c:set>-->
-                            <!--</c:if>-->
-                            <!--<c:if test="${entry.score ge 35.0 and entry.score lt 65}">-->
-                                <!--<c:set var="schoolPerformanceManagementRatingTier">2</c:set>-->
-                                <!--<c:set var="schoolPerformanceTierIcon"><span-->
-                                        <!--class='ratingx-32-charter r-32-2'>&lt;!&ndash; do not close &ndash;&gt;</span></c:set>-->
-                                <!--<c:set var="schoolPerformanceManagementRatingBand">Mid</c:set>-->
-                            <!--</c:if>-->
-                            <!--<c:if test="${entry.score ge 65.0}">-->
-                                <!--<c:set var="schoolPerformanceManagementRatingTier">1</c:set>-->
-                                <!--<c:set var="schoolPerformanceTierIcon"><span-->
-                                        <!--class='ratingx-32-charter r-32-1'>&lt;!&ndash; do not close &ndash;&gt;</span></c:set>-->
-                                <!--<c:set var="schoolPerformanceManagementRatingBand">High</c:set>-->
-                            <!--</c:if>-->
-
-
-
-                                <!--<c:if test="${!(schoolId == 567 || schoolId == 265 || schoolId == 837)}">-->
-                                    <!--<div id='tierIconDiv' style='width:49px; float:right; text-align: center; border-left: 1px solid #e6e6e6;'>-->
-                                        <!--<span class="small_bold make-uppercase">Tier</span>-->
-                                        <!--${schoolPerformanceTierIcon}-->
-
-                                    <!--</div>&lt;!&ndash; END tierIconDiv  &ndash;&gt;-->
-                                <!--</c:if>-->
-                            <!--&lt;!&ndash;</div>&lt;!&ndash; END charterRatingDiv  &ndash;&gt;&ndash;&gt;-->
-
-                            <!--<c:if test="${ (fn:length(localInfoModel['schoolPerformanceManagementRating']) gt 1) and ! status.last }">-->
-                                <!--<hr class="keyline2" style='margin: 10px 0;' />-->
-                            <!--</c:if>-->
-
-                        <!--</c:forEach>-->
-
-                    <!--</div>&lt;!&ndash; END PMFContent &ndash;&gt;-->
                 </div><!-- END class="mam" style='height: 149px;' -->
             </div><!-- END class='bd clearfix' -->
         </a>

@@ -804,3 +804,33 @@ span.i-48-gallery-next-default:hover{
 .i-DcCharterBadges-3 {
     background-position: -118px 0;
 }
+
+
+/* = 3 DcCharterBadges - smaller type for multiple at once
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconxDcCharterBadges_sm {
+    display: inline-block;
+    background-image: url(/res/img/sprites/DC_charter_ratings_46x46.png);
+    width: 46px;
+    height: 46px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-DcCharterBadges-1 {
+    background-position: 0 0;
+}
+
+.i-DcCharterBadges-2 {
+    background-position: -46px 0;
+}
+
+.i-DcCharterBadges-3 {
+    background-position: -92px 0;
+}
+
+
