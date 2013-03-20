@@ -259,14 +259,13 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
      * @return
      */
     protected boolean promoteProvisionalDataToActiveData(User user, School school) {
-        //TODO comments
         //TODO unit tests
         //TODO do error checking again?
         //TODO what if state is locked?
         //TODO omniture
         boolean rval = false;
 
-        Set<String> keysToDeactivate = new HashSet<String>(); //Nothing to deactivate. All the provisional data should already be inactive.
+        Set<String> keysForPage = new HashSet<String>();
         Map<String, Object[]> requestParameterMapArrObject = new HashMap<String, Object[]>();
         Map<String, List<Object>> requestParameterMap = new HashMap<String, List<Object>>();
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
@@ -285,6 +284,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                 }
                 ojbs.add(espResponse.getValue());
                 requestParameterMap.put(key, ojbs);
+            }else{
+                String[] keys = espResponse.getValue().split(",");
+                keysForPage.addAll(Arrays.asList(keys));
             }
         }
 
@@ -309,8 +311,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             }
         }
 
-        _espHelper.saveEspFormData(user, school, keysToDeactivate, requestParameterMapArrObject, school.getDatabaseState(), -1,
-                errorFieldToMsgMap, responseList, false);
+        _espHelper.saveEspFormData(user, school, keysForPage, requestParameterMapArrObject, school.getDatabaseState(), -1,
+                errorFieldToMsgMap, responseList, false,true);
         if (errorFieldToMsgMap.isEmpty()) {
             rval = true;
         }

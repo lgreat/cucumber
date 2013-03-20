@@ -60,21 +60,24 @@ public class EspFormValidationHelper {
     public Map<String, String> performValidation(Map<String, Object[]> requestParameterMap,
                                                 Set<String> keysForPage, School school) {
         Map<String, String> errors = new HashMap<String, String>();
-
-        if (keysForPage.contains("average_class_size")) {
+        String avgClassSizeKey = "average_class_size";
+        if (keysForPage.contains(avgClassSizeKey)) {
             _log.debug("Validating average_class_size");
             String value = (String) getSingleValue(requestParameterMap, "average_class_size");
             if (value != null) {
                 try {
                     int classSize = Integer.parseInt(value);
                     if (classSize < 0) {
-                        errors.put("Average class size", "Must be positive integer");
+                        errors.put(avgClassSizeKey, "Must be positive integer");
                     }
                 } catch (NumberFormatException nfe) {
-                    errors.put("Average class size", "Must be positive integer");
+                    errors.put(avgClassSizeKey, "Must be positive integer");
                 }
             } else {
-                errors.put("Average class size", "Must be positive integer");
+                errors.put(avgClassSizeKey, "Must be positive integer");
+            }
+            if(errors.containsKey(avgClassSizeKey)){
+                keysForPage.remove(avgClassSizeKey);
             }
         }
         return errors;

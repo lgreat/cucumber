@@ -45,7 +45,7 @@ public class EspHelper {
     public void saveEspFormData(User user, School school, Set<String> keysForPage,
                                 Map<String, Object[]> keyToResponseMap, State state, int pageNum,
                                 Map<String, String> errorFieldToMsgMap,List<EspResponse> responseList,
-                                boolean isProvisionalData) {
+                                boolean isProvisionalData,boolean ignoreErrors) {
 
         // Save page
         Set<String> keysForExternalData = _espFormExternalDataHelper.getKeysForExternalData(school);
@@ -78,7 +78,9 @@ public class EspHelper {
         // validated by their respective save method below!
         errorFieldToMsgMap.putAll(_espFormValidationHelper.performValidation
                 (keyToResponseMap, keysForPage, school));
-        if (!errorFieldToMsgMap.isEmpty()) {
+        //If there are errors and if the errors should not be ignored, then exit.
+        //There are cases where the errors should be ignored. example:- errors while promoting provisional data.
+        if (!errorFieldToMsgMap.isEmpty() && !ignoreErrors) {
             return; // early exit
         }
 
@@ -113,6 +115,10 @@ public class EspHelper {
                 active = false; // data saved elsewhere should be inactive
             }
             for (Object responseValue : responseValues) {
+                if(errorFieldToMsgMap.get(key) != null){
+                     continue;
+                }
+
                 EspResponse espResponse;
                 if (StringUtils.equals("address", key)) {
                     espResponse = createEspResponse(user, school, now, key, active, (Address) responseValue);
@@ -127,7 +133,9 @@ public class EspHelper {
             }
         }
 
-        if (!errorFieldToMsgMap.isEmpty()) {
+        //If there are errors and if the errors should not be ignored, then exit.
+        //There are cases where the errors should be ignored. example:- errors while promoting provisional data.
+        if (!errorFieldToMsgMap.isEmpty() && !ignoreErrors) {
             return; // early exit
         }
 

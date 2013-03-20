@@ -1054,4 +1054,8 @@ public class EspFormExternalDataHelper {
                                     new EspCensusBreakdownConfiguration(6, "Multiracial")))
             );
     }};
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
 }
