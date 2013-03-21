@@ -10,9 +10,11 @@
 
     <div class="jq-businessInfoForm dn">
         <div class="hd"><!--yellow header-->
-            2 Company Info
+            <span class="real-estate-step-1 re-contact-default"><!-- do not collapse --></span>
+            <span class="real-estate-step-2 re-company-info-selected"><!-- do not collapse --></span>
+            <span class="real-estate-step-3 re-photo-upload-default"><!-- do not collapse --></span>
         </div>
-        <div class="bd" style="height: 300px;">
+        <div class="bd" style="height: 330px;">
             <div class="tac">
                 <h2>Company information</h2>
             </div>
@@ -56,8 +58,8 @@
         <div class="ft joinSubmit">
             <div class="tac">
                 <a href="javascript:void(0)">
-                    <button class="button-1 jq-businessInfoSubmit" name="businessInfoSubmit">
-                        Complete
+                    <button class="but but-lg but-1 jq-businessInfoSubmit" name="businessInfoSubmit">
+                        Next step
                     </button>
                 </a>
             </div>

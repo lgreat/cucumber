@@ -9,10 +9,12 @@
           version="2.0">
 
     <div class ="jq-personalInfoForm">
-        <div class="hd"><!--yellow header-->
-            1 Contact Info
+        <div class="hd">
+            <span class="real-estate-step-1 re-contact-selected"><!-- do not collapse --></span>
+            <span class="real-estate-step-2 re-company-info-default"><!-- do not collapse --></span>
+            <span class="real-estate-step-3 re-photo-upload-default"><!-- do not collapse --></span>
         </div>
-        <div class="bd" style="height: 300px;">
+        <div class="bd" style="height: 330px;">
             <div class="tac">
                 <h2>Contact information</h2>
             </div>
@@ -41,8 +43,8 @@
         <div class="ft joinSubmit">
             <div class="tac">
                 <a href="javascript:void(0)">
-                    <button class="button-1 jq-personalInfoSubmit" name="personalInfoSubmit">
-                        Complete
+                    <button class="but but-lg but-1 jq-personalInfoSubmit" name="personalInfoSubmit">
+                        Next step
                     </button>
                 </a>
             </div>
