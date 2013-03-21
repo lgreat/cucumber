@@ -98,25 +98,25 @@
 
         <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
 
-        <div id="js_testClickAnimation" class="searchBox pr rnd4" style=""><!--do not colapse-->
-            <input type="text" placeholder="Search string" class="reviewsLanding"
-                   style=""><!-- do not collapse --></input>
-            <!--<div class="fl"><input type="text" placeholder="Search string" class="reviewsLanding" style=""/></div>-->
-            <!--<div class="pa" style="right:0; top:0; height:58px;">-->
-            <!--<div class="selectBox">Select</div>-->
-            <!--<div class="selectDropDown" style="display: none;padding-top: 46px;">-->
-            <!--<div class="ddValues">CA</div>-->
-            <!--<div class="ddValues">NY</div>-->
-            <!--<div class="ddValues">WI</div>-->
-            <!--<div class="ddValues">DC</div>-->
-            <!--<div class="ddValues">AZ</div>-->
-            <!--<div class="ddValues">CA</div>-->
-            <!--<div class="ddValues">NY</div>-->
-            <!--<div class="ddValues">WI</div>-->
-            <!--<div class="ddValues">DC</div>-->
-            <!--<div class="ddValues">AZ</div>-->
-            <!--</div>-->
-            <!--</div>-->
+        <div class="searchBox pr rnd4" style=""><!--do not colapse-->
+            <div class="fl ptm"><input type="text" placeholder="Search string" style="width:350px;"/></div>
+
+            <div class="fr ptm phm" id="js_submitSelectSchool">GO</div>
+            <div class="fr ptm" style="height:58px;">
+                <div class="selectBox">State</div>
+                <div class="selectDropDown" style="display: none;padding-top: 46px;">
+                    <div class="ddValues">CA</div>
+                    <div class="ddValues">NY</div>
+                    <div class="ddValues">WI</div>
+                    <div class="ddValues">DC</div>
+                    <div class="ddValues">AZ</div>
+                    <div class="ddValues">CA</div>
+                    <div class="ddValues">NY</div>
+                    <div class="ddValues">WI</div>
+                    <div class="ddValues">DC</div>
+                    <div class="ddValues">AZ</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -128,6 +128,7 @@
 
             <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #b2811d;">Help others find their great school – rate and review yours now</p>
         </div>
+
     </div>
     <div class="container_24 clearfix">
         <form action="">
