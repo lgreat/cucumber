@@ -22,20 +22,20 @@
                 <div class="clearfix">
                     <div class="fl">
                         <gsml:input type="text" styleId="jq-fName" styleClass="text1 input_5" name="firstName"
-                                    placeholder="First Name" value="First Name"/>
+                                    placeholder="First Name" value="First Name" onfocus="GS_textSwitch(this, '', 'First Name');" onblur="GS_textSwitch(this, 'First Name', '');"/>
                     </div>
                     <div class="fr">
                         <gsml:input type="text" styleId="jq-lName" styleClass="text1 input_5" name="lastName"
-                                    placeholder="Last Name" value="Last Name"/>
+                                    placeholder="Last Name" value="Last Name" onfocus="GS_textSwitch(this, '', 'Last Name');" onblur="GS_textSwitch(this, 'Last Name', '');"/>
                     </div>
                 </div>
                 <div class="mtl">
                     <gsml:input type="text" styleId="jq-email" styleClass="text1 input_10" name="email"
-                                value="Email" placeholder="Email"/>
+                                placeholder="Email" value="Email" onfocus="GS_textSwitch(this, '', 'Email');" onblur="GS_textSwitch(this, 'Email', '');"/>
                 </div>
                 <div class="mtl">
                     <gsml:input type="password" styleId="jq-password" styleClass="text1 input_10" name="password"
-                                value="Password" placeholder="Password"/>
+                                placeholder="Password" value="Password" onfocus="GS_textSwitch(this, '', 'Password');" onblur="GS_textSwitch(this, 'Password', '');"/>
                 </div>
             </div>
         </div>

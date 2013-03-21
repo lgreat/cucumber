@@ -21,26 +21,26 @@
             <div class="ptl">
                 <div class="">
                     <gsml:input type="text" styleId="jq-companyName" styleClass="text1 input_10" name="companyName"
-                                value="Company Name" placeholder="Company Name"/>
+                                value="Company Name" placeholder="Company Name" onfocus="GS_textSwitch(this, '', 'Company Name');" onblur="GS_textSwitch(this, 'Company Name', '');"/>
                 </div>
                 <div class="mtl clearfix">
                     <div class="fl">
                         <gsml:input type="text" styleId="jq-workNumber" styleClass="text1 input_5" name="workNumber"
-                                    value="Work #"/>
+                                    value="Work #" placeholder="Work #" onfocus="GS_textSwitch(this, '', 'Work #');" onblur="GS_textSwitch(this, 'Work #', '');"/>
                     </div>
                     <div class="fr">
                         <gsml:input type="text" styleId="jq-cellNumber" styleClass="text1 input_5" name="cellNumber"
-                                    value="Cell #" placeholder="Cell #"/>
+                                    value="Cell #" placeholder="Cell #" onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
                     </div>
                 </div>
                 <div class="mtl">
                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_10" name="address"
-                                value="Address" placeholder="Address"/>
+                                value="Address" placeholder="Address" onfocus="GS_textSwitch(this, '', 'Address');" onblur="GS_textSwitch(this, 'Address', '');"/>
                 </div>
                 <div class="mtl clearfix">
                     <div class="fl">
                         <gsml:input type="text" styleId="jq-city" styleClass="text1 input_3" name="city" value="City"
-                                    placeholder="City"/>
+                                    placeholder="City" onfocus="GS_textSwitch(this, '', 'City');" onblur="GS_textSwitch(this, 'City', '');"/>
                     </div>
                     <div class="mhl fl">
                         <gsweb:stateSelector useNoState="true" noStateLabel="State"
@@ -50,7 +50,7 @@
                     </div>
                     <div class="fr">
                         <gsml:input type="text" styleId="jq-zip" styleClass="text1 input_3" name="zip"
-                                    placeholder="Zip"/>
+                                    value="Zip" placeholder="Zip" onfocus="GS_textSwitch(this, '', 'Zip');" onblur="GS_textSwitch(this, 'Zip', '');"/>
                     </div>
                 </div>
             </div>
