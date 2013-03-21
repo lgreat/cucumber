@@ -71,8 +71,8 @@ public class RealEstateSchoolsReportController {
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
-        if(userId == null && request.getParameter("skipUserCheck") == null) {
-            return new RedirectView(_realEstateAgentHelper.getRegistrationHomeUrl(request));
+        if(userId == null && !_realEstateAgentHelper.skipUserValidation(request)) {
+            return new RedirectView(_realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request));
         }
 
         try {

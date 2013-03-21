@@ -1,14 +1,12 @@
 package gs.web.realEstateAgent;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
-import gs.data.community.WelcomeMessageStatus;
+import gs.data.community.*;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +39,55 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
     private static final String CREATE_REPORT_PAGE_VIEW = "/realEstateAgent/createReport";
 
+    private final static String FIELD_NAME_REQ_PARAM_KEY = "fieldName";
+    private final static String FIRST_NAME_REQ_PARAM_KEY = "firstName";
+    private final static String LAST_NAME_REQ_PARAM_KEY = "lastName";
+    private final static String EMAIL_REQ_PARAM_KEY = "email";
+    private final static String PASSWORD_REQ_PARAM_KEY = "password";
+
+    private final static String HAS_ERROR_VALIDATION_RESPONSE_KEY = "hasError";
+
+    public static final String FIRST_NAME_ERROR_DETAIL_KEY = "firstNameErrorDetail";
+    public static final int FIRST_NAME_MINIMUM_LENGTH = 2;
+    public static final int FIRST_NAME_MAXIMUM_LENGTH = 24;
+    public static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
+    };
+    protected static final String ERROR_FIRST_NAME_LENGTH =
+            "First name must be 2-24 characters long.";
+    protected static final String ERROR_FIRST_NAME_BAD =
+            "Please remove the numbers or symbols.";
+    public static final String ERROR_INVALID_FIRST_NAME = "Please enter a valid first name.";
+
+    public static final String LAST_NAME_ERROR_DETAIL_KEY = "lastNameErrorDetail";
+    public static final int LAST_NAME_MINIMUM_LENGTH = 1;
+    public static final int LAST_NAME_MAXIMUM_LENGTH = 24;
+    protected static final String ERROR_LAST_NAME_LENGTH =
+            "Last name must be 1-24 characters long.";
+    protected static final String ERROR_LAST_NAME_INVALID_CHARACTERS =
+            "Last name may contain only letters, numbers, spaces, and the following punctuation:, . - _ &";
+    public static final String ERROR_INVALID_LAST_NAME = "Please enter a valid last name.";
+
+    public static final String EMAIL_ERROR_DETAIL_KEY = "emailErrorDetail";
+    public static final String ERROR_INVALID_EMAIL = "Please enter a valid email address.";
+    protected static final int EMAIL_MAXIMUM_LENGTH = 127;
+    protected static final String ERROR_EMAIL_MISSING =
+            "Please enter your email address.";
+    public static final String ERROR_EMAIL_LENGTH =
+            "Your email must be less than 128 characters long.";
+    protected static final String ERROR_EMAIL_TAKEN =
+            "This email address is already registered.";
+    protected static final String ERROR_EMAIL_HAS_AGENT_ACCOUNT =
+            "This email address has registered real estate agent account.";
+
+    public static final String PASSWORD_ERROR_DETAIL_KEY = "passwordErrorDetail";;
+    protected static final int PASSWORD_MINIMUM_LENGTH = 6;
+    protected static final int PASSWORD_MAXIMUM_LENGTH = 14;
+    protected static final String ERROR_PASSWORD_LENGTH =
+            "Password should be 6-14 characters.";
+    protected static final String ERROR_INCORRECT_PASSWORD =
+            "The password you entered is incorrect for the registered email.";
+
     @Autowired
     private IAgentAccountDao _agentAccountDao;
 
@@ -45,11 +95,17 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     private IUserDao _userDao;
 
     @Autowired
+    private ISubscriptionDao _subscriptionDao;
+
+    @Autowired
     private RealEstateAgentHelper _realEstateAgentHelper;
 
     @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
+        if (_realEstateAgentHelper.hasAgentAccountFromSessionContext(request)) {
+            return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
+        }
         return REGISTRATION_PAGE_VIEW;
     }
 
@@ -57,7 +113,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     public String showCreateReportForm (HttpServletRequest request,
                             HttpServletResponse response) {
 
-        if("true".equals(request.getParameter("skipUserCheck"))) {
+        if(_realEstateAgentHelper.skipUserValidation(request)) {
             return CREATE_REPORT_PAGE_VIEW;
         }
 
@@ -67,7 +123,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             return _realEstateAgentHelper.getViewForUser(request, userId, CREATE_REPORT_PAGE_VIEW);
         }
 
-        return "redirect:" + _realEstateAgentHelper.getRegistrationHomeUrl(request);
+        return "redirect:" + _realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request);
     }
 
     @RequestMapping(value = "savePersonalInfo.page", method = RequestMethod.POST)
@@ -79,12 +135,26 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
                                       @RequestParam(value = "password", required = true) String password) {
 
         response.setContentType("application/json");
+        JSONObject responseJson = new JSONObject();
 
-
-        email = (email != null && StringUtils.isNotBlank(email.trim())) ? email.trim() : null;
-        if(email == null) {
-            outputJson(response, false);
+        if(_realEstateAgentHelper.skipUserValidation(request)) {
+            outputJson(response, responseJson, false);
             return;
+        }
+
+        try {
+            doFullValidations(fName, lName, email, password, responseJson);
+
+            if(responseJson.has(HAS_ERROR_VALIDATION_RESPONSE_KEY) && responseJson.getBoolean(HAS_ERROR_VALIDATION_RESPONSE_KEY)) {
+                outputJson(response, responseJson, false);
+                return;
+            }
+        }
+        catch (JSONException ex) {
+            _logger.warn("RealEstateAgentRegistrationController: Invalid value for response JSON object.");
+        }
+        catch (NoSuchAlgorithmException ex) {
+            _logger.warn("RealEstateAgentRegistrationController: Error while trying to encode password.");
         }
 
         User user = _userDao.findUserFromEmailIfExists(email);
@@ -104,9 +174,15 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         updateUserProfile(user);
         _userDao.updateUser(user);
 
+        Subscription subscription = new Subscription(user, SubscriptionProduct.SCHOOL_GUIDE_RADAR, SessionContextUtil.getSessionContext(request).getState());
+        List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.SCHOOL_GUIDE_RADAR);
+        if(subscriptions == null || subscriptions.isEmpty()) {
+            _subscriptionDao.saveSubscription(subscription);
+        }
+
         _realEstateAgentHelper.setUserCookie(user, request, response);
 
-        outputJson(response, true);
+        outputJson(response, responseJson, true);
     }
 
     @RequestMapping(value = "saveBusinessInfo.page", method = RequestMethod.POST)
@@ -121,18 +197,19 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
                                       @RequestParam(value = "zip", required = false) String zip) {
 
         response.setContentType("application/json");
+        JSONObject responseJson = new JSONObject();
 
         int userId = _realEstateAgentHelper.getUserIdFromCookie(request);
 
         if(userId == -1) {
-            outputJson(response, false);
+            outputJson(response, responseJson, false);
             return;
         }
 
         User user = _userDao.findUserFromId(userId);
 
         if(user == null || user.getId() == null) {
-            outputJson(response, false);
+            outputJson(response, responseJson, false);
             return;
         }
 
@@ -147,7 +224,141 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             getAgentAccountDao().updateAgentAccount(agentAccount);
         }
 
-        outputJson(response, true);
+        outputJson(response, responseJson, true);
+    }
+
+    @RequestMapping(value = "registrationValidationAjax.page", method = RequestMethod.GET)
+    public void handleValidation(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, String> paramMap = request.getParameterMap();
+
+        JSONObject responseJson = new JSONObject();
+
+        try {
+            if(paramMap.containsKey(FIELD_NAME_REQ_PARAM_KEY)) {
+                if(paramMap.containsKey(FIRST_NAME_REQ_PARAM_KEY)) {
+                    String firstName = request.getParameter(FIRST_NAME_REQ_PARAM_KEY);
+                    validateFirstName(firstName, responseJson);
+                }
+                if(paramMap.containsKey(LAST_NAME_REQ_PARAM_KEY)) {
+                    String lastName = request.getParameter(LAST_NAME_REQ_PARAM_KEY);
+                    validateLastName(lastName, responseJson);
+                }
+                if(paramMap.containsKey(EMAIL_REQ_PARAM_KEY)) {
+                    String email = request.getParameter(EMAIL_REQ_PARAM_KEY);
+                    validateEmail(email, responseJson);
+                }
+                if(paramMap.containsKey(PASSWORD_REQ_PARAM_KEY)) {
+                    String password = request.getParameter(PASSWORD_REQ_PARAM_KEY);
+                    validatePassword(password, responseJson);
+                }
+            }
+            responseJson.write(response.getWriter());
+            response.getWriter().flush();
+        }
+        catch (JSONException ex) {}
+        catch (IOException ex) {}
+    }
+
+    private void doFullValidations(String firstName, String lastName, String email, String password, JSONObject responseJson) throws JSONException, NoSuchAlgorithmException {
+        validateFirstName(firstName, responseJson);
+        validateLastName(lastName, responseJson);
+        validateEmail(email, responseJson);
+        validatePassword(password, responseJson);
+        validateRegisteredUser(email, password, responseJson);
+    }
+
+    private void validateFirstName (String name, JSONObject responseJson) throws JSONException {
+        if(StringUtils.isEmpty(name) || name.length() < FIRST_NAME_MINIMUM_LENGTH || name.length() > FIRST_NAME_MAXIMUM_LENGTH) {
+            responseJson.put(FIRST_NAME_ERROR_DETAIL_KEY, ERROR_FIRST_NAME_LENGTH);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+        else if(!StringUtils.containsNone(name, FIRST_NAME_DISALLOWED_CHARACTERS)) {
+            responseJson.put(FIRST_NAME_ERROR_DETAIL_KEY, ERROR_FIRST_NAME_BAD);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+        else if("First Name".equals(name)) {
+            responseJson.put(FIRST_NAME_ERROR_DETAIL_KEY, ERROR_INVALID_FIRST_NAME);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+    }
+
+    private void validateLastName (String name, JSONObject responseJson) throws JSONException {
+        if(StringUtils.isEmpty(name) || name.length() < LAST_NAME_MINIMUM_LENGTH || name.length() > LAST_NAME_MAXIMUM_LENGTH) {
+            responseJson.put(LAST_NAME_ERROR_DETAIL_KEY, ERROR_LAST_NAME_LENGTH);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+        else if(!name.matches("[0-9a-zA-Z\\-\\_\\.\\,\\&\\s]*")) {
+            responseJson.put(LAST_NAME_ERROR_DETAIL_KEY, ERROR_LAST_NAME_INVALID_CHARACTERS);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+        else if("Last Name".equals(name)) {
+            responseJson.put(LAST_NAME_ERROR_DETAIL_KEY, ERROR_INVALID_LAST_NAME);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+    }
+
+    private void validateEmail(String email, JSONObject responseJson) throws JSONException{
+        if (StringUtils.isEmpty(email) || "Email".equals(email)) {
+            responseJson.put(EMAIL_ERROR_DETAIL_KEY, ERROR_EMAIL_MISSING);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+            return;
+        } else if (email.length() > EMAIL_MAXIMUM_LENGTH) {
+            responseJson.put(EMAIL_ERROR_DETAIL_KEY, ERROR_EMAIL_LENGTH);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+            return;
+        }
+
+        org.apache.commons.validator.routines.EmailValidator emailValidator = org.apache.commons.validator.routines.EmailValidator.getInstance();
+
+        if(emailValidator.isValid(email)) {
+            User user = _userDao.findUserFromEmailIfExists(email);
+            if (user != null && user.getId() != null) {
+                /*if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
+                    String errmsg = "The account associated with that email address has been disabled. " +
+                            "Please <a href=\"http://" +
+                            SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                            "/report/email-moderator\">contact us</a> for more information.";
+                    responseJson.accumulate(ERROR_DETAIL_VALIDATION_RESPONSE_KEY, errmsg);
+                    responseJson.accumulate(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+                } else if (user.isEmailValidated()) {
+                    UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
+                    builder.addParameter("email",email);
+                    String loginUrl = builder.asFullUrl(request);
+                    String errmsg = ERROR_EMAIL_TAKEN + " <a class=\"launchSignInHover\" href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
+                    responseJson.accumulate(ERROR_DETAIL_VALIDATION_RESPONSE_KEY, errmsg);
+                    responseJson.accumulate(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+                } else if (user.isEmailProvisional()) {
+                    // let them register, just overwrite previous values
+                }*/
+
+                AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(user.getId());
+                if(agentAccount != null) {
+                    responseJson.put(EMAIL_ERROR_DETAIL_KEY, ERROR_EMAIL_HAS_AGENT_ACCOUNT);
+                    responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+                }
+            }
+        }
+        else {
+            responseJson.put(EMAIL_ERROR_DETAIL_KEY, ERROR_INVALID_EMAIL);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+    }
+
+    private void validatePassword(String password, JSONObject responseJson) throws JSONException{
+        if (StringUtils.isEmpty(password) ||
+                password.length() < PASSWORD_MINIMUM_LENGTH ||
+                password.length() > PASSWORD_MAXIMUM_LENGTH) {
+            responseJson.put(PASSWORD_ERROR_DETAIL_KEY, ERROR_PASSWORD_LENGTH);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
+    }
+
+    private void validateRegisteredUser(String email, String password, JSONObject responseJson) throws JSONException, NoSuchAlgorithmException {
+        User user = getUserDao().findUserFromEmailIfExists(email);
+        if(user != null && !user.matchesPassword(password)) {
+            responseJson.put(PASSWORD_ERROR_DETAIL_KEY, ERROR_INCORRECT_PASSWORD);
+            responseJson.put(HAS_ERROR_VALIDATION_RESPONSE_KEY, true);
+        }
     }
 
     private void setUserFields(String fName, String lName, User user) {
@@ -175,11 +386,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     private void updateUserProfile(User user) {
         UserProfile userProfile;
 
-        if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
-            userProfile = user.getUserProfile();
-            generateScreenName(userProfile, user.getId());
-        }
-        else {
+        if (user.getUserProfile() == null) {
             userProfile = new UserProfile();
             generateScreenName(userProfile, user.getId());
             userProfile.setUser(user);
@@ -212,8 +419,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         }
     }
 
-    private void outputJson(HttpServletResponse response, boolean isSuccess) {
-        JSONObject responseJson = new JSONObject();
+    private void outputJson(HttpServletResponse response, JSONObject responseJson, boolean isSuccess) {
         try {
             responseJson.accumulate("success", isSuccess);
             responseJson.write(response.getWriter());

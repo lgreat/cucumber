@@ -4,6 +4,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
           version="2.0">
 
@@ -13,8 +14,12 @@
 
     <head>
         <meta name="decorator" content="standardDecorator-v1"/>
+        <meta name="description" content="GreatSchools Radar makes it easy for real estate pros to create customized 
+        neighborhood school guides for their home listings"/>
+        <meta name="keywords" content="school reports, school guides, real estate schools, school reports for real
+        estate, GreatSchools Radar"/>
 
-        <title>Real Estate Agent - Registration | GreatSchools</title>
+        <title>Neighborhood School Guides, Real Estate Solutions | GreatSchools</title>
         <gsml:javascript src="/res/js/plupload-new/moxie.min.js" />
         <gsml:javascript src="/res/js/plupload-new/plupload.js" />
         <!--<gsml:javascript src="/res/js/plupload-new/plupload.flash.js" />-->
@@ -40,6 +45,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <div style="display: none;">
+            <mod:tracking pageName="Radar Landing"
+                          hier1="real-estate, GreatSchools Radar, Landing"/>
         </div>
     </body>
     </html>

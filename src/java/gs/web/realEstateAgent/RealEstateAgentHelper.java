@@ -34,6 +34,18 @@ public class RealEstateAgentHelper {
         return sessionContext.getUser();
     }
 
+    public boolean hasAgentAccountFromSessionContext(HttpServletRequest request) {
+        User user = getUserFromSessionContext(request);
+        if(user != null && user.getId() != null) {
+            if (getAgentAccountDao().findAgentAccountByUserId(user.getId()) !=  null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public void setUserCookie(User user, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()), String.valueOf(user.getId()));
         cookie.setPath("/");
@@ -83,12 +95,25 @@ public class RealEstateAgentHelper {
             return view;
         }
 
-        return "redirect:" + getRegistrationHomeUrl(request);
+        return "redirect:" + getRealEstateSchoolGuidesUrl(request);
     }
 
-    public String getRegistrationHomeUrl (HttpServletRequest request) {
-        UrlBuilder regHome = new UrlBuilder(UrlBuilder.REAL_ESTATE_SCHOOL_GUIDES);
-        return regHome.asSiteRelative(request);
+    public String getRealEstateSchoolGuidesUrl(HttpServletRequest request) {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REAL_ESTATE_SCHOOL_GUIDES);
+        return urlBuilder.asSiteRelative(request);
+    }
+
+    public String getRealEstateCreateGuideUrl (HttpServletRequest request) {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REAL_ESTATE_CREATE_GUIDE);
+        return urlBuilder.asSiteRelative(request);
+    }
+
+    /* useful for debugging */
+    public boolean skipUserValidation(HttpServletRequest request) {
+        if("true".equals(request.getParameter("skipUserCheck"))) {
+            return true;
+        }
+        return false;
     }
 
     public IAgentAccountDao getAgentAccountDao() {

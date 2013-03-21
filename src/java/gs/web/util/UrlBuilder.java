@@ -156,6 +156,7 @@ public class UrlBuilder {
      * Real estate agent.
      */
     public static final VPage REAL_ESTATE_SCHOOL_GUIDES = new VPage("vpage:realEstateSchoolGuides");
+    public static final VPage REAL_ESTATE_CREATE_GUIDE = new VPage("vpage:realEstateCreateGuide");
 
     /**
      * QR Code
@@ -1033,6 +1034,9 @@ public class UrlBuilder {
         } else if (REAL_ESTATE_SCHOOL_GUIDES.equals(page)) {
             _perlPage = false;
             _path = "/real-estate/school-guides.page";
+        } else if (REAL_ESTATE_CREATE_GUIDE.equals(page)) {
+            _perlPage = false;
+            _path = "/real-estate/create-guide.page";
         } else if (QR_CODE_GENERATOR.equals(page)) {
             _perlPage = false;
             _path = "/qr-code-gen.png";
