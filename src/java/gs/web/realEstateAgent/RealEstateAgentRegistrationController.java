@@ -105,8 +105,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
         //TODO: comment skip user validation
-        if (!_realEstateAgentHelper.skipUserValidation(request) && (_realEstateAgentHelper.hasAgentAccountFromSessionContext(request)
-                || _realEstateAgentHelper.hasAgentAccountFromRegistrationCookie(request))) {
+        if (!_realEstateAgentHelper.skipUserValidation(request) && _realEstateAgentHelper.hasAgentAccount(request)) {
             return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
         }
         return REGISTRATION_PAGE_VIEW;

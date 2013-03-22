@@ -1,11 +1,15 @@
 package gs.web.realEstateAgent;
 
+import gs.data.realEstateAgent.AgentAccount;
+import gs.data.realEstateAgent.ReportGenerationTracking;
+import gs.data.realEstateAgent.ReportGenerationTrackingDaoHibernate;
 import gs.data.search.*;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.fields.DocumentType;
 import gs.data.search.fields.SchoolFields;
 import gs.data.util.CommunityUtil;
 import gs.web.PdfView;
+import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +39,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/real-estate/guides/neighborhood-guide")
 @Component("realEstateSchoolsReportController")
-public class RealEstateSchoolsReportController {
+public class RealEstateSchoolsReportController implements ReadWriteAnnotationController {
 
     @Autowired
     private GsSolrSearcher _gsSolrSearcher;
@@ -45,6 +49,9 @@ public class RealEstateSchoolsReportController {
 
     @Autowired
     private RealEstateAgentHelper _realEstateAgentHelper;
+
+    @Autowired
+    private ReportGenerationTrackingDaoHibernate _reportGeneratorTrackingDaoHiberanate;
 
     public static final int MAX_ALLOWED_SCHOOLS = 6;
 
@@ -69,9 +76,8 @@ public class RealEstateSchoolsReportController {
 
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
 
-        Integer userId = _realEstateAgentHelper.getUserId(request);
         //TODO: comment skip user validation
-        if(userId == null && !_realEstateAgentHelper.skipUserValidation(request)) {
+        if(!_realEstateAgentHelper.hasAgentAccount(request) && !_realEstateAgentHelper.skipUserValidation(request)) {
             return new RedirectView(_realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request));
         }
 
@@ -125,6 +131,23 @@ public class RealEstateSchoolsReportController {
             return new PdfView(viewToWrap);
         } catch (Exception e) {
             return new RedirectView("/status/error404.page");
+        }
+        finally {
+            String address = request.getParameter("address");
+            AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
+            if(agentAccount != null && address != null){
+                ReportGenerationTracking tracking = new ReportGenerationTracking(agentAccount, address);
+                try {
+                    tracking.setBedrooms(Integer.parseInt(request.getParameter("bed")));
+                    tracking.setBathrooms(Integer.parseInt(request.getParameter("bath")));
+                }
+                catch (NumberFormatException e) {
+                    _logger.warn("Exception while trying convert string to int for report generation tracking.", e);
+                }
+                tracking.setSqFootage(request.getParameter("sqFeet"));
+
+                getReportGeneratorTrackingDaoHibernate().save(tracking);
+            }
         }
     }
 
@@ -184,5 +207,13 @@ public class RealEstateSchoolsReportController {
 
     public void setViewResolver(InternalResourceViewResolver _viewResolver) {
         this._viewResolver = _viewResolver;
+    }
+
+    public ReportGenerationTrackingDaoHibernate getReportGeneratorTrackingDaoHibernate() {
+        return _reportGeneratorTrackingDaoHiberanate;
+    }
+
+    public void setReportGeneratorTracking(ReportGenerationTrackingDaoHibernate _reportGeneratorTrackingDaoHiberanate) {
+        this._reportGeneratorTrackingDaoHiberanate = _reportGeneratorTrackingDaoHiberanate;
     }
 }
