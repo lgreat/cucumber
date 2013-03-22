@@ -35,7 +35,7 @@
                 </div>
                 <div class="mtl">
                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_10" name="address"
-                                value="Address" placeholder="Address" onfocus="GS_textSwitch(this, '', 'Address');" onblur="GS_textSwitch(this, 'Address', '');"/>
+                                value="Work Address" placeholder="Work Address" onfocus="GS_textSwitch(this, '', 'Address');" onblur="GS_textSwitch(this, 'Work Address', '');"/>
                 </div>
                 <div class="mtl clearfix">
                     <div class="fl">
