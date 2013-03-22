@@ -31,11 +31,14 @@
             request.setAttribute("stateList", stateList);
     </jsp:scriptlet>
 
+    ${requestScope.pageHelper.headElementsWithoutCss}
     <gsml:javascript src="/res/js/schoolReviewForm.js"/>
     <gsml:javascript src="/res/js/parentReviewLandingPage.js"/>
     <gsml:javascript src="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>
     <gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>
-    ${requestScope.pageHelper.headElementsWithoutCss}
+    <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.min.js"/>
+
+    <gsml:url var="reset" value="/res/css/jquery/no-theme/jquery-ui-1.10.2.custom.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
 
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
@@ -618,7 +621,7 @@
                     <div id="teacherStars" class="line hidden">
                         <div class="text1 unit size2of5">Teacher quality</div>
                         <div class="unit size3of5 lastUnit">
-                            <gsml:starRating id="teacherAsString" additionalClass="med-star"/>
+                           <!-- <gsml:starRating id="teacherAsString" additionalClass="med-star"/>-->
                         </div>
                         <div class="spacer_5"><!-- do not collapse --></div>
                     </div>
@@ -626,7 +629,7 @@
                     <div id="principalStars" class="line hidden">
                         <div class="text1 unit size2of5">Principal leadership</div>
                         <div class="unit size3of5 lastUnit">
-                            <gsml:starRating id="principalAsString" additionalClass="med-star"/>
+                            <!--<gsml:starRating id="principalAsString" additionalClass="med-star"/>-->
                         </div>
                         <div class="spacer_5"><!-- do not collapse --></div>
                     </div>
@@ -634,7 +637,7 @@
                     <div id="parentStars" class="line hidden">
                         <div class="text1 unit size2of5">Parent involvement</div>
                         <div class="unit size3of5 lastUnit">
-                            <gsml:starRating id="parentAsString" additionalClass="med-star"/>
+                            <!--<gsml:starRating id="parentAsString" additionalClass="med-star"/>-->
                         </div>
                         <div class="spacer_5"><!-- do not collapse --></div>
                     </div>
@@ -642,7 +645,7 @@
                     <div id="facilitiesStars" class="line hidden">
                         <div class="text1 unit size2of5">Facilities &amp;amp; equipment</div>
                         <div class="unit size3of5 lastUnit">
-                            <gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/>
+                            <!--<gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/>-->
                         </div>
                         <div class="spacer_5"><!-- do not collapse --></div>
                     </div>

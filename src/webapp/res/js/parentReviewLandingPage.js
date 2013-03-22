@@ -326,12 +326,12 @@ GS.module.SchoolSelect = function() {
 
 
 GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
-GS.parentReviewLandingPage.attachAutocomplete = function () {
-    var searchBox = $('.reviewsLanding');
+/*GS.parentReviewLandingPage.attachAutocomplete = function () {
+    var searchBox = $('.js-parentReviewLandingPageSearchBox');
     var url = "/search/schoolAutocomplete.page";
 
     var formatter = function (row) {
-        if (row != null &amp;&amp; row.length > 0) {
+        if (row != null && row.length > 0) {
             //var suggestion = row[0];
             // capitalize first letter of all words but the last
             // capitalize the entire last word (state)
@@ -364,6 +364,93 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
         formatItem: formatter,
         formatResult: formatter
     });
+};*/
+GS.parentReviewLandingPage.attachAutocomplete = function () {
+    var searchBox = $('.js-parentReviewLandingPageSearchBox');
+    var url = "/search/schoolAutocomplete.page";
+    var cache = {};
+    var terms = [];
+
+    var formatter = function (row) {
+        if (row != null && row.length > 0) {
+            //var suggestion = row[0];
+            // capitalize first letter of all words but the last
+            // capitalize the entire last word (state)
+            //return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
+        }
+        return row;
+    };
+
+    var cacheNewTerm = function(newTerm, results) {
+        // maintain a 15-term cache
+        if (terms.push(newTerm) > 15) {
+            delete cache[terms.shift()];
+        }
+        cache[newTerm] = results;
+    };
+
+    // Caching strategy from http://stackoverflow.com/a/14144009
+    searchBox.autocomplete({
+        minLength: 3,
+        source: function (request, response) {
+            var state = function () {
+                //var rval = searchStateSelect.val();
+                // TODO: add state
+                var rval = "CA";
+                if (rval === '') {
+                    return null;
+                }
+                return rval;
+            };
+
+            var term = request.term.toLowerCase();
+            if (term in cache) {
+                if (cache.hasOwnProperty(term)) {
+                    response(cache[term]);
+                }
+                return;
+            } else if (terms.length > 0) {
+                var lastTerm = terms[terms.length - 1];
+                if (term.substring(0, lastTerm.length) === lastTerm) {
+                    var results = [];
+                    var cachedResultsForLastTerm = cache[lastTerm];
+                    if (cachedResultsForLastTerm !== undefined && cachedResultsForLastTerm.length) {
+                        for (var i = 0; i < cachedResultsForLastTerm.length; i++) {
+                            var resultItem = cachedResultsForLastTerm[i];
+                            if (resultItem.name.toLowerCase().indexOf(term) !== -1) {
+                                results.push(resultItem);
+                            }
+                        }
+                    }
+                    response(results);
+                }
+            }
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: url,
+                data: {
+                    q: term,
+                    state: state,
+                    schoolCity: true
+                },
+                success: function (data) {
+                    cacheNewTerm(term, data.schools);
+                    response($.map(data.schools, function(school) {
+                        return {
+                            label: school.name,
+                            value: school.id
+                        }
+                    }));
+                }
+            });
+        },
+        select: function(event, ui) {
+            console.log(event,ui);
+            return false;
+        }
+    });
+
 };
 
 jQuery(function() {
