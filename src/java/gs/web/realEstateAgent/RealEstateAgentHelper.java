@@ -46,6 +46,18 @@ public class RealEstateAgentHelper {
         return false;
     }
 
+    public boolean hasAgentAccountFromRegistrationCookie(HttpServletRequest request) {
+        Integer userId = getUserIdFromCookie(request);
+        if(userId != null) {
+            if (getAgentAccountDao().findAgentAccountByUserId(userId) !=  null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public void setUserCookie(User user, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()), String.valueOf(user.getId()));
         cookie.setPath("/");

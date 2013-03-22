@@ -70,7 +70,7 @@ public class RealEstateSchoolsReportController {
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
-
+        //TODO: comment skip user validation
         if(userId == null && !_realEstateAgentHelper.skipUserValidation(request)) {
             return new RedirectView(_realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request));
         }

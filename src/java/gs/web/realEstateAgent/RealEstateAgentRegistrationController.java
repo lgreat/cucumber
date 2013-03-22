@@ -5,6 +5,7 @@ import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
+import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -103,7 +104,9 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
-        if (_realEstateAgentHelper.hasAgentAccountFromSessionContext(request)) {
+        //TODO: comment skip user validation
+        if (!_realEstateAgentHelper.skipUserValidation(request) && (_realEstateAgentHelper.hasAgentAccountFromSessionContext(request)
+                || _realEstateAgentHelper.hasAgentAccountFromRegistrationCookie(request))) {
             return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
         }
         return REGISTRATION_PAGE_VIEW;
@@ -112,7 +115,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
     public String showCreateReportForm (HttpServletRequest request,
                             HttpServletResponse response) {
-
+        //TODO: comment skip user validation
         if(_realEstateAgentHelper.skipUserValidation(request)) {
             return CREATE_REPORT_PAGE_VIEW;
         }
@@ -137,6 +140,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         response.setContentType("application/json");
         JSONObject responseJson = new JSONObject();
 
+        //TODO: comment skip user validation
         if(_realEstateAgentHelper.skipUserValidation(request)) {
             outputJson(response, responseJson, false);
             return;
@@ -174,7 +178,13 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         updateUserProfile(user);
         _userDao.updateUser(user);
 
-        Subscription subscription = new Subscription(user, SubscriptionProduct.SCHOOL_GUIDE_RADAR, SessionContextUtil.getSessionContext(request).getState());
+        Subscription subscription = new Subscription();
+        subscription.setUser(user);
+        subscription.setProduct(SubscriptionProduct.SCHOOL_GUIDE_RADAR);
+        State state = SessionContextUtil.getSessionContext(request).getState();
+        if(state != null) {
+            subscription.setState(state);
+        }
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.SCHOOL_GUIDE_RADAR);
         if(subscriptions == null || subscriptions.isEmpty()) {
             _subscriptionDao.saveSubscription(subscription);
@@ -199,9 +209,9 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         response.setContentType("application/json");
         JSONObject responseJson = new JSONObject();
 
-        int userId = _realEstateAgentHelper.getUserIdFromCookie(request);
+        Integer userId = _realEstateAgentHelper.getUserId(request);
 
-        if(userId == -1) {
+        if(userId == null) {
             outputJson(response, responseJson, false);
             return;
         }
@@ -227,8 +237,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         outputJson(response, responseJson, true);
     }
 
-    @RequestMapping(value = "registrationValidationAjax.page", method = RequestMethod.GET)
-    public void handleValidation(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "personalInfoValidationAjax.page", method = RequestMethod.GET)
+    public void handlePersonalInfoValidation(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> paramMap = request.getParameterMap();
 
         JSONObject responseJson = new JSONObject();
