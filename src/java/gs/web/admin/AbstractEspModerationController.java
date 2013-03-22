@@ -185,15 +185,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
                             } else if(membership.getStatus() == EspMembershipStatus.PROVISIONAL
                                     && !membership.getActive()){
-                                if (promoteProvisionalDataToActiveData(user, membership.getSchool())) {
-                                    membership.setStatus(EspMembershipStatus.APPROVED);
-                                    membership.setActive(true);
-                                    addEspRole(user);
-                                    updateMembership = true;
-                                    //TODO  sendESPVerificationEmail?
-                                } else {
-                                    //TODO what?
-                                }
+                                promoteProvisionalDataToActiveData(user, membership.getSchool());
+                                membership.setStatus(EspMembershipStatus.APPROVED);
+                                membership.setActive(true);
+                                addEspRole(user);
+                                updateMembership = true;
+                                //TODO  sendESPVerificationEmail?
                             } else if (!membership.getActive()) {
                                 membership.setStatus(EspMembershipStatus.APPROVED);
                                 membership.setActive(true);
@@ -258,15 +255,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
      * @param school
      * @return
      */
-    protected boolean promoteProvisionalDataToActiveData(User user, School school) {
-        //TODO unit tests
-        //TODO do error checking again?
+    protected void promoteProvisionalDataToActiveData(User user, School school) {
         //TODO what if state is locked?
         //TODO omniture
-        boolean rval = false;
 
         Set<String> keysForPage = new HashSet<String>();
-        Map<String, Object[]> requestParameterMapArrObject = new HashMap<String, Object[]>();
+        Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
         Map<String, List<Object>> requestParameterMap = new HashMap<String, List<Object>>();
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
         List<EspResponse> responseList = new ArrayList<EspResponse>();
@@ -274,50 +268,46 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         //Get all the provisional responses.
         List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
 
-        //Construct the list of key to responses Map.
-        for (EspResponse espResponse : espResponses) {
-            String key = espResponse.getKey();
-            if (!key.startsWith("_page_") && !espResponse.isActive()) {
-                List<Object> ojbs = new ArrayList<Object>();
-                if (requestParameterMap.get(key) != null) {
-                    ojbs = requestParameterMap.get(key);
+        if (espResponses != null && !espResponses.isEmpty()) {
+            //Construct the list of key to responses Map.
+            for (EspResponse espResponse : espResponses) {
+                String key = espResponse.getKey();
+                if (!key.startsWith("_page_") && !espResponse.isActive()) {
+                    List<Object> ojbs = new ArrayList<Object>();
+                    if (requestParameterMap.get(key) != null) {
+                        ojbs = requestParameterMap.get(key);
+                    }
+                    ojbs.add(espResponse.getValue());
+                    requestParameterMap.put(key, ojbs);
+                } else {
+                    String[] keys = espResponse.getValue().split(",");
+                    keysForPage.addAll(Arrays.asList(keys));
                 }
-                ojbs.add(espResponse.getValue());
-                requestParameterMap.put(key, ojbs);
-            }else{
-                String[] keys = espResponse.getValue().split(",");
-                keysForPage.addAll(Arrays.asList(keys));
             }
-        }
 
-        //Perform conversions as required, since the handler methods perform type casting.
-        //grade_levels:- convert the type(list of Object) to an array of Strings.
-        //address :- convert the type Object into Address.
-        //All other keys ":- convert the type (list of Object) to an array of Objects.
-        for (String key : requestParameterMap.keySet()) {
-            if (key.equals("grade_levels")) {
-                String[] grades = requestParameterMap.get(key).toArray(new String[requestParameterMap.get(key).size()]);
-                requestParameterMapArrObject.put(key, grades);
-            } else if (key.equals("address")) {
-                String addressStr = requestParameterMap.get(key).get(0).toString();
-                Address address = Address.parseAddress(addressStr);
-                if (address != null) {
-                    Object[] objects = new Object[1];
-                    objects[0] = address;
-                    requestParameterMapArrObject.put(key, objects);
+            //Perform conversions as required, since the handler methods perform type casting.
+            //grade_levels:- convert the type(list of Object) to an array of Strings.
+            //address :- convert the type Object into Address.
+            //All other keys :- convert the type (list of Object) to an array of Objects.
+            for (String key : requestParameterMap.keySet()) {
+                if (key.equals("grade_levels")) {
+                    String[] grades = requestParameterMap.get(key).toArray(new String[requestParameterMap.get(key).size()]);
+                    keyToResponseMap.put(key, grades);
+                } else if (key.equals("address")) {
+                    String addressStr = requestParameterMap.get(key).get(0).toString();
+                    Address address = Address.parseAddress(addressStr);
+                    if (address != null) {
+                        Object[] objects = new Object[1];
+                        objects[0] = address;
+                        keyToResponseMap.put(key, objects);
+                    }
+                } else {
+                    keyToResponseMap.put(key, requestParameterMap.get(key).toArray());
                 }
-            } else {
-                requestParameterMapArrObject.put(key, requestParameterMap.get(key).toArray());
             }
+            _espHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
+                    errorFieldToMsgMap, responseList, false, true);
         }
-
-        _espHelper.saveEspFormData(user, school, keysForPage, requestParameterMapArrObject, school.getDatabaseState(), -1,
-                errorFieldToMsgMap, responseList, false,true);
-        if (errorFieldToMsgMap.isEmpty()) {
-            rval = true;
-        }
-
-        return rval;
     }
 
     /**
@@ -537,4 +527,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         _exactTargetAPI = exactTargetAPI;
     }
 
+    public void setEspHelper(EspHelper espHelper) {
+        _espHelper = espHelper;
+    }
 }

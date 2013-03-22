@@ -174,6 +174,8 @@ public class EspHelperTest extends BaseControllerTestCase {
         assertEquals("Phone number must be numeric", errorFieldToMsgMap.get("school_phone"));
         assertEquals("Value must be numeric.", errorFieldToMsgMap.get("ethnicity"));
         assertEquals("Must be positive integer", errorFieldToMsgMap.get("average_class_size"));
+        assertEquals("No Error in transportation.Hence it should be saved to the database",1,responseList.size());
+        assertEquals("No Error in transportation.Hence it should be saved to the database","transportation",responseList.get(0).getKey());
     }
 
     public void testSaveEspFormDataWithExternalDataErrorsApprovedUser() {
@@ -202,7 +204,6 @@ public class EspHelperTest extends BaseControllerTestCase {
         assertEquals("Must be an integer.", errorFieldToMsgMap.get("student_enrollment"));
     }
 
-
     public void testSaveEspFormDataWithExternalDataErrorsProvisionalUser() {
         User user = new User();
         user.setId(2);
@@ -228,7 +229,6 @@ public class EspHelperTest extends BaseControllerTestCase {
 
         assertEquals("You must select a grade level.", errorFieldToMsgMap.get("grade_levels"));
     }
-
 
     public void testSaveEspFormDataWithExternalDataErrorsIgnoreErrors() {
         User user = new User();
@@ -261,14 +261,14 @@ public class EspHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         _helper.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap,
-                responseList, false,false);
+                responseList, false,true);
         verifyAllMocks();
 
         assertEquals("Must be an integer.", errorFieldToMsgMap.get("student_enrollment"));
         assertEquals("You must select a grade level.", errorFieldToMsgMap.get("grade_levels"));
+        assertEquals("No Error in school_fax.Hence it should be saved to the database",1,responseList.size());
+        assertEquals("No Error in school_fax.Hence it should be saved to the database","school_fax",responseList.get(0).getKey());
     }
-
-
 
     public void testSaveESPResponsesApprovedUser() {
         User user = new User();

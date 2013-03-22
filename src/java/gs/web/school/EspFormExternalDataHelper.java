@@ -855,7 +855,7 @@ public class EspFormExternalDataHelper {
             }
             if (!isProvisionalData) {
                 // GS-12570 Preserve 'UG'
-                if (school.getGradeLevels().contains(Grade.UNGRADED)) {
+                if (school.getGradeLevels()!= null && school.getGradeLevels().contains(Grade.UNGRADED)) {
                     grades.addLevel(Grade.UNGRADED);
                 }
                 if (!grades.equals(school.getGradeLevels())) {
