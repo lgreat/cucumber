@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     });
     $(".selectBox").click(function () {
-            $(".selectDropDown").toggle();
+            $(this).sibling("selectDropDown").toggle();
         });
         $("body").click(function(event){
             if($(".selectDropDown").css('display') == 'block'){
@@ -45,6 +45,9 @@ $(document).ready(function() {
             $(".selectDropDown").toggle();
         });
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
+    starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
+    starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
+    starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
 });
 
 /********************************************************************************************************
