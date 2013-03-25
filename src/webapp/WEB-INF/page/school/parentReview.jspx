@@ -132,68 +132,75 @@
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
             <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
             <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
-
-            <div class="fl clearfix">
-                <div class="paper_bg">
-                    <div style="padding: 10px 0px 10px 20px" class="clearfix">
-                        <div class="fl"><h4 class="bottom">Rate this school</h4></div>
-                        <div id="starRatingContainerReview" class="fl pan man mlm">
-                            <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
-                            <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+            <div class="clearfix">
+                <div class="fl">
+                    <div class="paper_bg">
+                        <div style="padding: 10px 0px 10px 20px" class="clearfix">
+                            <div class="fl"><h4 class="bottom">Rate this school</h4></div>
+                            <div id="starRatingContainerReview" class="fl pan man mlm">
+                                <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                            </div>
+                            <div class="fr pan man mrm">
+                                <div class="small bottom make-787878" id="js-charCount">1200 characters remaining</div>
+                            </div>
                         </div>
-                        <div class="fr pan man mrm">
-                            <div class="small bottom make-787878" id="js-charCount">1200 characters remaining</div>
-                        </div>
-                    </div>
-                    <div><textarea id="js-reviewContent" class="lined_paper medium"
-                                   placeholder="Tell us about your school"><!-- do not collapse --></textarea></div>
-                </div>
-            </div>
-            <div class="fr">
-                <input class="text1" type="text" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
-                <input class="text1" type="text" placeholder="Select List" style="width: 300px"/> <br/><br/>
-                <!--start-->
-                <div class="js-selectBox selectBox2 mrs">I am a ...
-                    <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
-                </div>
-
-                <div class="js-selectDropDown selectDropDown2" style="display: none;">
-                    <div class="js-ddValues">Parent</div>
-                    <div class="js-ddValues">Student</div>
-                    <div class="js-ddValues">Teacher/Staff member</div>
-                    <div class="js-ddValues">Other</div>
-                </div>
-                <!--End-->
-                <div class="mod standard_1-1">
-                    <div class="inner">
-                        <div class="hd pam"><h4 class="bottom">Please rate these additional areas</h4></div>
-                        <div class="bd pam" style="height:90px;">
-                            <div class="clearfix">
-                                <div class="fl"><h4 class="bottom">Rate Teacher</h4></div>
-                                <div id="starRatingContainerReviewTeacher" class="fr pan man mlm">
-                                    <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
-                                    <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
-                                </div>
-                            </div>
-                            <div class="clearfix">
-                                <div class="fl"><h4 class="bottom">Rate Principal</h4></div>
-                                <div id="starRatingContainerReviewPrincipal" class="fr pan man mlm">
-                                    <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
-                                    <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
-                                </div>
-                            </div>
-                            <div class="clearfix">
-                                <div class="fl"><h4 class="bottom">Rate Parent</h4></div>
-                                <div id="starRatingContainerReviewParent" class="fr pan man mlm">
-                                    <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
-                                    <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
-                                </div>
-                            </div>
-                            <br />Select an option from the dropdown menu</div>
+                        <div><textarea id="js-reviewContent" class="lined_paper medium"
+                                       placeholder="Tell us about your school"><!-- do not collapse --></textarea></div>
                     </div>
                 </div>
-            </div>
+                <div class="fr">
+                    <input class="text1" type="text" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
+                    <!--start-->
+                    <div class="js-selectBox selectBox2 mrs">I am a ...
+                        <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                    </div>
 
+                    <div class="js-selectDropDown selectDropDown2" style="display: none;">
+                        <div class="js-ddValues">Parent</div>
+                        <div class="js-ddValues">Student</div>
+                        <div class="js-ddValues">Teacher/Staff member</div>
+                        <div class="js-ddValues">Other</div>
+                    </div>
+                    <!--End--> <br/><br/>
+                    <div class="mod standard_1-1">
+                        <div class="inner">
+                            <div class="hd pam"><h4 class="bottom">Please rate these additional areas</h4></div>
+                            <div class="bd pam" style="height:90px;">
+                                <div id="js-reviewsLandingStarBox-Parent" class="dn">
+                                    <div class="clearfix pas">
+                                        <div class="fl"><h4 class="bottom">Rate Teacher</h4></div>
+                                        <div id="starRatingContainerReviewTeacher" class="fr pan man mlm">
+                                            <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                            <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix pas">
+                                        <div class="fl"><h4 class="bottom">Rate Principal</h4></div>
+                                        <div id="starRatingContainerReviewPrincipal" class="fr pan man mlm">
+                                            <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                            <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix pas">
+                                        <div class="fl"><h4 class="bottom">Rate Parent</h4></div>
+                                        <div id="starRatingContainerReviewParent" class="fr pan man mlm">
+                                            <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                            <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div id="js-reviewsLandingStarBox-Start"><br />Select an option from the dropdown menu</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="fl">Checkbox<br />Checkbox 2</div><div class="tar fr"><div class="but but-lg but-1">Post</div></div>
+            </div>
         </form>
     </div>
 
