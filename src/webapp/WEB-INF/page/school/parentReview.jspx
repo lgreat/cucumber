@@ -40,16 +40,19 @@
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
     <script>
-        var cookieState = "${requestScope.context.state}";
-        console.log("Your state is cookie:"+cookieState+":");
-        if(cookieState != ""){
-            console.log("Your state is maxmind: "+geoip_region());
-            var maxMindIpAddressState = geoip_region();
-            //// set state dropdown to this value.
-        }
-        else{
-           //// set state dropdown to this value.
-        }
+        $(document).ready(function() {
+            var cookieState = "${requestScope.context.state}";
+            if(cookieState == ""){
+                 //// set state dropdown to this value.
+                var maxMindIpAddressState = geoip_region();
+                $("#js-reviewLandingState").find(".js-selectBoxText").html(maxMindIpAddressState);
+
+            }
+            else{
+               //// set state dropdown to this value.
+                $("#js-reviewLandingState").find(".js-selectBoxText").html(cookieState);
+            }
+        });
     </script>
     ]]>
     <style type="text/css">
@@ -104,15 +107,18 @@
 
             <div class="fr ptm phm" id="js_submitSelectSchool">GO</div>
             <div class="fr">
-                <!--start-->
-                <div class="js-selectBox selectBox mrs">CA<span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                <div id="js-reviewLandingState" class="pr">
+                    <div class="js-selectBox selectBox clearfix">
+                        <div class="js-selectBoxText mrs fl">CA</div>
+                        <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
 
-                <div class="js-selectDropdown selectDropDown" style="display: none;">
-                    <c:forEach var="stateObj" items="${stateList}">
-                        <div class="js-ddValues">${stateObj.abbreviation}</div>
-                    </c:forEach>
+                    </div>
+                    <div class="js-selectDropDown selectDropDown pa phm ptm dn">
+                        <c:forEach var="stateObj" items="${stateList}">
+                            <div class="js-ddValues">${stateObj.abbreviation}</div>
+                        </c:forEach>
+                    </div>
                 </div>
-                <!--end-->
             </div>
         </div>
     </div>
@@ -152,17 +158,19 @@
                 <div class="fr">
                     <input class="text1" type="text" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
-                    <div class="js-selectBox selectBox2 mrs">I am a ...
-                        <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                    <div id="js-reviewLandingIAm" class="pr">
+                        <div class="js-selectBox selectBox2 clearfix">
+                            <div class="js-selectBoxText mrs fl">I am a ... </div>
+                            <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                        </div>
+                        <div class="js-selectDropDown selectDropDown2 pa phm ptm dn">
+                            <div class="js-ddValues">Parent</div>
+                            <div class="js-ddValues">Student</div>
+                            <div class="js-ddValues">Teacher/Staff member</div>
+                            <div class="js-ddValues">Other</div>
+                        </div>
                     </div>
-
-                    <div class="js-selectDropDown selectDropDown2" style="display: none;">
-                        <div class="js-ddValues">Parent</div>
-                        <div class="js-ddValues">Student</div>
-                        <div class="js-ddValues">Teacher/Staff member</div>
-                        <div class="js-ddValues">Other</div>
-                    </div>
-                    <!--End--> <br/><br/>
+                    <!--End--> <br />
                     <div class="mod standard_1-1">
                         <div class="inner">
                             <div class="hd pam"><h4 class="bottom">Please rate these additional areas</h4></div>
@@ -189,10 +197,10 @@
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <div id="js-reviewsLandingStarBox-Start"><br />Select an option from the dropdown menu</div>
+                                <div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>
+
                             </div>
                         </div>
                     </div>
