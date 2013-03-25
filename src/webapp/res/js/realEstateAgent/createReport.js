@@ -1,27 +1,21 @@
 var GS = GS || {};
-GS.realEstateAgent = GS.realEstateAgent || (function(){
+GS.realEstateAgent = GS.realEstateAgent || {};
 
-    var testSubmit = function() {
-        alert('submit');
-    }
+GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
+    var errors = {};
 
     var submitSearch = function() {
+        if(!skipValidation() && !validateCreateGuideForm()) {
+            return false;
+        }
+
         var propertyDetailsForm = $('#jq-propertyDetailsForm');
         var address = propertyDetailsForm.find('input#jq-address').val();
         address = address.replace(/^\s*/, "").replace(/\s*$/, "");
 
-        if (address != '') {
+        if (address != '' && address !== 'Property Address') {
             gsGeocode(address, function(geocodeResult) {
                 if (geocodeResult != null) {
-                    var data = {};
-//                    data['lat'] = geocodeResult['lat'];
-//                    data['lon'] = geocodeResult['lon'];
-//                    data['zipCode'] = geocodeResult['zipCode'];
-//                    data['state'] = geocodeResult['state'];
-//                    data['normalizedAddress'] = geocodeResult['normalizedAddress'];
-//                    data['totalResults'] = geocodeResult['totalResults'];
-//                    data['locationSearchString'] = address;
-
                     if(geocodeResult['city'] !== undefined) {
                         propertyDetailsForm.find('input#jq-city').val(geocodeResult['city']);
                     }
@@ -33,18 +27,82 @@ GS.realEstateAgent = GS.realEstateAgent || (function(){
                     propertyDetailsForm.find('input#jq-streetNumber').val(geocodeResult['streetNumber']);
                     propertyDetailsForm.find('input#jq-streetName').val(geocodeResult['streetName']);
 
+                    //TODO: comment skip user validation
+                    var skipValidation = function() {
+                        var params = GS.uri.Uri.getQueryData();
+                        return(params.skipUserCheck === 'true');
+                    }
+                    propertyDetailsForm.find('input#jq-skipUserCheck').val(skipValidation());
+
                     window.setTimeout(function() {
                         propertyDetailsForm.submit();
                     }, 1);
                 } else {
-                    alert("Location not found. Please enter a valid address, city, or ZIP.");
+                    alert("Please enter a valid street address.");
                 }
             });
         } else {
-            alert("Please enter a valid address");
+            alert("Please enter an address.");
         }
 
         return false;
+    };
+
+    var validateAddress = function() {
+        var propertyDetailsForm = $('#jq-propertyDetailsForm');
+        var address = jQuery.trim(propertyDetailsForm.find('input#jq-address').val());
+
+        var data = {};
+        if (address === '' || address === 'Property Address') {
+            data.hasError = true;
+            data.addressErrorDetail = 'Please enter an address.';
+        }
+
+        validateFieldResponse('.jq-addressFields .errors', data, 'addressErrorDetail');
+    };
+
+    var validateSqFootage = function() {
+        var propertyDetailsForm = $('#jq-propertyDetailsForm');
+        var sqFeetField = propertyDetailsForm.find('input#js-sqFeet');
+        var sqFeet = jQuery.trim(sqFeetField.val());
+
+        var data = {};
+        if (sqFeet === '' || sqFeet === 'Square Footage') {
+            sqFeetField.val('');
+        }
+        else if(!sqFeet.match(/^((\d{1,6})|(\d{1,3},\d{3}))(\.\d{1,})?$/)) {
+            data.hasError = true;
+            data.sqFootageErrorDetail = 'Please enter only digits or digits separated by a comma and may include a ' +
+                'decimal point followed by digits.';
+        }
+
+        validateFieldResponse('.jq-sqFootageFields .errors', data, 'sqFootageErrorDetail');
+    };
+
+    var validateCreateGuideForm = function() {
+        validateAddress();
+        validateSqFootage();
+
+        if(Object.keys(errors).length > 0) {
+            return false;
+        }
+        return true;
+    };
+
+    var validateFieldResponse = function(fieldSelector, data, errorDetailKey) {
+        var errorIcon ='<span class="iconx16 i-16-alert "><!-- do not collapse --></span>';
+        var fieldError = jQuery(fieldSelector + ' .invalid');
+        var fieldValid = jQuery(fieldSelector + ' .valid');
+        fieldError.hide();
+        fieldValid.hide();
+        if (data && data.hasError) {
+            fieldError.html(errorIcon+data[errorDetailKey]);
+            fieldError.show();
+            errors[errorDetailKey] = data[errorDetailKey];
+        } else {
+            fieldValid.show();
+            delete errors[errorDetailKey];
+        }
     };
 
     var formatNormalizedAddress = function(address) {
@@ -121,10 +179,27 @@ GS.realEstateAgent = GS.realEstateAgent || (function(){
                 }
             });
         }
-    }
+    };
+
+    //TODO: comment skip validation
+    var skipValidation = function() {
+        var params = GS.uri.Uri.getQueryData();
+        return(params.skipUserCheck === 'true');
+    };
+
     return {
         submitSearch:submitSearch,
         gsGeocode: gsGeocode,
-        testSubmit: testSubmit
+        validateAddress: validateAddress,
+        validateSqFootage: validateSqFootage,
+        skipValidation: skipValidation
     }
 })();
+
+jQuery(function() {
+    if(!GS.realEstateAgent.createGuide.skipValidation()) {
+        //Create guide validation
+        jQuery('#jq-address').blur(GS.realEstateAgent.createGuide.validateAddress);
+        jQuery('#js-sqFeet').blur(GS.realEstateAgent.createGuide.validateSqFootage);
+    }
+});

@@ -237,7 +237,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
     this.validateZip = function() {
         var data = {};
         var zip = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-zip').val());
-        if(zip === 'Zip' || !zip.match(/^\d{5}$/)) {
+        if(!zip.match(/^\d{5}$/)) {
             data.hasError = true;
             data.zipErrorDetail = 'Please enter exactly 5 digits.';
         }
@@ -290,10 +290,7 @@ jQuery(function(){
     //TODO: comment skip user validation
     var skipValidation = function() {
         var params = GS.uri.Uri.getQueryData();
-        if(params.skipUserCheck === 'true') {
-            return true;
-        }
-        return false;
+        return(params.skipUserCheck === 'true');
     }
 
     if(!skipValidation()) {

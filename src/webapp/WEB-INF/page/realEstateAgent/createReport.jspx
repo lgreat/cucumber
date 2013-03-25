@@ -30,9 +30,14 @@
                     <div class="inner">
                         <div class="bd">
                             <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
-                                <div class="lal clearfix">
+                                <div class="lal clearfix jq-addressFields">
                                     <gsml:input type="text" styleId="jq-address" styleClass="text input_12" name="address"
                                                 placeholder="Property Address"/>
+
+                                    <div class="errors">
+                                        <span class="error valid">&amp;nbsp;</span>
+                                        <span class="error invalid"><!-- not empty --></span>
+                                    </div>
                                 </div>
 
                                 <div class="lal line">
@@ -58,9 +63,14 @@
                                         </select>
                                     </div>
 
-                                    <div class="lastUnit fr">
+                                    <div class="lastUnit fr jq-sqFootageFields">
                                         <gsml:input type="text" styleId="js-sqFeet" styleClass="text input_3" name="sqFeet"
                                                     placeholder="Square footage"/>
+
+                                        <div class="errors">
+                                            <span class="error valid">&amp;nbsp;</span>
+                                            <span class="error invalid"><!-- not empty --></span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -71,9 +81,11 @@
                                 <input type="hidden" id="jq-streetName" name="streetName"/>
                                 <input type="hidden" id="jq-city" name="city"/>
                                 <input type="hidden" id="jq-zipcode" name="zipcode"/>
+                                <!-- TODO: comment the skip validation -->
+                                <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
 
                                 <a href="javascript:void(0)">
-                                    <button class="button-1" type="button" id="js-submit" onclick="GS.realEstateAgent.submitSearch()">
+                                    <button class="button-1" type="button" id="js-submit" onclick="GS.realEstateAgent.createGuide.submitSearch()">
                                         Submit
                                     </button>
                                 </a>

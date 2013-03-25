@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -76,10 +77,26 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
 
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
 
+        AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
+
         //TODO: comment skip user validation
-        if(!_realEstateAgentHelper.hasAgentAccount(request) && !_realEstateAgentHelper.skipUserValidation(request)) {
+        boolean skipValidation = _realEstateAgentHelper.skipUserValidation(request);
+        if(agentAccount == null && !skipValidation) {
             return new RedirectView(_realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request));
         }
+        if(skipValidation) {
+            agentAccount = new AgentAccount();
+        }
+
+        modelMap.put("agentFirstName", (agentAccount.getUser() != null) ? agentAccount.getUser().getFirstName() : "");
+        modelMap.put("agentLastName", (agentAccount.getUser() != null) ? agentAccount.getUser().getLastName() : "");
+        modelMap.put("agentEmail", (agentAccount.getUser() != null) ? agentAccount.getUser().getEmail() : "");
+        modelMap.put("agentCompany", agentAccount.getCompanyName());
+        modelMap.put("agentWorkNumber", agentAccount.getWorkNumber());
+        modelMap.put("agentCellNumber", agentAccount.getCellNumber());
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("M/dd/yyyy");
+        modelMap.put("date", dateFormatter.format(new Date()));
 
         try {
             searchResultsPage = searchForSchools(lat, lon, state.toLowerCase());
@@ -134,12 +151,15 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
         }
         finally {
             String address = request.getParameter("address");
-            AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
-            if(agentAccount != null && address != null){
+            if(!skipValidation && agentAccount != null && address != null){
                 ReportGenerationTracking tracking = new ReportGenerationTracking(agentAccount, address);
                 try {
-                    tracking.setBedrooms(Integer.parseInt(request.getParameter("bed")));
-                    tracking.setBathrooms(Integer.parseInt(request.getParameter("bath")));
+                    if(!"".equals(request.getParameter("bed"))) {
+                        tracking.setBedrooms(Integer.parseInt(request.getParameter("bed")));
+                    }
+                    if(!"".equals(request.getParameter("bath"))) {
+                        tracking.setBathrooms(Integer.parseInt(request.getParameter("bath")));
+                    }
                 }
                 catch (NumberFormatException e) {
                     _logger.warn("Exception while trying convert string to int for report generation tracking.", e);

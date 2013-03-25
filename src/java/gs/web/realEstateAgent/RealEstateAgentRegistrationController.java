@@ -6,21 +6,26 @@ import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.data.state.State;
+import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +106,10 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @Autowired
     private RealEstateAgentHelper _realEstateAgentHelper;
 
+    @Autowired
+    @Qualifier("emailVerificationEmail")
+    private EmailVerificationEmail _emailVerificationEmail;
+
     @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
@@ -161,6 +170,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         }
 
         User user = _userDao.findUserFromEmailIfExists(email);
+        boolean shouldSendVerificationEmail = false;
 
         if(user != null && user.getId() != null) {
             setUserFields(fName, lName, user);
@@ -171,6 +181,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
             setUserFields(fName, lName, user);
             _userDao.saveUser(user);
+
+            shouldSendVerificationEmail = true;
         }
 
         setUserPassword(password, user);
@@ -187,6 +199,10 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.SCHOOL_GUIDE_RADAR);
         if(subscriptions == null || subscriptions.isEmpty()) {
             _subscriptionDao.saveSubscription(subscription);
+        }
+
+        if(shouldSendVerificationEmail) {
+            sendVerificationEmail(request, user);
         }
 
         _realEstateAgentHelper.setUserCookie(user, request, response);
@@ -264,8 +280,12 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             responseJson.write(response.getWriter());
             response.getWriter().flush();
         }
-        catch (JSONException ex) {}
-        catch (IOException ex) {}
+        catch (JSONException ex) {
+            _logger.warn("RealEstateAgentRegistrationController: Error while writing personal info save response.");
+        }
+        catch (IOException ex) {
+            _logger.warn("RealEstateAgentRegistrationController: Error while writing personal info save response.", ex);
+        }
     }
 
     private void doFullValidations(String firstName, String lastName, String email, String password, JSONObject responseJson) throws JSONException, NoSuchAlgorithmException {
@@ -403,6 +423,25 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         }
     }
 
+    private void sendVerificationEmail(HttpServletRequest request, User user) {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
+        urlBuilder.addParameter("showSubscriptionThankYouHover","true");
+        String redirectUrl = urlBuilder.asFullUrl(request);
+        Map<String,String> otherParams = new HashMap<String,String>();
+        try {
+            getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
+        }
+        catch (IOException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to generate email.",ex);
+        }
+        catch (MessagingException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to send email.",ex);
+        }
+        catch (NoSuchAlgorithmException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to encode param for email verified redirect.",ex);
+        }
+    }
+
     public void setAgentAccountFields(AgentAccount agentAccount, String companyName, String workNumber, String cellNumber,
                                       String address, String city, String state, String zip) {
         if(StringUtils.isNotBlank(workNumber)) {
@@ -460,5 +499,13 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
     public void setUserDao(IUserDao _userDao) {
         this._userDao = _userDao;
+    }
+
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail _emailVerificationEmail) {
+        this._emailVerificationEmail = _emailVerificationEmail;
     }
 }

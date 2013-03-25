@@ -19,10 +19,10 @@
     <div class="divFooter">
         <div class="fl">
             <span class="strong"> Prepared for: </span>
-            <span class=""> [Realtor Name], [Company Name] </span>
+            <span class=""> ${agentFirstName} ${agentLastName}, ${agentEmail} </span>
         </div>
         <div class="fr">
-            <p class="smallest"> [date] </p>
+            <p class="smallest"> ${date} </p>
         </div>
     </div>
 
@@ -48,9 +48,15 @@
             </h1>
             <p class="strong">
                 ${city}, ${state} ${zipcode}
-                <span class="header-vertical-border-l">Bedrooms: ${bed}</span>
-                <span class="header-vertical-border-l">Bathrooms: ${bath}</span>
-                <span class="header-vertical-border-l">${sqFeet} Est. Sq. Ft.</span>
+                <c:if test="${not empty bed}">
+                    <span class="header-vertical-border-l">Bedrooms: ${bed}</span>
+                </c:if>
+                <c:if test="${not empty bath}">
+                    <span class="header-vertical-border-l">Bathrooms: ${bath}</span>
+                </c:if>
+                <c:if test="${not empty sqFeet}">
+                    <span class="header-vertical-border-l">${sqFeet} Est. Sq. Ft.</span>
+                </c:if>
             </p>
         </div>
 
@@ -75,7 +81,13 @@
         <!-- TODO: header for second page to be inserted here -->
 
         <div class="">
-            <img src="" alt="Agent Photo" height="144" width="144"/>
+            ${agentFirstName} ${agentLastName} <br/>
+            ${agentCompany} <br/>
+            office: ${agentWorkNumber}<br/>
+            <c:if test="${not empty agentCellNumber}">
+                mobile: ${agentCellNumber}<br/>
+            </c:if>
+            ${agentEmail}
         </div>
 
         <div class="fl">
