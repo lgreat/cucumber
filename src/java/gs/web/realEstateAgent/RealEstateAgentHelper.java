@@ -58,6 +58,20 @@ public class RealEstateAgentHelper {
         return false;
     }
 
+    public boolean hasAgentAccount(HttpServletRequest request) {
+        return (hasAgentAccountFromSessionContext(request) || hasAgentAccountFromRegistrationCookie(request));
+    }
+
+    public AgentAccount getAgentAccount(HttpServletRequest request) {
+        Integer userId = getUserId(request);
+
+        if(userId != null) {
+            return getAgentAccountDao().findAgentAccountByUserId(userId);
+        }
+
+        return null;
+    }
+
     public void setUserCookie(User user, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()), String.valueOf(user.getId()));
         cookie.setPath("/");

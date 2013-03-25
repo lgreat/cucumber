@@ -18,25 +18,38 @@
     </head>
 
     <body>
-    <div class="slStylesV1-0 slFormsV1-0">
-        <div class="spacer_20"><!-- do not collapse --></div>
-        <div class="grid_21">
-            <h1 class="fltlft">Create Report Form</h1>
+    <div class="imageBgScale">
+        <div class="pr" style="height:200px;">
+            <div class="headerBar" style="">
+                <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:48px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">Get your personalized printout</p>
+                <p style="font-family: 'SourceSansPro-BoldIt' arial; font-size:16px; font-style: italic; color: #b2811d; padding-bottom: 60px;">Fill the forms out to finish your personalized GreatSchool printout</p>
+            </div>
+
+        </div>
+        <div class="container_24 clearfix">
+            <div class="pa" style="top:135px;">
+                <img src="/res/img/realEstate/school_guide_960x230.png" alt="School guide image"/>
+            </div>
         </div>
 
-        <div class="grid_24">
-            <div class="grid_24 alpha">
-                <div class="mod form">
-                    <div class="inner">
-                        <div class="bd">
+        <div class="container_24 clearfix" style="margin-top: 205px;">
+            <div class="prefix_3 grid_18 suffix_3">
+                <div class="">
+                    <div class="">
+                        <div class="">
                             <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
-                                <div class="lal clearfix">
-                                    <gsml:input type="text" styleId="jq-address" styleClass="text input_12" name="address"
-                                                placeholder="Property Address"/>
+                                <div class="mbl jq-addressFields">
+                                    <gsml:input type="text" styleId="jq-address" styleClass="text1 input_18" name="address"
+                                                value="Property Address" placeholder="Property Address" onfocus="GS_textSwitch(this, '', 'Property Address');" onblur="GS_textSwitch(this, 'Property Address', '');"/>
+
+                                    <div class="errors">
+                                        <span class="error valid">&amp;nbsp;</span>
+                                        <span class="error invalid"><!-- not empty --></span>
+                                    </div>
                                 </div>
 
-                                <div class="lal line">
-                                    <div class="unit fl">
+                                <div class="line">
+                                    <div class="unit size34of100">
                                         <select id="js-bed" class="" name="bed">
                                             <gsml:selectOption value="" selected="true">Bedrooms</gsml:selectOption>
                                             <gsml:selectOption value="1">1</gsml:selectOption>
@@ -47,7 +60,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="unit fl">
+                                    <div class="unit size34of100">
                                         <select id="js-bath" class="" name="bath">
                                             <gsml:selectOption value="" selected="true">Bathrooms</gsml:selectOption>
                                             <gsml:selectOption value="1">1</gsml:selectOption>
@@ -58,9 +71,14 @@
                                         </select>
                                     </div>
 
-                                    <div class="lastUnit fr">
-                                        <gsml:input type="text" styleId="js-sqFeet" styleClass="text input_3" name="sqFeet"
-                                                    placeholder="Square footage"/>
+                                    <div class="unit size34of100 lastUnit jq-sqFootageFields">
+                                        <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6" name="sqFeet"
+                                                    value="Square footage" placeholder="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');" onblur="GS_textSwitch(this, 'Square footage', '');"/>
+
+                                        <div class="errors">
+                                            <span class="error valid">&amp;nbsp;</span>
+                                            <span class="error invalid"><!-- not empty --></span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -71,12 +89,17 @@
                                 <input type="hidden" id="jq-streetName" name="streetName"/>
                                 <input type="hidden" id="jq-city" name="city"/>
                                 <input type="hidden" id="jq-zipcode" name="zipcode"/>
+                                <!-- TODO: comment the skip validation -->
+                                <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
 
-                                <a href="javascript:void(0)">
-                                    <button class="button-1" type="button" id="js-submit" onclick="GS.realEstateAgent.submitSearch()">
-                                        Submit
-                                    </button>
-                                </a>
+                                <div class="fr mtl">
+                                    <a href="javascript:void(0)">
+                                        <button class="button-1" type="button" id="js-submit"
+                                                onclick="GS.realEstateAgent.createGuide.submitSearch()">
+                                            Print
+                                        </button>
+                                    </a>
+                                </div>
                             </form>
                         </div>
                     </div>
