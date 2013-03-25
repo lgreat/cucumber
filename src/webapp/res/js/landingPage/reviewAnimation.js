@@ -19,31 +19,55 @@ $(document).ready(function() {
         });
 
     });
-    $(".selectBox").click(function () {
-            $(this).sibling("selectDropDown").toggle();
-        });
-        $("body").click(function(event){
-            if($(".selectDropDown").css('display') == 'block'){
-//                alert("test");
-//                $(".selectDropDown").css("display", "none");
-//                event.stopPropagation();
-            }
-            else{
+    var selectShow = $(".js-selectDropDown"); //notify
+    selectShow.hide();
+    selectShow.click(function(event) {
+        // Handle the click on the notify div so the document click doesn't close it
+        event.stopPropagation();
+    });
 
-            }
-        });
-        $(".ddValues").mouseover(function () {
-            $(this).addClass("ddValuesHighlight");
-        });
-        $(".ddValues").mouseout(function () {
-            $(this).removeClass("ddValuesHighlight");
-        });
-        $(".ddValues").click(function () {
-            var $this = $(this);
-            var selectedValue = $this.html();
-            $(".selectBox").html(selectedValue);
-            $(".selectDropDown").toggle();
-        });
+    var selectLink = $(".js-selectBox");
+    selectLink.click(showSelect);
+
+    function showSelect(event) {
+        $(this).unbind('click', showSelect);
+
+        selectShow.show();
+
+        $(document).click(hideSelect);
+        $(".js-ddValues").click(showW);
+
+        // So the document doesn't immediately handle this same click event
+        event.stopPropagation();
+    };
+
+    function hideSelect(event) {
+        $(this).unbind('click', hideSelect);
+
+        selectShow.hide();
+
+        selectLink.click(showSelect);
+    }
+
+    function showW(event) {
+        hideSelect(event);
+        var divValue = $(this).html();
+        selectLink.html(divValue);
+    }
+    $(".js-ddValues").mouseover(function () {
+        $(this).addClass("ddValuesHighlight");
+    });
+    $(".js-ddValues").mouseout(function () {
+        $(this).removeClass("ddValuesHighlight");
+    });
+    $(".js-ddValues").click(function () {
+        var $this = $(this);
+        var selectedValue = $this.html();
+        var displayDropdownValue = $(".selectBox").html(selectedValue);
+
+        $(".js-selectDropDown").toggle();
+    });
+
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
     starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
     starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
