@@ -12,6 +12,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
+import gs.data.state.INoEditDao;
 import gs.data.util.Address;
 import gs.data.util.DigestUtil;
 import gs.web.school.EspHelper;
@@ -140,6 +141,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     @Autowired
     private EspHelper _espHelper;
 
+    @Autowired
+    private INoEditDao _noEditDao;
+
     protected abstract String getViewName();
 
     /**
@@ -185,12 +189,17 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
                             } else if(membership.getStatus() == EspMembershipStatus.PROVISIONAL
                                     && !membership.getActive()){
-                                promoteProvisionalDataToActiveData(user, membership.getSchool());
-                                membership.setStatus(EspMembershipStatus.APPROVED);
-                                membership.setActive(true);
-                                addEspRole(user);
-                                updateMembership = true;
-                                //TODO  sendESPVerificationEmail?
+                                if (_noEditDao.isStateLocked(membership.getSchool().getDatabaseState())) {
+                                    _log.warn("State locked while promoting provisional user.State:" + membership.getSchool().getDatabaseState()
+                                            + "User Id:" + membership.getUser().getId());
+                                } else {
+                                    promoteProvisionalDataToActiveData(user, membership.getSchool());
+                                    membership.setStatus(EspMembershipStatus.APPROVED);
+                                    membership.setActive(true);
+                                    addEspRole(user);
+                                    updateMembership = true;
+                                    //TODO  sendESPVerificationEmail?
+                                }
                             } else if (!membership.getActive()) {
                                 membership.setStatus(EspMembershipStatus.APPROVED);
                                 membership.setActive(true);
