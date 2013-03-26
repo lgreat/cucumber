@@ -112,6 +112,9 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                     hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_VERIFIED);
                     viewName = requestedRedirect;
                 }
+                else if ("radar".equals(user.getHow()) && StringUtils.isNotBlank(requestedRedirect)) {
+                    viewName = requestedRedirect;
+                }
                 return new ModelAndView(new RedirectView(viewName)); // E A R L Y   E X I T
 
             case PROVISIONAL:

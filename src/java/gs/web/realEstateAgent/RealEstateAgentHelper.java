@@ -86,13 +86,15 @@ public class RealEstateAgentHelper {
     public Integer getUserIdFromCookie (HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
-        for(Cookie cookie : cookies) {
-            if(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()).equals(cookie.getName())) {
-                try {
-                    return Integer.parseInt(cookie.getValue());
-                }
-                catch (NumberFormatException ex) {
-                    return null;
+        if(cookies != null) {
+            for(Cookie cookie : cookies) {
+                if(String.valueOf((NEW_USER_COOKIE_HASH).hashCode()).equals(cookie.getName())) {
+                    try {
+                        return Integer.parseInt(cookie.getValue());
+                    }
+                    catch (NumberFormatException ex) {
+                        return null;
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 package gs.web.realEstateAgent;
 
 import gs.data.community.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
@@ -110,6 +111,10 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @Qualifier("emailVerificationEmail")
     private EmailVerificationEmail _emailVerificationEmail;
 
+    @Autowired
+    @Qualifier("exactTargetAPI")
+    private ExactTargetAPI _exactTargetAPI;
+
     @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
@@ -205,6 +210,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if(shouldSendVerificationEmail) {
             sendVerificationEmail(request, user);
         }
+
+        getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
 
         _realEstateAgentHelper.setUserCookie(user, request, response);
 
@@ -425,8 +432,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     }
 
     private void sendVerificationEmail(HttpServletRequest request, User user) {
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
-        urlBuilder.addParameter("showSubscriptionThankYouHover","true");
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REAL_ESTATE_SCHOOL_GUIDES);
         String redirectUrl = urlBuilder.asFullUrl(request);
         Map<String,String> otherParams = new HashMap<String,String>();
         try {
@@ -508,5 +514,13 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
     public void setEmailVerificationEmail(EmailVerificationEmail _emailVerificationEmail) {
         this._emailVerificationEmail = _emailVerificationEmail;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI _exactTargetAPI) {
+        this._exactTargetAPI = _exactTargetAPI;
     }
 }
