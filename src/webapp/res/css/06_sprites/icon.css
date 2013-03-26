@@ -320,7 +320,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/130308-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/130326-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -431,6 +431,9 @@ a:active .i-16-search-filter-arrow-up {
 .i-24-pinterest {
     background-position: -624px 0;
 }
+.i-24-yellow-modal-close {
+    background-position: -648px 0;
+}
 /* row 24 */
 
 span:hover.i-24-close {
@@ -439,6 +442,10 @@ span:hover.i-24-close {
 
 span:hover.i-24-gallery-close {
     background-position: -528px -24px;
+}
+
+span:hover.i-24-yellow-modal-close {
+    background-position: -648px -24px;
 }
 
 /* =6 x32

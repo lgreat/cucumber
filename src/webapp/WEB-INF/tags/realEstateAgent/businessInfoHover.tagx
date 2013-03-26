@@ -21,7 +21,7 @@
             <div class="ptl">
                 <div class="jq-companyNameFields">
                     <gsml:input type="text" styleId="jq-companyName" styleClass="text1 input_10" name="companyName"
-                                value="Company Name" placeholder="Company Name" onfocus="GS_textSwitch(this, '', 'Company Name');" onblur="GS_textSwitch(this, 'Company Name', '');"/>
+                                value="Company Name" onfocus="GS_textSwitch(this, '', 'Company Name');" onblur="GS_textSwitch(this, 'Company Name', '');"/>
 
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
@@ -31,7 +31,7 @@
                 <div class="mtl clearfix">
                     <div class="fl jq-workNumberFields">
                         <gsml:input type="text" styleId="jq-workNumber" styleClass="text1 input_5" name="workNumber"
-                                    value="Work #" placeholder="Work #" onfocus="GS_textSwitch(this, '', 'Work #');" onblur="GS_textSwitch(this, 'Work #', '');"/>
+                                    value="Work #" onfocus="GS_textSwitch(this, '', 'Work #');" onblur="GS_textSwitch(this, 'Work #', '');"/>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
@@ -40,15 +40,12 @@
                     </div>
                     <div class="fr">
                         <gsml:input type="text" styleId="jq-cellNumber" styleClass="text1 input_5" name="cellNumber"
-                                    value="Cell #" placeholder="Cell #" onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
+                                    value="Cell #" onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
                     </div>
                 </div>
                 <div class="mtl jq-addressFields">
                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_10" name="address"
-
-
-
-                                value="Work Address" placeholder="Work Address" onfocus="GS_textSwitch(this, '', 'Work Address');" onblur="GS_textSwitch(this, 'Work Address', '');"/>
+                                value="Work Address" onfocus="GS_textSwitch(this, '', 'Work Address');" onblur="GS_textSwitch(this, 'Work Address', '');"/>
 
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
@@ -59,7 +56,7 @@
                 <div class="mtl clearfix">
                     <div class="fl jq-cityFields">
                         <gsml:input type="text" styleId="jq-city" styleClass="text1 input_3" name="city" value="City"
-                                    placeholder="City" onfocus="GS_textSwitch(this, '', 'City');" onblur="GS_textSwitch(this, 'City', '');"/>
+                                    onfocus="GS_textSwitch(this, '', 'City');" onblur="GS_textSwitch(this, 'City', '');"/>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
@@ -79,7 +76,7 @@
                     </div>
                     <div class="fr jq-zipFields">
                         <gsml:input type="text" styleId="jq-zip" styleClass="text1 input_3" name="zip"
-                                    value="Zip" placeholder="Zip" onfocus="GS_textSwitch(this, '', 'Zip');" onblur="GS_textSwitch(this, 'Zip', '');"/>
+                                    value="Zip" onfocus="GS_textSwitch(this, '', 'Zip');" onblur="GS_textSwitch(this, 'Zip', '');"/>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>

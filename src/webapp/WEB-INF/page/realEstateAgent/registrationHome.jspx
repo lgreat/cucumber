@@ -35,7 +35,7 @@
         <div id="js-registrationHover" class="dn">
             <div class="mod modal_4 width_12 js-registrationHover" id="js-registrationHover">
                 <div class="modalClose">
-                    <span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span>
+                    <span class="iconx24 i-24-yellow-modal-close js_closeHover"><!-- do not collapse --></span>
                 </div>
                 <div class="outer">
                     <div class="inner">

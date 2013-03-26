@@ -22,8 +22,7 @@
                 <div class="clearfix">
                     <div class="fl jq-firstNameFields">
                         <gsml:input type="text" styleId="jq-fName" styleClass="text1 input_5" name="firstName"
-
-                                    placeholder="First Name" value="First Name" onfocus="GS_textSwitch(this, '', 'First Name');" onblur="GS_textSwitch(this, 'First Name', '');"/>
+                            value="First Name" onfocus="GS_textSwitch(this, '', 'First Name');" onblur="GS_textSwitch(this, 'First Name', '');"/>
 
 
                         <div class="errors">
@@ -34,8 +33,7 @@
                     </div>
                     <div class="fr jq-lastNameFields">
                         <gsml:input type="text" styleId="jq-lName" styleClass="text1 input_5" name="lastName"
-
-                                    placeholder="Last Name" value="Last Name" onfocus="GS_textSwitch(this, '', 'Last Name');" onblur="GS_textSwitch(this, 'Last Name', '');"/>
+                            value="Last Name" onfocus="GS_textSwitch(this, '', 'Last Name');" onblur="GS_textSwitch(this, 'Last Name', '');"/>
 
 
                         <div class="errors">
@@ -47,8 +45,7 @@
                 </div>
                 <div class="mtl jq-emailFields">
                     <gsml:input type="text" styleId="jq-email" styleClass="text1 input_10" name="email"
-
-                                placeholder="Email" value="Email" onfocus="GS_textSwitch(this, '', 'Email');" onblur="GS_textSwitch(this, 'Email', '');"/>
+                        value="Email" onfocus="GS_textSwitch(this, '', 'Email');" onblur="GS_textSwitch(this, 'Email', '');"/>
 
 
                     <div class="errors">
@@ -59,8 +56,7 @@
                 </div>
                 <div class="mtl jq-passwordFields">
                     <gsml:input type="password" styleId="jq-password" styleClass="text1 input_10" name="password"
-
-                                placeholder="Password" value="Password" onfocus="GS_textSwitch(this, '', 'Password');" onblur="GS_textSwitch(this, 'Password', '');"/>
+                        value="Password" onfocus="GS_textSwitch(this, '', 'Password');" onblur="GS_textSwitch(this, 'Password', '');"/>
 
 
                     <div class="errors">

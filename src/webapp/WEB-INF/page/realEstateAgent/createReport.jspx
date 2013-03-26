@@ -40,7 +40,7 @@
                             <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
                                 <div class="mbl jq-addressFields">
                                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_18" name="address"
-                                                value="Property Address" placeholder="Property Address" onfocus="GS_textSwitch(this, '', 'Property Address');" onblur="GS_textSwitch(this, 'Property Address', '');"/>
+                                                value="Property Address" onfocus="GS_textSwitch(this, '', 'Property Address');" onblur="GS_textSwitch(this, 'Property Address', '');"/>
 
                                     <div class="errors">
                                         <span class="error valid">&amp;nbsp;</span>
@@ -73,7 +73,7 @@
 
                                     <div class="unit size34of100 lastUnit jq-sqFootageFields">
                                         <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6" name="sqFeet"
-                                                    value="Square footage" placeholder="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');" onblur="GS_textSwitch(this, 'Square footage', '');"/>
+                                                    value="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');" onblur="GS_textSwitch(this, 'Square footage', '');"/>
 
                                         <div class="errors">
                                             <span class="error valid">&amp;nbsp;</span>
