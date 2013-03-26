@@ -71,7 +71,7 @@
                 your school district for more detailed enrollment information or visit www.greatschools.org.</p>
         </div>
 
-        <c:forEach items="${schoolSearchResults}" var="school" varStatus="status" begin="1" end="5">
+        <c:forEach items="${schoolSearchResults}" var="school" varStatus="status">
             <realEstate:schoolReportSection school="${school}" schoolMediaElement="${schoolMediaList[0]}"/>
             <!--<hr class="mvm">&lt;!&ndash; do not collapse &ndash;&gt;</hr>-->
         </c:forEach>

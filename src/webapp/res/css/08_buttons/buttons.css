@@ -1089,6 +1089,15 @@ Extends button-1 by changing:
     border-radius: 4px;
 }
 
+.but-xl{
+    padding: 20px 73px;
+    font-family: 'SourceSansPro-Bold' arial;
+    font-size:18px;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
+
 .but-lg{
     padding: 0 24px;
     font: bold 1em/2.75em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
@@ -1109,6 +1118,13 @@ Extends button-1 by changing:
     font: bold .75em/1.667em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
 }
 
+.outerBox{
+    padding: 3px;
+    background: rgba(0,0,0,0.2);
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
 
 /* Button Themes
 ******************************************************************************/
@@ -1253,6 +1269,78 @@ Extends button-1 by changing:
     -webkit-box-shadow: inset 0 1px 0 #FFF);
     box-shadow: inset 0 1px 0 #FFF);
 }
+
+
+/*button-3*/
+.but-3{
+    background: #0083b2; /* for non-css3 browsers */
+    color: #FFFFFF;
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/*.but-3:hover{*/
+    /*background: #CCCCCC; *//* for non-css3 browsers */
+    /*text-decoration: none;*/
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#DDDDDD)); *//* Saf4+, Chrome */
+    /*background-image: -webkit-linear-gradient(top, #FFFFFF, #DDDDDD); *//* Chrome 10+, Saf5.1+, iOS 5+ */
+    /*background-image:    -moz-linear-gradient(top, #FFFFFF, #DDDDDD); *//* FF3.6 */
+    /*background-image:     -ms-linear-gradient(top, #FFFFFF, #DDDDDD); *//* IE10 */
+    /*background-image:      -o-linear-gradient(top, #FFFFFF, #DDDDDD); *//* Opera 11.10+ */
+    /*background-image:         linear-gradient(top, #FFFFFF, #DDDDDD); *//* W3C */
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#DDDDDD'); *//* IE6�IE9 */
+/*}*/
+
+/*.but-3:active{*/
+    /*background: #F1F1F1; *//* for non-css3 browsers */
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD), to(#F8F8F8)); *//* Saf4+, Chrome */
+    /*background-image: -webkit-linear-gradient(top, #DDDDDD, #F8F8F8); *//* Chrome 10+, Saf5.1+, iOS 5+ */
+    /*background-image:    -moz-linear-gradient(top, #DDDDDD, #F8F8F8); *//* FF3.6 */
+    /*background-image:     -ms-linear-gradient(top, #DDDDDD, #F8F8F8); *//* IE10 */
+    /*background-image:      -o-linear-gradient(top, #DDDDDD, #F8F8F8); *//* Opera 11.10+ */
+    /*background-image:         linear-gradient(top, #DDDDDD, #F8F8F8); *//* W3C */
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#DDDDDD', EndColorStr='#F8F8F8'); *//* IE6�IE9 */
+    /*-moz-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);*/
+    /*-webkit-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);*/
+    /*box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);*/
+/*}*/
+
+/*.but-3-inactive{*/
+    /*background: #F1F1F1; *//* for non-css3 browsers */
+    /*color: #999;*/
+    /*border: 1px solid #B8B8B8;*/
+/*}*/
+/* IE7 bug: vertical centering */
+*+html button.but-3,
+*+html button.but-3-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-3:-moz-focus-inner,
+.button-3-inactive::-moz-focus-inner {
+    border: none;
+}
+
+/*.but-3-selected{*/
+    /*background: #2092C4; *//* for non-css3 browsers */
+    /*color: #FFF;*/
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#A6D3E7));  *//* Saf4+, Chrome */
+    /*background-image: -webkit-linear-gradient(top, #2092C4, #A6D3E7);  *//*Chrome 10+, Saf5.1+, iOS 5+ */
+    /*background-image:    -moz-linear-gradient(top, #2092C4, #A6D3E7);  *//*FF3.6*/
+    /*background-image:     -ms-linear-gradient(top, #2092C4, #A6D3E7);  *//*IE10*/
+    /*background-image:      -o-linear-gradient(top, #2092C4, #A6D3E7);  *//*Opera 11.10+ */
+    /*background-image:         linear-gradient(top, #2092C4, #A6D3E7);  *//* W3C */
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#A6D3E7'); *//* IE6�IE9 */
+    /*border: 1px solid #2092C4;*/
+    /* border-top-color: #2092C4; *//* highlight */
+    /*text-shadow: 0 1px 0 #777;*/
+    /*-moz-box-shadow: inset 0 1px 0 #FFF);*/
+    /*-webkit-box-shadow: inset 0 1px 0 #FFF);*/
+    /*box-shadow: inset 0 1px 0 #FFF);*/
+/*}*/
 
 /* =8 Dropdown button icons
 -------------------------------------------------------------------------------------------*/
