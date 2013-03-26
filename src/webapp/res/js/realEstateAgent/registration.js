@@ -116,7 +116,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 url : '/real-estate/saveBusinessInfo.page',
                 data : data,
                 success : function (response) {
-                    if(response.success) {
+                    if(response.success || data.skipUserCheck) {
                         form.addClass('dn');
                         hover.find('.jq-imageUploaderForm').removeClass('dn');
 
@@ -140,11 +140,13 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         });
 
         hover.on('click', '.jq-completeRegistration', function() {
-            if(s.tl) {
-                s.tl(this, 'o', 'Radar Sign Up Complete');
+            var registrationComplete = jQuery('input.jq-registrationComplete').val();
+            var page = '/real-estate/create-guide.page';
+            if(registrationComplete === 'true') {
+                page += '?registrationComplete=true';
             }
-            window.location.href = window.location.protocol + '//' + window.location.host +
-                '/real-estate/create-guide.page';
+
+            window.location.href = window.location.protocol + '//' + window.location.host + page;
         })
     };
 
@@ -287,6 +289,12 @@ jQuery(function(){
     GSType.hover.realEstateAgentRegistrationHover.loadDialog();
 
     jQuery('#jq-realEstAgentRegisterBtn').on('click', function() {
+        GSType.hover.realEstateAgentRegistrationHover.show();
+        return false;
+    });
+
+    jQuery('#jq-myAccount').on('click', function() {
+        jQuery('.jq-businessInfoForm').removeClass('dn');
         GSType.hover.realEstateAgentRegistrationHover.show();
         return false;
     });

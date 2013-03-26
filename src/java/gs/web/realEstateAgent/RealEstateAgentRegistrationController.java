@@ -8,6 +8,8 @@ import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.data.state.State;
 import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
@@ -127,7 +129,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
     @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
     public String showCreateReportForm (HttpServletRequest request,
-                            HttpServletResponse response) {
+                            HttpServletResponse response,
+                            @RequestParam(value = "registrationComplete", required = false) String registrationComplete) {
         //TODO: comment skip user validation
         if(_realEstateAgentHelper.skipUserValidation(request)) {
             return CREATE_REPORT_PAGE_VIEW;
@@ -136,6 +139,13 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
         if(userId != null) {
+            if("true".equals(registrationComplete)) {
+                User user = _userDao.findUserFromId(userId);
+                getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+            }
             return _realEstateAgentHelper.getViewForUser(request, userId, CREATE_REPORT_PAGE_VIEW);
         }
 
@@ -210,8 +220,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if(shouldSendVerificationEmail) {
             sendVerificationEmail(request, user);
         }
-
-        getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
 
         _realEstateAgentHelper.setUserCookie(user, request, response);
 

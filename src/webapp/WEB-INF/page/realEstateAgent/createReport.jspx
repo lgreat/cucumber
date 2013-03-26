@@ -4,6 +4,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
           version="2.0">
 
     <html>
@@ -14,6 +15,13 @@
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta name="robots" content="noindex"/>
         <gsml:javascript src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
+        <gsml:javascript src="/res/js/plupload-new/moxie.min.js" />
+        <gsml:javascript src="/res/js/plupload-new/plupload.js" />
+        <!--<gsml:javascript src="/res/js/plupload-new/plupload.flash.js" />-->
+
+        <gsml:javascript src="/res/js/mediaUploader/MediaUploader.js" />
+        <gsml:javascript src="/res/js/realEstateAgent/RealEstateAgentMediaUploader.js" />
+        <gsml:javascript src="/res/js/realEstateAgent/registration.js"/>
         <gsml:javascript src="/res/js/realEstateAgent/createReport.js"/>
     </head>
 
@@ -37,6 +45,7 @@
                 <div class="">
                     <div class="">
                         <div class="">
+                            <a href="javascript:void(0)" id="jq-myAccount"> My account </a>
                             <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
                                 <div class="mbl jq-addressFields">
                                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_18" name="address"
@@ -106,6 +115,20 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="js-registrationHover" class="dn">
+        <div class="mod modal_4 width_12 js-registrationHover" id="js-registrationHover">
+            <div class="modalClose">
+                <span class="iconx24 i-24-yellow-modal-close js_closeHover"><!-- do not collapse --></span>
+            </div>
+            <div class="outer">
+                <div class="inner">
+                    <realEstate:businessInfoHover/>
+                    <realEstate:imageUploadHover/>
                 </div>
             </div>
         </div>

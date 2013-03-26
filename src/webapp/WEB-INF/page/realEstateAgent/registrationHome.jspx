@@ -84,7 +84,7 @@
                 <div class="inner">
                     <realEstate:personalInfoHover/>
                     <realEstate:businessInfoHover/>
-                    <realEstate:imageUploadHover/>
+                    <realEstate:imageUploadHover firstTimeRegistration="${true}"/>
                 </div>
             </div>
         </div>

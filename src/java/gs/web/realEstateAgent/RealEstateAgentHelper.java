@@ -37,17 +37,21 @@ public class RealEstateAgentHelper {
     public boolean hasAgentAccountFromSessionContext(HttpServletRequest request) {
         User user = getUserFromSessionContext(request);
         if(user != null && user.getId() != null) {
-            if (getAgentAccountDao().findAgentAccountByUserId(user.getId()) !=  null) {
-                return true;
-            } else {
-                return false;
-            }
+            return hasAgentAccountFromUserId(user.getId());
         }
         return false;
     }
 
     public boolean hasAgentAccountFromRegistrationCookie(HttpServletRequest request) {
         Integer userId = getUserIdFromCookie(request);
+        return hasAgentAccountFromUserId(userId);
+    }
+
+    public boolean hasAgentAccount(HttpServletRequest request) {
+        return (hasAgentAccountFromSessionContext(request) || hasAgentAccountFromRegistrationCookie(request));
+    }
+
+    public boolean hasAgentAccountFromUserId(Integer userId) {
         if(userId != null) {
             if (getAgentAccountDao().findAgentAccountByUserId(userId) !=  null) {
                 return true;
@@ -56,10 +60,6 @@ public class RealEstateAgentHelper {
             }
         }
         return false;
-    }
-
-    public boolean hasAgentAccount(HttpServletRequest request) {
-        return (hasAgentAccountFromSessionContext(request) || hasAgentAccountFromRegistrationCookie(request));
     }
 
     public AgentAccount getAgentAccount(HttpServletRequest request) {
@@ -117,9 +117,7 @@ public class RealEstateAgentHelper {
     }
 
     public String getViewForUser (HttpServletRequest request, Integer userId, String view) {
-        AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
-
-        if(agentAccount != null) {
+        if(hasAgentAccountFromUserId(userId)) {
             return view;
         }
 
