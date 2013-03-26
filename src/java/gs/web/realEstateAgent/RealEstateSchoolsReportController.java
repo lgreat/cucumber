@@ -54,7 +54,7 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
     @Autowired
     private ReportGenerationTrackingDaoHibernate _reportGeneratorTrackingDaoHiberanate;
 
-    public static final int MAX_ALLOWED_SCHOOLS = 6;
+    public static final int MAX_ALLOWED_SCHOOLS = 5;
 
     private static final String VIEW_NAME = "/realEstateAgent/realEstateSchoolReport";
     public static final String MODEL_SCHOOL_SEARCH_RESULTS = "schoolSearchResults";
@@ -176,7 +176,7 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
 
         GsSolrQuery q = createGsSolrQuery();
 
-        q.filter(DocumentType.SCHOOL).page(0, MAX_ALLOWED_SCHOOLS);
+        q.filter(DocumentType.SCHOOL).page(1, MAX_ALLOWED_SCHOOLS);
 
         String[] gradeLevels = {"e","m","h"};
         q.filter(SchoolFields.GRADE_LEVEL, gradeLevels);
