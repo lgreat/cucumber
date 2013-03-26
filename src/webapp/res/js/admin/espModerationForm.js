@@ -34,7 +34,6 @@ GS.form.EspModerationForm = function () {
 
             return dfd.promise();
         }
-
     };
 
     // interface
@@ -47,15 +46,16 @@ GS.form.espModerationForm = new GS.form.EspModerationForm();
 
 jQuery(function () {
     jQuery('#js_espModerationForm').submit(function (event) {
-//        alert(event.target);
-        jQuery.when(
-            GS.form.espModerationForm.checkForProvisionalUsersStateLock()
-        ).done(
-            function () {
-                document.getElementById('espRegistrationCommand').submit();
-            }
-        )
-        return false;
+        if ($(event.originalEvent.explicitOriginalTarget).val() === 'approve') {
+            jQuery.when(
+                GS.form.espModerationForm.checkForProvisionalUsersStateLock()
+            ).done(
+                function () {
+                    jQuery('#js_espModerationForm').submit();
+                }
+            )
+            return false;
+        }
     });
 });
 
