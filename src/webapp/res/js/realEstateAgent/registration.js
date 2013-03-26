@@ -14,6 +14,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
             pageTracking.clear();
             pageTracking.pageName = "Radar Registration Contact Info";
             pageTracking.hierarchy = "real-estate, GreatSchools Radar, Registration";
+            pageTracking.successEvents = "event73";
             pageTracking.send();
         }
 
@@ -139,6 +140,9 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         });
 
         hover.on('click', '.jq-completeRegistration', function() {
+            if(s.tl) {
+                s.tl(this, 'o', 'Radar Sign Up Complete');
+            }
             window.location.href = window.location.protocol + '//' + window.location.host +
                 '/real-estate/create-guide.page';
         })

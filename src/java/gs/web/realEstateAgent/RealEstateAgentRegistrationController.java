@@ -179,6 +179,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             user = new User();
             user.setEmail(email);
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+            user.setHow("radar");
             setUserFields(fName, lName, user);
             _userDao.saveUser(user);
 

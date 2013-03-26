@@ -72,8 +72,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         }
         else if(!sqFeet.match(/^((\d{1,6})|(\d{1,3},\d{3}))(\.\d{1,})?$/)) {
             data.hasError = true;
-            data.sqFootageErrorDetail = 'Please enter only digits or digits separated by a comma and may include a ' +
-                'decimal point followed by digits.';
+            data.sqFootageErrorDetail = 'Please enter a number.';
         }
 
         validateFieldResponse('.jq-sqFootageFields .errors', data, 'sqFootageErrorDetail');

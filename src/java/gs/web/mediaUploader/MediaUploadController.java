@@ -10,8 +10,6 @@ import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.web.photoUploader.SchoolPhotoProcessor;
 import gs.web.realEstateAgent.RealEstateAgentHelper;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
@@ -134,11 +132,11 @@ public class MediaUploadController implements ReadWriteAnnotationController {
 
                                 try {
                                     if("photo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_144_144;
+                                        dimension = Dimension.DIM_432_432;
                                         isPhoto = true;
                                     }
                                     else if("logo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_108_108;
+                                        dimension = Dimension.DIM_324_324;
                                         isLogo = true;
                                     }
                                     else {
