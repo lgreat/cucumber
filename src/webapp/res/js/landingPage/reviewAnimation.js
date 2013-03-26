@@ -24,6 +24,7 @@ $(document).ready(function() {
 
     GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
     GS_initializeCustomSelect("js-reviewLandingState");
+
     function GS_selectCallbackReviewsIAm(selectValue){
         hideAllLayers();
         if(selectValue == "Parent"){
@@ -77,7 +78,7 @@ $(document).ready(function() {
         function showW(event) {
             hideSelect(event);
             selectBoxText.html($(this).html());
-            callbackFunction($(this).html());
+            if(callbackFunction) callbackFunction($(this).html());
         }
 
         selectDropDownItem.mouseover(function () {
