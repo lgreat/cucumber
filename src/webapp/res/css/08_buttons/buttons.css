@@ -1091,22 +1091,22 @@ Extends button-1 by changing:
 
 .but-lg{
     padding: 0 24px;
-    font: bold 1em/2.75em Arial, Helvetica, sans-serif;
+    font: bold 1em/2.75em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
 }
 
 .but-rg{
     padding: 0 20px;
-    font: bold .875em/2.285em Arial, Helvetica, sans-serif;
+    font: bold .875em/2.285em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
 }
 
 .but-sm{
     padding: 0 18px;
-    font: bold .75em/2.333em Arial, Helvetica, sans-serif;
+    font: bold .75em/2.333em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
 }
 
 .but-smt{
     padding: 0 18px;
-    font: bold .75em/1.667em Arial, Helvetica, sans-serif;
+    font: bold .75em/1.667em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
 }
 
 

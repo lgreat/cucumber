@@ -138,6 +138,11 @@
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
             <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
             <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
+            <input type="hidden" id="parentReviewTerms" value="0" name="parentReviewTerms"/>
+            <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
+            <c:if test="${morganStanley}">
+                <input type="hidden" name="how" value="morganstanley"/>
+            </c:if>
             <div class="clearfix">
                 <div class="fl">
                     <div class="paper_bg">
@@ -206,8 +211,23 @@
                     </div>
                 </div>
             </div>
-            <div class="clearfix">
-                <div class="fl">Checkbox<br />Checkbox 2</div><div class="tar fr"><div class="but but-lg but-1">Post</div></div>
+            <div class="clearfix ptm">
+                <div class="fl">
+                    <div id="js-reviewLandingCheckboxTerms" class="clearfix">
+                        <div class="fl prm js-checkBoxSpriteOff"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
+                        <div class="fl prm js-checkBoxSpriteOn dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
+                        <div class="fl small bottom">I agree to the <link:termsOfUse
+                                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
+                                target="_blank">School Review Guidelines</link:parentReviewGuidelines>.</div>
+                    </div>
+                    <div id="js-reviewLandingCheckboxEmail" class="clearfix">
+                        <div class="fl prm js-checkBoxSpriteOff dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
+                        <div class="fl prm js-checkBoxSpriteOn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
+                        <div class="fl small">Yes, send me monthly email updates about this school.</div>
+                    </div>
+                </div>
+
+                <div class="tar fr"><div class="but but-lg but-3">Post</div></div>
             </div>
         </form>
     </div>
@@ -495,7 +515,7 @@
 
             <div class="line terms">
                 <div class="unit size1of1 lastUnit">
-                    <input id="parentReviewTerms" name="parentReviewTerms" class="checkbox" type="checkbox" checked="checked"
+                    <input id="parentReviewTermsold" name="parentReviewTerms" class="checkbox" type="checkbox" checked="checked"
                            value="1"/>
                     <span class="text3">I agree to the <link:termsOfUse
                             target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
