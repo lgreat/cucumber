@@ -9,72 +9,65 @@
           version="2.0">
 
     <div class="jq-imageUploaderForm dn">
-
-        <div class="inner">
-            <div class="hoverTitle hd">
-                part 3
-            </div>
+        <div class="hd"><!--yellow header-->
+            <span class="real-estate-step-1 re-contact-default"><!-- do not collapse --></span>
+            <span class="real-estate-step-2 re-company-info-default"><!-- do not collapse --></span>
+            <span class="real-estate-step-3 re-photo-upload-selected"><!-- do not collapse --></span>
         </div>
-
-        <div class="bd tal">
-            <div class="introTxt col">
-                <p class="small_bold title">Upload Image</p>
-                <p class="small subtitle">upload image</p>
+        <div class="bd" style="height: 330px;">
+            <div class="clearfix">
+                <div class="tac">
+                    <h2 class="">Upload images <a href="#" class="small mls">See an example</a></h2>
+                </div>
             </div>
-
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-
-                    <div class="line lal">
-                        <div class="unit fl">
-                            <div class="jq-photoContainer">
-                                <div style="" id="js-photoPreview">
+            <div class="ptl">
+                <div class="clearfix">
+                    <div class="fl tac standard_2-3">
+                            <div class="inner jq-photoContainer">
+                                <div class="mbs" id="js-photoPreview">
                                     <img id="js-photo-preview"
                                          class="js-photo-pending"
-                                         src="http://avatarmaker.net/free-avatars/avatars/games_225/super_mario_259/super_mario_panic_avatar_100x100_25831.gif"
+                                         src="/res/img/realEstate/upload_placeholder.png"
                                          width="100" height="100"
                                          alt="photo"/>
                                 </div>
-                                <button class="button-1 jq-photoButtons jq-photoUploadButton" name="photoUpload" type="button"
-                                        style="-moz-user-select: none;">
-                                    Upload photo
+                                <button class="but but-rg but-2 mhm jq-photoButtons jq-photoUploadButton"
+                                        name="photoUpload" type="button">Upload photo
                                 </button>
-                                <button class="button-1-inactive jq-photoButtons jq-photoUploadFakeButton" id="jq-photoUploadFakeButton" type="button" disabled="true"
-                                        style="-moz-user-select: none; display:none;">Upload photo
-                                </button>
+                                <!--<button class="button-1-inactive jq-photoButtons jq-photoUploadFakeButton"-->
+                                <!--id="jq-photoUploadFakeButton" type="button" disabled="true"-->
+                                <!--style="-moz-user-select: none; display:none;">Upload photo-->
+                                <!--</button>-->
                             </div>
-                        </div>
-                        <div class="unit lastUnit fr">
-                            <div class="jq-logoContainer">
-                                <div style="" id="js-logoPreview">
-                                    <img id="js-logo-preview"
-                                         class="js-logo-pending"
-                                         src="http://avatarmaker.net/free-avatars/avatars/games_225/super_mario_259/super_mario_panic_avatar_100x100_25831.gif"
-                                         width="100" height="100"
-                                         alt="photo"/>
-                                </div>
-                                <button class="button-1 jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button"
-                                        style="-moz-user-select: none;">
-                                    Upload logo
-                                </button>
-                                <button class="button-1-inactive jq-logoButtons jq-logoUploadFakeButton" id="jq-logoUploadFakeButton" type="button" disabled="true"
-                                        style="-moz-user-select: none; display:none;">Upload logo
-                                </button>
-                            </div>
-                        </div>
+                        <div class="small">Upload a photo of yourself to<br/>display on guides you create.</div>
                     </div>
-
+                    <div class="fr tac standard_2-3">
+                        <div class="inner jq-logoContainer">
+                            <div class="mbs" id="js-logoPreview">
+                                <img id="js-logo-preview"
+                                     class="js-logo-pending"
+                                     src="/res/img/realEstate/upload_placeholder.png"
+                                     width="100" height="100"
+                                     alt="photo"/>
+                            </div>
+                            <button class="but but-rg but-2 mhm jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button">Upload logo</button>
+                            <!--<button class="button-1-inactive jq-logoButtons jq-logoUploadFakeButton"-->
+                                    <!--id="jq-logoUploadFakeButton" type="button" disabled="true"-->
+                                    <!--style="-moz-user-select: none; display:none;">Upload logo-->
+                            <!--</button>-->
+                        </div>
+                        <div class="small">Upload your company's logo and<br/>we'll brand your guides.(JPG,<br/>PNG, GIF max size: 50KB)</div>
+                    </div>
                 </div>
             </div>
-
-            <div class="line joinSubmit lal">
-                <div class="">
-                    <a href="javascript:void(0)">
-                        <button class="button-1 jq-completeRegistration" name="completeRegistration" >
-                            Complete
-                        </button>
-                    </a>
-                </div>
+        </div>
+        <div class="ft joinSubmit">
+            <div class="tac">
+                <a href="javascript:void(0)">
+                    <button class="but but-lg but-1 jq-completeRegistration" name="completeRegistration">
+                        Complete
+                    </button>
+                </a>
             </div>
         </div>
     </div>

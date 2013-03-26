@@ -1,6 +1,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
         >
     <html>
     <jsp:directive.page contentType="text/html"/>
@@ -18,10 +19,10 @@
     <div class="divFooter">
         <div class="fl">
             <span class="strong"> Prepared for: </span>
-            <span class=""> [Realtor Name], [Company Name] </span>
+            <span class=""> ${agentFirstName} ${agentLastName}, ${agentEmail} </span>
         </div>
         <div class="fr">
-            <p class="smallest"> [date] </p>
+            <p class="smallest"> ${date} </p>
         </div>
     </div>
 
@@ -47,9 +48,15 @@
             </h1>
             <p class="strong">
                 ${city}, ${state} ${zipcode}
-                <span class="header-vertical-border-l">Bedrooms: ${bed}</span>
-                <span class="header-vertical-border-l">Bathrooms: ${bath}</span>
-                <span class="header-vertical-border-l">${sqFeet} Est. Sq. Ft.</span>
+                <c:if test="${not empty bed}">
+                    <span class="header-vertical-border-l">Bedrooms: ${bed}</span>
+                </c:if>
+                <c:if test="${not empty bath}">
+                    <span class="header-vertical-border-l">Bathrooms: ${bath}</span>
+                </c:if>
+                <c:if test="${not empty sqFeet}">
+                    <span class="header-vertical-border-l">${sqFeet} Est. Sq. Ft.</span>
+                </c:if>
             </p>
         </div>
 
@@ -64,7 +71,7 @@
                 your school district for more detailed enrollment information or visit www.greatschools.org.</p>
         </div>
 
-        <c:forEach items="${schoolSearchResults}" var="school" varStatus="status" begin="1" end="5">
+        <c:forEach items="${schoolSearchResults}" var="school" varStatus="status">
             <realEstate:schoolReportSection school="${school}" schoolMediaElement="${schoolMediaList[0]}"/>
             <!--<hr class="mvm">&lt;!&ndash; do not collapse &ndash;&gt;</hr>-->
         </c:forEach>
@@ -73,7 +80,15 @@
 
         <!-- TODO: header for second page to be inserted here -->
 
-        <!-- agent photo -->
+        <div class="">
+            ${agentFirstName} ${agentLastName} <br/>
+            ${agentCompany} <br/>
+            office: ${agentWorkNumber}<br/>
+            <c:if test="${not empty agentCellNumber}">
+                mobile: ${agentCellNumber}<br/>
+            </c:if>
+            ${agentEmail}
+        </div>
 
         <div class="fl">
             <![CDATA[

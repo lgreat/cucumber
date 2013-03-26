@@ -10,6 +10,8 @@
     <jsp:directive.attribute name="styleId" required="false" description="CSS id"/>
     <jsp:directive.attribute name="tabIndex" required="false" description="Tab index"/>
     <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick function"/>
+    <jsp:directive.attribute name="onfocus" required="false" description="Javascript onfocus function"/>
+    <jsp:directive.attribute name="onblur" required="false" description="Javascript onblur function"/>
     <jsp:directive.attribute name="disabled" required="false" description="disable the control"/>
     <jsp:directive.attribute name="maxlength" required="false" description="Maximum Length"/>
     <jsp:directive.attribute name="readonly" required="false" type="java.lang.Boolean" description="Read only"/>
@@ -32,6 +34,12 @@
     </c:if>
     <c:if test="${not empty onclick}">
         <c:out value=' onclick="${onclick}"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty onfocus}">
+        <c:out value=' onfocus="${onfocus}"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty onblur}">
+        <c:out value=' onblur="${onblur}"' escapeXml="false"/>
     </c:if>
     <c:if test="${not empty maxlength}">
         <c:out value=' maxlength="${maxlength}"' escapeXml="false"/>

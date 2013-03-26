@@ -102,7 +102,7 @@ input.searchText:focus{ color: #2B2B2B; border: 1px solid #2092C4;
 
 input.text1{
     height: 40px;
-    font: normal 14px/20px SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+    font: normal 12px/20px SourceSansPro-Regular, Arial, Helvetica, sans-serif;
     color:#666666;
     padding-left: 8px;
     border:1px solid #B8B8B8;

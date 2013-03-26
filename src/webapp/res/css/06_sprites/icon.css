@@ -22,6 +22,11 @@ General comments:
 =7 x48
 =8 x64
 =9 x96
+=10 DcCharterBadges
+=11 DcCharterBadges - smaller type for multiple at once
+=12 Real estate hover tab-1
+=13 Real estate hover tab-2
+=14 Real estate hover tab-3
 
 */
 
@@ -315,7 +320,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/130308-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/130326-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -426,6 +431,9 @@ a:active .i-16-search-filter-arrow-up {
 .i-24-pinterest {
     background-position: -624px 0;
 }
+.i-24-yellow-modal-close {
+    background-position: -648px 0;
+}
 /* row 24 */
 
 span:hover.i-24-close {
@@ -434,6 +442,10 @@ span:hover.i-24-close {
 
 span:hover.i-24-gallery-close {
     background-position: -528px -24px;
+}
+
+span:hover.i-24-yellow-modal-close {
+    background-position: -648px -24px;
 }
 
 /* =6 x32
@@ -778,7 +790,7 @@ span.i-48-gallery-next-default:hover{
     background-position: -672px 0;
 }
 
-/* = 3 DcCharterBadges
+/* =10 DcCharterBadges
 -------------------------------------------------------------------------------------------*/
 
 /* **************** SPRITE ***************** */
@@ -803,4 +815,104 @@ span.i-48-gallery-next-default:hover{
 
 .i-DcCharterBadges-3 {
     background-position: -118px 0;
+}
+
+
+/* =11 DcCharterBadges - smaller type for multiple at once
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconxDcCharterBadges_sm {
+    display: inline-block;
+    background-image: url(/res/img/sprites/DC_charter_ratings_46x46.png);
+    width: 46px;
+    height: 46px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-DcCharterBadges_sm-1 {
+    background-position: 0 0;
+}
+
+.i-DcCharterBadges_sm-2 {
+    background-position: -46px 0;
+}
+
+.i-DcCharterBadges_sm-3 {
+    background-position: -92px 0;
+}
+
+/* =12 Real estate hover tab-1
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.real-estate-step-1{
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/steps_slices_01.png);
+    width: 143px;
+    height: 27px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.re-contact-default{
+    background-position: 0 0;
+}
+
+/* row 1 */
+.re-contact-selected{
+    background-position: 0 -27px;
+}
+
+/* =13 Real estate hover tab-2
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.real-estate-step-2{
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/steps_slices_02.png);
+    width: 143px;
+    height: 27px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.re-company-info-default{
+    background-position: 0 0;
+}
+
+/* row 1 */
+.re-company-info-selected{
+    background-position: 0 -27px;
+}
+
+/* =14 Real estate hover tab-3
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.real-estate-step-3{
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/steps_slices_03.png);
+    width: 143px;
+    height: 27px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.re-photo-upload-default{
+    background-position: 0 0;
+}
+
+/* row 1 */
+.re-photo-upload-selected{
+    background-position: 0 -27px;
 }

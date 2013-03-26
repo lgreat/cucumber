@@ -1,14 +1,19 @@
 package gs.web.realEstateAgent;
 
+import gs.data.realEstateAgent.AgentAccount;
+import gs.data.realEstateAgent.ReportGenerationTracking;
+import gs.data.realEstateAgent.ReportGenerationTrackingDaoHibernate;
 import gs.data.search.*;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.fields.DocumentType;
 import gs.data.search.fields.SchoolFields;
 import gs.data.util.CommunityUtil;
 import gs.web.PdfView;
+import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -32,8 +38,9 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/real-estate-school-report")
-public class RealEstateSchoolsReportController {
+@RequestMapping("/real-estate/guides/neighborhood-guide")
+@Component("realEstateSchoolsReportController")
+public class RealEstateSchoolsReportController implements ReadWriteAnnotationController {
 
     @Autowired
     private GsSolrSearcher _gsSolrSearcher;
@@ -41,9 +48,15 @@ public class RealEstateSchoolsReportController {
     @Autowired
     private InternalResourceViewResolver _viewResolver;
 
-    public static final int MAX_ALLOWED_SCHOOLS = 100;
+    @Autowired
+    private RealEstateAgentHelper _realEstateAgentHelper;
 
-    private static final String VIEW_NAME = "realEstateSchoolReport";
+    @Autowired
+    private ReportGenerationTrackingDaoHibernate _reportGeneratorTrackingDaoHiberanate;
+
+    public static final int MAX_ALLOWED_SCHOOLS = 5;
+
+    private static final String VIEW_NAME = "/realEstateAgent/realEstateSchoolReport";
     public static final String MODEL_SCHOOL_SEARCH_RESULTS = "schoolSearchResults";
 
     private static Logger _logger = Logger.getLogger(RealEstateSchoolsReportController.class);
@@ -63,6 +76,27 @@ public class RealEstateSchoolsReportController {
                     @RequestParam(value="state", required = false) String state) {
 
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
+
+        AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
+
+        //TODO: comment skip user validation
+        boolean skipValidation = _realEstateAgentHelper.skipUserValidation(request);
+        if(agentAccount == null && !skipValidation) {
+            return new RedirectView(_realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request));
+        }
+        if(skipValidation) {
+            agentAccount = new AgentAccount();
+        }
+
+        modelMap.put("agentFirstName", (agentAccount.getUser() != null) ? agentAccount.getUser().getFirstName() : "");
+        modelMap.put("agentLastName", (agentAccount.getUser() != null) ? agentAccount.getUser().getLastName() : "");
+        modelMap.put("agentEmail", (agentAccount.getUser() != null) ? agentAccount.getUser().getEmail() : "");
+        modelMap.put("agentCompany", agentAccount.getCompanyName());
+        modelMap.put("agentWorkNumber", agentAccount.getWorkNumber());
+        modelMap.put("agentCellNumber", agentAccount.getCellNumber());
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("M/dd/yyyy");
+        modelMap.put("date", dateFormatter.format(new Date()));
 
         try {
             searchResultsPage = searchForSchools(lat, lon, state.toLowerCase());
@@ -115,6 +149,26 @@ public class RealEstateSchoolsReportController {
         } catch (Exception e) {
             return new RedirectView("/status/error404.page");
         }
+        finally {
+            String address = request.getParameter("address");
+            if(!skipValidation && agentAccount != null && address != null){
+                ReportGenerationTracking tracking = new ReportGenerationTracking(agentAccount, address);
+                try {
+                    if(!"".equals(request.getParameter("bed"))) {
+                        tracking.setBedrooms(Integer.parseInt(request.getParameter("bed")));
+                    }
+                    if(!"".equals(request.getParameter("bath"))) {
+                        tracking.setBathrooms(Integer.parseInt(request.getParameter("bath")));
+                    }
+                }
+                catch (NumberFormatException e) {
+                    _logger.warn("Exception while trying convert string to int for report generation tracking.", e);
+                }
+                tracking.setSqFootage(request.getParameter("sqFeet"));
+
+                getReportGeneratorTrackingDaoHibernate().save(tracking);
+            }
+        }
     }
 
     protected SearchResultsPage<SolrSchoolSearchResult> searchForSchools(String lat, String lon, String state) {
@@ -122,7 +176,7 @@ public class RealEstateSchoolsReportController {
 
         GsSolrQuery q = createGsSolrQuery();
 
-        q.filter(DocumentType.SCHOOL).page(0, 5);
+        q.filter(DocumentType.SCHOOL).page(1, MAX_ALLOWED_SCHOOLS);
 
         String[] gradeLevels = {"e","m","h"};
         q.filter(SchoolFields.GRADE_LEVEL, gradeLevels);
@@ -173,5 +227,13 @@ public class RealEstateSchoolsReportController {
 
     public void setViewResolver(InternalResourceViewResolver _viewResolver) {
         this._viewResolver = _viewResolver;
+    }
+
+    public ReportGenerationTrackingDaoHibernate getReportGeneratorTrackingDaoHibernate() {
+        return _reportGeneratorTrackingDaoHiberanate;
+    }
+
+    public void setReportGeneratorTracking(ReportGenerationTrackingDaoHibernate _reportGeneratorTrackingDaoHiberanate) {
+        this._reportGeneratorTrackingDaoHiberanate = _reportGeneratorTrackingDaoHiberanate;
     }
 }

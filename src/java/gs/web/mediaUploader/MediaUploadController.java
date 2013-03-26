@@ -8,10 +8,8 @@ import gs.data.media.IMediaUploadDao;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.web.photoUploader.SchoolPhotoProcessor;
-import gs.web.realEstateAgent.RealEstateAgentRegistrationController;
+import gs.web.realEstateAgent.RealEstateAgentHelper;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -73,29 +70,23 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     @Autowired
     private IAgentAccountDao _agentAccountDao;
 
+    @Autowired
+    private RealEstateAgentHelper _realEstateAgentHelper;
+
     protected static final Log _log = LogFactory.getLog(MediaUploadController.class);
 
     @RequestMapping(method = RequestMethod.POST, value = "realEstateAgentUpload.page")
     public void onAgentUpload (HttpServletRequest request,
                                HttpServletResponse response) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = sessionContext.getUser();
 
-        if(user != null && user.getId() != null) {
-            if(getAgentAccountDao().findAgentAccountByUserId(user.getId()) == null) {
-                int userId = getUserIdFromCookie(request);
+        Integer userId = _realEstateAgentHelper.getUserId(request);
 
-                if(userId == -1) {
-                    error(response, "-1", UNAUTHORIZED_ERROR);
-                    return;
-                }
+        if(userId != null && getAgentAccountDao().findAgentAccountByUserId(userId) != null) {
+            User user = getUserDao().findUserFromId(userId);
 
-                user = getUserDao().findUserFromId(userId);
-
-                if(user == null || user.getId() == null) {
-                    error(response, "-1", UNAUTHORIZED_ERROR);
-                    return;
-                }
+            if(user == null || user.getId() == null) {
+                error(response, "-1", UNAUTHORIZED_ERROR);
+                return;
             }
 
             upload(request, response, user, REAL_ESTATE_AGENT_UPLOAD);
@@ -141,11 +132,11 @@ public class MediaUploadController implements ReadWriteAnnotationController {
 
                                 try {
                                     if("photo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_144_144;
+                                        dimension = Dimension.DIM_432_432;
                                         isPhoto = true;
                                     }
                                     else if("logo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_108_108;
+                                        dimension = Dimension.DIM_324_324;
                                         isLogo = true;
                                     }
                                     else {
@@ -238,22 +229,6 @@ public class MediaUploadController implements ReadWriteAnnotationController {
         } catch (IOException e) {
             _log.debug("Error occured while trying to write to response: " + RESP_SUCCESS, e);
         }
-    }
-
-    private Integer getUserIdFromCookie (HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-
-        for(Cookie cookie : cookies) {
-            if(String.valueOf((RealEstateAgentRegistrationController.NEW_USER_COOKIE_HASH).hashCode()).equals(cookie.getName())) {
-                try {
-                    return Integer.parseInt(cookie.getValue());
-                }
-                catch (NumberFormatException ex) {
-                    return -1;
-                }
-            }
-        }
-        return -1;
     }
 
     private MediaUpload insertMediaUploadRecord(String fileName) {
