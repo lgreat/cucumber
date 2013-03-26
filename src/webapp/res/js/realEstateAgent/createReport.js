@@ -34,6 +34,18 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
                     }
                     propertyDetailsForm.find('input#jq-skipUserCheck').val(skipValidation());
 
+                    //TODO: remove when pdf is ready
+                    var hasPageView = function() {
+                        var params = GS.uri.Uri.getQueryData();
+                        return(params.pageView === 'true');
+                    }
+                    if(hasPageView()){
+                        window.setTimeout(function() {
+                            propertyDetailsForm.submit();
+                        }, 1);
+                        return false;
+                    }
+
                     window.setTimeout(function() {
                         propertyDetailsForm.submit();
                     }, 1);
@@ -200,5 +212,15 @@ jQuery(function() {
         //Create guide validation
         jQuery('#jq-address').blur(GS.realEstateAgent.createGuide.validateAddress);
         jQuery('#js-sqFeet').blur(GS.realEstateAgent.createGuide.validateSqFootage);
+    }
+
+    //TODO: remove when pdf is ready
+    var hasPageView = function() {
+        var params = GS.uri.Uri.getQueryData();
+        return(params.pageView === 'true');
+    }
+    if(hasPageView()) {
+        jQuery('#jq-propertyDetailsForm').attr('action', '/real-estate/guides/neighborhood-guide.page');
+        jQuery('#jq-propertyDetailsForm').find('input#jq-pageView').val(hasPageView());
     }
 });

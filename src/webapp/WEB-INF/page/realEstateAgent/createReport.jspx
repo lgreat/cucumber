@@ -92,6 +92,9 @@
                                 <!-- TODO: comment the skip validation -->
                                 <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
 
+                                <!-- TODO: remove this when pdf is redy -->
+                                <input type="hidden" id="jq-pageView" name="pageView"/>
+
                                 <div class="fr mtl">
                                     <a href="javascript:void(0)">
                                         <button class="button-1" type="button" id="js-submit"
