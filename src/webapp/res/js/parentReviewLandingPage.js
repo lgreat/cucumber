@@ -366,7 +366,8 @@ GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
     });
 };*/
 GS.parentReviewLandingPage.attachAutocomplete = function () {
-    var searchBox = $('.js-parentReviewLandingPageSearchBox');
+    console.log("here");
+    var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
     var url = "/search/schoolAutocomplete.page";
     var cache = {};
     var terms = [];
@@ -393,10 +394,9 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
     searchBox.autocomplete({
         minLength: 3,
         source: function (request, response) {
+            console.log("here source");
             var state = function () {
-                //var rval = searchStateSelect.val();
-                // TODO: add state
-                var rval = "CA";
+                var rval =  $("#js-reviewLandingState").find(".js-selectBoxText").html();
                 if (rval === '') {
                     return null;
                 }
@@ -446,25 +446,25 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             });
         },
         select: function(event, ui) {
-            console.log(event,ui);
             return false;
         }
     });
 
 };
 
-jQuery(function() {
-    GS.module.schoolSelect = new GS.module.SchoolSelect();
+$(document).ready(function() {
+//    GS.module.schoolSelect = new GS.module.SchoolSelect();
+//
+//    GS.module.schoolSelect.registerValidCallback(function() {
+//       jQuery('#addParentReviewForm').show();
+//    });
+//
+//    GS.module.schoolSelect.registerInvalidCallback(function() {
+//       jQuery('#addParentReviewForm').hide();
+//    });
 
-    GS.module.schoolSelect.registerValidCallback(function() {
-       jQuery('#addParentReviewForm').show();
-    });
-
-    GS.module.schoolSelect.registerInvalidCallback(function() {
-       jQuery('#addParentReviewForm').hide();
-    });
-
-    jQuery('#addParentReviewForm').hide();
+//    jQuery('#addParentReviewForm').hide();
     GS.parentReviewLandingPage.attachAutocomplete();
+//    GS.parentReviewLandingPage.attachAutocomplete();
 
 });

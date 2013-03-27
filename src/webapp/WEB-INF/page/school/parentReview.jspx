@@ -68,7 +68,28 @@
             width: 40px;
             text-align: center;
         }
+        .ui-autocomplete{
+            margin-top: 15px;
+            width: 400px;
+            height: 200px;
+            background-color: #dddddd;
+            overflow-y: scroll;
+        }
+        .ui-autocomplete  li{
+            list-style-type: none;
+        }
+        .ui-autocomplete  li a{
+            font:normal 14px/20px Arial, Helvetica, sans-serif;
+            color: #555;
+            text-decoration: none;
+        }
+        .ui-autocomplete  li a:hover{
+            background-color: #AAAAAA;
+        }
 
+        .ui-helper-hidden-accessible{
+            display:none;
+        }
         .selectDropDown {
             width: 50px;
             height: 100px;
