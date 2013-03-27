@@ -83,7 +83,7 @@
             color: #555;
             text-decoration: none;
         }
-        .ui-autocomplete  li a:hover{
+        .ui-autocomplete  li:hover{
             background-color: #AAAAAA;
         }
 
@@ -173,13 +173,19 @@
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
     <div style="height: 180px;">
         <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">You know your school best!</p>
-            <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #b2811d;">Help others find their great school – rate and review yours now</p>
+            <p id="js-bannerSchoolName" style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">You know your school best!</p>
+            <p id="js-bannerSchoolInfo" style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #b2811d;">
+                <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
+                <span class="js-bannerSchoolType dn"><!-- do not collapse --></span>
+                <span class="js-bannerSchoolGrades dn"><!-- do not collapse --></span>
+                <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
+                <!--<span class="js-bannerSchoolAddress dn">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+            </p>
         </div>
 
     </div>
     <div class="container_24 clearfix">
-        <form action="">
+        <form id="parentReviewForm" method="post" action="#" onsubmit="return validateReview();">
             <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
             <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
@@ -188,6 +194,12 @@
             <input type="hidden" id="parentReviewTerms" value="0" name="parentReviewTerms"/>
             <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
             <input type="hidden" id="selectValueIAm" value="" name="userRoleAsString"/>
+            <input type="hidden" id="schoolId" value="" name="schoolId"/>
+            <input type="hidden" name="posterAsString" id="posterAsString"/>
+            <input type="hidden" name="source" value="${pageName}"/>
+            <input type="hidden" name="state" id="schoolState" value=""/>
+            <input type="hidden" name="isAddNewParentReview" value="true"/>
+
             <c:if test="${morganStanley}">
                 <input type="hidden" name="how" value="morganstanley"/>
             </c:if>
@@ -204,12 +216,12 @@
                                 <div class="fl iconx16 i-16-textareaPencil"><!-- do not collapse --></div> <div class="fr small bottom make-787878" id="js-charCount">1200 characters remaining</div>
                             </div>
                         </div>
-                        <div><textarea id="js-reviewContent" class="lined_paper medium"
+                        <div><textarea id="js-reviewContent" name="comments" class="lined_paper medium"
                                        placeholder="Tell us about your school"><!-- do not collapse --></textarea></div>
                     </div>
                 </div>
                 <div class="fr">
-                    <input class="text1" type="text" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
+                    <input class="text1" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
@@ -456,15 +468,15 @@
     <div class="spacer_20 brdbtm_dotted"><!-- do not collapse --></div>
     <div class="spacer_15"><!-- do not collapse --></div>
 
-        <form id="parentReviewForm" method="post" action="#" onsubmit="return validateReview();">
+        <form id="parentReviewForm-old" method="post" action="#" onsubmit="return validateReview();">
 
-        <input type="hidden" name="posterAsString" id="posterAsString"/>
+        <!--<input type="hidden" name="posterAsString" id="posterAsString"/>-->
 
-        <input type="hidden" name="source" value="${pageName}"/>
+        <!--<input type="hidden" name="source" value="${pageName}"/>-->
 
-        <input type="hidden" name="id" id="schoolId" value=""/>
-        <input type="hidden" name="state" id="schoolState" value=""/>
-        <input type="hidden" name="isAddNewParentReview" value="true"/>
+        <!--&lt;!&ndash;<input type="hidden" name="id" id="schoolId" value=""/>&ndash;&gt;-->
+        <!--<input type="hidden" name="state" id="schoolState" value=""/>-->
+        <!--<input type="hidden" name="isAddNewParentReview" value="true"/>-->
 
         <div class="line">
         <div class="unit size1of2 firstColGutter-30">

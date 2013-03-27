@@ -437,16 +437,21 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                     cacheNewTerm(term, data.schools);
                     response($.map(data.schools, function(school) {
                         return {
-                            label: school.name,
-                            value: school.id
+                            label: school.name + " - " + school.city,
+                            id: school.id,
+                            address: school.street + " " + school.cityStateZip,
+                            enrollment: school.enrollment,
+                            type:  school.type,
+                            name: school.name,
+                            state: school.state
                         }
                     }));
                 }
             });
         },
-        select: function(event, ui) {
-            return false;
-        },
+//        select: function(event, ui) {
+//            return false;
+//        },
         position: { my : "left top", at: "left top+40" },
         focus: function( event, ui ) {
             $( this ).val( ui.item.label );
@@ -454,7 +459,26 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
         },
         select: function( event, ui ) {
             $( this ).val( ui.item.label );
-            console.log("SELECTED:"+ui.item.label );
+            $("#schoolId").val(ui.item.id);
+            $("#schoolState").val(ui.item.state);
+            $("#js-bannerSchoolName").html(ui.item.name);
+            if(ui.item.address != null && ui.item.address != ""){
+                $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(ui.item.address).show();
+            }
+            if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
+                $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(ui.item.enrollment).show();
+            }
+            if(ui.item.type != null && ui.item.type != ""){
+                $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
+            }
+//            if(ui.item.type != null && ui.item.type != ""){
+//                $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
+//            }
+//
+//            $("#schoolId").html();
+//            $("#schoolId").html();
+
+            //schoolState
 //            $( "#project-id" ).val( ui.item.value );
 //            $( "#project-description" ).html( ui.item.desc );
 //            $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
