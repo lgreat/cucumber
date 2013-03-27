@@ -295,12 +295,16 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
         });
 
         censusDataHolder.retrieveDataSetsAndSchoolData(); // after this operation, the censusDataSets will contain school values
-
+        request.setAttribute("school",school);
         // group ID --> List of StatsRow
         Map<CensusGroup, GroupOfStudentTeacherViewRows> groupIdToStatsRows =
                 _schoolProfileCensusHelper.buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), censusDataSets);
 
-        data.put(MODEL_KEY_ETHNICITY_MAP, groupIdToStatsRows.get(CensusGroup.Student_Ethnicity).getSchoolValueMap());
+        Map<String, String> ethnicityMap = null;
+        if (!groupIdToStatsRows.isEmpty() && groupIdToStatsRows.get(CensusGroup.Student_Ethnicity) != null) {
+            ethnicityMap = groupIdToStatsRows.get(CensusGroup.Student_Ethnicity).getSchoolValueMap();
+        }
+        data.put(MODEL_KEY_ETHNICITY_MAP, ethnicityMap);
     }
 
     public void addDestinationSchoolsOrCollegesToModel(Map<String, Object> data, Map<String, List<EspResponse>> espData) {
