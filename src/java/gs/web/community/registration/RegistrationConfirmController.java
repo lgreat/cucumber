@@ -8,6 +8,7 @@ import gs.data.school.review.Review;
 import gs.data.security.Role;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
+import gs.web.school.EspRegistrationHelper;
 import gs.web.school.review.ReviewService;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -44,6 +45,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     private IEspMembershipDao _espMembershipDao;
     private ISchoolDao _schoolDao;
     private IEspResponseDao _espResponseDao;
+
+    private EspRegistrationHelper _espRegistrationHelper;
 
     protected enum UserState {
         EMAIL_ONLY,
@@ -168,7 +171,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                     // check if user has an esp membership row in processing state
                     EspMembership membership = getProcessingMembershipForUser(user);
                     if (membership != null) {
-                        if (isMembershipEligibleForPromotionToProvisional(membership)) {
+                        if (_espRegistrationHelper.isMembershipEligibleForPromotionToProvisional(membership)) {
                             // bump this user to provisional
                             membership.setStatus(EspMembershipStatus.PROVISIONAL);
                             getEspMembershipDao().updateEspMembership(membership);
@@ -243,41 +246,6 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         _log.info("Email confirmed, forwarding user to " + viewName);
         return new ModelAndView(viewName);
 
-    }
-
-    protected boolean isMembershipEligibleForPromotionToProvisional(EspMembership membership) {
-        List<EspMembership> schoolMemberships;
-        School school;
-        try {
-            school = getSchoolDao().getSchoolById
-                    (membership.getState(), membership.getSchoolId());
-            if (school == null) {
-                return false;
-            }
-            schoolMemberships = _espMembershipDao.findEspMembershipsBySchool(school, false);
-        } catch (Exception e) {
-            _log.error("Can't find school for membership: " + membership, e);
-            return false;
-        }
-        // if there is no existing provisional membership
-        if (schoolMemberships != null && schoolMemberships.size() > 1) {
-            for (EspMembership schoolMembership: schoolMemberships) {
-                if (schoolMembership.getStatus() == EspMembershipStatus.PROVISIONAL) {
-                    return false;
-                }
-            }
-        }
-        // check most recent timestamp on active rows in esp_response for the school
-        Date maxCreated = getEspResponseDao().getMaxCreatedForSchool(school, false);
-        if (maxCreated == null) {
-            // no esp responses, so we're golden
-            return true;
-        }
-        Calendar aWeekAgo = Calendar.getInstance(); aWeekAgo.add(Calendar.DAY_OF_YEAR, -7);
-        Calendar lastModified = Calendar.getInstance(); lastModified.setTime(maxCreated);
-
-        // if that date is older than 7 days
-        return lastModified.before(aWeekAgo);
     }
 
     protected EspMembership getProcessingMembershipForUser(User user) {
@@ -506,4 +474,13 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         _espResponseDao = espResponseDao;
     }
+
+    public EspRegistrationHelper get_espRegistrationHelper() {
+        return _espRegistrationHelper;
+    }
+
+    public void set_espRegistrationHelper(EspRegistrationHelper _espRegistrationHelper) {
+        this._espRegistrationHelper = _espRegistrationHelper;
+    }
+
 }
