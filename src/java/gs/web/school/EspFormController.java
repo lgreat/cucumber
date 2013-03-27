@@ -367,21 +367,21 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
         List<EspResponse> responseList = new ArrayList<EspResponse>();
+
+
+        // Check if this is the first time this school has gotten any data
+        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true);
+
         _espHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
                 isProvisionalData,false);
-
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);
             return; // early exit
         }
 
-        // Check if this is the first time this school has gotten any data
-        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true);
-
         JSONObject successObj = new JSONObject();
         // if there were no keys saved before, and we're saving at least one now,
         // then the form has officially been started
-        //TODO omniture for provisional data?
         if (schoolHasNoUserCreatedRows && !responseList.isEmpty() && !isProvisionalData) {
             successObj.put("formStarted", true);
         }
