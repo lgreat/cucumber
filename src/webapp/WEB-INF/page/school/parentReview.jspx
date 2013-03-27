@@ -38,7 +38,8 @@
     <gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>
     <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.min.js"/>
 
-    <gsml:url var="reset" value="/res/css/jquery/no-theme/jquery-ui-1.10.2.custom.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+    <gsml:url var="autocompletecss" value="/res/css/jquery/no-theme/jquery-ui-1.10.2.custom.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+    <![CDATA[<link rel="stylesheet" href="${autocompletecss}" type="text/css" />]]>
 
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
@@ -126,7 +127,7 @@
         <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
         <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
 
-        <div class="searchBox pr rnd4" style=""><!--do not colapse-->
+        <div class="js-parentReviewLandingPageSearchBox searchBox pr rnd4" style=""><!--do not colapse-->
             <div class="fl" style="padding-top: 13px;"><input type="text" placeholder="Select a school to review" style="font-size: 16px;width:350px; background: none; padding-left: 20px; border: none; font-weight: bold"/></div>
 
             <div class="fr  phm" style="padding-top: 16px; padding-bottom: 14px; border-left: 1px solid #666666" id="js_submitSelectSchool">GO</div>
