@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0">
+
+    <div class="jq-imageUploaderForm dn">
+        <div class="hd"><!--yellow header-->
+            <span class="real-estate-step-1 re-contact-default"><!-- do not collapse --></span>
+            <span class="real-estate-step-2 re-company-info-default"><!-- do not collapse --></span>
+            <span class="real-estate-step-3 re-photo-upload-selected"><!-- do not collapse --></span>
+        </div>
+        <div class="bd" style="height: 330px;">
+            <div class="clearfix">
+                <div class="tac">
+                    <h2 class="">Upload images <a href="#" class="small mls">See an example</a></h2>
+                </div>
+            </div>
+            <div class="ptl">
+                <div class="clearfix">
+                    <div class="fl tac standard_2-3">
+                            <div class="inner jq-photoContainer">
+                                <div class="mbs" id="js-photoPreview">
+                                    <img id="js-photo-preview"
+                                         class="js-photo-pending"
+                                         src="/res/img/realEstate/upload_placeholder.png"
+                                         width="100" height="100"
+                                         alt="photo"/>
+                                </div>
+                                <button class="but but-rg but-2 mhm jq-photoButtons jq-photoUploadButton"
+                                        name="photoUpload" type="button">Upload photo
+                                </button>
+                                <!--<button class="button-1-inactive jq-photoButtons jq-photoUploadFakeButton"-->
+                                <!--id="jq-photoUploadFakeButton" type="button" disabled="true"-->
+                                <!--style="-moz-user-select: none; display:none;">Upload photo-->
+                                <!--</button>-->
+                            </div>
+                        <div class="small">Upload a photo of yourself to<br/>display on guides you create.</div>
+                    </div>
+                    <div class="fr tac standard_2-3">
+                        <div class="inner jq-logoContainer">
+                            <div class="mbs" id="js-logoPreview">
+                                <img id="js-logo-preview"
+                                     class="js-logo-pending"
+                                     src="/res/img/realEstate/upload_placeholder.png"
+                                     width="100" height="100"
+                                     alt="photo"/>
+                            </div>
+                            <button class="but but-rg but-2 mhm jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button">Upload logo</button>
+                            <!--<button class="button-1-inactive jq-logoButtons jq-logoUploadFakeButton"-->
+                                    <!--id="jq-logoUploadFakeButton" type="button" disabled="true"-->
+                                    <!--style="-moz-user-select: none; display:none;">Upload logo-->
+                            <!--</button>-->
+                        </div>
+                        <div class="small">Upload your company's logo and<br/>we'll brand your guides.(JPG,<br/>PNG, GIF max size: 50KB)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ft joinSubmit">
+            <div class="tac">
+                <a href="javascript:void(0)">
+                    <button class="but but-lg but-1 jq-completeRegistration" name="completeRegistration">
+                        Complete
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

@@ -22,6 +22,11 @@ General comments:
 =7 x48
 =8 x64
 =9 x96
+=10 DcCharterBadges
+=11 DcCharterBadges - smaller type for multiple at once
+=12 Real estate hover tab-1
+=13 Real estate hover tab-2
+=14 Real estate hover tab-3
 
 */
 
@@ -77,7 +82,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/130306-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/130325-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -241,22 +246,62 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
     background-position: -608px 0;
 }
 
+.i-16-pageOrange {
+    background-position: -624px 0;
+}
+
+.i-16-locationOrange {
+    background-position: -640px 0;
+}
+
+.i-16-textareaPencil {
+    background-position: -656px 0;
+}
+
+.i-16-lock {
+    background-position: -672px 0;
+}
+
+.i-16-downArrowWhite {
+    background-position: -688px 0;
+}
+
+.i-16-checkbox-off {
+    background-position: -704px 0;
+}
+
+.i-16-checkbox-on {
+    background-position: -720px 0;
+}
+
+
 /* row 16 */
 
-a:hover .i-16-close {
+.i-16-close:hover {
     background-position: -144px -16px;
 }
 
-a:hover .i-16-close-grey {
+.i-16-close-grey:hover {
     background-position: -304px -16px;
 }
 
-a:hover .i-16-search-filter-arrow-down {
+.i-16-search-filter-arrow-down:hover {
     background-position: -480px -16px;
 }
 
-a:hover .i-16-search-filter-arrow-up {
+.i-16-search-filter-arrow-up:hover {
     background-position: -496px -16px;
+
+}
+
+.i-16-checkbox-off:hover{
+    background-position: -704px -16px;
+    cursor: pointer;
+}
+
+.i-16-checkbox-on:hover{
+    background-position: -720px -16px;
+    cursor: pointer;
 }
 
 /* row 32 */
@@ -268,6 +313,8 @@ a:active .i-16-search-filter-arrow-down {
 a:active .i-16-search-filter-arrow-up {
     background-position: -496px -32px;
 }
+
+
 
 /* =3 x16 (Stars)
 -------------------------------------------------------------------------------------------*/
@@ -315,7 +362,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/130308-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/130326-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -426,6 +473,9 @@ a:active .i-16-search-filter-arrow-up {
 .i-24-pinterest {
     background-position: -624px 0;
 }
+.i-24-yellow-modal-close {
+    background-position: -648px 0;
+}
 /* row 24 */
 
 span:hover.i-24-close {
@@ -434,6 +484,10 @@ span:hover.i-24-close {
 
 span:hover.i-24-gallery-close {
     background-position: -528px -24px;
+}
+
+span:hover.i-24-yellow-modal-close {
+    background-position: -648px -24px;
 }
 
 /* =6 x32
@@ -776,4 +830,131 @@ span.i-48-gallery-next-default:hover{
 
 .i-96-video-add {
     background-position: -672px 0;
+}
+
+/* =10 DcCharterBadges
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconxDcCharterBadges {
+    display: inline-block;
+    background-image: url(/res/img/sprites/130307_tile_DCrating.png);
+    width: 59px;
+    height: 104px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-DcCharterBadges-1 {
+    background-position: 0 0;
+}
+
+.i-DcCharterBadges-2 {
+    background-position: -59px 0;
+}
+
+.i-DcCharterBadges-3 {
+    background-position: -118px 0;
+}
+
+
+/* =11 DcCharterBadges - smaller type for multiple at once
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconxDcCharterBadges_sm {
+    display: inline-block;
+    background-image: url(/res/img/sprites/DC_charter_ratings_46x46.png);
+    width: 46px;
+    height: 46px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-DcCharterBadges_sm-1 {
+    background-position: 0 0;
+}
+
+.i-DcCharterBadges_sm-2 {
+    background-position: -46px 0;
+}
+
+.i-DcCharterBadges_sm-3 {
+    background-position: -92px 0;
+}
+
+/* =12 Real estate hover tab-1
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.real-estate-step-1{
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/steps_slices_01.png);
+    width: 143px;
+    height: 27px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.re-contact-default{
+    background-position: 0 0;
+}
+
+/* row 1 */
+.re-contact-selected{
+    background-position: 0 -27px;
+}
+
+/* =13 Real estate hover tab-2
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.real-estate-step-2{
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/steps_slices_02.png);
+    width: 143px;
+    height: 27px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.re-company-info-default{
+    background-position: 0 0;
+}
+
+/* row 1 */
+.re-company-info-selected{
+    background-position: 0 -27px;
+}
+
+/* =14 Real estate hover tab-3
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.real-estate-step-3{
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/steps_slices_03.png);
+    width: 143px;
+    height: 27px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.re-photo-upload-default{
+    background-position: 0 0;
+}
+
+/* row 1 */
+.re-photo-upload-selected{
+    background-position: 0 -27px;
 }

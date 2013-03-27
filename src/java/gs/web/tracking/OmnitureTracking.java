@@ -132,7 +132,8 @@ public abstract class  OmnitureTracking {
         EspRegistration(59),
         NewEspStarted(60),
         FacebookShareButton(61), //GS-12508
-        NewColleagueRequest(62); // GS-12569
+        NewColleagueRequest(62), // GS-12569
+        RadarComplete(74); //GS-13825
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

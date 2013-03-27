@@ -61,7 +61,7 @@ GS.module.SchoolSelect = function() {
         this.schoolSelect.validate();
         this.roleSelect.validate();
     };
-    
+
     this.isValid = function() {
         var valid = false;
         if (this.stateSelect.isValid() && this.citySelect.isValid() &&
@@ -164,7 +164,7 @@ GS.module.SchoolSelect = function() {
             jQuery.getJSON(url, params, this.updatePageWithSchool);
         }
     }.gs_bind(this);
-    
+
     this.onRoleChange = function() {
         this._role = this.roleSelect.$element.val();
         jQuery('#posterAsString').val(this._role); //create another hook up for so form can register a callback
@@ -324,17 +324,185 @@ GS.module.SchoolSelect = function() {
 
 };
 
-jQuery(function() {
-    GS.module.schoolSelect = new GS.module.SchoolSelect();
 
-    GS.module.schoolSelect.registerValidCallback(function() {
-       jQuery('#addParentReviewForm').show();
+GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
+/*GS.parentReviewLandingPage.attachAutocomplete = function () {
+    var searchBox = $('.js-parentReviewLandingPageSearchBox');
+    var url = "/search/schoolAutocomplete.page";
+
+    var formatter = function (row) {
+        if (row != null && row.length > 0) {
+            //var suggestion = row[0];
+            // capitalize first letter of all words but the last
+            // capitalize the entire last word (state)
+            //return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
+        }
+        return row;
+    };
+
+    searchBox.autocomplete2(url, {
+        extraParams: {
+            state: function () {
+                //var rval = searchStateSelect.val();
+                // TODO: add state
+                var rval = "CA";
+                if (rval === '') {
+                    return null;
+                }
+                return rval;
+            },
+            schoolCity: true
+        },
+        extraParamsRequired: true,
+        minChars: 3,
+        selectFirst: false,
+        cacheLength: 150,
+        matchSubset: true,
+        max: 6,
+        autoFill: false,
+        dataType: "text",
+        formatItem: formatter,
+        formatResult: formatter
+    });
+};*/
+GS.parentReviewLandingPage.attachAutocomplete = function () {
+    console.log("here");
+    var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+    var url = "/search/schoolAutocomplete.page";
+    var cache = {};
+    var terms = [];
+
+    var formatter = function (row) {
+        if (row != null && row.length > 0) {
+            //var suggestion = row[0];
+            // capitalize first letter of all words but the last
+            // capitalize the entire last word (state)
+            //return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
+        }
+        return row;
+    };
+
+    var cacheNewTerm = function(newTerm, results) {
+        // maintain a 15-term cache
+        if (terms.push(newTerm) > 15) {
+            delete cache[terms.shift()];
+        }
+        cache[newTerm] = results;
+    };
+
+    // Caching strategy from http://stackoverflow.com/a/14144009
+    searchBox.autocomplete({
+        minLength: 3,
+        source: function (request, response) {
+            var state = function () {
+                var rval =  $("#js-reviewLandingState").find(".js-selectBoxText").html();
+                if (rval === '') {
+                    return null;
+                }
+                return rval;
+            };
+
+            var term = request.term.toLowerCase();
+            if (term in cache) {
+                if (cache.hasOwnProperty(term)) {
+                    response(cache[term]);
+                }
+                return;
+            } else if (terms.length > 0) {
+                var lastTerm = terms[terms.length - 1];
+                if (term.substring(0, lastTerm.length) === lastTerm) {
+                    var results = [];
+                    var cachedResultsForLastTerm = cache[lastTerm];
+                    if (cachedResultsForLastTerm !== undefined && cachedResultsForLastTerm.length) {
+                        for (var i = 0; i < cachedResultsForLastTerm.length; i++) {
+                            var resultItem = cachedResultsForLastTerm[i];
+                            if (resultItem.name.toLowerCase().indexOf(term) !== -1) {
+                                results.push(resultItem);
+                            }
+                        }
+                    }
+                    response(results);
+                }
+            }
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: url,
+                data: {
+                    q: term,
+                    state: state,
+                    schoolCity: true
+                },
+                success: function (data) {
+                    cacheNewTerm(term, data.schools);
+                    response($.map(data.schools, function(school) {
+                        return {
+                            label: school.name + " - " + school.city,
+                            id: school.id,
+                            address: school.street + " " + school.cityStateZip,
+                            enrollment: school.enrollment,
+                            type:  school.type,
+                            name: school.name,
+                            state: school.state
+                        }
+                    }));
+                }
+            });
+        },
+//        select: function(event, ui) {
+//            return false;
+//        },
+        position: { my : "left top", at: "left top+40" },
+        focus: function( event, ui ) {
+            $( this ).val( ui.item.label );
+            return false;
+        },
+        select: function( event, ui ) {
+            $( this ).val( ui.item.label );
+            $("#schoolId").val(ui.item.id);
+            $("#schoolState").val(ui.item.state);
+            $("#js-bannerSchoolName").html(ui.item.name);
+            if(ui.item.address != null && ui.item.address != ""){
+                $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(ui.item.address).show();
+            }
+            if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
+                $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(ui.item.enrollment).show();
+            }
+            if(ui.item.type != null && ui.item.type != ""){
+                $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
+            }
+//            if(ui.item.type != null && ui.item.type != ""){
+//                $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
+//            }
+//
+//            $("#schoolId").html();
+//            $("#schoolId").html();
+
+            //schoolState
+//            $( "#project-id" ).val( ui.item.value );
+//            $( "#project-description" ).html( ui.item.desc );
+//            $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+
+            return false;
+        }
+
     });
 
-    GS.module.schoolSelect.registerInvalidCallback(function() {
-       jQuery('#addParentReviewForm').hide();
-    });
+};
 
-    jQuery('#addParentReviewForm').hide();
+$(document).ready(function() {
+//    GS.module.schoolSelect = new GS.module.SchoolSelect();
+//
+//    GS.module.schoolSelect.registerValidCallback(function() {
+//       jQuery('#addParentReviewForm').show();
+//    });
+//
+//    GS.module.schoolSelect.registerInvalidCallback(function() {
+//       jQuery('#addParentReviewForm').hide();
+//    });
+
+//    jQuery('#addParentReviewForm').hide();
+    GS.parentReviewLandingPage.attachAutocomplete();
+//    GS.parentReviewLandingPage.attachAutocomplete();
 
 });

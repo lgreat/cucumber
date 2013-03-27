@@ -9,7 +9,6 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
 
@@ -58,42 +57,29 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100">
-                        <variant:a>
-                            <school:profileOverviewPhotosTile photosModel="${photos}"/>
-                        </variant:a>
-                        <variant:b>
-                            <c:choose>
-                                <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                    <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" adjustHeight="true" />
-                                </c:when>
-                                <c:otherwise>
-                                    <school:profileOverviewPhotosTile photosModel="${photos}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </variant:b>
-                    </div>
-
-                    <div class="unit size2of100">&amp;nbsp;</div>
-
-                    <variant:a>
-                        <div data-gs-custom-link="overview_schoolvideo" class="unit size32of100 lastUnit">
-                            <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
-                        </div>
-                    </variant:a>
-                    <variant:b>
                         <c:choose>
                             <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                <div class="unit size32of100">
-                                    <school:profileOverviewPhotosTile photosModel="${photos}"/>
-                                </div>
+                                <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" adjustHeight="true" />
                             </c:when>
                             <c:otherwise>
-                                <div data-gs-custom-link="overview_schoolvideo" class="unit size32of100 lastUnit">
-                                    <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
-                                </div>
+                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
                             </c:otherwise>
                         </c:choose>
-                    </variant:b>
+                    </div>
+
+                    <div class="unit size2of100 ">&amp;nbsp;</div>
+                    <c:choose>
+                        <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                            <div class="unit size32of100 lastUnit">
+                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div data-gs-custom-link="overview_schoolvideo" class="unit size32of100 lastUnit">
+                                <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <!-- enableIfConditionOnAdCalls must be used to wrap the display call to prevent unintended ad call -->
@@ -176,20 +162,14 @@
 
                 <div class="line">   <!-- row 5, tiles 13-15 -->
                     <div class="unit size32of100">
-                        <variant:a>
-                            <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
-                        </variant:a>
-                        <variant:b>
-                            <c:choose>
-                                <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                    <school:profileOverviewVideoTile videoModel="${video}" school="${school}" adjustHeight="true"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
-                                </c:otherwise>
-                            </c:choose>
-                        </variant:b>
-                        <!--<school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />-->
+                        <c:choose>
+                            <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                                <school:profileOverviewVideoTile videoModel="${video}" school="${school}" adjustHeight="true"/>
+                            </c:when>
+                            <c:otherwise>
+                                <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
@@ -222,40 +202,27 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100">
-                        <variant:a>
-                            <school:profileOverviewPhotosTile photosModel="${photos}"/>
-                        </variant:a>
-                        <variant:b>
-                            <c:choose>
-                                <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                    <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <school:profileOverviewPhotosTile photosModel="${photos}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </variant:b>
+                        <c:choose>
+                            <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                                <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
-                        <variant:a>
-                            <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
-                        </variant:a>
-                        <variant:b>
-                            <c:choose>
-                                <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                    <school:profileOverviewPhotosTile photosModel="${photos}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </variant:b>
-
-
-
+                        <c:choose>
+                            <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 
@@ -291,19 +258,14 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
-                        <variant:a>
-                            <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
-                        </variant:a>
-                        <variant:b>
-                            <c:choose>
-                                <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                    <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </variant:b>
+                        <c:choose>
+                            <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                                <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 

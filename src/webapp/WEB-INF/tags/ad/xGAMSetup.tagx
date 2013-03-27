@@ -262,6 +262,8 @@
                 </c:choose>);
                 GS.ad.slots['${slotName}'].addService(googletag.pubads());
 
+                GS.ad.slotTimers['${slotName}'] = new Timer('${slotName}');
+
                 <c:if test="${requestScope.context.gptSlotLevelTargetingEnabled}">
                     <c:forEach var="keywordEntry" items="${requestScope.context.gptSlotLevelTargetingKeyAssignments}">
                         GS.ad.slots['${slotName}'].setTargeting('${keywordEntry.key}',GS.ad.targeting.pageLevel['${keywordEntry.key}'].concat(${keywordEntry.value}[GS.ad.tabParamValue]));

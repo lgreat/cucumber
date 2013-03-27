@@ -389,7 +389,11 @@ jQuery(document).ready(function() {
             //Show the data for the grade selected.
             $('#' + catSelected + '_content').show();
 
-            GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            // this click event handler is getting triggered even on inital load, when
+            // the tab isn't visible. In this case we can't perform an ad refresh
+            if (ratingsSubgroupsMenu.is(':visible')) {
+                GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
+            }
         });
 
         ratingsSubgroupLabels.hover(
@@ -451,6 +455,8 @@ jQuery(document).ready(function() {
                 $('#js_testScoresValues').removeClass('grid_15').addClass('grid_11');
             }
 
+            // this click event handler is getting triggered even on inital load, when
+            // the tab isn't visible. In this case we can't perform an ad refresh
             if (testsMenu.is(':visible')) {
                 GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
             }
@@ -470,6 +476,8 @@ jQuery(document).ready(function() {
             //Show the data for the grade selected.
             $('#' + gradeSelected + '_subjects').show();
 
+            // this click event handler is getting triggered even on inital load, when
+            // the tab isn't visible. In this case we can't perform an ad refresh
             if (gradeLabel.is(':visible')) {
                 GS.profile.refreshNonOverviewAdsWithoutTargetingChange();
             }
@@ -882,10 +890,10 @@ GS.drawGraphContainer = function (options) {
     var drawSquareAndText = function(c, color, text, i , w){
         var offsetx = w+20;
         var offsety = 20;
-        var linespacer = 20;
+        var linespacer = 17;
         c.strokeStyle = "#000";
         c.fillStyle = color;
-        c.font = '9pt sans-serif';
+        c.font = '8pt sans-serif';
         c.textAlign = "left";
         c.beginPath();
         c.fillRect(offsetx,(offsety - 5 + linespacer*i),10,10);
@@ -897,10 +905,10 @@ GS.drawGraphContainer = function (options) {
     var drawDashedLineAndText = function(c, color, text, i , w){
         var offsetx = w+20;
         var offsety = 20;
-        var linespacer = 20;
+        var linespacer = 17;
         c.strokeStyle = "#CCC";
         c.fillStyle = color;
-        c.font = '9pt sans-serif';
+        c.font = '8pt sans-serif';
         c.textAlign = "left";
         c.beginPath();
         drawHorizontalDashedLine(c, (offsety + linespacer*i), offsetx, (offsetx+10), color);

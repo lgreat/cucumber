@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0">
+
+<jsp:directive.attribute name="school" type="gs.data.search.beans.SolrSchoolSearchResult" />
+<jsp:directive.attribute name="schoolMediaElement" type="gs.data.school.SchoolMedia" />
+
+<c:set var="defaultString" value="Unknown"/>
+<c:set var="isPreschool" value="${school.levelCode eq 'p'}"/>
+<c:set var="isPrivateSchool" value="${school.schoolType eq 'private'}"/>
+<c:set var="isNewGSRating" value="${school.isNewGSRating}"/>
+<c:set var="overallRating" value="${school.greatSchoolsRating}"/>
+
+<c:set var="showHideSprite" value="display:block"/>
+<c:if test="${not isNewGSRating and isPrivateSchool}">
+    <c:set var="showHideSprite" value="dn" />
+</c:if>
+<c:if test="${isPreschool and empty overallRating}">
+    <c:set var="showHideSprite" value="dn" />
+</c:if>
+<c:if test="${empty overallRating or overallRating == 0}">
+    <c:set var="overallRating" value="NR"/>
+</c:if>
+
+<c:set var="ratingType" value="orange" />
+<c:if test="${isNewGSRating}">
+    <c:set var="ratingType" value="RYG" />
+</c:if>
+<c:set var="privateSchool" value="" />
+<c:if test="${isPrivateSchool}">
+    <c:set var="privateSchool" value="Private" />
+</c:if>
+<c:set var="iconString">iconx45-${ratingType}${privateSchool} i-45-${overallRating}</c:set>
+
+<!--iconx60-orangePrivate-->
+<!--iconx60-orange-->
+<!--iconx60-RYGPrivate-->
+<!--iconx60-RYG-->
+<!--iconx60-preschool-->
+<c:set var="totSR" value="5"/>
+<c:set var="starOff" value="${totSR - school.parentRating}"/>
+
+<div class="tableRow clearfix">
+    <div class="fl" style="width:220px">
+        <div class="defaultBold">${fn:escapeXml(school.name)}</div>
+        <div class="default capitalize"> ${school.schoolType}, ${fn:escapeXml(school.grades.rangeString)}</div>
+        <div class="default">${fn:escapeXml(school.street)}</div>
+        <div class="default">${school.city}, ${school.databaseState} ${school.zip}</div>
+    </div>
+    <div class="fl tac" style="width:140px">
+        <div class="default">${gsweb:roundTwoDecimal(school.distance)} miles</div>
+    </div>
+    <div class="fl tac" style="width:193px">
+        <span class="${iconString}"><!-- do not collapse --></span>
+    </div>
+        <div class="fr tac" style="width:135px">
+        <span class="iconx21-stars i-21-orange-star  i-21-star-${school.parentRating}"><!-- not empty--></span>
+        <span class="iconx21-stars i-21-grey-star  i-21-star-${starOff}"><!-- not empty--></span>
+    </div>
+</div>
+    <!-- end container -->
+    <hr class="rulethin"/>
+</jsp:root>

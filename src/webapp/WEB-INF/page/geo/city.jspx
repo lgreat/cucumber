@@ -270,12 +270,16 @@
                     <c:if test="${cityObject.name eq 'Indianapolis' and stateAbbrev eq 'IN'}">
                         <h3 class="result_title">Resources</h3>
                         <ul>
-                            <li><a href="/catalog/pdf/GreatSchools+Indianapolis+English+School+Chooser+2012-2013_WEB.pdf"
-                                   target="_blank">Indianapolis School Chooser 2012-13</a> <span class="text2-777"> (PDF)</span></li>
-                            <li><a href="/catalog/pdf/GreatSchools+Indianapolis+Spanish+School+Chooser+2012-2013_WEB.pdf"
-                                   target="_blank">Listado de Escuelas de Indianapolis 2012-13</a> <span class="text2-777"> (PDF)</span></li>
+                            <li><a href="/catalog/pdf/2013%20GreatSchools%20Indianapolis%20PreK-8%20Profiles.pdf"
+                                   target="_blank">Indianapolis School Chooser Grades PreK-8, 2013-2014</a> <span class="text2-777"> (PDF)</span></li>
+                            <li><a href="/catalog/pdf/2013%20GreatSchools%20Indianapolis%209-12%20Profiles.pdf"
+                                   target="_blank">Indianapolis School Chooser Grades 9-12, 2013-2014</a> <span class="text2-777"> (PDF)</span></li>
+                            <li><a href="/catalog/pdf/2013%20k-8%20GreatSchools%20Indianapolis%20Perfiles%20de%20Escuela%20-%20De%20Kindergarten%20a%208vo%20Grado.pdf"
+                                   target="_blank">Listado de Escuelas de Indianapolis de Kindergarten a 8vo Grado, 2013-2014</a> <span class="text2-777"> (PDF)</span></li>
+                            <li><a href="/catalog/pdf/2013%209-12_GreatSchools%20Indianapolis%20Perfiles%20de%20Escuela%20-%20De%20noveno%20a%20doceavo%20grado.pdf"
+                                   target="_blank">Listado de Escuelas de Indianapolis de Noveno a Doceavo Grado, 2013-2014</a> <span class="text2-777"> (PDF)</span></li>
                             <li><a href="/catalog/pdf/Test+Methodology+for+Web+-+FINAL.pdf"
-                                   target="_blank">Statistical methodology for the Indianapolis School Chooser (2012-2013)</a> <span class="text2-777"> (PDF)</span></li>
+                                   target="_blank">Statistical methodology for the Indianapolis School Chooser</a> <span class="text2-777"> (PDF)</span></li>
                         </ul>
                     </c:if>
                 </td>

@@ -1,0 +1,444 @@
+html {
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside,  figure, footer, header,
+hgroup, nav, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.realEstate-pb{
+    page-break-after: always;
+}
+
+/*Header*/
+div.divHeader {
+    margin-top: 40px;
+    /*font:normal 8pt Arial, Helvetica, sans-serif;*/
+    /*color:#878787;*/
+    position: running(divHeader);
+}
+/*div.divFooter .logo{*/
+    /*width:150px;*/
+    /*vertical-align: middle;*/
+/*}*/
+div.divHeader {
+    position: running(divHeader);
+}
+
+
+/************************footer********************************/
+div.divFooter {
+    border-top: 4px solid #FFB943;
+    margin-bottom: 180px;
+    padding-top: 3px;
+    /*font:normal 8pt Arial, Helvetica, sans-serif;*/
+    /*color:#878787;*/
+    position: running(divFooter);
+}
+div.divFooter .logo{
+    /*width:150px;*/
+    /*vertical-align: middle;*/
+}
+div.dateFooter {
+    position: running(dateFooter);
+}
+
+@page {
+@top-left{
+        content:   element(divHeader );
+}
+@bottom-center{
+        /*font:normal 7pt Arial, Helvetica, sans-serif;*/
+        /*content: counter(page);*/
+    }
+@bottom-right{
+        content:   element(dateFooter );
+    }
+@bottom-left{
+        content:   element(divFooter );
+    }
+}
+
+
+
+body	{
+    font:normal 7pt Arial, Helvetica, sans-serif ;
+}
+
+h1	{
+    color:#0578AA;
+    font-size: 12pt;
+    font-weight:normal;
+    line-height:120%;
+    padding-bottom:10px;
+}
+
+h2	{
+    color:#0578AA;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-top:1.5em;
+    font-weight: bold;
+}
+h2.smallMargin { margin-top:.5em; }
+
+p	{
+    font-weight: normal;
+    line-height:140%;
+    margin:0 0 1em 0;
+}
+
+ul	{
+    line-height:140%;
+    margin:0;
+    padding: 0;
+    /*padding-left:12px;*/
+    list-style-type:none;
+}
+
+.bd_column	{
+    float:left;
+    width:27%;
+    margin-bottom:.5em;
+    padding-right: 50px;
+}
+
+
+.fl	{ float:left; }
+.fr	{ float:right; }
+
+.strong	{ font-weight:bold; }
+.uppercase	{ text-transform:uppercase; }
+.capitalize { text-transform: capitalize; }
+
+hr	{
+    border:solid 1px #BBBBBB;
+    margin:0 0 0 0;
+    padding:0 0 0 0;
+    clear:both;
+}
+
+hr.rulethin	{
+    background:#D2E9F3;color:#D2E9F3;clear:both;float:none;width:100%;height:1px;border:none;margin:0;
+}
+
+.mbm, .mvm {margin-bottom: 10px;}
+.mtm, .mvm {margin-top: 10px;}
+
+.pb15 {padding-bottom: 15px;}
+.pvRatingSpacer{padding: 0px 30px 0 20px; }
+.ptsRatingGS { padding:5px 0 0 0 ;font:normal 6pt Arial, Helvetica, sans-serif ; }
+
+.tac { text-align:center; }
+.plm { padding-left:10px; }
+.dn {display:none;}
+
+.header-left-width{ width:455px; }
+.header-left-component{ width:160px; padding-right: 10px;}
+
+.header-vertical-border-l { border-left: 1px solid #EEEEEE; }
+.header-vertical-border-r { border-right: 1px solid #EEEEEE; }
+
+/* **************** SPRITE ***************** */
+
+.iconx45-orange {
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/135x135_badges_orange_forPDF.png);
+    background-size: 495px 45px;
+    width: 45px;
+    height: 45px;
+}
+
+.iconx45-orangePrivate {
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/135x135_badges_private_orange_forPDF.png);
+    background-size: 495px 45px;
+    width: 45px;
+    height: 45px;
+}
+
+.iconx45-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/135x135_badges_forPDF.png);
+    background-size: 495px 45px;
+    width: 45px;
+    height: 45px;
+}
+
+.iconx45-RYGPrivate {
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/135x135_badges_private_forPDF.png);
+    background-size: 495px 45px;
+    width: 45px;
+    height: 45px;
+}
+
+/*.iconx60-preschool {*/
+    /*display: inline-block;*/
+    /*background-image: url(/res/img/pdfChooser/x72/72x72_3x_preschool.png);*/
+    /*background-size: 660px 60px;*/
+    /*width: 60px;*/
+    /*height: 60px;*/
+/*}*/
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-45-1 {
+    background-position: 0 0;
+}
+
+.i-45-2 {
+    background-position: -45px 0;
+}
+
+.i-45-3 {
+    background-position: -90px 0;
+}
+
+.i-45-4 {
+    background-position: -135px 0;
+}
+
+.i-45-5 {
+    background-position: -180px 0;
+}
+
+.i-45-6 {
+    background-position: -225px 0;
+}
+
+.i-45-7 {
+    background-position: -270px 0;
+}
+
+.i-45-8 {
+    background-position: -315px 0;
+}
+
+.i-45-9{
+    background-position: -360px 0;
+}
+
+.i-45-10{
+    background-position: -405px 0;
+}
+.i-45-NR{
+    background-position: -450px 0;
+}
+
+
+.clearfix:before,
+.clearfix:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix {
+    zoom: 1;
+}
+
+.realEstatePDF .small{
+    font: normal 8px/12px Arial, Helvetica, sans-serif;
+    color: #2B2B2B;
+}
+.realEstatePDF .smallBold{
+    font: bold 8px/12px Arial, Helvetica, sans-serif;
+    color: #2B2B2B;
+}
+
+.realEstatePDF .default{
+    font: normal 10px/15px Arial, Helvetica, sans-serif;
+}
+
+.realEstatePDF .defaultBold{
+    font: bold 10px/15px Arial, Helvetica, sans-serif;
+}
+
+.realEstatePDF .mediumBold{
+    font: bold 12px/20px Arial, Helvetica, sans-serif;
+    color: #007AA5;
+}
+
+.realEstatePDF .largeBold{
+    font: bold 14px/20px Arial, Helvetica, sans-serif;
+}
+
+.realEstatePDF .xlargeBold{
+    font: bold 24px/30px Arial, Helvetica, sans-serif;
+}
+
+.realEstatePDF .make-007AA5{
+    color: #007AA5;
+}
+
+.realEstatePDF .make-2b2b2b {
+    color: #2b2b2b;
+}
+
+.realEstatePDF .make-555555 {
+    color: #555555;
+}
+
+.realEstatePDF .make-999999 {
+    color: #999999;
+}
+
+
+/***********************Module-1**************************/
+.mod-1{
+}
+
+.mod-1 .inner{
+}
+
+.mod-1 .inner .hd{
+    width: 257px;
+    padding: 5px 25px;
+    background-color: #79BEDC;
+    color: #FFFFFF;
+    font: normal 10px/18px Arial, Helvetica, sans-serif;
+    margin-top: 180px;
+}
+.mod-1 .inner .bd{
+    border: 1px solid #D2E9F3;
+    border-bottom: none;
+}
+
+.mod-1 .inner .bd p{
+    padding: 20px;
+    font: normal 10px/18px Arial, Helvetica, sans-serif;
+}
+
+.mod-1 .inner .bd .tableHeader{
+    background-color: #F1F1F1;
+    padding: 10px 15px;
+}
+
+.mod-1 .inner .bd .tableRow{
+    padding: 10px 15px;
+}
+
+/***********************Module-2**************************/
+.mod-2{
+    margin: 70px 0 30px 0;
+}
+
+.mod-2 .inner{
+    padding: 20px;
+    border:1px solid #DDDDDD;
+    border-top: 4px solid #FFB943;
+    position: relative;
+}
+
+.mod-2 .inner .hd{
+    background-color: #FFFFFF;
+    padding: 5px;
+    position: absolute;
+    top:-18px;
+    left: 13px;
+}
+.mod-2 .inner .bd{
+
+}
+
+/***********************Module-2**************************/
+.mod-3{
+    margin: 180px 0 0 0;
+}
+
+.mod-3 .inner{
+}
+
+.mod-3 .inner .realEstateProfile{
+    padding: 10px;
+    margin-bottom:15px;
+    border: 1px solid #DDDDDD;
+
+}
+
+.mod-3 .inner .profileData{
+    vertical-align: middle;
+    margin: 30px;
+}
+.mod-3 .inner .companyLogo{
+    margin-right: 50px;
+
+}
+.mod-3 .inner .qrCode{
+    padding: 10px;
+    border: 1px solid #DDDDDD;
+
+}
+.qrCode .code{
+    border: 1px solid #DDDDDD;
+}
+
+.qrCode .qrCodeDescription{
+    vertical-align: middle;
+    margin: 50px 30px;
+}
+
+
+/* **************** SPRITE ***************** */
+
+.iconx21-stars {
+    display: inline-block;
+    background-image: url(/res/img/sprites/realEstate/stars.png);
+    width: 21px;
+    height: 21px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-21-orange-star {
+    background-position: 0 0;
+}
+/* row 16 */
+
+.i-21-grey-star {
+    background-position: -189px -21px;
+}
+
+/* This is for the stars grey or orange */
+.i-21-star-0{width:0px}
+.i-21-star-1{width:21px}
+.i-21-star-2{width:42px; background-repeat: repeat-x;}
+.i-21-star-3{width:68px; background-repeat: repeat-x;}
+.i-21-star-4{width:84px; background-repeat: repeat-x;}
+.i-21-star-5{width:105px; background-repeat: repeat-x;}
+.i-21-star-6{width:126px; background-repeat: repeat-x;}
+.i-21-star-7{width:147px; background-repeat: repeat-x;}
+.i-21-star-8{width:168px; background-repeat: repeat-x;}
+.i-21-star-9{width:189px; background-repeat: repeat-x;}
+.i-21-star-10{width:210px; background-repeat: repeat-x;}

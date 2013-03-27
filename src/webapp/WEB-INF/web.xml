@@ -71,6 +71,16 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/qr-code-gen.png</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/real-estate/guides/neighborhood-guide.pdf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>*.gs</url-pattern>
     </servlet-mapping>
 

@@ -1,3 +1,4 @@
+
 Function.prototype.email_sign_up_bind = function(obj) {
     var method = this;
     return function() {
