@@ -79,10 +79,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         var sqFeet = jQuery.trim(sqFeetField.val());
 
         var data = {};
-        if (sqFeet === '' || sqFeet === 'Square Footage') {
-            sqFeetField.val('');
-        }
-        else if(!sqFeet.match(/^((\d{1,6})|(\d{1,3},\d{3}))(\.\d{1,})?$/)) {
+        if(!(sqFeet === '' || sqFeet === 'Square footage') && !sqFeet.match(/^((\d{1,6})|(\d{1,3},\d{3}))(\.\d{1,})?$/)) {
             data.hasError = true;
             data.sqFootageErrorDetail = 'Please enter a number.';
         }

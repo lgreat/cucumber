@@ -81,7 +81,7 @@ public class MediaUploadController implements ReadWriteAnnotationController {
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
-        if(userId != null && getAgentAccountDao().findAgentAccountByUserId(userId) != null) {
+        if(userId != null) {
             User user = getUserDao().findUserFromId(userId);
 
             if(user == null || user.getId() == null) {
@@ -98,6 +98,15 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     }
 
     public void upload (HttpServletRequest request, HttpServletResponse response, User user, String uploadType) {
+        AgentAccount agentAccount = null;
+        if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType)) {
+            agentAccount = getAgentAccountDao().findAgentAccountByUserId(user.getId());
+
+            if(agentAccount == null) {
+                error(response, "-1", UNAUTHORIZED_ERROR);
+                return;
+            }
+        }
         Map<String,String> formFields = new HashMap<String,String>();
         MediaUpload mediaUpload;
         List<MediaFile> mediaFiles = new ArrayList<MediaFile>();
@@ -125,18 +134,19 @@ public class MediaUploadController implements ReadWriteAnnotationController {
                     if(!fileItemStream.isFormField()) {
                         if (ArrayUtils.contains(VALID_IMAGE_TYPES, fileItemStream.getContentType())) {
 
-                            if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType) && fileItemStream != null && formFields.containsKey("mediaType")) {
+                            if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType) && fileItemStream != null &&
+                                    formFields.containsKey("mediaType") && agentAccount != null) {
                                 Dimension dimension;
                                 boolean isPhoto = false;
                                 boolean isLogo = false;
 
                                 try {
                                     if("photo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_432_432;
+                                        dimension = Dimension.dim_432_432;
                                         isPhoto = true;
                                     }
                                     else if("logo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_324_324;
+                                        dimension = Dimension.dim_324_324;
                                         isLogo = true;
                                     }
                                     else {
@@ -148,9 +158,10 @@ public class MediaUploadController implements ReadWriteAnnotationController {
                                     return;
                                 }
 
+                                deleteExistingMediaForRealEstateAgent(agentAccount, dimension, isPhoto, isLogo);
                                 mediaUpload = insertMediaUploadRecord(fileItemStream.getName());
 
-                                MediaFile mediaFileForPreview = insertMediaFileRecord(mediaUpload, Dimension.DIM_100_100);
+                                MediaFile mediaFileForPreview = insertMediaFileRecord(mediaUpload, Dimension.dim_100_100);
                                 mediaFiles.add(mediaFileForPreview);
 
                                 MediaFile mediaFileForPdf = insertMediaFileRecord(mediaUpload, dimension);
@@ -245,6 +256,37 @@ public class MediaUploadController implements ReadWriteAnnotationController {
         mediaFile.setDimensions(dimension);
         getMediaFileDao().save(mediaFile);
         return mediaFile;
+    }
+
+    private void deleteExistingMediaForRealEstateAgent(AgentAccount agentAccount, Dimension dimension,
+                                                       boolean isPhoto, boolean isLogo) {
+        if(agentAccount != null) {
+            Integer mediaUploadId = null;
+            if(isPhoto && agentAccount.getPhotoMediaUpload() != null) {
+                mediaUploadId = agentAccount.getPhotoMediaUpload().getId();
+            }
+            else if(isLogo && agentAccount.getLogoMediaUpload() != null) {
+                mediaUploadId = agentAccount.getLogoMediaUpload().getId();
+            }
+
+            if(mediaUploadId != null) {
+                List<MediaFile> mediaFiles = getMediaFileDao().findMediaFileByMediaUploadId(mediaUploadId, dimension);
+                if(mediaFiles != null) {
+                    for(MediaFile mediaFile : mediaFiles) {
+                        mediaFile.setStatus(MediaFileDaoHibernate.Status.DELETED.value);
+                        getMediaFileDao().updateMediaFile(mediaFile);
+                    }
+                    if(isPhoto) {
+                        agentAccount.setPhotoMediaUpload(null);
+                        getAgentAccountDao().updateAgentAccount(agentAccount);
+                    }
+                    else if(isLogo) {
+                        agentAccount.setLogoMediaUpload(null);
+                        getAgentAccountDao().updateAgentAccount(agentAccount);
+                    }
+                }
+            }
+        }
     }
 
     private boolean processPhoto (FileItemStream fileItemStream, User user, int uploadId, String uploadType) throws IOException{
