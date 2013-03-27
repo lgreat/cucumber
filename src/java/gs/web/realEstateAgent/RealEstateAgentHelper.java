@@ -3,16 +3,20 @@ package gs.web.realEstateAgent;
 import gs.data.community.User;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
+import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 public class RealEstateAgentHelper {
 
     protected static final String NEW_USER_COOKIE_HASH = "newAgentRegistration";
+
+    public static final String REGISTRATION_PAGE_VIEW = "/realEstateAgent/registrationHome";
+
+    public static final String CREATE_REPORT_PAGE_VIEW = "/realEstateAgent/createReport";
 
     @Autowired
     private IAgentAccountDao _agentAccountDao;
@@ -116,12 +124,30 @@ public class RealEstateAgentHelper {
         return null;
     }
 
-    public String getViewForUser (HttpServletRequest request, Integer userId, String view) {
-        if(hasAgentAccountFromUserId(userId)) {
+    public String getViewForUser (ModelMap modelMap, HttpServletRequest request, Integer userId, String view) {
+        AgentAccount agentAccount = getAgentAccount(request);
+        if(agentAccount != null) {
+            if(CREATE_REPORT_PAGE_VIEW.equals(view)) {
+                modelMap.putAll(getCompanyInfoFields(agentAccount));
+            }
             return view;
         }
 
         return "redirect:" + getRealEstateSchoolGuidesUrl(request);
+    }
+
+    public Map<String, Object> getCompanyInfoFields(AgentAccount agentAccount) {
+        Map<String, Object> savedFields = new HashMap<String, Object>();
+
+        savedFields.put("companyName", agentAccount.getCompanyName());
+        savedFields.put("workNumber", agentAccount.getWorkNumber());
+        savedFields.put("cellNumber", agentAccount.getCellNumber());
+        savedFields.put("address", agentAccount.getAddress());
+        savedFields.put("city", agentAccount.getCity());
+        savedFields.put("state", State.fromString(agentAccount.getState()));
+        savedFields.put("zip", agentAccount.getZip());
+
+        return savedFields;
     }
 
     public String getRealEstateSchoolGuidesUrl(HttpServletRequest request) {

@@ -10,7 +10,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         }
 
         var propertyDetailsForm = $('#jq-propertyDetailsForm');
-        var address = propertyDetailsForm.find('input#jq-address').val();
+        var address = propertyDetailsForm.find('input#jq-propertyAddress').val();
         address = address.replace(/^\s*/, "").replace(/\s*$/, "");
 
         if (address != '' && address !== 'Property Address') {
@@ -62,7 +62,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
 
     var validateAddress = function() {
         var propertyDetailsForm = $('#jq-propertyDetailsForm');
-        var address = jQuery.trim(propertyDetailsForm.find('input#jq-address').val());
+        var address = jQuery.trim(propertyDetailsForm.find('input#jq-propertyAddress').val());
 
         var data = {};
         if (address === '' || address === 'Property Address') {
@@ -70,7 +70,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
             data.addressErrorDetail = 'Please enter an address.';
         }
 
-        validateFieldResponse('.jq-addressFields .errors', data, 'addressErrorDetail');
+        validateFieldResponse('.jq-propertyAddressFields .errors', data, 'addressErrorDetail');
     };
 
     var validateSqFootage = function() {
@@ -210,7 +210,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
 jQuery(function() {
     if(!GS.realEstateAgent.createGuide.skipValidation()) {
         //Create guide validation
-        jQuery('#jq-address').blur(GS.realEstateAgent.createGuide.validateAddress);
+        jQuery('#jq-propertyAddress').blur(GS.realEstateAgent.createGuide.validateAddress);
         jQuery('#js-sqFeet').blur(GS.realEstateAgent.createGuide.validateSqFootage);
     }
 

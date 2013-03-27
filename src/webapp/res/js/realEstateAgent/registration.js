@@ -120,6 +120,21 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                         form.addClass('dn');
                         hover.find('.jq-imageUploaderForm').removeClass('dn');
 
+                        if(response.companyInfoFields !== undefined) {
+                            var companyInfoFields = response.companyInfoFields;
+                            $('.jq-businessInfoForm:first input').each(function() {
+                                var $this = jQuery(this);
+                                if(companyInfoFields[this.name] != null) {
+                                    $this.attr('value', companyInfoFields[this.name]);
+                                }
+                            });
+                            if(companyInfoFields.state !== null) {
+                                $('.jq-businessInfoForm:first select option:selected').removeAttr('selected');
+                                $('.jq-businessInfoForm:first select option[value="'+ companyInfoFields.state + '"]').attr('selected','selected')
+                            }
+
+                        }
+
                         if(s) {
                             pageTracking.clear();
                             pageTracking.pageName = "Radar Registration Image Upload";
@@ -140,11 +155,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         });
 
         hover.on('click', '.jq-completeRegistration', function() {
-            var registrationComplete = jQuery('input.jq-registrationComplete').val();
             var page = '/real-estate/create-guide.page';
-            if(registrationComplete === 'true') {
-                page += '?registrationComplete=true';
-            }
 
             window.location.href = window.location.protocol + '//' + window.location.host + page;
         })
@@ -294,7 +305,9 @@ jQuery(function(){
     });
 
     jQuery('#jq-myAccount').on('click', function() {
-        jQuery('.jq-businessInfoForm').removeClass('dn');
+        var form = jQuery('.jq-businessInfoForm');
+        form.removeClass('dn');
+
         GSType.hover.realEstateAgentRegistrationHover.show();
         return false;
     });

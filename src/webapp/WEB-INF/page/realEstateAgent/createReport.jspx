@@ -47,8 +47,8 @@
                         <div class="">
                             <a href="javascript:void(0)" id="jq-myAccount"> My account </a>
                             <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
-                                <div class="mbl jq-addressFields">
-                                    <gsml:input type="text" styleId="jq-address" styleClass="text1 input_18" name="address"
+                                <div class="mbl jq-propertyAddressFields">
+                                    <gsml:input type="text" styleId="jq-propertyAddress" styleClass="text1 input_18" name="address"
                                                 value="Property Address" onfocus="GS_textSwitch(this, '', 'Property Address');" onblur="GS_textSwitch(this, 'Property Address', '');"/>
 
                                     <div class="errors">

@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,10 +44,6 @@ import java.util.Map;
 @RequestMapping("/real-estate/")
 public class RealEstateAgentRegistrationController implements ReadWriteAnnotationController {
     private static Logger _logger = Logger.getLogger(RealEstateAgentRegistrationController.class);
-
-    private static final String REGISTRATION_PAGE_VIEW = "/realEstateAgent/registrationHome";
-
-    private static final String CREATE_REPORT_PAGE_VIEW = "/realEstateAgent/createReport";
 
     private final static String FIELD_NAME_REQ_PARAM_KEY = "fieldName";
     private final static String FIRST_NAME_REQ_PARAM_KEY = "firstName";
@@ -124,29 +121,32 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if (!_realEstateAgentHelper.skipUserValidation(request) && _realEstateAgentHelper.hasAgentAccount(request)) {
             return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
         }
-        return REGISTRATION_PAGE_VIEW;
+        return _realEstateAgentHelper.REGISTRATION_PAGE_VIEW;
     }
 
     @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
-    public String showCreateReportForm (HttpServletRequest request,
-                            HttpServletResponse response,
-                            @RequestParam(value = "registrationComplete", required = false) String registrationComplete) {
+    public String showCreateReportForm (ModelMap modelMap,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response) {
         //TODO: comment skip user validation
         if(_realEstateAgentHelper.skipUserValidation(request)) {
-            return CREATE_REPORT_PAGE_VIEW;
+            return _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW;
         }
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
         if(userId != null) {
-            if("true".equals(registrationComplete)) {
-                User user = _userDao.findUserFromId(userId);
-                getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+            AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
+            if(agentAccount != null) {
+                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
+                    User user = _userDao.findUserFromId(userId);
+                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
 
-                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                }
+                return _realEstateAgentHelper.getViewForUser(modelMap, request, userId, _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW);
             }
-            return _realEstateAgentHelper.getViewForUser(request, userId, CREATE_REPORT_PAGE_VIEW);
         }
 
         return "redirect:" + _realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request);
@@ -263,6 +263,13 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         else {
             setAgentAccountFields(agentAccount, companyName, workNumber, cellNumber, address, city, state, zip);
             getAgentAccountDao().updateAgentAccount(agentAccount);
+        }
+
+        try {
+            responseJson.accumulate("companyInfoFields", _realEstateAgentHelper.getCompanyInfoFields(agentAccount));
+        }
+        catch (JSONException ex) {
+            _logger.warn("RealEstateAgentRegistrationController: Error while writing saved company info to response.");
         }
 
         outputJson(response, responseJson, true);
