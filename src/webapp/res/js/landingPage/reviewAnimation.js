@@ -10,7 +10,6 @@ GS = GS || {};
 $(document).ready(function() {
     $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_submitSelectSchool').on("click",function() {
-
         $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
             $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
                 $('.headerBar').show().animate({
@@ -20,7 +19,15 @@ $(document).ready(function() {
         });
 
     });
-//    parentReviewTerms
+    $('#js-submitParentReview').on("click",function() {
+        $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
+            $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+        });
+
+    });
+
+
+
     GS_spriteCheckBoxes("js-reviewLandingCheckboxTerms", "parentReviewTerms", 1, 0);
     GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
 
@@ -31,6 +38,7 @@ $(document).ready(function() {
     starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
     starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
     starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
+    starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
 });
 
 /********************************************************************************************************
@@ -186,7 +194,7 @@ function GS_selectCallbackReviewsIAm(selectValue){
         $('#js-reviewsLandingStarBox-Parent').show();
     }
     if(selectValue == "Student"){
-        $('#js-reviewsLandingStarBox-NoAdd').show();
+        $('#js-reviewsLandingStarBox-Student').show();
     }
     if(selectValue == "Teacher/Staff member"){
         $('#js-reviewsLandingStarBox-NoAdd').show();
@@ -198,5 +206,7 @@ function GS_selectCallbackReviewsIAm(selectValue){
         $('#js-reviewsLandingStarBox-Parent').hide();
         $('#js-reviewsLandingStarBox-Start').hide();
         $('#js-reviewsLandingStarBox-NoAdd').hide();
+        $('#js-reviewsLandingStarBox-Student').hide();
     }
+    $('#selectValueIAm').val(selectValue);
 }

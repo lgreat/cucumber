@@ -57,11 +57,11 @@
     ]]>
     <style type="text/css">
         .selectBox {
-            border-left: 1px solid #2B2B2B;
-            border-right: 1px solid #2B2B2B;
+            /*border-left: 1px solid #2B2B2B;*/
+            /*border-right: 1px solid #2B2B2B;*/
             height: 37px;
-            padding: 13px 0 0 7px;
-            width: 55px;
+            padding: 16px 0 0 7px;
+            width: 40px;
             text-align: center;
         }
 
@@ -71,21 +71,27 @@
             background-color: #dddddd;
             overflow-y: scroll;
         }
-
+        .js-ddValues{
+            padding: 5px;
+            font-size:14px;
+            font-weight: bold;
+        }
         .ddValuesHighlight {
             background-color: #999999;
         }
 
         .selectBox2 {
-            border: 1px solid #2B2B2B;
-            height: 37px;
-            width: 300px;
-            padding: 10px;
+            /*border: 1px solid #2B2B2B;*/
+            /*height: 37px;*/
+            /*width: 300px;*/
+            /*padding-top: 10px;*/
         }
 
         .selectDropDown2 {
-            width: 300px;
-            height: 100px;
+            margin-top: 5px;;
+            width: 290px;
+            border: 1px solid #666666;
+            /*height: 100px;*/
             background-color: #dddddd;
         }
     </style>
@@ -98,15 +104,30 @@
         <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt=""/>
 
     </div>
-    <div class="content-centered moduleTop-150">
+    <c:set var="marginTopContent" value="moduleTop-150"/>
+    <c:if test="${morganStanley}">
+        <c:set var="marginTopContent" value="moduleTop-250"/>
+        <div class="content-centered">
+            <div style="background-color: #FFFFFF; padding-top: 20px; padding-bottom: 1px">
+                <div>
+                    <img alt="Morgan Stanley" src="/res/img/school/parentReviews/morganstanley.png" height="40px"/>
+                    <jsp:useBean id="now" class="java.util.Date"/>
+                    <fmt:formatDate var="year" value="${now}" pattern="yyyy"/>
+                </div>
+                <div class="pbs small">Welcome Morgan Stanley employees, thank you for participating in ${year} Global Volunteer Month!</div>
+            </div>
+        </div>
+    </c:if>
+    
+    <div class="content-centered ${marginTopContent}">
         <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
         <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
 
         <div class="searchBox pr rnd4" style=""><!--do not colapse-->
-            <div class="fl ptm"><input type="text" placeholder="Search string" style="width:350px;"/></div>
+            <div class="fl" style="padding-top: 13px;"><input type="text" placeholder="Select a school to review" style="font-size: 16px;width:350px; background: none; padding-left: 20px; border: none; font-weight: bold"/></div>
 
-            <div class="fr ptm phm" id="js_submitSelectSchool">GO</div>
-            <div class="fr">
+            <div class="fr  phm" style="padding-top: 16px; padding-bottom: 14px; border-left: 1px solid #666666" id="js_submitSelectSchool">GO</div>
+            <div class="fr phm">
                 <div id="js-reviewLandingState" class="pr">
                     <div class="js-selectBox selectBox clearfix">
                         <div class="js-selectBoxText mrs fl">CA</div>
@@ -138,8 +159,10 @@
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
             <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
             <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
+            <input type="hidden" id="teacherStudentAsString" value="0" name="teacherStudentAsString"/>
             <input type="hidden" id="parentReviewTerms" value="0" name="parentReviewTerms"/>
             <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
+            <input type="hidden" id="selectValueIAm" value="" name="userRoleAsString"/>
             <c:if test="${morganStanley}">
                 <input type="hidden" name="how" value="morganstanley"/>
             </c:if>
@@ -152,8 +175,8 @@
                                 <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                 <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                             </div>
-                            <div class="fr pan man mrm">
-                                <div class="small bottom make-787878" id="js-charCount">1200 characters remaining</div>
+                            <div class="fr pan man mrm clearfix">
+                                <div class="fl iconx16 i-16-textareaPencil"><!-- do not collapse --></div> <div class="fr small bottom make-787878" id="js-charCount">1200 characters remaining</div>
                             </div>
                         </div>
                         <div><textarea id="js-reviewContent" class="lined_paper medium"
@@ -164,13 +187,15 @@
                     <input class="text1" type="text" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
                     <div id="js-reviewLandingIAm" class="pr">
-                        <div class="js-selectBox selectBox2 clearfix">
-                            <div class="js-selectBoxText mrs fl">I am a ... </div>
-                            <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                        <div class="js-selectBox selectBox2 clearfix selectList">
+                            <div class="js-selectBoxText mtm fl">I am a ... </div>
+                            <div class="fr mrm mtm"><span class="iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
                         </div>
-                        <div class="js-selectDropDown selectDropDown2 pa phm ptm dn">
+                        <div class="js-selectDropDown selectDropDown2 pa pam dn">
                             <div class="js-ddValues">Parent</div>
-                            <div class="js-ddValues">Student</div>
+                            <!--<c:if test="${level_code == 'h'}">-->
+                                <div class="js-ddValues">Student</div>
+                            <!--</c:if>-->
                             <div class="js-ddValues">Teacher/Staff member</div>
                             <div class="js-ddValues">Other</div>
                         </div>
@@ -205,7 +230,13 @@
                                 </div>
                                 <div id="js-reviewsLandingStarBox-Start"><br />Select an option from the dropdown menu</div>
                                 <div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>
-
+                                <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">
+                                    <div class="fl"><h4 class="bottom">Rate Teacher</h4></div>
+                                    <div id="starRatingContainerReviewTeacherForStudent" class="fr pan man mlm">
+                                        <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                        <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                    </div>
+                                </div></div>
                             </div>
                         </div>
                     </div>
@@ -227,21 +258,34 @@
                     </div>
                 </div>
 
-                <div class="tar fr"><div class="but but-lg but-3">Post</div></div>
+                <div class="tar fr"><div id="js-submitParentReview" class="but but-lg but-3">Post</div></div>
             </div>
         </form>
     </div>
 
 </div>
-
+<div class="js-pageThreeReviewLandingPage dn">
+    <div style="width: 100%; margin:50px 0 50px">
+        <div style="width:971px;text-align: center; margin: auto;">
+           <div class="" style="width: 971px; height:339px; background-image: url(/res/img/parentReviewLanding/reviewLandingThankYouCard.png)" >
+           <!--<img src="/res/img/parentReviewLanding/reviewLandingThankYouCard.png" alt=""/>-->
+           <div style="padding-top: 100px;"><p style="font-family: SourceSansPro-Semibold arial; font-size:40px; margin-bottom: 40px">Thanks – you’re almost there!</p>
+               <p style="margin-bottom: 6px;">We just need to verify your email address.</p>
+               <p style="margin-bottom: 6px;">We’ve sent you an email – please click on the link in that email and then we will publish your review.</p>
+               <p style="margin-bottom: 6px;">Thanks for helping others find their great school!</p>
+           </div>
+           </div>
+        </div>
+    </div>
+</div>
 
 <div id="oneColumn" class="dn">
 
 <c:if test="${morganStanley}">
     <div id="morganStanleyHeader">
         <img alt="Morgan Stanley" src="/res/img/school/parentReviews/morganstanley.png"/>
-        <jsp:useBean id="now" class="java.util.Date"/>
-        <fmt:formatDate var="year" value="${now}" pattern="yyyy"/>
+        <!--<jsp:useBean id="now" class="java.util.Date"/>-->
+        <!--<fmt:formatDate var="year" value="${now}" pattern="yyyy"/>-->
 
         <div class="text">Welcome Morgan Stanley employees, thank you for participating in ${year} Global Volunteer Month!</div>
     </div>

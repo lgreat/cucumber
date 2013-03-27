@@ -99,7 +99,7 @@ input.searchText:focus{ color: #2B2B2B; border: 1px solid #2092C4;
          -o-transition: all 0.15s ease-in;  /* Opera 10.5+ */
             transition: all 0.15s ease-in;
 }
-
+.selectList,
 input.text1{
     height: 40px;
     font: normal 12px/20px SourceSansPro-Regular, Arial, Helvetica, sans-serif;
