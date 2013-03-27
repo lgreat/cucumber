@@ -71,7 +71,7 @@
         .ui-autocomplete{
             margin-top: 15px;
             width: 400px;
-            height: 200px;
+            max-height: 200px;
             background-color: #dddddd;
             overflow-y: scroll;
         }

@@ -394,7 +394,6 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
     searchBox.autocomplete({
         minLength: 3,
         source: function (request, response) {
-            console.log("here source");
             var state = function () {
                 var rval =  $("#js-reviewLandingState").find(".js-selectBoxText").html();
                 if (rval === '') {
@@ -447,7 +446,22 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
         },
         select: function(event, ui) {
             return false;
+        },
+        position: { my : "left top", at: "left top+40" },
+        focus: function( event, ui ) {
+            $( this ).val( ui.item.label );
+            return false;
+        },
+        select: function( event, ui ) {
+            $( this ).val( ui.item.label );
+            console.log("SELECTED:"+ui.item.label );
+//            $( "#project-id" ).val( ui.item.value );
+//            $( "#project-description" ).html( ui.item.desc );
+//            $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+
+            return false;
         }
+
     });
 
 };
