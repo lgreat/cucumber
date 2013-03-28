@@ -26,9 +26,9 @@
         <div class="clearFloat" style="clear: both"><!-- do not collapse --></div>
     </div>
     <div class="bd ptm">
-        <p><strong>Oops! You haven't verified your email address yet.</strong>
+        <p><strong>Whoops! It looks like we still need to verify your email.</strong>
             To do so, please click on the link in the email we sent you.
-            Can't find the email? Click the button below to receive a new one.
+            Can't find the e-mail?  Click the button below and we'll send you a new one.
         </p>
 
         <button class="button-1" type="button" id="js_closeValNewEmail">Send a new email</button>

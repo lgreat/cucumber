@@ -1,0 +1,222 @@
+var GS = GS || {};
+GS.form = GS.form || {};
+GS.form.EspForm = function() {
+
+    //Checks the various states of the user and displays messages accordingly.
+    this.validateUserState = function() {
+        var emailField = jQuery('#js_email');
+        var email = jQuery.trim(emailField.val());
+        jQuery('.js_emailErr').hide();
+        GS.form.espForm.removeWarningClassFromElem(emailField);
+        var dfd = jQuery.Deferred();
+
+        if (email !== "" && email !== undefined) {
+            jQuery.ajax({
+                type: 'GET',
+                url: '/official-school-profile/checkUserState.page',
+                data: {email:email},
+                dataType: 'json',
+                async: true
+            }).done(
+                function(data) {
+                    var isValid = GS.form.espForm.handleEmailErrors(data, email, emailField);
+                    if (isValid === false) {
+                        dfd.reject();
+                    } else {
+                        dfd.resolve();
+                    }
+                }
+            ).fail(function() {
+                    dfd.reject();
+                });
+        } else {
+            jQuery('#js_invalidEmail').show();
+            GS.form.espForm.addWarningClassToElem(emailField);
+            dfd.reject();
+        }
+        return dfd.promise();
+    };
+
+    //Handles the logic to allow the signin's to go through or display an error.
+    //These conditions are complicated, refer to the flow charts attached to GS-13363.
+    this.handleEmailErrors = function(data,email,emailField) {
+        var isValid = false;
+        if (data.isNewUser == true) {
+            jQuery('#js_emailNotFound').show();
+        } else if (data.isUserESPPreApproved === true ) {
+            GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
+            GSType.hover.espPreApprovalEmail.setSchoolName(data.schoolName);
+            var onclickStr = "'GSType.hover.espPreApprovalEmail.show(); return false;'";
+            GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email. <a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
+            // users who have been approved but haven't followed through by clicking through the link in email
+            GSType.hover.emailNotValidated.setEmail(email);
+            var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
+            GS.form.espForm.showEmailError("Please . <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
+        } else {
+            isValid = true;
+        }
+        // ===== This is old code
+        /*
+        if (data.isEmailValid !== true) {
+            GS.form.espForm.showEmailError("Please enter a valid email address.", emailField);
+        }else if (data.isCookieMatched !== true ) {
+            GS.form.espForm.showEmailError("An error has occurred.", emailField);
+        }else if (data.isUserESPPreApproved === true ) {
+            GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
+            GSType.hover.espPreApprovalEmail.setSchoolName(data.schoolName);
+            var onclickStr = "'GSType.hover.espPreApprovalEmail.show(); return false;'";
+            GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email. <a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
+        } else if (data.isUserESPRejected === true) {
+            GS.form.espForm.showEmailError("Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.", emailField);
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
+            // users who have been approved but haven't followed through by clicking through the link in email
+            GSType.hover.emailNotValidated.setEmail(email);
+            var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
+            GS.form.espForm.showEmailError("Please verify your email. <a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
+        } else if (data.isUserAwaitingESPMembership === true) {
+            // users who have requested access but are still being processed
+            jQuery('#js_userAwaitingMembershipError').show();
+            GS.form.espForm.addWarningClassToElem(emailField);
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
+            // users who have been approved and validated their emails.However they are not logged in, therefore prompt them to log in.
+            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page?email=" + encodeURIComponent(email) + "'>Sign in</a> to your account here.", emailField);
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet === true) {
+            // users who have been approved and validated their emails and have a cookie set. They should view the ESP dashboard.
+            window.location = '/official-school-profile/dashboard/';
+        } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
+            // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
+            var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
+            GS.form.espForm.showEmailError("It looks like you're already a member! Please <a href='/official-school-profile/signin.page?email=" + encodeURIComponent(email) + "'>sign in</a> here.", emailField);
+        } else {
+            isValid = true;
+        }
+        */
+        return isValid;
+    };
+
+    this.showEmailError = function(errMsg, emailField) {
+        jQuery('#js_emailError').html('<div class="media"><span class="iconx16 i-16-alert img mrs"></span><div class="bd">' + errMsg + '</div></div>');
+        GS.form.espForm.addWarningClassToElem(emailField);
+        jQuery('#js_emailError').show();
+    };
+
+
+    this.validateRequiredFields = function(fieldName) {
+        var field = jQuery('#js_' + fieldName);
+        var fieldVal = field.val();
+        var fieldError = jQuery('.js_' + fieldName + '.invalid');
+        var dfd = jQuery.Deferred();
+
+        fieldError.hide();
+        GS.form.espForm.removeWarningClassFromElem(field);
+
+        if (fieldVal === '' || fieldVal === undefined || fieldVal === '-1' || fieldVal === '0' || fieldVal === 'My city is not listed' || fieldVal === 'Loading...') {
+            fieldError.show();
+            GS.form.espForm.addWarningClassToElem(field);
+            dfd.reject();
+        } else {
+            dfd.resolve();
+        }
+
+        return dfd.promise();
+    };
+
+    this.validateFields = function(fieldName, ajaxParams) {
+        var elem = jQuery('#js_' + fieldName);
+        var fieldName = fieldName;
+        var fieldVal = elem.val();
+        var isFieldVisible = elem.is(':visible');
+        var isReadOnly = elem.attr('readonly') === 'readonly';
+        var dfd = jQuery.Deferred();
+        var dataParams = {field:fieldName};
+        dataParams[fieldName] = fieldVal;
+        jQuery.extend(dataParams, ajaxParams);
+
+        if (isFieldVisible && !isReadOnly) {
+            jQuery.ajax({
+                type: 'GET',
+                url: '/community/registrationValidationAjax.page',
+                data:dataParams,
+                dataType: 'json',
+                async: true
+            }).done(
+                function(data) {
+                    var rval = GS.form.espForm.handleValidationResponse('.js_' + fieldName, fieldName, data, elem);
+                    if (rval) {
+                        dfd.resolve();
+                    } else {
+                        dfd.reject();
+                    }
+                }
+            ).fail(function() {
+                    dfd.reject();
+                }
+            );
+        } else {
+            dfd.resolve();
+        }
+        return dfd.promise();
+    };
+
+    this.handleValidationResponse = function(fieldSelector, fieldName, data, elem) {
+        var fieldError = jQuery(fieldSelector + '.invalid');
+        var fieldValid = jQuery(fieldSelector + '.success');
+
+        GS.form.espForm.removeWarningClassFromElem(elem);
+        fieldError.hide();
+        fieldValid.hide();
+
+        if (data && data[fieldName]) {
+            GS.form.espForm.addWarningClassToElem(elem);
+            fieldError.find('.bd').html(data[fieldName]); // set error message
+            fieldError.show();
+            return false;
+        } else {
+            fieldValid.show();
+            return true;
+        }
+    };
+
+    this.addWarningClassToElem = function(elem) {
+        elem.addClass("warning");
+    };
+
+    this.removeWarningClassFromElem = function(elem) {
+        elem.removeClass("warning");
+    };
+
+    this.registrationSubmit = function() {
+        jQuery.when(
+                GS.form.espForm.validateUserState()
+            ).done(
+            function() {
+                //submit the form if all validations pass.
+                document.getElementById('espRegistrationCommand').submit();
+            }
+        ).fail(
+            function() {
+                // Error messages are already displayed as part of ajax validations.
+            }
+        )
+        return false;
+    };
+
+    this.hideAllErrors = function() {
+        jQuery('.error').hide();
+    };
+};
+
+GS.form.espForm = new GS.form.EspForm();
+
+jQuery(function() {
+    jQuery('#js_email').blur(
+        GS.form.espForm.validateUserState
+    );
+
+    //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
+    jQuery('#js_submit').click(
+        GS.form.espForm.registrationSubmit
+    );
+
+});

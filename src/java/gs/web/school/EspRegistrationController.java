@@ -239,6 +239,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
                 //Found a user
                 if (user != null && user.getId() != null) {
+                    userState.setNewUser(false);
                     if (!user.isPasswordEmpty() && user.isEmailValidated()) {
                         userState.setUserEmailValidated(true);
                     }

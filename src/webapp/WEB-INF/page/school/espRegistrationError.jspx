@@ -77,15 +77,15 @@
                                 <p>"Uh-oh.  We're sorry - it looks like we were unable to confirm you as an
                                     administrator of ${school.name}'s Official School Profile.</p>
                                 <p>Were you trying to edit a different school's page?  Click here to try again.</p>
-                                <p class="bottom">Need help?  Please contact us at osphelp@greatschools.org."</p>
+                                <p class="bottom">Need help?  Please <link:contactUs feedbackType="esp">contact us</link:contactUs>."</p>
                             </c:when>
                             <c:when test="${$message eq 'page6'}">
                                 <!-- Use case: User is deactivated -->
                                 <p>"Whoops!  It looks like you are no longer an approved administrator for this
                                     school's profile.  If you'd like to re-activate your account,
                                     please submit a new request.</p>
-                                <p class="bottom">If you've received this message in error, please contact
-                                    osphelp@greatschools.org and we'll get things sorted out.</p>
+                                <p class="bottom">If you've received this message in error, please
+                                    <link:contactUs feedbackType="esp">contact us</link:contactUs> and we'll get things sorted out.</p>
                             </c:when>
                         </c:choose>
                     </div>
