@@ -227,6 +227,11 @@ GS = GS || {};
 $(document).ready(function() {
     $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_submitSelectSchool').on("click",function() {
+        var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+        if (!GS.form.selectionMadeAutoComplete) {
+            alert("Please select a school to continue");
+            return false;
+        }
 
         var trackSchoolChosen = function() {
             // should track when a school is chosen by user (go button is clicked)
@@ -256,7 +261,11 @@ $(document).ready(function() {
     GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
 
     GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
-    GS_initializeCustomSelect("js-reviewLandingState");
+    GS_initializeCustomSelect("js-reviewLandingState", function() {
+        var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+        GS.form.selectionMadeAutoComplete = false;
+        searchBox.val("");
+    });
 
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
     starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
