@@ -95,8 +95,8 @@
     <div class="imageBgScale">
         <div class="pr" style="height:200px;">
             <div class="headerBar" style="">
-                <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:48px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">Get your personalized printout</p>
-                <p style="font-family: 'SourceSansPro-BoldIt' arial; font-size:16px; font-style: italic; color: #b2811d; padding-bottom: 60px;">Fill the forms out to finish your personalized GreatSchool printout</p>
+                <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:48px; color: #FFFFFF; padding: 47px 0 14px 0;text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">Get your personalized printout</p>
+                <p style="font-family: 'SourceSansPro-It' arial; font-size:16px; font-style: italic; color: #996E18; padding-bottom: 60px;">Fill the forms out to finish your personalized GreatSchool printout</p>
             </div>
 
         </div>
@@ -206,7 +206,7 @@
                                     <a href="javascript:void(0)">
                                         <button class="button-1" type="button" id="js-submit"
                                                 onclick="GS.realEstateAgent.createGuide.submitSearch()">
-                                            Print
+                                            Download
                                         </button>
                                     </a>
                                 </div>
