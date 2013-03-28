@@ -413,16 +413,21 @@ function GS_initializeCustomSelect(layerContainer, callbackFunction){
 
 function GS_selectCallbackReviewsIAm(selectValue){
     hideAllLayers();
+    var submitValue = "";
     if(selectValue == "Parent"){
+        submitValue = "parent";
         $('#js-reviewsLandingStarBox-Parent').show();
     }
     if(selectValue == "Student"){
+        submitValue = "student";
         $('#js-reviewsLandingStarBox-Student').show();
     }
     if(selectValue == "Teacher/Staff member"){
+        submitValue = "teacher";
         $('#js-reviewsLandingStarBox-NoAdd').show();
     }
     if(selectValue == "Other"){
+        submitValue = "other";
         $('#js-reviewsLandingStarBox-NoAdd').show();
     }
     function hideAllLayers(){
@@ -431,8 +436,8 @@ function GS_selectCallbackReviewsIAm(selectValue){
         $('#js-reviewsLandingStarBox-NoAdd').hide();
         $('#js-reviewsLandingStarBox-Student').hide();
     }
-    $('#selectValueIAm').val(selectValue);
-    $('#posterAsString').val(selectValue);
+    $('#selectValueIAm').val(submitValue);
+    $('#posterAsString').val(submitValue);
 }
 
 
