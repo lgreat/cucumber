@@ -101,6 +101,7 @@
             font-size:14px;
             font-weight: bold;
         }
+        .ui-state-focus,
         .ddValuesHighlight {
             background-color: #999999;
         }
@@ -119,6 +120,8 @@
             /*height: 100px;*/
             background-color: #dddddd;
         }
+
+
     </style>
 </head>
 
@@ -145,7 +148,7 @@
     </c:if>
     
     <div class="content-centered ${marginTopContent}">
-        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.1em 0.1em 0.2em">Finding better schools together</p>
+        <p style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding-bottom: 20px;text-shadow: black 0.01em 0.01em 0.02em">Finding better schools together</p>
         <p style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #CC9900;text-shadow: black 0.1em 0.1em 0.2em">Write a review of your school to help students find a better place to learn</p>
 
         <div class="js-parentReviewLandingPageSearchBox searchBox pr rnd4" style=""><!--do not colapse-->
@@ -173,14 +176,14 @@
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
     <div style="height: 180px;">
         <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p id="js-bannerSchoolName" style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">You know your school best!</p>
+            <p id="js-bannerSchoolName" style="font-family: SourceSansPro-Semibold arial; font-size:60px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.01em 0.01em 0.02em">You know your school best!</p>
             <p id="js-bannerSchoolInfo" style="font-family: SourceSansPro-BoldIt arial; font-size:20px; font-style: italic; color: #b2811d;">
+
                 <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
-                <span class="js-bannerSchoolType dn"><!-- do not collapse --></span>
-                <span class="js-bannerSchoolGrades dn"><!-- do not collapse --></span>
-                <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
+                <span class="js-bannerPageIcon dn"><span class="iconx16 i-16-pageOrange mrs mll"><!-- do not collapse --></span></span>
+                <span class="js-bannerSchoolType dn" style="text-transform:capitalize;"><!-- do not collapse --></span>
                 <span class="js-bannerSchoolGradeRange dn"><!-- do not collapse --></span>
-                <!--<span class="js-bannerSchoolAddress dn">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
             </p>
         </div>
 
@@ -196,7 +199,7 @@
             <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
             <input type="hidden" id="selectValueIAm" value="" name="userRoleAsString"/>
             <input type="hidden" id="schoolId" value="" name="schoolId"/>
-            <input type="hidden" name="posterAsString" id="posterAsString"/>
+            <input type="hidden" class="js-posterAsString" name="posterAsString" id="posterAsString" value=""/>
             <input type="hidden" name="source" value="${pageName}"/>
             <input type="hidden" name="state" id="schoolState" value=""/>
             <input type="hidden" name="isAddNewParentReview" value="true"/>
@@ -206,6 +209,22 @@
             </c:if>
             <div class="clearfix">
                 <div class="fl">
+                    <div class="js-reviewContent-error form-alert pbs dn">
+                        <div class="media">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                            </div>
+                            <div class="js-msg smaller bottom error_msg">Your review length must be less than 1200 chars and at least 15 words.</div>
+                        </div>
+                    </div>
+                    <div class="js-overallAsString-error form-alert pbs dn">
+                        <div class="media">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                            </div>
+                            <div class="js-msg smaller bottom error_msg">Please rate the school by choosing a star.</div>
+                        </div>
+                    </div>
                     <div class="paper_bg">
                         <div style="padding: 10px 0px 10px 20px" class="clearfix">
                             <div class="fl"><h4 class="bottom">Rate this school</h4></div>
@@ -222,8 +241,25 @@
                     </div>
                 </div>
                 <div class="fr">
+                    <div class="js-email-error-dn form-alert pbs dn">
+                        <div class="media">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                            </div>
+                            <div class="js-msg smaller bottom error_msg">You must enter a valid email address.</div>
+                        </div>
+                    </div>
+
                     <input class="email text1 js-email" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
+                    <div class="js-posterAsString-error-dn form-alert pbs ptm dn">
+                        <div class="media">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                            </div>
+                            <div class="js-msg smaller bottom error_msg">Please select your role.</div>
+                        </div>
+                    </div>
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
                             <div class="js-selectBoxText mtm fl">I am a ... </div>
@@ -280,6 +316,14 @@
             </div>
             <div class="clearfix ptm">
                 <div class="fl">
+                    <div class="js-parentReviewTerms-error form-alert pbs dn">
+                        <div class="media">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                            </div>
+                            <div class="js-msg smaller bottom error_msg">You must agree to the terms of use and guidelines.</div>
+                        </div>
+                    </div>
                     <div id="js-reviewLandingCheckboxTerms" class="clearfix">
                         <div class="fl prm js-checkBoxSpriteOff"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
                         <div class="fl prm js-checkBoxSpriteOn dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>

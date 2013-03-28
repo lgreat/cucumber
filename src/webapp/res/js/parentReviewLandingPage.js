@@ -151,16 +151,39 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             $("#schoolState").val(ui.item.state);
             $("#js-bannerSchoolName").html(ui.item.name);
             if(ui.item.address != null && ui.item.address != ""){
-                $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(ui.item.address).show();
+                var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+ui.item.address;
+                $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
             }
-            if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
-                $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(ui.item.enrollment).show();
-            }
+            var iconPageBanner = false;
+            var contentExistsBefore = false;
+
             if(ui.item.type != null && ui.item.type != ""){
+                iconPageBanner = true;
+                contentExistsBefore = true;
                 $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
             }
             if(ui.item.gradeRange != null && ui.item.gradeRange != ""){
-                $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(ui.item.gradeRange).show();
+                iconPageBanner = true;
+                var gradeContent = ui.item.gradeRange;
+                if(contentExistsBefore){
+                    gradeContent = " / "+ui.item.gradeRange;
+                }
+                $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(gradeContent).show();
+                contentExistsBefore = true;
+            }
+            if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
+                iconPageBanner = true;
+                var enrollmentContent = ui.item.enrollment;
+                if(contentExistsBefore){
+                    enrollmentContent = " / "+ui.item.enrollment + " Students";
+                }
+                $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
+                contentExistsBefore = true;
+            }
+            console.log("iconPageBanner:"+iconPageBanner);
+            if(iconPageBanner){
+                console.log($("#js-bannerSchoolInfo .js-bannerPageIcon"));
+                $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
             }
             if(ui.item.levelCode == "h"){
                 $("#js-showStudentForHighSchoolOnly").show();
@@ -210,12 +233,7 @@ $(document).ready(function() {
         });
 
     });
-    $('#js-submitParentReview').on("click",function() {
-        $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
-            $('.js-pageThreeReviewLandingPage').fadeIn('fast');
-        });
 
-    });
 
     GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
 
@@ -400,6 +418,7 @@ function GS_selectCallbackReviewsIAm(selectValue){
         $('#js-reviewsLandingStarBox-Student').hide();
     }
     $('#selectValueIAm').val(selectValue);
+    $('#posterAsString').val(selectValue);
 }
 
 
@@ -409,6 +428,27 @@ function GS_isValidEmailAddress(emailAddress) {
     return pattern.test(emailAddress);
 };
 
+function GS_countWords(text) {
+    var count = 0;
+    var a = text.replace(/\n/g, ' ').replace(/\t/g, ' ');
+    var z = 0;
+    for (; z < a.length; z++) {
+        if (a.charAt(z) == ' ' && a.charAt(z - 1) != ' ') { count++; }
+    }
+    return count + 1; // # of words is # of spaces + 1
+}
+
+function GS_validateReviewText(reviewText) {
+    var returnValue = "";
+    if (reviewText.length > 1200) {
+        var returnValue = 'Please keep your comments under 1200 characters.';
+    }
+    if (this.countWords(reviewText) < 15) {
+        var returnValue = 'Please use at least 15 words in your comment.';
+    }
+    return returnValue;
+}
+
 /**
  * Do not use new operator on this object until after form is rendered
  * @constructor
@@ -417,13 +457,12 @@ function GS_isValidEmailAddress(emailAddress) {
 function GS_schoolReviewFormLandingPage(id) {
     var form = jQuery('#' + id);
 
-    console.log("test");
-
     var submitButtonClass = "js-submitParentReview";
     var emailFormClass = "js-email";
     var overallStarRatingsClass = "js-overallAsString";
     var reviewFormClass = "js-reviewContent";
     var termsOfUseClass = "js-parentReviewTerms";
+    var posterSelectClass = "js-posterAsString";
 
 
     var submitButton = form.find('.' + submitButtonClass);
@@ -431,13 +470,48 @@ function GS_schoolReviewFormLandingPage(id) {
     var overallRating = form.find('.' + overallStarRatingsClass);
     var termsOfUse = form.find('.' + termsOfUseClass);
     var email = form.find('.' + emailFormClass);
-
-    console.log(submitButton);
+    var posterString = form.find('.' + posterSelectClass);
 
     submitButton.on("click", function(event){
-
-        postReview(form);
+        if(validateForm()){
+            postReview(form);
+        }
     });
+
+    function clearErrors(){
+        form.find('.' + emailFormClass + '-error').hide();
+        form.find('.' + overallStarRatingsClass + '-error').hide();
+        form.find('.' + termsOfUseClass + '-error').hide();
+        form.find('.' + posterSelectClass + '-error').hide();
+        form.find('.' + reviewFormClass + '-error').hide();
+    }
+
+    function validateForm(){
+        clearErrors();
+        var allowPost = true;
+        if(!GS_isValidEmailAddress(email)){
+            allowPost = false;
+            form.find('.' + emailFormClass + '-error').show();
+        }
+        if(overallRating.val() == "0"){
+            allowPost = false;
+            form.find('.' + overallStarRatingsClass + '-error').show();
+        }
+        if(termsOfUse.val() == "0"){
+            allowPost = false;
+            form.find('.' + termsOfUseClass + '-error').show();
+        }
+        if(posterString.val() == ""){
+            allowPost = false;
+            form.find('.' + posterSelectClass + '-error').show();
+        }
+        var errorReview = GS_validateReviewText(review.val());
+        if(errorReview != ""){
+            allowPost = false;
+            form.find('.' + reviewFormClass + '-error').show();
+        }
+        return allowPost;
+    }
 
     function postReview(form){
         var url = '/school/review/postReview.page';
@@ -458,5 +532,8 @@ function GS_schoolReviewFormLandingPage(id) {
                 pageTracking.send();
             }
         }, "json");
+        $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
+            $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+        });
     }
 };
