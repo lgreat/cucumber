@@ -22,7 +22,7 @@
             </div>
             <div class="ptl">
                 <div class="clearfix">
-                    <div class="fl tac standard_2-3">
+                    <div class="fl tac standard_2-3 bottom">
                             <div class="inner jq-photoContainer">
                                 <div class="mbs" id="js-photoPreview">
                                     <img id="js-photo-preview"
@@ -39,9 +39,9 @@
                                 <!--style="-moz-user-select: none; display:none;">Upload photo-->
                                 <!--</button>-->
                             </div>
-                        <div class="small">Upload a photo of yourself to<br/>display on guides you create.</div>
+                        <div class="small bottom">Upload a photo of yourself to<br/>display on guides you create.</div>
                     </div>
-                    <div class="fr tac standard_2-3">
+                    <div class="fr tac standard_2-3 bottom">
                         <div class="inner jq-logoContainer">
                             <div class="mbs" id="js-logoPreview">
                                 <img id="js-logo-preview"
@@ -56,9 +56,10 @@
                                     <!--style="-moz-user-select: none; display:none;">Upload logo-->
                             <!--</button>-->
                         </div>
-                        <div class="small">Upload your company's logo and<br/>we'll brand your guides.(JPG,<br/>PNG, GIF max size: 50KB)</div>
+                        <div class="small bottom">Upload your company’s logo and<br/>we’ll brand your guides.</div>
                     </div>
                 </div>
+                <div class="small bottom ptm tac">For the best fit, choose a square image (JPG, PNG, GIF).</div>
             </div>
         </div>
         <div class="ft joinSubmit">
