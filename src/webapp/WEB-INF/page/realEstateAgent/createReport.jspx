@@ -91,13 +91,15 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" id="jq-lat" name="lat"/>
-                                <input type="hidden" id="jq-lon" name="lon"/>
-                                <input type="hidden" id="jq-state" name="state"/>
-                                <input type="hidden" id="jq-streetNumber" name="streetNumber"/>
-                                <input type="hidden" id="jq-streetName" name="streetName"/>
-                                <input type="hidden" id="jq-city" name="city"/>
-                                <input type="hidden" id="jq-zipcode" name="zipcode"/>
+                                <span id="geocodeResults">
+                                    <input type="hidden" id="jq-lat" name="lat"/>
+                                    <input type="hidden" id="jq-lon" name="lon"/>
+                                    <input type="hidden" id="jq-state" name="state"/>
+                                    <input type="hidden" id="jq-streetNumber" name="streetNumber"/>
+                                    <input type="hidden" id="jq-streetName" name="streetName"/>
+                                    <input type="hidden" id="jq-city" name="city"/>
+                                    <input type="hidden" id="jq-zipcode" name="zipcode"/>
+                                </span>
                                 <!-- TODO: comment the skip validation -->
                                 <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
 

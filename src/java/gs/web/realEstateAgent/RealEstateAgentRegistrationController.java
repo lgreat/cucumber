@@ -125,28 +125,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         return _realEstateAgentHelper.REGISTRATION_PAGE_VIEW;
     }
 
-    @RequestMapping(value = "create-guide.page", method = RequestMethod.POST)
-    public String completeRegistration (ModelMap modelMap,
-                                        HttpServletRequest request,
-                                        HttpServletResponse response) {
-        Integer userId = _realEstateAgentHelper.getUserId(request);
-
-        if(userId != null) {
-            AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
-            if(agentAccount != null) {
-                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
-                    User user = _userDao.findUserFromId(userId);
-                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
-
-                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
-                }
-                return showCreateReportForm(modelMap, request, response);
-            }
-        }
-
-        return "redirect:" + _realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request);
-    }
     @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
     public String showCreateReportForm (ModelMap modelMap,
                                         HttpServletRequest request,
@@ -161,6 +139,16 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if(userId != null) {
             AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
             if(agentAccount != null) {
+                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
+                    User user = _userDao.findUserFromId(userId);
+                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+
+                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                    // update to avoid sending exact target email and record event74 again
+                    getAgentAccountDao().updateAgentAccount(agentAccount);
+                }
+
                 modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
                 if(agentAccount.getPhotoMediaUpload() != null) {
                     modelMap.put("photoMediaPath", agentAccount.getPhotoMediaUpload().getDim432x432FilePath());
