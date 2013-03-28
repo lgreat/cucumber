@@ -71,7 +71,7 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
-        <url-pattern>/qr-code-gen.png</url-pattern>
+        <url-pattern>/real-estate/qr-code-gen.png</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

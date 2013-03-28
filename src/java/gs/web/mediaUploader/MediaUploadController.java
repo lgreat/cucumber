@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -74,6 +75,13 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     private RealEstateAgentHelper _realEstateAgentHelper;
 
     protected static final Log _log = LogFactory.getLog(MediaUploadController.class);
+
+    @RequestMapping(method=RequestMethod.GET, value = "agentUploaderTest.json")
+    public String handleGetForRealEstateAgent(ModelMap modelMap,
+                                              HttpServletRequest request,
+                                              HttpServletResponse response) {
+        return "/realEstateAgent/registrationHome";
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "realEstateAgentUpload.page")
     public void onAgentUpload (HttpServletRequest request,
@@ -270,7 +278,7 @@ public class MediaUploadController implements ReadWriteAnnotationController {
             }
 
             if(mediaUploadId != null) {
-                List<MediaFile> mediaFiles = getMediaFileDao().findMediaFileByMediaUploadId(mediaUploadId, dimension);
+                List<MediaFile> mediaFiles = getMediaFileDao().findMediaFileByMediaUploadId(mediaUploadId);
                 if(mediaFiles != null) {
                     for(MediaFile mediaFile : mediaFiles) {
                         mediaFile.setStatus(MediaFileDaoHibernate.Status.DELETED.value);

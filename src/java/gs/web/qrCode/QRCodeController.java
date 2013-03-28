@@ -32,7 +32,7 @@ public class QRCodeController {
     private QRCodeWriter _qrCodeWriter = new QRCodeWriter();
     private static Logger _logger = Logger.getLogger(QRCodeController.class);
 
-    @RequestMapping(value = "/qr-code-gen", method = RequestMethod.GET)
+    @RequestMapping(value = "/real-estate/qr-code-gen", method = RequestMethod.GET)
     public void getQRCodeImage(@RequestParam(value = "content", required = true) String content,
                                @RequestParam(value = "width", required = true) Integer width,
                                @RequestParam(value = "height", required = true) Integer height,
