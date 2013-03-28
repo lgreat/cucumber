@@ -109,6 +109,8 @@ public class SchoolAutocompleteController {
             schoolMap.put("streetLine2", school.getAddress().getStreetLine2());
             schoolMap.put("cityStateZip", school.getAddress().getCityStateZip());
             schoolMap.put("enrollment", String.valueOf(school.getEnrollment()));
+            schoolMap.put("gradeRange", String.valueOf(school.getGrades().getRangeString()));
+            schoolMap.put("levelCode", String.valueOf(school.getLevelCode()));
 
             schoolsJsonArray.put(schoolMap);
         }
