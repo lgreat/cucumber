@@ -175,7 +175,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
 
-        boolean reviewProvisional = (isNewUser || (!userAuthorizedWithPassword && !emailVerifiedRecently));
+        boolean reviewProvisional = (reviewCommand.isFromReviewLandingPage() || isNewUser || (!userAuthorizedWithPassword && !emailVerifiedRecently));
 
         if (reviewProvisional) {
             if (userIpOnBanList || Poster.STUDENT.equals(poster)) {
@@ -234,7 +234,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         boolean reviewPosted = !(reviewProvisional || reviewHasReallyBadWords || schoolOnHoldList || userIpOnBanList || Poster.STUDENT.equals(reviewCommand.getPoster()));
         
-        if (reviewPosted) {
+        if (reviewPosted && !reviewCommand.isFromReviewLandingPage()) {
             sendReviewPostedEmail(request, review);
         }
 
@@ -246,7 +246,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         responseValues.put("userId", user.getId().toString());
 
-        if (reviewProvisional) {
+        if (reviewProvisional || reviewCommand.isFromReviewLandingPage()) {
             responseValues.put("showHover", "validateEmailSchoolReview");
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             String redirectUrl = urlBuilder.asFullUrl(request);
