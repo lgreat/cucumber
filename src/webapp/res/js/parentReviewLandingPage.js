@@ -366,7 +366,6 @@ GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
     });
 };*/
 GS.parentReviewLandingPage.attachAutocomplete = function () {
-    console.log("here");
     var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
     var url = "/search/schoolAutocomplete.page";
     var cache = {};
@@ -443,15 +442,14 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                             enrollment: school.enrollment,
                             type:  school.type,
                             name: school.name,
+                            levelCode: school.levelCode,
+                            gradeRange: school.gradeRange,
                             state: school.state
                         }
                     }));
                 }
             });
         },
-//        select: function(event, ui) {
-//            return false;
-//        },
         position: { my : "left top", at: "left top+40" },
         focus: function( event, ui ) {
             $( this ).val( ui.item.label );
@@ -471,23 +469,15 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             if(ui.item.type != null && ui.item.type != ""){
                 $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
             }
-//            if(ui.item.type != null && ui.item.type != ""){
-//                $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
-//            }
-//
-//            $("#schoolId").html();
-//            $("#schoolId").html();
-
-            //schoolState
-//            $( "#project-id" ).val( ui.item.value );
-//            $( "#project-description" ).html( ui.item.desc );
-//            $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
-
+            if(ui.item.gradeRange != null && ui.item.gradeRange != ""){
+                $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(ui.item.gradeRange).show();
+            }
+            if(ui.item.levelCode == "h"){
+                $("#js-showStudentForHighSchoolOnly").show();
+            }
             return false;
         }
-
     });
-
 };
 
 $(document).ready(function() {
