@@ -296,9 +296,13 @@ public class PrintYourOwnChooserController implements BeanFactoryAware, ServletC
 
         censusDataHolder.retrieveDataSetsAndSchoolData(); // after this operation, the censusDataSets will contain school values
         request.setAttribute("school",school);
+
+        //The configurations vary for each state and school type.
+        String key = SchoolProfileCensusHelper.CENSUS_STATE_CONFIG + "-" + school.getDatabaseState() + "-" + school.getType().getName();
+
         // group ID --> List of StatsRow
         Map<CensusGroup, GroupOfStudentTeacherViewRows> groupIdToStatsRows =
-                _schoolProfileCensusHelper.buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), censusDataSets);
+                _schoolProfileCensusHelper.buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request,key), censusDataSets);
 
         Map<String, String> ethnicityMap = null;
         if (!groupIdToStatsRows.isEmpty() && groupIdToStatsRows.get(CensusGroup.Student_Ethnicity) != null) {
