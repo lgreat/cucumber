@@ -64,7 +64,7 @@
         <div class="ft joinSubmit">
             <div class="tac">
                 <a href="javascript:void(0)">
-                    <button class="but but-lg but-1 jq-completeRegistration" name="completeRegistration">
+                    <button class="but but-lg but-3 jq-completeRegistration" name="completeRegistration">
                         Complete
                     </button>
                 </a>
