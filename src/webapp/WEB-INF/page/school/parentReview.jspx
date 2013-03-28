@@ -32,10 +32,10 @@
     </jsp:scriptlet>
 
     ${requestScope.pageHelper.headElementsWithoutCss}
-    <gsml:javascript src="/res/js/schoolReviewForm.js"/>
+    <!--<gsml:javascript src="/res/js/schoolReviewForm.js"/>-->
     <gsml:javascript src="/res/js/parentReviewLandingPage.js"/>
-    <gsml:javascript src="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>
-    <gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>
+    <!--<gsml:javascript src="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
+    <!--<gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>-->
     <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.min.js"/>
 
     <gsml:url var="autocompletecss" value="/res/css/jquery/no-theme/jquery-ui-1.10.2.custom.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -186,13 +186,13 @@
 
     </div>
     <div class="container_24 clearfix">
-        <form id="parentReviewForm" method="post" action="#" onsubmit="return validateReview();">
-            <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
+        <form id="parentReviewFormLandingPage" method="post" action="#" onsubmit="return validateReview();">
+            <input type="hidden" class="js-overallAsString" id="overallAsString" value="0" name="overallAsString"/>
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
             <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
             <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
             <input type="hidden" id="teacherStudentAsString" value="0" name="teacherStudentAsString"/>
-            <input type="hidden" id="parentReviewTerms" value="0" name="parentReviewTerms"/>
+            <input type="hidden" class="js-parentReviewTerms" id="parentReviewTerms" value="0" name="parentReviewTerms"/>
             <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
             <input type="hidden" id="selectValueIAm" value="" name="userRoleAsString"/>
             <input type="hidden" id="schoolId" value="" name="schoolId"/>
@@ -217,12 +217,12 @@
                                 <div class="fl iconx16 i-16-textareaPencil"><!-- do not collapse --></div> <div class="fr small bottom make-787878" id="js-charCount">1200 characters remaining</div>
                             </div>
                         </div>
-                        <div><textarea id="js-reviewContent" name="comments" class="review-text lined_paper medium"
+                        <div><textarea id="js-reviewContent" name="comments" class="js-reviewContent review-text lined_paper medium"
                                        placeholder="Tell us about your school"><!-- do not collapse --></textarea></div>
                     </div>
                 </div>
                 <div class="fr">
-                    <input class="email text1" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
+                    <input class="email text1 js-email" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
@@ -294,7 +294,7 @@
                     </div>
                 </div>
 
-                <div class="tar fr"><div id="js-submitParentReview" class="but but-lg but-3">Post</div></div>
+                <div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-3">Post</div></div>
             </div>
         </form>
     </div>
