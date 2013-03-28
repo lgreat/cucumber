@@ -207,7 +207,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var companyName = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-companyName').val());
         if(companyName === 'Company Name' || companyName === '') {
             data.hasError = true;
-            data.companyNameErrorDetail = 'Please specify your company name.';
+            data.companyNameErrorDetail = 'Please enter your company name to brand your guides.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-companyNameFields .errors', data, 'companyNameErrorDetail');
     };
@@ -217,7 +217,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var workNumber = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-workNumber').val());
         if(!workNumber.match(/^\d{10}$/)) {
             data.hasError = true;
-            data.workNumberErrorDetail = 'Please enter exactly 10 digits.';
+            data.workNumberErrorDetail = 'Please enter just 10 digits.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-workNumberFields .errors', data, 'workNumberErrorDetail');
     };
@@ -227,7 +227,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var address = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-address').val());
         if(address === 'Work Address' || address === '') {
             data.hasError = true;
-            data.addressErrorDetail = 'Please specify the work address.';
+            data.addressErrorDetail = "Please enter your company's street address.";
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-addressFields .errors', data, 'addressErrorDetail');
     };
@@ -237,7 +237,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var city = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-city').val());
         if(city === 'City' || city === '') {
             data.hasError = true;
-            data.cityErrorDetail = 'Please specify the city.';
+            data.cityErrorDetail = 'Please specify.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-cityFields .errors', data, 'cityErrorDetail');
     };
@@ -247,7 +247,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state').text());
         if(state === '') {
             data.hasError = true;
-            data.stateErrorDetail = 'Please select the state.';
+            data.stateErrorDetail = 'Please select.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-stateFields .errors', data, 'stateErrorDetail');
     };
@@ -257,13 +257,13 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var zip = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-zip').val());
         if(!zip.match(/^\d{5}$/)) {
             data.hasError = true;
-            data.zipErrorDetail = 'Please enter exactly 5 digits.';
+            data.zipErrorDetail = 'Enter 5 digits.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-zipFields .errors', data, 'zipErrorDetail');
     };
 
     this.validateFieldResponse = function(fieldSelector, data, errorDetailKey) {
-        var errorIcon ='<span class="iconx16 i-16-alert "><!-- do not collapse --></span>';
+        var errorIcon ='<span class="vam mrs iconx16 i-16-alert "><!-- do not collapse --></span>';
         var fieldError = jQuery(fieldSelector + ' .invalid');
         var fieldValid = jQuery(fieldSelector + ' .valid');
         fieldError.hide();

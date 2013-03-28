@@ -128,7 +128,10 @@
                 <p class="medium mrm">GreatSchools is a national non-profit that offers the most comprehensive set of quality school data available. Leading real estate websites such as Zillow, Trulia and Realtor.com trust us to power their school data.</p>
             </div>
             <div class="grid_8">
+                <div class="pr">
+                <a href="/res/pdf/realEstate/GreatSchoolsRadar_example.pdf" target="_blank" class="pa" style="width:30px; height:30px; top:0; right:10px;"><!--Do not collapse--></a>
                 <img src="/res/img/realEstate/pdf_300x180.png" alt="PDF"/>
+                </div>
                 <h3 class="mtl">Customized for your listings, with<br/>unlimited access</h3>
                 <p class="medium mrm">Create professional full-color neighborhood school guides for all of your listings – as many as you need. In just a few easy steps you’ll get a printable PDF instantly, tailored to your clients and branded with your contact information.</p>
             </div>
