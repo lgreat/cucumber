@@ -98,11 +98,11 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(gradeContent).show();
             contentExistsBefore = true;
         }
-        if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
+        if(school.enrollment != null && school.enrollment != "" && school.enrollment != "0"){
             iconPageBanner = true;
-            var enrollmentContent = ui.item.enrollment;
+            var enrollmentContent = school.enrollment;
             if(contentExistsBefore){
-                enrollmentContent = " / "+ui.item.enrollment + " Students";
+                enrollmentContent = " / "+school.enrollment + " Students";
             }
             $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
             contentExistsBefore = true;
@@ -112,7 +112,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             console.log($("#js-bannerSchoolInfo .js-bannerPageIcon"));
             $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
         }
-        if(ui.item.levelCode == "h"){
+        if(school.levelCode == "h"){
             $("#js-showStudentForHighSchoolOnly").show();
         }
     };
