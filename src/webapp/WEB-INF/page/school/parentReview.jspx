@@ -217,12 +217,12 @@
                                 <div class="fl iconx16 i-16-textareaPencil"><!-- do not collapse --></div> <div class="fr small bottom make-787878" id="js-charCount">1200 characters remaining</div>
                             </div>
                         </div>
-                        <div><textarea id="js-reviewContent" name="comments" class="lined_paper medium"
+                        <div><textarea id="js-reviewContent" name="comments" class="review-text lined_paper medium"
                                        placeholder="Tell us about your school"><!-- do not collapse --></textarea></div>
                     </div>
                 </div>
                 <div class="fr">
-                    <input class="text1" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
+                    <input class="email text1" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
