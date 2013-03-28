@@ -99,8 +99,8 @@
             <img class="scaling" src="/res/img/realEstate/hero_realtors_1580x650.png"
                  alt="Real estate background image"/>
         </div>
-        <div class="content-centered moduleTop-150">
-            <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:56px; color: #FFFFFF; padding: 40px 0 20px 0; text-shadow: 0 0 24px rgba(0,0,0,1)">GreatSchools Radar beta</p>
+        <div class="content-centered moduleTop-125">
+            <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:56px; color: #FFFFFF; padding: 50px 0 5px 0; text-shadow: 0 0 24px rgba(0,0,0,1)">GreatSchools Radar <sup style="font-family: 'SourceSansPro-It' arial;font-style: italic; font-weight: normal; font-size: 20px;">beta</sup></p>
             <p style="font-family: 'SourceSansPro-It' arial; font-size:20px; font-style: italic; color: #FFCE7A; padding-bottom: 60px; text-shadow: 0 0 18px rgba(0,0,0, 01);">Customizable neighborhood school guides for real estate pros</p>
         </div>
     </div>
