@@ -60,19 +60,19 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
     };
     protected static final String ERROR_FIRST_NAME_LENGTH =
-            "First name must be 2-24 characters long.";
+            "Name must be 2-24 characters.";
     protected static final String ERROR_FIRST_NAME_BAD =
-            "Please remove the numbers or symbols.";
-    public static final String ERROR_INVALID_FIRST_NAME = "Please enter a valid first name.";
+            "Please enter a valid first name.";
+    public static final String ERROR_INVALID_FIRST_NAME = "Please enter your first name.";
 
     public static final String LAST_NAME_ERROR_DETAIL_KEY = "lastNameErrorDetail";
     public static final int LAST_NAME_MINIMUM_LENGTH = 1;
     public static final int LAST_NAME_MAXIMUM_LENGTH = 24;
     protected static final String ERROR_LAST_NAME_LENGTH =
-            "Last name must be 1-24 characters long.";
+            "Name must be 1-24 characters.";
     protected static final String ERROR_LAST_NAME_INVALID_CHARACTERS =
-            "Last name may contain only letters, numbers, spaces, and the following punctuation:, . - _ &";
-    public static final String ERROR_INVALID_LAST_NAME = "Please enter a valid last name.";
+            "Please enter a valid last name.";
+    public static final String ERROR_INVALID_LAST_NAME = "Please enter your last name.";
 
     public static final String EMAIL_ERROR_DETAIL_KEY = "emailErrorDetail";
     public static final String ERROR_INVALID_EMAIL = "Please enter a valid email address.";
@@ -84,7 +84,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     protected static final String ERROR_EMAIL_TAKEN =
             "This email address is already registered.";
     protected static final String ERROR_EMAIL_HAS_AGENT_ACCOUNT =
-            "This email address has registered real estate agent account.";
+            "You've already registered. Please close this box and sign in at the top right.";
 
     public static final String PASSWORD_ERROR_DETAIL_KEY = "passwordErrorDetail";;
     protected static final int PASSWORD_MINIMUM_LENGTH = 6;
@@ -92,7 +92,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     protected static final String ERROR_PASSWORD_LENGTH =
             "Password should be 6-14 characters.";
     protected static final String ERROR_INCORRECT_PASSWORD =
-            "The password you entered is incorrect for the registered email.";
+            "Email and password do not match.";
 
     @Autowired
     private IAgentAccountDao _agentAccountDao;

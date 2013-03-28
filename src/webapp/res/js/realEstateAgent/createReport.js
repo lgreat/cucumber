@@ -100,7 +100,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
     };
 
     var validateFieldResponse = function(fieldSelector, data, errorDetailKey) {
-        var errorIcon ='<span class="iconx16 i-16-alert "><!-- do not collapse --></span>';
+        var errorIcon ='<span class="vam mrs iconx16 i-16-alert "><!-- do not collapse --></span>';
         var fieldError = jQuery(fieldSelector + ' .invalid');
         var fieldValid = jQuery(fieldSelector + ' .valid');
         fieldError.hide();
