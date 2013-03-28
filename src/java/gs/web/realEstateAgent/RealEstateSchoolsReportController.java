@@ -126,8 +126,19 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
         modelMap.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
 
         modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+        if(agentAccount.getPhotoMediaUpload() != null) {
+            modelMap.put("photoMediaPath", agentAccount.getPhotoMediaUpload().getDim432x432FilePath());
+        }
+        if(agentAccount.getLogoMediaUpload() != null) {
+            modelMap.put("logoMediaPath", agentAccount.getLogoMediaUpload().getDim324x324FilePath());
+        }
 
-        String locationSearchUrl = new UrlBuilder(state, lat, lon, UrlBuilder.BY_LOCATION_SEARCH).asFullUrl(request);
+        UrlBuilder searchUrl = new UrlBuilder(state, lat, lon, UrlBuilder.BY_LOCATION_SEARCH);
+        searchUrl.addParameter("gradeLevels", "e");
+        searchUrl.addParameter("gradeLevels", "m");
+        searchUrl.addParameter("gradeLevels", "h");
+        searchUrl.addParameter("sortBy", "DISTANCE");
+        String locationSearchUrl = searchUrl.asFullUrl(request);
 
         String qrCodeImgSrc = new UrlBuilder(UrlBuilder.QR_CODE_GENERATOR).asFullUrl(request);
 
@@ -176,7 +187,7 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
 
         GsSolrQuery q = createGsSolrQuery();
 
-        q.filter(DocumentType.SCHOOL).page(1, MAX_ALLOWED_SCHOOLS);
+        q.filter(DocumentType.SCHOOL).page(0, MAX_ALLOWED_SCHOOLS);
 
         String[] gradeLevels = {"e","m","h"};
         q.filter(SchoolFields.GRADE_LEVEL, gradeLevels);

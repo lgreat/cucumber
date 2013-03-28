@@ -7,6 +7,7 @@ import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.data.state.State;
+import gs.data.util.CommunityUtil;
 import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -124,6 +125,28 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         return _realEstateAgentHelper.REGISTRATION_PAGE_VIEW;
     }
 
+    @RequestMapping(value = "create-guide.page", method = RequestMethod.POST)
+    public String completeRegistration (ModelMap modelMap,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response) {
+        Integer userId = _realEstateAgentHelper.getUserId(request);
+
+        if(userId != null) {
+            AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
+            if(agentAccount != null) {
+                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
+                    User user = _userDao.findUserFromId(userId);
+                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+
+                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                }
+                return showCreateReportForm(modelMap, request, response);
+            }
+        }
+
+        return "redirect:" + _realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request);
+    }
     @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
     public String showCreateReportForm (ModelMap modelMap,
                                         HttpServletRequest request,
@@ -138,13 +161,14 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if(userId != null) {
             AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
             if(agentAccount != null) {
-                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
-                    User user = _userDao.findUserFromId(userId);
-                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
-
-                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+                if(agentAccount.getPhotoMediaUpload() != null) {
+                    modelMap.put("photoMediaPath", agentAccount.getPhotoMediaUpload().getDim432x432FilePath());
                 }
+                if(agentAccount.getLogoMediaUpload() != null) {
+                    modelMap.put("logoMediaPath", agentAccount.getLogoMediaUpload().getDim324x324FilePath());
+                }
+
                 return _realEstateAgentHelper.getViewForUser(modelMap, request, userId, _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW);
             }
         }
@@ -428,6 +452,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         try {
             if (StringUtils.isNotEmpty(password) && !user.isEmailValidated()) {
                 user.setPlaintextPassword(password);
+                user.setEmailProvisional(password);
             }
         }
         catch (Exception ex) {

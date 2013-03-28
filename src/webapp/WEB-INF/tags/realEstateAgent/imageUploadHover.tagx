@@ -17,7 +17,7 @@
         <div class="bd" style="height: 330px;">
             <div class="clearfix">
                 <div class="tac">
-                    <h2 class="">Upload images <a href="#" class="small mls">See an example</a></h2>
+                    <h2 class="">Upload images <a href="/res/pdf/realEstate/GreatSchoolsRadar_example.pdf" target="_blank" class="small mls">See an example</a></h2>
                 </div>
             </div>
             <div class="ptl">
@@ -25,11 +25,21 @@
                     <div class="fl tac standard_2-3">
                             <div class="inner jq-photoContainer">
                                 <div class="mbs" id="js-photoPreview">
-                                    <img id="js-photo-preview"
-                                         class="js-photo-pending"
-                                         src="/res/img/realEstate/upload_placeholder.png"
-                                         width="100" height="100"
-                                         alt="photo"/>
+                                    <c:choose>
+                                        <c:when test="${photoMediaPath != null}">
+                                            <img id="js-photo-preview"
+                                                 src="${basePhotoPath}${photoMediaPath}"
+                                                 width="100" height="100"
+                                                 alt="photo"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img id="js-photo-preview"
+                                                 class="js-photo-pending"
+                                                 src="/res/img/realEstate/upload_placeholder.png"
+                                                 width="100" height="100"
+                                                 alt="photo"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <button class="but but-rg but-2 mhm jq-photoButtons jq-photoUploadButton"
                                         name="photoUpload" type="button">Upload photo
@@ -44,11 +54,21 @@
                     <div class="fr tac standard_2-3">
                         <div class="inner jq-logoContainer">
                             <div class="mbs" id="js-logoPreview">
-                                <img id="js-logo-preview"
-                                     class="js-logo-pending"
-                                     src="/res/img/realEstate/upload_placeholder.png"
-                                     width="100" height="100"
-                                     alt="photo"/>
+                                <c:choose>
+                                    <c:when test="${logoMediaPath != null}">
+                                        <img id="js-logo-preview"
+                                             src="${basePhotoPath}${logoMediaPath}"
+                                             width="100" height="100"
+                                             alt="photo"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img id="js-logo-preview"
+                                             class="js-logo-pending"
+                                             src="/res/img/realEstate/upload_placeholder.png"
+                                             width="100" height="100"
+                                             alt="photo"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <button class="but but-rg but-2 mhm jq-logoButtons jq-logoUploadButton" name="logoUpload" type="button">Upload logo</button>
                             <!--<button class="button-1-inactive jq-logoButtons jq-logoUploadFakeButton"-->
@@ -63,11 +83,13 @@
         </div>
         <div class="ft joinSubmit">
             <div class="tac">
-                <a href="javascript:void(0)">
-                    <button class="but but-lg but-1 jq-completeRegistration" name="completeRegistration">
-                        Complete
-                    </button>
-                </a>
+                <form action="/real-estate/create-guide.page" method="POST" id="agentRegistration">
+                    <a href="javascript:void(0)">
+                        <button class="but but-lg but-3 jq-completeRegistration" name="completeRegistration">
+                            Complete
+                        </button>
+                    </a>
+                </form>                 
             </div>
         </div>
     </div>

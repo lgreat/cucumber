@@ -155,9 +155,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         });
 
         hover.on('click', '.jq-completeRegistration', function() {
-            var page = '/real-estate/create-guide.page';
-
-            window.location.href = window.location.protocol + '//' + window.location.host + page;
+            jQuery('#agentRegistration').submit();
         })
     };
 
