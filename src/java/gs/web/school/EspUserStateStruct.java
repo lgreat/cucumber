@@ -110,6 +110,7 @@ public class EspUserStateStruct {
     public Map getUserState() {
         Map data = new HashMap();
 
+        data.put("isNewUser", isNewUser());
         data.put("isEmailValid", isEmailValid());
         data.put("isUserApprovedESPMember", isUserApprovedESPMember());
         data.put("isUserAwaitingESPMembership", isUserAwaitingESPMembership());
