@@ -67,10 +67,24 @@
                         </div>
                     </div>
                     <div class="mhl fl jq-stateFields">
-                        <gsweb:stateSelector useNoState="${empty state}" noStateLabel="State"
-                                             usingLongNames="false"
-                                             styleClass="stateSelect"
-                                             styleId="jq-state" name="state" state="${state}"/>
+                        <!--<gsweb:stateSelector useNoState="${empty state}" noStateLabel="State"-->
+                                             <!--usingLongNames="false"-->
+                                             <!--styleClass="stateSelect"-->
+                                             <!--styleId="" name="state" state="${state}"/>-->
+
+                        <div id="jq-state" class="pr js-realEstateState">
+                            <div class="js-selectBox selectBox2 selectList clearfix">
+                                <div class="js-selectBoxText mrs fl">${not empty state ? state : "State"}</div>
+                                <div class="fr"><span
+                                        class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span>
+                                </div>
+                            </div>
+                            <div class="js-selectDropDown selectDropDown2 pa phm ptm dn">
+                                <c:forEach var="stateObj" items="${stateList}">
+                                    <div class="js-ddValues">${stateObj.abbreviation}</div>
+                                </c:forEach>
+                            </div>
+                        </div>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>

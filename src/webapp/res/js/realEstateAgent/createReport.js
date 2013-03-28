@@ -26,6 +26,8 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
                     propertyDetailsForm.find('input#jq-zipcode').val(geocodeResult['zipcode']);
                     propertyDetailsForm.find('input#jq-streetNumber').val(geocodeResult['streetNumber']);
                     propertyDetailsForm.find('input#jq-streetName').val(geocodeResult['streetName']);
+                    propertyDetailsForm.find('input#jq-bedDownload').val(jQuery.trim(propertyDetailsForm.find("#js-bed .js-selectBoxText").text()));
+                    propertyDetailsForm.find('input#jq-bathDownload').val(jQuery.trim(propertyDetailsForm.find("#js-bath .js-selectBoxText").text()));
 
                     //TODO: comment skip user validation
                     var skipValidation = function() {
@@ -220,4 +222,6 @@ jQuery(function() {
         jQuery('#jq-propertyDetailsForm').attr('action', '/real-estate/guides/neighborhood-guide.page');
         jQuery('#jq-propertyDetailsForm').find('input#jq-pageView').val(hasPageView());
     }
+    GS.realEstateAgent.GS_initializeCustomSelect("#js-bed");
+    GS.realEstateAgent.GS_initializeCustomSelect("#js-bath");
 });
