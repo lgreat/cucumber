@@ -71,7 +71,7 @@
         <div class="ft joinSubmit">
             <div class="tac">
                 <a href="javascript:void(0)">
-                    <button class="but but-lg but-1 jq-personalInfoSubmit" name="personalInfoSubmit">
+                    <button class="but but-lg but-3 jq-personalInfoSubmit" name="personalInfoSubmit">
                         Next step
                     </button>
                 </a>

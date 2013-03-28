@@ -94,18 +94,18 @@
             </style>
     </head>
     <body>
-    <div class="imageBgScale moduleHeight-560">
+    <div class="imageBgScale" style="height: 400px;">
         <div class="img-container">
             <img class="scaling" src="/res/img/realEstate/hero_realtors_1580x650.png"
                  alt="Real estate background image"/>
         </div>
         <div class="content-centered moduleTop-150">
-            <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:56px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">GreatSchools Radar beta</p>
-            <p style="font-family: 'SourceSansPro-It' arial; font-size:20px; font-style: italic; color: #FFCE7A; padding-bottom: 60px;text-shadow: 0 0 28px rgba(0,0,0, 0.8); text-shadow: 0 -1px 0 rgba(0,0,0,0.4)">Customizable neighborhood school guides for real estate pros</p>
+            <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:56px; color: #FFFFFF; padding: 40px 0 20px 0; text-shadow: 0 0 24px rgba(0,0,0,1)">GreatSchools Radar beta</p>
+            <p style="font-family: 'SourceSansPro-It' arial; font-size:20px; font-style: italic; color: #FFCE7A; padding-bottom: 60px; text-shadow: 0 0 18px rgba(0,0,0, 01);">Customizable neighborhood school guides for real estate pros</p>
         </div>
     </div>
     <div class="container_24 clearfix pr">
-        <div class="pa" style="width:265px;top: -37px; left:352px;">
+        <div class="pa" style="width:283px;top: -37px; left:352px;">
             <div class="tac outerBox">
                 <a href="javascript:void(0)">
                     <button class="but but-xl but-3" name="registerBtn" id="jq-realEstAgentRegisterBtn">
@@ -114,17 +114,20 @@
                 </a>
             </div>
         </div>
+        <div class="pa" style="right: 108px; top: 20px;">
+            <img src="/res/img/realEstate/arrow_callout.png" alt="Free during beta!"/>
+        </div>
     </div>
-    <div class="clearfix" style="padding: 80px 0;">
+    <div class="clearfix" style="padding: 80px 0 34px 0;">
         <div class="container_24">
             <div class="grid_8">
                 <img src="/res/img/realEstate/family_300x180.png" alt="Family"/>
-                <h3 class="mtl">Dazzle your clients with neighborhood school guides</h3>
+                <h3 class="mtl ptm">Dazzle your clients with neighborhood school guides</h3>
                 <p class="medium mrm">Your clients want to know about the quality of schools near a home they are considering, but as a real estate agent, the law limits what you can share about neighborhoods. Impress your clients with our school guides and close the deal.</p>
             </div>
             <div class="grid_8">
                 <img src="/res/img/realEstate/imac_300x180.png" alt="Imac"/>
-                <h3 class="mtl">Trusted school information from the<br/>leading independent source</h3>
+                <h3 class="mtl ptm">Trusted school information from the<br/>leading independent source</h3>
                 <p class="medium mrm">GreatSchools is a national non-profit that offers the most comprehensive set of quality school data available. Leading real estate websites such as Zillow, Trulia and Realtor.com trust us to power their school data.</p>
             </div>
             <div class="grid_8">
@@ -132,15 +135,15 @@
                 <a href="/res/pdf/realEstate/GreatSchoolsRadar_example.pdf" target="_blank" class="pa" style="width:30px; height:30px; top:0; right:10px;"><!--Do not collapse--></a>
                 <img src="/res/img/realEstate/pdf_300x180.png" alt="PDF"/>
                 </div>
-                <h3 class="mtl">Customized for your listings, with<br/>unlimited access</h3>
+                <h3 class="mtl ptm">Customized for your listings, with<br/>unlimited access</h3>
                 <p class="medium mrm">Create professional full-color neighborhood school guides for all of your listings – as many as you need. In just a few easy steps you’ll get a printable PDF instantly, tailored to your clients and branded with your contact information.</p>
             </div>
         </div>
     </div>
-    <div class="clearfix" style="border-top: 1px solid #2B2B2B; background-color: #F1F1F1; padding: 80px 0;">
+    <div class="clearfix" style="border-top: 1px solid #DDDDDD; background-color: #F1F1F1; padding: 60px 0;">
         <div class="container_24">
-            <h4>About GreatSchools</h4>
-            <p>Founded in 1998, GreatSchools is the leading provider of school information for communities across the U.S. Comprehensive school data is updated regularly from federal, state and local sources. We boast over 200,000 PreK-12 school profiles and more than one million insightful school reviews and ratings, provided by parents, teachers and students. In the past year half of U.S. families with school-aged children visited GreatSchools.org. </p>
+            <h2>About GreatSchools</h2>
+            <p class="bottom">Founded in 1998, GreatSchools is the leading provider of school information for communities across the U.S. Comprehensive school data is updated regularly from federal, state and local sources. We boast over 200,000 PreK-12 school profiles and more than one million insightful school reviews and ratings, provided by parents, teachers and students. In the past year half of U.S. families with school-aged children visited GreatSchools.org. </p>
         </div>
     </div>
     <div id="js-registrationHover" class="dn">
