@@ -27,6 +27,71 @@
         <gsml:javascript src="/res/js/mediaUploader/MediaUploader.js" />
         <gsml:javascript src="/res/js/realEstateAgent/RealEstateAgentMediaUploader.js" />
         <gsml:javascript src="/res/js/realEstateAgent/registration.js"/>
+        <jsp:scriptlet>
+            java.util.List stateList = gs.data.state.StateManager.getList();
+            request.setAttribute("stateList", stateList);
+        </jsp:scriptlet>
+        <style type="text/css">
+                .selectBox {
+                    /*border-left: 1px solid #2B2B2B;*/
+                    /*border-right: 1px solid #2B2B2B;*/
+                    height: 37px;
+                    padding: 16px 0 0 7px;
+                    width: 40px;
+                    text-align: center;
+                }
+                /*.ui-autocomplete{*/
+                    /*margin-top: 15px;*/
+                    /*width: 400px;*/
+                    /*max-height: 200px;*/
+                    /*background-color: #dddddd;*/
+                    /*overflow-y: scroll;*/
+                /*}*/
+                /*.ui-autocomplete  li{*/
+                    /*list-style-type: none;*/
+                /*}*/
+                /*.ui-autocomplete  li a{*/
+                    /*font:normal 14px/20px Arial, Helvetica, sans-serif;*/
+                    /*color: #555;*/
+                    /*text-decoration: none;*/
+                /*}*/
+                /*.ui-autocomplete  li:hover{*/
+                    /*background-color: #AAAAAA;*/
+                /*}*/
+
+                .ui-helper-hidden-accessible{
+                    display:none;
+                }
+                .selectDropDown {
+                    width: 50px;
+                    height: 100px;
+                    background-color: #dddddd;
+                    overflow-y: scroll;
+                }
+                .js-ddValues{
+                    padding: 5px;
+                    font-size:14px;
+                    font-weight: bold;
+                }
+                .ddValuesHighlight {
+                    background-color: #999999;
+                }
+
+                .selectBox2 {
+                    /*border: 1px solid #2B2B2B;*/
+                    /*height: 37px;*/
+                    /*width: 300px;*/
+                    /*padding-top: 10px;*/
+                }
+
+                .selectDropDown2 {
+                    margin-top: 5px;;
+                    width: 290px;
+                    border: 1px solid #666666;
+                    /*height: 100px;*/
+                    background-color: #dddddd;
+                }
+            </style>
     </head>
     <body>
     <div class="imageBgScale moduleHeight-560">

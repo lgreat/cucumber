@@ -53,7 +53,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                     if(response.success || data.skipUserCheck) {
                         form.addClass('dn');
                         hover.find('.jq-businessInfoForm').removeClass('dn');
-
+                        GS.realEstateAgent.GS_initializeCustomSelect(".jq-businessInfoForm:visible .js-realEstateState");
                         if(s) {
                             pageTracking.clear();
                             pageTracking.pageName = "Radar Registration Company Info";
@@ -100,7 +100,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
             form.find('input').each(function() {
                 data[this.name] = jQuery.trim(this.value);
             });
-            data['state'] = form.find('select[name=state]').val();
+            data['state'] = jQuery.trim(form.find('.js-realEstateState .js-selectBoxText').text());
 
             if(!data['cellNumber'].match(/^\d{10}$/)) {
                 data['cellNumber'] = '';
@@ -129,8 +129,9 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                                 }
                             });
                             if(companyInfoFields.state !== null) {
-                                $('.jq-businessInfoForm:first select option:selected').removeAttr('selected');
-                                $('.jq-businessInfoForm:first select option[value="'+ companyInfoFields.state + '"]').attr('selected','selected')
+//                                $('.jq-businessInfoForm:first select option:selected').removeAttr('selected');
+//                                $('.jq-businessInfoForm:first select option[value="'+ companyInfoFields.state + '"]').attr('selected','selected')
+                                $('.jq-businessInfoForm:first .js-realEstateState .js-selectBoxText').text(companyInfoFields.state);
                             }
 
                         }
@@ -243,7 +244,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 
     this.validateState = function() {
         var data = {};
-        var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state').val());
+        var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state').text());
         if(state === '') {
             data.hasError = true;
             data.stateErrorDetail = 'Please select the state.';
@@ -309,6 +310,7 @@ jQuery(function(){
         form.removeClass('dn');
 
         GSType.hover.realEstateAgentRegistrationHover.show();
+        GS.realEstateAgent.GS_initializeCustomSelect(".jq-businessInfoForm:visible .js-realEstateState");
         return false;
     });
 
@@ -336,3 +338,64 @@ jQuery(function(){
 
 });
 
+
+/**********************************************************************************************
+ *
+ * @param layerContainer  --- this is the surrounding layer that contains
+ .js-selectBox - this is the clickable element to open the drop down
+ .js-selectDropDown - this is the dropdown select list container
+ .js-ddValues - each element in the select list
+ .js-selectBoxText - the text that gets set.  This is the part that should be scrapped for option choice
+ * @param callbackFunction - optional function callback when selection is made.
+ * @constructor
+ */
+GS.realEstateAgent.GS_initializeCustomSelect = function(layerContainer, callbackFunction){
+    var selectContainer = $(layerContainer); //notify
+
+    console.log(selectContainer);
+    var selectBox = selectContainer.find(".js-selectBox");
+    var selectDropDownBox = selectContainer.find(".js-selectDropDown");
+    console.log(selectDropDownBox);
+    var selectDropDownItem = selectContainer.find(".js-ddValues");
+    var selectBoxText = selectContainer.find(".js-selectBoxText");
+
+    selectBox.click(showSelect);
+
+
+    selectDropDownBox.on('click', function(event) {
+        console.log("alert");
+
+        // Handle the click on the notify div so the document click doesn't close it
+        event.stopPropagation();
+    });
+
+    function showSelect(event) {
+        $(this).unbind('click', showSelect);
+        selectDropDownBox.show();
+        $(document).click(hideSelect);
+        selectDropDownItem.click(showW);
+        // So the document doesn't immediately handle this same click event
+        event.stopPropagation();
+    };
+
+    function hideSelect(event) {
+        $(this).unbind('click', hideSelect);
+        selectDropDownItem.unbind('click', showW);
+        selectDropDownBox.hide();
+        selectBox.click(showSelect);
+    }
+
+    function showW(event) {
+        hideSelect(event);
+        selectBoxText.html($(this).html());
+        if(callbackFunction) callbackFunction($(this).html());
+    }
+
+    selectDropDownItem.mouseover(function () {
+        $(this).addClass("ddValuesHighlight");
+    });
+
+    selectDropDownItem.mouseout(function () {
+        $(this).removeClass("ddValuesHighlight");
+    });
+}
