@@ -7,323 +7,7 @@ if (GS.module === undefined) {
 if (GS.form === undefined) {
     GS.form = {};
 }
-
-GS.module.SchoolSelect = function() {
-    var self = this; //needed inside of jquery iterator
-    this._levelCode = undefined;
-    this._role = undefined;
-
-    var becomeInvalidCallback = null;
-    var becomeValidCallback = null;
-
-    this.Field = function(id) {
-        this.$element = jQuery('#' + id);
-        var error = null;
-        this.requiredError = "This field is required.";
-        this.validate = function() {
-            //TODO: override this instead of writing here
-            if (this.$element.val() !== '' && this.$element.val() !== '- Choose city -' &&
-                    this.$element.val() !== 'Choose a school' && this.$element.val() !== 'My city is not listed') {
-                error = null;
-            } else {
-                error = this.requiredError;
-            }
-        };
-        this.isValid = function() {
-            return error === null;
-        };
-    };
-
-    this.stateSelect = new this.Field('stateSelect');
-    this.stateSelect.requiredError = "Please choose a state";
-
-    this.citySelect = new this.Field('citySelect');
-    this.citySelect.requiredError = "Please choose a city";
-    this.citySelect.reset = function() {
-        this.$element.val('- Choose city -');
-    };
-
-    this.schoolSelect = new this.Field('schoolSelect');
-    this.schoolSelect.requiredError = "Please choose a school";
-    this.schoolSelect.reset = function() {
-        this.$element.val('Choose a school');
-    };
-
-    this.roleSelect = new this.Field('userRoleSelect');
-    this.roleSelect.requiredError = "Please choose a role";
-
-
-    var valid = false;
-
-    this.validateAllFields = function() {
-        this.stateSelect.validate();
-        this.citySelect.validate();
-        this.schoolSelect.validate();
-        this.roleSelect.validate();
-    };
-
-    this.isValid = function() {
-        var valid = false;
-        if (this.stateSelect.isValid() && this.citySelect.isValid() &&
-                this.schoolSelect.isValid() && this.roleSelect.isValid()) {
-            valid = true;
-        }
-        return valid;
-    };
-
-    this.checkIfValid = function() {
-        var newValidationState = this.isValid();
-        if (valid !== newValidationState) {
-            valid = newValidationState;
-            if (newValidationState) {
-                if (becomeValidCallback !== undefined) {
-                    becomeValidCallback();
-                }
-            } else {
-                if (becomeInvalidCallback !== undefined) {
-                    becomeInvalidCallback();
-                }
-            }
-        }
-    }.gs_bind(this);
-
-    this.registerValidCallback = function(callback) {
-        becomeValidCallback = callback;
-    };
-    this.registerInvalidCallback = function(callback) {
-        becomeInvalidCallback = callback;
-    };
-
-    this.onStateChange = function() {
-        var state = this.stateSelect.$element.val();
-        this.citySelect.$element.prop("disabled", true);
-        this.citySelect.reset();
-        this.schoolSelect.$element.prop("disabled", true);
-        this.schoolSelect.reset();
-        this.getCities(state);
-        this.validateAllFields();
-        this.checkIfValid();
-    }.gs_bind(this);
-
-    this.getCities = function(state) {
-        var url = "/community/registrationAjax.page";
-
-        this.citySelect.$element.html("<option>Loading...</option>");
-
-        jQuery.getJSON(url, {state:state, format:'json', type:'city'}, this.updateCitySelect);
-    }.gs_bind(this);
-
-    this.updateCitySelect = function(data) {
-        if (data.cities) {
-            this.citySelect.$element.empty();
-            for (var x = 0; x < data.cities.length; x++) {
-                var city = data.cities[x];
-                if (city.name) {
-                    this.citySelect.$element.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
-                }
-            }
-        }
-        this.citySelect.$element.prop("disabled", false);
-    }.gs_bind(this);
-
-    this.onCityChange = function() {
-        var state = jQuery('#stateSelect').val();
-        var city = jQuery('#citySelect').val();
-        this.schoolSelect.$element.prop("disabled", true);
-        this.getSchools(state, city);
-        this.validateAllFields();
-        this.checkIfValid();
-    }.gs_bind(this);
-
-    this.getSchools = function(state, city) {
-        var params = {state : state, city : city,onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'};
-        jQuery.get('/test/schoolsInCity.page', params, this.updateSchoolSelect);
-    }.gs_bind(this);
-
-    this.updateSchoolSelect = function(data) {
-        self.schoolSelect.$element.html('');
-        jQuery(data).find('option').each(function () {
-            self.schoolSelect.$element.append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
-        });
-        self.schoolSelect.$element.prop("disabled", false);
-    };
-
-    this.onSchoolChange = function() {
-        var schoolId = this.schoolSelect.$element.val();
-        var state = this.stateSelect.$element.val();
-
-        this.getSchool(state, schoolId);
-        this.validateAllFields();
-        this.checkIfValid();
-    }.gs_bind(this);
-
-    this.getSchool = function(state, school) {
-        if (state != '' && school !== '') {
-            var url = '/school/schoolForParentReview.page';
-            var params = {schoolId : school, state : this.stateSelect.$element.val()};
-            jQuery.getJSON(url, params, this.updatePageWithSchool);
-        }
-    }.gs_bind(this);
-
-    this.onRoleChange = function() {
-        this._role = this.roleSelect.$element.val();
-        jQuery('#posterAsString').val(this._role); //create another hook up for so form can register a callback
-        this.updateAdditionalStarRatings(this._role, this._levelCode);
-        this.validateAllFields();
-        this.checkIfValid();
-    }.gs_bind(this);
-
-    this.updatePageWithSchool = function(data) {
-
-        var id = data.id;
-        var state = data.state;
-        var name = data.name;
-        var street1 = data.street1;
-        var street2 = data.street2;
-        var cityStateZip = data.cityStateZip;
-        var county = data.county;
-        var greatSchoolsRating = data.greatSchoolsRating;
-        var communityRating = data.communityRating;
-        var numberOfCommunityRatings = data.numberOfCommunityRatings;
-        var espLoginUrl = data.espLoginUrl;
-
-        var schoolNameElement = jQuery('#schoolNameHeader');
-        var street1Element = jQuery('#schoolAddressLine1');
-        var street2Element = jQuery('#schoolAddressLine2');
-        var cityStateZipElement = jQuery('#schoolAddressLine3');
-        var countyElement = jQuery('#schoolAddressLine4');
-
-        //TODO: move this code out to make this JS file more reusable
-        //write the id and state into hidden fields in form
-        jQuery('#schoolId').val(id);
-        jQuery('#schoolState').val(state);
-        jQuery('#hdnSchoolName').val(name);
-
-        schoolNameElement.html(name);
-        street1Element.html(street1);
-        street2Element.html(street2);
-        cityStateZipElement.html(cityStateZip);
-        if (county !== undefined && county !== '') {
-            countyElement.html(county + ' County');
-        } else {
-            countyElement.html("");
-        }
-
-        if (greatSchoolsRating >= 1 && greatSchoolsRating <= 10) {
-            jQuery('#gs-rating-badge').attr("class", "img sprite badge_sm_" + greatSchoolsRating);
-        } else {
-            jQuery('#gs-rating-badge').attr("class", "img sprite badge_sm_na");
-        }
-
-        if (communityRating >= 0 && communityRating <= 5) {
-            jQuery('#community-rating-badge').attr("class", "img sprite stars_sm_" + communityRating);
-        } else {
-            jQuery('#number-of-rating-badge').html("&nbsp;");
-        }
-
-        if (numberOfCommunityRatings !== undefined && numberOfCommunityRatings > 0) {
-            jQuery('#number-of-ratings').html("Based on " + numberOfCommunityRatings + " ratings");
-        } else {
-            jQuery('#number-of-ratings').html("Be the first to rate!");
-        }
-
-        if (espLoginUrl != null && espLoginUrl > '') {
-            jQuery('#esp-link').attr('href', espLoginUrl);
-        } else {
-            jQuery('#esp-link').attr('href', '/cgi-bin/pq_start.cgi/' + state + '/' + id);
-        }
-
-        this._levelCode = data.levelCode;
-        this.updateAdditionalStarRatings(this._role, this._levelCode);
-    }.gs_bind(this);
-
-    this.updateAdditionalStarRatings = function(role, levelCode) {
-        if (role === undefined || role === "" || levelCode === undefined || levelCode === "") {
-            return;  //EARLY EXIT
-        }
-
-        clearRatings('principalAsString');
-        clearRatings('teacherAsString');
-        clearRatings('parentAsString');
-        clearRatings('pFacilitiesAsString');
-
-        jQuery('#principalsLink').hide();
-
-        jQuery('#addParentReviewForm [name="userRoleAsString"]').val(jQuery('#userRoleSelect').val());
-
-        switch (true) {
-            case (role === 'parent' && levelCode === 'p'):
-                jQuery('#additionalStarRatingsTitle').show();
-                jQuery('#additionalStarRatingTitle').hide();
-                jQuery('#teacherStars').show();
-                jQuery('#principalStars').hide();
-                jQuery('#parentStars').show();
-                jQuery('#facilitiesStars').show();
-                jQuery('#additionalStarRatingsExplained').show();
-                break;
-            case (role === 'parent'):
-                jQuery('#additionalStarRatingsTitle').show();
-                jQuery('#additionalStarRatingTitle').hide();
-                jQuery('#teacherStars').show();
-                jQuery('#principalStars').show();
-                jQuery('#parentStars').show();
-                jQuery('#facilitiesStars').hide();
-                jQuery('#additionalStarRatingsExplained').show();
-                break;
-            case (role === 'student' && levelCode.indexOf('h') !== -1):
-                jQuery('#additionalStarRatingsTitle').hide();
-                jQuery('#additionalStarRatingTitle').show();
-                jQuery('#teacherStars').show();
-                jQuery('#principalStars').hide();
-                jQuery('#parentStars').hide();
-                jQuery('#facilitiesStars').hide();
-                jQuery('#additionalStarRatingsExplained').show();
-                break;
-            case (role === 'student'):
-                jQuery('#additionalStarRatingsTitle').hide();
-                jQuery('#additionalStarRatingTitle').hide();
-                jQuery('#teacherStars').hide();
-                jQuery('#principalStars').hide();
-                jQuery('#parentStars').hide();
-                jQuery('#facilitiesStars').hide();
-                jQuery('#additionalStarRatingsExplained').hide();
-                break;
-            case (role === 'teacher'):
-                jQuery('#additionalStarRatingsTitle').hide();
-                jQuery('#additionalStarRatingTitle').hide();
-                jQuery('#teacherStars').hide();
-                jQuery('#principalStars').hide();
-                jQuery('#parentStars').hide();
-                jQuery('#facilitiesStars').hide();
-                jQuery('#additionalStarRatingsExplained').hide();
-                break;
-            case (role === 'other'):
-                jQuery('#additionalStarRatingsTitle').hide();
-                jQuery('#additionalStarRatingTitle').hide();
-                jQuery('#teacherStars').hide();
-                jQuery('#principalStars').hide();
-                jQuery('#parentStars').hide();
-                jQuery('#facilitiesStars').hide();
-                jQuery('#additionalStarRatingsExplained').hide();
-                break;
-            default:
-                alert("A valid user role was not set.");
-        }
-    };
-
-    this.attachEventHandlers = function() {
-        this.stateSelect.$element.change(this.onStateChange);
-        this.citySelect.$element.change(this.onCityChange);
-        this.schoolSelect.$element.change(this.onSchoolChange);
-        this.roleSelect.$element.change(this.onRoleChange);
-    }.gs_bind(this);
-
-    this.attachEventHandlers();
-
-    this.validateAllFields();
-
-};
-
+GS.form.selectionMadeAutoComplete = false;
 
 GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
 /*GS.parentReviewLandingPage.attachAutocomplete = function () {
@@ -481,6 +165,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             if(ui.item.levelCode == "h"){
                 $("#js-showStudentForHighSchoolOnly").show();
             }
+            GS.form.selectionMadeAutoComplete = true;
             return false;
         }
     });
@@ -502,3 +187,276 @@ $(document).ready(function() {
 //    GS.parentReviewLandingPage.attachAutocomplete();
 
 });
+
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: mitch
+ * Date: 3/6/13
+ * Time: 10:07 AM
+ * To change this template use File | Settings | File Templates.
+ */
+GS = GS || {};
+
+$(document).ready(function() {
+    $('#js-reviewContent').characterCounter({charLimit:1200});
+    $('#js_submitSelectSchool').on("click",function() {
+        $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
+            $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
+                $('.headerBar').show().animate({
+                    top: '+=200'
+                }, 2000);
+            });
+        });
+
+    });
+    $('#js-submitParentReview').on("click",function() {
+        $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
+            $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+        });
+
+    });
+
+    GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
+
+    GS_spriteCheckBoxes("js-reviewLandingCheckboxTerms", "parentReviewTerms", 1, 0);
+    GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
+
+    GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
+    GS_initializeCustomSelect("js-reviewLandingState");
+
+    starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
+    starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
+    starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
+    starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
+    starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
+});
+
+/********************************************************************************************************
+ *
+ *  currently created to work with the review page form!!!!
+ *
+ * @param containerLayer            the id of the layer that contains the check box.
+ * @param fieldToSet                hidden form fields id will be submitted
+ * @param checkedValue              value to set hidden field to when checked
+ * @param uncheckedValue            value to set hidden field to when unchecked
+ */
+function GS_spriteCheckBoxes(containerLayer, fieldToSet, checkedValue, uncheckedValue){
+    var container = $("#"+containerLayer);
+    var checkOn  = container.find(".js-checkBoxSpriteOn");
+    var checkOff = container.find(".js-checkBoxSpriteOff");
+    var checkBoxField =  $("#"+fieldToSet);
+    checkOff.on("click", function(){
+        checkOff.hide();
+        checkOn.show();
+        checkBoxField.val(checkedValue);
+    });
+    checkOn.on("click", function(){
+        checkOn.hide();
+        checkOff.show();
+        checkBoxField.val(uncheckedValue);
+    });
+}
+
+/********************************************************************************************************
+ *
+ *  currently created to work with the review page form!!!!
+ *
+ * @param containerS            the id of the layer that contains the star rating.
+ * @param iconW                 icon width needs to have a css component that it is compatible with.
+ * @param starsT                total stars currently set to 5 -- also needs to be changed as default value in the jspx or tagx
+ * @param overallSR             sets the hidden value of a form field
+ * @param divWriteTextValues    show the text value in this div -- the display values are defined in arrStarValuesText
+ */
+
+function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextValues){
+    /* star rating */
+    var iconWidth = iconW;
+    var totalStars = starsT;
+    var iconStr =  "i-"+iconWidth+"-star-";
+    var removeClassStr = "";
+    var starsOn = $('#'+containerS+' .starsOn');
+    var starsOff = $('#'+containerS+' .starsOff');
+    var overallStarRating = $("#"+overallSR);
+    var arrStarValuesText = ['Click on stars to rate','Unsatisfactory', 'Below average','Average','Above average','Excellent'];
+    var arrStarValueDefault = 'Click on stars to rate';
+
+    for(var i=1; i<=totalStars; i++){
+        removeClassStr += iconStr+i;
+        if(i != totalStars){
+            removeClassStr += " ";
+        }
+    }
+    $('#'+containerS).mousemove (function(e){
+        var offset = $(this).offset();
+        var x = e.pageX - offset.left;
+        var currentStar = Math.floor(x/iconWidth) +1;
+        if(currentStar > totalStars) currentStar = totalStars;
+        starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
+        starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
+        if(divWriteTextValues != ""){
+            $("#"+divWriteTextValues).html(arrStarValuesText[currentStar]);
+        }
+    });
+    $('#'+containerS).click (function(e){
+        var offset = $(this).offset();
+        var x = e.pageX - offset.left;
+        var currentStar = Math.floor(x/iconWidth) +1;
+        if(currentStar > totalStars) currentStar = totalStars;
+        overallStarRating.val(currentStar);
+        overallStarRating.blur();
+        starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
+        starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
+
+    });
+    $('#'+containerS).mouseleave (function(e){
+        var currentRating = overallStarRating.val();
+        starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
+        starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
+        if(divWriteTextValues != ""){
+            $("#"+divWriteTextValues).html(arrStarValuesText[currentRating]);
+        }
+    });
+}
+
+
+/**********************************************************************************************
+ *
+ * @param layerContainer  --- this is the surrounding layer that contains
+ .js-selectBox - this is the clickable element to open the drop down
+ .js-selectDropDown - this is the dropdown select list container
+ .js-ddValues - each element in the select list
+ .js-selectBoxText - the text that gets set.  This is the part that should be scrapped for option choice
+ * @param callbackFunction - optional function callback when selection is made.
+ * @constructor
+ */
+function GS_initializeCustomSelect(layerContainer, callbackFunction){
+    var selectContainer = $("#"+layerContainer); //notify
+    var selectBox = selectContainer.find(".js-selectBox");
+    var selectDropDownBox = selectContainer.find(".js-selectDropDown");
+    var selectDropDownItem = selectContainer.find(".js-ddValues");
+    var selectBoxText = selectContainer.find(".js-selectBoxText");
+
+    selectBox.on("click", showSelect);
+
+    selectDropDownBox.on("click", function(event) {
+        // Handle the click on the notify div so the document click doesn't close it
+        event.stopPropagation();
+    });
+
+    function showSelect(event) {
+        $(this).off('click');
+        selectDropDownBox.show();
+        $(document).on("click", hideSelect);
+        selectDropDownItem.on("click", showW);
+        // So the document doesn't immediately handle this same click event
+        event.stopPropagation();
+    };
+
+    function hideSelect(event) {
+        $(this).off('click');
+        selectDropDownItem.off('click');
+        selectDropDownBox.hide();
+        selectBox.on("click", showSelect);
+    }
+
+    function showW(event) {
+        hideSelect(event);
+        selectBoxText.html($(this).html());
+        if(callbackFunction) callbackFunction($(this).html());
+    }
+
+    selectDropDownItem.mouseover(function () {
+        $(this).addClass("ddValuesHighlight");
+    });
+
+    selectDropDownItem.mouseout(function () {
+        $(this).removeClass("ddValuesHighlight");
+    });
+}
+
+/*
+ Callback from Custom Select - occurs when choice is made on the Parent / Teacher / Student / Other drop down
+ */
+
+function GS_selectCallbackReviewsIAm(selectValue){
+    hideAllLayers();
+    if(selectValue == "Parent"){
+        $('#js-reviewsLandingStarBox-Parent').show();
+    }
+    if(selectValue == "Student"){
+        $('#js-reviewsLandingStarBox-Student').show();
+    }
+    if(selectValue == "Teacher/Staff member"){
+        $('#js-reviewsLandingStarBox-NoAdd').show();
+    }
+    if(selectValue == "Other"){
+        $('#js-reviewsLandingStarBox-NoAdd').show();
+    }
+    function hideAllLayers(){
+        $('#js-reviewsLandingStarBox-Parent').hide();
+        $('#js-reviewsLandingStarBox-Start').hide();
+        $('#js-reviewsLandingStarBox-NoAdd').hide();
+        $('#js-reviewsLandingStarBox-Student').hide();
+    }
+    $('#selectValueIAm').val(selectValue);
+}
+
+
+
+function GS_isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    return pattern.test(emailAddress);
+};
+
+/**
+ * Do not use new operator on this object until after form is rendered
+ * @constructor
+ * @param {string} id the dom id of the form but should not contain the pound sign.
+ */
+function GS_schoolReviewFormLandingPage(id) {
+    var form = jQuery('#' + id);
+
+    console.log("test");
+
+    var submitButtonClass = "js-submitParentReview";
+    var emailFormClass = "js-email";
+    var overallStarRatingsClass = "js-overallAsString";
+    var reviewFormClass = "js-reviewContent";
+    var termsOfUseClass = "js-parentReviewTerms";
+
+
+    var submitButton = form.find('.' + submitButtonClass);
+    var review = form.find('.' + reviewFormClass);
+    var overallRating = form.find('.' + overallStarRatingsClass);
+    var termsOfUse = form.find('.' + termsOfUseClass);
+    var email = form.find('.' + emailFormClass);
+
+    console.log(submitButton);
+
+    submitButton.on("click", function(event){
+
+        postReview(form);
+    });
+
+    function postReview(form){
+        var url = '/school/review/postReview.page';
+        var formData = form.serialize();
+
+        jQuery.post(url, formData, function(data) {
+
+            var successEvents = "";
+            if (data.ratingEvent !== undefined) {
+                successEvents += data.ratingEvent;
+            }
+            if (data.reviewEvent !== undefined) {
+                successEvents += data.reviewEvent;
+            }
+            if (successEvents !== "") {
+                pageTracking.clear();
+                pageTracking.successEvents = successEvents;
+                pageTracking.send();
+            }
+        }, "json");
+    }
+};

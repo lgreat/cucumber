@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     });
 
-
+    GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
 
     GS_spriteCheckBoxes("js-reviewLandingCheckboxTerms", "parentReviewTerms", 1, 0);
     GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
@@ -146,27 +146,27 @@ function GS_initializeCustomSelect(layerContainer, callbackFunction){
     var selectDropDownItem = selectContainer.find(".js-ddValues");
     var selectBoxText = selectContainer.find(".js-selectBoxText");
 
-    selectBox.click(showSelect);
+    selectBox.on("click", showSelect);
 
-    selectDropDownBox.click(function(event) {
+    selectDropDownBox.on("click", function(event) {
         // Handle the click on the notify div so the document click doesn't close it
         event.stopPropagation();
     });
 
     function showSelect(event) {
-        $(this).unbind('click', showSelect);
+        $(this).off('click');
         selectDropDownBox.show();
-        $(document).click(hideSelect);
-        selectDropDownItem.click(showW);
+        $(document).on("click", hideSelect);
+        selectDropDownItem.on("click", showW);
         // So the document doesn't immediately handle this same click event
         event.stopPropagation();
     };
 
     function hideSelect(event) {
-        $(this).unbind('click', hideSelect);
-        selectDropDownItem.unbind('click', showW);
+        $(this).off('click');
+        selectDropDownItem.off('click');
         selectDropDownBox.hide();
-        selectBox.click(showSelect);
+        selectBox.on("click", showSelect);
     }
 
     function showW(event) {
@@ -210,3 +210,62 @@ function GS_selectCallbackReviewsIAm(selectValue){
     }
     $('#selectValueIAm').val(selectValue);
 }
+
+
+
+function GS_isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    return pattern.test(emailAddress);
+};
+
+/**
+ * Do not use new operator on this object until after form is rendered
+ * @constructor
+ * @param {string} id the dom id of the form but should not contain the pound sign.
+ */
+function GS_schoolReviewFormLandingPage(id) {
+    var form = jQuery('#' + id);
+
+    console.log("test");
+
+    var submitButtonClass = "js-submitParentReview";
+    var emailFormClass = "js-email";
+    var overallStarRatingsClass = "js-overallAsString";
+    var reviewFormClass = "js-reviewContent";
+    var termsOfUseClass = "js-parentReviewTerms";
+
+
+    var submitButton = form.find('.' + submitButtonClass);
+    var review = form.find('.' + reviewFormClass);
+    var overallRating = form.find('.' + overallStarRatingsClass);
+    var termsOfUse = form.find('.' + termsOfUseClass);
+    var email = form.find('.' + emailFormClass);
+
+    console.log(submitButton);
+
+    submitButton.on("click", function(event){
+
+        postReview(form);
+    });
+
+    function postReview(form){
+        var url = '/school/review/postReview.page';
+        var formData = form.serialize();
+
+        jQuery.post(url, formData, function(data) {
+
+            var successEvents = "";
+            if (data.ratingEvent !== undefined) {
+                successEvents += data.ratingEvent;
+            }
+            if (data.reviewEvent !== undefined) {
+                successEvents += data.reviewEvent;
+            }
+            if (successEvents !== "") {
+                pageTracking.clear();
+                pageTracking.successEvents = successEvents;
+                pageTracking.send();
+            }
+        }, "json");
+    }
+};
