@@ -179,6 +179,7 @@
                 <span class="js-bannerSchoolType dn"><!-- do not collapse --></span>
                 <span class="js-bannerSchoolGrades dn"><!-- do not collapse --></span>
                 <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
+                <span class="js-bannerSchoolGradeRange dn"><!-- do not collapse --></span>
                 <!--<span class="js-bannerSchoolAddress dn">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
             </p>
         </div>
@@ -230,9 +231,7 @@
                         </div>
                         <div class="js-selectDropDown selectDropDown2 pa pam dn">
                             <div class="js-ddValues">Parent</div>
-                            <!--<c:if test="${level_code == 'h'}">-->
-                                <div class="js-ddValues">Student</div>
-                            <!--</c:if>-->
+                            <div class="js-ddValues dn" id="js-showStudentForHighSchoolOnly">Student</div>
                             <div class="js-ddValues">Teacher/Staff member</div>
                             <div class="js-ddValues">Other</div>
                         </div>
