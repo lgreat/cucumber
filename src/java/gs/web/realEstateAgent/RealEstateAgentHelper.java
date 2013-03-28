@@ -126,7 +126,7 @@ public class RealEstateAgentHelper {
 
     public String getViewForUser (ModelMap modelMap, HttpServletRequest request, Integer userId, String view) {
         AgentAccount agentAccount = getAgentAccount(request);
-        if(agentAccount != null) {
+        if(agentAccount != null && agentAccount.getState() != null) {
             if(CREATE_REPORT_PAGE_VIEW.equals(view)) {
                 modelMap.putAll(getCompanyInfoFields(agentAccount));
             }

@@ -7,6 +7,7 @@ import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.data.state.State;
+import gs.data.util.CommunityUtil;
 import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -144,7 +145,18 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
                     OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
                     ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                    // update to avoid sending exact target email and record event74 again
+                    getAgentAccountDao().updateAgentAccount(agentAccount);
                 }
+
+                modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+                if(agentAccount.getPhotoMediaUpload() != null) {
+                    modelMap.put("photoMediaPath", agentAccount.getPhotoMediaUpload().getDim432x432FilePath());
+                }
+                if(agentAccount.getLogoMediaUpload() != null) {
+                    modelMap.put("logoMediaPath", agentAccount.getLogoMediaUpload().getDim324x324FilePath());
+                }
+
                 return _realEstateAgentHelper.getViewForUser(modelMap, request, userId, _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW);
             }
         }
@@ -428,6 +440,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         try {
             if (StringUtils.isNotEmpty(password) && !user.isEmailValidated()) {
                 user.setPlaintextPassword(password);
+                user.setEmailProvisional(password);
             }
         }
         catch (Exception ex) {

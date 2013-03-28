@@ -120,7 +120,7 @@ public class PhotoProcessor {
             throw new IllegalArgumentException("School media ID cannot be less than zero");
         }
 
-        int imageCount = 1; // just uploading one image for esp upload
+        int imageCount = 1; // just uploading one image for esp/real estate agent upload
 
         _stream.reset();
 
@@ -136,8 +136,10 @@ public class PhotoProcessor {
             clientHttpRequest.setParameter("media_id", uploadId);
             clientHttpRequest.setParameter("numblobs", imageCount);
             clientHttpRequest.setParameter("user_id", user.getId());
-            clientHttpRequest.setParameter("blob" + imageCount, _fileItemStream.getName(), _stream);
         }
+
+        clientHttpRequest.setParameter("blob" + imageCount, _fileItemStream.getName(), _stream);
+
         return clientHttpRequest;
     }
 

@@ -180,6 +180,7 @@
                             </div>
                         </div>
                     </div>
+                    <span id="geocodeResults">
                     <input type="hidden" id="jq-lat" name="lat"/>
                     <input type="hidden" id="jq-lon" name="lon"/>
                     <input type="hidden" id="jq-state" name="state"/>
@@ -187,6 +188,7 @@
                     <input type="hidden" id="jq-streetName" name="streetName"/>
                     <input type="hidden" id="jq-city" name="city"/>
                     <input type="hidden" id="jq-zipcode" name="zipcode"/>
+                    </span>
                     <input type="hidden" id="jq-bedDownload" name="bed"/>
                     <input type="hidden" id="jq-bathDownload" name="bath"/>
                     <!-- TODO: comment the skip validation -->

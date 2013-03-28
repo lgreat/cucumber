@@ -16,6 +16,12 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         if (address != '' && address !== 'Property Address') {
             gsGeocode(address, function(geocodeResult) {
                 if (geocodeResult != null) {
+
+                    //reset form fields
+                    propertyDetailsForm.find('#geocodeResults input').each(function(){
+                        this.value = "";
+                    });
+
                     if(geocodeResult['city'] !== undefined) {
                         propertyDetailsForm.find('input#jq-city').val(geocodeResult['city']);
                     }
