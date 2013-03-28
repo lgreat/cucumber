@@ -420,7 +420,13 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                             }
                         }
                     }
-                    response(results);
+                    response($.map(results, function(school) {
+                        return {
+                            label: school.name,
+                            value: school.id
+                        }
+                    }));
+                    return true;
                 }
             }
             $.ajax({
