@@ -242,7 +242,7 @@
                     </div>
                 </div>
                 <div class="fr">
-                    <div class="js-email-error-dn form-alert pbs dn">
+                    <div class="js-email-error dn form-alert pbs dn">
                         <div class="media">
                             <div class="img mrs">
                                 <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
@@ -253,7 +253,7 @@
 
                     <input class="email text1 js-email" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
                     <!--start-->
-                    <div class="js-posterAsString-error-dn form-alert pbs ptm dn">
+                    <div class="js-posterAsString-error dn form-alert pbs ptm dn">
                         <div class="media">
                             <div class="img mrs">
                                 <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
