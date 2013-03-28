@@ -17,6 +17,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private String _output;
     private String jobTitle;
     private String _how;
+    private boolean _fromReviewLandingPage;
 
     private CategoryRating _teacher = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _parent = CategoryRating.DECLINE_TO_STATE;
@@ -437,5 +438,13 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setIp(String ip) {
         _ip = ip;
+    }
+
+    public boolean isFromReviewLandingPage() {
+        return _fromReviewLandingPage;
+    }
+
+    public void setFromReviewLandingPage(boolean fromReviewLandingPage) {
+        _fromReviewLandingPage = fromReviewLandingPage;
     }
 }

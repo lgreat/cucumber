@@ -203,6 +203,7 @@
             <input type="hidden" name="source" value="${pageName}"/>
             <input type="hidden" name="state" id="schoolState" value=""/>
             <input type="hidden" name="isAddNewParentReview" value="true"/>
+            <input type="hidden" name="fromReviewLandingPage" value="true"/>
 
             <c:if test="${morganStanley}">
                 <input type="hidden" name="how" value="morganstanley"/>

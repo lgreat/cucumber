@@ -73,6 +73,65 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
         cache[newTerm] = results;
     };
 
+    var updateUIWithSchool = function(school) {
+        $("#schoolId").val(school.id);
+        $("#schoolState").val(school.state);
+        $("#js-bannerSchoolName").html(school.name);
+        if(school.address != null && school.address != ""){
+            var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+school.address;
+            $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
+        }
+        var iconPageBanner = false;
+        var contentExistsBefore = false;
+
+        if(school.type != null && school.type != ""){
+            iconPageBanner = true;
+            contentExistsBefore = true;
+            $("#js-bannerSchoolInfo .js-bannerSchoolType").html(school.type).show();
+        }
+        if(school.gradeRange != null && school.gradeRange != ""){
+            iconPageBanner = true;
+            var gradeContent = school.gradeRange;
+            if(contentExistsBefore){
+                gradeContent = " / "+school.gradeRange;
+            }
+            $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(gradeContent).show();
+            contentExistsBefore = true;
+        }
+        if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
+            iconPageBanner = true;
+            var enrollmentContent = ui.item.enrollment;
+            if(contentExistsBefore){
+                enrollmentContent = " / "+ui.item.enrollment + " Students";
+            }
+            $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
+            contentExistsBefore = true;
+        }
+        console.log("iconPageBanner:"+iconPageBanner);
+        if(iconPageBanner){
+            console.log($("#js-bannerSchoolInfo .js-bannerPageIcon"));
+            $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
+        }
+        if(ui.item.levelCode == "h"){
+            $("#js-showStudentForHighSchoolOnly").show();
+        }
+    };
+
+    var mapSchool = function(school) {
+        return {
+            label: school.name + " - " + school.city,
+            id: school.id,
+            value: school.name + " - " + school.city,
+            address: school.street + " " + school.cityStateZip,
+            enrollment: school.enrollment,
+            type:  school.type,
+            name: school.name,
+            levelCode: school.levelCode,
+            gradeRange: school.gradeRange,
+            state: school.state
+        }
+    };
+
     // Caching strategy from http://stackoverflow.com/a/14144009
     searchBox.autocomplete({
         minLength: 3,
@@ -88,9 +147,8 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             var term = request.term.toLowerCase();
             if (term in cache) {
                 if (cache.hasOwnProperty(term)) {
-                    response(cache[term]);
+                    response($.map(cache[term], mapSchool));
                 }
-                return;
             } else if (terms.length > 0) {
                 var lastTerm = terms[terms.length - 1];
                 if (term.substring(0, lastTerm.length) === lastTerm) {
@@ -104,12 +162,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                             }
                         }
                     }
-                    response($.map(results, function(school) {
-                        return {
-                            label: school.name,
-                            value: school.id
-                        }
-                    }));
+                    response($.map(results, mapSchool));
                     return true;
                 }
             }
@@ -124,75 +177,27 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                 },
                 success: function (data) {
                     cacheNewTerm(term, data.schools);
-                    response($.map(data.schools, function(school) {
-                        return {
-                            label: school.name + " - " + school.city,
-                            id: school.id,
-                            address: school.street + " " + school.cityStateZip,
-                            enrollment: school.enrollment,
-                            type:  school.type,
-                            name: school.name,
-                            levelCode: school.levelCode,
-                            gradeRange: school.gradeRange,
-                            state: school.state
-                        }
-                    }));
+                    response($.map(data.schools, mapSchool));
                 }
             });
         },
         position: { my : "left top", at: "left top+40" },
-        focus: function( event, ui ) {
-            $( this ).val( ui.item.label );
-            return false;
-        },
         select: function( event, ui ) {
             $( this ).val( ui.item.label );
-            $("#schoolId").val(ui.item.id);
-            $("#schoolState").val(ui.item.state);
-            $("#js-bannerSchoolName").html(ui.item.name);
-            if(ui.item.address != null && ui.item.address != ""){
-                var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+ui.item.address;
-                $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
-            }
-            var iconPageBanner = false;
-            var contentExistsBefore = false;
-
-            if(ui.item.type != null && ui.item.type != ""){
-                iconPageBanner = true;
-                contentExistsBefore = true;
-                $("#js-bannerSchoolInfo .js-bannerSchoolType").html(ui.item.type).show();
-            }
-            if(ui.item.gradeRange != null && ui.item.gradeRange != ""){
-                iconPageBanner = true;
-                var gradeContent = ui.item.gradeRange;
-                if(contentExistsBefore){
-                    gradeContent = " / "+ui.item.gradeRange;
-                }
-                $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(gradeContent).show();
-                contentExistsBefore = true;
-            }
-            if(ui.item.enrollment != null && ui.item.enrollment != "" && ui.item.enrollment != "0"){
-                iconPageBanner = true;
-                var enrollmentContent = ui.item.enrollment;
-                if(contentExistsBefore){
-                    enrollmentContent = " / "+ui.item.enrollment + " Students";
-                }
-                $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
-                contentExistsBefore = true;
-            }
-            console.log("iconPageBanner:"+iconPageBanner);
-            if(iconPageBanner){
-                console.log($("#js-bannerSchoolInfo .js-bannerPageIcon"));
-                $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
-            }
-            if(ui.item.levelCode == "h"){
-                $("#js-showStudentForHighSchoolOnly").show();
-            }
+            updateUIWithSchool(ui.item);
             GS.form.selectionMadeAutoComplete = true;
-            return false;
+        },
+        focus: function( event, ui ) {
+            if (ui.item !== undefined && ui.item.hasOwnProperty('label')) {
+                $( this ).val( ui.item.label );
+                updateUIWithSchool(ui.item);
+                GS.form.selectionMadeAutoComplete = true;
+            }
         }
     });
 };
+
+
 
 $(document).ready(function() {
 //    GS.module.schoolSelect = new GS.module.SchoolSelect();
@@ -224,6 +229,15 @@ GS = GS || {};
 $(document).ready(function() {
     $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_submitSelectSchool').on("click",function() {
+
+        var trackSchoolChosen = function() {
+            // should track when a school is chosen by user (go button is clicked)
+            //requires /res/js/omnitureEventNotifier.js
+            omnitureEventNotifier.clear();
+            omnitureEventNotifier.successEvents = "event77;";
+            omnitureEventNotifier.send();
+        };
+        trackSchoolChosen();
         $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
             $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
                 $('.headerBar').show().animate({
@@ -464,7 +478,6 @@ function GS_schoolReviewFormLandingPage(id) {
     var termsOfUseClass = "js-parentReviewTerms";
     var posterSelectClass = "js-posterAsString";
 
-
     var submitButton = form.find('.' + submitButtonClass);
     var review = form.find('.' + reviewFormClass);
     var overallRating = form.find('.' + overallStarRatingsClass);
@@ -477,6 +490,14 @@ function GS_schoolReviewFormLandingPage(id) {
             postReview(form);
         }
     });
+
+    var trackReviewSubmitted = function() {
+        // should track when a school is chosen by user (go button is clicked)
+        //requires /res/js/omnitureEventNotifier.js
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event78;";
+        omnitureEventNotifier.send();
+    };
 
     function clearErrors(){
         form.find('.' + emailFormClass + '-error').hide();
@@ -517,23 +538,18 @@ function GS_schoolReviewFormLandingPage(id) {
         var url = '/school/review/postReview.page';
         var formData = form.serialize();
 
-        jQuery.post(url, formData, function(data) {
-
-            var successEvents = "";
-            if (data.ratingEvent !== undefined) {
-                successEvents += data.ratingEvent;
-            }
-            if (data.reviewEvent !== undefined) {
-                successEvents += data.reviewEvent;
-            }
-            if (successEvents !== "") {
-                pageTracking.clear();
-                pageTracking.successEvents = successEvents;
-                pageTracking.send();
-            }
-        }, "json");
-        $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
-            $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+        jQuery.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            dataType: 'json'
+        }).done(function(data) {
+            trackReviewSubmitted();
+            $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
+                $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+            });
+        }).error(function() {
+            console.log("error occurred with form post");
         });
     }
-};
+}
