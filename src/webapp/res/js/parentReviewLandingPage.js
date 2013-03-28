@@ -457,7 +457,7 @@ function GS_validateReviewText(reviewText) {
     if (reviewText.length > 1200) {
         var returnValue = 'Please keep your comments under 1200 characters.';
     }
-    if (this.countWords(reviewText) < 15) {
+    if (GS_countWords(reviewText) < 15) {
         var returnValue = 'Please use at least 15 words in your comment.';
     }
     return returnValue;
@@ -510,8 +510,10 @@ function GS_schoolReviewFormLandingPage(id) {
     function validateForm(){
         clearErrors();
         var allowPost = true;
-        if(!GS_isValidEmailAddress(email)){
+        console.log(GS_isValidEmailAddress(email.val()));
+        if(!GS_isValidEmailAddress(email.val())){
             allowPost = false;
+            console.log("inside");
             form.find('.' + emailFormClass + '-error').show();
         }
         if(overallRating.val() == "0"){
