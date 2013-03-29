@@ -203,6 +203,8 @@ $(document).ready(function() {
         });
     });
 
+    GS.form.findAndApplyGhostTextSwitching();
+
     GS.parentReviewLandingPage.attachAutocomplete();
 
     GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
