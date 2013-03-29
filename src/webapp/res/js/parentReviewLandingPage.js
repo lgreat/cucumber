@@ -11,11 +11,14 @@ GS.form.selectionMadeAutoComplete = false;
 
 GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
 
+GS.parentReviewLandingPage.chosenSchool = {};
+
 GS.parentReviewLandingPage.attachAutocomplete = function () {
     var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
     var url = "/search/schoolAutocomplete.page";
     var cache = {};
     var terms = [];
+
 
     var formatter = function (row) {
         if (row != null && row.length > 0) {
@@ -33,48 +36,6 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             delete cache[terms.shift()];
         }
         cache[newTerm] = results;
-    };
-
-    var updateUIWithSchool = function(school) {
-        $("#schoolId").val(school.id);
-        $("#schoolState").val(school.state);
-        $("#js-bannerSchoolName").html(school.name);
-        if(school.address != null && school.address != ""){
-            var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+school.address;
-            $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
-        }
-        var iconPageBanner = false;
-        var contentExistsBefore = false;
-
-        if(school.type != null && school.type != ""){
-            iconPageBanner = true;
-            contentExistsBefore = true;
-            $("#js-bannerSchoolInfo .js-bannerSchoolType").html(school.type).show();
-        }
-        if(school.gradeRange != null && school.gradeRange != ""){
-            iconPageBanner = true;
-            var gradeContent = school.gradeRange;
-            if(contentExistsBefore){
-                gradeContent = " / "+school.gradeRange;
-            }
-            $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(gradeContent).show();
-            contentExistsBefore = true;
-        }
-        if(school.enrollment != null && school.enrollment != "" && school.enrollment != "0"){
-            iconPageBanner = true;
-            var enrollmentContent = school.enrollment;
-            if(contentExistsBefore){
-                enrollmentContent = " / "+school.enrollment + " Students";
-            }
-            $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
-            contentExistsBefore = true;
-        }
-        if(iconPageBanner){
-            $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
-        }
-        if(school.levelCode == "h"){
-            $("#js-showStudentForHighSchoolOnly").show();
-        }
     };
 
     var mapSchool = function(school) {
@@ -145,17 +106,59 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
         position: { my : "left top", at: "left top+40" },
         select: function( event, ui ) {
             $( this ).val( ui.item.label );
-            updateUIWithSchool(ui.item);
+            GS.parentReviewLandingPage.chosenSchool = ui.item;
             GS.form.selectionMadeAutoComplete = true;
         },
         focus: function( event, ui ) {
             if (ui.item !== undefined && ui.item.hasOwnProperty('label')) {
                 $( this ).val( ui.item.label );
-                updateUIWithSchool(ui.item);
+                GS.parentReviewLandingPage.chosenSchool = ui.item;
                 GS.form.selectionMadeAutoComplete = true;
             }
         }
     });
+};
+
+GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
+    $("#schoolId").val(school.id);
+    $("#schoolState").val(school.state);
+    $("#js-bannerSchoolName").html(school.name);
+    if(school.address != null && school.address != ""){
+        var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+school.address;
+        $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
+    }
+    var iconPageBanner = false;
+    var contentExistsBefore = false;
+
+    if(school.type != null && school.type != ""){
+        iconPageBanner = true;
+        contentExistsBefore = true;
+        $("#js-bannerSchoolInfo .js-bannerSchoolType").html(school.type).show();
+    }
+    if(school.gradeRange != null && school.gradeRange != "" && school.gradeRange != "null"){
+        iconPageBanner = true;
+        var gradeContent = school.gradeRange;
+        if(contentExistsBefore){
+            gradeContent = " / "+school.gradeRange;
+        }
+        $("#js-bannerSchoolInfo .js-bannerSchoolGradeRange").html(gradeContent).show();
+        contentExistsBefore = true;
+    }
+    if(school.enrollment != null && school.enrollment != "" && school.enrollment != "0" && school.enrollment != "null"){
+        iconPageBanner = true;
+        var enrollmentContent = school.enrollment;
+        if(contentExistsBefore){
+            enrollmentContent = " / "+school.enrollment + " Students";
+        }
+        $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
+        contentExistsBefore = true;
+    }
+    if(iconPageBanner){
+        $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
+    }
+    if(school.levelCode == "h"){
+        $("#js-showStudentForHighSchoolOnly").show();
+    }
 };
 
 /**
@@ -174,6 +177,8 @@ $(document).ready(function() {
             alert("Please select a school to continue");
             return false;
         }
+
+        GS.parentReviewLandingPage.updateUIWithSchool(GS.parentReviewLandingPage.chosenSchool);
 
         var trackSchoolChosen = function() {
             // should track when a school is chosen by user (go button is clicked)
@@ -511,4 +516,6 @@ function GS_schoolReviewFormLandingPage(id) {
             alert("Sorry, but an error occurred with your review submission. Please try again soon.");
         });
     }
+
+
 }
