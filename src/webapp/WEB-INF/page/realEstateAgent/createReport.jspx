@@ -27,52 +27,6 @@
             java.util.List stateList = gs.data.state.StateManager.getList();
             request.setAttribute("stateList", stateList);
         </jsp:scriptlet>
-        <style type="text/css">
-                .selectBox {
-                    /*border-left: 1px solid #2B2B2B;*/
-                    /*border-right: 1px solid #2B2B2B;*/
-                    height: 37px;
-                    padding: 16px 0 0 7px;
-                    width: 40px;
-                    text-align: center;
-                }
-                .selectDropDown {
-                    width: 50px;
-                    height: 100px;
-                    background-color: #dddddd;
-                    overflow-y: scroll;
-                }
-                .js-ddValues{
-                    padding: 5px;
-                    font-size:14px;
-                    font-weight: bold;
-                }
-                .ddValuesHighlight {
-                    background-color: #999999;
-                }
-
-                .selectBox2 {
-                    /*border: 1px solid #2B2B2B;*/
-                    height: 42px;
-                    width: 206px;
-                    /*padding-top: 10px;*/
-                }
-
-                .selectBox2 .selectBoxText{
-                    padding: 11px 0;
-                }
-
-                .selectDropDown2 {
-                    margin-top: 5px;;
-                    width: 194px;
-                    border: 1px solid #666666;
-                    height: 99px;
-                    background-color: #dddddd;
-                    overflow-y: scroll;
-                    z-index: 1000;
-                    position: absolute;
-                }
-            </style>
     </head>
 
     <body>
@@ -104,35 +58,35 @@
                     </div>
                     <div class="line">
                         <div class="unit size34of100">
-                            <div id="js-bed" class="">
-                                <div class="js-selectBox selectBox2 selectList  clearfix">
+                            <div id="js-bed">
+                                <div class="js-selectBox selectBox4 selectList  clearfix">
                                     <div class="js-selectBoxText selectBoxText mrs fl">Bedrooms</div>
-                                    <div class="fr">
-                                        <span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span>
+                                    <div class="fr selectArrow">
+                                        <span class="vam iconx16 i-16-downArrowWhite"><!--do not collapse--></span>
                                     </div>
                                 </div>
-                                <div class="js-selectDropDown selectDropDown2 pa phm ptm dn">
-                                    <div class="js-ddValues">0</div>
-                                    <div class="js-ddValues">1</div>
-                                    <div class="js-ddValues">2</div>
-                                    <div class="js-ddValues">3</div>
-                                    <div class="js-ddValues">4</div>
-                                    <div class="js-ddValues">5</div>
-                                    <div class="js-ddValues">6</div>
-                                    <div class="js-ddValues">7</div>
-                                    <div class="js-ddValues">8</div>
-                                    <div class="js-ddValues">9</div>
-                                    <div class="js-ddValues">10</div>
-                                    <div class="js-ddValues">11</div>
-                                    <div class="js-ddValues">12</div>
-                                    <div class="js-ddValues">13</div>
-                                    <div class="js-ddValues">14</div>
-                                    <div class="js-ddValues">15</div>
-                                    <div class="js-ddValues">16</div>
-                                    <div class="js-ddValues">17</div>
-                                    <div class="js-ddValues">18</div>
-                                    <div class="js-ddValues">19</div>
-                                    <div class="js-ddValues">20</div>
+                                <div class="js-selectDropDown selectDropDown4 pa phm ptm dn">
+                                    <div class="js-ddValues ddValues">0</div>
+                                    <div class="js-ddValues ddValues">1</div>
+                                    <div class="js-ddValues ddValues">2</div>
+                                    <div class="js-ddValues ddValues">3</div>
+                                    <div class="js-ddValues ddValues">4</div>
+                                    <div class="js-ddValues ddValues">5</div>
+                                    <div class="js-ddValues ddValues">6</div>
+                                    <div class="js-ddValues ddValues">7</div>
+                                    <div class="js-ddValues ddValues">8</div>
+                                    <div class="js-ddValues ddValues">9</div>
+                                    <div class="js-ddValues ddValues">10</div>
+                                    <div class="js-ddValues ddValues">11</div>
+                                    <div class="js-ddValues ddValues">12</div>
+                                    <div class="js-ddValues ddValues">13</div>
+                                    <div class="js-ddValues ddValues">14</div>
+                                    <div class="js-ddValues ddValues">15</div>
+                                    <div class="js-ddValues ddValues">16</div>
+                                    <div class="js-ddValues ddValues">17</div>
+                                    <div class="js-ddValues ddValues">18</div>
+                                    <div class="js-ddValues ddValues">19</div>
+                                    <div class="js-ddValues ddValues">20</div>
                                 </div>
                             </div>
                             <!--<select id="js-bed" class="" name="bed">-->
@@ -145,55 +99,55 @@
                             <!--</select>-->
                         </div>
                         <div class="unit size34of100">
-                            <div id="js-bath" class="">
-                                <div class="js-selectBox selectBox2 selectList  clearfix">
+                            <div id="js-bath">
+                                <div class="js-selectBox selectBox4 selectList  clearfix">
                                     <div class="js-selectBoxText selectBoxText mrs fl">Bathrooms</div>
-                                    <div class="fr">
-                                        <span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span>
+                                    <div class="fr selectArrow">
+                                        <span class="vam iconx16 i-16-downArrowWhite"><!--do not collapse--></span>
                                     </div>
                                 </div>
-                                <div class="js-selectDropDown selectDropDown2 pa phm ptm dn">
-                                    <div class="js-ddValues">0</div>
-                                    <div class="js-ddValues">0.5</div>
-                                    <div class="js-ddValues">1</div>
-                                    <div class="js-ddValues">1.5</div>
-                                    <div class="js-ddValues">2</div>
-                                    <div class="js-ddValues">2.5</div>
-                                    <div class="js-ddValues">3</div>
-                                    <div class="js-ddValues">3.5</div>
-                                    <div class="js-ddValues">4</div>
-                                    <div class="js-ddValues">4.5</div>
-                                    <div class="js-ddValues">5</div>
-                                    <div class="js-ddValues">5.5</div>
-                                    <div class="js-ddValues">6</div>
-                                    <div class="js-ddValues">6.5</div>
-                                    <div class="js-ddValues">7</div>
-                                    <div class="js-ddValues">7.5</div>
-                                    <div class="js-ddValues">8</div>
-                                    <div class="js-ddValues">8.5</div>
-                                    <div class="js-ddValues">9</div>
-                                    <div class="js-ddValues">9.5</div>
-                                    <div class="js-ddValues">10</div>
-                                    <div class="js-ddValues">10.5</div>
-                                    <div class="js-ddValues">11</div>
-                                    <div class="js-ddValues">11.5</div>
-                                    <div class="js-ddValues">12</div>
-                                    <div class="js-ddValues">12.5</div>
-                                    <div class="js-ddValues">13</div>
-                                    <div class="js-ddValues">13.5</div>
-                                    <div class="js-ddValues">14</div>
-                                    <div class="js-ddValues">14.5</div>
-                                    <div class="js-ddValues">15</div>
-                                    <div class="js-ddValues">15.5</div>
-                                    <div class="js-ddValues">16</div>
-                                    <div class="js-ddValues">16.5</div>
-                                    <div class="js-ddValues">17</div>
-                                    <div class="js-ddValues">17.5</div>
-                                    <div class="js-ddValues">18</div>
-                                    <div class="js-ddValues">18.5</div>
-                                    <div class="js-ddValues">19</div>
-                                    <div class="js-ddValues">19.5</div>
-                                    <div class="js-ddValues">20</div>
+                                <div class="js-selectDropDown selectDropDown4 pa phm ptm dn">
+                                    <div class="js-ddValues ddValues">0</div>
+                                    <div class="js-ddValues ddValues">0.5</div>
+                                    <div class="js-ddValues ddValues">1</div>
+                                    <div class="js-ddValues ddValues">1.5</div>
+                                    <div class="js-ddValues ddValues">2</div>
+                                    <div class="js-ddValues ddValues">2.5</div>
+                                    <div class="js-ddValues ddValues">3</div>
+                                    <div class="js-ddValues ddValues">3.5</div>
+                                    <div class="js-ddValues ddValues">4</div>
+                                    <div class="js-ddValues ddValues">4.5</div>
+                                    <div class="js-ddValues ddValues">5</div>
+                                    <div class="js-ddValues ddValues">5.5</div>
+                                    <div class="js-ddValues ddValues">6</div>
+                                    <div class="js-ddValues ddValues">6.5</div>
+                                    <div class="js-ddValues ddValues">7</div>
+                                    <div class="js-ddValues ddValues">7.5</div>
+                                    <div class="js-ddValues ddValues">8</div>
+                                    <div class="js-ddValues ddValues">8.5</div>
+                                    <div class="js-ddValues ddValues">9</div>
+                                    <div class="js-ddValues ddValues">9.5</div>
+                                    <div class="js-ddValues ddValues">10</div>
+                                    <div class="js-ddValues ddValues">10.5</div>
+                                    <div class="js-ddValues ddValues">11</div>
+                                    <div class="js-ddValues ddValues">11.5</div>
+                                    <div class="js-ddValues ddValues">12</div>
+                                    <div class="js-ddValues ddValues">12.5</div>
+                                    <div class="js-ddValues ddValues">13</div>
+                                    <div class="js-ddValues ddValues">13.5</div>
+                                    <div class="js-ddValues ddValues">14</div>
+                                    <div class="js-ddValues ddValues">14.5</div>
+                                    <div class="js-ddValues ddValues">15</div>
+                                    <div class="js-ddValues ddValues">15.5</div>
+                                    <div class="js-ddValues ddValues">16</div>
+                                    <div class="js-ddValues ddValues">16.5</div>
+                                    <div class="js-ddValues ddValues">17</div>
+                                    <div class="js-ddValues ddValues">17.5</div>
+                                    <div class="js-ddValues ddValues">18</div>
+                                    <div class="js-ddValues ddValues">18.5</div>
+                                    <div class="js-ddValues ddValues">19</div>
+                                    <div class="js-ddValues ddValues">19.5</div>
+                                    <div class="js-ddValues ddValues">20</div>
                                 </div>
                             </div>
                             <!--<select id="js-bath" class="" name="bath">-->
