@@ -203,7 +203,7 @@ $(document).ready(function() {
         });
     });
 
-    GS.form.findAndApplyGhostTextSwitching();
+    GS.form.findAndApplyGhostTextSwitching('body');
 
     GS.parentReviewLandingPage.attachAutocomplete();
 
