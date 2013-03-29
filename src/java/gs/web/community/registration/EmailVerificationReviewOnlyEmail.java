@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Map;
 
 public class EmailVerificationReviewOnlyEmail extends EmailVerificationEmail {
 
@@ -17,6 +18,10 @@ public class EmailVerificationReviewOnlyEmail extends EmailVerificationEmail {
     public static final String EMAIL_LOCATION = "/gs/web/community/registration/emailVerificationReviewOnlyEmail.txt";
 
     public void sendVerificationEmail(HttpServletRequest request, User user, String redirect) throws IOException, MessagingException, NoSuchAlgorithmException {
+        sendVerificationEmail(request, user, redirect, null);
+    }
+
+    public void sendVerificationEmail(HttpServletRequest request, User user, String redirect, Map<String,String> otherParams) throws IOException, MessagingException, NoSuchAlgorithmException {
         String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         Date now = new Date();
         String nowAsString = String.valueOf(now.getTime());
@@ -25,6 +30,14 @@ public class EmailVerificationReviewOnlyEmail extends EmailVerificationEmail {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
         builder.addParameter("date", nowAsString);
         builder.addParameter("redirect", redirect);
+
+        if (otherParams != null) {
+            for (String param : otherParams.keySet()) {
+                if (!"id".equals(param) && !"date".equals(param) && !"redirect".equals(param)) {
+                    builder.addParameter(param, otherParams.get(param));
+                }
+            }
+        }
 
         String verificationLink = builder.asAbsoluteAnchor(request, builder.asFullUrl(request)).asATag();
 

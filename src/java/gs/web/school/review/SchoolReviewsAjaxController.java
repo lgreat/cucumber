@@ -18,10 +18,9 @@ import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
 import gs.web.school.AbstractSchoolController;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.tracking.OmnitureTracking;
-import gs.web.util.ReadWriteController;
-import gs.web.util.SitePrefCookie;
-import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
+import gs.web.util.*;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -108,6 +107,21 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         //boolean userAuthorizedWithPassword = PageHelper.isMemberAuthorized(request);
         //TODO: Use interceptor to ensure that full user account with password cannot get here unless logged in.
         boolean userAuthorizedWithPassword = user!=null && !user.isPasswordEmpty() && !user.isEmailProvisional();
+
+        if (reviewCommand.isFromReviewLandingPage()) {
+            User loggedInUser = null;
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            if(PageHelper.isMemberAuthorized(request)) {
+                loggedInUser = sessionContext.getUser();
+            }
+
+
+            if (loggedInUser != null && !loggedInUser.equals(user)) {
+                return errorJSON(response, "Logged in user must match owner of provided email.");
+            }
+
+            userAuthorizedWithPassword = loggedInUser != null;
+        }
 
         Review review;
         //The user submitting the review might not exist yet.
@@ -250,7 +264,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             responseValues.put("showHover", "validateEmailSchoolReview");
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             String redirectUrl = urlBuilder.asFullUrl(request);
-            getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+            if (reviewCommand.isFromReviewLandingPage()) {
+                Map<String,String> otherParams = new HashMap<String,String>();
+                otherParams.put("upgradeProvisional", "true");
+                getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl, otherParams);
+            } else {
+                getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+            }
         }
 
         //trigger the success events
@@ -388,6 +408,26 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
         buff.append("[");
         List messages = errors.getAllErrors();
+
+        for (Iterator iter = messages.iterator(); iter.hasNext();) {
+            ObjectError error = (ObjectError) iter.next();
+            buff.append("\"").append(error.getDefaultMessage()).append("\"");
+            if (iter.hasNext()) {
+                buff.append(",");
+            }
+        }
+        buff.append("]}");
+        response.setContentType("text/x-json");
+        response.getWriter().print(buff.toString());
+        response.getWriter().flush();
+        return null;
+    }
+
+    protected ModelAndView errorJSON(HttpServletResponse response, String... errors) throws IOException {
+        StringBuffer buff = new StringBuffer(400);
+        buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
+        buff.append("[");
+        List<String> messages = Arrays.asList(errors);
 
         for (Iterator iter = messages.iterator(); iter.hasNext();) {
             ObjectError error = (ObjectError) iter.next();
