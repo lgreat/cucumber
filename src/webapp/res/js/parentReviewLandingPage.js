@@ -10,45 +10,7 @@ if (GS.form === undefined) {
 GS.form.selectionMadeAutoComplete = false;
 
 GS.parentReviewLandingPage = {} || GS.parentReviewLandingPage;
-/*GS.parentReviewLandingPage.attachAutocomplete = function () {
-    var searchBox = $('.js-parentReviewLandingPageSearchBox');
-    var url = "/search/schoolAutocomplete.page";
 
-    var formatter = function (row) {
-        if (row != null && row.length > 0) {
-            //var suggestion = row[0];
-            // capitalize first letter of all words but the last
-            // capitalize the entire last word (state)
-            //return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
-        }
-        return row;
-    };
-
-    searchBox.autocomplete2(url, {
-        extraParams: {
-            state: function () {
-                //var rval = searchStateSelect.val();
-                // TODO: add state
-                var rval = "CA";
-                if (rval === '') {
-                    return null;
-                }
-                return rval;
-            },
-            schoolCity: true
-        },
-        extraParamsRequired: true,
-        minChars: 3,
-        selectFirst: false,
-        cacheLength: 150,
-        matchSubset: true,
-        max: 6,
-        autoFill: false,
-        dataType: "text",
-        formatItem: formatter,
-        formatResult: formatter
-    });
-};*/
 GS.parentReviewLandingPage.attachAutocomplete = function () {
     var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
     var url = "/search/schoolAutocomplete.page";
@@ -143,19 +105,20 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             };
 
             var term = request.term.toLowerCase();
-            if (term in cache) {
-                if (cache.hasOwnProperty(term)) {
-                    response($.map(cache[term], mapSchool));
+            var termState = state + term;
+            if (termState in cache) {
+                if (cache.hasOwnProperty(termState)) {
+                    response($.map(cache[termState], mapSchool));
                 }
             } else if (terms.length > 0) {
                 var lastTerm = terms[terms.length - 1];
-                if (term.substring(0, lastTerm.length) === lastTerm) {
+                if (termState.substring(0, lastTerm.length) === lastTerm) {
                     var results = [];
                     var cachedResultsForLastTerm = cache[lastTerm];
                     if (cachedResultsForLastTerm !== undefined && cachedResultsForLastTerm.length) {
                         for (var i = 0; i < cachedResultsForLastTerm.length; i++) {
                             var resultItem = cachedResultsForLastTerm[i];
-                            if (resultItem.name.toLowerCase().indexOf(term) !== -1) {
+                            if (resultItem.name.toLowerCase().indexOf(termState) !== -1) {
                                 results.push(resultItem);
                             }
                         }
@@ -174,7 +137,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                     schoolCity: true
                 },
                 success: function (data) {
-                    cacheNewTerm(term, data.schools);
+                    cacheNewTerm(termState, data.schools);
                     response($.map(data.schools, mapSchool));
                 }
             });
@@ -195,26 +158,6 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
     });
 };
 
-
-
-$(document).ready(function() {
-//    GS.module.schoolSelect = new GS.module.SchoolSelect();
-//
-//    GS.module.schoolSelect.registerValidCallback(function() {
-//       jQuery('#addParentReviewForm').show();
-//    });
-//
-//    GS.module.schoolSelect.registerInvalidCallback(function() {
-//       jQuery('#addParentReviewForm').hide();
-//    });
-
-//    jQuery('#addParentReviewForm').hide();
-    GS.parentReviewLandingPage.attachAutocomplete();
-//    GS.parentReviewLandingPage.attachAutocomplete();
-
-});
-
-
 /**
  * Created with IntelliJ IDEA.
  * User: mitch
@@ -222,7 +165,6 @@ $(document).ready(function() {
  * Time: 10:07 AM
  * To change this template use File | Settings | File Templates.
  */
-GS = GS || {};
 
 $(document).ready(function() {
     $('#js-reviewContent').characterCounter({charLimit:1200});
@@ -254,6 +196,8 @@ $(document).ready(function() {
             });
         });
     });
+
+    GS.parentReviewLandingPage.attachAutocomplete();
 
     GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
 
