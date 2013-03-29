@@ -186,13 +186,14 @@ $(document).ready(function() {
         $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
             $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
                 $('.headerBar').show().animate({
-                    top: '+=200',
+                    top: '+=200'
+                },
+                {
+                    duration:2000,
                     complete: function () {
                         GSType.hover.reviewLandingPageInformational.showModal();
-//                        showModalReviewLanding();
-//                        alert('end ani');
                     }
-                }, 2000);
+                });
             });
         });
     });
@@ -217,12 +218,6 @@ $(document).ready(function() {
     starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
     starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
 });
-
-var showModalReviewLanding = function(){
-    //console.log("launch Modal");
-    GSType.hover.reviewLandingPageInformational.showModal();
-//    GSType.hover.reviewLandingPageInformational.showHover();
-}
 
 /********************************************************************************************************
  *
