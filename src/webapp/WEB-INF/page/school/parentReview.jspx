@@ -253,7 +253,7 @@
 
                     <c:choose>
                         <c:when test="${not empty validUser.email}">
-                            <input class="email text1 js-email" type="text" disabled="true" name="email" placeholder="Please enter your email" value="${validUser.email}" style="width: 300px"/><br/><br/>
+                            <input class="email text1 js-email" type="text" readonly="true" name="email" placeholder="Please enter your email" value="${validUser.email}" style="width: 300px"/><br/><br/>
                         </c:when>
                         <c:otherwise>
                             <input class="email text1 js-email" type="text" name="email" placeholder="Please enter your email" style="width: 300px"/><br/><br/>
