@@ -38,6 +38,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
     var updateUIWithSchool = function(school) {
         $("#schoolId").val(school.id);
         $("#schoolState").val(school.state);
+        school.name.length
         $("#js-bannerSchoolName").html(school.name);
         if(school.address != null && school.address != ""){
             var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+school.address;
@@ -219,7 +220,7 @@ $(document).ready(function() {
 });
 
 var showModalReviewLanding = function(){
-    console.log("launch Modal");
+    //console.log("launch Modal");
     GSType.hover.reviewLandingPageInformational.showModal();
 //    GSType.hover.reviewLandingPageInformational.showHover();
 }
