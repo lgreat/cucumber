@@ -105,7 +105,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             };
 
             var term = request.term.toLowerCase();
-            var termState = state + term;
+            var termState = state() + term;
             if (termState in cache) {
                 if (cache.hasOwnProperty(termState)) {
                     response($.map(cache[termState], mapSchool));
@@ -118,7 +118,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                     if (cachedResultsForLastTerm !== undefined && cachedResultsForLastTerm.length) {
                         for (var i = 0; i < cachedResultsForLastTerm.length; i++) {
                             var resultItem = cachedResultsForLastTerm[i];
-                            if (resultItem.name.toLowerCase().indexOf(termState) !== -1) {
+                            if (resultItem.name.toLowerCase().indexOf(term) !== -1) {
                                 results.push(resultItem);
                             }
                         }
@@ -219,6 +219,14 @@ $(document).ready(function() {
     starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
 });
 
+<<<<<<< HEAD
+=======
+var showModalReviewLanding = function(){
+    GSType.hover.reviewLandingPageInformational.showModal();
+//    GSType.hover.reviewLandingPageInformational.showHover();
+}
+
+>>>>>>> GS-13763 Fix regression with Review Landing Page autocomplete functionality
 /********************************************************************************************************
  *
  *  currently created to work with the review page form!!!!
@@ -452,7 +460,6 @@ function GS_schoolReviewFormLandingPage(id) {
     });
 
     var trackReviewSubmitted = function() {
-        // should track when a school is chosen by user (go button is clicked)
         //requires /res/js/omnitureEventNotifier.js
         omnitureEventNotifier.clear();
         omnitureEventNotifier.successEvents = "event78;";
@@ -470,10 +477,8 @@ function GS_schoolReviewFormLandingPage(id) {
     function validateForm(){
         clearErrors();
         var allowPost = true;
-        console.log(GS_isValidEmailAddress(email.val()));
         if(!GS_isValidEmailAddress(email.val())){
             allowPost = false;
-            console.log("inside");
             form.find('.' + emailFormClass + '-error').show();
         }
         if(overallRating.val() == "0"){
@@ -511,7 +516,7 @@ function GS_schoolReviewFormLandingPage(id) {
                 $('.js-pageThreeReviewLandingPage').fadeIn('fast');
             });
         }).error(function() {
-            console.log("error occurred with form post");
+            alert("Sorry, but an error occurred with your review submission. Please try again soon.");
         });
     }
 }
