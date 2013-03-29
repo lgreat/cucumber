@@ -28,7 +28,7 @@
                         <span class="error invalid"><!-- not empty --></span>
                     </div>
                 </div>
-                <div class="mtl clearfix">
+                <div class="mtm clearfix">
                     <div class="fl jq-workNumberFields">
                         <gsml:input type="text" styleId="jq-workNumber" styleClass="text1 input_5" name="workNumber"
                                     value="${(not empty workNumber) ? workNumber : 'Work #'}" onfocus="GS_textSwitch(this, '', 'Work #');" onblur="GS_textSwitch(this, 'Work #', '');"/>
@@ -44,7 +44,7 @@
                                     onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
                     </div>
                 </div>
-                <div class="mtl jq-addressFields">
+                <div class="mtm jq-addressFields">
                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_10" name="address"
                                 value="${(not empty address) ? address : 'Work Address'}"
                                 onfocus="GS_textSwitch(this, '', 'Work Address');" onblur="GS_textSwitch(this, 'Work Address', '');"/>
@@ -55,7 +55,7 @@
                     </div>
 
                 </div>
-                <div class="mtl clearfix">
+                <div class="mtm clearfix">
                     <div class="fl jq-cityFields">
                         <gsml:input type="text" styleId="jq-city" styleClass="text1 input_3" name="city"
                                     value="${(not empty city) ? city : 'City'}"

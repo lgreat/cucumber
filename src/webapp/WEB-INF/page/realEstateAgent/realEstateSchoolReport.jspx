@@ -41,15 +41,16 @@
                     <div class="defaultBold make-555555">
                         ${city}, ${state} ${zipcode}
                         <c:if test="${not empty bed}">
-                <span class="header-vertical-border-l"><span class="make-999999"> | </span>Bedrooms: ${bed}<span
-                        class="make-999999"> | </span></span>
+                            <span class="header-vertical-border-l">
+                                <span class="make-999999"> | </span>
+                                Bedrooms: ${bed}<span class="make-999999"> | </span></span>
                         </c:if>
                         <c:if test="${not empty bath}">
                         <span class="header-vertical-border-l">Bathrooms: ${bath}<span
                                 class="make-999999"> | </span></span>
                         </c:if>
                         <c:if test="${not empty sqFeet}">
-                            <span class="header-vertical-border-l"> ${sqFeet} Est. Sq. Ft.</span>
+                            <span class="header-vertical-border-l"> ${sqFeet} square feet</span>
                         </c:if>
                     </div>
                 </div>
@@ -68,7 +69,7 @@
                     <div class="tableHeader clearfix">
                         <!--<div class="fl" style="width: 220px">hello&lt;!&ndash;do not collapse&ndash;&gt;</div>-->
                         <div class="fl tac smallBold" style="padding-left:220px; width: 140px;">Distance</div>
-                        <div class="fl tac smallBold" style="width: 193px">Greatschool rating</div>
+                        <div class="fl tac smallBold" style="width: 193px">GreatSchools rating</div>
                         <div class="fr tac smallBold" style="width: 135px;">Community rating</div>
                     </div>
                     <c:forEach items="${schoolSearchResults}" var="school" varStatus="status">
