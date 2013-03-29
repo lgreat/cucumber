@@ -107,9 +107,7 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             $("#js-bannerSchoolInfo .js-bannerSchoolEnrollment").html(enrollmentContent).show();
             contentExistsBefore = true;
         }
-        console.log("iconPageBanner:"+iconPageBanner);
         if(iconPageBanner){
-            console.log($("#js-bannerSchoolInfo .js-bannerPageIcon"));
             $("#js-bannerSchoolInfo .js-bannerPageIcon").show();
         }
         if(school.levelCode == "h"){
@@ -241,13 +239,16 @@ $(document).ready(function() {
         $('.js-pageOneReviewLandingPage').fadeOut('slow', function() {
             $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
                 $('.headerBar').show().animate({
-                    top: '+=200'
+                    top: '+=200',
+                    complete: function () {
+                        GSType.hover.reviewLandingPageInformational.showModal();
+//                        showModalReviewLanding();
+//                        alert('end ani');
+                    }
                 }, 2000);
             });
         });
-
     });
-
 
     GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
 
@@ -263,6 +264,12 @@ $(document).ready(function() {
     starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
     starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
 });
+
+var showModalReviewLanding = function(){
+    console.log("launch Modal");
+    GSType.hover.reviewLandingPageInformational.showModal();
+//    GSType.hover.reviewLandingPageInformational.showHover();
+}
 
 /********************************************************************************************************
  *
