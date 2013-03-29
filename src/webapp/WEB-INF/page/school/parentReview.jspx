@@ -71,6 +71,8 @@
             cursor:pointer;
         }
         .ui-autocomplete{
+            padding-top: 5px;
+            padding-bottom: 5px;
             margin-top: 15px;
             width: 400px;
             max-height: 200px;
@@ -79,11 +81,13 @@
         }
         .ui-autocomplete  li{
             list-style-type: none;
+            padding: 5px;
         }
         .ui-autocomplete  li a{
             font:normal 14px/20px Arial, Helvetica, sans-serif;
             color: #555;
             text-decoration: none;
+
         }
         .ui-autocomplete  li:hover{
             background-color: #AAAAAA;
@@ -151,7 +155,7 @@
     </c:if>
     
     <div class="content-centered ${marginTopContent}">
-        <p style="font: bold 60px/60px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; text-shadow: black 0.01em 0.01em 0.02em">You know your school best!</p>
+        <p style="font: bold 60px/68px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; text-shadow: black 0.01em 0.01em 0.02em">You know your school best!</p>
         <p style="font-family: 'SourceSansPro-BoldIt', Arial, Helvetica, sans-serif; font-size:20px; font-style: italic; color: #ffCE7A;text-shadow: 0 0 20px rgba(0,0,0,.6)">Help others find their great school – rate and review yours now</p>
 
         <div class="js-parentReviewLandingPageSearchBox searchBox pr rnd4" style=""><!--do not colapse-->
@@ -179,7 +183,7 @@
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
     <div style="height: 180px;">
         <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p id="js-bannerSchoolName" class="truncated" style="font: normal 60px/60px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 40px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">You know your school best!</p>
+            <p id="js-bannerSchoolName" class="truncated" style="font: normal 60px/68px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 40px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">You know your school best!</p>
             <p id="js-bannerSchoolInfo" style="font-family: 'SourceSansPro-BoldIt', Arial, Helvetica, sans-serif; font-size:16px; font-style: italic; color: #b2811d;">
 
                 <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
