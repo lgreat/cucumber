@@ -98,7 +98,7 @@
                             <!--<gsml:selectOption value="5">5</gsml:selectOption>-->
                             <!--</select>-->
                         </div>
-                        <div class="unit size34of100">
+                        <div class="unit size33of100">
                             <div id="js-bath">
                                 <div class="js-selectBox selectBox4 selectList  clearfix">
                                     <div class="js-selectBoxText selectBoxText mrs fl">Bathrooms</div>
@@ -160,7 +160,7 @@
                             <!--</select>-->
                         </div>
                         <div class="unit size34of100 lastUnit jq-sqFootageFields">
-                            <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6" name="sqFeet"
+                            <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6 fr" name="sqFeet"
                                         value="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');"
                                         onblur="GS_textSwitch(this, 'Square footage', '');"/>
 

@@ -150,7 +150,7 @@ hr.rulethin	{
 .header-left-width{ width:455px; }
 .header-left-component{ width:160px; padding-right: 10px;}
 
-.header-vertical-border-l { border-left: 1px solid #EEEEEE; }
+.header-vertical-border-l { border-left: 1px solid #999999; margin: 0 10px;}
 .header-vertical-border-r { border-right: 1px solid #EEEEEE; }
 
 /* **************** SPRITE ***************** */
@@ -271,29 +271,30 @@ hr.rulethin	{
     color: #2B2B2B;
 }
 .realEstatePDF .smallBold{
-    font: bold 8px/12px Arial, Helvetica, sans-serif;
+    font: bold 8pt Arial, Helvetica, sans-serif;
     color: #2B2B2B;
 }
 
 .realEstatePDF .default{
-    font: normal 10px/15px Arial, Helvetica, sans-serif;
+    font: normal 10pt/14pt Arial, Helvetica, sans-serif;
 }
 
 .realEstatePDF .defaultBold{
-    font: bold 10px/15px Arial, Helvetica, sans-serif;
+    font: bold 10pt/14pt Arial, Helvetica, sans-serif;
 }
 
 .realEstatePDF .mediumBold{
-    font: bold 12px/20px Arial, Helvetica, sans-serif;
+    font: bold 12pt/20pt Arial, Helvetica, sans-serif;
     color: #007AA5;
 }
 
 .realEstatePDF .largeBold{
-    font: bold 14px/20px Arial, Helvetica, sans-serif;
+    font: bold 13pt/20pt Arial, Helvetica, sans-serif;
 }
 
 .realEstatePDF .xlargeBold{
-    font: bold 24px/30px Arial, Helvetica, sans-serif;
+    font: bold 24pt/30pt Arial, Helvetica, sans-serif;
+    margin-bottom: 7px;
 }
 
 .realEstatePDF .make-007AA5{
@@ -321,12 +322,11 @@ hr.rulethin	{
 }
 
 .mod-1 .inner .hd{
-    width: 257px;
-    padding: 5px 25px;
+    width: 380px;
+    padding: 10px 15px;
     background-color: #79BEDC;
     color: #FFFFFF;
-    font: normal 10px/18px Arial, Helvetica, sans-serif;
-    margin-top: 180px;
+    margin-top: 200px;
 }
 .mod-1 .inner .bd{
     border: 1px solid #D2E9F3;
@@ -334,26 +334,25 @@ hr.rulethin	{
 }
 
 .mod-1 .inner .bd p{
-    padding: 20px;
-    font: normal 10px/18px Arial, Helvetica, sans-serif;
+    padding: 15px;
 }
 
 .mod-1 .inner .bd .tableHeader{
     background-color: #F1F1F1;
-    padding: 10px 15px;
+    padding: 15px;
 }
 
 .mod-1 .inner .bd .tableRow{
-    padding: 10px 15px;
+    padding: 15px;
 }
 
 /***********************Module-2**************************/
 .mod-2{
-    margin: 70px 0 30px 0;
+    margin: 65px 0 30px 0;
 }
 
 .mod-2 .inner{
-    padding: 20px;
+    padding: 15px;
     border:1px solid #DDDDDD;
     border-top: 4px solid #FFB943;
     position: relative;
@@ -364,7 +363,7 @@ hr.rulethin	{
     padding: 5px;
     position: absolute;
     top:-18px;
-    left: 13px;
+    left: 10px;
 }
 .mod-2 .inner .bd{
 
