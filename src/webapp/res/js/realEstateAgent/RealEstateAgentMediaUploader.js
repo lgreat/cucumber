@@ -74,22 +74,21 @@ GS.RealEstateAgentCreateLogoUploader.prototype.createLogoUploader = function() {
     this.createUploader();
 };
 
-GS.RealEstateAgentPhotoPollingViewer = function () {
-    this.id = jQuery('');
-    this.url = null;
-    this.schoolId = null;
-    this.schoolDatabaseState = null;
+GS.RealEstateAgentPollingViewer = function () {
+    this.url = '/mediaUpload/agentUploaderTest.json';
 
-    this.container = jQuery('#' + this.id);
+    this.containerClasses.photoClass = '.js-registrationHover:visible .jq-photoContainer:eq(0)';
+    this.containerClasses.logoClass = '.js-registrationHover:visible .jq-logoContainer:eq(0)';
 
-    this.STATUS_ACTIVE = 'active';
-    this.STATUS_PENDING = 'pending';
-    this.numberMedias = 0;
-    this.numberPending = 0;
-    this.numberActive = 0;
     this.IMG_ID_PREFIX = 'js-photo-';
 
     this.pollFrequency = 5000; //ms
     this.pollingOn = true;
     this.data = null;
+    this.pollingViewer();
+};
+
+GS.RealEstateAgentPollingViewer.prototype = new GS.PollingMediaViewer();
+GS.RealEstateAgentPollingViewer.prototype.pollingViewer = function() {
+    this.mediaViewer();
 };

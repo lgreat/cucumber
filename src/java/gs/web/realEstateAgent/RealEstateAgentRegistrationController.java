@@ -508,8 +508,12 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             responseJson.write(response.getWriter());
             response.getWriter().flush();
         }
-        catch (JSONException ex) {}
-        catch (IOException ex) {}
+        catch (JSONException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to add to json object.",ex);
+        }
+        catch (IOException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to write json output.",ex);
+        }
     }
 
 
