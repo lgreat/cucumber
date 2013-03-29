@@ -29,7 +29,7 @@
     <div class="realEstatePDF clearfix">
         <!-- TODO: header section to be included at the top of both pages -->
         <div class="" style="">
-            <img src="/res/img/logo/logo_GS_200x50.png" class="fr" alt="greatschools"/>
+            <img src="/res/img/logo/logo_GS_3x.png" width="175" class="fr" alt="greatschools"/>
         </div>
         <div class="mod-2">
             <div class="inner">
@@ -40,17 +40,17 @@
                     <div class="xlargeBold">${streetNumber} ${streetName}</div>
                     <div class="defaultBold make-555555">
                         ${city}, ${state} ${zipcode}
-                        <c:if test="${not empty bed}">
-                            <span class="header-vertical-border-l">
-                                <span class="make-999999"> | </span>
-                                Bedrooms: ${bed}<span class="make-999999"> | </span></span>
+                        <c:if test="${not empty bed and bed ne 'Bedrooms'}">
+                            <span class="header-vertical-border-l"><!--do not collapse--></span>
+                            Bedrooms: ${bed}
                         </c:if>
-                        <c:if test="${not empty bath}">
-                        <span class="header-vertical-border-l">Bathrooms: ${bath}<span
-                                class="make-999999"> | </span></span>
+                        <c:if test="${not empty bath and bath ne 'Bathrooms'}">
+                            <span class="header-vertical-border-l"><!--do not collapse--></span>
+                            Bathrooms: ${bath}
                         </c:if>
-                        <c:if test="${not empty sqFeet}">
-                            <span class="header-vertical-border-l"> ${sqFeet} square feet</span>
+                        <c:if test="${not empty sqFeet and sqFeet ne 'Square footage'}">
+                            <span class="header-vertical-border-l"><!--do not collapse--></span>
+                            ${sqFeet} square feet
                         </c:if>
                     </div>
                 </div>
@@ -62,9 +62,9 @@
     <div class="realEstatePDF">
         <div class="mod-1">
             <div class="inner clearfix">
-                <div class="hd">The 5 closest schools to the property you are considering.</div>
+                <div class="hd defaultBold">The 5 closest schools to the property you are considering.</div>
                 <div class="bd">
-                    <p class="">These results are provided only as a guide to prospective home buyers. Please check with
+                    <p class=" default">These results are provided only as a guide to prospective home buyers. Please check with
                         your school district for more detailed enrollment information or visit www.greatschools.org.</p>
                     <div class="tableHeader clearfix">
                         <!--<div class="fl" style="width: 220px">hello&lt;!&ndash;do not collapse&ndash;&gt;</div>-->
@@ -88,13 +88,13 @@
                             <c:when test="${photoMediaPath != null}">
                                 <img class="js-logo-pending"
                                      src="${basePhotoPath}${photoMediaPath}"
-                                     width="145" height="145"
+                                     width="144" height="144"
                                      alt="photo"/>
                             </c:when>
                             <c:otherwise>
                                 <img class="js-logo-pending"
                                      src="/res/img/realEstate/upload_placeholder.png"
-                                     width="145" height="145"
+                                     width="144" height="144"
                                      alt="photo"/>
                             </c:otherwise>
                         </c:choose>
@@ -104,7 +104,7 @@
                         <div class="default make-555555">${agentCompany}</div>
                         <div class="default make-555555"><span class="defaultBold">office:</span> ${agentWorkNumber}</div>
                         <c:if test="${not empty agentCellNumber}">
-                            <div class="default make-555555"><span class="defaultBold">mobile:</span> ${agentCellNumber}</div>
+                            <div class="default make-555555"><span class="defaultBold">mobile:</span>${agentCellNumber}</div>
                         </c:if>
 
                         <div class="default make-555555">${agentEmail}</div>
@@ -114,13 +114,13 @@
                             <c:when test="${logoMediaPath != null}">
                                 <img class="js-logo-pending"
                                      src="${basePhotoPath}${logoMediaPath}"
-                                     width="100" height="100"
+                                     width="108" height="108"
                                      alt="photo"/>
                             </c:when>
                             <c:otherwise>
                                 <img class="js-logo-pending"
                                      src="/res/img/realEstate/upload_placeholder.png"
-                                     width="100" height="100"
+                                     width="108" height="108"
                                      alt="photo"/>
                             </c:otherwise>
                         </c:choose>
@@ -135,7 +135,7 @@
                     <div class="fl qrCodeDescription make-555555 default" style="width: 485px;">
                         For more information on these schools, please scan this QR code for access to your personalized GreatSchools
                         School Search landing page. There you will find in-depth information on these schools including test scores,
-                        demographics, community ratings and much more.
+                        community ratings and much more.
                     </div>
                 </div>
             </div>

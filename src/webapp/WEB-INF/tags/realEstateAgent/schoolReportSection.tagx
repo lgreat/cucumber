@@ -50,12 +50,12 @@
 <div class="tableRow clearfix">
     <div class="fl" style="width:220px">
         <div class="defaultBold">${fn:escapeXml(school.name)}</div>
-        <div class="default capitalize"> ${school.schoolType}, ${fn:escapeXml(school.grades.rangeString)}</div>
-        <div class="default">${fn:escapeXml(school.street)}</div>
-        <div class="default">${school.city}, ${school.databaseState} ${school.zip}</div>
+        <div class="default make-555555 capitalize"> ${school.schoolType}, ${fn:escapeXml(school.grades.rangeString)}</div>
+        <div class="default make-555555">${fn:escapeXml(school.street)}</div>
+        <div class="default make-555555">${school.city}, ${school.databaseState} ${school.zip}</div>
     </div>
     <div class="fl tac" style="width:140px">
-        <div class="default">${gsweb:roundTwoDecimal(school.distance)} miles</div>
+        <div class="default make-555555">${gsweb:roundTwoDecimal(school.distance)} miles</div>
     </div>
     <div class="fl tac" style="width:193px">
         <span class="${iconString}"><!-- do not collapse --></span>
