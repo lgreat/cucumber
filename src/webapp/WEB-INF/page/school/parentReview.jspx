@@ -176,7 +176,7 @@
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
     <div style="height: 180px;">
         <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p id="js-bannerSchoolName" style="font: normal 60px/60px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 40px 0 0 0;text-shadow: black 0.01em 0.01em 0.02em">You know your school best!</p>
+            <p id="js-bannerSchoolName" class="truncated" style="font: normal 60px/60px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 40px 0 0 0;text-shadow: black 0.01em 0.01em 0.02em">You know your school best!</p>
             <p id="js-bannerSchoolInfo" style="font-family: 'SourceSansPro-BoldIt', Arial, Helvetica, sans-serif; font-size:16px; font-style: italic; color: #b2811d;">
 
                 <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
