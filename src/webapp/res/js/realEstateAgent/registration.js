@@ -147,6 +147,9 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                         GS.realEstateAgentLogoUploader = new GS.RealEstateAgentCreateLogoUploader();
                         GS.realEstateAgentPhotoUploader.init();
                         GS.realEstateAgentLogoUploader.init();
+
+                        GS.realEstateAgentPollingViewer.init();
+                        GS.realEstateAgentPollingViewer.turnPollingOn();
                     }
                 },
                 error : function (e) {
@@ -294,6 +297,8 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 GSType.hover.RealEstateAgentRegistrationHover.prototype = new GSType.hover.HoverDialog('js-registrationHover', 480)
 
 GSType.hover.realEstateAgentRegistrationHover = new GSType.hover.RealEstateAgentRegistrationHover();
+
+GS.realEstateAgentPollingViewer = new GS.RealEstateAgentPollingViewer();
 
 jQuery(function(){
     GSType.hover.realEstateAgentRegistrationHover.loadDialog();
