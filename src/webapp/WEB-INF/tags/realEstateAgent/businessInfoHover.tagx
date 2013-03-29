@@ -73,15 +73,15 @@
                                              <!--styleId="" name="state" state="${state}"/>-->
 
                         <div id="jq-state" class="pr js-realEstateState">
-                            <div class="js-selectBox selectBox2 selectList clearfix">
-                                <div class="js-selectBoxText mrs fl">${not empty state ? state : "State"}</div>
-                                <div class="fr"><span
-                                        class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span>
+                            <div class="js-selectBox selectBox3 selectList clearfix">
+                                <div class="js-selectBoxText selectBoxText mrs fl">${not empty state ? state : "State"}</div>
+                                <div class="fr selectArrow"><span
+                                        class="vam iconx16 i-16-downArrowWhite"><!--do not collapse--></span>
                                 </div>
                             </div>
-                            <div class="js-selectDropDown selectDropDown2 pa phm ptm dn">
+                            <div class="js-selectDropDown selectDropDown3 pa phm ptm dn">
                                 <c:forEach var="stateObj" items="${stateList}">
-                                    <div class="js-ddValues">${stateObj.abbreviation}</div>
+                                    <div class="js-ddValues ddValues">${stateObj.abbreviation}</div>
                                 </c:forEach>
                             </div>
                         </div>
