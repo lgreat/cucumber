@@ -65,8 +65,8 @@
             /*border-left: 1px solid #2B2B2B;*/
             /*border-right: 1px solid #2B2B2B;*/
             height: 37px;
-            padding: 16px 0 0 7px;
-            width: 40px;
+            padding: 16px 0 0 3px;
+            width: 45px;
             text-align: center;
         }
         .ui-autocomplete{
