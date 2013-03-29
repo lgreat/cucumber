@@ -219,14 +219,6 @@ $(document).ready(function() {
     starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
 });
 
-<<<<<<< HEAD
-=======
-var showModalReviewLanding = function(){
-    GSType.hover.reviewLandingPageInformational.showModal();
-//    GSType.hover.reviewLandingPageInformational.showHover();
-}
-
->>>>>>> GS-13763 Fix regression with Review Landing Page autocomplete functionality
 /********************************************************************************************************
  *
  *  currently created to work with the review page form!!!!
