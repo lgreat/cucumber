@@ -349,38 +349,33 @@ jQuery(function(){
  */
 GS.realEstateAgent.GS_initializeCustomSelect = function(layerContainer, callbackFunction){
     var selectContainer = $(layerContainer); //notify
-
-    console.log(selectContainer);
     var selectBox = selectContainer.find(".js-selectBox");
     var selectDropDownBox = selectContainer.find(".js-selectDropDown");
-    console.log(selectDropDownBox);
     var selectDropDownItem = selectContainer.find(".js-ddValues");
     var selectBoxText = selectContainer.find(".js-selectBoxText");
 
-    selectBox.click(showSelect);
+    selectBox.on("click", showSelect);
 
 
     selectDropDownBox.on('click', function(event) {
-        console.log("alert");
-
         // Handle the click on the notify div so the document click doesn't close it
         event.stopPropagation();
     });
 
     function showSelect(event) {
-        $(this).unbind('click', showSelect);
+        $(this).off('click');
         selectDropDownBox.show();
-        $(document).click(hideSelect);
-        selectDropDownItem.click(showW);
+        $(document).on("click", hideSelect);
+        selectDropDownItem.on("click", showW);
         // So the document doesn't immediately handle this same click event
         event.stopPropagation();
     };
 
     function hideSelect(event) {
-        $(this).unbind('click', hideSelect);
-        selectDropDownItem.unbind('click', showW);
+        $(this).off('click');
+        selectDropDownItem.off('click');
         selectDropDownBox.hide();
-        selectBox.click(showSelect);
+        selectBox.on("click", showSelect);
     }
 
     function showW(event) {
