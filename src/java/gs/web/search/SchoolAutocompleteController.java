@@ -8,10 +8,7 @@ import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.search.*;
 import gs.data.search.beans.SolrSchoolSearchResult;
-import gs.data.search.fields.AddressFields;
-import gs.data.search.fields.DocumentType;
-import gs.data.search.fields.SchoolFields;
-import gs.data.search.fields.SolrField;
+import gs.data.search.fields.*;
 import gs.data.search.filters.SchoolFilters;
 import gs.data.search.services.SchoolSearchServiceSolrImpl;
 import gs.data.state.State;
@@ -161,7 +158,7 @@ public class SchoolAutocompleteController {
             q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.toLowerCase());
         }
 
-        q.addBeginsWithQuery(SchoolFields.SCHOOL_NAME, searchString);
+        q.addBeginsWithQuery(AutosuggestFields.SCHOOLDISTRICT_AUTOSUGGEST, searchString);
 
         List<SolrSchoolSearchResult> results = new ArrayList<SolrSchoolSearchResult>();
 

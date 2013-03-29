@@ -135,7 +135,7 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
         contentExistsBefore = true;
         $("#js-bannerSchoolInfo .js-bannerSchoolType").html(school.type).show();
     }
-    if(school.gradeRange != null && school.gradeRange != "" && school.gradeRange != "null"){
+    if(school.gradeRange != null && school.gradeRange != "" && school.gradeRange != "null" && school.gradeRange != "n/a"){
         iconPageBanner = true;
         var gradeContent = school.gradeRange;
         if(contentExistsBefore){
