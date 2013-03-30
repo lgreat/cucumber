@@ -216,7 +216,7 @@ $(document).ready(function() {
     GS_initializeCustomSelect("js-reviewLandingState", function() {
         var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
         GS.form.selectionMadeAutoComplete = false;
-        searchBox.val(searchBox.attr('placeholder'));
+        searchBox.val("");
     });
 
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
