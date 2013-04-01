@@ -135,15 +135,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if(userId != null) {
             AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
             if(agentAccount != null) {
-                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
-                    User user = _userDao.findUserFromId(userId);
-                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
-
-                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
-                    // update to avoid sending exact target email and record event74 again
-                    getAgentAccountDao().updateAgentAccount(agentAccount);
-                }
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
 
                 modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
                 if(agentAccount.getPhotoMediaUpload() != null) {
@@ -273,6 +266,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         catch (JSONException ex) {
             _logger.warn("RealEstateAgentRegistrationController: Error while writing saved company info to response.");
         }
+
+        getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
 
         outputJson(response, responseJson, true);
     }
