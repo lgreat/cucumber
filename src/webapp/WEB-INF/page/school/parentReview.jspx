@@ -34,6 +34,8 @@
 
     ${requestScope.pageHelper.headElementsWithoutCss}
     <!--<gsml:javascript src="/res/js/schoolReviewForm.js"/>-->
+    <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
+    <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
     <gsml:javascript src="/res/js/parentReviewLandingPage.js"/>
     <!--<gsml:javascript src="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
     <!--<gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>-->
@@ -114,12 +116,13 @@
         }
 
         .selectListFont {
-            font:normal 14px/20px SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+            font:normal 14px/20px 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
             /*border: 1px solid #2B2B2B;*/
             /*height: 37px;*/
             /*width: 300px;*/
             /*padding-top: 10px;*/
         }
+        .selectBox2{overflow: hidden}
 
         .selectDropDown2 {
             margin-top: 5px;;
@@ -128,6 +131,7 @@
             /*height: 100px;*/
             background-color: #dddddd;
         }
+        .mt3{margin-top: 3px;}
 
 
     </style>
@@ -183,9 +187,8 @@
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
     <div style="height: 180px;">
         <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p id="js-bannerSchoolName" class="truncated bottom" style="font: normal 60px/68px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 40px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">You know your school best!</p>
-            <p id="js-bannerSchoolInfo" style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:16px; color: #b2811d;">
-
+            <p id="js-bannerSchoolName" class="truncated bottom" style="font: normal 60px/68px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 30px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">You know your school best!</p>
+            <p id="js-bannerSchoolInfo" style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:16px; line-height: 16px; color: #b2811d;">
                 <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
                 <span class="js-bannerPageIcon dn"><span class="iconx16 i-16-pageOrange mrs mll"><!-- do not collapse --></span></span>
                 <span class="js-bannerSchoolType dn" style="text-transform:capitalize;"><!-- do not collapse --></span>
@@ -235,7 +238,7 @@
                     </div>
                     <div class="paper_bg">
                         <div style="padding: 10px 0px 10px 20px" class="clearfix">
-                            <div class="fl"><h4 class="bottom">Rate this school</h4></div>
+                            <div class="fl"><h4 class="bottom sourceSansPro-Regular">Rate this school</h4></div>
                             <div id="starRatingContainerReview" class="fl pan man mlm">
                                 <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                 <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
@@ -258,15 +261,19 @@
                         </div>
                     </div>
 
-                    <c:choose>
-                        <c:when test="${not empty validUser.email}">
-                            <input class="email text1 js-email" type="text" readonly="true" name="email" placeholder="Email address" value="${validUser.email}" style="width: 300px;"/><br/><br/>
-                        </c:when>
-                        <c:otherwise>
-                            <input class="email text1 js-email" type="text" name="email" placeholder="Please enter your email" style="width: 300px;"/><br/><br/>
-                        </c:otherwise>
-                    </c:choose>
-
+                    <div class="selectBox2 clearfix selectList mbl">
+                        <div class="mtm fl ">
+                            <c:choose>
+                                <c:when test="${not empty validUser.email}">
+                                    <input class="email text1noborder js-email" type="text" readonly="true" name="email" placeholder="Email address" value="${validUser.email}" style="width: 260px; border: none;"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input class="email text1noborder js-email" type="text" name="email" placeholder="Please enter your email" style="width: 260px; border: none;"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="fr pbm plm js_emailPopOver" ><div class="mrm mtm"><span class="iconx16 i-16-lock"><!--do not collapse--></span></div></div>
+                    </div>
                     <!--start-->
                     <div class="js-posterAsString-error dn form-alert pbs ptm dn">
                         <div class="media">
@@ -279,7 +286,7 @@
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
                             <div class="js-selectBoxText mtm fl selectListFont">I am a ... </div>
-                            <div class="fr mrm mtm"><span class="iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                            <div class="fr pbm plm" style="background-color: #666666"><div class="mrm mtm"><span class="iconx16 i-16-downArrowWhite"><!--do not collapse--></span></div></div>
                         </div>
                         <div class="js-selectDropDown selectDropDown2 pa pam dn">
                             <div class="js-ddValues">Parent</div>
@@ -291,25 +298,25 @@
                     <!--End--> <br />
                     <div class="mod standard_1-1">
                         <div class="inner">
-                            <div class="hd pam"><h4 class="bottom">Please rate these additional areas</h4></div>
+                            <div class="hd pam"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
                             <div class="bd pam" style="height:90px;">
                                 <div id="js-reviewsLandingStarBox-Parent" class="dn">
                                     <div class="clearfix pas">
-                                        <div class="fl"><h4 class="bottom">Teacher quality</h4></div>
+                                        <div class="fl"><p class="bottom regular">Teacher quality</p></div>
                                         <div id="starRatingContainerReviewTeacher" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
                                     <div class="clearfix pas">
-                                        <div class="fl"><h4 class="bottom">Principal leadership</h4></div>
+                                        <div class="fl"><p class="bottom regular">Principal leadership</p></div>
                                         <div id="starRatingContainerReviewPrincipal" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
                                     <div class="clearfix pas">
-                                        <div class="fl"><h4 class="bottom">Parent involvement</h4></div>
+                                        <div class="fl"><p class="bottom">Parent involvement</p></div>
                                         <div id="starRatingContainerReviewParent" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
@@ -319,7 +326,7 @@
                                 <div id="js-reviewsLandingStarBox-Start"><br />Select an option from the dropdown menu</div>
                                 <div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>
                                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">
-                                    <div class="fl"><h4 class="bottom">Rate Teacher</h4></div>
+                                    <div class="fl"><p class="bottom">Rate Teacher</p></div>
                                     <div id="starRatingContainerReviewTeacherForStudent" class="fr pan man mlm">
                                         <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                         <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>

@@ -63,6 +63,7 @@ body {
     url('fonts/SourceSansPro-Semibold-webfont.svg#SourceSansPro-Semibold') format('svg');
 }
 
+
 h1,
 h2,
 h3,
@@ -355,4 +356,16 @@ ul.disc li  { list-style-type: disc }
 .addMousePointer{cursor: pointer;}
 .truncated { display:inline-block; max-width:960px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
+.sourceSansPro-Regular{
+    font-weight: normal;
+    font-family: 'SourceSansPro-Regular';
+}
+.sourceSansPro-It{
+    font-weight: normal;
+    font-family: 'SourceSansPro-It';
+}
+.sourceSansPro-Semibold{
+    font-weight: normal;
+    font-family: 'SourceSansPro-Semibold';
+}
 

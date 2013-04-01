@@ -124,7 +124,7 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
     $("#schoolState").val(school.state);
     $("#js-bannerSchoolName").html(school.name);
     if(school.address != null && school.address != ""){
-        var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs"><!-- do not collapse --></span>'+school.address;
+        var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs mt3"><!-- do not collapse --></span>'+school.address;
         $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
     }
     var iconPageBanner = false;
@@ -205,6 +205,8 @@ $(document).ready(function() {
 
     GS.form.findAndApplyGhostTextSwitching('body');
 
+    jQuery(".js_emailPopOver").popover({content:"<div style='width:250px'>Don’t worry. We will not share your email address with anyone or display it on our website. We ask for your email address in order to let you know when your review has been posted.</div>", placement:'top', delay:{ show: 100, hide: 100 }});
+
     GS.parentReviewLandingPage.attachAutocomplete();
 
     GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
@@ -223,7 +225,7 @@ $(document).ready(function() {
     starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
     starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
     starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
-    starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherStudentAsString", "");
+    starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherAsString", "");
 });
 
 /********************************************************************************************************
