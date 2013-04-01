@@ -16,6 +16,8 @@ import gs.data.state.INoEditDao;
 import gs.data.util.Address;
 import gs.data.util.DigestUtil;
 import gs.web.school.EspHelper;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 
@@ -193,7 +195,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                     _log.warn("State locked while promoting provisional user.State:" + membership.getSchool().getDatabaseState()
                                             + "User Id:" + membership.getUser().getId());
                                 } else {
-                                    promoteProvisionalDataToActiveData(user, membership.getSchool());
+                                    promoteProvisionalDataToActiveData(user, membership.getSchool(), request, response);
                                     membership.setStatus(EspMembershipStatus.APPROVED);
                                     membership.setActive(true);
                                     addEspRole(user);
@@ -264,9 +266,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
      * @param school
      * @return
      */
-    protected void promoteProvisionalDataToActiveData(User user, School school) {
-        //TODO what if state is locked?
-        //TODO omniture
+    protected void promoteProvisionalDataToActiveData(User user, School school, HttpServletRequest request, HttpServletResponse response) {
 
         Set<String> keysForPage = new HashSet<String>();
         Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
@@ -314,8 +314,21 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                     keyToResponseMap.put(key, requestParameterMap.get(key).toArray());
                 }
             }
+
+            Set<Integer> provisionalMemberIds = new HashSet<Integer>();
+            provisionalMemberIds.add(user.getId());
+
+            // Check if this is the first time this school has gotten any data(exclude data by the user being approved).
+            boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
+
             _espHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
                     errorFieldToMsgMap, responseList, false, true);
+
+            if (schoolHasNoUserCreatedRows) {
+                OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
+                omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.NewEspStarted);
+            }
+
         }
     }
 
@@ -539,4 +552,5 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     public void setEspHelper(EspHelper espHelper) {
         _espHelper = espHelper;
     }
+
 }

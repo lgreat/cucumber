@@ -1,10 +1,7 @@
 package gs.web.admin;
 
 import gs.data.community.User;
-import gs.data.school.EspResponse;
-import gs.data.school.IEspResponseDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
@@ -22,6 +19,7 @@ import static org.easymock.EasyMock.isA;
 public class AbstractEspModerationControllerTest extends BaseControllerTestCase {
     private EspHelper _espSaveHelper;
     private IEspResponseDao _espResponseDao;
+    private IEspMembershipDao _espMembershipDao;
     private AbstractEspModerationController _controller;
     private INoEditDao _noEditDao;
     private ISchoolDao _schoolDao;
@@ -39,7 +37,9 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         _noEditDao = createMock(INoEditDao.class);
         _espResponseDao = createMock(IEspResponseDao.class);
         _schoolDao = createMock(ISchoolDao.class);
+        _espMembershipDao = createMock(IEspMembershipDao.class);
 
+        _controller.setEspMembershipDao(_espMembershipDao);
         _controller.setEspResponseDao(_espResponseDao);
         _controller.setEspHelper(_espSaveHelper);
         _espSaveHelper.setEspFormExternalDataHelper(_espFormExternalDataHelper);
@@ -50,11 +50,11 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
     }
 
     private void replayAllMocks() {
-        replayMocks(_noEditDao,_schoolDao, _espResponseDao);
+        replayMocks(_noEditDao,_schoolDao, _espResponseDao,_espMembershipDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_noEditDao,_schoolDao, _espResponseDao);
+        verifyMocks(_noEditDao,_schoolDao, _espResponseDao,_espMembershipDao);
     }
 
     public void testPromoteProvisionalDataToActiveDataWithNullResponses(){
@@ -66,7 +66,7 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         //Test with null
         expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(null);
         replayAllMocks();
-        _controller.promoteProvisionalDataToActiveData(user,school);
+        _controller.promoteProvisionalDataToActiveData(user,school,getRequest(),getResponse());
         verifyAllMocks();
     }
 
@@ -106,8 +106,11 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         _espResponseDao.saveResponses(isA(School.class),isA(ArrayList.class));
         _schoolDao.saveSchool(isA(State.class), isA(School.class), isA(String.class));
         _schoolDao.saveSchool(isA(State.class), isA(School.class), isA(String.class));
+        Set<Integer> memberIdsToExclude = new HashSet<Integer>();
+        memberIdsToExclude.add(user.getId());
+        expect(_espResponseDao.schoolHasNoUserCreatedRows(school,true,memberIdsToExclude)).andReturn(false);
         replayAllMocks();
-        _controller.promoteProvisionalDataToActiveData(user,school);
+        _controller.promoteProvisionalDataToActiveData(user,school,getRequest(),getResponse());
         verifyAllMocks();
     }
 

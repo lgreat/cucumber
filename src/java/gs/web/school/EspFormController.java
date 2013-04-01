@@ -58,6 +58,8 @@ public class EspFormController implements ReadWriteAnnotationController {
     @Autowired SchoolMediaDaoHibernate _schoolMediaDao;
     @Autowired
     private EspHelper _espHelper;
+    @Autowired
+    protected IEspMembershipDao _espMembershipDao;
 
     // TODO: If user is valid but school/state is not, redirect to landing page
     @RequestMapping(value="form.page", method=RequestMethod.GET)
@@ -368,9 +370,15 @@ public class EspFormController implements ReadWriteAnnotationController {
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
+        //Get all the provisional users.To check if the form already has saved data, ignore the data input by provisional users.
+        List<EspMembership> provisionalMemberships = _espMembershipDao.findEspMembershipsByStatus(EspMembershipStatus.PROVISIONAL, false);
+        Set<Integer> provisionalMemberIds = new HashSet<Integer>();
+        for (EspMembership membership : provisionalMemberships) {
+            provisionalMemberIds.add(membership.getId());
+        }
 
-        // Check if this is the first time this school has gotten any data
-        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true);
+        // Check if this is the first time this school has gotten any data(exclude data by provisional users).
+        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
         _espHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
                 isProvisionalData,false);
