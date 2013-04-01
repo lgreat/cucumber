@@ -60,9 +60,16 @@
     <div class="fl tac" style="width:193px">
         <span class="${iconString}"><!-- do not collapse --></span>
     </div>
-        <div class="fr tac" style="width:135px">
-        <span class="iconx21-stars i-21-orange-star  i-21-star-${school.parentRating}"><!-- not empty--></span>
-        <span class="iconx21-stars i-21-grey-star  i-21-star-${starOff}"><!-- not empty--></span>
+    <div class="fr tac" style="width:135px">
+        <c:choose>
+            <c:when test="${not empty school.parentRating}">
+                <span class="iconx21-stars i-21-orange-star  i-21-star-${school.parentRating}"><!-- not empty--></span>
+                <span class="iconx21-stars i-21-grey-star  i-21-star-${starOff}"><!-- not empty--></span>
+            </c:when>
+            <c:otherwise>
+                <span class="iconx21-stars i-21-grey-star  i-21-star-${starOff}"><!-- not empty--></span>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
     <!-- end container -->
