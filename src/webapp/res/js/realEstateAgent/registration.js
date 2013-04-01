@@ -321,7 +321,7 @@ jQuery(function(){
     jQuery('#jq-cellNumber').blur(GSType.hover.realEstateAgentRegistrationHover.validateCellNumber);
     jQuery('#jq-address').blur(GSType.hover.realEstateAgentRegistrationHover.validateAddress);
     jQuery('#jq-city').blur(GSType.hover.realEstateAgentRegistrationHover.validateCity);
-    jQuery('#jq-state .js-selectBoxText').change(GSType.hover.realEstateAgentRegistrationHover.validateState);
+    jQuery('.js-selectDropDown').on('click', '.js-ddValues', GSType.hover.realEstateAgentRegistrationHover.validateState);
     jQuery('#jq-zip').blur(GSType.hover.realEstateAgentRegistrationHover.validateZip);
 
 });
