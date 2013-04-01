@@ -82,6 +82,9 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     public void agentUploaderTest(HttpServletRequest request,
                                   HttpServletResponse response) {
         response.setContentType("application/json");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
 
         JSONObject responseJson = new JSONObject();
         AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
