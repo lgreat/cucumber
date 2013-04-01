@@ -103,7 +103,7 @@
                         <div class="default make-555555">${agentCompany}</div>
                         <div class="default make-555555"><span class="defaultBold">office:</span> ${agentWorkNumber}</div>
                         <c:if test="${not empty agentCellNumber}">
-                            <div class="default make-555555"><span class="defaultBold">mobile:</span>${agentCellNumber}</div>
+                            <div class="default make-555555"><span class="defaultBold">mobile:</span> ${agentCellNumber}</div>
                         </c:if>
 
                         <div class="default make-555555">${agentEmail}</div>
