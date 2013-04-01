@@ -5,7 +5,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
     var errors = {};
 
     var submitSearch = function() {
-        if(!skipValidation() && !validateCreateGuideForm()) {
+        if(!validateCreateGuideForm()) {
             return false;
         }
 
@@ -32,26 +32,22 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
                     propertyDetailsForm.find('input#jq-zipcode').val(geocodeResult['zipcode']);
                     propertyDetailsForm.find('input#jq-streetNumber').val(geocodeResult['streetNumber']);
                     propertyDetailsForm.find('input#jq-streetName').val(geocodeResult['streetName']);
-                    propertyDetailsForm.find('input#jq-bedDownload').val(jQuery.trim(propertyDetailsForm.find("#js-bed .js-selectBoxText").text()));
-                    propertyDetailsForm.find('input#jq-bathDownload').val(jQuery.trim(propertyDetailsForm.find("#js-bath .js-selectBoxText").text()));
 
-                    //TODO: comment skip user validation
-                    var skipValidation = function() {
-                        var params = GS.uri.Uri.getQueryData();
-                        return(params.skipUserCheck === 'true');
+                    var bed = jQuery.trim(propertyDetailsForm.find("#js-bed .js-selectBoxText").text());
+                    if(!bed.match(/^\d{1,2}$/)) {
+                        bed = '';
                     }
-                    propertyDetailsForm.find('input#jq-skipUserCheck').val(skipValidation());
+                    propertyDetailsForm.find('input#jq-bedDownload').val(bed);
 
-                    //TODO: remove when pdf is ready
-                    var hasPageView = function() {
-                        var params = GS.uri.Uri.getQueryData();
-                        return(params.pageView === 'true');
+                    var bath = jQuery.trim(propertyDetailsForm.find("#js-bath .js-selectBoxText").text());
+                    if(!bath.match(/^\d{1,2}(.\d{1})?$/)) {
+                        bath = '';
                     }
-                    if(hasPageView()){
-                        window.setTimeout(function() {
-                            propertyDetailsForm.submit();
-                        }, 1);
-                        return false;
+                    propertyDetailsForm.find('input#jq-bathDownload').val(bath);
+
+                    var sqFootage = propertyDetailsForm.find('input#js-sqFeet');
+                    if(jQuery.trim(sqFootage.val()) === 'Square footage') {
+                        sqFootage.val('');
                     }
 
                     window.setTimeout(function() {
@@ -73,7 +69,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         var address = jQuery.trim(propertyDetailsForm.find('input#jq-propertyAddress').val());
 
         var data = {};
-        if (address === '' || address === 'Property Address') {
+        if (address === '' || address === 'Property Address (required)') {
             data.hasError = true;
             data.addressErrorDetail = 'Please enter an address.';
         }
@@ -197,37 +193,24 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         }
     };
 
-    //TODO: comment skip validation
-    var skipValidation = function() {
+    /*var skipValidation = function() {
         var params = GS.uri.Uri.getQueryData();
         return(params.skipUserCheck === 'true');
-    };
+    };*/
 
     return {
         submitSearch:submitSearch,
         gsGeocode: gsGeocode,
         validateAddress: validateAddress,
-        validateSqFootage: validateSqFootage,
-        skipValidation: skipValidation
+        validateSqFootage: validateSqFootage
     }
 })();
 
 jQuery(function() {
-    if(!GS.realEstateAgent.createGuide.skipValidation()) {
-        //Create guide validation
-        jQuery('#jq-propertyAddress').blur(GS.realEstateAgent.createGuide.validateAddress);
-        jQuery('#js-sqFeet').blur(GS.realEstateAgent.createGuide.validateSqFootage);
-    }
-
-    //TODO: remove when pdf is ready
-    var hasPageView = function() {
-        var params = GS.uri.Uri.getQueryData();
-        return(params.pageView === 'true');
-    }
-    if(hasPageView()) {
-        jQuery('#jq-propertyDetailsForm').attr('action', '/real-estate/guides/neighborhood-guide.page');
-        jQuery('#jq-propertyDetailsForm').find('input#jq-pageView').val(hasPageView());
-    }
+//    if(!GS.realEstateAgent.createGuide.skipValidation()) {}
+    //Create guide validation
+    jQuery('#jq-propertyAddress').blur(GS.realEstateAgent.createGuide.validateAddress);
+    jQuery('#js-sqFeet').blur(GS.realEstateAgent.createGuide.validateSqFootage);
     GS.realEstateAgent.GS_initializeCustomSelect("#js-bed");
     GS.realEstateAgent.GS_initializeCustomSelect("#js-bath");
 });
