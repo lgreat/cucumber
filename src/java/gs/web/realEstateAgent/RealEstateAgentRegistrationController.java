@@ -267,7 +267,9 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             _logger.warn("RealEstateAgentRegistrationController: Error while writing saved company info to response.");
         }
 
-        getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+        if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
+            getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+        }
 
         outputJson(response, responseJson, true);
     }
