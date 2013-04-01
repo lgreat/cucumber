@@ -99,16 +99,20 @@ input.searchText:focus{ color: #2B2B2B; border: 1px solid #2092C4;
          -o-transition: all 0.15s ease-in;  /* Opera 10.5+ */
             transition: all 0.15s ease-in;
 }
-
+.selectList,
 input.text1{
     height: 40px;
-    font: normal 12px/20px SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+    font: normal 14px/20px 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
     color:#666666;
     padding-left: 8px;
     border:1px solid #B8B8B8;
     -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
        -moz-border-radius: 3px; /* FF1-3.6 */
             border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+input.text1noborder{
+    font: normal 14px/20px 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+    color:#666666;
 }
 
 input.text1:focus{
@@ -234,4 +238,81 @@ textarea.lined_paper{
     margin-top: 5px;;
     overflow: auto;
     resize:none
+}
+
+
+/**********************************************************************************************************************
+
+    Custom Dropdown form element
+
+************************************************************************************************************************/
+
+.ddValues {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.ddValuesHighlight {
+    background-color: #EEEEEE;
+}
+/*****style-3*****/
+.selectBox3 {
+    height: 42px;
+    width: 122px;
+}
+.selectBox3 .selectBoxText {
+    padding: 11px 0;
+}
+.selectDropDown3 {
+    margin-top: 5px;
+    border: 1px solid #BFBFBF;
+    height: 99px;
+    background-color: #FAFAFA;
+    overflow-y: scroll;
+    z-index: 1000;
+    position: absolute;
+    width: 110px;
+    -webkit-border-radius:  3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+          -moz-border-radius: 3px; /* FF1-3.6 */
+               border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.selectBox3 .selectArrow{
+    background-color: #555555;
+    padding: 11px;
+    cursor: pointer;
+    -webkit-border-radius:  0 3px 3px 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+       -moz-border-radius:  0 3px 3px 0; /* FF1-3.6 */
+            border-radius:  0 3px 3px 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+/*****style-4*****/
+.selectBox4 {
+    height: 42px;
+    width: 206px;
+}
+.selectBox4 .selectBoxText {
+    padding: 11px 0;
+}
+.selectDropDown4 {
+    margin-top: 5px;
+    border: 1px solid #BFBFBF;
+    height: 99px;
+    background-color: #FAFAFA;
+    overflow-y: scroll;
+    z-index: 1000;
+    position: absolute;
+    width: 194px;
+    -webkit-border-radius:  3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+              -moz-border-radius: 3px; /* FF1-3.6 */
+                   border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.selectBox4 .selectArrow{
+    background-color: #555555;
+    padding: 11px;
+    cursor: pointer;
+    -webkit-border-radius:  0 3px 3px 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+       -moz-border-radius:  0 3px 3px 0; /* FF1-3.6 */
+            border-radius:  0 3px 3px 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }

@@ -7,7 +7,10 @@ import gs.data.json.JSONObject;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
 import gs.data.state.State;
+import gs.data.util.CommunityUtil;
 import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
@@ -16,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,10 +46,6 @@ import java.util.Map;
 public class RealEstateAgentRegistrationController implements ReadWriteAnnotationController {
     private static Logger _logger = Logger.getLogger(RealEstateAgentRegistrationController.class);
 
-    private static final String REGISTRATION_PAGE_VIEW = "/realEstateAgent/registrationHome";
-
-    private static final String CREATE_REPORT_PAGE_VIEW = "/realEstateAgent/createReport";
-
     private final static String FIELD_NAME_REQ_PARAM_KEY = "fieldName";
     private final static String FIRST_NAME_REQ_PARAM_KEY = "firstName";
     private final static String LAST_NAME_REQ_PARAM_KEY = "lastName";
@@ -61,19 +61,19 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
     };
     protected static final String ERROR_FIRST_NAME_LENGTH =
-            "First name must be 2-24 characters long.";
+            "Name must be 2-24 characters.";
     protected static final String ERROR_FIRST_NAME_BAD =
-            "Please remove the numbers or symbols.";
-    public static final String ERROR_INVALID_FIRST_NAME = "Please enter a valid first name.";
+            "Please enter a valid first name.";
+    public static final String ERROR_INVALID_FIRST_NAME = "Please enter your first name.";
 
     public static final String LAST_NAME_ERROR_DETAIL_KEY = "lastNameErrorDetail";
     public static final int LAST_NAME_MINIMUM_LENGTH = 1;
     public static final int LAST_NAME_MAXIMUM_LENGTH = 24;
     protected static final String ERROR_LAST_NAME_LENGTH =
-            "Last name must be 1-24 characters long.";
+            "Name must be 1-24 characters.";
     protected static final String ERROR_LAST_NAME_INVALID_CHARACTERS =
-            "Last name may contain only letters, numbers, spaces, and the following punctuation:, . - _ &";
-    public static final String ERROR_INVALID_LAST_NAME = "Please enter a valid last name.";
+            "Please enter a valid last name.";
+    public static final String ERROR_INVALID_LAST_NAME = "Please enter your last name.";
 
     public static final String EMAIL_ERROR_DETAIL_KEY = "emailErrorDetail";
     public static final String ERROR_INVALID_EMAIL = "Please enter a valid email address.";
@@ -85,7 +85,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     protected static final String ERROR_EMAIL_TAKEN =
             "This email address is already registered.";
     protected static final String ERROR_EMAIL_HAS_AGENT_ACCOUNT =
-            "This email address has registered real estate agent account.";
+            "You've already registered. Please close this box and sign in at the top right.";
 
     public static final String PASSWORD_ERROR_DETAIL_KEY = "passwordErrorDetail";;
     protected static final int PASSWORD_MINIMUM_LENGTH = 6;
@@ -93,7 +93,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     protected static final String ERROR_PASSWORD_LENGTH =
             "Password should be 6-14 characters.";
     protected static final String ERROR_INCORRECT_PASSWORD =
-            "The password you entered is incorrect for the registered email.";
+            "Email and password do not match.";
 
     @Autowired
     private IAgentAccountDao _agentAccountDao;
@@ -122,21 +122,43 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         if (!_realEstateAgentHelper.skipUserValidation(request) && _realEstateAgentHelper.hasAgentAccount(request)) {
             return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
         }
-        return REGISTRATION_PAGE_VIEW;
+        return _realEstateAgentHelper.REGISTRATION_PAGE_VIEW;
     }
 
     @RequestMapping(value = "create-guide.page", method = RequestMethod.GET)
-    public String showCreateReportForm (HttpServletRequest request,
-                            HttpServletResponse response) {
+    public String showCreateReportForm (ModelMap modelMap,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response) {
         //TODO: comment skip user validation
         if(_realEstateAgentHelper.skipUserValidation(request)) {
-            return CREATE_REPORT_PAGE_VIEW;
+            return _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW;
         }
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
         if(userId != null) {
-            return _realEstateAgentHelper.getViewForUser(request, userId, CREATE_REPORT_PAGE_VIEW);
+            AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
+            if(agentAccount != null) {
+                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
+                    User user = _userDao.findUserFromId(userId);
+                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
+
+                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
+                    // update to avoid sending exact target email and record event74 again
+                    getAgentAccountDao().updateAgentAccount(agentAccount);
+                }
+
+                modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+                if(agentAccount.getPhotoMediaUpload() != null) {
+                    modelMap.put("photoMediaPath", agentAccount.getPhotoMediaUpload().getDim432x432FilePath());
+                }
+                if(agentAccount.getLogoMediaUpload() != null) {
+                    modelMap.put("logoMediaPath", agentAccount.getLogoMediaUpload().getDim324x324FilePath());
+                }
+
+                return _realEstateAgentHelper.getViewForUser(modelMap, request, userId, _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW);
+            }
         }
 
         return "redirect:" + _realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request);
@@ -211,8 +233,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             sendVerificationEmail(request, user);
         }
 
-        getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
-
         _realEstateAgentHelper.setUserCookie(user, request, response);
 
         outputJson(response, responseJson, true);
@@ -255,6 +275,13 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         else {
             setAgentAccountFields(agentAccount, companyName, workNumber, cellNumber, address, city, state, zip);
             getAgentAccountDao().updateAgentAccount(agentAccount);
+        }
+
+        try {
+            responseJson.accumulate("companyInfoFields", _realEstateAgentHelper.getCompanyInfoFields(agentAccount));
+        }
+        catch (JSONException ex) {
+            _logger.warn("RealEstateAgentRegistrationController: Error while writing saved company info to response.");
         }
 
         outputJson(response, responseJson, true);
@@ -413,6 +440,7 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         try {
             if (StringUtils.isNotEmpty(password) && !user.isEmailValidated()) {
                 user.setPlaintextPassword(password);
+                user.setEmailProvisional(password);
             }
         }
         catch (Exception ex) {
@@ -480,8 +508,12 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
             responseJson.write(response.getWriter());
             response.getWriter().flush();
         }
-        catch (JSONException ex) {}
-        catch (IOException ex) {}
+        catch (JSONException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to add to json object.",ex);
+        }
+        catch (IOException ex) {
+            _logger.warn("RealEstateAgentRegistrationController - exception while trying to write json output.",ex);
+        }
     }
 
 

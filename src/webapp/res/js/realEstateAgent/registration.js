@@ -53,7 +53,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                     if(response.success || data.skipUserCheck) {
                         form.addClass('dn');
                         hover.find('.jq-businessInfoForm').removeClass('dn');
-
+                        GS.realEstateAgent.GS_initializeCustomSelect(".jq-businessInfoForm:visible .js-realEstateState");
                         if(s) {
                             pageTracking.clear();
                             pageTracking.pageName = "Radar Registration Company Info";
@@ -100,7 +100,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
             form.find('input').each(function() {
                 data[this.name] = jQuery.trim(this.value);
             });
-            data['state'] = form.find('select[name=state]').val();
+            data['state'] = jQuery.trim(form.find('.js-realEstateState .js-selectBoxText').text());
 
             if(!data['cellNumber'].match(/^\d{10}$/)) {
                 data['cellNumber'] = '';
@@ -116,9 +116,25 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 url : '/real-estate/saveBusinessInfo.page',
                 data : data,
                 success : function (response) {
-                    if(response.success) {
+                    if(response.success || data.skipUserCheck) {
                         form.addClass('dn');
                         hover.find('.jq-imageUploaderForm').removeClass('dn');
+
+                        if(response.companyInfoFields !== undefined) {
+                            var companyInfoFields = response.companyInfoFields;
+                            $('.jq-businessInfoForm:first input').each(function() {
+                                var $this = jQuery(this);
+                                if(companyInfoFields[this.name] != null) {
+                                    $this.attr('value', companyInfoFields[this.name]);
+                                }
+                            });
+                            if(companyInfoFields.state !== null) {
+//                                $('.jq-businessInfoForm:first select option:selected').removeAttr('selected');
+//                                $('.jq-businessInfoForm:first select option[value="'+ companyInfoFields.state + '"]').attr('selected','selected')
+                                $('.jq-businessInfoForm:first .js-realEstateState .js-selectBoxText').text(companyInfoFields.state);
+                            }
+
+                        }
 
                         if(s) {
                             pageTracking.clear();
@@ -131,6 +147,9 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                         GS.realEstateAgentLogoUploader = new GS.RealEstateAgentCreateLogoUploader();
                         GS.realEstateAgentPhotoUploader.init();
                         GS.realEstateAgentLogoUploader.init();
+
+                        GS.realEstateAgentPollingViewer.init();
+                        GS.realEstateAgentPollingViewer.turnPollingOn();
                     }
                 },
                 error : function (e) {
@@ -140,11 +159,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         });
 
         hover.on('click', '.jq-completeRegistration', function() {
-            if(s.tl) {
-                s.tl(this, 'o', 'Radar Sign Up Complete');
-            }
-            window.location.href = window.location.protocol + '//' + window.location.host +
-                '/real-estate/create-guide.page';
+            jQuery('#agentRegistration').submit();
         })
     };
 
@@ -193,7 +208,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var companyName = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-companyName').val());
         if(companyName === 'Company Name' || companyName === '') {
             data.hasError = true;
-            data.companyNameErrorDetail = 'Please specify your company name.';
+            data.companyNameErrorDetail = 'Please enter your company name to brand your guides.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-companyNameFields .errors', data, 'companyNameErrorDetail');
     };
@@ -203,7 +218,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var workNumber = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-workNumber').val());
         if(!workNumber.match(/^\d{10}$/)) {
             data.hasError = true;
-            data.workNumberErrorDetail = 'Please enter exactly 10 digits.';
+            data.workNumberErrorDetail = 'Please enter just 10 digits.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-workNumberFields .errors', data, 'workNumberErrorDetail');
     };
@@ -213,7 +228,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var address = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-address').val());
         if(address === 'Work Address' || address === '') {
             data.hasError = true;
-            data.addressErrorDetail = 'Please specify the work address.';
+            data.addressErrorDetail = "Please enter your company's street address.";
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-addressFields .errors', data, 'addressErrorDetail');
     };
@@ -223,17 +238,17 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var city = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-city').val());
         if(city === 'City' || city === '') {
             data.hasError = true;
-            data.cityErrorDetail = 'Please specify the city.';
+            data.cityErrorDetail = 'Please specify.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-cityFields .errors', data, 'cityErrorDetail');
     };
 
     this.validateState = function() {
         var data = {};
-        var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state').val());
+        var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state').text());
         if(state === '') {
             data.hasError = true;
-            data.stateErrorDetail = 'Please select the state.';
+            data.stateErrorDetail = 'Please select.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-stateFields .errors', data, 'stateErrorDetail');
     };
@@ -243,13 +258,13 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         var zip = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-zip').val());
         if(!zip.match(/^\d{5}$/)) {
             data.hasError = true;
-            data.zipErrorDetail = 'Please enter exactly 5 digits.';
+            data.zipErrorDetail = 'Enter 5 digits.';
         }
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-zipFields .errors', data, 'zipErrorDetail');
     };
 
     this.validateFieldResponse = function(fieldSelector, data, errorDetailKey) {
-        var errorIcon ='<span class="iconx16 i-16-alert "><!-- do not collapse --></span>';
+        var errorIcon ='<span class="vam mrs iconx16 i-16-alert "><!-- do not collapse --></span>';
         var fieldError = jQuery(fieldSelector + ' .invalid');
         var fieldValid = jQuery(fieldSelector + ' .valid');
         fieldError.hide();
@@ -283,11 +298,22 @@ GSType.hover.RealEstateAgentRegistrationHover.prototype = new GSType.hover.Hover
 
 GSType.hover.realEstateAgentRegistrationHover = new GSType.hover.RealEstateAgentRegistrationHover();
 
+GS.realEstateAgentPollingViewer = new GS.RealEstateAgentPollingViewer();
+
 jQuery(function(){
     GSType.hover.realEstateAgentRegistrationHover.loadDialog();
 
     jQuery('#jq-realEstAgentRegisterBtn').on('click', function() {
         GSType.hover.realEstateAgentRegistrationHover.show();
+        return false;
+    });
+
+    jQuery('#jq-myAccount').on('click', function() {
+        var form = jQuery('.jq-businessInfoForm');
+        form.removeClass('dn');
+
+        GSType.hover.realEstateAgentRegistrationHover.show();
+        GS.realEstateAgent.GS_initializeCustomSelect(".jq-businessInfoForm:visible .js-realEstateState");
         return false;
     });
 
@@ -315,3 +341,59 @@ jQuery(function(){
 
 });
 
+
+/**********************************************************************************************
+ *
+ * @param layerContainer  --- this is the surrounding layer that contains
+ .js-selectBox - this is the clickable element to open the drop down
+ .js-selectDropDown - this is the dropdown select list container
+ .js-ddValues - each element in the select list
+ .js-selectBoxText - the text that gets set.  This is the part that should be scrapped for option choice
+ * @param callbackFunction - optional function callback when selection is made.
+ * @constructor
+ */
+GS.realEstateAgent.GS_initializeCustomSelect = function(layerContainer, callbackFunction){
+    var selectContainer = $(layerContainer); //notify
+    var selectBox = selectContainer.find(".js-selectBox");
+    var selectDropDownBox = selectContainer.find(".js-selectDropDown");
+    var selectDropDownItem = selectContainer.find(".js-ddValues");
+    var selectBoxText = selectContainer.find(".js-selectBoxText");
+
+    selectBox.on("click", showSelect);
+
+
+    selectDropDownBox.on('click', function(event) {
+        // Handle the click on the notify div so the document click doesn't close it
+        event.stopPropagation();
+    });
+
+    function showSelect(event) {
+        $(this).off('click');
+        selectDropDownBox.show();
+        $(document).on("click", hideSelect);
+        selectDropDownItem.on("click", showW);
+        // So the document doesn't immediately handle this same click event
+        event.stopPropagation();
+    };
+
+    function hideSelect(event) {
+        $(this).off('click');
+        selectDropDownItem.off('click');
+        selectDropDownBox.hide();
+        selectBox.on("click", showSelect);
+    }
+
+    function showW(event) {
+        hideSelect(event);
+        selectBoxText.html($(this).html());
+        if(callbackFunction) callbackFunction($(this).html());
+    }
+
+    selectDropDownItem.mouseover(function () {
+        $(this).addClass("ddValuesHighlight");
+    });
+
+    selectDropDownItem.mouseout(function () {
+        $(this).removeClass("ddValuesHighlight");
+    });
+}

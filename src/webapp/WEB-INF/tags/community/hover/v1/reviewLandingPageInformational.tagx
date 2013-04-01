@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+
+    <div id="js-reviewLandingPageInformational" class="dn">
+        <div class="mod modal_1 width_12" id="js-reviewLandingPageInformational">
+            <div class="outer">
+                <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner">
+                    <h2 class="bottom pbm">Helpful reviews answer questions:</h2>
+                    <ul>
+                        <li>What do you think others should know?</li>
+                        <li>What do you like?</li>
+                        <li>How could your school improve?</li>
+                    </ul>
+                    <br />
+                    <h2 class="bottom pvm">Review Guidelines</h2>
+                    <h5 class="bottom pbs">GreatSchools won’t post reviews that contain:</h5>
+                    <ul>
+                        <li>Inappropriate language</li>
+                        <li>Allegations of criminal conduct</li>
+                        <li>Names of students, teachers, staff or other parents</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>

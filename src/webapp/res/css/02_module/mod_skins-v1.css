@@ -1102,6 +1102,7 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 }
 
 .moduleHeight-560{height:560px;}
+.moduleTop-125{top:125px;}
 .moduleTop-150{top:150px;}
 .moduleTop-250{top:250px;}
 .moduleTop-200{top:200px;}
@@ -1109,8 +1110,11 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 
 .reviewsLanding .searchBox{
     background: #DDDDDD;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    -moz-opacity:0.75;
+    -khtml-opacity: 0.75;
     opacity: 0.75;
-    filter: alpha(opacity = 0.75);
     height:50px; width: 500px;
     margin: 50px auto;
 }

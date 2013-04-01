@@ -122,6 +122,39 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 else if ("radar".equals(user.getHow()) && StringUtils.isNotBlank(requestedRedirect)) {
                     viewName = requestedRedirect;
                 }
+
+                // upgradeProvisional=true is set when users created review from the Review Landing Page using an email
+                // that has a GreatSchools account. When they validate their email (even though they had a GS account)
+                // then this code path will execute
+                if ("true".equalsIgnoreCase(request.getParameter("upgradeProvisional"))) {
+                    summary = getReviewService().upgradeProvisionalReviewsAndSummarize(user);
+                    switch (summary.getStatus()) {
+                        case REVIEW_UPGRADED_PUBLISHED:
+                            sendReviewPostedEmail(request, summary.getFirstPublishedReview());
+                            hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_POSTED);
+                            urlBuilder = new UrlBuilder(summary.getFirstPublishedReview().getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                            viewName = urlBuilder.asFullUrl(request);
+                            break;
+
+                        case REVIEW_UPGRADED_NOT_PUBLISHED:
+                            hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED);
+                            urlBuilder = new UrlBuilder(summary.getUpgradedReviews().get(0).getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                            viewName = urlBuilder.asFullUrl(request);
+                            break;
+
+                        case NO_REVIEW_UPGRADED:  //This should not happen except with MSL users, since an email-only user
+                            //created from review process would have a review to upgrade
+                            if (StringUtils.isNotBlank(requestedRedirect)) {
+                                viewName = requestedRedirect;
+                            } else {
+                                viewName = "/account/";
+                            }
+                            break;
+
+                        default:
+                    }
+                }
+
                 return new ModelAndView(new RedirectView(viewName)); // E A R L Y   E X I T
 
             case PROVISIONAL:

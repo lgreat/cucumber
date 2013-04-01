@@ -4,6 +4,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
           version="2.0">
 
     <html>
@@ -14,98 +15,199 @@
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta name="robots" content="noindex"/>
         <gsml:javascript src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
+        <gsml:javascript src="/res/js/plupload-new/moxie.min.js" />
+        <gsml:javascript src="/res/js/plupload-new/plupload.js" />
+        <!--<gsml:javascript src="/res/js/plupload-new/plupload.flash.js" />-->
+
+        <gsml:javascript src="/res/js/mediaUploader/MediaUploader.js" />
+        <gsml:javascript src="/res/js/realEstateAgent/RealEstateAgentMediaUploader.js" />
+        <gsml:javascript src="/res/js/realEstateAgent/registration.js"/>
         <gsml:javascript src="/res/js/realEstateAgent/createReport.js"/>
+        <jsp:scriptlet>
+            java.util.List stateList = gs.data.state.StateManager.getList();
+            request.setAttribute("stateList", stateList);
+        </jsp:scriptlet>
     </head>
 
     <body>
     <div class="imageBgScale">
         <div class="pr" style="height:200px;">
-            <div class="headerBar" style="">
-                <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:48px; color: #FFFFFF; padding: 40px 0 20px 0;text-shadow: black 0.1em 0.1em 0.2em">Get your personalized printout</p>
-                <p style="font-family: 'SourceSansPro-BoldIt' arial; font-size:16px; font-style: italic; color: #b2811d; padding-bottom: 60px;">Fill the forms out to finish your personalized GreatSchool printout</p>
+            <div class="headerBar">
+                <p style="font-family: 'SourceSansPro-Semibold' arial; font-size:48px; color: #FFFFFF; padding: 47px 0 14px 0;text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">Create a neighborhood school guide</p>
+                <p style="font-family: 'SourceSansPro-It' arial; font-size:16px; font-style: italic; color: #996E18; padding-bottom: 60px;">Complete the form below to personalize your neighborhood school guide</p>
             </div>
-
         </div>
         <div class="container_24 clearfix">
             <div class="pa" style="top:135px;">
                 <img src="/res/img/realEstate/school_guide_960x230.png" alt="School guide image"/>
             </div>
         </div>
-
         <div class="container_24 clearfix" style="margin-top: 205px;">
             <div class="prefix_3 grid_18 suffix_3">
-                <div class="">
-                    <div class="">
-                        <div class="">
-                            <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank" id="jq-propertyDetailsForm">
-                                <div class="mbl jq-addressFields">
-                                    <gsml:input type="text" styleId="jq-address" styleClass="text1 input_18" name="address"
-                                                value="Property Address" onfocus="GS_textSwitch(this, '', 'Property Address');" onblur="GS_textSwitch(this, 'Property Address', '');"/>
+                <form action='/real-estate/guides/neighborhood-guide.pdf' METHOD='POST' target="_blank"
+                      id="jq-propertyDetailsForm">
+                    <div class="mbm jq-propertyAddressFields">
+                        <gsml:input type="text" styleId="jq-propertyAddress" styleClass="text1 input_18" name="address"
+                                    value="Property Address (required)" onfocus="GS_textSwitch(this, '', 'Property Address (required)');"
+                                    onblur="GS_textSwitch(this, 'Property Address (required)', '');"/>
 
-                                    <div class="errors">
-                                        <span class="error valid">&amp;nbsp;</span>
-                                        <span class="error invalid"><!-- not empty --></span>
-                                    </div>
-                                </div>
-
-                                <div class="line">
-                                    <div class="unit size34of100">
-                                        <select id="js-bed" class="" name="bed">
-                                            <gsml:selectOption value="" selected="true">Bedrooms</gsml:selectOption>
-                                            <gsml:selectOption value="1">1</gsml:selectOption>
-                                            <gsml:selectOption value="2">2</gsml:selectOption>
-                                            <gsml:selectOption value="3">3</gsml:selectOption>
-                                            <gsml:selectOption value="4">4</gsml:selectOption>
-                                            <gsml:selectOption value="5">5</gsml:selectOption>
-                                        </select>
-                                    </div>
-
-                                    <div class="unit size34of100">
-                                        <select id="js-bath" class="" name="bath">
-                                            <gsml:selectOption value="" selected="true">Bathrooms</gsml:selectOption>
-                                            <gsml:selectOption value="1">1</gsml:selectOption>
-                                            <gsml:selectOption value="2">2</gsml:selectOption>
-                                            <gsml:selectOption value="3">3</gsml:selectOption>
-                                            <gsml:selectOption value="4">4</gsml:selectOption>
-                                            <gsml:selectOption value="5">5</gsml:selectOption>
-                                        </select>
-                                    </div>
-
-                                    <div class="unit size34of100 lastUnit jq-sqFootageFields">
-                                        <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6" name="sqFeet"
-                                                    value="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');" onblur="GS_textSwitch(this, 'Square footage', '');"/>
-
-                                        <div class="errors">
-                                            <span class="error valid">&amp;nbsp;</span>
-                                            <span class="error invalid"><!-- not empty --></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <input type="hidden" id="jq-lat" name="lat"/>
-                                <input type="hidden" id="jq-lon" name="lon"/>
-                                <input type="hidden" id="jq-state" name="state"/>
-                                <input type="hidden" id="jq-streetNumber" name="streetNumber"/>
-                                <input type="hidden" id="jq-streetName" name="streetName"/>
-                                <input type="hidden" id="jq-city" name="city"/>
-                                <input type="hidden" id="jq-zipcode" name="zipcode"/>
-                                <!-- TODO: comment the skip validation -->
-                                <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
-
-                                <!-- TODO: remove this when pdf is redy -->
-                                <input type="hidden" id="jq-pageView" name="pageView"/>
-
-                                <div class="fr mtl">
-                                    <a href="javascript:void(0)">
-                                        <button class="button-1" type="button" id="js-submit"
-                                                onclick="GS.realEstateAgent.createGuide.submitSearch()">
-                                            Print
-                                        </button>
-                                    </a>
-                                </div>
-                            </form>
+                        <div class="errors">
+                            <span class="error valid">&amp;nbsp;</span>
+                            <span class="error invalid"><!-- not empty --></span>
                         </div>
                     </div>
+                    <div class="line">
+                        <div class="unit size34of100">
+                            <div id="js-bed">
+                                <div class="js-selectBox selectBox4 selectList  clearfix">
+                                    <div class="js-selectBoxText selectBoxText mrs fl">Bedrooms</div>
+                                    <div class="fr selectArrow">
+                                        <span class="vam iconx16 i-16-downArrowWhite"><!--do not collapse--></span>
+                                    </div>
+                                </div>
+                                <div class="js-selectDropDown selectDropDown4 pa phm ptm dn">
+                                    <div class="js-ddValues ddValues">0</div>
+                                    <div class="js-ddValues ddValues">1</div>
+                                    <div class="js-ddValues ddValues">2</div>
+                                    <div class="js-ddValues ddValues">3</div>
+                                    <div class="js-ddValues ddValues">4</div>
+                                    <div class="js-ddValues ddValues">5</div>
+                                    <div class="js-ddValues ddValues">6</div>
+                                    <div class="js-ddValues ddValues">7</div>
+                                    <div class="js-ddValues ddValues">8</div>
+                                    <div class="js-ddValues ddValues">9</div>
+                                    <div class="js-ddValues ddValues">10</div>
+                                    <div class="js-ddValues ddValues">11</div>
+                                    <div class="js-ddValues ddValues">12</div>
+                                    <div class="js-ddValues ddValues">13</div>
+                                    <div class="js-ddValues ddValues">14</div>
+                                    <div class="js-ddValues ddValues">15</div>
+                                    <div class="js-ddValues ddValues">16</div>
+                                    <div class="js-ddValues ddValues">17</div>
+                                    <div class="js-ddValues ddValues">18</div>
+                                    <div class="js-ddValues ddValues">19</div>
+                                    <div class="js-ddValues ddValues">20</div>
+                                </div>
+                            </div>
+                            <!--<select id="js-bed" class="" name="bed">-->
+                            <!--<gsml:selectOption value="" selected="true">Bedrooms</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="1">1</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="2">2</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="3">3</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="4">4</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="5">5</gsml:selectOption>-->
+                            <!--</select>-->
+                        </div>
+                        <div class="unit size33of100">
+                            <div id="js-bath">
+                                <div class="js-selectBox selectBox4 selectList  clearfix">
+                                    <div class="js-selectBoxText selectBoxText mrs fl">Bathrooms</div>
+                                    <div class="fr selectArrow">
+                                        <span class="vam iconx16 i-16-downArrowWhite"><!--do not collapse--></span>
+                                    </div>
+                                </div>
+                                <div class="js-selectDropDown selectDropDown4 pa phm ptm dn">
+                                    <div class="js-ddValues ddValues">0</div>
+                                    <div class="js-ddValues ddValues">0.5</div>
+                                    <div class="js-ddValues ddValues">1</div>
+                                    <div class="js-ddValues ddValues">1.5</div>
+                                    <div class="js-ddValues ddValues">2</div>
+                                    <div class="js-ddValues ddValues">2.5</div>
+                                    <div class="js-ddValues ddValues">3</div>
+                                    <div class="js-ddValues ddValues">3.5</div>
+                                    <div class="js-ddValues ddValues">4</div>
+                                    <div class="js-ddValues ddValues">4.5</div>
+                                    <div class="js-ddValues ddValues">5</div>
+                                    <div class="js-ddValues ddValues">5.5</div>
+                                    <div class="js-ddValues ddValues">6</div>
+                                    <div class="js-ddValues ddValues">6.5</div>
+                                    <div class="js-ddValues ddValues">7</div>
+                                    <div class="js-ddValues ddValues">7.5</div>
+                                    <div class="js-ddValues ddValues">8</div>
+                                    <div class="js-ddValues ddValues">8.5</div>
+                                    <div class="js-ddValues ddValues">9</div>
+                                    <div class="js-ddValues ddValues">9.5</div>
+                                    <div class="js-ddValues ddValues">10</div>
+                                    <div class="js-ddValues ddValues">10.5</div>
+                                    <div class="js-ddValues ddValues">11</div>
+                                    <div class="js-ddValues ddValues">11.5</div>
+                                    <div class="js-ddValues ddValues">12</div>
+                                    <div class="js-ddValues ddValues">12.5</div>
+                                    <div class="js-ddValues ddValues">13</div>
+                                    <div class="js-ddValues ddValues">13.5</div>
+                                    <div class="js-ddValues ddValues">14</div>
+                                    <div class="js-ddValues ddValues">14.5</div>
+                                    <div class="js-ddValues ddValues">15</div>
+                                    <div class="js-ddValues ddValues">15.5</div>
+                                    <div class="js-ddValues ddValues">16</div>
+                                    <div class="js-ddValues ddValues">16.5</div>
+                                    <div class="js-ddValues ddValues">17</div>
+                                    <div class="js-ddValues ddValues">17.5</div>
+                                    <div class="js-ddValues ddValues">18</div>
+                                    <div class="js-ddValues ddValues">18.5</div>
+                                    <div class="js-ddValues ddValues">19</div>
+                                    <div class="js-ddValues ddValues">19.5</div>
+                                    <div class="js-ddValues ddValues">20</div>
+                                </div>
+                            </div>
+                            <!--<select id="js-bath" class="" name="bath">-->
+                            <!--<gsml:selectOption value="" selected="true">Bathrooms</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="1">1</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="2">2</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="3">3</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="4">4</gsml:selectOption>-->
+                            <!--<gsml:selectOption value="5">5</gsml:selectOption>-->
+                            <!--</select>-->
+                        </div>
+                        <div class="unit size34of100 lastUnit jq-sqFootageFields">
+                            <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6 fr" name="sqFeet"
+                                        value="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');"
+                                        onblur="GS_textSwitch(this, 'Square footage', '');"/>
+
+                            <div class="errors">
+                                <span class="error valid">&amp;nbsp;</span>
+                                <span class="error invalid"><!-- not empty --></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span id="geocodeResults">
+                    <input type="hidden" id="jq-lat" name="lat"/>
+                    <input type="hidden" id="jq-lon" name="lon"/>
+                    <input type="hidden" id="jq-state" name="state"/>
+                    <input type="hidden" id="jq-streetNumber" name="streetNumber"/>
+                    <input type="hidden" id="jq-streetName" name="streetName"/>
+                    <input type="hidden" id="jq-city" name="city"/>
+                    <input type="hidden" id="jq-zipcode" name="zipcode"/>
+                    </span>
+                    <input type="hidden" id="jq-bedDownload" name="bed"/>
+                    <input type="hidden" id="jq-bathDownload" name="bath"/>
+                    <!-- TODO: comment the skip validation -->
+                    <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
+                    <!-- TODO: remove this when pdf is redy -->
+                    <input type="hidden" id="jq-pageView" name="pageView"/>
+
+                    <div class="fr mtm" style="padding-bottom:100px;">
+                        <a href="javascript:void(0)" id="jq-myAccount" class="small bottom prl">Edit company info</a>
+                        <a href="javascript:void(0)">
+                            <button class="but but-lg but-3" type="button" id="js-submit"
+                                    onclick="GS.realEstateAgent.createGuide.submitSearch()">
+                                Download
+                            </button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="js-registrationHover" class="dn">
+        <div class="mod modal_4 width_12 js-registrationHover" id="js-registrationHover">
+            <div class="modalClose">
+                <span class="iconx24 i-24-yellow-modal-close js_closeHover"><!-- do not collapse --></span>
+            </div>
+            <div class="outer">
+                <div class="inner">
+                    <realEstate:businessInfoHover/>
+                    <realEstate:imageUploadHover/>
                 </div>
             </div>
         </div>

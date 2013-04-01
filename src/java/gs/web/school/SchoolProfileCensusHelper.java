@@ -165,19 +165,22 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
         return censusDataHolder;
     }
 
-    protected CensusStateConfig getCensusStateConfig( HttpServletRequest request ) {
+    protected CensusStateConfig getCensusStateConfig(HttpServletRequest request) {
+        return getCensusStateConfig(request, CENSUS_STATE_CONFIG);
+    }
+
+    protected CensusStateConfig getCensusStateConfig(HttpServletRequest request, String key) {
         // Make sure we have a school
-        School school = _requestAttributeHelper.getSchool( request );
-        if( school == null ) {
-            throw new IllegalArgumentException( "The request must already contain a school object" );
+        School school = _requestAttributeHelper.getSchool(request);
+        if (school == null) {
+            throw new IllegalArgumentException("The request must already contain a school object");
         }
 
-        CensusStateConfig censusStateConfig = (CensusStateConfig) getSharedData(request, CENSUS_STATE_CONFIG);
+        CensusStateConfig censusStateConfig = (CensusStateConfig) getSharedData(request, key);
         if (censusStateConfig == null) {
-            censusStateConfig =  _censusStateConfigDao.getConfigForSchoolsStateAndType(school);
-            setSharedData(request, CENSUS_STATE_CONFIG, censusStateConfig);
+            censusStateConfig = _censusStateConfigDao.getConfigForSchoolsStateAndType(school);
+            setSharedData(request, key, censusStateConfig);
         }
-
         return censusStateConfig;
     }
 

@@ -326,7 +326,7 @@
         'width' : 575,
         'height' : 230,
         'graph_type' : 'bar_graph',
-        'legend_width' : 197
+        'legend_width' : 187
         });
     </c:set>
 

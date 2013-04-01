@@ -21,17 +21,17 @@
             <div class="ptl">
                 <div class="jq-companyNameFields">
                     <gsml:input type="text" styleId="jq-companyName" styleClass="text1 input_10" name="companyName"
-                                value="Company Name" onfocus="GS_textSwitch(this, '', 'Company Name');" onblur="GS_textSwitch(this, 'Company Name', '');"/>
+                                value="${(not empty companyName) ? companyName : 'Company Name'}" onfocus="GS_textSwitch(this, '', 'Company Name');" onblur="GS_textSwitch(this, 'Company Name', '');"/>
 
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
                         <span class="error invalid"><!-- not empty --></span>
                     </div>
                 </div>
-                <div class="mtl clearfix">
+                <div class="mtm clearfix">
                     <div class="fl jq-workNumberFields">
                         <gsml:input type="text" styleId="jq-workNumber" styleClass="text1 input_5" name="workNumber"
-                                    value="Work #" onfocus="GS_textSwitch(this, '', 'Work #');" onblur="GS_textSwitch(this, 'Work #', '');"/>
+                                    value="${(not empty workNumber) ? workNumber : 'Work #'}" onfocus="GS_textSwitch(this, '', 'Work #');" onblur="GS_textSwitch(this, 'Work #', '');"/>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
@@ -40,12 +40,14 @@
                     </div>
                     <div class="fr">
                         <gsml:input type="text" styleId="jq-cellNumber" styleClass="text1 input_5" name="cellNumber"
-                                    value="Cell #" onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
+                                    value="${(not empty cellNumber) ? cellNumber : 'Cell #'}"
+                                    onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
                     </div>
                 </div>
-                <div class="mtl jq-addressFields">
+                <div class="mtm jq-addressFields">
                     <gsml:input type="text" styleId="jq-address" styleClass="text1 input_10" name="address"
-                                value="Work Address" onfocus="GS_textSwitch(this, '', 'Work Address');" onblur="GS_textSwitch(this, 'Work Address', '');"/>
+                                value="${(not empty address) ? address : 'Work Address'}"
+                                onfocus="GS_textSwitch(this, '', 'Work Address');" onblur="GS_textSwitch(this, 'Work Address', '');"/>
 
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
@@ -53,9 +55,10 @@
                     </div>
 
                 </div>
-                <div class="mtl clearfix">
+                <div class="mtm clearfix">
                     <div class="fl jq-cityFields">
-                        <gsml:input type="text" styleId="jq-city" styleClass="text1 input_3" name="city" value="City"
+                        <gsml:input type="text" styleId="jq-city" styleClass="text1 input_3" name="city"
+                                    value="${(not empty city) ? city : 'City'}"
                                     onfocus="GS_textSwitch(this, '', 'City');" onblur="GS_textSwitch(this, 'City', '');"/>
 
                         <div class="errors">
@@ -64,10 +67,24 @@
                         </div>
                     </div>
                     <div class="mhl fl jq-stateFields">
-                        <gsweb:stateSelector useNoState="true" noStateLabel="State"
-                                             usingLongNames="false"
-                                             styleClass="stateSelect"
-                                             styleId="jq-state" name="state"/>
+                        <!--<gsweb:stateSelector useNoState="${empty state}" noStateLabel="State"-->
+                                             <!--usingLongNames="false"-->
+                                             <!--styleClass="stateSelect"-->
+                                             <!--styleId="" name="state" state="${state}"/>-->
+
+                        <div id="jq-state" class="pr js-realEstateState">
+                            <div class="js-selectBox selectBox3 selectList clearfix">
+                                <div class="js-selectBoxText selectBoxText mrs fl">${not empty state ? state : "State"}</div>
+                                <div class="fr selectArrow"><span
+                                        class="vam iconx16 i-16-downArrowWhite"><!--do not collapse--></span>
+                                </div>
+                            </div>
+                            <div class="js-selectDropDown selectDropDown3 pa phm ptm dn">
+                                <c:forEach var="stateObj" items="${stateList}">
+                                    <div class="js-ddValues ddValues">${stateObj.abbreviation}</div>
+                                </c:forEach>
+                            </div>
+                        </div>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
@@ -76,7 +93,8 @@
                     </div>
                     <div class="fr jq-zipFields">
                         <gsml:input type="text" styleId="jq-zip" styleClass="text1 input_3" name="zip"
-                                    value="Zip" onfocus="GS_textSwitch(this, '', 'Zip');" onblur="GS_textSwitch(this, 'Zip', '');"/>
+                                    value="${(not empty zip) ? zip : 'Zip'}"
+                                    onfocus="GS_textSwitch(this, '', 'Zip');" onblur="GS_textSwitch(this, 'Zip', '');"/>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
@@ -89,7 +107,7 @@
         <div class="ft joinSubmit">
             <div class="tac">
                 <a href="javascript:void(0)">
-                    <button class="but but-lg but-1 jq-businessInfoSubmit" name="businessInfoSubmit">
+                    <button class="but but-lg but-3 jq-businessInfoSubmit" name="businessInfoSubmit">
                         Next step
                     </button>
                 </a>

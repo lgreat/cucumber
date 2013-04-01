@@ -82,7 +82,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/130306-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/130325-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -246,22 +246,62 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
     background-position: -608px 0;
 }
 
+.i-16-pageOrange {
+    background-position: -624px 0;
+}
+
+.i-16-locationOrange {
+    background-position: -640px 0;
+}
+
+.i-16-textareaPencil {
+    background-position: -656px 0;
+}
+
+.i-16-lock {
+    background-position: -672px 0;
+}
+
+.i-16-downArrowWhite {
+    background-position: -688px 0;
+}
+
+.i-16-checkbox-off {
+    background-position: -704px 0;
+}
+
+.i-16-checkbox-on {
+    background-position: -720px 0;
+}
+
+
 /* row 16 */
 
-a:hover .i-16-close {
+.i-16-close:hover {
     background-position: -144px -16px;
 }
 
-a:hover .i-16-close-grey {
+.i-16-close-grey:hover {
     background-position: -304px -16px;
 }
 
-a:hover .i-16-search-filter-arrow-down {
+.i-16-search-filter-arrow-down:hover {
     background-position: -480px -16px;
 }
 
-a:hover .i-16-search-filter-arrow-up {
+.i-16-search-filter-arrow-up:hover {
     background-position: -496px -16px;
+
+}
+
+.i-16-checkbox-off:hover{
+    background-position: -704px -16px;
+    cursor: pointer;
+}
+
+.i-16-checkbox-on:hover{
+    background-position: -720px -16px;
+    cursor: pointer;
 }
 
 /* row 32 */
@@ -273,6 +313,8 @@ a:active .i-16-search-filter-arrow-down {
 a:active .i-16-search-filter-arrow-up {
     background-position: -496px -32px;
 }
+
+
 
 /* =3 x16 (Stars)
 -------------------------------------------------------------------------------------------*/

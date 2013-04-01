@@ -890,10 +890,10 @@ GS.drawGraphContainer = function (options) {
     var drawSquareAndText = function(c, color, text, i , w){
         var offsetx = w+20;
         var offsety = 20;
-        var linespacer = 20;
+        var linespacer = 17;
         c.strokeStyle = "#000";
         c.fillStyle = color;
-        c.font = '9pt sans-serif';
+        c.font = '8pt sans-serif';
         c.textAlign = "left";
         c.beginPath();
         c.fillRect(offsetx,(offsety - 5 + linespacer*i),10,10);
@@ -905,10 +905,10 @@ GS.drawGraphContainer = function (options) {
     var drawDashedLineAndText = function(c, color, text, i , w){
         var offsetx = w+20;
         var offsety = 20;
-        var linespacer = 20;
+        var linespacer = 17;
         c.strokeStyle = "#CCC";
         c.fillStyle = color;
-        c.font = '9pt sans-serif';
+        c.font = '8pt sans-serif';
         c.textAlign = "left";
         c.beginPath();
         drawHorizontalDashedLine(c, (offsety + linespacer*i), offsetx, (offsetx+10), color);

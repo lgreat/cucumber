@@ -3,10 +3,13 @@ package gs.web.mediaUploader;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import gs.data.media.*;
 import gs.data.media.IMediaUploadDao;
 import gs.data.realEstateAgent.AgentAccount;
 import gs.data.realEstateAgent.IAgentAccountDao;
+import gs.data.util.CommunityUtil;
 import gs.web.photoUploader.SchoolPhotoProcessor;
 import gs.web.realEstateAgent.RealEstateAgentHelper;
 import gs.web.util.ReadWriteAnnotationController;
@@ -75,13 +78,66 @@ public class MediaUploadController implements ReadWriteAnnotationController {
 
     protected static final Log _log = LogFactory.getLog(MediaUploadController.class);
 
+    @RequestMapping(method=RequestMethod.GET, value = "agentUploaderTest.json")
+    public void agentUploaderTest(HttpServletRequest request,
+                                  HttpServletResponse response) {
+        response.setContentType("application/json");
+
+        JSONObject responseJson = new JSONObject();
+        AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
+
+        try {
+            responseJson.put("type", "realEstateAgent");
+            if(agentAccount != null) {
+                final String mediaKey = "media";
+                responseJson.put("baseMediaPath", CommunityUtil.getMediaPrefix());
+
+                HashMap<String, String> map = new HashMap<String, String>();
+
+                MediaUpload photoMediaUpload = agentAccount.getPhotoMediaUpload();
+                String photoMediaPath = getActiveMediaFilePath(photoMediaUpload, Dimension.dim_100_100);
+                map.put("photoMediaPath", photoMediaPath != null ? photoMediaPath : null);
+
+                MediaUpload logoMediaUpload = agentAccount.getLogoMediaUpload();
+                String logoMediaPath = getActiveMediaFilePath(logoMediaUpload, Dimension.dim_100_100);
+                map.put("logoMediaPath", logoMediaPath != null ? logoMediaPath : null);
+
+                responseJson.accumulate(mediaKey, map);
+            }
+
+            responseJson.write(response.getWriter());
+            response.getWriter().flush();
+        } catch (JSONException ex) {
+            _log.warn("RealEstateAgentRegistrationController - exception while trying to add to the json response.",ex);
+        } catch (IOException ex) {
+            _log.warn("RealEstateAgentRegistrationController - exception while trying to write the json response.",ex);
+        }
+    }
+
+    private String getActiveMediaFilePath(MediaUpload mediaUpload, Dimension dimension) {
+        if(mediaUpload != null) {
+            List<MediaFile> mediaFiles = getMediaFileDao().findMediaFileByMediaUploadId(mediaUpload.getId());
+
+            if(mediaFiles != null) {
+                for (MediaFile mediaFile : mediaFiles) {
+                    if(mediaFile.getDimensions().equals(dimension) && mediaFile.getStatus() == 1) {
+                        if(dimension.equals(Dimension.dim_100_100)) {
+                            return mediaUpload.getDim100x100FilePath();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "realEstateAgentUpload.page")
     public void onAgentUpload (HttpServletRequest request,
                                HttpServletResponse response) {
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
-        if(userId != null && getAgentAccountDao().findAgentAccountByUserId(userId) != null) {
+        if(userId != null) {
             User user = getUserDao().findUserFromId(userId);
 
             if(user == null || user.getId() == null) {
@@ -98,6 +154,15 @@ public class MediaUploadController implements ReadWriteAnnotationController {
     }
 
     public void upload (HttpServletRequest request, HttpServletResponse response, User user, String uploadType) {
+        AgentAccount agentAccount = null;
+        if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType)) {
+            agentAccount = getAgentAccountDao().findAgentAccountByUserId(user.getId());
+
+            if(agentAccount == null) {
+                error(response, "-1", UNAUTHORIZED_ERROR);
+                return;
+            }
+        }
         Map<String,String> formFields = new HashMap<String,String>();
         MediaUpload mediaUpload;
         List<MediaFile> mediaFiles = new ArrayList<MediaFile>();
@@ -125,18 +190,19 @@ public class MediaUploadController implements ReadWriteAnnotationController {
                     if(!fileItemStream.isFormField()) {
                         if (ArrayUtils.contains(VALID_IMAGE_TYPES, fileItemStream.getContentType())) {
 
-                            if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType) && fileItemStream != null && formFields.containsKey("mediaType")) {
+                            if(REAL_ESTATE_AGENT_UPLOAD.equals(uploadType) && fileItemStream != null &&
+                                    formFields.containsKey("mediaType") && agentAccount != null) {
                                 Dimension dimension;
                                 boolean isPhoto = false;
                                 boolean isLogo = false;
 
                                 try {
                                     if("photo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_432_432;
+                                        dimension = Dimension.dim_432_432;
                                         isPhoto = true;
                                     }
                                     else if("logo".equals(formFields.get("mediaType"))) {
-                                        dimension = Dimension.DIM_324_324;
+                                        dimension = Dimension.dim_324_324;
                                         isLogo = true;
                                     }
                                     else {
@@ -148,9 +214,10 @@ public class MediaUploadController implements ReadWriteAnnotationController {
                                     return;
                                 }
 
+                                deleteExistingMediaForRealEstateAgent(agentAccount, dimension, isPhoto, isLogo);
                                 mediaUpload = insertMediaUploadRecord(fileItemStream.getName());
 
-                                MediaFile mediaFileForPreview = insertMediaFileRecord(mediaUpload, Dimension.DIM_100_100);
+                                MediaFile mediaFileForPreview = insertMediaFileRecord(mediaUpload, Dimension.dim_100_100);
                                 mediaFiles.add(mediaFileForPreview);
 
                                 MediaFile mediaFileForPdf = insertMediaFileRecord(mediaUpload, dimension);
@@ -245,6 +312,37 @@ public class MediaUploadController implements ReadWriteAnnotationController {
         mediaFile.setDimensions(dimension);
         getMediaFileDao().save(mediaFile);
         return mediaFile;
+    }
+
+    private void deleteExistingMediaForRealEstateAgent(AgentAccount agentAccount, Dimension dimension,
+                                                       boolean isPhoto, boolean isLogo) {
+        if(agentAccount != null) {
+            Integer mediaUploadId = null;
+            if(isPhoto && agentAccount.getPhotoMediaUpload() != null) {
+                mediaUploadId = agentAccount.getPhotoMediaUpload().getId();
+            }
+            else if(isLogo && agentAccount.getLogoMediaUpload() != null) {
+                mediaUploadId = agentAccount.getLogoMediaUpload().getId();
+            }
+
+            if(mediaUploadId != null) {
+                List<MediaFile> mediaFiles = getMediaFileDao().findMediaFileByMediaUploadId(mediaUploadId);
+                if(mediaFiles != null) {
+                    for(MediaFile mediaFile : mediaFiles) {
+                        mediaFile.setStatus(MediaFileDaoHibernate.Status.DELETED.value);
+                        getMediaFileDao().updateMediaFile(mediaFile);
+                    }
+                    if(isPhoto) {
+                        agentAccount.setPhotoMediaUpload(null);
+                        getAgentAccountDao().updateAgentAccount(agentAccount);
+                    }
+                    else if(isLogo) {
+                        agentAccount.setLogoMediaUpload(null);
+                        getAgentAccountDao().updateAgentAccount(agentAccount);
+                    }
+                }
+            }
+        }
     }
 
     private boolean processPhoto (FileItemStream fileItemStream, User user, int uploadId, String uploadType) throws IOException{

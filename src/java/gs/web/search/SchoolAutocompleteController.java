@@ -1,18 +1,20 @@
 package gs.web.search;
 
 import gs.data.geo.City;
+import gs.data.json.JSONArray;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
+import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.search.*;
 import gs.data.search.beans.SolrSchoolSearchResult;
-import gs.data.search.fields.AddressFields;
-import gs.data.search.fields.DocumentType;
-import gs.data.search.fields.SchoolFields;
-import gs.data.search.fields.SolrField;
+import gs.data.search.fields.*;
 import gs.data.search.filters.SchoolFilters;
 import gs.data.search.services.SchoolSearchServiceSolrImpl;
 import gs.data.state.State;
 import gs.web.pagination.RequestedPage;
 import gs.web.util.HttpCacheInterceptor;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -27,7 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/search/schoolAutocomplete.page")
@@ -54,9 +58,14 @@ public class SchoolAutocompleteController {
             List<String> suggestions = new ArrayList<String>();
             if (!StringUtils.isBlank(state) && !StringUtils.isBlank(searchString)) {
                 if (schoolCity != null && schoolCity) {
-                    suggestions = searchForSchools(state, searchString);
+                    List<SolrSchoolSearchResult> solrResults = searchForSchools(state, searchString);
+                    JSONObject json = getSchoolDetailsJson(solrResults, request, response);
+                    json.write(response.getWriter());
+                    response.getWriter().flush();
+                    return; // early exit
+                }
 
-                } else if (schoolDistrict != null && schoolDistrict) {
+                if (schoolDistrict != null && schoolDistrict) {
                     suggestions = _solrSchoolSearchService.suggestSchoolDistrict(StringUtils.trim(searchString), StringUtils.lowerCase(state), 0, SUGGEST_COUNT);
                 } else {
                     suggestions = _solrSchoolSearchService.suggest(StringUtils.trim(searchString), StringUtils.lowerCase(state), 0, SUGGEST_COUNT);
@@ -78,41 +87,95 @@ public class SchoolAutocompleteController {
         }
     }
 
-    protected List<String> searchForSchools(String state, String searchString) {
-        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
+    protected JSONObject getSchoolDetailsJson(List<SolrSchoolSearchResult> schools, HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+        JSONObject schoolsResponseJson = new JSONObject();
+        response.setContentType("application/json");
+        JSONArray schoolsJsonArray = new JSONArray();
 
+        for (SolrSchoolSearchResult school : schools) {
+            Map<String, String> schoolMap = new HashMap<String, String>();
+
+            schoolMap.put("id", String.valueOf(school.getId()));
+            schoolMap.put("state", school.getState().getAbbreviation());
+            schoolMap.put("name", school.getName());
+
+            schoolMap.put("type", school.getSchoolType());
+            //schoolMap.put("gradeRange", school.getGradeLevels() == null ? "" : school.getGradeLevels().getRangeString());
+            schoolMap.put("city", school.getCity() == null ? "" : school.getCity());
+            schoolMap.put("street", school.getAddress().getStreet());
+            schoolMap.put("streetLine2", school.getAddress().getStreetLine2());
+            schoolMap.put("cityStateZip", school.getAddress().getCityStateZip());
+            schoolMap.put("enrollment", String.valueOf(school.getEnrollment()));
+            schoolMap.put("gradeRange", String.valueOf(school.getGrades().getRangeString()));
+            schoolMap.put("levelCode", String.valueOf(school.getLevelCode()));
+
+            schoolsJsonArray.put(schoolMap);
+        }
+        schoolsResponseJson.put("schools", schoolsJsonArray);
+
+        return schoolsResponseJson;
+    }
+
+    /*protected void getSchoolDetailsJson(List<SolrSchoolSearchResult> schools, HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+        JSONObject schoolsResponseJson = new JSONObject();
+        response.setContentType("application/json");
+        JSONArray schoolsJsonArray = new JSONArray();
+
+        for (SolrSchoolSearchResult school : schools) {
+            Map<String, String> schoolMap = new HashMap<String, String>();
+
+            schoolMap.put("id", String.valueOf(school.getId()));
+            schoolMap.put("state", school.getState().getAbbreviation());
+            schoolMap.put("name", school.getName());
+
+            schoolMap.put("type", school.getSchoolType());
+            //schoolMap.put("gradeRange", school.getGradeLevels() == null ? "" : school.getGradeLevels().getRangeString());
+            schoolMap.put("city", school.getCity() == null ? "" : school.getCity());
+            schoolMap.put("street", school.getAddress().getStreet());
+            schoolMap.put("streetLine2", school.getAddress().getStreetLine2());
+            schoolMap.put("cityStateZip", school.getAddress().getCityStateZip());
+            schoolMap.put("enrollment", String.valueOf(school.getEnrollment()));
+
+            schoolsJsonArray.put(schoolMap);
+        }
+        schoolsResponseJson.put("schools", schoolsJsonArray);
+        schoolsResponseJson.write(response.getWriter());
+        response.getWriter().flush();
+    }*/
+
+    protected List<SolrSchoolSearchResult> searchForSchools(String state, String searchString) {
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
+
+        searchString = StringUtils.lowerCase(searchString);
         GsSolrQuery q = createGsSolrQuery();
 
         q.filter(DocumentType.SCHOOL).page(0, SUGGEST_COUNT);
+
+        q.query(searchString);
+        q.setSpellCheckEnabled(false);
 
         if (state != null) {
             q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.toLowerCase());
         }
 
-        q.query(searchString);
+        q.addBeginsWithQuery(AutosuggestFields.SCHOOLDISTRICT_AUTOSUGGEST, searchString);
 
-        List<String> autocompleteResults = new ArrayList<String>();
+        List<SolrSchoolSearchResult> results = new ArrayList<SolrSchoolSearchResult>();
 
         try {
             searchResultsPage = _gsSolrSearcher.search(q, SolrSchoolSearchResult.class, true);
 
-            List<SolrSchoolSearchResult> results = searchResultsPage.getSearchResults();
-
-
-            for(SolrSchoolSearchResult result : results) {
-                String s = result.getId() + "-" + result.getName() + "-" + result.getCity();
-                autocompleteResults.add(s);
-            }
+            results = searchResultsPage.getSearchResults();
 
         } catch (SearchException e) {
             _log.error("Problem occurred while getting schools", e);
         }
 
-        return autocompleteResults;
+        return results;
     }
 
     public GsSolrQuery createGsSolrQuery() {
-        return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
+        return new GsSolrQuery(QueryType.STANDARD);
     }
 
     public SchoolSearchServiceSolrImpl getSolrSchoolSearchService() {

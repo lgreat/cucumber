@@ -105,6 +105,11 @@ public class EmailVerificationEmail extends AbstractSendEmailBean {
         sendVerificationEmail(request, user, redirect);
     }
 
+    public void sendSchoolReviewVerificationEmail(HttpServletRequest request, User user, String redirect, Map<String,String> otherParams)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
+        sendVerificationEmail(request, user, redirect, otherParams);
+    }
+
     public void sendChangedEmailAddress(HttpServletRequest request, User user) throws IOException, MessagingException, NoSuchAlgorithmException {
         String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         Date now = new Date();

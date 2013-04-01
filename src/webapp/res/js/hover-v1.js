@@ -40,7 +40,7 @@ GSType.hover.HoverDialog = function(id,width) {
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
-        $("#"+this.hoverId + ' .js_closeHover').click(function() {
+        $("#"+this.hoverId + ' .js_closeHover').on("click", function() {
             self.hide();
         });
         if (this.pageName != '') {
@@ -2036,6 +2036,8 @@ jQuery(function() {
         GSType.hover.validateEmail.show();
     } else if (showHover == "validateEmailSchoolReview") {
         GSType.hover.validateEmailSchoolReview.show();
+    } else if (showHover == "reviewLandingPageInformational") {
+        GSType.hover.validateEmailSchoolReview.show();
     } else if (showHover == "schoolReviewPostedThankYou") {
         GSType.hover.schoolReviewPostedThankYou.showHover();
     } else if (showHover == "schoolReviewNotPostedThankYou") {
@@ -2100,3 +2102,13 @@ GSType.hover.PrintSchoolChooser = function() {
 };
 GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser');
 GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
+
+
+GSType.hover.ReviewLandingPageInformational = function() {
+//    this.show = function() {
+//        GSType.hover.reviewLandingPageInformational.showModal();
+//        return false;
+//    };
+};
+GSType.hover.ReviewLandingPageInformational.prototype = new GSType.hover.HoverDialog('js-reviewLandingPageInformational');
+GSType.hover.reviewLandingPageInformational = new GSType.hover.ReviewLandingPageInformational();

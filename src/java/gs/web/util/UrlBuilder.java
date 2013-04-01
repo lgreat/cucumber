@@ -1039,7 +1039,7 @@ public class UrlBuilder {
             _path = "/real-estate/create-guide.page";
         } else if (QR_CODE_GENERATOR.equals(page)) {
             _perlPage = false;
-            _path = "/qr-code-gen.png";
+            _path = "/real-estate/qr-code-gen.png";
         }else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

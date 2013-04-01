@@ -411,3 +411,97 @@ GS.MediaUploader.prototype.createUploader = function() {
 };
 
 GS.MediaUploader.MediaType = {Image : "Image", Pdf : "PDF"};
+
+GS.PollingMediaViewer = function() {
+    this.id = null; // dom id of the viewer
+    this.url = null; // url to poll from
+    this.schoolId = null;
+    this.schoolDatabaseState = null;
+
+    this.container = jQuery('#' + this.id);
+    this.containerClasses = {};
+
+    this.STATUS_ACTIVE = 'active';
+    this.STATUS_PENDING = 'pending';
+    this.numberMedias = 0;
+    this.numberPending = 0;
+    this.numberActive = 0;
+    this.IMG_ID_PREFIX = 'js-photo-';
+
+    this.pollFrequency = 5000; //ms
+    this.pollingOn = true;
+    this.data = null;
+};
+
+GS.PollingMediaViewer.prototype.mediaViewer = function () {
+    /* not including delete photo. could be added when required during a future release. */
+
+    this.turnPollingOn = function() {
+        this.pollingOn = true;
+    }.gs_bind(this);
+
+    this.turnPollingOff = function() {
+        this.pollingOn = false;
+    }.gs_bind(this);
+
+    this.init = function() {
+        this.numberPending = this.container.find('.js-photo-pending').not('#js-photo-placeholder').length;
+        this.numberActive = this.container.find('.js-photo-active').length;
+        this.numberPhotos = this.numberPending + this.numberActive;
+        setTimeout(this.poll, this.pollFrequency);
+    }.gs_bind(this);
+
+    this.container.on('click', '.js-deletePhoto', function() {
+        this.deletePhoto(this);
+    });
+
+    this.setImageByClassType = function(type, id, addClass, removeClass, src) {
+        var domPhoto = jQuery(this.containerClasses[type]).find(id);
+        if(addClass !== null && addClass !== '') {
+            domPhoto.addClass(addClass);
+        }
+        if(removeClass !== null && removeClass !== '') {
+            domPhoto.removeClass(removeClass);
+        }
+        domPhoto.prop('src', src);
+    };
+
+    this.poll = function() {
+        var self = this;
+
+        if (this.pollingOn !== true) {
+            setTimeout(self.poll, self.pollFrequency);
+            return;
+        }
+
+        var jqxhr = jQuery.ajax({
+            url: this.url,
+            type:'GET',
+            data: this.data
+        }).done(function(data) {
+                if (data.type === 'realEstateAgent') {
+                    var media = data.media;
+                    if(media !=  null && media.hasOwnProperty('photoMediaPath') && media.hasOwnProperty('logoMediaPath')) {
+                        if(media.photoMediaPath !== null && data.baseMediaPath !== null) {
+                            self.setImageByClassType('photoClass', '#js-photo-preview', '', 'js-photo-pending', data.baseMediaPath + media.photoMediaPath)
+                        }
+                        else {
+                            self.setImageByClassType('photoClass', '#js-photo-preview', 'js-photo-pending', '', '/res/img/realEstate/upload_placeholder.png')
+                        }
+                        if(media.logoMediaPath !== null && data.baseMediaPath !== null) {
+                            self.setImageByClassType('logoClass', '#js-logo-preview', '', 'js-logo-pending', data.baseMediaPath + media.logoMediaPath)
+                        }
+                        else {
+                            self.setImageByClassType('logoClass', '#js-logo-preview', 'js-logo-pending', '', '/res/img/realEstate/upload_placeholder.png')
+                        }
+                    }
+                }
+
+                setTimeout(self.poll, self.pollFrequency);
+
+            }).fail(function() {
+                //alert("error");
+                //do nothing
+            });
+    }.gs_bind(this);
+};
