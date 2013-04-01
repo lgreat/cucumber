@@ -33,18 +33,6 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 data[this.name] = this.value;
             });
 
-            var skipValidation = function() {
-                var params = GS.uri.Uri.getQueryData();
-                if(params.skipUserCheck === 'true') {
-                    return true;
-                }
-                return false;
-            }
-            //TODO: comment skip user validation
-            if(skipValidation()) {
-                data.skipUserCheck = true;
-            }
-
             $.ajax({
                 type : 'POST',
                 url : '/real-estate/savePersonalInfo.page',
@@ -83,15 +71,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         });
 
         hover.on('click', '.jq-businessInfoSubmit:visible', function() {
-            //TODO: comment skip validation
-            var skipValidation = function() {
-                var params = GS.uri.Uri.getQueryData();
-                if(params.skipUserCheck === 'true') {
-                    return true;
-                }
-                return false;
-            }
-            if(!skipValidation() && !GSType.hover.realEstateAgentRegistrationHover.validateBusinessInfoHover()) {
+            if(!GSType.hover.realEstateAgentRegistrationHover.validateBusinessInfoHover()) {
                 return false;
             }
 
@@ -105,11 +85,6 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
             if(!data['cellNumber'].match(/^\d{10}$/)) {
                 data['cellNumber'] = '';
             }
-            //TODO: comment skip user validation
-            if(skipValidation()) {
-                data.skipUserCheck = true;
-            }
-
 
             $.ajax({
                 type : 'POST',
@@ -223,6 +198,16 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
         GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-workNumberFields .errors', data, 'workNumberErrorDetail');
     };
 
+    this.validateCellNumber = function() {
+        var data = {};
+        var cellNumber = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-cellNumber').val());
+        if(!(cellNumber === '' || cellNumber === 'Cell #') && !cellNumber.match(/^\d{10}$/)) {
+            data.hasError = true;
+            data.cellNumberErrorDetail = 'Please enter just 10 digits.';
+        }
+        GSType.hover.realEstateAgentRegistrationHover.validateFieldResponse('.jq-businessInfoForm:visible .jq-cellNumberFields .errors', data, 'cellNumberErrorDetail');
+    };
+
     this.validateAddress = function() {
         var data = {};
         var address = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-address').val());
@@ -245,8 +230,8 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 
     this.validateState = function() {
         var data = {};
-        var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state').text());
-        if(state === '') {
+        var state = jQuery.trim(jQuery('.jq-businessInfoForm:visible').find('#jq-state .js-selectBoxText').text());
+        if(state === '' || state === 'State') {
             data.hasError = true;
             data.stateErrorDetail = 'Please select.';
         }
@@ -282,6 +267,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
     this.validateBusinessInfoHover = function(){
         GSType.hover.realEstateAgentRegistrationHover.validateCompanyName();
         GSType.hover.realEstateAgentRegistrationHover.validateWorkNumber();
+        GSType.hover.realEstateAgentRegistrationHover.validateCellNumber();
         GSType.hover.realEstateAgentRegistrationHover.validateAddress();
         GSType.hover.realEstateAgentRegistrationHover.validateCity();
         GSType.hover.realEstateAgentRegistrationHover.validateState();
@@ -317,27 +303,26 @@ jQuery(function(){
         return false;
     });
 
-    //TODO: comment skip user validation
-    var skipValidation = function() {
+    /*var skipValidation = function() {
         var params = GS.uri.Uri.getQueryData();
         return(params.skipUserCheck === 'true');
-    }
+    }*/
 
-    if(!skipValidation()) {
-        //Contact Info Validation
-        jQuery('#jq-fName').blur(GSType.hover.realEstateAgentRegistrationHover.validateFirstName);
-        jQuery('#jq-lName').blur(GSType.hover.realEstateAgentRegistrationHover.validateLastName);
-        jQuery('#jq-email').blur(GSType.hover.realEstateAgentRegistrationHover.validateEmail);
-        jQuery('#jq-password').blur(GSType.hover.realEstateAgentRegistrationHover.validatePassword);
+//    if(!skipValidation()) {}
+    //Contact Info Validation
+    jQuery('#jq-fName').blur(GSType.hover.realEstateAgentRegistrationHover.validateFirstName);
+    jQuery('#jq-lName').blur(GSType.hover.realEstateAgentRegistrationHover.validateLastName);
+    jQuery('#jq-email').blur(GSType.hover.realEstateAgentRegistrationHover.validateEmail);
+    jQuery('#jq-password').blur(GSType.hover.realEstateAgentRegistrationHover.validatePassword);
 
-        //Company Info Validation
-        jQuery('#jq-companyName').blur(GSType.hover.realEstateAgentRegistrationHover.validateCompanyName);
-        jQuery('#jq-workNumber').blur(GSType.hover.realEstateAgentRegistrationHover.validateWorkNumber);
-        jQuery('#jq-address').blur(GSType.hover.realEstateAgentRegistrationHover.validateAddress);
-        jQuery('#jq-city').blur(GSType.hover.realEstateAgentRegistrationHover.validateCity);
-        jQuery('#jq-state').blur(GSType.hover.realEstateAgentRegistrationHover.validateState);
-        jQuery('#jq-zip').blur(GSType.hover.realEstateAgentRegistrationHover.validateZip);
-    }
+    //Company Info Validation
+    jQuery('#jq-companyName').blur(GSType.hover.realEstateAgentRegistrationHover.validateCompanyName);
+    jQuery('#jq-workNumber').blur(GSType.hover.realEstateAgentRegistrationHover.validateWorkNumber);
+    jQuery('#jq-cellNumber').blur(GSType.hover.realEstateAgentRegistrationHover.validateCellNumber);
+    jQuery('#jq-address').blur(GSType.hover.realEstateAgentRegistrationHover.validateAddress);
+    jQuery('#jq-city').blur(GSType.hover.realEstateAgentRegistrationHover.validateCity);
+    jQuery('#jq-state .js-selectBoxText').change(GSType.hover.realEstateAgentRegistrationHover.validateState);
+    jQuery('#jq-zip').blur(GSType.hover.realEstateAgentRegistrationHover.validateZip);
 
 });
 

@@ -79,21 +79,26 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
 
         AgentAccount agentAccount = _realEstateAgentHelper.getAgentAccount(request);
 
-        //TODO: comment skip user validation
-        boolean skipValidation = _realEstateAgentHelper.skipUserValidation(request);
-        if(agentAccount == null && !skipValidation) {
+        //redirect to sign up page if user has no real estate agent account
+        if(agentAccount == null) {
             return new RedirectView(_realEstateAgentHelper.getRealEstateSchoolGuidesUrl(request));
-        }
-        if(skipValidation) {
-            agentAccount = new AgentAccount();
         }
 
         modelMap.put("agentFirstName", (agentAccount.getUser() != null) ? agentAccount.getUser().getFirstName() : "");
         modelMap.put("agentLastName", (agentAccount.getUser() != null) ? agentAccount.getUser().getLastName() : "");
         modelMap.put("agentEmail", (agentAccount.getUser() != null) ? agentAccount.getUser().getEmail() : "");
         modelMap.put("agentCompany", agentAccount.getCompanyName());
-        modelMap.put("agentWorkNumber", agentAccount.getWorkNumber());
-        modelMap.put("agentCellNumber", agentAccount.getCellNumber());
+
+        //Display phone number as (555) 555-5555
+        String workNumber = agentAccount.getWorkNumber();
+        workNumber = (workNumber != null && workNumber.length() == 10) ? "(" + workNumber.substring(0,3) + ") " + workNumber.substring(3,6) + "-" +
+                workNumber.substring(6) : "";
+        modelMap.put("agentWorkNumber", workNumber);
+
+        String cellNumber = agentAccount.getCellNumber();
+        cellNumber = (cellNumber != null && cellNumber.length() == 10) ? "(" + cellNumber.substring(0,3) + ") " + cellNumber.substring(3,6) + "-" +
+                cellNumber.substring(6) : "";
+        modelMap.put("agentCellNumber", cellNumber);
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("M/dd/yyyy");
         modelMap.put("date", dateFormatter.format(new Date()));
@@ -119,9 +124,13 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
         modelMap.put("city", request.getParameter("city"));
         modelMap.put("state", state);
         modelMap.put("zipcode", request.getParameter("zipcode"));
-        modelMap.put("bath", request.getParameter("bath"));
-        modelMap.put("bed", request.getParameter("bed"));
-        modelMap.put("sqFeet", request.getParameter("sqFeet"));
+
+        String bath = request.getParameter("bath");
+        modelMap.put("bath", bath);
+        String bed = request.getParameter("bed");
+        modelMap.put("bed", bed);
+        String sqFeet = request.getParameter("sqFeet");
+        modelMap.put("sqFeet", sqFeet);
 
         modelMap.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
 
@@ -162,20 +171,20 @@ public class RealEstateSchoolsReportController implements ReadWriteAnnotationCon
         }
         finally {
             String address = request.getParameter("address");
-            if(!skipValidation && agentAccount != null && address != null){
+            if(agentAccount != null && address != null){
                 ReportGenerationTracking tracking = new ReportGenerationTracking(agentAccount, address);
                 try {
-                    if(!"".equals(request.getParameter("bed"))) {
-                        tracking.setBedrooms(Integer.parseInt(request.getParameter("bed")));
+                    if(!"".equals(bed)) {
+                        tracking.setBedrooms(Integer.parseInt(bed));
                     }
-                    if(!"".equals(request.getParameter("bath"))) {
-                        tracking.setBathrooms(Integer.parseInt(request.getParameter("bath")));
+                    if(!"".equals(bath)) {
+                        tracking.setBathrooms(Float.parseFloat(bath));
                     }
                 }
                 catch (NumberFormatException e) {
                     _logger.warn("Exception while trying convert string to int for report generation tracking.", e);
                 }
-                tracking.setSqFootage(request.getParameter("sqFeet"));
+                tracking.setSqFootage(sqFeet);
 
                 getReportGeneratorTrackingDaoHibernate().save(tracking);
             }

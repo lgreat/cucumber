@@ -181,10 +181,6 @@
                     </span>
                     <input type="hidden" id="jq-bedDownload" name="bed"/>
                     <input type="hidden" id="jq-bathDownload" name="bath"/>
-                    <!-- TODO: comment the skip validation -->
-                    <input type="hidden" id="jq-skipUserCheck" name="skipUserCheck"/>
-                    <!-- TODO: remove this when pdf is redy -->
-                    <input type="hidden" id="jq-pageView" name="pageView"/>
 
                     <div class="fr mtm" style="padding-bottom:100px;">
                         <a href="javascript:void(0)" id="jq-myAccount" class="small bottom prl">Edit company info</a>

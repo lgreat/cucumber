@@ -118,8 +118,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
-        //TODO: comment skip user validation
-        if (!_realEstateAgentHelper.skipUserValidation(request) && _realEstateAgentHelper.hasAgentAccount(request)) {
+        //redirect to create guide page if user has real estate agent account
+        if (_realEstateAgentHelper.hasAgentAccount(request)) {
             return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
         }
         return _realEstateAgentHelper.REGISTRATION_PAGE_VIEW;
@@ -129,10 +129,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     public String showCreateReportForm (ModelMap modelMap,
                                         HttpServletRequest request,
                                         HttpServletResponse response) {
-        //TODO: comment skip user validation
-        if(_realEstateAgentHelper.skipUserValidation(request)) {
-            return _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW;
-        }
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
@@ -174,12 +170,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
         response.setContentType("application/json");
         JSONObject responseJson = new JSONObject();
-
-        //TODO: comment skip user validation
-        if(_realEstateAgentHelper.skipUserValidation(request)) {
-            outputJson(response, responseJson, false);
-            return;
-        }
 
         try {
             doFullValidations(fName, lName, email, password, responseJson);
