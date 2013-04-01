@@ -27,7 +27,6 @@
     </div>
     <div class="divHeader">
     <div class="realEstatePDF clearfix">
-        <!-- TODO: header section to be included at the top of both pages -->
         <div class="" style="">
             <img src="/res/img/logo/logo_GS_3x.png" width="175" class="fr" alt="greatschools"/>
         </div>
