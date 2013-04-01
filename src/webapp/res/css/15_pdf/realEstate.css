@@ -378,7 +378,7 @@ hr.rulethin	{
 }
 
 .mod-3 .inner .realEstateProfile{
-    padding: 10px;
+    padding: 15px;
     margin-bottom:15px;
     border: 1px solid #DDDDDD;
 
@@ -393,7 +393,7 @@ hr.rulethin	{
 
 }
 .mod-3 .inner .qrCode{
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #DDDDDD;
 
 }
@@ -403,7 +403,7 @@ hr.rulethin	{
 
 .qrCode .qrCodeDescription{
     vertical-align: middle;
-    margin: 50px 30px;
+    margin: 30px 30px;
 }
 
 

@@ -57,10 +57,10 @@
     <div class="fl tac" style="width:140px">
         <div class="default make-555555">${gsweb:roundTwoDecimal(school.distance)} miles</div>
     </div>
-    <div class="fl tac" style="width:193px">
+    <div class="fl tac" style="width:183px">
         <span class="${iconString}"><!-- do not collapse --></span>
     </div>
-    <div class="fr tac" style="width:135px">
+    <div class="fr tac" style="width:145px">
         <c:choose>
             <c:when test="${not empty school.parentRating}">
                 <span class="iconx21-stars i-21-orange-star  i-21-star-${school.parentRating}"><!-- not empty--></span>
