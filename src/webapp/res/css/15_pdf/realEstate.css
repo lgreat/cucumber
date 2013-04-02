@@ -334,16 +334,16 @@ hr.rulethin	{
 }
 
 .mod-1 .inner .bd p{
-    padding: 15px;
+    padding: 10px 15px 0px 15px;
 }
 
 .mod-1 .inner .bd .tableHeader{
     background-color: #F1F1F1;
-    padding: 15px;
+    padding: 10px 15px;
 }
 
 .mod-1 .inner .bd .tableRow{
-    padding: 15px;
+    padding: 10px 15px;
 }
 
 /***********************Module-2**************************/
