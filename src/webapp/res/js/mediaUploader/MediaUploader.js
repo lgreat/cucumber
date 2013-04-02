@@ -355,9 +355,7 @@ GS.MediaUploader.prototype.createUploader = function() {
 
     this.handleError = function(up, err) {
         var file = err.file, message;
-        alert('error')
         this.spinner.hide();
-        alert('error');
         if (err.code === plupload.INIT_ERROR) {
             this.styleInitializationError();
             return;
