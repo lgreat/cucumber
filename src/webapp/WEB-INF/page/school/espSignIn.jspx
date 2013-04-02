@@ -97,7 +97,6 @@
                                                 </c:forEach>
                                             </form:errors>
                                             <!-- javascript errors -->
-                                            <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                                             <div id="js_emailNotFound" class="error js_emailErr" style="display: none;">
                                                 <div class="media">
                                                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -107,6 +106,13 @@
                                                 </div>
                                             </div>
 
+                                            <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
+                                                <div class="media">
+                                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                                    <div class="bd">Please enter your official school email address.</div>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -134,11 +140,19 @@
                                                     </div>
                                                 </c:forEach>
                                             </form:errors>
+                                            <!-- javascript errors -->
+                                            <div class="js_password invalid error" style="display: none;">
+                                                <div class="media">
+                                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                                    <div class="bd">Please enter your password</div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
                                     <div class="nal">
-                                        <input class="button-1" type="submit" value="Sign in"/>
+                                        <input class="button-1" type="submit" value="Sign in" id="js_submit"/>
                                     </div>
 
                                     <div class="">

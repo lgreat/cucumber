@@ -359,6 +359,7 @@ public class UrlBuilder {
     public static final VPage ESP_REGISTRATION = new VPage("vpage:espRegistration");
     public static final VPage ESP_SIGN_IN = new VPage("vpage:espSignIn");
     public static final VPage ESP_DASHBOARD = new VPage("vpage:espLanding");
+    public static final VPage ESP_REGISTRATION_ERROR = new VPage("vpage:espRegistrationError");
     public static final VPage ESP_PRE_REGISTRATION = new VPage("vpage:espPreRegistration");
 
     private static void populateVPageNameMap() {

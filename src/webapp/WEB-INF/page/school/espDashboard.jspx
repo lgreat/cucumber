@@ -46,6 +46,31 @@
                 </div>
             </div>
 
+            <!-- Provisional message if needed -->
+            <c:if test="${isProvisional eq true}">
+                <div class="grid_13 suffix_1">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <div class="line">
+                                    <div class="unit size90of100">
+                                        <p>Thank you for updating ${school.name}'s OSP!
+                                        </p>
+                                        <p class="bottom">We are in the process of confirming that you are authorized to edit the OSP
+                                            for this school.
+                                            Please allow 2-4 weekdays for us to complete the verification process.
+                                            As soon as we've verified your account we will publish your saved edits
+                                            to the site, and you can begin uploading photos to your profile and
+                                            increasing your visibility in search results.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
             <c:if test="${not empty school}">
             <input type="hidden" value="${school.id}" id="js_schoolId"/>
             <input type="hidden" value="${school.databaseState}" id="js_schoolState"/>

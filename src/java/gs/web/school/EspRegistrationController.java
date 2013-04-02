@@ -101,7 +101,11 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
                     return "redirect:" + urlBuilder.asFullUrl(request);
                 } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                    modelMap.addAttribute("isUserAwaitingESPMembership", true);
+                    modelMap.clear();
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+                    urlBuilder.addParameter("message", "page1");
+                    return "redirect:" + urlBuilder.asFullUrl(request);
+//                    modelMap.addAttribute("isUserAwaitingESPMembership", true);
                 } else if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
                     modelMap.clear();
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);

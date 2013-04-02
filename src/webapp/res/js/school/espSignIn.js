@@ -122,43 +122,6 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-    this.validateFields = function(fieldName, ajaxParams) {
-        var elem = jQuery('#js_' + fieldName);
-        var fieldName = fieldName;
-        var fieldVal = elem.val();
-        var isFieldVisible = elem.is(':visible');
-        var isReadOnly = elem.attr('readonly') === 'readonly';
-        var dfd = jQuery.Deferred();
-        var dataParams = {field:fieldName};
-        dataParams[fieldName] = fieldVal;
-        jQuery.extend(dataParams, ajaxParams);
-
-        if (isFieldVisible && !isReadOnly) {
-            jQuery.ajax({
-                type: 'GET',
-                url: '/community/registrationValidationAjax.page',
-                data:dataParams,
-                dataType: 'json',
-                async: true
-            }).done(
-                function(data) {
-                    var rval = GS.form.espForm.handleValidationResponse('.js_' + fieldName, fieldName, data, elem);
-                    if (rval) {
-                        dfd.resolve();
-                    } else {
-                        dfd.reject();
-                    }
-                }
-            ).fail(function() {
-                    dfd.reject();
-                }
-            );
-        } else {
-            dfd.resolve();
-        }
-        return dfd.promise();
-    };
-
     this.handleValidationResponse = function(fieldSelector, fieldName, data, elem) {
         var fieldError = jQuery(fieldSelector + '.invalid');
         var fieldValid = jQuery(fieldSelector + '.success');
@@ -188,7 +151,8 @@ GS.form.EspForm = function() {
 
     this.registrationSubmit = function() {
         jQuery.when(
-                GS.form.espForm.validateUserState()
+                GS.form.espForm.validateUserState(),
+                GS.form.espForm.validateRequiredFields('password')
             ).done(
             function() {
                 //submit the form if all validations pass.
@@ -213,6 +177,10 @@ jQuery(function() {
     jQuery('#js_email').blur(
         GS.form.espForm.validateUserState
     );
+
+    jQuery('#js_password').blur(function() {
+        GS.form.espForm.validateRequiredFields('password');
+    });
 
     //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
     jQuery('#js_submit').click(

@@ -39,6 +39,9 @@ public class EspSignInController implements ReadWriteAnnotationController {
     @Autowired
     private IUserDao _userDao;
 
+    @Autowired
+    private EspRegistrationHelper _espEspRegistrationHelper;
+
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -110,8 +113,11 @@ public class EspSignInController implements ReadWriteAnnotationController {
             if (!result.hasErrors() && user != null && !user.matchesPassword(command.getPassword())) {
                 result.rejectValue("password", null, "The password you entered is incorrect.");
             } else if (!result.hasErrors() && user != null && userState.isUserEmailValidated() && userState.isUserApprovedESPMember()) {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                return "redirect:" + urlBuilder.asFullUrl(request);
+                // Signin successful!
+                PageHelper.setMemberAuthorized(request, response, user, true);
+                // Determine next state and go there
+                String nextUrl = _espEspRegistrationHelper.determineNextView(request, user);
+                return nextUrl;
             }
         }
         return VIEW;

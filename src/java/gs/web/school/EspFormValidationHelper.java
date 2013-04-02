@@ -44,7 +44,15 @@ public class EspFormValidationHelper {
                 return _espMembershipDao.findEspMembershipByStateSchoolIdUserId
                         (state, schoolId, user.getId(), true) != null;
             } else {
-                _log.warn("User " + user + " does not have required role " + Role.ESP_MEMBER + " or " + Role.ESP_SUPERUSER + " to access ESP form.");
+                // Check for provisional user (JIRA 13363)
+                EspMembership membership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId
+                        (state, schoolId, user.getId(), true);
+                if( membership.getStatus() == EspMembershipStatus.PROVISIONAL ) {
+                    return true;
+                }
+                else {
+                    _log.warn("User " + user + " does not have required role " + Role.ESP_MEMBER + " or " + Role.ESP_SUPERUSER + " to access ESP form.");
+                }
             }
         } else {
             _log.warn("Invalid or null user/state/schoolId: " + user + "/" + state + "/" + schoolId);

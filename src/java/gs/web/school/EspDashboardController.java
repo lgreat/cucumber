@@ -33,6 +33,7 @@ public class EspDashboardController {
     public static final String VIEW = "school/espDashboard";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final String PARAM_MESSAGE_ID = "message";
     public static final String MODEL_SUPERUSER_ERROR = "superUserError";
 
     @Autowired

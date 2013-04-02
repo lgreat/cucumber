@@ -53,13 +53,12 @@
                         <c:choose>
                             <c:when test="${$message eq 'page1'}">
                                 <!-- Use case: User is in processing and another user has provisional access -->
-                                <p class="bottom">Uh-oh.  We're sorry - it looks like another authorized administrator
+                                <p>Uh-oh.  We're sorry - it looks like another authorized administrator
                                     from your school is currently editing your school's OSP.
                                     Please check back in 2-4 weekdays, when the profile should again be
                                     available for editing.  In the meantime, we will verify that you are
                                     authorized to administer this school's profile page.</p>
-                                <p class="bottom">Please contact us at osphelp@greatschools.org
-                                    if we can help answer any questions.</p>
+                                <p class="bottom"> Please <link:contactUs feedbackType="esp">contact us</link:contactUs>.</p>
                             </c:when>
                             <c:when test="${$message eq 'page2'}">
                                 <!-- I don't think this one is used here, once verified remove this message -->
@@ -77,7 +76,7 @@
                                 <p>"Uh-oh.  We're sorry - it looks like we were unable to confirm you as an
                                     administrator of ${school.name}'s Official School Profile.</p>
                                 <p>Were you trying to edit a different school's page?  Click here to try again.</p>
-                                <p class="bottom">Need help?  Please <link:contactUs feedbackType="esp">contact us</link:contactUs>."</p>
+                                <p class="bottom">Need help?  Please <link:contactUs feedbackType="esp">contact us</link:contactUs>.</p>
                             </c:when>
                             <c:when test="${$message eq 'page6'}">
                                 <!-- Use case: User is deactivated -->
