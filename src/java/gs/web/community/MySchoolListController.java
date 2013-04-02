@@ -38,18 +38,6 @@ import java.util.*;
 public class MySchoolListController extends AbstractController implements ReadWriteController {
     protected static final Log _log = LogFactory.getLog(MySchoolListController.class);
 
-    // states/cities that control whether Print Your Own Chooser module is displayed
-    public static Set<String> CHOOSER_CITIES = new HashSet<String>();
-    static {
-        // comparisons are to lowercase
-        CHOOSER_CITIES.add("milwaukee, wi");
-        CHOOSER_CITIES.add("washington, dc");
-        CHOOSER_CITIES.add("indianapolis, in");
-        CHOOSER_CITIES.add("speedway, in");
-        CHOOSER_CITIES.add("beech grove, in");
-    }
-
-
     /** Spring bean id */
     public static final String BEAN_ID = "/mySchoolList.page";
     
@@ -84,6 +72,27 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_RECENT_REVIEWS = "recentReviews";
     public static final String MODEL_CURRENT_DATE = "currentDate";
     public static final String MODEL_SHOW_PYOC_MODULE = "showPYOCModule"; // pyoc = Print Your Own Chooser
+    public static final String MODEL_SHOW_MILWAUKEE_PDF = "showMilwaukeePdf";
+    public static final String MODEL_SHOW_INDIANAPOLIS_PDF = "showIndianapolisPdf";
+    public static final String MODEL_SHOW_DC_PDF = "showDcPdf";
+
+    // states/cities that control whether Print Your Own Chooser module is displayed
+    public static Map<String, String> CHOOSER_CITY_PDF_MODEL_MAP = new HashMap<String, String>();
+    public static Set<String> CHOOSER_CITIES = new HashSet<String>();
+    static {
+        // comparisons are to lowercase
+        CHOOSER_CITIES.add("milwaukee, wi");
+        CHOOSER_CITIES.add("washington, dc");
+        CHOOSER_CITIES.add("indianapolis, in");
+        CHOOSER_CITIES.add("speedway, in");
+        CHOOSER_CITIES.add("beech grove, in");
+
+        CHOOSER_CITY_PDF_MODEL_MAP.put("milwaukee, wi", MODEL_SHOW_MILWAUKEE_PDF);
+        CHOOSER_CITY_PDF_MODEL_MAP.put("washington, dc", MODEL_SHOW_DC_PDF);
+        CHOOSER_CITY_PDF_MODEL_MAP.put("indianapolis, in", MODEL_SHOW_INDIANAPOLIS_PDF);
+        CHOOSER_CITY_PDF_MODEL_MAP.put("speedway, in", MODEL_SHOW_INDIANAPOLIS_PDF);
+        CHOOSER_CITY_PDF_MODEL_MAP.put("beech grove, in", MODEL_SHOW_INDIANAPOLIS_PDF);
+    }
 
     /** constants */
     public static final int RECENT_REVIEWS_LIMIT = 3;
@@ -300,6 +309,10 @@ public class MySchoolListController extends AbstractController implements ReadWr
             levelSet.addAll(lc.getIndividualLevelCodes());
             if(!LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                 preschoolOnly = "false";
+            }
+            String modelVar = CHOOSER_CITY_PDF_MODEL_MAP.get((school.getCity() + ", " + school.getStateAbbreviation()).toLowerCase());
+            if (modelVar != null) {
+                model.put(modelVar, true);
             }
         }
 
