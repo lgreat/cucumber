@@ -313,6 +313,10 @@ hr.rulethin	{
     color: #999999;
 }
 
+.realEstatePDF .italic{
+    font-style: italic;
+}
+
 
 /***********************Module-1**************************/
 .mod-1{
