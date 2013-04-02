@@ -6,6 +6,41 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
 
     this.loadDialog = function() {};
 
+    /*
+     * hack for browsers that doesn't support Object.keys -
+     * https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/keys
+     */
+    Object.keys = Object.keys || (function() {
+        var hasOwnProperty = Object.prototype.hasOwnProperty,
+            hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
+            dontEnums = [
+                'toString',
+                'toLocaleString',
+                'valueOf',
+                'hasOwnProperty',
+                'isPrototypeOf',
+                'propertyIsEnumerable',
+                'constructor'
+            ],
+            dontEnumsLength = dontEnums.length;
+        return function (o) {
+            if (typeof o != "object" && typeof o != "function" || o === null)
+                throw new TypeError("Object.keys called on a non-object");
+
+            var result = [];
+            for (var name in o) {
+                if (hasOwnProperty.call(o, name))
+                    result.push(name);
+            }
+            if (hasDontEnumBug) {
+                for (var i=0; i < dontEnumsLength; i++) {
+                    if (hasOwnProperty.call(o, dontEnums[i])) result.push(dontEnums[i]);
+                }
+            }
+            return result;
+        };
+    })();
+
     this.show = function() {
         errors = {};
         GSType.hover.realEstateAgentRegistrationHover.showModal();
@@ -38,7 +73,7 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 url : '/real-estate/savePersonalInfo.page',
                 data : data,
                 success : function (response) {
-                    if(response.success || data.skipUserCheck) {
+                    if(response.success) {
                         form.addClass('dn');
                         hover.find('.jq-businessInfoForm').removeClass('dn');
                         GS.realEstateAgent.GS_initializeCustomSelect(".jq-businessInfoForm:visible .js-realEstateState");
@@ -91,9 +126,12 @@ GSType.hover.RealEstateAgentRegistrationHover = function() {
                 url : '/real-estate/saveBusinessInfo.page',
                 data : data,
                 success : function (response) {
-                    if(response.success || data.skipUserCheck) {
+                    if(response.success) {
                         form.addClass('dn');
                         hover.find('.jq-imageUploaderForm').removeClass('dn');
+                        jQuery('.js-registrationHover:visible .js_closeHover').on('click', function() {
+                            GS.realEstateAgentPollingViewer.turnPollingOff();}
+                        );
 
                         if(response.companyInfoFields !== undefined) {
                             var companyInfoFields = response.companyInfoFields;
