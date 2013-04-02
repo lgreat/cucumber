@@ -54,10 +54,10 @@
         <div class="default make-555555">${fn:escapeXml(school.street)}</div>
         <div class="default make-555555">${school.city}, ${school.databaseState} ${school.zip}</div>
     </div>
-    <div class="fl tac" style="width:140px;">
+    <div class="fl tac" style="width:130px;">
         <div class="default make-555555">${gsweb:roundTwoDecimal(school.distance)} miles</div>
     </div>
-    <div class="fl tac" style="width:183px;">
+    <div class="fl tac" style="width:173px;">
         <span class="${iconString}"><!-- do not collapse --></span>
     </div>
     <div class="fr tac" style="width:145px;">
