@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="school" required="true" type="gs.data.search.beans.ISchoolSearchResult"/>
     <div class="mbl">
         <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}"
-                                            schoolId="${school.id}" styleClass="block" anchor="revPagination">
+                                            schoolId="${school.id}" styleClass="block" anchor="schoolReviewSubmitForm">
             <c:choose>
                 <c:when test="${not empty school.parentRating}">
                     <ratings:stars curSR="${school.parentRating}"/>
@@ -26,7 +26,7 @@
     <c:if test="${school.reviewCount gt 0 and not empty school.reviewBlurb}">
         <div class="mtl reviewBlurb">
             <span class="small bottom">${school.reviewBlurb}...</span>
-        <div class="small bottom"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount}) &amp;#187;</link:schoolProfileParentReview2010></div>
+        <div class="small bottom"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" anchor="schoolReviewSubmitForm">Read more (${school.reviewCount}) &amp;#187;</link:schoolProfileParentReview2010></div>
         </div>
     </c:if>
 </jsp:root>
