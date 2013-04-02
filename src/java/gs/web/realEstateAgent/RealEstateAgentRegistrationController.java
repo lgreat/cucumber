@@ -118,8 +118,8 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     @RequestMapping(value = "school-guides.page", method = RequestMethod.GET)
     public String showRegistrationForm (HttpServletRequest request,
                             HttpServletResponse response) {
-        //TODO: comment skip user validation
-        if (!_realEstateAgentHelper.skipUserValidation(request) && _realEstateAgentHelper.hasAgentAccount(request)) {
+        //redirect to create guide page if user has real estate agent account
+        if (_realEstateAgentHelper.hasAgentAccount(request)) {
             return "redirect:" + _realEstateAgentHelper.getRealEstateCreateGuideUrl(request);
         }
         return _realEstateAgentHelper.REGISTRATION_PAGE_VIEW;
@@ -129,25 +129,14 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
     public String showCreateReportForm (ModelMap modelMap,
                                         HttpServletRequest request,
                                         HttpServletResponse response) {
-        //TODO: comment skip user validation
-        if(_realEstateAgentHelper.skipUserValidation(request)) {
-            return _realEstateAgentHelper.CREATE_REPORT_PAGE_VIEW;
-        }
 
         Integer userId = _realEstateAgentHelper.getUserId(request);
 
         if(userId != null) {
             AgentAccount agentAccount = getAgentAccountDao().findAgentAccountByUserId(userId);
             if(agentAccount != null) {
-                if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
-                    User user = _userDao.findUserFromId(userId);
-                    getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
-
-                    OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                    ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
-                    // update to avoid sending exact target email and record event74 again
-                    getAgentAccountDao().updateAgentAccount(agentAccount);
-                }
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.RadarComplete);
 
                 modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
                 if(agentAccount.getPhotoMediaUpload() != null) {
@@ -174,12 +163,6 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
 
         response.setContentType("application/json");
         JSONObject responseJson = new JSONObject();
-
-        //TODO: comment skip user validation
-        if(_realEstateAgentHelper.skipUserValidation(request)) {
-            outputJson(response, responseJson, false);
-            return;
-        }
 
         try {
             doFullValidations(fName, lName, email, password, responseJson);
@@ -282,6 +265,10 @@ public class RealEstateAgentRegistrationController implements ReadWriteAnnotatio
         }
         catch (JSONException ex) {
             _logger.warn("RealEstateAgentRegistrationController: Error while writing saved company info to response.");
+        }
+
+        if(agentAccount.getCreatedAt().equals(agentAccount.getUpdatedAt())) {
+            getExactTargetAPI().sendTriggeredEmail("realtor_welcome", user, new HashMap<String, String>());
         }
 
         outputJson(response, responseJson, true);

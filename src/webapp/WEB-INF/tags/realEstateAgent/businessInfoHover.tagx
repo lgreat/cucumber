@@ -38,10 +38,15 @@
                             <span class="error invalid"><!-- not empty --></span>
                         </div>
                     </div>
-                    <div class="fr">
+                    <div class="fr jq-cellNumberFields">
                         <gsml:input type="text" styleId="jq-cellNumber" styleClass="text1 input_5" name="cellNumber"
                                     value="${(not empty cellNumber) ? cellNumber : 'Cell #'}"
                                     onfocus="GS_textSwitch(this, '', 'Cell #');" onblur="GS_textSwitch(this, 'Cell #', '');"/>
+
+                        <div class="errors">
+                            <span class="error valid">&amp;nbsp;</span>
+                            <span class="error invalid"><!-- not empty --></span>
+                        </div>
                     </div>
                 </div>
                 <div class="mtm jq-addressFields">

@@ -358,64 +358,88 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertEquals("Set should contain 1,2,5", s_2, ids);
     }
 
+    public void verifyPyocSchool(List<School> schools, boolean shouldShowPyocModule, boolean shouldShowMilwaukeePdf, boolean shouldShowIndianapolisPdf, boolean shouldShowDcPdf) {
+        _user.getFavoriteSchools().clear();
+        for (School s: schools) {
+            _user.getFavoriteSchools().add(new FavoriteSchool(s, _user));
+            expect(_schoolDao.getSchoolById(s.getDatabaseState(), s.getId())).andReturn(s);
+        }
+        replayMocks(_schoolDao);
+        Map<String, Object> model = _controller.buildModel(_user);
+        verifyMocks(_schoolDao);
+        assertNotNull(model.get(MySchoolListController.MODEL_SHOW_PYOC_MODULE));
+        if (shouldShowPyocModule) {
+            assertTrue("Expecting PYOC module", (Boolean)model.get(MySchoolListController.MODEL_SHOW_PYOC_MODULE));
+            assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        } else {
+            assertFalse("Not expecting PYOC module", (Boolean)model.get(MySchoolListController.MODEL_SHOW_PYOC_MODULE));
+            assertFalse(MySchoolListController.shouldShowPYOCModule(schools));
+        }
+        if (shouldShowMilwaukeePdf) {
+            assertNotNull(model.get(MySchoolListController.MODEL_SHOW_MILWAUKEE_PDF));
+            assertEquals(shouldShowMilwaukeePdf, model.get(MySchoolListController.MODEL_SHOW_MILWAUKEE_PDF));
+        } else {
+            assertNull(model.get(MySchoolListController.MODEL_SHOW_MILWAUKEE_PDF));
+        }
+        if (shouldShowIndianapolisPdf) {
+            assertNotNull(model.get(MySchoolListController.MODEL_SHOW_INDIANAPOLIS_PDF));
+            assertEquals(shouldShowIndianapolisPdf, model.get(MySchoolListController.MODEL_SHOW_INDIANAPOLIS_PDF));
+        } else {
+            assertNull(model.get(MySchoolListController.MODEL_SHOW_INDIANAPOLIS_PDF));
+        }
+        if (shouldShowDcPdf) {
+            assertNotNull(model.get(MySchoolListController.MODEL_SHOW_DC_PDF));
+            assertEquals(shouldShowDcPdf, model.get(MySchoolListController.MODEL_SHOW_DC_PDF));
+        } else {
+            assertNull(model.get(MySchoolListController.MODEL_SHOW_DC_PDF));
+        }
+
+        resetMocks(_schoolDao);
+    }
+
+    private School createPyocSchool(Integer id, String city, State state) {
+        School s = new School();
+        s.setId(id);
+        s.setCity(city);
+        s.setStateAbbreviation(state);
+        s.setDatabaseState(state);
+        s.setLevelCode(LevelCode.ALL_LEVELS);
+
+        return s;
+    }
+
     public void testShowPyocModule() throws Exception {
         List<School> schools = new ArrayList<School>();
+        School s;
 
-        School s = new School();
-        s.setCity("Milwaukee");
-        s.setStateAbbreviation(State.WI);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "Milwaukee", State.WI));
+        verifyPyocSchool(schools, true, true, false, false);
 
         schools.clear();
-        s = new School();
-        s.setCity("Washington");
-        s.setStateAbbreviation(State.DC);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "Washington", State.DC));
+        verifyPyocSchool(schools, true, false, false, true);
 
         schools.clear();
-        s = new School();
-        s.setCity("Indianapolis");
-        s.setStateAbbreviation(State.IN);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "Indianapolis", State.IN));
+        verifyPyocSchool(schools, true, false, true, false);
 
         schools.clear();
-        s = new School();
-        s.setCity("Speedway");
-        s.setStateAbbreviation(State.IN);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "Speedway", State.IN));
+        verifyPyocSchool(schools, true, false, true, false);
 
         schools.clear();
-        s = new School();
-        s.setCity("Beech Grove");
-        s.setStateAbbreviation(State.IN);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "Beech Grove", State.IN));
+        verifyPyocSchool(schools, true, false, true, false);
 
         schools.clear();
-        s = new School();
-        s.setCity("Sacramento");
-        s.setStateAbbreviation(State.CA);
-        schools.add(s);
-        s = new School();
-        s.setCity("Beech Grove");
-        s.setStateAbbreviation(State.IN);
-        schools.add(s);
-        s = new School();
-        s.setCity("San Francisco");
-        s.setStateAbbreviation(State.CA);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "Sacramento", State.CA));
+        schools.add(createPyocSchool(1, "Beech Grove", State.IN));
+        schools.add(createPyocSchool(2, "San Francisco", State.CA));
+        verifyPyocSchool(schools, true, false, true, false);
 
         schools.clear();
-        s = new School();
-        s.setCity("San Francisco");
-        s.setStateAbbreviation(State.CA);
-        schools.add(s);
-        assertFalse(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "San Francisco", State.CA));
+        verifyPyocSchool(schools, false, false, false, false);
 
         schools.clear();
         schools.add(null);
@@ -425,10 +449,11 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertFalse(MySchoolListController.shouldShowPYOCModule(schools));
 
         schools.clear();
-        s = new School();
-        s.setCity("bEeCH gRoVe");
-        s.setStateAbbreviation(State.IN);
-        schools.add(s);
-        assertTrue(MySchoolListController.shouldShowPYOCModule(schools));
+        schools.add(createPyocSchool(1, "bEeCH gRoVe", State.IN));
+        verifyPyocSchool(schools, true, false, true, false);
+
+        schools.clear();
+        schools.add(createPyocSchool(1, "bEeCH gRoVe", State.WI));
+        verifyPyocSchool(schools, false, false, false, false);
     }
 }

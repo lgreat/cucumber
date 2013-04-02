@@ -313,6 +313,10 @@ hr.rulethin	{
     color: #999999;
 }
 
+.realEstatePDF .italic{
+    font-style: italic;
+}
+
 
 /***********************Module-1**************************/
 .mod-1{
@@ -334,16 +338,16 @@ hr.rulethin	{
 }
 
 .mod-1 .inner .bd p{
-    padding: 15px;
+    padding: 10px 15px 0px 15px;
 }
 
 .mod-1 .inner .bd .tableHeader{
     background-color: #F1F1F1;
-    padding: 15px;
+    padding: 10px 15px;
 }
 
 .mod-1 .inner .bd .tableRow{
-    padding: 15px;
+    padding: 10px 15px;
 }
 
 /***********************Module-2**************************/
@@ -378,7 +382,7 @@ hr.rulethin	{
 }
 
 .mod-3 .inner .realEstateProfile{
-    padding: 10px;
+    padding: 15px;
     margin-bottom:15px;
     border: 1px solid #DDDDDD;
 
@@ -386,14 +390,14 @@ hr.rulethin	{
 
 .mod-3 .inner .profileData{
     vertical-align: middle;
-    margin: 30px;
+    margin: 20px 30px 20px 30px;;
 }
 .mod-3 .inner .companyLogo{
-    margin-right: 50px;
+    margin: 20px 50px 20px 0;
 
 }
 .mod-3 .inner .qrCode{
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #DDDDDD;
 
 }
@@ -403,7 +407,7 @@ hr.rulethin	{
 
 .qrCode .qrCodeDescription{
     vertical-align: middle;
-    margin: 50px 30px;
+    margin: 35px 30px;
 }
 
 

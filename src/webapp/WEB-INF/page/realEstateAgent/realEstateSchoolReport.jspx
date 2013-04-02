@@ -19,7 +19,7 @@
     <div class="divFooter realEstatePDF clearfix">
         <div class="fl">
             <span class="smallBold make-555555">Prepared for: </span>
-            <span class="small make-555555"> ${agentFirstName} ${agentLastName}, ${agentEmail} </span>
+            <span class="small make-555555"> ${agentFirstName} ${agentLastName}, <span class="italic">${agentCompany}</span></span>
         </div>
         <div class="fr">
             <span class="small make-555555">${date}</span>
@@ -27,7 +27,6 @@
     </div>
     <div class="divHeader">
     <div class="realEstatePDF clearfix">
-        <!-- TODO: header section to be included at the top of both pages -->
         <div class="" style="">
             <img src="/res/img/logo/logo_GS_3x.png" width="175" class="fr" alt="greatschools"/>
         </div>
@@ -64,13 +63,13 @@
             <div class="inner clearfix">
                 <div class="hd defaultBold">The 5 closest schools to the property you are considering.</div>
                 <div class="bd">
-                    <p class=" default">These results are provided only as a guide to prospective home buyers. Please check with
+                    <p class="default">These results are provided only as a guide to prospective home buyers. Please check with
                         your school district for more detailed enrollment information or visit www.greatschools.org.</p>
                     <div class="tableHeader clearfix">
                         <!--<div class="fl" style="width: 220px">hello&lt;!&ndash;do not collapse&ndash;&gt;</div>-->
-                        <div class="fl tac smallBold" style="padding-left:220px; width: 140px;">Distance</div>
-                        <div class="fl tac smallBold" style="width: 193px">GreatSchools rating</div>
-                        <div class="fr tac smallBold" style="width: 135px;">Community rating</div>
+                        <div class="fl tac smallBold" style="padding-left:210px; width: 120px;">Distance</div>
+                        <div class="fl tac smallBold" style="width: 173px;">GreatSchools rating</div>
+                        <div class="tac smallBold fl" style="width: 145px;">Community rating</div>
                     </div>
                     <c:forEach items="${schoolSearchResults}" var="school" varStatus="status">
                         <realEstate:schoolReportSection school="${school}" schoolMediaElement="${schoolMediaList[0]}"/>
@@ -99,12 +98,12 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="fl profileData" style="vertical-align: middle">
+                    <div class="fl profileData">
                         <div class="largeBold make-555555">${agentFirstName} ${agentLastName}</div>
-                        <div class="default make-555555">${agentCompany}</div>
+                        <div class="default make-555555 italic">${agentCompany}</div>
                         <div class="default make-555555"><span class="defaultBold">office:</span> ${agentWorkNumber}</div>
                         <c:if test="${not empty agentCellNumber}">
-                            <div class="default make-555555"><span class="defaultBold">mobile:</span>${agentCellNumber}</div>
+                            <div class="default make-555555"><span class="defaultBold">mobile:</span> ${agentCellNumber}</div>
                         </c:if>
 
                         <div class="default make-555555">${agentEmail}</div>
@@ -132,7 +131,7 @@
                             <![CDATA[<img src="${imgSrc}?content=${locationSearchUrl}&amp;width=145&amp;height=145&amp;isUrl=true" alt="Unable to generate QR code. Please try again."/>]]>
                         </div>
                     </div>
-                    <div class="fl qrCodeDescription make-555555 default" style="width: 485px;">
+                    <div class="fl qrCodeDescription make-555555 default" style="width: 450px;">
                         For more information on these schools, please scan this QR code for access to your personalized GreatSchools
                         School Search landing page. There you will find in-depth information on these schools including test scores,
                         community ratings and much more.
