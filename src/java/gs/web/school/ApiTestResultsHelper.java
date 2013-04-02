@@ -157,12 +157,12 @@ public class ApiTestResultsHelper {
         }
         if (originalApiResult.getSocioEconDisadv() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
-                "Socioeconomic Disadvantage",
+                "Socioeconomic Disadvantaged",
                 originalApiResult.getSocioEconDisadv(),
                 originalApiResult.getSocioEconDisadvNumTested(),
                 originalApiResult
             );
-            map.put("Socioeconomic Disadvantage", apiResultForView);
+            map.put("Socioeconomic Disadvantaged", apiResultForView);
         }
         if (originalApiResult.getDisabled() != null) {
             ApiResultForView apiResultForView = new ApiResultForView(
