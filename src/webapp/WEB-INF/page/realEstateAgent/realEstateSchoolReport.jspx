@@ -69,7 +69,7 @@
                         <!--<div class="fl" style="width: 220px">hello&lt;!&ndash;do not collapse&ndash;&gt;</div>-->
                         <div class="fl tac smallBold" style="padding-left:220px; width: 130px;">Distance</div>
                         <div class="fl tac smallBold" style="width: 173px;">GreatSchools rating</div>
-                        <div class="fr tac smallBold" style="width: 145px;">Community rating</div>
+                        <div class="fl tac smallBold" style="width: 145px;">Community rating</div>
                     </div>
                     <c:forEach items="${schoolSearchResults}" var="school" varStatus="status">
                         <realEstate:schoolReportSection school="${school}" schoolMediaElement="${schoolMediaList[0]}"/>
@@ -98,7 +98,7 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="fl profileData" style="vertical-align: middle">
+                    <div class="fl profileData">
                         <div class="largeBold make-555555">${agentFirstName} ${agentLastName}</div>
                         <div class="default make-555555 italic">${agentCompany}</div>
                         <div class="default make-555555"><span class="defaultBold">office:</span> ${agentWorkNumber}</div>
