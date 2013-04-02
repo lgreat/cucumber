@@ -125,6 +125,11 @@
                 </div>
             </c:if>
 
+
+            <c:set var="allowPhotoEditing" value="${true}"/>
+            <c:if test="${!(empty isProvisionalUser) and isProvisionalUser eq true}">
+                <c:set var="allowPhotoEditing" value="${false}"/>
+            </c:if>
             <c:set var="maxNumberOfPhotos" value="10" />
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
@@ -134,7 +139,9 @@
                     <school:espFieldError text="Error occurred" styleId="jsUploadError" styleClass="grid_6 omega"/>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" />
+                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}"
+                                       schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}"
+                                       existingPhotos="${schoolMedias}" allowPhotoUpload="${allowPhotoEditing}"/>
                 </div>
             </div>
 
@@ -145,7 +152,9 @@
                     <p class="small">Photos in pending status are being processed and will be available momentarily</p>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" startPolling="${param.page eq 6}"/>
+                    <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}"
+                                            schoolDatabaseState="${school.databaseState.abbreviationLowerCase}"
+                                            existingPhotos="${schoolMedias}" startPolling="${param.page eq 6}" allowPhotoDeletion="${allowPhotoEditing}"/>
                 </div>
             </div>
 

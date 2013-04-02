@@ -79,7 +79,12 @@ public class EspFormController implements ReadWriteAnnotationController {
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
         int page = getPage(request);
-        int maxPage = getMaxPageForSchool(school);
+
+        //Check if the user is provisional
+        boolean isProvisionalUser = _espFormValidationHelper.isUserProvisional(user);
+        modelMap.put("isProvisionalUser", isProvisionalUser);
+
+        int maxPage = getMaxPageForSchool(school, isProvisionalUser);
         if (page < 1 || page > maxPage) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
@@ -93,9 +98,6 @@ public class EspFormController implements ReadWriteAnnotationController {
         // required for photo uploader
         modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
 
-        //Check if the user is provisional
-        boolean isProvisionalUser = _espFormValidationHelper.isUserProvisional(user);
-        modelMap.put("isProvisionalUser", isProvisionalUser);
 
         if(isProvisionalUser){
             putProvisionalResponsesInModel(user,school, modelMap); // fetch provisional responses for school
@@ -109,7 +111,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         putAfterSchoolIndicatorInModel(school, modelMap);
         putRepeatingFormIndicatorInModel(modelMap, "after_school_", 5);  // Add index of last active after_school data into model
         putRepeatingFormIndicatorInModel(modelMap, "summer_program_", 5);
-        putPercentCompleteInModel(school, modelMap);
+        putPercentCompleteInModel(school, modelMap, isProvisionalUser);
 
         //TODO do the below lines for provisional also?
         modelMap.put("ethnicityBreakdowns", EspFormExternalDataHelper.STATE_TO_ETHNICITY.get(school.getDatabaseState()));
@@ -235,10 +237,10 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("responseMap", responseMap);
     }
 
-    protected void putPercentCompleteInModel(School school, ModelMap modelMap) {
+    protected void putPercentCompleteInModel(School school, ModelMap modelMap, boolean isProvisionalUser) {
         // Map must be keyed by long to be accessible via EL
         Map<Long, Integer> percentCompleteMap = new HashMap<Long, Integer>();
-        for (int x=1; x <= getMaxPageForSchool(school); x++) {
+        for (int x=1; x <= getMaxPageForSchool(school,isProvisionalUser); x++) {
             percentCompleteMap.put((long)x, getPercentCompletionForPage(x, school));
         }
         modelMap.put("percentComplete", percentCompleteMap);
@@ -505,8 +507,9 @@ public class EspFormController implements ReadWriteAnnotationController {
     /**
      * How many pages are on the form for a given school
      */
-    protected int getMaxPageForSchool(School school) {
-        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE) {
+    protected int getMaxPageForSchool(School school, boolean isUserProvisional) {
+        //Do not show page 8 for provisional user.
+        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE && !isUserProvisional) {
             return 8;
         }
         return 7;

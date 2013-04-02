@@ -10,6 +10,12 @@
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.Integer" />
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="existingPhotos" required="false" type="java.util.List" description="List of SchoolMedia that are either active or pending" />
+    <jsp:directive.attribute name="allowPhotoUpload" required="false" type="java.lang.Boolean" description="Whether or not user can add photos"/>
+
+    <c:set var="photoQueueBtnClass" value="button-1"/>
+    <c:if test="${!(empty allowPhotoUpload) and (allowPhotoUpload eq false)}">
+        <c:set var="photoQueueBtnClass" value="button-1-inactive"/>
+    </c:if>
 
     <div id="photo-upload-container">
         <table class="tableType1">
@@ -29,7 +35,7 @@
             <tr>
                 <td colspan="4">
                         <span id="photoUploaderButtons" colspan="4">
-                            <button class="button-1" id="jsPhotoQueueButton" type="button"
+                            <button class="${photoQueueBtnClass}" id="jsPhotoQueueButton" type="button"
                                     style="-moz-user-select: none;">Select files
                             </button>
                             <button class="button-1-inactive" id="jsPhotoFakeQueueButton" type="button" disabled="true"
