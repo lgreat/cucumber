@@ -47,10 +47,6 @@
 </c:choose>
 <jsp:scriptlet>
     PageHelper.setPageName(request, "spp_overview");
-    School school = (School) request.getAttribute("school");
-    if (school != null) {
-        PageHelper.setYahooRealEstateCity(request, school.getCity());
-    }
 </jsp:scriptlet>
 
 <head>

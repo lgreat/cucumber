@@ -30,7 +30,6 @@
 <jsp:scriptlet>
     City city = (City)request.getAttribute("cityObject");
     if (city != null) {
-        PageHelper.setYahooRealEstateCity(request, city.getName());
         PageHelper.setCityIdCookie(request, response, city);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (null != pageHelper) {
@@ -394,14 +393,6 @@
 </table>
 
 <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopCitiesFooter=${'false'}&amp;linkToSchoolChoice=${'true'}" />
-
-<c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
-    <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
-    <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
-    <div id="YahooRealEstateLink">
-        <b>Are you relocating?</b> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter> Tips | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
-    </div>
-</c:if>
 
 <h1 id="sfooter" class="sfooter">${gsweb:cityPageTitle(cityObject)}</h1>
 
