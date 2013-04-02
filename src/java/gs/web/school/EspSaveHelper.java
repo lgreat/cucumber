@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component("espHelper")
-public class EspHelper {
+@Component("espSaveHelper")
+public class EspSaveHelper {
     public static final int MAX_RESPONSE_VALUE_LENGTH = 3000;
-    private static final Log _log = LogFactory.getLog(EspHelper.class);
+    private static final Log _log = LogFactory.getLog(EspSaveHelper.class);
 
     @Autowired
     private IEspResponseDao _espResponseDao;

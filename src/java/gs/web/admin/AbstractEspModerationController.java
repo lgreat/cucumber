@@ -15,7 +15,7 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.util.Address;
 import gs.data.util.DigestUtil;
-import gs.web.school.EspHelper;
+import gs.web.school.EspSaveHelper;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
@@ -141,7 +141,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected ExactTargetAPI _exactTargetAPI;
 
     @Autowired
-    private EspHelper _espHelper;
+    private EspSaveHelper _espSaveHelper;
 
     @Autowired
     private INoEditDao _noEditDao;
@@ -321,7 +321,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             // Check if this is the first time this school has gotten any data(exclude data by the user being approved).
             boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
 
-            _espHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
+            _espSaveHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
                     errorFieldToMsgMap, responseList, false, true);
 
             if (schoolHasNoUserCreatedRows) {
@@ -549,8 +549,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         _exactTargetAPI = exactTargetAPI;
     }
 
-    public void setEspHelper(EspHelper espHelper) {
-        _espHelper = espHelper;
+    public void setEspSaveHelper(EspSaveHelper espSaveHelper) {
+        _espSaveHelper = espSaveHelper;
     }
 
     public void setNoEditDao(INoEditDao noEditDao) {

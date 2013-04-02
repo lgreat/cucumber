@@ -7,7 +7,6 @@ import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
-import gs.data.util.Address;
 import gs.data.util.CommunityUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
@@ -57,7 +56,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     @Autowired SchoolMediaDaoHibernate _schoolMediaDao;
     @Autowired
-    private EspHelper _espHelper;
+    private EspSaveHelper _espSaveHelper;
     @Autowired
     protected IEspMembershipDao _espMembershipDao;
 
@@ -382,7 +381,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         // Check if this is the first time this school has gotten any data(exclude data by provisional users).
         boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
-        _espHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
+        _espSaveHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
                 isProvisionalData,false);
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);

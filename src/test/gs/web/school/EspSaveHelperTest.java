@@ -15,8 +15,8 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 
 
-public class EspHelperTest extends BaseControllerTestCase {
-    private EspHelper _helper;
+public class EspSaveHelperTest extends BaseControllerTestCase {
+    private EspSaveHelper _helper;
     private IEspResponseDao _espResponseDao;
     private INoEditDao _noEditDao;
     private ISchoolDao _schoolDao;
@@ -26,7 +26,7 @@ public class EspHelperTest extends BaseControllerTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        _helper = new EspHelper();
+        _helper = new EspSaveHelper();
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
         _espFormValidationHelper = new EspFormValidationHelper();
         _espResponseDao = createMock(IEspResponseDao.class);

@@ -7,7 +7,7 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.EspFormExternalDataHelper;
 import gs.web.school.EspFormValidationHelper;
-import gs.web.school.EspHelper;
+import gs.web.school.EspSaveHelper;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ import static org.easymock.EasyMock.isA;
 
 
 public class AbstractEspModerationControllerTest extends BaseControllerTestCase {
-    private EspHelper _espSaveHelper;
+    private EspSaveHelper _espSaveHelper;
     private IEspResponseDao _espResponseDao;
     private IEspMembershipDao _espMembershipDao;
     private AbstractEspModerationController _controller;
@@ -29,7 +29,7 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        _espSaveHelper = new EspHelper();
+        _espSaveHelper = new EspSaveHelper();
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
         _espFormValidationHelper = new EspFormValidationHelper();
         _controller = new EspModerationDetailsController();
@@ -41,7 +41,7 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
 
         _controller.setEspMembershipDao(_espMembershipDao);
         _controller.setEspResponseDao(_espResponseDao);
-        _controller.setEspHelper(_espSaveHelper);
+        _controller.setEspSaveHelper(_espSaveHelper);
         _controller.setNoEditDao(_noEditDao);
         _controller.setSchoolDao(_schoolDao);
 
