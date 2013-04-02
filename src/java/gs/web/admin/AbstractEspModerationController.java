@@ -553,4 +553,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         _espHelper = espHelper;
     }
 
+    public void setNoEditDao(INoEditDao noEditDao) {
+        _noEditDao = noEditDao;
+    }
 }

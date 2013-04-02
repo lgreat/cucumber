@@ -42,6 +42,9 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         _controller.setEspMembershipDao(_espMembershipDao);
         _controller.setEspResponseDao(_espResponseDao);
         _controller.setEspHelper(_espSaveHelper);
+        _controller.setNoEditDao(_noEditDao);
+        _controller.setSchoolDao(_schoolDao);
+
         _espSaveHelper.setEspFormExternalDataHelper(_espFormExternalDataHelper);
         _espSaveHelper.setEspFormValidationHelper(_espFormValidationHelper);
         _espSaveHelper.setNoEditDao(_noEditDao);
@@ -114,6 +117,37 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         verifyAllMocks();
     }
 
+    public void testUpdateEspMembershipStateLocked() {
+        User user = new User();
+        user.setId(1);
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+
+        List<Integer> membershipIds = new ArrayList<Integer>();
+        membershipIds.add(new Integer(1));
+        EspModerationCommand command = new EspModerationCommand();
+        command.setModeratorAction("approve");
+        command.setEspMembershipIds(membershipIds);
+
+        EspMembership membership = new EspMembership();
+        membership.setId(1);
+        membership.setStatus(EspMembershipStatus.PROVISIONAL);
+        membership.setActive(false);
+        membership.setState(State.CA);
+        membership.setSchoolId(school.getId());
+        membership.setUser(user);
+        membership.setSchool(school);
+
+        expect(_espMembershipDao.findEspMembershipById(1, false)).andReturn(membership);
+        expect(_schoolDao.getSchoolById(membership.getState(), membership.getSchoolId())).andReturn(school);
+        //state is locked
+        expect(_noEditDao.isStateLocked(school.getDatabaseState())).andReturn(true);
+        replayAllMocks();
+        _controller.updateEspMembership(command, getRequest(), getResponse());
+        verifyAllMocks();
+    }
+
     public EspResponse buildEspResponse(String key, String value,boolean active) {
         EspResponse espResponse = new EspResponse();
         espResponse.setKey(key);
@@ -121,6 +155,4 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         espResponse.setActive(active);
         return espResponse;
     }
-
-
 }
