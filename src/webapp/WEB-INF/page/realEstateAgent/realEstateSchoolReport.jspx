@@ -67,7 +67,7 @@
                         your school district for more detailed enrollment information or visit www.greatschools.org.</p>
                     <div class="tableHeader clearfix">
                         <!--<div class="fl" style="width: 220px">hello&lt;!&ndash;do not collapse&ndash;&gt;</div>-->
-                        <div class="fl tac smallBold" style="padding-left:220px; width: 130px;">Distance</div>
+                        <div class="fl tac smallBold" style="padding-left:210px; width: 120px;">Distance</div>
                         <div class="fl tac smallBold" style="width: 173px;">GreatSchools rating</div>
                         <div class="fl tac smallBold" style="width: 145px;">Community rating</div>
                     </div>
