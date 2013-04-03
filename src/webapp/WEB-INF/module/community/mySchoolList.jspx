@@ -7,6 +7,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
 <pageHelper:externalCss file="/res/css/community/communityQuestionBubble.css"/>
 
@@ -87,32 +88,16 @@
 
                                     <p class="smallText2">Posted ${gsweb:detailedPeriodBetweenDates(review.review.posted,requestScope.currentDate)}</p>
 
-                                    <p class="text3">
-                                        <c:if test="${review.stars eq 1}">
-                                            <gsml:img src="/res/img/map/ratings_parent_city_1.gif"
-                                                      alt="1 out of 5 stars"/>
-                                        </c:if>
-                                        <c:if test="${review.stars eq 2}">
-                                            <gsml:img src="/res/img/map/ratings_parent_city_2.gif"
-                                                      alt="2 out of 5 stars"/>
-                                        </c:if>
-                                        <c:if test="${review.stars eq 3}">
-                                            <gsml:img src="/res/img/map/ratings_parent_city_3.gif"
-                                                      alt="3 out of 5 stars"/>
-                                        </c:if>
-                                        <c:if test="${review.stars eq 4}">
-                                            <gsml:img src="/res/img/map/ratings_parent_city_4.gif"
-                                                      alt="4 out of 5 stars"/>
-                                        </c:if>
-                                        <c:if test="${review.stars eq 5}">
-                                            <gsml:img src="/res/img/map/ratings_parent_city_5.gif"
-                                                      alt="5 out of 5 stars"/>
-                                        </c:if>
 
+
+
+                                    <p class="text3">
+                                        <span class="prs"><ratings:stars curSR="${review.stars}"/></span>
                                         ${review.quip}
                                             <span class="fltlt">
                                                 <link:schoolProfileParentReview school="${review.school}"
-                                                                                rel="nofollow">More&amp;nbsp;<span class="alertDoubleArrow">&amp;#187;</span>
+                                                                                rel="nofollow">More&amp;nbsp;<span
+                                                        class="alertDoubleArrow">&amp;#187;</span>
                                                 </link:schoolProfileParentReview>
                                             </span>
                                     </p>
