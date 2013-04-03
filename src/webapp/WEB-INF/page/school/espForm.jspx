@@ -47,6 +47,7 @@
             		levels:'${school.levelCode.commaSeparatedString}'
            	};
             GS.espForm.percentComplete = {};
+            GS.espForm.provisional = ${isProvisionalUser};
             //<c:forEach items="${percentComplete}" var="perc" varStatus="status">
                 GS.espForm.percentComplete[${perc.key}]=${perc.value};
             //</c:forEach>

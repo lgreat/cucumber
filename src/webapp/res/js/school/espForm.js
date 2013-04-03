@@ -758,6 +758,11 @@ new (function() {
     };
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();
+        // if user is provisional show provisional hover
+        if (GS.espForm.provisional) {
+            alert("ready to show " + GS.espForm.provisional) ;
+            GSType.hover.espProvisionalReminder.show();
+        }
         if (GS.history5Enabled) {
             if (typeof GS.pollingPhotoViewer !== 'undefined') {
                 if (pageNum === 6) {
@@ -796,6 +801,9 @@ new (function() {
     };
     var saveAndFinish = function() {
         saveForm().done(function() {
+            if (GS.espForm.provisional) {
+                GSType.hover.espProvisionalReminder.show();
+            }
             subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
             sendToLandingPage();
         });
@@ -1024,6 +1032,7 @@ new (function() {
 
 
     jQuery(function() {
+        GSType.hover.espProvisionalReminder.show();
         var formWrapper = $('#js_pageContainer');
         formWrapper.on('click', '.js_saveButton, .js_doneButton', function() {
             saveAndFinish();
