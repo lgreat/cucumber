@@ -1127,15 +1127,14 @@ GSType.hover.EspPreApprovalEmail.prototype = new GSType.hover.HoverDialog("js_es
 // Hover to inform user there changes are provisional
 GSType.hover.EspProvisionalReminder = function() {
     this.loadDialog = function() {
-        alert("Called loadDialog");
+
     };
     this.showHover = function() {
-        alert("Ready to showHover");
         GSType.hover.espProvisionalReminder.show();
     };
 };
 
-GSType.hover.EspProvisionalReminder.prototype = new GSType.hover.HoverDialog("js_espProvisionalReminderHover",640);
+GSType.hover.EspProvisionalReminder.prototype = new GSType.hover.HoverDialog("espProvisionalReminderHover",640);
 
 //Email to a friend hover
 GSType.hover.EmailToFriend = function() {

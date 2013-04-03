@@ -760,8 +760,7 @@ new (function() {
         var myParams = GS.util.getUrlVars();
         // if user is provisional show provisional hover
         if (GS.espForm.provisional) {
-            alert("ready to show " + GS.espForm.provisional) ;
-            GSType.hover.espProvisionalReminder.show();
+//            GSType.hover.espProvisionalReminder.show();
         }
         if (GS.history5Enabled) {
             if (typeof GS.pollingPhotoViewer !== 'undefined') {
@@ -802,7 +801,7 @@ new (function() {
     var saveAndFinish = function() {
         saveForm().done(function() {
             if (GS.espForm.provisional) {
-                GSType.hover.espProvisionalReminder.show();
+//                GSType.hover.espProvisionalReminder.show();
             }
             subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
             sendToLandingPage();

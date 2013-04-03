@@ -188,7 +188,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                 membership.setActive(true);
                                 addEspRole(user);
                                 sendESPVerificationEmail(request, user, membership.getSchool());
-
+                                updateMembership = true;
                             } else if(membership.getStatus() == EspMembershipStatus.PROVISIONAL
                                     && !membership.getActive()){
                                 if (_noEditDao.isStateLocked(membership.getSchool().getDatabaseState())) {
@@ -200,7 +200,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                     membership.setActive(true);
                                     addEspRole(user);
                                     updateMembership = true;
-                                    //TODO  sendESPVerificationEmail?
+                                    sendESPApprovalEmail(request, user, membership.getSchool());
                                 }
                             } else if (!membership.getActive()) {
                                 membership.setStatus(EspMembershipStatus.APPROVED);
@@ -454,6 +454,36 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             Role role = getRoleDao().findRoleByKey(Role.ESP_MEMBER);
             user.addRole(role);
             getUserDao().updateUser(user);
+        }
+    }
+
+    protected void sendESPApprovalEmail(HttpServletRequest request, User user, School school) {
+        try {
+            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            Calendar cal = Calendar.getInstance();
+            Date dateStamp = cal.getTime();
+            String dateStampAsString = String.valueOf(dateStamp.getTime());
+            hash = DigestUtil.hashString(hash + dateStampAsString);
+            String redirect = new UrlBuilder(school,6,UrlBuilder.SCHOOL_PROFILE_ESP_FORM).toString();
+
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
+            urlBuilder.addParameter("date", dateStampAsString);
+            urlBuilder.addParameter("redirect", redirect);
+
+            StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
+            espVerificationUrl.append(urlBuilder.asFullUrl(request));
+            espVerificationUrl.append("\">"+urlBuilder.asFullUrl(request)+"</a>");
+
+            Map<String, String> emailAttributes = new HashMap<String, String>();
+            emailAttributes.put("HTML__espFormUrl", espVerificationUrl.toString());
+            emailAttributes.put("first_name", user.getFirstName());
+            if (school != null) {
+                emailAttributes.put("school_name", school.getName());
+            }
+//            getExactTargetAPI().sendTriggeredEmail("ESP-approval", user, emailAttributes);
+
+        } catch (Exception e) {
+            _log.error("Error sending verification email message: " + e, e);
         }
     }
 
