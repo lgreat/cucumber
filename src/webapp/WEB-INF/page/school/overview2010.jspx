@@ -46,10 +46,6 @@
 </c:choose>
 <jsp:scriptlet>
     PageHelper.setPageName(request, "spp_overview");
-    School school = (School) request.getAttribute("school");
-    if (school != null) {
-        PageHelper.setYahooRealEstateCity(request, school.getCity());
-    }
 </jsp:scriptlet>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -456,14 +452,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </c:if>
 
 </school:profile2010>
-
-<c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
-    <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
-    <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
-    <div id="YahooRealEstateLink">
-        <strong>Are you relocating?</strong> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter> Tips | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
-    </div>
-</c:if>
 
 <c:set var="schoolType" value="${school.type.schoolTypeName}" />
 <c:set var="levelCode" value="${school.levelCode}" />
