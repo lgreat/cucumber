@@ -481,7 +481,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             if (school != null) {
                 emailAttributes.put("school_name", school.getName());
             }
-//            getExactTargetAPI().sendTriggeredEmail("ESP-approval", user, emailAttributes);
+            getExactTargetAPI().sendTriggeredEmail("ESP-approval", user, emailAttributes);
 
         } catch (Exception e) {
             _log.error("Error sending verification email message: " + e, e);
