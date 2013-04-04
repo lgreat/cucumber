@@ -273,9 +273,12 @@
             </div>
 
             <!-- Facebook 'Like' Button -->
+            <c:if test="${not empty facebook['facebookUrl']}">
+
             <![CDATA[
-    <fb:like href="${gsweb:getRequestHostAndPath(requestInfo.request)}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
-    ]]>
+                <fb:like href="${facebook['facebookUrl']}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
+            ]]>
+            </c:if>
             <!--<promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>-->
         </div>
 

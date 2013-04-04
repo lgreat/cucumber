@@ -97,6 +97,8 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 
+        model.put("facebook", _schoolProfileDataHelper.getFacebookTile(school));
+
         // allow turning on/off debugging via request parameter;
         // pass-through needed here for individual modules to have access to request params,
         // since e.g. profileTestScores.jspx doesn't have direct access to the request params of original/parent request
