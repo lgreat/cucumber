@@ -1020,6 +1020,9 @@ public class UrlBuilder {
         } else if (ESP_REGISTRATION.equals(page)) {
             _perlPage = false;
             _path = "/official-school-profile/register.page";
+        } else if (ESP_REGISTRATION_ERROR.equals(page)) {
+            _perlPage = false;
+            _path = "/official-school-profile/registrationError.page";
         } else if (ESP_SIGN_IN.equals(page)) {
             _perlPage = false;
             _path = "/official-school-profile/signin.page";

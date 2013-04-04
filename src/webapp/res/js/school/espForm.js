@@ -758,10 +758,6 @@ new (function() {
     };
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();
-        // if user is provisional show provisional hover
-        if (GS.espForm.provisional) {
-//            GSType.hover.espProvisionalReminder.show();
-        }
         if (GS.history5Enabled) {
             if (typeof GS.pollingPhotoViewer !== 'undefined') {
                 if (pageNum === 6) {
@@ -800,10 +796,12 @@ new (function() {
     };
     var saveAndFinish = function() {
         saveForm().done(function() {
-            if (GS.espForm.provisional) {
+            if (GS.espForm.provisional === true) {
 //                GSType.hover.espProvisionalReminder.show();
+                subCookie.setObjectProperty("site_pref", "showHover", "espProvisionalReminder", 3);
+            }  else {
+                subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
             }
-            subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
             sendToLandingPage();
         });
     };

@@ -197,6 +197,8 @@
                 As soon as your account is approved we will publish your changes to the site.
                 Please check back in 2-4 weekdays.
             </p>
+            <button class="button-1 espProvisionalReminderHover_hideHover" type="button">OK</button>
+
         </div>
 
 

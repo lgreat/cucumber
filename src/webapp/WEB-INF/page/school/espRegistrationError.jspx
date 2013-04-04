@@ -51,7 +51,7 @@
                 <div class="line">
                     <div class="unit size45of100">
                         <c:choose>
-                            <c:when test="${$message eq 'page1'}">
+                            <c:when test="${message eq 'page1'}">
                                 <!-- Use case: User is in processing and another user has provisional access -->
                                 <p>Uh-oh.  We're sorry - it looks like another authorized administrator
                                     from your school is currently editing your school's OSP.
@@ -60,25 +60,14 @@
                                     authorized to administer this school's profile page.</p>
                                 <p class="bottom"> Please <link:contactUs feedbackType="esp">contact us</link:contactUs>.</p>
                             </c:when>
-                            <c:when test="${$message eq 'page2'}">
-                                <!-- I don't think this one is used here, once verified remove this message -->
-                                <p class="bottom">Thank you for updating ${school.name}'s OSP!
-                                    We are in the process of confirming that you are authorized to edit the OSP
-                                    for this school.
-                                    Please allow 2-4 weekdays for us to complete the verification process.
-                                    As soon as we've verified your account we will publish your saved edits
-                                    to the site, and you can begin uploading photos to your profile and
-                                    increasing your visibility in search results.
-                                </p>
-                            </c:when>
-                            <c:when test="${$message eq 'page5'}">
+                            <c:when test="${message eq 'page5'}">
                                 <!-- Use case: User is rejected -->
                                 <p>"Uh-oh.  We're sorry - it looks like we were unable to confirm you as an
                                     administrator of ${school.name}'s Official School Profile.</p>
                                 <p>Were you trying to edit a different school's page?  Click here to try again.</p>
                                 <p class="bottom">Need help?  Please <link:contactUs feedbackType="esp">contact us</link:contactUs>.</p>
                             </c:when>
-                            <c:when test="${$message eq 'page6'}">
+                            <c:when test="${message eq 'page6'}">
                                 <!-- Use case: User is deactivated -->
                                 <p>"Whoops!  It looks like you are no longer an approved administrator for this
                                     school's profile.  If you'd like to re-activate your account,

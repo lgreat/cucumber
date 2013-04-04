@@ -27,7 +27,7 @@ import java.util.*;
  * Shows the error page that can be triggered during espSignin or espRegistration
  */
 @Controller
-@RequestMapping("/official-school-profile/registrationError")
+@RequestMapping("/official-school-profile/registrationError.page")
 public class EspRegistrationErrorController {
     private static final Log _log = LogFactory.getLog(EspRegistrationErrorController.class);
     public static final String VIEW = "school/espRegistrationError";

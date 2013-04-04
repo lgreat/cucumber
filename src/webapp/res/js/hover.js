@@ -1132,6 +1132,8 @@ GSType.hover.EspProvisionalReminder = function() {
     this.showHover = function() {
         GSType.hover.espProvisionalReminder.show();
     };
+    this.onClose = function() {
+    };
 };
 
 GSType.hover.EspProvisionalReminder.prototype = new GSType.hover.HoverDialog("espProvisionalReminderHover",640);
