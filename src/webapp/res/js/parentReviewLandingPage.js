@@ -171,6 +171,17 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
 
 $(document).ready(function() {
     $('#js-reviewContent').characterCounter({charLimit:1200});
+    $('#js-tabSubmitFormGo').on("focus", function(event){
+        console.log(event);
+        $('#js_submitSelectSchool').focus();
+    });
+    $("#js_submitSelectSchool").keypress(function(event) {
+        console.log(event.which);
+        if (event.which == 13) {
+            event.preventDefault();
+            $('#js_submitSelectSchool').click();
+        }
+    });
     $('#js_submitSelectSchool').on("click",function() {
         var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
         if (!GS.form.selectionMadeAutoComplete) {
@@ -209,23 +220,23 @@ $(document).ready(function() {
 
     GS.parentReviewLandingPage.attachAutocomplete();
 
-    GS_schoolReviewFormLandingPage("parentReviewFormLandingPage");
+    GS.form.schoolReviewFormLandingPage("parentReviewFormLandingPage");
 
-    GS_spriteCheckBoxes("js-reviewLandingCheckboxTerms", "parentReviewTerms", 1, 0);
-    GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
+    GS.form.spriteCheckBoxes("js-reviewLandingCheckboxTerms", "parentReviewTerms", 1, 0);
+    GS.form.spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
 
-    GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
-    GS_initializeCustomSelect("js-reviewLandingState", function() {
+    GS.form.initializeCustomSelect("js-reviewLandingIAm", GS.form.selectCallbackReviewsIAm);
+    GS.form.initializeCustomSelect("js-reviewLandingState", function() {
         var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
         GS.form.selectionMadeAutoComplete = false;
         searchBox.val("");
     });
 
-    starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
-    starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
-    starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
-    starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
-    starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherAsString", "");
+    GS.form.starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
+    GS.form.starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");
+    GS.form.starRatingInterface("starRatingContainerReviewPrincipal", 16, 5, "principalAsString", "");
+    GS.form.starRatingInterface("starRatingContainerReviewParent", 16, 5, "parentAsString", "");
+    GS.form.starRatingInterface("starRatingContainerReviewTeacherForStudent", 16, 5, "teacherAsString", "");
 });
 
 /********************************************************************************************************
@@ -237,7 +248,7 @@ $(document).ready(function() {
  * @param checkedValue              value to set hidden field to when checked
  * @param uncheckedValue            value to set hidden field to when unchecked
  */
-function GS_spriteCheckBoxes(containerLayer, fieldToSet, checkedValue, uncheckedValue){
+GS.form.spriteCheckBoxes = function(containerLayer, fieldToSet, checkedValue, uncheckedValue){
     var container = $("#"+containerLayer);
     var checkOn  = container.find(".js-checkBoxSpriteOn");
     var checkOff = container.find(".js-checkBoxSpriteOff");
@@ -265,7 +276,7 @@ function GS_spriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
  * @param divWriteTextValues    show the text value in this div -- the display values are defined in arrStarValuesText
  */
 
-function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextValues){
+GS.form.starRatingInterface = function(containerS, iconW, starsT, overallSR, divWriteTextValues){
     /* star rating */
     var iconWidth = iconW;
     var totalStars = starsT;
@@ -326,37 +337,40 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
  * @param callbackFunction - optional function callback when selection is made.
  * @constructor
  */
-function GS_initializeCustomSelect(layerContainer, callbackFunction){
+GS.form.initializeCustomSelect = function(layerContainer, callbackFunction){
     var selectContainer = $("#"+layerContainer); //notify
     var selectBox = selectContainer.find(".js-selectBox");
     var selectDropDownBox = selectContainer.find(".js-selectDropDown");
     var selectDropDownItem = selectContainer.find(".js-ddValues");
     var selectBoxText = selectContainer.find(".js-selectBoxText");
+    var tabSupport = selectContainer.find(".js-tabSelectBox");
 
-    selectBox.on("click", showSelect);
+    selectBox.on("click", this.showSelect);
+
+    tabSupport.on("focus", this.showSelect);
 
     selectDropDownBox.on("click", function(event) {
         // Handle the click on the notify div so the document click doesn't close it
         event.stopPropagation();
     });
 
-    function showSelect(event) {
+    this.showSelect = function(event) {
         $(this).off('click');
         selectDropDownBox.show();
-        $(document).on("click", hideSelect);
-        selectDropDownItem.on("click", showW);
+        $(document).on("click", this.hideSelect);
+        selectDropDownItem.on("click", this.showW);
         // So the document doesn't immediately handle this same click event
         event.stopPropagation();
     };
 
-    function hideSelect(event) {
+    this.hideSelect = function(event) {
         $(this).off('click');
         selectDropDownItem.off('click');
         selectDropDownBox.hide();
-        selectBox.on("click", showSelect);
+        selectBox.on("click", this.showSelect);
     }
 
-    function showW(event) {
+    this.showW = function(event) {
         hideSelect(event);
         selectBoxText.html($(this).html());
         if(callbackFunction) callbackFunction($(this).html());
@@ -375,7 +389,7 @@ function GS_initializeCustomSelect(layerContainer, callbackFunction){
  Callback from Custom Select - occurs when choice is made on the Parent / Teacher / Student / Other drop down
  */
 
-function GS_selectCallbackReviewsIAm(selectValue){
+GS.form.selectCallbackReviewsIAm = function(selectValue){
     hideAllLayers();
     var submitValue = "";
     if(selectValue == "Parent"){
@@ -406,12 +420,12 @@ function GS_selectCallbackReviewsIAm(selectValue){
 
 
 
-function GS_isValidEmailAddress(emailAddress) {
+GS.form.isValidEmailAddress = function (emailAddress){
     var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
     return pattern.test(emailAddress);
 };
 
-function GS_countWords(text) {
+GS.form.countWords = function(text) {
     var count = 0;
     var a = text.replace(/\n/g, ' ').replace(/\t/g, ' ');
     var z = 0;
@@ -421,12 +435,12 @@ function GS_countWords(text) {
     return count + 1; // # of words is # of spaces + 1
 }
 
-function GS_validateReviewText(reviewText) {
+GS.form.validateReviewText = function(reviewText) {
     var returnValue = "";
     if (reviewText.length > 1200) {
         var returnValue = 'Please keep your comments under 1200 characters.';
     }
-    if (GS_countWords(reviewText) < 15) {
+    if (GS.form.countWords(reviewText) < 15) {
         var returnValue = 'Please use at least 15 words in your comment.';
     }
     return returnValue;
@@ -437,7 +451,7 @@ function GS_validateReviewText(reviewText) {
  * @constructor
  * @param {string} id the dom id of the form but should not contain the pound sign.
  */
-function GS_schoolReviewFormLandingPage(id) {
+GS.form.schoolReviewFormLandingPage = function(id) {
     var form = jQuery('#' + id);
 
     var submitButtonClass = "js-submitParentReview";
@@ -455,8 +469,8 @@ function GS_schoolReviewFormLandingPage(id) {
     var posterString = form.find('.' + posterSelectClass);
 
     submitButton.on("click", function(event){
-        if(validateForm()){
-            postReview(form);
+        if(this.validateForm()){
+            this.postReview(form);
         }
     });
 
@@ -467,7 +481,7 @@ function GS_schoolReviewFormLandingPage(id) {
         omnitureEventNotifier.send();
     };
 
-    function clearErrors(){
+    this.clearErrors = function(){
         form.find('.' + emailFormClass + '-error').hide();
         form.find('.' + overallStarRatingsClass + '-error').hide();
         form.find('.' + termsOfUseClass + '-error').hide();
@@ -475,10 +489,10 @@ function GS_schoolReviewFormLandingPage(id) {
         form.find('.' + reviewFormClass + '-error').hide();
     }
 
-    function validateForm(){
-        clearErrors();
+    this.validateForm = function(){
+        this.clearErrors();
         var allowPost = true;
-        if(!GS_isValidEmailAddress(email.val())){
+        if(!GS.form.isValidEmailAddress(email.val())){
             allowPost = false;
             form.find('.' + emailFormClass + '-error').show();
         }
@@ -494,7 +508,7 @@ function GS_schoolReviewFormLandingPage(id) {
             allowPost = false;
             form.find('.' + posterSelectClass + '-error').show();
         }
-        var errorReview = GS_validateReviewText(review.val());
+        var errorReview = GS.form.validateReviewText(review.val());
         if(errorReview != ""){
             allowPost = false;
             form.find('.' + reviewFormClass + '-error').show();
@@ -502,7 +516,7 @@ function GS_schoolReviewFormLandingPage(id) {
         return allowPost;
     }
 
-    function postReview(form){
+    this.postReview = function(form){
         var url = '/school/review/postReview.page';
         var formData = form.serialize();
 
