@@ -184,9 +184,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                             }
                             if (membership.getStatus() == EspMembershipStatus.PROCESSING
                                     || membership.getStatus() == EspMembershipStatus.REJECTED) {
-                                membership.setStatus(EspMembershipStatus.APPROVED);
-                                membership.setActive(true);
-                                addEspRole(user);
+                                approveMembership(membership,EspMembershipStatus.APPROVED,true,user);
                                 sendESPVerificationEmail(request, user, membership.getSchool());
                                 updateMembership = true;
                             } else if(membership.getStatus() == EspMembershipStatus.PROVISIONAL
@@ -196,16 +194,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                             + "User Id:" + membership.getUser().getId());
                                 } else {
                                     promoteProvisionalDataToActiveData(user, membership.getSchool(), request, response);
-                                    membership.setStatus(EspMembershipStatus.APPROVED);
-                                    membership.setActive(true);
-                                    addEspRole(user);
-                                    updateMembership = true;
+                                    approveMembership(membership,EspMembershipStatus.APPROVED,true,user);
                                     sendESPApprovalEmail(request, user, membership.getSchool());
+                                    updateMembership = true;
                                 }
                             } else if (!membership.getActive()) {
-                                membership.setStatus(EspMembershipStatus.APPROVED);
-                                membership.setActive(true);
-                                addEspRole(user);
+                                approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
                                 sendESPVerificationEmail(request, user, membership.getSchool());
                                 updateMembership = true;
                             }
@@ -227,7 +221,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
                         //In case a note was added while approving or rejecting.
                         //Notes is the Map of membership id to string.
-                        if (command.getNotes() != null && !command.getNotes().isEmpty() && command.getNotes().get(membership.getId()) != null) {
+                        if (command.getNotes() != null && !command.getNotes().isEmpty()
+                                && StringUtils.isNotBlank(command.getNotes().get(membership.getId()))) {
                             membership.setNote(command.getNotes().get(membership.getId()));
                             updateMembership = true;
                         }
@@ -257,6 +252,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                 }
             }
         }
+    }
+
+    protected void approveMembership(EspMembership membership, EspMembershipStatus status, boolean active, User user) {
+        membership.setStatus(status);
+        membership.setActive(active);
+        addEspRole(user);
     }
 
     /**
