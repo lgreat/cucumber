@@ -178,7 +178,7 @@ public class EspFormController implements ReadWriteAnnotationController {
                     //Else if its not an external data point then put in response map for the view.
                     if (externalKeysLookupMap.containsKey(espResponse.getKey())) {
 
-                        //If the response if multivalued, then store it as a delimited string.
+                        //Sometimes a response is multivalued, then store it as a delimited string.
                         // Example. for key grade_levels the value in the map will be k-,-1-,-2
                         if (StringUtils.isNotBlank(provisionalExternalKeysToValueMap.get(espResponse.getKey()))) {
                             value = provisionalExternalKeysToValueMap.get(espResponse.getKey())

@@ -1031,7 +1031,6 @@ new (function() {
 
 
     jQuery(function() {
-        GSType.hover.espProvisionalReminder.show();
         var formWrapper = $('#js_pageContainer');
         formWrapper.on('click', '.js_saveButton, .js_doneButton', function() {
             saveAndFinish();

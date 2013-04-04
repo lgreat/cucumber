@@ -215,52 +215,15 @@ public class EspFormExternalDataHelper {
      * @return
      */
     String[] readProvisionalExternalValuesForKey(String key, String value) {
-        if ((StringUtils.equals("student_enrollment", key)
-                || StringUtils.equals("administrator_name", key)
-                || StringUtils.equals("administrator_email", key)
-                || StringUtils.equals("grade_levels", key)
-                || StringUtils.equals("school_url", key)
-                || StringUtils.equals("school_type", key)
-                || StringUtils.equals("school_type_affiliation_other",key)
-                || StringUtils.equals("school_video", key)
-                || StringUtils.equals("facebook_url", key))
-                && StringUtils.isNotBlank(value)) {
+        if (StringUtils.isNotBlank(value) && StringUtils.startsWith(key, "census_")) {
+            //TODO handle this when doing page 8.
+        } else if (StringUtils.isNotBlank(value) && (value.indexOf(DATA_DELIMITER) > 0)) {
+            //Sometimes a response is multivalued, then it is stored as a delimited string.
+            //Example. for key grade_levels the value in the map will be k-,-1-,-2
             return value.split(DATA_DELIMITER);
-        }
-        else if (StringUtils.equals("school_type_affiliation", key) && StringUtils.isNotBlank(value)) {
-            //TODO  religious?
+        } else if (StringUtils.isNotBlank(value)) {
+            //If response is not multivalued, then return the value as a string.
             return new String[]{value};
-        }else if (StringUtils.equals("school_type_affiliation_other", key) && StringUtils.isNotBlank(value)) {
-            //TODO
-        }
-        else if (StringUtils.equals("coed", key) && StringUtils.isNotBlank(value)) {
-            //TODO school.subtype?  and also  see the commented out code below
-            return new String[]{value};
-        }
-//            if (school.getSubtype().contains("coed")) {
-//                return new String[] {"coed"};
-//            }
-//            if (school.getSubtype().contains("all_male")) {
-//                return new String[] {"all_boys"};
-//            }
-//            if (school.getSubtype().contains("all_female")) {
-//                return new String[] {"all_girls"};
-//            }
-        else if (StringUtils.startsWith(key, "census_")) {
-            //TODO census?
-//            if (STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()) != null) {
-//                for (EspCensusDataTypeConfiguration dataTypeConfig: STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState())) {
-//                    if (StringUtils.equals("census_" + dataTypeConfig.getId(), key)) {
-//                        SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.getEnum(dataTypeConfig.getId()));
-//                        if (value != null && value.getValueInteger() != null) {
-//                            _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-//                            return new String[]{String.valueOf(value.getValueInteger())};
-//                        }
-//                    }
-//                }
-//            } else {
-//                _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
-//            }
         }
         return new String[0];
     }
