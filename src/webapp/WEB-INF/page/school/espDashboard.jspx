@@ -412,7 +412,20 @@
                 <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
             </div>
 
-        <c:if test="${showProvisionalHover eq true}">
+            <div id="espProvisionalReminderHover" class="dialog_white" style="display:none;">
+                <h2>Provisional Warning</h2>
+
+                <p><strong>Thank you!</strong>
+                    We've saved your changes to the Official School Profile.
+                    We are in the process of verifying that you are an approved administrator of this school's page.
+                    As soon as your account is approved we will publish your changes to the site.
+                    Please check back in 2-4 weekdays.
+                </p>
+                <button class="button-1 espProvisionalReminderHover_hideHover" type="button">OK</button>
+
+            </div>
+
+            <c:if test="${showProvisionalHover eq true}">
             <div id="welcomeProvisionalUserHover" class="dialog_white" style="display:none;">
                 <h2>Welcome provisional user!</h2>
                 <p>Feel free to start editing your school's profile while we verify your account.</p>

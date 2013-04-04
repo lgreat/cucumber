@@ -114,6 +114,8 @@
                                                 </div>
                                             </div>
 
+                                            <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+
                                         </div>
                                     </div>
 
