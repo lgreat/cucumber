@@ -9,6 +9,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 
 <html lang="en">
 
@@ -30,6 +31,9 @@
     <jsp:scriptlet>
             java.util.List stateList = gs.data.state.StateManager.getList();
             request.setAttribute("stateList", stateList);
+        PageHelper.hideLeaderboard(request);
+        PageHelper.hideFooterAd(request);
+        PageHelper.hideBelowNavAds(request);
     </jsp:scriptlet>
 
     ${requestScope.pageHelper.headElementsWithoutCss}

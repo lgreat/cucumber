@@ -117,6 +117,15 @@ public class PageHelper {
         }
     }
 
+    public static void hideBelowNavAds(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setShowingBelowNavAds(false);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
     /**
      * Adds the given code to the onload script of the body tag.
      */
@@ -213,6 +222,7 @@ public class PageHelper {
     private boolean _showingLeaderboard = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
+    private boolean _showingBelowNavAds = true;
     private boolean _betaPage = false;
     private String _pageName = "";
     private boolean _includeQualaroo;
@@ -520,6 +530,18 @@ public class PageHelper {
 
     public void setShowingFooterAd(boolean showingFooterAd) {
         _showingFooterAd = showingFooterAd;
+    }
+
+    /**
+     * There's a footer ad at the bottom of the page, above the nav elements and SEO stuff. It's currently a google ad.
+     * Do we show it?
+     */
+    public boolean isShowingBelowNavAds() {
+        return _showingBelowNavAds;
+    }
+
+    public void setShowingBelowNavAds(boolean showingBelowNavAds) {
+        _showingBelowNavAds = showingBelowNavAds;
     }
 
     public boolean isShowingLeaderboard() {
