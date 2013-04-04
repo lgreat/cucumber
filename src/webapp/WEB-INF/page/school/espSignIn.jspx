@@ -101,7 +101,7 @@
                                                 <div class="media">
                                                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                                    <div class="bd">Whoops! You are not currently registered as an administrator.  Click here to register.
+                                                    <div class="bd">Whoops! You are not currently registered as an administrator.  <link:schoolEspRegister>Click here to register.</link:schoolEspRegister>
                                                     </div>
                                                 </div>
                                             </div>

@@ -112,7 +112,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
             //Else check if the user has ESP access and log them in.
             if (!result.hasErrors() && user != null && !user.matchesPassword(command.getPassword())) {
                 result.rejectValue("password", null, "The password you entered is incorrect.");
-            } else if (!result.hasErrors() && user != null && userState.isUserEmailValidated() && userState.isUserApprovedESPMember()) {
+            } else if (!result.hasErrors() && user != null && userState.isUserEmailValidated() ) {
                 // Signin successful!
                 PageHelper.setMemberAuthorized(request, response, user, true);
                 // Determine next state and go there
@@ -154,7 +154,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
             result.rejectValue("email", null, "You have been pre-approved for an account but must verify your email.<a href='#' class='js_espReSendEspPreApprovalEmail'>Please verify email.</a>");
         } else if (userState.isUserAwaitingESPMembership()) {
             // users who have requested access but are still being processed
-            result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
+//            result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (userState.isUserApprovedESPMember() && !userState.isUserEmailValidated()) {
             // users who have been approved but haven't followed through by clicking through the link in email
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");

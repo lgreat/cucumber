@@ -4668,6 +4668,13 @@
             <type>gs.data.school.School</type>
             <description>Pre-selects state, city and school if reached from a school profile.</description>
         </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Pre-selects email.</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolPrincipalReview</name>

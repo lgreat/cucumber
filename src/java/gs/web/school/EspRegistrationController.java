@@ -65,10 +65,16 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public String showForm(ModelMap modelMap, HttpServletRequest request,
                            @RequestParam(value = "state", required = false) String state,
                            @RequestParam(value = "city", required = false) String city,
-                           @RequestParam(value = "schoolId", required = false) String schoolId) {
+                           @RequestParam(value = "schoolId", required = false) String schoolId,
+                           @RequestParam(value = "email", required = false) String email) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
         EspRegistrationCommand command = new EspRegistrationCommand();
+
+        // If email came in from request, add to form
+        if( email != null && email.length() > 0 ) {
+            command.setEmail(email);
+        }
 
         if (user != null && user.getId() != null) {
             //If the user isa super user, then redirect to dashboard.
@@ -251,21 +257,20 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                     //Check is user is already approved or if pending, disabled or rejected.
                     if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
                         userState.setUserApprovedESPMember(true);
-                    } else {
-                        List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-                        for (EspMembership membership : memberships) {
-                            if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
-                                userState.setUserApprovedESPMember(true);
-                            } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                                userState.setUserAwaitingESPMembership(true);
-                            } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
-                                userState.setUserESPDisabled(true);
-                            } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
-                                userState.setUserESPRejected(true);
-                            }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
-                                userState.setUserESPPreApproved(true);
-                                schoolName = getSchoolNameForEspMembership(membership);
-                            }
+                    }
+                    List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+                    for (EspMembership membership : memberships) {
+                        if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
+                            userState.setUserApprovedESPMember(true);
+                        } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
+                            userState.setUserAwaitingESPMembership(true);
+                        } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
+                            userState.setUserESPDisabled(true);
+                        } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
+                            userState.setUserESPRejected(true);
+                        }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
+                            userState.setUserESPPreApproved(true);
+                            schoolName = getSchoolNameForEspMembership(membership);
                         }
                     }
                 }

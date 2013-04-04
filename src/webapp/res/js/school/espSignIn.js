@@ -42,7 +42,7 @@ GS.form.EspForm = function() {
     this.handleEmailErrors = function(data,email,emailField) {
         var isValid = false;
         if (data.isNewUser == true) {
-            jQuery('#js_emailNotFound').show();
+            GS.form.espForm.showEmailError("Whoops! You are not currently registered as an administrator.  <a href='/official-school-profile/register.page?email=" + encodeURIComponent(email) + "'>Click here to register.</a>", emailField);
         } else if (data.isUserESPPreApproved === true ) {
             GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
             GSType.hover.espPreApprovalEmail.setSchoolName(data.schoolName);
