@@ -182,25 +182,21 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                             } catch (Exception e) {
                                 _log.error("Error fetching school for membership: " + membership, e);
                             }
-                            if (membership.getStatus() == EspMembershipStatus.PROCESSING
-                                    || membership.getStatus() == EspMembershipStatus.REJECTED) {
-                                approveMembership(membership,EspMembershipStatus.APPROVED,true,user);
-                                sendESPVerificationEmail(request, user, membership.getSchool());
-                                updateMembership = true;
-                            } else if(membership.getStatus() == EspMembershipStatus.PROVISIONAL
-                                    && !membership.getActive()){
+                            if (membership.getStatus() == EspMembershipStatus.PROVISIONAL
+                                    && !membership.getActive()) {
                                 if (_noEditDao.isStateLocked(membership.getSchool().getDatabaseState())) {
                                     _log.warn("State locked while promoting provisional user.State:" + membership.getSchool().getDatabaseState()
                                             + "User Id:" + membership.getUser().getId());
                                 } else {
                                     promoteProvisionalDataToActiveData(user, membership.getSchool(), request, response);
-                                    approveMembership(membership,EspMembershipStatus.APPROVED,true,user);
-                                    sendESPApprovalEmail(request, user, membership.getSchool());
+                                    approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
+                                    sendESPApprovalEmail(user, membership.getSchool());
                                     updateMembership = true;
                                 }
-                            } else if (!membership.getActive()) {
+                            } else if (membership.getStatus() == EspMembershipStatus.PROCESSING
+                                    || membership.getStatus() == EspMembershipStatus.REJECTED || !membership.getActive()) {
                                 approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
-                                sendESPVerificationEmail(request, user, membership.getSchool());
+                                sendESPVerificationEmail(user, membership.getSchool());
                                 updateMembership = true;
                             }
                         } else if ("reject".equals(moderatorAction)) {
@@ -458,37 +454,18 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         }
     }
 
-    protected void sendESPApprovalEmail(HttpServletRequest request, User user, School school) {
-        try {
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            Calendar cal = Calendar.getInstance();
-            Date dateStamp = cal.getTime();
-            String dateStampAsString = String.valueOf(dateStamp.getTime());
-            hash = DigestUtil.hashString(hash + dateStampAsString);
-            String redirect = new UrlBuilder(school,6,UrlBuilder.SCHOOL_PROFILE_ESP_FORM).toString();
-
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
-            urlBuilder.addParameter("date", dateStampAsString);
-            urlBuilder.addParameter("redirect", redirect);
-
-            StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
-            espVerificationUrl.append(urlBuilder.asFullUrl(request));
-            espVerificationUrl.append("\">"+urlBuilder.asFullUrl(request)+"</a>");
-
-            Map<String, String> emailAttributes = new HashMap<String, String>();
-            emailAttributes.put("HTML__espFormUrl", espVerificationUrl.toString());
-            emailAttributes.put("first_name", user.getFirstName());
-            if (school != null) {
-                emailAttributes.put("school_name", school.getName());
-            }
-            getExactTargetAPI().sendTriggeredEmail("ESP-approval", user, emailAttributes);
-
-        } catch (Exception e) {
-            _log.error("Error sending verification email message: " + e, e);
-        }
+    protected void sendESPApprovalEmail(User user, School school) {
+        String redirect = new UrlBuilder(school, 6, UrlBuilder.SCHOOL_PROFILE_ESP_FORM).toString();
+        sendEmail(user, school, redirect, "HTML__espFormUrl", "ESP-approval");
     }
 
-    protected void sendESPVerificationEmail(HttpServletRequest request, User user, School school) {
+    protected void sendESPVerificationEmail(User user, School school) {
+        String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
+        sendEmail(user, school, redirect, "HTML__espVerificationUrl", "ESP-verification");
+    }
+
+    protected void sendEmail(User user, School school, String redirectUrl, String urlKey,
+                             String ETKey) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             Calendar cal = Calendar.getInstance();
@@ -496,24 +473,19 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             Date dateStamp = cal.getTime();
             String dateStampAsString = String.valueOf(dateStamp.getTime());
             hash = DigestUtil.hashString(hash + dateStampAsString);
-            String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
+            String redirect = redirectUrl;
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
             urlBuilder.addParameter("date", dateStampAsString);
             urlBuilder.addParameter("redirect", redirect);
 
-            StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
-            espVerificationUrl.append(urlBuilder.asFullUrl(request));
-            espVerificationUrl.append("\">"+urlBuilder.asFullUrl(request)+"</a>");
-
             Map<String, String> emailAttributes = new HashMap<String, String>();
-            emailAttributes.put("HTML__espVerificationUrl", espVerificationUrl.toString());
+            emailAttributes.put(urlKey, urlBuilder.toString());
             emailAttributes.put("first_name", user.getFirstName());
             if (school != null) {
                 emailAttributes.put("school_name", school.getName());
             }
-            getExactTargetAPI().sendTriggeredEmail("ESP-verification", user, emailAttributes);
-
+            getExactTargetAPI().sendTriggeredEmail(ETKey, user, emailAttributes);
         } catch (Exception e) {
             _log.error("Error sending verification email message: " + e, e);
         }
