@@ -314,7 +314,7 @@
                 <li class="mll">
                 <span class="media">
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
-                    <gslink:linkToTab tabName="reviews" anchor="schoolReviewSubmitForm" cssClass="bd">Write a review</gslink:linkToTab>
+                    <gslink:linkToTab tabName="reviews" anchor="schoolReviewSubmitForm" cssClass="bd">Rate &amp; Review</gslink:linkToTab>
                 </span>
                 </li>
             </ul>
