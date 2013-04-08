@@ -66,7 +66,7 @@
                         <h4><strong>Uh-oh.</strong> We're sorry - it looks like we were unable to confirm you as an
                             administrator of ${school.name}'s Official School Profile.</h4>
 
-                        <h4>Were you trying to edit a different school's page? <a href="#">Click here</a> to try again.</h4>
+                        <h4>Were you trying to edit a different school's page? <a href="/official-school-profile/register.page">Click here</a> to try again.</h4>
 
                         <div class="bottom">Need help? Please contact us at
                             <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.</div>
@@ -75,7 +75,7 @@
                         <!-- Use case: User is deactivated -->
                         <h4><strong>Whoops!</strong> It looks like you are no longer an approved administrator for this
                             school's profile. If you'd like to re-activate your account,
-                            please <a href="#">submit a new request.</a></h4>
+                            please <a href="/official-school-profile/register.page">submit a new request.</a></h4>
 
                         <div class="bottom">If you've received this message in error, please
                             contact <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> and we'll get things sorted out.</div>
