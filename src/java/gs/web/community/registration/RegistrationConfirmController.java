@@ -210,8 +210,6 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                             // bump this user to provisional
                             membership.setStatus(EspMembershipStatus.PROVISIONAL);
                             getEspMembershipDao().updateEspMembership(membership);
-                            System.out.println("Setting hover cookie");
-                            hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_PROVISIONAL);
                             urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
                             viewName = "redirect:" + urlBuilder.asFullUrl(request);
                         }
