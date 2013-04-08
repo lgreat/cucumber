@@ -9,11 +9,8 @@
     <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
     <div class="inner">
         <h2>Your request has been submitted</h2>
-        <p>
-            Thank you for registering for a GreatSchools School Official account!
-            You will receive an email in 2-4 days confirming that your account has been approved.
-            Please click on the link in the email to activate your account and begin editing
-            your Official School Profile.
+        <p>Thank you for registering as an administrator!.
+            We've e-mailed you a verification link - please click on it to get started editing your school's information!
         </p>
         <button class="button-1 schoolEspThankYou_hideHover" type="button">OK</button>
     </div>
