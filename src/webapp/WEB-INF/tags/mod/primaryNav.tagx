@@ -95,10 +95,9 @@
     </div>
 </td>
 
-<td class="${(pw == tabs.REVIEW_MY_SCHOOL ? 'selected' : '')} menuItem home">
+<td class="${(pw == tabs.REVIEW_YOUR_SCHOOL ? 'selected' : '')} menuItem home">
     <div class="dropdownReference">
-        <!--<link:home id="PN-ReviewMySchool" styleClass="menuItemAnchorText GS_CI9_"></link:home>-->
-        <a href="/school/parentReview.page" id="PN-ReviewMySchool" class="menuItemAnchorText GS_CI9_">Review my school</a>
+        <a href="/school/parentReview.page" id="PN-ReviewYourSchool" class="menuItemAnchorText GS_CI9_">Review Your School</a>
     </div>
 </td>
 
