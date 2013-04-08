@@ -424,26 +424,6 @@
                 <button class="button-1 espProvisionalReminderHover_hideHover" type="button">OK</button>
 
             </div>
-
-            <c:if test="${showProvisionalHover eq true}">
-            <div id="welcomeProvisionalUserHover" class="dialog_white" style="display:none;">
-                <h2>Welcome provisional user!</h2>
-                <p>Feel free to start editing your school's profile while we verify your account.</p>
-                <button class="button-1 welcomeProvisionalUserHover_hideHover" type="button">OK</button>
-            </div>
-            <script type="text/javascript">
-                GSType.hover.WelcomeProvisionalUser = function() {
-                    this.showHover = function() {
-                        GSType.hover.welcomeProvisionalUser.show();
-                    };
-                };
-                GSType.hover.WelcomeProvisionalUser.prototype = new GSType.hover.HoverDialog('welcomeProvisionalUserHover',320);
-                GSType.hover.welcomeProvisionalUser = new GSType.hover.WelcomeProvisionalUser();
-                jQuery(function() {
-                    GSType.hover.welcomeProvisionalUser.show();
-                });
-            </script>
-        </c:if>
         </div>
         <!--</div>-->
 

@@ -105,14 +105,8 @@ public class EspDashboardController {
             }
             if (provisionalMembership != null) {
                 school = getSchool(provisionalMembership);
+                modelMap.put("isProvisional", true);
             }
-            modelMap.put("isProvisional", true);
-            System.out.println("Found provisional user");
-            SitePrefCookie cookie = new SitePrefCookie(request, response);
-            System.out.println(cookie.getProperty("showHover"));
-            HoverHelper hoverHelper = new HoverHelper(cookie);
-            modelMap.put("showProvisionalHover", hoverHelper.isHoverCookieSet(HoverHelper.Hover.ESP_ACCOUNT_PROVISIONAL));
-            System.out.println(hoverHelper.isHoverCookieSet(HoverHelper.Hover.ESP_ACCOUNT_PROVISIONAL));
         }
 
         modelMap.put("school", school);

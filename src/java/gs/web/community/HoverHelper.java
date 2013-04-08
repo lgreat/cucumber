@@ -24,8 +24,7 @@ public class HoverHelper {
         EMAIL_VERIFIED("emailValidated"),
         NEW_EMAIL_VERIFIED("editEmailValidated"),
         SUBSCRIPTION_EMAIL_VERIFIED("subscriptionEmailValidated"),
-        ESP_ACCOUNT_VERIFIED("espAccountVerified"),
-        ESP_ACCOUNT_PROVISIONAL("espAccountProvisional");
+        ESP_ACCOUNT_VERIFIED("espAccountVerified");
 
         private String _id;
 
