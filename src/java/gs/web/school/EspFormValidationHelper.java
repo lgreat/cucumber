@@ -46,8 +46,8 @@ public class EspFormValidationHelper {
             } else {
                 // Check for provisional user (JIRA 13363)
                 EspMembership membership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId
-                        (state, schoolId, user.getId(), true);
-                if( membership.getStatus() == EspMembershipStatus.PROVISIONAL ) {
+                        (state, schoolId, user.getId(), false);
+                if( membership != null && membership.getStatus() == EspMembershipStatus.PROVISIONAL ) {
                     return true;
                 }
                 else {
