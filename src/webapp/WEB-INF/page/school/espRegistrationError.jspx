@@ -57,7 +57,7 @@
                             available for editing. In the meantime, we will verify that you are
                             authorized to administer this school's profile page.</h4>
 
-                        <div class="bottom"> Please contact us at <link:contactUs feedbackType="esp">osphelp@greatschools.org</link:contactUs> if we can help answer any questions.
+                        <div class="bottom"> Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
                             <!--<link:contactUs feedbackType="esp">contact us</link:contactUs>.-->
                         </div>
                     </c:when>
@@ -69,7 +69,7 @@
                         <h4>Were you trying to edit a different school's page? <a href="#">Click here</a> to try again.</h4>
 
                         <div class="bottom">Need help? Please contact us at
-                            <link:contactUs feedbackType="esp">osphelp@greatschools.org</link:contactUs>.</div>
+                            <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.</div>
                     </c:when>
                     <c:when test="${message eq 'page6'}">
                         <!-- Use case: User is deactivated -->
@@ -78,7 +78,7 @@
                             please <a href="#">submit a new request.</a></h4>
 
                         <div class="bottom">If you've received this message in error, please
-                            contact <link:contactUs feedbackType="esp">osphelp@greatschools.org</link:contactUs> and we'll get things sorted out.</div>
+                            contact <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> and we'll get things sorted out.</div>
                     </c:when>
                 </c:choose>
             </div>
