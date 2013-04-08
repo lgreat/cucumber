@@ -1,0 +1,22 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <pageHelper:addCss/>
+        <title>GreatSchools Header</title>
+    </head>
+    <body>
+        <mod:header/>
+        <mod:primaryNav/>
+    </body>
+    </html>
+</jsp:root>
