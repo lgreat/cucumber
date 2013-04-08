@@ -28,12 +28,11 @@
 <table id="gs-primary">
 <tbody>
 <tr>
-<td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem home">
-    <div class="dropdownReference">
-        <link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">Home</link:home>
-        <!--<span class="navSprite i-pn-home">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-    </div>
-</td>
+<!--<td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem home">-->
+    <!--<div class="dropdownReference">-->
+        <!--<link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">Home</link:home>-->
+    <!--</div>-->
+<!--</td>-->
 <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
     <div class="dropdownReference">
         <link:findASchool id="PN-FindASchool"
@@ -95,6 +94,14 @@
         </div>
     </div>
 </td>
+
+<td class="${(pw == tabs.REVIEW_MY_SCHOOL ? 'selected' : '')} menuItem home">
+    <div class="dropdownReference">
+        <!--<link:home id="PN-ReviewMySchool" styleClass="menuItemAnchorText GS_CI9_"></link:home>-->
+        <a href="/school/parentReview.page" id="PN-ReviewMySchool" class="menuItemAnchorText GS_CI9_">Review my school</a>
+    </div>
+</td>
+
 <td class="${(pw == tabs.PRESCHOOL ? 'selected' : '')} menuItem">
     <div class="dropdownReference">
         <link:preschool id="PN-Preschool" styleClass="menuItemAnchorText drop GS_CI9_">Preschool</link:preschool>
