@@ -16,6 +16,7 @@ import gs.web.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -46,6 +47,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     private ISchoolDao _schoolDao;
     private IEspResponseDao _espResponseDao;
 
+    @Autowired
     private EspRegistrationHelper _espRegistrationHelper;
 
     protected enum UserState {
