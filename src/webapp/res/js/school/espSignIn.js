@@ -52,7 +52,7 @@ GS.form.EspForm = function() {
             // users who have been approved but haven't followed through by clicking through the link in email
             GSType.hover.emailNotValidated.setEmail(email);
             var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
-            GS.form.espForm.showEmailError("Please . <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
+            GS.form.espForm.showEmailError("Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else {
             isValid = true;
         }
