@@ -4,7 +4,7 @@
         >
     <div id="schoolEspThankYou" class="dialog_white" style="display:none;">
         <h2>Your request has been submitted</h2>
-        <p>Thank you for registering as an administrator!.
+        <p>Thank you for registering as an administrator!
             We've e-mailed you a verification link - please click on it to get started editing your school's information!
         </p>
         <button class="button-1 schoolEspThankYou_hideHover" type="button">OK</button>

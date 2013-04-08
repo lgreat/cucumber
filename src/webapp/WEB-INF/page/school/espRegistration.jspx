@@ -98,18 +98,6 @@
             </div>
 
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
-            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" id="js_userAwaitingMembershipError" class="error js_emailErr">
-                <div class="media">
-                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
-                    <div class="bd">
-                        Our records show that you have recently requested a school official's account.
-                        New requests are typically reviewed within 2-4 weekdays.
-                        Please standby for an email containing a link to get started.
-                        If you require immediate support, you may <link:contactUs feedbackType="esp">contact us</link:contactUs>.
-                    </div>
-                </div>
-            </div>
             <c:if test="${newUserFromSignIn eq true}">
                 <div style="display: block" class="notice js_emailErr">
                     <div class="media">
