@@ -139,7 +139,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     }
 
-    //These conditions are complicated, refer to the flow charts attached to GS-12324 and  GS-12496.
+    //These conditions are complicated, refer to the flow charts attached to GS-12324,GS-12496 and GS-13363.
     protected void validateUserState(EspUserStateStruct userState, BindingResult result, String email) {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
             // new users or users who have never requested access
