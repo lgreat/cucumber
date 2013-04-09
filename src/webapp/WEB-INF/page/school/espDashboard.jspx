@@ -48,7 +48,7 @@
 
             <!-- Provisional message if needed -->
             <c:if test="${isProvisional eq true}">
-                <div class="grid_13 suffix_1">
+                <div class="grid_24">
                     <div class="mod form">
                         <div class="inner">
                             <div class="bd">
