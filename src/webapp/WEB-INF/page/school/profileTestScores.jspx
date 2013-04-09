@@ -10,7 +10,7 @@
         <c:when test="${! empty testScores}">
             <c:set var="dataNAText" value="Data not available"/>
 
-            <div class="grid_16 alpha omega">
+            <div class="grid_16 alpha omega" id="top-of-dropdown">
                 <div class="fl standard_1-3">
                     <!--Display the test dropdowns-->
                     <div class="hd">

@@ -9,6 +9,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 
 <html lang="en">
 
@@ -30,6 +31,9 @@
     <jsp:scriptlet>
             java.util.List stateList = gs.data.state.StateManager.getList();
             request.setAttribute("stateList", stateList);
+        PageHelper.hideLeaderboard(request);
+        PageHelper.hideFooterAd(request);
+        PageHelper.hideBelowNavAds(request);
     </jsp:scriptlet>
 
     ${requestScope.pageHelper.headElementsWithoutCss}
@@ -326,7 +330,7 @@
                                 <div id="js-reviewsLandingStarBox-Start"><br />Select an option from the dropdown menu</div>
                                 <div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>
                                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">
-                                    <div class="fl"><p class="bottom">Rate Teacher</p></div>
+                                    <div class="fl"><p class="bottom">Teacher quality</p></div>
                                     <div id="starRatingContainerReviewTeacherForStudent" class="fr pan man mlm">
                                         <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                         <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>

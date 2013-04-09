@@ -367,6 +367,13 @@
         </property>
     </bean>
 
+    <bean name="/zillowHeader.page" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          lazy-init="true">
+        <property name="viewName">
+            <value>zillowHeader</value>
+        </property>
+    </bean>
+
     <bean name="/gsFooter.page" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>gsFooter</value>

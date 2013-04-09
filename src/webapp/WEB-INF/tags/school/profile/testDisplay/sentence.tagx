@@ -24,7 +24,7 @@
             <c:set var="noDataSpecificYearTemplate" value="This school did not receive a designation in [SCHOOL_YEAR]."/>
             <c:set var="noDataAtAllTemplate" value="The Arizona Department of Education did not report AZ LEARNS results for this school."/>
         </c:when>
-        <c:when test="${pageScope.state eq 'FL'}">
+        <c:when test="${pageScope.state eq 'FL' or pageScope.state eq 'IN'}">
             <c:set var="withDataSpecificYearTemplate" value="In [SCHOOL_YEAR], this school received a grade of [GRADE]."/>
             <c:set var="noDataSpecificYearTemplate" value="This school did not receive a grade in [SCHOOL_YEAR]."/>
             <c:set var="noDataAtAllTemplate" value="This school did not receive a grade in [MOST_RECENT_SCHOOL_YEAR]."/>

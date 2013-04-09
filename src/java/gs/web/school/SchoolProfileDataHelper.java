@@ -15,6 +15,7 @@ import gs.web.request.RequestAttributeHelper;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.search.CmsRelatedFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String SPERLINGS = "sperlings";
     private final static String RELATED_CONTENT = "relatedContent";
     private final static String SCHOOL_VIDEOS = "schoolVideos";
+//    private static final String FACEBOOK_MODEL_KEY = "facebook";
 
     private final static String CENSUS_DATA = "censusData";
 
@@ -153,6 +155,28 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         StackTraceElement[] st =  Thread.currentThread().getStackTrace();
         _log.error(msg + ((obj==null)?"null":"not null") + ", called from:\n  " + st[2].toString() + "\n  " + st[3].toString() + "\n");
 
+    }
+
+    protected Map<String, Object> getFacebookTile(School school) {
+
+        Map<String, Object> facebookModel = new HashMap<String, Object>(4);
+
+        // Facebook URL now comes from the school metadata table
+        String facebook = school.getMetadataValue(School.METADATA_FACEBOOK_URL);
+        String facebookUrl = null;
+        if( StringUtils.isNotBlank(facebook) ) {
+            facebookUrl = SchoolProfileCultureController.cleanUpUrl(facebook, "facebook.com");
+        }
+
+        if( facebookUrl != null ) {
+            facebookModel.put( "content", "show" );
+            facebookModel.put( "facebookUrl", facebookUrl );
+        }
+        else {
+            facebookModel.put( "content", "hide" ); // set this if no data available
+        }
+
+        return facebookModel;
     }
 
     protected Integer getEnrollment( HttpServletRequest request ) {

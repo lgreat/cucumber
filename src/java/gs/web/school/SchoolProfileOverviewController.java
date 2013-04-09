@@ -58,7 +58,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String APPL_INFO_MODEL_KEY = "applInfo";
     private static final String LOCAL_INFO_MODEL_KEY = "localInfo";
     private static final String RELATED_CONTENT_MODEL_KEY = "related";
-    private static final String FACEBOOK_MODEL_KEY = "facebook";
     private static final String SPORTS_MODEL_KEY = "sports";
     public static final String LAST_MODIFIED_DATE_MODEL_KEY = "schoolLastModifiedDate";
 
@@ -180,8 +179,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Titles 14&15 - Default: Related content, Substitute 1:
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 5) );
 
-        // 7th row is Facebook integration
-        model.put(FACEBOOK_MODEL_KEY, getFacebookTile(school) );
+
 
         // 8th row is Sports/Arts/Music
         model.put(SPORTS_MODEL_KEY, getSportsArtsMusicEspTile(espData));
@@ -1436,27 +1434,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return sportsModel;
     }
 
-    private Map<String, Object> getFacebookTile(School school) {
-
-        Map<String, Object> facebookModel = new HashMap<String, Object>(4);
-
-        // Facebook URL now comes from the school metadata table
-        String facebook = school.getMetadataValue(School.METADATA_FACEBOOK_URL);
-        String facebookUrl = null;
-        if( StringUtils.isNotBlank(facebook) ) {
-            facebookUrl = SchoolProfileCultureController.cleanUpUrl(facebook, "facebook.com");
-        }
-
-        if( facebookUrl != null ) {
-            facebookModel.put( "content", "show" );
-            facebookModel.put( "facebookUrl", facebookUrl );
-        }
-        else {
-            facebookModel.put( "content", "hide" ); // set this if no data available
-        }
-
-        return facebookModel;
-    }
 
     // ===================== Non ESP page ==============================
     private void handleNonEspPage(ModelMap model, HttpServletRequest request, School school) {
@@ -1487,9 +1464,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // Row 4 - Default: Related content
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 6) );
-
-        // Row 5 is Facebook integration
-        model.put(FACEBOOK_MODEL_KEY, getFacebookTile(school) );
     }
 
     Map<String, Object> getSchoolVisitChecklistTile(HttpServletRequest request, School school) {

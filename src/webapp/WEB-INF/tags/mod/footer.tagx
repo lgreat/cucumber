@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </c:when>
-            <c:when test="${showAd}">
+            <c:when test="${showAd and requestScope.pageHelper.showingFooterAd}">
                 <!--<div id="footerAd">-->
                 <div class="container_24">
                     <div class="prefix_3 grid_19 suffix_2">

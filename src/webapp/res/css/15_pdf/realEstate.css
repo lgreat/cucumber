@@ -390,10 +390,10 @@ hr.rulethin	{
 
 .mod-3 .inner .profileData{
     vertical-align: middle;
-    margin: 30px;
+    margin: 20px 30px 20px 30px;;
 }
 .mod-3 .inner .companyLogo{
-    margin-right: 50px;
+    margin: 20px 50px 20px 0;
 
 }
 .mod-3 .inner .qrCode{
@@ -407,7 +407,7 @@ hr.rulethin	{
 
 .qrCode .qrCodeDescription{
     vertical-align: middle;
-    margin: 30px 30px;
+    margin: 35px 30px;
 }
 
 

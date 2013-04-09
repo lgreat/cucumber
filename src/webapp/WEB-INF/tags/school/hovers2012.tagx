@@ -11,6 +11,7 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
+    <jsp:directive.attribute name="reviewCount" required="true" description="The number of published non-principal reviews" type="java.lang.Integer"/>
 
     <jsp:scriptlet>
         request.setAttribute("surveyHoverSeen", CookieUtil.hasCookie(request, "survey_hover_seen"));
@@ -37,10 +38,21 @@
         <c:if test="${showNLHover}">
             <script type="text/javascript">
                 $(function() {
+                    var reviewCount = parseInt('${reviewCount}', 10);
+                    var preschoolOnly = ('${school.levelCode}' === 'p');
+                    var eligibleForReviewUpsell = !preschoolOnly &amp;&amp; reviewCount > 5 &amp;&amp; reviewCount &lt; 10;
                     if ('${school.levelCode}' === 'p' || '${school.type.schoolTypeName}' === 'private') {
-                        GSType.hover.joinHover.showNthHoverOnPageExit();
+                        if (eligibleForReviewUpsell) {
+                            GSType.hover.clickToReviewYourSchool.showInterruptHoverOnPageExit(GSType.hover.clickToReviewYourSchool.showHover);
+                        } else {
+                            GSType.hover.joinHover.showNthHoverOnPageExit();
+                        }
                     } else {
-                        GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');
+                        if (eligibleForReviewUpsell) {
+                            GSType.hover.clickToReviewYourSchool.showInterruptHoverOnPageExit(GSType.hover.clickToReviewYourSchool.showHover);
+                        } else {
+                            GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');
+                        }
                     }
                 });
             </script>

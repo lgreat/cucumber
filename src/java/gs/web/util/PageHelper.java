@@ -117,6 +117,15 @@ public class PageHelper {
         }
     }
 
+    public static void hideBelowNavAds(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setShowingBelowNavAds(false);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
     /**
      * Adds the given code to the onload script of the body tag.
      */
@@ -207,58 +216,15 @@ public class PageHelper {
         return _showingNthGraderHover;
     }
 
-    /**
-     * Get the city name to use for the footer Yahoo Real Estate link.  Not every page has a city associated with it,
-     * so those that do should set this to specify what it is if they require the YRE link in the footer.
-     *
-     * @return Yahoo Real Estate city name for link in footer
-     */
-    public String getYahooRealEstateCity() {
-        return _yahooRealEstateCity;
-    }
-
-    /**
-     * Get the city name to use for the footer Yahoo Real Estate link, but escape it so that it can be used in an href.
-     *
-     * @return Yahoo Real Estate city name for link in footer
-     */
-    public String getYahooRealEstateCityEscaped() {
-        String escapedCity = _yahooRealEstateCity.replace(' ', '_');
-        try {
-            escapedCity = URLEncoder.encode(escapedCity, "UTF-8");
-        } catch (java.io.UnsupportedEncodingException e) {
-            // Do nothing, just return what we have
-        }
-
-        return escapedCity;
-    }
-
-    /**
-     * Set the city name to use for the footer Yahoo Real Estate link.  Not every page has a city associated with it,
-     * so those that do should use this method to specify what it is if they require the YRE link in the footer.
-     *
-     * @param request Request object for static invocation
-     * @param yahooRealEstateCity City name to use to link to Yahoo Real Estate in the footer
-     */
-    public static void setYahooRealEstateCity(HttpServletRequest request, String yahooRealEstateCity) {
-        PageHelper pageHelper = getInstance(request);
-        if (pageHelper != null) {
-            pageHelper._yahooRealEstateCity = yahooRealEstateCity;
-        } else {
-            _log.error("No PageHelper object available.");
-        }
-    }
-
-
     public static final String REQUEST_ATTRIBUTE_NAME = "pageHelper";
 
     private boolean _showingHeader = true;
     private boolean _showingLeaderboard = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
+    private boolean _showingBelowNavAds = true;
     private boolean _betaPage = false;
     private String _pageName = "";
-    private String _yahooRealEstateCity = "";
     private boolean _includeQualaroo;
 
     private Properties _versionProperties ;
@@ -564,6 +530,18 @@ public class PageHelper {
 
     public void setShowingFooterAd(boolean showingFooterAd) {
         _showingFooterAd = showingFooterAd;
+    }
+
+    /**
+     * There's a footer ad at the bottom of the page, above the nav elements and SEO stuff. It's currently a google ad.
+     * Do we show it?
+     */
+    public boolean isShowingBelowNavAds() {
+        return _showingBelowNavAds;
+    }
+
+    public void setShowingBelowNavAds(boolean showingBelowNavAds) {
+        _showingBelowNavAds = showingBelowNavAds;
     }
 
     public boolean isShowingLeaderboard() {
