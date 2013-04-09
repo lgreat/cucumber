@@ -152,15 +152,12 @@ public class EspSignInController implements ReadWriteAnnotationController {
             result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page?email=" + encodedEmail + "'>register here.</a>");
         }else if (userState.isUserESPPreApproved()) {
             result.rejectValue("email", null, "You have been pre-approved for an account but must verify your email.<a href='#' class='js_espReSendEspPreApprovalEmail'>Please verify email.</a>");
-        } else if (userState.isUserAwaitingESPMembership()) {
-            // users who have requested access but are still being processed
-//            result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (userState.isUserApprovedESPMember() && !userState.isUserEmailValidated()) {
             // users who have been approved but haven't followed through by clicking through the link in email
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
-        } else if (userState.isUserESPDisabled()) {
+        } else if (userState.isUserESPDisabled() && !userState.isUserEmailValidated()) {
             result.rejectValue("email", null, "Our records indicate your school official's account is inactive. Please register again or contact us at gs_support@greatschools.org if you need further assistance.");
-        } else if (userState.isUserESPRejected()) {
+        } else if (userState.isUserESPRejected() && !userState.isUserEmailValidated()) {
             result.rejectValue("email", null, "Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.");
         }
     }

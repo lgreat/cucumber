@@ -43,7 +43,7 @@ public class EspRegistrationHelper {
             return null;
         }
 
-        List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), true );
+        List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false );
 
         // If no memberships - send the user to the "short" registration page with the existing data filled in
         if( memberships == null || memberships.size() == 0 ) {
