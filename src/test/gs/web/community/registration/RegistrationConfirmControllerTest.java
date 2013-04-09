@@ -556,7 +556,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(State.CA, 1)).andThrow(new RuntimeException("testIsMembershipEligibleForPromotionToProvisional"));
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertFalse("Expect failure to retrieve school to disallow provisional osp", rval);
         verifyAllMocks();
 
@@ -564,7 +564,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(null);
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertFalse("Expect failure to retrieve school to disallow provisional osp", rval);
         verifyAllMocks();
 
@@ -577,7 +577,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
         expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(null);
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertTrue("Expect no pre-existing responses to allow provisional osp", rval);
         verifyAllMocks();
 
@@ -591,7 +591,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
         expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(lastUpdated);
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertTrue("Expect year old response to allow provisional osp", rval);
         verifyAllMocks();
 
@@ -604,7 +604,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
         expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(lastUpdated);
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertTrue("Expect 8 day old response to allow provisional osp", rval);
         verifyAllMocks();
 
@@ -617,7 +617,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
         expect(_espResponseDao.getMaxCreatedForSchool(school, false)).andReturn(lastUpdated);
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertFalse("Expect a response 6 days ago to prevent provisional osp", rval);
         verifyAllMocks();
 
@@ -629,7 +629,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
         expect(_espMembershipDao.findEspMembershipsBySchool(school, false)).andReturn(memberships);
         replayAllMocks();
-        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForPromotionToProvisional(membership);
+        rval = _controller.get_espRegistrationHelper().isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
         assertFalse("Expect existing provisional membership to prevent new one", rval);
         verifyAllMocks();
     }
