@@ -61,6 +61,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     @Qualifier("emailVerificationEmail")
     private EmailVerificationEmail _emailVerificationEmail;
 
+    @Autowired
+    private EspRegistrationHelper _espEspRegistrationHelper;
+
     @RequestMapping(value = "register.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request,
                            @RequestParam(value = "state", required = false) String state,
@@ -203,7 +206,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 _emailVerificationEmail.sendOSPVerificationEmail(request, user, urlBuilder.asSiteRelative(request), school);
             }
         }
-        return "redirect:" + getSchoolOverview(request, response, command);
+        return _espEspRegistrationHelper.determineNextView(request,user);
     }
 
     /**
@@ -381,7 +384,13 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 esp.setJobTitle(command.getJobTitle());
                 esp.setState(command.getState());
                 esp.setSchoolId(command.getSchoolId());
-                esp.setStatus(EspMembershipStatus.PROCESSING);
+                boolean isUserEligibleForProvisionalStatus = _espEspRegistrationHelper.isMembershipEligibleForProvisionalStatus(command.getSchoolId(),command.getState());
+                if(isUserEligibleForProvisionalStatus){
+                    esp.setStatus(EspMembershipStatus.PROVISIONAL);
+                }else{
+                    esp.setStatus(EspMembershipStatus.PROCESSING);
+                }
+
                 esp.setUser(user);
                 esp.setWebUrl(command.getWebPageUrl());
                 getEspMembershipDao().saveEspMembership(esp);

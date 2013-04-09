@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,9 +59,9 @@ public class EspRegistrationHelper {
         }
 
         EspMembership processing = checkMembershipStatus( memberships, EspMembershipStatus.PROCESSING );
-        if( processing != null ) {
+        if( processing != null && processing.getSchoolId() != null && processing.getState() != null) {
             // When in Processing status, see isMembership is eligible for promotion to provisional the user can be upgraded to PROVISIONAL
-            boolean eligible = isMembershipEligibleForPromotionToProvisional(processing);
+            boolean eligible = isMembershipEligibleForProvisionalStatus(processing.getSchoolId(),processing.getState());
             if( eligible ) {
                 processing.setStatus( EspMembershipStatus.PROVISIONAL);
                 _espMembershipDao.updateEspMembership(processing);
@@ -75,11 +76,11 @@ public class EspRegistrationHelper {
             }
         }
 
-        EspMembership provisional = checkMembershipStatus( memberships, EspMembershipStatus.PROVISIONAL );
-        if( provisional != null ) {
+        EspMembership provisional = checkMembershipStatus(memberships, EspMembershipStatus.PROVISIONAL);
+        if (provisional != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
-    }
+        }
 
         EspMembership deactivated = checkMembershipStatus( memberships, EspMembershipStatus.DISABLED );
         if( deactivated == null ) {
@@ -114,18 +115,18 @@ public class EspRegistrationHelper {
         return null;
     }
 
-    public boolean isMembershipEligibleForPromotionToProvisional(EspMembership membership) {
+    public boolean isMembershipEligibleForProvisionalStatus(Integer schoolId,State state) {
         List<EspMembership> schoolMemberships;
         School school;
         try {
             school = getSchoolDao().getSchoolById
-                    (membership.getState(), membership.getSchoolId());
+                    (state, schoolId);
             if (school == null) {
                 return false;
             }
             schoolMemberships = _espMembershipDao.findEspMembershipsBySchool(school, false);
         } catch (Exception e) {
-            _log.error("Can't find school for membership: " + membership, e);
+            _log.error("Can't find school for school Id: " + schoolId+" state:"+state, e);
             return false;
         }
         // if there is no existing provisional membership

@@ -205,8 +205,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 } else {
                     // check if user has an esp membership row in processing state
                     EspMembership membership = getProcessingMembershipForUser(user);
-                    if (membership != null) {
-                        if (_espRegistrationHelper.isMembershipEligibleForPromotionToProvisional(membership)) {
+                    if (membership != null && membership.getSchoolId() !=null && membership.getState() != null) {
+                        if (_espRegistrationHelper.isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState())) {
                             // bump this user to provisional
                             membership.setStatus(EspMembershipStatus.PROVISIONAL);
                             getEspMembershipDao().updateEspMembership(membership);
