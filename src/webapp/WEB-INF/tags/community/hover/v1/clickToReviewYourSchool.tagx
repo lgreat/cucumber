@@ -36,7 +36,7 @@
 
                         <div class="small">${hoverBody}</div>
                         <div class="pbl">
-                            <button class="but but-lg but-3" type="button"
+                            <button data-gs-show-tab="reviews" data-gs-tab-options="schoolReviewSubmitForm" class="but but-lg but-3 js_closeHover" type="button"
                                     id="js_clickToReviewYourSchoolHover_goToReviewForm">Review your school
                             </button>
                         </div>

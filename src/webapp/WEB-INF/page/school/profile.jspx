@@ -489,7 +489,7 @@
 </div>
 
 <communityHover:clickToReviewYourSchool schoolName="${not empty school ? school.name : 'your school'}"/>
-<school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}"/>
+<school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}" reviewCount="${not empty numberReviews ? numberReviews : 0}"/>
 </div>
 </div>
 </gsml:body>
