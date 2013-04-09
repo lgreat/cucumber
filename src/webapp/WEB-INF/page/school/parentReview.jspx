@@ -167,20 +167,16 @@
         <p style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:20px; color: #ffCE7A;text-shadow: 0 0 20px rgba(0,0,0,.6)">Help others find their great school – rate and review yours now</p>
 
         <div class="js-parentReviewLandingPageSearchBox searchBox pr rnd4" style=""><!--do not colapse-->
-            <div class="fl" style="padding-top: 13px;"><input type="text" tabindex="1" placeholder="Find your school to begin" style="font-size: 16px;width:350px; background: none; padding-left: 20px; border: none; font-weight: bold"/></div>
+            <div class="fl" style="padding-top: 13px;"><input type="text" placeholder="Find your school to begin" style="font-size: 16px;width:350px; background: none; padding-left: 20px; border: none; font-weight: bold"/></div>
 
-            <a tabindex="3" id="js-tabSubmitFormGo"><!-- do not collapse --></a>
             <div class="fr  phm" style="cursor:pointer; padding:16px 15px 14px 15px; border-left: 1px solid #666666" id="js_submitSelectSchool"><strong>GO</strong></div>
             <div class="fr phm">
-
                 <div id="js-reviewLandingState" class="pr">
-                    <a tabindex="2" class="js-tabSelectBox"><!-- do not collapse --></a>
-                        <div class="js-selectBox selectBox clearfix">
-                            <div class="js-selectBoxText mrs fl">CA</div>
-                            <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
+                    <div class="js-selectBox selectBox clearfix">
+                        <div class="js-selectBoxText mrs fl">CA</div>
+                        <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
 
-                        </div>
-
+                    </div>
                     <div class="js-selectDropDown selectDropDown pa phm ptm dn">
                         <c:forEach var="stateObj" items="${stateList}">
                             <div class="js-ddValues">${stateObj.abbreviation}</div>
@@ -380,7 +376,7 @@
         <div style="width:971px;text-align: center; margin: auto;">
            <div class="" style="width: 971px; height:339px; background-image: url(/res/img/parentReviewLanding/reviewLandingThankYouCard.png)" >
            <!--<img src="/res/img/parentReviewLanding/reviewLandingThankYouCard.png" alt=""/>-->
-           <div style="padding-top: 100px;"><p style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:40px; margin-bottom: 40px">Thanks – you’re almost there!</p>
+           <div style="padding-top: 100px;"><p style="font-family: SourceSansPro-Semibold arial; font-size:40px; margin-bottom: 40px">Thanks – you’re almost there!</p>
                <p style="margin-bottom: 6px;">We just need to verify your email address.</p>
                <p style="margin-bottom: 6px;">We’ve sent you an email – please click on the link in that email and then we will publish your review.</p>
                <p style="margin-bottom: 6px;">Thanks for helping others find <i>their</i> great school!</p>
