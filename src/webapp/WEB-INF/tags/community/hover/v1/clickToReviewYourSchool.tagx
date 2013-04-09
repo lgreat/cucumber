@@ -10,10 +10,10 @@
 
     <!-- A version is default -->
     <c:set var="hoverTitle">
-        Help other families find their great school.
+        Help other families find<br/>their great school.
     </c:set>
     <c:set var="hoverBody">
-        What do you wish others knew about ${schoolName}? Write a review now.
+        What do you wish others knew about<br/>${schoolName}? Write a review now.
     </c:set>
     <variant:b>
         <!-- B version -->
@@ -21,24 +21,27 @@
             You know ${schoolName} best!
         </c:set>
         <c:set var="hoverBody">
-            Parents, students and teachers know what makes their school great. Help other families find their great school by writing about <em>yours</em> now.
+            Parents, students and teachers know what makes their<br/>school great. Help other families find their great school by<br/>writing about <em>yours</em> now.
         </c:set>
     </variant:b>
-    <div id="clickToReviewYourSchoolHover" class="dn">
-        <div class="mod modal_1 width_13" id="clickToReviewYourSchoolHover">
-            <div class="outer">
-                <div class="fr"><span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
-                <div class="inner tac">
-                    <div class="hoverTitle hd">
-                        <h2 class="bottom">${hoverTitle}</h2>
-                        <div class="clearFloat" style="clear: both"><!-- do not collapse --></div>
-                    </div>
-                    <div class="bd ptm">
-                        <p>${hoverBody}</p>
 
-                        <button class="button-1" type="button" id="js_clickToReviewYourSchoolHover_goToReviewForm">Review your school</button>
-                        <div class="clearFloat mtm" style="clear: both"><!-- do not collapse --></div>
-                        <a href="javascript:void(0);" class="js_closeHover no_interrupt noInterstitial">Not now, thanks</a>
+    <div id="clickToReviewYourSchoolHover" class="dn">
+        <div class="mod modal_4 width_11" id="clickToReviewYourSchoolHover">
+            <div class="outer">
+                <div class="fr modalClose"><span
+                        class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner tac">
+                    <div class="hoverTitle bd">
+                        <h2>${hoverTitle}</h2>
+
+                        <div class="small">${hoverBody}</div>
+                        <div class="pbl">
+                            <button class="but but-lg but-3" type="button"
+                                    id="js_clickToReviewYourSchoolHover_goToReviewForm">Review your school
+                            </button>
+                        </div>
+                        <a href="javascript:void(0);"
+                           class="js_closeHover no_interrupt noInterstitial small">Not now, thanks</a>
                     </div>
                 </div>
             </div>
