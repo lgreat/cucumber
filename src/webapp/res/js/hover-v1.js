@@ -1405,6 +1405,18 @@ GSType.hover.SchoolReviewPosted = function() {
 };
 GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("schoolReviewPosted",640);
 
+//GS-13761.
+GSType.hover.ClickToReviewYourSchool = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function() {
+        GSType.hover.clickToReviewYourSchool.show();
+    };
+    this.pageName = '';
+    this.hier1 = '';
+};
+GSType.hover.ClickToReviewYourSchool.prototype = new GSType.hover.HoverDialog("clickToReviewYourSchoolHover",640);
+
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -1438,6 +1450,7 @@ GSType.hover.reportContentHover = new GSType.hover.ReportContentHover();
 
 GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
+GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1803,6 +1816,7 @@ jQuery(function() {
     GSType.hover.reportContentHover.loadDialog();
     GSType.hover.miniStateLauncher.loadDialog();
     GSType.hover.schoolReviewPosted.loadDialog();
+    GSType.hover.clickToReviewYourSchool.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON(GS.uri.Uri.getBaseHostname() + '/community/forgotPasswordValidator.page',
@@ -2076,6 +2090,8 @@ jQuery(function() {
         GSType.hover.espPreApprovalEmail.show();
     }else if (showHover == "schoolReviewPosted") {
         GSType.hover.schoolReviewPosted.show();
+    } else if (showHover == "clickToReviewYourSchool") {
+        GSType.hover.clickToReviewYourSchool.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");

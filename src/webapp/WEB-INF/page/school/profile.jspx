@@ -16,6 +16,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
         >
 <jsp:directive.page import="gs.data.school.School"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -487,6 +488,7 @@
                   school="${school}" augmentInitialRequestWithDataForTab="${not empty param.tab? param.tab : 'overview'}"/>
 </div>
 
+<communityHover:clickToReviewYourSchool schoolName="${not empty school ? school.name : 'your school'}"/>
 <school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}"/>
 </div>
 </div>
