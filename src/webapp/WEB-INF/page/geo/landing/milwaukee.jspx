@@ -179,11 +179,7 @@
     </div>
 
 <div id="landingEditorialFooter" class="clearBoth">&#38;nbsp;</div>
-<div id="promoRulesLink">
-    <gsml:a href="/cgi-bin/static/Milwaukee-Contest-Rules.html">
-        Click here for official rules for Milwaukee School Chooser drawings
-    </gsml:a>
-</div>
+
 <mod:tracking pageName="Milwaukee Landing Page" hier1="Home,Outreach,Milwaukee"/>
 
 </gsml:body>
