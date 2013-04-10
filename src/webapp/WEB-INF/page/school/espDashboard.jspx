@@ -392,7 +392,7 @@
                 </div>
             </c:if>
 
-            <!-- Confirmation hover that shows after clicking "Save and finish later" on form -->
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form for active user-->
             <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
                 <h2>Your Official School Profile has been saved.</h2>
                 <p>
@@ -406,9 +406,9 @@
 
                 <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
             </div>
-
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form for provisional user-->
             <div id="espProvisionalReminderHover" class="dialog_white" style="display:none;">
-                <h2>Provisional Warning</h2>
+                <h2>Your Official School Profile has been saved.</h2>
 
                 <p><strong>Thank you!</strong>
                     We've saved your changes to the Official School Profile.
