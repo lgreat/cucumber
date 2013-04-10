@@ -99,26 +99,13 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 command.setScreenName(user.getUserProfile().getScreenName());
             }
 
-            //Check if user is awaiting ESP access.
+            //Check user status.
             List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-            //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
-            //display a message to the user.We do not care about rejected or inactive users yet.
-            // provisional users are treated as approved
             for (EspMembership membership : memberships) {
-                if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+                String view = determineRedirects(membership, request);
+                if (StringUtils.isNotBlank(view)) {
                     modelMap.clear();
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                    return "redirect:" + urlBuilder.asFullUrl(request);
-                } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                    modelMap.clear();
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
-                    urlBuilder.addParameter("message", "page1");
-                    return "redirect:" + urlBuilder.asFullUrl(request);
-//                    modelMap.addAttribute("isUserAwaitingESPMembership", true);
-                } else if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
-                    modelMap.clear();
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                    return "redirect:" + urlBuilder.asFullUrl(request);
+                    return view;
                 }
             }
         } else if (request.getParameter("email") != null) {
@@ -156,6 +143,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
+        boolean isUserLoggedIn = false;
 
         String email = command.getEmail();
         if (StringUtils.isNotBlank(email)) {
@@ -165,6 +153,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         //If there was no user cookie, get the user from the database.
         if (user == null && StringUtils.isNotBlank(email)) {
             user = getUserDao().findUserFromEmailIfExists(email);
+        } else {
+            isUserLoggedIn = true;
         }
 
         //Server side validation.
@@ -194,7 +184,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         getUserDao().updateUser(user);
 
         //Save ESP membership for user.
-        saveEspMembership(command, user);
+        boolean isUserProvisional = saveEspMembership(command, user);
 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
@@ -206,7 +196,32 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 _emailVerificationEmail.sendOSPVerificationEmail(request, user, urlBuilder.asSiteRelative(request), school);
             }
         }
-        return _espEspRegistrationHelper.determineNextView(request,user);
+
+        //If the user was saved as a provisional user and is logged in, then redirect to dashboard
+        if (isUserProvisional && user.isEmailValidated() && isUserLoggedIn) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+        return "redirect:" + getSchoolOverview(request, response, command);
+    }
+
+    public String determineRedirects(EspMembership membership, HttpServletRequest request) {
+        //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
+        //display a message to the user.We do not care about rejected or inactive users yet.
+        // provisional users are treated as approved
+        String rval = "";
+        if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            rval = "redirect:" + urlBuilder.asFullUrl(request);
+        } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("message", "page1");
+            rval = "redirect:" + urlBuilder.asFullUrl(request);
+        } else if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            rval = "redirect:" + urlBuilder.asFullUrl(request);
+        }
+        return rval;
     }
 
     /**
@@ -370,9 +385,10 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     }
 
 
-    protected void saveEspMembership(EspRegistrationCommand command, User user) {
+    protected boolean saveEspMembership(EspRegistrationCommand command, User user) {
         State state = command.getState();
         Integer schoolId = command.getSchoolId();
+        boolean isUserProvisional = false;
 
         if (state != null && schoolId != null && schoolId > 0 && user != null && user.getId() != null) {
 
@@ -387,10 +403,10 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 boolean isUserEligibleForProvisionalStatus = _espEspRegistrationHelper.isMembershipEligibleForProvisionalStatus(command.getSchoolId(),command.getState());
                 if(isUserEligibleForProvisionalStatus){
                     esp.setStatus(EspMembershipStatus.PROVISIONAL);
+                    isUserProvisional = true;
                 }else{
                     esp.setStatus(EspMembershipStatus.PROCESSING);
                 }
-
                 esp.setUser(user);
                 esp.setWebUrl(command.getWebPageUrl());
                 getEspMembershipDao().saveEspMembership(esp);
@@ -399,6 +415,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 getEspMembershipDao().saveEspMembership(espMembership);
             }
         }
+        return isUserProvisional;
     }
 
 
