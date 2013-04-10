@@ -64,7 +64,7 @@
                     <c:when test="${message eq 'page5'}">
                         <!-- Use case: User is rejected -->
                         <h4><strong>Uh-oh.</strong> We're sorry - it looks like we were unable to confirm you as an
-                            administrator of ${school.name}'s Official School Profile.</h4>
+                            administrator <c:if test="${not empty school}">of ${school.name}'s Official School Profile</c:if>.</h4>
 
                         <h4>Were you trying to edit a different school's page? <a href="/official-school-profile/register.page">Click here</a> to try again.</h4>
 

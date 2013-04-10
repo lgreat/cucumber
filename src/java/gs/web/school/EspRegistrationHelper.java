@@ -40,58 +40,62 @@ public class EspRegistrationHelper {
      */
     public String determineNextView(HttpServletRequest request, User user) {
         // Verify we have a user
-        if( user==null || user.getId()==0 ) {
+        if (user == null || user.getId() == 0) {
             return null;
         }
 
-        List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false );
+        List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
 
         // If no memberships - send the user to the "short" registration page with the existing data filled in
-        if( memberships == null || memberships.size() == 0 ) {
+        if (memberships == null || memberships.size() == 0) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
-        EspMembership approved = checkMembershipStatus( memberships, EspMembershipStatus.APPROVED );
-        if( approved != null ) {
+        EspMembership approved = checkMembershipStatus(memberships, EspMembershipStatus.APPROVED, true);
+        if (approved != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
-        EspMembership processing = checkMembershipStatus( memberships, EspMembershipStatus.PROCESSING );
-        if( processing != null && processing.getSchoolId() != null && processing.getState() != null) {
+        EspMembership processing = checkMembershipStatus(memberships, EspMembershipStatus.PROCESSING, false);
+        if (processing != null && processing.getSchoolId() != null && processing.getState() != null) {
             // When in Processing status, see isMembership is eligible for promotion to provisional the user can be upgraded to PROVISIONAL
-            boolean eligible = isMembershipEligibleForProvisionalStatus(processing.getSchoolId(),processing.getState());
-            if( eligible ) {
-                processing.setStatus( EspMembershipStatus.PROVISIONAL);
-                _espMembershipDao.updateEspMembership(processing);
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                urlBuilder.addParameter("message", "provisional");
-                return "redirect:" + urlBuilder.asFullUrl(request);
-            }
-            else {
+//            boolean eligible = isMembershipEligibleForProvisionalStatus(processing.getSchoolId(), processing.getState());
+//            if (eligible) {
+//                _espMembershipDao.updateEspMembership(processing);
+//                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+//                urlBuilder.addParameter("message", "provisional");
+//                return "redirect:" + urlBuilder.asFullUrl(request);
+//            } else {
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+                urlBuilder.addParameter("schoolId", processing.getSchoolId().toString());
+                urlBuilder.addParameter("state", processing.getState().toString());
                 urlBuilder.addParameter("message", "page1");
                 return "redirect:" + urlBuilder.asFullUrl(request);
-            }
+//            }
         }
 
-        EspMembership provisional = checkMembershipStatus(memberships, EspMembershipStatus.PROVISIONAL);
+        EspMembership provisional = checkMembershipStatus(memberships, EspMembershipStatus.PROVISIONAL, false);
         if (provisional != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
-        EspMembership deactivated = checkMembershipStatus( memberships, EspMembershipStatus.DISABLED );
-        if( deactivated == null ) {
+        EspMembership deactivated = checkMembershipStatus(memberships, EspMembershipStatus.DISABLED, false);
+        if (deactivated != null && deactivated.getSchoolId() != null && deactivated.getState() != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("schoolId", deactivated.getSchoolId().toString());
+            urlBuilder.addParameter("state", deactivated.getState().toString());
             urlBuilder.addParameter("message", "page6");
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
-        EspMembership rejected = checkMembershipStatus( memberships, EspMembershipStatus.REJECTED );
-        if( rejected == null ) {
+        EspMembership rejected = checkMembershipStatus(memberships, EspMembershipStatus.REJECTED, false);
+        if (rejected != null && rejected.getSchoolId() != null && rejected.getState() != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("schoolId", rejected.getSchoolId().toString());
+            urlBuilder.addParameter("state", rejected.getState().toString());
             urlBuilder.addParameter("message", "page5");
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
@@ -103,12 +107,12 @@ public class EspRegistrationHelper {
     /**
      * Check all memberships for a matching status
      * @param memberships
-     * @param processing
+     * @param status
      * @return
      */
-    private EspMembership checkMembershipStatus(List<EspMembership> memberships, EspMembershipStatus processing) {
-        for( EspMembership espMembership : memberships ) {
-            if( processing.equals(espMembership.getStatus())) {
+    private EspMembership checkMembershipStatus(List<EspMembership> memberships, EspMembershipStatus status, boolean activeFlag) {
+        for (EspMembership espMembership : memberships) {
+            if (status.equals(espMembership.getStatus()) && (activeFlag == espMembership.getActive())) {
                 return espMembership;
             }
         }
