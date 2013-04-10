@@ -96,9 +96,9 @@
         <div class="inner">
             <div class="bd">
                 <div class="line">
-                    <div class="unit size45of100">
+                    <div class="unit siz45of100">
                         <p class="bottom">
-                            ${school.name}<br/>
+                            <span class="small bottom">${school.name}</span><br/>
                             <c:if test="${school.physicalAddress.street ne null}">
                                 <span class="small">${school.physicalAddress.street}</span><br/>
                             </c:if>
@@ -106,18 +106,8 @@
                         </p>
                     </div>
                     <div class="unit size55of100 lastUnit">
-                        <p class="small bottom">
-                            <link:schoolProfileOverview
-                                    school="${school}">View profile</link:schoolProfileOverview><br/>
-                            <c:if test="${isProvisional ne true}">
-                                <link:schoolPrincipalReview
-                                        school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
-                            </c:if>
-                            <c:if test="${showOtherEditorsHover eq true}">
-                                <br/>
-                                <a href="#" id="js_otherEspEditors"
-                                   onclick="return false;">View and edit people with access to this profile</a>
-                            </c:if>
+                        <p class="small bottom pll">
+                            <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview><br/>
                         </p>
                     </div>
                 </div>
