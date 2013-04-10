@@ -110,9 +110,13 @@ hr {
 }
 
 #div_grades{
-    display: none;
+    display: block;
 }
 
 #div_school_type{
+    display:none;
+}
+
+#div_school_only_1{
     display:none;
 }

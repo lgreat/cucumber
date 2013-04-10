@@ -5,6 +5,8 @@ import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
 import gs.data.school.*;
+import gs.data.school.district.District;
+import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ICaptchaCommand;
@@ -33,6 +35,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import javax.mail.internet.MimeMessage;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+
 /**
  * Created by IntelliJ IDEA.
  * User: eddie
@@ -55,12 +67,12 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
     private IGeoDao _geoDao;
 
-    public INewEntityQueueDao getQueueDao() {
+    public INewEntityQueueDao getNewEntityQueueDao() {
         return _newEntityQueueDao;
     }
 
-    public void setQueueDao(INewEntityQueueDao _queueDao) {
-        this._newEntityQueueDao = _queueDao;
+    public void setNewEntityQueueDao(INewEntityQueueDao _newEntityQueueDao) {
+        this._newEntityQueueDao = _newEntityQueueDao;
     }
 
     public ISchoolDao getSchoolDao() {
@@ -72,6 +84,16 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
     }
 
     private ISchoolDao _schoolDao;
+
+    public IDistrictDao getDistrictDao() {
+        return _districtDao;
+    }
+
+    public void setDistrictDao(IDistrictDao districtDao) {
+        _districtDao = districtDao;
+    }
+
+    private IDistrictDao _districtDao;
     // SPRING MVC METHODS
 
     @Override
@@ -93,6 +115,10 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             errors.rejectValue("response", null, "The Captcha response you entered is invalid. Please try again.");
         }
 
+        _log.warn("step 1");
+
+        //play around and see what can be fed back to the page if it doesnt make it to onSubmit
+
         super.onBindAndValidate(request, command, errors);
         AddEditSchoolOrDistrictCommandValidator validator = new AddEditSchoolOrDistrictCommandValidator();
         validator.validate(request, command, errors);
@@ -102,30 +128,110 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
     protected ModelAndView onSubmit(Object o) throws ServletException {
         AddEditSchoolOrDistrictCommand command = (AddEditSchoolOrDistrictCommand)o;
 
-
+        _log.warn("step 2");
 
 
         Map<String,String> model = new HashMap<String,String>();
         //model.put("action",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
         model.put("name",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
-
-        NewEntityQueue newEntityQueue = new NewEntityQueue();
+        model.put("testvar",":" + command.getSchoolId() + ":");
         char[] digits = {0,1,2,3,4,5,6,7,8,9};
-        if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
+        if(command.getSchoolId() != null){
+            model.put("testvar1","yes");
+
+        }
+        if(StringUtils.containsAny(command.getSchoolId(),digits)){
+            model.put("testvar2","yes");
+
+        }
+        if(StringUtils.containsOnly(command.getSchoolId(),digits)){
+            model.put("testvar3","yes");
+
+        }
+        if(StringUtils.isNumeric(command.getSchoolId())){
+            model.put("testvar4","yes");
+
+        }
+        NewEntityQueue newEntityQueue = new NewEntityQueue();
+        newEntityQueue.setOriginalId(0);
+        newEntityQueue.setStatus("Unprocessed");
+        //if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
+        if(command.getSchoolId() != null && StringUtils.isNotBlank(command.getSchoolId())&& StringUtils.isNumeric(command.getSchoolId())){
             model.put("schoolId",command.getSchoolId());
             School school = _schoolDao.getSchoolById(command.getState(),new Integer(command.getSchoolId()));
             model.put("name",school.getName());
+            newEntityQueue.setGsId(new Integer(command.getSchoolId()));
+            newEntityQueue.setStateId(school.getStateId());
+            newEntityQueue.setNcesCode(school.getNcesCode());
+            newEntityQueue.setDistrictId(school.getDistrictId());
+            //newEntityQueue.setOriginalId(0);
         }else{
-            newEntityQueue.setOriginalId(0);
+            //newEntityQueue.setOriginalId(0);
         }
         //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
+        newEntityQueue.setSchoolOrDistrict(command.getSchoolOrDistrict());
+        newEntityQueue.setGradeLevels(new Grades(command.getGrades()));
+        SchoolType schoolType = SchoolType.PUBLIC;
+        if(command.getSchoolType() != null){
+            schoolType = command.getSchoolType().equals("public") ? SchoolType.PUBLIC
+                    :  command.getSchoolType().equals("charter") ? SchoolType.CHARTER
+                    :  command.getSchoolType().equals("private") ? SchoolType.PRIVATE
+                    : null;
+        }
+        newEntityQueue.setType(schoolType);
+
         newEntityQueue.setContactName(command.getSubmitterName());
         newEntityQueue.setContactEmail(command.getSubmitterEmail());
         newEntityQueue.setContactConnection(command.getSubmitterConnectionToSchool());
-        newEntityQueue.setType(SchoolType.CHARTER);
-        newEntityQueue.setName("Test School");
+        newEntityQueue.setVerificationUrl(command.getVerificationUrl());
+        newEntityQueue.setContactNotes(command.getContactNotes());
+        newEntityQueue.setName(command.getName());
+        newEntityQueue.setStreet(command.getStreet());
+        newEntityQueue.setStreetLine2(command.getStreetLine2());
+        newEntityQueue.setCity(command.getCity());
+        newEntityQueue.setStateAbbreviation(command.getState());
+        newEntityQueue.setZipcode(command.getZipcode());
+        newEntityQueue.setCounty(command.getCounty());
+        if(command.getEnrollment() != null && StringUtils.isNotBlank(command.getEnrollment())){
+            newEntityQueue.setEnrollment(new Integer(command.getEnrollment()));
+        }
+        newEntityQueue.setPhone(command.getPhone());
+        newEntityQueue.setFax(command.getFax());
+        newEntityQueue.setWebSite(command.getWebSite());
+        newEntityQueue.setHeadOfficialName(command.getHeadOfficialName());
+        newEntityQueue.setHeadOfficialEmail(command.getHeadOfficialEmail());
+        newEntityQueue.setStartTime(command.getStartTime());
+        newEntityQueue.setEndTime(command.getEndTime());
+        newEntityQueue.setAffiliation(command.getAffiliation());
+        newEntityQueue.setAssociation(command.getAssociation());
+        newEntityQueue.setLowAge(command.getLowAge());
+        newEntityQueue.setHighAge(command.getHighAge());
+
+        newEntityQueue.setGender(SchoolSubtype.create(command.getGender()));
+        newEntityQueue.setPreschoolSubtype(SchoolSubtype.create(command.getPreschoolSubtype()));
+
+        if(command.getBilingual() != null && StringUtils.isNotBlank(command.getBilingual())){
+            newEntityQueue.setBilingual(new Integer(command.getBilingual()));
+        }
+        if(command.getSpecialEd() != null && StringUtils.isNotBlank(command.getSpecialEd())){
+            newEntityQueue.setSpecialEd(new Integer(command.getSpecialEd()));
+        }
+        if(command.getComputers() != null && StringUtils.isNotBlank(command.getComputers())){
+            newEntityQueue.setComputers(new Integer(command.getComputers()));
+        }
+        if(command.getExtendedCare() != null && StringUtils.isNotBlank(command.getExtendedCare())){
+            newEntityQueue.setExtendedCare(new Integer(command.getExtendedCare()));
+        }
+
+        newEntityQueue.setOperatingSystem(command.getOperatingSystem());
+        newEntityQueue.setBrowser(command.getBrowser());
+
+        newEntityQueue.setCategory(command.getCategory());
+
         _newEntityQueueDao.saveNewEntityQueue(newEntityQueue,"web form");
+
+        sendTheEmail();
 
 
         return new ModelAndView(getSuccessView(), model);
@@ -184,6 +290,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             allStateOptions.add(new FormOption(state.getAbbreviation(), state.getAbbreviation()));
         }
         map.put("allStateOptions", allStateOptions);
+        map.put("stateOptions", allStateOptions);
 
         // Populate city options
         List<City>cities = _geoDao.findCitiesByState(stateOrDefault);
@@ -201,7 +308,15 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
                 schoolOptions.add(new FormOption(StringEscapeUtils.escapeHtml(school.getName()), school.getId().toString()));
             }
         }
+        List<FormOption> districtOptions = new ArrayList<FormOption>();
+        if (!StringUtils.isBlank(command.getCityName())) {
+            List<District> districts = _districtDao.findDistrictsInCity(stateOrDefault, command.getCityName());
+            for (District district : districts) {
+                districtOptions.add(new FormOption(StringEscapeUtils.escapeHtml(district.getName()), district.getId().toString()));
+            }
+        }
         map.put("schoolOptions", schoolOptions);
+        map.put("districtOptions", districtOptions);
 
 
 
@@ -220,6 +335,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             if (!StringUtils.isBlank(request.getParameter("schoolId"))) {
                 command.setSchoolId(request.getParameter("schoolId"));
             }
+	    command.setState(SessionContextUtil.getSessionContext(request).getStateOrDefault());
         }
     }
 
@@ -256,6 +372,39 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             return "FormOption: name or value is null";
         }
     }
+
+
+         JavaMailSender mailSender;
+
+        public void setMailSender(JavaMailSender mailSender) {
+            this.mailSender = mailSender;
+        }
+
+        public void sendTheEmail() {
+
+            //... * Do the business calculations....
+            //... * Call the collaborators to persist the order
+
+            MimeMessagePreparator preparator = new MimeMessagePreparator() {
+                public void prepare(MimeMessage mimeMessage) throws MessagingException {
+                    mimeMessage.setRecipient(Message.RecipientType.TO,
+                            new InternetAddress("eford@greatschools.org"));
+                    mimeMessage.setFrom(new InternetAddress("eford@greatschools.org"));
+                    mimeMessage.setText(
+                            "Dear "
+                            );
+
+                }
+            };
+            try{
+                mailSender.send(preparator);
+            }
+            catch (MailException ex) {
+                //log it and go on
+                System.err.println(ex.getMessage());
+            }
+        }
+
 
 
 }

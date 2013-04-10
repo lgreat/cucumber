@@ -64,11 +64,11 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
             errors.rejectValue("addEdit", null, ERROR_ADD_EDIT);
         }
         if (StringUtils.isBlank(command.getGrades())) {
-            errors.rejectValue("grades", null, ERROR_GRADES);
+            //errors.rejectValue("grades", null, ERROR_GRADES);
         }
 
         if (command.getSchoolType() == null ) {
-            errors.rejectValue("schoolType", null, ERROR_SCHOOLTYPE_MISSING);
+            //errors.rejectValue("schoolType", null, ERROR_SCHOOLTYPE_MISSING);
         }
 
 
