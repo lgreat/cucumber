@@ -52,8 +52,8 @@
                     <div class="mod form">
                         <div class="inner">
                             <div class="bd">
-                                <p>Thank you for updating ${school.name}'s OSP!</p>
-                                <p class="bottom">
+                                <p class="bottom"><strong>Thank you for updating ${school.name}'s OSP!</strong> </p>
+                                <p class="small bottom">
                                     We are in the process of confirming that you are authorized to edit the OSP
                                     for this school. Please allow 2-4 weekdays for us to complete the verification process.
                                     As soon as we've verified your account we will publish your saved edits
@@ -74,7 +74,7 @@
                         <div class="inner">
                             <div class="bd">
                                 <div class="line">
-                                    <div class="unit size45of100">
+                                    <div class="unit size65of100">
                                         <p class="bottom">
                                             ${school.name}<br/>
                                             <c:if test="${school.physicalAddress.street ne null}">
@@ -83,7 +83,7 @@
                                             <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
                                         </p>
                                     </div>
-                                    <div class="unit size55of100 lastUnit">
+                                    <div class="unit size35of100 lastUnit">
                                         <p class="small bottom">
                                             <link:schoolProfileOverview
                                                     school="${school}">View profile</link:schoolProfileOverview><br/>
@@ -94,7 +94,7 @@
                                             <c:if test="${showOtherEditorsHover eq true}">
                                                 <br/>
                                                 <a href="#" id="js_otherEspEditors"
-                                                   onclick="return false;">View and edit people with access to this profile</a>
+                                                   onclick="return false;">Add more administrators</a>
                                             </c:if>
                                         </p>
                                     </div>

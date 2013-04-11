@@ -51,34 +51,34 @@
                 <c:choose>
                     <c:when test="${message eq 'page1'}">
                         <!-- Use case: User is in processing and another user h0as provisional access -->
-                        <h4><strong>Uh-oh.</strong> We're sorry - it looks like another authorized administrator
+                        <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
+                        <p class="small">It looks like another authorized administrator
                             from your school is currently editing your school's OSP.
                             Please check back in 2-4 weekdays, when the profile should again be
                             available for editing. In the meantime, we will verify that you are
-                            authorized to administer this school's profile page.</h4>
-
-                        <div class="bottom"> Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
-                            <!--<link:contactUs feedbackType="esp">contact us</link:contactUs>.-->
+                            authorized to administer this school's profile page.</p>
+                        <div class="small bottom">
+                            Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
                         </div>
                     </c:when>
                     <c:when test="${message eq 'page5'}">
                         <!-- Use case: User is rejected -->
-                        <h4><strong>Uh-oh.</strong> We're sorry - it looks like we were unable to confirm you as an
-                            administrator <c:if test="${not empty school}">of ${school.name}'s Official School Profile</c:if>.</h4>
-
-                        <h4>Were you trying to edit a different school's page? <a href="/official-school-profile/register.page">Click here</a> to try again.</h4>
-
-                        <div class="bottom">Need help? Please contact us at
-                            <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.</div>
+                        <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
+                        <p class="small">it looks like we were unable to confirm you as anadministrator <c:if test="${not empty school}">of ${school.name}'s Official School Profile</c:if>.</p>
+                        <p class="small">Were you trying to edit a different school's page? <a href="/official-school-profile/register.page">Click here</a> to try again.</p>
+                        <div class="small bottom">
+                            Need help? Please contact us at<a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.
+                        </div>
                     </c:when>
                     <c:when test="${message eq 'page6'}">
                         <!-- Use case: User is deactivated -->
-                        <h4><strong>Whoops!</strong> It looks like you are no longer an approved administrator for this
+                        <p class="bottom"><strong>Whoops!</strong></p>
+                        <p class="small">It looks like you are no longer an approved administrator for this
                             school's profile. If you'd like to re-activate your account,
-                            please <a href="/official-school-profile/register.page">submit a new request.</a></h4>
-
-                        <div class="bottom">If you've received this message in error, please
-                            contact <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> and we'll get things sorted out.</div>
+                            please <a href="/official-school-profile/register.page">submit a new request.</a></p>
+                        <div class="small bottom">
+                            If you've received this message in error, please contact <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> and we'll get things sorted out.
+                        </div>
                     </c:when>
                 </c:choose>
             </div>
@@ -96,16 +96,16 @@
         <div class="inner">
             <div class="bd">
                 <div class="line">
-                    <div class="unit siz45of100">
+                    <div class="unit size65of100">
                         <p class="bottom">
-                            <span class="small bottom">${school.name}</span><br/>
+                            <span class="bottom">${school.name}</span><br/>
                             <c:if test="${school.physicalAddress.street ne null}">
                                 <span class="small">${school.physicalAddress.street}</span><br/>
                             </c:if>
                             <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
                         </p>
                     </div>
-                    <div class="unit size55of100 lastUnit">
+                    <div class="unit size35of100 lastUnit">
                         <p class="small bottom pll">
                             <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview><br/>
                         </p>
