@@ -263,39 +263,28 @@ function renderSchools(bounds, filterLevelCode) {
                     var imageValue = curSchool.rating;
                     if (imageValue == 0 || (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1)) {
                         if (curSchool.levelCode == 'p') {
-//                            imageValue = 'preschool';
                             icon.image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1) {
-//                            imageValue = 'preschool';
                             icon.image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (curSchool.type == 'private') {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'private' : 'private';
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_NR.png'
                                     : '/res/img/mapPins/private/O/private_orange_NR.png';
                         } else {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'na': 'na';
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_NR.png'
                                     : '/res/img/mapPins/public/O/orange_NR.png';
                         }
                     } else {
                         if (curSchool.type == 'private') {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_' + imageValue + '.png' :
                                     '/res/img/mapPins/private/O/private_orange_' + imageValue + '.png';
                         } else {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_' + imageValue + '.png' :
                                     '/res/img/mapPins/public/O/orange_' + imageValue + '.png';
                         }
                     }
-//                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
-//                    icon.shadow = "/res/img/map/GS_gsr_1_backgroundshadow.png";
-//                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
-//                    icon.iconSize = new GSize(42, 41);
                     icon.iconAnchor = new GPoint(14, 39);
                     icon.infoWindowAnchor = new GPoint(21, 2);
                     icon.infoShadowAnchor = new GPoint(21, 2);
-//                    icon.shadowSize = new GSize(42, 41);
                     marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
                     if (useBubbles) {
                         addBubbleListener(marker, curSchool);
