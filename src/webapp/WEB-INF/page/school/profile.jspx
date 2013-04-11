@@ -16,6 +16,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
         >
 <jsp:directive.page import="gs.data.school.School"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -273,9 +274,12 @@
             </div>
 
             <!-- Facebook 'Like' Button -->
+            <c:if test="${not empty facebook['facebookUrl']}">
+
             <![CDATA[
-    <fb:like href="${gsweb:getRequestHostAndPath(requestInfo.request)}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
-    ]]>
+                <fb:like href="${facebook['facebookUrl']}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
+            ]]>
+            </c:if>
             <!--<promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>-->
         </div>
 
@@ -311,7 +315,7 @@
                 <li class="mll">
                 <span class="media">
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
-                    <gslink:linkToTab tabName="reviews" anchor="schoolReviewSubmitForm" cssClass="bd">Write a review</gslink:linkToTab>
+                    <gslink:linkToTab tabName="reviews" anchor="schoolReviewSubmitForm" cssClass="bd">Rate &amp; Review</gslink:linkToTab>
                 </span>
                 </li>
             </ul>
@@ -484,7 +488,8 @@
                   school="${school}" augmentInitialRequestWithDataForTab="${not empty param.tab? param.tab : 'overview'}"/>
 </div>
 
-<school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}"/>
+<communityHover:clickToReviewYourSchool schoolName="${not empty school ? school.name : 'your school'}"/>
+<school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}" reviewCount="${not empty numberReviews ? numberReviews : 0}"/>
 </div>
 </div>
 </gsml:body>

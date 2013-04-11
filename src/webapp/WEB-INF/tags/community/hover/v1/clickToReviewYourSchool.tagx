@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+        >
+    <jsp:directive.attribute name="schoolName" type="java.lang.String"
+                             description="Name of the school to put in the body of the message."
+                             required="true"/>
+
+    <!-- A version is default -->
+    <c:set var="hoverTitle">
+        Help other families find<br/>their great school.
+    </c:set>
+    <c:set var="hoverBody">
+        What do you wish others knew about<br/>${schoolName}? Write a review now.
+    </c:set>
+    <variant:b>
+        <!-- B version -->
+        <c:set var="hoverTitle">
+            You know ${schoolName} best!
+        </c:set>
+        <c:set var="hoverBody">
+            Parents, students and teachers know what makes their<br/>school great. Help other families find their great school by<br/>writing about <em>yours</em> now.
+        </c:set>
+    </variant:b>
+
+    <div id="clickToReviewYourSchoolHover" class="dn">
+        <div class="mod modal_4 width_11" id="clickToReviewYourSchoolHover">
+            <div class="outer">
+                <div class="fr modalClose"><span
+                        class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner tac">
+                    <div class="hoverTitle bd">
+                        <h2>${hoverTitle}</h2>
+
+                        <div class="small">${hoverBody}</div>
+                        <div class="pbl">
+                            <button data-gs-show-tab="reviews" data-gs-tab-options="schoolReviewSubmitForm" class="but but-lg but-3 js_closeHover" type="button"
+                                    id="js_clickToReviewYourSchoolHover_goToReviewForm">Review your school
+                            </button>
+                        </div>
+                        <a href="javascript:void(0);"
+                           class="js_closeHover no_interrupt noInterstitial small">Not now, thanks</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>

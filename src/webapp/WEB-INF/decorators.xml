@@ -77,6 +77,7 @@
         <pattern>*/status/error404.page*</pattern>
         <pattern>*/print-view/*</pattern>
         <pattern>*/promo/leadGen.page*</pattern>
+        <pattern>*/zillowHeader.page*</pattern>
     </excludes>
 
 </decorators>

@@ -47,6 +47,7 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isAdFree());
+        assertTrue("Expect below nav ads to be on by default", pageHelper.isShowingBelowNavAds());
     }
 
     public void testFramed() {

@@ -367,6 +367,13 @@
         </property>
     </bean>
 
+    <bean name="/zillowHeader.page" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          lazy-init="true">
+        <property name="viewName">
+            <value>zillowHeader</value>
+        </property>
+    </bean>
+
     <bean name="/gsFooter.page" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>gsFooter</value>
@@ -2144,6 +2151,14 @@
 
     <bean name="/test/schoolsInCity.page"
           class="gs.web.test.SchoolsInCityAjaxController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/test/districtsInCity.page"
+          class="gs.web.test.DistrictsInCityAjaxController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/test/entityInfo.page"
+          class="gs.web.test.EntityInfoAjaxController"
           autowire="byName" lazy-init="true"/>
 
     <bean name="/school/schoolForParentReview.page"
