@@ -206,13 +206,17 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                     // check if user has an esp membership row in processing state
                     EspMembership membership = getProcessingMembershipForUser(user);
                     if (membership != null && membership.getSchoolId() !=null && membership.getState() != null) {
-                        if (_espRegistrationHelper.isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState())) {
+                        boolean isUserEligibleForProvisional = _espRegistrationHelper.isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
+                        if (isUserEligibleForProvisional) {
                             // bump this user to provisional
                             membership.setStatus(EspMembershipStatus.PROVISIONAL);
                             getEspMembershipDao().updateEspMembership(membership);
                             urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                            viewName = "redirect:" + urlBuilder.asFullUrl(request);
+                        }else{
+                            urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+                            urlBuilder.addParameter("message", "page1");
                         }
+                        viewName = "redirect:" + urlBuilder.asFullUrl(request);
                     }
                 }
 

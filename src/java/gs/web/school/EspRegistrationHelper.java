@@ -134,7 +134,7 @@ public class EspRegistrationHelper {
             return false;
         }
         // if there is no existing provisional membership
-        if (schoolMemberships != null && schoolMemberships.size() > 1) {
+        if (schoolMemberships != null && schoolMemberships.size() > 0 ) {
             for (EspMembership schoolMembership: schoolMemberships) {
                 if (schoolMembership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                     return false;

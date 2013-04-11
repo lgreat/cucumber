@@ -184,7 +184,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         getUserDao().updateUser(user);
 
         //Save ESP membership for user.
-        boolean isUserProvisional = saveEspMembership(command, user);
+        saveEspMembership(command, user, isUserLoggedIn);
 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
@@ -197,10 +197,14 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             }
         }
 
-        //If the user was saved as a provisional user and is logged in, then redirect to dashboard
-        if (isUserProvisional && user.isEmailValidated() && isUserLoggedIn) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-            return "redirect:" + urlBuilder.asFullUrl(request);
+        //If the user was saved as a provisional user and is logged in,then they need to be redirected
+        //to either error page or dashboard depending on the status.
+        if (user.isEmailValidated() && isUserLoggedIn) {
+            EspMembership espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(command.getState(), command.getSchoolId(), user.getId(), false);
+            String view = determineRedirects(espMembership, request);
+            if (StringUtils.isNotBlank(view)) {
+                return view;
+            }
         }
         return "redirect:" + getSchoolOverview(request, response, command);
     }
@@ -356,15 +360,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             user.setUserProfile(userProfile);
         }
     }
-    
-    protected void sendRequestReceivedEmail(User user, School school) {
-        String triggerKey = "ESP-request-confirm";
-        Map<String,String> emailAttributes = new HashMap<String,String>();
-        emailAttributes.put("ESP_schoolname", school.getName());
-        emailAttributes.put("first_name", user.getFirstName());
-
-        getExactTargetAPI().sendTriggeredEmail(triggerKey, user, emailAttributes);
-    }
 
     protected void setUserProfileFieldsFromCommand(EspRegistrationCommand espMembershipCommand, UserProfile userProfile) {
         if (userProfile != null) {
@@ -385,10 +380,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     }
 
 
-    protected boolean saveEspMembership(EspRegistrationCommand command, User user) {
+    protected void saveEspMembership(EspRegistrationCommand command, User user, boolean isUserLoggedIn) {
         State state = command.getState();
         Integer schoolId = command.getSchoolId();
-        boolean isUserProvisional = false;
 
         if (state != null && schoolId != null && schoolId > 0 && user != null && user.getId() != null) {
 
@@ -398,15 +392,21 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 EspMembership esp = new EspMembership();
                 esp.setActive(false);
                 esp.setJobTitle(command.getJobTitle());
-                esp.setState(command.getState());
-                esp.setSchoolId(command.getSchoolId());
-                boolean isUserEligibleForProvisionalStatus = _espEspRegistrationHelper.isMembershipEligibleForProvisionalStatus(command.getSchoolId(),command.getState());
-                if(isUserEligibleForProvisionalStatus){
-                    esp.setStatus(EspMembershipStatus.PROVISIONAL);
-                    isUserProvisional = true;
-                }else{
-                    esp.setStatus(EspMembershipStatus.PROCESSING);
+                esp.setState(state);
+                esp.setSchoolId(schoolId);
+                esp.setStatus(EspMembershipStatus.PROCESSING);
+
+                if (user.isEmailValidated() && isUserLoggedIn) {
+                    boolean isUserEligibleForProvisionalStatus =
+                            _espEspRegistrationHelper.isMembershipEligibleForProvisionalStatus(schoolId, state);
+                    //If the user is logged in ,email validated and there are no other osp users for the school,
+                    // then they should be set to provisional.
+                    if (isUserEligibleForProvisionalStatus) {
+                        esp.setActive(true);
+                        esp.setStatus(EspMembershipStatus.PROVISIONAL);
+                    }
                 }
+
                 esp.setUser(user);
                 esp.setWebUrl(command.getWebPageUrl());
                 getEspMembershipDao().saveEspMembership(esp);
@@ -415,7 +415,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 getEspMembershipDao().saveEspMembership(espMembership);
             }
         }
-        return isUserProvisional;
     }
 
 
