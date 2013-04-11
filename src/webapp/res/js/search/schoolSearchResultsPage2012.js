@@ -132,7 +132,6 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
             var schoolName = $schoolData.data('gs-school-name');
             var autoText = $schoolData.data('gs-school-autotext');
             var link = $this.attr('href');
-            alert(link);
             var photoUrl = 'http://www.gscdn.org/res/img/logo/logo_GS_276x50_logo.png'
 
             GS.facebook.postToFeed(link, photoUrl, schoolName, link, autoText);
