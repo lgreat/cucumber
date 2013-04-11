@@ -48,9 +48,13 @@ GS.form.EspForm = function() {
             GSType.hover.espPreApprovalEmail.setSchoolName(data.schoolName);
             var onclickStr = "'GSType.hover.espPreApprovalEmail.show(); return false;'";
             GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email. <a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
-        } else if ((data.isUserApprovedESPMember === true || data.isUserAwaitingESPMembership === true) && data.isUserEmailValidated !== true) {
-            // users who have been approved but haven't followed through by clicking through the link in email
+        } else if (data.isUserEmailValidated !== true) {
             GSType.hover.emailNotValidated.setEmail(email);
+            //Users who are not email verified and have no esp row and who try to sign in here:- probably they are interested
+            //in registering for OSP.Therefore once they confirm their email, send them to registration page.
+            if(data.isUserAwaitingESPMembership === false && data.isUserApprovedESPMember === false){
+                GSType.hover.emailNotValidated.setEmailRedirect("/official-school-profile/register.page");
+            }
             var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
             GS.form.espForm.showEmailError("Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else {
