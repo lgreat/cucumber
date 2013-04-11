@@ -97,9 +97,9 @@ function extendBoundsToCenterOnPoint(point, bounds) {
 }
 
 // Given points x (outlier) and y (center), returns point z such that the rectangle defined by
-// x and z has its center at y. Returns a GLatLng object
+// x and z has its center at y. Returns a LatLng object
 function reflectPoint(centerPoint, outlierPoint) {
-  return new GLatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
+  return new google.maps.LatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
                      centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
@@ -112,9 +112,9 @@ var alwaysUsePreIconsForPreschools = ${not empty alwaysUsePreIconsForPreschools 
 var showLocationMarker = ${showLocationMarker};
 
 <c:if test="${not empty locationPoint}">
-var locationPoint = new GLatLng(${locationPoint.lat}, ${locationPoint.lon});
+var locationPoint = new google.maps.LatLng(${locationPoint.lat}, ${locationPoint.lon});
 </c:if>
-var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+var centerPoint = new google.maps.LatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 
 function initSchoolInfo() {
@@ -189,7 +189,7 @@ function initSchoolInfo() {
 
     mySchool.parentRatingHtml += '</div>';
 
-    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
+    mySchool.location = new google.maps.LatLng(${curSchool.lat},${curSchool.lon});
     schoolArray.push(mySchool);
   </c:if>
 </c:forEach>
