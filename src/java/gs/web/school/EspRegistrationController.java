@@ -112,11 +112,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             command.setEmail(request.getParameter("email"));
         }
 
-        String userState = request.getParameter("us");
-        if (StringUtils.equals("0.a", userState)) {
-            modelMap.addAttribute("newUserFromSignIn", true);
-        }
-
         //set preselectSchool to false initially
         modelMap.put("preselectSchool", false);
 
