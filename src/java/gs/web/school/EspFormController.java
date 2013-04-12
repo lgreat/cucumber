@@ -65,18 +65,20 @@ public class EspFormController implements ReadWriteAnnotationController {
     public String showForm(ModelMap modelMap, HttpServletRequest request,
                            @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                            @RequestParam(value=PARAM_STATE, required=false) State state) {
-        // Fetch parameters
-        User user = getValidUser(request, state, schoolId);
-        if (user == null) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
-            return "redirect:" + urlBuilder.asFullUrl(request);
-        }
 
         School school = getSchool(state, schoolId);
         if (school == null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
+
+        // Fetch parameters
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+
         int page = getPage(request);
 
         //Check if the user is provisional
@@ -336,16 +338,17 @@ public class EspFormController implements ReadWriteAnnotationController {
                          @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                          @RequestParam(value=PARAM_STATE, required=false) State state) throws IOException, JSONException {
         response.setContentType("application/json");
-        // Fetch parameters
-        User user = getValidUser(request, state, schoolId);
-        if (user == null) {
-            outputJsonError("noUser", response);
-            return; // early exit
-        }
 
         School school = getSchool(state, schoolId);
         if (school == null) {
             outputJsonError("noSchool", response);
+            return; // early exit
+        }
+
+        // Fetch parameters
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            outputJsonError("noUser", response);
             return; // early exit
         }
 
@@ -420,13 +423,13 @@ public class EspFormController implements ReadWriteAnnotationController {
      * Pulls the user out of the session context. Returns null if there is no user, or if the user fails
      * checkUserAccess
      */
-    protected User getValidUser(HttpServletRequest request, State state, Integer schoolId) {
+    protected User getValidUser(HttpServletRequest request, State state, School school) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = null;
         if (sessionContext != null) {
             user = sessionContext.getUser();
         }
-        if (_espFormValidationHelper.checkUserHasAccess(user, state, schoolId)) {
+        if (_espFormValidationHelper.checkUserHasAccess(user, state, school)) {
             return user;
         }
         return null;

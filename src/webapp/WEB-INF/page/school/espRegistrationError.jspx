@@ -61,6 +61,16 @@
                             Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
                         </div>
                     </c:when>
+                    <c:when test="${message eq 'page3'}">
+                        <!-- Use case: User is in approved and another user has provisional access -->
+                        <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
+                        <p class="small">It looks like <c:if test="${not empty provisionalUserName}">${provisionalUserName}</c:if> has requested permission to become an administrator for this OSP.
+                            While we are processing this request, the OSP will be unavailable for editing.
+                            Please check back in 2-4 weekdays, when we will have completed the verification process.</p>
+                        <div class="small bottom">
+                            Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
+                        </div>
+                    </c:when>
                     <c:when test="${message eq 'page5'}">
                         <!-- Use case: User is rejected -->
                         <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>

@@ -1,10 +1,7 @@
 package gs.web.school;
 
 import gs.data.community.User;
-import gs.data.school.EspMembership;
-import gs.data.school.EspMembershipStatus;
-import gs.data.school.IEspMembershipDao;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
 import org.apache.commons.logging.Log;
@@ -31,22 +28,35 @@ public class EspFormValidationHelper {
     @Autowired
     private IEspMembershipDao _espMembershipDao;
 
+    @Autowired
+    private ISchoolDao _schoolDao;
+
     /**
      * Checks if the user has access to the form for the school specified by the given state/schoolId.
      * Returns false any parameter is null, or if the user does not have an active esp membership
      * for the given state/schoolId and is not a superuser
      */
-    public boolean checkUserHasAccess(User user, State state, Integer schoolId) {
-        if (user != null && state != null && schoolId > 0) {
+    public boolean checkUserHasAccess(User user, State state, School school) {
+        if (user != null && state != null && school!= null && school.getId() > 0) {
             if (user.hasRole(Role.ESP_SUPERUSER)) {
+                //If there is a provisional user for the school, then block out other users.GS-13363.
+                if(getProvisionalMembershipForSchool(school,user) != null){
+                 return false;
+                }
                 return true;
             } else if (user.hasRole(Role.ESP_MEMBER)) {
-                return _espMembershipDao.findEspMembershipByStateSchoolIdUserId
-                        (state, schoolId, user.getId(), true) != null;
+                EspMembership provisionalMembership = getProvisionalMembershipForSchool(school,user);
+                EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId
+                        (state, school.getId(), user.getId(), true);
+                //If there is a provisional user for the school, then block out other users.GS-13363.
+                if( provisionalMembership == null && espMembership != null){
+                    return true;
+                }
+                return  false;
             } else {
                 // Check for provisional user (JIRA 13363)
                 EspMembership membership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId
-                        (state, schoolId, user.getId(), false);
+                        (state, school.getId(), user.getId(), false);
                 if( membership != null && membership.getStatus() == EspMembershipStatus.PROVISIONAL ) {
                     return true;
                 }
@@ -55,9 +65,14 @@ public class EspFormValidationHelper {
                 }
             }
         } else {
-            _log.warn("Invalid or null user/state/schoolId: " + user + "/" + state + "/" + schoolId);
+            _log.warn("Invalid or null user/state/schoolId: " + user + "/" + state + "/" + school.getId());
         }
         return false;
+    }
+
+    public boolean checkUserHasAccess(User user, State state, Integer schoolId) {
+      School school = _schoolDao.getSchoolById(state,schoolId);
+      return checkUserHasAccess(user,state,school);
     }
 
     /**
@@ -97,6 +112,29 @@ public class EspFormValidationHelper {
             return values[0];
         }
         return null;
+    }
+
+    /**
+     * Check if a school has any provisional users.
+     * @param espMemberships
+     * @param userToExclude - User currently viewing the esp form.Therefore exclude them.
+     * @return
+     */
+    protected EspMembership getProvisionalMembershipForSchool(List<EspMembership> espMemberships, User userToExclude) {
+        for (EspMembership membership : espMemberships) {
+            if (membership.getUser().getId() == userToExclude.getId()) {
+                continue;
+            }
+            if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
+                return membership;
+            }
+        }
+        return null;
+    }
+
+    protected EspMembership getProvisionalMembershipForSchool(School school, User userToExclude) {
+        List<EspMembership> espMemberships = _espMembershipDao.findEspMembershipsBySchool(school, false);
+        return getProvisionalMembershipForSchool(espMemberships, userToExclude);
     }
 
     /**

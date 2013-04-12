@@ -60,20 +60,11 @@ public class EspRegistrationHelper {
 
         EspMembership processing = checkMembershipStatus(memberships, EspMembershipStatus.PROCESSING, false);
         if (processing != null && processing.getSchoolId() != null && processing.getState() != null) {
-            // When in Processing status, see isMembership is eligible for promotion to provisional the user can be upgraded to PROVISIONAL
-//            boolean eligible = isMembershipEligibleForProvisionalStatus(processing.getSchoolId(), processing.getState());
-//            if (eligible) {
-//                _espMembershipDao.updateEspMembership(processing);
-//                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-//                urlBuilder.addParameter("message", "provisional");
-//                return "redirect:" + urlBuilder.asFullUrl(request);
-//            } else {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
-                urlBuilder.addParameter("schoolId", processing.getSchoolId().toString());
-                urlBuilder.addParameter("state", processing.getState().toString());
-                urlBuilder.addParameter("message", "page1");
-                return "redirect:" + urlBuilder.asFullUrl(request);
-//            }
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("schoolId", processing.getSchoolId().toString());
+            urlBuilder.addParameter("state", processing.getState().toString());
+            urlBuilder.addParameter("message", "page1");
+            return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
         EspMembership provisional = checkMembershipStatus(memberships, EspMembershipStatus.PROVISIONAL, false);

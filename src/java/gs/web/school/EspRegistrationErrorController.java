@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.*;
 import gs.data.state.State;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,7 @@ public class EspRegistrationErrorController {
     public static final String PARAM_MESSAGE = "message";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String PARAM_STATE = "state";
+    public static final String PARAM_PROVISIONAL_USER_NAME = "provisionalUserName";
 
     @Autowired
     private ISchoolDao _schoolDao;
@@ -33,7 +35,8 @@ public class EspRegistrationErrorController {
     public String showLandingPage(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam(value = PARAM_MESSAGE, required = true) String message,
                                   @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
-                                  @RequestParam(value = PARAM_STATE, required = false) State state) {
+                                  @RequestParam(value = PARAM_STATE, required = false) State state,
+                                  @RequestParam(value = PARAM_PROVISIONAL_USER_NAME, required = false) String provisionalUserName) {
 
         modelMap.put("message", message);
         if (schoolId != null && state != null) {
@@ -41,6 +44,9 @@ public class EspRegistrationErrorController {
             if (school != null && school.isActive()) {
                 modelMap.put("school", school);
             }
+        }
+        if(StringUtils.isNotBlank(provisionalUserName)){
+            modelMap.put("provisionalUserName", provisionalUserName);
         }
         return VIEW;
     }

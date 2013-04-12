@@ -42,6 +42,8 @@ public class EspDashboardController {
     private IEspResponseDao _espResponseDao;
     @Autowired
     private ISchoolDao _schoolDao;
+    @Autowired
+    private EspFormValidationHelper _espFormValidationHelper;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showLandingPage(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
@@ -114,6 +116,18 @@ public class EspDashboardController {
         if (school != null) {
             //Get the information about who else has ESP access to this school
             List<EspMembership> otherEspMemberships = getEspMembersForSchool(school);
+
+            //If there is a provisional user for the school, then block out other users.GS-13363.
+            if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
+                EspMembership provisionalMembership = _espFormValidationHelper.getProvisionalMembershipForSchool(otherEspMemberships, user);
+                if (provisionalMembership != null) {
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+                    urlBuilder.addParameter("message", "page3");
+                    urlBuilder.addParameter("provisionalUserName", provisionalMembership.getUser().getFirstName());
+                    return "redirect:" + urlBuilder.asFullUrl(request);
+                }
+            }
+
             modelMap.put("allEspMemberships", otherEspMemberships);
             
             // get percent completion info
