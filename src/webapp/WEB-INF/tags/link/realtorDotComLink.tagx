@@ -108,7 +108,7 @@
 
         <div class="media skin-1">
         <span class="${styleClass} img mrs"><!-- icon --></span>
-            <a class="bd ${mobileFontUse} bottom" href="http://www.zillow.com/${requestScope.context.stateOrDefault.abbreviation}-${address.zip}?cbpartner=GreatSchools&amp;amp;utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=${zillowTrackingCode}&amp;amp;cbpartner=GreatSchools" onclick="${onclick}" target="_blank" rel="nofollow">
+            <a class="bd ${mobileFontUse} bottom" href="http://www.zillow.com/${requestScope.context.stateOrDefault.abbreviation}-${address.zip}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=${zillowTrackingCode}&amp;amp;cbpartner=GreatSchools" onclick="${onclick}" target="_blank" rel="nofollow">
             <jsp:doBody/>
         </a>
         </div>
