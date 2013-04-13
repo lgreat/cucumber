@@ -210,6 +210,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                         if (isUserEligibleForProvisional) {
                             // bump this user to provisional
                             membership.setStatus(EspMembershipStatus.PROVISIONAL);
+                            membership.setActive(true);
                             getEspMembershipDao().updateEspMembership(membership);
                             urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
                         }else{

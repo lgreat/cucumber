@@ -397,7 +397,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                     //If the user is logged in ,email validated and there are no other osp users for the school,
                     // then they should be set to provisional.
                     if (isUserEligibleForProvisionalStatus) {
-                        esp.setActive(true);
+                        esp.setActive(false);
                         esp.setStatus(EspMembershipStatus.PROVISIONAL);
                     }
                 }

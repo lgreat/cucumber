@@ -83,21 +83,12 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
             //Set the state of the user.
             User user = setUserState(command, userState);
-            // pre-conditions
-            // Unknown emails get sent to registration
-//            if (userState.isNewUser()) {
-//                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
-//                urlBuilder.addParameter("us", "0.a");
-//                urlBuilder.addParameter("email", command.getEmail());
-//                return "redirect:" + urlBuilder.asFullUrl(request);
-//            } else
             if (!userState.isNewUser() && !userState.isUserRequestedESP()) {
                 // known emails without OSP records go to registration
                 if (userState.isUserEmailValidated()) {
                     if (user.matchesPassword(command.getPassword())) {
                         PageHelper.setMemberAuthorized(request, response, user, true);
                         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
-                        urlBuilder.addParameter("us", "0.a");
                         return "redirect:" + urlBuilder.asFullUrl(request);
                     } else {
                         result.rejectValue("password", null, "The password you entered is incorrect.");
