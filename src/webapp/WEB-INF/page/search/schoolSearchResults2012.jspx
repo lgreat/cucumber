@@ -167,7 +167,13 @@
 
         <c:if test="${facebookFacepilesEnabled eq true}">
             <!-- TODO: front-end code goes here -->
-            <img alt="log in with Facebook" class="js-facebook-login pas" width="300px" src="/res/img/facebookbutton"/>
+            <!--<div class="standard_7-1">-->
+                <!--<div class="inner tac">-->
+                    <!--<h2 class="make-ffffff">Which schools do<br/>your friends like?</h2>-->
+                    <!--<div class="">Sign in with facebook</div>-->
+                    <img alt="log in with Facebook" class="js-facebook-login pas" width="300px" src="/res/img/facebookbutton"/>
+                <!--</div>-->
+            <!--</div>-->
         </c:if>
 
         <compare:persistentCompare/>
