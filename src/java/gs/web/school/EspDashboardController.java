@@ -125,7 +125,8 @@ public class EspDashboardController {
                     urlBuilder.addParameter("message", "page3");
                     urlBuilder.addParameter("schoolId", school.getId().toString());
                     urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
-                    urlBuilder.addParameter("provisionalUserName", provisionalMembership.getUser().getFirstName());
+                    urlBuilder.addParameter("provisionalUserName",
+                            provisionalMembership.getUser().getFirstName() + " " + provisionalMembership.getUser().getLastName());
                     return "redirect:" + urlBuilder.asFullUrl(request);
                 }
             }
