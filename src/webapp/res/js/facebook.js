@@ -37,11 +37,18 @@ GS.facebook = GS.facebook || (function() {
         return loginDeferred.promise();
     };
 
+    var trackLoginClicked = function() {
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event79;";
+        omnitureEventNotifier.send();
+    };
+
     var init = function() {
         $(function() {
             $(loginSelector).on('click', function() {
                 status({
                     notConnected: function() {
+                        trackLoginClicked();
                         login();
                     }
                 });

@@ -11,6 +11,15 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         });
 
         $(function() {
+            GS.facebook.status({
+               notConnected: function() {
+                   // show the login module
+                   GS.tracking.sendAndRestore({
+                      prop53:"Facebook friend help signon"
+                   });
+               }
+            });
+
             GS.facebook.getLoginDeferred().done(function() {
                 GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
             });
@@ -45,6 +54,12 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         compareLabel.html('Compare');
     };
 
+    var trackAskAFriendClicked = function() {
+        // "askAFriend" is a link on each search result
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event80;";
+        omnitureEventNotifier.send();
+    };
 
     var registerEventHandlers = function() {
         // Bind the behavior when clicking on a compare checkbox in the list
@@ -127,6 +142,8 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         });
 
         $('.js-ask-a-friend').click(function(e) {
+            trackAskAFriendClicked();
+
             var $this = $(this);
             var $schoolData = $this.parent().find('.js-school-data');
             var schoolName = $schoolData.data('gs-school-name');
