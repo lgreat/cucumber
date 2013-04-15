@@ -123,6 +123,8 @@ public class EspDashboardController {
                 if (provisionalMembership != null) {
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
                     urlBuilder.addParameter("message", "page3");
+                    urlBuilder.addParameter("schoolId", school.getId().toString());
+                    urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
                     urlBuilder.addParameter("provisionalUserName", provisionalMembership.getUser().getFirstName());
                     return "redirect:" + urlBuilder.asFullUrl(request);
                 }

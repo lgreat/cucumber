@@ -202,6 +202,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
                 if (user.hasRole(Role.ESP_MEMBER)) {
                     hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_VERIFIED);
+                    urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                    viewName = "redirect:" + urlBuilder.asFullUrl(request);
                 } else {
                     // check if user has an esp membership row in processing state
                     EspMembership membership = getProcessingMembershipForUser(user);
