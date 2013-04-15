@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/school/esp/")
 public class EspFormController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspFormController.class);
-    public static final int MAX_RESPONSE_VALUE_LENGTH = 3000;
+    public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
     public static final String VIEW = "school/espForm";
     public static final String PATH_TO_FORM = "/school/esp/form.page"; // used by UrlBuilder
     public static final String PARAM_PAGE = "page";

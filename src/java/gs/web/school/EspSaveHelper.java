@@ -15,7 +15,6 @@ import java.util.*;
 
 @Component("espSaveHelper")
 public class EspSaveHelper {
-    public static final int MAX_RESPONSE_VALUE_LENGTH = 3000;
     private static final Log _log = LogFactory.getLog(EspSaveHelper.class);
 
     @Autowired
@@ -195,7 +194,7 @@ public class EspSaveHelper {
         }
         EspResponse espResponse = new EspResponse();
         espResponse.setKey(key);
-        espResponse.setValue(StringUtils.left(responseValue, MAX_RESPONSE_VALUE_LENGTH));
+        espResponse.setValue(StringUtils.left(responseValue, EspFormController.MAX_RESPONSE_VALUE_LENGTH));
         espResponse.setSchool(school);
         espResponse.setMemberId(user.getId());
         espResponse.setCreated(now);
