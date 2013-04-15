@@ -3,10 +3,9 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     <div id="schoolEspThankYou" class="dialog_white" style="display:none;">
-        <h2>Your request has been submitted</h2>
-        <p>Thank you for registering as an administrator!
-            We've e-mailed you a verification link - please click on it to get started editing your school's information!
-        </p>
-        <button class="button-1 schoolEspThankYou_hideHover js_closeHover" type="button">OK</button>
+        <h2>You're almost there!</h2>
+        <p>Thank you for registering as a school leader. We just need to verify your email address. We've sent you an
+           email - please click on the link in that message to get started editing your school's information!</p>
+        <button class="button-1 schoolEspThankYou_hideHover js_closeHover" type="button">OK - I'll go check my email</button>
     </div>
 </jsp:root>
