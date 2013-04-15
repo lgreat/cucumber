@@ -11,12 +11,20 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <pageHelper:addCss/>
+        <meta name="decorator" content="standardDecorator-v1"/>
+        <pageHelper:addCss-v1/>
         <title>GreatSchools Header</title>
     </head>
     <body>
-        <mod:header/>
-        <mod:primaryNav/>
+    <div style="background-color:#FFFFFF;height:100px;">
+        <div class="mha" style="width:980px;">
+            <div class="tac" style="padding:35px 0;">
+                <img src="/res/img/zillow/zillow_logo_104x22.png" alt="Zillow logo" class="vam"/>
+                <span class="small bottom make-999999 vam mhm">in partnership with</span>
+                <img src="/res/img/logo/gs_logo_169x30.png" alt="GreatSchools logo" class="vam"/>
+            </div>
+        </div>
+    </div>
     </body>
     </html>
 </jsp:root>
