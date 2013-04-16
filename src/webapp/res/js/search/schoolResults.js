@@ -768,6 +768,10 @@ GS.search.results = GS.search.results || (function() {
         })
     };
 
+    var showAskAFriendLinks = function() {
+        $('.js-ask-a-friend').show();
+    };
+
     var handleUIForFacebookResults = function(schoolPagesByFacebookUrl, schoolPagesBySchoolHash) {
         var $schoolResults = $('.js-school-search-result');
 
@@ -821,7 +825,8 @@ GS.search.results = GS.search.results || (function() {
         updateSortAndPageSize:updateSortAndPageSize,
         refreshAds: refreshAds,
         handleUIForFacebookResults: handleUIForFacebookResults,
-        showFacebookFriendsForResults: showFacebookFriendsForResults
+        showFacebookFriendsForResults: showFacebookFriendsForResults,
+        showAskAFriendLinks: showAskAFriendLinks
     };
 
 })();

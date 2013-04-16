@@ -11,17 +11,16 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         });
 
         $(function() {
-            GS.facebook.status({
-               notConnected: function() {
-                   // show the login module
-                   GS.tracking.sendAndRestore({
-                      prop53:"Facebook friend help signon"
-                   });
-               }
+            // statusOnLoadDeferred is rejected if the user is not already connected after FB has initialized
+            GS.facebook.getStatusOnLoadDeferred().fail(function() {
+                GS.tracking.sendAndRestore({
+                    prop53:"Facebook friend help signon"
+                });
             });
 
             GS.facebook.getLoginDeferred().done(function() {
                 GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
+                GS.search.results.showAskAFriendLinks();
             });
         });
     };

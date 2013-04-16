@@ -15,6 +15,9 @@ GS.facebook = GS.facebook || (function() {
 
     var loginDeferred = $.Deferred();
 
+    // Resolved on load only if user is already logged in, otherwise rejected
+    var statusOnLoadDeferred = $.Deferred();
+
     var status = function(options) {
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
@@ -37,6 +40,10 @@ GS.facebook = GS.facebook || (function() {
         return loginDeferred.promise();
     };
 
+    var getStatusOnLoadDeferred = function() {
+        return statusOnLoadDeferred.promise();
+    };
+
     var trackLoginClicked = function() {
         omnitureEventNotifier.clear();
         omnitureEventNotifier.successEvents = "event79;";
@@ -56,7 +63,11 @@ GS.facebook = GS.facebook || (function() {
 
             status({
                 connected: function() {
+                    statusOnLoadDeferred.resolve();
                     loginDeferred.resolve();
+                },
+                notConnected: function() {
+                    statusOnLoadDeferred.reject();
                 }
             });
         });
@@ -173,7 +184,6 @@ GS.facebook = GS.facebook || (function() {
         };
 
         var callback = function(response) {
-            console.log('got response for feed post: ', response);
             //document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
         };
 
@@ -186,6 +196,7 @@ GS.facebook = GS.facebook || (function() {
         getUserFriendsSchoolPageData:getUserFriendsSchoolPageData,
         createSchoolHash:createSchoolHash,
         getLoginDeferred:getLoginDeferred,
+        getStatusOnLoadDeferred:getStatusOnLoadDeferred,
         postToFeed:postToFeed,
         init:init
     }
