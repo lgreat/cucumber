@@ -170,8 +170,10 @@
             <div class="standard_7-1">
                 <div class="inner tac">
                     <h2 class="make-ffffff">Which schools do<br/>your friends like?</h2>
-                    <div class="js-facebook-login" style="cursor: pointer">Sign in with facebook</div>
-                    <!--<img alt="log in with Facebook" class="js-facebook-login pas" width="300px" src="/res/img/facebookbutton"/>-->
+                    <div class="js-facebook-login FBSigninButton mha">
+                        <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
+                        <span class="vam plm">Sign in with facebook</span>
+                    </div>
                 </div>
             </div>
         </c:if>
