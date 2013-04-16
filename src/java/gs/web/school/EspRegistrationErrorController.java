@@ -1,7 +1,12 @@
 package gs.web.school;
 
+import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.security.Role;
 import gs.data.state.State;
+import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +42,17 @@ public class EspRegistrationErrorController {
                                   @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                   @RequestParam(value = PARAM_STATE, required = false) State state,
                                   @RequestParam(value = PARAM_PROVISIONAL_USER_NAME, required = false) String provisionalUserName) {
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+        EspRegistrationCommand command = new EspRegistrationCommand();
+
+        if (user == null || user.getId() == null) {
+            // If the user is signed out it means that the user was on this page and clicked the signout link which
+            // signs the user out and then redisplays this page
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
 
         modelMap.put("message", message);
         if (schoolId != null && state != null) {

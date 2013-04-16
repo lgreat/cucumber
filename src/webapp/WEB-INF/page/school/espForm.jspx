@@ -157,7 +157,7 @@
                     <!--</c:when>-->
                     <!--<c:when test="${page eq 6}">-->
                         <div id="js_pageWrapper-6" class="js_pageWrapper ${(page eq 6)?'':'hidden'}">
-                            <school:espFormPage6 maxPage="${maxPage}"/>
+                            <school:espFormPage6 maxPage="${maxPage}" isProvisional="${isProvisionalUser}"/>
                         </div>
                     <!--</c:when>-->
                     <!--<c:when test="${page eq 7}">-->
