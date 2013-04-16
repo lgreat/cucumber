@@ -7,7 +7,9 @@
 
     <!-- GS-13901 Allow pages to opt-out of the below nav ads via PageHelper -->
     <c:if test="${requestScope.pageHelper.showingBelowNavAds and !requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
-        <ad:adTag position="Global_NavPromo_970x30"/>
-        <ad:adTag position="Custom_Welcome_Ad"/>
+        <div class="container_24 clearfix">
+            <ad:adTag position="Global_NavPromo_970x30"/>
+            <ad:adTag position="Custom_Welcome_Ad"/>
+        </div>
     </c:if>
 </jsp:root>
