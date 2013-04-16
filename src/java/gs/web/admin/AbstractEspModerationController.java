@@ -200,7 +200,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                 updateMembership = true;
                             }
                         } else if ("reject".equals(moderatorAction)) {
-                            if (membership.getStatus() == EspMembershipStatus.PROCESSING) {
+                            if (membership.getStatus() == EspMembershipStatus.PROCESSING ||
+                                    membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                                 membership.setStatus(EspMembershipStatus.REJECTED);
                                 membership.setActive(false);
                                 sendRejectionEmail(user);
