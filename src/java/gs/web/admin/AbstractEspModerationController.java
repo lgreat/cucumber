@@ -190,13 +190,13 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                 } else {
                                     promoteProvisionalDataToActiveData(user, membership.getSchool(), request, response);
                                     approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
-                                    sendESPApprovalEmail(user, membership.getSchool());
+                                    sendESPApprovalEmail(user, membership.getSchool(),request);
                                     updateMembership = true;
                                 }
                             } else if (membership.getStatus() == EspMembershipStatus.PROCESSING
                                     || membership.getStatus() == EspMembershipStatus.REJECTED || !membership.getActive()) {
                                 approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
-                                sendESPVerificationEmail(user, membership.getSchool());
+                                sendESPVerificationEmail(user, membership.getSchool(),request);
                                 updateMembership = true;
                             }
                         } else if ("reject".equals(moderatorAction)) {
@@ -455,18 +455,18 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         }
     }
 
-    protected void sendESPApprovalEmail(User user, School school) {
+    protected void sendESPApprovalEmail(User user, School school,HttpServletRequest request) {
         String redirect = new UrlBuilder(school, 6, UrlBuilder.SCHOOL_PROFILE_ESP_FORM).toString();
-        sendEmail(user, school, redirect, "HTML__espFormUrl", "ESP-approval");
+        sendEmail(user, school, redirect, "HTML__espFormUrl", "ESP-approval",request);
     }
 
-    protected void sendESPVerificationEmail(User user, School school) {
+    protected void sendESPVerificationEmail(User user, School school,HttpServletRequest request) {
         String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
-        sendEmail(user, school, redirect, "HTML__espVerificationUrl", "ESP-verification");
+        sendEmail(user, school, redirect, "HTML__espVerificationUrl", "ESP-verification",request);
     }
 
     protected void sendEmail(User user, School school, String redirectUrl, String urlKey,
-                             String ETKey) {
+                             String ETKey,HttpServletRequest request) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             Calendar cal = Calendar.getInstance();
@@ -480,8 +480,16 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             urlBuilder.addParameter("date", dateStampAsString);
             urlBuilder.addParameter("redirect", redirect);
 
+            StringBuffer espEmailUrl = new StringBuffer("<a href=\"");
+            espEmailUrl.append(urlBuilder.asFullUrl(request));
+            if (ETKey.equals("ESP-approval")) {
+                espEmailUrl.append("\">" + "Click here" + "</a>");
+            } else {
+                espEmailUrl.append("\">" + urlBuilder.asFullUrl(request) + "</a>");
+            }
+
             Map<String, String> emailAttributes = new HashMap<String, String>();
-            emailAttributes.put(urlKey, urlBuilder.toString());
+            emailAttributes.put(urlKey, espEmailUrl.toString());
             emailAttributes.put("first_name", user.getFirstName());
             if (school != null) {
                 emailAttributes.put("school_name", school.getName());
