@@ -225,6 +225,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
     /**
      * Checks the for various states of the user and sets them on the userStateStruct.
+     * The email is required.  The state and schoolId are optional, but if they are supplied the userEspRejected
+     * will only be set to true if the user is rejected for that school.
      * @param request
      * @param response
      * @param command
@@ -233,6 +235,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public void checkUserState(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
 
         String email = command.getEmail();
+        State state = command.getState();
+        Integer schoolId = command.getSchoolId();
         String schoolName = "";
         EspUserStateStruct userState = new EspUserStateStruct();
         User user = null;
@@ -284,7 +288,14 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                         } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
                             userState.setUserESPDisabled(true);
                         } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
-                            userState.setUserESPRejected(true);
+                            if( state != null && schoolId != null ) {
+                                if( membership.getState().equals(state) && membership.getSchoolId().equals(schoolId)) {
+                                    userState.setUserESPRejected(true);
+                                }
+                            }
+                            else {
+                                userState.setUserESPRejected(true);
+                            }
                         }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
                             userState.setUserESPPreApproved(true);
                             schoolName = getSchoolNameForEspMembership(membership);

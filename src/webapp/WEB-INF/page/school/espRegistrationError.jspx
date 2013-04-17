@@ -96,7 +96,6 @@
     </div>
 </div>
 
-<div class=""><a href="/cgi-bin/printenv.cgi">Referer</a> </div>
 <!-- School Info -->
 <c:if test="${not empty school}">
 <input type="hidden" value="${school.id}" id="js_schoolId"/>

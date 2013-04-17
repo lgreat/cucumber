@@ -227,6 +227,13 @@
                         <div class="bd">Please select the school with which you are affiliated.</div>
                     </div>
                 </div>
+                <div id="js_school_rejected" class="error">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Sorry - it looks like you are not authorized as an administrator.  Try again, or contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </fieldset>
