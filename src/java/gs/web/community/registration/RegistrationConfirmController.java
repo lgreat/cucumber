@@ -2,11 +2,13 @@ package gs.web.community.registration;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.security.Role;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
+import gs.web.school.EspRegistrationHelper;
 import gs.web.school.review.ReviewService;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -14,6 +16,7 @@ import gs.web.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -40,6 +43,12 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     private ReviewService _reviewService;
     private ISubscriptionDao _subscriptionDao;
     private ExactTargetAPI _exactTargetAPI;
+    private IEspMembershipDao _espMembershipDao;
+    private ISchoolDao _schoolDao;
+    private IEspResponseDao _espResponseDao;
+
+    @Autowired
+    private EspRegistrationHelper _espRegistrationHelper;
 
     protected enum UserState {
         EMAIL_ONLY,
@@ -193,6 +202,25 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
                 if (user.hasRole(Role.ESP_MEMBER)) {
                     hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_VERIFIED);
+                    urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                    viewName = "redirect:" + urlBuilder.asFullUrl(request);
+                } else {
+                    // check if user has an esp membership row in processing state
+                    EspMembership membership = getProcessingMembershipForUser(user);
+                    if (membership != null && membership.getSchoolId() !=null && membership.getState() != null) {
+                        boolean isUserEligibleForProvisional = _espRegistrationHelper.isMembershipEligibleForProvisionalStatus(membership.getSchoolId(),membership.getState());
+                        if (isUserEligibleForProvisional) {
+                            // bump this user to provisional
+                            membership.setStatus(EspMembershipStatus.PROVISIONAL);
+                            membership.setActive(false);
+                            getEspMembershipDao().updateEspMembership(membership);
+                            urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                        }else{
+                            urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+                            urlBuilder.addParameter("message", "page1");
+                        }
+                        viewName = "redirect:" + urlBuilder.asFullUrl(request);
+                    }
                 }
 
                 user.setEmailValidated();  //upgrades the user to registered member
@@ -258,6 +286,18 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         _log.info("Email confirmed, forwarding user to " + viewName);
         return new ModelAndView(viewName);
 
+    }
+
+    protected EspMembership getProcessingMembershipForUser(User user) {
+        List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+        if (memberships != null && memberships.size() > 0) {
+            for (EspMembership membership: memberships) {
+                if (membership.getStatus() == EspMembershipStatus.PROCESSING) {
+                    return membership;
+                }
+            }
+        }
+        return null;
     }
 
     public void sendTriggeredEmails(HttpServletRequest request, User user) {
@@ -451,5 +491,36 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         _subscriptionDao = subscriptionDao;
     }
 
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
+    }
+
+    public EspRegistrationHelper get_espRegistrationHelper() {
+        return _espRegistrationHelper;
+    }
+
+    public void set_espRegistrationHelper(EspRegistrationHelper _espRegistrationHelper) {
+        this._espRegistrationHelper = _espRegistrationHelper;
+    }
 
 }

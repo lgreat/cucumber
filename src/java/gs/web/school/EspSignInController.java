@@ -15,6 +15,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +39,9 @@ public class EspSignInController implements ReadWriteAnnotationController {
     @Autowired
     private IUserDao _userDao;
 
+    @Autowired
+    private EspRegistrationHelper _espEspRegistrationHelper;
+
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -48,8 +53,21 @@ public class EspSignInController implements ReadWriteAnnotationController {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
+        // member cookie is set and user has provisional access. Take user to dashboard
+        if (user != null && user.getId() != null) {
+            List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            for (EspMembership membership : memberships) {
+                if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                    return "redirect:" + urlBuilder.asFullUrl(request);
+                }
+            }
+        }
 
         modelMap.addAttribute("espRegistrationCommand", command);
+        if (request.getParameter("email") != null) {
+            command.setEmail(request.getParameter("email"));
+        }
         return VIEW;
     }
 
@@ -65,17 +83,32 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
             //Set the state of the user.
             User user = setUserState(command, userState);
-            //validate the various states of the user.
-            validateUserState(userState, result);
+            if (!userState.isNewUser() && !userState.isUserRequestedESP()) {
+                // known emails without OSP records go to registration
+                if (userState.isUserEmailValidated()) {
+                    if (user.matchesPassword(command.getPassword())) {
+                        PageHelper.setMemberAuthorized(request, response, user, true);
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
+                        return "redirect:" + urlBuilder.asFullUrl(request);
+                    } else {
+                        result.rejectValue("password", null, "The password you entered is incorrect.");
+                        return VIEW;
+                    }
+                }
+            }
+                //validate the various states of the user.
+            validateUserState(userState, result, (user != null)?user.getEmail():"");
 
             //If there are no errors validate that the password entered is correct.
             //Else check if the user has ESP access and log them in.
             if (!result.hasErrors() && user != null && !user.matchesPassword(command.getPassword())) {
                 result.rejectValue("password", null, "The password you entered is incorrect.");
-            } else if (!result.hasErrors() && user != null && userState.isUserEmailValidated() && userState.isUserApprovedESPMember()) {
+            } else if (!result.hasErrors() && user != null && userState.isUserEmailValidated() ) {
+                // Signin successful!
                 PageHelper.setMemberAuthorized(request, response, user, true);
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                return "redirect:" + urlBuilder.asFullUrl(request);
+                // Determine next state and go there
+                String nextUrl = _espEspRegistrationHelper.determineNextView(request, user);
+                return nextUrl;
             }
         }
         return VIEW;
@@ -97,22 +130,25 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     }
 
-    //These conditions are complicated, refer to the flow charts attached to GS-12324 and  GS-12496.
-    protected void validateUserState(EspUserStateStruct userState, BindingResult result) {
+    //These conditions are complicated, refer to the flow charts attached to GS-12324,GS-12496 and GS-13363.
+    protected void validateUserState(EspUserStateStruct userState, BindingResult result, String email) {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
             // new users or users who have never requested access
-            result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page'>register here.</a>");
+            String encodedEmail = "";
+            try {
+                encodedEmail = URLEncoder.encode(email, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // fall through with no email as param
+            }
+            result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page?email=" + encodedEmail + "'>register here.</a>");
         }else if (userState.isUserESPPreApproved()) {
             result.rejectValue("email", null, "You have been pre-approved for an account but must verify your email.<a href='#' class='js_espReSendEspPreApprovalEmail'>Please verify email.</a>");
-        } else if (userState.isUserAwaitingESPMembership()) {
-            // users who have requested access but are still being processed
-            result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (userState.isUserApprovedESPMember() && !userState.isUserEmailValidated()) {
             // users who have been approved but haven't followed through by clicking through the link in email
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
-        } else if (userState.isUserESPDisabled()) {
+        } else if (userState.isUserESPDisabled() && !userState.isUserEmailValidated()) {
             result.rejectValue("email", null, "Our records indicate your school official's account is inactive. Please register again or contact us at gs_support@greatschools.org if you need further assistance.");
-        } else if (userState.isUserESPRejected()) {
+        } else if (userState.isUserESPRejected() && !userState.isUserEmailValidated()) {
             result.rejectValue("email", null, "Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.");
         }
     }
@@ -133,7 +169,10 @@ public class EspSignInController implements ReadWriteAnnotationController {
                 List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
                 for (EspMembership membership : espMemberships) {
                     userState.setUserRequestedESP(true);
-                    if (membership.getStatus().equals(EspMembershipStatus.PROCESSING) && !membership.getActive()) {
+                    if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
+                        userState.setUserApprovedESPMember(true);
+                        userState.setUserRequestedESP(true);
+                    } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING) && !membership.getActive()) {
                         //User is awaiting moderator decision.
                         userState.setUserAwaitingESPMembership(true);
                     } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {

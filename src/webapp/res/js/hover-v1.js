@@ -966,6 +966,7 @@ GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVe
 //EmailNotValidated hover
 GSType.hover.EmailNotValidated = function() {
     this.email = '';
+    this.emailRedirect = '';
     this.loadDialog = function() {
         this.pageName='Email Not Verified Hover';
         this.hier1='Hovers,Verification,Email Not Verified Hover';
@@ -973,6 +974,10 @@ GSType.hover.EmailNotValidated = function() {
     };
     this.setEmail = function(email) {
         GSType.hover.emailNotValidated.email = email;
+    };
+
+    this.setEmailRedirect = function (emailRedirect) {
+        GSType.hover.emailNotValidated.emailRedirect = emailRedirect;
     };
 };
 GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail',640);
@@ -1138,6 +1143,13 @@ GSType.hover.EspPreApprovalEmail = function() {
 
 GSType.hover.EspPreApprovalEmail.prototype = new GSType.hover.HoverDialog("js_espPreApprovalEmailHover",640);
 
+// Hover to inform user there changes are provisional
+GSType.hover.EspProvisionalReminder = function() {
+    this.loadDialog = function() {
+    };
+};
+
+GSType.hover.EspProvisionalReminder.prototype = new GSType.hover.HoverDialog("js_espProvisionalReminderHover",640);
 
 //Email to a friend hover
 GSType.hover.EmailToFriend = function() {
@@ -1498,6 +1510,8 @@ GSType.hover.reportContentHover = new GSType.hover.ReportContentHover();
 GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
 GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
+
+GSType.hover.espProvisionalReminder = new GSType.hover.EspProvisionalReminder();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1865,6 +1879,8 @@ jQuery(function() {
     GSType.hover.schoolReviewPosted.loadDialog();
     GSType.hover.clickToReviewYourSchool.loadDialog();
 
+    GSType.hover.espProvisionalReminder.loadDialog();
+
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON(GS.uri.Uri.getBaseHostname() + '/community/forgotPasswordValidator.page',
             jQuery('#hover_forgotPasswordForm').serialize(),
@@ -1928,7 +1944,8 @@ jQuery(function() {
 
     jQuery('#js_closeValNewEmail').click(function() {
         var params = {
-            email: GSType.hover.emailNotValidated.email
+            email: GSType.hover.emailNotValidated.email,
+            emailRedirect: GSType.hover.emailNotValidated.emailRedirect
         };
         jQuery.get(GS.uri.Uri.getBaseHostname() + '/community/requestEmailValidation.page', params);
 
@@ -2137,6 +2154,8 @@ jQuery(function() {
         GSType.hover.espPreApprovalEmail.show();
     }else if (showHover == "schoolReviewPosted") {
         GSType.hover.schoolReviewPosted.show();
+    } else if (showHover == "espProvisionalReminder") {
+        GSType.hover.espProvisionalReminder.show();
     } else if (showHover == "clickToReviewYourSchool") {
         GSType.hover.clickToReviewYourSchool.show();
     }

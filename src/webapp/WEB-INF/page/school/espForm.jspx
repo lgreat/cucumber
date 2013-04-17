@@ -47,6 +47,7 @@
             		levels:'${school.levelCode.commaSeparatedString}'
            	};
             GS.espForm.percentComplete = {};
+            GS.espForm.provisional = ${isProvisionalUser};
             //<c:forEach items="${percentComplete}" var="perc" varStatus="status">
                 GS.espForm.percentComplete[${perc.key}]=${perc.value};
             //</c:forEach>
@@ -156,7 +157,7 @@
                     <!--</c:when>-->
                     <!--<c:when test="${page eq 6}">-->
                         <div id="js_pageWrapper-6" class="js_pageWrapper ${(page eq 6)?'':'hidden'}">
-                            <school:espFormPage6 maxPage="${maxPage}"/>
+                            <school:espFormPage6 maxPage="${maxPage}" isProvisional="${isProvisionalUser}"/>
                         </div>
                     <!--</c:when>-->
                     <!--<c:when test="${page eq 7}">-->
@@ -186,6 +187,7 @@
             </div>
         </div>
         <!--</div>-->
+
 
         <div style="display:none;">
             <mod:tracking school="${school}" pageName="OSP Form Page ${page}" hier1="ESP"/>

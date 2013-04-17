@@ -796,7 +796,12 @@ new (function() {
     };
     var saveAndFinish = function() {
         saveForm().done(function() {
-            subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
+            if (GS.espForm.provisional === true) {
+//                GSType.hover.espProvisionalReminder.show();
+                subCookie.setObjectProperty("site_pref", "showHover", "espProvisionalReminder", 3);
+            }  else {
+                subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
+            }
             sendToLandingPage();
         });
     };
@@ -1024,6 +1029,7 @@ new (function() {
 
 
     jQuery(function() {
+//        GSType.hover.espProvisionalReminder.show();
         var formWrapper = $('#js_pageContainer');
         formWrapper.on('click', '.js_saveButton, .js_doneButton', function() {
             saveAndFinish();

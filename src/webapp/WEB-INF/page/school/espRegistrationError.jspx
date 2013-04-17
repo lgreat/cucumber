@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<c:set var="pageTitle" value="GreatSchools Official School Profile Dashboard"/>
+<c:if test="${not empty school}">
+    <c:choose>
+        <c:when test="${school.databaseState eq 'DC'}">
+            <c:set var="addr" value="Washington, DC"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState}"/>
+        </c:otherwise>
+    </c:choose>
+    <c:set var="pageTitle" value="${pageTitle} - ${school.name}, ${addr}"/>
+</c:if>
+<head>
+    <title>${pageTitle}</title>
+</head>
+
+<gsml:body adPageName="OSP/registrationError" pageLayout="nocol">
+<!--<div class="container_24">-->
+<div class="slStylesV1-0 slFormsV1-0">
+<div class="spacer_20"><!-- do not collapse --></div>
+<div class="grid_21">
+    <h1 class="fltlft">Your Official School Profile</h1>
+</div>
+
+<!-- Is this needed ??? -->
+<div class="grid_3">
+    <div class="fltrt mtm">
+        <school:espNeedHelp school="${school}"/>
+    </div>
+</div>
+
+<!-- Error Message to display -->
+<div class="grid_13">
+    <div class="standard_1-1">
+        <div class="inner pal">
+            <div class="bd">
+                <c:choose>
+                    <c:when test="${message eq 'page1'}">
+                        <!-- Use case: User is in processing and another user h0as provisional access -->
+                        <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
+                        <p class="small">It looks like another authorized administrator
+                            from your school is currently editing your school's OSP.
+                            Please check back in 2-4 weekdays, when the profile should again be
+                            available for editing. In the meantime, we will verify that you are
+                            authorized to administer this school's profile page.</p>
+                        <div class="small bottom">
+                            Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
+                        </div>
+                    </c:when>
+                    <c:when test="${message eq 'page3'}">
+                        <!-- Use case: User is in approved and another user has provisional access -->
+                        <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
+                        <p class="small">It looks like <c:if test="${not empty provisionalUserName}">${provisionalUserName}</c:if> has requested permission to become an administrator for this OSP.
+                            While we are processing this request, the OSP will be unavailable for editing.
+                            Please check back in 2-4 weekdays, when we will have completed the verification process.</p>
+                        <div class="small bottom">
+                            Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> if we can help answer any questions.
+                        </div>
+                    </c:when>
+                    <c:when test="${message eq 'page5'}">
+                        <!-- Use case: User is rejected -->
+                        <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
+                        <p class="small">It looks like we were unable to confirm you as an administrator <c:if test="${not empty school}">of ${school.name}'s Official School Profile</c:if>.</p>
+                        <p class="small">Were you trying to edit a different school's page? <a href="/official-school-profile/register.page">Click here</a> to try again.</p>
+                        <div class="small bottom">
+                            Need help? Please contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.
+                        </div>
+                    </c:when>
+                    <c:when test="${message eq 'page6'}">
+                        <!-- Use case: User is deactivated -->
+                        <p class="bottom"><strong>Whoops!</strong></p>
+                        <p class="small">It looks like you are no longer an approved administrator for this
+                            school's profile. If you'd like to re-activate your account,
+                            please <a href="/official-school-profile/register.page">submit a new request.</a></p>
+                        <div class="small bottom">
+                            If you've received this message in error, please contact <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a> and we'll get things sorted out.
+                        </div>
+                    </c:when>
+                </c:choose>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- School Info -->
+<c:if test="${not empty school}">
+<input type="hidden" value="${school.id}" id="js_schoolId"/>
+<input type="hidden" value="${school.databaseState}" id="js_schoolState"/>
+<div class="grid_13 suffix_1">
+    <div class="mod form">
+        <div class="inner">
+            <div class="bd">
+                <div class="line">
+                    <div class="unit size65of100">
+                        <p class="bottom">
+                            <span class="bottom">${school.name}</span><br/>
+                            <c:if test="${school.physicalAddress.street ne null}">
+                                <span class="small">${school.physicalAddress.street}</span><br/>
+                            </c:if>
+                            <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
+                        </p>
+                    </div>
+                    <div class="unit size35of100 lastUnit">
+                        <p class="small bottom pll">
+                            <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview><br/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</c:if>
+</div>
+
+
+
+<div class="spacer_60"><!-- do not collapse --></div>
+
+<div style="display:none;">
+    <mod:tracking pageName="OSP RegistrationError" hier1="ESP"/>
+</div>
+</gsml:body>
+</html>
+</jsp:root>

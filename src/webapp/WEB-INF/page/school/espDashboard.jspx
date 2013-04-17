@@ -29,7 +29,7 @@
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
-        <c:if test="${school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC'}">
+        <c:if test="${isProvisional ne true and (school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC')}">
             <school:espOtherEditorsHover otherEspMemberships="${allEspMemberships}"/>
             <c:set value="true" var="showOtherEditorsHover"/>
         </c:if>
@@ -46,6 +46,26 @@
                 </div>
             </div>
 
+            <!-- Provisional message if needed -->
+            <c:if test="${isProvisional eq true}">
+                <div class="grid_24">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <p class="bottom"><strong>Thank you for updating ${school.name}'s OSP!</strong> </p>
+                                <p class="small bottom">
+                                    We are in the process of confirming that you are authorized to edit the OSP
+                                    for this school. Please allow 2-4 weekdays for us to complete the verification process.
+                                    As soon as we've verified your account we will publish your saved edits
+                                    to the site, and you can begin uploading photos to your profile and
+                                    increasing your visibility in search results.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
             <c:if test="${not empty school}">
             <input type="hidden" value="${school.id}" id="js_schoolId"/>
             <input type="hidden" value="${school.databaseState}" id="js_schoolState"/>
@@ -54,7 +74,7 @@
                         <div class="inner">
                             <div class="bd">
                                 <div class="line">
-                                    <div class="unit size45of100">
+                                    <div class="unit size65of100">
                                         <p class="bottom">
                                             ${school.name}<br/>
                                             <c:if test="${school.physicalAddress.street ne null}">
@@ -63,16 +83,18 @@
                                             <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
                                         </p>
                                     </div>
-                                    <div class="unit size55of100 lastUnit">
+                                    <div class="unit size35of100 lastUnit">
                                         <p class="small bottom">
                                             <link:schoolProfileOverview
                                                     school="${school}">View profile</link:schoolProfileOverview><br/>
-                                            <link:schoolPrincipalReview
-                                                    school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                            <c:if test="${isProvisional ne true}">
+                                                <link:schoolPrincipalReview
+                                                        school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                            </c:if>
                                             <c:if test="${showOtherEditorsHover eq true}">
                                                 <br/>
                                                 <a href="#" id="js_otherEspEditors"
-                                                   onclick="return false;">View and edit people with access to this profile</a>
+                                                   onclick="return false;">Add more administrators</a>
                                             </c:if>
                                         </p>
                                     </div>
@@ -83,14 +105,14 @@
                 </div>
                 <div class="grid_10">
                     <div class="spacer_25"><!-- do not collapse --></div>
-                    <c:if test="${!anyPageStarted}">
-                        <div class="alpha grid_5">
-                            <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
-                        </div>
-                        <div class="grid_4 suffix_1 omega">
-                            <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
-                        </div>
-                    </c:if>
+                        <c:if test="${isProvisional eq true or !anyPageStarted}">
+                            <div class="alpha grid_5">
+                                <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
+                            </div>
+                            <div class="grid_4 suffix_1 omega">
+                                <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
+                            </div>
+                        </c:if>
                 </div>
 
 
@@ -102,6 +124,10 @@
                     <div class="grid_12 alpha">
                         <c:set var="tabGetStartedLabel">Get started</c:set>
                         <c:set var="tabEditLabel">Edit</c:set>
+                        <c:if test="${isProvisional eq true}">
+                            <!-- short cut to complicating every conditional below. Provisional users should always see "Edit" -->
+                            <c:set var="tabGetStartedLabel" value="Edit"/>
+                        </c:if>
 
                         <div class="mod osp-dashboard">
                             <div class="inner">
@@ -269,7 +295,7 @@
                             </div>
                         </div>
 
-                        <c:if test="${isFruitcakeSchool}">
+                        <c:if test="${isFruitcakeSchool and isProvisional ne true}">
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
@@ -366,7 +392,7 @@
                 </div>
             </c:if>
 
-            <!-- Confirmation hover that shows after clicking "Save and finish later" on form -->
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form for active user-->
             <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
                 <h2>Your Official School Profile has been saved.</h2>
                 <p>
@@ -379,6 +405,19 @@
                 </c:if>
 
                 <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
+            </div>
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form for provisional user-->
+            <div id="espProvisionalReminderHover" class="dialog_white" style="display:none;">
+                <h2>Your Official School Profile has been saved.</h2>
+
+                <p><strong>Thank you!</strong>
+                    We've saved your changes to the Official School Profile.
+                    We are in the process of verifying that you are an approved administrator of this school's page.
+                    As soon as your account is approved we will publish your changes to the site.
+                    Please check back in 2-4 weekdays.
+                </p>
+                <button class="button-1 espProvisionalReminderHover_hideHover" type="button">OK</button>
+
             </div>
         </div>
         <!--</div>-->

@@ -1,0 +1,15 @@
+<p>$GREETING,</p>
+
+<p>Thank you for registering for a GreatSchools School Official account for $SCHOOL_NAME!</p>
+
+<p>To ensure high security, before granting you access to edit your school's profile we will
+verify that you are affiliated with the school and have authority to edit that information.
+This process may take us a few days. You will receive an email in 2-4 days confirming that
+your account has been approved.</p>
+
+<p>In the meantime, you'll just need to verify your email by clicking on the link below:</p>
+
+<p>$VERIFICATION_LINK</p>
+
+<p>Thanks again,<br/>
+GreatSchools</p>

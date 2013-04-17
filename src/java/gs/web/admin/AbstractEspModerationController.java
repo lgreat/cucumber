@@ -12,7 +12,12 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
+import gs.data.state.INoEditDao;
+import gs.data.util.Address;
 import gs.data.util.DigestUtil;
+import gs.web.school.EspSaveHelper;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 
@@ -32,7 +37,7 @@ import org.springframework.ui.ModelMap;
  * @author jkirton
  */
 public abstract class AbstractEspModerationController implements ReadWriteAnnotationController {
-    
+
     /**
      * Dedicated data struct for each moderation row.
      */
@@ -43,7 +48,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         private boolean _isDisabledUserReRequestingAccess;
         private boolean _hasOtherActiveEspMemberships;
         private boolean _schoolHasActiveMemberships;
-        
+        private boolean _userHasProvisionalAccess;
+
         public ModerationRow(EspMembership _membership) {
             super();
             this._membership = _membership;
@@ -89,7 +95,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             if(_contactEmail == null || _membership.getUser() == null) return false;
             return _contactEmail.equals(_membership.getUser().getEmail());
         }
-        
+
         public String getAbsoluteWebUrl() {
             String webUrl = _membership.getWebUrl();
             if (StringUtils.isNotEmpty(webUrl) && !StringUtils.startsWithIgnoreCase(webUrl, "http://")) {
@@ -105,10 +111,18 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         public void setSchoolHasActiveMemberships(boolean schoolHasActiveMemberships) {
             _schoolHasActiveMemberships = schoolHasActiveMemberships;
         }
+
+        public boolean isUserHasProvisionalAccess() {
+            return _userHasProvisionalAccess;
+        }
+
+        public void setUserHasProvisionalAccess(boolean userHasProvisionalAccess) {
+            _userHasProvisionalAccess = userHasProvisionalAccess;
+        }
     }
-    
+
     protected final Log _log = LogFactory.getLog(getClass());
-    
+
     @Autowired
     protected IEspMembershipDao _espMembershipDao;
 
@@ -120,12 +134,18 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
     @Autowired
     protected IRoleDao _roleDao;
-    
+
     @Autowired
     protected IEspResponseDao _espResponseDao;
 
     protected ExactTargetAPI _exactTargetAPI;
-    
+
+    @Autowired
+    private EspSaveHelper _espSaveHelper;
+
+    @Autowired
+    private INoEditDao _noEditDao;
+
     protected abstract String getViewName();
 
     /**
@@ -137,11 +157,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void updateEspMembership(EspModerationCommand command, HttpServletRequest request, HttpServletResponse response) {
         //The user has to check the check boxes in order to approve or reject.Hence we iterate over the checked check boxes for those "approve" or "reject" actions.
         //The user does not have to check the check boxes for the update action.Hence we loop over all the notes for the "update" action.
-        
+
         String moderatorAction = command.getModeratorAction();
         if(moderatorAction == null) return;
-        
-        if (("approve".equals(moderatorAction) || "reject".equals(moderatorAction) || moderatorAction.contains("deactivate")) 
+
+        if (("approve".equals(moderatorAction) || "reject".equals(moderatorAction) || moderatorAction.contains("deactivate"))
                 && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
 
             //The checkbox has a key of membership id.
@@ -157,26 +177,31 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
                         if ("approve".equals(moderatorAction)) {
                             try {
-                                membership.setSchool(getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId()));
+                                School school =  getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId());
+                                membership.setSchool(school);
                             } catch (Exception e) {
                                 _log.error("Error fetching school for membership: " + membership, e);
                             }
-                            if (membership.getStatus() == EspMembershipStatus.PROCESSING
-                                    || membership.getStatus() == EspMembershipStatus.REJECTED) {
-                                membership.setStatus(EspMembershipStatus.APPROVED);
-                                membership.setActive(true);
-                                addEspRole(user);
-                                sendESPVerificationEmail(request, user, membership.getSchool());
-                                updateMembership = true;
-                            } else if (!membership.getActive()) {
-                                membership.setStatus(EspMembershipStatus.APPROVED);
-                                membership.setActive(true);
-                                addEspRole(user);
-                                sendESPVerificationEmail(request, user, membership.getSchool());
+                            if (membership.getStatus() == EspMembershipStatus.PROVISIONAL
+                                    && !membership.getActive()) {
+                                if (_noEditDao.isStateLocked(membership.getSchool().getDatabaseState())) {
+                                    _log.warn("State locked while promoting provisional user.State:" + membership.getSchool().getDatabaseState()
+                                            + "User Id:" + membership.getUser().getId());
+                                } else {
+                                    promoteProvisionalDataToActiveData(user, membership.getSchool(), request, response);
+                                    approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
+                                    sendESPApprovalEmail(user, membership.getSchool(),request);
+                                    updateMembership = true;
+                                }
+                            } else if (membership.getStatus() == EspMembershipStatus.PROCESSING
+                                    || membership.getStatus() == EspMembershipStatus.REJECTED || !membership.getActive()) {
+                                approveMembership(membership, EspMembershipStatus.APPROVED, true, user);
+                                sendESPVerificationEmail(user, membership.getSchool(),request);
                                 updateMembership = true;
                             }
                         } else if ("reject".equals(moderatorAction)) {
-                            if (membership.getStatus() == EspMembershipStatus.PROCESSING) {
+                            if (membership.getStatus() == EspMembershipStatus.PROCESSING ||
+                                    membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                                 membership.setStatus(EspMembershipStatus.REJECTED);
                                 membership.setActive(false);
                                 sendRejectionEmail(user);
@@ -190,14 +215,15 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                 updateMembership = true;
                             }
                         }
-    
+
                         //In case a note was added while approving or rejecting.
                         //Notes is the Map of membership id to string.
-                        if (command.getNotes() != null && !command.getNotes().isEmpty() && command.getNotes().get(membership.getId()) != null) {
+                        if (command.getNotes() != null && !command.getNotes().isEmpty()
+                                && StringUtils.isNotBlank(command.getNotes().get(membership.getId()))) {
                             membership.setNote(command.getNotes().get(membership.getId()));
                             updateMembership = true;
                         }
-                        
+
                         if(updateMembership) {
                             membership.setUpdated(new Date());
                             getEspMembershipDao().updateEspMembership(membership);
@@ -224,7 +250,86 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             }
         }
     }
-    
+
+    protected void approveMembership(EspMembership membership, EspMembershipStatus status, boolean active, User user) {
+        membership.setStatus(status);
+        membership.setActive(active);
+        addEspRole(user);
+    }
+
+    /**
+     * The provisional data provided by the provisional user needs to be promoted to active data.This method handles it.
+     *
+     * @param user
+     * @param school
+     * @return
+     */
+    protected void promoteProvisionalDataToActiveData(User user, School school, HttpServletRequest request, HttpServletResponse response) {
+
+        Set<String> keysForPage = new HashSet<String>();
+        Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
+        Map<String, List<Object>> requestParameterMap = new HashMap<String, List<Object>>();
+        Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+
+        //Get all the provisional responses.
+        List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+
+        if (espResponses != null && !espResponses.isEmpty()) {
+            //Construct the list of key to responses Map.
+            for (EspResponse espResponse : espResponses) {
+                String key = espResponse.getKey();
+                if (!key.startsWith("_page_") && !espResponse.isActive()) {
+                    List<Object> ojbs = new ArrayList<Object>();
+                    if (requestParameterMap.get(key) != null) {
+                        ojbs = requestParameterMap.get(key);
+                    }
+                    ojbs.add(espResponse.getValue());
+                    requestParameterMap.put(key, ojbs);
+                } else {
+                    String[] keys = espResponse.getValue().split(",");
+                    keysForPage.addAll(Arrays.asList(keys));
+                }
+            }
+
+            //Perform conversions as required, since the handler methods perform type casting.
+            //grade_levels:- convert the type(list of Object) to an array of Strings.
+            //address :- convert the type Object into Address.
+            //All other keys :- convert the type (list of Object) to an array of Objects.
+            for (String key : requestParameterMap.keySet()) {
+                if (key.equals("grade_levels")) {
+                    String[] grades = requestParameterMap.get(key).toArray(new String[requestParameterMap.get(key).size()]);
+                    keyToResponseMap.put(key, grades);
+                } else if (key.equals("address")) {
+                    String addressStr = requestParameterMap.get(key).get(0).toString();
+                    Address address = Address.parseAddress(addressStr);
+                    if (address != null) {
+                        Object[] objects = new Object[1];
+                        objects[0] = address;
+                        keyToResponseMap.put(key, objects);
+                    }
+                } else {
+                    keyToResponseMap.put(key, requestParameterMap.get(key).toArray());
+                }
+            }
+
+            Set<Integer> provisionalMemberIds = new HashSet<Integer>();
+            provisionalMemberIds.add(user.getId());
+
+            // Check if this is the first time this school has gotten any data(exclude data by the user being approved).
+            boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
+
+            _espSaveHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
+                    errorFieldToMsgMap, responseList, false, true);
+
+            if (schoolHasNoUserCreatedRows) {
+                OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
+                omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.NewEspStarted);
+            }
+
+        }
+    }
+
     /**
      * Hook to remove elements before they are displayed. 
      * @param memberships list to display
@@ -237,11 +342,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void populateModelWithMemberships(List<EspMembership> memberships, ModelMap modelMap) {
         // filter rows
         filterMembershipRows(memberships, modelMap);
-        
+
         List<ModerationRow> mrows = new ArrayList<ModerationRow>();
         //List<EspMembership> approvedMemberships = new ArrayList<EspMembership>();
         List<EspMembership> rejectedMemberships = new ArrayList<EspMembership>();
-        
+
         // first create rejected sublist
         for (EspMembership membership : memberships) {
             if(membership.getStatus() == EspMembershipStatus.REJECTED) {
@@ -262,7 +367,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
             ModerationRow mrow = new ModerationRow(membership);
             mrows.add(mrow);
-        
+
             // contact name and email
             HashSet<String> espResponseKeys = new HashSet<String>();
             espResponseKeys.add("old_contact_name");
@@ -279,10 +384,14 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             if (otherActiveMemberships != null && !otherActiveMemberships.isEmpty()) {
                 mrow.setHasOtherActiveEspMemberships(true);
             }
-            
+
             List<EspMembership> activeMembershipsForTheSchool = getEspMembershipDao().findEspMembershipsBySchool(membership.getSchool(), true);
             if(activeMembershipsForTheSchool != null && activeMembershipsForTheSchool.size() > 0) {
                 mrow.setSchoolHasActiveMemberships(true);
+            }
+
+            if(membership.getStatus().equals(EspMembershipStatus.PROVISIONAL) && !membership.getActive()){
+                mrow.setUserHasProvisionalAccess(true);
             }
 
             // is disabled user re-requesting access?
@@ -346,7 +455,18 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         }
     }
 
-    protected void sendESPVerificationEmail(HttpServletRequest request, User user, School school) {
+    protected void sendESPApprovalEmail(User user, School school,HttpServletRequest request) {
+        String redirect = new UrlBuilder(school, 6, UrlBuilder.SCHOOL_PROFILE_ESP_FORM).toString();
+        sendEmail(user, school, redirect, "HTML__espFormUrl", "ESP-approval",request);
+    }
+
+    protected void sendESPVerificationEmail(User user, School school,HttpServletRequest request) {
+        String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
+        sendEmail(user, school, redirect, "HTML__espVerificationUrl", "ESP-verification",request);
+    }
+
+    protected void sendEmail(User user, School school, String redirectUrl, String urlKey,
+                             String ETKey,HttpServletRequest request) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             Calendar cal = Calendar.getInstance();
@@ -354,24 +474,27 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             Date dateStamp = cal.getTime();
             String dateStampAsString = String.valueOf(dateStamp.getTime());
             hash = DigestUtil.hashString(hash + dateStampAsString);
-            String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
+            String redirect = redirectUrl;
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
             urlBuilder.addParameter("date", dateStampAsString);
             urlBuilder.addParameter("redirect", redirect);
 
-            StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
-            espVerificationUrl.append(urlBuilder.asFullUrl(request));
-            espVerificationUrl.append("\">"+urlBuilder.asFullUrl(request)+"</a>");
+            StringBuffer espEmailUrl = new StringBuffer("<a href=\"");
+            espEmailUrl.append(urlBuilder.asFullUrl(request));
+            if (ETKey.equals("ESP-approval")) {
+                espEmailUrl.append("\">" + "Click here" + "</a>");
+            } else {
+                espEmailUrl.append("\">" + urlBuilder.asFullUrl(request) + "</a>");
+            }
 
             Map<String, String> emailAttributes = new HashMap<String, String>();
-            emailAttributes.put("HTML__espVerificationUrl", espVerificationUrl.toString());
+            emailAttributes.put(urlKey, espEmailUrl.toString());
             emailAttributes.put("first_name", user.getFirstName());
             if (school != null) {
                 emailAttributes.put("school_name", school.getName());
             }
-            getExactTargetAPI().sendTriggeredEmail("ESP-verification", user, emailAttributes);
-
+            getExactTargetAPI().sendTriggeredEmail(ETKey, user, emailAttributes);
         } catch (Exception e) {
             _log.error("Error sending verification email message: " + e, e);
         }
@@ -421,11 +544,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     public void setRoleDao(IRoleDao roleDao) {
         _roleDao = roleDao;
     }
-    
+
     public IEspResponseDao getEspResponseDao() {
         return _espResponseDao;
     }
-    
+
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         this._espResponseDao = espResponseDao;
     }
@@ -438,4 +561,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         _exactTargetAPI = exactTargetAPI;
     }
 
+    public void setEspSaveHelper(EspSaveHelper espSaveHelper) {
+        _espSaveHelper = espSaveHelper;
+    }
+
+    public void setNoEditDao(INoEditDao noEditDao) {
+        _noEditDao = noEditDao;
+    }
 }

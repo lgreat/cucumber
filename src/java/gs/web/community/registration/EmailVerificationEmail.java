@@ -1,6 +1,7 @@
 package gs.web.community.registration;
 
 import gs.data.community.User;
+import gs.data.school.School;
 import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelper;
 import gs.web.util.AbstractSendEmailBean;
@@ -20,6 +21,8 @@ public class EmailVerificationEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "emailVerificationEmail";
     public static final String EMAIL_LOCATION =
             "/gs/web/community/registration/emailVerificationEmail.txt";
+    public static final String OSP_EMAIL_LOCATION =
+            "/gs/web/community/registration/emailVerificationEmail-osp.txt";
     public static final String EMAIL_PART_TWO_LOCATION =
             "/gs/web/community/registration/emailVerificationEmail.txt";
     public static final String EMAIL_CHANGED_EMAIL_LOCATION =
@@ -31,6 +34,40 @@ public class EmailVerificationEmail extends AbstractSendEmailBean {
     public void sendVerificationEmail(HttpServletRequest request, User user, String redirect)
             throws IOException, MessagingException, NoSuchAlgorithmException {
         sendVerificationEmail(request, user, redirect, null);
+    }
+
+    public void sendOSPVerificationEmail(HttpServletRequest request, User user, String redirect,
+                                         School school)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
+        String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+        Date now = new Date();
+        String nowAsString = String.valueOf(now.getTime());
+        hash = DigestUtil.hashString(hash + nowAsString);
+
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION,
+                null,
+                hash + user.getId());
+        builder.addParameter("date", nowAsString);
+        builder.addParameter("redirect", redirect);
+
+        String verificationLink = builder.asAbsoluteAnchor(request, builder.asFullUrl(request)).asATag();
+
+        EmailHelper emailHelper = getEmailHelper();
+        emailHelper.setSubject(getVerificationEmailSubject());
+        emailHelper.setToEmail(user.getEmail());
+        emailHelper.readHtmlFromResource(OSP_EMAIL_LOCATION);
+
+        if (user.getFirstName() != null) {
+            emailHelper.addInlineReplacement("GREETING", "Hi " + user.getFirstName());
+        } else {
+            emailHelper.addInlineReplacement("GREETING", "Hi");
+        }
+        emailHelper.addInlineReplacement("VERIFICATION_LINK", verificationLink);
+        if (school != null) {
+            emailHelper.addInlineReplacement("SCHOOL_NAME", school.getName());
+        }
+
+        emailHelper.send();
     }
 
     public void sendVerificationEmail(HttpServletRequest request, User user, String redirect, Map<String,String> otherParams)

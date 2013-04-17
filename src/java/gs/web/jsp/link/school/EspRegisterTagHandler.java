@@ -7,6 +7,7 @@ import gs.web.util.UrlBuilder;
  * @author aroy@greatschools.org
  */
 public class EspRegisterTagHandler extends BaseSchoolTagHandler {
+    private String _email;
 
     @Override
     protected UrlBuilder createUrlBuilder() {
@@ -19,6 +20,19 @@ public class EspRegisterTagHandler extends BaseSchoolTagHandler {
             urlBuilder.addParameter("state", getSchool().getDatabaseState().getAbbreviationLowerCase());
         }
 
+        if( get_email() != null ) {
+            urlBuilder.addParameter("email", get_email());
+        }
+
         return urlBuilder;
     }
+
+    public String get_email() {
+        return _email;
+    }
+
+    public void set_email(String _email) {
+        this._email = _email;
+    }
+
 }

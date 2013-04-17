@@ -4,9 +4,12 @@ import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
+import gs.web.community.HoverHelper;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SubCookie;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -29,6 +33,7 @@ public class EspDashboardController {
     public static final String VIEW = "school/espDashboard";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final String PARAM_MESSAGE_ID = "message";
     public static final String MODEL_SUPERUSER_ERROR = "superUserError";
 
     @Autowired
@@ -37,9 +42,11 @@ public class EspDashboardController {
     private IEspResponseDao _espResponseDao;
     @Autowired
     private ISchoolDao _schoolDao;
+    @Autowired
+    private EspFormValidationHelper _espFormValidationHelper;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showLandingPage(ModelMap modelMap, HttpServletRequest request,
+    public String showLandingPage(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
         User user = getValidUser(request);
@@ -90,6 +97,18 @@ public class EspDashboardController {
                     school = validMemberships.get(0).getSchool();
                 }
             }
+        } else {
+            EspMembership provisionalMembership = null;
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            for (EspMembership membership: espMemberships) {
+                if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                    provisionalMembership = membership;
+                }
+            }
+            if (provisionalMembership != null) {
+                school = getSchool(provisionalMembership);
+                modelMap.put("isProvisional", true);
+            }
         }
 
         modelMap.put("school", school);
@@ -97,6 +116,21 @@ public class EspDashboardController {
         if (school != null) {
             //Get the information about who else has ESP access to this school
             List<EspMembership> otherEspMemberships = getEspMembersForSchool(school);
+
+            //If there is a provisional user for the school, then block out other users.GS-13363.
+            if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
+                EspMembership provisionalMembership = _espFormValidationHelper.getProvisionalMembershipForSchool(otherEspMemberships, user);
+                if (provisionalMembership != null) {
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+                    urlBuilder.addParameter("message", "page3");
+                    urlBuilder.addParameter("schoolId", school.getId().toString());
+                    urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
+                    urlBuilder.addParameter("provisionalUserName",
+                            provisionalMembership.getUser().getFirstName() + " " + provisionalMembership.getUser().getLastName());
+                    return "redirect:" + urlBuilder.asFullUrl(request);
+                }
+            }
+
             modelMap.put("allEspMemberships", otherEspMemberships);
             
             // get percent completion info
@@ -178,6 +212,16 @@ public class EspDashboardController {
         }
         if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
             return user;
+        }
+        if (user != null) {
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            if (!espMemberships.isEmpty()) {
+                for (EspMembership membership: espMemberships) {
+                    if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                        return user;
+                    }
+                }
+            }
         }
         return null;
     }

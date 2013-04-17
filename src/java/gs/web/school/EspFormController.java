@@ -7,7 +7,6 @@ import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
-import gs.data.util.Address;
 import gs.data.util.CommunityUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
@@ -37,7 +36,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/school/esp/")
 public class EspFormController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspFormController.class);
-    public static final int MAX_RESPONSE_VALUE_LENGTH = 3000;
+    public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
     public static final String VIEW = "school/espForm";
     public static final String PATH_TO_FORM = "/school/esp/form.page"; // used by UrlBuilder
     public static final String PARAM_PAGE = "page";
@@ -56,26 +55,37 @@ public class EspFormController implements ReadWriteAnnotationController {
     @Autowired
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     @Autowired SchoolMediaDaoHibernate _schoolMediaDao;
+    @Autowired
+    private EspSaveHelper _espSaveHelper;
+    @Autowired
+    protected IEspMembershipDao _espMembershipDao;
 
     // TODO: If user is valid but school/state is not, redirect to landing page
     @RequestMapping(value="form.page", method=RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request,
-                           @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId, 
+                           @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                            @RequestParam(value=PARAM_STATE, required=false) State state) {
-        // Fetch parameters
-        User user = getValidUser(request, state, schoolId);
-        if (user == null) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
-            return "redirect:" + urlBuilder.asFullUrl(request);
-        }
-        
+
         School school = getSchool(state, schoolId);
         if (school == null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
+
+        // Fetch parameters
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+
         int page = getPage(request);
-        int maxPage = getMaxPageForSchool(school);
+
+        //Check if the user is provisional
+        boolean isProvisionalUser = _espFormValidationHelper.isUserProvisional(user);
+        modelMap.put("isProvisionalUser", isProvisionalUser);
+
+        int maxPage = getMaxPageForSchool(school, isProvisionalUser);
         if (page < 1 || page > maxPage) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
@@ -88,14 +98,23 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         // required for photo uploader
         modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+
+
+        if(isProvisionalUser){
+            putProvisionalResponsesInModel(user,school, modelMap); // fetch provisional responses for school
+        }else{
+            putResponsesInModel(school, modelMap); // fetch responses for school, including external data
+        }
+
         List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
         modelMap.put("schoolMedias", schoolMedias);
 
-        putResponsesInModel(school, modelMap); // fetch responses for school, including external data
         putAfterSchoolIndicatorInModel(school, modelMap);
         putRepeatingFormIndicatorInModel(modelMap, "after_school_", 5);  // Add index of last active after_school data into model
         putRepeatingFormIndicatorInModel(modelMap, "summer_program_", 5);
-        putPercentCompleteInModel(school, modelMap);
+        putPercentCompleteInModel(school, modelMap, isProvisionalUser);
+
+        //TODO do the below lines for provisional also?
         modelMap.put("ethnicityBreakdowns", EspFormExternalDataHelper.STATE_TO_ETHNICITY.get(school.getDatabaseState()));
         modelMap.put("censusDataTypes", EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()));
 
@@ -103,29 +122,136 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         return VIEW;
     }
-    
-    protected void putPercentCompleteInModel(School school, ModelMap modelMap) {
+
+    /**
+     *  Function to fetch the provisional responses and put in the model. When a provisional user saves a page, all the
+     *  keys on that page are saved in the db as a key value pair. This key value pair is used to ascertain what
+     *  keys on the form the provisional user has modified and hence have provisional data.
+     *  Therefore if a page was not edited by the provisional user(i.e there is no provisional data on the page) then we display the active data.
+     * @param user
+     * @param school
+     * @param modelMap
+     */
+    protected void putProvisionalResponsesInModel(User user, School school, ModelMap modelMap) {
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
+
+        Map<String, String> provisionalKeysLookUpMap = new HashMap<String, String>();
+        //Get all the keys on the form that the provisional user has modified.
+        List<EspResponse> provisionalKeysList = _espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true);
+        if (provisionalKeysList != null && !provisionalKeysList.isEmpty()) {
+            for (EspResponse espResponse : provisionalKeysList) {
+                String[] keys = espResponse.getValue().split(",");
+                for (int i = 0; i < keys.length; i++) {
+                    //value does not matter.This map is just used for look up.
+                    provisionalKeysLookUpMap.put(keys[i], "");
+                }
+            }
+        }
+
+        //Get all the external keys for the school and convert to a look up map.
+        Set<String> externalKeysSet = _espFormExternalDataHelper.getKeysForExternalData(school);
+        //Map of all the external keys for the school.Used for look up.
+        Map<String, String> externalKeysLookupMap = new HashMap<String, String>();
+        for (String externalKey : externalKeysSet) {
+            //value does not matter.This map is just used for look up.
+            externalKeysLookupMap.put(externalKey, "");
+        }
+
+        //This list is used to remove external keys that the provisional user has modified from the master list of all external data points.
+        List<String> externalKeysToRemove = new ArrayList<String>();
+
+        //Map to store the external keys that the provisional user has modified.
+        Map<String, String> provisionalExternalKeysToValueMap = new HashMap<String, String>();
+
+        //Get all the responses that the provisional user has made for this school.
+        List<EspResponse> provisionalResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+
+        for (EspResponse espResponse : provisionalResponses) {
+
+            //All the keys for the responses should be in the Map.If not that means that a we have a provisional response
+            //but the key was not marked for provisional data.
+            if (provisionalKeysLookUpMap.containsKey(espResponse.getKey())) {
+                //All provisional data should be inactive.
+                if (!espResponse.isActive()) {
+
+                    String value = espResponse.getSafeValue();
+
+                    //If its an external data point then store it in a different map to be processed separately.
+                    //Else if its not an external data point then put in response map for the view.
+                    if (externalKeysLookupMap.containsKey(espResponse.getKey())) {
+
+                        //Sometimes a response is multivalued, then store it as a delimited string.
+                        // Example. for key grade_levels the value in the map will be k-,-1-,-2
+                        if (StringUtils.isNotBlank(provisionalExternalKeysToValueMap.get(espResponse.getKey()))) {
+                            value = provisionalExternalKeysToValueMap.get(espResponse.getKey())
+                                    + _espFormExternalDataHelper.DATA_DELIMITER + value;
+                        }
+                        provisionalExternalKeysToValueMap.put(espResponse.getKey(), value);
+
+                    } else {
+                        putInResponseMap(responseMap, espResponse);
+                    }
+
+                } else {
+                    _log.error("Found an active response for provisional user.User:-" + user.getId() + " Key:-" + espResponse.getKey() + " Response:-" + espResponse.getSafeValue());
+                }
+            } else if(!espResponse.getKey().contains("_page_")){
+                _log.error("Found a provisional response but the key was not marked for provisional data.Key:-" + espResponse.getKey() + " Response:-" + espResponse.getSafeValue() + " User:-" + user.getId());
+            }
+        }
+
+        //Prepare a list of external values that the user has modified.This sub-list needs to be removed
+        //the master list of all external data points.
+        //This has to be done separately and not in the loop above bcos sometimes the user may chose not to respond to
+        //the question and in that case there will not be a provisional response for that external data point.
+        for (String allProvisionalKeys : provisionalKeysLookUpMap.keySet()) {
+            if (externalKeysLookupMap.containsKey(allProvisionalKeys)) {
+                //Add to list of external keys that the provisional user has modified.
+                externalKeysToRemove.add(allProvisionalKeys);
+            }
+        }
+
+        //Get all the active(non-provisional) responses for the form.
+        List<EspResponse> responses = _espResponseDao.getResponses(school);
+
+        //For every response for school, check if there is a provisional response.
+        //If there is no provisional response then put in the active response.
+        for (EspResponse espResponse : responses) {
+            if (!provisionalKeysLookUpMap.containsKey(espResponse.getKey())) {
+                putInResponseMap(responseMap, espResponse);
+            }
+        }
+
+        //Transform provisional external data into a format that the view/form expects.
+        _espFormExternalDataHelper.transformProvisionalExternalValuesForDisplay(responseMap, provisionalExternalKeysToValueMap);
+
+        //Remove external keys that the provisional user has modified from the master list of all external data points.
+        //This will enable us to get external data only for non-provisional data points.
+        externalKeysSet.removeAll(externalKeysToRemove);
+
+        //Fetch the external data for non-provisional data points.
+        _espFormExternalDataHelper.fetchExternalValues(responseMap, school, externalKeysSet);
+
+        modelMap.put("responseMap", responseMap);
+    }
+
+    protected void putPercentCompleteInModel(School school, ModelMap modelMap, boolean isProvisionalUser) {
         // Map must be keyed by long to be accessible via EL
         Map<Long, Integer> percentCompleteMap = new HashMap<Long, Integer>();
-        for (int x=1; x <= getMaxPageForSchool(school); x++) {
+        for (int x=1; x <= getMaxPageForSchool(school,isProvisionalUser); x++) {
             percentCompleteMap.put((long)x, getPercentCompletionForPage(x, school));
         }
         modelMap.put("percentComplete", percentCompleteMap);
     }
-    
+
     protected void putResponsesInModel(School school, ModelMap modelMap) {
         Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
-        
+
         // fetch all responses to allow page to use ajax page switching if desired.
         List<EspResponse> responses = _espResponseDao.getResponses(school);
 
         for (EspResponse response: responses) {
-            EspFormResponseStruct responseStruct = responseMap.get(response.getKey());
-            if (responseStruct == null) {
-                responseStruct = new EspFormResponseStruct();
-                responseMap.put(response.getKey(), responseStruct);
-            }
-            responseStruct.addValue(response.getSafeValue());
+            putInResponseMap(responseMap,response);
         }
 
         _espFormExternalDataHelper.fetchExternalValues(responseMap, school); // fetch data that lives outside of esp_response
@@ -137,8 +263,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("responseMap", responseMap);
     }
 
-    /**
-     * This function is used to support populating the "after school" and "summer programs" fields on page5.  Those sets of data
+     /* This function is used to support populating the "after school" and "summer programs" fields on page5.  Those sets of data
      * have allow up to 5 sets of "after school" and "summer program" data.  When the form is drawn all of the existing
      * sets of data are visible and the remaining blank sets hidden.  This function finds the index of the last set
      * of data to show.  Note - if there is data for set 3 then data sets 1, 2 and 3 will be shown even if 1 and  2 are
@@ -192,7 +317,20 @@ public class EspFormController implements ReadWriteAnnotationController {
         if( qualified ) {
             modelMap.put("after_school_qualified", "yes");
         }
+    }
 
+    /**
+     * Method to construct an EspFormResponseStruct and put in the response map.
+     * @param responseMap
+     * @param response
+     */
+    protected void putInResponseMap(Map<String, EspFormResponseStruct> responseMap,EspResponse response){
+        EspFormResponseStruct responseStruct = responseMap.get(response.getKey());
+        if (responseStruct == null) {
+            responseStruct = new EspFormResponseStruct();
+            responseMap.put(response.getKey(), responseStruct);
+        }
+        responseStruct.addValue(response.getSafeValue());
     }
 
     @RequestMapping(value="form.page", method=RequestMethod.POST)
@@ -200,12 +338,6 @@ public class EspFormController implements ReadWriteAnnotationController {
                          @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                          @RequestParam(value=PARAM_STATE, required=false) State state) throws IOException, JSONException {
         response.setContentType("application/json");
-        // Fetch parameters
-        User user = getValidUser(request, state, schoolId);
-        if (user == null) {
-            outputJsonError("noUser", response);
-            return; // early exit
-        }
 
         School school = getSchool(state, schoolId);
         if (school == null) {
@@ -213,7 +345,16 @@ public class EspFormController implements ReadWriteAnnotationController {
             return; // early exit
         }
 
+        // Fetch parameters
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            outputJsonError("noUser", response);
+            return; // early exit
+        }
+
         int page = getPage(request);
+
+        boolean isProvisionalData = _espFormValidationHelper.isUserProvisional(user);
 
         // The parameter FORM_VISIBLE_KEYS_PARAM is the list of response_keys that are valid for the given
         // form submission (though they may not be included in the actual post). Parse these into a set that
@@ -223,110 +364,34 @@ public class EspFormController implements ReadWriteAnnotationController {
         Set<String> keysForPage = new HashSet<String>();
         keysForPage.addAll(Arrays.asList(visibleKeys));
 
-        // Save page
-        List<EspResponse> responseList = new ArrayList<EspResponse>();
-        Set<String> keysForExternalData = _espFormExternalDataHelper.getKeysForExternalData(school);
-
         // copy requestParameterMap to a mutable map, and allow value to be any Object, so that we can store
         // complex objects in the map if necessary (e.g. Address)
         Map<String, Object[]> requestParameterMap = cloneAndConvert(request.getParameterMap());
 
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
 
-        // SAVE HOOKS GO HERE
-        // Any data that needs to be transformed from a view specific format into a database representation
-        // must be handled here. These methods should SET keys in requestParameterMap with the final
-        // values if necessary. Any composite keys should be REMOVED from keysForPage and the composite key ADDED.
-        // e.g. form posts address_street, address_city, address_zip which get composed by a method here
-        // into a new param "address" with the concatenated values. The DB only knows about "address" while
-        // the page has the fields split out.
-        handleAddressSave(requestParameterMap, keysForPage, school.getPhysicalAddress());
-        String fieldError = handleSchoolPhone(requestParameterMap, keysForPage);
-        if (fieldError != null) {
-            errorFieldToMsgMap.put("school_phone", fieldError);
+        //Get all the provisional users.To check if the form already has saved data, ignore the data input by provisional users.
+        List<EspMembership> provisionalMemberships = _espMembershipDao.findEspMembershipsByStatus(EspMembershipStatus.PROVISIONAL, false);
+        Set<Integer> provisionalMemberIds = new HashSet<Integer>();
+        for (EspMembership membership : provisionalMemberships) {
+            provisionalMemberIds.add(membership.getId());
         }
-        fieldError = handleSchoolFax(requestParameterMap, keysForPage);
-        if (fieldError != null) {
-            errorFieldToMsgMap.put("school_fax", fieldError);
-        }
-        handleSchoolAffiliation(requestParameterMap, keysForPage);
-        fieldError = handleEthnicity(requestParameterMap, keysForPage);
-        if (fieldError != null) {
-            errorFieldToMsgMap.put("ethnicity", fieldError);
-        }
-        handleCensusDataTypes(requestParameterMap, keysForPage, school);
 
-        // Basic validation goes here
-        // Note: This should only validate data going into esp_response. Data going to external places MUST be
-        // validated by their respective save method below!
-        errorFieldToMsgMap.putAll(_espFormValidationHelper.performValidation
-                (requestParameterMap, keysForPage, school));
+        // Check if this is the first time this school has gotten any data(exclude data by provisional users).
+        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
+
+        _espSaveHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
+                isProvisionalData,false);
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);
             return; // early exit
         }
-
-        // Check if the State is locked for a data load
-        boolean stateIsLocked = _noEditDao.isStateLocked(state);
-
-        Date now = new Date(); // consistent time stamp for this save
-        // this won't save any extra data that isn't in keysForPage
-        // I'm not yet sure that's a good thing
-        for (String key: keysForPage) {
-            Object[] responseValues;
-
-            responseValues = requestParameterMap.get(key);
-
-            // Do not save null values -- these are keys that might be present on a page
-            // but aren't included in the POST (because the controls were disabled, the check boxes were
-            // all deselected, etc.)
-            if (responseValues == null || responseValues.length == 0) {
-                continue;
-            }
-            boolean active = true;
-            // values that live elsewhere get saved out here
-            // these values also go in esp_response but are disabled to clearly mark that they are not sourced from there
-            if (keysForExternalData.contains(key)) {
-                if (!stateIsLocked) {
-                    String error = _espFormExternalDataHelper.saveExternalValue
-                            (key, responseValues, school, user, now);
-                    if (error != null) {
-                        errorFieldToMsgMap.put(key, error);
-                    }
-                }
-                active = false; // data saved elsewhere should be inactive
-            }
-            for (Object responseValue: responseValues) {
-                EspResponse espResponse;
-                if (StringUtils.equals("address", key)) {
-                    espResponse = createEspResponse(user, school, now, key, active, (Address) responseValue);
-                } else if (StringUtils.equals("census_ethnicity", key) ) {
-                    espResponse = createEspResponse(user, school, now, key, active, responseValue.toString());
-                } else {
-                    espResponse = createEspResponse(user, school, now, key, active, (String) responseValue);
-                }
-                if (espResponse != null) {
-                    responseList.add(espResponse);
-                }
-            }
-        }
-
-        if (!errorFieldToMsgMap.isEmpty()) {
-            outputJsonErrors(errorFieldToMsgMap, response);
-            return; // early exit
-        }
-
-        // Check if this is the first time this school has gotten any data
-        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true);
-
-        // Deactivate existing data first, then save
-        _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
-        _espResponseDao.saveResponses(school, responseList);
 
         JSONObject successObj = new JSONObject();
         // if there were no keys saved before, and we're saving at least one now,
         // then the form has officially been started
-        if (schoolHasNoUserCreatedRows && !responseList.isEmpty()) {
+        if (schoolHasNoUserCreatedRows && !responseList.isEmpty() && !isProvisionalData) {
             successObj.put("formStarted", true);
         }
 
@@ -335,24 +400,6 @@ public class EspFormController implements ReadWriteAnnotationController {
         successObj.put("percentComplete", getPercentCompletionForPage(page, school));
         successObj.write(response.getWriter());
         response.getWriter().flush();
-    }
-
-    protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, String responseValue) {
-        if (StringUtils.isBlank(responseValue)) {
-            return null;
-        }
-        EspResponse espResponse = new EspResponse();
-        espResponse.setKey(key);
-        espResponse.setValue(StringUtils.left(responseValue, MAX_RESPONSE_VALUE_LENGTH));
-        espResponse.setSchool(school);
-        espResponse.setMemberId(user.getId());
-        espResponse.setCreated(now);
-        espResponse.setActive(active);
-        return espResponse;
-    }
-
-    protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, Address responseValue) {
-        return createEspResponse(user, school, now, key, active, responseValue.toString());
     }
 
     protected void outputJsonErrors(Map<String, String> errorFieldToMsgMap, HttpServletResponse response) throws JSONException, IOException {
@@ -371,167 +418,18 @@ public class EspFormController implements ReadWriteAnnotationController {
         errorObj.write(response.getWriter());
         response.getWriter().flush();
     }
-    
-    protected void handleSchoolAffiliation(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
-        if (keysForPage.contains("school_type_affiliation") && (
-                requestParameterMap.get("school_type_affiliation") == null
-                        || requestParameterMap.get("school_type_affiliation").length == 0)) {
-            requestParameterMap.put("school_type_affiliation", new Object[]{""}); // force delete
-        }
-    }
-
-    protected String handleEthnicity(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
-        Map<Integer, Integer> breakdownToValueMap = new HashMap<Integer, Integer>();
-        Set<String> keysToRemove = new HashSet<String>();
-        String error = null;
-        boolean unavailable = keysForPage.contains("census_ethnicity_unavailable")
-                && requestParameterMap.get("census_ethnicity_unavailable") != null
-                && requestParameterMap.get("census_ethnicity_unavailable").length == 1
-                && Boolean.valueOf(requestParameterMap.get("census_ethnicity_unavailable")[0].toString());
-        for (String key: keysForPage) {
-            if (StringUtils.startsWith(key, "ethnicity_") && requestParameterMap.get(key) != null && requestParameterMap.get(key).length == 1) {
-                keysToRemove.add(key);
-                try {
-                    Integer breakdownId = new Integer(key.substring("ethnicity_".length()));
-                    String sValue = requestParameterMap.get(key)[0].toString();
-                    Integer value;
-                    if (unavailable || StringUtils.length(sValue) == 0) {
-                        value = 0;
-                    } else {
-                        value = new Integer(sValue);
-                    }
-                    breakdownToValueMap.put(breakdownId, value);
-                } catch (Exception e) {
-                    _log.error(e, e);
-                    error = "Value must be numeric.";
-                }
-            }
-        }
-        keysForPage.removeAll(keysToRemove);
-        if (breakdownToValueMap.size() > 0) {
-            keysForPage.add("census_ethnicity");
-            requestParameterMap.put("census_ethnicity", new Object[] {breakdownToValueMap});
-        }
-        return error;
-    }
-
-    /**
-     * Make sure that census data types handle "this data is unavailable" correctly by disabling any active
-     * manual value in the DB.
-     */
-    protected void handleCensusDataTypes(Map<String, Object[]> requestParameterMap, Set<String> keysForPage, School school) {
-        List<EspFormExternalDataHelper.EspCensusDataTypeConfiguration> dataTypeConfigs =
-                EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState());
-        if (dataTypeConfigs != null) {
-            for (EspFormExternalDataHelper.EspCensusDataTypeConfiguration dataTypeConfig: dataTypeConfigs) {
-                String key = "census_" + dataTypeConfig.getId();
-                String keyUnavailable = key + "_unavailable";
-                if (keysForPage.contains(keyUnavailable) 
-                        && requestParameterMap.get(keyUnavailable) != null
-                        && requestParameterMap.get(keyUnavailable).length == 1
-                        && Boolean.valueOf(requestParameterMap.get(keyUnavailable)[0].toString())) {
-                    requestParameterMap.put(key, new Object[] {""}); // this will disable the existing value
-                }
-            }
-        }
-    }
-
-    protected void handleAddressSave(Map<String, Object[]> requestParameterMap, Set<String> keysForPage, Address existingAddress) {
-        String[] street = (String[]) requestParameterMap.get("physical_address_street");
-
-        keysForPage.remove("physical_address_street");
-
-        if (street != null && street.length == 1) {
-            
-            Address address = new Address(street[0], existingAddress.getCity(), existingAddress.getState(), existingAddress.getZip());
-
-            requestParameterMap.put("address", new Object[]{address});
-            keysForPage.add("address");
-        }
-    }
-    
-    protected String handleSchoolPhone(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
-        String schoolPhoneAreaCode = (String) getSingleValue(requestedParameterMap, "school_phone_area_code");
-        String schoolPhoneOfficeCode = (String) getSingleValue(requestedParameterMap, "school_phone_office_code");
-        String schoolPhoneLastFour = (String) getSingleValue(requestedParameterMap, "school_phone_last_four");
-
-        keysForPage.remove("school_phone_area_code");
-        keysForPage.remove("school_phone_office_code");
-        keysForPage.remove("school_phone_last_four");
-        if (schoolPhoneAreaCode != null && schoolPhoneOfficeCode != null && schoolPhoneLastFour != null) {
-            String phoneNumberString = schoolPhoneAreaCode + schoolPhoneOfficeCode + schoolPhoneLastFour;
-            
-            if (phoneNumberString.matches("\\d+")) {
-                phoneNumberString = "(" + schoolPhoneAreaCode + ") " + schoolPhoneOfficeCode + "-" + schoolPhoneLastFour;
-                requestedParameterMap.put("school_phone", new String[] {phoneNumberString});
-                keysForPage.add("school_phone");
-                requestedParameterMap.remove("school_phone_area_code");
-                requestedParameterMap.remove("school_phone_office_code");
-                requestedParameterMap.remove("school_phone_last_four");
-            } else if (StringUtils.isBlank(phoneNumberString)){
-                requestedParameterMap.put("school_phone", new String[] {""});
-                keysForPage.add("school_phone");
-                requestedParameterMap.remove("school_phone_area_code");
-                requestedParameterMap.remove("school_phone_office_code");
-                requestedParameterMap.remove("school_phone_last_four");
-            } else {
-                return "Phone number must be numeric";
-            }
-        }
-        return null;
-    }
-    
-    protected String handleSchoolFax(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
-        String schoolFaxAreaCode = (String) getSingleValue(requestedParameterMap, "school_fax_area_code");
-        String schoolFaxOfficeCode = (String) getSingleValue(requestedParameterMap, "school_fax_office_code");
-        String schoolFaxLastFour = (String) getSingleValue(requestedParameterMap, "school_fax_last_four");
-
-        keysForPage.remove("school_fax_area_code");
-        keysForPage.remove("school_fax_office_code");
-        keysForPage.remove("school_fax_last_four");
-
-        if (schoolFaxAreaCode != null && schoolFaxOfficeCode != null && schoolFaxLastFour != null) {
-            String faxNumberString = schoolFaxAreaCode + schoolFaxOfficeCode + schoolFaxLastFour;
-
-            if (faxNumberString.matches("\\d+")) {
-                faxNumberString = "(" + schoolFaxAreaCode + ") " + schoolFaxOfficeCode + "-" + schoolFaxLastFour;
-                requestedParameterMap.put("school_fax", new String[] {faxNumberString});
-                keysForPage.add("school_fax");
-                requestedParameterMap.remove("school_fax_area_code");
-                requestedParameterMap.remove("school_fax_office_code");
-                requestedParameterMap.remove("school_fax_last_four");
-            } else if (StringUtils.isBlank(faxNumberString)){
-                requestedParameterMap.put("school_fax", new String[] {""});
-                keysForPage.add("school_fax");
-                requestedParameterMap.remove("school_fax_area_code");
-                requestedParameterMap.remove("school_fax_office_code");
-                requestedParameterMap.remove("school_fax_last_four");
-            } else {
-                return "Fax number must be numeric";
-            }
-        }
-        return null;
-    }
-    
-    protected Object getSingleValue(Map<String, Object[]> map, String key) {
-        Object[] values = map.get(key);
-        if (values != null && values.length >= 1) {
-            return values[0];
-        }
-        return null;
-    }
 
     /**
      * Pulls the user out of the session context. Returns null if there is no user, or if the user fails
      * checkUserAccess
      */
-    protected User getValidUser(HttpServletRequest request, State state, Integer schoolId) {
+    protected User getValidUser(HttpServletRequest request, State state, School school) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = null;
         if (sessionContext != null) {
             user = sessionContext.getUser();
         }
-        if (_espFormValidationHelper.checkUserHasAccess(user, state, schoolId)) {
+        if (_espFormValidationHelper.checkUserHasAccess(user, state, school)) {
             return user;
         }
         return null;
@@ -551,7 +449,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             put(State.DC, null); // null means accept all
         }
     };
-    
+
     public static boolean isFruitcakeSchool(School s) {
         if (s != null && s.getDatabaseState() != null && s.getCity() != null) {
             if (FRUITCAKE_STATE_TO_CITY.containsKey(s.getDatabaseState())) {
@@ -581,7 +479,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             _log.error("School is null or inactive: " + school);
             return null;
         }
-        
+
         if (school.isPreschoolOnly()) {
             _log.error("School is preschool only! " + school);
             return null;
@@ -608,8 +506,9 @@ public class EspFormController implements ReadWriteAnnotationController {
     /**
      * How many pages are on the form for a given school
      */
-    protected int getMaxPageForSchool(School school) {
-        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE) {
+    protected int getMaxPageForSchool(School school, boolean isUserProvisional) {
+        //Do not show page 8 for provisional user.
+        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE && !isUserProvisional) {
             return 8;
         }
         return 7;
@@ -626,7 +525,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected Map<String, Object[]> cloneAndConvert(Map<String,String[]> requestParameterMap) {
         return new HashMap<String, Object[]>(requestParameterMap);
     }
-    
+
     public static Map<Integer, Set<String>> KEYS_BY_PAGE = new HashMap<Integer, Set<String>>() {{
         put(1, new HashSet<String>() {{
             add("age_pk_start");
@@ -961,4 +860,20 @@ public class EspFormController implements ReadWriteAnnotationController {
             add("sat_pdf_filename");
         }});
     }};
+
+    public void setEspFormExternalDataHelper(EspFormExternalDataHelper espFormExternalDataHelper) {
+        _espFormExternalDataHelper = espFormExternalDataHelper;
+    }
+
+    public void setEspFormValidationHelper(EspFormValidationHelper espFormValidationHelper) {
+        _espFormValidationHelper = espFormValidationHelper;
+    }
+
+    public void setNoEditDao(INoEditDao noEditDao) {
+        _noEditDao = noEditDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
+    }
 }
