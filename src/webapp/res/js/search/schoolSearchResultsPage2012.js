@@ -9,6 +9,12 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         GS.school.compare.initializeSchoolsInCompare(function() {
             return window.location.pathname + GS.search.filters.getUpdatedQueryString();
         });
+
+        $(function() {
+            GS.facebook.getLoginDeferred().done(function() {
+                GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
+            });
+        });
     };
 
     var writeCompareNowLink = function(schoolId, state) {
@@ -118,6 +124,18 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         // Bind the behavior when clicking on the compare now link that appears when at least two schools are checked
         $(body).on('click', '.js_compare_link', function() {
             return GS.school.compare.compareSchools();
+        });
+
+        $('.js-ask-a-friend').click(function(e) {
+            var $this = $(this);
+            var $schoolData = $this.parent().find('.js-school-data');
+            var schoolName = $schoolData.data('gs-school-name');
+            var autoText = $schoolData.data('gs-school-autotext');
+            var link = $this.attr('href');
+            var photoUrl = 'http://www.gscdn.org/res/img/logo/logo_GS_276x50_logo.png'
+
+            GS.facebook.postToFeed(link, photoUrl, schoolName, link, autoText);
+            return false;
         });
     };
 

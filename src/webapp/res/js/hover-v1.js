@@ -36,13 +36,13 @@ GSType.hover.HoverDialog = function(id,width) {
             this.dialogByWidth();
             this.initialized = true;
         }
-//        jQuery('#' + this.hoverId).dialog('open');
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
-        $("#"+this.hoverId + ' .js_closeHover').on("click", function() {
+        $(document).on("click","#"+this.hoverId + ' .js_closeHover', function() {
             self.hide();
         });
+
         if (this.pageName != '') {
             pageTracking.clear();
             pageTracking.pageName = this.pageName;
@@ -55,7 +55,6 @@ GSType.hover.HoverDialog = function(id,width) {
         ModalManager.hideModal({
             'layerId' : this.hoverId
         });
-//        jQuery('#' + this.hoverId).dialog('close');
         return false;
     };
     //template dialog to display based on variable width
@@ -2160,7 +2159,6 @@ jQuery(function() {
     } else if (showHover == "clickToReviewYourSchool") {
         GSType.hover.clickToReviewYourSchool.show();
     }
-
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
     //Omniture tracking for facebook share button on school review hovers.GS-12508

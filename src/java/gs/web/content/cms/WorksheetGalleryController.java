@@ -120,11 +120,13 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         SUBJECT_CHOICES.put("reading", "Reading");
         SUBJECT_CHOICES.put("writing", "Writing");
         SUBJECT_CHOICES.put("science", "Science");
+        SUBJECT_CHOICES.put("wordlists", "Word Lists");
 
         SUBJECT_URL_COMPONENT_LOOKUP.put("math",CmsConstants.MATH_CATEGORY_ID);
         SUBJECT_URL_COMPONENT_LOOKUP.put("reading",CmsConstants.READING_CATEGORY_ID);
         SUBJECT_URL_COMPONENT_LOOKUP.put("writing",CmsConstants.WRITING_CATEGORY_ID);
         SUBJECT_URL_COMPONENT_LOOKUP.put("science",CmsConstants.SCIENCE_CATEGORY_ID);
+        SUBJECT_URL_COMPONENT_LOOKUP.put("wordlists",CmsConstants.WORDLISTS_CATEGORY_ID);
 
         // GS-12144 START constants for meta keywords & meta descriptions
 
@@ -132,6 +134,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         META_KEYWORDS_SUBJECT_ONLY.put("reading", "reading worksheets, reading comprehension worksheets, language worksheets, nouns worksheets, grammar worksheets");
         META_KEYWORDS_SUBJECT_ONLY.put("writing", "writing worksheets, writing worksheet");
         META_KEYWORDS_SUBJECT_ONLY.put("science", "science worksheets, science worksheet");
+        META_KEYWORDS_SUBJECT_ONLY.put("wordlists", "play words, sight words, spelling words, sight words list, spelling lists, sight word worksheets, word list, word lists for kids");
 
         META_GRADE_KEY_TO_NUMERIC_NAME.put("kindergarten","kindergarten");
         META_GRADE_KEY_TO_NUMERIC_NAME.put("first-grade","1st grade");
@@ -167,6 +170,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         META_KEYWORDS_PK_K_GRADE_SUBJECT.put("preschool/math", "preschool math worksheets");
         META_KEYWORDS_PK_K_GRADE_SUBJECT.put("preschool/reading", "preschool reading worksheets, alphabet worksheets");
         META_KEYWORDS_PK_K_GRADE_SUBJECT.put("preschool/writing", "preschool writing worksheets, coloring worksheets");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("preschool/wordlists", "preschool sight words");
 
         META_DESCRIPTION_PK_K_GRADE_SUBJECT.put("kindergarten/math", "Free printable kindergarten math worksheets to help your child practice addition, matching, and identifying shapes and patterns.");
         META_DESCRIPTION_PK_K_GRADE_SUBJECT.put("kindergarten/reading", "Free printable kindergarten reading worksheets to help your child with spelling, language, grammar, and more.");
@@ -174,6 +178,12 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         META_KEYWORDS_PK_K_GRADE_SUBJECT.put("kindergarten/math", "kindergarten math worksheets");
         META_KEYWORDS_PK_K_GRADE_SUBJECT.put("kindergarten/reading", "kindergarten reading worksheets, grammar worksheets");
         META_KEYWORDS_PK_K_GRADE_SUBJECT.put("kindergarten/writing", "kindergarten writing worksheets");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("kindergarten/wordlists", "kindergarten sight words");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("first-grade/wordlists", "first grade sight words");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("second-grade/wordlists", "second grade sight words");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("third-grade/wordlists", "third grade sight words");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("fourth-grade/wordlists", "fourth grade sight words");
+        META_KEYWORDS_PK_K_GRADE_SUBJECT.put("fifth-grade/wordlists", "fifth grade sight words");
 
         // GS-12144 END constants for meta keywords & meta descriptions
     }

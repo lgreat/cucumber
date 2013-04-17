@@ -34,6 +34,7 @@ import gs.web.pagination.Page;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -122,6 +123,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     protected static final String VIEW_NOT_FOUND = "/status/error404.page";
 
     public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
+
+    public static final String[] FACEBOOK_FACEPILE_PILOT_CITIES = new String[] {"San Francisco", "Oakland", "Berkeley"};
+    public static final String FACEBOOK_FACEPILES_ENABLED_MODEL_KEY = "facebookFacepilesEnabled";
 
     static {
         SCHOOL_SEARCH_PAGINATION_CONFIG = new PaginationConfig(
@@ -218,6 +222,13 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_IS_AJAX_REQUEST, schoolSearchCommand.isAjaxRequest());
         boolean isSearch = !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse();
         model.put(MODEL_IS_SEARCH, isSearch);
+
+        // City Browse Specific: Include facebook "facepile" functionality if on pilot city
+        // Added here for now, so that we can force facepiles to be included with a url param, even on non-city-browse
+        // search results pages
+        model.put(
+                FACEBOOK_FACEPILES_ENABLED_MODEL_KEY, shouldIncludeFacebookFacepiles(request, commandAndFields)
+        );
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
@@ -730,7 +741,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                 _cityBrowseHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, searchResultsPage.getTotalResults())
         );
 
-
         // Common: put common omniture attributes into model
         // Must happen after search is complete
         model.putAll(
@@ -1072,6 +1082,27 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                 return getViewName();
             }
         }
+    }
+
+    public boolean shouldIncludeFacebookFacepiles(HttpServletRequest request, SchoolSearchCommandWithFields commandWithFields) {
+        boolean includeFacebook = false;
+        State enabledState = State.CA;
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+
+        if (commandWithFields.isCityBrowse() && enabledState.equals(commandWithFields.getState())) {
+            for (String city : FACEBOOK_FACEPILE_PILOT_CITIES) {
+                if (city.equals(commandWithFields.getCity().getName())) {
+                    includeFacebook = true;
+                }
+            }
+        }
+
+        if ((requestInfo.isDeveloperWorkstation() || requestInfo.isDevEnvironment())
+                && "true".equals(request.getParameter("facebook_facepiles_enabled"))) {
+            includeFacebook = true;
+        }
+
+        return includeFacebook;
     }
 
     //-------------------------------------------------------------------------

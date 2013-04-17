@@ -9343,7 +9343,7 @@ div#YahooRealEstateLink {
 #footnav {
     padding: 20px 0 0;
     margin: 0 auto;
-    width: 860px;
+    width: 970px;
 }
 
 #footnav li a,
@@ -9377,8 +9377,7 @@ div#YahooRealEstateLink {
 }
 
 #footer .popularCities {
-    padding: 0px 24px 0 54px;
-    width: 890px;
+    width: 970px;
 }
 
 #footer .cities ul {
@@ -9406,7 +9405,7 @@ div#YahooRealEstateLink {
 
 #footer .subtitles{
 }
-#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
+#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 970px; margin-top: 20px; clear: both;}
 
 #footer .navFoot {
     float: left;
@@ -9446,7 +9445,7 @@ div#YahooRealEstateLink {
     border-bottom:solid 1px #242424;
 }
 #connectWithUs .connectContent{
-    width: 860px;
+    width: 970px;
     margin: 0px auto;
     padding: 14px 0 10px 0;
 }

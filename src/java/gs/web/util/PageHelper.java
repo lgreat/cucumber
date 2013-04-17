@@ -262,6 +262,8 @@ public class PageHelper {
      */
     private String _adSenseHint = null;
 
+    private boolean includeFacebookInit;
+
     /**
      * Add a keyword/value pair for current page to be passed on to ad server.  This method use Map semantics on
      * the underlying MultiMap -- that is it will overwrite an existing value.  These semantics were left intact
@@ -1109,7 +1111,25 @@ public class PageHelper {
         _includeQualaroo = includeQualaroo;
     }
 
+
     public boolean isIncludeQualaroo() {
         return _includeQualaroo;
+    }
+
+    public void setIncludeFacebookInit(boolean includeFacebookInit) {
+        this.includeFacebookInit = includeFacebookInit;
+    }
+
+    public static void setIncludeFacebookInit(HttpServletRequest request, boolean includeFacebookInit) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setIncludeFacebookInit(includeFacebookInit);
+        } else {
+            _log.error("No PageHelper object available, can't include Facebook init JS");
+        }
+    }
+
+    public boolean isIncludeFacebookInit() {
+        return includeFacebookInit;
     }
 }

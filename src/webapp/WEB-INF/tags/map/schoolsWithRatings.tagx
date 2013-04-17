@@ -97,9 +97,9 @@ function extendBoundsToCenterOnPoint(point, bounds) {
 }
 
 // Given points x (outlier) and y (center), returns point z such that the rectangle defined by
-// x and z has its center at y. Returns a GLatLng object
+// x and z has its center at y. Returns a LatLng object
 function reflectPoint(centerPoint, outlierPoint) {
-  return new GLatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
+  return new google.maps.LatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
                      centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
@@ -112,9 +112,9 @@ var alwaysUsePreIconsForPreschools = ${not empty alwaysUsePreIconsForPreschools 
 var showLocationMarker = ${showLocationMarker};
 
 <c:if test="${not empty locationPoint}">
-var locationPoint = new GLatLng(${locationPoint.lat}, ${locationPoint.lon});
+var locationPoint = new google.maps.LatLng(${locationPoint.lat}, ${locationPoint.lon});
 </c:if>
-var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+var centerPoint = new google.maps.LatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 
 function initSchoolInfo() {
@@ -189,7 +189,7 @@ function initSchoolInfo() {
 
     mySchool.parentRatingHtml += '</div>';
 
-    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
+    mySchool.location = new google.maps.LatLng(${curSchool.lat},${curSchool.lon});
     schoolArray.push(mySchool);
   </c:if>
 </c:forEach>
@@ -263,39 +263,28 @@ function renderSchools(bounds, filterLevelCode) {
                     var imageValue = curSchool.rating;
                     if (imageValue == 0 || (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1)) {
                         if (curSchool.levelCode == 'p') {
-//                            imageValue = 'preschool';
                             icon.image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1) {
-//                            imageValue = 'preschool';
                             icon.image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (curSchool.type == 'private') {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'private' : 'private';
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_NR.png'
                                     : '/res/img/mapPins/private/O/private_orange_NR.png';
                         } else {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'na': 'na';
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_NR.png'
                                     : '/res/img/mapPins/public/O/orange_NR.png';
                         }
                     } else {
                         if (curSchool.type == 'private') {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_' + imageValue + '.png' :
                                     '/res/img/mapPins/private/O/private_orange_' + imageValue + '.png';
                         } else {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
                             icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_' + imageValue + '.png' :
                                     '/res/img/mapPins/public/O/orange_' + imageValue + '.png';
                         }
                     }
-//                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
-//                    icon.shadow = "/res/img/map/GS_gsr_1_backgroundshadow.png";
-//                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
-//                    icon.iconSize = new GSize(42, 41);
                     icon.iconAnchor = new GPoint(14, 39);
                     icon.infoWindowAnchor = new GPoint(21, 2);
                     icon.infoShadowAnchor = new GPoint(21, 2);
-//                    icon.shadowSize = new GSize(42, 41);
                     marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
                     if (useBubbles) {
                         addBubbleListener(marker, curSchool);
