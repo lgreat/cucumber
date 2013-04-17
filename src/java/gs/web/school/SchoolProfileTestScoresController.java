@@ -57,6 +57,16 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 if(school.getDatabaseState().equals(State.CA)){
                     putApiTestScoreResults(school,testToGradesList,model);
                 }
+
+                // Build the title for the link to the state's standards
+                String stateLongName = school.getDatabaseState().getLongName();
+                if( stateLongName.endsWith("s") ) {
+                    stateLongName += "'";
+                } else {
+                    stateLongName += "'s";
+                }
+                String message = "See " + stateLongName + " state standards";
+                model.put("stateStandardsLinkTitle", message);
             } else {
                 _log.error("School id: " + school.getId() + " in state: " + school.getDatabaseState() + " is inactive.");
                 return new ModelAndView(ERROR_VIEW, model);
