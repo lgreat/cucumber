@@ -481,11 +481,7 @@
         </div>
         <!-- end schoolProfileLeftColumn -->
 
-        <c:if test="${fn:contains(school.levelCode, 'p')}">
-            <c:set var="savvySource">
-                <promo:savvysource state="${state}" cityName="${city}" omniturePageName="${omniturePageName}"/>
-            </c:set>
-        </c:if>
+
 
         <!--<div id="schoolProfileRightColumn" class="col">-->
         <div class="grid_8">
@@ -498,7 +494,6 @@
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
-                    ${savvySource}
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 
@@ -522,7 +517,6 @@
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
-                    ${savvySource}
 
                     <div class="mod">
                         <div class="navmod_hd">
@@ -604,14 +598,12 @@
                                                defaultCity="${school.city}"
                                                defaultState="${school.databaseState.abbreviation}" style="2011"/>
 
-                    ${savvySource}
                 </c:when>
                 <c:otherwise>
                     <ad:AboveFold_300x600/>
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
-                    ${savvySource}
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 
