@@ -787,14 +787,14 @@ GS.search.results = GS.search.results || (function() {
 
             if (facebookUrl !== "" && schoolPagesByFacebookUrl.hasOwnProperty(facebookUrl)) {
                 $.map(schoolPagesByFacebookUrl[facebookUrl].fans, function(fan) {
-                    text = text + '<img style="padding:2px" width="25px" height="25px" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    text = text + '<img style="padding-right:1px" width="25px" height="25px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
                 });
                 numberFans = numberFans + schoolPagesByFacebookUrl[facebookUrl].fans.length;
 
             }
             if (schoolPagesBySchoolHash.hasOwnProperty(schoolHash)) {
                 $.map(schoolPagesBySchoolHash[schoolHash].fans, function(fan) {
-                    text = text + '<img style="padding:2px;" width="30px" height="30px" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    text = text + '<img style="padding-right:1px;" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
                 });
                 numberFans = numberFans + schoolPagesBySchoolHash[schoolHash].fans.length;
             }
@@ -805,7 +805,7 @@ GS.search.results = GS.search.results || (function() {
                 } else {
                     phrase = " friends are";
                 }
-                text = text + numberFans + phrase + " connected to this school.";
+                text = text +"<span class='small vam mlm'>" + numberFans + phrase + " connected to this school.</span>";
                 $facepile.html(text);
                 $facepile.show();
             }
