@@ -314,6 +314,9 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                 Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
                 subscriptions.add(sub);
                 getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+                getSubscriptionDao().saveSubscription(sub);
+
+
             }
         } catch (Exception e) {
             _log.debug("Error while adding subscription: "+e);

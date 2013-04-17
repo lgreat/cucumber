@@ -213,6 +213,7 @@ $(document).ready(function() {
 
     GS_spriteCheckBoxes("js-reviewLandingCheckboxTerms", "parentReviewTerms", 1, 0);
     GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
+    GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "mssSub", 1, 0);
 
     GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
     GS_initializeCustomSelect("js-reviewLandingState", function() {

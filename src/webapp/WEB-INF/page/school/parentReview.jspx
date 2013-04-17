@@ -211,6 +211,7 @@
             <input type="hidden" id="teacherStudentAsString" value="0" name="teacherStudentAsString"/>
             <input type="hidden" class="js-parentReviewTerms" id="parentReviewTerms" value="0" name="parentReviewTerms"/>
             <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
+            <input type="hidden" id="mssSub" value="1" name="mssSub"/>
             <input type="hidden" id="selectValueIAm" value="" name="userRoleAsString"/>
             <input type="hidden" id="schoolId" value="" name="schoolId"/>
             <input type="hidden" class="js-posterAsString" name="posterAsString" id="posterAsString" value=""/>
