@@ -1,7 +1,10 @@
 package gs.web.test;
 
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
+import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
@@ -15,9 +18,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,7 +41,7 @@ public class EntityInfoAjaxController implements Controller {
     private static final StateManager _stateManager = new StateManager();
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setContentType("text");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         String optionsParam = request.getParameter("printOptionsOnly");
         boolean printOptionsOnly = (StringUtils.isNotBlank(optionsParam) ? Boolean.valueOf(optionsParam) : false);
@@ -58,41 +59,152 @@ public class EntityInfoAjaxController implements Controller {
         String id = request.getParameter("id");
         String entityType = request.getParameter("entityType");
 
+        JSONObject json = new JSONObject();
 
         if(entityType.equals("school")){
             School school = _schoolDao.getSchoolById(state, new Integer(id));
-            List<EspResponse> responses = _espResponseDao.getResponses(school);
-            Map<String,String> espStuff = new HashMap<String, String>();
-            while(responses.iterator().hasNext()){
-                Object o = responses.iterator().next();
-                EspResponse response = (EspResponse) o;
-                espStuff.put(response.getKey(),response.getValue());
-            }
             if(school != null){
-                out.print("{\"name\":\"" + school.getName() +"\"" );
 
-                out.print(",\"grades\":\"" + school.getGradeLevels().getCommaSeparatedString()  +"\"" );
-                out.print(",\"schoolType\":\"" + school.getType()  +"\"" );
-                out.print(",\"street\":\"" + school.getStreet()  +"\"" );
-                out.print(",\"street2\":\"" + school.getStreetLine2()  +"\"" );
-                out.print(",\"zipcode\":\"" + school.getZipcode()  +"\"" );
-                out.print(",\"county\":\"" + school.getCounty()  +"\"" );
-                out.print(",\"enrollment\":\"" + school.getEnrollment()  +"\"" );
-                out.print(",\"phone\":\"" + school.getPhone()  +"\"" );
-                out.print(",\"fax\":\"" + school.getFax()  +"\"" );
-                out.print(",\"website\":\"" + school.getWebSite()  +"\"" );
-                out.print(",\"headOfficialName\":\"" + school.getCensusInfo().getManualValue(school, CensusDataType.HEAD_OFFICIAL_NAME).getValueText()  +"\"" );
-                out.print(",\"headOfficialEmail\":\"" + school.getCensusInfo().getManualValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL).getValueText()  +"\"" );
-                out.print(",\"startTime\":\"" + espStuff.get("start_time")  +"\"" );
-                /*
-                out.print(",\"street2\":\"" + school.getStreetLine2()  +"\"" );
-                out.print(",\"street2\":\"" + school.getStreetLine2()  +"\"" );
-                out.print(",\"street2\":\"" + school.getStreetLine2()  +"\"" );
-                out.print(",\"street2\":\"" + school.getStreetLine2()  +"\"" );
-                out.print(",\"street2\":\"" + school.getStreetLine2()  +"\"" );
-                                    */
+                Integer lowageCensusYear = 0;
+                String censusLowAge = "";
 
-                out.print("}" );
+                String grades = "";
+                if(school.getGradeLevels() != null){
+                    grades = school.getGradeLevels().getCommaSeparatedString();
+                }
+
+                String schoolType = "";
+                if(school.getType() != null){
+                    schoolType = school.getType().getSchoolTypeName();
+                }
+
+                enterJson(json,"districtId",integerToString(school.getDistrictId()));
+                enterJson(json,"name",school.getName());
+
+                enterJson(json,"grades",grades);
+                enterJson(json,"schoolType",schoolType);
+                enterJson(json,"street",school.getStreet());
+                enterJson(json,"streetLine2",school.getStreetLine2());
+                enterJson(json,"city",school.getCity());
+                enterJson(json,"Zipcode",school.getZipcode());
+
+
+                //do county dropdown
+                enterJson(json,"county",school.getCounty());
+
+                enterJson(json,"enrollment",integerToString(school.getEnrollment()));
+
+                //show capacity for pk-only schools
+                String capacity = "";
+                if(school.getLevelCode().equals(LevelCode.PRESCHOOL)){
+                    capacity = integerToString(school.getEnrollmentOrCapacity());
+                    enterJson(json,"enrollment",capacity);
+                }
+
+                enterJson(json,"phone",integerToString(school.getEnrollment()));
+                enterJson(json,"fax",integerToString(school.getEnrollment()));
+                enterJson(json,"webSite",integerToString(school.getEnrollment()));
+                enterJson(json,"phone",school.getPhone());
+                enterJson(json,"fax",school.getFax());
+                enterJson(json,"webSite",school.getWebSite());
+                enterJson(json,"affiliation",school.getAffiliation());
+                enterJson(json,"association",school.getAssociation());
+
+
+                String subtypes = "";
+
+                if(school.getSubtype() != null){
+                    subtypes = school.getSubtype().getCommaSeparatedString();
+                }
+
+                String gender = "";
+                StringUtils.contains(subtypes,"coed");
+                if(StringUtils.contains(subtypes,"coed")){
+                    gender = "coed";
+                }
+                else if(StringUtils.contains(subtypes,"all_male")){
+                    gender = "all_male";
+                }
+                else if(StringUtils.contains(subtypes,"all_female")){
+                    gender = "all_female";
+                }
+                enterJson(json,"gender",gender);
+
+                String preschoolSubtype = "";
+                if(school.getPreschoolSubtype() != null){
+                    preschoolSubtype =  school.getPreschoolSubtype().getCommaSeparatedString();
+                }
+                enterJson(json,"preschoolSubtype",preschoolSubtype);
+
+
+                if(school.getCensusInfo() != null){
+                    SchoolCensusValue scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_NAME);
+                    enterJson(json,"headOfficialName",censusValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
+                    enterJson(json,"headOfficialEmail",censusValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
+                    enterJson(json,"headOfficialEmail",censusValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.LOW_AGE);
+                    if(scv != null ){
+                        lowageCensusYear = scv.getDataSet().getYear();
+                        censusLowAge = scv.getValueText();
+                    }
+                    enterJson(json,"lowAge",censusValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HIGH_AGE);
+                    enterJson(json,"highAge",censusValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.BILINGUAL_INTRUCTION_OFFERED);
+                    enterJson(json,"bilingual",censusYNValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.SPECIAL_ED_OFFERED);
+                    enterJson(json,"specialEd",censusYNValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.COMPUTERS_AVAILABLE);
+                    enterJson(json,"computers",censusYNValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.BEFORE_AFTER_SUPERVISION);
+                    enterJson(json,"extendedCare",censusYNValueToString(scv));
+
+                }
+
+
+
+
+                Map<String,String> espVarMap = new HashMap();
+
+                espVarMap.put("start_time","startTime") ;
+                espVarMap.put("end_time","endTime") ;
+                espVarMap.put("age_pk_start","lowAge") ;
+
+                List<EspResponse> responses = _espResponseDao.getResponsesByKeys(school,espVarMap.keySet());
+                for (String key : espVarMap.keySet()) {
+                    enterJson(json,espVarMap.get(key),"");
+                }
+
+                Iterator<EspResponse> it = responses.iterator();
+                while(it.hasNext())
+                {
+                    Object obj = it.next();
+                    EspResponse response = (EspResponse) obj;
+                    String keyName = espVarMap.get(response.getKey());
+                    if(response.getKey().equals("age_pk_start")){
+                        Date date = response.getCreated();
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(lowageCensusYear.intValue()-1,Calendar.SEPTEMBER,30);
+                        if(date.after(cal.getTime())){
+                            enterJson(json,keyName,response.getValue());
+                        }else{
+                            enterJson(json,keyName,censusLowAge);
+                        }
+                    }else{
+                        enterJson(json,keyName,response.getValue());
+                    }
+                }
+                out.print(json.toString());
             }
         }
 
@@ -124,7 +236,41 @@ public class EntityInfoAjaxController implements Controller {
         }
     }
 
+    private String integerToString (Integer intValue){
+        if(intValue != null){
+            return intValue.toString();
+        }
+        return "";
+    }
+    private void enterJson(JSONObject jo,String keyName,String valueName){
+        if(valueName == null){
+            valueName = "";
+        }
+        try{
+            jo.put(keyName,valueName);
+        }catch(Exception e){
 
+        }
+    }
+    private String censusValueToString(SchoolCensusValue scv){
+        if(scv != null ){
+            return scv.getValueText();
+        }
+        return "";
+    }
+
+    private String censusYNValueToString(SchoolCensusValue scv){
+        if(scv != null ){
+            if(scv.getValueText().equals("Y")){
+                return "Yes";
+            }
+            if(scv.getValueText().equals("N")){
+                return "No";
+            }
+            return "";
+        }
+        return "";
+    }
 
     public ISchoolDao getSchoolDao() {
         return _schoolDao;

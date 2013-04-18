@@ -2,6 +2,7 @@ package gs.web.about.feedback;
 
 
 import gs.data.geo.City;
+import gs.data.geo.County;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
 import gs.data.school.*;
@@ -10,6 +11,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ICaptchaCommand;
+import gs.web.jsp.about.feedback.PreschoolSubtypeSelectorTagHandler;
 import gs.web.util.ReadWriteAnnotationController;
 
 import gs.web.util.UrlBuilder;
@@ -192,7 +194,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setCity(command.getCity());
         newEntityQueue.setStateAbbreviation(command.getState());
         newEntityQueue.setZipcode(command.getZipcode());
-        newEntityQueue.setCounty(command.getCounty());
+        //newEntityQueue.setCounty(command.getCounty());
         if(command.getEnrollment() != null && StringUtils.isNotBlank(command.getEnrollment())){
             newEntityQueue.setEnrollment(new Integer(command.getEnrollment()));
         }
@@ -276,6 +278,37 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         schoolType.add("charter");
         map.put("schoolType", schoolType);
 
+        List<String> gender = new ArrayList();
+        gender.add("coed");
+        gender.add("all_male");
+        gender.add("all_female");
+        map.put("gender", gender);
+
+        Map<String,String> ynMap = new HashMap();
+        ynMap.put("Yes","Y");
+        ynMap.put("No","N");
+        map.put("bilingual", ynMap);
+        map.put("specialEd", ynMap);
+        map.put("computers", ynMap);
+        map.put("extendedCare", ynMap);
+
+        PreschoolSubtypeSelectorTagHandler psth = new PreschoolSubtypeSelectorTagHandler();
+        String[] stValues = psth.getOptionValues();
+        String[] stDisplay = psth.getOptionDisplayNames();
+        java.util.Arrays.sort(stValues, java.text.Collator.getInstance());
+        java.util.Arrays.sort(stDisplay, java.text.Collator.getInstance());
+
+        Map<String,String> preschoolSubtype = new HashMap();
+        for( int i = 0; i < stValues.length; i++)
+        {
+            preschoolSubtype.put(stValues[i],stDisplay[i]);
+        }
+        //map.put("preschoolSubtype",preschoolSubtype);
+        map.put("preschoolSubtype",stValues);
+        map.put("psMap",preschoolSubtype);
+
+
+
         captureRequestParameters(request, command, map);
 
         State stateOrDefault = SessionContextUtil.getSessionContext(request).getStateOrDefault();
@@ -299,6 +332,14 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             cityOptions.add(new FormOption(city.getName(), city.getName()));
         }
         map.put("cityOptions", cityOptions);
+
+        // Populate county options
+        List<ICounty> counties = _geoDao.findCounties(stateOrDefault);
+        List<FormOption> countyOptions = new ArrayList<FormOption>();
+        for (ICounty county : counties) {
+            countyOptions.add(new FormOption(county.getName(), county.getName()));
+        }
+        map.put("countyOptions", countyOptions);
 
         // Populate school options if a city was chosen
         List<FormOption> schoolOptions = new ArrayList<FormOption>();
