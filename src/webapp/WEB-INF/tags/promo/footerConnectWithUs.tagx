@@ -38,7 +38,7 @@
                                         />
                              </div>
                             <div class="fl">
-                                <button class="button-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
+                                <button class="but but-rg but-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
                             </div>
                         </form>
                     </div>

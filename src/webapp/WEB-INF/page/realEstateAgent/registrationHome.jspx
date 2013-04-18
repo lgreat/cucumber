@@ -47,7 +47,7 @@
         <div class="pa" style="width:283px;top: -37px; left:352px;">
             <div class="tac outerBox">
                 <a href="javascript:void(0)">
-                    <button class="but but-xl but-3" name="registerBtn" id="jq-realEstAgentRegisterBtn">
+                    <button class="but but-xl but-1" name="registerBtn" id="jq-realEstAgentRegisterBtn">
                         Sign up now
                     </button>
                 </a>
