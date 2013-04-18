@@ -52,6 +52,8 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _btsTip = false;
     private String btsTipVersion = null;
 
+    private String facebookId = null;
+
     public boolean isBtsTip() {
         return _btsTip;
     }
@@ -380,6 +382,14 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setMystatSchoolState(State mystatSchoolState) {
         _mystatSchoolState = mystatSchoolState;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
     public static class NthGraderSubscription{

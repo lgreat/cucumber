@@ -98,7 +98,7 @@ public class RegistrationHoverController extends RegistrationController implemen
             } else {
                 user = new User();
                 user.setEmail(userCommand.getEmail());
-                user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
+                user.setHow(userCommand.joinTypeToHow());
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 user.setEmailVerified(true);
                 getUserDao().saveUser(user);
@@ -116,12 +116,12 @@ public class RegistrationHoverController extends RegistrationController implemen
 
             setUsersPassword(user, userCommand, userExists);
             updateUserProfile(user, userCommand, ot);
-            // set up defaults for data not collected in hover registration
+
             if (StringUtils.isEmpty(user.getGender())) {
                 user.setGender("u");
             }
 
-            user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
+            user.setHow(userCommand.joinTypeToHow());
 
             // save
             getUserDao().updateUser(user);
@@ -251,34 +251,6 @@ public class RegistrationHoverController extends RegistrationController implemen
         subscriptions.add(sub);
     }
 
-    public String joinTypeToHow(RegistrationHoverCommand.JoinHoverType joinType) {
-        switch (joinType) {
-            case Auto:
-                return "hover_mss";
-            case ChooserTipSheet:
-                return "acq_chooserpack";
-            case LearningDifficultiesNewsletter:
-                return "hover_ld";
-            case PostComment:
-                return "hover_community";
-            case TrackGrade:
-                return "hover_greatnews";
-            case TrackGradeAuto:
-                return "hover_greatnews_auto";
-            case GlobalHeader:
-                return "hover_headerjoin";
-            case FooterNewsletter:
-                return "hover_footernewsletter";
-            case SchoolReview:
-                return "hover_review";
-            case BTSTip:
-                return "hover_btstip";
-            case MSL:
-                return "hover_msl";
-        }
-        return null;
-    }
-
     protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureTracking ot) {
         UserProfile userProfile;
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
@@ -291,12 +263,12 @@ public class RegistrationHoverController extends RegistrationController implemen
             }
             userProfile.setScreenName(userCommand.getScreenName());
             userProfile.setState(userCommand.getState());
-            userProfile.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
+            userProfile.setHow(userCommand.joinTypeToHow());
         } else {
             // gotten this far, now let's update their user profile
 
             userProfile = userCommand.getUserProfile();
-            userProfile.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
+            userProfile.setHow(userCommand.joinTypeToHow());
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
 

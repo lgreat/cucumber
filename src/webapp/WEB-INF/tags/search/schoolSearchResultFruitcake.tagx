@@ -128,10 +128,19 @@
                 </div>
                 <div class="alpha grid_16 omega">
                     <div class="line">
-                    <div class="dn js-facepile"><!-- do not collapse --></div>
                     <div class="dn js-school-data" data-gs-facebook-url="${school.facebookUrl}" data-gs-school-autotext="${school.autotext}" data-gs-school-name="${school.name}" data-gs-city="${school.address.city}" data-gs-state="${school.address.state.abbreviationLowerCase}">
                         <!-- do not collapse -->
                     </div>
+                        <c:if test="${facebookFacepilesEnabled eq true}">
+                            <div class="dn js-facepile"><!-- do not collapse --></div>
+                            <link:schoolProfileOverviewForPrimitives
+                                 schoolId="${school.id}"
+                                 databaseState="${school.databaseState}"
+                                 name="${school.name}"
+                                 styleClass="dn noInterstitial no_interrupt js-ask-a-friend"
+                                 physicalAddress="${school.address}"
+                                 levelCode="${school.levelCode}">Ask a friend for help</link:schoolProfileOverviewForPrimitives>
+                        </c:if>
                 </div></div>
             </div>
             <div class="ft phm pvs">
