@@ -301,6 +301,8 @@ GS.form.EspForm = function() {
             GS.form.espForm.validateStateSchoolUserUnique()
         ).done(
             function() {
+                //For some reason the form was posting with the params in the url.This was causing a bug, hence set the action explicitly.
+                jQuery('#espRegistrationCommand').attr('action','/official-school-profile/register.page');
                 //submit the form if all validations pass.
                 document.getElementById('espRegistrationCommand').submit();
             }
