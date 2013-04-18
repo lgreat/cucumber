@@ -13,19 +13,22 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @RequestMapping("/community/registration")
@@ -40,63 +43,99 @@ public class UserSignupAjaxController {
 
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
-    @RequestMapping(value="/ajaxJoin.page", method=RequestMethod.POST)
-    public String handleJoin(ModelMap modelMap, RegistrationHoverCommand command, HttpServletRequest request, HttpServletResponse response) {
+
+    /*@InitBinder(value = COMMAND)
+    public void customizeConversions(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, true));
+    }*/
+
+    @RequestMapping(value="/basicRegistration.page", method=RequestMethod.POST)
+    public String handleJoin(
+            ModelMap modelMap,
+            @Valid UserRegistrationCommand userRegistrationCommand,
+            UserSubscriptionCommand userSubscriptionCommand,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws Exception {
 
         if (isIPBlocked(request)) {
 
         };
 
-        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
-        User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+        User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
+
         boolean userExists = (user != null);
 
-        if (userExists) {
-            setFieldsOnUserUsingCommand(userCommand, user);
-            userCommand.setUser(user);
-        } else {
+        if (!userExists) {
             // only create the user if the user is new
-            getUserDao().saveUser(userCommand.getUser());
-            user = userCommand.getUser();
-        }
+            user = createUser(userRegistrationCommand);
 
-        setUsersPassword(user, userCommand, userExists);
-        updateUserProfile(user, userCommand, ot);
-
-        user.setHow(userCommand.joinTypeToHow());
-
-        // save
-        getUserDao().updateUser(user);
-
-        return null;
-    }
-
-    protected void setUsersPassword(User user, UserCommand userCommand, boolean userExists) throws Exception {
-        try {
-            user.setPlaintextPassword(userCommand.getPassword());
-            _userDao.updateUser(user);
-        } catch (Exception e) {
-            _log.warn("Error setting password: " + e.getMessage(), e);
-            if (!userExists) {
-                // for new users, cancel the account on error
-                _userDao.removeUser(user.getId());
+            if ("facebook".equals(userRegistrationCommand.getHow())) {
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
+                user.setEmailVerified(true);
+                user.setEmailValidated();
             }
-            throw e;
+
+            getUserDao().saveUser(user);
+
+            try {
+                if ("facebook".equals(userRegistrationCommand.getHow())) {
+                    user.setPlaintextPassword(RandomStringUtils.random(24));
+                } else {
+                    user.setPlaintextPassword(userRegistrationCommand.getPassword());
+                }
+
+                UserProfile profile = createUserProfile(userRegistrationCommand, user);
+                user.setUserProfile(profile);
+                getUserDao().updateUser(user);
+
+            } catch (NoSuchAlgorithmException e) {
+                getUserDao().removeUser(user.getId());
+            } catch (IllegalStateException e) {
+                getUserDao().removeUser(user.getId());
+            }
         }
+
+        return "yay";
     }
 
-    protected void setFieldsOnUserUsingCommand(RegistrationHoverCommand userCommand, User user) {
-        if (StringUtils.isNotEmpty(userCommand.getFirstName())) {
-            user.setFirstName(userCommand.getFirstName());
-        }
-        if (StringUtils.isNotEmpty(userCommand.getLastName())) {
-            user.setLastName(userCommand.getLastName());
-        }
-        String gender = userCommand.getGender();
-        if (StringUtils.isNotEmpty(gender)) {
-            user.setGender(userCommand.getGender());
-        }
+    protected User createUser(UserRegistrationCommand userCommand) {
+        User user = new User();
+
+        user.setEmail(userCommand.getEmail());
+
+        user.setStateAsString(userCommand.getState().getAbbreviation());
+
+        user.setFirstName(userCommand.getFirstName());
+
+        user.setLastName(userCommand.getLastName());
+
+        user.setGender(userCommand.getGender());
+
+        user.setTimeAdded(new Date());
+
+        user.setHow(userCommand.getHow());
+
+        return user;
+    }
+
+    public UserProfile createUserProfile(UserRegistrationCommand userRegistrationCommand, User user) {
+        UserProfile profile = new UserProfile();
+
+        profile.setScreenName(userRegistrationCommand.getScreenName());
+
+        profile.setState(userRegistrationCommand.getState());
+
+        profile.setCity(userRegistrationCommand.getCity());
+
+        profile.setHow(userRegistrationCommand.getHow());
+
+        profile.setUpdated(new Date());
+
+        profile.setUser(user);
+
+        return profile;
+
     }
 
     protected boolean isIPBlocked(HttpServletRequest request) {
