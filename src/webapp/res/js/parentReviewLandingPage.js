@@ -56,6 +56,11 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
     // Caching strategy from http://stackoverflow.com/a/14144009
     searchBox.autocomplete({
         minLength: 3,
+        change: function( event, ui ) {
+           if(GS.parentReviewLandingPage.chosenSchool != ui.item){
+               GS.form.selectionMadeAutoComplete = false;
+           }
+        },
         source: function (request, response) {
             var state = function () {
                 var rval =  $("[name=stateSelectReviews]").val();//$("#js-reviewLandingState").find(".js-selectBoxText").html();
@@ -170,9 +175,11 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
  */
 
 $(document).ready(function() {
+    var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+
     $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_submitSelectSchool').on("click",function() {
-        var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+
         if (!GS.form.selectionMadeAutoComplete) {
             alert("Please select a school to continue");
             return false;
@@ -221,7 +228,6 @@ $(document).ready(function() {
         //// set state dropdown to this value.
         theStateValueToSet = geoip_region();
     }
-
 
     GS.form.stateDropDownConfig = function(){
         $("[name=stateSelectReviews]").sb({ ddCtx: function() { return $(this).closest("form"); } });
