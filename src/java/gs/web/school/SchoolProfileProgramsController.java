@@ -64,6 +64,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     public static final String SUMMER_PROGRAM_TEMP_TITLE_PREFIX = "summer program ";
     public static final String SUMMER_PROGRAM_DATES_KEY_PREFIX = "summer_program_date_";
     public static final String SUMMER_PROGRAM_ACTIVITIES_KEY_PREFIX = "summer_program_activities_";
+    public static final String SUMMER_PROGRAM_CARE_KEY_PREFIX = "summer_program_before_after_care_";
 
 //    @Autowired
 //    private IEspResponseDao _espResponseDao;
@@ -267,6 +268,22 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                         continue;
                     }
                     String value = null;
+
+                    if (key.startsWith(SUMMER_PROGRAM_CARE_KEY_PREFIX + "start")) {
+                        value = espResponse.getPrettyValue();
+                        if(value != null) {
+                            results.add("Before: starts " + value);
+                        }
+                        continue;
+                    }
+                    else if (key.startsWith(SUMMER_PROGRAM_CARE_KEY_PREFIX + "end")) {
+                        value = espResponse.getPrettyValue();
+                        if(value != null) {
+                            results.add("After: ends " + value);
+                        }
+                        continue;
+                    }
+
                     if( bean.getAllowedResponseValues() != null && key.equals(bean.getEspResponseKeyWithAllowed())){
                         // If there is a set of permitted values then check to see if this value is allowed
                         // the allowed values only applies to the first key added as indicated by getEspResponseKeyWithAllowed()
@@ -1304,6 +1321,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             put("summer_program_fee_", "Is there a fee for the program?");
             put("summer_program_financial_aid_", "Is financial aid available?");
             put("summer_program_fee_learn_more_", "How can parents find out more about fees?");
+            put(SUMMER_PROGRAM_CARE_KEY_PREFIX, "Before / after care");
             put(SUMMER_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
             put("summer_program_phone_", "Phone number");
         }};
@@ -1347,6 +1365,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         else if(key.startsWith(SUMMER_PROGRAM_DATES_KEY_PREFIX)) {
             getLastDisplayBean().addKey(SUMMER_PROGRAM_DATES_KEY_PREFIX + "start_" + i);
             getLastDisplayBean().addKey(SUMMER_PROGRAM_DATES_KEY_PREFIX + "end_" + i);
+        }
+        else if(key.startsWith(SUMMER_PROGRAM_CARE_KEY_PREFIX)) {
+            getLastDisplayBean().addKey(SUMMER_PROGRAM_CARE_KEY_PREFIX + "start_" + i);
+            getLastDisplayBean().addKey(SUMMER_PROGRAM_CARE_KEY_PREFIX + "end_" + i);
         }
         else if(key.startsWith(AF_PROGRAM_ACTIVITIES_KEY_PREFIX)) {
             getLastDisplayBean().addKey(AF_PROGRAM_ACTIVITIES_KEY_PREFIX + "other_" + i);
