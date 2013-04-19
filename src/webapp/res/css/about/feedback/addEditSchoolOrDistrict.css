@@ -120,3 +120,31 @@ hr {
 #div_school_only_1{
     display:none;
 }
+
+#privateSection1{
+    display:none;
+}
+
+#headOfficialSection{
+    display:none;
+}
+
+#div_preschool_only{
+    display:none;
+}
+
+#computerInfo{
+    display:none;
+}
+
+#enrollmentSection{
+    display:none;
+}
+
+#capacitySection{
+    display:none;
+}
+
+#schoolDistrictFields{
+    display:none;
+}

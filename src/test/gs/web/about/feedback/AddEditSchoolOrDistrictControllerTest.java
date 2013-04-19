@@ -1,7 +1,9 @@
 package gs.web.about.feedback;
 
+import gs.data.json.JSONObject;
 import gs.data.school.ISchoolDao;
 import gs.web.BaseControllerTestCase;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.EasyMock.createStrictMock;
 
@@ -25,8 +27,14 @@ public class AddEditSchoolOrDistrictControllerTest  extends BaseControllerTestCa
         _schoolDao = createStrictMock(ISchoolDao.class);
     }
 
-    public void testBasics() {
+    public void testBasics() throws Exception{
         assertEquals("command", _controller.getCommandName());
+
+
     }
+
+
+
+
 
 }

@@ -42,7 +42,6 @@
         <school:espNeedHelp school="${school}"/>
     </div>
 </div>
-
 <!-- Error Message to display -->
 <div class="grid_13">
     <div class="standard_1-1">
@@ -51,6 +50,7 @@
                 <c:choose>
                     <c:when test="${message eq 'page1'}">
                         <!-- Use case: User is in processing and another user h0as provisional access -->
+                        <c:set var="pageName" value="OSP Processing Page"/>
                         <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
                         <p class="small">It looks like another authorized administrator
                             from your school is currently editing your school's OSP.
@@ -63,6 +63,7 @@
                     </c:when>
                     <c:when test="${message eq 'page3'}">
                         <!-- Use case: User is in approved and another user has provisional access -->
+                        <c:set var="pageName" value="OSP Approved Locked Page"/>
                         <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
                         <p class="small">It looks like <c:if test="${not empty provisionalUserName}">${provisionalUserName}</c:if> has requested permission to become an administrator for this OSP.
                             While we are processing this request, the OSP will be unavailable for editing.
@@ -73,6 +74,7 @@
                     </c:when>
                     <c:when test="${message eq 'page5'}">
                         <!-- Use case: User is rejected -->
+                        <c:set var="pageName" value="OSP Rejected Page"/>
                         <p class="bottom"><strong>Uh-oh! We're sorry.</strong></p>
                         <p class="small">It looks like we were unable to confirm you as an administrator <c:if test="${not empty school}">of ${school.name}'s Official School Profile</c:if>.</p>
                         <p class="small">Were you trying to edit a different school's page? <a href="/official-school-profile/register.page">Click here</a> to try again.</p>
@@ -82,6 +84,7 @@
                     </c:when>
                     <c:when test="${message eq 'page6'}">
                         <!-- Use case: User is deactivated -->
+                        <c:set var="pageName" value="OSP Deactivated Page"/>
                         <p class="bottom"><strong>Whoops!</strong></p>
                         <p class="small">It looks like you are no longer an approved administrator for this
                             school's profile. If you'd like to re-activate your account,
@@ -128,11 +131,10 @@
 </div>
 
 
-
 <div class="spacer_60"><!-- do not collapse --></div>
 
 <div style="display:none;">
-    <mod:tracking pageName="OSP RegistrationError" hier1="ESP"/>
+    <mod:tracking pageName="${pageName}" hier1="ESP"/>
 </div>
 </gsml:body>
 </html>

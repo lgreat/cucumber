@@ -61,14 +61,24 @@ public class DistrictsInCityAjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
         String onChange = request.getParameter("onchange");
         String city = request.getParameter("city");
+        String county = request.getParameter("county");
         String includePrivatedistrictsStr = request.getParameter("includePrivatedistricts");
         boolean includePrivatedistricts = (StringUtils.isNotBlank(includePrivatedistrictsStr) ? Boolean.valueOf(includePrivatedistrictsStr) : false);
         String choosedistrictLabel = request.getParameter("choosedistrictLabel");
         if (StringUtils.isBlank(choosedistrictLabel)) {
-            choosedistrictLabel = "2. Choose district";
+            choosedistrictLabel = "Choose district";
         }
-
-        List<District> districts = _districtDao.findDistrictsInCity(state, city);
+        List<District> districts = null;
+        if(county != null){
+            districts = _districtDao.findDistrictsInCounty(state, county,false);
+        }else if(city != null){
+            districts = _districtDao.findDistrictsInCity(state, city);
+        }
+        String selected = districts != null && districts.size() == 1 ? "selected" : "";
+        if(districts == null || districts.size() == 0){
+            out.print("no districts");
+            return;
+        }
         if (!printOptionsOnly) {
             out.println("<select id=\"districtSelect\" name=\"sid\" class=\"selectdistrict\""+(StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");
         }
@@ -79,7 +89,8 @@ public class DistrictsInCityAjaxController implements Controller {
                         continue;
                     }
                 }
-                out.print("<option value=\"" + district.getId() + "\">");
+                out.print("<option value=\"" + district.getId() + "\"" + " " + selected + ">");
+                //out.print("<option value=\"" + district.getId() + "\" \"" + selected + ">");
                 out.print(StringEscapeUtils.escapeHtml(district.getName()));
                 out.println("</option>");
         }

@@ -42,6 +42,7 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
     private String _city;
     private String _zipcode;
     private String _county;
+    private String _county1;
     private String _enrollment;
     private String _phone;
     private String _fax;
@@ -377,6 +378,15 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
 
     public void setCounty(String county) {
         _county = county;
+    }
+
+
+    public String getCounty1() {
+        return _county1;
+    }
+
+    public void setCounty1(String county1) {
+        _county1 = county1;
     }
 
 

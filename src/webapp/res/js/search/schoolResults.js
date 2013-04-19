@@ -805,7 +805,7 @@ GS.search.results = GS.search.results || (function() {
                 } else {
                     phrase = " friends are";
                 }
-                text = text +"<span class='small vam mlm'>" + numberFans + phrase + " connected to this school.</span>";
+                text = text +"<span class='iconx16 i-16-fbFacepile vam mlm'><!--Do not collapse--></span><span class='small vam mls'>" + numberFans + phrase + " connected to this school.</span>";
                 $facepile.html(text);
                 $facepile.show();
             }

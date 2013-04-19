@@ -2,6 +2,7 @@ package gs.web.about.feedback;
 
 
 import gs.data.geo.City;
+import gs.data.geo.County;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
 import gs.data.school.*;
@@ -10,6 +11,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ICaptchaCommand;
+import gs.web.jsp.about.feedback.PreschoolSubtypeSelectorTagHandler;
 import gs.web.util.ReadWriteAnnotationController;
 
 import gs.web.util.UrlBuilder;
@@ -132,6 +134,9 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
 
         Map<String,String> model = new HashMap<String,String>();
+        Map<String,Integer> yesNo = new HashMap<String,Integer>();
+        yesNo.put("No",0);
+        yesNo.put("Yes",1);
         //model.put("action",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
         model.put("name",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
@@ -169,17 +174,22 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }else{
             //newEntityQueue.setOriginalId(0);
         }
+        if(command.getDistrictId() != null && !(command.getDistrictId().equals("")) && command.getAddEdit().equals("add")){
+            newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
+        }
         //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
         newEntityQueue.setSchoolOrDistrict(command.getSchoolOrDistrict());
         newEntityQueue.setGradeLevels(new Grades(command.getGrades()));
+        //default to public
         SchoolType schoolType = SchoolType.PUBLIC;
         if(command.getSchoolType() != null){
             schoolType = command.getSchoolType().equals("public") ? SchoolType.PUBLIC
                     :  command.getSchoolType().equals("charter") ? SchoolType.CHARTER
                     :  command.getSchoolType().equals("private") ? SchoolType.PRIVATE
-                    : null;
+                    : SchoolType.PUBLIC;
         }
         newEntityQueue.setType(schoolType);
+
 
         newEntityQueue.setContactName(command.getSubmitterName());
         newEntityQueue.setContactEmail(command.getSubmitterEmail());
@@ -192,7 +202,11 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setCity(command.getCity());
         newEntityQueue.setStateAbbreviation(command.getState());
         newEntityQueue.setZipcode(command.getZipcode());
-        newEntityQueue.setCounty(command.getCounty());
+        String countyName = command.getCounty();
+        if(countyName == null || countyName.equals("")){
+            countyName = command.getCounty1();        }
+        _log.warn("county:" + countyName + ":");
+        newEntityQueue.setCounty(countyName);
         if(command.getEnrollment() != null && StringUtils.isNotBlank(command.getEnrollment())){
             newEntityQueue.setEnrollment(new Integer(command.getEnrollment()));
         }
@@ -208,20 +222,24 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setLowAge(command.getLowAge());
         newEntityQueue.setHighAge(command.getHighAge());
 
-        newEntityQueue.setGender(SchoolSubtype.create(command.getGender()));
-        newEntityQueue.setPreschoolSubtype(SchoolSubtype.create(command.getPreschoolSubtype()));
+        if(command.getGender() != null){
+            newEntityQueue.setGender(SchoolSubtype.create(command.getGender()));
+        }
+        if(command.getPreschoolSubtype() != null){
+            newEntityQueue.setPreschoolSubtype(SchoolSubtype.create(command.getPreschoolSubtype()));
+        }
 
         if(command.getBilingual() != null && StringUtils.isNotBlank(command.getBilingual())){
-            newEntityQueue.setBilingual(new Integer(command.getBilingual()));
+            newEntityQueue.setBilingual(new Integer(yesNo.get(command.getBilingual())));
         }
         if(command.getSpecialEd() != null && StringUtils.isNotBlank(command.getSpecialEd())){
-            newEntityQueue.setSpecialEd(new Integer(command.getSpecialEd()));
+            newEntityQueue.setSpecialEd(new Integer(yesNo.get(command.getSpecialEd())));
         }
         if(command.getComputers() != null && StringUtils.isNotBlank(command.getComputers())){
-            newEntityQueue.setComputers(new Integer(command.getComputers()));
+            newEntityQueue.setComputers(new Integer(yesNo.get(command.getComputers())));
         }
         if(command.getExtendedCare() != null && StringUtils.isNotBlank(command.getExtendedCare())){
-            newEntityQueue.setExtendedCare(new Integer(command.getExtendedCare()));
+            newEntityQueue.setExtendedCare(new Integer(yesNo.get(command.getExtendedCare())));
         }
 
         newEntityQueue.setOperatingSystem(command.getOperatingSystem());
@@ -270,11 +288,46 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         addEdit.add("edit");
         map.put("addEdit", addEdit);
 
-        List<String> schoolType = new ArrayList();
-        schoolType.add("public");
-        schoolType.add("private");
-        schoolType.add("charter");
-        map.put("schoolType", schoolType);
+        //List<String> schoolType = new ArrayList();
+        Map<String,String> svMap = new HashMap();
+        svMap.put("public","public");
+        svMap.put("private","private");
+        svMap.put("public charter","charter");
+        //schoolType.add("public");
+        //schoolType.add("private");
+        //schoolType.add("charter");
+        map.put("schoolType", svMap);
+
+        List<String> gender = new ArrayList();
+        gender.add("coed");
+        gender.add("all_male");
+        gender.add("all_female");
+        map.put("gender", gender);
+
+        Map<String,String> ynMap = new HashMap();
+        ynMap.put("Yes","Y");
+        ynMap.put("No","N");
+        map.put("bilingual", ynMap);
+        map.put("specialEd", ynMap);
+        map.put("computers", ynMap);
+        map.put("extendedCare", ynMap);
+
+        PreschoolSubtypeSelectorTagHandler psth = new PreschoolSubtypeSelectorTagHandler();
+        String[] stValues = psth.getOptionValues();
+        String[] stDisplay = psth.getOptionDisplayNames();
+        java.util.Arrays.sort(stValues, java.text.Collator.getInstance());
+        java.util.Arrays.sort(stDisplay, java.text.Collator.getInstance());
+
+        Map<String,String> preschoolSubtype = new HashMap();
+        for( int i = 0; i < stValues.length; i++)
+        {
+            preschoolSubtype.put(stValues[i],stDisplay[i]);
+        }
+        //map.put("preschoolSubtype",preschoolSubtype);
+        map.put("preschoolSubtype",stValues);
+        map.put("psMap",preschoolSubtype);
+
+
 
         captureRequestParameters(request, command, map);
 
@@ -299,6 +352,14 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             cityOptions.add(new FormOption(city.getName(), city.getName()));
         }
         map.put("cityOptions", cityOptions);
+
+        // Populate county options
+        List<ICounty> counties = _geoDao.findCounties(stateOrDefault);
+        List<FormOption> countyOptions = new ArrayList<FormOption>();
+        for (ICounty county : counties) {
+            countyOptions.add(new FormOption(county.getName(), county.getName()));
+        }
+        map.put("countyOptions", countyOptions);
 
         // Populate school options if a city was chosen
         List<FormOption> schoolOptions = new ArrayList<FormOption>();

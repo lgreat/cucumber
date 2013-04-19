@@ -170,13 +170,6 @@ div#YahooRealEstateLink {
 
 #connectWithUs{
     background-color: #2B2B2B;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#1E1E1E), to(#333333)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #1E1E1E, #333333); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(bottom, #1E1E1E, #333333); /* FF3.6 */
-    background-image:     -ms-linear-gradient(bottom, #1E1E1E, #333333); /* IE10 */
-    background-image:      -o-linear-gradient(bottom, #1E1E1E, #333333); /* Opera 11.10+ */
-    background-image:         linear-gradient(bottom, #1E1E1E, #333333); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1E1E1E', EndColorStr='#333333'); /* IE6�IE9 */
     border-bottom:solid 1px #414141;
 }
 

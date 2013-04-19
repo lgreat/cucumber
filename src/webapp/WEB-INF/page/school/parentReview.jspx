@@ -366,7 +366,7 @@
                     </div>
                 </div>
 
-                <div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-3">Post</div></div>
+                <div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</div></div>
             </div>
         </form>
     </div>

@@ -128,8 +128,16 @@ public class SchoolProfileDisplayBean {
         return _sectionAbbreviation;
     }
 
+    public void setSectionAbbreviation(String sectionAbbreviation) {
+        _sectionAbbreviation = sectionAbbreviation;
+    }
+
     public String getSectionTitle() {
         return _sectionTitle;
+    }
+
+    public void setSectionTitle(String sectionTitle) {
+        _sectionTitle = sectionTitle;
     }
 
     public String getRowTitle() {

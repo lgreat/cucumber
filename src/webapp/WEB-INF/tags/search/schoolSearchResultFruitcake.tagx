@@ -178,7 +178,7 @@
                 </div>
                 <div class="fr">
 
-                    <span class="iconx24 i-24-facebook vam"><!--Do not collapse--></span>
+                    <span class="iconx16 i-16-fbShare vam"><!--Do not collapse--></span>
                     <span class="small vam mls">
                         <link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}"
                             name="${school.name}" styleClass="noInterstitial no_interrupt js-ask-a-friend noUnderline"

@@ -185,7 +185,7 @@
                     <div class="fr mtm" style="padding-bottom:100px;">
                         <a href="javascript:void(0)" id="jq-myAccount" class="small bottom prl">Edit company info</a>
                         <a href="javascript:void(0)">
-                            <button class="but but-lg but-3" type="button" id="js-submit"
+                            <button class="but but-lg but-1" type="button" id="js-submit"
                                     onclick="GS.realEstateAgent.createGuide.submitSearch()">
                                 Download
                             </button>

@@ -1420,6 +1420,7 @@ GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("school
 GSType.hover.ClickToReviewYourSchool = function() {
     this.loadDialog = function() {
         jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
+            GSType.hover.clickToReviewYourSchool.hide();
             GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
         });
     };
@@ -1435,6 +1436,8 @@ GSType.hover.ClickToReviewYourSchool = function() {
     };
     this.cancelLoadOnExit = function() {
         jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).unbind('dialogclose');
+
+
     };
     this.showInterruptHoverOnPageExit = function(showHoverFunction) {
         // automatically ignore any links with class no_interrupt
