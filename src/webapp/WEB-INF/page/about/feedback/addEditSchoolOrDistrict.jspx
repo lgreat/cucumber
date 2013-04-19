@@ -63,7 +63,18 @@ function doSchoolType(schoolType){
     //var $radios = $('input:radio[name=schoolType]');
     //$radios.filter('[value=' + schoolType + ']').attr('checked', true);
     //alert(":"+schoolType+":");
-    $("input[name=schoolType][value=" + schoolType + "]").attr('checked', 'checked');
+    $("input[name=schoolType][value=private]").removeAttr('checked');
+    $("input[name=schoolType][value=public]").removeAttr('checked');
+    $("input[name=schoolType][value=charter]").removeAttr('checked');
+    if(schoolType == "private"){
+        $("input[name=schoolType][value=private]").attr('checked', 'checked');
+    }
+    if(schoolType == "public"){
+        $("input[name=schoolType][value=public]").attr('checked', 'checked');
+    }
+    if(schoolType == "charter"){
+        $("input[name=schoolType][value=charter]").attr('checked', 'checked');
+    }
     doSchoolTypeSections();
 }
 
@@ -154,13 +165,47 @@ function temp(){
 function do_school_type(){
 }
 
+function clear_values(){
+    doGradesForEntity( ""  );
+    doSchoolType("");
 
+    $("#name").val("");
+    $("#street").val("");
+    $("#streetLine2").val("");
+    $("#city").val("");
+    $("#Zipcode").val("");
+    $("#enrollment").val("");
+    $("#phone").val("");
+    $("#fax").val("");
+    $("#webSite").val("");
+    $("#headOfficialName").val("");
+    $("#headOfficialEmail").val("");
+    $("#startTime").val("");
+    $("#endTime").val("");
+    $("#affiliation").val("");
+    $("#association").val("");
+    doGender("");
 
-function do_add_edit(state){
+    $("select[name=lowAge]").val("");
+    $("select[name=highAge]").val("");
+
+    doPreschoolYesNo("","","","");
+    doPKSubtypes("");
+    $("#addEditSchoolOrDistrictCommand_cityName").val("");
+    $("#addEditSchoolOrDistrictCommand_schoolId").val("");
+    $("#addEditSchoolOrDistrictCommand_schoolId").html("<option value=''> -- Choose School -- </option>");
+    $("#addEditSchoolOrDistrictCommand_districtId").val("");
+    $("#addEditSchoolOrDistrictCommand_districtId").html("<option value=''> -- Choose District -- </option>");
+    $("#addEditSchoolOrDistrictCommand_county").val("");
+}
+
+function do_add_edit(state,clear){
+    if(clear == "1"){
+        clear_values();
+    }
     if($('input:radio[name=addEdit]:checked').val() == 'edit'){
         //$("#div_grades").hide();
         //$("#div_school_type").hide();
-        $("#div_choose_state").show();
         $("#addEditSchoolOrDistrictCommand_state").val(state);
 
 
@@ -187,6 +232,26 @@ function do_add_edit(state){
                 }),
                 success: function(data) {
                     $("#addEditSchoolOrDistrictCommand_county").html(data);
+                    $("#addEditSchoolOrDistrictCommand_county").html(data);
+                }
+            });
+        });
+
+        $("#addEditSchoolOrDistrictCommand_county").change(function() {
+            $j.ajax({
+                url: '/test/districtsInCity.page',
+                dataType: 'text',
+                data: ({
+                    state : $("#addEditSchoolOrDistrictCommand_state").val(),
+                    county : $("#addEditSchoolOrDistrictCommand_county").val(),
+                    printOptionsOnly: 'true',
+                    chooseDistrictLabel: '- Choose County -'
+                }),
+                success: function(data) {
+                    $("#addEditSchoolOrDistrictCommand_districtId").html(data);
+                    if(data == "no districts"){
+                        $("#district_list").hide();
+                    }
                 }
             });
         });
@@ -218,6 +283,9 @@ function do_add_edit(state){
                 }),
                 success: function(data) {
                     $("#addEditSchoolOrDistrictCommand_districtId").html(data);
+                    if(data == "no districts"){
+                        $("#district_list").hide();
+                    }
                 }
             });
 
@@ -236,17 +304,7 @@ function do_add_edit(state){
                     'entityType' : $('input:radio[name=schoolOrDistrict]:checked').val()
                 }),
                 success: function(data) {
-                    //$("#addEditSchoolOrDistrictCommand_cityName").html(data);
-                    //$("#schoolName").val(data);
-                    //$("#name").val($("#addEditSchoolOrDistrictCommand_schoolId").val());
-                    //doGradesForEntity("school",$("#addEditSchoolOrDistrictCommand_schoolId").val());
-                    //warnEddie(data);
                     var obj = jQuery.parseJSON(data);
-                    warnEddie($('input:radio[name=schoolOrDistrict]:checked').val()
-                            + " " + $("#addEditSchoolOrDistrictCommand_state").val()
-                            + " " + $("#addEditSchoolOrDistrictCommand_schoolId").val()
-                            + " inner " + obj.grades
-                    );
                     doGradesForEntity( obj.grades  );
                     doSchoolType(obj.schoolType);
                     doDivs(obj);
@@ -256,8 +314,7 @@ function do_add_edit(state){
                     $("#streetLine2").val(obj.streetLine2);
                     $("#city").val(obj.city);
                     $("#Zipcode").val(obj.Zipcode);
-                    $("#addEditSchoolOrDistrictCommand_county").val(obj.county);
-                    //$("#capacity").val(obj.capacity);
+                    $("#addEditSchoolOrDistrictCommand_county1").val(obj.county);
                     $("#enrollment").val(obj.enrollment);
                     $("#phone").val(obj.phone);
                     $("#fax").val(obj.fax);
@@ -288,38 +345,132 @@ function do_add_edit(state){
         });
 
 
+        $("#addEditSchoolOrDistrictCommand_districtId").change(function() {
+            //alert("hello");
+            $j.ajax({
+                cache: false,
+                url: '/test/entityInfo.page?nocache='+Math.random(),
+                dataType: 'text',
+                data: ({
+                    'state' : $("#addEditSchoolOrDistrictCommand_state").val(),
+                    'id' : $("#addEditSchoolOrDistrictCommand_districtId").val() ,
+                    'entityType' : $('input:radio[name=schoolOrDistrict]:checked').val()
+                }),
+                success: function(data) {
+                    //$("#addEditSchoolOrDistrictCommand_cityName").html(data);
+                    //$("#schoolName").val(data);
+                    //$("#name").val($("#addEditSchoolOrDistrictCommand_schoolId").val());
+                    //doGradesForEntity("school",$("#addEditSchoolOrDistrictCommand_schoolId").val());
+                    //warnEddie(data);
+                    var obj = jQuery.parseJSON(data);
 
+                    doGradesForEntity( obj.grades  );
+                    //doSchoolType(obj.schoolType);
+                    doDivs(obj);
+
+                    $("#name").val(obj.name);
+                    $("#street").val(obj.street);
+                    $("#streetLine2").val(obj.streetLine2);
+                    $("#city").val(obj.city);
+                    $("#Zipcode").val(obj.Zipcode);
+                    $("#addEditSchoolOrDistrictCommand_county").val(obj.county);
+                    //$("#capacity").val(obj.capacity);
+                    $("#enrollment").val(obj.enrollment);
+                    $("#phone").val(obj.phone);
+                    $("#fax").val(obj.fax);
+                    $("#webSite").val(obj.webSite);
+                    $("#headOfficialName").val(obj.headOfficialName);
+                    $("#headOfficialEmail").val(obj.headOfficialEmail);
+                    //$("#startTime").val(obj.startTime);
+                    //$("#endTime").val(obj.endTime);
+                    //$("#affiliation").val(obj.affiliation);
+                    //$("#association").val(obj.association);
+                    //$("#gender").val(obj.gender);
+                    //doGender(obj.gender);
+
+                    //$("select[name=lowAge]").val(obj.lowAge);
+                    //$("select[name=highAge]").val(obj.highAge);
+
+                    //doPreschoolYesNo(obj.bilingual,obj.specialEd,obj.computers,obj.extendedCare);
+                    //$("#bilingual").val(obj.bilingual);
+                    //$("#specialEd").val(obj.specialEd);
+                    //$("#computers").val(obj.computers);
+                    //$("#extendedCare").val(obj.extendedCare);
+                    //$("#preschoolSubtype").val(obj.preschoolSubtype);
+                    //doPKSubtypes(obj.preschoolSubtype);
+
+                }
+            });
+
+        });
+
+
+        if($('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
+            $("#div_choose_state").show();
+            $("#div_school_type").show();
+            $("#school_list").show();
+            $("#city_list").show();
+            $("#district_list").hide();
+            $("#county_list").hide();
+            $("#schoolDistrictFields").show();
+        }
+
+        if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
+            $("#div_choose_state").show();
+            $("#div_school_type").hide();
+            $("#school_list").hide();
+            $("#city_list").hide();
+            $("#district_list").show();
+            $("#county_list").show();
+            $("#schoolDistrictFields").show();
+        }
     }
 
 
     if($('input:radio[name=addEdit]:checked').val() == 'add'){
-        //alert("doing add edit " + state);
-        $("#div_choose_state").hide();
-        //$("#div_grades").show();
+        $("#div_choose_state").show();
         $("#div_school_type").show();
+        $("#school_list").hide();
+        $("#city_list").hide();
+        $("#district_list").show();
+        $("#county_list").show();
+        $("#schoolDistrictFields").show();
     }
 
 
 }
 
-function do_radio_school_district(){
+function do_radio_school_district(clear){
+    if(clear == "1"){
+        clear_values();
+    }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
+        //$("#div_choose_state").show();
         $("#div_radio_add_edit").show();
         $("#school_list").show();
+        $("#city_list").show();
         $("#div_school_type").show();
+        $("#enrollmentSection").show();
         $("#div_school_only_1").show();
         $("#district_list").hide();
+        $("#county_list").hide();
+        $("#schoolDistrictFields").show();
+        $("#detailsLabel").html("School Details");
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
+        $("#div_choose_state").show();
         $("#div_school_type").hide();
+        $("#enrollmentSection").hide();
         $("#div_radio_add_edit").hide();
         $("#school_list").hide();
+        $("#city_list").hide();
         $("#district_list").show();
+        $("#county_list").show();
         $("#div_school_only_1").hide();
-        //$("#div_choose_state").show();
         $("input[name=addEdit][value=edit]").prop('checked', true);
-        $("input[name=grades][value=12]").prop('checked', true);
-        //$('#addEdit').val('edit');
+        $("#schoolDistrictFields").show();
+        $("#detailsLabel").html("District Details");
+        $("#lowerCounty").hide();
         do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
     }
 
@@ -495,7 +646,7 @@ $(document).ready(function(){
         <spring:bind path="addEditSchoolOrDistrictCommand.schoolOrDistrict">
             <c:forEach var="myTc" items="${requestScope.schoolOrDistrict}">
                 <gsml:radio name="${status.expression}" value="${myTc}"
-                            onclick="do_radio_school_district()"
+                            onclick="do_radio_school_district(1)"
                             checked="${myTc == status.value}"/> ${myTc}
             </c:forEach>
 
@@ -515,7 +666,7 @@ $(document).ready(function(){
         </spring:bind>-->
         <spring:bind path="addEditSchoolOrDistrictCommand.addEdit">
             <c:forEach var="myTc" items="${requestScope.addEdit}">
-                <gsml:radio name="${status.expression}" value="${myTc}" onclick="do_add_edit('${state}')"
+                <gsml:radio name="${status.expression}" value="${myTc}" onclick="do_add_edit('${state}',1)"
                             checked="${myTc == status.value}"/> ${myTc}
             </c:forEach>
 
@@ -531,7 +682,7 @@ $(document).ready(function(){
 
     <fieldset class="fieldset1 bg-ebebeb">
         <legend class="legend1">
-            <span class="legend1-position">School Details</span>
+            <span class="legend1-position" id="details_label">School Details</span>
         </legend>
         <ol class="formlist1">
             <!-- <input type="hidden" name="feedbackType" value="join"/>    -->
@@ -559,7 +710,7 @@ $(document).ready(function(){
 
 
 
-            <li class="fl1-item">
+            <li class="fl1-item" id="city_list">
                 <form:label cssClass="label1 text2bold" path="cityName" for="addEditSchoolOrDistrictCommand.cityName">
                     City <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                 </form:label>
@@ -592,6 +743,27 @@ $(document).ready(function(){
                     </c:forEach>
                 </form:errors>
             </li>
+
+
+
+            <li class="fl1-item" id="county_list">
+                <form:label cssClass="label1 text2bold" path="county" for="addEditSchoolOrDistrictCommand.county">
+                    County <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                </form:label>
+                <form:select path="county" id="addEditSchoolOrDistrictCommand_county">
+                    <form:option value="" label="- Choose county -"/>
+                    <form:options items="${requestScope.countyOptions}" itemValue="value" itemLabel="name"/>
+                </form:select>
+                <form:errors path="county">
+                    <c:forEach items="${messages}" var="message"> 
+                        <strong class="errorMessage1 formErrorText">
+                            <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                        </strong>
+                    </c:forEach>
+                </form:errors>
+            </li>
+
+
 
             <li class="fl1-item" id="district_list">
                 <form:label cssClass="label1 text2bold" path="districtId" for="addEditSchoolOrDistrictCommand.districtId">
@@ -640,6 +812,7 @@ $(document).ready(function(){
     </div>
 </div>
 
+<div id="schoolDistrictFields">
 <div id="div_grades">
     <div class="field">
         <div class="fieldLabel">Grades <span class="required">*</span></div>
@@ -662,31 +835,16 @@ $(document).ready(function(){
     </div>
 </div>
 
-<div id="basic_fields">
 <div class="field">
-    <div class="fieldLabel">Name <span class="required">*</span></div>
-    <div class="fieldInput">
-        <spring:bind path="addEditSchoolOrDistrictCommand.name">
-            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="name"/>
-        </spring:bind>
-    </div>
-    <div class="fieldNote">
-        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="name" useImage="true" styleClass="warning"/>
-    </div>
+<div class="fieldLabel">Name <span class="required">*</span></div>
+<div class="fieldInput">
+    <spring:bind path="addEditSchoolOrDistrictCommand.name">
+        <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="name"/>
+    </spring:bind>
 </div>
-<!--
-<div class="field">
-    <div class="fieldLabel">Type <span class="required">*</span></div>
-    <div class="fieldInput">
-        <spring:bind path="addEditSchoolOrDistrictCommand.schoolType">
-            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="schoolType"/>
-        </spring:bind>
-    </div>
-    <div class="fieldNote">
-        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="schoolType" useImage="true" styleClass="warning"/>
-    </div>
+<div class="fieldNote">
+    <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="name" useImage="true" styleClass="warning"/>
 </div>
--->
 <div class="field">
     <div class="fieldLabel">Street Address <span class="required">*</span></div>
     <div class="fieldInput">
@@ -735,12 +893,12 @@ $(document).ready(function(){
     </div>
 </div>
 
-<div class="field">
+<div class="field" id="lowerCounty">
     <div class="fieldLabel">County</div>
     <div class="fieldInput">
 
 
-        <form:select path="county" id="addEditSchoolOrDistrictCommand_county">
+        <form:select path="county" id="addEditSchoolOrDistrictCommand_county1">
             <form:option value="" label="- Choose county -"/>
             <form:options items="${requestScope.countyOptions}" itemValue="value" itemLabel="name"/>
         </form:select>
@@ -764,7 +922,7 @@ $(document).ready(function(){
 
 
 
-<div class="field">
+<div class="field" id="enrollmentSection">
     <div class="fieldLabel" id="enrollmentLabel">Enrollment</div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.enrollment"><!--  -->
@@ -811,6 +969,7 @@ $(document).ready(function(){
         <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="webSite" useImage="true" styleClass="warning"/>
     </div>
 </div>
+</div>
 
 <div id="headOfficialSection">
     <div class="field">
@@ -838,306 +997,306 @@ $(document).ready(function(){
     </div>
 </div>
 <div id="div_school_only_1">
+<div class="field">
+    <div class="fieldLabel">startTime</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.startTime"><!--  -->
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="startTime"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="startTime" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">endTime</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.endTime"><!--  -->
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="endTime"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="endTime" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+
+<div id="privateSection1">
     <div class="field">
-        <div class="fieldLabel">startTime</div>
+        <div class="fieldLabel">affiliation</div>
         <div class="fieldInput">
-            <spring:bind path="addEditSchoolOrDistrictCommand.startTime"><!--  -->
-                <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="startTime"/>
+            <spring:bind path="addEditSchoolOrDistrictCommand.affiliation"><!--  -->
+                <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="affiliation"/>
             </spring:bind>
         </div>
         <div class="fieldNote">
-            <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="startTime" useImage="true" styleClass="warning"/>
+            <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="affiliation" useImage="true" styleClass="warning"/>
         </div>
     </div>
 
     <div class="field">
-        <div class="fieldLabel">endTime</div>
+        <div class="fieldLabel">association</div>
         <div class="fieldInput">
-            <spring:bind path="addEditSchoolOrDistrictCommand.endTime"><!--  -->
-                <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="endTime"/>
+            <spring:bind path="addEditSchoolOrDistrictCommand.association"><!--  -->
+                <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="association"/>
             </spring:bind>
         </div>
         <div class="fieldNote">
-            <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="endTime" useImage="true" styleClass="warning"/>
+            <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="association" useImage="true" styleClass="warning"/>
         </div>
     </div>
 
+    <div class="field">
+        <div class="fieldLabel">Gender</div>
+        <div class="fieldInput">
+            <spring:bind path="addEditSchoolOrDistrictCommand.gender">
+                <select name="gender">
+                    <option value="">--</option>
+                    <option value="coed">Coed</option>
+                    <option value="all_female">All female</option>
+                    <option value="all_male">All male</option>
+                </select>
 
-    <div id="privateSection1">
-        <div class="field">
-            <div class="fieldLabel">affiliation</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.affiliation"><!--  -->
-                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="affiliation"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="affiliation" useImage="true" styleClass="warning"/>
-            </div>
+                <!--
+                <c:forEach var="myTc" items="${requestScope.gender}">
+                    <gsml:radio name="${status.expression}" value="${myTc}"
+                                checked="${myTc == status.value}"/> ${myTc}
+                </c:forEach>
+                 -->
+            </spring:bind>
         </div>
-
-        <div class="field">
-            <div class="fieldLabel">association</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.association"><!--  -->
-                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="association"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="association" useImage="true" styleClass="warning"/>
-            </div>
+        <div class="fieldNote">
+            <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="gender" useImage="true" styleClass="warning"/>
         </div>
-
-        <div class="field">
-            <div class="fieldLabel">Gender</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.gender">
-                    <select name="gender">
-                        <option value="">--</option>
-                        <option value="coed">Coed</option>
-                        <option value="all_female">All female</option>
-                        <option value="all_male">All male</option>
-                    </select>
-
-                    <!--
-                    <c:forEach var="myTc" items="${requestScope.gender}">
-                        <gsml:radio name="${status.expression}" value="${myTc}"
-                                    checked="${myTc == status.value}"/> ${myTc}
-                    </c:forEach>
-                     -->
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="gender" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
     </div>
 
-    <div id="div_preschool_only">
+</div>
 
-        <div class="field">
-            <div class="fieldLabel">Lowest age served <span class="required">*</span></div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.lowAge">
-                    <gsweb:lowestAgeServedSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="lowAge" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
+<div id="div_preschool_only">
 
-        <div class="field">
-            <div class="fieldLabel">Highest age served <span class="required">*</span></div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.highAge">
-                    <gsweb:highestAgeServedSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="highAge" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
-        <!--
-        <div class="field">
-            <div class="fieldLabel">lowAge</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.lowAge">
-                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="lowAge"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="lowAge" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">highAge</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.highAge">
-                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="highAge"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="highAge" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-        -->
-
-        <div class="field">
-            <div class="fieldLabel">Bilingual education offered</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.bilingual">
-                    <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">Special education programs offered</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.specialEd">
-                    <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">Computers present in the classroom</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.computers">
-                    <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">Extended care available</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.extendedCare">
-                    <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-        </div>
-
-
-
-        <!--
-        <div class="field">
-            <div class="fieldLabel">bilingual</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.bilingual">
-                    <c:forEach var="myTc" items="${requestScope.bilingual}">
-                        <gsml:radio name="${status.expression}" value="${myTc.value}"
-                                    checked="${myTc.value == status.value}"/>  ${myTc.key}
-                    </c:forEach>
-
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="bilingual" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">specialEd</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.specialEd">
-                    <c:forEach var="myTc" items="${requestScope.specialEd}">
-                        <gsml:radio name="${status.expression}" value="${myTc.value}"
-                                    checked="${myTc.value == status.value}"/>  ${myTc.key}
-                    </c:forEach>
-
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="specialEd" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">computers</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.computers">
-                    <c:forEach var="myTc" items="${requestScope.computers}">
-                        <gsml:radio name="${status.expression}" value="${myTc.value}"
-                                    checked="${myTc.value == status.value}"/>  ${myTc.key}
-                    </c:forEach>
-
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="computers" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">extendedCare</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.extendedCare">
-                    <c:forEach var="myTc" items="${requestScope.extendedCare}">
-                        <gsml:radio name="${status.expression}" value="${myTc.value}"
-                                    checked="${myTc.value == status.value}"/>  ${myTc.key}
-                    </c:forEach>
-
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="extendedCare" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-        -->
-
-        <!--
-        <div class="field">
-            <div class="fieldLabel">Type of preschool</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
-                    <gsweb:preschoolSubtypeSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="preschoolSubtype" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-        -->
-
-
-        <div class="field">
-            <div class="fieldLabel">preschoolSubtype </div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
-                    <c:forEach var="myTc" items="${requestScope.preschoolSubtype}">
-                        <c:set var ="checked" value ="false"/>
-
-
-                        <c:forEach items="${status.value}" var="s">
-                            <c:if test="${s == myTc}"><c:set var ="checked" value ="true"/></c:if>
-                        </c:forEach>
-                        <gsml:checkbox name="${status.expression}" value="${myTc}"
-                                       checked="${checked}" styleClass="pksubtype"/> ${psMap[myTc]}  <br/>
-
-
-                        <!--
-                        <c:forEach items="${status.value}" var="s">
-                            <c:if test="${s == myTc.value}"><c:set var ="checked" value ="true"/></c:if>
-                        </c:forEach>
-                        <gsml:checkbox name="${status.expression}" value="${myTc.value}"
-                                       checked="${checked}" styleClass="pksubtype"/> ${myTc.key}  <br/>
-                        -->
-
-
-
-                    </c:forEach>
-
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="preschoolSubtype" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-
-
-        <!--
-        <div class="field">
-            <div class="fieldLabel">preschoolSubtype</div>
-            <div class="fieldInput">
-                <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
-                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="preschoolSubtype"/>
-                </spring:bind>
-            </div>
-            <div class="fieldNote">
-                <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="preschoolSubtype" useImage="true" styleClass="warning"/>
-            </div>
-        </div>
-         -->
-
-
-
-
+<div class="field">
+    <div class="fieldLabel">Lowest age served <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.lowAge">
+            <gsweb:lowestAgeServedSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
     </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="lowAge" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Highest age served <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.highAge">
+            <gsweb:highestAgeServedSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="highAge" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<!--
+<div class="field">
+    <div class="fieldLabel">lowAge</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.lowAge">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="lowAge"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="lowAge" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">highAge</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.highAge">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="highAge"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="highAge" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+-->
+
+<div class="field">
+    <div class="fieldLabel">Bilingual education offered</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.bilingual">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Special education programs offered</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.specialEd">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Computers present in the classroom</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.computers">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Extended care available</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.extendedCare">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+    </div>
+</div>
+
+
+
+<!--
+<div class="field">
+    <div class="fieldLabel">bilingual</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.bilingual">
+            <c:forEach var="myTc" items="${requestScope.bilingual}">
+                <gsml:radio name="${status.expression}" value="${myTc.value}"
+                            checked="${myTc.value == status.value}"/>  ${myTc.key}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="bilingual" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">specialEd</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.specialEd">
+            <c:forEach var="myTc" items="${requestScope.specialEd}">
+                <gsml:radio name="${status.expression}" value="${myTc.value}"
+                            checked="${myTc.value == status.value}"/>  ${myTc.key}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="specialEd" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">computers</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.computers">
+            <c:forEach var="myTc" items="${requestScope.computers}">
+                <gsml:radio name="${status.expression}" value="${myTc.value}"
+                            checked="${myTc.value == status.value}"/>  ${myTc.key}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="computers" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">extendedCare</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.extendedCare">
+            <c:forEach var="myTc" items="${requestScope.extendedCare}">
+                <gsml:radio name="${status.expression}" value="${myTc.value}"
+                            checked="${myTc.value == status.value}"/>  ${myTc.key}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="extendedCare" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+-->
+
+<!--
+<div class="field">
+    <div class="fieldLabel">Type of preschool</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
+            <gsweb:preschoolSubtypeSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="preschoolSubtype" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+-->
+
+
+<div class="field">
+    <div class="fieldLabel">preschoolSubtype </div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
+            <c:forEach var="myTc" items="${requestScope.preschoolSubtype}">
+                <c:set var ="checked" value ="false"/>
+
+
+                <c:forEach items="${status.value}" var="s">
+                    <c:if test="${s == myTc}"><c:set var ="checked" value ="true"/></c:if>
+                </c:forEach>
+                <gsml:checkbox name="${status.expression}" value="${myTc}"
+                               checked="${checked}" styleClass="pksubtype"/> ${psMap[myTc]}  <br/>
+
+
+                <!--
+                <c:forEach items="${status.value}" var="s">
+                    <c:if test="${s == myTc.value}"><c:set var ="checked" value ="true"/></c:if>
+                </c:forEach>
+                <gsml:checkbox name="${status.expression}" value="${myTc.value}"
+                               checked="${checked}" styleClass="pksubtype"/> ${myTc.key}  <br/>
+                -->
+
+
+
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="preschoolSubtype" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+
+<!--
+<div class="field">
+    <div class="fieldLabel">preschoolSubtype</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="preschoolSubtype"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="preschoolSubtype" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+ -->
+
+
+
+
+</div>
 </div>
 <div id="computerInfo">
     <div class="field">

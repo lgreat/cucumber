@@ -174,12 +174,13 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
         newEntityQueue.setSchoolOrDistrict(command.getSchoolOrDistrict());
         newEntityQueue.setGradeLevels(new Grades(command.getGrades()));
+        //default to public
         SchoolType schoolType = SchoolType.PUBLIC;
         if(command.getSchoolType() != null){
             schoolType = command.getSchoolType().equals("public") ? SchoolType.PUBLIC
                     :  command.getSchoolType().equals("charter") ? SchoolType.CHARTER
                     :  command.getSchoolType().equals("private") ? SchoolType.PRIVATE
-                    : null;
+                    : SchoolType.PUBLIC;
         }
         newEntityQueue.setType(schoolType);
 
@@ -210,8 +211,12 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setLowAge(command.getLowAge());
         newEntityQueue.setHighAge(command.getHighAge());
 
-        newEntityQueue.setGender(SchoolSubtype.create(command.getGender()));
-        newEntityQueue.setPreschoolSubtype(SchoolSubtype.create(command.getPreschoolSubtype()));
+        if(command.getGender() != null){
+            newEntityQueue.setGender(SchoolSubtype.create(command.getGender()));
+        }
+        if(command.getPreschoolSubtype() != null){
+            newEntityQueue.setPreschoolSubtype(SchoolSubtype.create(command.getPreschoolSubtype()));
+        }
 
         if(command.getBilingual() != null && StringUtils.isNotBlank(command.getBilingual())){
             newEntityQueue.setBilingual(new Integer(command.getBilingual()));

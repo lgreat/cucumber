@@ -13,21 +13,32 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class EntityInfoAjaxControllerTest extends BaseControllerTestCase {
     private EntityInfoAjaxController _controller;
+    private DistrictsInCityAjaxController _distcontroller;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = (EntityInfoAjaxController)getApplicationContext().
                 getBean(EntityInfoAjaxController.BEAN_ID);
+        _distcontroller = (DistrictsInCityAjaxController)getApplicationContext().
+                getBean(DistrictsInCityAjaxController.BEAN_ID);
     }
 
     public void testHandleRequestMultiLevel() throws Exception {
+         /*
+        getRequest().setParameter("state", "CA");
+        getRequest().setParameter("county", "Alamedaa");
+        getRequest().setParameter("printOptionsOnly", "true");
+        ModelAndView mAndVdist = _distcontroller.handleRequest(getRequest(), getResponse());
+        System.out.println("distresult:" + getResponse().getContentAsString());
+         */
         getRequest().setParameter("state", "CA");
         getRequest().setParameter("id", "1");
-        getRequest().setParameter("entityType", "school");
+        getRequest().setParameter("entityType", "district");
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
         assertNull(mAndV);
         String jsonOutput = getResponse().getContentAsString();
         JSONObject json = new JSONObject(jsonOutput,"UTF-8");
+        System.out.println(json.get("grades"));
         //System.out.println(json.toString());
         /*
         System.out.println(json.get("districtId"));

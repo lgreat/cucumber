@@ -3,8 +3,7 @@ package gs.web.test;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
-import gs.data.school.census.CensusDataType;
-import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.census.*;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
@@ -36,6 +35,7 @@ public class EntityInfoAjaxController implements Controller {
     public static final String BEAN_ID = "/test/entityInfo.page";
     private ISchoolDao _schoolDao;
     private IDistrictDao _districtDao;
+    private ICensusInfo _censusInfo;
 
     private IEspResponseDao _espResponseDao;
     private static final StateManager _stateManager = new StateManager();
@@ -101,9 +101,6 @@ public class EntityInfoAjaxController implements Controller {
                     enterJson(json,"enrollment",capacity);
                 }
 
-                enterJson(json,"phone",integerToString(school.getEnrollment()));
-                enterJson(json,"fax",integerToString(school.getEnrollment()));
-                enterJson(json,"webSite",integerToString(school.getEnrollment()));
                 enterJson(json,"phone",school.getPhone());
                 enterJson(json,"fax",school.getFax());
                 enterJson(json,"webSite",school.getWebSite());
@@ -144,8 +141,6 @@ public class EntityInfoAjaxController implements Controller {
                     scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
                     enterJson(json,"headOfficialEmail",censusValueToString(scv));
 
-                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
-                    enterJson(json,"headOfficialEmail",censusValueToString(scv));
 
                     scv = school.getCensusInfo().getLatestValue(school, CensusDataType.LOW_AGE);
                     if(scv != null ){
@@ -211,29 +206,64 @@ public class EntityInfoAjaxController implements Controller {
         if(entityType.equals("district")){
             District district = _districtDao.findDistrictById(state, new Integer(id));
             if(district != null){
-                out.print("{\"name\":\"" + district.getName() +"\"" );
+                String grades = "";
+                if(district.getGradeLevels() != null){
+                    grades = district.getGradeLevels().getCommaSeparatedString();
+                }
 
-                out.print(",\"grades\":\"" + district.getGradeLevels().getCommaSeparatedString()  +"\"" );
-                out.print(",\"street\":\"" + district.getPhysicalAddress().getStreet()  +"\"" );
-                out.print(",\"street2\":\"" + district.getPhysicalAddress().getStreetLine2()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
-                out.print(",\"zipcode\":\"" + district.getPhysicalAddress().getZip()  +"\"" );
+                enterJson(json,"name",district.getName());
 
-                out.print("}" );
+                enterJson(json,"grades",grades);
+                enterJson(json,"street",district.getPhysicalAddress().getStreet());
+                enterJson(json,"streetLine2",district.getPhysicalAddress().getStreetLine2());
+                enterJson(json,"city",district.getPhysicalAddress().getCity());
+                enterJson(json,"Zipcode",district.getPhysicalAddress().getZip());
+
+
+                //do county dropdown
+                enterJson(json,"county",district.getCounty());
+
+                enterJson(json,"phone",district.getPhone());
+                enterJson(json,"fax",district.getFax());
+                enterJson(json,"webSite",district.getWebSite());
+
+
+
+                DistrictCensusValue scv = getCensusInfo().getLatestValue(district, CensusDataType.HEAD_OFFICIAL_NAME);
+                enterJson(json,"headOfficialName",censusValueToString(scv));
+                scv = getCensusInfo().getLatestValue(district, CensusDataType.HEAD_OFFICIAL_EMAIL);
+                enterJson(json,"headOfficialEmail",censusValueToString(scv));
+
+
+                /*
+                if(district.getc != null){
+                    SchoolCensusValue scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_NAME);
+                    enterJson(json,"headOfficialName",censusValueToString(scv));
+
+                    scv = school.getCensusInfo().getLatestValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
+                    enterJson(json,"headOfficialEmail",censusValueToString(scv));
+                 */
+
+                out.print(json.toString());
             }
         }
+    }
+
+    private ICensusDataSetDao _censusDataSetDao;
+    public ICensusDataSetDao getCensusDataSetDao() {
+        return _censusDataSetDao;
+    }
+
+    public void setCensusDataSetDao(ICensusDataSetDao censusDataSetDao) {
+        _censusDataSetDao = censusDataSetDao;
+    }
+
+    ICensusInfo getCensusInfo() {
+        if (_censusInfo == null) {
+            CensusInfoFactory censusInfoFactory = new CensusInfoFactory(getCensusDataSetDao());
+            _censusInfo = censusInfoFactory.getNbcCensusInfo();
+        }
+        return _censusInfo;
     }
 
     private String integerToString (Integer intValue){
@@ -253,6 +283,13 @@ public class EntityInfoAjaxController implements Controller {
         }
     }
     private String censusValueToString(SchoolCensusValue scv){
+        if(scv != null ){
+            return scv.getValueText();
+        }
+        return "";
+    }
+
+    private String censusValueToString(DistrictCensusValue scv){
         if(scv != null ){
             return scv.getValueText();
         }
