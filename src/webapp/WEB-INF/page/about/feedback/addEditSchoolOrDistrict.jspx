@@ -203,7 +203,8 @@ function do_add_edit(state,clear){
     if(clear == "1"){
         clear_values();
     }
-    if($('input:radio[name=addEdit]:checked').val() == 'edit'){
+    //if($('input:radio[name=addEdit]:checked').val() == 'edit'
+     //       || ($('input:radio[name=addEdit]:checked').val() == 'add' && true)){
         //$("#div_grades").hide();
         //$("#div_school_type").hide();
         $("#addEditSchoolOrDistrictCommand_state").val(state);
@@ -346,7 +347,7 @@ function do_add_edit(state,clear){
 
 
         $("#addEditSchoolOrDistrictCommand_districtId").change(function() {
-            //alert("hello");
+            if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
             $j.ajax({
                 cache: false,
                 url: '/test/entityInfo.page?nocache='+Math.random(),
@@ -401,21 +402,35 @@ function do_add_edit(state,clear){
 
                 }
             });
+            }
 
         });
 
+    /*
+    if($('input:radio[name=addEdit]:checked').val() == 'add'
+            && $('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
+        $("#div_choose_state").show();
+        $("#div_school_type").show();
+        $("#school_list").show();
+        $("#city_list").show();
+        $("#district_list").hide();
+        $("#county_list").hide();
+        $("#schoolDistrictFields").show();
+    }
+    */
+    if($('input:radio[name=addEdit]:checked').val() == 'edit'
+            && $('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
+        $("#div_choose_state").show();
+        $("#div_school_type").show();
+        $("#school_list").show();
+        $("#city_list").show();
+        $("#district_list").hide();
+        $("#county_list").hide();
+        $("#schoolDistrictFields").show();
+        $("#lowerCounty").show();
+    }
 
-        if($('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
-            $("#div_choose_state").show();
-            $("#div_school_type").show();
-            $("#school_list").show();
-            $("#city_list").show();
-            $("#district_list").hide();
-            $("#county_list").hide();
-            $("#schoolDistrictFields").show();
-        }
-
-        if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
+    if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
             $("#div_choose_state").show();
             $("#div_school_type").hide();
             $("#school_list").hide();
@@ -424,7 +439,7 @@ function do_add_edit(state,clear){
             $("#county_list").show();
             $("#schoolDistrictFields").show();
         }
-    }
+    //}
 
 
     if($('input:radio[name=addEdit]:checked').val() == 'add'){
@@ -435,6 +450,7 @@ function do_add_edit(state,clear){
         $("#district_list").show();
         $("#county_list").show();
         $("#schoolDistrictFields").show();
+        $("#lowerCounty").hide();
     }
 
 
@@ -445,7 +461,9 @@ function do_radio_school_district(clear){
         clear_values();
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
-        //$("#div_choose_state").show();
+        if($('input:radio[name=addEdit]:checked').val() == 'edit'){
+            $("#lowerCounty").show();
+        }
         $("#div_radio_add_edit").show();
         $("#school_list").show();
         $("#city_list").show();
@@ -801,8 +819,8 @@ $(document).ready(function(){
         </spring:bind>-->
         <spring:bind path="addEditSchoolOrDistrictCommand.schoolType">
             <c:forEach var="myTc" items="${requestScope.schoolType}">
-                <gsml:radio name="${status.expression}" value="${myTc}" onclick="doSchoolTypeSections()"
-                            checked="${myTc == status.value}"/> ${myTc}
+                <gsml:radio name="${status.expression}" value="${myTc.value}" onclick="doSchoolTypeSections()"
+                            checked="${myTc.value == status.value}"/> ${myTc.key}
             </c:forEach>
 
         </spring:bind>
@@ -893,16 +911,17 @@ $(document).ready(function(){
     </div>
 </div>
 
+
 <div class="field" id="lowerCounty">
     <div class="fieldLabel">County</div>
     <div class="fieldInput">
 
 
-        <form:select path="county" id="addEditSchoolOrDistrictCommand_county1">
+        <form:select path="county1" id="addEditSchoolOrDistrictCommand_county1">
             <form:option value="" label="- Choose county -"/>
             <form:options items="${requestScope.countyOptions}" itemValue="value" itemLabel="name"/>
         </form:select>
-        <form:errors path="county">
+        <form:errors path="county1">
             <c:forEach items="${messages}" var="message"> 
                 <strong class="errorMessage1 formErrorText">
                     <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
@@ -911,12 +930,10 @@ $(document).ready(function(){
         </form:errors>
 
 
-        <!--  <spring:bind path="addEditSchoolOrDistrictCommand.county">
-              <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="county"/>
-          </spring:bind>   -->
+
     </div>
     <div class="fieldNote">
-        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="county" useImage="true" styleClass="warning"/>
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="county1" useImage="true" styleClass="warning"/>
     </div>
 </div>
 

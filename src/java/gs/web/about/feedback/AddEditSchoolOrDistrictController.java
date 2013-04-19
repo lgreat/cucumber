@@ -134,6 +134,9 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
 
         Map<String,String> model = new HashMap<String,String>();
+        Map<String,Integer> yesNo = new HashMap<String,Integer>();
+        yesNo.put("No",0);
+        yesNo.put("Yes",1);
         //model.put("action",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
         model.put("name",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
@@ -171,6 +174,9 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }else{
             //newEntityQueue.setOriginalId(0);
         }
+        if(command.getDistrictId() != null && !(command.getDistrictId().equals("")) && command.getAddEdit().equals("add")){
+            newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
+        }
         //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
         newEntityQueue.setSchoolOrDistrict(command.getSchoolOrDistrict());
         newEntityQueue.setGradeLevels(new Grades(command.getGrades()));
@@ -184,6 +190,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }
         newEntityQueue.setType(schoolType);
 
+
         newEntityQueue.setContactName(command.getSubmitterName());
         newEntityQueue.setContactEmail(command.getSubmitterEmail());
         newEntityQueue.setContactConnection(command.getSubmitterConnectionToSchool());
@@ -195,7 +202,11 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setCity(command.getCity());
         newEntityQueue.setStateAbbreviation(command.getState());
         newEntityQueue.setZipcode(command.getZipcode());
-        //newEntityQueue.setCounty(command.getCounty());
+        String countyName = command.getCounty();
+        if(countyName == null || countyName.equals("")){
+            countyName = command.getCounty1();        }
+        _log.warn("county:" + countyName + ":");
+        newEntityQueue.setCounty(countyName);
         if(command.getEnrollment() != null && StringUtils.isNotBlank(command.getEnrollment())){
             newEntityQueue.setEnrollment(new Integer(command.getEnrollment()));
         }
@@ -219,16 +230,16 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }
 
         if(command.getBilingual() != null && StringUtils.isNotBlank(command.getBilingual())){
-            newEntityQueue.setBilingual(new Integer(command.getBilingual()));
+            newEntityQueue.setBilingual(new Integer(yesNo.get(command.getBilingual())));
         }
         if(command.getSpecialEd() != null && StringUtils.isNotBlank(command.getSpecialEd())){
-            newEntityQueue.setSpecialEd(new Integer(command.getSpecialEd()));
+            newEntityQueue.setSpecialEd(new Integer(yesNo.get(command.getSpecialEd())));
         }
         if(command.getComputers() != null && StringUtils.isNotBlank(command.getComputers())){
-            newEntityQueue.setComputers(new Integer(command.getComputers()));
+            newEntityQueue.setComputers(new Integer(yesNo.get(command.getComputers())));
         }
         if(command.getExtendedCare() != null && StringUtils.isNotBlank(command.getExtendedCare())){
-            newEntityQueue.setExtendedCare(new Integer(command.getExtendedCare()));
+            newEntityQueue.setExtendedCare(new Integer(yesNo.get(command.getExtendedCare())));
         }
 
         newEntityQueue.setOperatingSystem(command.getOperatingSystem());
@@ -277,11 +288,15 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         addEdit.add("edit");
         map.put("addEdit", addEdit);
 
-        List<String> schoolType = new ArrayList();
-        schoolType.add("public");
-        schoolType.add("private");
-        schoolType.add("charter");
-        map.put("schoolType", schoolType);
+        //List<String> schoolType = new ArrayList();
+        Map<String,String> svMap = new HashMap();
+        svMap.put("public","public");
+        svMap.put("private","private");
+        svMap.put("public charter","charter");
+        //schoolType.add("public");
+        //schoolType.add("private");
+        //schoolType.add("charter");
+        map.put("schoolType", svMap);
 
         List<String> gender = new ArrayList();
         gender.add("coed");
