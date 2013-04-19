@@ -131,16 +131,6 @@
                     <div class="dn js-school-data" data-gs-facebook-url="${school.facebookUrl}" data-gs-school-autotext="${school.autotext}" data-gs-school-name="${school.name}" data-gs-city="${school.address.city}" data-gs-state="${school.address.state.abbreviationLowerCase}">
                         <!-- do not collapse -->
                     </div>
-                        <c:if test="${facebookFacepilesEnabled eq true}">
-                            <div class="dn js-facepile"><!-- do not collapse --></div>
-                            <link:schoolProfileOverviewForPrimitives
-                                 schoolId="${school.id}"
-                                 databaseState="${school.databaseState}"
-                                 name="${school.name}"
-                                 styleClass="dn noInterstitial no_interrupt js-ask-a-friend"
-                                 physicalAddress="${school.address}"
-                                 levelCode="${school.levelCode}">Ask a friend for help</link:schoolProfileOverviewForPrimitives>
-                        </c:if>
                 </div></div>
             </div>
             <div class="ft phm pvs">
@@ -176,17 +166,18 @@
                         </c:if>
                     </div>
                 </div>
-                <div class="fr">
-
-                    <span class="iconx16 i-16-fbShare vam"><!--Do not collapse--></span>
-                    <span class="small vam mls">
-                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}"
-                            name="${school.name}" styleClass="noInterstitial no_interrupt js-ask-a-friend noUnderline"
-                            physicalAddress="${school.address}" levelCode="${school.levelCode}">
-                            Share with friends
-                        </link:schoolProfileOverviewForPrimitives>
-                    </span>
-                </div>
+                <c:if test="${facebookFacepilesEnabled eq true}">
+                    <div class="fr dn js-ask-a-friend">
+                        <span class="iconx16 i-16-fbShare vam"><!--Do not collapse--></span>
+                        <span class="small vam mls">
+                            <link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}"
+                                name="${school.name}" styleClass="noInterstitial no_interrupt noUnderline"
+                                physicalAddress="${school.address}" levelCode="${school.levelCode}">
+                                Share with friends
+                            </link:schoolProfileOverviewForPrimitives>
+                        </span>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
