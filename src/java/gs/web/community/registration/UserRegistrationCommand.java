@@ -11,6 +11,9 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 @FieldMatch.List({
     @FieldMatch(first = "password", second = "confirmPassword", message = "Passwords do not match.")
 })
@@ -18,112 +21,113 @@ public class UserRegistrationCommand  {
     protected final Log _log = LogFactory.getLog(getClass());
 
     @Email(message="Please enter a valid email address.")
-    private String _email;
+    @NotNull(message="Please enter a valid email address.")
+    private String email;
 
     @Size(min=2, max=14, message="Password should be 6-14 characters.")
-    private String _password;
+    private String password;
 
     @Size(min=2, max=14, message="Password should be 6-14 characters.")
-    private String _confirmPassword;
+    private String confirmPassword;
 
-    private State _state;
+    private State state;
 
     @Size(min=2, max=24, message="First name must be 2-24 characters long.")
     @NotNull(message="First name must be 2-24 characters long.")
-    private String _firstName;
+    private String firstName;
 
-    private String _lastName;
-    private String _city;
+    private String lastName;
+    private String city;
 
-    @NotNull(message="Username must be 6-14 characters.")
     @Size(min=6, max=14, message="Username must be 6-14 characters.")
-    private String _screenName;
+    private String screenName;
 
-    private String _gender;
+    private String gender;
     private String facebookId;
 
     @AssertTrue
-    private boolean _terms;
+    private boolean terms;
 
     @AssertTrue(message="Password should be 6-14 characters.")
-    private boolean passwordOrFacebookId() {
-        boolean valid = (_password != null || facebookId != null);
+    public boolean isPasswordOrFacebookId() {
+        // either password or facebook ID needs to be provided
+        boolean valid = (password != null || facebookId != null);
         return valid;
     }
 
     @NotNull(message="How field must be provided.")
-    private String _how;
+    private String how;
 
     public String getEmail() {
-        return _email;
+        return email;
     }
 
     public void setEmail(String email) {
-        _email = email;
+        this.email = email;
     }
 
     public String getPassword() {
-        return _password;
+        return password;
     }
 
     public void setPassword(String password) {
-        _password = password;
+        this.password = password;
     }
 
     public String getConfirmPassword() {
-        return _confirmPassword;
+        return confirmPassword;
     }
 
     public void setConfirmPassword(String confirmPassword) {
-        _confirmPassword = confirmPassword;
+        this.confirmPassword = confirmPassword;
     }
 
     public State getState() {
-        return _state;
+        return this.state;
     }
 
     public void setState(State state) {
-        _state = state;
+        this.state = state;
     }
 
     public String getFirstName() {
-        return _firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
-        _firstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return _lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
-        _lastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getCity() {
-        return _city;
+        return this.city;
     }
 
     public void setCity(String city) {
-        _city = city;
+        this.city = city;
     }
 
     public String getScreenName() {
-        return _screenName;
+        return this.screenName;
     }
 
     public void setScreenName(String screenName) {
-        _screenName = screenName;
+        this.screenName = screenName;
     }
 
     public String getGender() {
-        return _gender;
+        return gender;
     }
 
     public void setGender(String gender) {
-        _gender = gender;
+        this.gender = gender;
     }
 
     public String getFacebookId() {
@@ -135,18 +139,18 @@ public class UserRegistrationCommand  {
     }
 
     public boolean isTerms() {
-        return _terms;
+        return terms;
     }
 
     public void setTerms(boolean terms) {
-        _terms = terms;
+        this.terms = terms;
     }
 
     public String getHow() {
-        return _how;
+        return how;
     }
 
     public void setHow(String how) {
-        _how = how;
+        this.how = how;
     }
 }

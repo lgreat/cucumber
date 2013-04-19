@@ -5,24 +5,24 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.community.WelcomeMessageStatus;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.data.state.State;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.util.table.ITableDao;
-import gs.web.community.registration.popup.RegistrationHoverCommand;
-import gs.web.tracking.CookieBasedOmnitureTracking;
-import gs.web.tracking.OmnitureTracking;
-import gs.web.util.SitePrefCookie;
-import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
+import gs.web.authorization.Facebook;
+import gs.web.authorization.FacebookRequestData;
+import gs.web.util.*;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,73 +30,122 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Map;
 
+@Controller
 @RequestMapping("/community/registration")
-public class UserSignupAjaxController {
+public class UserSignupAjaxController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    @Autowired
     private ITableDao _tableDao;
 
     @Autowired
     private IUserDao _userDao;
 
+    private ExactTargetAPI _exactTargetAPI;
+
+    @Autowired
+    private LocalValidatorFactoryBean _validatorFactory;
+
+    private String EMAIL_MODEL_KEY = "email";
+    private String SCREEN_NAME_MODEL_KEY = "screenName";
+    private String USER_ID_MODEL_KEY = "userId";
+    private String NUMBER_MSL_ITEMS_MODEL_KEY = "numberMSLItems";
+
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
-
-    /*@InitBinder(value = COMMAND)
-    public void customizeConversions(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, true));
-    }*/
-
-    @RequestMapping(value="/basicRegistration.page", method=RequestMethod.POST)
-    public String handleJoin(
+    @RequestMapping(value="/basicRegistration.json", method=RequestMethod.POST)
+    public View handleJoin(
             ModelMap modelMap,
             @Valid UserRegistrationCommand userRegistrationCommand,
+            BindingResult bindingResult,
             UserSubscriptionCommand userSubscriptionCommand,
+            RegistrationBehavior registrationBehavior,
             HttpServletRequest request,
             HttpServletResponse response
+
     ) throws Exception {
+        View view = new MappingJacksonJsonView();
 
-        if (isIPBlocked(request)) {
+        _validatorFactory.validate(userRegistrationCommand, bindingResult);
 
-        };
+        if (bindingResult.hasErrors()) {
+            modelMap.put("errors", bindingResult.getAllErrors());
+            return new MappingJacksonJsonView();
+        }
+
+        /*if (isIPBlocked(request)) {
+
+        };*/
 
         User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
 
         boolean userExists = (user != null);
 
-        if (!userExists) {
+        if (userExists) {
+            if (registrationBehavior.isFacebookRegistration()) {
+                view = doSocialSignon(request, response, user);
+            }
+        } else {
             // only create the user if the user is new
             user = createUser(userRegistrationCommand);
 
-            if ("facebook".equals(userRegistrationCommand.getHow())) {
-                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
+            if (!registrationBehavior.requireEmailVerification()) {
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 user.setEmailVerified(true);
-                user.setEmailValidated();
+            }
+
+            if (registrationBehavior.sendConfirmationEmail()) {
+                sendConfirmationEmail(user, false, false);
             }
 
             getUserDao().saveUser(user);
 
             try {
-                if ("facebook".equals(userRegistrationCommand.getHow())) {
-                    user.setPlaintextPassword(RandomStringUtils.random(24));
+                if (registrationBehavior.isFacebookRegistration()) {
+                    user.setUserProfile(createUserProfile(userRegistrationCommand));
+                    user.getUserProfile().setUser(user);
+                    user.getUserProfile().setScreenName("user" + user.getId());
+                    user.setPlaintextPassword(RandomStringUtils.randomAlphanumeric(24));
                 } else {
                     user.setPlaintextPassword(userRegistrationCommand.getPassword());
                 }
 
-                UserProfile profile = createUserProfile(userRegistrationCommand, user);
-                user.setUserProfile(profile);
                 getUserDao().updateUser(user);
-
             } catch (NoSuchAlgorithmException e) {
                 getUserDao().removeUser(user.getId());
             } catch (IllegalStateException e) {
                 getUserDao().removeUser(user.getId());
             }
+
+            PageHelper.setMemberAuthorized(request, response, user);
         }
 
-        return "yay";
+        modelMap.put(USER_ID_MODEL_KEY, user.getId());
+        if (user.getUserProfile() != null) {
+            modelMap.put(SCREEN_NAME_MODEL_KEY, user.getUserProfile().getScreenName());
+        }
+        modelMap.put(EMAIL_MODEL_KEY, user.getEmail());
+        modelMap.put(NUMBER_MSL_ITEMS_MODEL_KEY, user.getFavoriteSchools() != null? user.getFavoriteSchools().size() : 0 );
+
+        return view;
+    }
+
+    public View doSocialSignon(HttpServletRequest request, HttpServletResponse response, User user) {
+
+        FacebookRequestData facebookRequestData = Facebook.getRequestData(request);
+
+        if (facebookRequestData.isOwnedBy(user)) {
+            // log user in
+            try {
+                PageHelper.setMemberAuthorized(request, response, user);
+            } catch (NoSuchAlgorithmException e) {
+                return new MappingJacksonJsonView();
+            }
+            return new MappingJacksonJsonView();
+        }
+
+        return new MappingJacksonJsonView();
     }
 
     protected User createUser(UserRegistrationCommand userCommand) {
@@ -104,7 +153,9 @@ public class UserSignupAjaxController {
 
         user.setEmail(userCommand.getEmail());
 
-        user.setStateAsString(userCommand.getState().getAbbreviation());
+        if (userCommand.getState() != null) {
+            user.setStateAsString(userCommand.getState().getAbbreviation());
+        }
 
         user.setFirstName(userCommand.getFirstName());
 
@@ -116,26 +167,29 @@ public class UserSignupAjaxController {
 
         user.setHow(userCommand.getHow());
 
+        user.setFacebookId(userCommand.getFacebookId());
+
         return user;
     }
 
-    public UserProfile createUserProfile(UserRegistrationCommand userRegistrationCommand, User user) {
+    public UserProfile createUserProfile(UserRegistrationCommand userRegistrationCommand) {
         UserProfile profile = new UserProfile();
 
         profile.setScreenName(userRegistrationCommand.getScreenName());
 
-        profile.setState(userRegistrationCommand.getState());
+        if (userRegistrationCommand.getState() != null) {
+            profile.setState(userRegistrationCommand.getState());
+        }
 
-        profile.setCity(userRegistrationCommand.getCity());
+        if (userRegistrationCommand.getCity() != null) {
+            profile.setCity(userRegistrationCommand.getCity());
+        }
 
         profile.setHow(userRegistrationCommand.getHow());
 
         profile.setUpdated(new Date());
 
-        profile.setUser(user);
-
         return profile;
-
     }
 
     protected boolean isIPBlocked(HttpServletRequest request) {
@@ -156,42 +210,32 @@ public class UserSignupAjaxController {
         return false;
     }
 
-    protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureTracking ot) {
-        UserProfile userProfile;
-        if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
-            // hack to get provisional accounts working in least amount of development time
-            userProfile = user.getUserProfile();
-            if (StringUtils.isBlank(userCommand.getCity())) {
-                userProfile.setCity(null);
-            } else {
-                userProfile.setCity(userCommand.getCity());
-            }
-            userProfile.setScreenName(userCommand.getScreenName());
-            userProfile.setState(userCommand.getState());
-            userProfile.setHow(userCommand.joinTypeToHow());
-        } else {
-            // gotten this far, now let's update their user profile
+    private void sendConfirmationEmail(User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription) {
+        Map<String, String> attributes = ExactTargetUtil.getEmailSubWelcomeAttributes(ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription, false, true, addedSponsorOptInSubscription));
+        _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
+    }
 
-            userProfile = userCommand.getUserProfile();
-            userProfile.setHow(userCommand.joinTypeToHow());
-            userProfile.setUser(user);
-            user.setUserProfile(userProfile);
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
 
-            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
-        }
-        if (!StringUtils.isBlank(userCommand.getHow())) {
-            user.getUserProfile().setHow(userCommand.getHow());
-        }
-        user.getUserProfile().setUpdated(new Date());
-        user.getUserProfile().setNumSchoolChildren(0);
-        return userProfile;
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 
     public ITableDao getTableDao() {
         return _tableDao;
     }
 
-    public IUserDao getUserDao() {
-        return _userDao;
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 }

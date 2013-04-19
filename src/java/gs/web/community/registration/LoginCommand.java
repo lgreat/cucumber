@@ -15,6 +15,7 @@ public class LoginCommand implements EmailValidator.IEmail {
     private String _email;
     private String _redirect;
     private String _password;
+    
     private boolean _rememberMe = true;
 
     public String getEmail() {

@@ -15,6 +15,39 @@ GS.facebook = GS.facebook || (function() {
 
     var loginDeferred = $.Deferred();
 
+    // if the user *initiates* a FB login, they might be logged in. If they logged in, their session could have expired
+    var _mightBeLoggedIn = false;
+    var mightBeLoggedIn = function() {
+        return (FB && _mightBeLoggedIn);
+    };
+
+
+    // TODO: move these UI methods
+    var firstLinkSelector = "#utilLinks a:eq(0)";
+    var secondLinkSelector = "#utilLinks a:eq(1)";
+    var thirdLinkSelector = "#utilLinks a:eq(2)";
+    var getSignOutLink = function(email, userId) {
+        return "/cgi-bin/logout/CA/?email=" + encodeURIComponent(email) + "&mid=" + userId;
+    };
+    var getSignOutLinkHtml = function(email, userId) {
+        var html = '<a href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
+        return html;
+    };
+    var getWelcomeHtml = function(screenName) {
+        var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + screenName + '</a></li>';
+        console.log('returning welcome html', html);
+        return html;
+    };
+    var getMySchoolListHtml = function(numberMSLItems) {
+        var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
+        return html;
+    };
+    var updateUIForLogin = function(userId, email, screenName, numberMSLItems) {
+        $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(screenName));
+        $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
+        $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
+    };
+
     // Resolved on load only if user is already logged in, otherwise rejected
     var statusOnLoadDeferred = $.Deferred();
 
@@ -51,6 +84,10 @@ GS.facebook = GS.facebook || (function() {
     };
 
     var init = function() {
+        loginDeferred.fail(function() {
+            mightBeLoggedIn = false;
+        });
+
         $(function() {
             $(loginSelector).on('click', function() {
                 status({
@@ -77,6 +114,24 @@ GS.facebook = GS.facebook || (function() {
         FB.login(
             function(response) {
                 if (response.authResponse) {
+                    FB.api('/me', function(data) {
+                        var url = "/community/registration/basicRegistration.json";
+                        var obj = {
+                            email:data.email,
+                            firstName:data.first_name,
+                            lastName:data.last_name,
+                            how:"facebook",
+                            facebookId:data.id,
+                            terms:true,
+                            fbSignedRequest:response.authResponse.signedRequest
+                        };
+                        $.post(url,obj).done(
+                            function(data2) {
+                                console.log('got social signon data', data2);
+                                updateUIForLogin(data2.userId, data2.email, data2.screenName, data2.numberMSLItems);
+                            }
+                        );
+                    });
                     loginDeferred.resolve();
                     // connected
                 } else {
@@ -87,6 +142,7 @@ GS.facebook = GS.facebook || (function() {
                 scope: facebookPermissions
             }
         );
+        mightBeLoggedIn = true;
     };
 
     var createSchoolHash = function(schoolName, city, state) {
@@ -190,6 +246,8 @@ GS.facebook = GS.facebook || (function() {
         FB.ui(obj, callback);
     };
 
+
+
     return {
         status:status,
         login:login,
@@ -198,6 +256,8 @@ GS.facebook = GS.facebook || (function() {
         getLoginDeferred:getLoginDeferred,
         getStatusOnLoadDeferred:getStatusOnLoadDeferred,
         postToFeed:postToFeed,
-        init:init
+        mightBeLoggedIn:mightBeLoggedIn,
+        init:init,
+        updateUIForLogin:updateUIForLogin
     }
 })();
