@@ -1,23 +1,41 @@
 var GS = GS || {};
 
 // requires jQuery
-GS.facebook = GS.facebook || (function() {
-    var loginSelector = ".js-facebook-login";
-    var facebookPermissions =
-        'email,user_likes,' +
-        'friends_likes,' +
-        'friends_education_history,' +
-        'user_education_history';
+GS.facebook = GS.facebook || (function (omnitureEventNotifier) {
 
+    // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
+    // It's a class selector so might have been introduced on other pages
+    var loginSelector = ".js-facebook-login";
+
+
+    // Facebook permissions that GS.org will ask for during FB.login()
+    var facebookPermissions = 'email,user_likes,friends_likes,friends_education_history,user_education_history';
+
+
+    // FQL query that should return all your friends
     var userFriendsQuery = "SELECT uid, name, pic_square, profile_url FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())";
+
+
+    // FQL query to get Education-based page_fan (an association table) rows for your friends
     var friendsThatAreFansOfSchoolsQuery = "SELECT uid, page_id, type FROM page_fan WHERE uid IN (SELECT uid FROM #userFriendsQuery) AND (type = 'School' or type = 'Education' or type = 'Public School' or type = 'Private School' or type = 'Charter School' or type = 'Elementary School' or type = 'Middle School' or type = 'High School')";
+
+
+    // FQL query to get Page objects that match page_fan rows fetched previously
     var schoolPageDetailsQuery = "SELECT page_id, name, location, page_url FROM page WHERE (location.state != '' OR website != '') AND page_id IN (SELECT page_id FROM #friendsThatAreFansOfSchoolsQuery)";
 
+
+    // Resolved on successful FB login, else rejected on failed login
     var loginDeferred = $.Deferred();
 
-    // if the user *initiates* a FB login, they might be logged in. If they logged in, their session could have expired
+
+    // Resolved immediately on load only if user is already logged in, otherwise rejected
+    // added to help with Omniture requirement, might not be needed in the future
+    var statusOnLoadDeferred = $.Deferred();
+
+
+    // if the user ever initiated a FB login, they might be logged in. If they logged in, their session could have expired
     var _mightBeLoggedIn = false;
-    var mightBeLoggedIn = function() {
+    var mightBeLoggedIn = function () {
         return (FB && _mightBeLoggedIn);
     };
 
@@ -26,33 +44,38 @@ GS.facebook = GS.facebook || (function() {
     var firstLinkSelector = "#utilLinks a:eq(0)";
     var secondLinkSelector = "#utilLinks a:eq(1)";
     var thirdLinkSelector = "#utilLinks a:eq(2)";
-    var getSignOutLink = function(email, userId) {
+    var getSignOutLink = function (email, userId) {
         return "/cgi-bin/logout/CA/?email=" + encodeURIComponent(email) + "&mid=" + userId;
     };
-    var getSignOutLinkHtml = function(email, userId) {
+    var getSignOutLinkHtml = function (email, userId) {
         var html = '<a class="js-log-out" href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
         return html;
     };
-    var getWelcomeHtml = function(screenName) {
+    var getWelcomeHtml = function (screenName) {
         var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + screenName + '</a></li>';
         console.log('returning welcome html', html);
         return html;
     };
-    var getMySchoolListHtml = function(numberMSLItems) {
+    var getMySchoolListHtml = function (numberMSLItems) {
         var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
         return html;
     };
-    var updateUIForLogin = function(userId, email, screenName, numberMSLItems) {
+    var updateUIForLogin = function (userId, email, screenName, numberMSLItems) {
         $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(screenName));
         $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
         $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
     };
 
-    // Resolved on load only if user is already logged in, otherwise rejected
-    var statusOnLoadDeferred = $.Deferred();
 
-    var status = function(options) {
-        FB.getLoginStatus(function(response) {
+    /**
+     * Asks FB JS JDK for User's login status. Executes callbacks based on result
+     *
+     * @param options
+     *      connected: callback that's called if user is connected
+     *      notConnected: callback that's called if user is not connected
+     */
+    var status = function (options) {
+        FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 if (options && options.connected) {
                     options.connected();
@@ -69,56 +92,70 @@ GS.facebook = GS.facebook || (function() {
         });
     };
 
-    var getLoginDeferred = function() {
-        return loginDeferred.promise();
-    };
-
-    var getStatusOnLoadDeferred = function() {
-        return statusOnLoadDeferred.promise();
-    };
-
-    var trackLoginClicked = function() {
+    // GS-13920
+    var trackLoginClicked = function () {
         omnitureEventNotifier.clear();
         omnitureEventNotifier.successEvents = "event79;";
         omnitureEventNotifier.send();
     };
 
-    var init = function() {
-        loginDeferred.fail(function() {
+    var getLoginDeferred = function () {
+        return loginDeferred.promise();
+    };
+    var getStatusOnLoadDeferred = function () {
+        return statusOnLoadDeferred.promise();
+    };
+
+
+    // Meant to be fired right after FB JS has downloaded / executed
+    // Sets up click event for Log In button(s)
+    // Sets up default behavior for login deferreds
+    var init = function () {
+        loginDeferred.fail(function () {
             _mightBeLoggedIn = false;
         });
 
+        // We probably need to handle logout on every page, so call it here
+        // rather than leaving it up to the individual page
         initLogoutBehavior();
 
-        $(function() {
-            $(loginSelector).on('click', function() {
+        $(function () {
+            // we'll set up click handler for login buttons here
+            $(loginSelector).on('click', function () {
                 status({
-                    notConnected: function() {
+                    notConnected: function () {
                         trackLoginClicked();
                         login();
                     }
                 });
             });
 
+            // Call status() right away, and if user is logged in, resolve loginDeferred and statusOnLoadDeferred
             status({
-                connected: function() {
+                connected: function () {
                     statusOnLoadDeferred.resolve();
                     loginDeferred.resolve();
                 },
-                notConnected: function() {
+                notConnected: function () {
                     statusOnLoadDeferred.reject();
                 }
             });
         });
     };
 
-    var initLogoutBehavior = function() {
-        $('#utilLinks').on('click', '.js-log-out', function(e) {
+    // Set up click handler on logout links. Need to synchronize FB and GS logout behavior
+    var initLogoutBehavior = function () {
+        $('#utilLinks').on('click', '.js-log-out', function (e) {
+            // 1. get the href the user clicked
+            // 2. If possibly logged in, tell FB to log out
+            // 3. Stop default link behavior
+            // 4. After logged out, send them to where they wanted to go
+
             var $this = $(this);
             var href = $this.attr('href');
 
             if (mightBeLoggedIn()) {
-                FB.logout(function(response){
+                FB.logout(function (response) {
                     window.location.href = href;
                 });
                 e.preventDefault();
@@ -127,54 +164,58 @@ GS.facebook = GS.facebook || (function() {
         });
     };
 
-    var login = function() {
-        FB.login(
-            function(response) {
-                if (response.authResponse) {
-                    FB.api('/me', function(data) {
-                        var url = "/community/registration/basicRegistration.json";
-                        var obj = {
-                            email:data.email,
-                            firstName:data.first_name,
-                            lastName:data.last_name,
-                            how:"facebook",
-                            facebookId:data.id,
-                            terms:true,
-                            fbSignedRequest:response.authResponse.signedRequest
-                        };
-                        $.post(url,obj).done(
-                            function(data2) {
-                                console.log('got social signon data', data2);
-                                updateUIForLogin(data2.userId, data2.email, data2.screenName, data2.numberMSLItems);
-                            }
-                        );
+    // should log user into FB and GS (backend creates GS account if none exists)
+    // Does not currently do refresh after logging in, just updates site header
+    // resolves deferreds and updates login flags
+    var login = function () {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                FB.api('/me', function (data) {
+                    // URL to reg/login
+                    var url = "/community/registration/basicRegistration.json";
+                    var obj = {
+                        email: data.email,
+                        firstName: data.first_name,
+                        lastName: data.last_name,
+                        how: "facebook",
+                        facebookId: data.id,
+                        terms: true,
+                        fbSignedRequest: response.authResponse.signedRequest
+                    };
+                    // Handle GS reg/login
+                    $.post(url, obj).done(function (data2) {
+                        updateUIForLogin(data2.userId, data2.email, data2.screenName, data2.numberMSLItems);
                     });
-                    loginDeferred.resolve();
-                    // connected
-                } else {
-                    loginDeferred.reject();
-                    // cancelled
-                }
-            }, {
-                scope: facebookPermissions
+                });
+                loginDeferred.resolve();
+            } else {
+                loginDeferred.reject();
             }
-        );
+        }, {
+            scope: facebookPermissions
+        });
         _mightBeLoggedIn = true;
     };
 
-    var logout = function() {
-        FB.logout(function(response){
+    // TODO: WIP
+    var logout = function () {
+        FB.logout(function (response) {
 
         });
     };
 
-    var createSchoolHash = function(schoolName, city, state) {
-        return schoolName.toLowerCase() + "|" + city.toLowerCase() +  "|" + state.toLowerCase();
+    // Generate a unique string to identify a school by name/city/state
+    var createSchoolHash = function (schoolName, city, state) {
+        return schoolName.toLowerCase() + "|" + city.toLowerCase() + "|" + state.toLowerCase();
     };
 
-    var getUserFriendsSchoolPageData = function(facebookDataHandler) {
+    // Using FQL queries, get user's friends and friends' Likes, where Liked pages are schools
+    // Multiple resultsets come back from FB. Join them together.
+    // Combine all your friends who Liked a school, into a Set on that school object
+    // Send data off to DOM manipulation handler
+    var getUserFriendsSchoolPageData = function (facebookDataHandler) {
         if (getUserFriendsSchoolPageData.schoolPagesByUrl && getUserFriendsSchoolPageData.schoolPagesBySchoolHash) {
-            facebookDataHandler(getUserFriendsSchoolPageData.schoolPagesByUrl,getUserFriendsSchoolPageData.schoolPagesBySchoolHash);
+            facebookDataHandler(getUserFriendsSchoolPageData.schoolPagesByUrl, getUserFriendsSchoolPageData.schoolPagesBySchoolHash);
             return;
         }
 
@@ -185,10 +226,16 @@ GS.facebook = GS.facebook || (function() {
                 friendsThatAreFansOfSchoolsQuery: friendsThatAreFansOfSchoolsQuery,
                 schoolPageDetailsQuery: schoolPageDetailsQuery
             }
-        }, function(response){
+        }, function (response) {
             var i, item;
+
+            // friends
             var userFriendsResults = response[0]['fql_result_set'];
+
+            // associations
             var friendsThatAreFansOSchoolsResults = response[1]['fql_result_set'];
+
+            // school pages
             var schoolPageDetailsResults = response[2]['fql_result_set'];
 
             // it's easier to reference the objects we need when they're indexed by a key rather than in an array
@@ -206,11 +253,15 @@ GS.facebook = GS.facebook || (function() {
                 schoolPageMap[item.page_id] = item;
             }
 
-            // for each friend that is a fan of a school,
-            // create a map of facebook page_url to page object, and add the "friend" object as a property to page
+            // A lookup - Url of school's FB page to school page object
             var schoolPagesByUrl = {};
+
+            // A lookup - A unique String (name/city/state) to school page object
             var schoolPagesBySchoolHash = {};
+
             i = friendsThatAreFansOSchoolsResults.length;
+
+            // iterate through friend<-->school page associates. Build up maps of Key-->School Page..friends[]
             while (i--) {
                 item = friendsThatAreFansOSchoolsResults[i];
                 var pageId = item.page_id;
@@ -246,11 +297,14 @@ GS.facebook = GS.facebook || (function() {
 
             getUserFriendsSchoolPageData.schoolPagesByUrl = schoolPagesByUrl;
             getUserFriendsSchoolPageData.schoolPagesBySchoolHash = schoolPagesBySchoolHash;
+
+            // now that we have two maps of data, send it off to UI manipulating
             facebookDataHandler(schoolPagesByUrl, schoolPagesBySchoolHash);
         });
     };
 
-    var postToFeed = function(link, pictureUrl, name, caption, description) {
+    // Launch a FB dialog to allow user to post School (url, name, desc) to their Feed
+    var postToFeed = function (link, pictureUrl, name, caption, description) {
 
         var obj = {
             method: 'feed',
@@ -262,25 +316,23 @@ GS.facebook = GS.facebook || (function() {
             description: description
         };
 
-        var callback = function(response) {
+        var callback = function (response) {
             //document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
         };
 
         FB.ui(obj, callback);
     };
 
-
-
     return {
-        status:status,
-        login:login,
-        getUserFriendsSchoolPageData:getUserFriendsSchoolPageData,
-        createSchoolHash:createSchoolHash,
-        getLoginDeferred:getLoginDeferred,
-        getStatusOnLoadDeferred:getStatusOnLoadDeferred,
-        postToFeed:postToFeed,
-        mightBeLoggedIn:mightBeLoggedIn,
-        init:init,
-        updateUIForLogin:updateUIForLogin
-    }
-})();
+        status: status,
+        login: login,
+        getUserFriendsSchoolPageData: getUserFriendsSchoolPageData,
+        createSchoolHash: createSchoolHash,
+        getLoginDeferred: getLoginDeferred,
+        getStatusOnLoadDeferred: getStatusOnLoadDeferred,
+        postToFeed: postToFeed,
+        mightBeLoggedIn: mightBeLoggedIn,
+        init: init,
+        updateUIForLogin: updateUIForLogin
+    };
+})(window.omnitureEventNotifier);
