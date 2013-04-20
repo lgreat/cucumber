@@ -30,7 +30,7 @@ GS.facebook = GS.facebook || (function() {
         return "/cgi-bin/logout/CA/?email=" + encodeURIComponent(email) + "&mid=" + userId;
     };
     var getSignOutLinkHtml = function(email, userId) {
-        var html = '<a href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
+        var html = '<a class="js-log-out" href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
         return html;
     };
     var getWelcomeHtml = function(screenName) {
@@ -85,8 +85,10 @@ GS.facebook = GS.facebook || (function() {
 
     var init = function() {
         loginDeferred.fail(function() {
-            mightBeLoggedIn = false;
+            _mightBeLoggedIn = false;
         });
+
+        initLogoutBehavior();
 
         $(function() {
             $(loginSelector).on('click', function() {
@@ -107,6 +109,21 @@ GS.facebook = GS.facebook || (function() {
                     statusOnLoadDeferred.reject();
                 }
             });
+        });
+    };
+
+    var initLogoutBehavior = function() {
+        $('#utilLinks').on('click', '.js-log-out', function(e) {
+            var $this = $(this);
+            var href = $this.attr('href');
+
+            if (mightBeLoggedIn()) {
+                FB.logout(function(response){
+                    window.location.href = href;
+                });
+                e.preventDefault();
+                return false;
+            }
         });
     };
 
@@ -142,7 +159,13 @@ GS.facebook = GS.facebook || (function() {
                 scope: facebookPermissions
             }
         );
-        mightBeLoggedIn = true;
+        _mightBeLoggedIn = true;
+    };
+
+    var logout = function() {
+        FB.logout(function(response){
+
+        });
     };
 
     var createSchoolHash = function(schoolName, city, state) {

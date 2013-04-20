@@ -40,7 +40,7 @@
                 <link:userAccount styleClass="nav_group_heading">${requestScope.context.screenName}</link:userAccount>
             </li>
             <li>
-                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
             </li>
             <!--<li class="nav_menu"><link:userAccount styleClass="nav_group_heading">My Account</link:userAccount>-->
                 <!--<ul class="nav_group_items">-->

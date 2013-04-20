@@ -21,7 +21,17 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
             GS.facebook.getLoginDeferred().done(function() {
                 GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
                 GS.search.results.showAskAFriendLinks();
+                hideFacebookLoginModule();
             });
+        });
+    };
+
+    var hideFacebookLoginModule = function() {
+        $(".js-facebook-login").parent().parent().animate({
+            opacity: 0.25,
+            height: '0'
+        }, 1000, function() {
+            $(this).hide();
         });
     };
 
