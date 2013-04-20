@@ -162,7 +162,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setOriginalId(0);
         newEntityQueue.setStatus("Unprocessed");
         //if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
-        if(command.getSchoolId() != null && StringUtils.isNotBlank(command.getSchoolId())&& StringUtils.isNumeric(command.getSchoolId())){
+        if(command.getSchoolId() != null && StringUtils.isNotBlank(command.getSchoolId()) && StringUtils.isNumeric(command.getSchoolId())){
             model.put("schoolId",command.getSchoolId());
             School school = _schoolDao.getSchoolById(command.getState(),new Integer(command.getSchoolId()));
             model.put("name",school.getName());
@@ -171,6 +171,16 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             newEntityQueue.setNcesCode(school.getNcesCode());
             newEntityQueue.setDistrictId(school.getDistrictId());
             //newEntityQueue.setOriginalId(0);
+        }else if(command.getDistrictId() != null && StringUtils.isNotBlank(command.getDistrictId())&& StringUtils.isNumeric(command.getDistrictId()) &&
+                command.getSchoolId() == null || StringUtils.isBlank(command.getSchoolId())
+                && command.getAddEdit().equals("edit")){
+                District district = _districtDao.findDistrictById(command.getState(),new Integer(command.getDistrictId()));
+                model.put("name",district.getName());
+                newEntityQueue.setGsId(new Integer(command.getDistrictId()));
+                newEntityQueue.setStateId(district.getStateId());
+                newEntityQueue.setNcesCode(district.getNcesCode());
+                newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
+                //newEntityQueue.setOriginalId(0);
         }else{
             //newEntityQueue.setOriginalId(0);
         }
