@@ -91,12 +91,11 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
             user = createUser(userRegistrationCommand);
 
             if (!registrationBehavior.requireEmailVerification()) {
-                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 user.setEmailVerified(true);
             }
 
             if (registrationBehavior.sendConfirmationEmail()) {
-                sendConfirmationEmail(user, false, false);
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
             }
 
             getUserDao().saveUser(user);
@@ -208,11 +207,6 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
             _log.warn("Error checking IP address", e);
         }
         return false;
-    }
-
-    private void sendConfirmationEmail(User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription) {
-        Map<String, String> attributes = ExactTargetUtil.getEmailSubWelcomeAttributes(ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription, false, true, addedSponsorOptInSubscription));
-        _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
     }
 
     public IUserDao getUserDao() {
