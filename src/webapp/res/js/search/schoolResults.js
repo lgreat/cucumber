@@ -787,18 +787,24 @@ GS.search.results = GS.search.results || (function() {
             var state = $schoolData.data('gs-state');
             var facebookUrl = $schoolData.data('gs-facebook-url');
             var schoolHash = GS.facebook.createSchoolHash(schoolName, city, state);
+            var faces = 0;
 
 
             if (facebookUrl !== "" && schoolPagesByFacebookUrl.hasOwnProperty(facebookUrl)) {
                 $.map(schoolPagesByFacebookUrl[facebookUrl].fans, function(fan) {
-                    text = text + '<img style="padding-right:1px" width="25px" height="25px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    if (faces < 5 ){
+                    text = text + '<img style="padding-right:2px" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    faces = faces + 1;
+                    }
                 });
                 numberFans = numberFans + schoolPagesByFacebookUrl[facebookUrl].fans.length;
-
             }
             if (schoolPagesBySchoolHash.hasOwnProperty(schoolHash)) {
                 $.map(schoolPagesBySchoolHash[schoolHash].fans, function(fan) {
-                    text = text + '<img style="padding-right:1px;" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    if (faces < 5 ){
+                    text = text + '<img style="padding-right:2px;" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    faces = faces + 1;
+                    }
                 });
                 numberFans = numberFans + schoolPagesBySchoolHash[schoolHash].fans.length;
             }

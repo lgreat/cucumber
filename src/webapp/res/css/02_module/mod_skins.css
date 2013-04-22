@@ -676,3 +676,7 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
        -moz-border-radius: 4px; /* FF1-3.6 */
             border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+
+.slStylesV1-0 .standard_7-1 .inner div.FBSigninButton:hover{
+    background-color: #687FB1;
+}
