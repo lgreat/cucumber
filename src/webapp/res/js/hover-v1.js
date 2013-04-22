@@ -1420,8 +1420,16 @@ GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("school
 GSType.hover.ClickToReviewYourSchool = function() {
     this.loadDialog = function() {
         jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
-            GSType.hover.clickToReviewYourSchool.hide();
             GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
+            GSType.hover.clickToReviewYourSchool.hide();
+            if (!$.support.leadingWhitespace) {
+                //IE7 and 8 stuff
+                function getPathFromUrl(url) {
+                    return url.split("?")[0];
+                }
+                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#!/reviews/schoolReviewSubmitForm";
+                window.location.href = linkToStr;
+            }
         });
     };
     this.showHover = function() {
@@ -1436,9 +1444,14 @@ GSType.hover.ClickToReviewYourSchool = function() {
     };
     this.cancelLoadOnExit = function() {
         jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).unbind('dialogclose');
-
-
+        var currentTab = {};
+        var options = {};
+        currentTab.selector = "#js_reviews";
+        options.hash = "schoolReviewSubmitForm";
+        currentTab.name = "reviews";
+        currentTab.title = "Parent Reviews";
     };
+
     this.showInterruptHoverOnPageExit = function(showHoverFunction) {
         // automatically ignore any links with class no_interrupt
         // assumes this is the first event executed when 'click' is triggered
