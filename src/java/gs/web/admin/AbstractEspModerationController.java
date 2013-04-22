@@ -174,14 +174,13 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                     User user = membership.getUser();
                     if (user != null) {
                         boolean updateMembership = false;
-
+                        try {
+                            School school = getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId());
+                            membership.setSchool(school);
+                        } catch (Exception e) {
+                            _log.error("Error fetching school for membership: " + membership, e);
+                        }
                         if ("approve".equals(moderatorAction)) {
-                            try {
-                                School school =  getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId());
-                                membership.setSchool(school);
-                            } catch (Exception e) {
-                                _log.error("Error fetching school for membership: " + membership, e);
-                            }
                             if (membership.getStatus() == EspMembershipStatus.PROVISIONAL
                                     && !membership.getActive()) {
                                 if (_noEditDao.isStateLocked(membership.getSchool().getDatabaseState())) {
@@ -204,7 +203,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                                     membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                                 membership.setStatus(EspMembershipStatus.REJECTED);
                                 membership.setActive(false);
-                                sendRejectionEmail(user);
+                                sendRejectionEmail(user,membership.getSchool());
                                 updateMembership = true;
                             }
                         } else if ("deactivate".equals(moderatorAction)) {
@@ -462,7 +461,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
     protected void sendESPVerificationEmail(User user, School school,HttpServletRequest request) {
         String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
-        sendEmail(user, school, redirect, "HTML__espVerificationUrl", "ESP-verification",request);
+        sendEmail(user, school, redirect, "HTML__espVerificationUrl", "OSP-verification",request);
     }
 
     protected void sendEmail(User user, School school, String redirectUrl, String urlKey,
@@ -500,12 +499,15 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         }
     }
 
-    private void sendRejectionEmail(User user) {
+    private void sendRejectionEmail(User user,School school) {
         try {
             if (user != null && StringUtils.isNotEmpty(user.getFirstName())) {
                 Map<String, String> emailAttributes = new HashMap<String, String>();
                 emailAttributes.put("first_name", user.getFirstName());
-                getExactTargetAPI().sendTriggeredEmail("ESP-rejection", user, emailAttributes);
+                if (school != null) {
+                    emailAttributes.put("school_name", school.getName());
+                }
+                getExactTargetAPI().sendTriggeredEmail("OSP-rejection", user, emailAttributes);
             }
         } catch (Exception e) {
             _log.error("Error sending rejection email message: " + e, e);
