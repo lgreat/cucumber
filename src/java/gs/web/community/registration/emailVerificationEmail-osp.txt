@@ -1,15 +1,13 @@
 <p>$GREETING,</p>
+<p>Thank you for registering as an administrator of $SCHOOL_NAME Official School Profile (OSP) on GreatSchools. $VERIFICATION_LINK to start updating your school's profile!</p>
 
-<p>Thank you for registering for a GreatSchools School Official account for $SCHOOL_NAME!</p>
+<p>About the OSP</p>
+<p>The GreatSchools OSP is your place to share what's special about $SCHOOL_NAME.  Here you can post videos or photos, elaborate on the special programs you offer, highlight after school opportunities and more!  We encourage you to back often to share what's new at your school.</p>
 
-<p>To ensure high security, before granting you access to edit your school's profile we will
-verify that you are affiliated with the school and have authority to edit that information.
-This process may take us a few days. You will receive an email in 2-4 days confirming that
-your account has been approved.</p>
+<p>What happens next?</p>
+<p>We take your school's data security very seriously, so before we publish your edits to $SCHOOL_NAME OSP, we need to verify that you are affiliated with the school and approved to act on its behalf.  This process will take us 2-4 weekdays, and we'll send you a confirmation email when we're through.  In the meantime, you can get started editing your school's information. You'll be able to save your changes, and once we've confirmed your account we will publish your updated OSP on GreatSchools.org.</p>
 
-<p>In the meantime, you'll just need to verify your email by clicking on the link below:</p>
+<p>If you have any questions about the status of your account, please contact us at osphelp@greatschools.org.</p>
 
-<p>$VERIFICATION_LINK</p>
-
-<p>Thanks again,<br/>
-GreatSchools</p>
+<p>Thank you,<br/>
+GreatSchools </p>

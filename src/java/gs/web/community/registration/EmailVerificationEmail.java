@@ -50,7 +50,7 @@ public class EmailVerificationEmail extends AbstractSendEmailBean {
         builder.addParameter("date", nowAsString);
         builder.addParameter("redirect", redirect);
 
-        String verificationLink = builder.asAbsoluteAnchor(request, builder.asFullUrl(request)).asATag();
+        String verificationLink = builder.asAbsoluteAnchor(request, "Click here").asATag();
 
         EmailHelper emailHelper = getEmailHelper();
         emailHelper.setSubject(getVerificationEmailSubject());
