@@ -32,10 +32,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -204,8 +201,12 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setContactName(command.getSubmitterName());
         newEntityQueue.setContactEmail(command.getSubmitterEmail());
         newEntityQueue.setContactConnection(command.getSubmitterConnectionToSchool());
+        if(command.getSubmitterConnectionToSchool() != null && command.getSubmitterConnectionToSchool().equals("Other")){
+            newEntityQueue.setContactConnection(command.getSubmitterConnectionToSchoolText());
+        }
         newEntityQueue.setVerificationUrl(command.getVerificationUrl());
         newEntityQueue.setContactNotes(command.getContactNotes());
+        newEntityQueue.setOpen(command.getOpen());
         newEntityQueue.setName(command.getName());
         newEntityQueue.setStreet(command.getStreet());
         newEntityQueue.setStreetLine2(command.getStreetLine2());
@@ -256,6 +257,19 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setBrowser(command.getBrowser());
 
         newEntityQueue.setCategory(command.getCategory());
+        if(command.getOpen() != null && command.getOpen().equals("Yes")){
+            newEntityQueue.setOpen("Yes");
+        }
+        if(command.getOpen() != null && command.getOpen().equals("No")){
+            String whenOpen = "No";
+            if(command.getOpenSeason() != null){
+                whenOpen = command.getOpenSeason();
+            }
+            if(command.getOpenYear() != null){
+                whenOpen += " " + command.getOpenYear();
+            }
+            newEntityQueue.setOpen(whenOpen);
+        }
 
         _newEntityQueueDao.saveNewEntityQueue(newEntityQueue,"web form");
 
@@ -321,6 +335,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         map.put("specialEd", ynMap);
         map.put("computers", ynMap);
         map.put("extendedCare", ynMap);
+        map.put("open", ynMap);
 
         PreschoolSubtypeSelectorTagHandler psth = new PreschoolSubtypeSelectorTagHandler();
         String[] stValues = psth.getOptionValues();
@@ -337,7 +352,27 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         map.put("preschoolSubtype",stValues);
         map.put("psMap",preschoolSubtype);
 
+        List<FormOption> relation = new ArrayList<FormOption>();
+        relation.add(new FormOption("School Administrator","School Administrator"));
+        relation.add(new FormOption("School Staff","School Staff"));
+        relation.add(new FormOption("District Staff","District Staff"));
+        relation.add(new FormOption("Parent","Parent"));
+        relation.add(new FormOption("Other","Other"));
+        map.put("submitterConnectionToSchool", relation);
 
+        List<FormOption> openSeason = new ArrayList<FormOption>();
+        openSeason.add(new FormOption("Fall","Fall"));
+        openSeason.add(new FormOption("Winter","Winter"));
+        openSeason.add(new FormOption("Spring","Spring"));
+        openSeason.add(new FormOption("Summer","Summer"));
+        map.put("openSeason", openSeason);
+
+        List<FormOption> openYear = new ArrayList<FormOption>();
+        Integer year = new Integer(Calendar.getInstance().get(Calendar.YEAR));
+        Integer nextyear = year + 1;
+        openYear.add(new FormOption(year.toString(),year.toString()));
+        openYear.add(new FormOption(nextyear.toString(),nextyear.toString()));
+        map.put("openYear", openYear);
 
         captureRequestParameters(request, command, map);
 

@@ -67,6 +67,7 @@ function doSchoolTypeSections(){
     if($('input:radio[name=schoolType]:checked').val() == 'private'){
         $("#district_list").hide();
         $("#privateSection1").show();
+        $("#schoolDistrictFields").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#div_choose_state").show();
             $("#schoolDistrictFields").show();
@@ -85,6 +86,7 @@ function doSchoolTypeSections(){
     if($('input:radio[name=schoolType]:checked').val() == 'public'){
         $("#privateSection1").hide();
         $("#div_choose_state").show();
+        $("#schoolDistrictFields").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#school_list").hide();
             $("#city_list").hide();
@@ -101,6 +103,7 @@ function doSchoolTypeSections(){
     if($('input:radio[name=schoolType]:checked').val() == 'charter'){
         $("#privateSection1").hide();
         $("#div_choose_state").show();
+        $("#schoolDistrictFields").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#school_list").hide();
             $("#city_list").hide();
@@ -128,6 +131,7 @@ function doAddEditSections(){
         $("#county_list").hide();
         //$("#schoolDistrictFields").show();
         $("#lowerCounty").show();
+        $("#schoolDistrictFields").show();
     }
 
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
@@ -151,6 +155,7 @@ function doAddEditSections(){
         $("#district_list").show();
         $("#county_list").show();
         $("#lowerCounty").hide();
+        $("#schoolDistrictFields").show();
     }
 }
 
@@ -170,6 +175,7 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
+        $("#schoolDistrictFields").show();
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
         $("#div_choose_state").show();
@@ -203,6 +209,7 @@ function doAddEditSections(clear){
         $("#county_list").hide();
         //$("#schoolDistrictFields").show();
         $("#lowerCounty").show();
+        $("#schoolDistrictFields").show();
     }
 
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
@@ -226,6 +233,7 @@ function doAddEditSections(clear){
         $("#district_list").show();
         $("#county_list").show();
         $("#lowerCounty").hide();
+        $("#schoolDistrictFields").show();
     }
 }
 
@@ -245,6 +253,7 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
+        $("#schoolDistrictFields").show();
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
         $("#div_choose_state").show();
@@ -261,6 +270,7 @@ function do_radio_school_district(clear){
         $("#detailsLabel").html("District Details");
         $("#lowerCounty").hide();
         do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
+        $("#schoolDistrictFields").show();
     }
 }
 
@@ -315,10 +325,20 @@ function doPKSubtypes(pksubtypes){
     });
 }
 
+function doConnection(){
+    if($("#submitterConnectionToSchool").val() == "Other"){
+        $("#submitterConnectionToSchoolTextSection").show();
+    }else{
+        $("#submitterConnectionToSchoolTextSection").hide();
+    }
+
+}
+
 function clear_values(){
     doGradesForEntity( ""  );
     doSchoolType("");
 
+    $("#verificationUrl").val("");
     $("#name").val("");
     $("#street").val("");
     $("#streetLine2").val("");
@@ -350,6 +370,13 @@ function clear_values(){
 }
 
 
+//nChange="doWhenOpen();" styleId="openSelect"
+
+function doWhenOpen(){
+    if($("#openSelect").val() == "No"){
+        $("#whenOpen").show();
+    }
+}
 function do_add_edit(state,clear){
     if(clear == "1"){
         clear_values();
@@ -523,6 +550,7 @@ function do_add_edit(state,clear){
 
 $(document).ready(function(){
 
+    document.getElementById('formAddEdit').reset();
     do_radio_school_district();
     do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
 
@@ -603,7 +631,20 @@ $(document).ready(function(){
     <div class="fieldLabel">Your connection to the school <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.submitterConnectionToSchool">
-            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+            <form:select path="submitterConnectionToSchool" onchange="doConnection();">
+                <form:option value="" label="- Choose one -"/>
+                <form:options items="${requestScope.submitterConnectionToSchool}" itemValue="value" itemLabel="name"/>
+            </form:select>
+            <!--
+            <form:select path="submitterConnectionToSchool" onchange="doConnection();" id="submitterConnectionToSchool">
+                <form:option value="">Choose One</form:option>
+                <form:option value="School Administrator">School Administrator</form:option>
+                <form:option value="School Staff">School Staff</form:option>
+                <form:option value="District Staff">District Staff</form:option>
+                <form:option value="Parent">Parent</form:option>
+                <form:option value="Other">Other</form:option>
+            </form:select>
+            -->
         </spring:bind>
     </div>
     <div class="fieldNote">
@@ -611,15 +652,15 @@ $(document).ready(function(){
     </div>
 </div>
 
-<div class="field">
-    <div class="fieldLabel">Verification url</div>
+<div class="field" id="submitterConnectionToSchoolTextSection">
+    <div class="fieldLabel">Your connection to the school <span class="required">*</span></div>
     <div class="fieldInput">
-        <spring:bind path="addEditSchoolOrDistrictCommand.verificationUrl">
+        <spring:bind path="addEditSchoolOrDistrictCommand.submitterConnectionToSchoolText">
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
         </spring:bind>
     </div>
     <div class="fieldNote">
-        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="verificationUrl" useImage="true" styleClass="warning"/>
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="submitterConnectionToSchoolText" useImage="true" styleClass="warning"/>
     </div>
 </div>
 
@@ -793,6 +834,63 @@ $(document).ready(function(){
 </div>
 
 <div id="schoolDistrictFields">
+
+<div class="lal clearfix">
+    <div class="alpha grid_4">
+        <form:label path="verificationUrl">School website<span class="hint"> (optional)</span></form:label>
+    </div>
+    <div class="grid_6">
+        <form:input path="verificationUrl" cssClass="text input_6" id="verificationUrl"/>
+        <p class="hint">Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.</p>
+    </div>
+    <div class="grid_5 omega">
+        <!-- do not collapse -->
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Is this school open?</div>
+    <div class="fieldInput">
+        <spring:bind path="open">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true" onChange="doWhenOpen();" styleId="openSelect"/>
+        </spring:bind>
+    </div>
+</div>
+
+<div class="field" id="whenOpen">
+    <div class="fieldLabel">When will this school open?</div>
+    <div class="fieldInput">
+        <form:select path="openSeason">
+            <form:option value="" label="-Select Season-"/>
+            <form:options items="${requestScope.openSeason}" itemValue="value" itemLabel="name" id='openSeasonSelect'/>
+        </form:select>
+        <form:select path="openYear">
+            <form:option value="" label="-Select Year-"/>
+            <form:options items="${requestScope.openYear}" itemValue="value" itemLabel="name" id='openYearSelect'/>
+        </form:select>
+        <!--
+        <spring:bind path="addEditSchoolOrDistrictCommand.openSeason">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+        <spring:bind path="addEditSchoolOrDistrictCommand.openYear">
+            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
+        </spring:bind>
+        -->
+    </div>
+</div>
+<!--
+<div class="field">
+    <div class="fieldLabel">Verification url</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.verificationUrl">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="verificationUrl" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+-->
 
 <!--  doPKOnly() -->
 <div id="div_grades">

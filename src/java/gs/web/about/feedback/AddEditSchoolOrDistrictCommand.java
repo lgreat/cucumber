@@ -34,6 +34,7 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
     private String _submitterEmail;
     private String _submitterEmailConfirm;
     private String _submitterConnectionToSchool;
+    private String _submitterConnectionToSchoolText;
     private String _verificationUrl;
 
     private String _name;
@@ -66,6 +67,11 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
     private String _browser;
 
     private String _category;
+
+    private String _open;
+    private String _openSeason;
+    private String _openYear;
+
 
     //private String[] listSubmitterName = {"eddie","andy"};
 
@@ -463,6 +469,15 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
         _submitterConnectionToSchool = submitterConnectionToSchool;
     }
 
+
+    public String getSubmitterConnectionToSchoolText() {
+        return _submitterConnectionToSchoolText;
+    }
+
+    public void setSubmitterConnectionToSchoolText(String submitterConnectionToSchoolText) {
+        _submitterConnectionToSchoolText = submitterConnectionToSchoolText;
+    }
+
     public String getSchoolOrDistrict() {
         return _schoolOrDistrict;
     }
@@ -494,5 +509,33 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
     public void setGrades(String grades) {
         _grades = grades;
     }
+
+    public String getOpen() {
+        return _open;
+    }
+
+    public void setOpen(String open) {
+        _open = open;
+    }
+
+
+    public String getOpenYear() {
+        return _openYear;
+    }
+
+    public void setOpenYear(String openYear) {
+        _openYear = openYear;
+    }
+
+    public String getOpenSeason() {
+        return _openSeason;
+    }
+
+    public void setOpenSeason(String openSeason) {
+        _openSeason = openSeason;
+    }
+
+
+
 
 }
