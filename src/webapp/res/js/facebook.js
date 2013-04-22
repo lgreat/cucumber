@@ -1,7 +1,7 @@
 var GS = GS || {};
 
 // requires jQuery
-GS.facebook = GS.facebook || (function (omnitureEventNotifier) {
+GS.facebook = GS.facebook || (function () {
 
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
@@ -323,8 +323,15 @@ GS.facebook = GS.facebook || (function (omnitureEventNotifier) {
         FB.ui(obj, callback);
     };
 
+    var debugStatus = function() {
+        FB.getLoginStatus(function(response){
+           console.log(response);
+        });
+    };
+
     return {
         status: status,
+        debugStatus: debugStatus,
         login: login,
         getUserFriendsSchoolPageData: getUserFriendsSchoolPageData,
         createSchoolHash: createSchoolHash,
@@ -335,4 +342,4 @@ GS.facebook = GS.facebook || (function (omnitureEventNotifier) {
         init: init,
         updateUIForLogin: updateUIForLogin
     };
-})(window.omnitureEventNotifier);
+})();
