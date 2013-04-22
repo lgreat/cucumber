@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link">
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.attribute name="address" required="true" type="gs.data.util.Address"/>
@@ -10,12 +11,80 @@
     <jsp:directive.attribute name="mobileFont" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="omniturePageName" required="false" type="java.lang.String"/>
 
+
     <jsp:scriptlet>
         SessionContext context = SessionContextUtil.getSessionContext(request);
         request.setAttribute("isFramed", context.isFramed());
         request.setAttribute("isCobranded", context.isCobranded());
     </jsp:scriptlet>
-
+    <c:choose>
+        <c:when test="${omniturePageName eq 'Overview'}">
+            <c:set var="zillowTrackingCode" value="schooloverview"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Article Slideshow'}">
+            <c:set var="zillowTrackingCode" value="article"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Compare'}">
+            <c:set var="zillowTrackingCode" value="compare"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'District Home'}">
+            <c:set var="zillowTrackingCode" value="districthome"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Find a School Home'}">
+            <c:set var="zillowTrackingCode" value="findaschool"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Moving With Kids Landing Page'}">
+            <c:set var="zillowTrackingCode" value="movingtopiccenter"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Parent Reviews'}">
+            <c:set var="zillowTrackingCode" value="parentreviews"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Parent Survey'}">
+            <c:set var="zillowTrackingCode" value="parentsurvey"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Preschool Overview'}">
+            <c:set var="zillowTrackingCode" value="preschooloverview"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Principal Questionnaire'}">
+            <c:set var="zillowTrackingCode" value="principalquestionnaire"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Private School Overview'}">
+            <c:set var="zillowTrackingCode" value="privateschooloverview"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Ratings'}">
+            <c:set var="zillowTrackingCode" value="ratings"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'School Search:MapPage'}">
+            <c:set var="zillowTrackingCode" value="schoolsearch"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'School Tab - Map'}">
+            <c:set var="zillowTrackingCode" value="schooltab"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:city:'}">
+            <c:set var="zillowTrackingCode" value="citybrowse"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:city:Map'}">
+            <c:set var="zillowTrackingCode" value="citybrowsemap"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:district:'}">
+            <c:set var="zillowTrackingCode" value="districtbrowse"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:district:Map'}">
+            <c:set var="zillowTrackingCode" value="districtbrowsemap"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'splash'}">
+            <c:set var="zillowTrackingCode" value="homepage"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Teachers|Students'}">
+            <c:set var="zillowTrackingCode" value="teachersstudents"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'Test Scores'}">
+            <c:set var="zillowTrackingCode" value="testscores"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="zillowTrackingCode" value="unknown"/>
+        </c:otherwise>
+    </c:choose>
     <c:if test="${styleClass eq null}">
         <c:set var="styleClass" value="img iconx16 i-16-home-sales mrs"/>
     </c:if>
@@ -38,10 +107,10 @@
         </c:if>
 
         <div class="media skin-1">
-        <span class="${styleClass} img mrs"><!-- icon --></span>
-        <a class="bd ${mobileFontUse} bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
-            <jsp:doBody/>
-        </a>
+            <span class="${styleClass} img mrs"><!-- icon --></span>
+            <a class="bd ${mobileFontUse} bottom" href="http://www.zillow.com/${requestScope.context.stateOrDefault.abbreviation}-${address.zip}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=${zillowTrackingCode}&amp;amp;cbpartner=Great+Schools" onclick="${onclick}" target="_blank" rel="nofollow">
+                <jsp:doBody/>
+            </a>
         </div>
     </c:if>
 </jsp:root>
