@@ -19,13 +19,6 @@ General comments:
 .menuContainer-primary{
     margin: 0 auto;
     background-color: #248CB8; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#2387B2), to(#2590BE)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #2387B2, #2590BE); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(bottom, #2387B2, #2590BE); /* FF3.6 */
-    background-image:     -ms-linear-gradient(bottom, #2387B2, #2590BE); /* IE10 */
-    background-image:      -o-linear-gradient(bottom, #2387B2, #2590BE); /* Opera 11.10+ */
-    background-image:         linear-gradient(bottom, #2387B2, #2590BE); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2387B2', EndColorStr='#2590BE'); /* IE6�IE9 */
     border-bottom: 3px solid #FFB943;
     border-top: 1px solid #3D9CC6;
 }

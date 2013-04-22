@@ -2894,7 +2894,7 @@ div .gallery-thumbnail-selected:hover {
     /*padding: 0;*/
     position: absolute;
     top:6px;
-    width: 71px;
+    width: 78px;
     z-index: 5;
     cursor: pointer;
 }
@@ -2913,14 +2913,7 @@ div .gallery-thumbnail-selected:hover {
 }
 
 #topnav_search .showSchoolArticle{
-    background-color: #F1F1F1; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD), to(#F8F8F8)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image: -moz-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* FF3.6 */
-    background-image: -ms-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* IE10 */
-    background-image: -o-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Opera 11.10+ */
-    background-image: linear-gradient(bottom, #DDDDDD, #F8F8F8); /* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#DDDDDD', EndColorStr = '#F8F8F8'); *//* IE6�IE9 */
+    background-color: #E6E6E6; /* for non-css3 browsers */
     color: #2B2B2B;
     font: 12px/20px Arial,Helvetica,sans-serif;
     /*padding: 3px;*/
