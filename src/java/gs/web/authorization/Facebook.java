@@ -2,6 +2,7 @@ package gs.web.authorization;
 
 
 import gs.data.util.CmsUtil;
+import gs.web.util.CookieUtil;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.codec.DecoderException;
@@ -9,6 +10,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
@@ -70,6 +72,18 @@ public class Facebook {
         }
 
         return requestData;
+    }
+
+    public static FacebookRequestData getFacebookDataFromCookie(HttpServletRequest request) {
+        FacebookRequestData facebookRequestData = new FacebookRequestData();
+        Cookie cookie = CookieUtil.getCookie(request, "fbsr_" + CmsUtil.getFacebookAppId());
+
+        if (cookie != null) {
+            String signedRequest = cookie.getValue();
+            facebookRequestData = parseSignedRequest(signedRequest);
+        }
+
+        return facebookRequestData;
     }
 
     static private String decode(String data) throws DecoderException, UnsupportedEncodingException {

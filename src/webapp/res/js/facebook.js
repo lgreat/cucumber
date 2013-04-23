@@ -83,6 +83,9 @@ GS.facebook = GS.facebook || (function () {
                 // connected
             } else if (response.status === 'not_authorized') {
                 // not_authorized
+                if (options && options.notConnected) {
+                    options.notConnected();
+                }
             } else {
                 if (options && options.notConnected) {
                     options.notConnected();

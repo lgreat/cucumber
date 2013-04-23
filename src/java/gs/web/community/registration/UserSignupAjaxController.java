@@ -9,6 +9,7 @@ import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.util.table.ITableDao;
 import gs.web.authorization.Facebook;
 import gs.web.authorization.FacebookRequestData;
+import gs.web.community.HoverHelper;
 import gs.web.util.*;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -83,6 +84,16 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
         boolean userExists = (user != null);
 
         if (userExists) {
+            // If the user had previously created a GS account but not verified their email, we'll take care of that
+            // now.
+            if (user.isEmailProvisional()) {
+                user.setEmailVerified(true);
+                user.setEmailValidated();
+                if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
+                    user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
+                }
+            }
+
             if (registrationBehavior.isFacebookRegistration()) {
                 view = doSocialSignon(request, response, user);
             }
