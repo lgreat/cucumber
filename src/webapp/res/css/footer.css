@@ -493,3 +493,62 @@ ol.none     { margin: 0; padding: 0; margin-bottom: 10px; }
 
 ul.none li,
 ol.none li  { list-style-type: none; }
+
+
+/*****************Button style for sign Up button****************/
+
+.but{
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline:0; /* Background Gradients */
+    white-space: nowrap;
+    /* Border Radius */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.but-rg{
+    padding: 0 20px;
+    font: bold .875em/2.285em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
+}
+
+/*****************button-1***********************/
+
+.but-1{
+    background: #0083b2; /* for non-css3 browsers */
+    color: #FFFFFF;
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.but-1:hover{
+    background: #0094C9;  /*for non-css3 browsers */
+    text-decoration: none;
+}
+
+.but-1:active{
+    background: #0094C9;  /*for non-css3 browsers     */
+}
+
+.but-1-inactive{
+    background: #66B5D1;  /*for non-css3 browsers*/
+}
+/* IE7 bug: vertical centering */
+*+html button.but-1,
+*+html button.but-1-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-1:-moz-focus-inner,
+.button-1-inactive::-moz-focus-inner {
+    border: none;
+}
