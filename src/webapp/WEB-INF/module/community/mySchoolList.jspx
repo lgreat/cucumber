@@ -91,7 +91,7 @@
 
 
 
-                                    <p class="text3">
+                                    <p class="text3" style="line-height:16px;">
                                         <span class="prs"><ratings:stars curSR="${review.stars}"/></span>
                                         ${review.quip}
                                             <span class="fltlt">
