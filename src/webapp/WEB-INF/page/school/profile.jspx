@@ -289,16 +289,18 @@
         <div class="toolLinks">
             <ul class="none small mtm">
                 <li>
-                <span class="media">
+                <span class="media js-add-msl-${school.databaseState}${school.id}">
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
                     <c:choose>
                         <c:when test="${not empty schoolInMSL and schoolInMSL eq true}">
                             Added to <link:mySchoolList>My School List</link:mySchoolList>
                         </c:when>
                         <c:otherwise>
-                            <link:mySchoolList styleClass="bd" school="${school}"
-                                               onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
-                                               anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+                            <span class="bd js-msl-text">
+                            <a href="#" class="js-add-msl-link"
+                               id="js-add-msl-link-${school.databaseState}${school.id}"
+                               onclick="return GS.showAddMslJoinHover('Overview', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');">Add to My School List</a>
+                            </span>
                         </c:otherwise>
                     </c:choose>
                 </span>
