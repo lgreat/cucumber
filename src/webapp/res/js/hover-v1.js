@@ -1421,13 +1421,14 @@ GSType.hover.ClickToReviewYourSchool = function() {
     this.loadDialog = function() {
         jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
             GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
-            GSType.hover.clickToReviewYourSchool.hide();
+
             if (!$.support.leadingWhitespace) {
                 //IE7 and 8 stuff
+                GSType.hover.clickToReviewYourSchool.hide();
                 function getPathFromUrl(url) {
                     return url.split("?")[0];
                 }
-                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#!/reviews/schoolReviewSubmitForm";
+                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#schoolReviewSubmitForm";
                 window.location.href = linkToStr;
             }
         });
