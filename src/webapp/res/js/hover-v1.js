@@ -1421,10 +1421,10 @@ GSType.hover.ClickToReviewYourSchool = function() {
     this.loadDialog = function() {
         jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
             GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
-
+            GSType.hover.clickToReviewYourSchool.hide();
             if (!$.support.leadingWhitespace) {
                 //IE7 and 8 stuff
-                GSType.hover.clickToReviewYourSchool.hide();
+
                 function getPathFromUrl(url) {
                     return url.split("?")[0];
                 }
