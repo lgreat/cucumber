@@ -2,6 +2,7 @@ var GS = GS || {};
 
 // requires jQuery
 GS.facebook = GS.facebook || (function () {
+    var registrationAndLoginUrl = "/community/registration/basicRegistration.json";
 
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
@@ -102,6 +103,10 @@ GS.facebook = GS.facebook || (function () {
         omnitureEventNotifier.send();
     };
 
+    var trackGSAccountCreated = function() {
+        s.tl(true,'o', 'GS_FB_account_created');
+    };
+
     var getLoginDeferred = function () {
         return loginDeferred.promise();
     };
@@ -174,8 +179,6 @@ GS.facebook = GS.facebook || (function () {
         FB.login(function (response) {
             if (response.authResponse) {
                 FB.api('/me', function (data) {
-                    // URL to reg/login
-                    var url = "/community/registration/basicRegistration.json";
                     var obj = {
                         email: data.email,
                         firstName: data.first_name,
@@ -186,7 +189,11 @@ GS.facebook = GS.facebook || (function () {
                         fbSignedRequest: response.authResponse.signedRequest
                     };
                     // Handle GS reg/login
-                    $.post(url, obj).done(function (data2) {
+                    $.post(registrationAndLoginUrl, obj).done(function (data2) {
+
+                        if (data2.GSAccountCreated) {
+                            trackGSAccountCreated();
+                        }
                         updateUIForLogin(data2.userId, data2.email, data2.screenName, data2.numberMSLItems);
                     });
                 });

@@ -52,6 +52,7 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
     private String SCREEN_NAME_MODEL_KEY = "screenName";
     private String USER_ID_MODEL_KEY = "userId";
     private String NUMBER_MSL_ITEMS_MODEL_KEY = "numberMSLItems";
+    private String MODEL_ACCOUNT_CREATED_KEY = "GSAccountCreated";
 
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
@@ -122,6 +123,8 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
                 }
 
                 getUserDao().updateUser(user);
+
+                modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "true");
             } catch (NoSuchAlgorithmException e) {
                 getUserDao().removeUser(user.getId());
             } catch (IllegalStateException e) {

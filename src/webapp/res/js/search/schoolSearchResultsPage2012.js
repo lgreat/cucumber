@@ -12,10 +12,13 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
         $(function() {
             // statusOnLoadDeferred is rejected if the user is not already connected after FB has initialized
-            GS.facebook.getStatusOnLoadDeferred().fail(function() {
-                GS.tracking.sendAndRestore({
-                    prop53:"Facebook friend help signon"
-                });
+            // GS-13920
+            GS.facebook.getStatusOnLoadDeferred().done(function() {
+                // user already logged in
+                s.tl(true,'o', 'facebook_friend_help_share');
+            }).fail(function() {
+                // user not logged in
+                s.tl(true,'o', 'facebook_friend_help_signon');
             });
 
             GS.facebook.getLoginDeferred().done(function() {
