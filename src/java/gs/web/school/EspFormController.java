@@ -4,10 +4,16 @@ import gs.data.community.User;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
+import gs.data.search.GsSolrQuery;
+import gs.data.search.GsSolrSearcher;
+import gs.data.search.fields.CmsFeatureFields;
+import gs.data.search.fields.CommonFields;
 import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.CommunityUtil;
+import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.search.SolrCmsFeatureSearchResult;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -43,6 +49,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
+    public static final String [] CMS_ARTICLE_IDS_FOR_DESCRIPTION = {"7279", "7006"};
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -59,6 +66,9 @@ public class EspFormController implements ReadWriteAnnotationController {
     private EspSaveHelper _espSaveHelper;
     @Autowired
     protected IEspMembershipDao _espMembershipDao;
+    @Autowired
+    private GsSolrSearcher _gsSolrSearcher;
+
 
     // TODO: If user is valid but school/state is not, redirect to landing page
     @RequestMapping(value="form.page", method=RequestMethod.GET)
@@ -105,6 +115,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         }else{
             putResponsesInModel(school, modelMap); // fetch responses for school, including external data
         }
+
+        putCmsArticlesForDescriptionInModel(CMS_ARTICLE_IDS_FOR_DESCRIPTION, modelMap);
 
         List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
         modelMap.put("schoolMedias", schoolMedias);
@@ -400,6 +412,29 @@ public class EspFormController implements ReadWriteAnnotationController {
         successObj.put("percentComplete", getPercentCompletionForPage(page, school));
         successObj.write(response.getWriter());
         response.getWriter().flush();
+    }
+
+    protected void putCmsArticlesForDescriptionInModel(String[] ids, ModelMap modelMap) {
+        Map<String,ICmsFeatureSearchResult> resultsMap = new HashMap<String,ICmsFeatureSearchResult>();
+
+        if (ids.length > 0){
+            GsSolrQuery solrQuery = new GsSolrQuery()
+                    .filter(CmsFeatureFields.FIELD_CONTENT_ID, ids)
+                    .addQuery(CommonFields.DOCUMENT_TYPE, "cms_feature")
+                    .build();
+            List<SolrCmsFeatureSearchResult> results = _gsSolrSearcher.simpleSearch(solrQuery, SolrCmsFeatureSearchResult.class);
+
+            // Put search results in a map indexed by article ID
+            for (String id : ids) {
+                for (SolrCmsFeatureSearchResult result : results) {
+                    if( id.equals(result.getContentId().toString()) ) {
+                        resultsMap.put(id, result);
+                    }
+                }
+            }
+
+        }
+        modelMap.put("cmsArticlesForDescription", resultsMap);
     }
 
     protected void outputJsonErrors(Map<String, String> errorFieldToMsgMap, HttpServletResponse response) throws JSONException, IOException {
@@ -875,5 +910,9 @@ public class EspFormController implements ReadWriteAnnotationController {
 
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         _espResponseDao = espResponseDao;
+    }
+
+    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
     }
 }

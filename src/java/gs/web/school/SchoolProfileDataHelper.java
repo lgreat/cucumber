@@ -10,11 +10,16 @@ import gs.data.school.census.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.data.search.GsSolrQuery;
+import gs.data.search.GsSolrSearcher;
+import gs.data.search.fields.CmsFeatureFields;
+import gs.data.search.fields.CommonFields;
 import gs.data.test.*;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.search.CmsRelatedFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.search.SolrCmsFeatureSearchResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,6 +56,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String ENROLLMENT = "enrollment";
     private final static String SPERLINGS = "sperlings";
     private final static String RELATED_CONTENT = "relatedContent";
+    private final static String CMS_ARTICLES = "cmsArticles";
     private final static String SCHOOL_VIDEOS = "schoolVideos";
 //    private static final String FACEBOOK_MODEL_KEY = "facebook";
 
@@ -109,6 +115,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     @Autowired
     private ISubjectDao _subjectDao;
+
+    @Autowired
+    private GsSolrSearcher _gsSolrSearcher;
+
 
     public Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -674,7 +684,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 return  null;
             }
 
-            cmsResults = _cmsRelatedFeatureSearchService.getRelatedFeatures( school, espData, numItems );
+            cmsResults = _cmsRelatedFeatureSearchService.getRelatedFeatures(school, espData, numItems);
 
             if( cmsResults != null && !cmsResults.isEmpty()) {
                 setSharedData( request, key, cmsResults ); // Save in request for future use
@@ -686,6 +696,71 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         }
         return cmsResults;
     }
+
+    protected List<ICmsFeatureSearchResult> getCmsArticles (HttpServletRequest request, String[] articleIds) {
+
+        String key = CMS_ARTICLES;
+        String noKey = "NO_" + key;
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        List<ICmsFeatureSearchResult> cmsResults =  (List<ICmsFeatureSearchResult>)getSharedData( request, key );
+
+        // If it isn't in the request try to retrieve it
+        if( cmsResults == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( getSharedData( request, noKey ) != null ) {
+                return  null;
+            }
+
+            cmsResults = getCmsArticles( articleIds );
+
+            if( cmsResults != null && !cmsResults.isEmpty()) {
+                setSharedData( request, key, cmsResults ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                setSharedData( request, noKey, "yes" );
+            }
+        }
+        return cmsResults;
+    }
+
+    /**
+     * Get the content from Solr based on cms category id
+     * @param ids
+     * @return
+     */
+    private List<ICmsFeatureSearchResult> getCmsArticles(String[] ids) {
+        if (ids.length > 0){
+            GsSolrQuery solrQuery = new GsSolrQuery()
+                    .filter(CmsFeatureFields.FIELD_CONTENT_ID, ids)
+                    .addQuery(CommonFields.DOCUMENT_TYPE, "cms_feature")
+                    .build();
+            List<SolrCmsFeatureSearchResult> results = _gsSolrSearcher.simpleSearch(solrQuery, SolrCmsFeatureSearchResult.class);
+            List<ICmsFeatureSearchResult> ordered = new ArrayList<ICmsFeatureSearchResult>();
+
+            // reorder the content since solr will return it in
+            // no particular order
+            for (String id : ids) {
+                for (SolrCmsFeatureSearchResult result : results) {
+                    if( id.equals(result.getContentId().toString()) ) {
+                        ordered.add(result);
+                    }
+                }
+            }
+            return ordered;
+
+        }
+        return new ArrayList<ICmsFeatureSearchResult>();
+    }
+
 
     // TODO-13012 TEMPORARY! move these constants and sets out of here or replace with config file/XML
     // TODO-13012 only used by state (maybe city as well, if using equivalent schema)
@@ -1061,6 +1136,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     public void setCmsRelatedFeatureSearchService( CmsRelatedFeatureSearchService cmsRelatedFeatureSearchService) {
         _cmsRelatedFeatureSearchService = cmsRelatedFeatureSearchService;
+    }
+
+    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
     }
 }
 

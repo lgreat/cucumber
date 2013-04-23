@@ -2,9 +2,12 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
+<jsp:directive.attribute name="cmsArticleIdsForDescriptions" required="true" description="Map of cms article Ids to Cms search results" type="java.util.Map"/>
     <school:espFormTemplate page="2" maxPage="${maxPage}" headerText="Instructional model">
         <div class="js_pageErrors error" style="display: none">
             <div class="media">
@@ -36,7 +39,14 @@
 
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <p class="labelGroup">What instructional and/or curriculum models does your school use, if any?</p>
+                    <!-- This item has a description for the title -->
+                    <c:set var="cmsSearchResult" value="${cmsArticleIdsForDescriptions['7279']}"/>
+                    <c:if test="${not empty cmsSearchResult}">
+                        <c:set var="descriptionLinkInstructional">
+                            <br/><br/><link:cmsContent contentKey="${cmsSearchResult.contentKey}" fullUri="${cmsSearchResult.fullUri}" anchor="instructional_model" onclick="if (s.tl) {s.tl(this,'o', 'TermGlossary_osp_instructional_model');} return true;" target="_blank">Don't understand these terms?</link:cmsContent>
+                        </c:set>
+                    </c:if>
+                    <p class="labelGroup">What instructional and/or curriculum models does your school use, if any?${descriptionLinkInstructional}</p>
                     <div id="js_form_instructional_model_error"  class="error fltlt" style="display: none">
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -111,7 +121,14 @@
 
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <p class="labelGroup">Please indicate if your school has a special academic theme or area of focus</p>
+                    <!-- This item has a description for the title -->
+                    <c:set var="cmsSearchResult" value="${cmsArticleIdsForDescriptions['7279']}"/>
+                    <c:if test="${not empty cmsSearchResult}">
+                        <c:set var="descriptionLinkAcademic">
+                            <br/><br/><link:cmsContent contentKey="${cmsSearchResult.contentKey}" fullUri="${cmsSearchResult.fullUri}" anchor="academic_focus" onclick="if (s.tl) {s.tl(this,'o', 'TermGlossary_osp_academic_focus');} return true;" target="_blank">Don't understand these terms?</link:cmsContent>
+                        </c:set>
+                    </c:if>
+                    <p class="labelGroup">Please indicate if your school has a special academic theme or area of focus${descriptionLinkAcademic}</p>
                     <div style="display: none" class="error" id="academic_focus_error">
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -174,7 +191,14 @@
 
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <p class="labelGroup">Does your school offer any bilingual/language immersion programs?</p>
+                    <!-- This item has a description for the title -->
+                    <c:set var="cmsSearchResult" value="${cmsArticleIdsForDescriptions['7279']}"/>
+                    <c:if test="${not empty cmsSearchResult}">
+                        <c:set var="descriptionLinkImmersion">
+                            <br/><br/><link:cmsContent contentKey="${cmsSearchResult.contentKey}" fullUri="${cmsSearchResult.fullUri}" anchor="immersion" onclick="if (s.tl) {s.tl(this,'o', 'TermGlossary_osp_immersion');} return true;" target="_blank">Don't understand these terms?</link:cmsContent>
+                        </c:set>
+                    </c:if>
+                    <p class="labelGroup">Does your school offer any bilingual/language immersion programs?${descriptionLinkImmersion}</p>
                     <div id="js_form_immersion_language_error"  class="error fltlt" style="display: none">
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>

@@ -25,7 +25,7 @@
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
             <c:forEach var="section" items="${highlights}" >
-                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}" articleIdToLinkMap="${ArticleIdToLinkMap}"/>
             </c:forEach>
         </div>
         ${updateThisInfoBlurb}
@@ -36,7 +36,7 @@ where each entry is the first bean for that section, this allows access to the s
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
             <c:forEach var="section" items="${application_info}" >
-                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${application_infoMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${application_infoMap[section.sectionAbbreviation]}" dataMap="${ProfileData}" articleIdToLinkMap="${ArticleIdToLinkMap}"/>
             </c:forEach>
 
         </div>
@@ -50,7 +50,7 @@ where each entry is the first bean for that section, this allows access to the s
                     <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
         where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
                     <c:forEach var="section" items="${programs_resources}" >
-                        <school:profileProgramsSectionBasic displayBean="${section}" rowList="${programs_resourcesMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+                        <school:profileProgramsSectionBasic displayBean="${section}" rowList="${programs_resourcesMap[section.sectionAbbreviation]}" dataMap="${ProfileData}" articleIdToLinkMap="${ArticleIdToLinkMap}"/>
                     </c:forEach>
 
                 </div>
@@ -82,7 +82,7 @@ where each entry is the first bean for that section, this allows access to the s
                 <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
                 <c:forEach var="section" items="${extracurriculars}" >
-                    <school:profileProgramsSectionBasic displayBean="${section}" rowList="${extracurricularsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+                    <school:profileProgramsSectionBasic displayBean="${section}" rowList="${extracurricularsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}" articleIdToLinkMap="${ArticleIdToLinkMap}"/>
                     <!-- Bob Raker - 6/25/12 - There is some discussion if Boys Sports and Girls Sports will be handled specially or not.  Delete or use this as needed
                     <c:choose>
                         <c:when test="${section.sectionAbbreviation == 'Sports'}">
@@ -137,7 +137,7 @@ where each entry is the first bean for that section, this allows access to the s
         <c:if test="${fn:length(culture) gt 0}">
             <div class="">
                 <c:forEach var="section" items="${culture}" >
-                    <school:profileProgramsSectionBasic displayBean="${section}" rowList="${cultureMap[section.sectionAbbreviation]}" dataMap="${cultureProfileData}"/>
+                    <school:profileProgramsSectionBasic displayBean="${section}" rowList="${cultureMap[section.sectionAbbreviation]}" dataMap="${cultureProfileData}" articleIdToLinkMap="${ArticleIdToLinkMap}"/>
                 </c:forEach>
             </div>
             ${updateThisInfoBlurb}

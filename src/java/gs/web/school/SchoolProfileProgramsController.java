@@ -3,6 +3,9 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
+import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.search.SolrCmsFeatureSearchResult;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -116,6 +119,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 // Each section becomes a separate table on the display and therefore needs to be in the model as such.
                 // And, if a section is empty it should not be displayed.  The following function takes care of those requirements.
                 buildDisplayModel(MODEL_PREFIXES, resultsModel, DISPLAY_CONFIG, modelMap );
+
+                // Build the CMS links for the rows that have a CMS article that provides an explanation of the row
+                Map<String, String> articleIdToLinkMap = buildRowTitleCmsMap( request, DISPLAY_CONFIG, _schoolProfileDataHelper );
+                modelMap.put( "ArticleIdToLinkMap", articleIdToLinkMap);
             }
 
         }
@@ -839,6 +846,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
     }
 
+<<<<<<< HEAD
     protected static void modifySectionTitle(SchoolProfileDisplayBean display, Map<String, List<EspResponse>> espResults,
                                              String nameKeyPrefix, String programIndex) {
         List<EspResponse> programNameResponse = espResults.get(nameKeyPrefix + programIndex);
@@ -885,6 +893,44 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         return "";
+=======
+    /**
+     * Build the url's for the CMS article ID's specified in the Display Beans
+     * @param request
+     * @param displayConfig
+     * @param schoolProfileDataHelper
+     */
+    private Map<String, String> buildRowTitleCmsMap(HttpServletRequest request, List<SchoolProfileDisplayBean> displayConfig, SchoolProfileDataHelper schoolProfileDataHelper) {
+
+        Map<String, String> results = new HashMap<String, String>();
+
+        // First get all of the article ID's that need CMS links
+        Set<String> idList = new HashSet<String>();
+        for( SchoolProfileDisplayBean displayBean : displayConfig ) {
+            String articleId = displayBean.getRowTitleCmsArticleId();
+            if( articleId != null && articleId.length() > 0 ) {
+                idList.add(articleId);
+            }
+        }
+
+        // If we have some ID's then get the CMS links
+        if( idList.size() > 0 ) {
+            String[] idsAsArray = idList.toArray(new String[0]);
+            List<ICmsFeatureSearchResult> cmsResults = _schoolProfileDataHelper.getCmsArticles(request, idsAsArray );
+            for( int i = 0; i < idsAsArray.length; i++ ) {
+                for (ICmsFeatureSearchResult result : cmsResults) {
+                    if (idsAsArray[i].equals(result.getContentId().toString())){
+                        UrlBuilder builder = new UrlBuilder( result.getContentKey(), result.getFullUri() );
+                        String fullUrl = builder.asFullUrl(request);
+                        String anchor =
+                        results.put( idsAsArray[i], fullUrl );
+                    }
+                }
+            }
+        }
+
+        return results;
+>>>>>>> GS-13898 Localization - Mostly this involved adding the links for the Don't understand these terms? item.
     }
 
     /* *****************************************************************************************************
@@ -1183,13 +1229,16 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "instructional_model"));
         getLastDisplayBean().addKey("instructional_model_other");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
+        getLastDisplayBean().addRowTitleCmsArticleIdAndAnchor("7279", "instructional_model", "TermGlossary_profile_instructional_model");     // ToDo DEBUG replace 7006 with 7279.  debug testing with 7006 because it is in CMS
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specific academic themes or areas of focus",
                 "academic_focus"));
+        getLastDisplayBean().addRowTitleCmsArticleIdAndAnchor("7279", "academic_focus", "TermGlossary_profile_academic_focus");
         // Note - This is repeated for "highlights/Language/immersion", make sure the DisplayBeans stay in sync
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Bi-lingual or language immersion programs offered",
                 "immersion"));
         getLastDisplayBean().addKey("immersion_language");
         getLastDisplayBean().addKey("immersion_language_other");
+        getLastDisplayBean().addRowTitleCmsArticleIdAndAnchor("7279", "immersion", "TermGlossary_profile_immersion");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Level of special education programming offered",
                 "spec_ed_level"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specialized programs for specific types of special education students",

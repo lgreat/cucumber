@@ -16,6 +16,7 @@
     <jsp:directive.attribute name="displayBean" type="gs.web.school.SchoolProfileDisplayBean" required="true"/>
     <jsp:directive.attribute name="rowList" type="java.util.List" required="true"/>
     <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
+    <jsp:directive.attribute name="articleIdToLinkMap" type="java.util.Map" required="true"/>
 
 
     <div class="mod standard_1-1">
@@ -44,11 +45,11 @@
 
         <c:choose>
             <c:when test="${row.displayFormat == 'BASIC'}">
-                <school:profileProgramsRowBasic row="${row}" dataMap="${dataMap}" rowColor="${rowColor}"/>
+                <school:profileProgramsRowBasic row="${row}" dataMap="${dataMap}" cmsArticleIdToUrlMap="${articleIdToLinkMap}" rowColor="${rowColor}"/>
             </c:when>
             <c:when test="${row.displayFormat == 'TWO_COL'}">
                 <!-- Bob Raker 6/25/12 - For right now there is no 2 col list, everything should use the basic -->
-                <school:profileProgramsRowBasic row="${row}" dataMap="${dataMap}" rowColor="${rowColor}"/>
+                <school:profileProgramsRowBasic row="${row}" dataMap="${dataMap}" cmsArticleIdToUrlMap="${articleIdToLinkMap}" rowColor="${rowColor}"/>
             </c:when>
             <c:when test="${row.displayFormat == 'URL'}">
                 <school:profileProgramsRowUrl row="${row}" dataMap="${dataMap}" rowColor="${rowColor}"/>
