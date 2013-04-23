@@ -8,6 +8,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.search.ICmsFeatureSearchResult;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
@@ -409,6 +410,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 //    }
 
     private ModelMap runController( Map<String, List<EspResponse>> espData) {
+        resetMocks(_schoolProfileDataHelper);
         ModelMap map = new ModelMap();
         //ESP data for school is fetched on the culture tab.
         expect(_schoolProfileDataHelper.getEspDataForSchool(getRequest())).andReturn(espData);
@@ -426,7 +428,9 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         //School video
         List<String> schoolVideos = new ArrayList<String>();
         schoolVideos.add("school video 1");
-        expect( _schoolProfileDataHelper.getSchoolVideos(getRequest()) ).andReturn( schoolVideos);
+        expect( _schoolProfileDataHelper.getSchoolVideos(getRequest()) ).andReturn( schoolVideos).anyTimes();
+        String [] cmsIds = new String [] {"7279"};
+        expect( _schoolProfileDataHelper.getCmsArticles(eq(getRequest()), aryEq(cmsIds))).andReturn(new ArrayList< ICmsFeatureSearchResult >()).anyTimes();
 
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
