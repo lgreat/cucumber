@@ -156,3 +156,19 @@ hr {
 #whenOpen{
     display:none;
 }
+
+#contactNotes{
+    width:280px;
+    height:100px;
+}
+
+.addEditHint{
+    color: #777777;
+    font: italic 11px/16px Arial,Helvetica,sans-serif;
+    margin-top: 0;
+    padding: 2px 0 6px;
+}
+
+#openYearSelect{
+    margin-left:10px;
+}

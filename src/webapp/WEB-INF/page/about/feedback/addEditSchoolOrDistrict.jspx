@@ -39,12 +39,19 @@ function showWhatIsNecessary(clear){
     doAddEditSections(clear); //show sections based on add or edit
     doSchoolTypeSections();   //show sections based on school type
     doPKOnly();  // show fields for pk-only schools
+    showSchoolDistrictFields();
 
     //do_radio_school_district(1);
     //do_add_edit($("#addEditSchoolOrDistrictCommand_state").val(),clear);
     //doSchoolTypeSections();
     //doPKOnly();
 
+}
+
+function showSchoolDistrictFields(){
+    if($('input:radio[name=addEdit]:checked').val() == 'add' ){
+        $("#schoolDistrictFields").show();
+    }
 }
 
 function doPKOnly(){
@@ -67,7 +74,6 @@ function doSchoolTypeSections(){
     if($('input:radio[name=schoolType]:checked').val() == 'private'){
         $("#district_list").hide();
         $("#privateSection1").show();
-        $("#schoolDistrictFields").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#div_choose_state").show();
             $("#schoolDistrictFields").show();
@@ -86,12 +92,12 @@ function doSchoolTypeSections(){
     if($('input:radio[name=schoolType]:checked').val() == 'public'){
         $("#privateSection1").hide();
         $("#div_choose_state").show();
-        $("#schoolDistrictFields").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#school_list").hide();
             $("#city_list").hide();
             $("#district_list").show();
             $("#county_list").show();
+            $("#schoolDistrictFields").show();
         }
         if($('input:radio[name=addEdit]:checked').val() == 'edit'){
             $("#school_list").show();
@@ -103,12 +109,12 @@ function doSchoolTypeSections(){
     if($('input:radio[name=schoolType]:checked').val() == 'charter'){
         $("#privateSection1").hide();
         $("#div_choose_state").show();
-        $("#schoolDistrictFields").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#school_list").hide();
             $("#city_list").hide();
             $("#district_list").show();
             $("#county_list").show();
+            $("#schoolDistrictFields").show();
         }
         if($('input:radio[name=addEdit]:checked').val() == 'edit'){
             $("#school_list").show();
@@ -129,9 +135,7 @@ function doAddEditSections(){
         $("#city_list").show();
         $("#district_list").hide();
         $("#county_list").hide();
-        //$("#schoolDistrictFields").show();
         $("#lowerCounty").show();
-        $("#schoolDistrictFields").show();
     }
 
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
@@ -175,7 +179,6 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
-        $("#schoolDistrictFields").show();
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
         $("#div_choose_state").show();
@@ -188,7 +191,6 @@ function do_radio_school_district(clear){
         $("#county_list").show();
         $("#div_school_only_1").hide();
         $("input[name=addEdit][value=edit]").prop('checked', true);
-        $("#schoolDistrictFields").show();
         $("#detailsLabel").html("District Details");
         $("#lowerCounty").hide();
         do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
@@ -207,9 +209,7 @@ function doAddEditSections(clear){
         $("#city_list").show();
         $("#district_list").hide();
         $("#county_list").hide();
-        //$("#schoolDistrictFields").show();
         $("#lowerCounty").show();
-        $("#schoolDistrictFields").show();
     }
 
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
@@ -219,7 +219,6 @@ function doAddEditSections(clear){
         $("#city_list").hide();
         $("#district_list").show();
         $("#county_list").show();
-        $("#schoolDistrictFields").show();
     }
 
     if($('input:radio[name=addEdit]:checked').val() == 'add'){
@@ -253,7 +252,6 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
-        $("#schoolDistrictFields").show();
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
         $("#div_choose_state").show();
@@ -266,11 +264,9 @@ function do_radio_school_district(clear){
         $("#county_list").show();
         $("#div_school_only_1").hide();
         $("input[name=addEdit][value=edit]").prop('checked', true);
-        $("#schoolDistrictFields").show();
         $("#detailsLabel").html("District Details");
         $("#lowerCounty").hide();
         do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
-        $("#schoolDistrictFields").show();
     }
 }
 
@@ -367,6 +363,8 @@ function clear_values(){
     $("#addEditSchoolOrDistrictCommand_districtId").val("");
     $("#addEditSchoolOrDistrictCommand_districtId").html("<option value=''> -- Choose District -- </option>");
     $("#addEditSchoolOrDistrictCommand_county").val("");
+    $("#schoolDistrictFields").hide();
+
 }
 
 
@@ -503,6 +501,7 @@ function do_add_edit(state,clear){
 
                 doPreschoolYesNo(obj.bilingual,obj.specialEd,obj.computers,obj.extendedCare);
                 doPKSubtypes(obj.preschoolSubtype);
+                $("#schoolDistrictFields").show();
 
             }
         });
@@ -538,6 +537,7 @@ function do_add_edit(state,clear){
                     $("#webSite").val(obj.webSite);
                     $("#headOfficialName").val(obj.headOfficialName);
                     $("#headOfficialEmail").val(obj.headOfficialEmail);
+                    $("#schoolDistrictFields").show();
                 }
             });
         }
@@ -635,16 +635,6 @@ $(document).ready(function(){
                 <form:option value="" label="- Choose one -"/>
                 <form:options items="${requestScope.submitterConnectionToSchool}" itemValue="value" itemLabel="name"/>
             </form:select>
-            <!--
-            <form:select path="submitterConnectionToSchool" onchange="doConnection();" id="submitterConnectionToSchool">
-                <form:option value="">Choose One</form:option>
-                <form:option value="School Administrator">School Administrator</form:option>
-                <form:option value="School Staff">School Staff</form:option>
-                <form:option value="District Staff">District Staff</form:option>
-                <form:option value="Parent">Parent</form:option>
-                <form:option value="Other">Other</form:option>
-            </form:select>
-            -->
         </spring:bind>
     </div>
     <div class="fieldNote">
@@ -665,10 +655,11 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">contactNotes</div>
+    <div class="fieldLabel">Extra Notes</div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.contactNotes"><!--  -->
-            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="contactNotes"/>
+            <!-- <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="contactNotes"/>   -->
+            <textarea type="text" name="${status.expression}" id="contactNotes">${status.value}</textarea>
         </spring:bind>
     </div>
     <div class="fieldNote">
@@ -835,16 +826,16 @@ $(document).ready(function(){
 
 <div id="schoolDistrictFields">
 
-<div class="lal clearfix">
-    <div class="alpha grid_4">
-        <form:label path="verificationUrl">School website<span class="hint"> (optional)</span></form:label>
+<div class="field">
+    <div class="fieldLabel">School website</div>
+    <div class="fieldInput">
+        <spring:bind path="verificationUrl">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+        </spring:bind>
+        <div class="addEditHint">Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.</div>
     </div>
-    <div class="grid_6">
-        <form:input path="verificationUrl" cssClass="text input_6" id="verificationUrl"/>
-        <p class="hint">Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.</p>
-    </div>
-    <div class="grid_5 omega">
-        <!-- do not collapse -->
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="verificationUrl" useImage="true" styleClass="warning"/>
     </div>
 </div>
 
@@ -864,33 +855,13 @@ $(document).ready(function(){
             <form:option value="" label="-Select Season-"/>
             <form:options items="${requestScope.openSeason}" itemValue="value" itemLabel="name" id='openSeasonSelect'/>
         </form:select>
-        <form:select path="openYear">
+
+        <form:select path="openYear" id="openYearSelect">
             <form:option value="" label="-Select Year-"/>
             <form:options items="${requestScope.openYear}" itemValue="value" itemLabel="name" id='openYearSelect'/>
         </form:select>
-        <!--
-        <spring:bind path="addEditSchoolOrDistrictCommand.openSeason">
-            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-        </spring:bind>
-        <spring:bind path="addEditSchoolOrDistrictCommand.openYear">
-            <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
-        </spring:bind>
-        -->
     </div>
 </div>
-<!--
-<div class="field">
-    <div class="fieldLabel">Verification url</div>
-    <div class="fieldInput">
-        <spring:bind path="addEditSchoolOrDistrictCommand.verificationUrl">
-            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
-        </spring:bind>
-    </div>
-    <div class="fieldNote">
-        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="verificationUrl" useImage="true" styleClass="warning"/>
-    </div>
-</div>
--->
 
 <!--  doPKOnly() -->
 <div id="div_grades">
@@ -928,7 +899,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Street Address <span class="required">*</span></div>
+    <div class="fieldLabel">Street address <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.street">
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="street"/>
@@ -940,7 +911,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Street Line 2</div>
+    <div class="fieldLabel">Street line 2</div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.streetLine2">
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="streetLine2"/>
@@ -1020,7 +991,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">fax</div>
+    <div class="fieldLabel">Fax</div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.fax"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="fax"/>
@@ -1032,7 +1003,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">webSite</div>
+    <div class="fieldLabel">School web site</div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.webSite"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="webSite"/>
@@ -1045,7 +1016,7 @@ $(document).ready(function(){
 
 <div id="headOfficialSection">
     <div class="field">
-        <div class="fieldLabel">headOfficialName</div>
+        <div class="fieldLabel">Head official name</div>
         <div class="fieldInput">
             <spring:bind path="addEditSchoolOrDistrictCommand.headOfficialName"><!--  -->
                 <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="headOfficialName"/>
@@ -1057,7 +1028,7 @@ $(document).ready(function(){
     </div>
 
     <div class="field">
-        <div class="fieldLabel">headOfficialEmail</div>
+        <div class="fieldLabel">Head official email</div>
         <div class="fieldInput">
             <spring:bind path="addEditSchoolOrDistrictCommand.headOfficialEmail"><!--  -->
                 <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="headOfficialEmail"/>
@@ -1071,7 +1042,7 @@ $(document).ready(function(){
 
 <div id="div_school_only_1">
     <div class="field">
-        <div class="fieldLabel">startTime</div>
+        <div class="fieldLabel">Start time</div>
         <div class="fieldInput">
             <spring:bind path="addEditSchoolOrDistrictCommand.startTime"><!--  -->
                 <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="startTime"/>
@@ -1083,7 +1054,7 @@ $(document).ready(function(){
     </div>
 
     <div class="field">
-        <div class="fieldLabel">endTime</div>
+        <div class="fieldLabel">End time</div>
         <div class="fieldInput">
             <spring:bind path="addEditSchoolOrDistrictCommand.endTime"><!--  -->
                 <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="endTime"/>
@@ -1097,7 +1068,7 @@ $(document).ready(function(){
 
     <div id="privateSection1">
         <div class="field">
-            <div class="fieldLabel">affiliation</div>
+            <div class="fieldLabel">Affiliation</div>
             <div class="fieldInput">
                 <spring:bind path="addEditSchoolOrDistrictCommand.affiliation"><!--  -->
                     <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="affiliation"/>
@@ -1109,7 +1080,7 @@ $(document).ready(function(){
         </div>
 
         <div class="field">
-            <div class="fieldLabel">association</div>
+            <div class="fieldLabel">Association</div>
             <div class="fieldInput">
                 <spring:bind path="addEditSchoolOrDistrictCommand.association"><!--  -->
                     <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="association"/>
@@ -1202,7 +1173,7 @@ $(document).ready(function(){
         </div>
 
         <div class="field">
-            <div class="fieldLabel">preschoolSubtype </div>
+            <div class="fieldLabel">Which type of preschool is it?</div>
             <div class="fieldInput">
                 <spring:bind path="addEditSchoolOrDistrictCommand.preschoolSubtype">
                     <c:forEach var="myTc" items="${requestScope.preschoolSubtype}">
@@ -1224,7 +1195,7 @@ $(document).ready(function(){
 </div>
 <div id="computerInfo">
     <div class="field">
-        <div class="fieldLabel">operatingSystem</div>
+        <div class="fieldLabel">Operating system</div>
         <div class="fieldInput">
             <spring:bind path="addEditSchoolOrDistrictCommand.operatingSystem"><!--  -->
                 <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="operatingSystem"/>
@@ -1236,7 +1207,7 @@ $(document).ready(function(){
     </div>
 
     <div class="field">
-        <div class="fieldLabel">browser</div>
+        <div class="fieldLabel">Browser</div>
         <div class="fieldInput">
             <spring:bind path="addEditSchoolOrDistrictCommand.browser"><!--  -->
                 <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="browser"/>
