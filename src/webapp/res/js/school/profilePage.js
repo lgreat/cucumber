@@ -333,8 +333,9 @@ var GS_updateHistory = function(title, url) {
 var hashValue = window.location.hash;
 jQuery(document).ready(function() {
     GS.profile.init();
-    GS.util.jumpToAnchor(hashValue);
-
+    if(hashValue != ""){
+        GS.util.jumpToAnchor(hashValue);
+    }
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
     /* this initializes all of the star rating options on the reviews page */
