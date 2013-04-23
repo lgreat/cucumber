@@ -2722,9 +2722,7 @@ div .gallery-thumbnail-selected:hover {
 -------------------------------------------------------------------------------------------*/
 
 .topnav_search_container{
-    /*position:relative;*/
     float: right;
-    /*margin-top: 20px;*/
     _zoom:1;
 }
 
@@ -2733,55 +2731,9 @@ div .gallery-thumbnail-selected:hover {
 }
 
 #topnav_search {
-    /*position: absolute;*/
-    /*top: 40px;*/
-    /*right: 0;*/
     width: 416px;
-    /*height: 59px;*/
     z-index: 1;
 }
-
-/*#topnav_search fieldset {*/
-    /*position: absolute;*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;*/
-    /*height: 59px;*/
-    /*width: 416px;*/
-/*}*/
-
-/*#topnav_search ul {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*list-style: none;*/
-    /*height: 28px;*/
-    /*margin: auto; padding: 0; line-height: normal;*/
-/*}*/
-
-/*#topnav_search ul li {*/
-    /*float: left;*/
-    /*padding: 0 0 0 6px;*/
-    /*text-transform: uppercase;*/
-    /*font-size: 11px;*/
-    /*font-weight: 700;*/
-    /*height: 28px;*/
-    /*list-style: none outside none;*/
-/*}*/
-
-/*#topnav_search ul #srch1 {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;*/
-/*}*/
-
-/*#topnav_search ul #srch2 {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;*/
-/*}*/
-
-/*#topnav_search ul #srch1.active {*/
-    /*background-position: 0 -58px;*/
-/*}*/
-
-/*#topnav_search ul #srch2.active {*/
-    /*background-position: 0 -108px;*/
-/*}*/
 
 #topnav_search label {
     display: block;
@@ -2792,24 +2744,13 @@ div .gallery-thumbnail-selected:hover {
     cursor: pointer;
 }
 
-/*#topnav_search ul #srch1 label {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;*/
-/*}*/
-
-/*#topnav_search ul #srch2 label {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;*/
-/*}*/
-
 #topnav_search  #srch1.active .radLabel {
-    /*background-position: 100% -158px;*/
     color: #333;
 }
 
 #topnav_search #srch2.active .radLabel {
-    /*background-position: 100% -158px;*/
     color: #333;
 }
-
 
 #topnav_search fieldset input {
     width: 232px;
@@ -2819,9 +2760,6 @@ div .gallery-thumbnail-selected:hover {
     color: #2B2B2B;
 }
 
-/*#topnav_search fieldset input[type=text]:focus{*/
-    /*color: #2B2B2B;*/
-/*}*/
 .ie8 #topnav_search fieldset input {
     height:16px;
     padding-top: 4px;
@@ -2848,7 +2786,6 @@ div .gallery-thumbnail-selected:hover {
 
 #topnav_search #radBtns {
     position: absolute;
-    /*left: -10000px;*/
 }
 
 #topnav_search fieldset .stateSelect {
@@ -2887,11 +2824,9 @@ div .gallery-thumbnail-selected:hover {
 
 #topnav_search .searchBarSchool .selectSchoolArticle {
     border: 0 none;
-    /*color: #0066BB;*/
     left:0;
     opacity: 0;
     filter: alpha(opacity = 0);
-    /*padding: 0;*/
     position: absolute;
     top:6px;
     width: 78px;
@@ -2901,11 +2836,9 @@ div .gallery-thumbnail-selected:hover {
 
 #topnav_search .searchBarArticle .selectSchoolArticle {
     border: 0 none;
-    /*color: #0066BB;*/
     left:0;
     opacity: 0;
     filter: alpha(opacity = 0);
-    /*padding: 0;*/
     position: absolute;
     top:6px;
     width: 152px;
@@ -2916,7 +2849,6 @@ div .gallery-thumbnail-selected:hover {
     background-color: #E6E6E6; /* for non-css3 browsers */
     color: #2B2B2B;
     font: 12px/20px Arial,Helvetica,sans-serif;
-    /*padding: 3px;*/
     height:18px;
     width: auto;
     border-right: 1px solid #B8B8B8;
