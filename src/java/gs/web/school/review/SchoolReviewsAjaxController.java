@@ -311,10 +311,16 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             //If the user has more than the max number of subs allowed then do not add the sub for the school being reviewed.
             if (userSubs == null || (userSubs != null && userSubs.size() < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER)) {
                 List subscriptions = new ArrayList();
+                Subscription subRating = new Subscription(user, SubscriptionProduct.RATING, school.getDatabaseState());
+                subRating.setSchoolId(school.getId());
+
                 Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
                 subscriptions.add(sub);
                 getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
-                //getSubscriptionDao().saveSubscription(sub);
+                getSubscriptionDao().saveSubscription(subRating);
+
+
+
 
 
             }
