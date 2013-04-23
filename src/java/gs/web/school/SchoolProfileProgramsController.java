@@ -846,7 +846,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
     }
 
-<<<<<<< HEAD
     protected static void modifySectionTitle(SchoolProfileDisplayBean display, Map<String, List<EspResponse>> espResults,
                                              String nameKeyPrefix, String programIndex) {
         List<EspResponse> programNameResponse = espResults.get(nameKeyPrefix + programIndex);
@@ -893,7 +892,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         return "";
-=======
+    }
+
     /**
      * Build the url's for the CMS article ID's specified in the Display Beans
      * @param request
@@ -930,7 +930,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         return results;
->>>>>>> GS-13898 Localization - Mostly this involved adding the links for the Don't understand these terms? item.
     }
 
     /* *****************************************************************************************************
@@ -1229,7 +1228,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "instructional_model"));
         getLastDisplayBean().addKey("instructional_model_other");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
-        getLastDisplayBean().addRowTitleCmsArticleIdAndAnchor("7279", "instructional_model", "TermGlossary_profile_instructional_model");     // ToDo DEBUG replace 7006 with 7279.  debug testing with 7006 because it is in CMS
+        getLastDisplayBean().addRowTitleCmsArticleIdAndAnchor("7279", "instructional_model", "TermGlossary_profile_instructional_model");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specific academic themes or areas of focus",
                 "academic_focus"));
         getLastDisplayBean().addRowTitleCmsArticleIdAndAnchor("7279", "academic_focus", "TermGlossary_profile_academic_focus");
