@@ -121,8 +121,6 @@
         <pageHelper:includeFacebookInit/>
     </c:if>
 
-    <!-- can probably be moved to a decorator, and turned on on a per jspx basis with pageHelper:includeFacebookInit -->
-    <pageHelper:addFacebookInit/>
 
     <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
         <div class="fltlft">
