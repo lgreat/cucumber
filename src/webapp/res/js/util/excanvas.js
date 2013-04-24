@@ -127,7 +127,7 @@ if (!document.createElement('canvas').getContext) {
                 for (var i = 0; i < els.length; i++) {
                     this.initElement(els[i]);
                 }
-                GS.callCaApiGraphsFromIE();
+                $(document).trigger("callCaApiGraphsFromIE");
             },
 
             /**

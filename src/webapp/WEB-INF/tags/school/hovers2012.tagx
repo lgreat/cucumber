@@ -41,17 +41,13 @@
                     var reviewCount = parseInt('${reviewCount}', 10);
                     var preschoolOnly = ('${school.levelCode}' === 'p');
                     var eligibleForReviewUpsell = !preschoolOnly &amp;&amp; reviewCount > 5 &amp;&amp; reviewCount &lt; 10;
-                    if ('${school.levelCode}' === 'p' || '${school.type.schoolTypeName}' === 'private') {
-                        if (eligibleForReviewUpsell) {
-                            GSType.hover.clickToReviewYourSchool.showInterruptHoverOnPageExit(GSType.hover.clickToReviewYourSchool.showHover);
-                        } else {
-                            GSType.hover.joinHover.showNthHoverOnPageExit();
-                        }
+                    if (eligibleForReviewUpsell) {
+                        GSType.hover.clickToReviewYourSchool.showInterruptHoverOnPageExit(GSType.hover.clickToReviewYourSchool.showHover);
                     } else {
-                        if (eligibleForReviewUpsell) {
-                            GSType.hover.clickToReviewYourSchool.showInterruptHoverOnPageExit(GSType.hover.clickToReviewYourSchool.showHover);
+                        if ('${school.levelCode}' === 'p' || '${school.type.schoolTypeName}' === 'private') {
+                            GSType.hover.joinHover.showNthHoverOnPageExit();
                         } else {
-                            GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');
+                            GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', '${school.id}', '${school.databaseState}');
                         }
                     }
                 });

@@ -347,6 +347,9 @@
                 }
             });
             var GS = GS || {};
+            $(document).on('callCaApiGraphsFromIE', function(){
+                GS.callCaApiGraphsFromIE();
+            });
             GS.callCaApiGraphsFromIE = function(){
                if($('#graphCanvasCaApiBar').is(':visible') || $('#graphCanvasCaApiLine').is(':visible') ){
                     GS.callCaApiGraphs();
