@@ -10,8 +10,6 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.web.authorization.Facebook;
-import gs.web.authorization.FacebookRequestData;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.CookieUtil;
@@ -703,17 +701,6 @@ public class SessionContextUtil implements ApplicationContextAware {
         if (PageHelper.isCommunityCookieSet(request)
                 && !CookieUtil.hasCookie(request, _newMemberCookieGenerator.getCookieName())) {
             setUserIsMember(request, response);
-        }
-
-        if (context.getMemberId() != null) {
-            User user = context.getUser();
-            if (user != null && user.getFacebookId() != null) {
-                FacebookRequestData facebookRequestData = Facebook.getFacebookDataFromCookie(request);
-                if (!facebookRequestData.isValid() || !facebookRequestData.isOwnedBy(user)) {
-                    _log.debug("Facebook user without FB cookie had GS member/session cookies - deleting them");
-                    clearUserCookies(response);
-                }
-            }
         }
 
         // END GS-8867
