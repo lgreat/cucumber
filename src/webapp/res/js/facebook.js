@@ -189,7 +189,7 @@ GS.facebook = GS.facebook || (function () {
                     };
                     // Handle GS reg/login
                     $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
-                        if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === true) {
+                        if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
                             if (regLoginResponse.GSAccountCreated) {
                                 trackGSAccountCreated();
                             }
