@@ -170,7 +170,7 @@
                     </div>
                 </div>
                 <c:if test="${facebookFacepilesEnabled eq true}">
-                    <div class="media skin-1 attribution mrgtop_3 js-ask-a-friend">
+                    <div class="dn media skin-1 attribution mrgtop_3 js-ask-a-friend">
                         <div style="width: 120px; margin-left: 55px;">
                             <div class="img mrs">
                                 <span class="iconx16 i-16-fbShare"><!--Do not collapse--></span>
