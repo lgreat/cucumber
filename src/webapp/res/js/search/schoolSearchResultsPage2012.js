@@ -9,6 +9,33 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         GS.school.compare.initializeSchoolsInCompare(function() {
             return window.location.pathname + GS.search.filters.getUpdatedQueryString();
         });
+
+        $(function() {
+            // statusOnLoadDeferred is rejected if the user is not already connected after FB has initialized
+            // GS-13920
+            GS.facebook.getStatusOnLoadDeferred().done(function() {
+                // user already logged in
+                s.tl(true,'o', 'facebook_friend_help_share');
+            }).fail(function() {
+                // user not logged in
+                s.tl(true,'o', 'facebook_friend_help_signon');
+            });
+
+            GS.facebook.getLoginDeferred().done(function() {
+                GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
+                GS.search.results.showAskAFriendLinks();
+                hideFacebookLoginModule();
+            });
+        });
+    };
+
+    var hideFacebookLoginModule = function() {
+        $(".js-facebook-login").parent().parent().animate({
+            opacity: 0.25,
+            height: '0'
+        }, 1000, function() {
+            $(this).hide();
+        });
     };
 
     var writeCompareNowLink = function(schoolId, state) {
@@ -39,6 +66,12 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         compareLabel.html('Compare');
     };
 
+    var trackAskAFriendClicked = function() {
+        // "askAFriend" is a link on each search result
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event80;";
+        omnitureEventNotifier.send();
+    };
 
     var registerEventHandlers = function() {
         // Bind the behavior when clicking on a compare checkbox in the list
@@ -118,6 +151,20 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         // Bind the behavior when clicking on the compare now link that appears when at least two schools are checked
         $(body).on('click', '.js_compare_link', function() {
             return GS.school.compare.compareSchools();
+        });
+
+        $('.js-ask-a-friend div div a').click(function(e) {
+            trackAskAFriendClicked();
+
+            var $this = $(this);
+            var $schoolData = $this.parent().find('.js-school-data');
+            var schoolName = $schoolData.data('gs-school-name');
+            var autoText = $schoolData.data('gs-school-autotext');
+            var link = $this.attr('href');
+            var photoUrl = 'http://www.gscdn.org/res/img/logo/logo_GS_276x50_logo.png'
+
+            GS.facebook.postToFeed(link, photoUrl, schoolName, link, autoText);
+            return false;
         });
     };
 

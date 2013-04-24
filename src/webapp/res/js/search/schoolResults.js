@@ -197,6 +197,7 @@ GS.search.results = GS.search.results || (function() {
 
                 // now that DOM is updated with new search results, do an ad refresh. An ad exists within search results
                 refreshAds();
+                showFacebookFriendsForResults();
                 pageTracking.clear();
                 pageTracking.pageName = $('#jq-omniturePageName').val();
                 pageTracking.props['prop15'] = '';
@@ -759,6 +760,68 @@ GS.search.results = GS.search.results || (function() {
         GS.ad.refreshAds(adSlotKeys);
     };
 
+    var showFacebookFriendsForResults = function() {
+        GS.facebook.status({
+            connected: function() {
+                GS.facebook.getUserFriendsSchoolPageData(handleUIForFacebookResults);
+            }
+        })
+    };
+
+    var showAskAFriendLinks = function() {
+        $('.js-ask-a-friend').show();
+    };
+
+    var handleUIForFacebookResults = function(schoolPagesByFacebookUrl, schoolPagesBySchoolHash) {
+        var $schoolResults = $('.js-school-search-result');
+
+        $schoolResults.each(function() {
+            var text = '';
+            var $this = $(this);
+            var numberFans = 0;
+            var phrase;
+            var $schoolData = $this.find('.js-school-data');
+            var $facepile = $this.find('.js-facepile');
+            var schoolName = $schoolData.data('gs-school-name');
+            var city = $schoolData.data('gs-city');
+            var state = $schoolData.data('gs-state');
+            var facebookUrl = $schoolData.data('gs-facebook-url');
+            var schoolHash = GS.facebook.createSchoolHash(schoolName, city, state);
+            var faces = 0;
+
+
+            if (facebookUrl !== "" && schoolPagesByFacebookUrl.hasOwnProperty(facebookUrl)) {
+                $.map(schoolPagesByFacebookUrl[facebookUrl].fans, function(fan) {
+                    if (faces < 5 ){
+                    text = text + '<img style="padding-right:2px" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    faces = faces + 1;
+                    }
+                });
+                numberFans = numberFans + schoolPagesByFacebookUrl[facebookUrl].fans.length;
+            }
+            if (schoolPagesBySchoolHash.hasOwnProperty(schoolHash)) {
+                $.map(schoolPagesBySchoolHash[schoolHash].fans, function(fan) {
+                    if (faces < 5 ){
+                    text = text + '<img style="padding-right:2px;" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
+                    faces = faces + 1;
+                    }
+                });
+                numberFans = numberFans + schoolPagesBySchoolHash[schoolHash].fans.length;
+            }
+
+            if (text !== '') {
+                if (numberFans === 1) {
+                    phrase = " friend is";
+                } else {
+                    phrase = " friends are";
+                }
+                text = text +"<span class='iconx16 i-16-fbFacepile vam mlm'><!--Do not collapse--></span><span class='small vam mls'>" + numberFans + phrase + " connected to this school.</span>";
+                $facepile.html(text);
+                $facepile.show();
+            }
+        });
+    };
+
     return {
         init:init,
         update:update,
@@ -766,7 +829,10 @@ GS.search.results = GS.search.results || (function() {
         pagination:pagination,
         mapSearch:mapSearch,
         updateSortAndPageSize:updateSortAndPageSize,
-        refreshAds: refreshAds
+        refreshAds: refreshAds,
+        handleUIForFacebookResults: handleUIForFacebookResults,
+        showFacebookFriendsForResults: showFacebookFriendsForResults,
+        showAskAFriendLinks: showAskAFriendLinks
     };
 
 })();

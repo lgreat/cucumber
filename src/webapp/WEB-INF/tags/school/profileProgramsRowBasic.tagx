@@ -15,16 +15,43 @@
 
     <jsp:directive.attribute name="row" type="gs.web.school.SchoolProfileDisplayBean" required="true"/>
     <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
+    <jsp:directive.attribute name="cmsArticleIdToUrlMap" type="java.util.Map" required="true"/>
     <jsp:directive.attribute name="rowColor" type="java.lang.String" required="true"/>
 
 
         <!-- The actual data for each row is stored in the highlightsDisplayData which is a map where the
         key comes from the display bean and the data is a list of all of the values -->
         <c:set var="key" value="${row.modelKey}" scope="page"/>
+        <!-- Check if there is a link to a CMS article associated with this row and if so build the anchorHtml -->
+        <c:set var="rowTitleCmsArticleId" value="${row.rowTitleCmsArticleId}" scope="page"/>
+        <c:if test="${not empty rowTitleCmsArticleId}">
+            <c:set var="cmsUrl" value="${cmsArticleIdToUrlMap[rowTitleCmsArticleId]}"/>
+            <!-- only proceed if the cms article was found in cms and a link was created -->
+            <c:if test="${not empty cmsUrl}">
+                <!-- if there is an anchor specified then add it -->
+                <c:set var="anchor" value="${row.rowTitleCmsArticleAnchor}"/>
+                <c:if test="${not empty anchor}">
+                    <c:set var="cmsAnchor">#${anchor}</c:set>
+                </c:if>
+                <!-- if there is an omniture tracking code specified then add it -->
+                <c:set var="omnitureTrackingCode" value="${row.rowTitleCmsArticleOmniture}" scope="page"/>
+                <c:if test="${not empty omnitureTrackingCode}">
+                    <c:set var="omnitureHtml"> onclick="if (s.tl) {s.tl(this,'o', '${omnitureTrackingCode}');} return true;"</c:set>
+                </c:if>
+                <c:choose>
+                    <c:when test="${not empty omnitureTrackingCode}">
+                        <c:set var="anchorHtml"><br/><br/><a href="${cmsUrl}${cmsAnchor}" onclick="if (s.tl) {s.tl(this,'o', '${omnitureTrackingCode}');} return true;" target="_blank">Don't understand these terms?</a></c:set>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="anchorHtml"><br/><br/><a href="${cmsUrl}${cmsAnchor}" target="_blank">Don't understand these terms?</a></c:set>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </c:if>
         <c:set var="values" value="${dataMap[key]}" scope="page"/>
         <!-- <tr><td colspan="2"><div class="">***Debug*** Row = ${row}, key = ${key}, values = ${values}</div></td></tr> -->
         <tr class="${rowColor}">
-            <td>${row.rowTitle}</td>
+            <td>${row.rowTitle}${anchorHtml}</td>
             <!-- Now display the data by looping over each data element -->
             <td><ul class="none">
                 <c:forEach var="value" items="${values}">

@@ -11,9 +11,14 @@
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="existingPhotos" required="false" type="java.util.List" description="List of SchoolMedia" />
     <jsp:directive.attribute name="startPolling" required="false" type="java.lang.Boolean" description="Whether or not to begin polling immediately"/>
+    <jsp:directive.attribute name="allowPhotoDeletion" required="false" type="java.lang.Boolean" description="Whether or not user can delete photos"/>
 
     <c:if test="${empty startPolling}">
         <c:set var="startPolling" value="${true}"/>
+    </c:if>
+
+    <c:if test="${empty allowPhotoDeletion}">
+        <c:set var="allowPhotoDeletion" value="${true}"/>
     </c:if>
 
     <c:set var="numberOfExistingPhotos" value="${fn:length(existingPhotos)}"/>
@@ -25,7 +30,9 @@
                  src="/res/img/osp/pending-photo.png"
                  width="70" height="70"
                  alt="placeholder"/>
-            <span class="js-deletePhoto deletePhoto iconx16 i-16-close mhs"><!-- do not collapse --></span>
+            <c:if test="${allowPhotoDeletion eq true}">
+                <span class="js-deletePhoto deletePhoto iconx16 i-16-close mhs"><!-- do not collapse --></span>
+            </c:if>
         </div>
         <c:if test="${numberOfExistingPhotos eq 0}">
             <div id="js-noPhotosYet">
@@ -50,8 +57,9 @@
                              alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
                     </c:otherwise>
                 </c:choose>
-
-                <span class="js-deletePhoto deletePhoto iconx16 i-16-close mhs"><!-- do not collapse --></span>
+                <c:if test="${allowPhotoDeletion eq true}">
+                    <span class="js-deletePhoto deletePhoto iconx16 i-16-close mhs"><!-- do not collapse --></span>
+                </c:if>
             </div>
         </c:forEach>
 

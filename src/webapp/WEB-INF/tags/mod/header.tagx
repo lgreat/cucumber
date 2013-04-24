@@ -34,7 +34,7 @@
 
             <div class="line">
                 <div class="unit size40of100">
-                    <div id="logoBox" class="ptl pbs">
+                    <div id="logoBox" class="ptl pbm">
                         <gsml:a href="/">
                             <gsml:img id="logo" src="/res/img/logo/logo_GS_276x50_logo.png"
                                       alt="GreatSchools: Involved Parents. Successful Kids"/>
@@ -117,7 +117,7 @@
                                                     >Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
-                                            <span class="pa" style="top:8px; left:60px;">
+                                            <span class="pa" style="top:8px; left:57px;">
                                                 <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
                                             </span>
                                     </div>

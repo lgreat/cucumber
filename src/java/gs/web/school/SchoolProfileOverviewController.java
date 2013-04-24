@@ -814,7 +814,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             else if( isTranspShuttleNo && isEmpty(transp) && isEmpty(transpOther) ) {
                 // Option c from spec - Display Walking person icon and static message
                 model.put( "icon", "walking" );
-                model.put( "transMsg", "No transportation provided" );
+                model.put( "transMsg", "No transportation available" );
             }
             else if( checkEspResponseListForValue(transp, new String[]{"passes"}) ) {
                 // Option d from spec - Display static message
@@ -839,7 +839,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             else if( transpNoneOrBlank && isNotEmpty(transpOther) ) {
                 // Option h from spec - Display walking person icon & static message
                 model.put( "icon", "walking" );
-                model.put( "transMsg", "Other transportation provided" );
+                model.put( "transMsg", "Other transportation available" );
             }
             else if( transpNone && isEmpty(transpOther) ) {
                 // Option i from spec - Display walking person icon & static message

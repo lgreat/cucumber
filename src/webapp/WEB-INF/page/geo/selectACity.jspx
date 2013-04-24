@@ -42,7 +42,7 @@
             function openInfoWindow(cityAndState, t) {
                 var city = cityAndState.replace (/,...$/, '');
                 if (currentCity != city) {
-                    GEvent.trigger(markers[city], 'click');
+                    google.maps.event.trigger(markers[city], 'click');
                     currentCity = city;
                 }
             }

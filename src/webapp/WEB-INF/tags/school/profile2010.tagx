@@ -21,7 +21,7 @@
 <jsp:directive.attribute name="adSlotPrefix" required="true" type="java.lang.String"
                          description="Ad slot prefix for hiding ad label when ad is not targeted"/>
 
-<pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
+<pageHelper:addFacebookMetaTags school="${school}" url="${school.facebookUrl}" />
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="schoolId" value="${school.id}"/>
@@ -162,10 +162,11 @@
             <promo:addPinItButton url="${schoolOverviewUrl}" title="${plainTextSummary}"
                                   image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
         </div>
-        <div id="schoolProfileFbLike">
-            <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
-        </div>
-
+        <c:if test="${not empty school.facebookUrl}">
+            <div id="schoolProfileFbLike">
+                <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
+            </div>
+        </c:if>
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 
         <div id="schoolToolLinks">
@@ -480,11 +481,7 @@
         </div>
         <!-- end schoolProfileLeftColumn -->
 
-        <c:if test="${fn:contains(school.levelCode, 'p')}">
-            <c:set var="savvySource">
-                <promo:savvysource state="${state}" cityName="${city}" omniturePageName="${omniturePageName}"/>
-            </c:set>
-        </c:if>
+
 
         <!--<div id="schoolProfileRightColumn" class="col">-->
         <div class="grid_8">
@@ -497,7 +494,6 @@
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
-                    ${savvySource}
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 
@@ -521,7 +517,6 @@
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
-                    ${savvySource}
 
                     <div class="mod">
                         <div class="navmod_hd">
@@ -603,14 +598,12 @@
                                                defaultCity="${school.city}"
                                                defaultState="${school.databaseState.abbreviation}" style="2011"/>
 
-                    ${savvySource}
                 </c:when>
                 <c:otherwise>
                     <ad:AboveFold_300x600/>
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
-                    ${savvySource}
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 

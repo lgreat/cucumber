@@ -1,5 +1,7 @@
 package gs.web.request;
 
+import gs.web.authorization.Facebook;
+import gs.web.authorization.FacebookRequestData;
 import gs.web.mobile.Device;
 import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;
@@ -28,6 +30,10 @@ public class RequestInfo {
 
     private HostData _hostData;
 
+    // tracks whether or not we think the user was signed in with Facebook on initial page load, based on
+    // looking for a fbsr_[app_id] cookie.
+    private boolean _signedInWithFacebook;
+
     public RequestInfo() {
     }
 
@@ -43,6 +49,12 @@ public class RequestInfo {
         } else {
             _device = new Device(new UnknownDevice());
         }
+
+        FacebookRequestData facebookRequestData = Facebook.getFacebookDataFromCookie(_request);
+        if (facebookRequestData.isValid()) {
+            _signedInWithFacebook = true;
+        }
+
         _request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, this);
     }
     
@@ -323,5 +335,9 @@ public class RequestInfo {
 
     public void setDevice(Device device) {
         _device = device;
+    }
+
+    public boolean isSignedInWithFacebook() {
+        return _signedInWithFacebook;
     }
 }

@@ -2153,6 +2153,14 @@
           class="gs.web.test.SchoolsInCityAjaxController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/test/districtsInCity.page"
+          class="gs.web.test.DistrictsInCityAjaxController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/test/entityInfo.page"
+          class="gs.web.test.EntityInfoAjaxController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/school/schoolForParentReview.page"
           class="gs.web.school.review.ParentReviewAjaxControllerForSchoolInfo"
           autowire="byName" lazy-init="true"/>

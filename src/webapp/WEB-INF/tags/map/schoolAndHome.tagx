@@ -48,13 +48,13 @@
             try {
                 int thousands = Integer.parseInt(price);
                 if (thousands < 10) {
-                    currentHome.setCounty("homeIcon");
+                    currentHome.setCounty("homeMarker");
                 } else {
                     int decile = thousands / 100;
-                    currentHome.setCounty("icon" + decile);
+                    currentHome.setCounty("marker" + decile);
                 }
             } catch (NumberFormatException e) {
-                currentHome.setCounty("homeIcon");
+                currentHome.setCounty("homeMarker");
             }
             if (fields.length > 2) {
                 String address = fields[0] + ", " + fields[1] + ", " + fields[2];
@@ -72,102 +72,192 @@
     ]]></jsp:scriptlet>
 
 <script type="text/javascript">
-<![CDATA[
-<!--
-]]>
+
+var infoWindow = new google.maps.InfoWindow();
+var infoBoxInstance = null;
+var map;
+var newMarkers = new Array();
 
 function extendBoundsToCenterOnPoint(point, bounds) {
-  bounds.extend(reflectPoint(point, bounds.getNorthEast()));
-  bounds.extend(reflectPoint(point, bounds.getSouthWest()));
+    bounds.extend(reflectPoint(point, bounds.getNorthEast()));
+    bounds.extend(reflectPoint(point, bounds.getSouthWest()));
 }
 
 // Given points x (outlier) and y (center), returns point z such that the rectangle defined by
 // x and z has its center at y. Returns a GLatLng object
 function reflectPoint(centerPoint, outlierPoint) {
-  return new GLatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
-                     centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
+    return new google.maps.LatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
+            centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
-var map = new GMap2(document.getElementById("${id}"));
-var homeIcon = new GIcon();
-homeIcon.image = "/res/img/bullet/exclamation.gif";
-homeIcon.iconSize = new GSize(20,20);
-homeIcon.iconAnchor = new GPoint(20,20);
-homeIcon.infoWindowAnchor = new GPoint(13,2);
-homeIcon.infoShadowAnchor = new GPoint(13,2);
-
-var icon0 = new GIcon();
-icon0.image = "/res/img/school/ratings/na.gif";
-icon0.iconSize = new GSize(22,22);
-icon0.iconAnchor = new GPoint(22,22);
-icon0.infoWindowAnchor = new GPoint(13,2);
-icon0.infoShadowAnchor = new GPoint(13,2);
-
-var icon1 = new GIcon();
-icon1.image = "/res/img/school/ratings/1.gif";
-icon1.iconSize = new GSize(20,20);
-icon1.iconAnchor = new GPoint(20,20);
-icon1.infoWindowAnchor = new GPoint(13,2);
-icon1.infoShadowAnchor = new GPoint(13,2);
-
-var icon2 = new GIcon();
-icon2.image = "/res/img/school/ratings/2.gif";
-icon2.iconSize = new GSize(20,20);
-icon2.iconAnchor = new GPoint(20,20);
-icon2.infoWindowAnchor = new GPoint(13,2);
-icon2.infoShadowAnchor = new GPoint(13,2);
-
-var icon3 = new GIcon();
-icon3.image = "/res/img/school/ratings/3.gif";
-icon3.iconSize = new GSize(20,20);
-icon3.iconAnchor = new GPoint(20,20);
-icon3.infoWindowAnchor = new GPoint(13,2);
-icon3.infoShadowAnchor = new GPoint(13,2);
-
-var icon4 = new GIcon();
-icon4.image = "/res/img/school/ratings/4.gif";
-icon4.iconSize = new GSize(20,20);
-icon4.iconAnchor = new GPoint(20,20);
-icon4.infoWindowAnchor = new GPoint(13,2);
-icon4.infoShadowAnchor = new GPoint(13,2);
-
-var icon5 = new GIcon();
-icon5.image = "/res/img/school/ratings/5.gif";
-icon5.iconSize = new GSize(20,20);
-icon5.iconAnchor = new GPoint(20,20);
-icon5.infoWindowAnchor = new GPoint(13,2);
-icon5.infoShadowAnchor = new GPoint(13,2);
-
-var icon6 = new GIcon();
-icon6.image = "/res/img/school/ratings/6.gif";
-icon6.iconSize = new GSize(20,20);
-icon6.iconAnchor = new GPoint(20,20);
-icon6.infoWindowAnchor = new GPoint(13,2);
-icon6.infoShadowAnchor = new GPoint(13,2);
-
-var icon7 = new GIcon();
-icon7.image = "/res/img/school/ratings/7.gif";
-icon7.iconSize = new GSize(20,20);
-icon7.iconAnchor = new GPoint(20,20);
-icon7.infoWindowAnchor = new GPoint(13,2);
-icon7.infoShadowAnchor = new GPoint(13,2);
-
-var icon8 = new GIcon();
-icon8.image = "/res/img/school/ratings/8.gif";
-icon8.iconSize = new GSize(20,20);
-icon8.iconAnchor = new GPoint(20,20);
-icon8.infoWindowAnchor = new GPoint(13,2);
-icon8.infoShadowAnchor = new GPoint(13,2);
-
-var icon9 = new GIcon();
-icon9.image = "/res/img/school/ratings/9.gif";
-icon9.iconSize = new GSize(20,20);
-icon9.iconAnchor = new GPoint(20,20);
-icon9.infoWindowAnchor = new GPoint(13,2);
-icon9.infoShadowAnchor = new GPoint(13,2);
+var deleteMarkers = function() {
+    for(var i = 0; i &lt; newMarkers.length; i++) {
+        newMarkers[i].setMap(null);
+    }
+    newMarkers = new Array();
+}
 
 var minZoom = ${not empty minZoom?minZoom:6};
 var maxZoom = ${not empty maxZoom?maxZoom:13};
+
+var mapOptions = {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true,
+    zoom: maxZoom,
+    zoomControl: true,
+    zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.DEFAULT //may have to be set to SMALL
+    },
+    streetViewControl: false,
+    panControl: true,
+    infoWindow: infoWindow
+};
+
+map = new google.maps.Map(document.getElementById("${id}"), mapOptions);
+
+//var map = new GMap2(document.getElementById("${id}"));
+var homeMarker = new google.maps.MarkerImage(
+        '/res/img/bullet/exclamation.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var homeIcon = new GIcon();
+//homeIcon.image = "/res/img/bullet/exclamation.gif";
+//homeIcon.iconSize = new GSize(20,20);
+//homeIcon.iconAnchor = new GPoint(20,20);
+//homeIcon.infoWindowAnchor = new GPoint(13,2);
+//homeIcon.infoShadowAnchor = new GPoint(13,2);
+
+var marker0 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/na.gif', // url
+        new google.maps.Size(22, 22), // size
+        null, // origin
+        new google.maps.Point(22, 22) // anchor
+);
+//var icon0 = new GIcon();
+//icon0.image = "/res/img/school/ratings/na.gif";
+//icon0.iconSize = new GSize(22,22);
+//icon0.iconAnchor = new GPoint(22,22);
+//icon0.infoWindowAnchor = new GPoint(13,2);
+//icon0.infoShadowAnchor = new GPoint(13,2);
+
+var marker1 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/1.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon1 = new GIcon();
+//icon1.image = "/res/img/school/ratings/1.gif";
+//icon1.iconSize = new GSize(20,20);
+//icon1.iconAnchor = new GPoint(20,20);
+//icon1.infoWindowAnchor = new GPoint(13,2);
+//icon1.infoShadowAnchor = new GPoint(13,2);
+
+var marker2 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/2.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon2 = new GIcon();
+//icon2.image = "/res/img/school/ratings/2.gif";
+//icon2.iconSize = new GSize(20,20);
+//icon2.iconAnchor = new GPoint(20,20);
+//icon2.infoWindowAnchor = new GPoint(13,2);
+//icon2.infoShadowAnchor = new GPoint(13,2);
+
+var marker3 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/3.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon3 = new GIcon();
+//icon3.image = "/res/img/school/ratings/3.gif";
+//icon3.iconSize = new GSize(20,20);
+//icon3.iconAnchor = new GPoint(20,20);
+//icon3.infoWindowAnchor = new GPoint(13,2);
+//icon3.infoShadowAnchor = new GPoint(13,2);
+
+var marker4 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/4.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon4 = new GIcon();
+//icon4.image = "/res/img/school/ratings/4.gif";
+//icon4.iconSize = new GSize(20,20);
+//icon4.iconAnchor = new GPoint(20,20);
+//icon4.infoWindowAnchor = new GPoint(13,2);
+//icon4.infoShadowAnchor = new GPoint(13,2);
+
+var marker5 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/5.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon5 = new GIcon();
+//icon5.image = "/res/img/school/ratings/5.gif";
+//icon5.iconSize = new GSize(20,20);
+//icon5.iconAnchor = new GPoint(20,20);
+//icon5.infoWindowAnchor = new GPoint(13,2);
+//icon5.infoShadowAnchor = new GPoint(13,2);
+
+var marker6 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/6.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon6 = new GIcon();
+//icon6.image = "/res/img/school/ratings/6.gif";
+//icon6.iconSize = new GSize(20,20);
+//icon6.iconAnchor = new GPoint(20,20);
+//icon6.infoWindowAnchor = new GPoint(13,2);
+//icon6.infoShadowAnchor = new GPoint(13,2);
+
+var marker7 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/7.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon7 = new GIcon();
+//icon7.image = "/res/img/school/ratings/7.gif";
+//icon7.iconSize = new GSize(20,20);
+//icon7.iconAnchor = new GPoint(20,20);
+//icon7.infoWindowAnchor = new GPoint(13,2);
+//icon7.infoShadowAnchor = new GPoint(13,2);
+
+var marker8 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/8.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) // anchor
+);
+//var icon8 = new GIcon();
+//icon8.image = "/res/img/school/ratings/8.gif";
+//icon8.iconSize = new GSize(20,20);
+//icon8.iconAnchor = new GPoint(20,20);
+//icon8.infoWindowAnchor = new GPoint(13,2);
+//icon8.infoShadowAnchor = new GPoint(13,2);
+
+var marker9 = new google.maps.MarkerImage(
+        '/res/img/school/ratings/9.gif', // url
+        new google.maps.Size(20, 20), // size
+        null, // origin
+        new google.maps.Point(20, 20) ); // anchor
+//var icon9 = new GIcon();
+//icon9.image = "/res/img/school/ratings/9.gif";
+//icon9.iconSize = new GSize(20,20);
+//icon9.iconAnchor = new GPoint(20,20);
+//icon9.infoWindowAnchor = new GPoint(13,2);
+//icon9.infoShadowAnchor = new GPoint(13,2);
+
 var displayTooltips = ${not empty tooltips};
 var schoolArray = new Array();
 var homeArray = new Array();
@@ -179,32 +269,32 @@ centerSchool.state = "${school.physicalAddress.state.abbreviation}";
 centerSchool.zip = "${school.physicalAddress.zip}";
 centerSchool.phone = '<c:if test="${not empty school.phone}">${school.phone}</c:if>';
 centerSchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
-centerSchool.location = new GLatLng(${school.lat}, ${school.lon});
+centerSchool.location = new google.maps.LatLng(${school.lat}, ${school.lon});
 
 centerSchool.ratingHtml = '';
 <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
     var schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-    centerSchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
-                       schoolRatingImg +
-                       '</link:schoolProfileRating></div>';
+centerSchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+        schoolRatingImg +
+        '</link:schoolProfileRating></div>';
 </c:if>
 centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
 <c:set var="parent_rating" value="0"/>
-<c:if test="${parent_ratings.displayOverallRating eq true}">
-    <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
-</c:if>
+        <c:if test="${parent_ratings.displayOverallRating eq true}">
+        <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
+        </c:if>
 
-<c:choose>
-    <c:when test="${parent_rating eq 0}">
+        <c:choose>
+<c:when test="${parent_rating eq 0}">
         <c:set var="parent_rating_title" value="Be the first to rate!"/>
         centerSchool.parentRatingHtml += '<link:schoolProfileParentReview
-            school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileParentReview>';
-    </c:when>
-    <c:otherwise>
-        <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileParentReview>';
+        </c:when>
+        <c:otherwise>
+<c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
         centerSchool.parentRatingHtml += '<link:schoolProfileParentReview school="${school}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="${parent_rating_title}"/></link:schoolProfileParentReview>';
-    </c:otherwise>
+</c:otherwise>
 </c:choose>
 centerSchool.parentRatingHtml += '</div>';
 
@@ -212,9 +302,9 @@ function initSchoolInfo() {
     var mySchool;
     var schoolRatingImg;
 <c:forEach var="nearbySchool" items="${schools}">
-  <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
-  <c:if test="${not empty curSchool.lon}">
-    mySchool = new Object();
+            <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
+            <c:if test="${not empty curSchool.lon}">
+            mySchool = new Object();
 
     mySchool.name = "${curSchool.name}";
     mySchool.street = "${curSchool.physicalAddress.street}";
@@ -225,54 +315,76 @@ function initSchoolInfo() {
     mySchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
 
     mySchool.ratingHtml = '';
-    <c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
-        schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${nearbySchool.rating}.gif" alt="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+<c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
+            schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${nearbySchool.rating}.gif" alt="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-        mySchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
-                           schoolRatingImg +
-                           '</link:schoolProfileRating></div>';
-    </c:if>
+    mySchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+            schoolRatingImg +
+            '</link:schoolProfileRating></div>';
+</c:if>
     mySchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
-    <c:set var="parent_rating" value="0"/>
-    <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true)}">
-        <c:set var="parent_rating" value="${nearbySchool.parentRatings.avgQuality}"/>
-    </c:if>
-    <c:choose>
-        <c:when test="${parent_rating eq 0}">
+<c:set var="parent_rating" value="0"/>
+            <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true)}">
+            <c:set var="parent_rating" value="${nearbySchool.parentRatings.avgQuality}"/>
+            </c:if>
+            <c:choose>
+    <c:when test="${parent_rating eq 0}">
             <c:set var="parent_rating_title" value="Be the first to rate!"/>
             mySchool.parentRatingHtml += '<link:schoolProfileParentReview
-                school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileParentReview>';
-        </c:when>
-        <c:otherwise>
-            <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+    school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileParentReview>';
+            </c:when>
+            <c:otherwise>
+    <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
             mySchool.parentRatingHtml += '<link:schoolProfileParentReview school="${curSchool}" title="${parent_rating_title}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/></link:schoolProfileParentReview>';
-        </c:otherwise>
+</c:otherwise>
     </c:choose>
     mySchool.parentRatingHtml += '</div>';
 
-    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
+    mySchool.location = new google.maps.LatLng(${curSchool.lat},${curSchool.lon});
     schoolArray.push(mySchool);
-  </c:if>
-</c:forEach>
+</c:if>
+    </c:forEach>
 }
 
 function initHomeInfo() {
     var myHome;
-    var geocoder = new GClientGeocoder();    
+//    var geocoder = new GClientGeocoder();
+    var geocoder = new google.maps.Geocoder();
+    infoBoxInstance = new google.maps.InfoWindow();
 <c:forEach var="home" items="${homes}">
-  <c:if test="${not empty home.street}">
-    myHome = new Object();
+            <c:if test="${not empty home.street}">
+            myHome = new Object();
     myHome.price = "${home.name}";
-    geocoder.getLatLng('${home.street}', function(point) {
-      if (point) {
-          marker = new GMarker(point, {icon:${home.county}, title:'${home.association}'});
-          addHomeBubbleListener(marker, '${home.name}');          
-          map.addOverlay(marker);
-      }
-    });
+    var markerIcon = ${home.county};
+    geocoder.geocode({'address': '${home.street}'}, function(markerIcon) {
+        return(function(results, status){
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(markerIcon);
+//        var markerIcon = ${home.county};
+                var markerOptions = {
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: markerIcon,
+                    title:'${home.association}',
+                    infoWindowMarkup: getSchoolInfoWindowHtml('${home.name}')
+                };
+//                    icon.infoWindowAnchor = new GPoint(21, 2);
+//                    icon.infoShadowAnchor = new GPoint(21, 2);
+                var marker = new google.maps.Marker(markerOptions);
+                addHomeBubbleListener(marker);
+            }
+        });
+    }(markerIcon));
+//    geocoder.getLatLng('${home.street}', function(point) {
+//        if (point) {
+//            marker = new GMarker(point, {icon:${home.county}, title:'${home.association}'});
+//            addHomeBubbleListener(marker, '${home.name}');
+//            map.addOverlay(marker);
+//        }
+//    });
     homeArray.push(myHome);
-  </c:if>
-</c:forEach>
+</c:if>
+    </c:forEach>
 }
 
 <![CDATA[
@@ -305,80 +417,103 @@ function initMap() {
     var tooltip = null;
     var marker;
 
-    map.addControl(new GLargeMapControl());
-    map.addControl(new GScaleControl());
-    map.setCenter(centerSchool.location, 17);
-    var bounds = new GLatLngBounds();
+    map.setCenter(centerSchool.location);
+    var bounds = new google.maps.LatLngBounds();
     bounds.extend(centerSchool.location);
     <![CDATA[
     for (var counter=0; counter < schoolArray.length; counter++) {
-      var curSchool = schoolArray[counter];
-      if (displayTooltips) {
-        tooltip = curSchool.name;
-      } else {
-        tooltip = null;
-      }
-      marker = new GMarker(curSchool.location, {title: tooltip});
-      addBubbleListener(marker, curSchool);
-      map.addOverlay(marker);
-      bounds.extend(curSchool.location);
+        var curSchool = schoolArray[counter];
+        if (displayTooltips) {
+            tooltip = curSchool.name;
+        } else {
+            tooltip = null;
+        }
+        var markerOptions = {
+            map: map,
+            position: curSchool.location,
+            title: tooltip,
+            infoWindowMarkup: getSchoolInfoWindowHtml(curSchool)
+        };
+//        marker = new GMarker(curSchool.location, {title: tooltip});
+        marker = new google.maps.Marker(markerOptions);
+        addBubbleListener(marker);
+//        map.addOverlay(marker);
+        bounds.extend(curSchool.location);
     }
     ]]>
-
-    var arrowIcon = new GIcon();
-    arrowIcon.image = "/res/img/map/green_arrow.png";
-    arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
-    arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
-    arrowIcon.iconSize = new GSize(39,34);
-    arrowIcon.iconAnchor = new GPoint(11,34);
-    arrowIcon.infoWindowAnchor = new GPoint(13,2);
-    arrowIcon.infoShadowAnchor = new GPoint(13,2);
-    arrowIcon.shadowSize = new GSize(39,34);
+//
+//    var arrowIcon = new GIcon();
+//    arrowIcon.image = "/res/img/map/green_arrow.png";
+//    arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
+//    arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
+//    arrowIcon.iconSize = new GSize(39,34);
+//    arrowIcon.iconAnchor = new GPoint(11,34);
+//    arrowIcon.infoWindowAnchor = new GPoint(13,2);
+//    arrowIcon.infoShadowAnchor = new GPoint(13,2);
+//    arrowIcon.shadowSize = new GSize(39,34);
 
     if (displayTooltips) {
-      tooltip = centerSchool.name;
+        tooltip = centerSchool.name;
     } else {
-      tooltip = null;
+        tooltip = null;
     }
-    marker = new GMarker(centerSchool.location, {icon:arrowIcon, title: tooltip});
-    addBubbleListener(marker, centerSchool);
-    map.addOverlay(marker);
+    var markerOptions = {
+        map: map,
+        position: centerSchool.location,
+        title: tooltip,
+        infoWindowMarkup: getSchoolInfoWindowHtml(centerSchool),
+        icon : new google.maps.MarkerImage(
+                '/res/img/map/green_arrow.png', // url
+                new google.maps.Size(39, 34), // size
+                null, // origin
+                new google.maps.Point(11, 34) // anchor
+        ),
+        shadow : new google.maps.MarkerImage(
+                '/res/img/map/green_arrow_shadow.png', // url
+                new google.maps.Size(39, 34), // size
+                null, // origin
+                new google.maps.Point(11, 34) // anchor
+        )
+    };
+//    marker = new GMarker(centerSchool.location, {icon:arrowIcon, title: tooltip});
+    marker = new google.maps.Marker(markerOptions);
+    addBubbleListener(marker);
     extendBoundsToCenterOnPoint(centerSchool.location, bounds);
 
-    var zoom = map.getBoundsZoomLevel(bounds);
+    var zoom = map.getZoom();
     if (zoom > maxZoom) zoom = maxZoom;
     if (minZoom > zoom) zoom = minZoom;
     map.setZoom(zoom);
 }
 
-function addBubbleListener(marker, school) {
-  GEvent.addListener(marker, "click", function() {
-      if (s.tl &amp;&amp; s.pageName != undefined) {
-          s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
-      }
-      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
-  });
+function addBubbleListener(marker) {
+    google.maps.event.addListener(marker, "click", function() {
+        if (s.tl &amp;&amp; s.pageName != undefined) {
+            s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+        }
+//        marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
+        infoBoxInstance.setContent(marker.infoWindowMarkup);
+        infoBoxInstance.open(map, marker);
+    });
 }
 
 function addHomeBubbleListener(marker, text) {
-  GEvent.addListener(marker, "click", function() {
-      if (s.tl &amp;&amp; s.pageName != undefined) {
-          s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
-      }
-      marker.openInfoWindowHtml(text);
-  });
+    google.maps.event.addListener(marker, "click", function() {
+        if (s.tl &amp;&amp; s.pageName != undefined) {
+            s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+        }
+        infoBoxInstance.setContent(marker.infoWindowMarkup);
+        infoBoxInstance.open(map, marker);
+    });
 }
 
 
 
 function doMapSchools() {
-  if (GBrowserIsCompatible()) {
-      initSchoolInfo();
-      initHomeInfo();
-      initMap();
-  }
+    initSchoolInfo();
+    initHomeInfo();
+    initMap();
 }
--->
 </script>
 
 </jsp:root>

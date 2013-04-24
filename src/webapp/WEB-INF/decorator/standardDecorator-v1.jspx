@@ -71,9 +71,7 @@
 
 
     <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-        <div class="container_24 clearfix">
-            <mod:belowNavAds/>
-        </div>
+        <mod:belowNavAds/>
     </c:if>
 
     <decorator:body/>

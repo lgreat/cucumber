@@ -27,7 +27,8 @@ import java.util.*;
  * 7. Some of the DB results for a row can have multiple values including "None".  In some cases "None" is to be
  *    shown and other cases it is hidden.  In one case "None" is to be shown if it is the only value.
  *    This is controlled by the enum NoneHandling.  These values are applied in SchoolProfileProgramsController.applyUniqueDataRules
- *
+ * 8. Optional CMS article ID that provides a further description of the _rowTitle.  This link always has the text
+ *    "Don't understand these terms?" and opens the provided link in a new window.
  * User: rraker
  * Date: 6/14/12
  * Time: 10:30 AM
@@ -60,6 +61,9 @@ public class SchoolProfileDisplayBean {
     //private boolean _requiresNoneHandling;      // indicator that special "None" value handling is needed
     private NoneHandling _noneMode;             // How to treat None values
     private List<AdditionalData> _additionalData;    // A place to store additional data to retrieve from the ESP database and map to the model
+    private String _rowTitleCmsArticleId;       // If the row title has a link to an explanation of the data then this is the CMS article ID
+    private String _rowTitleCmsArticleAnchor;   // If the row title has a link to an explanation of the data then this is anchor for the CMS article ID
+    private String _rowTitleCmsArticleOmniture; // Optional Omniture tracking code for clicking on the link to the CMS article
 
     // Don't allow default construction
     private SchoolProfileDisplayBean(){}
@@ -128,8 +132,16 @@ public class SchoolProfileDisplayBean {
         return _sectionAbbreviation;
     }
 
+    public void setSectionAbbreviation(String sectionAbbreviation) {
+        _sectionAbbreviation = sectionAbbreviation;
+    }
+
     public String getSectionTitle() {
         return _sectionTitle;
+    }
+
+    public void setSectionTitle(String sectionTitle) {
+        _sectionTitle = sectionTitle;
     }
 
     public String getRowTitle() {
@@ -166,6 +178,24 @@ public class SchoolProfileDisplayBean {
      */
     public void addKey( String espResponseKey ) {
         _espResponseKeys.add(espResponseKey);
+    }
+
+    public void addRowTitleCmsArticleIdAndAnchor( String id, String anchor, String omnitureTrackingCode ) {
+        _rowTitleCmsArticleId = id;
+        _rowTitleCmsArticleAnchor = anchor;
+        _rowTitleCmsArticleOmniture = omnitureTrackingCode;
+    }
+
+    public String getRowTitleCmsArticleId() {
+        return _rowTitleCmsArticleId;
+    }
+
+    public String getRowTitleCmsArticleAnchor() {
+        return _rowTitleCmsArticleAnchor;
+    }
+
+    public String getRowTitleCmsArticleOmniture() {
+        return _rowTitleCmsArticleOmniture;
     }
 
     /**

@@ -20,8 +20,8 @@ General comments:
 =4 special button for Find A School
 =5 special button for Article Slideshows GS-12262
 =6 special button for OSP Dashboard GS-12411
-=7 Button 2 styles from mobile style guide
-=8 Dropdown button icons
+=7 Dropdown button icons
+=8 Primary and secondary button styles
 
 */
 
@@ -1067,11 +1067,55 @@ Extends button-1 by changing:
     border: none;
 }
 
-/* =7 Button 2 styles from mobile style guide
+/* =7 Dropdown button icons
 -------------------------------------------------------------------------------------------*/
-/* Redo button on district boundary */
+/* Email and Print buttons */
+.slStylesV1-0 .button-8{
+    font-family: 14px/14px arial;
+    letter-spacing: -1px;
+    color: #2B2B2B;
+    width: 22px;
+    *width: 21px;
+    height: 22px;
+    text-align: center;
+    padding: 0;
+    border-left: 1px solid #B8B8B8;
+    background: #DDD;
+    background-image: -webkit-linear-gradient(bottom, #DDDDDD 40%, #F8F8F8 100%);  /*Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(bottom, #DDDDDD, #F8F8F8);  /*FF3.6*/
+    background-image:     -ms-linear-gradient(bottom, #DDDDDD, #F8F8F8);  /*IE10*/
+    background-image:      -o-linear-gradient(bottom, #DDDDDD, #F8F8F8);  /*Opera 11.10+ */
+    background-image:         linear-gradient(bottom, #DDDDDD, #F8F8F8);  /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFDDDDDD', EndColorStr='#FFF8F8F8'); /* IE6�IE9 */
+    text-shadow: 0 1px 0 #FFF;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+       -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+.slStylesV1-0 .button-8.round{
+    color: #FFF;
+    letter-spacing: 0px;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0,0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+       -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border: 1px solid #2092C4;
+    -webkit-border-radius: 12px;
+       -moz-border-radius: 12px;
+            border-radius: 12px;
+    position: relative;
+    text-align: center;
+    background: #2092C4;
+    background-image: -webkit-linear-gradient(bottom, #2092C4 40%, #A6D3E7 100%);  /*Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(bottom, #2092C4, #A6D3E7);  /*FF3.6*/
+    background-image:     -ms-linear-gradient(bottom, #2092C4, #A6D3E7);  /*IE10*/
+    background-image:      -o-linear-gradient(bottom, #2092C4, #A6D3E7);  /*Opera 11.10+ */
+    background-image:         linear-gradient(bottom, #2092C4, #A6D3E7);  /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFA6D3E7', EndColorStr='#FFA6D3E7'); /* IE6�IE9 */
+}
 
-/*---Button-2 styles from mobile style guide--*/
+/* =8 Primary and secondary button styles
+-------------------------------------------------------------------------------------------*/
 
 .but{
     width: auto;
@@ -1126,59 +1170,30 @@ Extends button-1 by changing:
             border-radius: 3px;
 }
 
-/* Button Themes
-******************************************************************************/
-/* Button 1
-******************************************************************************/
+
+/*****************button-1***********************/
+
 .but-1{
-    background-color: #2092C4; /* for non-css3 browsers */
-    color: #ffffff;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#79BEDC), to(#2092C4)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #79BEDC, #2092C4); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #79BEDC, #2092C4); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #79BEDC, #2092C4); /* IE10 */
-    background-image:      -o-linear-gradient(top, #79BEDC, #2092C4); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #79BEDC, #2092C4); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#79BEDC', EndColorStr='#2092C4'); /* IE6�IE9 */
-    border: 1px solid #0578AA;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: #0083b2; /* for non-css3 browsers */
+    color: #FFFFFF;
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .but-1:hover{
-    background: #4DA8D0; /* for non-css3 browsers */
+    background: #0094C9;  /*for non-css3 browsers */
     text-decoration: none;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#A6D3E7), to(#2092C4)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #A6D3E7, #2092C4); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #A6D3E7, #2092C4); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #A6D3E7, #2092C4); /* IE10 */
-    background-image:      -o-linear-gradient(top, #A6D3E7, #2092C4); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #A6D3E7, #2092C4); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#A6D3E7', EndColorStr='#2092C4'); /* IE6�IE9 */
 }
 
 .but-1:active{
-    background: #79BEDC; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#79BEDC)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #2092C4, #79BEDC); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #2092C4, #79BEDC); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #2092C4, #79BEDC); /* IE10 */
-    background-image:      -o-linear-gradient(top, #2092C4, #79BEDC); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #2092C4, #79BEDC); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#79BEDC'); /* IE6�IE9 */
-    -moz-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
-    -webkit-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
-    box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
+    background: #0094C9;  /*for non-css3 browsers     */
 }
 
 .but-1-inactive{
-    background: #A6D3E7; /* for non-css3 browsers */
-    color: #F3FAFD;
-    border: 1px solid #2092C4;
+    background: #66B5D1;  /*for non-css3 browsers*/
 }
-
 /* IE7 bug: vertical centering */
 *+html button.but-1,
 *+html button.but-1-inactive {
@@ -1186,10 +1201,13 @@ Extends button-1 by changing:
 }
 
 /* Firefox: remove outline of text on focus within button */
-.button-1:-moz-focus-inner,
-.button-1-inactive::-moz-focus-inner {
+.but-1:-moz-focus-inner,
+.but-1-inactive::-moz-focus-inner {
     border: none;
 }
+
+
+/*************************Button-2*************************/
 
 .but-2{
     background: #F5F5F5; /* for non-css3 browsers */
@@ -1222,126 +1240,10 @@ Extends button-1 by changing:
 }
 
 /* Firefox: remove outline of text on focus within button */
-.button-2:-moz-focus-inner,
-.button-2-inactive::-moz-focus-inner {
+.but-2:-moz-focus-inner,
+.but-2-inactive::-moz-focus-inner {
     border: none;
 }
 
-/*.but-2-selected{*/
-    /*background: #2092C4; *//* for non-css3 browsers */
-    /*color: #FFF;*/
-    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#A6D3E7));  *//* Saf4+, Chrome */
-    /*background-image: -webkit-linear-gradient(top, #2092C4, #A6D3E7);  *//*Chrome 10+, Saf5.1+, iOS 5+ */
-    /*background-image:    -moz-linear-gradient(top, #2092C4, #A6D3E7);  *//*FF3.6*/
-    /*background-image:     -ms-linear-gradient(top, #2092C4, #A6D3E7);  *//*IE10*/
-    /*background-image:      -o-linear-gradient(top, #2092C4, #A6D3E7);  *//*Opera 11.10+ */
-    /*background-image:         linear-gradient(top, #2092C4, #A6D3E7);  *//* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#A6D3E7'); *//* IE6�IE9 */
-    /*border: 1px solid #2092C4;*/
-    /* border-top-color: #2092C4; *//* highlight */
-    /*text-shadow: 0 1px 0 #777;*/
-    /*-moz-box-shadow: inset 0 1px 0 #FFF);*/
-    /*-webkit-box-shadow: inset 0 1px 0 #FFF);*/
-    /*box-shadow: inset 0 1px 0 #FFF);*/
-/*}*/
 
-
-/*****************button-3***********************/
-.but-3{
-    background: #0083b2; /* for non-css3 browsers */
-    color: #FFFFFF;
-    border: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.but-3:hover{
-    background: #0094C9;  /*for non-css3 browsers */
-    text-decoration: none;
-}
-
-.but-3:active{
-    background: #0094C9;  /*for non-css3 browsers     */
-}
-
-.but-3-inactive{
-    background: #66B5D1;  /*for non-css3 browsers*/
-}
-/* IE7 bug: vertical centering */
-*+html button.but-3,
-*+html button.but-3-inactive {
-    line-height: 20px;
-}
-
-/* Firefox: remove outline of text on focus within button */
-.button-3:-moz-focus-inner,
-.button-3-inactive::-moz-focus-inner {
-    border: none;
-}
-
-/*.but-3-selected{*/
-    /*background: #2092C4; *//* for non-css3 browsers */
-    /*color: #FFF;*/
-    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#A6D3E7));  *//* Saf4+, Chrome */
-    /*background-image: -webkit-linear-gradient(top, #2092C4, #A6D3E7);  *//*Chrome 10+, Saf5.1+, iOS 5+ */
-    /*background-image:    -moz-linear-gradient(top, #2092C4, #A6D3E7);  *//*FF3.6*/
-    /*background-image:     -ms-linear-gradient(top, #2092C4, #A6D3E7);  *//*IE10*/
-    /*background-image:      -o-linear-gradient(top, #2092C4, #A6D3E7);  *//*Opera 11.10+ */
-    /*background-image:         linear-gradient(top, #2092C4, #A6D3E7);  *//* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#A6D3E7'); *//* IE6�IE9 */
-    /*border: 1px solid #2092C4;*/
-    /* border-top-color: #2092C4; *//* highlight */
-    /*text-shadow: 0 1px 0 #777;*/
-    /*-moz-box-shadow: inset 0 1px 0 #FFF);*/
-    /*-webkit-box-shadow: inset 0 1px 0 #FFF);*/
-    /*box-shadow: inset 0 1px 0 #FFF);*/
-/*}*/
-
-/* =8 Dropdown button icons
--------------------------------------------------------------------------------------------*/
-/* Email and Print buttons */
-.slStylesV1-0 .button-8{
-    font-family: 14px/14px arial;
-    letter-spacing: -1px;
-    color: #2B2B2B;
-    width: 22px;
-    *width: 21px;
-    height: 22px;
-    text-align: center;
-    padding: 0;
-    border-left: 1px solid #B8B8B8;
-    background: #DDD;
-    background-image: -webkit-linear-gradient(bottom, #DDDDDD 40%, #F8F8F8 100%);  /*Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(bottom, #DDDDDD, #F8F8F8);  /*FF3.6*/
-    background-image:     -ms-linear-gradient(bottom, #DDDDDD, #F8F8F8);  /*IE10*/
-    background-image:      -o-linear-gradient(bottom, #DDDDDD, #F8F8F8);  /*Opera 11.10+ */
-    background-image:         linear-gradient(bottom, #DDDDDD, #F8F8F8);  /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFDDDDDD', EndColorStr='#FFF8F8F8'); /* IE6�IE9 */
-    text-shadow: 0 1px 0 #FFF;
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
-       -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
-}
-.slStylesV1-0 .button-8.round{
-    color: #FFF;
-    letter-spacing: 0px;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0,0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-       -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    border: 1px solid #2092C4;
-    -webkit-border-radius: 12px;
-       -moz-border-radius: 12px;
-            border-radius: 12px;
-    position: relative;
-    text-align: center;
-    background: #2092C4;
-    background-image: -webkit-linear-gradient(bottom, #2092C4 40%, #A6D3E7 100%);  /*Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(bottom, #2092C4, #A6D3E7);  /*FF3.6*/
-    background-image:     -ms-linear-gradient(bottom, #2092C4, #A6D3E7);  /*IE10*/
-    background-image:      -o-linear-gradient(bottom, #2092C4, #A6D3E7);  /*Opera 11.10+ */
-    background-image:         linear-gradient(bottom, #2092C4, #A6D3E7);  /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFA6D3E7', EndColorStr='#FFA6D3E7'); /* IE6�IE9 */
-}
 

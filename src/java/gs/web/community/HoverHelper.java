@@ -1,6 +1,7 @@
 package gs.web.community;
 
 import gs.web.util.context.SubCookie;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,5 +54,9 @@ public class HoverHelper {
 
     public void setHoverCookie(Hover hover) {
         _cookie.setProperty(COOKIE_PROPERTY, hover.getId());
+    }
+
+    public boolean isHoverCookieSet(Hover hover) {
+        return StringUtils.equals(hover.getId(), _cookie.getProperty(COOKIE_PROPERTY));
     }
 }

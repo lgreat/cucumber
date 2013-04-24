@@ -27,21 +27,22 @@
     </head>
 
     <gsml:body adPageName="cmsPage" pageLayout="slStylesV1-0 nocol">
+        <div class="container_24 clearfix">
+            <div class="grid_24">
 
-        <div class="grid_24">
+                <h1 class="mvm">${page.title}</h1>
 
-            <h1 class="mvm">${page.title}</h1>
+                ${page.bodyWithResolvedMediaUrls}
 
-            ${page.bodyWithResolvedMediaUrls}
+            </div>
 
-        </div>
+            <div id="tracking">
+                <c:if test="${not empty adSlotPrefix}">
+                    <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
+                </c:if>
 
-        <div id="tracking">
-            <c:if test="${not empty adSlotPrefix}">
-                <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
-            </c:if>
-
-            <mod:tracking pageName="${omniturePageName}" hier1="${omnitureHierarchy}"/>
+                <mod:tracking pageName="${omniturePageName}" hier1="${omnitureHierarchy}"/>
+            </div>
         </div>
     </gsml:body>
     </html>

@@ -123,6 +123,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         Subscription newMyStatSub = new Subscription(user,SubscriptionProduct.MYSTAT,_school);
         newMyStatSubs.add(newMyStatSub);
         _subscriptionDao.addNewsletterSubscriptions(user,newMyStatSubs);
+        Subscription subRating = new Subscription(user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
@@ -205,6 +209,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         newMyStatSubs.add(newMyStatSub);
         //Test that the MYSTAT is added to the user's subscriptions.
         _subscriptionDao.addNewsletterSubscriptions(user,newMyStatSubs);
+        Subscription subRating = new Subscription(user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+
 
         expect(_reviewDao.findReview(user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
@@ -246,6 +254,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         newMyStatSubs.add(newMyStatSub);
         //Add the MYSTAT Sub even if the user is has not verified the email address.        
         _subscriptionDao.addNewsletterSubscriptions(_user,newMyStatSubs);
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
@@ -460,23 +472,26 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
         //Since a new user is created expect that subscriptionDao.findMssSubscriptionsByUser is called if the isMssSub is true.
-        _command.setMssSub(true);
+       //  _command.setMssSub(true);
         List<Subscription> existingSubs = new ArrayList<Subscription>();
-        expect(_subscriptionDao.findMssSubscriptionsByUser(_user)).andReturn(existingSubs);
+       // expect(_subscriptionDao.findMssSubscriptionsByUser(_user)).andReturn(existingSubs);
 
         List<Subscription> newMyStatSubs = new ArrayList<Subscription>();
         Subscription newMyStatSub = new Subscription(_user,SubscriptionProduct.MYSTAT,_school);
         newMyStatSubs.add(newMyStatSub);
         //Test that the MYSTAT is added to the user's subscriptions.
-        _subscriptionDao.addNewsletterSubscriptions(_user,newMyStatSubs);
-        
+       // _subscriptionDao.addNewsletterSubscriptions(_user,newMyStatSubs);
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+       _subscriptionDao.saveSubscription(subRating);
+
+
         _reviewDao.saveReview((Review) anyObject());
         replay(_reviewDao);
 
         //new user so we add an entry into list member that indicates where we got their email from
-        Subscription sub = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
-        sub.setSchoolId(_school.getId());
-        _subscriptionDao.saveSubscription(sub);
+
+
         replay(_subscriptionDao);
 
         _controller.setUserDao(_userDao);
@@ -736,11 +751,19 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         myStatSubs.add(myStatSub);
         _subscriptionDao.addNewsletterSubscriptions(user, myStatSubs);
 
+        addRatingtoSubscription(user);
+
         replay(_subscriptionDao);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.addMssSubForSchool(user, _school);
         verify(_subscriptionDao);
 
+    }
+
+    private void addRatingtoSubscription(User user) {
+        Subscription subRating = new Subscription(user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
     }
 
     public void testAddMssSubForSchoolUserHasZeroMyStatSubs() throws Exception {
@@ -753,6 +776,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         Subscription myStatSub = new Subscription(user,SubscriptionProduct.MYSTAT,_school);
         myStatSubs.add(myStatSub);
         _subscriptionDao.addNewsletterSubscriptions(user, myStatSubs);
+        Subscription subRating = new Subscription(user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+
 
         replay(_subscriptionDao);
         _controller.setSubscriptionDao(_subscriptionDao);

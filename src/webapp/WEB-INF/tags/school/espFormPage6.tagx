@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
+<jsp:directive.attribute name="isProvisional" required="false" description="true if the user is in provisional status" type="java.lang.Boolean"/>
 
     <pageHelper:externalJavascript file="/res/js/plupload/plupload.js" />
     <pageHelper:externalJavascript file="/res/js/plupload/plupload.flash.js" />
@@ -125,6 +126,11 @@
                 </div>
             </c:if>
 
+
+            <c:set var="allowPhotoEditing" value="${true}"/>
+            <c:if test="${!(empty isProvisionalUser) and isProvisionalUser eq true}">
+                <c:set var="allowPhotoEditing" value="${false}"/>
+            </c:if>
             <c:set var="maxNumberOfPhotos" value="10" />
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
@@ -132,9 +138,14 @@
                     <p class="small">Up to ${maxNumberOfPhotos} photos. File size limit is 10MB.</p>
                     <p class="smaller">Please do not upload photos of children without a parent's permission. GreatSchools reserves the right to remove any media content from the site at any time.</p>
                     <school:espFieldError text="Error occurred" styleId="jsUploadError" styleClass="grid_6 omega"/>
+                    <c:if test="${isProvisional}">
+                        <p class="small error_msg">This tool will become available as soon as we've confirmed you as an administrator for this school's OSP. Please check back in 2-4 weekdays to begin uploading photos to your profile. The first photo also appears in search results.</p>
+                    </c:if>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" />
+                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}"
+                                       schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}"
+                                       existingPhotos="${schoolMedias}" allowPhotoUpload="${allowPhotoEditing}"/>
                 </div>
             </div>
 
@@ -145,7 +156,9 @@
                     <p class="small">Photos in pending status are being processed and will be available momentarily</p>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" startPolling="${param.page eq 6}"/>
+                    <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}"
+                                            schoolDatabaseState="${school.databaseState.abbreviationLowerCase}"
+                                            existingPhotos="${schoolMedias}" startPolling="${param.page eq 6}" allowPhotoDeletion="${allowPhotoEditing}"/>
                 </div>
             </div>
 

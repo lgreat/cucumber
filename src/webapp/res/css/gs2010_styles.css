@@ -2722,9 +2722,7 @@ div .gallery-thumbnail-selected:hover {
 -------------------------------------------------------------------------------------------*/
 
 .topnav_search_container{
-    /*position:relative;*/
     float: right;
-    /*margin-top: 20px;*/
     _zoom:1;
 }
 
@@ -2733,55 +2731,9 @@ div .gallery-thumbnail-selected:hover {
 }
 
 #topnav_search {
-    /*position: absolute;*/
-    /*top: 40px;*/
-    /*right: 0;*/
     width: 416px;
-    /*height: 59px;*/
     z-index: 1;
 }
-
-/*#topnav_search fieldset {*/
-    /*position: absolute;*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;*/
-    /*height: 59px;*/
-    /*width: 416px;*/
-/*}*/
-
-/*#topnav_search ul {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*list-style: none;*/
-    /*height: 28px;*/
-    /*margin: auto; padding: 0; line-height: normal;*/
-/*}*/
-
-/*#topnav_search ul li {*/
-    /*float: left;*/
-    /*padding: 0 0 0 6px;*/
-    /*text-transform: uppercase;*/
-    /*font-size: 11px;*/
-    /*font-weight: 700;*/
-    /*height: 28px;*/
-    /*list-style: none outside none;*/
-/*}*/
-
-/*#topnav_search ul #srch1 {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;*/
-/*}*/
-
-/*#topnav_search ul #srch2 {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;*/
-/*}*/
-
-/*#topnav_search ul #srch1.active {*/
-    /*background-position: 0 -58px;*/
-/*}*/
-
-/*#topnav_search ul #srch2.active {*/
-    /*background-position: 0 -108px;*/
-/*}*/
 
 #topnav_search label {
     display: block;
@@ -2792,24 +2744,13 @@ div .gallery-thumbnail-selected:hover {
     cursor: pointer;
 }
 
-/*#topnav_search ul #srch1 label {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;*/
-/*}*/
-
-/*#topnav_search ul #srch2 label {*/
-    /*background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;*/
-/*}*/
-
 #topnav_search  #srch1.active .radLabel {
-    /*background-position: 100% -158px;*/
     color: #333;
 }
 
 #topnav_search #srch2.active .radLabel {
-    /*background-position: 100% -158px;*/
     color: #333;
 }
-
 
 #topnav_search fieldset input {
     width: 232px;
@@ -2819,9 +2760,6 @@ div .gallery-thumbnail-selected:hover {
     color: #2B2B2B;
 }
 
-/*#topnav_search fieldset input[type=text]:focus{*/
-    /*color: #2B2B2B;*/
-/*}*/
 .ie8 #topnav_search fieldset input {
     height:16px;
     padding-top: 4px;
@@ -2848,7 +2786,6 @@ div .gallery-thumbnail-selected:hover {
 
 #topnav_search #radBtns {
     position: absolute;
-    /*left: -10000px;*/
 }
 
 #topnav_search fieldset .stateSelect {
@@ -2887,25 +2824,21 @@ div .gallery-thumbnail-selected:hover {
 
 #topnav_search .searchBarSchool .selectSchoolArticle {
     border: 0 none;
-    /*color: #0066BB;*/
     left:0;
     opacity: 0;
     filter: alpha(opacity = 0);
-    /*padding: 0;*/
     position: absolute;
     top:6px;
-    width: 71px;
+    width: 78px;
     z-index: 5;
     cursor: pointer;
 }
 
 #topnav_search .searchBarArticle .selectSchoolArticle {
     border: 0 none;
-    /*color: #0066BB;*/
     left:0;
     opacity: 0;
     filter: alpha(opacity = 0);
-    /*padding: 0;*/
     position: absolute;
     top:6px;
     width: 152px;
@@ -2913,17 +2846,9 @@ div .gallery-thumbnail-selected:hover {
 }
 
 #topnav_search .showSchoolArticle{
-    background-color: #F1F1F1; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD), to(#F8F8F8)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image: -moz-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* FF3.6 */
-    background-image: -ms-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* IE10 */
-    background-image: -o-linear-gradient(bottom, #DDDDDD, #F8F8F8); /* Opera 11.10+ */
-    background-image: linear-gradient(bottom, #DDDDDD, #F8F8F8); /* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#DDDDDD', EndColorStr = '#F8F8F8'); *//* IE6�IE9 */
+    background-color: #E6E6E6; /* for non-css3 browsers */
     color: #2B2B2B;
     font: 12px/20px Arial,Helvetica,sans-serif;
-    /*padding: 3px;*/
     height:18px;
     width: auto;
     border-right: 1px solid #B8B8B8;
@@ -9343,7 +9268,7 @@ div#YahooRealEstateLink {
 #footnav {
     padding: 20px 0 0;
     margin: 0 auto;
-    width: 860px;
+    width: 970px;
 }
 
 #footnav li a,
@@ -9377,8 +9302,7 @@ div#YahooRealEstateLink {
 }
 
 #footer .popularCities {
-    padding: 0px 24px 0 54px;
-    width: 890px;
+    width: 970px;
 }
 
 #footer .cities ul {
@@ -9406,7 +9330,7 @@ div#YahooRealEstateLink {
 
 #footer .subtitles{
 }
-#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
+#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 970px; margin-top: 20px; clear: both;}
 
 #footer .navFoot {
     float: left;
@@ -9446,7 +9370,7 @@ div#YahooRealEstateLink {
     border-bottom:solid 1px #242424;
 }
 #connectWithUs .connectContent{
-    width: 860px;
+    width: 970px;
     margin: 0px auto;
     padding: 14px 0 10px 0;
 }
@@ -11324,6 +11248,11 @@ p#btsBubbleOpts {
 .espModerationTable .schoolHasActiveMemberships, .schoolHasActiveMemberships * {
     background-color: #90ee90 !important;
 }
+
+.espModerationTable .userHasProvisionalAccess, .userHasProvisionalAccess * {
+    background-color: #FFFF00 !important;
+}
+
 
 /*Photo delete hover styles*/
 #photoDeleteConfirmationHover h2 {

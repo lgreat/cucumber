@@ -702,6 +702,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 && !CookieUtil.hasCookie(request, _newMemberCookieGenerator.getCookieName())) {
             setUserIsMember(request, response);
         }
+
         // END GS-8867
         return context;
     }

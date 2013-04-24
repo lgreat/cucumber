@@ -87,9 +87,6 @@ Schools without lat/lon are skipped.
 <map:setup/>
 <pageHelper:addOnLoadHandler handler="GS_doMapSchoolsWithRatings()"/>
 <script type="text/javascript">
-<![CDATA[
-<!--
-]]>
 
 function extendBoundsToCenterOnPoint(point, bounds) {
   bounds.extend(reflectPoint(point, bounds.getNorthEast()));
@@ -97,9 +94,9 @@ function extendBoundsToCenterOnPoint(point, bounds) {
 }
 
 // Given points x (outlier) and y (center), returns point z such that the rectangle defined by
-// x and z has its center at y. Returns a GLatLng object
+// x and z has its center at y. Returns a LatLng object
 function reflectPoint(centerPoint, outlierPoint) {
-  return new GLatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
+  return new google.maps.LatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
                      centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
@@ -112,9 +109,10 @@ var alwaysUsePreIconsForPreschools = ${not empty alwaysUsePreIconsForPreschools 
 var showLocationMarker = ${showLocationMarker};
 
 <c:if test="${not empty locationPoint}">
-var locationPoint = new GLatLng(${locationPoint.lat}, ${locationPoint.lon});
+var locationPoint = new google.maps.LatLng(${locationPoint.lat}, ${locationPoint.lon});
 </c:if>
-var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+var infoWindow = new google.maps.InfoWindow();
+var centerPoint = new google.maps.LatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 
 function initSchoolInfo() {
@@ -134,7 +132,7 @@ function initSchoolInfo() {
     mySchool.name = "${gsweb:escapeJavaScript(curSchool.name)}";
     mySchool.link = "${gsweb:escapeJavaScript(schoolUrl)}";
     <c:if test="${s_cid ne null and s_cid > ''}">
-    mySchool.link += "?s_cid=${gsweb:escapeJavaScript(s_cid)}";
+        mySchool.link += "?s_cid=${gsweb:escapeJavaScript(s_cid)}";
     </c:if>
     mySchool.street = "${gsweb:escapeJavaScript(curSchool.physicalAddress.street)}";
     mySchool.city = "${gsweb:escapeJavaScript(curSchool.physicalAddress.city)}";
@@ -189,7 +187,7 @@ function initSchoolInfo() {
 
     mySchool.parentRatingHtml += '</div>';
 
-    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
+    mySchool.location = new google.maps.LatLng(${curSchool.lat},${curSchool.lon});
     schoolArray.push(mySchool);
   </c:if>
 </c:forEach>
@@ -201,57 +199,100 @@ var GS_map_zoomControl;
 var GS_smallHeight = 275;
 
 var needsExtraZoom = true;
+var newMarkers = new Array();
+var infoBoxInstance = null;
+
+var deleteMarkers = function() {
+    for(var i = 0; i &lt; newMarkers.length; i++) {
+        newMarkers[i].setMap(null);
+    }
+    newMarkers = new Array();
+}
 
 function initMap() {
-    GS_map = new GMap2(document.getElementById("${id}"));
+    var mapOptions = {
+        center: centerPoint,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
+        zoom: specifiedZoom !== 0 ? specifiedZoom : 13,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.DEFAULT //may have to be set to SMALL
+        },
+        streetViewControl: false,
+        panControl: false,
+        infoWindow: infoWindow
+    };
+
+    GS_map = new google.maps.Map(document.getElementById("${id}"), mapOptions);
     document.getElementById("${id}").style.overflow = "hidden";
 
-    GS_map_zoomControl = new GSmallZoomControl();
-    GS_map.addControl(GS_map_zoomControl);
+    if(schoolArray !== undefined &amp;&amp; schoolArray.length !== 0) {
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(centerPoint);
 
-    GS_map.setCenter(centerPoint, 17);
-    var bounds = new GLatLngBounds();
-    bounds.extend(centerPoint);
-
-    renderSchools(bounds, 'emh');
+        renderSchools(bounds, 'emh');
+    }
+    else {
+        // getCenter?
+        GS_map.setZoom(17);
+    }
 
     if (showLocationMarker) {
         addLocationMarker(GS_map, locationPoint);
         extendBoundsToCenterOnPoint(locationPoint, bounds);
     }
-
-    var zoom = GS_map.getBoundsZoomLevel(bounds);
-    if (zoom > maxZoom) zoom = maxZoom;
-    if (minZoom > zoom) zoom = minZoom;
-    if (specifiedZoom > 0) zoom = specifiedZoom;
-    GS_map.setZoom(zoom);
-    GS_map.setCenter(centerPoint);
-
-    if (GS_map.getSize().height &lt; GS_smallHeight) {
-        GEvent.addListener(GS_map, "infowindowopen", function() {
-            // trigger manual function to try and center window
-            needsExtraZoom = true;
-        });
-        GEvent.addListener(GS_map, "infowindowbeforeclose", function() {
-            // add zoom control back in
-            GS_map.addControl(GS_map_zoomControl);
-            needsExtraZoom = false;
-        });
-        GEvent.addListener(GS_map, "moveend", function() {
-            if (needsExtraZoom) {
-                // trigger manual function to try and center window
-                window.setTimeout(panUpABit, 100);
-            }
-        });
-    }
 }
 
 function renderSchools(bounds, filterLevelCode) {
     <![CDATA[
-    GS_map.clearOverlays();
+    var zoom = GS_map.getZoom();
+    if (zoom > maxZoom) zoom = maxZoom;
+    if (minZoom > zoom) zoom = minZoom;
+    if (specifiedZoom > 0) zoom = specifiedZoom;
+    GS_map.setZoom(zoom);
+
+    /*if (GS_map.getDiv().offsetHeight < GS_smallHeight) {
+     google.maps.event.addListener(GS_map, "infowindowopen", function() {
+     // trigger manual function to try and center window
+     needsExtraZoom = true;
+     });
+     google.maps.event.addListener(GS_map, "infowindowbeforeclose", function() {
+     // add zoom control back in
+     GS_map.addControl(GS_map_zoomControl);
+     needsExtraZoom = false;
+     });
+     google.maps.event.addListener(GS_map, "dragend", function() {
+     if (needsExtraZoom) {
+     // trigger manual function to try and center window
+     //                window.setTimeout(panUpABit, 100);
+     }
+     });
+     }*/
+    deleteMarkers();
     if (schoolArray.length > 0) {
         var tooltip = null;
         var marker;
+        var markerShape = {
+            coord: [1, 0, 27, 0, 27, 32, 1, 32],
+            type: 'poly'
+        };
+        var infoBoxOptions = {
+            map: GS_map,
+            maxWidth: 0,
+            disableAutoPan: false,
+            zIndex: null,
+            boxStyle: {
+                opacity: 1
+            },
+            closeBoxMargin: "23px 8px 0 8px",
+            closeBoxURL:"/res/img/googleMaps/16x16_close.png",
+            infoBoxClearance: new google.maps.Size(1, 1),
+            isHidden: false,
+            pane: "floatPane",
+            alignBottom:true,
+            enableEventPropagation: false
+        };
 
         for (var counter=0; counter < schoolArray.length; counter++) {
             var curSchool = schoolArray[counter];
@@ -259,49 +300,70 @@ function renderSchools(bounds, filterLevelCode) {
             if (filterLevelCode == undefined || filterLevelCode == 'emh' || containsLevelCode(curSchool.levelCode, filterLevelCode)) {
                 if (curSchool.marker == undefined) {
                     tooltip = curSchool.name;
-                    var icon = new GIcon();
+                    var image = "";
                     var imageValue = curSchool.rating;
                     if (imageValue == 0 || (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1)) {
                         if (curSchool.levelCode == 'p') {
-//                            imageValue = 'preschool';
-                            icon.image = '/res/img/mapPins/preschool/preschool.png';
+                            image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1) {
-//                            imageValue = 'preschool';
-                            icon.image = '/res/img/mapPins/preschool/preschool.png';
+                            image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (curSchool.type == 'private') {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'private' : 'private';
-                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_NR.png'
+                            image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_NR.png'
                                     : '/res/img/mapPins/private/O/private_orange_NR.png';
                         } else {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'na': 'na';
-                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_NR.png'
+                            image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_NR.png'
                                     : '/res/img/mapPins/public/O/orange_NR.png';
                         }
                     } else {
                         if (curSchool.type == 'private') {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
-                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_' + imageValue + '.png' :
+                            image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_' + imageValue + '.png' :
                                     '/res/img/mapPins/private/O/private_orange_' + imageValue + '.png';
                         } else {
-//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
-                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_' + imageValue + '.png' :
+                            image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_' + imageValue + '.png' :
                                     '/res/img/mapPins/public/O/orange_' + imageValue + '.png';
                         }
                     }
-//                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
-//                    icon.shadow = "/res/img/map/GS_gsr_1_backgroundshadow.png";
-//                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
-//                    icon.iconSize = new GSize(42, 41);
-                    icon.iconAnchor = new GPoint(14, 39);
-                    icon.infoWindowAnchor = new GPoint(21, 2);
-                    icon.infoShadowAnchor = new GPoint(21, 2);
-//                    icon.shadowSize = new GSize(42, 41);
-                    marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
-                    if (useBubbles) {
-                        addBubbleListener(marker, curSchool);
-                    } else {
-                        addClickListener(marker, curSchool.link); // because of closures, farm this off to another method
-                    }
+//
+                    var position = curSchool.location;
+                    var markerOptions = {
+                        map: GS_map,
+                        shape: markerShape,
+                        position: position,
+                        title: tooltip,
+                        infoWindowMarkup: getSchoolInfoWindowHtml(curSchool),
+                        icon: new google.maps.MarkerImage(
+                                image, // url
+                                new google.maps.Size(32, 32), // size
+                                null, // origin
+                                new google.maps.Point(14, 39) // anchor
+                        )
+                    };
+//                    icon.infoWindowAnchor = new GPoint(21, 2);
+//                    icon.infoShadowAnchor = new GPoint(21, 2);
+                    var marker = new google.maps.Marker(markerOptions);
+//                    bounds.extend(position);
+
+                    newMarkers.push(marker);
+
+//                    infoBoxInstance = new InfoBox(infoBoxOptions);
+                    infoBoxInstance = new google.maps.InfoWindow({
+                                maxWidth: 220}
+                    );
+
+                    google.maps.event.addListener(marker, "click", (function(marker) {
+                        return function() {
+                            if (useBubbles) {
+                                infoBoxInstance.setContent(marker.infoWindowMarkup);
+                                infoBoxInstance.open(GS_map, marker);
+//                                GS_map.panBy(-0.4, 0);
+                                GS_map.panTo(marker.position);
+                                marker.setZIndex(9999);
+                                addBubbleListener(marker, curSchool);
+                            } else {
+                                addClickListener(marker, curSchool.link); // because of closures, farm this off to another method
+                            }
+                        }
+                    })(marker));
                     if (bounds != undefined) {
                         bounds.extend(curSchool.location);
                     }
@@ -310,7 +372,7 @@ function renderSchools(bounds, filterLevelCode) {
                     marker = curSchool.marker;
                 }
 
-                GS_map.addOverlay(marker);
+//                GS_map.addOverlay(marker);
             }
         }
     }
@@ -332,52 +394,68 @@ function containsLevelCode(schoolLC, filterLC) {
 }
 
 function panUpABit() {
-    // pan view down to keep top of info window visible
+    // pan view down to keep top of info window visible  // replaced by panBy() for v3
     GS_map.panDirection(0,0.4);
     needsExtraZoom = false;
 }
 
 function addBubbleListener(marker, school) {
-  GEvent.addListener(marker, "click", function() {
-      if (window.s &amp;&amp; s.tl &amp;&amp; s.pageName != undefined) {
-          s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
-      }
-      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
-  });
+    if (s &amp;&amp; s.tl &amp;&amp; s.pageName != undefined) {
+        s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+    }
 }
 
 function addClickListener(marker, link) {
-  GEvent.addListener(marker, "click", function() {
-      if (window.s &amp;&amp; s.tl &amp;&amp; s.pageName != undefined) {
-          s.tl(this, 'o', 'Map_pin_click_' + s.pageName);
-      }
-      location = link;
-  });
+    if (s &amp;&amp; s.tl &amp;&amp; s.pageName != undefined) {
+        s.tl(this, 'o', 'Map_pin_click_' + s.pageName);
+    }
+    document.location = link;
 }
 
 function addLocationMarker(GS_map, locationPoint) {
-    var arrowIcon = new GIcon();
-    arrowIcon.image = "/res/img/map/green_arrow.png";
-    arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
-    arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
-    arrowIcon.iconSize = new GSize(39, 34);
-    arrowIcon.iconAnchor = new GPoint(11, 34);
-    arrowIcon.infoWindowAnchor = new GPoint(13, 2);
-    arrowIcon.infoShadowAnchor = new GPoint(13, 2);
-    arrowIcon.shadowSize = new GSize(39, 34);
-    tooltip = null;
+    /*var arrowIcon = new GIcon();
+     arrowIcon.image = "/res/img/map/green_arrow.png";
+     arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
+     arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
+     arrowIcon.iconSize = new GSize(39, 34);
+     arrowIcon.iconAnchor = new GPoint(11, 34);
+     arrowIcon.infoWindowAnchor = new GPoint(13, 2);
+     arrowIcon.infoShadowAnchor = new GPoint(13, 2);
+     arrowIcon.shadowSize = new GSize(39, 34);*/
+    tooltip = null
+    var markerOptions = {
+        map: GS_map,
+        title: tooltip,
+        position: locationPoint,
+        icon: new google.maps.MarkerImage(
+                '/res/img/map/green_arrow.png', // url
+                new google.maps.Size(39, 34), // size
+                null, // origin
+                new google.maps.Point(11, 34) // anchor
+        ),
+        shadow: new google.maps.MarkerImage(
+                '/res/img/map/green_arrow_shadow.png', // url
+                new google.maps.Size(39, 34), // size
+                null, // origin
+                new google.maps.Point(11, 34) // anchor
+        )
+    };
+    var marker = new google.maps.Marker(markerOptions);
+
     // for the purposes of stack order, the star marker is treated as if it is
     // just north of the equator. This effectively makes it always on top of any
     // markers placed in the United States
-    function fakeLatitudeAtEquatorOrder(marker, b) {
-      return GOverlay.getZIndex(1.0);
-    }
-    marker = new GMarker(locationPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
-    GS_map.addOverlay(marker);
+//    function fakeLatitudeAtEquatorOrder(marker, b) {
+//        return GOverlay.getZIndex(1.0);
+//    }
+
+    marker.setZIndex(89999); //http://mymonkeydo.com/converting-google-maps-v2-to-v3/
+//    marker = new GMarker(locationPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
+//    GS_map.addOverlay(marker);
 }
 
 function clearMarkers() {
-    GS_map.clearOverlays();
+    deleteMarkers();
     if (showLocationMarker) {
         addLocationMarker(GS_map, locationPoint);
     }
@@ -386,18 +464,18 @@ function clearMarkers() {
 function checkResize() {
     // needed for when displayTab=search because map is not displayed
     // so Google Maps can't calculate map dimensions
-    GS_map.checkResize();
+    google.maps.event.trigger(GS_map, 'resize');
 }
 
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
-    var height = 85; // default height
-    var heightMultiplier = Math.floor(school.name.length / 30);
+//    var height = 85; // default height
+//    var heightMultiplier = Math.floor(school.name.length / 30);
     // add 13 pixels (font line-height) for every multiple of 30 that the school name's length exceeds
     // this is a guesstimate of how many chars it takes to wrap to the next line
-    height += heightMultiplier * 13;
-
-    var rval = '<div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: ' + height + 'px; width: 240px;">';
+//    height += heightMultiplier * 14;
+                                      1
+    var rval = '<div class="schoolInfoWindow" style="font: 11px/16px Trebuchet MS, Arial, sans-serif; width: 220px; padding-top: 10px">';
     rval += '<div class="schoolName" style="width: 210px;"><a href="' + school.link + '" target="_blank">'+ school.name + '</a></div>';
     rval += '<div class="line">';
     rval += '<div class="schoolRatings unit size49of100">';
@@ -433,14 +511,10 @@ function getSchoolInfoWindowHtml(school) {
 ]]>
 
 function GS_doMapSchoolsWithRatings() {
-  if (GBrowserIsCompatible()) {
-      initSchoolInfo();
-      initMap();
-  }
+    initSchoolInfo();
+    initMap();
 }
-<![CDATA[
-//-->
-]]>
+
 </script>
 </c:if>
 </jsp:root>

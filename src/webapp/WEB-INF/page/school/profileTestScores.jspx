@@ -5,6 +5,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:testDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/testDisplay"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <c:choose>
         <c:when test="${! empty testScores}">
@@ -76,17 +77,9 @@
                                                 </c:if>
                                                 <p class="quiet">${testToGrades.subgroupDescription}</p>
                                             </c:if>
-                                            <c:set var="stateCheck" value="${school.physicalAddress.state}"/>
-                                            <c:choose>
-                                                <c:when test="${(stateCheck eq 'IL') and (testToGrades.isSubgroup eq false )}">
-                                                    <c:set var="testAboutAndSourceShow" value="true"/>
-                                                    <a href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
-                                                        class="small">See Illinois' state standards</a></c:when>
-                                                <c:when test="${stateCheck eq 'LA'}">
-                                                    <c:set var="testAboutAndSourceShow" value="true"/>
-                                                    <a href="http://www.greatschools.org/content/stateStandards.page?state=${stateCheck}"
-                                                        class="small">See Louisiana's state standards</a></c:when>
-                                            </c:choose>
+                                            <c:set var="state" value="${school.physicalAddress.state}"/>
+                                            <p class="mtl small quiet"><a href="/content/stateStandards.page?state=${state}"
+                                               class="small">${stateStandardsLinkTitle}</a></p>
                                             <c:if test="${not empty testToGrades.source}">
                                                 <c:set var="testAboutAndSourceShow" value="true"/>
                                                 <p class="mtl small quiet">

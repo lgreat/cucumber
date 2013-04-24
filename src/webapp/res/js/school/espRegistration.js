@@ -87,24 +87,38 @@ GS.form.EspForm = function() {
         schoolSelect.val(preSelectedSchool);
     };
 
-    //Checks the various states of the user and displays messages accordingly.
+    // Checks the various states of the user and displays messages accordingly.
+    // Also, if the state and school_id are available they will be sent up and isUserESPRejected will be set to true
+    // only if the user is rejected for that school (I know this is a hack but given the time pressures it seemed
+    // like the best solution.  Maybe it can be cleaned up later.)
     this.validateUserState = function() {
         var emailField = jQuery('#js_email');
         var email = jQuery.trim(emailField.val());
         jQuery('.js_emailErr').hide();
         GS.form.espForm.removeWarningClassFromElem(emailField);
+
+        var stateField = jQuery('#js_stateAdd');
+        var state = jQuery.trim(stateField.val());
+        // jQuery('.js_emailErr').hide();
+        // GS.form.espForm.removeWarningClassFromElem(emailField);
+
+        var schoolField = jQuery('#js_school');
+        var schoolId = jQuery.trim(schoolField.val());
+        jQuery('#js_school_rejected').hide();
+        // GS.form.espForm.removeWarningClassFromElem(emailField);
+
         var dfd = jQuery.Deferred();
 
         if (email !== "" && email !== undefined) {
             jQuery.ajax({
                 type: 'GET',
                 url: '/official-school-profile/checkUserState.page',
-                data: {email:email},
+                data: {email:email, state:state, schoolId:schoolId},
                 dataType: 'json',
                 async: true
             }).done(
                 function(data) {
-                    var isValid = GS.form.espForm.handleEmailErrors(data, email, emailField);
+                    var isValid = GS.form.espForm.handleEmailErrors(data, email, emailField, schoolId);
                     if (isValid === false) {
                         dfd.reject();
                     } else {
@@ -122,40 +136,34 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-    //Handles the logic to allow the registrations to go through or display an error.
-    //These conditions are complicated, refer to the flow charts attached to GS-12324 and  GS-12496.
-    this.handleEmailErrors = function(data,email,emailField) {
+    // Handles the logic to allow the registrations to go through or display an error.
+    // These conditions are complicated, refer to the flow charts attached to GS-13363.
+    // In most cases the error will be displayed next to the email field, but if a schoolId was
+    // provided the error is associated with the school selected by the user.
+    this.handleEmailErrors = function (data, email, emailField, schoolId) {
         var isValid = false;
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email address.", emailField);
-        }else if (data.isCookieMatched !== true ) {
+        } else if (data.isCookieMatched !== true) {
             GS.form.espForm.showEmailError("An error has occurred.", emailField);
-        }else if (data.isUserESPPreApproved === true ) {
+        } else if (data.isUserESPPreApproved === true) {
             GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
             GSType.hover.espPreApprovalEmail.setSchoolName(data.schoolName);
-            var onclickStr = "GSType.hover.espPreApprovalEmail.show();";
-            GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email.<a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
+            var onclickStr = "'GSType.hover.espPreApprovalEmail.show(); return false;'";
+            GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email. <a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
         } else if (data.isUserESPRejected === true) {
-            GS.form.espForm.showEmailError("Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.", emailField);
-        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
-            // users who have been approved but haven't followed through by clicking through the link in email
-            GSType.hover.emailNotValidated.setEmail(email);
-            var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
-            GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
-        } else if (data.isUserAwaitingESPMembership === true) {
-            // users who have requested access but are still being processed
-            jQuery('#js_userAwaitingMembershipError').show();
-            GS.form.espForm.addWarningClassToElem(emailField);
-        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            // users who have been approved and validated their emails.However they are not logged in, therefore prompt them to log in.
-            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page'>Sign in</a> to your account here.", emailField);
+            if (schoolId === null ) {
+                GS.form.espForm.showEmailError("Sorry - it looks like you are not authorized as an administrator.  Try again, or <a href='/about/feedback.page?feedbackType=esp'>contact us</a>.", emailField);
+            } else {
+                // show "rejected" error for schoolId
+                jQuery("#js_school_rejected").show();
+            }
+        }else if (data.isNewUser !== true && (data.isUserEmailValidated !== true ||(data.isUserEmailValidated === true && data.isUserCookieSet !== true))) {
+            //Take all the users who are already in the GS database(irrespective of if they are email verified or not) to sign in page.
+            GS.form.espForm.showEmailError("Whoops!  It looks like you're already a member.  Please <a href='/official-school-profile/signin.page?email=" + encodeURIComponent(email) + "'>sign in</a> here.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet === true) {
             // users who have been approved and validated their emails and have a cookie set. They should view the ESP dashboard.
             window.location = '/official-school-profile/dashboard/';
-        } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
-            var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
-            GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>", emailField);
         } else {
             isValid = true;
         }
@@ -368,6 +376,7 @@ jQuery(function() {
 
     jQuery('#js_school').change(function() {
         GS.form.espForm.validateRequiredFields('school');
+        GS.form.espForm.validateUserState();
     });
 
     //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.

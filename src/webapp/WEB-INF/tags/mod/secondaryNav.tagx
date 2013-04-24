@@ -73,6 +73,8 @@
                                                    class="subMenuItemAnchorText GS_CI9_">Writing Worksheets</a></li>
                         <li class="subMenuItem"><a href="/worksheets/science/" id="SN_WA-ScienceWorksheets"
                                                    class="subMenuItemAnchorText GS_CI9_">Science Worksheets</a></li>
+                        <li class="subMenuItem"><a href="/worksheets/wordlists/" id="SN_WA-WordListsWorksheets"
+                                                   class="subMenuItemAnchorText GS_CI9_">Word Lists Worksheets</a></li>
                         <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=209"
                                                    id="SN_WA-MathActivities"
                                                    class="subMenuItemAnchorText GS_CI9_">Math Activities</a></li>

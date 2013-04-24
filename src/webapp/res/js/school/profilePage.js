@@ -77,6 +77,7 @@ GS.ad.profile.tabNameForAdTargeting = {
 GS.profile = GS.profile || (function() {
     "use strict";
 
+
     var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
     var originalPageTitle;
     var originalQueryData;
@@ -329,10 +330,12 @@ var GS_updateHistory = function(title, url) {
         window.History.replaceState(null, title, url);
     }
 };
-
+var hashValue = window.location.hash;
 jQuery(document).ready(function() {
     GS.profile.init();
-
+    if(hashValue != ""){
+        GS.util.jumpToAnchor(hashValue);
+    }
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
     /* this initializes all of the star rating options on the reviews page */

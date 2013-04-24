@@ -28,6 +28,7 @@ public class RequestEmailValidationController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, String> model = new HashMap<String, String>();
         String email = request.getParameter("email");
+        String emailRedirectParam = request.getParameter("emailRedirect");
         User user = _userDao.findUserFromEmailIfExists(email);
         UserCommand userCommand = new UserCommand();
         userCommand.setUser(user);
@@ -41,9 +42,12 @@ public class RequestEmailValidationController extends AbstractController {
             _log.warn("Can't find user with email " + email);
         } else if (user.isEmailProvisional()) {
             // determine where to send the user when they click on the link in their email
-            String emailRedirect;
             UrlBuilder builder = new UrlBuilder(UrlBuilder.USER_ACCOUNT, null);
-            emailRedirect = builder.asSiteRelative(request);
+            String emailRedirect = builder.asSiteRelative(request);
+
+            if(StringUtils.isNotBlank(emailRedirectParam)){
+                emailRedirect = emailRedirectParam;
+            }
             // send email
             getEmailVerificationEmail().sendVerificationEmail(request, user, emailRedirect);
             // determine where to send the user now

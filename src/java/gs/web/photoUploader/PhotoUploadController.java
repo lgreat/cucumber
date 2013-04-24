@@ -140,7 +140,10 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                                 return;
                             }
 
-                            if (_espFormValidationHelper.checkUserHasAccess(user, schoolDatabaseState, schoolId)) {
+                            //Check if the user is provisional
+                            boolean isProvisionalUser = _espFormValidationHelper.isUserProvisional(user);
+
+                            if (!isProvisionalUser && _espFormValidationHelper.checkUserHasAccess(user, schoolDatabaseState, schoolId)) {
                                 SchoolPhotoProcessor processor = createSchoolPhotoProcessor(fileStream);
                                 schoolMedia = createSchoolMediaObject(user.getId(), schoolId, schoolDatabaseState, fileStream.getName());
                                 schoolMediaRecordInserted = true;

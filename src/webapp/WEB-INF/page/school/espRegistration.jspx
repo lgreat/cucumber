@@ -39,33 +39,23 @@
 </c:if>
 
 <div class="grid_24">
-    <h1 class="fltlft">Request a school official's account</h1>
-
+    <h1 class="fltlft">Request a school administrator account</h1>
     <div class="fltrt mtm">
         <span class="small mrm"><link:contactUs feedbackType="esp">Need Help?</link:contactUs></span>
         <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
     </div>
 </div>
-
-
-
 <div class="grid_16">
 
-<p>
-    Welcome principals and school officials! Raise the visibility of your school by taking advantage of GreatSchools' FREE Official School Profile. Fill out the following registration form to get started.
-</p>
-<p>
-    If you already have access to edit your school's profile, note that <strong>we recently updated our account system. Please register here to gain access through the new system</strong>.
-</p>
+<p>Welcome, principals and school representatives! The FREE GreatSchools Official School Profile is your place to share what’s special about your school with millions of GreatSchools visitors. Here you can highlight the special programs you offer, upload videos or photos, offer registration information and more.</p>
 
 <div class="mod form">
 <div class="inner">
 <div class="bd">
-<form:form commandName="espRegistrationCommand">
+<form:form commandName="espRegistrationCommand" action="/official-school-profile/register.page">
 <fieldset>
     <legend>Your account</legend>
     <hr class="legend"/>
-
     <div class="lal clearfix">
         <div class="alpha grid_4">
             <form:label path="email" for="js_email">Email address</form:label>
@@ -74,10 +64,8 @@
             <form:input path="email" cssClass="text input_6" id="js_email"
                         value="${espRegistrationCommand.email}"
                         readonly="${isReadOnly}"/>
-
             <p class="hint">Please use your official school email address, if you have one.<br/>(e.g. name@springfield.k12.il.us)</p>
         </div>
-
         <div class="grid_5 omega">
             <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
                 <div class="media">
@@ -86,36 +74,18 @@
                     <div class="bd">Please enter your official school email address.</div>
                 </div>
             </div>
-
             <div id="js_uniqueError" class="error" style="display: none;">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
                     <div class="bd">You already have access to this school's Official School Profile.
                         <link:schoolEspSignIn>Sign in</link:schoolEspSignIn> to your account.
                     </div>
                 </div>
             </div>
-
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
-            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" id="js_userAwaitingMembershipError" class="error js_emailErr">
-                <div class="media">
-                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
-                    <div class="bd">
-                        Our records show that you have recently requested a school official's account.
-                        New requests are typically reviewed within 2-4 weekdays.
-                        Please standby for an email containing a link to get started.
-                        If you require immediate support, you may <link:contactUs feedbackType="esp">contact us</link:contactUs>.
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
-
 <!--<div id="js_regPanel">-->
-
     <div id="js_screenNameDiv">
         <div class="lal clearfix">
             <div class="alpha grid_4">
@@ -127,7 +97,6 @@
                             readonly="${isReadOnly}"/>
                 <p class="hint">6-14 characters (e.g. jjohnson)</p>
             </div>
-
             <div class="grid_5 omega">
                 <div class="js_screenName success" style="display: none">
                     <div class="media">
@@ -136,7 +105,6 @@
                         <div class="bd">Username is available</div>
                     </div>
                 </div>
-
                 <div class="js_screenName invalid error"
                      style="display: none;">
                     <div class="media">
@@ -147,7 +115,6 @@
             </div>
         </div>
     </div>
-
     <div id="js_passwordDiv" style="${doNotShowPassword ? 'display:none' : ''}">
         <div class="lal clearfix">
             <div class="alpha grid_4">
@@ -157,9 +124,7 @@
                 <form:password path="password" cssClass="text input_6" id="js_password"/>
                 <p class="hint">6-14 characters</p>
             </div>
-
             <div class="grid_5 omega">
-
                 <div class="js_password invalid error"
                      style="display: none;">
                     <div class="media">
@@ -170,7 +135,6 @@
             </div>
         </div>
     </div>
-
     <div id="js_confirmPasswordDiv" style="${doNotShowPassword ? 'display:none' : ''}">
         <div class="lal clearfix">
             <div class="alpha grid_4">
@@ -179,16 +143,13 @@
             <div class="grid_6">
                 <form:password path="confirmPassword" cssClass="text input_6" id="js_confirmPassword"/>
             </div>
-
             <div class="grid_5 omega">
                 <div class="js_confirmPassword success" style="display: none;">
                     <div class="media">
                         <span class="iconx16 i-16-success img mrs"><!-- do not collapse --></span>
-
                         <div class="bd">Password match confirmed</div>
                     </div>
                 </div>
-
                 <div class="js_confirmPassword invalid error"
                      style="display: none;">
                     <div class="media">
@@ -199,13 +160,10 @@
             </div>
         </div>
     </div>
-
     </fieldset>
-
     <fieldset>
         <legend> Your school</legend>
         <hr class="legend"/>
-
         <div class="lal clearfix">
             <div class="alpha grid_4">
                 <form:label path="state" for="js_stateAdd">State</form:label>
@@ -222,13 +180,11 @@
                 <div class="js_stateAdd invalid error">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
                         <div class="bd">Please select a state.</div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="lal clearfix">
             <div class="alpha grid_4">
                 <form:label path="city" for="js_city">City</form:label>
@@ -242,18 +198,15 @@
                     </c:forEach>
                 </select>
             </div>
-
             <div class="prefix_1 grid_5 omega">
                 <div class="js_city invalid error">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
                         <div class="bd">Please select a city.</div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="lal clearfix">
             <div class="alpha grid_4">
                 <form:label path="schoolId" for="js_school">School</form:label>
@@ -267,24 +220,26 @@
                     </c:forEach>
                 </select>
             </div>
-
             <div class="grid_5 omega">
                 <div class="js_school invalid error">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
                         <div class="bd">Please select the school with which you are affiliated.</div>
+                    </div>
+                </div>
+                <div id="js_school_rejected" class="error">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Sorry - it looks like you are not authorized as an administrator.  Try again, or contact us at <a href="mailto:osphelp@greatschools.org">osphelp@greatschools.org</a>.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </fieldset>
-
     <fieldset>
         <legend>Your contact info</legend>
         <hr class="legend"/>
-
         <div id="js_firstNameDiv">
             <div class="lal clearfix">
                 <div class="alpha grid_4">
@@ -294,9 +249,7 @@
                     <form:input path="firstName" cssClass="text input_6" id="js_firstName"
                                 value="${espRegistrationCommand.firstName}"/>
                 </div>
-
                 <div class="grid_5 omega">
-
                     <div class="js_firstName invalid error" style="display: none;">
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -306,7 +259,6 @@
                 </div>
             </div>
         </div>
-
         <div id="js_lastNameDiv">
             <div class="lal clearfix">
                 <div class="alpha grid_4">
@@ -316,9 +268,7 @@
                     <form:input path="lastName" cssClass="text input_6" id="js_lastName"
                                 value="${espRegistrationCommand.lastName}"/>
                 </div>
-
                 <div class="grid_5 omega">
-
                     <div class="js_lastName invalid error" style="display: none;">
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -328,7 +278,6 @@
                 </div>
             </div>
         </div>
-
         <div class="lal clearfix">
             <div class="alpha grid_4">
                 <form:label path="jobTitle" for="js_jobTitle">Your title</form:label>
@@ -354,18 +303,15 @@
                     <form:option value="webmaster">Webmaster</form:option>
                 </form:select>
             </div>
-
             <div class="prefix_1 grid_5 omega">
                 <div class="js_jobTitle invalid error" style="display: none;">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
                         <div class="bd">Please specify your job title.</div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="lal clearfix">
             <div class="alpha grid_4">
                 <form:label path="webPageUrl" for="webPageUrl">School website<span class="hint"> (optional)</span></form:label>
@@ -374,14 +320,11 @@
                 <form:input path="webPageUrl" cssClass="text input_6" id="webPageUrl"/>
                 <p class="hint">Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.</p>
             </div>
-
             <div class="grid_5 omega">
                 <!-- do not collapse -->
             </div>
         </div>
-
 <!--</div>-->
-
         <div class="nal">
             <p class="mumbo">By joining GreatSchools, you agree to our
                 <gsml:popupWindow width="1025" height="600" left="50" top="50"
@@ -393,61 +336,64 @@
                                   href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
             </p>
         </div>
-
         <div class="">
             <input class="button-1" type="submit" value="Continue »" id="js_submit"/>
         </div>
-
 </fieldset>
-
 </form:form>
 </div>
 </div>
 </div>
-
 </div>
+
 <div class="grid_8">
     <c:if test="${!userLoggedIn}">
         <div class="mod standard_2-1">
             <div class="inner">
                 <div class="bd">
-                    <p class="small_bold bottom">Already have a school official account?
+                    <p class="small_bold bottom">Already have an administrator account?
                         <link:schoolEspSignIn styleClass="small">Sign in.</link:schoolEspSignIn></p>
                 </div>
             </div>
         </div>
     </c:if>
-
     <div class="mod standard_3-2">
         <div class="outer">
             <div class="inner">
                 <div class="hd">
-                    <h4 class="make-d61">How it works</h4>
+                    <h4 class="make-d61">Get started now!</h4>
                 </div>
                 <div class="bd small bottom">
                     <div class="media mbs">
                         <div class="img loud mrm"><strong>Step 1: </strong></div>
                         <div class="bd">
-                            Request a school official’s account.
+                            Request an administrator account for your school.
                         </div>
                     </div>
                     <div class="media mbs">
                         <div class="img loud mrm"><strong>Step 2: </strong></div>
                         <div class="bd">
-                            A GreatSchools representative will verify your identity and relationship to the school.
+                            We’ll email you a link you can click on to verify your address.
                         </div>
                     </div>
                     <div class="media mbs">
                         <div class="img loud mrm"><strong>Step 3: </strong></div>
                         <div class="bd">
-                            Once approved, you’ll receive a confirmation email with a link to activate your account and access your Official School Profile.
+                            Begin editing! You’ll be able to save your work.
+                        </div>
+                    </div>
+                    <div class="media mbs">
+                        <div class="img loud mrm"><strong>Step 4: </strong></div>
+                        <div class="bd">
+                            We take your school’s data security very seriously, so before we publish your edits we will
+                            verify that you’re authorized to make changes on behalf of your school. It’ll take us 2-4
+                            weekdays, then we’ll send you a confirmation and publish your updates.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="mod standard_3-1">
         <div class="outer">
             <div class="inner">
@@ -466,18 +412,16 @@
             </div>
         </div>
     </div>
-
 </div>
 </div>
 <!--</div>-->
+
 <div class="spacer_60"><!-- do not collapse --></div>
 
 <div style="display:none;">
     <mod:tracking pageName="OSP Registration Page"
                   hier1="ESP"/>
 </div>
-
 </gsml:body>
-
 </html>
 </jsp:root>

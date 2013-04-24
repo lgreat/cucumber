@@ -9,6 +9,7 @@ import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
+import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -22,6 +23,7 @@ import gs.web.util.validator.UserCommandValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,14 +57,27 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
     private ExactTargetAPI _exactTargetAPI;
 
+    @Autowired
+    @Qualifier("emailVerificationEmail")
+    private EmailVerificationEmail _emailVerificationEmail;
+
+    @Autowired
+    private EspRegistrationHelper _espEspRegistrationHelper;
+
     @RequestMapping(value = "register.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request,
                            @RequestParam(value = "state", required = false) String state,
                            @RequestParam(value = "city", required = false) String city,
-                           @RequestParam(value = "schoolId", required = false) String schoolId) {
+                           @RequestParam(value = "schoolId", required = false) String schoolId,
+                           @RequestParam(value = "email", required = false) String email) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
         EspRegistrationCommand command = new EspRegistrationCommand();
+
+        // If email came in from request, add to form
+        if( email != null && email.length() > 0 ) {
+            command.setEmail(email);
+        }
 
         if (user != null && user.getId() != null) {
             //If the user isa super user, then redirect to dashboard.
@@ -84,19 +99,17 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 command.setScreenName(user.getUserProfile().getScreenName());
             }
 
-            //Check if user is awaiting ESP access.
+            //Check user status.
             List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-            //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
-            //display a message to the user.We do not care about rejected or inactive users yet.
             for (EspMembership membership : memberships) {
-                if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+                String view = determineRedirects(membership, request);
+                if (StringUtils.isNotBlank(view)) {
                     modelMap.clear();
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                    return "redirect:" + urlBuilder.asFullUrl(request);
-                } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                    modelMap.addAttribute("isUserAwaitingESPMembership", true);
+                    return view;
                 }
             }
+        } else if (request.getParameter("email") != null) {
+            command.setEmail(request.getParameter("email"));
         }
 
         //set preselectSchool to false initially
@@ -125,6 +138,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
+        boolean isUserLoggedIn = false;
 
         String email = command.getEmail();
         if (StringUtils.isNotBlank(email)) {
@@ -134,6 +148,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         //If there was no user cookie, get the user from the database.
         if (user == null && StringUtils.isNotBlank(email)) {
             user = getUserDao().findUserFromEmailIfExists(email);
+        } else {
+            isUserLoggedIn = true;
         }
 
         //Server side validation.
@@ -163,22 +179,54 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         getUserDao().updateUser(user);
 
         //Save ESP membership for user.
-        saveEspMembership(command, user);
+        saveEspMembership(command, user, isUserLoggedIn);
 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
 
         if (command.getSchoolId() != null && command.getState() != null) {
             School school = getSchoolDao().getSchoolById(command.getState(), command.getSchoolId());
-            if (school != null) {
-                sendRequestReceivedEmail(user, school);
+            if (!user.isEmailValidated() && school != null) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                _emailVerificationEmail.sendOSPVerificationEmail(request, user, urlBuilder.asSiteRelative(request), school);
+            }
+        }
+
+        //If the user was saved as a provisional user and is logged in,then they need to be redirected
+        //to either error page or dashboard depending on the status.
+        if (user.isEmailValidated() && isUserLoggedIn) {
+            EspMembership espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(command.getState(), command.getSchoolId(), user.getId(), false);
+            String view = determineRedirects(espMembership, request);
+            if (StringUtils.isNotBlank(view)) {
+                return view;
             }
         }
         return "redirect:" + getSchoolOverview(request, response, command);
     }
 
+    public String determineRedirects(EspMembership membership, HttpServletRequest request) {
+        //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
+        //display a message to the user.We do not care about rejected or inactive users yet.
+        // provisional users are treated as approved
+        String rval = "";
+        if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            rval = "redirect:" + urlBuilder.asFullUrl(request);
+        } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("message", "page1");
+            rval = "redirect:" + urlBuilder.asFullUrl(request);
+        } else if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            rval = "redirect:" + urlBuilder.asFullUrl(request);
+        }
+        return rval;
+    }
+
     /**
      * Checks the for various states of the user and sets them on the userStateStruct.
+     * The email is required.  The state and schoolId are optional, but if they are supplied the userEspRejected
+     * will only be set to true if the user is rejected for that school.
      * @param request
      * @param response
      * @param command
@@ -187,6 +235,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public void checkUserState(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
 
         String email = command.getEmail();
+        State state = command.getState();
+        Integer schoolId = command.getSchoolId();
         String schoolName = "";
         EspUserStateStruct userState = new EspUserStateStruct();
         User user = null;
@@ -220,6 +270,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
                 //Found a user
                 if (user != null && user.getId() != null) {
+                    userState.setNewUser(false);
                     if (!user.isPasswordEmpty() && user.isEmailValidated()) {
                         userState.setUserEmailValidated(true);
                     }
@@ -227,19 +278,27 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                     //Check is user is already approved or if pending, disabled or rejected.
                     if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
                         userState.setUserApprovedESPMember(true);
-                    } else {
-                        List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-                        for (EspMembership membership : memberships) {
-                            if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                                userState.setUserAwaitingESPMembership(true);
-                            } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
-                                userState.setUserESPDisabled(true);
-                            } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
-                                userState.setUserESPRejected(true);
-                            }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
-                                userState.setUserESPPreApproved(true);
-                                schoolName = getSchoolNameForEspMembership(membership);
+                    }
+                    List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+                    for (EspMembership membership : memberships) {
+                        if (membership.getStatus().equals(EspMembershipStatus.PROVISIONAL)) {
+                            userState.setUserApprovedESPMember(true);
+                        } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
+                            userState.setUserAwaitingESPMembership(true);
+                        } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
+                            userState.setUserESPDisabled(true);
+                        } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
+                            if( state != null && schoolId != null ) {
+                                if( membership.getState().equals(state) && membership.getSchoolId().equals(schoolId)) {
+                                    userState.setUserESPRejected(true);
+                                }
                             }
+                            else {
+                                userState.setUserESPRejected(true);
+                            }
+                        }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
+                            userState.setUserESPPreApproved(true);
+                            schoolName = getSchoolNameForEspMembership(membership);
                         }
                     }
                 }
@@ -248,6 +307,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         try {
             JSONObject rval;
+            // Note this must not use generics or else JSONObject's constructor dies
             Map data = userState.getUserState();
             data.put("schoolName", schoolName);
             rval = new JSONObject(data);
@@ -306,15 +366,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             user.setUserProfile(userProfile);
         }
     }
-    
-    protected void sendRequestReceivedEmail(User user, School school) {
-        String triggerKey = "ESP-request-confirm";
-        Map<String,String> emailAttributes = new HashMap<String,String>();
-        emailAttributes.put("ESP_schoolname", school.getName());
-        emailAttributes.put("first_name", user.getFirstName());
-
-        getExactTargetAPI().sendTriggeredEmail(triggerKey, user, emailAttributes);
-    }
 
     protected void setUserProfileFieldsFromCommand(EspRegistrationCommand espMembershipCommand, UserProfile userProfile) {
         if (userProfile != null) {
@@ -335,7 +386,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     }
 
 
-    protected void saveEspMembership(EspRegistrationCommand command, User user) {
+    protected void saveEspMembership(EspRegistrationCommand command, User user, boolean isUserLoggedIn) {
         State state = command.getState();
         Integer schoolId = command.getSchoolId();
 
@@ -347,9 +398,21 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 EspMembership esp = new EspMembership();
                 esp.setActive(false);
                 esp.setJobTitle(command.getJobTitle());
-                esp.setState(command.getState());
-                esp.setSchoolId(command.getSchoolId());
+                esp.setState(state);
+                esp.setSchoolId(schoolId);
                 esp.setStatus(EspMembershipStatus.PROCESSING);
+
+                if (user.isEmailValidated() && isUserLoggedIn) {
+                    boolean isUserEligibleForProvisionalStatus =
+                            _espEspRegistrationHelper.isMembershipEligibleForProvisionalStatus(schoolId, state);
+                    //If the user is logged in ,email validated and there are no other osp users for the school,
+                    // then they should be set to provisional.
+                    if (isUserEligibleForProvisionalStatus) {
+                        esp.setActive(false);
+                        esp.setStatus(EspMembershipStatus.PROVISIONAL);
+                    }
+                }
+
                 esp.setUser(user);
                 esp.setWebUrl(command.getWebPageUrl());
                 getEspMembershipDao().saveEspMembership(esp);

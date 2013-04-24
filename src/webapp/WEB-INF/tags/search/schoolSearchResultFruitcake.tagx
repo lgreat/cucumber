@@ -40,7 +40,7 @@
     </c:choose>
 
     <div class="mod standard_1-1">
-        <div class="line inner box-shadow-animation-1" id="school-search-result-${school.databaseState}${school.id}">
+        <div class="js-school-search-result line inner box-shadow-animation-1" id="school-search-result-${school.databaseState}${school.id}">
             <!-- School Name -->
             <div class="bd pam">
                 <div class="unit ${nameSearchWidth}"
@@ -126,9 +126,18 @@
                         </c:if>
                     </div>
                 </div>
+                <div class="alpha grid_16 omega">
+                    <div class="line">
+                    <div class="dn js-school-data" data-gs-facebook-url="${school.facebookUrl}" data-gs-school-autotext="${school.autotext}" data-gs-school-name="${school.name}" data-gs-city="${school.address.city}" data-gs-state="${school.address.state.abbreviationLowerCase}">
+                        <!-- do not collapse -->
+                    </div>
+                    <c:if test="${facebookFacepilesEnabled eq true}">
+                        <div class="dn js-facepile"><!-- do not collapse --></div>
+                    </c:if>
+                </div></div>
             </div>
             <div class="ft phm pvs">
-                <div class="alpha grid_11 suffix_5 omega">
+                <div class="alpha grid_11 omega">
                     <div class="line">
                         <div class="unit size30of100">
                             <div id="js-compare-${school.databaseState}${school.id}">
@@ -160,6 +169,23 @@
                         </c:if>
                     </div>
                 </div>
+                <c:if test="${facebookFacepilesEnabled eq true}">
+                    <div class="dn media skin-1 attribution mrgtop_3 js-ask-a-friend">
+                        <div style="width: 120px; margin-left: 55px;">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-fbShare"><!--Do not collapse--></span>
+                            </div>
+                            <div class="bd small bottom">
+                                <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                    databaseState="${school.databaseState}" name="${school.name}"
+                                    styleClass="noInterstitial no_interrupt" physicalAddress="${school.address}"
+                                    levelCode="${school.levelCode}">
+                                    Share with friends
+                                </link:schoolProfileOverviewForPrimitives>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

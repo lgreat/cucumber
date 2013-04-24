@@ -157,7 +157,7 @@ div#YahooRealEstateLink {
 #footnav {
     padding: 20px 0 0;
     margin: 0 auto;
-    width: 860px;
+    width: 970px;
 }
 
 #footnav li a,
@@ -191,8 +191,7 @@ div#YahooRealEstateLink {
 }
 
 #footer .popularCities {
-    padding: 0px 24px 0 54px;
-    width: 890px;
+    width: 970px;
 }
 
 #footer .cities ul {
@@ -234,11 +233,9 @@ div#YahooRealEstateLink {
 }
 
 #footer .subtitles{
-    /*font-weight: bold;*/
-    /*color: #FFFFFF;*/
     text-shadow: 0 -1px 0 rgba(0,0,0,.4);
 }
-#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 860px; margin-top: 20px; clear: both;}
+#footer hr.keyline3 {background:#444444;color:#444444;height:1px;border:none; width: 970px; margin-top: 20px; clear: both;}
 
 #footer .navFoot {
     float: left;
@@ -280,18 +277,11 @@ div#YahooRealEstateLink {
 
 #connectWithUs {
     background-color: #2B2B2B;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#1E1E1E), to(#333333)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #1E1E1E, #333333); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image: -moz-linear-gradient(bottom, #1E1E1E, #333333); /* FF3.6 */
-    background-image: -ms-linear-gradient(bottom, #1E1E1E, #333333); /* IE10 */
-    background-image: -o-linear-gradient(bottom, #1E1E1E, #333333); /* Opera 11.10+ */
-    background-image: linear-gradient(bottom, #1E1E1E, #333333); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#1E1E1E', EndColorStr = '#333333'); /* IE6�IE9 */
     border-bottom: solid 1px #414141;
 }
 
 #connectWithUs .connectContent{
-    width: 860px;
+    width: 970px;
     margin: 0px auto;
     padding: 12px 0 3px 0;
 }
@@ -503,3 +493,62 @@ ol.none     { margin: 0; padding: 0; margin-bottom: 10px; }
 
 ul.none li,
 ol.none li  { list-style-type: none; }
+
+
+/*****************Button style for sign Up button****************/
+
+.but{
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline:0; /* Background Gradients */
+    white-space: nowrap;
+    /* Border Radius */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.but-rg{
+    padding: 0 20px;
+    font: bold .875em/2.285em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
+}
+
+/*****************button-1***********************/
+
+.but-1{
+    background: #0083b2; /* for non-css3 browsers */
+    color: #FFFFFF;
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.but-1:hover{
+    background: #0094C9;  /*for non-css3 browsers */
+    text-decoration: none;
+}
+
+.but-1:active{
+    background: #0094C9;  /*for non-css3 browsers     */
+}
+
+.but-1-inactive{
+    background: #66B5D1;  /*for non-css3 browsers*/
+}
+/* IE7 bug: vertical centering */
+*+html button.but-1,
+*+html button.but-1-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-1:-moz-focus-inner,
+.button-1-inactive::-moz-focus-inner {
+    border: none;
+}

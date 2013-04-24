@@ -479,6 +479,7 @@
                                 <param>search/schoolSearchResultsPage2012.js</param>
                                 <param>history.min.js</param>
                                 <param>compare/persistentCompare.js</param>
+                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.search.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -1023,5 +1024,20 @@
             <artifactId>flying-saucer-pdf-itext5</artifactId>
             <version>9.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.restfb</groupId>
+            <artifactId>restfb</artifactId>
+            <version>1.6.12</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-servlet</artifactId>
+            <version>1.13.1-beta</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.apache.amber</groupId>
+            <artifactId>amber-oauth2-client</artifactId>
+            <version>0.22-incubating</version>
+        </dependency>-->
     </dependencies>
 </project>

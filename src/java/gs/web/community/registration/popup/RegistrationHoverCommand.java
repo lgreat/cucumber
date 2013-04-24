@@ -18,11 +18,42 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         FooterNewsletter,
         SchoolReview,
         BTSTip,
-        MSL
+        MSL,
+        Facebook
     }
     private boolean _mslOnly;
     private String _how;
     private JoinHoverType _joinHoverType;
+
+    public String joinTypeToHow() {
+        switch (_joinHoverType) {
+            case Auto:
+                return "hover_mss";
+            case ChooserTipSheet:
+                return "acq_chooserpack";
+            case LearningDifficultiesNewsletter:
+                return "hover_ld";
+            case PostComment:
+                return "hover_community";
+            case TrackGrade:
+                return "hover_greatnews";
+            case TrackGradeAuto:
+                return "hover_greatnews_auto";
+            case GlobalHeader:
+                return "hover_headerjoin";
+            case FooterNewsletter:
+                return "hover_footernewsletter";
+            case SchoolReview:
+                return "hover_review";
+            case BTSTip:
+                return "hover_btstip";
+            case MSL:
+                return "hover_msl";
+            case Facebook:
+                return "facebook";
+        }
+        return null;
+    }
 
     public RegistrationHoverCommand() {
         super();

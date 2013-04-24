@@ -117,3 +117,43 @@ GS.tracking.removeTabSpecificProps = function(currentTab, data) {
         }
     }
 };
+
+/**
+ * Based off of:
+ * http://stackoverflow.com/questions/7692746/javascript-omniture-how-to-clear-all-properties-of-an-object-s-object
+ */
+GS.tracking.clearSvariable = function() {
+    var maxPropsAndEvars = 75; // Omniture currently gives us a max of 75 props and evars
+    var svarArr = ['pageName','channel','products','events','campaign','purchaseID','state','zip','server','linkName'];
+    var i;
+
+    i = maxPropsAndEvars;
+    while (i--) {
+        s['prop'+i]='';
+        s['eVar'+i]='';
+        if(i <= 5) {
+            s['hier'+i]='';
+        }
+    }
+
+    i = svarArr.length;
+    while (i--) {
+        s[svarArr[i]]='';
+    }
+};
+
+GS.tracking.sendAndRestore= function(trackingObj) {
+    // you can send data to omniture by calling s.t(myObj), but this will also send any data previously set on s
+    // also, there might already exist code that sends events later on in the page, that expects data to sent, that was already set on s
+    // the caller of this method might want to send only a specific ominture prop, and so we need to clear s. But,
+    // we should restore it back just in case
+
+    var sBackup = {};
+    $.extend(sBackup, s);
+
+    GS.tracking.clearSvariable();
+
+    s.t(trackingObj);
+
+    s = sBackup;
+};

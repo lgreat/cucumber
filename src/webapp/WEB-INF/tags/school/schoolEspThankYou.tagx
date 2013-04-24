@@ -3,13 +3,9 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     <div id="schoolEspThankYou" class="dialog_white" style="display:none;">
-        <h2>Your request has been submitted</h2>
-        <p>
-            Thank you for registering for a GreatSchools School Official account!
-            You will receive an email in 2-4 days confirming that your account has been approved.
-            Please click on the link in the email to activate your account and begin editing
-            your Official School Profile.
-        </p>
-        <button class="button-1 schoolEspThankYou_hideHover" type="button">OK</button>
+        <h2>You're almost there!</h2>
+        <p>Thank you for registering as a school leader. We just need to verify your email address. We've sent you an
+           email - please click on the link in that message to get started editing your school's information!</p>
+        <button class="button-1 schoolEspThankYou_hideHover js_closeHover" type="button">OK - I'll go check my email</button>
     </div>
 </jsp:root>

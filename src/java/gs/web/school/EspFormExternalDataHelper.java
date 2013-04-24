@@ -44,6 +44,8 @@ public class EspFormExternalDataHelper {
     public static final String CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL =
             "Percentage of students that take advantage of some type of Special Education service";
 
+    public static final String DATA_DELIMITER = "-,-";
+
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
@@ -57,8 +59,8 @@ public class EspFormExternalDataHelper {
      * Fetch the keys whose values live outside of esp_response and put them in responseMap
      * (overwriting existing keys if present).
      */
-    public void fetchExternalValues(Map<String, EspFormResponseStruct> responseMap, School school) {
-        for (String key: getKeysForExternalData(school)) {
+    public void fetchExternalValues(Map<String, EspFormResponseStruct> responseMap, School school,Set<String> externalKeys) {
+        for (String key: externalKeys) {
 
             // for keys where the external data doesn't map 1:1 between EspResponse and the form, handle them here
             if (StringUtils.equals("address", key)) {
@@ -87,13 +89,53 @@ public class EspFormExternalDataHelper {
         }
     }
 
+    public void fetchExternalValues(Map<String, EspFormResponseStruct> responseMap, School school) {
+        fetchExternalValues(responseMap, school, getKeysForExternalData(school)) ;
+    }
+
+
+    /**
+     * Method to transform data into a format that the view/form expects.
+     *
+     * @param responseMap
+     * @param KeyToValueMap
+     */
+    protected void transformProvisionalExternalValuesForDisplay(Map<String, EspFormResponseStruct> responseMap, Map<String, String> KeyToValueMap) {
+        for (String key : KeyToValueMap.keySet()) {
+            String value = KeyToValueMap.get(key);
+
+            if (StringUtils.isNotBlank(value)) {
+                if (key.equals("address")) {
+                    insertEspFormResponseStructForProvisionalAddress(responseMap, value);
+                } else if (key.equals("school_phone")) {
+                    insertEspFormResponseStructForProvisionalPhone(responseMap, value);
+                } else if (key.equals("school_fax")) {
+                    insertEspFormResponseStructForProvisionalFax(responseMap, value);
+                } else if (key.equals("census_ethnicity")) {
+                    //TODO handle this when doing page 8.
+                } else {
+                    // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
+                    String[] vals = readProvisionalExternalValuesForKey(key, value);
+                    if (vals != null && vals.length > 0) {
+                        EspFormResponseStruct espResponse = new EspFormResponseStruct();
+                        for (String val : vals) {
+                            espResponse.addValue(val);
+                        }
+                        responseMap.put(key, espResponse);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Converts an <code>Address</code> on a <code>School</code> to multiple <code>EspFormResponseStruct</code>s and adds
      * them to the specified map
      */
     void insertEspFormResponseStructForAddress(Map<String, EspFormResponseStruct> responseMap, School school) {
         Address address = school.getPhysicalAddress();
-        if (address != null) {
+        if (address != null && address.getStreet() != null && address.getCity() != null && address.getState() != null
+                && address.getZip() != null) {
             EspFormResponseStruct streetStruct = new EspFormResponseStruct();
             streetStruct.addValue(address.getStreet());
             responseMap.put("physical_address_street", streetStruct);
@@ -167,13 +209,36 @@ public class EspFormExternalDataHelper {
     }
 
     /**
+     * Read the provisional external
+     * @param key
+     * @param value
+     * @return
+     */
+    String[] readProvisionalExternalValuesForKey(String key, String value) {
+        if (StringUtils.isNotBlank(value) && StringUtils.startsWith(key, "census_")) {
+            //TODO handle this when doing page 8.
+        } else if (StringUtils.isNotBlank(value) && (value.indexOf(DATA_DELIMITER) > 0)) {
+            //Sometimes a response is multivalued, then it is stored as a delimited string.
+            //Example. for key grade_levels the value in the map will be k-,-1-,-2
+            return value.split(DATA_DELIMITER);
+        } else if (StringUtils.isNotBlank(value)) {
+            //If response is not multivalued, then return the value as a string.
+            return new String[]{value};
+        }
+        return new String[0];
+    }
+
+    /**
      * Fetch external value, e.g. from census or school table. This returns an array of strings
      * representing the values for that key (e.g. {"KG", "1", "2"} for grade_level or {"100"} for enrollment
      */
     String[] getExternalValuesForKey(String key, School school) {
-        if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
-            _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
-            return new String[]{String.valueOf(school.getEnrollment())};
+        if (StringUtils.equals("student_enrollment", key)) {
+            Integer schoolEnrollment = school.getEnrollment();
+            if (schoolEnrollment != null) {
+                _log.debug("Overwriting key " + key + " with value " + schoolEnrollment);
+                return new String[]{String.valueOf(schoolEnrollment)};
+            }
         } else if (StringUtils.equals("administrator_name", key)) {
             SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.HEAD_OFFICIAL_NAME);
             if (value != null && value.getValueText() != null) {
@@ -189,7 +254,7 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
             String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
             return gradeLevels.split(",");
-        } else if (StringUtils.equals("school_url", key) && school.getWebSite() != null) {
+        } else if (StringUtils.equals("school_url", key) && StringUtils.isNotBlank(school.getWebSite())) {
             return new String[] {school.getWebSite()};
         } else if (StringUtils.equals("school_type", key) && school.getType() != null) {
             return new String[]{school.getType().getSchoolTypeName()};
@@ -244,71 +309,229 @@ public class EspFormExternalDataHelper {
     }
 
     /**
-     * Return error message on error.
+     * Method that transforms the provisional address in a format that the view/form expects.
+     * @param responseMap
+     * @param addressStr
      */
-    public String saveExternalValue(String key, Object[] values, School school, User user, Date now) {
+    void insertEspFormResponseStructForProvisionalAddress(Map<String, EspFormResponseStruct> responseMap, String addressStr) {
+        if (StringUtils.isNotBlank(addressStr)) {
+            Address address = Address.parseAddress(addressStr);
+            if (address != null) {
+                EspFormResponseStruct streetStruct = new EspFormResponseStruct();
+                streetStruct.addValue(address.getStreet());
+                responseMap.put("physical_address_street", streetStruct);
+
+                EspFormResponseStruct cityStruct = new EspFormResponseStruct();
+                cityStruct.addValue(address.getCity());
+                responseMap.put("physical_address_city", cityStruct);
+
+                EspFormResponseStruct stateStruct = new EspFormResponseStruct();
+                stateStruct.addValue(address.getState().getAbbreviation().toString());
+                responseMap.put("physical_address_state", stateStruct);
+
+                EspFormResponseStruct zipStruct = new EspFormResponseStruct();
+                zipStruct.addValue(address.getZip());
+                responseMap.put("physical_address_zip", zipStruct);
+
+                responseMap.remove("address");
+            }
+        }
+    }
+
+    /**
+     * Method that transforms the provisional phone number in a format that the view/form expects.
+     *
+     * @param responseMap
+     * @param phoneStr
+     */
+    void insertEspFormResponseStructForProvisionalPhone(Map<String, EspFormResponseStruct> responseMap, String phoneStr) {
+        String areaCode = "";
+        String officeCode = "";
+        String lastFour = "";
+        Map<String, String> rval = parsePhoneAndFaxNumbers(phoneStr);
+        if (rval != null && rval.size() == 3) {
+            areaCode = rval.get("areaCode");
+            officeCode = rval.get("officeCode");
+            lastFour = rval.get("lastFour");
+        }
+
+        if (StringUtils.isNotBlank(areaCode) && StringUtils.isNotBlank(officeCode) && StringUtils.isNotBlank(lastFour)) {
+
+            EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+            areaCodeStruct.addValue(areaCode);
+            responseMap.put("school_phone_area_code", areaCodeStruct);
+
+            EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+            officeCodeStruct.addValue(officeCode);
+            responseMap.put("school_phone_office_code", officeCodeStruct);
+
+            EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+            lastFourStruct.addValue(lastFour);
+            responseMap.put("school_phone_last_four", lastFourStruct);
+
+            responseMap.remove("school_phone");
+        }
+    }
+
+    /**
+     * Method that transforms the provisional fax number in a format that the view/form expects.
+     *
+     * @param responseMap
+     * @param faxStr
+     */
+    void insertEspFormResponseStructForProvisionalFax(Map<String, EspFormResponseStruct> responseMap, String faxStr) {
+        String areaCode = "";
+        String officeCode = "";
+        String lastFour = "";
+        Map<String, String> rval = parsePhoneAndFaxNumbers(faxStr);
+        if (rval != null && rval.size() == 3) {
+            areaCode = rval.get("areaCode");
+            officeCode = rval.get("officeCode");
+            lastFour = rval.get("lastFour");
+        }
+
+        if (StringUtils.isNotBlank(areaCode) && StringUtils.isNotBlank(officeCode) && StringUtils.isNotBlank(lastFour)) {
+
+            EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+            areaCodeStruct.addValue(areaCode);
+            responseMap.put("school_fax_area_code", areaCodeStruct);
+
+            EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+            officeCodeStruct.addValue(officeCode);
+            responseMap.put("school_fax_office_code", officeCodeStruct);
+
+            EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+            lastFourStruct.addValue(lastFour);
+            responseMap.put("school_fax_last_four", lastFourStruct);
+
+            responseMap.remove("school_fax");
+        }
+    }
+
+    /**
+     * Utility method to get the phone and fax number from a string.
+     * @param str
+     * @return
+     */
+    public Map<String, String> parsePhoneAndFaxNumbers(String str) {
+        Map<String, String> rval = new HashMap<String, String>();
+        if (StringUtils.isNotBlank(str) && str.length() > 10) {
+            String areaCode = "";
+            String officeCode = "";
+            String lastFour = "";
+            try {
+                if (str.indexOf(")") > 0) {
+                    areaCode = str.substring(1, str.indexOf(")"));
+                }
+                if (StringUtils.isNotBlank(areaCode) && areaCode.length()==3 && str.indexOf("-") > 0) {
+                    officeCode = str.substring(str.indexOf(") ") + 2, str.indexOf("-"));
+                }
+
+                if (StringUtils.isNotBlank(areaCode) && StringUtils.isNotBlank(officeCode) && areaCode.length()==3
+                        && officeCode.length()==3) {
+                    lastFour = str.substring(str.indexOf("-") + 1, str.length());
+                    if (StringUtils.isNotBlank(lastFour) && lastFour.length()==4) {
+                        rval.put("areaCode", areaCode);
+                        rval.put("officeCode", officeCode);
+                        rval.put("lastFour", lastFour);
+                    }
+                }
+
+            } catch (IndexOutOfBoundsException ex) {
+                _log.error("Error while parsing Phone/Fax number:" + str + "  " + ex);
+            }
+        }
+        return rval;
+    }
+
+    /**
+     * Method to save the external data. Returns an error if the data point does not pass validation.
+     * NOTE:- If this method is called with isprovisnalData=true then the external data will not be saved.
+     * It will just be validated.
+     * @param key
+     * @param values
+     * @param school
+     * @param user
+     * @param now
+     * @param isProvisionalData  If this method is called with isprovisnalData=true then the external data will not be saved.
+     *                           It will just be validated.
+     * @return
+     */
+    public String saveExternalValue(String key, Object[] values, School school, User user, Date now,
+                                    boolean isProvisionalData) {
         if (values == null || values.length == 0 && school == null) {
             return null; // early exit
         }
         if (StringUtils.equals("student_enrollment", key)) {
             try {
                 _log.debug("Saving student_enrollment elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.STUDENTS_ENROLLMENT, user);
+                int censusData =  Integer.parseInt((String) values[0]);
+                if (!isProvisionalData) {
+                    saveCensusInteger(school, censusData, CensusDataType.STUDENTS_ENROLLMENT, user);
+                }
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
         } else if (StringUtils.equals("administrator_name", key)) {
             _log.debug("Saving administrator_name elsewhere: " + values[0]);
-            saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
+            if (!isProvisionalData) {
+                saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
+            }
         } else if (StringUtils.equals("administrator_email", key)) {
             _log.debug("Saving administrator_email elsewhere: " + values[0]);
-            saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_EMAIL, user);
+            if (!isProvisionalData) {
+                saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_EMAIL, user);
+            }
         } else if (StringUtils.equals("school_url", key)) {
             _log.debug("Saving school home_page_url elsewhere: " + values[0]);
             String url = (String) values[0];
-            if (!StringUtils.equals(url, school.getWebSite())) {
+            if (!StringUtils.equals(url, school.getWebSite()) && !isProvisionalData) {
                 school.setWebSite(StringEscapeUtils.escapeHtml(url));
                 saveSchool(school, user, now);
             }
         } else if (StringUtils.equals("grade_levels", key)) {
             _log.debug("Saving grade_levels " + Arrays.toString(values) + " elsewhere for school:" + school.getName());
-            return saveGradeLevels(school, (String[])values, user, now);
+            return saveGradeLevels(school, (String[])values, user, now, isProvisionalData);
         } else if (StringUtils.equals("school_type", key)) {
             _log.debug("Saving school type " + values[0] + " elsewhere for school:" + school.getName());
-            return saveSchoolType(school, (String)values[0], user, now);
+            return saveSchoolType(school, (String)values[0], user, now, isProvisionalData);
         } else if (StringUtils.equals("school_type_affiliation", key)) {
-            _log.error("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
-            school.getSubtype().remove("religious");
-            String subtype = (String) values[0];
-            if (StringUtils.equals("religious", subtype)) {
-                school.getSubtype().add("religious");
+            _log.debug("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
+            if (!isProvisionalData) {
+                school.getSubtype().remove("religious");
+                String subtype = (String) values[0];
+                if (StringUtils.equals("religious", subtype)) {
+                    school.getSubtype().add("religious");
+                }
+                saveSchool(school, user, now);
             }
-            saveSchool(school, user, now);
         } else if (StringUtils.equals("school_type_affiliation_other", key)) {
-            _log.error("Saving affiliation " + values[0] + " elsewhere for school:" + school.getName());
+            _log.debug("Saving affiliation " + values[0] + " elsewhere for school:" + school.getName());
             String affiliation = (String) values[0];
-            if (!StringUtils.equals(school.getAffiliation(), affiliation)) {
+            if (!StringUtils.equals(school.getAffiliation(), affiliation) && !isProvisionalData) {
                 school.setAffiliation(StringEscapeUtils.escapeHtml(affiliation));
                 saveSchool(school, user, now);
             }
         } else if (StringUtils.equals("coed", key)) {
-            _log.error("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
-            school.getSubtype().remove("coed");
-            school.getSubtype().remove("all_male");
-            school.getSubtype().remove("all_female");
-            String subtype = (String) values[0];
-            if (StringUtils.equals("coed", subtype)) {
-                school.getSubtype().add("coed");
-            } else if (StringUtils.equals("all_boys", subtype)) {
-                school.getSubtype().add("all_male");
-            } else if (StringUtils.equals("all_girls", subtype)) {
-                school.getSubtype().add("all_female");
+            _log.debug("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
+            if(!isProvisionalData){
+                school.getSubtype().remove("coed");
+                school.getSubtype().remove("all_male");
+                school.getSubtype().remove("all_female");
+                String subtype = (String) values[0];
+                if (StringUtils.equals("coed", subtype)) {
+                    school.getSubtype().add("coed");
+                } else if (StringUtils.equals("all_boys", subtype)) {
+                    school.getSubtype().add("all_male");
+                } else if (StringUtils.equals("all_girls", subtype)) {
+                    school.getSubtype().add("all_female");
+                }
+                saveSchool(school, user, now);
             }
-            saveSchool(school, user, now);
         } else if (StringUtils.equals("address", key)) {
             Address address = (Address) values[0];
             // only save if different
-            if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet())) {
+            if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet()) && !isProvisionalData) {
                 _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
                 school.getPhysicalAddress().setStreet(StringEscapeUtils.escapeHtml(address.getStreet()));
                 setSchoolLatLon(school);
@@ -322,8 +545,10 @@ public class EspFormExternalDataHelper {
                 if (containsBadChars(phone)) {
                     return "Contains invalid characters.";
                 }
-                school.setPhone(StringEscapeUtils.escapeHtml(phone));
-                saveSchool(school, user, now);
+                if(!isProvisionalData){
+                    school.setPhone(StringEscapeUtils.escapeHtml(phone));
+                    saveSchool(school, user, now);
+                }
             }
             return null;
         } else if (StringUtils.equals("school_fax", key)) {
@@ -333,28 +558,34 @@ public class EspFormExternalDataHelper {
                 if (containsBadChars(fax)) {
                     return "Contains invalid characters.";
                 }
-                school.setFax(fax);
-                saveSchool(school, user, now);
+                if(!isProvisionalData){
+                    school.setFax(fax);
+                    saveSchool(school, user, now);
+                }
             }
             return null;
         } else if (StringUtils.equals("census_ethnicity", key)) {
             Map<Integer, Integer> breakdownIdToValueMap = (Map<Integer, Integer>) values[0];
-            return handleEthnicity(breakdownIdToValueMap, school, user);
+            return handleEthnicity(breakdownIdToValueMap, school, user, isProvisionalData);
         } else if (StringUtils.startsWith(key, "census_")) {
             if (STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()) != null) {
                 for (EspCensusDataTypeConfiguration dataTypeConfig: STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState())) {
                     if (StringUtils.equals("census_" + dataTypeConfig.getId(), key)) {
                         return saveCensusPercentFromString
-                                (school, CensusDataType.getEnum(dataTypeConfig.getId()), user, key, (String) values[0]);
+                                (school, CensusDataType.getEnum(dataTypeConfig.getId()), user, key, (String) values[0], isProvisionalData);
                     }
                 }
             } else {
                 _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
             }
         } else if (StringUtils.equals("school_video", key)) {
-            updateSchoolMetadata( school, values, "school_video", user, now, false);
+            if(!isProvisionalData){
+                updateSchoolMetadata( school, values, "school_video", user, now, false);
+            }
         } else if (StringUtils.equals("facebook_url", key)) {
-            updateSchoolMetadata( school, values, "facebook_url", user, now, true);
+            if (!isProvisionalData) {
+                updateSchoolMetadata(school, values, "facebook_url", user, now, true);
+            }
         } else {
             _log.error("Unknown external key: " + key);
         }
@@ -402,15 +633,18 @@ public class EspFormExternalDataHelper {
 
     static boolean containsBadChars(String val) {
         return StringUtils.contains(val, "<") || StringUtils.contains(val, "\"");
-    } 
-    
-    String saveCensusPercentFromString(School school, CensusDataType censusDataType, User user, String key, String value) {
+    }
+
+    String saveCensusPercentFromString(School school, CensusDataType censusDataType, User user, String key, String value,
+                                       boolean isProvisionalData) {
         if (StringUtils.isBlank(value)) {
-            // deactivate existing value
-            SchoolCensusValue manualValue = school.getCensusInfo().getManualValue(school, censusDataType);
-            if (manualValue != null) {
-                _dataSetDao.deactivateDataValue(manualValue, getCensusModifiedBy(user));
-                _censusCacheManager.deleteBySchool(school);
+            if(!isProvisionalData){
+                // deactivate existing value
+                SchoolCensusValue manualValue = school.getCensusInfo().getManualValue(school, censusDataType);
+                if (manualValue != null) {
+                    _dataSetDao.deactivateDataValue(manualValue, getCensusModifiedBy(user));
+                    _censusCacheManager.deleteBySchool(school);
+                }
             }
         } else {
             try {
@@ -419,7 +653,9 @@ public class EspFormExternalDataHelper {
                 if (val < 0 || val > 100) {
                     return "Must be a number between 0 and 100.";
                 }
-                saveCensusInteger(school, val, censusDataType, user);
+                if (!isProvisionalData) {
+                    saveCensusInteger(school, val, censusDataType, user);
+                }
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
@@ -453,7 +689,7 @@ public class EspFormExternalDataHelper {
         return dataSet;
     }
 
-    String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user) {
+    String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user, boolean isProvisionalData) {
         int sum = 0;
         EspCensusDataTypeConfiguration ethnicityConfig = STATE_TO_ETHNICITY.get(school.getDatabaseState());
         if (ethnicityConfig == null) {
@@ -470,26 +706,30 @@ public class EspFormExternalDataHelper {
             }
         }
         if (sum == 100) {
-            for (EspCensusBreakdownConfiguration breakdownConfig: ethnicityConfig.getBreakdowns()) {
-                Integer breakdownId = breakdownConfig.getId();
-                Integer value = breakdownIdToValueMap.get(breakdownId);
-                Breakdown breakdown = new Breakdown(breakdownId);
-                CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
-                _dataSetDao.addValue(dataSet, school, value, getCensusModifiedBy(user));
-                _censusCacheManager.deleteBySchool(school);
+            if (!isProvisionalData) {
+                for (EspCensusBreakdownConfiguration breakdownConfig : ethnicityConfig.getBreakdowns()) {
+                    Integer breakdownId = breakdownConfig.getId();
+                    Integer value = breakdownIdToValueMap.get(breakdownId);
+                    Breakdown breakdown = new Breakdown(breakdownId);
+                    CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
+                    _dataSetDao.addValue(dataSet, school, value, getCensusModifiedBy(user));
+                    _censusCacheManager.deleteBySchool(school);
+                }
             }
         } else if (sum == 0) {
-            List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
-            for (SchoolCensusValue val: censusValues) {
-                _dataSetDao.deactivateDataValue(val, getCensusModifiedBy(user));
-                _censusCacheManager.deleteBySchool(school);
+            if (!isProvisionalData) {
+                List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
+                for (SchoolCensusValue val : censusValues) {
+                    _dataSetDao.deactivateDataValue(val, getCensusModifiedBy(user));
+                    _censusCacheManager.deleteBySchool(school);
+                }
             }
         } else {
             return "Your ethnicity percents must add up to 100%.";
         }
         return null;
     }
-    
+
     /**
      * Calculate the new lat, lon if the school address has been changed by the user.
      */
@@ -537,8 +777,8 @@ public class EspFormExternalDataHelper {
                                     lat = null;
                                 }
                             } else {
-                                _log.error("Geocoded address state " + stateStr + 
-                                        " does not match physical address state " + 
+                                _log.error("Geocoded address state " + stateStr +
+                                        " does not match physical address state " +
                                         school.getPhysicalAddress().getState() + " for address " + address);
                             }
                         } else {
@@ -564,7 +804,7 @@ public class EspFormExternalDataHelper {
     /**
      * Save grade levels to the db. Return error string if necessary.
      */
-    String saveGradeLevels(School school, String[] data, User user, Date now) {
+    String saveGradeLevels(School school, String[] data, User user, Date now, boolean isProvisionalData) {
         List<String> gradesList = new ArrayList<String>();
         Collections.addAll(gradesList, data);
         if (!gradesList.isEmpty()) {
@@ -576,15 +816,18 @@ public class EspFormExternalDataHelper {
             if (newLevelCode.equals(LevelCode.PRESCHOOL)) {
                 return "You can not set preschool as your only grade.";
             }
-            // GS-12570 Preserve 'UG'
-            if (school.getGradeLevels().contains(Grade.UNGRADED)) {
-                grades.addLevel(Grade.UNGRADED);
+            if (!isProvisionalData) {
+                // GS-12570 Preserve 'UG'
+                if (school.getGradeLevels()!= null && school.getGradeLevels().contains(Grade.UNGRADED)) {
+                    grades.addLevel(Grade.UNGRADED);
+                }
+                if (!grades.equals(school.getGradeLevels())) {
+                    school.setGradeLevels(grades);
+                    school.setLevelCode(newLevelCode);
+                    saveSchool(school, user, now);
+                }
             }
-            if (!grades.equals(school.getGradeLevels())) {
-                school.setGradeLevels(grades);
-                school.setLevelCode(newLevelCode);
-                saveSchool(school, user, now);
-            }
+
         } else {
             return "You must select a grade level.";
         }
@@ -602,11 +845,11 @@ public class EspFormExternalDataHelper {
     /**
      * Save grade levels to the db
      */
-    String saveSchoolType(School school, String data, User user, Date now) {
+    String saveSchoolType(School school, String data, User user, Date now, boolean isProvisionalData) {
         SchoolType type = SchoolType.getSchoolType(data);
         if (type != null) {
             // only save if different
-            if (type != school.getType()) {
+            if (type != school.getType() && !isProvisionalData) {
                 school.setType(type);
                 saveSchool(school, user, now);
             }
@@ -738,7 +981,7 @@ public class EspFormExternalDataHelper {
                             CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL)
         ));
     }};
-    
+
     public static final Map<State, EspCensusDataTypeConfiguration> STATE_TO_ETHNICITY =
             new HashMap<State, EspCensusDataTypeConfiguration>() {{
             put(State.WI, new EspCensusDataTypeConfiguration
@@ -774,4 +1017,8 @@ public class EspFormExternalDataHelper {
                                     new EspCensusBreakdownConfiguration(6, "Multiracial")))
             );
     }};
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
 }
