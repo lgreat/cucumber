@@ -16,7 +16,7 @@
             request.setAttribute("facebookAppId", CmsUtil.getFacebookAppId());
         </jsp:scriptlet>
 
-        <div id="fb-root"></div>
+        <div id="fb-root"><!--Do not collapse--></div>
 
         <script type="text/javascript">
             // Additional JS functions here

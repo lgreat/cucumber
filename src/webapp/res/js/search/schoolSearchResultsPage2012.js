@@ -153,7 +153,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
             return GS.school.compare.compareSchools();
         });
 
-        $('.js-ask-a-friend a').click(function(e) {
+        $('.js-ask-a-friend div div a').click(function(e) {
             trackAskAFriendClicked();
 
             var $this = $(this);
