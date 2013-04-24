@@ -86,7 +86,6 @@
     </c:if>
 
     <div class="">
-
         <!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->
         <cobrand:framebuster/>
 
@@ -114,39 +113,31 @@
                     <ad:x22 position="Header_728x90"/>
                 </c:if>
                 <cobrand:header/>
-
                 <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
                     <mod:header/>
                     <mod:primaryNav/>
                     <mod:secondaryNav/>
                 </c:if>
             </div>
+            <pageHelper:addFacebookInit/>
             <div class="container_24 clearfix">
                 <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-
                     <mod:belowNavAds/>
                 </c:if>
-
                 <div id="contentGS" class="clearfix">
                     <decorator:body/>
                 </div>
-
                 <div class="clearfloat"><!-- do not collapse --></div>
             </div>
             <mod:footer showAd="true" showSeoFooter="true"/>
-
             <div style="text-align:center"><cobrand:footer/></div>
-
         </div>
         ${modTracking}
         <ad:hideGhostText/>
-
         <div id="deferredContent" style="display:none;">
             ${deferredContent}
         </div>
-
     </div>
-
     ${requestScope.pageHelper.bottomJavaScript}
     <mobile:desktopSiteSwitchJS/>
     </body>
