@@ -57,17 +57,19 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     public static final String AF_PROGRAM_GRADES_KEY_PREFIX = "after_school_grade_";
     public static final String AF_PROGRAM_WEBSITE_KEY_PREFIX = "after_school_website_";
     public static final String AF_PROGRAM_DAYS_KEY_PREFIX = "after_school_day_";
-    public static final String AF_PROGRAM_TEMP_TITLE_PREFIX = "after school program ";
+    public static final String AF_PROGRAM_TEMP_TITLE_PREFIX = "After school program ";
     public static final String AF_PROGRAM_ACTIVITIES_KEY_PREFIX = "after_school_activities_";
+    public static final String AF_PROGRAM_FEE_LEARN_MORE_PREFIX = "after_school_fee_learn_more_";
 
     public static final String SUMMER_PROGRAM_NAME_KEY_PREFIX = "summer_program_name_";
     public static final String SUMMER_PROGRAM_GRADES_KEY_PREFIX = "summer_program_grade_";
     public static final String SUMMER_PROGRAM_WEBSITE_KEY_PREFIX = "summer_program_website_";
     public static final String SUMMER_PROGRAM_DAYS_KEY_PREFIX = "summer_program_day_";
-    public static final String SUMMER_PROGRAM_TEMP_TITLE_PREFIX = "summer program ";
+    public static final String SUMMER_PROGRAM_TEMP_TITLE_PREFIX = "Summer program ";
     public static final String SUMMER_PROGRAM_DATES_KEY_PREFIX = "summer_program_date_";
     public static final String SUMMER_PROGRAM_ACTIVITIES_KEY_PREFIX = "summer_program_activities_";
     public static final String SUMMER_PROGRAM_CARE_KEY_PREFIX = "summer_program_before_after_care_";
+    public static final String SUMMER_PROGRAM_FEE_LEARN_MORE_PREFIX = "summer_program_fee_learn_more_";
 
 //    @Autowired
 //    private IEspResponseDao _espResponseDao;
@@ -246,8 +248,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     private static List<String> buildDisplayDataForRow(Map<String, List<EspResponse>> espResponseMap, SchoolProfileDisplayBean bean) {
 
         List<String> results = new ArrayList<String>();
-        List<String> dateRange = new ArrayList<String>();
+        Map<String, String> dateRange = new HashMap<String, String>();
 
+        final String programStartKey = "start";
+        final String programEndKey = "end";
         // Process all keys for this bean
         String [] keys = bean.getEspResponseKeys().toArray(new String[0]);
         for( String key : keys ) {
@@ -262,7 +266,12 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 }
 
                 if(key.startsWith(SUMMER_PROGRAM_DATES_KEY_PREFIX)) {
-                    dateRange.add(changeDateFormat(espResponses));
+                    if((key.contains(programStartKey))) {
+                        dateRange.put(programStartKey, changeDateFormat(espResponses));
+                    }
+                    else if((key.contains(programEndKey))) {
+                        dateRange.put(programEndKey, changeDateFormat(espResponses));
+                    }
                     continue;
                 }
 
@@ -274,7 +283,17 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                                     "other".equalsIgnoreCase(espResponse.getPrettyValue())) {
                         continue;
                     }
+
+                    // format response for fee learn more and care time
                     String value = null;
+
+                    if (key.startsWith(SUMMER_PROGRAM_FEE_LEARN_MORE_PREFIX) || key.startsWith(AF_PROGRAM_FEE_LEARN_MORE_PREFIX)) {
+                        value = espResponse.getValue();
+                        if(value != null && "website".equalsIgnoreCase(value)) {
+                            results.add("Visit " + value);
+                            continue;
+                        }
+                    }
 
                     if (key.startsWith(SUMMER_PROGRAM_CARE_KEY_PREFIX + "start")) {
                         value = espResponse.getPrettyValue();
@@ -310,7 +329,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         if(dateRange.size() > 0) {
-            results.add(StringUtils.join(dateRange.toArray(), " - "));
+            results.add(dateRange.get(programStartKey) + " - " + dateRange.get(programEndKey));
             dateRange.clear();
         }
 
@@ -769,9 +788,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
         for( SchoolProfileDisplayBean display : displayConfig ) {
             String modelKey = display.getModelKey();
-            Set<String> keyPrefixes = display.getEspResponseKeys();
-            if(keyPrefixes.contains(AF_PROGRAM_DAYS_KEY_PREFIX) || keyPrefixes.contains(SUMMER_PROGRAM_DAYS_KEY_PREFIX) ||
-                    keyPrefixes.contains(SUMMER_PROGRAM_DATES_KEY_PREFIX)) {
+            if(modelKey.contains(AF_PROGRAM_DAYS_KEY_PREFIX) || modelKey.contains(SUMMER_PROGRAM_DAYS_KEY_PREFIX) ||
+                    modelKey.contains(SUMMER_PROGRAM_DATES_KEY_PREFIX)) {
                 continue;
             }
             List<String> values = resultsModel.get( modelKey );
@@ -1351,7 +1369,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             put(AF_PROGRAM_GRADES_KEY_PREFIX, "What grades can participate?");
             put("after_school_fee_", "Is there a fee for the program?");
             put("after_school_financial_aid_", "Is financial aid available?");
-            put("after_school_fee_learn_more_", "How can parents find out more about fees?");
+            put(AF_PROGRAM_FEE_LEARN_MORE_PREFIX, "How can parents find out more about fees?");
             put(AF_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
             put("after_school_phone_", "Phone number");
         }};
@@ -1368,7 +1386,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             put(SUMMER_PROGRAM_GRADES_KEY_PREFIX, "What grades can participate?");
             put("summer_program_fee_", "Is there a fee for the program?");
             put("summer_program_financial_aid_", "Is financial aid available?");
-            put("summer_program_fee_learn_more_", "How can parents find out more about fees?");
+            put(SUMMER_PROGRAM_FEE_LEARN_MORE_PREFIX, "How can parents find out more about fees?");
             put(SUMMER_PROGRAM_CARE_KEY_PREFIX, "Before / after care");
             put(SUMMER_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
             put("summer_program_phone_", "Phone number");
@@ -1389,7 +1407,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                     buildExtrashelper(tabAbbrev, AF_PROGRAM_TEMP_TITLE_PREFIX, rowTitle, key, i);
                 }
             }
+        }
 
+        for(int i = 0; i < 6; i++) {
             for(String key : summerProgramKeySet) {
                 if(!SUMMER_PROGRAM_NAME_KEY_PREFIX.equals(key)) {
                     String rowTitle = summerProgramKeysPrefix.get(key);
