@@ -5,7 +5,7 @@ import gs.data.community.User;
 
 public class FacebookRequestData {
     private String _userId;
-    private String _oAuthToken;
+    private String _authorizationCode;
 
     public String getUserId() {
         return _userId;
@@ -15,16 +15,16 @@ public class FacebookRequestData {
         _userId = userId;
     }
 
-    public String getoAuthToken() {
-        return _oAuthToken;
+    public String getAuthorizationCode() {
+        return _authorizationCode;
     }
 
-    public void setoAuthToken(String oAuthToken) {
-        _oAuthToken = oAuthToken;
+    public void setAuthorizationCode(String authorizationCode) {
+        _authorizationCode = authorizationCode;
     }
 
     public boolean isValid() {
-        return _userId != null;
+        return _userId != null && _authorizationCode != null;
     }
 
     public boolean isOwnedBy(User user) {

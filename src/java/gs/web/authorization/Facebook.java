@@ -58,8 +58,8 @@ public class Facebook {
 
             //check if data is signed correctly
             if(hmacSHA256(signedRequestParts[1], facebookSecretKey).equals(signedRequestParts[0])) {
-                if (data.has("oauth_token")) {
-                    requestData.setoAuthToken(data.getString("oauth_token"));
+                if (data.has("code")) {
+                    requestData.setAuthorizationCode(data.getString("code"));
                 }
                 requestData.setUserId(data.getString("user_id"));
             } else {
