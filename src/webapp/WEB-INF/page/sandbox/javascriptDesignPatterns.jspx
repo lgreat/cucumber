@@ -11,7 +11,8 @@
     <head>
         <title>JavaScript Design Patterns</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <script type="text/javascript" src="/res/js/jquery/jquery-1.7.2.min.js"><!-- not empty --></script>
+        <script type="text/javascript" src="/res/js/jquery/jquery-1.9.1.min.js"><!-- not empty --></script>
+        <script type="text/javascript" src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"><!-- not empty --></script>
         <script type="text/javascript" src="/res/js/sandbox/javascriptDesignPatterns.js"><!-- not empty --></script>
         <script type="text/javascript">
             GS.javascriptDesignPatterns.module.mixIn = function() {
