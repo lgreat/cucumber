@@ -4,7 +4,6 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.web.search.ICmsFeatureSearchResult;
-import gs.web.search.SolrCmsFeatureSearchResult;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -53,6 +52,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
 
+    public static final String AF_PROGRAM_TYPE = "After school";
     public static final String AF_PROGRAM_NAME_KEY_PREFIX = "after_school_name_";
     public static final String AF_PROGRAM_GRADES_KEY_PREFIX = "after_school_grade_";
     public static final String AF_PROGRAM_WEBSITE_KEY_PREFIX = "after_school_website_";
@@ -61,6 +61,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     public static final String AF_PROGRAM_ACTIVITIES_KEY_PREFIX = "after_school_activities_";
     public static final String AF_PROGRAM_FEE_LEARN_MORE_PREFIX = "after_school_fee_learn_more_";
 
+    public static final String SUMMER_PROGRAM_TYPE = "Summer";
     public static final String SUMMER_PROGRAM_NAME_KEY_PREFIX = "summer_program_name_";
     public static final String SUMMER_PROGRAM_GRADES_KEY_PREFIX = "summer_program_grade_";
     public static final String SUMMER_PROGRAM_WEBSITE_KEY_PREFIX = "summer_program_website_";
@@ -70,6 +71,81 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     public static final String SUMMER_PROGRAM_ACTIVITIES_KEY_PREFIX = "summer_program_activities_";
     public static final String SUMMER_PROGRAM_CARE_KEY_PREFIX = "summer_program_before_after_care_";
     public static final String SUMMER_PROGRAM_FEE_LEARN_MORE_PREFIX = "summer_program_fee_learn_more_";
+
+    public static final String HIGHLIGHTS_AWARDS_ABBREV = "Awards";
+    public static final String HIGHLIGHTS_SPECIAL_ED_ABBREV = "SpecEd";
+    public static final String HIGHLIGHTS_STEM_ABBREV = "STEM";
+    public static final String HIGHLIGHTS_ARTS_ABBREV = "Arts";
+    public static final String HIGHLIGHTS_LANG_ABBREV = "Language";
+    public static final String HIGHLIGHTS_HEALTH_ABBREV = "Health";
+    public static final String HIGHLIGHTS_GIFTED_ABBREV = "Gifted";
+    public static final String PROGRAMS_BASICS_ABBREV = "Basics";
+    public static final String PROGRAMS_PROG_ABBREV = "Programs";
+    public static final String RESOURCES_ABBREV = "Resources";
+    public static final String EXTRA_SPORTS_ABBREV = "Sports";
+    public static final String EXTRA_ARTS_ABBREV = "Arts";
+    public static final String EXTRA_CLUBS_ABBREV = "Clubs";
+
+    //comparing only the abbrev title. after school and summer program will never have this abbrev
+    public static final Set<String> staticStructureKeys = new HashSet<String>() {{
+        add(HIGHLIGHTS_AWARDS_ABBREV);
+        add(HIGHLIGHTS_SPECIAL_ED_ABBREV);
+        add(HIGHLIGHTS_STEM_ABBREV);
+        add(HIGHLIGHTS_ARTS_ABBREV);
+        add(HIGHLIGHTS_LANG_ABBREV);
+        add(HIGHLIGHTS_HEALTH_ABBREV);
+        add(HIGHLIGHTS_GIFTED_ABBREV);
+        add(PROGRAMS_BASICS_ABBREV);
+        add(PROGRAMS_PROG_ABBREV);
+        add(RESOURCES_ABBREV);
+        add(EXTRA_SPORTS_ABBREV);
+        add(EXTRA_ARTS_ABBREV);
+        add(EXTRA_CLUBS_ABBREV);
+    }};
+
+    /*
+         * LinkedHashMap is used to preserve the order how the rows will be displayed. Key is the osp response key prefix,
+         * value is the row title.
+         * Some keys require special processing -
+         * days offered response should not be sorted at the end - to maintain Monday-Sunday order
+         * grade response is converted to range string
+         * website as link
+         * dates offered converted to date range string
+         * activities have an additional other text field
+         */
+    public final Map<String, String> afterSchoolKeysPrefix = new LinkedHashMap<String, String>() {{
+        put("after_school_description_", "About the program");
+        put(AF_PROGRAM_ACTIVITIES_KEY_PREFIX, "Types of activities");
+        put("after_school_operator_", "Operated by");
+        put(AF_PROGRAM_DAYS_KEY_PREFIX, "Days offered");
+        put("after_school_start_", "Start time");
+        put("after_school_end_", "End time");
+        put("after_school_attendance_restriction_", "Is enrollment limited to students who attend the school?");
+        put(AF_PROGRAM_GRADES_KEY_PREFIX, "What grades can participate?");
+        put("after_school_fee_", "Is there a fee for the program?");
+        put("after_school_financial_aid_", "Is financial aid available?");
+        put(AF_PROGRAM_FEE_LEARN_MORE_PREFIX, "How can parents find out more about fees?");
+        put(AF_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
+        put("after_school_phone_", "Phone number");
+    }};
+
+    public final Map<String, String> summerProgramKeysPrefix = new LinkedHashMap<String, String>() {{
+        put("summer_program_description_", "About the program");
+        put(SUMMER_PROGRAM_ACTIVITIES_KEY_PREFIX, "Types of activities");
+        put("summer_program_operator_", "Operated by");
+        put(SUMMER_PROGRAM_DATES_KEY_PREFIX, "Dates offered");
+        put(SUMMER_PROGRAM_DAYS_KEY_PREFIX, "Days offered");
+        put("summer_program_start_", "Start time");
+        put("summer_program_end_", "End time");
+        put("summer_program_attendance_restriction_", "Is enrollment limited to students who attend the school?");
+        put(SUMMER_PROGRAM_GRADES_KEY_PREFIX, "What grades can participate?");
+        put("summer_program_fee_", "Is there a fee for the program?");
+        put("summer_program_financial_aid_", "Is financial aid available?");
+        put(SUMMER_PROGRAM_FEE_LEARN_MORE_PREFIX, "How can parents find out more about fees?");
+        put(SUMMER_PROGRAM_CARE_KEY_PREFIX, "Before / after care");
+        put(SUMMER_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
+        put("summer_program_phone_", "Phone number");
+    }};
 
 //    @Autowired
 //    private IEspResponseDao _espResponseDao;
@@ -82,6 +158,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
     @RequestMapping(method = RequestMethod.GET)
     public String showHighlightsPage(ModelMap modelMap, HttpServletRequest request) {
+        clearDynamicDisplayData();
 
         // Get School
         School school = getSchool(request);
@@ -101,6 +178,18 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             espResults = enhanceEspResultsFromSchool( school, espResults );
 
             if( espResults != null && !espResults.isEmpty() ) {
+                for(int i = 1; i < 6; i++) {
+                    List<EspResponse> responses = espResults.get(AF_PROGRAM_NAME_KEY_PREFIX + i);
+                    EspResponse response = responses != null ? responses.get(0) : null;
+                    String title = response != null && response.getValue() != null ? response.getValue() + " (after school program)" : AF_PROGRAM_TEMP_TITLE_PREFIX + i;
+                    buildDynamicDisplayData(AF_PROGRAM_TYPE, "extracurriculars", title, afterSchoolKeysPrefix.keySet(), i);
+                }
+                for(int i = 1; i < 6; i++) {
+                    List<EspResponse> responses = espResults.get(SUMMER_PROGRAM_NAME_KEY_PREFIX + i);
+                    EspResponse response = responses != null ? responses.get(0) : null;
+                    String title = response != null && response.getValue() != null ? response.getValue() + " (summer program)" : SUMMER_PROGRAM_TEMP_TITLE_PREFIX + i;
+                    buildDynamicDisplayData(SUMMER_PROGRAM_TYPE, "extracurriculars", title, summerProgramKeysPrefix.keySet(), i);
+                }
 
                 // The following builds the display data based on the DB results and the display requirements.
                 // The key is the ModelKey and the value is a list of the values for that key
@@ -229,14 +318,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             /*
              * Rename the temp section titles with the actual name for after school or summer program
              */
-            if(TEMP_SECTION_TITLES.containsKey(display.getSectionTitle())) {
-                if(display.getSectionTitle().startsWith(AF_PROGRAM_TEMP_TITLE_PREFIX)) {
-                    modifySectionTitle(display, resultsMap, AF_PROGRAM_NAME_KEY_PREFIX, TEMP_SECTION_TITLES.get(display.getSectionTitle()));
-                }
-                else if(display.getSectionTitle().startsWith(SUMMER_PROGRAM_TEMP_TITLE_PREFIX)) {
-                    modifySectionTitle(display, resultsMap, SUMMER_PROGRAM_NAME_KEY_PREFIX, TEMP_SECTION_TITLES.get(display.getSectionTitle()));
-                }
-            }
             List<String> rowData = buildDisplayDataForRow(resultsMap, display);
             String key = display.getModelKey();
             resultsModel.put( key, rowData );
@@ -655,6 +736,16 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }  // for
     }
 
+    public static void clearDynamicDisplayData() {
+        for(int i = 0; i < DISPLAY_CONFIG.size(); i++) {
+            SchoolProfileDisplayBean bean = DISPLAY_CONFIG.get(i);
+            if(!staticStructureKeys.contains(bean.getSectionAbbreviation())) {
+                DISPLAY_CONFIG.remove(i);
+                i--;// index will set to current from prev and to next when element is removed
+            }
+        }
+    }
+
     /**
      * Enhances a specific espData value with school.subtype data.
      * Specific rule is that if the school contains the specified school_subtype and if the espResponseValue is not present espData then add the espResponseValue
@@ -864,20 +955,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
     }
 
-    protected static void modifySectionTitle(SchoolProfileDisplayBean display, Map<String, List<EspResponse>> espResults,
-                                             String nameKeyPrefix, String programIndex) {
-        List<EspResponse> programNameResponse = espResults.get(nameKeyPrefix + programIndex);
-        if(programNameResponse != null && programNameResponse.size() > 0) {
-            if(AF_PROGRAM_NAME_KEY_PREFIX.equals(nameKeyPrefix)) {
-                display.setSectionTitle(programNameResponse.get(0).getPrettyValue() + " (after school program)");
-            }
-            else if(SUMMER_PROGRAM_NAME_KEY_PREFIX.equals(nameKeyPrefix)) {
-                display.setSectionTitle(programNameResponse.get(0).getPrettyValue() + " (summer program)");
-            }
-            display.setSectionAbbreviation(programNameResponse.get(0).getPrettyValue());
-        }
-    }
-
     public static String getGradeRangeString(List<EspResponse> espResponses) {
         List<String> gradeList = new ArrayList<String>();
 
@@ -1006,7 +1083,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     private static void buildHighlightsDisplayStructure() {
         String tabAbbrev = "highlights";
         // Awards section
-        String awardsAbbrev = "Awards";
+        String awardsAbbrev = HIGHLIGHTS_AWARDS_ABBREV;
         String awardsTitle = "Awards";
         // Blue Ribbon schools have been removed from the project as of 8/1/12 Bob Raker
 //        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "National Blue Ribbon School",
@@ -1020,7 +1097,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "service_award"));
 
         // Special Education section
-        String specEdAbbrev = "SpecEd";
+        String specEdAbbrev = HIGHLIGHTS_SPECIAL_ED_ABBREV;
         String specEdTitle = "Special education / special needs";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Specific academic themes or areas of focus",
                 "academic_focus", new String[]{"special_education"}) );
@@ -1041,7 +1118,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
 
         // STEM (Science, Technology, Engineering, & Math)
-        String stemAbbrev = "STEM";
+        String stemAbbrev = HIGHLIGHTS_STEM_ABBREV;
         String stemTitle = "Science, Technology, Engineering, & Math (STEM)";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, stemAbbrev, stemTitle, "Specific academic themes or areas of focus",
                 "academic_focus", new String[]{"mathematics", "science", "technology", "medical", "engineering"} ) );
@@ -1063,10 +1140,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
 
         // Arts and Music
-        String artsAbbrev = "Arts";
+        String artsAbbrev = HIGHLIGHTS_ARTS_ABBREV;
         String artsTitle = "Arts &amp; music";
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, artsAbbrev, artsTitle, "Specific academic themes or areas of focus",
-                "academic_focus", new String[]{"all_arts", "music", "performing_arts", "visual_arts"} ) );
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Specific academic themes or areas of focus",
+                "academic_focus", new String[]{"all_arts", "music", "performing_arts", "visual_arts"}));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Staff resources available to students",
                 "staff_resources", new String[]{"art_teacher", "dance_teacher", "music_teacher", "poetry_teacher"}));
@@ -1101,7 +1178,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
 
         // Language learning
-        String langAbbrev = "Language";
+        String langAbbrev = HIGHLIGHTS_LANG_ABBREV;
         String langTitle = "Language learning";
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Specific academic themes or areas of focus",
                 "academic_focus", new String[]{"foreign_lang"}));
@@ -1137,7 +1214,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // getLastDisplayBean().addKey("student_clubs_language");
 
         // Health & Athletics
-        String healthAbbrev = "Health";
+        String healthAbbrev = HIGHLIGHTS_HEALTH_ABBREV;
         String healthTitle = "Health &amp; athletics";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, healthAbbrev, healthTitle, "Instructional and/or curriculum models used",
                 "instructional_model", new String[]{"therapeutic"} ) );
@@ -1156,7 +1233,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
 
         // Gifted & Talented
-        String giftedAbbrev = "Gifted";
+        String giftedAbbrev = HIGHLIGHTS_GIFTED_ABBREV;
         String giftedTitle = "Gifted &amp; talented";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, giftedAbbrev, giftedTitle, "Instructional and/or curriculum models used",
                 "instructional_model", new String[]{"accelerated_credit", "AP_courses", "gifted", "honors", "ib"} ) );
@@ -1207,7 +1284,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     private static void buildProgResDisplayStructure() {
         String tabAbbrev = "programs_resources";
         // Basics section
-        String sectionAbbrev = "Basics";
+        String sectionAbbrev = PROGRAMS_BASICS_ABBREV;
         String sectionTitle = "School basics";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School start time",
                 "start_time" ) );
@@ -1240,7 +1317,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "school_fax_office_code"));
 
         // Programs section
-        sectionAbbrev = "Programs";
+        sectionAbbrev = PROGRAMS_PROG_ABBREV;
         sectionTitle = "Programs";
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Instructional and/or curriculum models used",
                 "instructional_model"));
@@ -1274,7 +1351,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "advanced_placement_exams" ) ); // This key is a placeholder because the data does not come from the ESP table.  The data is provided in applyUniqueDataRules
 
         // Resources section
-        sectionAbbrev = "Resources";
+        sectionAbbrev = RESOURCES_ABBREV;
         sectionTitle = "Resources";
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Staff resources available to students",
                 "staff_resources"));
@@ -1309,7 +1386,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     private static void buildExtrasDisplayStructure() {
         String tabAbbrev = "extracurriculars";
         // Sports section
-        String sectionAbbrev = "Sports";
+        String sectionAbbrev = EXTRA_SPORTS_ABBREV;
         String sectionTitle = "Sports";
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Boys sports",
                 "boys_sports"));
@@ -1319,7 +1396,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().addKey("girls_sports_other");
 
         // Arts and Music section
-        sectionAbbrev = "Arts";
+        sectionAbbrev = EXTRA_ARTS_ABBREV;
         sectionTitle = "Arts &amp; music";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Visual arts",
                 "arts_visual" ) );
@@ -1335,7 +1412,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
 
         // Clubs section
-        sectionAbbrev = "Clubs";
+        sectionAbbrev = EXTRA_CLUBS_ABBREV;
         sectionTitle = "Student clubs";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Clubs (distinct from courses)",
                 "student_clubs" ) );
@@ -1347,83 +1424,31 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().addKey("student_clubs_other_3");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
+    }
 
+    public void buildDynamicDisplayData(String programType, String tabAbbrev, String title, Set<String> programKeys, int index) {
         /*
-         * LinkedHashMap is used to preserve the order how the rows will be displayed. Key is the osp response key prefix,
-         * value is the row title.
-         * Some keys require special processing -
-         * days offered response should not be sorted at the end - to maintain Monday-Sunday order
-         * grade response is converted to range string
-         * website as link
-         * dates offered converted to date range string
-         * activities have an additional other text field
-         */
-        Map<String, String> afterSchoolKeysPrefix = new LinkedHashMap<String, String>() {{
-            put("after_school_description_", "About the program");
-            put(AF_PROGRAM_ACTIVITIES_KEY_PREFIX, "Types of activities");
-            put("after_school_operator_", "Operated by");
-            put(AF_PROGRAM_DAYS_KEY_PREFIX, "Days offered");
-            put("after_school_start_", "Start time");
-            put("after_school_end_", "End time");
-            put("after_school_attendance_restriction_", "Is enrollment limited to students who attend the school?");
-            put(AF_PROGRAM_GRADES_KEY_PREFIX, "What grades can participate?");
-            put("after_school_fee_", "Is there a fee for the program?");
-            put("after_school_financial_aid_", "Is financial aid available?");
-            put(AF_PROGRAM_FEE_LEARN_MORE_PREFIX, "How can parents find out more about fees?");
-            put(AF_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
-            put("after_school_phone_", "Phone number");
-        }};
-
-        Map<String, String> summerProgramKeysPrefix = new LinkedHashMap<String, String>() {{
-            put("summer_program_description_", "About the program");
-            put(SUMMER_PROGRAM_ACTIVITIES_KEY_PREFIX, "Types of activities");
-            put("summer_program_operator_", "Operated by");
-            put(SUMMER_PROGRAM_DATES_KEY_PREFIX, "Dates offered");
-            put(SUMMER_PROGRAM_DAYS_KEY_PREFIX, "Days offered");
-            put("summer_program_start_", "Start time");
-            put("summer_program_end_", "End time");
-            put("summer_program_attendance_restriction_", "Is enrollment limited to students who attend the school?");
-            put(SUMMER_PROGRAM_GRADES_KEY_PREFIX, "What grades can participate?");
-            put("summer_program_fee_", "Is there a fee for the program?");
-            put("summer_program_financial_aid_", "Is financial aid available?");
-            put(SUMMER_PROGRAM_FEE_LEARN_MORE_PREFIX, "How can parents find out more about fees?");
-            put(SUMMER_PROGRAM_CARE_KEY_PREFIX, "Before / after care");
-            put(SUMMER_PROGRAM_WEBSITE_KEY_PREFIX, "Website");
-            put("summer_program_phone_", "Phone number");
-        }};
-
-        Set<String> afterSchoolKeySet = afterSchoolKeysPrefix.keySet();
-        Set<String> summerProgramKeySet = summerProgramKeysPrefix.keySet();
-
-        for(int i = 1; i < 6; i++) {
-            /*
              * There are 5 after school and summer programs.
              * Program name is the title for the table, do not build row for that key. Name is currently unavailable,
              * set that to a temp value.
              */
-            for(String key : afterSchoolKeySet) {
-                if(!AF_PROGRAM_NAME_KEY_PREFIX.equals(key)) {
-                    String rowTitle = afterSchoolKeysPrefix.get(key);
-                    buildExtrashelper(tabAbbrev, AF_PROGRAM_TEMP_TITLE_PREFIX, rowTitle, key, i);
-                }
+        if(AF_PROGRAM_TYPE.equals(programType)) {
+            for(String key : programKeys) {
+                String rowTitle = afterSchoolKeysPrefix.get(key);
+                buildDynamicHelper(tabAbbrev, title, rowTitle, key, index);
             }
         }
-
-        for(int i = 0; i < 6; i++) {
-            for(String key : summerProgramKeySet) {
-                if(!SUMMER_PROGRAM_NAME_KEY_PREFIX.equals(key)) {
-                    String rowTitle = summerProgramKeysPrefix.get(key);
-                    buildExtrashelper(tabAbbrev, SUMMER_PROGRAM_TEMP_TITLE_PREFIX, rowTitle, key, i);
-                }
+        else if(SUMMER_PROGRAM_TYPE.equals(programType)) {
+            for(String key : programKeys) {
+                String rowTitle = summerProgramKeysPrefix.get(key);
+                buildDynamicHelper(tabAbbrev, title, rowTitle, key, index);
             }
         }
     }
 
-    public static void buildExtrashelper(String tabAbbrev, String tempTitlePrefix, String rowTitle,
+    public void buildDynamicHelper(String tabAbbrev, String title, String rowTitle,
                                          String key, int i) {
-        String sectionAbbrev = tempTitlePrefix + i;
-        String sectionTitle = tempTitlePrefix + i;
-        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, rowTitle,
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, title, title, rowTitle,
                 key + i));
         if(AF_PROGRAM_WEBSITE_KEY_PREFIX.equals(key) || SUMMER_PROGRAM_WEBSITE_KEY_PREFIX.equals(key)) {
             getLastDisplayBean().addUrl(key+i, key+i);
