@@ -4,44 +4,10 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-    <jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
-    <jsp:directive.tag import="gs.data.admin.cobrand.ICobrandDao"/>
-    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
-    <jsp:directive.tag import="org.apache.commons.logging.LogFactory"/>
-    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
-    <jsp:directive.tag import="org.springframework.web.context.support.WebApplicationContextUtils"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag body-content="empty"
                        description="Set up the necessary javascript for the mapping sub-system. Required for mapping to work on a page."/>
 
-    <jsp:scriptlet>
-        ApplicationContext ac =
-                WebApplicationContextUtils.getWebApplicationContext(application);
-        ICobrandDao dao = (ICobrandDao) ac.getBean(ICobrandDao.BEAN_ID);
-        String serverName = request.getServerName();
-
-        // GS-6354 remove typo-ed trailing dot from server name before looking up
-        if (serverName.endsWith(".")) {
-            SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-            serverName = StringUtils.chomp(serverName, ".");
-            // http://cpickslay.office.greatschools.org./city/Alameda/CA?cpn=123
-            String uri = "http://" + serverName + context.getOriginalRequestURI();
-            if (StringUtils.isNotEmpty(request.getQueryString())) {
-                uri = uri + "?" + request.getQueryString();
-            }
-            response.sendRedirect(uri);
-        }
-
-        Cobrand c = dao.getCobrandByHostname(serverName);
-        if (c == null) {
-            LogFactory.getLog("GoogleMappingApi").error("Unable to find key for server name " +
-                    serverName);
-        } else {
-            request.setAttribute("key", c.getGoogleMapsKey());
-        }
-    </jsp:scriptlet>
-    <pageHelper:externalJavascript
-            file="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${requestScope.key}"/>
-    <pageHelper:addOnunloadHandler handler="try {GUnload();} catch (e) {};"/>
+    <!-- mapsv3 -->
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
 
 </jsp:root>

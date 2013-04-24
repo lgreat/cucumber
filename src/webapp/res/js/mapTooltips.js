@@ -7,18 +7,6 @@ var map;
 
 var gTooltip;
 
-
-function setTooltipOnMarker(m, tooltip) {
-    m.tooltip = '<div class="tooltip">' + tooltip + '</div>';
-
-    GEvent.addListener(m, "mouseover", function() {
-        showTooltip(m);
-    });
-    GEvent.addListener(m, "mouseout", function() {
-        hideTooltip();
-    });
-}
-
 function showTooltip(marker) {
 
     gTooltip.innerHTML = marker.tooltip;

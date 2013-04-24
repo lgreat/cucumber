@@ -6,202 +6,246 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
-    <jsp:directive.tag import="java.text.NumberFormat"/>
-    <jsp:directive.tag import="gs.data.geo.bestplaces.BpCity"/>
-    <jsp:directive.tag import="gs.web.school.SchoolsController"/>
-    <jsp:directive.tag import="java.util.HashSet"/>
-    <jsp:directive.tag import="java.util.Set"/>
-    <jsp:directive.tag import="gs.data.school.SchoolType"/>
-    <jsp:directive.tag body-content="empty" description="Draw a map of cities." />
-    <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
-    <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
-    <jsp:directive.attribute name="lon" required="true" description="Longitude (center of map)"/>
-    <jsp:directive.attribute name="lat" required="true" description="Latitude (center of map)"/>
-    <jsp:directive.attribute name="scale" required="true" description="Scale of the map, in google terms"/>
-    <jsp:directive.attribute name="cities" required="true" description="Cities to map" type="java.util.Collection"/>
-    <script type="text/javascript">
-    <![CDATA[
-    <!--
-     var popTimeout;
-     var isClick = false;
-     function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating, zip, center) {
-         var icon = new GIcon();
-         var imageValue = rating;
-         if (rating == 0) {
-             imageValue = 'NR';
-         }
-         if (!center) {
-             icon.image = "/res/img/mapPins/city/city_" + imageValue + ".png";
+<jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+<jsp:directive.tag import="java.text.NumberFormat"/>
+<jsp:directive.tag import="gs.data.geo.bestplaces.BpCity"/>
+<jsp:directive.tag import="gs.web.school.SchoolsController"/>
+<jsp:directive.tag import="java.util.HashSet"/>
+<jsp:directive.tag import="java.util.Set"/>
+<jsp:directive.tag import="gs.data.school.SchoolType"/>
+<jsp:directive.tag body-content="empty" description="Draw a map of cities." />
+<jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
+<jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
+<jsp:directive.attribute name="lon" required="true" description="Longitude (center of map)"/>
+<jsp:directive.attribute name="lat" required="true" description="Latitude (center of map)"/>
+<jsp:directive.attribute name="scale" required="true" description="Scale of the map, in google terms"/>
+<jsp:directive.attribute name="cities" required="true" description="Cities to map" type="java.util.Collection"/> <!-- mapsv3 -->
+<pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
+<script type="text/javascript">
+<![CDATA[
+
+var popTimeout;
+var map;
+var infoWindow = new google.maps.InfoWindow();
+var infoBoxInstance = null;
+var isClick = false;
+function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating, zip, center) {
+//        var icon = new GIcon();
+    var imageValue = rating;
+    if (rating == 0) {
+        imageValue = 'NR';
+    }
+    if (!center) {
+        var markerOptions = {
+            map: map,
+            position: point,
+            icon: new google.maps.MarkerImage(
+                    "/res/img/mapPins/city/city_" + imageValue + ".png", // url
+                    new google.maps.Size(39, 36), // size
+                    null, // origin
+                    new google.maps.Point(19, 34) // anchor
+            )
+        };
+//            icon.image = "/res/img/mapPins/city/city_" + imageValue + ".png";
 //             icon.shadow =  "/res/img/map/pushpin_shadow.png";
 //             icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
-             icon.iconSize = new GSize(39,36);
-             icon.iconAnchor = new GPoint(19,34);
-             icon.infoWindowAnchor = new GPoint(19,2);
-             icon.infoShadowAnchor = new GPoint(19,2);
-             icon.shadowSize = new GSize(39,36);
-         } else {
-             icon.image = "/res/img/map/map_star.png";
-             icon.transparent = "/res/img/map/map_star_trans.png";
-             icon.iconSize = new GSize(24,23);
-             icon.iconAnchor = new GPoint(11,11);
-             icon.infoWindowAnchor = new GPoint(11,11);
-             icon.infoShadowAnchor = new GPoint(11,11);
-         }
-         var marker = new GMarker(point, {icon:icon});
-         if (center) {
-             window.setTimeout(function() {
-                marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
-                     state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
-             }, 100);
-         }
-         GEvent.addListener(marker, "click", function() {
-             window.clearTimeout(popTimeout);
-             isClick = true;
-             if (s.tl && s.pageName != undefined) {
-                 s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
-             }
-             marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
-                     state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
-         });
-         GEvent.addListener(marker, "mouseover", function() {
-             window.clearTimeout(popTimeout);
-             popTimeout = window.setTimeout(function() {
-                 isClick = false;
-                 marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
-                         state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
-             }, 500);
-         });
-         GEvent.addListener(marker, "mouseout", function() {
-             window.clearTimeout(popTimeout);
-             popTimeout = window.setTimeout(function() {
-                 if (!isClick) {
-                     marker.closeInfoWindow();
-                 }
-             }, 1500);
-         });
-         return marker;
-     }
-
-    function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip) {
-        var bubbleText = '';
-        var height = 110;
-        var ieWidth = 'style="width:210px"';
-        var cityDisplayName = (cityName == 'Washington' && state == 'DC' ? 'Washington, DC' : cityName);
-        if (cityMedianHomePrice != '0') {
-            height += 20;
-            if (zip += '') {
-                height += 20;
-            }
-        }
-        if (cityName.length > 16) {
-            height += 20;
-            if (cityName.length > 24) {
-                height += 10;
-            }
-        }
-        bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px; width:210px">\n';
-        bubbleText += '  <div class="cityName" ' + ieWidth + '>\n';
-        bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
-        bubbleText += '  </div>\n';
-        bubbleText += '  <div class="cityRating" ' + ieWidth + '>';
-        bubbleText += '  <a href="' + cityUrl + '">';
-        bubbleText += '<img src="/res/img/ratings/nearbyCity/cities_lgbox_' + imageValue + '.gif"';
-        if (imageValue != 'NR') {
-           bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
-        } else {
-            bubbleText += ' alt="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."';
-        }
-        bubbleText += '/>';
-        bubbleText += '</a>';
-        bubbleText += '</div>\n';
-        if (cityMedianHomePrice != '0') {
-            bubbleText += '  <div class="medianHomePrice" ' + ieWidth + '>';
-            bubbleText += "Median home price: $" + cityMedianHomePrice;
-            if (zip != '') {
-                bubbleText += '*';
-            }
-            bubbleText += '</div>\n';
-            if (zip != '') {
-                bubbleText += '  <div class="zip" ' + ieWidth + '>* Based on zip code ' + zip + '</div>\n';
-            }
-        }
-        bubbleText += '  <div class="viewAllSchools" ' + ieWidth + '>\n';
-        bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityDisplayName + ' &gt;</a>\n';
-        bubbleText += '  </div>\n';
-        bubbleText += '</div>';
-        return bubbleText;
+//            icon.iconSize = new GSize(39,36);
+//            icon.iconAnchor = new GPoint(19,34);
+//            icon.infoWindowAnchor = new GPoint(19,2);
+//            icon.infoShadowAnchor = new GPoint(19,2);
+//            icon.shadowSize = new GSize(39,36);
+    } else {
+        var markerOptions = {
+            map: map,
+            position: point,
+            icon: new google.maps.MarkerImage(
+                    "/res/img/map/map_star.png", // url
+                    new google.maps.Size(24, 23), // size
+                    null, // origin
+                    new google.maps.Point(11, 11) // anchor
+            )
+        };
+//            icon.image = "/res/img/map/map_star.png";
+//            icon.transparent = "/res/img/map/map_star_trans.png";
+//            icon.iconSize = new GSize(24,23);
+//            icon.iconAnchor = new GPoint(11,11);
+//            icon.infoWindowAnchor = new GPoint(11,11);
+//            icon.infoShadowAnchor = new GPoint(11,11);
     }
-    ]]>
+//        var marker = new GMarker(point, {icon:icon});
+    var marker = new google.maps.Marker(markerOptions);
+    infoBoxInstance = new google.maps.InfoWindow();
+    if (center) {
+        window.setTimeout(function() {
+//                marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
+//                        state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
+            infoBoxInstance.setContent(getBubbleHtml(cityUrl, schoolsUrl, cityName,
+                    state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
+            infoBoxInstance.open(map, marker);
+        }, 100);
+    }
+    google.maps.event.addListener(marker, "click", function() {
+        window.clearTimeout(popTimeout);
+        isClick = true;
+        if (s.tl && s.pageName != undefined) {
+            s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+        }
+//            marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
+//                    state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
+        infoBoxInstance.setContent(getBubbleHtml(cityUrl, schoolsUrl, cityName,
+                state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
+        infoBoxInstance.open(map, marker);
+    });
+    google.maps.event.addListener(marker, "mouseover", function() {
+        window.clearTimeout(popTimeout);
+        popTimeout = window.setTimeout(function() {
+            isClick = false;
+            infoBoxInstance.setContent(getBubbleHtml(cityUrl, schoolsUrl, cityName,
+                    state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
+            infoBoxInstance.open(map, marker);
+        }, 500);
+    });
+    google.maps.event.addListener(marker, "mouseout", function() {
+        window.clearTimeout(popTimeout);
+        popTimeout = window.setTimeout(function() {
+            if (!isClick) {
+//                    marker.closeInfoWindow();
+                infoBoxInstance.close();
+            }
+        }, 1500);
+    });
+    return marker;
+}
+
+function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip) {
+    var bubbleText = '';
+    var height = 110;
+    var ieWidth = 'style="width:210px"';
+    var cityDisplayName = (cityName == 'Washington' && state == 'DC' ? 'Washington, DC' : cityName);
+    if (cityMedianHomePrice != '0') {
+        height += 20;
+        if (zip += '') {
+            height += 20;
+        }
+    }
+    if (cityName.length > 16) {
+        height += 20;
+        if (cityName.length > 24) {
+            height += 10;
+        }
+    }
+    bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px; width:210px">\n';
+    bubbleText += '  <div class="cityName" ' + ieWidth + '>\n';
+    bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
+    bubbleText += '  </div>\n';
+    bubbleText += '  <div class="cityRating" ' + ieWidth + '>';
+    bubbleText += '  <a href="' + cityUrl + '">';
+    bubbleText += '<img src="/res/img/ratings/nearbyCity/cities_lgbox_' + imageValue + '.gif"';
+    if (imageValue != 'NR') {
+        bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
+    } else {
+        bubbleText += ' alt="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."';
+    }
+    bubbleText += '/>';
+    bubbleText += '</a>';
+    bubbleText += '</div>\n';
+    if (cityMedianHomePrice != '0') {
+        bubbleText += '  <div class="medianHomePrice" ' + ieWidth + '>';
+        bubbleText += "Median home price: $" + cityMedianHomePrice;
+        if (zip != '') {
+            bubbleText += '*';
+        }
+        bubbleText += '</div>\n';
+        if (zip != '') {
+            bubbleText += '  <div class="zip" ' + ieWidth + '>* Based on zip code ' + zip + '</div>\n';
+        }
+    }
+    bubbleText += '  <div class="viewAllSchools" ' + ieWidth + '>\n';
+    bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityDisplayName + ' &gt;</a>\n';
+    bubbleText += '  </div>\n';
+    bubbleText += '</div>';
+    return bubbleText;
+}
+]]>
 
 function ${functionName}() {
-    if (GBrowserIsCompatible()) {
-        var map = new GMap2(document.getElementById("${id}"));
-        map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
-        map.setCenter(new GLatLng(${lat}, ${lon}), ${scale});
+    var mapOptions = {
+                center: new google.maps.LatLng(${lat}, ${lon}),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true,
+                zoom: ${scale} !== 0 ? ${scale} : 13,
+            zoomControl: true,
+            zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.DEFAULT //may have to be set to SMALL
+    },
+    streetViewControl: false,
+            panControl: false,
+            infoWindow: infoWindow
+};
 
-        var cityLocation;
-        var rating;
-        var medianHomePrice;
-        var cityPageUrl;
-        var schoolsPageUrl;
-        var cityName;
-        var state;
-        var zip;
-        var center;
-        var marker;
+map = new google.maps.Map(document.getElementById("${id}"), mapOptions);
+//        map = new GMap2(document.getElementById("${id}"));
+//        map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
+//        map.setCenter(new GLatLng(${lat}, ${lon}), ${scale});
 
-        <c:forEach var="s" items="${cities}" >
-            <c:if test="${not empty s.city.latLon and not empty s.city.latLon.lon}">
-                <c:set var="city" scope="request" value="${s.city}" />
-                <c:set var="cityRating" scope="request" value="0"/>
-                <c:if test="${not empty s.rating}">
-                    <c:set var="cityRating" scope="request" value="${s.rating.rating}"/>
-                </c:if>
+var cityLocation;
+var rating;
+var medianHomePrice;
+var cityPageUrl;
+var schoolsPageUrl;
+var cityName;
+var state;
+var zip;
+var center;
+var marker;
 
-                <jsp:scriptlet>
-                     gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
-                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
-                     request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
-                     <![CDATA[
-                     Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
-                     ]]>
-                     urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, c.getState(), c.getName(), schoolTypes, null);
-                     request.setAttribute("schoolsPageUrl", urlBuilder.asSiteRelative(request));
-                     String medianHomePrice = "0";
-                     if (c instanceof BpCity) {
-                         BpCity bpsv = (BpCity) c;
-                         NumberFormat formatter = NumberFormat.getInstance();
-                         medianHomePrice = formatter.format(bpsv.getHouseMedianValue());
-                     }
-                     request.setAttribute("medianHomePrice", medianHomePrice);
-                </jsp:scriptlet>
-        
-                cityLocation = new GLatLng(${city.latLon.lat},${city.latLon.lon});
-                rating = ${cityRating};
-                medianHomePrice = '${medianHomePrice}';
-                cityPageUrl = "${cityPageUrl}";
-                schoolsPageUrl = "${schoolsPageUrl}";
-                cityName = "${city.name}";
-                state = '${city.state.abbreviation}';
-                zip = "";
-                <c:if test="${s.fromZip eq true}">
-                    zip = "${city.zip}";
-                </c:if>
-                center = false;
-                <c:if test="${s.center eq true}">
-                    center = true;
-                </c:if>
-                marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip, center);
-                markers[cityName] = marker;
-                map.addOverlay(marker);
-            </c:if>
-        </c:forEach>
-    }
+<c:forEach var="s" items="${cities}" >
+        <c:if test="${not empty s.city.latLon and not empty s.city.latLon.lon}">
+        <c:set var="city" scope="request" value="${s.city}" />
+        <c:set var="cityRating" scope="request" value="0"/>
+        <c:if test="${not empty s.rating}">
+        <c:set var="cityRating" scope="request" value="${s.rating.rating}"/>
+        </c:if>
+
+        <jsp:scriptlet>
+gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
+UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
+request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
+<![CDATA[
+Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+]]>
+urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, c.getState(), c.getName(), schoolTypes, null);
+request.setAttribute("schoolsPageUrl", urlBuilder.asSiteRelative(request));
+String medianHomePrice = "0";
+if (c instanceof BpCity) {
+    BpCity bpsv = (BpCity) c;
+    NumberFormat formatter = NumberFormat.getInstance();
+    medianHomePrice = formatter.format(bpsv.getHouseMedianValue());
 }
-    <![CDATA[
-    -->
-    ]]>
+request.setAttribute("medianHomePrice", medianHomePrice);
+</jsp:scriptlet>
+
+cityLocation = new google.maps.LatLng(${city.latLon.lat},${city.latLon.lon});
+rating = ${cityRating};
+medianHomePrice = '${medianHomePrice}';
+cityPageUrl = "${cityPageUrl}";
+schoolsPageUrl = "${schoolsPageUrl}";
+cityName = "${city.name}";
+state = '${city.state.abbreviation}';
+zip = "";
+<c:if test="${s.fromZip eq true}">
+        zip = "${city.zip}";
+</c:if>
+center = false;
+<c:if test="${s.center eq true}">
+        center = true;
+</c:if>
+marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip, center);
+markers[cityName] = marker;
+//        map.addOverlay(marker);
+</c:if>
+</c:forEach>
+}
 </script>
 
 </jsp:root>
