@@ -2,7 +2,7 @@ var GS = GS || {};
 
 // requires jQuery
 GS.facebook = GS.facebook || (function () {
-    var registrationAndLoginUrl = "/community/registration/basicRegistration.json";
+    var registrationAndLoginUrl = "/community/registration/socialRegistrationAndLogin.json";
 
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
@@ -54,7 +54,6 @@ GS.facebook = GS.facebook || (function () {
     };
     var getWelcomeHtml = function (screenName) {
         var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + screenName + '</a></li>';
-        console.log('returning welcome html', html);
         return html;
     };
     var getMySchoolListHtml = function (numberMSLItems) {
@@ -189,12 +188,13 @@ GS.facebook = GS.facebook || (function () {
                         fbSignedRequest: response.authResponse.signedRequest
                     };
                     // Handle GS reg/login
-                    $.post(registrationAndLoginUrl, obj).done(function (data2) {
-
-                        if (data2.GSAccountCreated) {
-                            trackGSAccountCreated();
+                    $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
+                        if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === true) {
+                            if (regLoginResponse.GSAccountCreated) {
+                                trackGSAccountCreated();
+                            }
+                            updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.screenName, regLoginResponse.numberMSLItems);
                         }
-                        updateUIForLogin(data2.userId, data2.email, data2.screenName, data2.numberMSLItems);
                     });
                 });
                 loginDeferred.resolve();
@@ -205,13 +205,6 @@ GS.facebook = GS.facebook || (function () {
             scope: facebookPermissions
         });
         _mightBeLoggedIn = true;
-    };
-
-    // TODO: WIP
-    var logout = function () {
-        FB.logout(function (response) {
-
-        });
     };
 
     // Generate a unique string to identify a school by name/city/state

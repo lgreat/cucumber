@@ -9,7 +9,6 @@ import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.util.table.ITableDao;
 import gs.web.authorization.Facebook;
 import gs.web.authorization.FacebookRequestData;
-import gs.web.community.HoverHelper;
 import gs.web.util.*;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -31,11 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/community/registration")
-public class UserSignupAjaxController implements ReadWriteAnnotationController {
+public class SocialRegistrationAndLoginController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private ITableDao _tableDao;
@@ -48,15 +46,16 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
     @Autowired
     private LocalValidatorFactoryBean _validatorFactory;
 
-    private String EMAIL_MODEL_KEY = "email";
-    private String SCREEN_NAME_MODEL_KEY = "screenName";
-    private String USER_ID_MODEL_KEY = "userId";
-    private String NUMBER_MSL_ITEMS_MODEL_KEY = "numberMSLItems";
-    private String MODEL_ACCOUNT_CREATED_KEY = "GSAccountCreated";
+    public String EMAIL_MODEL_KEY = "email";
+    public String SCREEN_NAME_MODEL_KEY = "screenName";
+    public String USER_ID_MODEL_KEY = "userId";
+    public String NUMBER_MSL_ITEMS_MODEL_KEY = "numberMSLItems";
+    public String MODEL_ACCOUNT_CREATED_KEY = "GSAccountCreated";
+    public String MODEL_SUCCESS_KEY = "success";
 
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
-    @RequestMapping(value="/basicRegistration.json", method=RequestMethod.POST)
+    @RequestMapping(value="/socialRegistrationAndLogin.json", method=RequestMethod.POST)
     public View handleJoin(
             ModelMap modelMap,
             @Valid UserRegistrationCommand userRegistrationCommand,
@@ -76,9 +75,10 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
             return new MappingJacksonJsonView();
         }
 
-        /*if (isIPBlocked(request)) {
-
-        };*/
+        if (isIPBlocked(request)) {
+            modelMap.put(MODEL_SUCCESS_KEY, "false");
+            return view;
+        };
 
         User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
 
@@ -98,6 +98,7 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
             if (registrationBehavior.isFacebookRegistration()) {
                 view = doSocialSignon(request, response, user);
             }
+            modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "true");
         } else {
             // only create the user if the user is new
             user = createUser(userRegistrationCommand);
@@ -131,8 +132,10 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
                 getUserDao().removeUser(user.getId());
             }
 
+            ThreadLocalTransactionManager.commitOrRollback();
             PageHelper.setMemberAuthorized(request, response, user);
         }
+
 
         modelMap.put(USER_ID_MODEL_KEY, user.getId());
         if (user.getUserProfile() != null) {
@@ -140,6 +143,10 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
         }
         modelMap.put(EMAIL_MODEL_KEY, user.getEmail());
         modelMap.put(NUMBER_MSL_ITEMS_MODEL_KEY, user.getFavoriteSchools() != null? user.getFavoriteSchools().size() : 0 );
+        modelMap.put(MODEL_SUCCESS_KEY, "true");
+        modelMap.remove("userRegistrationCommand");
+        modelMap.remove("userSubscriptionCommand");
+        modelMap.remove("registrationBehavior");
 
         return view;
     }
@@ -200,7 +207,9 @@ public class UserSignupAjaxController implements ReadWriteAnnotationController {
 
         profile.setHow(userRegistrationCommand.getHow());
 
-        profile.setUpdated(new Date());
+        Date now = new Date();
+        profile.setCreated(now);
+        profile.setCreated(now);
 
         return profile;
     }
