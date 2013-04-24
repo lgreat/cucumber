@@ -443,6 +443,15 @@ jQuery(document).ready(function() {
             //Show the grades for the test.
             $('#js_' + testSelected + '_grades').show();
 
+            // Show subgroup test
+            if( testSelected.match(/_subgroup$/) ) {
+                $('#js_subgroup').show();
+                $('#js_testLabelHeader').addClass('bottom');
+            } else {
+                $('#js_subgroup').hide();
+                $('#js_testLabelHeader').removeClass('bottom');
+            }
+
             //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
             var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
             firstGradeToSelect.trigger('click');
