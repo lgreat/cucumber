@@ -98,7 +98,7 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
             if (registrationBehavior.isFacebookRegistration()) {
                 view = doSocialSignon(request, response, user);
             }
-            modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "true");
+            modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "false");
         } else {
             // only create the user if the user is new
             user = createUser(userRegistrationCommand);
