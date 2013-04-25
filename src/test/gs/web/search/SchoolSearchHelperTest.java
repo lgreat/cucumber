@@ -143,4 +143,97 @@ public class SchoolSearchHelperTest extends BaseControllerTestCase {
 
         verifyAll();
     }
+
+    public void testAddGamAttributes_noState() {
+        _command.setState("");
+
+        resetAll();
+
+        List<SolrSchoolSearchResult> schoolResults = new ArrayList<SolrSchoolSearchResult>();
+        String searchString = "Alameda, CA";
+
+        //setting command object properties so that returns true for isNearbySearch()
+        _command.setSearchString(searchString);
+        _command.setCity("Alameda");
+        _command.setLat(0.0);
+        _command.setLon(0.0);
+        _command.setDistance("1.0");
+        _schoolSearchCommandWithFields = new SchoolSearchCommandWithFields(_command, _fields);
+
+        _searchAdHelper.addSearchResultsAdKeywords(_pageHelper, schoolResults);
+        expectLastCall();
+
+        _searchAdHelper.addSchoolTypeAdKeywords(_pageHelper, _schoolSearchCommandWithFields.getSchoolTypes());
+        expectLastCall();
+
+        _searchAdHelper.addLevelCodeAdKeywords(_pageHelper, _schoolSearchCommandWithFields.getGradeLevels());
+        expectLastCall();
+
+        _searchAdHelper.addSearchQueryAdKeywords(_pageHelper, searchString);
+        expectLastCall();
+
+        _searchAdHelper.addZipCodeAdKeyword(_pageHelper, searchString);
+        expectLastCall();
+
+        _searchAdHelper.addNearbySearchInfoKeywords(_pageHelper, _request);
+        expectLastCall();
+
+        _searchAdHelper.addCountyAdKeywords(_pageHelper, schoolResults);
+        expectLastCall();
+
+        _searchAdHelper.addSearchBrowseAdKeyword(_pageHelper);
+        expectLastCall();
+
+        replayAll();
+
+        _schoolSearchHelper.addGamAttributes(_request, _schoolSearchCommandWithFields, schoolResults, false);
+
+        verifyAll();
+    }
+    public void testAddGamAttributes_invalidState() {
+        _command.setState("L");
+
+        resetAll();
+
+        List<SolrSchoolSearchResult> schoolResults = new ArrayList<SolrSchoolSearchResult>();
+        String searchString = "Alameda, CA";
+
+        //setting command object properties so that returns true for isNearbySearch()
+        _command.setSearchString(searchString);
+        _command.setCity("Alameda");
+        _command.setLat(0.0);
+        _command.setLon(0.0);
+        _command.setDistance("1.0");
+        _schoolSearchCommandWithFields = new SchoolSearchCommandWithFields(_command, _fields);
+
+        _searchAdHelper.addSearchResultsAdKeywords(_pageHelper, schoolResults);
+        expectLastCall();
+
+        _searchAdHelper.addSchoolTypeAdKeywords(_pageHelper, _schoolSearchCommandWithFields.getSchoolTypes());
+        expectLastCall();
+
+        _searchAdHelper.addLevelCodeAdKeywords(_pageHelper, _schoolSearchCommandWithFields.getGradeLevels());
+        expectLastCall();
+
+        _searchAdHelper.addSearchQueryAdKeywords(_pageHelper, searchString);
+        expectLastCall();
+
+        _searchAdHelper.addZipCodeAdKeyword(_pageHelper, searchString);
+        expectLastCall();
+
+        _searchAdHelper.addNearbySearchInfoKeywords(_pageHelper, _request);
+        expectLastCall();
+
+        _searchAdHelper.addCountyAdKeywords(_pageHelper, schoolResults);
+        expectLastCall();
+
+        _searchAdHelper.addSearchBrowseAdKeyword(_pageHelper);
+        expectLastCall();
+
+        replayAll();
+
+        _schoolSearchHelper.addGamAttributes(_request, _schoolSearchCommandWithFields, schoolResults, false);
+
+        verifyAll();
+    }
 }
