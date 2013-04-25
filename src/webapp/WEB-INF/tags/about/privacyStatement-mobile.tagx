@@ -205,6 +205,26 @@
     <gsml:a href="http://networkadvertising.org/consumer/opt_out.asp" target="_blank">click here</gsml:a>.
 </p>
 
+<h2>Information from Other Sources</h2>
+
+<p class="pvm">We have partnered with Facebook to provide a more personalized experience on GreatSchools for members of
+    Facebook. When you visit GreatSchools, you will see an option to sign in with Facebook. If you sign in with
+    Facebook, we will show you which of your Facebook friends have connections to schools you may be considering
+    based on their "likes" and education history (i.e. we utilize Facebook's Open Graph to power our social search
+    feature). We also use Facebook's social sharing functions to make it easy for you to share schools and school
+    reviews with your Facebook friends, and to comment on GreatSchools articles. In order to provide you with this
+    personalized experience, Facebook provides us with information that you have chosen to make available pursuant
+    to your Facebook privacy settings. That information may include your basic information, email address, name,
+    profile picture, your likes, location, schools you've attended (education history), friends list, and any other
+    information you have chosen to make available. We also ask for your friends' likes and their education histories.
+    We <span style="text-decoration: underline">do not share</span> this information with any third party.</p>
+
+<p class="pvm">If, at any time, you would like to turn off personalization on GreatSchools, you can do so by logging out
+    of Facebook. You can also disable the GreatSchools app in the Your Apps section of the Facebook App Center.
+    Please note that, if you have Facebook friends who are using GreatSchools, they may also have shared information
+    about you with us through Facebook. If you wish to prevent that sharing, you can do so by editing your Facebook
+    privacy settings.</p>
+
 <h2>A Notice About External Links</h2>
 
 <p class="pvm">You will find links from GreatSchools to independently owned, controlled, and/or managed website whose content we
@@ -251,7 +271,7 @@
     determined by GreatSchools in its sole discretion. Notwithstanding the foregoing, GreatSchools reserves the
     right to determine the form and means of providing notifications to our customers or website users.</p>
 
-<p class="pvm">Updated January 17, 2012</p>
+<p class="pvm">Updated May 1, 2013</p>
 </div>
 
 </jsp:root>
