@@ -25,8 +25,8 @@ GS.facebook = GS.facebook || (function () {
     var schoolPageDetailsQuery = "SELECT page_id, name, location, page_url FROM page WHERE (location.state != '' OR website != '') AND page_id IN (SELECT page_id FROM #friendsThatAreFansOfSchoolsQuery)";
 
 
-    // Resolved on successful FB login, else rejected on failed login
-    var loginDeferred = $.Deferred();
+    // Resolved on first successful FB login; never rejected
+    var successfulLoginDeferred = $.Deferred();
 
 
     // Resolved immediately on load only if user is already logged in, otherwise rejected
@@ -34,10 +34,9 @@ GS.facebook = GS.facebook || (function () {
     var statusOnLoadDeferred = $.Deferred();
 
 
-    // if the user ever initiated a FB login, they might be logged in. If they logged in, their session could have expired
-    var _mightBeLoggedIn = false;
+    // If the user ever logged in, they're probably logged in. But, their session could have expired
     var mightBeLoggedIn = function () {
-        return (FB && _mightBeLoggedIn);
+        return successfulLoginDeferred.isResolved();
     };
 
 
@@ -107,7 +106,7 @@ GS.facebook = GS.facebook || (function () {
     };
 
     var getLoginDeferred = function () {
-        return loginDeferred.promise();
+        return successfulLoginDeferred.promise();
     };
     var getStatusOnLoadDeferred = function () {
         return statusOnLoadDeferred.promise();
@@ -118,30 +117,37 @@ GS.facebook = GS.facebook || (function () {
     // Sets up click event for Log In button(s)
     // Sets up default behavior for login deferreds
     var init = function () {
-        loginDeferred.fail(function () {
-            _mightBeLoggedIn = false;
-        });
-
         // We probably need to handle logout on every page, so call it here
         // rather than leaving it up to the individual page
         initLogoutBehavior();
 
         $(function () {
+            // this flag will control whether onClick code is executed, used to prevent double-triggering on rapid clicks
+            var loginDisabled = false;
+
             // we'll set up click handler for login buttons here
             $(loginSelector).on('click', function () {
-                status({
-                    notConnected: function () {
-                        trackLoginClicked();
-                        login();
-                    }
-                });
+                if (!loginDisabled) {
+                    // even though we don't know if the user is logged in or not, disable login right away.
+                    // if we were to put it inside the callback, there would be a delay before the login button is disabled
+                    loginDisabled = true;
+
+                    status({
+                        notConnected: function () {
+                            trackLoginClicked();
+                            login().always(function() {
+                                loginDisabled = false;
+                            });
+                        }
+                    });
+                }
             });
 
             // Call status() right away, and if user is logged in, resolve loginDeferred and statusOnLoadDeferred
             status({
                 connected: function () {
                     statusOnLoadDeferred.resolve();
-                    loginDeferred.resolve();
+                    successfulLoginDeferred.resolve();
                 },
                 notConnected: function () {
                     statusOnLoadDeferred.reject();
@@ -175,6 +181,12 @@ GS.facebook = GS.facebook || (function () {
     // Does not currently do refresh after logging in, just updates site header
     // resolves deferreds and updates login flags
     var login = function () {
+
+        // any time a login call completes successfully, resolve the single loginDeferred for this module.
+        var loginAttemptDeferred = $.Deferred().done(function() {
+            successfulLoginDeferred.resolve();
+        });
+
         FB.login(function (response) {
             if (response.authResponse) {
                 FB.api('/me', function (data) {
@@ -197,14 +209,15 @@ GS.facebook = GS.facebook || (function () {
                         }
                     });
                 });
-                loginDeferred.resolve();
+                loginAttemptDeferred.resolve();
             } else {
-                loginDeferred.reject();
+                loginAttemptDeferred.reject();
             }
         }, {
             scope: facebookPermissions
         });
-        _mightBeLoggedIn = true;
+
+        return loginAttemptDeferred;
     };
 
     // Generate a unique string to identify a school by name/city/state
