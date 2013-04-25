@@ -53,7 +53,7 @@ public class ApiTestResultsHelper {
                 ApiResult apiTestResultForLatestYear = historicalApiTestResults.get(0);
 
                 // GS-13823 skip year if null and get latest not null value
-                if(apiTestResultForLatestYear.getTotal() == null) {
+                if(apiTestResultForLatestYear != null && apiTestResultForLatestYear.getTotal() == null) {
                     for(int i = 1; i < historicalApiTestResults.size(); i++) {
                         ApiResult apiResult = historicalApiTestResults.get(i);
                         if(apiResult.getTotal() != null) {
@@ -70,7 +70,7 @@ public class ApiTestResultsHelper {
                 // GS-13823 do not show if the latest year is older than load date by more than 3 years
                 if (apiTestResultForLatestYear != null && apiTestResultForLatestYear.getYear() != null
                         && apiTestResultForLatestYear.getTotal() != null && apiTestResultForLatestYear.getTotal() != 0
-                        && mostRecentLoadYear - apiTestResultForLatestYear.getYear() < 3) {
+                        && mostRecentLoadYear != null && mostRecentLoadYear - apiTestResultForLatestYear.getYear() < 3) {
                     Map<String, Object> apiTestResultsMap = new HashMap<String, Object>();
 
                     apiTestResultsMap.put(MODEL_MOST_RECENT_API_RESULT, apiTestResultForLatestYear);
