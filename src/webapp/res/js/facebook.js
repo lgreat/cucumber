@@ -321,22 +321,29 @@ GS.facebook = GS.facebook || (function () {
 
     // Launch a FB dialog to allow user to post School (url, name, desc) to their Feed
     var postToFeed = function (link, pictureUrl, name, caption, description) {
+        postToFeed.disabled = postToFeed.disabled || false;
+        if (!postToFeed.disabled) {
 
-        var obj = {
-            method: 'feed',
-            redirect_uri: 'www.greatschools.org',
-            link: link,
-            picture: pictureUrl,
-            name: name,
-            caption: caption,
-            description: description
-        };
+            // disable this method's functionality until FB dialog has been closed
+            postToFeed.disabled = true;
 
-        var callback = function (response) {
-            //document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-        };
+            var obj = {
+                method: 'feed',
+                redirect_uri: 'www.greatschools.org',
+                link: link,
+                picture: pictureUrl,
+                name: name,
+                caption: caption,
+                description: description
+            };
 
-        FB.ui(obj, callback);
+            var callback = function (response) {
+                // re-enable postToFeed
+                postToFeed.disabled = false;
+            };
+
+            FB.ui(obj, callback);
+        }
     };
 
     var debugStatus = function() {
