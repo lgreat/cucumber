@@ -764,6 +764,7 @@ GS.search.results = GS.search.results || (function() {
         GS.facebook.status({
             connected: function() {
                 GS.facebook.getUserFriendsSchoolPageData(handleUIForFacebookResults);
+                GS.search.results.showAskAFriendLinks();
             }
         })
     };
