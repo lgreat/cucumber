@@ -25,17 +25,23 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                 GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
                 GS.search.results.showAskAFriendLinks();
                 hideFacebookLoginModule();
+                showFacebookLogoutModule();
             });
         });
     };
 
     var hideFacebookLoginModule = function() {
-        $(".js-facebook-login").parent().parent().animate({
+        /*$(".js-facebook-login").parent().parent().animate({
             opacity: 0.25,
             height: '0'
         }, 1000, function() {
             $(this).hide();
-        });
+        });*/
+        $(".js-facebook-login").parent().parent().hide();
+    };
+
+    var showFacebookLogoutModule = function() {
+        $(".js-facebook-logout").parent().parent().show();
     };
 
     var writeCompareNowLink = function(schoolId, state) {
@@ -170,7 +176,6 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
     return {
         init:init
-
     }
 
 })();

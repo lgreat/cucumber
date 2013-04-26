@@ -7,6 +7,7 @@ GS.facebook = GS.facebook || (function () {
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
     var loginSelector = ".js-facebook-login";
+    var logoutSelector = ".js-facebook-logout";
 
 
     // Facebook permissions that GS.org will ask for during FB.login()
@@ -174,6 +175,11 @@ GS.facebook = GS.facebook || (function () {
                 e.preventDefault();
                 return false;
             }
+        });
+        $(logoutSelector).click(function() {
+            FB.logout(function(response){
+                window.location.reload();
+            });
         });
     };
 
