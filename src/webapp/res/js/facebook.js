@@ -200,14 +200,15 @@ GS.facebook = GS.facebook || (function () {
                         fbSignedRequest: response.authResponse.signedRequest
                     };
                     // Handle GS reg/login
-                    $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
+                    // Backed out from r226
+                    /*$.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                         if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
                             if (regLoginResponse.GSAccountCreated) {
                                 trackGSAccountCreated();
                             }
                             updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.screenName, regLoginResponse.numberMSLItems);
                         }
-                    });
+                    });*/
                 });
                 loginAttemptDeferred.resolve();
             } else {
