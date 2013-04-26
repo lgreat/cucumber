@@ -176,19 +176,7 @@
             </div>
             <div class="standard_7-2 dn">
                 <div class="inner tac">
-                    <h3 class="make-ffffff">
-                        <span class="iconx16 i-16-success mrm vam"><!--do not collpase--></span>
-                        <span class="vam">Friend likes are on</span>
-                    </h3>
-                    <div class="js-facebook-login FBSignOutButton mha">
-                        <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
-                        <span class="vam plm">Sign out of facebook</span>
-                    </div>
-                </div>
-            </div>
-            <div class="standard_7-2 dn">
-                <div class="inner tac">
-                    <div class="js-facebook-login FBSignOutButton mha">
+                    <div class="js-facebook-logout FBSignOutButton mha">
                         <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
                         <span class="vam plm">Sign out of facebook</span>
                     </div>
