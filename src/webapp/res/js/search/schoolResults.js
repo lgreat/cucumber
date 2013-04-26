@@ -788,27 +788,41 @@ GS.search.results = GS.search.results || (function() {
             var state = $schoolData.data('gs-state');
             var facebookUrl = $schoolData.data('gs-facebook-url');
             var schoolHash = GS.facebook.createSchoolHash(schoolName, city, state);
+            var fans = [];
+            var dedupedFans = [];
             var faces = 0;
+            var i;
 
+            // stores all photos shown per result. used to prevent duplicate faces from being shown
+            var photos = [];
+
+            // Sometimes facebook URLs from Factual and from Facebook have either https or http, and they will mismatch
+            facebookUrl = facebookUrl.replace("https:","http:");
 
             if (facebookUrl !== "" && schoolPagesByFacebookUrl.hasOwnProperty(facebookUrl)) {
-                $.map(schoolPagesByFacebookUrl[facebookUrl].fans, function(fan) {
-                    if (faces < 5 ){
-                    text = text + '<img style="padding-right:2px" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
-                    faces = faces + 1;
-                    }
-                });
-                numberFans = numberFans + schoolPagesByFacebookUrl[facebookUrl].fans.length;
+                fans = fans.concat(schoolPagesByFacebookUrl[facebookUrl].fans);
             }
             if (schoolPagesBySchoolHash.hasOwnProperty(schoolHash)) {
-                $.map(schoolPagesBySchoolHash[schoolHash].fans, function(fan) {
-                    if (faces < 5 ){
+                fans = fans.concat(schoolPagesBySchoolHash[schoolHash].fans);
+            }
+
+            i = fans.length;
+            while (i--) {
+                var fan = fans[i];
+                if ($.inArray(fan.pic_square, photos) === -1) {
+                    photos.push(fan.pic_square);
+                    dedupedFans.push(fan);
+                }
+            }
+
+            numberFans = dedupedFans.length;
+
+            $.map(dedupedFans, function(fan) {
+                if (faces < 5 ){
                     text = text + '<img style="padding-right:2px;" width="30px" height="30px" class="vam" title="' + fan.name + '" src="' + fan.pic_square + '"/>';
                     faces = faces + 1;
-                    }
-                });
-                numberFans = numberFans + schoolPagesBySchoolHash[schoolHash].fans.length;
-            }
+                }
+            });
 
             if (text !== '') {
                 if (numberFans === 1) {
