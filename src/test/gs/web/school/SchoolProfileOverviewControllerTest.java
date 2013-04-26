@@ -13,8 +13,10 @@ import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
+import gs.web.SlowTest;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.search.CmsFeatureSearchService;
+import org.junit.experimental.categories.Category;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,7 @@ import static org.easymock.classextension.EasyMock.*;
  * User: rraker
  * Date: 6/18/12
  */
+@Category(SlowTest.class)
 public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase {
 
     SchoolProfileOverviewController _schoolProfileOverviewController;

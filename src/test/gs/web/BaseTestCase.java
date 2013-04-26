@@ -4,6 +4,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.experimental.categories.Category;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import static org.easymock.classextension.EasyMock.replay;
@@ -13,6 +14,8 @@ import static org.easymock.classextension.EasyMock.reset;
 /**
  * BaseTestCase for classes in gs.web to subclass for easy access to Spring IoC
  */
+
+@Category(SkipTest.class)
 public class BaseTestCase extends TestCase {
     protected final Log _log = LogFactory.getLog(getClass());
     private static ApplicationContext _sApplicationContext = null;

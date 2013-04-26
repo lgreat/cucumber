@@ -2,6 +2,7 @@ package gs.web;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 
@@ -17,6 +18,7 @@ import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.verify;
 
+@Category(SlowTest.class)
 public class HTML2PDFViewResolverTest extends BaseControllerTestCase {
 
     HTML2PDFViewResolver _html2PDFViewResolver;

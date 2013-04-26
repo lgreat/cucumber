@@ -1,11 +1,14 @@
 package gs.web.chart;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.SlowTest;
 import org.jfree.data.general.PieDataset;
+import org.junit.experimental.categories.Category;
 
 /**
  * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
+@Category(SlowTest.class)
 public class PieControllerTest extends BaseControllerTestCase {
     PieController _controller;
 

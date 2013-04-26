@@ -4,8 +4,11 @@ import gs.data.school.*;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.util.ListUtils;
+import gs.web.IntegrationTest;
+import gs.web.SlowTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -22,6 +25,7 @@ import static org.easymock.EasyMock.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = {"classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml", "classpath:gs/data/applicationContext-data.xml", "classpath:applicationContext.xml", "classpath:annotated-tests.xml", "classpath:pages-servlet.xml"})
+@Category({IntegrationTest.class})
 public class SchoolProfileStatsControllerIntegrationTest {
 
     @Autowired
@@ -54,6 +58,7 @@ public class SchoolProfileStatsControllerIntegrationTest {
     public void testNothing() {
         //at least one test so build doesn't fail
         assertTrue(true);
+        assertTrue(false);
 
     }
 

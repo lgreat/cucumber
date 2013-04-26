@@ -9,11 +9,14 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.SlowTest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import static org.easymock.EasyMock.*;
+
+import org.junit.experimental.categories.Category;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
+@Category(SlowTest.class)
 public class TopDistrictsControllerTest extends BaseControllerTestCase {
     private IDistrictDao _districtDao;
     private TopDistrictsController _controller;

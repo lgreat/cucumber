@@ -13,9 +13,11 @@ import gs.data.state.State;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
+import gs.web.SlowTest;
 import gs.web.community.IReportContentService;
 import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
 import org.apache.commons.lang.time.DateUtils;
+import org.junit.experimental.categories.Category;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +30,7 @@ import static org.easymock.classextension.EasyMock.*;
  * @author dlee
  * @author thuss
  */
+@Category(SlowTest.class)
 public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     SchoolReviewsAjaxController _controller;
     IReviewDao _reviewDao;
