@@ -284,6 +284,7 @@ GS.facebook = GS.facebook || (function () {
                 var uid = item.uid;
                 var schoolPage = null;
                 var friend = null;
+                var pageUrl = null;
                 if (schoolPageMap.hasOwnProperty(pageId)) {
                     schoolPage = schoolPageMap[pageId];
                 }
@@ -296,8 +297,9 @@ GS.facebook = GS.facebook || (function () {
 
                 schoolPage.fans = schoolPage.fans || [];
 
-                if (!schoolPagesByUrl.hasOwnProperty(schoolPage.page_url)) {
-                    schoolPagesByUrl[schoolPage.page_url] = schoolPage;
+                pageUrl = schoolPage.page_url.replace("https:","http:");
+                if (!schoolPagesByUrl.hasOwnProperty(pageUrl)) {
+                    schoolPagesByUrl[pageUrl] = schoolPage;
                 }
 
                 if (schoolPage.hasOwnProperty('location') && schoolPage.location.hasOwnProperty('city') && schoolPage.location.hasOwnProperty('state')) {
