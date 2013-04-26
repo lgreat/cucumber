@@ -12,6 +12,7 @@
     <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick function"/>
     <jsp:directive.attribute name="onfocus" required="false" description="Javascript onfocus function"/>
     <jsp:directive.attribute name="onblur" required="false" description="Javascript onblur function"/>
+    <jsp:directive.attribute name="onkeypress" required="false" description="Javascript onkeypress function"/>
     <jsp:directive.attribute name="disabled" required="false" description="disable the control"/>
     <jsp:directive.attribute name="maxlength" required="false" description="Maximum Length"/>
     <jsp:directive.attribute name="readonly" required="false" type="java.lang.Boolean" description="Read only"/>
@@ -41,6 +42,9 @@
     <c:if test="${not empty onblur}">
         <c:out value=' onblur="${onblur}"' escapeXml="false"/>
     </c:if>
+    <c:if test="${not empty onkeypress}">
+            <c:out value=' onkeypress="${onkeypress}"' escapeXml="false"/>
+        </c:if>
     <c:if test="${not empty maxlength}">
         <c:out value=' maxlength="${maxlength}"' escapeXml="false"/>
     </c:if>
