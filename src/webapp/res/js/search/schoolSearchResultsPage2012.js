@@ -167,7 +167,13 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
             var schoolName = $schoolData.data('gs-school-name');
             var autoText = $schoolData.data('gs-school-autotext');
             var link = $this.attr('href');
-            var photoUrl = 'http://www.gscdn.org/res/img/logo/gs_logo_75x75.png'
+
+            var hostname = 'www.gscdn.org';
+            var subdomain = window.location.hostname.split('.')[0];
+            if (subdomain === 'qa') {
+                hostname = 'qa.gscdn.org';
+            }
+            var photoUrl = 'http://' + hostname + '/res/img/logo/gs_logo_75x75.png';
 
             GS.facebook.postToFeed(link, photoUrl, schoolName, link, autoText);
             return false;
