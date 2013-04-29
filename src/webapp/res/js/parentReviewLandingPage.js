@@ -56,9 +56,14 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
     // Caching strategy from http://stackoverflow.com/a/14144009
     searchBox.autocomplete({
         minLength: 3,
+        change: function( event, ui ) {
+           if(GS.parentReviewLandingPage.chosenSchool != ui.item){
+               GS.form.selectionMadeAutoComplete = false;
+           }
+        },
         source: function (request, response) {
             var state = function () {
-                var rval =  $("#js-reviewLandingState").find(".js-selectBoxText").html();
+                var rval =  $("[name=stateSelectReviews]").val();//$("#js-reviewLandingState").find(".js-selectBoxText").html();
                 if (rval === '') {
                     return null;
                 }
@@ -170,9 +175,11 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
  */
 
 $(document).ready(function() {
+    var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+
     $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_submitSelectSchool').on("click",function() {
-        var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+
         if (!GS.form.selectionMadeAutoComplete) {
             alert("Please select a school to continue");
             return false;
@@ -194,13 +201,15 @@ $(document).ready(function() {
                     top: '+=200'
                 },
                 {
-                    duration:2000,
-                    complete: function () {
-                        GSType.hover.reviewLandingPageInformational.showModal();
-                    }
+                    duration:1000
+//                    ,
+//                    complete: function () {
+//                        GSType.hover.reviewLandingPageInformational.showModal();
+//                    }
                 });
             });
         });
+
     });
 
     GS.form.findAndApplyGhostTextSwitching('body');
@@ -215,12 +224,26 @@ $(document).ready(function() {
     GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "sendMeEmailUpdates", 1, 0);
     GS_spriteCheckBoxes("js-reviewLandingCheckboxEmail", "mssSub", 1, 0);
 
+    if(theStateValueToSet == "" || theStateValueToSet == undefined){
+        //// set state dropdown to this value.
+        theStateValueToSet = geoip_region();
+    }
+
+    GS.form.stateDropDownConfig = function(){
+        $("[name=stateSelectReviews]").sb({ ddCtx: function() { return $(this).closest("form"); } });
+
+        $("[name=stateSelectReviews]").val(theStateValueToSet);
+        $("[name=stateSelectReviews]").prev().find(".display .text").html(theStateValueToSet);
+
+        $("[name=stateSelectReviews]").change(function() {
+            var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
+            GS.form.selectionMadeAutoComplete = false;
+            searchBox.val("");
+        });
+    }
+    GS.form.stateDropDownConfig();
+
     GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
-    GS_initializeCustomSelect("js-reviewLandingState", function() {
-        var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
-        GS.form.selectionMadeAutoComplete = false;
-        searchBox.val("");
-    });
 
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
     starRatingInterface("starRatingContainerReviewTeacher", 16, 5, "teacherAsString", "");

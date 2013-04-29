@@ -41,6 +41,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private int _tabIndex = -1;
     private String _style;
     private boolean _validation = false;
+    private boolean _justOptions = false;
 
     private static final StateManager _stateManager;
 
@@ -50,6 +51,17 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
 
     public void setStateSet(Set stateSet) {
         _stateSet = stateSet;
+    }
+
+    public boolean isJustOptions() {
+        return _justOptions;
+    }
+
+    /**
+     * Sets this select to be a multiple-select
+     */
+    public void setJustOptions(boolean justOptions) {
+        _justOptions = justOptions;
     }
 
     public boolean isMultiple() {
@@ -178,38 +190,47 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     }
 
     public void doTag() throws IOException {
-
         JspWriter out = getJspContext().getOut();
-        out.print("<select id=\"");
-        out.print(_styleId);
-        out.print("\" name=\"" + _name + "\"");
-        if (_styleClass != null) {
-            out.print(" class=\"" + _styleClass + "\"");
+        if (_justOptions) {
+            generateOptions(out);
         }
-        if (_style != null) {
-            out.print(" style=\"" + _style + "\"");
-        }
-        if (_onChange != null) {
-            out.print(" onchange=\"" + _onChange + "\"");
-        }
-        if (_multiple) {
-            out.print(" multiple=\"multiple\"");
-            if (_size > 0) {
-                out.print(" size=\"" + _size + "\"");
+        else{
+            out.print("<select id=\"");
+            out.print(_styleId);
+            out.print("\" name=\"" + _name + "\"");
+            if (_styleClass != null) {
+                out.print(" class=\"" + _styleClass + "\"");
             }
-        } else {
-            if (_size > 1) {
-                out.print(" size=\"" + _size + "\"");
+            if (_style != null) {
+                out.print(" style=\"" + _style + "\"");
             }
-        }
-        if (_tabIndex > -1) {
-            out.print(" tabindex=\"" + _tabIndex + "\"");
-        }
-        if (_validation) {
-            out.print(" data-validation=\"state\" data-validation-type=\"required\"");
-        }
-        out.println(">");
+            if (_onChange != null) {
+                out.print(" onchange=\"" + _onChange + "\"");
+            }
+            if (_multiple) {
+                out.print(" multiple=\"multiple\"");
+                if (_size > 0) {
+                    out.print(" size=\"" + _size + "\"");
+                }
+            } else {
+                if (_size > 1) {
+                    out.print(" size=\"" + _size + "\"");
+                }
+            }
+            if (_tabIndex > -1) {
+                out.print(" tabindex=\"" + _tabIndex + "\"");
+            }
+            if (_validation) {
+                out.print(" data-validation=\"state\" data-validation-type=\"required\"");
+            }
+            out.println(">");
 
+            generateOptions(out);
+
+            out.println("</select>");
+        }
+    }
+    public void generateOptions(JspWriter out) throws IOException {
         if (_useNoState) {
             out.print("<option value=\"\"");
             if (!_multiple || _stateSet == null) {
@@ -253,6 +274,5 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
             }
             out.println("</option>");
         }
-        out.println("</select>");
     }
 }
