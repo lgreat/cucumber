@@ -46,7 +46,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
                     propertyDetailsForm.find('input#jq-bathDownload').val(bath);
 
                     var sqFootage = propertyDetailsForm.find('input#js-sqFeet');
-                    if(jQuery.trim(sqFootage.val()) === 'Square footage') {
+                    if(jQuery.trim(sqFootage.val()) === 'Square Footage') {
                         sqFootage.val('');
                     }
 
@@ -83,7 +83,7 @@ GS.realEstateAgent.createGuide = GS.realEstateAgent.createGuide || (function(){
         var sqFeet = jQuery.trim(sqFeetField.val());
 
         var data = {};
-        if(!(sqFeet === '' || sqFeet === 'Square footage') && !sqFeet.match(/^((\d{1,6})|(\d{1,3},\d{3}))(\.\d{1,})?$/)) {
+        if(!(sqFeet === '' || sqFeet === 'Square Footage') && !sqFeet.match(/^((\d{1,6})|(\d{1,3},\d{3}))(\.\d{1,})?$/)) {
             data.hasError = true;
             data.sqFootageErrorDetail = 'Please enter a number.';
         }
