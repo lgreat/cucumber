@@ -198,8 +198,6 @@
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
                                    showAdPct="0" style="2012" defaultCity="${defaultCity}" defaultState="${defaultState}"/>
 
-        <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-        <ad:BelowFold_Top_300x125/>
     </div>
 
 
