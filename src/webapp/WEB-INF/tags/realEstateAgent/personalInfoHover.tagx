@@ -46,8 +46,9 @@
                     </div>
                 </div>
                 <div class="mtm jq-passwordFields">
-                    <gsml:input type="password" styleId="jq-password" styleClass="text1 input_10" name="password"
-                        value="Password" onkeypress="GS_textSwitch(this, '', 'Password');" onblur="GS_textSwitch(this, 'Password', '');"/>
+                    <gsml:input type="text" styleId="jq-password" styleClass="text1 input_10" name="password"
+                        value="Password" onfocus="GS_textSwitch(this, '', 'Password'),(this.type='password');"
+                        onblur="GS_textSwitch(this, 'Password', '');"/>
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
                         <span class="error invalid"><!-- not empty --></span>
