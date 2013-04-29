@@ -295,8 +295,8 @@
                     <!--End--> <br />
                     <div class="mod standard_1-1">
                         <div class="inner">
-                            <div class="hd pam dn"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
-                            <div class="hd pam"><h4 class="bottom sourceSansPro-Regular">Helpful reviews answer questions</h4></div>
+                            <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
+                            <div class="hd pam" id="js-reviewsLandingTitleHelpful"><h4 class="bottom sourceSansPro-Regular">Helpful reviews answer questions</h4></div>
                             <div class="bd pam" style="height:90px;">
                                 <div id="js-reviewsLandingStarBox-Parent" class="dn">
                                     <div class="clearfix pas">
@@ -327,7 +327,7 @@
                                         <li>What do you like?</li>
                                         <li>How could your school improve?</li>
                                     </ul></div>
-                                <div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>
+                                <!--<div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>-->
                                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">
                                     <div class="fl"><p class="bottom">Teacher quality</p></div>
                                     <div id="starRatingContainerReviewTeacherForStudent" class="fr pan man mlm">

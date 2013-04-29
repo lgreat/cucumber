@@ -278,6 +278,13 @@ function GS_spriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
     });
 }
 
+// special ipad case -- so far only click with touchstart works
+var ua = navigator.userAgent;
+var gs_eventclick = (ua.match(/iPad/i)) ? "touchstart" : "click";
+var gs_eventmove = (ua.match(/iPad/i)) ? "touchmove" : "mousemove";
+var gs_eventend = (ua.match(/iPad/i)) ? "touchend" : "mouseleave";
+
+
 /********************************************************************************************************
  *
  *  currently created to work with the review page form!!!!
@@ -307,7 +314,7 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
             removeClassStr += " ";
         }
     }
-    $('#'+containerS).mousemove (function(e){
+    $('#'+containerS).on(gs_eventmove, function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -318,9 +325,11 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
             $("#"+divWriteTextValues).html(arrStarValuesText[currentStar]);
         }
     });
-    $('#'+containerS).click (function(e){
+    $('#'+containerS).on(gs_eventclick, function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
+        // special ipad case
+        if(gs_eventclick == "touchstart"){x = event.touches[0].pageX - offset.left;}
         var currentStar = Math.floor(x/iconWidth) +1;
         if(currentStar > totalStars) currentStar = totalStars;
         overallStarRating.val(currentStar);
@@ -329,7 +338,7 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
 
     });
-    $('#'+containerS).mouseleave (function(e){
+    $('#'+containerS).on(gs_eventend, function(e){
         var currentRating = overallStarRating.val();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
@@ -404,21 +413,28 @@ function GS_selectCallbackReviewsIAm(selectValue){
     var submitValue = "";
     if(selectValue == "Parent"){
         submitValue = "parent";
+        $('#js-reviewsLandingTitleRateAddl').show();
         $('#js-reviewsLandingStarBox-Parent').show();
+
     }
     if(selectValue == "Student"){
         submitValue = "student";
+        $('#js-reviewsLandingTitleRateAddl').show();
         $('#js-reviewsLandingStarBox-Student').show();
     }
     if(selectValue == "Teacher/Staff member"){
         submitValue = "teacher";
-        $('#js-reviewsLandingStarBox-NoAdd').show();
+        $('#js-reviewsLandingTitleHelpful').show();
+        $('#js-reviewsLandingStarBox-Start').show();
     }
     if(selectValue == "Other"){
         submitValue = "other";
-        $('#js-reviewsLandingStarBox-NoAdd').show();
+        $('#js-reviewsLandingTitleHelpful').show();
+        $('#js-reviewsLandingStarBox-Start').show();
     }
     function hideAllLayers(){
+        $('#js-reviewsLandingTitleRateAddl').hide();
+        $('#js-reviewsLandingTitleHelpful').hide();
         $('#js-reviewsLandingStarBox-Parent').hide();
         $('#js-reviewsLandingStarBox-Start').hide();
         $('#js-reviewsLandingStarBox-NoAdd').hide();
