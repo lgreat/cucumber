@@ -174,6 +174,14 @@
                     </div>
                 </div>
             </div>
+            <div class="standard_7-2 dn">
+                <div class="inner tac">
+                    <div class="js-facebook-logout FBSignOutButton mha">
+                        <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
+                        <span class="vam plm">Sign out of facebook</span>
+                    </div>
+                </div>
+            </div>
         </c:if>
 
         <compare:persistentCompare/>

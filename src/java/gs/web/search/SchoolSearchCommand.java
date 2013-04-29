@@ -247,10 +247,15 @@ public class SchoolSearchCommand {
     }
 
     public Float getDistanceAsFloat() {
-        if (_distance != null) {
-            return Float.parseFloat(_distance);
+        Float result = null;
+        if (StringUtils.isNotEmpty(_distance)) {
+            try {
+                result = Float.parseFloat(_distance);
+            } catch (NumberFormatException e) {
+                // nothing to do
+            }
         }
-        return null;
+        return result;
     }
 
     public void setDistance(String distance) {
@@ -259,7 +264,7 @@ public class SchoolSearchCommand {
 
     public boolean isNearbySearch() {
         return getLat() != null && getLon() != null &&
-                getDistance() != null && getDistanceAsFloat() > 0.0f;
+                getDistance() != null && getDistanceAsFloat() != null && getDistanceAsFloat() > 0.0f;
     }
 
     public boolean isNearbySearchByLocation() {

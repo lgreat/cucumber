@@ -22,7 +22,7 @@
                 <div class="clearfix">
                     <div class="fl jq-firstNameFields">
                         <gsml:input type="text" styleId="jq-fName" styleClass="text1 input_5" name="firstName"
-                            value="First Name" onfocus="GS_textSwitch(this, '', 'First Name');" onblur="GS_textSwitch(this, 'First Name', '');"/>
+                            value="First Name" onkeypress="GS_textSwitch(this, '', 'First Name');" onblur="GS_textSwitch(this, 'First Name', '');"/>
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
                             <span class="error invalid"><!-- not empty --></span>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="fr jq-lastNameFields">
                         <gsml:input type="text" styleId="jq-lName" styleClass="text1 input_5" name="lastName"
-                            value="Last Name" onfocus="GS_textSwitch(this, '', 'Last Name');" onblur="GS_textSwitch(this, 'Last Name', '');"/>
+                            value="Last Name" onkeypress="GS_textSwitch(this, '', 'Last Name');" onblur="GS_textSwitch(this, 'Last Name', '');"/>
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
                             <span class="error invalid"><!-- not empty --></span>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="mtm jq-emailFields">
                     <gsml:input type="text" styleId="jq-email" styleClass="text1 input_10" name="email"
-                        value="Email" onfocus="GS_textSwitch(this, '', 'Email');" onblur="GS_textSwitch(this, 'Email', '');"/>
+                        value="Work Email" onkeypress="GS_textSwitch(this, '', 'Work Email');" onblur="GS_textSwitch(this, 'Work Email', '');"/>
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
                         <span class="error invalid"><!-- not empty --></span>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="mtm jq-passwordFields">
                     <gsml:input type="password" styleId="jq-password" styleClass="text1 input_10" name="password"
-                        value="Password" onfocus="GS_textSwitch(this, '', 'Password');" onblur="GS_textSwitch(this, 'Password', '');"/>
+                        value="Password" onkeypress="GS_textSwitch(this, '', 'Password');" onblur="GS_textSwitch(this, 'Password', '');"/>
                     <div class="errors">
                         <span class="error valid">&amp;nbsp;</span>
                         <span class="error invalid"><!-- not empty --></span>

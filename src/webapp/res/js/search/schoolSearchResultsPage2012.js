@@ -25,17 +25,23 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                 GS.facebook.getUserFriendsSchoolPageData(GS.search.results.handleUIForFacebookResults);
                 GS.search.results.showAskAFriendLinks();
                 hideFacebookLoginModule();
+                showFacebookLogoutModule();
             });
         });
     };
 
     var hideFacebookLoginModule = function() {
-        $(".js-facebook-login").parent().parent().animate({
+        /*$(".js-facebook-login").parent().parent().animate({
             opacity: 0.25,
             height: '0'
         }, 1000, function() {
             $(this).hide();
-        });
+        });*/
+        $(".js-facebook-login").parent().parent().hide();
+    };
+
+    var showFacebookLogoutModule = function() {
+        $(".js-facebook-logout").parent().parent().show();
     };
 
     var writeCompareNowLink = function(schoolId, state) {
@@ -161,7 +167,13 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
             var schoolName = $schoolData.data('gs-school-name');
             var autoText = $schoolData.data('gs-school-autotext');
             var link = $this.attr('href');
-            var photoUrl = 'http://www.gscdn.org/res/img/logo/logo_GS_276x50_logo.png'
+
+            var hostname = 'www.gscdn.org';
+            var subdomain = window.location.hostname.split('.')[0];
+            if (subdomain === 'qa') {
+                hostname = 'qa.gscdn.org';
+            }
+            var photoUrl = 'http://' + hostname + '/res/img/logo/gs_logo_75x75.png';
 
             GS.facebook.postToFeed(link, photoUrl, schoolName, link, autoText);
             return false;
@@ -170,7 +182,6 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
     return {
         init:init
-
     }
 
 })();
