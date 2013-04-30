@@ -95,3 +95,14 @@ General comments:
     -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
     border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+
+.white_arrow_up{
+    width: 0;
+    height: 0;
+    margin-bottom: -1px;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid white;
+    margin-left:auto;
+    margin-right:auto;
+}

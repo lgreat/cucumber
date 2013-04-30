@@ -71,7 +71,7 @@
             </div>
             <div class="grid_8">
                 <div class="pr">
-                <a href="/res/pdf/realEstate/GreatSchoolsRadar_example.pdf" target="_blank" class="pa" style="width:30px; height:30px; top:0; right:10px;"><!--Do not collapse--></a>
+                <a href="/res/pdf/realEstate/GreatSchoolsRadar_example.pdf" target="_blank" class="pa" style="width:30px; height:30px; top:0; right:10px;background-image:url(/res/img/pixel.gif);"><!--Do not collapse--></a>
                 <img src="/res/img/realEstate/pdf_300x180.png" alt="PDF"/>
                 </div>
                 <h3 class="mtl ptm">Customized for your listings, with<br/>unlimited access</h3>

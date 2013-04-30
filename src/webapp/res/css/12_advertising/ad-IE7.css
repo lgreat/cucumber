@@ -172,3 +172,8 @@ fix for footer spacing in list
 .imageBgScale .img-container{
     left:0px;
 }
+
+.searchbox .display {
+    zoom:1;
+    margin-top: -40px;
+}

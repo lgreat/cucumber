@@ -7,6 +7,7 @@ GS.facebook = GS.facebook || (function () {
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
     var loginSelector = ".js-facebook-login";
+    var logoutSelector = ".js-facebook-logout";
 
 
     // Facebook permissions that GS.org will ask for during FB.login()
@@ -175,6 +176,11 @@ GS.facebook = GS.facebook || (function () {
                 return false;
             }
         });
+        $(logoutSelector).click(function() {
+            FB.logout(function(response){
+                window.location.reload();
+            });
+        });
     };
 
     // should log user into FB and GS (backend creates GS account if none exists)
@@ -200,14 +206,15 @@ GS.facebook = GS.facebook || (function () {
                         fbSignedRequest: response.authResponse.signedRequest
                     };
                     // Handle GS reg/login
-                    $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
+                    // Backed out from r226
+                    /*$.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                         if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
                             if (regLoginResponse.GSAccountCreated) {
                                 trackGSAccountCreated();
                             }
                             updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.screenName, regLoginResponse.numberMSLItems);
                         }
-                    });
+                    });*/
                 });
                 loginAttemptDeferred.resolve();
             } else {
@@ -284,6 +291,7 @@ GS.facebook = GS.facebook || (function () {
                 var uid = item.uid;
                 var schoolPage = null;
                 var friend = null;
+                var pageUrl = null;
                 if (schoolPageMap.hasOwnProperty(pageId)) {
                     schoolPage = schoolPageMap[pageId];
                 }
@@ -296,8 +304,9 @@ GS.facebook = GS.facebook || (function () {
 
                 schoolPage.fans = schoolPage.fans || [];
 
-                if (!schoolPagesByUrl.hasOwnProperty(schoolPage.page_url)) {
-                    schoolPagesByUrl[schoolPage.page_url] = schoolPage;
+                pageUrl = schoolPage.page_url.replace("https:","http:");
+                if (!schoolPagesByUrl.hasOwnProperty(pageUrl)) {
+                    schoolPagesByUrl[pageUrl] = schoolPage;
                 }
 
                 if (schoolPage.hasOwnProperty('location') && schoolPage.location.hasOwnProperty('city') && schoolPage.location.hasOwnProperty('state')) {

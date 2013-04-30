@@ -24,7 +24,7 @@
 
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.9.1.min.js" allowCdn="true"/>
             <gsml:url var="jqueryjs_migrate" value="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" allowCdn="true"/>
-            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>
+            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.10.2.custom.full.old.decorator.min.js" allowCdn="true"/>
             <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
             <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
 

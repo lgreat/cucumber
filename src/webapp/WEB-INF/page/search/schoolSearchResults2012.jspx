@@ -164,13 +164,20 @@
         <ad:AboveFold_300x250/>
 
         <c:if test="${facebookFacepilesEnabled eq true}">
-            <!-- TODO: front-end code goes here -->
             <div class="standard_7-1">
                 <div class="inner tac">
                     <h2 class="make-ffffff">Which schools do<br/>your friends like?</h2>
                     <div class="js-facebook-login FBSigninButton mha">
                         <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
                         <span class="vam plm">Sign in with facebook</span>
+                    </div>
+                </div>
+            </div>
+            <div class="standard_7-2 dn">
+                <div class="inner tac">
+                    <div class="js-facebook-logout FBSignOutButton mha">
+                        <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
+                        <span class="vam plm">Sign out of facebook</span>
                     </div>
                 </div>
             </div>
@@ -191,8 +198,6 @@
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
                                    showAdPct="0" style="2012" defaultCity="${defaultCity}" defaultState="${defaultState}"/>
 
-        <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-        <ad:BelowFold_Top_300x125/>
     </div>
 
 
