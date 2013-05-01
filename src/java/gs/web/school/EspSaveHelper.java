@@ -183,6 +183,37 @@ public class EspSaveHelper {
 
     }
 
+    public void saveUspFormData(User user, School school, State state,
+                                Map<String, Object[]> responseKeyValues,
+                                Set<String> responseKeys) {
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+        Date now = new Date();
+        for(String key : responseKeys) {
+            Object[] values = responseKeyValues.get(key);
+            if(values == null || values.length == 0) {
+                continue;
+            }
+            for(Object value : values) {
+                EspResponse espResponse = createUspResponse(user, school, now, key, true, (String) value);
+                if(espResponse != null) {
+                    responseList.add(espResponse);
+                }
+            }
+        }
+
+        saveUspResponses(school, responseKeys, responseList, user);
+    }
+
+    protected void saveUspResponses(School school, Set<String> keys, List<EspResponse> responseList,
+                                    User user) {
+        _espResponseDao.deactivateResponsesByKeys(school, keys);
+        if (keys != null && !keys.isEmpty()) {
+            if (responseList != null && !responseList.isEmpty()) {
+                _espResponseDao.saveResponses(school, responseList);
+            }
+        }
+    }
+
 
     protected String getPageKeys(int pageNum){
         return "_page_" + pageNum + "_keys";
@@ -200,6 +231,21 @@ public class EspSaveHelper {
         espResponse.setCreated(now);
         espResponse.setActive(active);
         espResponse.setSource(EspResponseSource.osp);
+        return espResponse;
+    }
+
+    protected EspResponse createUspResponse(User user, School school, Date now, String key, boolean active, String responseValue) {
+        if (StringUtils.isBlank(responseValue)) {
+            return null;
+        }
+        EspResponse espResponse = new EspResponse();
+        espResponse.setKey(key);
+        espResponse.setValue(StringUtils.left(responseValue, EspFormController.MAX_RESPONSE_VALUE_LENGTH));
+        espResponse.setSchool(school);
+        espResponse.setMemberId(user.getId());
+        espResponse.setCreated(now);
+        espResponse.setActive(active);
+        espResponse.setSource(EspResponseSource.usp);
         return espResponse;
     }
 

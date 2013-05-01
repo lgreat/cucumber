@@ -1,11 +1,28 @@
 package gs.web.school.usp;
 
+import gs.data.community.User;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
+import gs.data.school.EspResponse;
+import gs.data.school.IEspResponseDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.state.State;
+import gs.web.school.EspSaveHelper;
+import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,12 +33,141 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/school/usp/")
-public class UspFormController {
+public class UspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "/school/usp/uspForm";
+    public static final String PARAM_STATE = "state";
+    public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
+
+    private static final Set<String> responseKeys = new HashSet<String>() {{
+        add("arts_media");
+        add("arts_music");
+        add("arts_performing_written");
+        add("arts_visual");
+    }};
+
+    private static Logger _logger = Logger.getLogger(UspFormController.class);
+
+    @Autowired
+    private IEspResponseDao _espResponseDao;
+    @Autowired
+    private EspSaveHelper _espSaveHelper;
+    @Autowired
+    private ISchoolDao _schoolDao;
 
     @RequestMapping(value = "form.page", method = RequestMethod.GET)
-    public String showRegistrationForm (HttpServletRequest request,
-                                        HttpServletResponse response) {
+    public String showForm (HttpServletRequest request,
+                            HttpServletResponse response,
+                            @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                            @RequestParam(value=PARAM_STATE, required=false) State state) {
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            return "";
+        }
+
+//        List<UspFormResponseStruct> uspFormResponses;
+        List<EspResponse> responses = _espResponseDao.getResponses(school);
+        final boolean isSchoolAdmin = false;
+
+        for(EspResponse espResponse : responses) {
+
+
+//            uspFormResponses = new LinkedList<UspFormResponseStruct>(){{
+//                add(new UspFormResponseStruct("Arts & music"), isSchoolAdmin)
+//            }};
+        }
+
         return FORM_VIEW;
+    }
+
+    @RequestMapping(value = "form.page", method = RequestMethod.POST)
+    public void onSubmitForm (HttpServletRequest request,
+                              HttpServletResponse response,
+                              @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                              @RequestParam(value=PARAM_STATE, required=false) State state) {
+        response.setContentType("application/json");
+
+        JSONObject responseObject = new JSONObject();
+
+        try {
+            School school = getSchool(state, schoolId);
+            if (school == null) {
+                outputJsonError("noSchool", response);
+                return; // early exit
+            }
+
+            User user = getValidUser(request, state, school);
+            if (user == null) {
+                outputJsonError("noUser", response);
+                return; // early exit
+            }
+
+            Map<String, Object[]> reqParamMap = request.getParameterMap();
+
+            _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, responseKeys);
+
+            responseObject.put("success", true);
+            responseObject.write(response.getWriter());
+            response.getWriter().flush();
+        }
+        catch (JSONException ex) {
+            _logger.warn("UspFormController - exception while trying to write json object.", ex);
+        }
+        catch (IOException ex) {
+            _logger.warn("UspFormController - exception while trying to get writer for response.", ex);
+        }
+    }
+
+
+    /**
+     * Parses the state and schoolId out of the request and fetches the school. Returns null if
+     * it can't parse parameters, can't find school, or the school is inactive
+     */
+    protected School getSchool(State state, Integer schoolId) {
+        if (state == null || schoolId == null) {
+            return null;
+        }
+        School school = null;
+        try {
+            school = _schoolDao.getSchoolById(state, schoolId);
+        } catch (Exception e) {
+            // handled below
+        }
+        if (school == null || (!school.isActive() && !school.isDemoSchool())) {
+            _logger.error("School is null or inactive: " + school);
+            return null;
+        }
+
+        if (school.isPreschoolOnly()) {
+            _logger.error("School is preschool only! " + school);
+            return null;
+        }
+
+        return school;
+    }
+
+    /*protected void putInResponseMap(Map<String, EspFormResponseStruct> responseMap,EspResponse response){
+        EspFormResponseStruct responseStruct = responseMap.get(response.getKey());
+        if (responseStruct == null) {
+            responseStruct = new EspFormResponseStruct();
+            responseMap.put(response.getKey(), responseStruct);
+        }
+        responseStruct.addValue(response.getSafeValue());
+    }*/
+
+    protected User getValidUser(HttpServletRequest request, State state, School school) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        if (sessionContext != null) {
+            user = sessionContext.getUser();
+        }
+        return user;
+    }
+
+    protected void outputJsonError(String msg, HttpServletResponse response) throws JSONException, IOException {
+        JSONObject errorObj = new JSONObject();
+        errorObj.put("error", msg);
+        errorObj.write(response.getWriter());
+        response.getWriter().flush();
     }
 }
