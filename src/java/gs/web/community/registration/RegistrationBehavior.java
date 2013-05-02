@@ -12,12 +12,17 @@ public class RegistrationBehavior {
         return _fbSignedRequest != null;
     }
 
-    // whether to send email verification email to the user
+    // whether the user needs to verify email, and hence have a provisional password.
     public boolean requireEmailVerification() {
         if (isFacebookRegistration()) {
             return false;
         }
-        return false;
+        return true;
+    }
+
+    // whether to send email verification email to the user
+    public boolean sendVerificationEmail() {
+        return true;
     }
 
     public boolean sendConfirmationEmail() {
