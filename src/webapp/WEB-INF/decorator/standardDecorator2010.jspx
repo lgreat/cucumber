@@ -10,7 +10,8 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
+        xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
         xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
@@ -88,7 +89,6 @@
     <div class="">
         <!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->
         <cobrand:framebuster/>
-
         <communityHover:subscriptionEmailValidated/>
         <communityHover:validateEmail/>
         <communityHover:validateEmailSchoolReview/>
@@ -96,16 +96,36 @@
         <communityHover:emailNotValidated/>
         <communityHover:emailValidated/>
         <communityHover:editEmailValidated/>
+        <communityHover:espPreApprovalEmail/>
         <communityHover:validationLinkExpired/>
         <communityHover:join/>
         <communityHover:signIn/>
         <communityHover:forgotPassword/>
         <communityHover:schoolReviewThankYou/>
+        <communityHover:schoolReviewPosted schoolName="${school.name}"/>
         <communityHover:emailValidatedSchoolReview/>
-        <school:principalConfirmHover/>
-        <school:principalReviewSubmitted/>
+        <profile:principalConfirmHover/>
+        <profile:principalReviewSubmitted/>
         <compare:compareSchoolsLimitReachedHover/>
         <communityHover:espAccountVerified/>
+        <communityHover:schoolEspThankYou/>
+        <!--<communityHover:subscriptionEmailValidated/>-->
+        <!--<communityHover:validateEmail/>-->
+        <!--<communityHover:validateEmailSchoolReview/>-->
+        <!--<communityHover:validateEditEmail/>-->
+        <!--<communityHover:emailNotValidated/>-->
+        <!--<communityHover:emailValidated/>-->
+        <!--<communityHover:editEmailValidated/>-->
+        <!--<communityHover:validationLinkExpired/>-->
+        <!--<communityHover:join/>-->
+        <!--<communityHover:signIn/>-->
+        <!--<communityHover:forgotPassword/>-->
+        <!--<communityHover:schoolReviewThankYou/>-->
+        <!--<communityHover:emailValidatedSchoolReview/>-->
+        <!--<school:principalConfirmHover/>-->
+        <!--<school:principalReviewSubmitted/>-->
+        <!--<compare:compareSchoolsLimitReachedHover/>-->
+        <!--<communityHover:espAccountVerified/>-->
 
         <div id="marginGS">
             <div class="site-gradient">
@@ -138,6 +158,7 @@
             ${deferredContent}
         </div>
     </div>
+    <div id="fullPageOverlay"><!-- do not collapse --></div>
     ${requestScope.pageHelper.bottomJavaScript}
     <mobile:desktopSiteSwitchJS/>
     </body>
