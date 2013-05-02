@@ -15,12 +15,21 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <head>
+        <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>USP Form</title>
+        <gsml:javascript src="/res/js/chosen/chosen.jquery.min.js" />
         <pageHelper:externalJavascript file="/res/js/school/uspForm.js"/>
+        <link rel="stylesheet" href="/res/js/chosen/chosen.css" />
+        <title>USP Form</title>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.chosenElement').chosen();
+            });
+        </script>
     </head>
         <body>
-            <p> USP Form </p>
+        <div class="container_24 clearfix">
             <form:form id="js_uspForm">
                 <div id="js_arts_media" class="lal clearfix">
                     <div class="grid_5 omega">
@@ -35,6 +44,13 @@
                     <button class="button-1 js_submit">Submit</button>
                 </div>
             </form:form>
+
+            <usp:chosenSelect/>
+
+            <!--<usp:chosenSelect key="arts_media" value="dbValue" option="value of option" title="test title"/>-->
+        </div>
+
+
         </body>
     </html>
 </jsp:root>
