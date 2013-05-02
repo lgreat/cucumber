@@ -10,6 +10,8 @@ GS.form.UspForm = function () {
         }
 
         var data = form.serializeArray();
+        data.push({name:"email", value:"asd"},{name:"firstName", value:"asd"},
+            {name:"password", value:"testing"},{name:"confirmPassword", value:"testing"},{name:"terms", value:"true"});
 
         jQuery.ajax({type:'POST', url:document.location, data:data}
         ).fail(function () {

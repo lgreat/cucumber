@@ -8,6 +8,9 @@ import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.web.community.registration.UserRegistrationCommand;
+import gs.web.community.registration.UserRegistrationOrLoginService;
+import gs.web.community.registration.UspRegistrationBehavior;
 import gs.web.school.EspSaveHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
@@ -15,6 +18,7 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +42,9 @@ public class UspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
+
+    @Autowired
+    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
 
     private static final Set<String> responseKeys = new HashSet<String>() {{
         add("arts_media");
@@ -83,10 +90,11 @@ public class UspFormController implements ReadWriteAnnotationController {
     @RequestMapping(value = "form.page", method = RequestMethod.POST)
     public void onSubmitForm (HttpServletRequest request,
                               HttpServletResponse response,
+                              UserRegistrationCommand userRegistrationCommand,
+                              BindingResult bindingResult,
                               @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                               @RequestParam(value=PARAM_STATE, required=false) State state) {
         response.setContentType("application/json");
-
         JSONObject responseObject = new JSONObject();
 
         try {
@@ -96,7 +104,7 @@ public class UspFormController implements ReadWriteAnnotationController {
                 return; // early exit
             }
 
-            User user = getValidUser(request, state, school);
+            User user = getValidUser(request,response,userRegistrationCommand,bindingResult);
             if (user == null) {
                 outputJsonError("noUser", response);
                 return; // early exit
@@ -155,13 +163,20 @@ public class UspFormController implements ReadWriteAnnotationController {
         responseStruct.addValue(response.getSafeValue());
     }*/
 
-    protected User getValidUser(HttpServletRequest request, State state, School school) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = null;
-        if (sessionContext != null) {
-            user = sessionContext.getUser();
+    protected User getValidUser(HttpServletRequest request,
+                                HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
+                                BindingResult bindingResult) {
+        try {
+            UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+            userRegistrationCommand.setHow("USP");
+            User user = _userRegistrationOrLoginService.registerOrLoginUser(userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+            if (!bindingResult.hasErrors()) {
+                return user;
+            }
+        } catch (Exception ex) {
+            //Do nothing. Ideally, this should not happen since we have client side validations.
         }
-        return user;
+        return null;
     }
 
     protected void outputJsonError(String msg, HttpServletResponse response) throws JSONException, IOException {

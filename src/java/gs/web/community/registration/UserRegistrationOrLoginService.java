@@ -191,7 +191,6 @@ public class UserRegistrationOrLoginService {
             requestIP = request.getRemoteAddr();
         }
         try {
-            System.out.println("-_tableDao---------------------"+_tableDao);
             if (_tableDao.getFirstRowByKey(SPREADSHEET_ID_FIELD, requestIP) != null) {
                 _log.warn("Request from blocked IP Address: " + requestIP);
                 return true;
