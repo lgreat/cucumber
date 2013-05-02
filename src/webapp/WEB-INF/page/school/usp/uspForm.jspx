@@ -5,6 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:usp="urn:jsptagdir:/WEB-INF/tags/school/usp"
+          xmlns:modal="urn:jsptagdir:/WEB-INF/tags/school/usp/modal"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:form="http://www.springframework.org/tags/form"
@@ -52,7 +53,8 @@
             </div>
         </div>
 
-
+        <modal:registration/>
+        <div id="js-modalUspRegistration-launch">Test Registration Modal</div>
         </body>
     </html>
 </jsp:root>

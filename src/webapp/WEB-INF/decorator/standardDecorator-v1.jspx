@@ -109,7 +109,6 @@
     <compare:compareSchoolsLimitReachedHover/>
     <communityHover:espAccountVerified/>
     <communityHover:schoolEspThankYou/>
-    <!--<communityHover:reviewLandingPageInformational/>-->
 
     <![CDATA[
     <!--[if IE 7]>
