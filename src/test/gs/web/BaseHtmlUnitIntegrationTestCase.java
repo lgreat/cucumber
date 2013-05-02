@@ -16,10 +16,12 @@ import java.util.regex.Matcher;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.experimental.categories.Category;
 
 /**
  * @author thuss
  */
+@Category(IntegrationTest.class)
 public class BaseHtmlUnitIntegrationTestCase extends TestCase implements IntegrationTestCase {
     protected final Log _log = LogFactory.getLog(getClass());
     protected WebClient _webClient = null;

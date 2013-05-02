@@ -18,12 +18,15 @@ import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.SlowTest;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.RedirectView301;
 import static org.easymock.classextension.EasyMock.*;
+
+import org.junit.experimental.categories.Category;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -35,6 +38,7 @@ import java.util.*;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
+@Category(SlowTest.class)
 public class SchoolsControllerTest extends BaseControllerTestCase {
 
     private SchoolsController _controller;

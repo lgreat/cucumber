@@ -3,8 +3,11 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.ListUtils;
+import gs.web.IntegrationTest;
+import gs.web.SlowTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,6 +24,7 @@ import static org.easymock.EasyMock.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = {"classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml", "classpath:gs/data/applicationContext-data.xml", "classpath:applicationContext.xml", "classpath:annotated-tests.xml", "classpath:pages-servlet.xml"})
+@Category(SlowTest.class)
 public class PrintYourOwnChooserControllerTest {
 
     @Autowired

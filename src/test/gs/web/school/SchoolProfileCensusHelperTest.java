@@ -8,8 +8,10 @@ import gs.data.school.census.*;
 import gs.data.state.State;
 import gs.data.test.Subject;
 import gs.data.util.ListUtils;
+import gs.web.SlowTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,6 +26,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml", "classpath:gs/data/applicationContext-data.xml", "classpath:applicationContext.xml", "classpath:annotated-tests.xml"})
+@Category(SlowTest.class)
 public class SchoolProfileCensusHelperTest {
 
     @Autowired

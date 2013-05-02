@@ -2,12 +2,14 @@ package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.SlowTest;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.RedirectView301;
 import gs.data.util.google.GoogleSpreadsheetDao;
 import gs.data.util.table.ITableRow;
 import gs.data.state.State;
+import org.junit.experimental.categories.Category;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import static org.easymock.classextension.EasyMock.*;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 /**
  * @author thuss
  */
+@Category(SlowTest.class)
 public class TopSchoolsControllerTest extends BaseControllerTestCase {
 
     private TopSchoolsController _controller;

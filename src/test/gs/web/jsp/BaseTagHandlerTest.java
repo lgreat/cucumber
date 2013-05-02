@@ -1,6 +1,7 @@
 package gs.web.jsp;
 
 import gs.web.BaseTestCase;
+import gs.web.SlowTest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.MockSessionContext;
 import gs.data.state.State;
@@ -10,10 +11,12 @@ import javax.servlet.jsp.PageContext;
 
 import org.easymock.MockControl;
 import org.easymock.classextension.MockClassControl;
+import org.junit.experimental.categories.Category;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
+@Category(SlowTest.class)
 public class BaseTagHandlerTest extends BaseTestCase {
 
     private BaseTagHandlerTestCase _tag;
