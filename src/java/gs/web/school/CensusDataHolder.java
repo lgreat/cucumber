@@ -74,7 +74,9 @@ public class CensusDataHolder {
         if (!isSchoolDataDoneLoading()) {
             if (_dataSetsForSchoolData != null && !_dataSetsForSchoolData.isEmpty()) {
                 _censusDataSchoolValueDao.addInSchoolCensusValues(_school.getDatabaseState(), _dataSetsForSchoolData.values(), ListUtils.newArrayList(_school));
-                CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());
+                // CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());  GS-13550 - replaced with below
+                CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData);          // GS-13550 new method
+                CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_allCensusDataSets);          // GS-13550 new method
                 CensusDataHelper.postProcessEthnicityData(_allCensusDataSets);
                 CensusDataHelper.postProcessEthnicityData(_dataSetsForSchoolData);
             }
