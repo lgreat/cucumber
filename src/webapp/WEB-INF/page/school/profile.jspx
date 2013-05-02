@@ -456,7 +456,7 @@
         <school:profileNearby nearbySchools="${nearbySchools}" />
 
 
-        <promo:zillow formattedUrl="san-francisco-ca" regionId="20330" />
+        <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
         <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0" style="ND" size="300x137" defaultCity="${school.physicalAddress.city}" defaultState="${school.physicalAddress.state}"/>
 
         <ad:adTag position="Community_Ad_300x50"/>

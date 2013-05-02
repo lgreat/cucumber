@@ -15,6 +15,7 @@ import gs.data.search.GsSolrSearcher;
 import gs.data.search.fields.CmsFeatureFields;
 import gs.data.search.fields.CommonFields;
 import gs.data.test.*;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.search.CmsRelatedFeatureSearchService;
@@ -119,6 +120,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     @Autowired
     private GsSolrSearcher _gsSolrSearcher;
 
+    @Autowired
+    private ZillowRegionDao _zillowDao;
 
     public Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -1093,6 +1096,11 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return rval;
     }
 
+
+    public Integer  getRegionIdForZillow(final String city , final String state ){
+          return   _zillowDao.findRegionId(city,state)  ;
+    }
+
     // ============== The following setters are just for unit testing ===================
     public void setEspResponseDao( IEspResponseDao espResponseDao ) {
         _espResponseDao = espResponseDao;
@@ -1140,6 +1148,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
         _gsSolrSearcher = gsSolrSearcher;
+    }
+
+    public void setzillowDao(ZillowRegionDao zillowDao) {
+        this._zillowDao = zillowDao;
     }
 }
 
