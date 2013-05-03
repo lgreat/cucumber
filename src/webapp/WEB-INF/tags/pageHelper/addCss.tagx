@@ -49,7 +49,7 @@
             <gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="districtboundary" value="/res/css/38_special/district_boundary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="themeroller" value="/res/css/97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="themeroller" value="/res/css/11_modal/jquery-ui-1.10.2.custom.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="timepicker" value="/res/css/97_jQueryUI/timepicker/jquery.ptTimeSelect.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>

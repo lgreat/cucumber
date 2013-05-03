@@ -55,13 +55,13 @@ GSType.hover.HoverDialog = function(id,width) {
             autoOpen: false,
             resizable: false,
             width: this.width,
+            closeText: 'close',
             open: function(event, ui) {
                 window.setTimeout(function() {
                     jQuery(document).unbind('mousedown.dialog-overlay')
                                     .unbind('mouseup.dialog-overlay');
                 }, 100);
-            },
-            zIndex: 15000
+            }
         });
         thisHover.find('.' + this.hoverId + '_showHover').click(this.show.gs_bind(this));
         thisHover.find('.' + this.hoverId + '_hideHover').click(this.hide.gs_bind(this));
