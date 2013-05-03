@@ -195,10 +195,8 @@
             <c:set var="defaultCity" value="${city.name}"/>
             <c:set var="defaultState" value="${city.state}"/>
         </c:if>
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                                   showAdPct="0" style="2012" defaultCity="${defaultCity}" defaultState="${defaultState}"/>
-
-    </div>
+        <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
+  </div>
 
 
     <c:set var="omnitureLocale"><c:choose>

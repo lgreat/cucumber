@@ -26,6 +26,7 @@ import gs.data.search.fields.SolrField;
 import gs.data.search.filters.SchoolFilters;
 import gs.data.state.State;
 import gs.data.util.CommunityUtil;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.community.LocalBoardHelper;
@@ -73,6 +74,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     private SchoolSearchCommonHelper commonSearchHelper;
     @Autowired
     private GsSolrSearcher _gsSolrSearcher;
+
+    @Autowired
+    private ZillowRegionDao _zillowDao;
 
     private String _noResultsViewName;
     private String _noResultsAjaxViewName;
@@ -143,11 +147,18 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
 
+
+
         Map<String,Object> model = new HashMap<String,Object>();
+
+
         model.put("schoolSearchCommand", schoolSearchCommand);
         model.put("basePhotoPath", CommunityUtil.getMediaPrefix());
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
+
+
+
 
         // add in MSL schools, so results view knows whether each school is in user's MSL
         if (user != null) {
@@ -155,6 +166,27 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+
+        if (schoolSearchCommand.getCity()!=null && schoolSearchCommand.getState()!=null   )
+        {
+
+
+        }
+
+         if (schoolSearchCommand.getCity()!=null && schoolSearchCommand.getState()!=null   )
+          {
+            final Integer zillowRegionId=_zillowDao.findRegionId(schoolSearchCommand.getCity(), schoolSearchCommand.getState());
+            final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(schoolSearchCommand.getCity(), " ", "-") + "-" + schoolSearchCommand.getState()) ;
+            model.put("formattedUrl",formattedURLForZillowIntegration)  ;
+            model.put("regionID",zillowRegionId)  ;
+         } else if (fields.getCityName() !=null && fields.getState()!=null )
+         {
+             final Integer zillowRegionId=_zillowDao.findRegionId(fields.getCityName(), fields.getState().getAbbreviation());
+             final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(fields.getCityName(), " ", "-") + "-" + fields.getState().getAbbreviation()) ;
+             model.put("formattedUrl",formattedURLForZillowIntegration)  ;
+             model.put("regionID",zillowRegionId)  ;
+         }
+
 
         // GS-13174 : was decided to use the lat lon returned by google maps instead of using the values in us_geo.bp_census
         /*if (schoolSearchCommand.isNearbySearchByLocation()) {
