@@ -15,6 +15,7 @@ import gs.data.state.State;
 import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -26,6 +27,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -41,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @author sarora@greatschools.org -Shomi Arora
  * @author droy@greatschools.org
  * @author npatury@greatschools.org
  */
@@ -58,6 +61,9 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
     private IDistrictStateLevelBoilerplateDao _districtStateLevelBoilerplateDao;
     private IDistrictBoilerplateDao _districtBoilerplateDao;
+
+    @Autowired
+    private ZillowRegionDao _zillowDao;
 
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
@@ -200,6 +206,12 @@ public class DistrictHomeController extends AbstractController  implements IDire
         pageHelper.addAdKeyword("district_id", district.getId().toString());
 
         _stateSpecificFooterHelper.displayPopularCitiesForState(state, model);
+
+
+        final Integer zillowRegionId=_zillowDao.findRegionId(city.getName(), state.getAbbreviation());
+        final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(city.getName(), " ", "-") + "-" + state.getAbbreviation() ) ;
+        model.put("formattedUrl",formattedURLForZillowIntegration)  ;
+        model.put("regionID",zillowRegionId)  ;
 
         return new ModelAndView(getViewName(), model);
     }
