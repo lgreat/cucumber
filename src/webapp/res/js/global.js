@@ -513,3 +513,58 @@ GS.form.handleInputsWithGhostTextAsValue = function(arrayOfObjects, containerSel
     }
     return arrayOfObjects;
 };
+
+
+/************************************************************************************************************
+ *
+ *  Added for browser feature detection.  This will allow us to support different solutions for different browser / os systems
+ *
+ */
+
+conditionizr({
+    debug      : false,
+    ieLessThan : { active: true, version: '9', scripts: false, styles: false, classes: true, customScript: false},
+    chrome     : { scripts: false, styles: false, classes: true, customScript: false },
+    safari     : { scripts: false, styles: false, classes: true, customScript: false },
+    opera      : { scripts: false, styles: false, classes: true, customScript: false },
+    firefox    : { scripts: false, styles: false, classes: true, customScript: false },
+    ie10       : { scripts: false, styles: false, classes: true, customScript: false },
+    ie9        : { scripts: false, styles: false, classes: true, customScript: false },
+    ie8        : { scripts: false, styles: false, classes: true, customScript: false },
+    ie7        : { scripts: false, styles: false, classes: true, customScript: false },
+    ie6        : { scripts: false, styles: false, classes: true, customScript: false },
+    retina     : { scripts: false, styles: false, classes: true, customScript: false },
+    touch      : { scripts: false, styles: false, classes: true, customScript: false },
+    mac        : true,
+    win        : true,
+    x11        : true,
+    linux      : true
+});
+GS.util.isBrowserIE7 = function(){
+    return jQuery("html").hasClass("ie7");
+};
+GS.util.isBrowserIE8 = function(){
+    return jQuery("html").hasClass("ie7");
+};
+GS.util.isBrowserIELessThan9 = function(){
+    return jQuery("html").hasClass("lt-ie9");
+};
+GS.util.isBrowserChrome = function(){
+    return jQuery("html").hasClass("chrome");
+};
+GS.util.isBrowserFirefox = function(){
+    return jQuery("html").hasClass("firefox");
+};
+GS.util.isBrowserSafari = function(){
+    return jQuery("html").hasClass("safari");
+};
+GS.util.isBrowserOpera = function(){
+    return jQuery("html").hasClass("opera");
+};
+GS.util.isBrowserTouch = function(){
+    return jQuery("html").hasClass("touch");
+};
+GS.util.isBrowserRetina = function(){
+    return jQuery("html").hasClass("retina");
+};
+

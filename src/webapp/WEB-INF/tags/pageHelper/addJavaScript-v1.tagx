@@ -20,6 +20,7 @@
 
     <c:choose>
         <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or fn:startsWith(serverName, '172.18.1.') or serverName eq '127.0.0.1' or fn:contains(serverName,'samson') or fn:contains(serverName,'rcox.office') or fn:contains(serverName,'mitchtest')) and empty compressedScripts}">
+            <gsml:url var="conditionizrjs" value="/res/js/lib/conditionizr.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="trackitjs" value="/res/js/trackIt.js?v=$RELEASE_NUMBER" allowCdn="true"/>
 
@@ -43,6 +44,7 @@
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
 
+            <![CDATA[<script type="text/javascript" src="${conditionizrjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryjs_migrate}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${tabjs}"></script>]]>
