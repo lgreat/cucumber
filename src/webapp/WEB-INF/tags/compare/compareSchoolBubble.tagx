@@ -81,13 +81,14 @@
                     <c:set var="mslInnerDivClasses" value="brdlft-solid"/>
                 </c:otherwise>
             </c:choose>
-
-            <c:if test="${requestScope.context.showRealtorDotComPromos}">
+            <c:set var="city" value="${fn:substringBefore(school.cityStateZip,',')}" />
+             <c:if test="${requestScope.context.showRealtorDotComPromos}">
                 <div class="unit size4of13">
                     <div class="brdlft-solid brdrt-solid homesForSale">
                         <c:set var="customLinkValue"
                                value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-                        <a href="http://www.realtor.com/realestateandhomes-search/${school.school.physicalAddress.zip}?gate=gs&amp;amp;cid=PRT300014"
+
+                        <a href="http://www.zillow.com/${school.state}-${school.school.zipcode}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=schoolsearch&amp;amp;cbpartner=Great+Schools"
                            onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
                            rel="nofollow">Homes for sale</a>
                     </div>
