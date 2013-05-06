@@ -362,12 +362,13 @@
                                 <param>10_css3/rounded_corners.css</param>
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
+                                <param>11_modal/jquery-ui-1.10.2.custom.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>38_special/cms_content.css</param>
                                 <param>38_special/community_hover.css</param>
                                 <param>38_special/district_boundary.css</param>
-                                <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
+                                <!--<param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>-->
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>gs2010_styles.css</param>
@@ -454,7 +455,8 @@
                                 <param>38_special/cms_content.css</param>
                                 <param>38_special/community_hover.css</param>
                                 <param>38_special/district_boundary.css</param>
-                                <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
+                                <param>11_modal/jquery-ui-1.10.2.custom.css</param>
+                                <!--<param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>-->
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>gs2010_styles.css</param>

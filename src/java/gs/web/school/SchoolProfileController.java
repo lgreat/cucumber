@@ -15,6 +15,7 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,6 +42,14 @@ public class SchoolProfileController extends AbstractSchoolController implements
         School school = _requestAttributeHelper.getSchool(request);
         school.getMetadataValue("gs_rating"); // force lazy initialization
         model.put("school", school);
+
+        final Integer zillowRegionId=_schoolProfileDataHelper.getRegionIdForZillow(school.getCity(),school.getDatabaseState().getAbbreviation());
+        if (school.getCity() !=null && school.getDatabaseState()!=null && zillowRegionId!=null  )
+        {
+             final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(school.getCity(), " ", "-") + "-" + school.getDatabaseState()) ;
+             model.put("formattedUrl",formattedURLForZillowIntegration)  ;
+             model.put("regionID",zillowRegionId)  ;
+        }
 
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         User user = sc.getUser();
