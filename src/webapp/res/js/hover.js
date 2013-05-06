@@ -55,7 +55,7 @@ GSType.hover.HoverDialog = function(id,width) {
             autoOpen: false,
             resizable: false,
             width: this.width,
-            closeText: 'close',
+//            closeText: 'close',
             open: function(event, ui) {
                 window.setTimeout(function() {
                     jQuery(document).unbind('mousedown.dialog-overlay')
