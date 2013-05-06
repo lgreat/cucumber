@@ -3,30 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
-    <script type="text/javascript">
 
-        function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, uncheckedValue){
-            container = $("."+containerLayer);
-            checkOn  = container.find(".js-checkBoxSpriteOn");
-            checkOff = container.find(".js-checkBoxSpriteOff");
-            checkBoxField =  $("#"+fieldToSet);
-            checkOff.on("click", function(){
-                $(this).hide();
-                $(this).siblings().show();
-                checkBoxField.val(checkedValue);
-            });
-            checkOn.on("click", function(){
-                $(this).hide();
-                $(this).siblings().show();
-                checkBoxField.val(uncheckedValue);
-            });
-        }
-        $(document).ready(function () {
-            $("#js-modalUspRegistration-launch").on("click", function(){GSType.hover.modalUspRegistration.show();});
-            uspSpriteCheckBoxes("js-needText", "form_needText", 1, 0);
-
-        });
-    </script>
     <div id="js-modalUspRegistration" class="dn">
         <div class="mod modal_1 width_11" id="js-modalUspRegistration">
             <div class="outer">

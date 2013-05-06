@@ -19,7 +19,7 @@
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <gsml:javascript src="/res/js/chosen/chosen.jquery.min.js" />
-        <pageHelper:externalJavascript file="/res/js/school/uspForm.js"/>
+        <gsml:javascript  src="/res/js/school/uspForm.js"/>
         <link rel="stylesheet" href="/res/js/chosen/chosen.css" />
         <title>USP Form</title>
 

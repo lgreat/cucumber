@@ -28,10 +28,28 @@ GS.form.UspForm = function () {
 };
 
 GS.form.uspForm = new GS.form.UspForm();
+function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, uncheckedValue){
+    container = $("."+containerLayer);
+    checkOn  = container.find(".js-checkBoxSpriteOn");
+    checkOff = container.find(".js-checkBoxSpriteOff");
+    checkBoxField =  $("#"+fieldToSet);
+    checkOff.on("click", function(){
+        $(this).hide();
+        $(this).siblings().show();
+        checkBoxField.val(checkedValue);
+    });
+    checkOn.on("click", function(){
+        $(this).hide();
+        $(this).siblings().show();
+        checkBoxField.val(uncheckedValue);
+    });
+}
 
 jQuery(function () {
-    var form = jQuery('#js_uspForm');
+    GSType.hover.modalUspRegistration.show();
+    uspSpriteCheckBoxes("js-needText", "form_needText", 1, 0);
 
+    var form = jQuery('#js_uspForm');
     form.on('click', '.js_submit', function () {
         GS.form.uspForm.saveForm(form);
         return false;
