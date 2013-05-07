@@ -4,12 +4,13 @@ GS.form.UspForm = function () {
 
     this.saveForm = function (form) {
         var masterDeferred = new jQuery.Deferred();
-        if (!GS.form.uspForm.doValidations()) {
+
+        var data = form.serializeArray();
+        if (!GS.form.uspForm.doValidations(data)) {
             alert('show error');
             return masterDeferred.reject().promise();
         }
 
-        var data = form.serializeArray();
         // TODO: pass correct values
         data.push({name:"email", value:"username+test2@greatschools.org"},{name:"firstName", value:"Ramprasad"},
             {name:"password", value:"testing"},{name:"confirmPassword", value:"testing"},{name:"terms", value:"true"});
@@ -22,7 +23,10 @@ GS.form.UspForm = function () {
             });
     };
 
-    this.doValidations = function () {
+    this.doValidations = function (data) {
+        if(data.length === 0) {
+            return false;
+        }
         return true;
     };
 
