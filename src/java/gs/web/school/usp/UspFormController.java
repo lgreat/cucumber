@@ -168,21 +168,6 @@ public class UspFormController implements ReadWriteAnnotationController {
                 return; // early exit
             }
 
-            // TODO: remove set test email
-            String email = userRegistrationCommand.getEmail();
-            if(email != null) {
-                User user = _userRegistrationOrLoginService.getUserDao().findUserFromEmailIfExists(email);
-                while(user != null) {
-                    String replaceStr = email.substring(email.indexOf("+test") + 5);
-                    replaceStr = replaceStr.substring(0, replaceStr.indexOf("@"));
-
-                    Integer num = Integer.parseInt(replaceStr);
-                    email = email.replaceAll("test" + num, "test" + (++num));
-                    user = _userRegistrationOrLoginService.getUserDao().findUserFromEmailIfExists(email);
-                }
-                userRegistrationCommand.setEmail(email);
-            }
-
             User user = getValidUser(request,response,userRegistrationCommand,bindingResult);
             if (user == null) {
                 outputJsonError("noUser", response);

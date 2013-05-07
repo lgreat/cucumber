@@ -114,33 +114,67 @@ GS.form.UspForm = function () {
 
     this.hideErrors = function (errorClass, elem) {
         GS.form.uspForm.handleValidationResponse(errorClass, '', elem);
-    }
+    };
 
-    this.saveForm = function (form, firstName, password, email) {
-        var masterDeferred = new jQuery.Deferred();
-
-        var data = form.serializeArray();
+    this.validateUspDataAndShowHover = function (uspForm) {
+        var data = uspForm.serializeArray();
         if (!GS.form.uspForm.doValidations(data)) {
-            alert('show error');
-            return masterDeferred.reject().promise();
+            alert('Please fill in at-least 1 form field.');
+        } else {
+            GSType.hover.modalUspRegistration.show();
         }
+    };
 
-        var data = form.serializeArray();
+    this.saveFormAndLoginOrRegister = function (uspForm, uspRegistrationForm, uspRegistrationFirstNameField, uspRegistrationPasswordField, uspRegistrationEmailField) {
+        jQuery.when(
+            GS.form.uspForm.validateUserState(uspRegistrationEmailField),
+            GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
+            GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField)
+        ).done(
+            function () {
+                var firstName = jQuery.trim(uspRegistrationFirstNameField.val());
+                var password = uspRegistrationPasswordField.val();
+                var email = jQuery.trim(uspRegistrationEmailField.val());
+                jQuery.when(
+                    GS.form.uspForm.saveForm(uspForm, firstName, password, email)
+                ).done(function () {
+                        GSType.hover.modalUspRegistration.hide();
+                    })
+                    .fail(function () {
+                        GSType.hover.modalUspRegistration.hide();
+                        alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
+                    });
+            }
+        ).fail(
+            function () {
+                // Error messages are already displayed as part of ajax validations.
+            }
+        )
+    };
+
+    this.saveForm = function (uspForm, firstName, password, email) {
+        var dfd = jQuery.Deferred();
+
+        var data = uspForm.serializeArray();
         data.push({name:"email", value:email}, {name:"firstName", value:firstName},
             {name:"password", value:password}, {name:"terms", value:"true"});
 
-        jQuery.ajax({type:'POST', url:document.location, data:data}
+        jQuery.ajax({type:'POST',
+                async:true,
+                url:document.location,
+                data:data}
         ).fail(function () {
-                masterDeferred.reject();
+                dfd.reject();
                 GSType.hover.modalUspRegistration.hide();
                 alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
             }).done(function () {
-                GSType.hover.modalUspRegistration.hide();
+                dfd.resolve();
             });
+        return dfd.promise();
     };
 
     this.doValidations = function (data) {
-        if(data.length === 0) {
+        if (data.length === 0) {
             return false;
         }
         return true;
@@ -169,6 +203,14 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
 jQuery(function () {
     uspSpriteCheckBoxes("js-needText", "form_needText", 1, 0);
 
+    var uspForm = jQuery('#js_uspForm');
+    uspForm.on('click', '.js_submit', function () {
+        GS.form.uspForm.validateUspDataAndShowHover(uspForm);
+        return false;
+    });
+
+    //The new way of doing modals puts duplicate Ids on the page.This is a way to deal with it is to
+    // bind handlers to visible Ids.
     jQuery('body').on('blur', '.js_firstName:visible', function (event) {
         GS.form.uspForm.validateFirstName(jQuery(event.target));
     });
@@ -187,30 +229,7 @@ jQuery(function () {
         var uspRegistrationFirstNameField = uspRegistrationForm.find('.js_firstName');
         var uspRegistrationPasswordField = uspRegistrationForm.find('.js_password');
         var uspRegistrationEmailField = uspRegistrationForm.find('.js_email');
-
-        jQuery.when(
-            GS.form.uspForm.validateUserState(uspRegistrationEmailField),
-            GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
-            GS.form.uspForm.validateFirstName(uspRegistrationPasswordField)
-        ).done(
-            function () {
-                var firstName = jQuery.trim(uspRegistrationFirstNameField.val());
-                var password = uspRegistrationPasswordField.val();
-                var email = jQuery.trim(uspRegistrationEmailField.val());
-
-                GS.form.uspForm.saveForm(uspForm, firstName, password, email);
-            }
-        ).fail(
-            function () {
-                // Error messages are already displayed as part of ajax validations.
-            }
-        )
-    });
-
-    var uspForm = jQuery('#js_uspForm');
-    uspForm.on('click', '.js_submit', function () {
-        GSType.hover.modalUspRegistration.show();
-        return false;
+        GS.form.uspForm.saveFormAndLoginOrRegister(uspForm, uspRegistrationForm, uspRegistrationFirstNameField, uspRegistrationPasswordField, uspRegistrationEmailField);
     });
 
 
