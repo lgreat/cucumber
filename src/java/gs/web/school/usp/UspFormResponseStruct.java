@@ -139,6 +139,14 @@ public class UspFormResponseStruct {
                 this._responseValue = _responseValue;
             }
 
+            public boolean isSelected() {
+                return _isSelected;
+            }
+
+            public void setIsSelected(boolean _isSelected) {
+                this._isSelected = _isSelected;
+            }
+
             public UspResponseValueStruct (String responseValue) {
                 _responseValue = responseValue;
                 _isSelected = false;

@@ -1,8 +1,11 @@
 package gs.web.school.usp;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import gs.data.community.User;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
+import gs.data.school.EspResponseSource;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
@@ -34,7 +37,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/school/usp/")
+@RequestMapping("/school/")
 public class UspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "/school/usp/uspForm";
     public static final String PARAM_STATE = "state";
@@ -53,8 +56,8 @@ public class UspFormController implements ReadWriteAnnotationController {
     @Autowired
     private ISchoolDao _schoolDao;
 
-    @RequestMapping(value = "form.page", method = RequestMethod.GET)
-    public String showForm (ModelMap modelMap,
+    @RequestMapping(value = "/usp/form.page", method = RequestMethod.GET)
+    public String showUspUserForm (ModelMap modelMap,
                             HttpServletRequest request,
                             HttpServletResponse response,
                             @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
@@ -64,6 +67,32 @@ public class UspFormController implements ReadWriteAnnotationController {
             return "";
         }
 
+        formBuilderHelper(modelMap, request, response, school, state);
+        return FORM_VIEW;
+    }
+
+    @RequestMapping(value = "/usp/form.page", method = RequestMethod.POST)
+    public void onUspUserSubmitForm (HttpServletRequest request,
+                              HttpServletResponse response,
+                              UserRegistrationCommand userRegistrationCommand,
+                              BindingResult bindingResult,
+                              @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                              @RequestParam(value=PARAM_STATE, required=false) State state) {
+        formSubmitHelper(request, response, userRegistrationCommand, bindingResult, schoolId, state);
+    }
+
+    public void formBuilderHelper (ModelMap modelMap,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   School school,
+                                   State state) {
+
+        modelMap.put("school", school);
+        List<Object[]> keyValuePairs = _espResponseDao.getAllUniqueResponsesForSchoolBySource(school, state, EspResponseSource.usp);
+        Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
+        for(Object[] keyValue : keyValuePairs) {
+            responseKeyValues.put((String)keyValue[0], (String) keyValue[1]);
+        }
         List<UspFormResponseStruct> uspFormResponses = new LinkedList<UspFormResponseStruct>();
 
         /**
@@ -84,6 +113,8 @@ public class UspFormController implements ReadWriteAnnotationController {
                 UspFormResponseStruct.SectionResponse sectionResponse = uspFormResponse.new SectionResponse(responseKey);
                 sectionResponse.setTitle(UspHelper.RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
 
+                Collection<String> savedResponses = responseKeyValues.get(responseKey);
+
                 List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> uspResponseValues = sectionResponse.getResponses();
 
                 Iterator<String> responseValueIter = responseValues.iterator();
@@ -92,6 +123,11 @@ public class UspFormController implements ReadWriteAnnotationController {
                     UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
                             sectionResponse.new UspResponseValueStruct(responseValue);
                     uspResponseValue.setLabel(UspHelper.RESPONSE_VALUE_LABEL.get(responseValue));
+
+                    if(savedResponses.contains(responseValue)) {
+                        uspResponseValue.setIsSelected(true);
+                    }
+
                     uspResponseValues.add(uspResponseValue);
                 }
 
@@ -104,17 +140,14 @@ public class UspFormController implements ReadWriteAnnotationController {
         }
 
         modelMap.put("uspFormResponses", uspFormResponses);
-
-        return FORM_VIEW;
     }
 
-    @RequestMapping(value = "form.page", method = RequestMethod.POST)
-    public void onSubmitForm (HttpServletRequest request,
-                              HttpServletResponse response,
-                              UserRegistrationCommand userRegistrationCommand,
-                              BindingResult bindingResult,
-                              @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
-                              @RequestParam(value=PARAM_STATE, required=false) State state) {
+    public void formSubmitHelper(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 UserRegistrationCommand userRegistrationCommand,
+                                 BindingResult bindingResult,
+                                 Integer schoolId,
+                                 State state) {
         response.setContentType("application/json");
         JSONObject responseObject = new JSONObject();
 
@@ -164,7 +197,6 @@ public class UspFormController implements ReadWriteAnnotationController {
         }
     }
 
-
     /**
      * Parses the state and schoolId out of the request and fetches the school. Returns null if
      * it can't parse parameters, can't find school, or the school is inactive
@@ -191,15 +223,6 @@ public class UspFormController implements ReadWriteAnnotationController {
 
         return school;
     }
-
-    /*protected void putInResponseMap(Map<String, EspFormResponseStruct> responseMap,EspResponse response){
-        EspFormResponseStruct responseStruct = responseMap.get(response.getKey());
-        if (responseStruct == null) {
-            responseStruct = new EspFormResponseStruct();
-            responseMap.put(response.getKey(), responseStruct);
-        }
-        responseStruct.addValue(response.getSafeValue());
-    }*/
 
     protected User getValidUser(HttpServletRequest request,
                                 HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
