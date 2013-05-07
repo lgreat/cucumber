@@ -2,6 +2,7 @@ package gs.web.school.usp;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
@@ -10,11 +11,15 @@ import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.util.email.EmailUtils;
 import gs.web.community.registration.UserRegistrationCommand;
 import gs.web.community.registration.UserRegistrationOrLoginService;
 import gs.web.community.registration.UspRegistrationBehavior;
 import gs.web.school.EspSaveHelper;
+import gs.web.school.EspUserStateStruct;
+import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +49,8 @@ public class UspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
 
+    HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
+
     @Autowired
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
 
@@ -55,13 +62,16 @@ public class UspFormController implements ReadWriteAnnotationController {
     private EspSaveHelper _espSaveHelper;
     @Autowired
     private ISchoolDao _schoolDao;
+    @Autowired
+    private IUserDao _userDao;
+
 
     @RequestMapping(value = "/usp/form.page", method = RequestMethod.GET)
     public String showUspUserForm (ModelMap modelMap,
-                            HttpServletRequest request,
-                            HttpServletResponse response,
-                            @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
-                            @RequestParam(value=PARAM_STATE, required=false) State state) {
+                                   HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
         School school = getSchool(state, schoolId);
         if (school == null) {
             return "";
@@ -73,11 +83,11 @@ public class UspFormController implements ReadWriteAnnotationController {
 
     @RequestMapping(value = "/usp/form.page", method = RequestMethod.POST)
     public void onUspUserSubmitForm (HttpServletRequest request,
-                              HttpServletResponse response,
-                              UserRegistrationCommand userRegistrationCommand,
-                              BindingResult bindingResult,
-                              @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
-                              @RequestParam(value=PARAM_STATE, required=false) State state) {
+                                     HttpServletResponse response,
+                                     UserRegistrationCommand userRegistrationCommand,
+                                     BindingResult bindingResult,
+                                     @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                                     @RequestParam(value=PARAM_STATE, required=false) State state) {
         formSubmitHelper(request, response, userRegistrationCommand, bindingResult, schoolId, state);
     }
 
@@ -224,12 +234,49 @@ public class UspFormController implements ReadWriteAnnotationController {
         return school;
     }
 
+    @RequestMapping(value = "checkUserState.page", method = RequestMethod.GET)
+    protected void validateEmail(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 @RequestParam(value = "email", required = true) String email) {
+        response.setContentType("application/json");
+
+        EspUserStateStruct userState = new EspUserStateStruct();
+
+        boolean isValid = EmailUtils.isValidEmail(email);
+        if (isValid) {
+            userState.setEmailValid(true);
+            User user = _userDao.findUserFromEmailIfExists(email);
+            if (user != null) {
+                userState.setNewUser(false);
+                userState.setUserEmailValidated(user.isEmailValidated());
+            } else {
+                userState.setNewUser(true);
+            }
+        } else {
+            userState.setEmailValid(false);
+        }
+        try {
+            Map data = userState.getUserState();
+            JSONObject responseObject = new JSONObject(data);
+            _cacheInterceptor.setNoCacheHeaders(response);
+            response.setContentType("application/json");
+            response.getWriter().print(responseObject.toString());
+            response.getWriter().flush();
+        } catch (Exception exp) {
+            _logger.error("Error " + exp, exp);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     protected User getValidUser(HttpServletRequest request,
                                 HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
                                 BindingResult bindingResult) {
         try {
             UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ABOUT_US);
+            registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
             userRegistrationCommand.setHow("USP");
+            userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
             User user = _userRegistrationOrLoginService.registerOrLoginUser(userRegistrationCommand, registrationBehavior, bindingResult, request, response);
             if (!bindingResult.hasErrors()) {
                 return user;

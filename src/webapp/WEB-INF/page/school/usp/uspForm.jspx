@@ -52,7 +52,7 @@
             </div>
 
             <modal:registration/>
-            <div id="js-modalUspRegistration-launch">Test Registration Modal</div>
+
         </div>
         </body>
     </html>

@@ -11,21 +11,38 @@
                 <div class="inner">
                     <h2 class="tac bottom pbm">Welcome To GreatSchools!</h2>
                     <p class="tac small">Please create an account (it's quick!) to submit your answers.</p>
-                    <form style="background-color: white; border: solid thin #999999" class="pal rnd4">
-                        <input type="hidden" name="form_needText" />
+                    <form style="background-color: white; border: solid thin #999999" class="pal rnd4 js_uspRegistrationForm">
                         <label class="small">First Name</label><br />
-                        <input name="first_name" size="45" type="text" class="mbm"  /><br />
+                        <input name="first_name" size="45" type="text" class="mbm js_firstName" /><br />
+                        <div class="invalid error js_firstNameErr" style="display: none;">
+                            <div class="media">
+                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                <div class="bd"><!-- error msg goes here --></div>
+                            </div>
+                        </div>
                         <label class="small">Email Address</label><br />
-                        <input name="email" size="45" type="text" class="mbm"  /><br />
+                        <input name="email" size="45" type="text" class="mbm js_email"/><br />
+                        <div class="invalid error js_emailErr" style="display: none;">
+                            <div class="media">
+                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                <div class="bd"><!-- error msg goes here --></div>
+                            </div>
+                        </div>
                         <label class="small">Password</label><br />
-                        <input name="password" size="45" type="password" class="mbl" /><br />
+                        <input name="password" size="45" type="password" class="mbl js_password"/><br />
+                        <div class="invalid error js_passwordErr" style="display: none;">
+                            <div class="media">
+                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                <div class="bd"><!-- error msg goes here --></div>
+                            </div>
+                        </div>
                         <div class="js-needText clearfix pbm" >
                             <div class="fl prm js-checkBoxSpriteOff"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
                             <div class="fl prm js-checkBoxSpriteOn dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
                             <div class="fl small bottom">Need Text</div>
                         </div>
                         <div class="clearfix">
-                            <button class="fl but but-rg but-1">Join Now</button><div class="ptm pll  fl smaller bottom">Already a member? <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Sign in</a></div>
+                            <div class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</div><div class="ptm pll  fl smaller bottom">Already a member? <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Sign in</a></div>
                         </div>
                     </form>
                     <div class="ptm">

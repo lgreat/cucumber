@@ -88,7 +88,10 @@ public class UserRegistrationOrLoginService {
                 }
 
                 ThreadLocalTransactionManager.commitOrRollback();
-                PageHelper.setMemberAuthorized(request, response, user);
+
+                if (registrationBehavior.sendVerificationEmail()) {
+                    sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                }
             }
 
             return user;
@@ -150,7 +153,7 @@ public class UserRegistrationOrLoginService {
         //TODO is this the only check required?
         if (StringUtils.isEmpty(userRegistrationCommand.getScreenName())) {
             profile.setScreenName("user" + user.getId());
-        }else{
+        } else {
             profile.setScreenName(userRegistrationCommand.getScreenName());
         }
 
