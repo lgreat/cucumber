@@ -567,4 +567,6 @@ GS.util.isBrowserTouch = function(){
 GS.util.isBrowserRetina = function(){
     return jQuery("html").hasClass("retina");
 };
-
+GS.util.isWebkit = function(){
+    return (jQuery("html").hasClass("safari") || jQuery("html").hasClass("chrome"));
+};

@@ -1832,7 +1832,9 @@ jQuery(function() {
 
     jQuery('#signInHover_launchJoin').click(GSType.hover.signInHover.showJoin);
     jQuery('#signInHover_launchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
-    jQuery('#js_espLaunchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
+    jQuery('#js_espLaunchForgotPassword').on("click", function(){
+        GSType.hover.forgotPassword.show();
+    });
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page");
 // TODO-10568
