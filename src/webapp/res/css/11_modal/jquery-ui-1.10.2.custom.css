@@ -80,13 +80,31 @@
 
 /* Overlays */
 .ui-widget-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-    overflow-y: hidden;
-    background-color: rgba(51, 51, 51, 0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(51, 51, 51, 0.5);
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.ui-widget-overlay {
+    /*top:0;*/
+    /*right:0;*/
+    /*bottom:0;*/
+    /*left:0;*/
+    /*background-color:#999999;*/
+    /*opacity: 0.5;*/
+    /*filter: alpha(opacity=50);*/
+    /*zoom: 1;*/
+    /*display: block;*/
+
+	/*position: fixed;*/
+	/*top: 0;*/
+	/*left: 0;*/
+	/*width: 100%;*/
+	/*height: 100%;*/
+    /*overflow-y: hidden;*/
+    /*background-color: rgba(51, 51, 51, 0.75);*/
 }
 .ui-resizable {
 	position: relative;
@@ -1220,14 +1238,14 @@
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat;
+	/*background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat;*/
 	opacity: .5;
 	filter: Alpha(Opacity=50);
 }
 .ui-widget-shadow {
 	margin: -5px 0 0 -5px;
 	padding: 5px;
-	background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x;
+	/*background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x;*/
 	opacity: .2;
 	filter: Alpha(Opacity=20);
 	border-radius: 5px;
