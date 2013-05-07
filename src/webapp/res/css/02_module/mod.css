@@ -23,7 +23,7 @@ General comments:
 
 /* ************** BLOCK STRUCTURES *************** */
 /* --------------------- mod --------------------- */
-.slStylesV1-0 .mod{margin:0;}
+/*.slStylesV1-0 .mod{margin:0;}*/
 .slStylesV1-0 .mod .outer{}
 .slStylesV1-0 .mod .inner{}
 .slStylesV1-0 .bd, .slStylesV1-0 .ft, .slStylesV1-0 .hd{min-height:0; zoom:1;}

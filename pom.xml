@@ -379,6 +379,7 @@
                             <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
+                                <param>lib/conditionizr.min.js</param>
                                 <param>jquery/jquery-1.9.1.min.js</param>
                                 <param>jquery/jquery-migrate-1.1.1-warnings.js</param>
                                 <param>jquery/jquery-ui-1.10.2.custom.full.old.decorator.min.js</param>
@@ -521,6 +522,7 @@
                             <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
+                                <param>lib/conditionizr.min.js</param>
                                 <param>jquery/jquery-1.9.1.min.js</param>
                                 <param>jquery/jquery-migrate-1.1.1-warnings.js</param>
                                 <param>global.js</param>
@@ -611,6 +613,7 @@
                             <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
+                                <param>lib/conditionizr.min.js</param>
                                 <param>jquery/jquery-1.9.1.min.js</param>
                                 <param>jquery/jquery-migrate-1.1.1-warnings.js</param>
                                 <!--<param>jquery/jquery-ui-1.8.18.custom.min.js</param>-->

@@ -11,6 +11,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
         xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
@@ -89,6 +90,7 @@
         <!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->
         <cobrand:framebuster/>
 
+
         <communityHover:subscriptionEmailValidated/>
         <communityHover:validateEmail/>
         <communityHover:validateEmailSchoolReview/>
@@ -138,6 +140,7 @@
             ${deferredContent}
         </div>
     </div>
+    <div id="fullPageOverlay"><!-- do not collapse --></div>
     ${requestScope.pageHelper.bottomJavaScript}
     <mobile:desktopSiteSwitchJS/>
     </body>

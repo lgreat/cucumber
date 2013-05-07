@@ -42,6 +42,7 @@
             <gsml:url var="roundedcorners" value="/res/css/10_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="lineargradients" value="/res/css/10_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="opacityshadow" value="/res/css/10_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <!--<gsml:url var="modal" value="/res/css/11_modal/modal.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
             <gsml:url var="ad" value="/res/css/12_advertising/ad.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="adIE7" value="/res/css/12_advertising/ad-IE7.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="adIE8" value="/res/css/12_advertising/ad-IE8.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -85,6 +86,7 @@
             <!-- 19 --> <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
             <!-- 20 --> <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
             <!-- 21 --> <![CDATA[<link rel="stylesheet" href="${tabs}" type="text/css" />]]>
+            <!-- 21 --> <![CDATA[<link rel="stylesheet" href="${modal}" type="text/css" />]]>
             <!-- 22 --> <![CDATA[<link rel="stylesheet" href="${ad}" type="text/css" />]]>
             <!-- 23 --> <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${adIE7}" type="text/css" /><![endif]-->]]>
             <!-- 24 --> <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${adIE8}" type="text/css" /><![endif]-->]]>

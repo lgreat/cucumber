@@ -1002,7 +1002,7 @@ new (function() {
         if (GS.espForm.currentPage == 8) {
             validations.push(GS.validation.validateCensuses(onSubmit, elem));
             // Temporarily lock ethnicity fields until we can fix certain display issues. See GS-13593
-            //validations.push(GS.validation.validateEthnicities(onSubmit, elem));
+            validations.push(GS.validation.validateEthnicities(onSubmit, elem));
             validations.push(GS.validation.validate12ThGraderFields());
         }
         // END PAGE 8

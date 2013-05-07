@@ -204,8 +204,7 @@
         </c:choose>
 
         <c:set var="rdcCity" value="${district.physicalAddress.city}, ${district.physicalAddress.state}"/>
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0" style="2011"/>
-
+        <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
         <jsp:include page="/promo/emailSignUp.module"/>
 
         <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">

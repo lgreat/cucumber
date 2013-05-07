@@ -171,9 +171,11 @@
                 <input type="hidden" name="page_8_touched" value="yes"/>
                 <c:if test="${not empty ethnicityBreakdowns}">
                     <div class="lal clearfix">
+                        <!--
                         <div class="alpha grid_23 omega">
                             <p class="alert">This field is not currently editable. We're sorry for any inconvenience.</p>
                         </div>
+                        -->
                         <div class="alpha grid_7">
                             <label>Your school's student ethnicity breakdown</label>
                             <p class="small">Please enter numerical values, e.g. 20.</p>
@@ -193,7 +195,7 @@
                             <!-- Temporarily lock ethnicity fields until we can fix certain display issues. See GS-13593 -->
                             <!-- NOTE: YOU MUST RE_ENABLE VALIDATION IN espForm.js (search for GS-13593) WHEN RESTORING THESE FIELDS !!!! -->
                             <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true"
-                                                         label="Data is unavailable" disabled="${stateLocked or true}"/>
+                                                         label="Data is unavailable" disabled="${stateLocked}"/>
                         </div>
                     </div>
                 </c:if>
