@@ -507,7 +507,7 @@
 	position: relative;
 	border: 0;
 	/*padding: .5em 1em;*/
-	background: none;
+	/*background: none;*/
 	overflow: auto;
 }
 .ui-dialog .ui-button-text{
@@ -858,7 +858,7 @@
 }
 .ui-widget-content {
 	border: 1px solid #dddddd;
-	background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;
+	/*background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;*/
 	color: #333333;
 }
 .ui-widget-content a {
