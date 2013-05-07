@@ -39,25 +39,16 @@
                 </div>
             </div>
         <div class="container_24 clearfix">
-            <form:form id="js_uspForm">
-                <div id="js_arts_media" class="lal clearfix">
-                    <div class="grid_5 omega">
-                        <usp:uspQuestionnaireTemplate key="arts_media" value="none" label="None" hide="${not isAdmin}"/>
-                        <usp:uspQuestionnaireTemplate key="arts_media" value="animation" label="Animation"/>
-                        <usp:uspQuestionnaireTemplate key="arts_media" value="graphics" label="Graphics"/>
-                        <usp:uspQuestionnaireTemplate key="arts_media" value="tech_design"
-                                                      label="Technical design and production"/>
-                        <usp:uspQuestionnaireTemplate key="arts_media" value="video" label="Video / Film production"
-                                                      nobr="${true}"/>
-                    </div>
-                </div>
-                <div class="clearfix">
-                    <button class="button-1 js_submit">Submit</button>
-                </div>
-            </form:form>
-
             <div class="mvl">
-                <usp:questionnaireBox/>
+                <form:form id="js_uspForm">
+                    <c:forEach items="${uspFormResponses}" var="formResponse">
+                        <usp:questionnaireBox formResponse="${formResponse}"/>
+                    </c:forEach>
+
+                    <div class="clearfix">
+                        <button class="button-1 js_submit">Submit</button>
+                    </div>
+                </form:form>
             </div>
 
             <modal:registration/>

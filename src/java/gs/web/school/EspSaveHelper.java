@@ -185,32 +185,50 @@ public class EspSaveHelper {
 
     public void saveUspFormData(User user, School school, State state,
                                 Map<String, Object[]> responseKeyValues,
-                                Set<String> responseKeys) {
+                                Set<String> formFieldNames) {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         Date now = new Date();
-        for(String key : responseKeys) {
-            Object[] values = responseKeyValues.get(key);
+
+        Set<String> responseParams = responseKeyValues.keySet();
+        Set<String> responseKeys = new HashSet<String>();
+
+        boolean active = user.isEmailProvisional() ? false : true;
+        for(String responseParam : responseParams) {
+            /**
+             * Skip params that do not match usp form field names
+             */
+            if(!formFieldNames.contains(responseParam)) {
+                continue;
+            }
+
+            Object[] values = responseKeyValues.get(responseParam);
             if(values == null || values.length == 0) {
                 continue;
             }
+
+            /**
+             * The param value is {response_key}__{response_value} with double underscore as the delimiter.
+             */
             for(Object value : values) {
-                EspResponse espResponse = createUspResponse(user, school, now, key, true, (String) value);
+                String keyValuePair = (String) value;
+                String[] keyValue = keyValuePair.split("__");
+                responseKeys.add(keyValue[0]);
+                // TODO: set correct value for active/inactive responses
+                EspResponse espResponse = createUspResponse(user, school, now, keyValue[0], true, keyValue[1]);
                 if(espResponse != null) {
                     responseList.add(espResponse);
                 }
             }
         }
 
-        saveUspResponses(school, responseKeys, responseList, user);
+        saveUspResponses(school, responseList, user);
     }
 
-    protected void saveUspResponses(School school, Set<String> keys, List<EspResponse> responseList,
+    protected void saveUspResponses(School school, List<EspResponse> responseList,
                                     User user) {
-        _espResponseDao.deactivateResponsesByKeys(school, keys);
-        if (keys != null && !keys.isEmpty()) {
-            if (responseList != null && !responseList.isEmpty()) {
-                _espResponseDao.saveResponses(school, responseList);
-            }
+        _espResponseDao.deactivateResponsesByUserAndSource(school, user.getId(), EspResponseSource.usp);
+        if (responseList != null && !responseList.isEmpty()) {
+            _espResponseDao.saveResponses(school, responseList);
         }
     }
 

@@ -3,7 +3,6 @@ package gs.web.school.usp;
 import gs.data.community.User;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
-import gs.data.school.EspResponse;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
@@ -13,11 +12,10 @@ import gs.web.community.registration.UserRegistrationOrLoginService;
 import gs.web.community.registration.UspRegistrationBehavior;
 import gs.web.school.EspSaveHelper;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,13 +44,6 @@ public class UspFormController implements ReadWriteAnnotationController {
     @Autowired
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
 
-    private static final Set<String> responseKeys = new HashSet<String>() {{
-        add("arts_media");
-        add("arts_music");
-        add("arts_performing_written");
-        add("arts_visual");
-    }};
-
     private static Logger _logger = Logger.getLogger(UspFormController.class);
 
     @Autowired
@@ -63,7 +54,8 @@ public class UspFormController implements ReadWriteAnnotationController {
     private ISchoolDao _schoolDao;
 
     @RequestMapping(value = "form.page", method = RequestMethod.GET)
-    public String showForm (HttpServletRequest request,
+    public String showForm (ModelMap modelMap,
+                            HttpServletRequest request,
                             HttpServletResponse response,
                             @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                             @RequestParam(value=PARAM_STATE, required=false) State state) {
@@ -72,17 +64,46 @@ public class UspFormController implements ReadWriteAnnotationController {
             return "";
         }
 
-//        List<UspFormResponseStruct> uspFormResponses;
-        List<EspResponse> responses = _espResponseDao.getResponses(school);
-        final boolean isSchoolAdmin = false;
+        List<UspFormResponseStruct> uspFormResponses = new LinkedList<UspFormResponseStruct>();
 
-        for(EspResponse espResponse : responses) {
+        /**
+         * For each enum value (form fields), construct the usp response object. Each section has one (no subsection) or
+         * more section responses.
+         * For each response key that the form field has, get all the response values from the multimap and construct
+         * section response. Each section response has a list of response values objects.
+         */
+        for(UspHelper.SectionResponseKeys sectionResponseKeys : UspHelper.SectionResponseKeys.values()) {
+            String fieldName = sectionResponseKeys.getSectionFieldName();
+            String sectionTitle = UspHelper.FORM_FIELD_TITLES.get(fieldName);
+            UspFormResponseStruct uspFormResponse = new UspFormResponseStruct(fieldName, sectionTitle);
+            List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponse.getSectionResponses();
 
+            String[] responseKeys = sectionResponseKeys.getResponseKeys();
+            for(String responseKey : responseKeys) {
+                Collection<String> responseValues = UspHelper.SECTION_RESPONSE_KEY_VALUE_MAP.get(responseKey);
+                UspFormResponseStruct.SectionResponse sectionResponse = uspFormResponse.new SectionResponse(responseKey);
+                sectionResponse.setTitle(UspHelper.RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
 
-//            uspFormResponses = new LinkedList<UspFormResponseStruct>(){{
-//                add(new UspFormResponseStruct("Arts & music"), isSchoolAdmin)
-//            }};
+                List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> uspResponseValues = sectionResponse.getResponses();
+
+                Iterator<String> responseValueIter = responseValues.iterator();
+                while(responseValueIter.hasNext()) {
+                    String responseValue = responseValueIter.next();
+                    UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
+                            sectionResponse.new UspResponseValueStruct(responseValue);
+                    uspResponseValue.setLabel(UspHelper.RESPONSE_VALUE_LABEL.get(responseValue));
+                    uspResponseValues.add(uspResponseValue);
+                }
+
+                sectionResponse.setResponses(uspResponseValues);
+                sectionResponses.add(sectionResponse);
+            }
+
+            uspFormResponse.setSectionResponses(sectionResponses);
+            uspFormResponses.add(uspFormResponse);
         }
+
+        modelMap.put("uspFormResponses", uspFormResponses);
 
         return FORM_VIEW;
     }
@@ -104,6 +125,21 @@ public class UspFormController implements ReadWriteAnnotationController {
                 return; // early exit
             }
 
+            // TODO: remove set test email
+            String email = userRegistrationCommand.getEmail();
+            if(email != null) {
+                User user = _userRegistrationOrLoginService.getUserDao().findUserFromEmailIfExists(email);
+                while(user != null) {
+                    String replaceStr = email.substring(email.indexOf("+test") + 5);
+                    replaceStr = replaceStr.substring(0, replaceStr.indexOf("@"));
+
+                    Integer num = Integer.parseInt(replaceStr);
+                    email = email.replaceAll("test" + num, "test" + (++num));
+                    user = _userRegistrationOrLoginService.getUserDao().findUserFromEmailIfExists(email);
+                }
+                userRegistrationCommand.setEmail(email);
+            }
+
             User user = getValidUser(request,response,userRegistrationCommand,bindingResult);
             if (user == null) {
                 outputJsonError("noUser", response);
@@ -112,7 +148,9 @@ public class UspFormController implements ReadWriteAnnotationController {
 
             Map<String, Object[]> reqParamMap = request.getParameterMap();
 
-            _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, responseKeys);
+            Set<String> formFieldNames = UspHelper.FORM_FIELD_TITLES.keySet();
+
+            _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
 
             responseObject.put("success", true);
             responseObject.write(response.getWriter());

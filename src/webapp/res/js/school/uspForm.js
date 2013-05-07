@@ -10,7 +10,8 @@ GS.form.UspForm = function () {
         }
 
         var data = form.serializeArray();
-        data.push({name:"email", value:"asd"},{name:"firstName", value:"asd"},
+        // TODO: pass correct values
+        data.push({name:"email", value:"rramachandran+usp+test2@greatschools.org"},{name:"firstName", value:"Ramprasad"},
             {name:"password", value:"testing"},{name:"confirmPassword", value:"testing"},{name:"terms", value:"true"});
 
         jQuery.ajax({type:'POST', url:document.location, data:data}

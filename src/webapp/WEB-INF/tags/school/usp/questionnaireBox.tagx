@@ -10,7 +10,8 @@
     <!--<jsp:directive.attribute name="title" required="false" description="Title lable of sub category"/>-->
     <!--<jsp:directive.attribute name="value" required="false" description="Value of option tag"/>-->
     <!--<jsp:directive.attribute name="selectValue" required="false" description="Values in select drop down"/>-->
-
+    <jsp:directive.attribute name="formResponse" required="false" description="Form section responses"
+                             type="gs.web.school.usp.UspFormResponseStruct"/>
 
     <div class="standard_1-1" style="width:390px;">
         <div class="inner pal">
@@ -19,10 +20,11 @@
                     <div class="fl">
                         <span class="iconx32g i-32-uspArtMusic"><!--Do not collapse--></span></div>
                     <div class="fl">
-                        <h3 class="headerTitle">Activity title</h3></div>
+                        <h3 class="headerTitle">${formResponse.title}</h3></div>
                 </div>
-                <usp:chosenSelect name="testName" width="350" selectValue="Testing Select Value" title="Testing title"
-                                  value="testing value"/>
+                <usp:chosenSelect name="${formResponse.fieldName}"
+                                  width="350"
+                                  formFieldResponse="${formResponse}"/>
             </div>
         </div>
     </div>
