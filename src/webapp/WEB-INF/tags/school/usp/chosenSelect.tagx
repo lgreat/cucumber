@@ -21,8 +21,16 @@
                 <c:forEach items="${sectionResponses}" var="subSectionResponse">
                     <optgroup label="${subSectionResponse.title}">
                         <c:forEach items="${subSectionResponse.responses}" var="response">
-                            <option value="${subSectionResponse.responseKey}__${response.responseValue}"
-                                    selected="${response.selected ? 'selected' : ''}">${response.label}</option>
+                            <c:choose>
+                                <c:when test="${response.selected}">
+                                    <option value="${subSectionResponse.responseKey}__${response.responseValue}"
+                                            selected="selected">${response.label}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${subSectionResponse.responseKey}__${response.responseValue}"
+                                            >${response.label}${response.selected}</option>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </optgroup>
                 </c:forEach>
@@ -30,8 +38,16 @@
             <!-- the question has no sub sections -->
             <c:when test="${fn:length(sectionResponses) == 1}">
                 <c:forEach items="${sectionResponses[0].responses}" var="response">
-                    <option value="${sectionResponses[0].responseKey}__${response.responseValue}"
-                            selected="${response.selected ? 'selected' : ''}">${response.label}</option>
+                    <c:choose>
+                        <c:when test="${response.selected}">
+                            <option value="${sectionResponses[0].responseKey}__${response.responseValue}"
+                                    selected="selected">${response.label}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${subSectionResponse.responseKey}__${response.responseValue}"
+                                    >${response.label}${response.selected}</option>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </c:when>
         </c:choose>

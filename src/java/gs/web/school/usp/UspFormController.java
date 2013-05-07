@@ -9,7 +9,8 @@ import gs.data.json.JSONObject;
 import gs.data.school.EspResponseSource;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
-import gs.data.school.School;
+import gs.data.school.*;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.data.util.email.EmailUtils;
 import gs.web.community.registration.UserRegistrationCommand;
@@ -20,6 +21,8 @@ import gs.web.school.EspUserStateStruct;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,8 +66,9 @@ public class UspFormController implements ReadWriteAnnotationController {
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
+    private IEspMembershipDao _espMembershipDao;
+    @Autowired
     private IUserDao _userDao;
-
 
     @RequestMapping(value = "/usp/form.page", method = RequestMethod.GET)
     public String showUspUserForm (ModelMap modelMap,
@@ -77,7 +81,13 @@ public class UspFormController implements ReadWriteAnnotationController {
             return "";
         }
 
-        formBuilderHelper(modelMap, request, response, school, state);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        if (sessionContext != null) {
+            user = sessionContext.getUser();
+        }
+
+        formBuilderHelper(modelMap, request, response, school, state, user, false);
         return FORM_VIEW;
     }
 
@@ -95,13 +105,19 @@ public class UspFormController implements ReadWriteAnnotationController {
                                    HttpServletRequest request,
                                    HttpServletResponse response,
                                    School school,
-                                   State state) {
+                                   State state,
+                                   User user,
+                                   boolean isOspUser) {
 
         modelMap.put("school", school);
-        List<Object[]> keyValuePairs = _espResponseDao.getAllUniqueResponsesForSchoolBySource(school, state, EspResponseSource.usp);
         Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
-        for(Object[] keyValue : keyValuePairs) {
-            responseKeyValues.put((String)keyValue[0], (String) keyValue[1]);
+
+        if(user != null) {
+            List<Object[]> keyValuePairs = _espResponseDao.getAllUniqueResponsesForSchoolBySourceAndByUser(school, state,
+                    EspResponseSource.usp, user.getId());
+            for(Object[] keyValue : keyValuePairs) {
+                responseKeyValues.put((String)keyValue[0], (String) keyValue[1]);
+            }
         }
         List<UspFormResponseStruct> uspFormResponses = new LinkedList<UspFormResponseStruct>();
 
