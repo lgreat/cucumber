@@ -6,35 +6,41 @@ GS.form.UspForm = function () {
         var fieldVal = jQuery.trim(elem.val());
         var namereg = /[0-9<>&\\]/;
         var dfd = jQuery.Deferred();
-        //TODO have a hide errors method
-        GS.form.uspForm.handleValidationResponse('.js_firstNameErr', '', elem);
+
+        GS.form.uspForm.hideErrors('.js_firstNameErr', elem);
+
         if (fieldVal.length > 24 || fieldVal.length < 2) {
             GS.form.uspForm.handleValidationResponse('.js_firstNameErr', 'First name must be 2-24 characters long.', elem);
             dfd.reject();
         } else if (namereg.test(fieldVal)) {
             GS.form.uspForm.handleValidationResponse('.js_firstNameErr', 'Please remove the numbers or symbols.', elem);
             dfd.reject();
+        } else {
+            return dfd.resolve();
         }
-        dfd.resolve();
+        dfd.promise();
     };
 
     this.validatePassword = function (elem) {
         var fieldVal = elem.val();
-        //TODO have a hide errors method
         var dfd = jQuery.Deferred();
-        GS.form.uspForm.handleValidationResponse('.js_passwordErr', '', elem);
+
+        GS.form.uspForm.hideErrors('.js_passwordErr', elem);
+
         if (fieldVal.length < 6 || fieldVal.length > 14) {
             GS.form.uspForm.handleValidationResponse('.js_passwordErr', 'Password should be 6-14 characters.', elem);
             dfd.reject();
+        } else {
+            return dfd.resolve();
         }
-        dfd.resolve();
+        return dfd.promise();
     };
 
-    this.validateUserState = function (elem, errorElem) {
+    this.validateUserState = function (elem) {
         var fieldVal = jQuery.trim(elem.val());
         var dfd = jQuery.Deferred();
-        errorElem.hide();
-        GS.form.uspForm.removeWarningClassFromElem(elem);
+
+        GS.form.uspForm.hideErrors('.js_emailErr', elem);
 
         if (fieldVal !== "" && fieldVal !== undefined) {
             jQuery.ajax({
@@ -45,7 +51,7 @@ GS.form.UspForm = function () {
                 async:true
             }).done(
                 function (data) {
-                    var isValid = GS.form.uspForm.handleEmailErrors(data, fieldVal, elem, errorElem);
+                    var isValid = GS.form.uspForm.handleEmailErrors(data, fieldVal, elem);
                     if (isValid === false) {
                         dfd.reject();
                     } else {
@@ -56,33 +62,28 @@ GS.form.UspForm = function () {
                     dfd.reject();
                 });
         } else {
-            alert("else");
-            GS.form.uspForm.showEmailError("Please enter a valid email address.", elem, errorElem);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', 'Please enter a valid email address.', elem);
             dfd.reject();
         }
+        return dfd.promise();
     };
 
-    this.handleEmailErrors = function (data, email, emailField, errorField) {
+    this.handleEmailErrors = function (data, email, emailField) {
         var isValid = false;
         if (data.isEmailValid !== true) {
-            GS.form.uspForm.showEmailError("Please enter a valid email address.", emailField, errorField);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', 'Please enter a valid email address.', emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated === true) {
-            GS.form.uspForm.showEmailError("Whoops!  It looks like you're already a member.  Please <a href='/official-school-profile/signin.page?email=" + encodeURIComponent(email) + "'>sign in</a> here.", emailField, errorField);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', "Whoops!  It looks like you're already a member.  Please <a href='/official-school-profile/signin.page?email=" + encodeURIComponent(email) + "'>sign in</a> here.", emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated !== true) {
             GSType.hover.emailNotValidated.setEmail(email);
             var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
-            GS.form.uspForm.showEmailError("Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField, errorField);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else {
             isValid = true;
         }
         return isValid;
     };
 
-    this.showEmailError = function (errMsg, emailField, errorField) {
-        errorField.html('<div class="media"><span class="iconx16 i-16-alert img mrs"></span><div class="bd">' + errMsg + '</div></div>');
-        GS.form.uspForm.addWarningClassToElem(emailField);
-        errorField.show();
-    };
 
     this.handleValidationResponse = function (fieldSelector, errorMsg, elem) {
         var fieldError = jQuery(fieldSelector + '.invalid');
@@ -111,6 +112,10 @@ GS.form.UspForm = function () {
         elem.removeClass("warning");
     };
 
+    this.hideErrors = function (errorClass, elem) {
+        GS.form.uspForm.handleValidationResponse(errorClass, '', elem);
+    }
+
     this.saveForm = function (form, firstName, password, email) {
         var masterDeferred = new jQuery.Deferred();
 
@@ -127,8 +132,10 @@ GS.form.UspForm = function () {
         jQuery.ajax({type:'POST', url:document.location, data:data}
         ).fail(function () {
                 masterDeferred.reject();
+                GSType.hover.modalUspRegistration.hide();
                 alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
             }).done(function () {
+                GSType.hover.modalUspRegistration.hide();
             });
     };
 
@@ -162,27 +169,27 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
 jQuery(function () {
     uspSpriteCheckBoxes("js-needText", "form_needText", 1, 0);
 
-    var uspRegistrationForm = jQuery('.js_uspRegistrationForm:visible');
-    var uspRegistrationFirstNameField = uspRegistrationForm.find('.js_firstName');
-    uspRegistrationFirstNameField.on('blur', function () {
-        GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField);
+    jQuery('body').on('blur', '.js_firstName:visible', function (event) {
+        GS.form.uspForm.validateFirstName(jQuery(event.target));
     });
 
-    var uspRegistrationPasswordField = uspRegistrationForm.find('.js_password');
-    uspRegistrationPasswordField.on('blur', function () {
-        GS.form.uspForm.validatePassword(uspRegistrationPasswordField);
+    jQuery('body').on('blur', '.js_password:visible', function (event) {
+        GS.form.uspForm.validatePassword(jQuery(event.target));
     });
 
-    var uspRegistrationEmailField = uspRegistrationForm.find('.js_email');
-    var uspRegistrationEmailErrorField = uspRegistrationForm.find('.js_emailErr');
-    uspRegistrationEmailField.on('blur', function () {
-        GS.form.uspForm.validateUserState(uspRegistrationEmailField, uspRegistrationEmailErrorField);
+    jQuery('body').on('blur', '.js_email:visible', function (event) {
+        GS.form.uspForm.validateUserState(jQuery(event.target));
     });
 
-    var uspRegistrationSubmitBtn = uspRegistrationForm.find('.js_uspRegistrationSubmit');
-    uspRegistrationSubmitBtn.on('click', function () {
+    jQuery('body').on('click', '.js_uspRegistrationSubmit:visible', function () {
+        //TODO find a better way to get the form values.
+        var uspRegistrationForm = jQuery('.js_uspRegistrationForm:visible');
+        var uspRegistrationFirstNameField = uspRegistrationForm.find('.js_firstName');
+        var uspRegistrationPasswordField = uspRegistrationForm.find('.js_password');
+        var uspRegistrationEmailField = uspRegistrationForm.find('.js_email');
+
         jQuery.when(
-            GS.form.uspForm.validateUserState(uspRegistrationEmailField, uspRegistrationEmailErrorField),
+            GS.form.uspForm.validateUserState(uspRegistrationEmailField),
             GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
             GS.form.uspForm.validateFirstName(uspRegistrationPasswordField)
         ).done(
