@@ -234,7 +234,7 @@ public class UspFormController implements ReadWriteAnnotationController {
         return school;
     }
 
-    @RequestMapping(value = "checkUserState.page", method = RequestMethod.GET)
+    @RequestMapping(value = "/usp/checkUserState.page", method = RequestMethod.GET)
     protected void validateEmail(HttpServletRequest request,
                                  HttpServletResponse response,
                                  @RequestParam(value = "email", required = true) String email) {
