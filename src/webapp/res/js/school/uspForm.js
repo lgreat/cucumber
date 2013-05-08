@@ -210,6 +210,8 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
 
 jQuery(function () {
     uspSpriteCheckBoxes("js-needText", "form_needText", 1, 0);
+    uspSpriteCheckBoxes("js-noneResponse", "formOther", 1, 0);
+    uspSpriteCheckBoxes("js-otherResponse", "formOther", 1, 0);
 
     var uspForm = jQuery('#js_uspForm');
     uspForm.on('click', '.js_submit', function () {
