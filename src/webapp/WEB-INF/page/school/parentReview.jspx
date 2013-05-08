@@ -40,6 +40,7 @@
     <!--<gsml:javascript src="/res/js/schoolReviewForm.js"/>-->
     <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
     <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+    <gsml:javascript src="/res/js/jquery.sb.min.js"/>
     <gsml:javascript src="/res/js/parentReviewLandingPage.js"/>
     <!--<gsml:javascript src="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
     <!--<gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>-->
@@ -51,19 +52,7 @@
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
     <script>
-        $(document).ready(function() {
-            var cookieState = "${requestScope.context.state}";
-            if(cookieState == ""){
-                 //// set state dropdown to this value.
-                var maxMindIpAddressState = geoip_region();
-                $("#js-reviewLandingState").find(".js-selectBoxText").html(maxMindIpAddressState);
-
-            }
-            else{
-               //// set state dropdown to this value.
-                $("#js-reviewLandingState").find(".js-selectBoxText").html(cookieState);
-            }
-        });
+            var theStateValueToSet = "${requestScope.context.state}";
     </script>
     ]]>
     <style type="text/css">
@@ -72,7 +61,7 @@
             /*border-right: 1px solid #2B2B2B;*/
             height: 37px;
             padding: 16px 0 0 3px;
-            width: 45px;
+            width: 30px;
             text-align: center;
             cursor:pointer;
         }
@@ -163,35 +152,38 @@
     </c:if>
     
     <div class="content-centered ${marginTopContent}">
+        <form action="" onsubmit="return false;">
         <p style="font: bold 60px/68px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; text-shadow: 0 0 24px rgba(0,0,0,1)">You know your school best!</p>
         <p style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:20px; color: #ffCE7A;text-shadow: 0 0 20px rgba(0,0,0,.6)">Help others find their great school – rate and review yours now</p>
 
         <div class="js-parentReviewLandingPageSearchBox searchBox pr rnd4" style=""><!--do not colapse-->
-            <div class="fl" style="padding-top: 13px;"><input type="text" placeholder="Find your school to begin" style="font-size: 16px;width:350px; background: none; padding-left: 20px; border: none; font-weight: bold"/></div>
+            <div class="fl" style="padding-top: 13px;"><input tabindex="1" type="text" placeholder="Find your school to begin" style="font-size: 16px;width:350px; background: none; padding-left: 20px; border: none; font-weight: bold"/></div>
 
-            <div class="fr  phm" style="cursor:pointer; padding:16px 15px 14px 15px; border-left: 1px solid #666666" id="js_submitSelectSchool"><strong>GO</strong></div>
-            <div class="fr phm">
-                <div id="js-reviewLandingState" class="pr">
-                    <div class="js-selectBox selectBox clearfix">
-                        <div class="js-selectBoxText mrs fl">CA</div>
-                        <div class="fr"><span class="vam iconx16 i-16-sort-list-arrow-down"><!--do not collapse--></span></div>
-
-                    </div>
-                    <div class="js-selectDropDown selectDropDown pa phm ptm dn">
-                        <c:forEach var="stateObj" items="${stateList}">
-                            <div class="js-ddValues">${stateObj.abbreviation}</div>
-                        </c:forEach>
-                    </div>
+            <button tabindex="3" class="fr  phm" style="cursor:pointer; padding:16px 15px 14px 15px; border:none; border-left: 1px solid #666666; font: bold 16px/16px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;" id="js_submitSelectSchool"><strong>GO</strong></button>
+            <div class="fr ptm ">
+                <div id="js-reviewLandingState" class="pr pts">
+                    <select  tabindex="2" name="stateSelectReviews" class="round_sb">
+                        <gsweb:stateSelector useNoState="false"
+                                             noStateLabel="State"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}"
+                                             styleClass="stateSelect"
+                                             style=""
+                                             styleId="stateSelector"
+                                             justOptions = "true"
+                                />
+                </select>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </div>
 
 <div class="imageBgScale js-pageTwoReviewLandingPage dn">
     <div style="height: 180px;">
         <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p id="js-bannerSchoolName" class="truncated bottom" style="font: normal 60px/68px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; color: #FFFFFF; padding: 30px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">You know your school best!</p>
+            <p id="js-bannerSchoolName" class="truncated bottom SourceSansPro-Semibold" style="font-size:48px; line-height: 68px;color: #FFFFFF; padding: 30px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">School Name</p>
             <p id="js-bannerSchoolInfo" style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:16px; line-height: 16px; color: #b2811d;">
                 <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
                 <span class="js-bannerPageIcon dn"><span class="iconx16 i-16-pageOrange mrs mll"><!-- do not collapse --></span></span>
@@ -199,10 +191,12 @@
                 <span class="js-bannerSchoolGradeRange dn"><!-- do not collapse --></span>
                 <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
             </p>
+            <div class="white_arrow_up"><!-- do not collapse --></div>
         </div>
 
+
     </div>
-    <div class="container_24 clearfix">
+    <div class="container_24 clearfix pbm">
         <form id="parentReviewFormLandingPage" method="post" action="#" onsubmit="return validateReview();">
             <input type="hidden" class="js-overallAsString" id="overallAsString" value="0" name="overallAsString"/>
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
@@ -243,7 +237,7 @@
                     </div>
                     <div class="paper_bg">
                         <div style="padding: 10px 0px 10px 20px" class="clearfix">
-                            <div class="fl"><h4 class="bottom sourceSansPro-Regular">Rate this school</h4></div>
+                            <div class="fl"><h4 class="bottom sourceSansPro-Semibold">Rate this school</h4></div>
                             <div id="starRatingContainerReview" class="fl pan man mlm">
                                 <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                 <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
@@ -303,7 +297,8 @@
                     <!--End--> <br />
                     <div class="mod standard_1-1">
                         <div class="inner">
-                            <div class="hd pam"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
+                            <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
+                            <div class="hd pam" id="js-reviewsLandingTitleHelpful"><h4 class="bottom sourceSansPro-Regular">Helpful reviews answer questions</h4></div>
                             <div class="bd pam" style="height:90px;">
                                 <div id="js-reviewsLandingStarBox-Parent" class="dn">
                                     <div class="clearfix pas">
@@ -328,8 +323,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="js-reviewsLandingStarBox-Start"><br />Select an option from the dropdown menu</div>
-                                <div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>
+                                <div id="js-reviewsLandingStarBox-Start">
+                                    <ul>
+                                        <li>What do you think others should know?</li>
+                                        <li>What do you like?</li>
+                                        <li>How could your school improve?</li>
+                                    </ul></div>
+                                <!--<div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>-->
                                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">
                                     <div class="fl"><p class="bottom">Teacher quality</p></div>
                                     <div id="starRatingContainerReviewTeacherForStudent" class="fr pan man mlm">

@@ -7,6 +7,7 @@ import gs.data.search.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.SlowTest;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.context.SessionContext;
@@ -17,6 +18,7 @@ import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
+import org.junit.experimental.categories.Category;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -32,6 +34,7 @@ import static org.easymock.classextension.EasyMock.*;
 /**
  * @author Andrew Peterson <apeterson@greatschools.org>
  */
+@Category(SlowTest.class)
 public class SearchControllerTest extends BaseControllerTestCase {
 
     private SearchController _controller;

@@ -2,8 +2,12 @@ package gs.web.cbi;
 
 import gs.web.BaseControllerTestCase;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.web.IntegrationTest;
+import org.junit.experimental.categories.Category;
+
 import static org.easymock.classextension.EasyMock.*;
 
+@Category(IntegrationTest.class)
 public class CBIIntegrationControllerTest extends BaseControllerTestCase {
 
     private CBIIntegrationController _controller;

@@ -2,6 +2,7 @@ package gs.web;
 
 import com.gargoylesoftware.htmlunit.CollectingAlertHandler;
 import com.gargoylesoftware.htmlunit.html.*;
+import org.junit.experimental.categories.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  *         <p/>
  *         To learn more about HtmlUnit see http://htmlunit.sourceforge.net/gettingStarted.html
  */
+@Category(IntegrationTest.class)
 public class HomePageIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
 
     protected final String PAGE_URL = INTEGRATION_HOST + "/index.page";

@@ -1,11 +1,13 @@
 package gs.web.state;
 
+import gs.web.SlowTest;
 import junit.framework.TestCase;
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.MockJspWriter;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
 import gs.data.state.State;
+import org.junit.experimental.categories.Category;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
@@ -14,6 +16,7 @@ import java.io.IOException;
 /**
  * @author thuss
  */
+@Category(SlowTest.class)
 public class LongstateTagHandlerTest extends TestCase {
     
     private LongstateTagHandlerTestCase _tag;
@@ -33,6 +36,10 @@ public class LongstateTagHandlerTest extends TestCase {
         _tag.doTag();
         String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
         assertEquals("XAlaskaX", output);
+    }
+
+    public void testFailure() {
+        assertTrue(false);
     }
 
     public class LongstateTagHandlerTestCase extends LongstateTagHandler {

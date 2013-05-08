@@ -203,7 +203,7 @@ var Boundary = (function (){
     var nearbyhomes = function (data) {
         if (data && data.address && data.address.zip) {
             $nearby.show().removeClass('dn');
-            $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ data.address.zip + '?gate=gs&cid=PRT300014');
+            $nearby.find('a').attr('href', 'http://www.zillow.com/'+data.state+'-'+data.address.zip+'?utm_source=GreatSchools&utm_medium=referral&utm_campaign=districtbrowsemap&cbpartner=Great+Schools');
         }
     }
 
@@ -333,8 +333,9 @@ var Boundary = (function (){
             if (obj.address.street1) address += obj.address.street1 + '<br/>';
             if (obj.address.cityStateZip) address += obj.address.cityStateZip;
             (obj.address.zip) ?
-                $homes.show().find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ obj.address.zip + '?gate=gs&cid=PRT300014').attr('target', '_blank') :
+                $homes.show().find('a').attr('href', 'http://www.zillow.com/'+obj.state+'-'+obj.address.zip+'?utm_source=GreatSchools&utm_medium=referral&utm_campaign=districtbrowsemap&cbpartner=Great+Schools').attr('target', '_blank') :
                 $homes.hide();
+
 
         }
         else if (obj.type == 'district'){

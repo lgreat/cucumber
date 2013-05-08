@@ -83,8 +83,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         map.put(
             Tab.Students, ListUtils.newArrayList(
                 CensusGroup.Student_Ethnicity,
+                CensusGroup.Student_Subgroups,  // GS-13816 - per Liana just move this above Home_Lang...
                 CensusGroup.Home_Languages_of_English_Learners,
-                CensusGroup.Student_Subgroups,
                 CensusGroup.Attendance,
                 CensusGroup.Attendance_and_Completion,
                 CensusGroup.Graduation_Rate)

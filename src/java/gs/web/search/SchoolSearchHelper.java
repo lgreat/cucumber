@@ -141,7 +141,12 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
         String cityName = (schoolSearchCommand != null) ? schoolSearchCommand.getCity() : null;
         String stateName = (schoolSearchCommand != null) ? schoolSearchCommand.getState() : null;
-        State state = (stateName != null) ? State.fromString(stateName) : null;
+        State state = null;
+        try {
+            state = (StringUtils.isNotEmpty(stateName)) ? State.fromString(stateName) : null;
+        } catch (Exception e) {
+            _log.debug("Could not turn " + stateName + " into a State.java");
+        }
 
         if(commandAndFields.isNearbySearch() && cityName != null && state != null) {
             City city = new City(cityName, state);

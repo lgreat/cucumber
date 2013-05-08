@@ -1,6 +1,8 @@
 package gs.web.util;
 
 import gs.web.BaseHtmlUnitIntegrationTestCase;
+import gs.web.IntegrationTest;
+import org.junit.experimental.categories.Category;
 
 /**
  * Add pages that should undergoe XHTML validation to this test
@@ -11,6 +13,7 @@ import gs.web.BaseHtmlUnitIntegrationTestCase;
  * 3. Now when you run a particular test in Idea it will write the HTML contents that are failing into a file
  * 4. Load up /tmp/out.html in your browser and run it through the W3C validator to troubleshoot 
  */
+@Category(IntegrationTest.class)
 public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
 
     public void testHappy() {

@@ -443,6 +443,15 @@ jQuery(document).ready(function() {
             //Show the grades for the test.
             $('#js_' + testSelected + '_grades').show();
 
+            // Show subgroup test
+            if( testSelected.match(/_subgroup$/) ) {
+                $('#js_subgroup').show();
+                $('#js_testLabelHeader').addClass('bottom');
+            } else {
+                $('#js_subgroup').hide();
+                $('#js_testLabelHeader').removeClass('bottom');
+            }
+
             //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
             var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
             firstGradeToSelect.trigger('click');
@@ -504,6 +513,12 @@ jQuery(document).ready(function() {
     }
 });
 
+// special ipad case -- so far only click with touchstart works
+var ua = navigator.userAgent;
+var gs_eventclick = (ua.match(/iPad/i)) ? "touchstart" : "click";
+var gs_eventmove = (ua.match(/iPad/i)) ? "touchmove" : "mousemove";
+var gs_eventend = (ua.match(/iPad/i)) ? "touchend" : "mouseleave";
+
 /********************************************************************************************************
  *
  *  currently created to work with the review page form!!!!
@@ -544,9 +559,11 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
             $("#"+divWriteTextValues).html(arrStarValuesText[currentStar]);
         }
     });
-    $('#'+containerS).click (function(e){
+    $('#'+containerS).on(gs_eventclick, function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
+        // special ipad case
+        if(gs_eventclick == "touchstart"){x = event.touches[0].pageX - offset.left;}
         var currentStar = Math.floor(x/iconWidth) +1;
         if(currentStar > totalStars) currentStar = totalStars;
         overallStarRating.val(currentStar);

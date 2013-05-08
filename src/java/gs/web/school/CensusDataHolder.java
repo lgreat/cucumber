@@ -75,6 +75,8 @@ public class CensusDataHolder {
             if (_dataSetsForSchoolData != null && !_dataSetsForSchoolData.isEmpty()) {
                 _censusDataSchoolValueDao.addInSchoolCensusValues(_school.getDatabaseState(), _dataSetsForSchoolData.values(), ListUtils.newArrayList(_school));
                 CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());
+                CensusDataHelper.removeOverrideDatasets(_allCensusDataSets);
+                CensusDataHelper.removeOverrideDatasets(_dataSetsForSchoolData);
                 CensusDataHelper.postProcessEthnicityData(_allCensusDataSets);
                 CensusDataHelper.postProcessEthnicityData(_dataSetsForSchoolData);
             }

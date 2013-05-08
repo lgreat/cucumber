@@ -453,7 +453,7 @@
 
         <jsp:include page="/promo/emailSignUp.module"/>
 
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PERCENT_FIND_A_SCHOOL" style="2012"/>
+        <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
     </div>
     <!--</div>-->
 

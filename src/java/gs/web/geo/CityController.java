@@ -20,6 +20,7 @@ import gs.data.test.rating.ICityRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.content.cms.CmsHomepageController;
 import gs.web.request.RequestInfo;
 import gs.web.tracking.CookieBasedOmnitureTracking;
@@ -34,6 +35,7 @@ import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -86,7 +88,10 @@ public class CityController extends AbstractController  implements IDirectoryStr
     private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
     private ILocalBoardDao _localBoardDao;
-    private StateSpecificFooterHelper _stateSpecificFooterHelper;    
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
+
+    @Autowired
+    private ZillowRegionDao _zillowDao;
 
     public static final int MAX_SCHOOLS = 10;
 
@@ -123,6 +128,11 @@ public class CityController extends AbstractController  implements IDirectoryStr
                 }
             }
         }
+
+
+
+
+
 
         // Validate those inputs and give up if we can't build a reasonable page.
         if (state == null) {
@@ -180,6 +190,13 @@ public class CityController extends AbstractController  implements IDirectoryStr
         }
 
         String cityDisplayName = ((City) city).getDisplayName();
+
+
+        final Integer zillowRegionId=_zillowDao.findRegionId(cityDisplayName, state.getAbbreviation());
+        final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(cityDisplayName, " ", "-") + "-" + state.getAbbreviation() ) ;
+        model.put("formattedUrl",formattedURLForZillowIntegration)  ;
+        model.put("regionID",zillowRegionId)  ;
+
         model.put(MODEL_CITY_NAME, cityDisplayName);
         model.put(MODEL_CITY, city);
 
@@ -359,5 +376,13 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
     public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
+
+    /**
+     * Adding so test case pass with autowiring of zillow Dao
+     * @param zillowDao
+     */
+    public void setZillowDao(ZillowRegionDao zillowDao) {
+        _zillowDao = zillowDao;
     }
 }

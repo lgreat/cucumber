@@ -52,9 +52,25 @@ public class ApiTestResultsHelper {
                 //Assumes that the API test results are in descending order of year.
                 ApiResult apiTestResultForLatestYear = historicalApiTestResults.get(0);
 
+                // GS-13823 skip year if null and get latest not null value
+                if(apiTestResultForLatestYear != null && apiTestResultForLatestYear.getTotal() == null) {
+                    for(int i = 1; i < historicalApiTestResults.size(); i++) {
+                        ApiResult apiResult = historicalApiTestResults.get(i);
+                        if(apiResult.getTotal() != null) {
+                            apiTestResultForLatestYear = apiResult;
+                            break;
+                        }
+                    }
+                }
+
+                List<Integer> loadYears = _apiResultDao.getApiLoadYears();
+                Integer mostRecentLoadYear = (loadYears != null && loadYears.size() > 0) ? loadYears.get(0) : null;
+
                 //To display API results, there should be results for at least 1 year of data.
+                // GS-13823 do not show if the latest year is older than load date by more than 3 years
                 if (apiTestResultForLatestYear != null && apiTestResultForLatestYear.getYear() != null
-                        && apiTestResultForLatestYear.getTotal() != null && apiTestResultForLatestYear.getTotal() != 0) {
+                        && apiTestResultForLatestYear.getTotal() != null && apiTestResultForLatestYear.getTotal() != 0
+                        && mostRecentLoadYear != null && mostRecentLoadYear - apiTestResultForLatestYear.getYear() < 3) {
                     Map<String, Object> apiTestResultsMap = new HashMap<String, Object>();
 
                     apiTestResultsMap.put(MODEL_MOST_RECENT_API_RESULT, apiTestResultForLatestYear);

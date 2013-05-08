@@ -7,7 +7,9 @@ package gs.web.school.performance;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.SlowTest;
 import gs.web.util.context.SessionContextUtil;
+import org.junit.experimental.categories.Category;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
+@Category(SlowTest.class)
 public class BestPublicSchoolValuesControllerTest extends BaseControllerTestCase {
 
     private BestPublicSchoolValuesController _controller;

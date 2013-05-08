@@ -19,6 +19,7 @@
     <properties>
         <org.springframework.version>3.0.6.RELEASE</org.springframework.version>
         <warName>${project.artifactId}</warName>
+        <maven.it.skip>true</maven.it.skip>
     </properties>
 
     <build>
@@ -189,7 +190,8 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>          <dependency>
+                <dependencies>
+          <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <version>1.7.1</version>
@@ -241,19 +243,28 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.7.2</version>
+                <version>2.12.4</version>
                 <configuration>
                     <argLine>-Xmx512m -XX:MaxPermSize=192m</argLine>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/*TestCase.java</exclude>
-                        <exclude>**/*IntegrationTest.java</exclude>
-                    </excludes>
+
+                    <!-- Skip the default running of this plug-in (or everything is run twice...) -->
+                    <skip>true</skip>
                 </configuration>
 
                 <executions>
+                    <execution>
+                        <id>unit-tests</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${maven.test.skip}</skip>
+                            <!-- cannot mix and match <groups> and <includes> tags -->
+                            <!-- surefire automatically includes *Test.java, Test*.java, and *TestCase.java -->
+                            <excludedGroups>gs.web.IntegrationTest,gs.web.SlowTest,gs.web.SkipTest</excludedGroups>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>integration-tests</id>
                         <phase>integration-test</phase>
@@ -261,13 +272,10 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <skip>false</skip>
-                            <excludes>
-                                <exclude>none</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/*IntegrationTest.java</include>
-                            </includes>
+                            <!-- maven.it.skip true by default -->
+                            <skip>${maven.it.skip}</skip>
+                            <groups>gs.web.IntegrationTest,gs.web.SlowTest</groups>
+                            <excludedGroups>gs.web.SkipTest</excludedGroups>
                         </configuration>
                     </execution>
                 </executions>
@@ -354,12 +362,13 @@
                                 <param>10_css3/rounded_corners.css</param>
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
+                                <param>11_modal/jquery-ui-1.10.2.custom.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>38_special/cms_content.css</param>
                                 <param>38_special/community_hover.css</param>
                                 <param>38_special/district_boundary.css</param>
-                                <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
+                                <!--<param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>-->
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>gs2010_styles.css</param>
@@ -370,8 +379,10 @@
                             <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
-                                <param>jquery/jquery-1.7.2.min.js</param>
-                                <param>jquery/jquery-ui-1.8.18.custom.min.js</param>
+                                <param>lib/conditionizr.min.js</param>
+                                <param>jquery/jquery-1.9.1.min.js</param>
+                                <param>jquery/jquery-migrate-1.1.1-warnings.js</param>
+                                <param>jquery/jquery-ui-1.10.2.custom.full.old.decorator.min.js</param>
                                 <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
                                 <param>jquery/jquery.autocomplete.js</param>
                                 <param>uri/uri.js</param>
@@ -445,7 +456,8 @@
                                 <param>38_special/cms_content.css</param>
                                 <param>38_special/community_hover.css</param>
                                 <param>38_special/district_boundary.css</param>
-                                <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
+                                <param>11_modal/jquery-ui-1.10.2.custom.css</param>
+                                <!--<param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>-->
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>gs2010_styles.css</param>
@@ -510,7 +522,9 @@
                             <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
-                                <param>jquery/jquery-1.7.2.min.js</param>
+                                <param>lib/conditionizr.min.js</param>
+                                <param>jquery/jquery-1.9.1.min.js</param>
+                                <param>jquery/jquery-migrate-1.1.1-warnings.js</param>
                                 <param>global.js</param>
                                 <param>gs_jquery_extensions.js</param>
                                 <param>house_ads.js</param>
@@ -599,7 +613,9 @@
                             <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
-                                <param>jquery/jquery-1.7.2.min.js</param>
+                                <param>lib/conditionizr.min.js</param>
+                                <param>jquery/jquery-1.9.1.min.js</param>
+                                <param>jquery/jquery-migrate-1.1.1-warnings.js</param>
                                 <!--<param>jquery/jquery-ui-1.8.18.custom.min.js</param>-->
                                 <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
                                 <param>jquery/jquery.autocomplete.js</param>
@@ -800,7 +816,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.5</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -1038,6 +1054,7 @@
             <groupId>org.apache.amber</groupId>
             <artifactId>amber-oauth2-client</artifactId>
             <version>0.22-incubating</version>
-        </dependency>-->
+        </dependency>
+        -->
     </dependencies>
 </project>

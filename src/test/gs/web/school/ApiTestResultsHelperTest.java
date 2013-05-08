@@ -87,6 +87,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         apiResults.add(constructApiResultObj(null, null));
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
+        expect(_apiResultDao.getApiLoadYears()).andReturn(new ArrayList<Integer>());
         replayAllMocks();
         results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
@@ -101,6 +102,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         apiResults.add(null);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
+        expect(_apiResultDao.getApiLoadYears()).andReturn(new ArrayList<Integer>());
         replayAllMocks();
         results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
@@ -113,6 +115,11 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         resetAllMocks();
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(constructApiResultObjListWith1Item());
+        List<Integer> loadYears = new ArrayList<Integer>(){{
+            add(2012);
+            add(2011);
+        }};
+        expect(_apiResultDao.getApiLoadYears()).andReturn(loadYears);
         ApiResult apiStateRank = new ApiResult();
         apiStateRank.setYear(2008);
         apiStateRank.setApiStateRank(1);

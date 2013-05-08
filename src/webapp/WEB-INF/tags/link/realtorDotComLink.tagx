@@ -57,6 +57,9 @@
         <c:when test="${omniturePageName eq 'School Search:MapPage'}">
             <c:set var="zillowTrackingCode" value="schoolsearch"/>
         </c:when>
+        <c:when test="${omniturePageName eq 'School Search:Page1'}">
+            <c:set var="zillowTrackingCode" value="schoolsearch"/>
+        </c:when>
         <c:when test="${omniturePageName eq 'School Tab - Map'}">
             <c:set var="zillowTrackingCode" value="schooltab"/>
         </c:when>

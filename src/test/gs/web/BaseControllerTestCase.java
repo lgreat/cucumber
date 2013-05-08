@@ -6,6 +6,7 @@
 package gs.web;
 
 import gs.web.request.RequestInfo;
+import org.junit.experimental.categories.Category;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,6 +21,7 @@ import javax.servlet.http.Cookie;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
+@Category(SkipTest.class)
 public class BaseControllerTestCase extends BaseTestCase {
     protected GsMockHttpServletRequest _request;
     protected MockHttpServletResponse _response;

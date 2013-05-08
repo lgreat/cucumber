@@ -455,8 +455,8 @@
         <compare:persistentCompare school="${school}"/>
         <school:profileNearby nearbySchools="${nearbySchools}" />
 
-        <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0" style="ND" size="300x137" defaultCity="${school.physicalAddress.city}" defaultState="${school.physicalAddress.state}"/>
 
+        <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
         <ad:adTag position="Community_Ad_300x50"/>
 
         <c:if test="${not empty school and not empty school.physicalAddress and not empty school.physicalAddress.city and
@@ -478,8 +478,6 @@
                     style="2012"
                     />
         </c:if>
-
-        <ad:BelowFold_Top_300x125/>
 
     </div>
 </div>

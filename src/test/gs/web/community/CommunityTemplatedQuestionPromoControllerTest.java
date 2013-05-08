@@ -5,7 +5,10 @@ import gs.data.util.table.ITableRow;
 import gs.data.util.table.HashMapTableRow;
 import gs.data.geo.City;
 import gs.data.state.State;
+import gs.web.SlowTest;
 import gs.web.util.context.SessionContext;
+import org.junit.experimental.categories.Category;
+
 import static gs.web.community.CommunityQuestionPromoController.*;
 import static org.easymock.classextension.EasyMock.*;
 
@@ -21,6 +24,7 @@ import java.util.Map;
  * Time: 11:10:16 AM
  * To change this template use File | Settings | File Templates.
  */
+@Category(SlowTest.class)
 public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQuestionPromoControllerTest{
 
 

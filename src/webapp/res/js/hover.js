@@ -55,13 +55,13 @@ GSType.hover.HoverDialog = function(id,width) {
             autoOpen: false,
             resizable: false,
             width: this.width,
+//            closeText: 'close',
             open: function(event, ui) {
                 window.setTimeout(function() {
                     jQuery(document).unbind('mousedown.dialog-overlay')
                                     .unbind('mouseup.dialog-overlay');
                 }, 100);
-            },
-            zIndex: 15000
+            }
         });
         thisHover.find('.' + this.hoverId + '_showHover').click(this.show.gs_bind(this));
         thisHover.find('.' + this.hoverId + '_hideHover').click(this.hide.gs_bind(this));
@@ -1787,7 +1787,11 @@ jQuery(function() {
             schoolName:GSType.hover.espPreApprovalEmail.schoolName
         };
 
-        jQuery.get(GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page', params);
+        // The following jQuery.get() returns the content to the non-existent results function.
+        //jQuery.get(GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page', params);
+        // The following returns the results to the user.
+        // The same issue exists for #clsValNewEmail and #clsExpVer above this code
+        window.location.href = GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page?' + jQuery.param(params);
 
         GSType.hover.espPreApprovalEmail.hide();
     });
@@ -1832,7 +1836,9 @@ jQuery(function() {
 
     jQuery('#signInHover_launchJoin').click(GSType.hover.signInHover.showJoin);
     jQuery('#signInHover_launchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
-    jQuery('#js_espLaunchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
+    jQuery('#js_espLaunchForgotPassword').on("click", function(){
+        GSType.hover.forgotPassword.show();
+    });
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page");
 // TODO-10568

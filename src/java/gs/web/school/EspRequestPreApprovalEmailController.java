@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -22,6 +23,7 @@ import java.util.*;
 @RequestMapping("/official-school-profile/espPreApprovalEmail.page")
 public class EspRequestPreApprovalEmailController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspRequestPreApprovalEmailController.class);
+    public static final String VIEW = "/community/registration/requestEmailValidation";   // "/community/registrationConfirm.page";
 
     protected ExactTargetAPI _exactTargetAPI;
 
@@ -29,17 +31,27 @@ public class EspRequestPreApprovalEmailController implements ReadWriteAnnotation
     private IUserDao _userDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public void display(ModelMap modelMap, HttpServletRequest request) {
+    public String display(ModelMap modelMap, HttpServletRequest request) {
         String email = request.getParameter("email");
         String schoolName = request.getParameter("schoolName");
+        String message = "We are currently unable to send the confirmation email.  Please try again or contact us at <a href=\"mailto:gs_support@greatschools.org\">gs_support@greatschools.org</a> if you need further assistance.";
         if (StringUtils.isNotBlank(email) && StringUtils.isNotBlank(schoolName)) {
             User user = _userDao.findUserFromEmailIfExists(email);
             if (user != null) {
                 if (!sendESPVerificationEmail(request, user, schoolName)) {
                     _log.error("ERROR sending pre-approval email.");
+                    modelMap.put("message", message);
+                } else {
+                    // This is success - email is already in param - so just fall through and send email
                 }
+
+            } else {
+                modelMap.put("message", message + " (reason: could not get email from user)");
             }
+        } else {
+            modelMap.put("message", message + " (reason: email or school is missing)");
         }
+        return VIEW;
     }
 
     public boolean sendESPVerificationEmail(HttpServletRequest request, User user, String schoolName) {

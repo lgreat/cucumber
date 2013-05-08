@@ -48,8 +48,10 @@
                       id="jq-propertyDetailsForm">
                     <div class="mbm jq-propertyAddressFields">
                         <gsml:input type="text" styleId="jq-propertyAddress" styleClass="text1 input_18" name="address"
-                                    value="Property Address (required)" onfocus="GS_textSwitch(this, '', 'Property Address (required)');"
-                                    onblur="GS_textSwitch(this, 'Property Address (required)', '');"/>
+                                    value="Property Address - street, city, state, zip (required)"
+                                    onfocus="GS_textSwitch(this, '', 'Property Address - street, city, state, zip (required)');"
+                                    onblur="GS_textSwitch(this, 'Property Address - street, city, state, zip (required)', '');"
+                                    placeholder="Property Address - street, city, state, zip (required)"/>
 
                         <div class="errors">
                             <span class="error valid">&amp;nbsp;</span>
@@ -161,8 +163,8 @@
                         </div>
                         <div class="unit size34of100 lastUnit jq-sqFootageFields">
                             <gsml:input type="text" styleId="js-sqFeet" styleClass="text1 input_6 fr" name="sqFeet"
-                                        value="Square footage" onfocus="GS_textSwitch(this, '', 'Square footage');"
-                                        onblur="GS_textSwitch(this, 'Square footage', '');"/>
+                                        value="Square Footage" onfocus="GS_textSwitch(this, '', 'Square Footage');"
+                                        onblur="GS_textSwitch(this, 'Square Footage', '');" placeholder="Square Footage"/>
 
                             <div class="errors">
                                 <span class="error valid">&amp;nbsp;</span>

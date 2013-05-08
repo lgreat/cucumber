@@ -348,9 +348,7 @@
         </tr>
         <tr>
             <td class="slStylesV1-0">
-                <promo:searchRealtorDotCom omniturePageName="${pageName}"
-                                           defaultCity="${cityObject.name}, ${cityObject.state.abbreviation}"
-                                           pageAdRatioKey="RDC_PCT_CITY" showAdPct="0" style="2012"/>
+                <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
             </td>
         </tr>
         <tr>

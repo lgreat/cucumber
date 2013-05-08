@@ -15,6 +15,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.ICityRatingDao;
 import gs.data.community.local.ILocalBoardDao;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -43,7 +44,9 @@ public class CityControllerTest extends BaseControllerTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         _controller = new CityController();
+
         _controller.setApplicationContext(getApplicationContext());
+        _controller.setZillowDao((ZillowRegionDao) getApplicationContext().getBean("zillowDao"));
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
