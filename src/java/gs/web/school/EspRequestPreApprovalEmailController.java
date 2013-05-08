@@ -23,7 +23,7 @@ import java.util.*;
 @RequestMapping("/official-school-profile/espPreApprovalEmail.page")
 public class EspRequestPreApprovalEmailController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspRequestPreApprovalEmailController.class);
-    public static final String VIEW = "/community/registration/requestEmailValidation";
+    public static final String VIEW = "/community/registration/requestEmailValidation";   // "/community/registrationConfirm.page";
 
     protected ExactTargetAPI _exactTargetAPI;
 
@@ -41,14 +41,17 @@ public class EspRequestPreApprovalEmailController implements ReadWriteAnnotation
                 if (!sendESPVerificationEmail(request, user, schoolName)) {
                     _log.error("ERROR sending pre-approval email.");
                     modelMap.put("message", message);
+                } else {
+                    // This is success - email is already in param - so just fall through and send email
                 }
+
             } else {
                 modelMap.put("message", message + " (reason: could not get email from user)");
             }
         } else {
             modelMap.put("message", message + " (reason: email or school is missing)");
         }
-        return "redirect:" + VIEW;
+        return VIEW;
     }
 
     public boolean sendESPVerificationEmail(HttpServletRequest request, User user, String schoolName) {

@@ -201,7 +201,6 @@ var Boundary = (function (){
     }
 
     var nearbyhomes = function (data) {
-        alert ('123' +data.address.zip) ;
         if (data && data.address && data.address.zip) {
             $nearby.show().removeClass('dn');
             $nearby.find('a').attr('href', 'http://www.zillow.com/'+data.state+'-'+data.address.zip+'?utm_source=GreatSchools&utm_medium=referral&utm_campaign=districtbrowsemap&cbpartner=Great+Schools');

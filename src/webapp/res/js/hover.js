@@ -1787,7 +1787,11 @@ jQuery(function() {
             schoolName:GSType.hover.espPreApprovalEmail.schoolName
         };
 
-        jQuery.get(GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page', params);
+        // The following jQuery.get() returns the content to the non-existent results function.
+        //jQuery.get(GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page', params);
+        // The following returns the results to the user.
+        // The same issue exists for #clsValNewEmail and #clsExpVer above this code
+        window.location.href = GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page?' + jQuery.param(params);
 
         GSType.hover.espPreApprovalEmail.hide();
     });
