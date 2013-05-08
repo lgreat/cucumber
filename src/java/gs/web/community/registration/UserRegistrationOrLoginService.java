@@ -88,7 +88,12 @@ public class UserRegistrationOrLoginService {
                 }
 
                 ThreadLocalTransactionManager.commitOrRollback();
-                PageHelper.setMemberAuthorized(request, response, user);
+                // User object loses its session and this might fix that.
+                user = getUserDao().findUserFromId(user.getId());
+
+                if (registrationBehavior.sendVerificationEmail()) {
+                    sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                }
             }
 
             return user;
@@ -150,7 +155,7 @@ public class UserRegistrationOrLoginService {
         //TODO is this the only check required?
         if (StringUtils.isEmpty(userRegistrationCommand.getScreenName())) {
             profile.setScreenName("user" + user.getId());
-        }else{
+        } else {
             profile.setScreenName(userRegistrationCommand.getScreenName());
         }
 
@@ -191,7 +196,6 @@ public class UserRegistrationOrLoginService {
             requestIP = request.getRemoteAddr();
         }
         try {
-            System.out.println("-_tableDao---------------------"+_tableDao);
             if (_tableDao.getFirstRowByKey(SPREADSHEET_ID_FIELD, requestIP) != null) {
                 _log.warn("Request from blocked IP Address: " + requestIP);
                 return true;
@@ -208,14 +212,16 @@ public class UserRegistrationOrLoginService {
 
     protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl,
                                        boolean schoolReviewFlow) {
-        try {
-            if (schoolReviewFlow) {
-                _emailVerificationEmail.sendSchoolReviewVerificationEmail(request, user, redirectUrl);
-            } else {
-                _emailVerificationEmail.sendVerificationEmail(request, user, redirectUrl);
+        if (user != null && StringUtils.isNotBlank(redirectUrl)) {
+            try {
+                if (schoolReviewFlow) {
+                    _emailVerificationEmail.sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+                } else {
+                    _emailVerificationEmail.sendVerificationEmail(request, user, redirectUrl);
+                }
+            } catch (Exception e) {
+                _log.error("Error sending email message: " + e, e);
             }
-        } catch (Exception e) {
-            _log.error("Error sending email message: " + e, e);
         }
     }
 
