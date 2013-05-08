@@ -190,20 +190,82 @@ public class UspHelper {
      */
     public static final String FACILITIES_RESPONSE_KEY = "facilities";
 
+    public static final String FACILITIES_FARM_RESPONSE_VALUE = "farm";
+    public static final String FACILITIES_SPORTS_FIELDS_RESPONSE_VALUE = "sports_fields";
+    public static final String FACILITIES_ARTS_RESPONSE_VALUE = "art";
+    public static final String FACILITIES_AUDIO_VISUAL_RESPONSE_VALUE = "audiovisual";
+    public static final String FACILITIES_AUDITORIUM_RESPONSE_VALUE = "auditorium";
+    public static final String FACILITIES_CAFETERIA_RESPONSE_VALUE = "cafeteria";
+    public static final String FACILITIES_CHAPEL_RESPONSE_VALUE = "chapel";
+    public static final String FACILITIES_COLLEGE_CENTER_RESPONSE_VALUE = "college_center";
+    public static final String FACILITIES_COMPUTER_RESPONSE_VALUE = "computer";
+    public static final String FACILITIES_GAREDEN_RESPONSE_VALUE = "garden";
+    public static final String FACILITIES_GYM_RESPONSE_VALUE = "gym";
+    public static final String FACILITIES_INDUSTRIAL_RESPONSE_VALUE = "industrial";
+    public static final String FACILITIES_INTEREST_RESPONSE_VALUE = "internet";
+    public static final String FACILITIES_KITCHEN_RESPONSE_VALUE = "kitchen";
+    public static final String FACILITIES_LEARNING_LAB_RESPONSE_VALUE = "learning_lab";
+    public static final String FACILITIES_LIBRARY_RESPONSE_VALUE = "library";
+    public static final String FACILITIES_MULTI_PURPOSE_RESPONSE_VALUE = "multi_purpose";
+    public static final String FACILITIES_MUSIC_RESPONSE_VALUE = "music";
+    public static final String FACILITIES_OUTDOOR_RESPONSE_VALUE = "outdoor";
+    public static final String FACILITIES_PARENT_RESPONSE_VALUE = "parent";
+    public static final String FACILITIES_PERFORMANCE_RESPONSE_VALUE = "performance";
+    public static final String FACILITIES_PLAYGROUND_RESPONSE_VALUE = "playground";
+    public static final String FACILITIES_SCIENCE_RESPONSE_VALUE = "science";
+    public static final String FACILITIES_SWIMMING_RESPONSE_VALUE = "swimming";
+
     /**
      * Response key and values for foreign languages
      */
     public static final String FOREIGN_LANGUAGES_RESPONSE_KEY = "foreign_language";
 
+    public static final String FOREIGN_LANG_ASL_RESPONSE_VALUE = "american_sign_language";
+    public static final String FOREIGN_LANG_AMHARIC_RESPONSE_VALUE = "amharic";
+    public static final String FOREIGN_LANG_ARABIC_RESPONSE_VALUE = "arabic";
+    public static final String FOREIGN_LANG_CANTONESE_RESPONSE_VALUE = "cantonese";
+    public static final String FOREIGN_LANG_MANDARIN_RESPONSE_VALUE = "mandarin";
+    public static final String FOREIGN_LANG_DUTCH_RESPONSE_VALUE = "dutch";
+    public static final String FOREIGN_LANG_FRENCH_RESPONSE_VALUE = "french";
+    public static final String FOREIGN_LANG_GERMAN_RESPONSE_VALUE = "german";
+    public static final String FOREIGN_LANG_HMONG_RESPONSE_VALUE = "hmong";
+    public static final String FOREIGN_LANG_ITALIAN_RESPONSE_VALUE = "italian";
+    public static final String FOREIGN_LANG_JAPANESE_RESPONSE_VALUE = "japanese";
+    public static final String FOREIGN_LANG_KOREAN_RESPONSE_VALUE = "korean";
+    public static final String FOREIGN_LANG_LATIN_RESPONSE_VALUE = "latin";
+    public static final String FOREIGN_LANG_RUSSIAN_RESPONSE_VALUE = "russian";
+    public static final String FOREIGN_LANG_SPANISH_RESPONSE_VALUE = "spanish";
+    public static final String FOREIGN_LANG_TAGALOG_RESPONSE_VALUE = "tagalog";
+    public static final String FOREIGN_LANG_URDU_RESPONSE_VALUE = "urdu";
+    public static final String FOREIGN_LANG_VIETNAMESE_RESPONSE_VALUE = "vietnamese";
+
     /**
      * Response key and values for transportation
      */
-    public static final String TRANSPORTATION_RESPONSE_KEYS = "transportation";
+    public static final String TRANSPORTATION_RESPONSE_KEY = "transportation";
+
+    public static final String TRANSPORTATION_BUSSES_RESPONSE_VALUE = "busses";
+    public static final String TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE = "shared_bus";
+    public static final String TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE = "special_ed_only";
+    public static final String TRANSPORTATION_PASSES_RESPONSE_VALUE = "passes";
 
     /**
      * Response key and values for parent involvement
      */
-    public static final String PARENT_INVOLVEMENT_RESPONSE_KEYS = "parent_involvement";
+    public static final String PARENT_INVOLVEMENT_RESPONSE_KEY = "parent_involvement";
+
+    public static final String PARENT_INVOLVEMENT_PARENT_NIGHTS_RESPONSE_VALUE = "parent_nights_req";
+    public static final String PARENT_INVOLVEMENT_CHAPERONE_RESPONSE_VALUE = "chaperone_req";
+    public static final String PARENT_INVOLVEMENT_COACH_RESPONSE_VALUE = "coach_req";
+    public static final String PARENT_INVOLVEMENT_PTO_PTA_RESPONSE_VALUE = "pto_pta_req";
+    public static final String PARENT_INVOLVEMENT_PLAYGROUND_RESPONSE_VALUE = "playground_req";
+    public static final String PARENT_INVOLVEMENT_CULTURAL_RESPONSE_VALUE = "cultural_req";
+    public static final String PARENT_INVOLVEMENT_FUNDRAISING_RESPONSE_VALUE = "fundraising_req";
+    public static final String PARENT_INVOLVEMENT_PRESENTATION_RESPONSE_VALUE = "presentation_req";
+    public static final String PARENT_INVOLVEMENT_GOVERNANCE_RESPONSE_VALUE = "governance_req";
+    public static final String PARENT_INVOLVEMENT_TUTOR_RESPONSE_VALUE = "tutor_req";
+    public static final String PARENT_INVOLVEMENT_CLASSROOM_RESPONSE_VALUE = "classroom_req";
+    public static final String PARENT_INVOLVEMENT_AFTER_SCHOOL_RESPONSE_VALUE = "after_school_req";
 
     /**
      * Enum with form field section name and arrays of response keys.
@@ -217,9 +279,9 @@ public class UspHelper {
         staff(STAFF_PARAM, new String[]{STAFF_RESPONSE_KEY}),
         facilities(FACILITIES_PARAM, new String[]{FACILITIES_RESPONSE_KEY}),
         foreignLanguages(FOREIGN_LANGUAGES_PARAM, new String[]{FOREIGN_LANGUAGES_RESPONSE_KEY}),
-        transportation(TRANSPORTATION_PARAM, new String[]{TRANSPORTATION_RESPONSE_KEYS}),
+        transportation(TRANSPORTATION_PARAM, new String[]{TRANSPORTATION_RESPONSE_KEY}),
         boysSports(BOYS_SPORTS_PARAM, new String[]{BOYS_SPORTS_RESPONSE_KEY}),
-        parentInvolvement(PARENT_INVOLVEMENT_PARAM, new String[]{PARENT_INVOLVEMENT_RESPONSE_KEYS});
+        parentInvolvement(PARENT_INVOLVEMENT_PARAM, new String[]{PARENT_INVOLVEMENT_RESPONSE_KEY});
 
         private final String _sectionFieldName;
         private final String[] _responseKeys;
@@ -246,11 +308,11 @@ public class UspHelper {
     public static final Multimap<String, String> SECTION_RESPONSE_KEY_VALUE_MAP = LinkedListMultimap.create();
     static {
         for(SectionResponseKeys sectionResponseKeys : SectionResponseKeys.values()) {
-            String sectionTitle = sectionResponseKeys.getSectionFieldName();
+            String sectionFieldName = sectionResponseKeys.getSectionFieldName();
             String[] responseKeys = sectionResponseKeys.getResponseKeys();
 
             for(String responseKey : responseKeys) {
-                if(ARTS_MUSIC_PARAM.equals(sectionTitle)) {
+                if(ARTS_MUSIC_PARAM.equals(sectionFieldName)) {
                     if(ARTS_MEDIA_RESPONSE_KEY.equals(responseKey)) {
                         addKeyValueToSection(ARTS_MEDIA_RESPONSE_KEY, new String[] {
                                 ARTS_MEDIA_ANIMATION_RESPONSE_VALUE , ARTS_MEDIA_GRAPHICS_RESPONSE_VALUE,
@@ -286,63 +348,124 @@ public class UspHelper {
                     }
                 }
 
-                else if(EXTENDED_CARE_PARAM.equals(sectionTitle)) {
-                    if(EXTENDED_CARE_RESPONSE_KEY.equals(responseKey)) {
-                        addKeyValueToSection(EXTENDED_CARE_RESPONSE_KEY, new String[]{
-                                EXTENDED_CARE_BEFORE_RESPONSE_VALUE, EXTENDED_CARE_AFTER_RESPONSE_VALUE,
-                                NONE_RESPONSE_VALUE
-                        });
-                    }
+                else if(EXTENDED_CARE_PARAM.equals(sectionFieldName) && EXTENDED_CARE_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(EXTENDED_CARE_RESPONSE_KEY, new String[]{
+                            EXTENDED_CARE_BEFORE_RESPONSE_VALUE, EXTENDED_CARE_AFTER_RESPONSE_VALUE,
+                            NONE_RESPONSE_VALUE
+                    });
                 }
 
-                else if(GIRLS_SPORTS_PARAM.equals(sectionTitle)) {
-                    if(GIRLS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
-                        addKeyValueToSection(GIRLS_SPORTS_RESPONSE_KEY, new String[]{
-                                SPORTS_BADMINTON_RESPONSE_VALUE, SPORTS_BASKETBALL_RESPONSE_VALUE,
-                                SPORTS_CHEERLEADING_RESPONSE_VALUE, SPORTS_CREW_RESPONSE_VALUE,
-                                SPORTS_CROSS_COUNTRY_RESPONSE_VALUE, SPORTS_CYCLING_RESPONSE_VALUE,
-                                SPORTS_DIVING_RESPONSE_VALUE, SPORTS_EQUESTRIAN_RESPONSE_VALUE,
-                                SPORTS_FENCING_RESPONSE_VALUE , GIRLS_SPORTS_FIELD_HOCKEY_RESPONSE_VALUE,
-                                SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
-                                SPORTS_GOLF_RESPONSE_VALUE, SPORTS_GYMNASTICS_RESPONSE_VALUE,
-                                SPORTS_ICE_HOCKEY_RESPONSE_VALUE, SPORTS_MARTIAL_ARTS_RESPONSE_VALUE,
-                                SPORTS_KAYAKING_RESPONSE_VALUE, SPORTS_KICKBALL_RESPONSE_VALUE,
-                                SPORTS_LACROSSE_RESPONSE_VALUE, SPORTS_WEIGHT_LIFTING_RESPONSE_VALUE,
-                                SPORTS_RUGBY_RESPONSE_VALUE, SPORTS_SAILING_RESPONSE_VALUE,
-                                SPORTS_SKIING_RESPONSE_VALUE, SPORTS_SOCCER_RESPONSE_VALUE,
-                                GIRLS_SPORTS_SOFTBALL_RESPONSE_VALUE,
-                                SPORTS_SQUASH_RESPONSE_VALUE, SPORTS_SURFING_RESPONSE_VALUE,
-                                SPORTS_SWIMMING_RESPONSE_VALUE, SPORTS_TENNIS_RESPONSE_VALUE,
-                                SPORTS_TRACK_RESPONSE_VALUE, SPORTS_ULTIMATE_RESPONSE_VALUE,
-                                SPORTS_VOLLEYBALL_RESPONSE_VALUE, SPORTS_WATER_POLO_RESPONSE_VALUE,
-                                SPORTS_WRESTLING_RESPONSE_VALUE
-                        });
-                    }
+                else if(GIRLS_SPORTS_PARAM.equals(sectionFieldName) && GIRLS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(GIRLS_SPORTS_RESPONSE_KEY, new String[]{
+                            SPORTS_BADMINTON_RESPONSE_VALUE, SPORTS_BASKETBALL_RESPONSE_VALUE,
+                            SPORTS_CHEERLEADING_RESPONSE_VALUE, SPORTS_CREW_RESPONSE_VALUE,
+                            SPORTS_CROSS_COUNTRY_RESPONSE_VALUE, SPORTS_CYCLING_RESPONSE_VALUE,
+                            SPORTS_DIVING_RESPONSE_VALUE, SPORTS_EQUESTRIAN_RESPONSE_VALUE,
+                            SPORTS_FENCING_RESPONSE_VALUE , GIRLS_SPORTS_FIELD_HOCKEY_RESPONSE_VALUE,
+                            SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
+                            SPORTS_GOLF_RESPONSE_VALUE, SPORTS_GYMNASTICS_RESPONSE_VALUE,
+                            SPORTS_ICE_HOCKEY_RESPONSE_VALUE, SPORTS_MARTIAL_ARTS_RESPONSE_VALUE,
+                            SPORTS_KAYAKING_RESPONSE_VALUE, SPORTS_KICKBALL_RESPONSE_VALUE,
+                            SPORTS_LACROSSE_RESPONSE_VALUE, SPORTS_WEIGHT_LIFTING_RESPONSE_VALUE,
+                            SPORTS_RUGBY_RESPONSE_VALUE, SPORTS_SAILING_RESPONSE_VALUE,
+                            SPORTS_SKIING_RESPONSE_VALUE, SPORTS_SOCCER_RESPONSE_VALUE,
+                            GIRLS_SPORTS_SOFTBALL_RESPONSE_VALUE,
+                            SPORTS_SQUASH_RESPONSE_VALUE, SPORTS_SURFING_RESPONSE_VALUE,
+                            SPORTS_SWIMMING_RESPONSE_VALUE, SPORTS_TENNIS_RESPONSE_VALUE,
+                            SPORTS_TRACK_RESPONSE_VALUE, SPORTS_ULTIMATE_RESPONSE_VALUE,
+                            SPORTS_VOLLEYBALL_RESPONSE_VALUE, SPORTS_WATER_POLO_RESPONSE_VALUE,
+                            SPORTS_WRESTLING_RESPONSE_VALUE
+                    });
                 }
 
-                else if(BOYS_SPORTS_PARAM.equals(sectionTitle)) {
-                    if(BOYS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
-                        addKeyValueToSection(BOYS_SPORTS_RESPONSE_KEY, new String[]{
-                                SPORTS_BADMINTON_RESPONSE_VALUE, BOYS_SPORTS_BASEBALL_RESPONSE_VALUE,
-                                SPORTS_BASKETBALL_RESPONSE_VALUE,
-                                SPORTS_CHEERLEADING_RESPONSE_VALUE, SPORTS_CREW_RESPONSE_VALUE,
-                                SPORTS_CROSS_COUNTRY_RESPONSE_VALUE, SPORTS_CYCLING_RESPONSE_VALUE,
-                                SPORTS_DIVING_RESPONSE_VALUE, SPORTS_EQUESTRIAN_RESPONSE_VALUE,
-                                SPORTS_FENCING_RESPONSE_VALUE , SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
-                                BOYS_SPORTS_FOOTBALL_RESPONSE_VALUE,
-                                SPORTS_GOLF_RESPONSE_VALUE, SPORTS_GYMNASTICS_RESPONSE_VALUE,
-                                SPORTS_ICE_HOCKEY_RESPONSE_VALUE, SPORTS_MARTIAL_ARTS_RESPONSE_VALUE,
-                                SPORTS_KAYAKING_RESPONSE_VALUE, SPORTS_KICKBALL_RESPONSE_VALUE,
-                                SPORTS_LACROSSE_RESPONSE_VALUE, SPORTS_WEIGHT_LIFTING_RESPONSE_VALUE,
-                                SPORTS_RUGBY_RESPONSE_VALUE, SPORTS_SAILING_RESPONSE_VALUE,
-                                SPORTS_SKIING_RESPONSE_VALUE, SPORTS_SOCCER_RESPONSE_VALUE,
-                                SPORTS_SQUASH_RESPONSE_VALUE, SPORTS_SURFING_RESPONSE_VALUE,
-                                SPORTS_SWIMMING_RESPONSE_VALUE, SPORTS_TENNIS_RESPONSE_VALUE,
-                                SPORTS_TRACK_RESPONSE_VALUE, SPORTS_ULTIMATE_RESPONSE_VALUE,
-                                SPORTS_VOLLEYBALL_RESPONSE_VALUE, SPORTS_WATER_POLO_RESPONSE_VALUE,
-                                SPORTS_WRESTLING_RESPONSE_VALUE
-                        });
-                    }
+                else if(BOYS_SPORTS_PARAM.equals(sectionFieldName) && BOYS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(BOYS_SPORTS_RESPONSE_KEY, new String[]{
+                            SPORTS_BADMINTON_RESPONSE_VALUE, BOYS_SPORTS_BASEBALL_RESPONSE_VALUE,
+                            SPORTS_BASKETBALL_RESPONSE_VALUE,
+                            SPORTS_CHEERLEADING_RESPONSE_VALUE, SPORTS_CREW_RESPONSE_VALUE,
+                            SPORTS_CROSS_COUNTRY_RESPONSE_VALUE, SPORTS_CYCLING_RESPONSE_VALUE,
+                            SPORTS_DIVING_RESPONSE_VALUE, SPORTS_EQUESTRIAN_RESPONSE_VALUE,
+                            SPORTS_FENCING_RESPONSE_VALUE , SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
+                            BOYS_SPORTS_FOOTBALL_RESPONSE_VALUE,
+                            SPORTS_GOLF_RESPONSE_VALUE, SPORTS_GYMNASTICS_RESPONSE_VALUE,
+                            SPORTS_ICE_HOCKEY_RESPONSE_VALUE, SPORTS_MARTIAL_ARTS_RESPONSE_VALUE,
+                            SPORTS_KAYAKING_RESPONSE_VALUE, SPORTS_KICKBALL_RESPONSE_VALUE,
+                            SPORTS_LACROSSE_RESPONSE_VALUE, SPORTS_WEIGHT_LIFTING_RESPONSE_VALUE,
+                            SPORTS_RUGBY_RESPONSE_VALUE, SPORTS_SAILING_RESPONSE_VALUE,
+                            SPORTS_SKIING_RESPONSE_VALUE, SPORTS_SOCCER_RESPONSE_VALUE,
+                            SPORTS_SQUASH_RESPONSE_VALUE, SPORTS_SURFING_RESPONSE_VALUE,
+                            SPORTS_SWIMMING_RESPONSE_VALUE, SPORTS_TENNIS_RESPONSE_VALUE,
+                            SPORTS_TRACK_RESPONSE_VALUE, SPORTS_ULTIMATE_RESPONSE_VALUE,
+                            SPORTS_VOLLEYBALL_RESPONSE_VALUE, SPORTS_WATER_POLO_RESPONSE_VALUE,
+                            SPORTS_WRESTLING_RESPONSE_VALUE
+                    });
+                }
+
+                else if(STAFF_PARAM.equals(sectionFieldName) && STAFF_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(STAFF_RESPONSE_KEY, new String[]{
+                            STAFF_ART_TEACHER_RESPONSE_VALUE, STAFF_ASSISTANT_PRINCIPAL_RESPONSE_VALUE,
+                            STAFF_COLLEGE_COUNSELOR_RESPONSE_VALUE, STAFF_COMP_SPECIALIST_RESPONSE_VALUE,
+                            STAFF_COOKING_TEACHER_RESPONSE_VALUE, STAFF_DANCE_TEACHER_RESPONSE_VALUE,
+                            STAFF_ELL_ESL_RESPONSE_VALUE, STAFF_GARDEN_TEACHER_RESPONSE_VALUE,
+                            STAFF_GIFTED_SPECIALIST_RESPONSE_VALUE, STAFF_INSTRUCTIONAL_AID_RESPONSE_VALUE,
+                            STAFF_LIBRARIAN_RESPONSE_VALUE, STAFF_MATH_SPECIALIST_RESPONSE_VALUE,
+                            STAFF_MUSIC_TEACHER_RESPONSE_VALUE, STAFF_NURSE_RESPONSE_VALUE,
+                            STAFF_PE_INSTRUCTOR_RESPONSE_VALUE, STAFF_POETRY_TEACHER_RESPONSE_VALUE,
+                            STAFF_PRIEST_RESPONSE_VALUE, STAFF_READING_SPECIALIST_RESPONSE_VALUE,
+                            STAFF_ROBOTICS_TEACHER_RESPONSE_VALUE, STAFF_SCHOOL_PSYCHOLOGIST_RESPONSE_VALUE,
+                            STAFF_SCHOOL_COUNSELOR_RESPONSE_VALUE, STAFF_SECURITY_RESPONSE_VALUE,
+                            STAFF_SPECIAL_ED_COORD_RESPONSE_VALUE, STAFF_SPEECH_THERAPIST_RESPONSE_VALUE,
+                            STAFF_TEACHER_AID_RESPONSE_VALUE, STAFF_TUTOR_RESPONSE_VALUE
+                    });
+                }
+
+                else if(FACILITIES_PARAM.equals(sectionFieldName) && FACILITIES_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(FACILITIES_RESPONSE_KEY, new String[]{
+                            FACILITIES_FARM_RESPONSE_VALUE, FACILITIES_SPORTS_FIELDS_RESPONSE_VALUE,
+                            FACILITIES_ARTS_RESPONSE_VALUE, FACILITIES_AUDIO_VISUAL_RESPONSE_VALUE,
+                            FACILITIES_AUDITORIUM_RESPONSE_VALUE, FACILITIES_CAFETERIA_RESPONSE_VALUE,
+                            FACILITIES_CHAPEL_RESPONSE_VALUE, FACILITIES_COLLEGE_CENTER_RESPONSE_VALUE,
+                            FACILITIES_COMPUTER_RESPONSE_VALUE, FACILITIES_GAREDEN_RESPONSE_VALUE,
+                            FACILITIES_GYM_RESPONSE_VALUE, FACILITIES_INDUSTRIAL_RESPONSE_VALUE,
+                            FACILITIES_INTEREST_RESPONSE_VALUE, FACILITIES_KITCHEN_RESPONSE_VALUE,
+                            FACILITIES_LEARNING_LAB_RESPONSE_VALUE, FACILITIES_LIBRARY_RESPONSE_VALUE,
+                            FACILITIES_MULTI_PURPOSE_RESPONSE_VALUE, FACILITIES_MUSIC_RESPONSE_VALUE,
+                            FACILITIES_OUTDOOR_RESPONSE_VALUE, FACILITIES_PARENT_RESPONSE_VALUE,
+                            FACILITIES_PERFORMANCE_RESPONSE_VALUE, FACILITIES_PLAYGROUND_RESPONSE_VALUE,
+                            FACILITIES_SCIENCE_RESPONSE_VALUE, FACILITIES_SWIMMING_RESPONSE_VALUE
+                    });
+                }
+
+                else if(FOREIGN_LANGUAGES_PARAM.equals(sectionFieldName) && FOREIGN_LANGUAGES_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(FOREIGN_LANGUAGES_RESPONSE_KEY, new String[]{
+                            FOREIGN_LANG_ASL_RESPONSE_VALUE, FOREIGN_LANG_AMHARIC_RESPONSE_VALUE,
+                            FOREIGN_LANG_ARABIC_RESPONSE_VALUE, FOREIGN_LANG_CANTONESE_RESPONSE_VALUE,
+                            FOREIGN_LANG_MANDARIN_RESPONSE_VALUE, FOREIGN_LANG_DUTCH_RESPONSE_VALUE,
+                            FOREIGN_LANG_FRENCH_RESPONSE_VALUE, FOREIGN_LANG_GERMAN_RESPONSE_VALUE,
+                            FOREIGN_LANG_HMONG_RESPONSE_VALUE, FOREIGN_LANG_ITALIAN_RESPONSE_VALUE,
+                            FOREIGN_LANG_JAPANESE_RESPONSE_VALUE, FOREIGN_LANG_KOREAN_RESPONSE_VALUE,
+                            FOREIGN_LANG_LATIN_RESPONSE_VALUE, FOREIGN_LANG_RUSSIAN_RESPONSE_VALUE,
+                            FOREIGN_LANG_SPANISH_RESPONSE_VALUE, FOREIGN_LANG_TAGALOG_RESPONSE_VALUE,
+                            FOREIGN_LANG_URDU_RESPONSE_VALUE, FOREIGN_LANG_VIETNAMESE_RESPONSE_VALUE
+                    });
+                }
+
+                else if(TRANSPORTATION_PARAM.equals(sectionFieldName) && TRANSPORTATION_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(TRANSPORTATION_RESPONSE_KEY, new String[]{
+                            TRANSPORTATION_BUSSES_RESPONSE_VALUE, TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE,
+                            TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE, TRANSPORTATION_PASSES_RESPONSE_VALUE
+                    });
+                }
+
+                else if(PARENT_INVOLVEMENT_PARAM.equals(sectionFieldName) && PARENT_INVOLVEMENT_RESPONSE_KEY.equals(responseKey)) {
+                    addKeyValueToSection(PARENT_INVOLVEMENT_RESPONSE_KEY, new String[]{
+                            PARENT_INVOLVEMENT_PARENT_NIGHTS_RESPONSE_VALUE, PARENT_INVOLVEMENT_CHAPERONE_RESPONSE_VALUE,
+                            PARENT_INVOLVEMENT_COACH_RESPONSE_VALUE, PARENT_INVOLVEMENT_PTO_PTA_RESPONSE_VALUE,
+                            PARENT_INVOLVEMENT_PLAYGROUND_RESPONSE_VALUE, PARENT_INVOLVEMENT_CULTURAL_RESPONSE_VALUE,
+                            PARENT_INVOLVEMENT_FUNDRAISING_RESPONSE_VALUE, PARENT_INVOLVEMENT_PRESENTATION_RESPONSE_VALUE,
+                            PARENT_INVOLVEMENT_GOVERNANCE_RESPONSE_VALUE, PARENT_INVOLVEMENT_TUTOR_RESPONSE_VALUE,
+                            PARENT_INVOLVEMENT_CLASSROOM_RESPONSE_VALUE, PARENT_INVOLVEMENT_AFTER_SCHOOL_RESPONSE_VALUE
+                    });
                 }
             }
         }
@@ -498,6 +621,80 @@ public class UspHelper {
         put(STAFF_SPEECH_THERAPIST_RESPONSE_VALUE, "Speech and language therapist");
         put(STAFF_TEACHER_AID_RESPONSE_VALUE, "Teacher aid / Assistant teacher");
         put(STAFF_TUTOR_RESPONSE_VALUE, "Tutor");
+
+        /**
+         * Facilities
+         */
+        put(FACILITIES_FARM_RESPONSE_VALUE, "Access to farm or natural area");
+        put(FACILITIES_SPORTS_FIELDS_RESPONSE_VALUE, "Access to sports fields");
+        put(FACILITIES_ARTS_RESPONSE_VALUE, "Art room");
+        put(FACILITIES_AUDIO_VISUAL_RESPONSE_VALUE, "Audiovisual aids");
+        put(FACILITIES_AUDITORIUM_RESPONSE_VALUE, "Auditorium");
+        put(FACILITIES_CAFETERIA_RESPONSE_VALUE, "Cafeteria");
+        put(FACILITIES_CHAPEL_RESPONSE_VALUE, "Chapel / spiritual reflection center");
+        put(FACILITIES_COLLEGE_CENTER_RESPONSE_VALUE, "College / career center");
+        put(FACILITIES_COMPUTER_RESPONSE_VALUE, "Computer lab");
+        put(FACILITIES_GAREDEN_RESPONSE_VALUE, "Garden / Greenhouse");
+        put(FACILITIES_GYM_RESPONSE_VALUE, "Gym");
+        put(FACILITIES_INDUSTRIAL_RESPONSE_VALUE, "Industrial shop");
+        put(FACILITIES_INTEREST_RESPONSE_VALUE, "Internet access");
+        put(FACILITIES_KITCHEN_RESPONSE_VALUE, "Kitchen");
+        put(FACILITIES_LEARNING_LAB_RESPONSE_VALUE, "Learning lab");
+        put(FACILITIES_LIBRARY_RESPONSE_VALUE, "Library");
+        put(FACILITIES_MULTI_PURPOSE_RESPONSE_VALUE, "Multi-purpose room (\"cafegymatorium\")");
+        put(FACILITIES_MUSIC_RESPONSE_VALUE, "Music room");
+        put(FACILITIES_OUTDOOR_RESPONSE_VALUE, "Outdoor learning lab");
+        put(FACILITIES_PARENT_RESPONSE_VALUE, "Parent center");
+        put(FACILITIES_PERFORMANCE_RESPONSE_VALUE, "Performance stage");
+        put(FACILITIES_PLAYGROUND_RESPONSE_VALUE, "Playground");
+        put(FACILITIES_SCIENCE_RESPONSE_VALUE, "Science lab");
+        put(FACILITIES_SWIMMING_RESPONSE_VALUE, "Swimming pool");
+
+        /**
+         * Foreign languages
+         */
+        put(FOREIGN_LANG_ASL_RESPONSE_VALUE, "American Sign Language - ASL");
+        put(FOREIGN_LANG_AMHARIC_RESPONSE_VALUE, "Amharic");
+        put(FOREIGN_LANG_ARABIC_RESPONSE_VALUE, "Arabic");
+        put(FOREIGN_LANG_CANTONESE_RESPONSE_VALUE, "Chinese - Cantonese");
+        put(FOREIGN_LANG_MANDARIN_RESPONSE_VALUE, "Chinese - Mandarin");
+        put(FOREIGN_LANG_DUTCH_RESPONSE_VALUE, "Dutch");
+        put(FOREIGN_LANG_FRENCH_RESPONSE_VALUE, "French");
+        put(FOREIGN_LANG_GERMAN_RESPONSE_VALUE, "German");
+        put(FOREIGN_LANG_HMONG_RESPONSE_VALUE, "Hmong");
+        put(FOREIGN_LANG_ITALIAN_RESPONSE_VALUE, "Italian");
+        put(FOREIGN_LANG_JAPANESE_RESPONSE_VALUE, "Japanese");
+        put(FOREIGN_LANG_KOREAN_RESPONSE_VALUE, "Korean");
+        put(FOREIGN_LANG_LATIN_RESPONSE_VALUE, "Latin");
+        put(FOREIGN_LANG_RUSSIAN_RESPONSE_VALUE, "Russian");
+        put(FOREIGN_LANG_SPANISH_RESPONSE_VALUE, "Spanish");
+        put(FOREIGN_LANG_TAGALOG_RESPONSE_VALUE, "Tagalog");
+        put(FOREIGN_LANG_URDU_RESPONSE_VALUE, "Urdu");
+        put(FOREIGN_LANG_VIETNAMESE_RESPONSE_VALUE, "Vietnamese");
+
+        /**
+         * Transportation
+         */
+        put(TRANSPORTATION_BUSSES_RESPONSE_VALUE, "Buses / vans provided for students");
+        put(TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE, "Buses / vans shared with other schools");
+        put(TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE, "Transportation provided for special education students");
+        put(TRANSPORTATION_PASSES_RESPONSE_VALUE, "Passes / tokens provided for public transportation");
+
+        /**
+         * Parent involvement
+         */
+        put(PARENT_INVOLVEMENT_PARENT_NIGHTS_RESPONSE_VALUE, "Attend parent nights");
+        put(PARENT_INVOLVEMENT_CHAPERONE_RESPONSE_VALUE, "Chaperone school trips");
+        put(PARENT_INVOLVEMENT_COACH_RESPONSE_VALUE, "Coach sports teams or extracurricular activities");
+        put(PARENT_INVOLVEMENT_PTO_PTA_RESPONSE_VALUE, "Join PTO / PTA");
+        put(PARENT_INVOLVEMENT_PLAYGROUND_RESPONSE_VALUE, "Monitor the playground");
+        put(PARENT_INVOLVEMENT_CULTURAL_RESPONSE_VALUE, "Organize cultural events");
+        put(PARENT_INVOLVEMENT_FUNDRAISING_RESPONSE_VALUE, "Organize fundraising events (school auction, bake sales, etc.)");
+        put(PARENT_INVOLVEMENT_PRESENTATION_RESPONSE_VALUE, "Present special topics during curricular units");
+        put(PARENT_INVOLVEMENT_GOVERNANCE_RESPONSE_VALUE, "Serve on school improvement team or governance council");
+        put(PARENT_INVOLVEMENT_TUTOR_RESPONSE_VALUE, "Tutor");
+        put(PARENT_INVOLVEMENT_CLASSROOM_RESPONSE_VALUE, "Volunteer in the classroom");
+        put(PARENT_INVOLVEMENT_AFTER_SCHOOL_RESPONSE_VALUE, "Volunteer time after school");
     }};
 
     /**
@@ -511,7 +708,7 @@ public class UspHelper {
         put(FACILITIES_PARAM, FACILITIES_TITLE);
         put(FOREIGN_LANGUAGES_PARAM, FOREIGN_LANGUAGES_TITLE);
         put(TRANSPORTATION_PARAM, TRANSPORTATION_TITLE);
-        put(PARENT_INVOLVEMENT_PARAM, PARENT_INVOLVEMENT_TITLE);
         put(BOYS_SPORTS_PARAM, BOYS_SPORTS_TITLE);
+        put(PARENT_INVOLVEMENT_PARAM, PARENT_INVOLVEMENT_TITLE);
     }};
 }

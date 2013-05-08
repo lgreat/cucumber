@@ -28,7 +28,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <option value="${subSectionResponse.responseKey}__${response.responseValue}"
-                                            >${response.label}${response.selected}</option>
+                                            >${response.label}</option>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -44,8 +44,8 @@
                                     selected="selected">${response.label}</option>
                         </c:when>
                         <c:otherwise>
-                            <option value="${subSectionResponse.responseKey}__${response.responseValue}"
-                                    >${response.label}${response.selected}</option>
+                            <option value="${sectionResponses[0].responseKey}__${response.responseValue}"
+                                    >${response.label}</option>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
