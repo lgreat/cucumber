@@ -100,14 +100,19 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testGsRatingsSubstitute1A: awards wrong", "Award 1", awards.get(0));
     }
 
-    // Test w/ 1 academic award 1 service award.  Expect two back
+    // Test w/ 1 academic award 1 service award.  Expect two back.
+    // Also, this tests that the year is appended if provided
     public void testGsRatingsSubstitute1B() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
         l.add(createEspResponse("academic_award_1", "Award 1"));
-        l.add(createEspResponse("service_award_1", "Service 1"));
+        String awardValue = "Service 1";
+        String awardYear = "2010";
+        String awardExpected = awardValue + " (" + awardYear + ")";
+        l.add(createEspResponse("service_award_1", awardValue));
+        l.add(createEspResponse("service_award_1_year", awardYear));
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
@@ -117,7 +122,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         List<String> awards = (List<String>) resultsModel.get( "awards" );
         assertEquals("testGsRatingsSubstitute1B: awards length wrong", 2, awards.size());
         assertEquals("testGsRatingsSubstitute1B: academic award wrong", "Award 1", awards.get(0));
-        assertEquals("testGsRatingsSubstitute1B: service award wrong", "Service 1", awards.get(1));
+        assertEquals("testGsRatingsSubstitute1B: service award wrong", awardExpected, awards.get(1));
     }
 
     // Test w/ 4 awards.  Expect only 3 back because that is the max number per the spec
