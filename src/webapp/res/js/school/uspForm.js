@@ -118,9 +118,12 @@ GS.form.UspForm = function () {
 
     this.validateUspDataAndShowHover = function (uspForm) {
         var data = uspForm.serializeArray();
+        var isUserSignedIn = GS.isSignedIn();
         if (!GS.form.uspForm.doValidations(data)) {
             alert('Please fill in at-least 1 form field.');
-        } else {
+        }else if(isUserSignedIn === true ){
+            GS.form.uspForm.saveForm(uspForm);
+        }else {
             GSType.hover.modalUspRegistration.show();
         }
     };
@@ -156,8 +159,12 @@ GS.form.UspForm = function () {
         var dfd = jQuery.Deferred();
 
         var data = uspForm.serializeArray();
-        data.push({name:"email", value:email}, {name:"firstName", value:firstName},
-            {name:"password", value:password}, {name:"terms", value:"true"});
+
+        if (firstName != undefined && firstName != '' && password != undefined && password != ''
+            && email != undefined && email != '') {
+            data.push({name:"email", value:email}, {name:"firstName", value:firstName},
+                {name:"password", value:password}, {name:"terms", value:"true"});
+        }
 
         jQuery.ajax({type:'POST',
                 async:true,
@@ -183,6 +190,7 @@ GS.form.UspForm = function () {
 };
 
 GS.form.uspForm = new GS.form.UspForm();
+
 function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, uncheckedValue) {
     container = $("." + containerLayer);
     checkOn = container.find(".js-checkBoxSpriteOn");
@@ -231,6 +239,5 @@ jQuery(function () {
         var uspRegistrationEmailField = uspRegistrationForm.find('.js_email');
         GS.form.uspForm.saveFormAndLoginOrRegister(uspForm, uspRegistrationForm, uspRegistrationFirstNameField, uspRegistrationPasswordField, uspRegistrationEmailField);
     });
-
 
 });

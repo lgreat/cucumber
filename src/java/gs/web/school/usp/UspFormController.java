@@ -50,7 +50,6 @@ public class UspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "/school/usp/uspForm";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
-    public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
@@ -236,7 +235,7 @@ public class UspFormController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "/usp/checkUserState.page", method = RequestMethod.GET)
-    protected void validateEmail(HttpServletRequest request,
+    protected void checkUserState(HttpServletRequest request,
                                  HttpServletResponse response,
                                  @RequestParam(value = "email", required = true) String email) {
         response.setContentType("application/json");
