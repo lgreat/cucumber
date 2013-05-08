@@ -17,6 +17,8 @@ public class UspFormResponseStruct {
     String _fieldName;
     String _title;
     boolean _isSchoolAdmin;
+    boolean _hasNoneField;
+    boolean _hasOtherField;
     boolean _isNoneChecked;
     boolean _isOtherChecked;
     String _otherTextValue;
@@ -36,6 +38,22 @@ public class UspFormResponseStruct {
 
     public void setIsSchoolAdmin(boolean _isSchoolAdmin) {
         this._isSchoolAdmin = _isSchoolAdmin;
+    }
+
+    public boolean getHasNoneField() {
+        return _hasNoneField;
+    }
+
+    public void setHasNoneField(boolean _hasNoneField) {
+        this._hasNoneField = _hasNoneField;
+    }
+
+    public boolean getHasOtherField() {
+        return _hasOtherField;
+    }
+
+    public void setHasOtherField(boolean _hasOtherField) {
+        this._hasOtherField = _hasOtherField;
     }
 
     public boolean isNoneChecked() {
