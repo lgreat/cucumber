@@ -2133,6 +2133,8 @@ jQuery(function() {
         GSType.hover.validateEmailSchoolReview.show();
     } else if (showHover == "modalUspRegistration") {
         GSType.hover.modalUspRegistration.show();
+    } else if (showHover == "modalUspSignIn") {
+        GSType.hover.modalUspSignIn.show();
     } else if (showHover == "schoolReviewPostedThankYou") {
         GSType.hover.schoolReviewPostedThankYou.showHover();
     } else if (showHover == "schoolReviewNotPostedThankYou") {
@@ -2210,4 +2212,13 @@ GSType.hover.ModalUspRegistration = function() {
 };
 GSType.hover.ModalUspRegistration.prototype = new GSType.hover.HoverDialog('js-modalUspRegistration');
 GSType.hover.modalUspRegistration = new GSType.hover.ModalUspRegistration();
+
+GSType.hover.ModalUspSignIn = function() {
+//    this.show = function() {
+//        GSType.hover.modalUspRegistration.showModal();
+//        return false;
+//    };
+};
+GSType.hover.ModalUspSignIn.prototype = new GSType.hover.HoverDialog('js-modalUspSignIn');
+GSType.hover.ModalUspSignIn = new GSType.hover.ModalUspSignIn();
 
