@@ -61,6 +61,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String SPORTS_MODEL_KEY = "sports";
     public static final String LAST_MODIFIED_DATE_MODEL_KEY = "schoolLastModifiedDate";
 
+    private static final int MAX_AWARDS = 3;
+
     private static final String SCHOOL_VISIT_CHECKLIST_MODEL_KEY = "schoolVisit";
     private static final String VIDEO_TOUR_MODEL_KEY = "videoTour";
     private static final String BOUNDARY_TOOL_MODEL_KEY = "boundaryTool";
@@ -442,24 +444,13 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // Need to decide which substitute to do which requires checking all of the academic and service awards.
         List<String> awards = new ArrayList<String>(3);
-        if( isNotEmpty( espData.get("academic_award_1") ) ) {
-                awards.add(espData.get("academic_award_1").get(0).getPrettyValue());
-        }
-                if( isNotEmpty( espData.get("academic_award_2") ) ) {
-                awards.add(espData.get("academic_award_2").get(0).getPrettyValue());
-        }
-                if( isNotEmpty( espData.get("academic_award_3") ) ) {
-                awards.add(espData.get("academic_award_3").get(0).getPrettyValue());
-        }
-                if( isNotEmpty( espData.get("service_award_1") ) && awards.size()<3 ) {
-                awards.add(espData.get("service_award_1").get(0).getPrettyValue());
-        }
-                if( isNotEmpty( espData.get("service_award_2") ) && awards.size()<3 ) {
-                awards.add(espData.get("service_award_2").get(0).getPrettyValue());
-        }
-                if( isNotEmpty( espData.get("service_award_3") ) && awards.size()<3 ) {
-                awards.add(espData.get("service_award_3").get(0).getPrettyValue());
-        }
+
+        addAward( "academic_award_1", awards, espData );
+        addAward( "academic_award_2", awards, espData );
+        addAward( "academic_award_3", awards, espData );
+        addAward( "service_award_1", awards, espData );
+        addAward( "service_award_2", awards, espData );
+        addAward( "service_award_3", awards, espData );
 
         if( isNotEmpty(awards) ) {
             // Substitute action 1
@@ -469,6 +460,38 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         return model;
+    }
+
+    /**
+     * Add an academic or service award to the awards list.  Also if there is a year add it to the output,
+     * for example: Community Service Award (2011)
+     *
+     * @param awardName - Base name of the award
+     * @param awards
+     * @param espData
+     */
+
+    private void addAward( String awardName, List<String> awards, Map<String, List<EspResponse>> espData ) {
+
+        // First verify that we have not reached the max number of allowed awards
+        if( awards.size() >= MAX_AWARDS ) {
+            return;
+        }
+
+        StringBuffer result = null;
+        if( isNotEmpty( espData.get(awardName) ) ) {
+            result = new StringBuffer( espData.get(awardName).get(0).getPrettyValue() );
+            // Add the year if it is present
+            if( isNotEmpty( espData.get(awardName+"_year") ) ) {
+                result.append( " (" );
+                result.append( espData.get(awardName+"_year").get(0).getPrettyValue() );
+                result.append( ")" );
+            }
+        }
+
+        if( result != null && result.length() > 0 ) {
+            awards.add( result.toString() );
+        }
     }
 
 
