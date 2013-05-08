@@ -457,7 +457,12 @@ Boundaries.prototype = {
     }
 
     , trigger: function (event, data) {
-        $(this.getElement()).trigger(new jQuery.Event(event), {data: data});
+        var e = jQuery.Event(event);
+        if (event == 'focus') {
+            $(this.getElement()).triggerHandler(e, {data: data});
+        } else {
+            $(this.getElement()).trigger(e, {data: data});
+        }
     }
 
     , dragend: function () {
