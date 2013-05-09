@@ -96,10 +96,19 @@
 
         <c:if test="${!signedIn}">
 <![CDATA[
-        jQuery('#ryhAnswer').focus(function() {
-            GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
+        var reopenhover = true;
+        jQuery('.js-yourAnswer').on("focus", function() {
+           // jQuery(".raiseYourHand .hd").focus();
+            if(reopenhover){
+                GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
+                reopenhover = false;
+            }
+            else{
+                reopenhover = true;
+            }
         });
         jQuery('#ryhSubmit').click(function() {
+         console.log("redirect b ----- ${redirectUrl}");
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
 ]]>
