@@ -105,6 +105,8 @@ where each entry is the first bean for that section, this allows access to the s
             <c:set var="addSpacer" value="ptm"/>
         </c:if>
 
+        <school:calendarEventsList/>
+
         <school:profileProgramsPhotosTile photosModel="${photos}"/>
 
         <!-- Space 2 - Facebook if no culture ratings are available and videos are available -->

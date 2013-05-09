@@ -90,6 +90,8 @@
         <!--<gsml:javascript src="/res/js/photoGallery.js"/>-->
 
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
+        <gsml:javascript src="/res/js/hogan.js"/>
+        <gsml:javascript src="/res/js/school/calendar.js"/>
     </gsml:combinedJavascript>
 
 

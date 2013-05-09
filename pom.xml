@@ -660,6 +660,8 @@
                                 <param>compare/persistentCompare.js</param>
                                 <param>omnitureEventNotifier.js</param>
                                 <param>mssAutoHoverInterceptor.js</param>
+                                <param>hogan.js</param>
+                                <param>school/calendar.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>school-profile.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -1056,5 +1058,16 @@
             <version>0.22-incubating</version>
         </dependency>
         -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-io</artifactId>
+            <version>r03</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20080701</version>
+        </dependency>
+
     </dependencies>
 </project>
