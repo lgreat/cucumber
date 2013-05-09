@@ -8,6 +8,8 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableDaoFactory;
 import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,49 +46,101 @@ public class UserRegistrationOrLoginService {
     @Qualifier("emailVerificationEmail")
     private EmailVerificationEmail _emailVerificationEmail;
 
-    public User registerOrLoginUser(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
-                                    BindingResult bindingResult,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response) throws Exception {
+    public User getUser(UserRegistrationCommand userRegistrationCommand,
+                        UserLoginCommand userLoginCommand,
+                        RegistrationBehavior registrationBehavior,
+                        BindingResult bindingResult,
+                        HttpServletRequest request,
+                        HttpServletResponse response) throws Exception {
+        User user = null;
         if (isIPBlocked(request)) {
             _log.error("Ip is blocked while registering or logging in the user.");
             return null;
         }
 
-        _validatorFactory.validate(userRegistrationCommand, bindingResult);
+        user = getUserFromSession(registrationBehavior, request, response);
 
+        if (user != null) {
+            return user;
+        }
+
+        user = loginUser(userLoginCommand, registrationBehavior, bindingResult, request, response);
+
+        if (user != null) {
+            return user;
+        }
+
+        user = registerUser(userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+
+        if (user != null) {
+            return user;
+        }
+        return null;
+    }
+
+    public User getUserFromSession(RegistrationBehavior registrationBehavior,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response) throws Exception {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        if (sessionContext != null) {
+            user = sessionContext.getUser();
+            if (user != null) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User loginUser(UserLoginCommand userLoginCommand, RegistrationBehavior registrationBehavior,
+                          BindingResult bindingResult,
+                          HttpServletRequest request,
+                          HttpServletResponse response) throws Exception {
+        _validatorFactory.validate(userLoginCommand, bindingResult);
         if (bindingResult.hasErrors()) {
-            _log.error("Validation Errors while registering or logging in user.");
+            _log.error("Validation Errors while logging in user.");
         } else {
-            User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
-            boolean userExists = (user != null);
-
-            if (userExists) {
-                if (user.isEmailValidated()) {
-                    PageHelper.setMemberAuthorized(request, response, user, true);
+            User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
+            if (user != null) {
+                if (user.isEmailValidated() && userLoginCommand.getPassword() != null) {
+                    if (user.matchesPassword(userLoginCommand.getPassword())) {
+                        PageHelper.setMemberAuthorized(request, response, user, true);
+                    }
                 } else {
                     if (registrationBehavior.sendVerificationEmail()) {
                         sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
                     }
                 }
-            } else {
-                try {
-                    user = createNewUser(userRegistrationCommand, registrationBehavior);
+                return user;
+            }
+        }
+        return null;
+    }
 
-                    getUserDao().saveUser(user);
+    public User registerUser(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
+                             BindingResult bindingResult,
+                             HttpServletRequest request,
+                             HttpServletResponse response) throws Exception {
 
-                    setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
+        _validatorFactory.validate(userRegistrationCommand, bindingResult);
 
-                    user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationBehavior, user));
-                    user.getUserProfile().setUser(user);
+        if (bindingResult.hasErrors()) {
+            _log.error("Validation Errors while logging in user.");
+        } else {
+            boolean userExists = false;
+            User user = null;
+            try {
+                user = createNewUser(userRegistrationCommand, registrationBehavior);
 
-                    getUserDao().updateUser(user);
+                getUserDao().saveUser(user);
 
-                } catch (NoSuchAlgorithmException e) {
-                    getUserDao().removeUser(user.getId());
-                } catch (IllegalStateException e) {
-                    getUserDao().removeUser(user.getId());
-                }
+                setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
+
+                user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationBehavior, user));
+                user.getUserProfile().setUser(user);
+
+                getUserDao().updateUser(user);
+
 
                 ThreadLocalTransactionManager.commitOrRollback();
                 // User object loses its session and this might fix that.
@@ -94,6 +149,13 @@ public class UserRegistrationOrLoginService {
                 if (registrationBehavior.sendVerificationEmail()) {
                     sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
                 }
+
+            } catch (NoSuchAlgorithmException e) {
+                getUserDao().removeUser(user.getId());
+                user = null;
+            } catch (IllegalStateException e) {
+                getUserDao().removeUser(user.getId());
+                user = null;
             }
 
             return user;
