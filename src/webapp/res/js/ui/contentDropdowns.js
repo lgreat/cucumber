@@ -75,14 +75,11 @@ GS.ui.contentDropdowns = GS.ui.contentDropdowns || (function() {
             var contentId = $filterStatus.data('gs-filter-status');
             var $checkboxes = $container.find('[data-gs-content=' + contentId + '] input:checkbox');
             var $radios = $container.find('[data-gs-content=' + contentId + '] input:radio');
-
             $checkboxes.on('change', function() {
-                if ($checkboxes.filter(':not:checked').length === 0 || $checkboxes.not(':checked').length === 0) {
+                prefix = 'Some';
+                if($checkboxes.filter(':checked').length === 0 || $checkboxes.not(':checked').length === 0)   {
                     prefix = 'All';
-                } else {
-                    prefix = 'Some';
                 }
-
                 var newValue = $filterStatus.html();
                 newValue = newValue.replace(/(^)(All|Some|No)($|\W)(.*)/,'$1' +  prefix + '$3$4');
                 $filterStatus.html(newValue);
