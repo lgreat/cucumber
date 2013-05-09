@@ -33,8 +33,10 @@ GS.tabManager = (function() {
                 var success = showTabWithOptions({tab:tabName, hash:tabOptions});
 
                 if (success === true) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                    if($this.attr("id") != "js_clickToReviewYourSchoolHover_goToReviewForm"){
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
                 } else {
                     return true; // assume gs-show-tab was on A tag. Allow browser to navigate to href
                 }
