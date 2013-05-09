@@ -213,8 +213,8 @@ public class EspSaveHelper {
                 String keyValuePair = (String) value;
                 String[] keyValue = keyValuePair.split("__");
                 responseKeys.add(keyValue[0]);
-                // TODO: set correct value for active/inactive responses
-                EspResponse espResponse = createUspResponse(user, school, now, keyValue[0], true, keyValue[1]);
+
+                EspResponse espResponse = createUspResponse(user, school, now, keyValue[0], active, keyValue[1]);
                 if(espResponse != null) {
                     responseList.add(espResponse);
                 }
