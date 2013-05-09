@@ -13,7 +13,7 @@
                     <p class="tac small">Please create an account (it's quick!) to submit your answers.</p>
                     <form style="background-color: white; border: solid thin #999999" class="pal rnd4 js_uspRegistrationForm">
                         <label class="small">First Name</label><br />
-                        <input name="first_name" size="45" type="text" class="mbm js_firstName" /><br />
+                        <input name="first_name" size="45" type="text" class="mbm js_regFirstName" /><br />
                         <div class="invalid error js_firstNameErr" style="display: none;">
                             <div class="media">
                                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <label class="small">Email Address</label><br />
-                        <input name="email" size="45" type="text" class="mbm js_email"/><br />
+                        <input name="email" size="45" type="text" class="mbm js_regEmail"/><br />
                         <div class="invalid error js_emailErr" style="display: none;">
                             <div class="media">
                                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <label class="small">Password</label><br />
-                        <input name="password" size="45" type="password" class="mbl js_password"/><br />
+                        <input name="password" size="45" type="password" class="mbl js_regPassword"/><br />
                         <div class="invalid error js_passwordErr" style="display: none;">
                             <div class="media">
                                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -47,17 +47,17 @@
                     </form>
                     <div class="ptm">
                         <p class="smallest">Your privacy is important to us. <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                                           href="/privacy/?state=$STATE">
-                        GreatSchools Privacy Policy</gsml:popupWindow><br />
-                        By joining GreatSchools, you agree to our
-                    <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                      title="GreatSchools Terms of Use"
-                                      href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
-                    and
-                    <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                      title="GreatSchools Community Standards"
-                                      href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
-                    </p>
+                                                                                               href="/privacy/?state=$STATE">
+                            GreatSchools Privacy Policy</gsml:popupWindow><br />
+                            By joining GreatSchools, you agree to our
+                            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                              title="GreatSchools Terms of Use"
+                                              href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
+                            and
+                            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                              title="GreatSchools Community Standards"
+                                              href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
+                        </p>
                     </div>
                 </div>
             </div>

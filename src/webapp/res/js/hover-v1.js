@@ -2213,5 +2213,5 @@ GSType.hover.ModalUspSignIn = function() {
 //    };
 };
 GSType.hover.ModalUspSignIn.prototype = new GSType.hover.HoverDialog('js-modalUspSignIn');
-GSType.hover.ModalUspSignIn = new GSType.hover.ModalUspSignIn();
+GSType.hover.modalUspSignIn = new GSType.hover.ModalUspSignIn();
 

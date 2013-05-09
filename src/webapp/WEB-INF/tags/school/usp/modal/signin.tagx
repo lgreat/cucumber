@@ -11,9 +11,9 @@
                 <div class="inner">
                     <h2 class="tac bottom pbm">Just one more step</h2>
                     <p class="tac small">In order to add your responses, we need to verify your email address.</p>
-                    <form style="background-color: white; border: solid thin #999999" class="pal rnd4 js_uspSignInForm">
+                    <form style="background-color: white; border: solid thin #999999" class="pal rnd4 js_uspLoginForm">
                         <label class="small">Email Address</label><br />
-                        <input name="email" size="45" type="text" class="mbm js_email"/><br />
+                        <input name="email" size="45" type="text" class="mbm js_loginEmail"/><br />
                         <div class="invalid error js_emailErr" style="display: none;">
                             <div class="media">
                                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <label class="small">Password</label><br />
-                        <input name="password" size="45" type="password" class="mbl js_password"/><br />
+                        <input name="password" size="45" type="password" class="mbl js_loginPassword"/><br />
                         <div class="invalid error js_passwordErr" style="display: none;">
                             <div class="media">
                                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -30,12 +30,12 @@
                         </div>
 
                         <div class="clearfix">
-                            <div class="fl but but-rg but-1 js_uspRegistrationSubmit">Sign in</div><div class="ptm pll  fl smaller bottom">Not a member? <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Join GreatSchools</a></div>
+                            <div class="fl but but-rg but-1 js_uspLoginSubmit">Sign in</div><div class="ptm pll  fl smaller bottom">Not a member? <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Join GreatSchools</a></div>
                         </div>
                     </form>
                     <div class="ptm">
                         <p class="smallest"><gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                                                               href="/privacy/?state=$STATE">
+                                                              href="/privacy/?state=$STATE">
                             View our privacy policy</gsml:popupWindow>
                         </p>
                     </div>
