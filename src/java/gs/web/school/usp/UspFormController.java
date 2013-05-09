@@ -93,6 +93,27 @@ public class UspFormController implements ReadWriteAnnotationController {
         return FORM_VIEW;
     }
 
+    @RequestMapping(value = "/esp/uspForm.page", method = RequestMethod.GET)
+    public String showOspUserForm (ModelMap modelMap,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            return "";
+        }
+
+        User user = getValidOspUser(request);
+        if (user == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+
+        formBuilderHelper(modelMap, request, response, school, state, user, true);
+        return FORM_VIEW;
+    }
+
     @RequestMapping(value = "/usp/form.page", method = RequestMethod.POST)
     public void onUspUserSubmitForm(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -134,6 +155,8 @@ public class UspFormController implements ReadWriteAnnotationController {
             String fieldName = sectionResponseKeys.getSectionFieldName();
             String sectionTitle = UspHelper.FORM_FIELD_TITLES.get(fieldName);
             UspFormResponseStruct uspFormResponse = new UspFormResponseStruct(fieldName, sectionTitle);
+            uspFormResponse.setIsSchoolAdmin(isOspUser);
+
             List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponse.getSectionResponses();
 
             String[] responseKeys = sectionResponseKeys.getResponseKeys();
@@ -297,6 +320,28 @@ public class UspFormController implements ReadWriteAnnotationController {
             }
         } catch (Exception ex) {
             //Do nothing. Ideally, this should not happen since we have client side validations.
+        }
+        return null;
+    }
+
+    public User getValidOspUser(HttpServletRequest request) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        if (sessionContext != null) {
+            user = sessionContext.getUser();
+        }
+        if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
+            return user;
+        }
+        if (user != null) {
+            List<EspMembership> espMemberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
+            if (!espMemberships.isEmpty()) {
+                for (EspMembership membership: espMemberships) {
+                    if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                        return user;
+                    }
+                }
+            }
         }
         return null;
     }

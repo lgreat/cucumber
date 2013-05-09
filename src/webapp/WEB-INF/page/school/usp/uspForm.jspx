@@ -44,7 +44,7 @@
             <div class="mvl">
                 <form:form id="js_uspForm">
                     <c:forEach items="${uspFormResponses}" var="formResponse">
-                        <usp:questionnaireBox formResponse="${formResponse}"/>
+                        <usp:questionnaireBox formResponse="${formResponse}" showOspUserFields="${formResponse.schoolAdmin}"/>
                     </c:forEach>
 
                     <div class="clearfix">

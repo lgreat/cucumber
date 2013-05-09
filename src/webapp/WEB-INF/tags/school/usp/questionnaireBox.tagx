@@ -8,6 +8,8 @@
     <!--<jsp:directive.attribute name="name" required="false" description="Name value value for sct drop down"/>-->
     <jsp:directive.attribute name="formResponse" required="false" description="Form section responses"
                              type="gs.web.school.usp.UspFormResponseStruct"/>
+    <jsp:directive.attribute name="showOspUserFields" required="false" description="None, other checkbox and other textfield"
+                             type="java.lang.Boolean"/>
 
     <div class="standard_1-1" style="width:390px;">
         <div class="inner pal">
@@ -21,27 +23,29 @@
                     </div>
                 </div>
                 <usp:chosenSelect name="${formResponse.fieldName}" width="350" formFieldResponse="${formResponse}"/>
-                <div class="js-otherResponse clearfix pvm">
-                    <div class="fl prm js-checkBoxSpriteOff">
-                        <span class="iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
+                <c:if test="${showOspUserFields}">
+                    <div class="js-otherResponse clearfix pvm">
+                        <div class="fl prm js-checkBoxSpriteOff">
+                            <span class="iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
+                        </div>
+                        <div class="fl prm js-checkBoxSpriteOn dn">
+                            <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                        </div>
+                        <div class="fl small bottom mrm">Other</div>
+                        <input name="other" type="text" class=""/>
                     </div>
-                    <div class="fl prm js-checkBoxSpriteOn dn">
-                        <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                    <div class="js-noneResponse clearfix">
+                        <div class="fl prm js-checkBoxSpriteOff">
+                            <span class="iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
+                        </div>
+                        <div class="fl prm js-checkBoxSpriteOn dn">
+                            <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                        </div>
+                        <div class="fl small bottom">None</div>
                     </div>
-                    <div class="fl small bottom mrm">Other</div>
-                    <input name="other" type="text" class=""/>
-                </div>
-                <div class="js-noneResponse clearfix">
-                    <div class="fl prm js-checkBoxSpriteOff">
-                        <span class="iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
-                    </div>
-                    <div class="fl prm js-checkBoxSpriteOn dn">
-                        <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
-                    </div>
-                    <div class="fl small bottom">None</div>
-                </div>
-                <input type="hidden" name="formOther"/>
-                <input type="hidden" name="formNone"/>
+                    <input type="hidden" name="formOther"/>
+                    <input type="hidden" name="formNone"/>
+                </c:if>
             </div>
         </div>
     </div>
