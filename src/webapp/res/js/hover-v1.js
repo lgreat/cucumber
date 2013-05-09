@@ -1421,10 +1421,9 @@ GSType.hover.ClickToReviewYourSchool = function() {
     this.loadDialog = function() {
         jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
             GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
-            GSType.hover.clickToReviewYourSchool.hide();
             if (!$.support.leadingWhitespace) {
                 //IE7 and 8 stuff
-
+                GSType.hover.clickToReviewYourSchool.hide();
                 function getPathFromUrl(url) {
                     return url.split("?")[0];
                 }
@@ -1439,18 +1438,12 @@ GSType.hover.ClickToReviewYourSchool = function() {
     this.pageName = 'Review Your School Hover';
     this.hier1 = 'Hovers,Crowdsourcing,Review Your School Hover';
     this.executeOnExit = function(f) {
-        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).bind('dialogclose', function() {
+        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).on('dialogclose', function() {
             f();
         });
     };
     this.cancelLoadOnExit = function() {
-        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).unbind('dialogclose');
-        var currentTab = {};
-        var options = {};
-        currentTab.selector = "#js_reviews";
-        options.hash = "schoolReviewSubmitForm";
-        currentTab.name = "reviews";
-        currentTab.title = "Parent Reviews";
+        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).off('dialogclose');
     };
 
     this.showInterruptHoverOnPageExit = function(showHoverFunction) {
