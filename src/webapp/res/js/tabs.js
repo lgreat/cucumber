@@ -33,8 +33,6 @@ GS.tabManager = (function() {
                 var success = showTabWithOptions({tab:tabName, hash:tabOptions});
 
                 if (success === true) {
-                    console.log($this);
-                    console.log($this.attr("id"));
                     if($this.attr("id") != "js_clickToReviewYourSchoolHover_goToReviewForm"){
                         event.preventDefault();
                         event.stopPropagation();
