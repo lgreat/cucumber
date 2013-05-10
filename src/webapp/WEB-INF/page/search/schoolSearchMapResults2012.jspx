@@ -413,7 +413,7 @@ that this is updated for ajax refresh -->
 
                                 <div class="bd small bottom">
                                     <a href=""
-                                       data-href="http://www.realtor.com/realestateandhomes-search/{{zip}}?gate=gs&amp;amp;cid=PRT300014"
+                                       data-href="http://www.zillow.com/${requestScope.context.stateOrDefault.abbreviation}-${school.physicalAddress.zip}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=schoolSearch&amp;amp;cbpartner=Great+Schools"
                                        onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_{{omniturePageName}}_inlinelinkheader');} return true;"
                                        target="_blank"
                                        rel="nofollow">
