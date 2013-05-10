@@ -63,6 +63,19 @@
         <c:when test="${omniturePageName eq 'School Tab - Map'}">
             <c:set var="zillowTrackingCode" value="schooltab"/>
         </c:when>
+        <c:when test="${omniturePageName eq 'schools:city:1'}">
+            <c:set var="zillowTrackingCode" value="citybrowse"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:city:2'}">
+            <c:set var="zillowTrackingCode" value="citybrowse"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:city:3'}">
+            <c:set var="zillowTrackingCode" value="citybrowse"/>
+        </c:when>
+        <c:when test="${omniturePageName eq 'schools:city:4'}">
+            <c:set var="zillowTrackingCode" value="citybrowse"/>
+        </c:when>
+
         <c:when test="${omniturePageName eq 'schools:city:'}">
             <c:set var="zillowTrackingCode" value="citybrowse"/>
         </c:when>
