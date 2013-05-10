@@ -97,7 +97,7 @@ GS.form.UspForm = function () {
             var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
             GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else if (isLogin === true && data.isCookieMatched !== true) {
-            GS.form.uspForm.handleValidationResponse('.js_emailErr', 'Password does not match.', emailField);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', 'The password you entered is incorrect.', emailField);
         } else {
             isValid = true;
         }
@@ -182,8 +182,7 @@ GS.form.UspForm = function () {
 
     this.loginAndSaveData = function (uspForm, uspLoginPasswordField, uspLoginEmailField) {
         jQuery.when(
-            GS.form.uspForm.validateUserState(uspLoginEmailField, true, uspLoginPasswordField),
-            GS.form.uspForm.validatePassword(uspLoginPasswordField)
+            GS.form.uspForm.validateUserState(uspLoginEmailField, true, uspLoginPasswordField)
         ).done(
             function () {
                 var password = uspLoginPasswordField.val();

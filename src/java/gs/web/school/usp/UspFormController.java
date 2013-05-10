@@ -277,7 +277,7 @@ public class UspFormController implements ReadWriteAnnotationController {
             if (user != null) {
                 userState.setNewUser(false);
                 userState.setUserEmailValidated(user.isEmailValidated());
-                if (user.isEmailValidated() && StringUtils.isNotBlank(password) && isLogin) {
+                if (user.isEmailValidated() && isLogin) {
                     try {
                         boolean isValidLoginCredentials = user.matchesPassword(password);
                         userState.setCookieMatched(isValidLoginCredentials);
