@@ -368,8 +368,7 @@ that this is updated for ajax refresh -->
 </div>
 
 <div class="omega grid_8 mtl">
-    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                               showAdPct="0" style="2012"/>
+    <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
 </div>
 
 </div>
