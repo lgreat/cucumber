@@ -36,6 +36,14 @@ GS.form.UspForm = function () {
         return dfd.promise();
     };
 
+    this.validateTerms = function () {
+        var isValid = jQuery('.js-checkBoxSpriteOn').is(':visible');
+        if (isValid === false) {
+            GS.form.uspForm.handleValidationResponse('.js_termsErr', 'Check accept.');
+        }
+        return isValid;
+    };
+
     this.validateUserState = function (emailField, isLogin, passwordField) {
         var email = jQuery.trim(emailField.val());
         var dfd = jQuery.Deferred();
@@ -78,20 +86,17 @@ GS.form.UspForm = function () {
 
     this.handleEmailErrors = function (data, email, emailField, isLogin) {
         var isValid = false;
-
         if (data.isEmailValid !== true) {
             GS.form.uspForm.handleValidationResponse('.js_emailErr', 'Please enter a valid email address.', emailField);
-        } else if (isLogin == true && data.isNewUser === true) {
-            var onclickStr = "'GSType.hover.modalUspRegistration.show(); return false;'";
-            GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' onclick=" + onclickStr + ">Register Here</a>.", emailField);
-        } else if (isLogin === false && data.isNewUser !== true && data.isUserEmailValidated === true) {
-            var onclickStr = "'GSType.hover.modalUspSignIn.show(); return false;'";
-            GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' onclick=" + onclickStr + ">Sign in Here</a>.", emailField);
+        } else if (isLogin === true && data.isNewUser === true) {
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' id='js_lnchUspRegistration' >Register Here</a>.", emailField);
+        } else if (isLogin === false && data.isNewUser !== true) {
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' id='js_lnchUspSignin'>Sign in Here</a>.", emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated !== true) {
             GSType.hover.emailNotValidated.setEmail(email);
             var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
             GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
-        } else if (isLogin == true && data.isCookieMatched != true) {
+        } else if (isLogin === true && data.isCookieMatched !== true) {
             GS.form.uspForm.handleValidationResponse('.js_emailErr', 'Password does not match.', emailField);
         } else {
             isValid = true;
@@ -103,12 +108,17 @@ GS.form.UspForm = function () {
         var fieldError = jQuery(fieldSelector + '.invalid');
         var fieldValid = jQuery(fieldSelector + '.success');
 
-        GS.form.uspForm.removeWarningClassFromElem(elem);
+        if (elem != undefined) {
+            GS.form.uspForm.removeWarningClassFromElem(elem);
+        }
+
         fieldError.hide();
         fieldValid.hide();
 
         if (errorMsg != undefined && errorMsg != '') {
-            GS.form.uspForm.addWarningClassToElem(elem);
+            if (elem != undefined) {
+                GS.form.uspForm.addWarningClassToElem(elem);
+            }
             fieldError.find('.bd').html(errorMsg); // set error message
             fieldError.show();
             return false;
@@ -146,7 +156,8 @@ GS.form.UspForm = function () {
         jQuery.when(
             GS.form.uspForm.validateUserState(uspRegistrationEmailField, false),
             GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
-            GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField)
+            GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField),
+            GS.form.uspForm.validateTerms(uspRegistrationFirstNameField)
         ).done(
             function () {
                 var firstName = jQuery.trim(uspRegistrationFirstNameField.val());
@@ -221,6 +232,13 @@ GS.form.UspForm = function () {
         return dfd.promise();
     };
 
+    this.hideAllErrors = function () {
+        jQuery('.js_firstNameErr').hide();
+        jQuery('.js_passwordErr').hide();
+        jQuery('.js_emailErr').hide();
+        jQuery('.js_termsErr').hide();
+    };
+
     this.doUspFormValidations = function (data) {
         if (data.length === 0) {
             return false;
@@ -256,6 +274,7 @@ jQuery(function () {
 
     var uspForm = jQuery('#js_uspForm');
     uspForm.on('click', '.js_submit', function () {
+        GS.form.uspForm.hideAllErrors();
         GS.form.uspForm.validateUspDataAndShowHover(uspForm);
         return false;
     });
@@ -275,7 +294,19 @@ jQuery(function () {
     });
 
     jQuery('body').on('blur', '.js_loginEmail:visible', function (event) {
-        GS.form.uspForm.validateUserState(jQuery(event.target), false);
+        GS.form.uspForm.validateUserState(jQuery(event.target), true);
+    });
+
+    jQuery('body').on('click', '#js_lnchUspSignin', function () {
+        GS.form.uspForm.hideAllErrors();
+        GSType.hover.modalUspRegistration.hide();
+        GSType.hover.modalUspSignIn.show();
+    });
+
+    jQuery('body').on('click', '#js_lnchUspRegistration', function () {
+        GS.form.uspForm.hideAllErrors();
+        GSType.hover.modalUspSignIn.hide();
+        GSType.hover.modalUspRegistration.show();
     });
 
     jQuery('body').on('click', '.js_uspRegistrationSubmit:visible', function () {
@@ -296,6 +327,5 @@ jQuery(function () {
     });
 
     //TODO forgot password
-    //TODO switch between hovers
 
 });
