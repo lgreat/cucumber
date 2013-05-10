@@ -260,6 +260,15 @@ public class UspFormController implements ReadWriteAnnotationController {
         return school;
     }
 
+    /**
+     * Checks the various states a User can be in.
+     * @param request
+     * @param response
+     * @param email
+     * @param isLogin
+     * @param password
+     */
+
     @RequestMapping(value = "/usp/checkUserState.page", method = RequestMethod.GET)
     protected void checkUserState(HttpServletRequest request,
                                   HttpServletResponse response,
@@ -304,6 +313,16 @@ public class UspFormController implements ReadWriteAnnotationController {
         }
     }
 
+    /**
+     * Gets a user object by either signing in the existing user or creating a new user.
+     * @param request
+     * @param response
+     * @param userRegistrationCommand
+     * @param userLoginCommand
+     * @param bindingResult
+     * @return
+     */
+
     protected User getValidUser(HttpServletRequest request,
                                 HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
                                 UserLoginCommand userLoginCommand,
@@ -311,6 +330,7 @@ public class UspFormController implements ReadWriteAnnotationController {
         try {
             UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ABOUT_US);
+            //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
             registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
             userRegistrationCommand.setHow("USP");
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());

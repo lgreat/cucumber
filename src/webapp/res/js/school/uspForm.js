@@ -153,6 +153,7 @@ GS.form.UspForm = function () {
     };
 
     this.registerAndSaveData = function (uspForm, uspRegistrationFirstNameField, uspRegistrationPasswordField, uspRegistrationEmailField) {
+        //First do validations and then save the form.
         jQuery.when(
             GS.form.uspForm.validateUserState(uspRegistrationEmailField, false),
             GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
@@ -181,6 +182,7 @@ GS.form.UspForm = function () {
     };
 
     this.loginAndSaveData = function (uspForm, uspLoginPasswordField, uspLoginEmailField) {
+        //First do validations and then save the form.
         jQuery.when(
             GS.form.uspForm.validateUserState(uspLoginEmailField, true, uspLoginPasswordField)
         ).done(
@@ -279,7 +281,7 @@ jQuery(function () {
     });
 
     //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
-    //binding handlers to visible Ids.
+    //binding handlers to visible elements.
     jQuery('body').on('blur', '.js_regFirstName:visible', function (event) {
         GS.form.uspForm.validateFirstName(jQuery(event.target));
     });

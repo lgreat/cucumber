@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +45,19 @@ public class UserRegistrationOrLoginService {
     @Qualifier("emailVerificationEmail")
     private EmailVerificationEmail _emailVerificationEmail;
 
+    /**
+     * Returns an user object.First if there is a user in the session then return that.
+     * Else check if the user is trying to log in. If the log in credentials are valid then log in the user.
+     * Else create a brand new user.
+     * @param userRegistrationCommand
+     * @param userLoginCommand
+     * @param registrationBehavior
+     * @param bindingResult
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     public User getUser(UserRegistrationCommand userRegistrationCommand,
                         UserLoginCommand userLoginCommand,
                         RegistrationBehavior registrationBehavior,
@@ -78,13 +90,20 @@ public class UserRegistrationOrLoginService {
         return null;
     }
 
+    /**
+     * Get the user from a session
+     * @param registrationBehavior
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     public User getUserFromSession(RegistrationBehavior registrationBehavior,
                                    HttpServletRequest request,
                                    HttpServletResponse response) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = null;
         if (sessionContext != null) {
-            user = sessionContext.getUser();
+            User user = sessionContext.getUser();
             if (user != null) {
                 return user;
             }
@@ -92,11 +111,23 @@ public class UserRegistrationOrLoginService {
         return null;
     }
 
+    /**
+     *  Signs in the user, if the user is email validated and the command object has the right credentials.
+     * @param userLoginCommand
+     * @param registrationBehavior
+     * @param bindingResult
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     public User loginUser(UserLoginCommand userLoginCommand, RegistrationBehavior registrationBehavior,
                           BindingResult bindingResult,
                           HttpServletRequest request,
                           HttpServletResponse response) throws Exception {
+
         _validatorFactory.validate(userLoginCommand, bindingResult);
+
         if (bindingResult.hasErrors()) {
             _log.error("Validation Errors while logging in user.");
         } else {
@@ -116,6 +147,17 @@ public class UserRegistrationOrLoginService {
         }
         return null;
     }
+
+    /**
+     * Creates a new user.
+     * @param userRegistrationCommand
+     * @param registrationBehavior
+     * @param bindingResult
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
 
     public User registerUser(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
                              BindingResult bindingResult,
@@ -140,7 +182,6 @@ public class UserRegistrationOrLoginService {
                 user.getUserProfile().setUser(user);
 
                 getUserDao().updateUser(user);
-
 
                 ThreadLocalTransactionManager.commitOrRollback();
                 // User object loses its session and this might fix that.
