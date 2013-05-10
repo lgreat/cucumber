@@ -16,7 +16,7 @@
             <div class="bd">
                 <div class="clearfix">
                     <div class="fl mrl">
-                        <span class="iconx32g i-32-uspArtMusic"><!--Do not collapse--></span>
+                        <span class="iconx32g i-32-usp-${formResponse.fieldName}"><!--Do not collapse--></span>
                     </div>
                     <div class="fl">
                         <h3 class="headerTitle">${formResponse.title}</h3>
