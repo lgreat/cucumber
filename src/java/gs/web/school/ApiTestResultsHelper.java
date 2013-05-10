@@ -290,7 +290,8 @@ public class ApiTestResultsHelper {
      */
     protected void putMostRecentStateRank(School school, Map modelMap) {
         ApiResult apiStateRank = _apiResultDao.getMostRecentStateRank(school);
-        if (apiStateRank != null && apiStateRank.getYear() != null && apiStateRank.getApiStateRank() != null) {
+        // GS-13844 - rraker - Now include this data even if apiStateRank.getApiStateRank() is null
+        if (apiStateRank != null && apiStateRank.getYear() != null) {
             modelMap.put(MODEL_API_STATE_RANK, apiStateRank);
         }
     }
@@ -303,7 +304,8 @@ public class ApiTestResultsHelper {
      */
     protected void putMostRecentSimilarSchoolsRank(School school, Map modelMap) {
         ApiResult apiSimilarSchoolsRank = _apiResultDao.getMostRecentSimilarSchoolsRank(school);
-        if (apiSimilarSchoolsRank != null && apiSimilarSchoolsRank.getYear() != null && apiSimilarSchoolsRank.getApiSimilarRank() != null) {
+        // GS-13844 - rraker - Now include this data even if apiSimilarSchoolsRank.getApiSimilarRank() is null
+        if (apiSimilarSchoolsRank != null && apiSimilarSchoolsRank.getYear() != null) {
             modelMap.put(MODEL_API_SIMILAR_SCHOOLS_RANK, apiSimilarSchoolsRank);
         }
     }

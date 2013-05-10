@@ -189,8 +189,11 @@
                 <!--<li class="menuItem"><a href="/raising-a-reader.topic?content=7082" id="SN-RaisingAReader"-->
                                         <!--class="last menuItemAnchorText GS_CI9_ ">Raising a Reader&amp;nbsp;</a>-->
                 <!--</li>-->
-                <li class="menuItem "><a href="/raising-successful-students.topic?content=7213" id="SN-SuccessfulStudents"
+                <!-- <li class="menuItem "><a href="/raising-successful-students.topic?content=7213" id="SN-SuccessfulStudents"
                                              class="last menuItemAnchorText GS_CI9_ ">Successful Students</a>
+                </li> -->
+                <li class="menuItem "><a href="/summer-reading.topic?content=7082" id="SN-SummerReading"
+                                         class="last menuItemAnchorText GS_CI9_ ">Summer Reading</a>
                 </li>
             </ul>
         </div>
