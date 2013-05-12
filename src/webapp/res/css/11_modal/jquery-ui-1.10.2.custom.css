@@ -153,6 +153,7 @@
 
 .ui-button{
     border: none;
+    z-index: 100;
 }
 
 .ui-dialog {
@@ -195,7 +196,8 @@
 .ui-dialog .ui-button-text{
     position: absolute;
     top: 1px;
-    right: 18px;
+    right: 16px;
+    font-size: .75em;
 }
 
 
