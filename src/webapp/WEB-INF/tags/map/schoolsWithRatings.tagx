@@ -285,7 +285,7 @@ function renderSchools(bounds, filterLevelCode) {
             boxStyle: {
                 opacity: 1
             },
-            closeBoxMargin: "23px 8px 0 8px",
+            closeBoxMargin: "8px 8px 0 8px",
             closeBoxURL:"/res/img/googleMaps/16x16_close.png",
             infoBoxClearance: new google.maps.Size(1, 1),
             isHidden: false,
