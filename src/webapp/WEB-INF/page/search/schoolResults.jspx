@@ -362,7 +362,6 @@
 <div id="col_right">
     <ad:AboveFold_300x600/>
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0" style="2011"/>
-    <ad:multiTextAd blurb="Advertiser Links"/>
     <ad:Top_300x137/>
 </div>
 

@@ -37,7 +37,7 @@
     <div id="articleBottomRightAd">
         <c:choose>
             <c:when test="${pageScope.feature.contentKey.type eq 'ArticleSlideshow'}">
-                <ad:BelowFold_Top_300x125/>
+                <!-- no ad in this case -->
             </c:when>
             <c:otherwise>
                 <gsweb:adTagGenerator position="BelowFold2_300x250">

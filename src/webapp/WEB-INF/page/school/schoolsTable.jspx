@@ -688,8 +688,6 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
         </c:if>
     </c:if>
 
-    <ad:multiTextAd blurb="Advertiser Links"/>
-
     <c:choose>
         <c:when test="${isDistrictBrowse}">
             <c:set var="callerPagename" value="browsedistrict"/>

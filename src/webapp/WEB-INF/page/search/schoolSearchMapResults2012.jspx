@@ -805,8 +805,6 @@ that this is updated for ajax refresh -->
 
 <jsp:include page="/promo/emailSignUp.module?style=2012"/>
 
-<ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-<ad:BelowFold_Top_300x125/>
 </div>
 
 <c:set var="omnitureLocale"><c:choose>
