@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,7 +81,7 @@ public class UserRegistrationOrLoginService {
 
     public User getUserFromSession(RegistrationBehavior registrationBehavior,
                                    HttpServletRequest request,
-                                   HttpServletResponse response) throws Exception {
+                                   HttpServletResponse response){
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = null;
         if (sessionContext != null) {
@@ -95,16 +96,22 @@ public class UserRegistrationOrLoginService {
     public User loginUser(UserLoginCommand userLoginCommand, RegistrationBehavior registrationBehavior,
                           BindingResult bindingResult,
                           HttpServletRequest request,
-                          HttpServletResponse response) throws Exception {
+                          HttpServletResponse response){
         _validatorFactory.validate(userLoginCommand, bindingResult);
+
         if (bindingResult.hasErrors()) {
             _log.error("Validation Errors while logging in user.");
         } else {
             User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
             if (user != null) {
-                if (user.isEmailValidated() && userLoginCommand.getPassword() != null) {
-                    if (user.matchesPassword(userLoginCommand.getPassword())) {
-                        PageHelper.setMemberAuthorized(request, response, user, true);
+                if (user.isEmailValidated()) {
+                    try {
+                        if (user.matchesPassword(userLoginCommand.getPassword())) {
+                            PageHelper.setMemberAuthorized(request, response, user, true);
+                        }
+                    } catch (NoSuchAlgorithmException ex) {
+                     _log.error("Error while trying to log in the user."+ ex);
+                        return null;
                     }
                 } else {
                     if (registrationBehavior.sendVerificationEmail()) {
@@ -120,7 +127,7 @@ public class UserRegistrationOrLoginService {
     public User registerUser(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
                              BindingResult bindingResult,
                              HttpServletRequest request,
-                             HttpServletResponse response) throws Exception {
+                             HttpServletResponse response) {
 
         _validatorFactory.validate(userRegistrationCommand, bindingResult);
 
@@ -154,6 +161,9 @@ public class UserRegistrationOrLoginService {
                 getUserDao().removeUser(user.getId());
                 user = null;
             } catch (IllegalStateException e) {
+                getUserDao().removeUser(user.getId());
+                user = null;
+            } catch (Exception ex) {
                 getUserDao().removeUser(user.getId());
                 user = null;
             }
@@ -297,5 +307,17 @@ public class UserRegistrationOrLoginService {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public LocalValidatorFactoryBean getValidatorFactory() {
+        return _validatorFactory;
+    }
+
+    public void setValidatorFactory(LocalValidatorFactoryBean validatorFactory) {
+        _validatorFactory = validatorFactory;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
     }
 }
