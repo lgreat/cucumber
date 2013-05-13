@@ -90,8 +90,9 @@ GS.search.filters = GS.search.filters || (function() {
     };
 
     var reset = function() {
-        for (var index in advancedCheckboxAndRadioFilters) {
-            $('input:checkbox[name=' + advancedCheckboxAndRadioFilters[index] + ']:checked').prop('checked',false).trigger('change');
+        var arrayLen =  advancedCheckboxAndRadioFilters.length;
+        for(i=0; i < arrayLen; i++){
+            $('input:checkbox[name=' + advancedCheckboxAndRadioFilters[i] + ']:checked').prop('checked',false).trigger('change');
         }
     };
 
