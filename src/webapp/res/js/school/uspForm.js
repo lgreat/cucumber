@@ -140,12 +140,15 @@ GS.form.UspForm = function () {
         GS.form.uspForm.handleValidationResponse(errorClass, '', elem);
     };
 
-    this.validateUspDataAndShowHover = function (uspForm) {
+    this.validateUspDataAndShowHover = function (uspForm, isOspUser) {
         var data = uspForm.serializeArray();
         var isUserSignedIn = GS.isSignedIn();
-        if (!GS.form.uspForm.doUspFormValidations(data)) {
+        if (!isOspUser && !GS.form.uspForm.doUspFormValidations(data)) {
             alert('Please fill in at-least 1 form field.');
-        } else if (isUserSignedIn === true) {
+        } else if(isOspUser && !GS.form.uspForm.doUspFormValidationsForOspUser(uspForm)) {
+            alert('Please provide at least 1 response for all fields');
+        }
+        else if (isUserSignedIn === true) {
             GS.form.uspForm.saveForm(uspForm);
         } else {
             GSType.hover.modalUspSignIn.show();
@@ -247,6 +250,27 @@ GS.form.UspForm = function () {
         return true;
     };
 
+    this.doUspFormValidationsForOspUser = function (uspForm) {
+        var errors = [];
+        var $formFields = uspForm.find('.js-formFields');
+        $formFields.each(function(){
+            var $this = $(this);
+
+            var selectVal = $this.find('select').val();
+            var otherVal = $this.find('.js-ospUserFields .js-otherResponse input[name=otherValue]').val();
+            var noneChecked = $this.find('.js-ospUserFields .js-noneResponse .js-checkBoxSpriteOn:visible');
+
+            if((selectVal === null || selectVal.length === 0) && otherVal.trim() === '' && noneChecked.length === 0) {
+                errors.push('error')
+            }
+        });
+
+        if(errors.length > 0) {
+            return false;
+        }
+
+        return true;
+    };
 };
 
 GS.form.uspForm = new GS.form.UspForm();
@@ -257,13 +281,21 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
     checkOff = container.find(".js-checkBoxSpriteOff");
     checkBoxField = $("#" + fieldToSet);
     checkOff.on("click", function () {
-        $(this).hide();
-        $(this).siblings().show();
+        $(this).addClass(' dn');
+        $(this).siblings().removeClass(' dn');
+        // set the value for the hidden input field as [response_key]__none
+        $(this).parent().find('input.js-noneValue').val(function(index, value){
+            return value.substring(0, value.indexOf('__') + 2) + 'none';
+        });
         checkBoxField.val(checkedValue);
     });
     checkOn.on("click", function () {
-        $(this).hide();
-        $(this).siblings().show();
+        $(this).addClass(' dn');
+        $(this).siblings().removeClass(' dn');
+        // set the value for the hidden input field as [response_key]__
+        $(this).parent().find('input.js-noneValue').val(function(index, value){
+            return value.substring(0, value.indexOf('__') + 2);
+        });
         checkBoxField.val(uncheckedValue);
     });
 }
@@ -274,14 +306,27 @@ jQuery(function () {
     uspSpriteCheckBoxes("js-otherResponse", "formOther", 1, 0);
 
     var uspForm = jQuery('#js_uspForm');
+
+    var isOspUser = function() {
+        return uspForm.find('.js-ospUserFields').length > 0;
+    }
+
     uspForm.on('click', '.js_submit', function () {
         GS.form.uspForm.hideAllErrors();
-        GS.form.uspForm.validateUspDataAndShowHover(uspForm);
+        GS.form.uspForm.validateUspDataAndShowHover(uspForm, isOspUser());
         return false;
     });
 
+    // sets the value of hidden other field as [response_key]__[other_text_field_value]
+    jQuery('.js-otherText').on('change', function(){
+        var $this = $(this);
+        $this.parent().find('input.js-otherValue').val(function(index, value){
+            return value.substring(0, value.indexOf('__') +  2) + $this.val();
+        });
+    });
+
     //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
-    //binding handlers to visible elements.
+    //binding handlers to visible Ids.
     jQuery('body').on('blur', '.js_regFirstName:visible', function (event) {
         GS.form.uspForm.validateFirstName(jQuery(event.target));
     });

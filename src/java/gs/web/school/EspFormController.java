@@ -12,6 +12,9 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.CommunityUtil;
+import gs.web.community.registration.UserLoginCommand;
+import gs.web.community.registration.UserRegistrationCommand;
+import gs.web.school.usp.UspFormHelper;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
 import gs.web.util.ReadWriteAnnotationController;
@@ -22,8 +25,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +55,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
     public static final String [] CMS_ARTICLE_IDS_FOR_DESCRIPTION = {"7279", "7006"};
+    public static final String USP_FORM_VIEW = "/school/usp/uspForm";
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -68,6 +74,8 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected IEspMembershipDao _espMembershipDao;
     @Autowired
     private GsSolrSearcher _gsSolrSearcher;
+    @Autowired
+    private UspFormHelper _uspFormHelper;
 
 
     // TODO: If user is valid but school/state is not, redirect to landing page
@@ -134,6 +142,39 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         return VIEW;
     }
+
+    @RequestMapping(value = "/uspForm.page", method = RequestMethod.GET)
+    public String showOspUserForm (ModelMap modelMap,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            return "";
+        }
+
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+
+        _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, true);
+        return USP_FORM_VIEW;
+    }
+
+    @RequestMapping(value = "/uspForm.page", method = RequestMethod.POST)
+    public void onOspUserSubmitForm(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    UserRegistrationCommand userRegistrationCommand,
+                                    UserLoginCommand userLoginCommand,
+                                    BindingResult bindingResult,
+                                    @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
+                                    @RequestParam(value = PARAM_STATE, required = false) State state) {
+        _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult, schoolId, state);
+    }
+
 
     /**
      *  Function to fetch the provisional responses and put in the model. When a provisional user saves a page, all the

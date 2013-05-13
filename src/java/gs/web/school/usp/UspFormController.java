@@ -1,30 +1,18 @@
 package gs.web.school.usp;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
-import gs.data.school.EspResponseSource;
-import gs.data.school.IEspResponseDao;
-import gs.data.school.ISchoolDao;
 import gs.data.school.*;
-import gs.data.security.Role;
 import gs.data.state.State;
 import gs.data.util.email.EmailUtils;
 import gs.web.community.registration.UserLoginCommand;
 import gs.web.community.registration.UserRegistrationCommand;
-import gs.web.community.registration.UserRegistrationOrLoginService;
-import gs.web.community.registration.UspRegistrationBehavior;
-import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -48,37 +35,29 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/school/")
+@RequestMapping("/school/usp/")
 public class UspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "/school/usp/uspForm";
+    public static final String THANK_YOU_VIEW = "/school/usp/thankYou";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
-    @Autowired
-    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
-
     private static Logger _logger = Logger.getLogger(UspFormController.class);
 
     @Autowired
-    private IEspResponseDao _espResponseDao;
-    @Autowired
-    private EspSaveHelper _espSaveHelper;
-    @Autowired
-    private ISchoolDao _schoolDao;
-    @Autowired
-    private IEspMembershipDao _espMembershipDao;
+    private UspFormHelper _uspFormHelper;
     @Autowired
     private IUserDao _userDao;
 
-    @RequestMapping(value = "/usp/form.page", method = RequestMethod.GET)
+    @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
                                   HttpServletRequest request,
                                   HttpServletResponse response,
                                   @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                   @RequestParam(value = PARAM_STATE, required = false) State state) {
-        School school = getSchool(state, schoolId);
+        School school = _uspFormHelper.getSchool(state, schoolId);
         if (school == null) {
             return "";
         }
@@ -89,32 +68,11 @@ public class UspFormController implements ReadWriteAnnotationController {
             user = sessionContext.getUser();
         }
 
-        formBuilderHelper(modelMap, request, response, school, state, user, false);
+        _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, false);
         return FORM_VIEW;
     }
 
-    @RequestMapping(value = "/esp/uspForm.page", method = RequestMethod.GET)
-    public String showOspUserForm (ModelMap modelMap,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response,
-                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
-                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
-        School school = getSchool(state, schoolId);
-        if (school == null) {
-            return "";
-        }
-
-        User user = getValidOspUser(request);
-        if (user == null) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
-            return "redirect:" + urlBuilder.asFullUrl(request);
-        }
-
-        formBuilderHelper(modelMap, request, response, school, state, user, true);
-        return FORM_VIEW;
-    }
-
-    @RequestMapping(value = "/usp/form.page", method = RequestMethod.POST)
+    @RequestMapping(value = "/form.page", method = RequestMethod.POST)
     public void onUspUserSubmitForm(HttpServletRequest request,
                                     HttpServletResponse response,
                                     UserRegistrationCommand userRegistrationCommand,
@@ -122,142 +80,7 @@ public class UspFormController implements ReadWriteAnnotationController {
                                     BindingResult bindingResult,
                                     @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                     @RequestParam(value = PARAM_STATE, required = false) State state) {
-        formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult, schoolId, state);
-    }
-
-    public void formBuilderHelper(ModelMap modelMap,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response,
-                                  School school,
-                                  State state,
-                                  User user,
-                                  boolean isOspUser) {
-
-        modelMap.put("school", school);
-        Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
-
-        if (user != null) {
-            List<Object[]> keyValuePairs = _espResponseDao.getAllUniqueResponsesForSchoolBySourceAndByUser(school, state,
-                    EspResponseSource.usp, user.getId());
-            for (Object[] keyValue : keyValuePairs) {
-                responseKeyValues.put((String) keyValue[0], (String) keyValue[1]);
-            }
-        }
-        List<UspFormResponseStruct> uspFormResponses = new LinkedList<UspFormResponseStruct>();
-
-        /**
-         * For each enum value (form fields), construct the usp response object. Each section has one (no subsection) or
-         * more section responses.
-         * For each response key that the form field has, get all the response values from the multimap and construct
-         * section response. Each section response has a list of response values objects.
-         */
-        for (UspHelper.SectionResponseKeys sectionResponseKeys : UspHelper.SectionResponseKeys.values()) {
-            String fieldName = sectionResponseKeys.getSectionFieldName();
-            String sectionTitle = UspHelper.FORM_FIELD_TITLES.get(fieldName);
-            UspFormResponseStruct uspFormResponse = new UspFormResponseStruct(fieldName, sectionTitle);
-            uspFormResponse.setIsSchoolAdmin(isOspUser);
-
-            List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponse.getSectionResponses();
-
-            String[] responseKeys = sectionResponseKeys.getResponseKeys();
-            for (String responseKey : responseKeys) {
-                Collection<String> responseValues = UspHelper.SECTION_RESPONSE_KEY_VALUE_MAP.get(responseKey);
-                UspFormResponseStruct.SectionResponse sectionResponse = uspFormResponse.new SectionResponse(responseKey);
-                sectionResponse.setTitle(UspHelper.RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
-
-                Collection<String> savedResponses = responseKeyValues.get(responseKey);
-
-                List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> uspResponseValues = sectionResponse.getResponses();
-
-                Iterator<String> responseValueIter = responseValues.iterator();
-                while (responseValueIter.hasNext()) {
-                    String responseValue = responseValueIter.next();
-                    UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
-                            sectionResponse.new UspResponseValueStruct(responseValue);
-                    uspResponseValue.setLabel(UspHelper.RESPONSE_VALUE_LABEL.get(responseValue));
-
-                    if (savedResponses.contains(responseValue)) {
-                        uspResponseValue.setIsSelected(true);
-                    }
-
-                    uspResponseValues.add(uspResponseValue);
-                }
-
-                sectionResponse.setResponses(uspResponseValues);
-                sectionResponses.add(sectionResponse);
-            }
-
-            uspFormResponse.setSectionResponses(sectionResponses);
-            uspFormResponses.add(uspFormResponse);
-        }
-
-        modelMap.put("uspFormResponses", uspFormResponses);
-    }
-
-    public void formSubmitHelper(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 UserRegistrationCommand userRegistrationCommand,
-                                 UserLoginCommand userLoginCommand,
-                                 BindingResult bindingResult,
-                                 Integer schoolId,
-                                 State state) {
-        response.setContentType("application/json");
-        JSONObject responseObject = new JSONObject();
-
-        try {
-            School school = getSchool(state, schoolId);
-            if (school == null) {
-                outputJsonError("noSchool", response);
-                return; // early exit
-            }
-
-            User user = getValidUser(request, response, userRegistrationCommand, userLoginCommand, bindingResult);
-            if (user == null) {
-                outputJsonError("noUser", response);
-                return; // early exit
-            }
-
-            Map<String, Object[]> reqParamMap = request.getParameterMap();
-
-            Set<String> formFieldNames = UspHelper.FORM_FIELD_TITLES.keySet();
-
-            _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
-
-            responseObject.put("success", true);
-            responseObject.write(response.getWriter());
-            response.getWriter().flush();
-        } catch (JSONException ex) {
-            _logger.warn("UspFormController - exception while trying to write json object.", ex);
-        } catch (IOException ex) {
-            _logger.warn("UspFormController - exception while trying to get writer for response.", ex);
-        }
-    }
-
-    /**
-     * Parses the state and schoolId out of the request and fetches the school. Returns null if
-     * it can't parse parameters, can't find school, or the school is inactive
-     */
-    protected School getSchool(State state, Integer schoolId) {
-        if (state == null || schoolId == null) {
-            return null;
-        }
-        School school = null;
-        try {
-            school = _schoolDao.getSchoolById(state, schoolId);
-        } catch (Exception e) {
-            // handled below
-        }
-        if (school == null || (!school.isActive() && !school.isDemoSchool())) {
-            _logger.error("School is null or inactive: " + school);
-            return null;
-        }
-
-        if (school.isPreschoolOnly()) {
-            _logger.error("School is preschool only! " + school);
-            return null;
-        }
-
-        return school;
+        _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult, schoolId, state);
     }
 
     /**
@@ -269,7 +92,7 @@ public class UspFormController implements ReadWriteAnnotationController {
      * @param password
      */
 
-    @RequestMapping(value = "/usp/checkUserState.page", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkUserState.page", method = RequestMethod.GET)
     protected void checkUserState(HttpServletRequest request,
                                   HttpServletResponse response,
                                   @RequestParam(value = "email", required = true) String email,
@@ -311,65 +134,5 @@ public class UspFormController implements ReadWriteAnnotationController {
             _logger.error("Error " + exp, exp);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    /**
-     * Gets a user object by either signing in the existing user or creating a new user.
-     * @param request
-     * @param response
-     * @param userRegistrationCommand
-     * @param userLoginCommand
-     * @param bindingResult
-     * @return
-     */
-
-    protected User getValidUser(HttpServletRequest request,
-                                HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
-                                UserLoginCommand userLoginCommand,
-                                BindingResult bindingResult) {
-        try {
-            UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ABOUT_US);
-            //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
-            registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
-            userRegistrationCommand.setHow("USP");
-            userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
-            User user = _userRegistrationOrLoginService.getUser(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
-            if (!bindingResult.hasErrors()) {
-                return user;
-            }
-        } catch (Exception ex) {
-            //Do nothing. Ideally, this should not happen since we have client side validations.
-        }
-        return null;
-    }
-
-    public User getValidOspUser(HttpServletRequest request) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = null;
-        if (sessionContext != null) {
-            user = sessionContext.getUser();
-        }
-        if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
-            return user;
-        }
-        if (user != null) {
-            List<EspMembership> espMemberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
-            if (!espMemberships.isEmpty()) {
-                for (EspMembership membership: espMemberships) {
-                    if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
-                        return user;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    protected void outputJsonError(String msg, HttpServletResponse response) throws JSONException, IOException {
-        JSONObject errorObj = new JSONObject();
-        errorObj.put("error", msg);
-        errorObj.write(response.getWriter());
-        response.getWriter().flush();
     }
 }

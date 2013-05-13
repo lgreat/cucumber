@@ -22,30 +22,55 @@
                         <h3 class="headerTitle">${formResponse.title}</h3>
                     </div>
                 </div>
-                <usp:chosenSelect name="${formResponse.fieldName}" width="350" formFieldResponse="${formResponse}"/>
-                <c:if test="${showOspUserFields}">
-                    <div class="js-otherResponse clearfix pvm">
-                        <div class="fl prm js-checkBoxSpriteOff">
-                            <span class="iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
+                <div class="js-formFields">
+                    <usp:chosenSelect name="${formResponse.fieldName}" width="350" formFieldResponse="${formResponse}"/>
+                    <c:set var="sectionResponses" value="${formResponse.sectionResponses}"/>
+                    <c:if test="${showOspUserFields}">
+                        <div class="js-ospUserFields">
+                            <c:if test="${formResponse.hasOtherField}">
+                                <div class="js-otherResponse clearfix pvm" id="js-${formResponse.fieldName}-other">
+                                    <div class="fl prm js-checkBoxSpriteOff ${formResponse.otherChecked ? 'dn' : ''}">
+                                        <span class="iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="fl prm js-checkBoxSpriteOn ${formResponse.otherChecked ? '' : 'dn'}">
+                                        <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                                    </div>
+
+                                    <c:forEach items="${sectionResponses}" var="sectionResponse">
+                                        <c:if test="${fn:endsWith(sectionResponse.responseKey, '_other')}">
+                                            <c:set var="otherTextValue" value="${sectionResponse.responses[0].responseValue}"/>
+                                            <input name="${formResponse.fieldName}" type="hidden" class="js-otherValue"
+                                                   value="${sectionResponse.responseKey}__${otherTextValue}"/>
+                                        </c:if>
+                                    </c:forEach><div class="fl small bottom mrm">Other</div>
+                                    <input name="otherValue" type="text" class="js-otherText" value="${otherTextValue}"/>
+                                </div>
+                            </c:if>
+                            <c:if test="${formResponse.hasNoneField}">
+                                <div class="js-noneResponse clearfix" id="js-${formResponse.fieldName}-none">
+                                    <div class="fl prm js-checkBoxSpriteOff ${formResponse.noneChecked ? 'dn' : ' '}">
+                                        <span class="iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="fl prm js-checkBoxSpriteOn ${formResponse.noneChecked ? '' : 'dn'}">
+                                        <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                                    </div>
+                                    <c:forEach items="${sectionResponses}" var="sectionResponse">
+                                        <c:if test="${!fn:endsWith(sectionResponse.responseKey, '_other')}">
+                                            <c:forEach items="${sectionResponse.responses}" var="response">
+                                                <c:if test="${response.responseValue eq 'none'}">
+                                                    <input type="hidden" name="${formResponse.fieldName}" class="js-noneValue"
+                                                           value="${sectionResponse.responseKey}__${formResponse.noneChecked ?
+                                                           response.responseValue : ''}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
+                                    </c:forEach>
+                                    <div class="fl small bottom">None</div>
+                                </div>
+                            </c:if>
                         </div>
-                        <div class="fl prm js-checkBoxSpriteOn dn">
-                            <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
-                        </div>
-                        <div class="fl small bottom mrm">Other</div>
-                        <input name="other" type="text" class=""/>
-                    </div>
-                    <div class="js-noneResponse clearfix">
-                        <div class="fl prm js-checkBoxSpriteOff">
-                            <span class="iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
-                        </div>
-                        <div class="fl prm js-checkBoxSpriteOn dn">
-                            <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
-                        </div>
-                        <div class="fl small bottom">None</div>
-                    </div>
-                    <input type="hidden" name="formOther"/>
-                    <input type="hidden" name="formNone"/>
-                </c:if>
+                    </c:if>
+                </div>
             </div>
         </div>
     </div>

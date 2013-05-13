@@ -122,9 +122,9 @@ public class EspSaveHelper {
                 if (StringUtils.equals("address", key)) {
                     espResponse = createEspResponse(user, school, now, key, active, (Address) responseValue);
                 } else if (StringUtils.equals("census_ethnicity", key)) {
-                    espResponse = createEspResponse(user, school, now, key, active, responseValue.toString());
+                    espResponse = createEspResponse(user, school, now, key, active, responseValue.toString(), EspResponseSource.osp);
                 } else {
-                    espResponse = createEspResponse(user, school, now, key, active, (String) responseValue);
+                    espResponse = createEspResponse(user, school, now, key, active, (String) responseValue, EspResponseSource.osp);
                 }
                 if (espResponse != null) {
                     responseList.add(espResponse);
@@ -171,7 +171,8 @@ public class EspSaveHelper {
                 keysToDelete.add(key);
                 _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
 
-                EspResponse espResponse = createEspResponse(user, school, now, getPageKeys(pageNum), false, StringUtils.join(keysForPage, ","));
+                EspResponse espResponse = createEspResponse(user, school, now, getPageKeys(pageNum), false, StringUtils.join(keysForPage, ","),
+                        EspResponseSource.osp);
                 if (espResponse != null) {
                     responseList.add(espResponse);
                 }
@@ -211,12 +212,18 @@ public class EspSaveHelper {
              */
             for(Object value : values) {
                 String keyValuePair = (String) value;
-                String[] keyValue = keyValuePair.split("__");
-                responseKeys.add(keyValue[0]);
+                if(keyValuePair.contains("__")) {
+                    String[] keyValue = keyValuePair.split("__");
 
-                EspResponse espResponse = createUspResponse(user, school, now, keyValue[0], active, keyValue[1]);
-                if(espResponse != null) {
-                    responseList.add(espResponse);
+                    if(keyValue.length == 2) {
+                        responseKeys.add(keyValue[0]);
+
+                        EspResponse espResponse = createEspResponse(user, school, now, keyValue[0], active, keyValue[1],
+                                EspResponseSource.usp);
+                        if(espResponse != null) {
+                            responseList.add(espResponse);
+                        }
+                    }
                 }
             }
         }
@@ -237,7 +244,8 @@ public class EspSaveHelper {
         return "_page_" + pageNum + "_keys";
     }
 
-    protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, String responseValue) {
+    protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, String responseValue,
+                                            EspResponseSource espResponseSource) {
         if (StringUtils.isBlank(responseValue)) {
             return null;
         }
@@ -248,27 +256,12 @@ public class EspSaveHelper {
         espResponse.setMemberId(user.getId());
         espResponse.setCreated(now);
         espResponse.setActive(active);
-        espResponse.setSource(EspResponseSource.osp);
-        return espResponse;
-    }
-
-    protected EspResponse createUspResponse(User user, School school, Date now, String key, boolean active, String responseValue) {
-        if (StringUtils.isBlank(responseValue)) {
-            return null;
-        }
-        EspResponse espResponse = new EspResponse();
-        espResponse.setKey(key);
-        espResponse.setValue(StringUtils.left(responseValue, EspFormController.MAX_RESPONSE_VALUE_LENGTH));
-        espResponse.setSchool(school);
-        espResponse.setMemberId(user.getId());
-        espResponse.setCreated(now);
-        espResponse.setActive(active);
-        espResponse.setSource(EspResponseSource.usp);
+        espResponse.setSource(espResponseSource);
         return espResponse;
     }
 
     protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, Address responseValue) {
-        return createEspResponse(user, school, now, key, active, responseValue.toString());
+        return createEspResponse(user, school, now, key, active, responseValue.toString(),EspResponseSource.osp);
     }
 
     protected void handleSchoolAffiliation(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
