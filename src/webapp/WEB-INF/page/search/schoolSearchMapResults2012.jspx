@@ -169,12 +169,12 @@ that this is updated for ajax refresh -->
                             ${school.schoolType}, <span class="ttu">${school.grades.rangeString}</span>
                         </div>
                         <div class="line small bottom">
-                            <div class="unit size55of100">
+                            <div class="unit size53of100">
                                 ${school.street}<br/>
                                 ${school.city}, ${school.databaseState} ${school.zip}
                             </div>
 
-                            <div class="unit size45of100 lastUnit">
+                            <div class="unit size47of100 lastUnit">
                                 <div class="mhm">
                                     <div class="media skin-1 attribution">
                                         <div class="img mrs">
@@ -390,11 +390,11 @@ that this is updated for ajax refresh -->
                     {{schoolType}}, <span class="ttu">{{gradesRange}}</span>
                 </div>
                 <div class="line small bottom">
-                    <div class="unit size55of100">
+                    <div class="unit size53of100">
                         {{street}}<br/>
                         {{city}}, {{state}} {{zip}}
                     </div>
-                    <div class="unit size45of100 lastUnit">
+                    <div class="unit size47of100 lastUnit">
                         <div class="media skin-1 attribution">
                             <div class="img mrs">
                                 <span class="iconx16 i-16-getDirections"><!--Do not collapse--></span>
@@ -804,8 +804,6 @@ that this is updated for ajax refresh -->
 
 <jsp:include page="/promo/emailSignUp.module?style=2012"/>
 
-<ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-<ad:BelowFold_Top_300x125/>
 </div>
 
 <c:set var="omnitureLocale"><c:choose>
