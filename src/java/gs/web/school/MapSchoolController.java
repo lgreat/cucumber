@@ -1,9 +1,13 @@
 package gs.web.school;
 
 import gs.data.school.LevelCode;
+import gs.data.state.State;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.request.RequestInfo;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +31,7 @@ import java.util.Map;
  * displayed in an info bubble in the map.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.org>
+ * @author sarora@greatschools.org -Shomi Arora
  */
 public class MapSchoolController extends AbstractSchoolController {
     public static final String BEAN_ID = "/school/mapSchool.page";
@@ -35,6 +40,12 @@ public class MapSchoolController extends AbstractSchoolController {
     private String _viewName;
     private IReviewDao _reviewDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+
+
+
+    @Autowired
+    private ZillowRegionDao _zillowDao;
+
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         // the school is obtained from the request by our super class: AbstractSchoolController
@@ -74,6 +85,15 @@ public class MapSchoolController extends AbstractSchoolController {
             // oldSchool.tagx expects the school's ratings to be stored in the variable "parent_ratings"
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("parent_ratings", ratings);
+        }
+        final String school_city=school.getCity() !=null ? school.getCity() :null;
+        final State state =_requestAttributeHelper.getState(request) !=null  ? _requestAttributeHelper.getState(request) : null;
+        if (school_city !=null && state !=null ){
+        final Integer zillowRegionId=_zillowDao.findRegionId(school_city, state.getAbbreviation());
+        final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(school_city, " ", "-") + "-" + state.getAbbreviation()) ;
+        model.put("formattedUrl",formattedURLForZillowIntegration)  ;
+        model.put("regionID",zillowRegionId);
+
         }
 
         _schoolProfileHeaderHelper.updateModel(request, response, school, model);
@@ -146,4 +166,13 @@ public class MapSchoolController extends AbstractSchoolController {
     public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
         _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
+
+    /**
+     * Adding so the test case would pass.Ideally the setter is not needed when using Autowiring
+     * @param _zillowDao
+     */
+    public void setZillowDao(ZillowRegionDao _zillowDao) {
+        this._zillowDao = _zillowDao;
+    }
+
 }
