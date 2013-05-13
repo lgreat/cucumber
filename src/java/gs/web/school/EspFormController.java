@@ -265,7 +265,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
 
         //Get all the active(non-provisional) responses for the form.
-        List<EspResponse> responses = _espResponseDao.getResponses(school);
+        List<EspResponse> responses = _espResponseDao.getResponses(school, EspResponseSource.osp);
 
         //For every response for school, check if there is a provisional response.
         //If there is no provisional response then put in the active response.
@@ -301,7 +301,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
 
         // fetch all responses to allow page to use ajax page switching if desired.
-        List<EspResponse> responses = _espResponseDao.getResponses(school);
+        List<EspResponse> responses = _espResponseDao.getResponses(school, EspResponseSource.osp);
 
         for (EspResponse response: responses) {
             putInResponseMap(responseMap,response);
