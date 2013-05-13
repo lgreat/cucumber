@@ -26,7 +26,7 @@
                                         class="js-trigger small bottom"><a href="javascript:void(0);">${moreNearbyCitiesLabel}
             <span>&amp;raquo;</span></a></span>
 
-            <div id="nearby-cities" class="js-popup">
+            <div id="nearby-cities" class="js-popup mtl">
                 <div id="" class="mod standard_5-1">
                     <div class="up-pointer">
                         <div class="border-edge"><!-- not empty --></div>
