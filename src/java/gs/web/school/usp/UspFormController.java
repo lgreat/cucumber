@@ -135,4 +135,10 @@ public class UspFormController implements ReadWriteAnnotationController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)
+    public String getThankYou(HttpServletRequest request,
+                              HttpServletResponse response) {
+        return THANK_YOU_VIEW;
+    }
 }
