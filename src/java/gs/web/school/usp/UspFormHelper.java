@@ -958,6 +958,9 @@ public class UspFormHelper {
         } else if (userStateStruct.isUserRegistered()) {
             //If the user has registered via the register hover then show the profile page.
             urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        } else if(userStateStruct.isVerificationEmailSent()){
+            //If the user was already existing but not email verified then sent an verification email and show the profile page.
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         }
         if (urlBuilder != null) {
             return urlBuilder.asFullUrl(request);

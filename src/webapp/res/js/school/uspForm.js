@@ -97,8 +97,7 @@ GS.form.UspForm = function () {
         } else if (isLogin === false && data.isNewUser !== true) {
             GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' id='js_lnchUspSignin'>Sign in Here</a>.", emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated !== true) {
-            GSType.hover.emailNotValidated.setEmail(email);
-            var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
+            var onclickStr = "'GS.form.uspForm.handleEmailVerification(); return false;'";
             GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else if (isLogin === true && data.isCookieMatched !== true) {
             GS.form.uspForm.handleValidationResponse('.js_emailErr', 'The password you entered is incorrect.', emailField);
@@ -106,6 +105,12 @@ GS.form.UspForm = function () {
             isValid = true;
         }
         return isValid;
+    };
+
+    this.handleEmailVerification = function () {
+        var uspForm = jQuery('#js_uspForm');
+        var emailField = jQuery('.js_loginEmail:visible');
+        GS.form.uspForm.saveForm(uspForm, '', '',emailField.val() );
     };
 
     this.handleValidationResponse = function (fieldSelector, errorMsg, elem) {
@@ -197,16 +202,6 @@ GS.form.UspForm = function () {
                 var password = uspLoginPasswordField.val();
                 var email = jQuery.trim(uspLoginEmailField.val());
                 GS.form.uspForm.saveForm(uspForm, '', password, email);
-//                jQuery.when(
-//                    GS.form.uspForm.saveForm(uspForm, '', password, email)
-//                ).done(function (data) {
-//                        alert(data);
-//                        GSType.hover.modalUspSignIn.hide();
-//                    })
-//                    .fail(function () {
-//                        GSType.hover.modalUspSignIn.hide();
-//                        alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
-//                    });
             }
         ).fail(
             function () {
@@ -223,11 +218,14 @@ GS.form.UspForm = function () {
         if (firstName != undefined && firstName != '') {
             data.push({name:"firstName", value:firstName});
         }
-        if (password != undefined && password != ''
-            && email != undefined && email != '') {
-            data.push({name:"email", value:email}, {name:"firstName", value:firstName},
-                {name:"password", value:password}, {name:"terms", value:"true"});
+        if (password != undefined && password != '') {
+            data.push({name:"password", value:password});
         }
+        if (email != undefined && email != '') {
+            data.push({name:"email", value:email});
+        }
+        //TODO terms from the form.
+        data.push({name:"terms", value:"true"});
 
         jQuery.ajax({type:'POST',
                 async:true,
