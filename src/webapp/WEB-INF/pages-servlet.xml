@@ -34,6 +34,7 @@
     <context:component-scan base-package="gs.web.realEstateAgent" />
     <context:component-scan base-package="gs.web.qrCode" />
     <context:component-scan base-package="gs.web.mediaUploader" />
+    <context:component-scan base-package="gs.web.gallup" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
