@@ -17,13 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Set;
 
 @Service
 public class UserRegistrationOrLoginService {
@@ -85,6 +86,8 @@ public class UserRegistrationOrLoginService {
             UserStateStruct userStateStruct = new UserStateStruct();
             if (user.isEmailValidated() && user.matchesPassword(userLoginCommand.getPassword())) {
                 userStateStruct.setUserLoggedIn(true);
+            } else if (!user.isEmailValidated() && registrationBehavior.sendVerificationEmail()) {
+                userStateStruct.setVerificationEmailSent(true);
             }
             userStateStruct.setUser(user);
             return userStateStruct;
@@ -138,30 +141,37 @@ public class UserRegistrationOrLoginService {
                           HttpServletRequest request,
                           HttpServletResponse response) {
 
-        _validatorFactory.validate(userLoginCommand, bindingResult);
-
-        if (bindingResult.hasErrors()) {
+        Set<ConstraintViolation<UserLoginCommand>> emailValidationErrors = _validatorFactory.validate(userLoginCommand, UserLoginCommand.ValidateJustEmail.class);
+        if (!emailValidationErrors.isEmpty()) {
             _log.error("Validation Errors while logging in user.");
-        } else {
-            User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
-            if (user != null) {
-                if (user.isEmailValidated()) {
-                    try {
-                        if (user.matchesPassword(userLoginCommand.getPassword())) {
-                            PageHelper.setMemberAuthorized(request, response, user, true);
-                        }
-                    } catch (NoSuchAlgorithmException ex) {
-                        _log.error("Error while trying to log in the user." + ex);
-                        return null;
-                    }
-                } else {
-                    if (registrationBehavior.sendVerificationEmail()) {
-                        sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
-                    }
-                }
-                return user;
-            }
+            return null;
         }
+
+        User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
+        if (user != null) {
+            if (user.isEmailValidated()) {
+
+                Set<ConstraintViolation<UserLoginCommand>> loginErrors = _validatorFactory.validate(userLoginCommand, UserLoginCommand.ValidateLoginCredentials.class);
+                if (!loginErrors.isEmpty()) {
+                    _log.error("Validation Errors while logging in user.");
+                    return user;
+                }
+                try {
+                    if (user.matchesPassword(userLoginCommand.getPassword())) {
+                        PageHelper.setMemberAuthorized(request, response, user, true);
+                    }
+                } catch (NoSuchAlgorithmException ex) {
+                    _log.error("Error while trying to log in the user." + ex);
+                    return null;
+                }
+            } else {
+                if (registrationBehavior.sendVerificationEmail()) {
+                    sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                }
+            }
+            return user;
+        }
+
         return null;
     }
 
@@ -442,6 +452,7 @@ public class UserRegistrationOrLoginService {
         private boolean isUserLoggedIn = false;
         private boolean isUserRegistered = false;
         private boolean isUserInSession = false;
+        private boolean isVerificationEmailSent = false;
         private User user;
 
         public boolean isUserLoggedIn() {
@@ -466,6 +477,14 @@ public class UserRegistrationOrLoginService {
 
         public void setUserInSession(boolean userInSession) {
             isUserInSession = userInSession;
+        }
+
+        public boolean isVerificationEmailSent() {
+            return isVerificationEmailSent;
+        }
+
+        public void setVerificationEmailSent(boolean verificationEmailSent) {
+            isVerificationEmailSent = verificationEmailSent;
         }
 
         public User getUser() {
