@@ -28,12 +28,12 @@
                     <c:if test="${showOspUserFields}">
                         <div class="js-ospUserFields">
                             <c:if test="${formResponse.hasOtherField}">
-                                <div class="js-otherResponse clearfix pvm" id="js-${formResponse.fieldName}-other">
+                                <div class="js-otherResponse clearfix ptm" id="js-${formResponse.fieldName}-other">
                                     <div class="fl prm js-checkBoxSpriteOff ${formResponse.otherChecked ? 'dn' : ''}">
                                         <span class="iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
                                     </div>
                                     <div class="fl prm js-checkBoxSpriteOn ${formResponse.otherChecked ? '' : 'dn'}">
-                                        <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                                        <span class="iconx16 i-16-checkbox-on vam"><!-- do not collapse --></span>
                                     </div>
 
                                     <c:forEach items="${sectionResponses}" var="sectionResponse">
@@ -47,12 +47,12 @@
                                 </div>
                             </c:if>
                             <c:if test="${formResponse.hasNoneField}">
-                                <div class="js-noneResponse clearfix" id="js-${formResponse.fieldName}-none">
+                                <div class="js-noneResponse clearfix ptm" id="js-${formResponse.fieldName}-none">
                                     <div class="fl prm js-checkBoxSpriteOff ${formResponse.noneChecked ? 'dn' : ' '}">
-                                        <span class="iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
+                                        <span class="iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
                                     </div>
                                     <div class="fl prm js-checkBoxSpriteOn ${formResponse.noneChecked ? '' : 'dn'}">
-                                        <span class="iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                                        <span class="iconx16 i-16-checkbox-on vam"><!-- do not collapse --></span>
                                     </div>
                                     <c:forEach items="${sectionResponses}" var="sectionResponse">
                                         <c:if test="${!fn:endsWith(sectionResponse.responseKey, '_other')}">
