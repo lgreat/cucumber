@@ -16,7 +16,9 @@ import gs.web.community.registration.UserRegistrationCommand;
 import gs.web.community.registration.UserRegistrationOrLoginService;
 import gs.web.community.registration.UspRegistrationBehavior;
 import gs.web.school.EspSaveHelper;
+import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,8 @@ import java.util.*;
 public class UspFormHelper {
     public static final String BEAN_ID = "uspFormHelper";
     private static Logger _logger = Logger.getLogger(UspFormHelper.class);
+
+    HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -345,21 +349,21 @@ public class UspFormHelper {
      * Changing the order of the values will change the order in which they are displayed
      */
     public static final Multimap<String, String> SECTION_RESPONSE_KEY_VALUE_MAP = LinkedListMultimap.create();
+
     static {
-        for(SectionResponseKeys sectionResponseKeys : SectionResponseKeys.values()) {
+        for (SectionResponseKeys sectionResponseKeys : SectionResponseKeys.values()) {
             String sectionFieldName = sectionResponseKeys.getSectionFieldName();
             String[] responseKeys = sectionResponseKeys.getResponseKeys();
 
-            for(String responseKey : responseKeys) {
-                if(ARTS_MUSIC_PARAM.equals(sectionFieldName)) {
-                    if(ARTS_MEDIA_RESPONSE_KEY.equals(responseKey)) {
-                        addKeyValueToSection(ARTS_MEDIA_RESPONSE_KEY, new String[] {
-                                ARTS_MEDIA_ANIMATION_RESPONSE_VALUE , ARTS_MEDIA_GRAPHICS_RESPONSE_VALUE,
+            for (String responseKey : responseKeys) {
+                if (ARTS_MUSIC_PARAM.equals(sectionFieldName)) {
+                    if (ARTS_MEDIA_RESPONSE_KEY.equals(responseKey)) {
+                        addKeyValueToSection(ARTS_MEDIA_RESPONSE_KEY, new String[]{
+                                ARTS_MEDIA_ANIMATION_RESPONSE_VALUE, ARTS_MEDIA_GRAPHICS_RESPONSE_VALUE,
                                 ARTS_MEDIA_TECH_DESIGN_RESPONSE_VALUE, ARTS_MEDIA_VIDEO_RESPONSE_VALUE,
                                 NONE_RESPONSE_VALUE
                         });
-                    }
-                    else if(ARTS_MUSIC_RESPONSE_KEY.equals(responseKey)) {
+                    } else if (ARTS_MUSIC_RESPONSE_KEY.equals(responseKey)) {
                         addKeyValueToSection(ARTS_MUSIC_RESPONSE_KEY, new String[]{
                                 ARTS_MUSIC_BAND_RESPONSE_VALUE, ARTS_MUSIC_BELLS_RESPONSE_VALUE,
                                 ARTS_MUSIC_CHAMBER_RESPONSE_VALUE, ARTS_MUSIC_CHORUS_RESPONSE_VALUE,
@@ -368,15 +372,13 @@ public class UspFormHelper {
                                 ARTS_MUSIC_ROCK_RESPONSE_VALUE, ARTS_MUSIC_THEORY_RESPONSE_VALUE,
                                 ARTS_MUSIC_VOICE_RESPONSE_VALUE, NONE_RESPONSE_VALUE
                         });
-                    }
-                    else if(ARTS_PERFORMING_WRITTEN_RESPONSE_KEY.equals(responseKey)) {
+                    } else if (ARTS_PERFORMING_WRITTEN_RESPONSE_KEY.equals(responseKey)) {
                         addKeyValueToSection(ARTS_PERFORMING_WRITTEN_RESPONSE_KEY, new String[]{
                                 ARTS_PERFORMING_DANCE_RESPONSE_VALUE, ARTS_PERFORMING_DRAMA_RESPONSE_VALUE,
                                 ARTS_PERFORMING_IMPROV_RESPONSE_VALUE, ARTS_PERFORMING_CREATIVE_WRITING_RESPONSE_VALUE,
                                 ARTS_PERFORMING_POETRY_RESPONSE_VALUE, NONE_RESPONSE_VALUE
                         });
-                    }
-                    else if(ARTS_VISUAL_RESPONSE_KEY.equals(responseKey)) {
+                    } else if (ARTS_VISUAL_RESPONSE_KEY.equals(responseKey)) {
                         addKeyValueToSection(ARTS_VISUAL_RESPONSE_KEY, new String[]{
                                 ARTS_VISUAL_ARCH_RESPONSE_VALUE, ARTS_VISUAL_CERAMICS_RESPONSE_VALUE,
                                 ARTS_VISUAL_DESIGN_RESPONSE_VALUE, ARTS_VISUAL_DRAWING_RESPONSE_VALUE,
@@ -385,22 +387,18 @@ public class UspFormHelper {
                                 ARTS_VISUAL_TEXTILES_RESPONSE_VALUE, NONE_RESPONSE_VALUE
                         });
                     }
-                }
-
-                else if(EXTENDED_CARE_PARAM.equals(sectionFieldName) && EXTENDED_CARE_RESPONSE_KEY.equals(responseKey)) {
+                } else if (EXTENDED_CARE_PARAM.equals(sectionFieldName) && EXTENDED_CARE_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(EXTENDED_CARE_RESPONSE_KEY, new String[]{
                             EXTENDED_CARE_BEFORE_RESPONSE_VALUE, EXTENDED_CARE_AFTER_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(GIRLS_SPORTS_PARAM.equals(sectionFieldName) && GIRLS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
+                } else if (GIRLS_SPORTS_PARAM.equals(sectionFieldName) && GIRLS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(GIRLS_SPORTS_RESPONSE_KEY, new String[]{
                             SPORTS_BADMINTON_RESPONSE_VALUE, SPORTS_BASKETBALL_RESPONSE_VALUE,
                             SPORTS_CHEERLEADING_RESPONSE_VALUE, SPORTS_CREW_RESPONSE_VALUE,
                             SPORTS_CROSS_COUNTRY_RESPONSE_VALUE, SPORTS_CYCLING_RESPONSE_VALUE,
                             SPORTS_DIVING_RESPONSE_VALUE, SPORTS_EQUESTRIAN_RESPONSE_VALUE,
-                            SPORTS_FENCING_RESPONSE_VALUE , GIRLS_SPORTS_FIELD_HOCKEY_RESPONSE_VALUE,
+                            SPORTS_FENCING_RESPONSE_VALUE, GIRLS_SPORTS_FIELD_HOCKEY_RESPONSE_VALUE,
                             SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
                             SPORTS_GOLF_RESPONSE_VALUE, SPORTS_GYMNASTICS_RESPONSE_VALUE,
                             SPORTS_ICE_HOCKEY_RESPONSE_VALUE, SPORTS_MARTIAL_ARTS_RESPONSE_VALUE,
@@ -416,20 +414,16 @@ public class UspFormHelper {
                             SPORTS_WRESTLING_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(GIRLS_SPORTS_PARAM.equals(sectionFieldName) && GIRLS_SPORTS_OTHER_RESPONSE_KEY.equals(responseKey)) {
+                } else if (GIRLS_SPORTS_PARAM.equals(sectionFieldName) && GIRLS_SPORTS_OTHER_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(GIRLS_SPORTS_OTHER_RESPONSE_KEY, new String[]{});
-                }
-
-                else if(BOYS_SPORTS_PARAM.equals(sectionFieldName) && BOYS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
+                } else if (BOYS_SPORTS_PARAM.equals(sectionFieldName) && BOYS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(BOYS_SPORTS_RESPONSE_KEY, new String[]{
                             SPORTS_BADMINTON_RESPONSE_VALUE, BOYS_SPORTS_BASEBALL_RESPONSE_VALUE,
                             SPORTS_BASKETBALL_RESPONSE_VALUE,
                             SPORTS_CHEERLEADING_RESPONSE_VALUE, SPORTS_CREW_RESPONSE_VALUE,
                             SPORTS_CROSS_COUNTRY_RESPONSE_VALUE, SPORTS_CYCLING_RESPONSE_VALUE,
                             SPORTS_DIVING_RESPONSE_VALUE, SPORTS_EQUESTRIAN_RESPONSE_VALUE,
-                            SPORTS_FENCING_RESPONSE_VALUE , SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
+                            SPORTS_FENCING_RESPONSE_VALUE, SPORTS_FLAG_FOOTBALL_RESPONSE_VALUE,
                             BOYS_SPORTS_FOOTBALL_RESPONSE_VALUE,
                             SPORTS_GOLF_RESPONSE_VALUE, SPORTS_GYMNASTICS_RESPONSE_VALUE,
                             SPORTS_ICE_HOCKEY_RESPONSE_VALUE, SPORTS_MARTIAL_ARTS_RESPONSE_VALUE,
@@ -444,13 +438,9 @@ public class UspFormHelper {
                             SPORTS_WRESTLING_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(BOYS_SPORTS_PARAM.equals(sectionFieldName) && BOYS_SPORTS_OTHER_RESPONSE_KEY.equals(responseKey)) {
+                } else if (BOYS_SPORTS_PARAM.equals(sectionFieldName) && BOYS_SPORTS_OTHER_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(BOYS_SPORTS_OTHER_RESPONSE_KEY, new String[]{});
-                }
-
-                else if(STAFF_PARAM.equals(sectionFieldName) && STAFF_RESPONSE_KEY.equals(responseKey)) {
+                } else if (STAFF_PARAM.equals(sectionFieldName) && STAFF_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(STAFF_RESPONSE_KEY, new String[]{
                             STAFF_ART_TEACHER_RESPONSE_VALUE, STAFF_ASSISTANT_PRINCIPAL_RESPONSE_VALUE,
                             STAFF_COLLEGE_COUNSELOR_RESPONSE_VALUE, STAFF_COMP_SPECIALIST_RESPONSE_VALUE,
@@ -467,9 +457,7 @@ public class UspFormHelper {
                             STAFF_TEACHER_AID_RESPONSE_VALUE, STAFF_TUTOR_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(FACILITIES_PARAM.equals(sectionFieldName) && FACILITIES_RESPONSE_KEY.equals(responseKey)) {
+                } else if (FACILITIES_PARAM.equals(sectionFieldName) && FACILITIES_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(FACILITIES_RESPONSE_KEY, new String[]{
                             FACILITIES_FARM_RESPONSE_VALUE, FACILITIES_SPORTS_FIELDS_RESPONSE_VALUE,
                             FACILITIES_ARTS_RESPONSE_VALUE, FACILITIES_AUDIO_VISUAL_RESPONSE_VALUE,
@@ -485,9 +473,7 @@ public class UspFormHelper {
                             FACILITIES_SCIENCE_RESPONSE_VALUE, FACILITIES_SWIMMING_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(FOREIGN_LANGUAGES_PARAM.equals(sectionFieldName) && FOREIGN_LANGUAGES_RESPONSE_KEY.equals(responseKey)) {
+                } else if (FOREIGN_LANGUAGES_PARAM.equals(sectionFieldName) && FOREIGN_LANGUAGES_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(FOREIGN_LANGUAGES_RESPONSE_KEY, new String[]{
                             FOREIGN_LANG_ASL_RESPONSE_VALUE, FOREIGN_LANG_AMHARIC_RESPONSE_VALUE,
                             FOREIGN_LANG_ARABIC_RESPONSE_VALUE, FOREIGN_LANG_CANTONESE_RESPONSE_VALUE,
@@ -500,25 +486,17 @@ public class UspFormHelper {
                             FOREIGN_LANG_URDU_RESPONSE_VALUE, FOREIGN_LANG_VIETNAMESE_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(FOREIGN_LANGUAGES_PARAM.equals(sectionFieldName) && FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY.equals(responseKey)) {
+                } else if (FOREIGN_LANGUAGES_PARAM.equals(sectionFieldName) && FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY, new String[]{});
-                }
-
-                else if(TRANSPORTATION_PARAM.equals(sectionFieldName) && TRANSPORTATION_RESPONSE_KEY.equals(responseKey)) {
+                } else if (TRANSPORTATION_PARAM.equals(sectionFieldName) && TRANSPORTATION_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(TRANSPORTATION_RESPONSE_KEY, new String[]{
                             TRANSPORTATION_BUSSES_RESPONSE_VALUE, TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE,
                             TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE, TRANSPORTATION_PASSES_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(TRANSPORTATION_PARAM.equals(sectionFieldName) && TRANSPORTATION_OTHER_RESPONSE_KEY.equals(responseKey)) {
+                } else if (TRANSPORTATION_PARAM.equals(sectionFieldName) && TRANSPORTATION_OTHER_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(TRANSPORTATION_OTHER_RESPONSE_KEY, new String[]{});
-                }
-
-                else if(PARENT_INVOLVEMENT_PARAM.equals(sectionFieldName) && PARENT_INVOLVEMENT_RESPONSE_KEY.equals(responseKey)) {
+                } else if (PARENT_INVOLVEMENT_PARAM.equals(sectionFieldName) && PARENT_INVOLVEMENT_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(PARENT_INVOLVEMENT_RESPONSE_KEY, new String[]{
                             PARENT_INVOLVEMENT_PARENT_NIGHTS_RESPONSE_VALUE, PARENT_INVOLVEMENT_CHAPERONE_RESPONSE_VALUE,
                             PARENT_INVOLVEMENT_COACH_RESPONSE_VALUE, PARENT_INVOLVEMENT_PTO_PTA_RESPONSE_VALUE,
@@ -528,17 +506,17 @@ public class UspFormHelper {
                             PARENT_INVOLVEMENT_CLASSROOM_RESPONSE_VALUE, PARENT_INVOLVEMENT_AFTER_SCHOOL_RESPONSE_VALUE,
                             NONE_RESPONSE_VALUE
                     });
-                }
-
-                else if(PARENT_INVOLVEMENT_PARAM.equals(sectionFieldName) && PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY.equals(responseKey)) {
+                } else if (PARENT_INVOLVEMENT_PARAM.equals(sectionFieldName) && PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY, new String[]{});
                 }
             }
         }
-    };
+    }
+
+    ;
 
     public static void addKeyValueToSection(String key, String[] values) {
-        for(String value : values) {
+        for (String value : values) {
             SECTION_RESPONSE_KEY_VALUE_MAP.put(key, value);
         }
     }
@@ -546,7 +524,7 @@ public class UspFormHelper {
     /**
      * Label for each subsection (identified by response key) - not all questions have subsections
      */
-    public static final Map<String, String> RESPONSE_KEY_SUB_SECTION_LABEL = new HashMap<String, String>(){{
+    public static final Map<String, String> RESPONSE_KEY_SUB_SECTION_LABEL = new HashMap<String, String>() {{
         /**
          * Arts & music
          */
@@ -559,7 +537,7 @@ public class UspFormHelper {
     /**
      * Label for response values for each question
      */
-    public static final Map<String, String> RESPONSE_VALUE_LABEL = new HashMap<String, String>(){{
+    public static final Map<String, String> RESPONSE_VALUE_LABEL = new HashMap<String, String>() {{
         /**
          * Arts & music - media
          */
@@ -766,7 +744,7 @@ public class UspFormHelper {
     /**
      * Map form field section name to form field label
      */
-    public static final Map<String, String> FORM_FIELD_TITLES = new LinkedHashMap<String, String>(){{
+    public static final Map<String, String> FORM_FIELD_TITLES = new LinkedHashMap<String, String>() {{
         put(ARTS_MUSIC_PARAM, ARTS_MUSIC_TITLE);
         put(EXTENDED_CARE_PARAM, EXTENDED_CARE_TITLE);
         put(GIRLS_SPORTS_PARAM, GIRLS_SPORTS_TITLE);
@@ -820,14 +798,14 @@ public class UspFormHelper {
                  * response_value for the form question
                  */
 
-                if(responseKey.endsWith("_other")) {
+                if (responseKey.endsWith("_other")) {
                     boolean isOtherFieldKey = true;
                     uspFormResponse.setHasOtherField(isOtherFieldKey);
 
                     Iterator<String> savedResponsesIter = savedResponses.iterator();
-                    while(savedResponsesIter.hasNext()) {
+                    while (savedResponsesIter.hasNext()) {
                         String responseValue = savedResponsesIter.next();
-                        if(!responseValue.trim().equals("")) {
+                        if (!responseValue.trim().equals("")) {
                             uspFormResponse.setIsOtherChecked(true);
                             uspFormResponse.setOtherTextValue(responseValue);
                             UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
@@ -842,7 +820,7 @@ public class UspFormHelper {
                  * Construct chosen select field options with the list of response values for the current response key
                  */
                 else {
-                    if(!hasNoneField && responseValues.contains(UspFormHelper.NONE_RESPONSE_VALUE)) {
+                    if (!hasNoneField && responseValues.contains(UspFormHelper.NONE_RESPONSE_VALUE)) {
                         hasNoneField = true;
                         uspFormResponse.setHasNoneField(hasNoneField);
                     }
@@ -855,12 +833,10 @@ public class UspFormHelper {
                         UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
                                 sectionResponse.new UspResponseValueStruct(responseValue);
 
-                        if(hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue) &&
+                        if (hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue) &&
                                 savedResponses.contains(responseValue)) {
                             uspFormResponse.setIsNoneChecked(true);
-                        }
-
-                        else {
+                        } else {
                             uspResponseValue.setLabel(RESPONSE_VALUE_LABEL.get(responseValue));
 
                             if (savedResponses.contains(responseValue)) {
@@ -890,57 +866,109 @@ public class UspFormHelper {
                                  BindingResult bindingResult,
                                  Integer schoolId,
                                  State state) {
+
         response.setContentType("application/json");
         JSONObject responseObject = new JSONObject();
+        _cacheInterceptor.setNoCacheHeaders(response);
 
-        try {
-            School school = getSchool(state, schoolId);
-            if (school == null) {
-                outputJsonError("noSchool", response);
-                return; // early exit
-            }
 
-            UserRegistrationOrLoginService.UserStateStruct userStateStruct = getValidUser(request, response, userRegistrationCommand, userLoginCommand, bindingResult);
-
-            if (userStateStruct == null || userStateStruct.getUser() == null) {
-                outputJsonError("noUser", response);
-                return; // early exit
-            }
-
-            User user = userStateStruct.getUser();
-            if(user.isEmailValidated() && userStateStruct.isUserLoggedIn()){
-                Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, state);
-
-                if(!savedResponseKeyValues.isEmpty()){
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
-                    urlBuilder.addParameter("schoolId",school.getId().toString());
-                    urlBuilder.addParameter("state",school.getDatabaseState().toString());
-                    responseObject.put("redirect", urlBuilder.asFullUrl(request));
-                    responseObject.write(response.getWriter());
-                    response.getWriter().flush();
-                    return;
-                }
-            }
-
-            Map<String, Object[]> reqParamMap = request.getParameterMap();
-
-            Set<String> formFieldNames = FORM_FIELD_TITLES.keySet();
-
-            _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
-
-            responseObject.put("success", true);
-            responseObject.write(response.getWriter());
-            response.getWriter().flush();
-        } catch (JSONException ex) {
-            _logger.warn("UspFormHelper - exception while trying to write json object.", ex);
-        } catch (IOException ex) {
-            _logger.warn("UspFormHelper - exception while trying to get writer for response.", ex);
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            writeIntoJsonObject(response, responseObject, "error", "noSchool");
+            return; // early exit
         }
+
+        UserRegistrationOrLoginService.UserStateStruct userStateStruct = getValidUser(request, response,
+                userRegistrationCommand, userLoginCommand, bindingResult, school);
+
+        if (userStateStruct == null || userStateStruct.getUser() == null) {
+            writeIntoJsonObject(response, responseObject, "error", "noUser");
+            return; // early exit
+        }
+
+        User user = userStateStruct.getUser();
+        //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
+        //Show the user his old responses.
+        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school);
+
+        if (doesUserAlreadyHaveResponses) {
+            String redirectUrl = determineRedirects(user, userStateStruct, school, request);
+            if (StringUtils.isNotBlank(redirectUrl)) {
+                writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
+            }
+            return;
+        }
+
+        Map<String, Object[]> reqParamMap = request.getParameterMap();
+
+        Set<String> formFieldNames = FORM_FIELD_TITLES.keySet();
+
+        _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
+
+        String redirectUrl = determineRedirects(user, userStateStruct, school, request);
+
+        if (StringUtils.isNotBlank(redirectUrl)) {
+            writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
+        }
+        return;
+    }
+
+    /**
+     * Method to check if the user is being logged in via the sign in hover and already has responses.
+     *
+     * @param user
+     * @param userStateStruct
+     * @param school
+     * @return
+     */
+    public boolean checkIfUserHasExistingResponses(User user, UserRegistrationOrLoginService.UserStateStruct userStateStruct,
+                                                   School school) {
+        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
+            Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, school.getDatabaseState());
+
+            return !savedResponseKeyValues.isEmpty();
+
+        }
+        return false;
+    }
+
+    /**
+     * Method to determine where the user should be redirected to after they have filled in the usp form.
+     *
+     * @param user
+     * @param userStateStruct
+     * @param school
+     */
+
+    public String determineRedirects(User user, UserRegistrationOrLoginService.UserStateStruct userStateStruct,
+                                     School school, HttpServletRequest request) {
+        UrlBuilder urlBuilder = null;
+        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
+            //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
+            //Show the user his old responses.
+            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
+            urlBuilder.addParameter("schoolId", school.getId().toString());
+            urlBuilder.addParameter("state", school.getDatabaseState().toString());
+            urlBuilder.addParameter("showExistingAnswersMsg", "true");
+        } else if (user.isEmailValidated() && userStateStruct.isUserInSession()) {
+            //If the user is already logged in and filled in the usp form then show the thank you page.
+            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
+            urlBuilder.addParameter("schoolId", school.getId().toString());
+            urlBuilder.addParameter("state", school.getDatabaseState().toString());
+        } else if (userStateStruct.isUserRegistered()) {
+            //If the user has registered via the register hover then show the profile page.
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        }
+        if (urlBuilder != null) {
+            return urlBuilder.asFullUrl(request);
+        }
+        return "";
     }
 
     /**
      * Gets a user object from the session or by signing in the existing user or creating a new user.
      * The user object is and the state of the user object is encapsulated in the UserStateStruct.
+     *
      * @param request
      * @param response
      * @param userRegistrationCommand
@@ -949,15 +977,20 @@ public class UspFormHelper {
      * @return
      */
 
-    protected UserRegistrationOrLoginService.UserStateStruct getValidUser(HttpServletRequest request,
-                                                                          HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
-                                                                          UserLoginCommand userLoginCommand,
-                                                                          BindingResult bindingResult) {
+    public UserRegistrationOrLoginService.UserStateStruct getValidUser(HttpServletRequest request,
+                                                                       HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
+                                                                       UserLoginCommand userLoginCommand,
+                                                                       BindingResult bindingResult,
+                                                                       School school) {
         try {
             UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ABOUT_US);
+            if (school != null) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
+                urlBuilder.addParameter("schoolId", school.getId().toString());
+                urlBuilder.addParameter("state", school.getDatabaseState().toString());
+                registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
+            }
             //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
-            registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
             userRegistrationCommand.setHow("USP");
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
             UserRegistrationOrLoginService.UserStateStruct userStateStruct =
@@ -1013,10 +1046,16 @@ public class UspFormHelper {
         return responseKeyValues;
     }
 
-    protected void outputJsonError(String msg, HttpServletResponse response) throws JSONException, IOException {
-        JSONObject errorObj = new JSONObject();
-        errorObj.put("error", msg);
-        errorObj.write(response.getWriter());
-        response.getWriter().flush();
+    protected void writeIntoJsonObject(HttpServletResponse response,
+                                       JSONObject responseObject, String key, String value) {
+        try {
+            responseObject.put(key, value);
+            responseObject.write(response.getWriter());
+            response.getWriter().flush();
+        } catch (JSONException ex) {
+            _logger.warn("UspFormHelper - exception while trying to write json object.", ex);
+        } catch (IOException ex) {
+            _logger.warn("UspFormHelper - exception while trying to get writer for response.", ex);
+        }
     }
 }

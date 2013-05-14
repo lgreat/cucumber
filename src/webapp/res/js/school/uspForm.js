@@ -37,11 +37,15 @@ GS.form.UspForm = function () {
     };
 
     this.validateTerms = function () {
+        var dfd = jQuery.Deferred();
         var isValid = jQuery('.js-checkBoxSpriteOn').is(':visible');
         if (isValid === false) {
             GS.form.uspForm.handleValidationResponse('.js_termsErr', 'Check accept.');
+            dfd.reject();
+        } else {
+            return dfd.resolve();
         }
-        return isValid;
+        return dfd.promise();
     };
 
     this.validateUserState = function (emailField, isLogin, passwordField) {
@@ -161,7 +165,7 @@ GS.form.UspForm = function () {
             GS.form.uspForm.validateUserState(uspRegistrationEmailField, false),
             GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
             GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField),
-            GS.form.uspForm.validateTerms(uspRegistrationFirstNameField)
+            GS.form.uspForm.validateTerms()
         ).done(
             function () {
                 var firstName = jQuery.trim(uspRegistrationFirstNameField.val());
