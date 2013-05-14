@@ -15,7 +15,29 @@
         <gsml:javascript  src="/res/js/school/uspForm.js"/>
     </head>
     <body>
-        <h1>Thank you</h1>
+
+    <div class="container_24 clearfix">
+        <div class="tac"
+             style="margin:50px 0 50px; height:339px; background-image: url(/res/img/parentReviewLanding/reviewLandingThankYouCard.png); background-repeat:no-repeat;">
+            <div style="padding: 61px 0;">
+                <p style="font-family: SourceSansPro-Semibold, arial; font-size:40px; margin-bottom: 40px">
+                    Thanks! We've published your response</p>
+
+                <p>Did you know that school administrators can add photos and videos to
+                    their school's pages on<br/>GreatSchools? Tell them about claming their GreatSchools profile today!
+                </p>
+
+                <p>As long as you're here, why not write a review about one of this
+                    schools programs(or the school in<br/>general)? Other families will be greatfull for your help.
+                </p>
+
+                <div class="mtl">
+                    <a href="#">&#171; Back to School Name</a>
+                    <button class="but but-rg but-1 mll" name="">Write a review now</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
     </html>
 </jsp:root>
