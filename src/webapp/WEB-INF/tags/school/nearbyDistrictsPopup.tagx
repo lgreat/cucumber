@@ -30,7 +30,7 @@
                                         class="js-trigger small bottom"><a href="javascript:void(0);">${moreNearbyDistrictsLabel}
             <span>&amp;raquo;</span></a></span>
 
-            <div id="nearby-districts" class="js-popup  mtl">
+            <div id="nearby-districts" class="js-popup  mtm">
                 <div id="" class="mod standard_5-1">
                     <div class="up-pointer">
                         <div class="border-edge"><!-- not empty --></div>
