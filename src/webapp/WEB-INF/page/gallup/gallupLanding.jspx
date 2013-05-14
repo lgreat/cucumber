@@ -1,35 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gsweb="gstaglib"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
-
-    <jsp:directive.page import="gs.data.gallup.GallupSchools"/>
-     <jsp:directive.page contentType="text/html"/>
-
-
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:directive.page import="gs.data.gallup.GallupSchools"/>
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
+    <meta name="decorator" content="standardDecorator-v1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="The Page list all the Gallup Schools."
+          name="description"/>
+    <title>Gallup Schools Page  | GreatSchools</title>
 
 
 </head>
 <body>
-<div>
-    <ul>
-        <li>one</li>
-        <li>two</li>
-        <li>three</li>
-        <li>four</li>
-    </ul>
-</div>
-    </body>
-</html>
+<div class="imageBgScale">
+    <div class="pr" style="height:150px;">
+        <div class="headerBar">
+            <p style="font-family: SourceSansPro-Semibold, arial; font-size:48px; color: #FFFFFF; padding: 47px 0 14px 0;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">The Gallup-GreatSchools Partnership</p>
 
+            <p style="font-family: SourceSansPro-It, arial; font-size:16px;  color: #996E18; padding-bottom: 60px;">
+                Understanding and influencing key factors of student success and wellbeing</p>
+        </div>
+    </div>
+</div>
+     <img src="#"/>
+<div class="container_24 clearfix">
+
+    <div class="grid_11 suffix_1">
+        <div class="mtl">
+
+
+            <h5 class="make-d61">Gallup Kids Approved</h5>
+
+            <div class="tac mbm"><img src="" alt="Gallup Badge"/></div>
+            <div class="small">This year, the 4xx highest scoring schools whose students took the Gallup Student Poll
+                received the Gallup Kids Approved badge. Using the poll’s results, the Gallup-GreatSchools
+                partnership
+                will help families, educators, and leaders understand key factors –hope, engagement, and wellbeing
+                – of
+                student success.
+            </div>
+
+
+        </div>
+        <div class="mtl">
+            <h5 class="make-d61"> The Gallup Student Poll</h5>
+
+            <div class="small">The Gallup Student Poll focuses on the youth voice on these key factors, a critical
+                missing part of the national dialogue about student success. For the next 10 years, the
+                Gallup Student Poll will track the hope, engagement, and wellbeing of public school
+                students in grades 5 through 12 across the United States. These key factors have
+                shown to drive students’ grades, achievement scores, retention , and success in future
+                employment.
+            </div>
+            <div class="make-d61 small bottom">Hope</div>
+            <div class="small">Hope fuels problem-solving and it helps educators understand how to work with
+                students to develop their personal strengths and social resources. Hopeful students channel ideas
+                and energy into producing positive outcomes for the future.
+            </div>
+
+            <div class="make-d61 small bottom">Engagement</div>
+            <div class="small">Engagement shows how to optimize student performance by transforming classrooms into
+                environments where students thrive. Hope
+                and engagement work independently and interdependently to produce the positive outcomes of
+                higher wellbeing and increased academic success
+            </div>
+
+            <div class="make-d61 small bottom">Wellbeing</div>
+            <div class="small">Wellbeing highlights how students think about and experience their lives.
+                It tells us how our students are doing today within multiple contexts that are essential to their
+                success in the future.
+            </div>
+
+            <div class="small"><strong>For more information</strong>, visit the <a
+                    href="#">Gallup Student Poll page.</a></div>
+
+
+        </div>
+
+        <div class="mtl">
+
+
+            <h5 class="make-d61">Gallup Education</h5>
+
+            <div class="small">For more than 40 years, Gallup Education Practice has provided expertise
+                about hope, engagement, and wellbeing to school districts and leaders across the United States.
+                As a leader in education, Gallup research informs many discussions, from local schools boards to
+                national debates.
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="grid_11">
+
+
+        <div class="standard_1-1 mtl">
+            <div class="inner">
+                <div class="hd pam"><strong>Participating Schools</strong></div>
+                <div class="bd pam" style="height: 500px ; overflow-y: scroll">
+                    <div class="small bottom clearfix">
+                        <a href="#">
+                            <div class="fl">Jimmy School,San Jose</div>
+                            <div class="fr ">AZ</div>
+                        </a>
+                    </div>
+                    <div class="small bottom clearfix">
+                        <a href="#">
+                            <div class="fl">Jimmy School,San Jose</div>
+                            <div class="fr">AZ</div>
+                        </a>
+                    </div>
+                    <div class="small bottom clearfix">
+                        <a href="#">
+                            <div class="fl ">Jimmy School,San Jose</div>
+                            <div class="fr ">AZ</div>
+
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
 </jsp:root>
