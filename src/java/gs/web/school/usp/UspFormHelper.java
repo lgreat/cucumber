@@ -900,10 +900,26 @@ public class UspFormHelper {
                 return; // early exit
             }
 
-            User user = getValidUser(request, response, userRegistrationCommand, userLoginCommand, bindingResult);
-            if (user == null) {
+            UserRegistrationOrLoginService.UserStateStruct userStateStruct = getValidUser(request, response, userRegistrationCommand, userLoginCommand, bindingResult);
+
+            if (userStateStruct == null || userStateStruct.getUser() == null) {
                 outputJsonError("noUser", response);
                 return; // early exit
+            }
+
+            User user = userStateStruct.getUser();
+            if(user.isEmailValidated() && userStateStruct.isUserLoggedIn()){
+                Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, state);
+
+                if(!savedResponseKeyValues.isEmpty()){
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
+                    urlBuilder.addParameter("schoolId",school.getId().toString());
+                    urlBuilder.addParameter("state",school.getDatabaseState().toString());
+                    responseObject.put("redirect", urlBuilder.asFullUrl(request));
+                    responseObject.write(response.getWriter());
+                    response.getWriter().flush();
+                    return;
+                }
             }
 
             Map<String, Object[]> reqParamMap = request.getParameterMap();
@@ -923,7 +939,8 @@ public class UspFormHelper {
     }
 
     /**
-     * Gets a user object by either signing in the existing user or creating a new user.
+     * Gets a user object from the session or by signing in the existing user or creating a new user.
+     * The user object is and the state of the user object is encapsulated in the UserStateStruct.
      * @param request
      * @param response
      * @param userRegistrationCommand
@@ -932,10 +949,10 @@ public class UspFormHelper {
      * @return
      */
 
-    protected User getValidUser(HttpServletRequest request,
-                                HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
-                                UserLoginCommand userLoginCommand,
-                                BindingResult bindingResult) {
+    protected UserRegistrationOrLoginService.UserStateStruct getValidUser(HttpServletRequest request,
+                                                                          HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
+                                                                          UserLoginCommand userLoginCommand,
+                                                                          BindingResult bindingResult) {
         try {
             UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ABOUT_US);
@@ -943,12 +960,14 @@ public class UspFormHelper {
             registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
             userRegistrationCommand.setHow("USP");
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
-            User user = _userRegistrationOrLoginService.getUser(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
+            UserRegistrationOrLoginService.UserStateStruct userStateStruct =
+                    _userRegistrationOrLoginService.getUserStateStruct(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
+
             if (!bindingResult.hasErrors()) {
-                return user;
+                return userStateStruct;
             }
         } catch (Exception ex) {
-            //Do nothing. Ideally, this should not happen since we have client side validations.
+            //Do nothing. Ideally, this should not happen since we have command validations and client side validations.
         }
         return null;
     }

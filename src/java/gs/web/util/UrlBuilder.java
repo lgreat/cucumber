@@ -362,6 +362,11 @@ public class UrlBuilder {
     public static final VPage ESP_REGISTRATION_ERROR = new VPage("vpage:espRegistrationError");
     public static final VPage ESP_PRE_REGISTRATION = new VPage("vpage:espPreRegistration");
 
+    /**
+     * Usp pages
+     */
+    public static final VPage USP_FORM = new VPage("vpage:uspForm");
+
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
 
@@ -1029,6 +1034,9 @@ public class UrlBuilder {
         } else if (ESP_DASHBOARD.equals(page)) {
             _perlPage = false;
             _path = "/official-school-profile/dashboard/";
+        }else if (USP_FORM.equals(page)) {
+            _perlPage = false;
+            _path = "/school/usp/form.page";
         } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
             _perlPage = false;
             _path = "/about/feedback/addEditSchoolOrDistrict.page";

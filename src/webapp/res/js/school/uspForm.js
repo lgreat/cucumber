@@ -50,10 +50,10 @@ GS.form.UspForm = function () {
         GS.form.uspForm.hideErrors('.js_emailErr', emailField);
 
         if (email !== "" && email !== undefined) {
-            var data = [
-                {email:email, isLogin:isLogin}
-            ];
-            if (passwordField != undefined && passwordField != '') {
+            var data = [];
+            data.push({name:"email", value:email});
+            data.push({name:"isLogin", value:isLogin});
+            if (passwordField != undefined) {
                 var password = passwordField.val();
                 data.push({name:"password", value:password});
             }
@@ -61,7 +61,7 @@ GS.form.UspForm = function () {
             jQuery.ajax({
                 type:'GET',
                 url:'/school/usp/checkUserState.page',
-                data:{email:email, isLogin:isLogin},
+                data:data,
                 dataType:'json',
                 async:true
             }).done(
@@ -192,15 +192,17 @@ GS.form.UspForm = function () {
             function () {
                 var password = uspLoginPasswordField.val();
                 var email = jQuery.trim(uspLoginEmailField.val());
-                jQuery.when(
-                    GS.form.uspForm.saveForm(uspForm, '', password, email)
-                ).done(function () {
-                        GSType.hover.modalUspSignIn.hide();
-                    })
-                    .fail(function () {
-                        GSType.hover.modalUspSignIn.hide();
-                        alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
-                    });
+                GS.form.uspForm.saveForm(uspForm, '', password, email);
+//                jQuery.when(
+//                    GS.form.uspForm.saveForm(uspForm, '', password, email)
+//                ).done(function (data) {
+//                        alert(data);
+//                        GSType.hover.modalUspSignIn.hide();
+//                    })
+//                    .fail(function () {
+//                        GSType.hover.modalUspSignIn.hide();
+//                        alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
+//                    });
             }
         ).fail(
             function () {
@@ -230,8 +232,12 @@ GS.form.UspForm = function () {
         ).fail(function () {
                 dfd.reject();
                 alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
-            }).done(function () {
+            }).done(function (data) {
                 dfd.resolve();
+                if(data.redirect != undefined && data.redirect != ''){
+                   window.location = data.redirect;
+                }
+
             });
         return dfd.promise();
     };
@@ -339,9 +345,9 @@ jQuery(function () {
         GS.form.uspForm.validateUserState(jQuery(event.target), false);
     });
 
-    jQuery('body').on('blur', '.js_loginEmail:visible', function (event) {
-        GS.form.uspForm.validateUserState(jQuery(event.target), true);
-    });
+//    jQuery('body').on('blur', '.js_loginEmail:visible', function (event) {
+//        GS.form.uspForm.validateUserState(jQuery(event.target), false,true);
+//    });
 
     jQuery('body').on('click', '#js_lnchUspSignin', function () {
         GS.form.uspForm.hideAllErrors();
