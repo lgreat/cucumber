@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,9 +28,9 @@ import java.util.Date;
 @Service
 public class UserRegistrationOrLoginService {
 
-    protected final Log _log = LogFactory.getLog(getClass());
+    private final Log _log = LogFactory.getLog(getClass());
 
-    public static final String SPREADSHEET_ID_FIELD = "ip";
+    private static final String SPREADSHEET_ID_FIELD = "ip";
 
     private ITableDaoFactory _tableDaoFactory;
 
@@ -47,12 +46,26 @@ public class UserRegistrationOrLoginService {
     @Qualifier("emailVerificationEmail")
     private EmailVerificationEmail _emailVerificationEmail;
 
-    public User getUser(UserRegistrationCommand userRegistrationCommand,
-                        UserLoginCommand userLoginCommand,
-                        RegistrationBehavior registrationBehavior,
-                        BindingResult bindingResult,
-                        HttpServletRequest request,
-                        HttpServletResponse response) throws Exception {
+    /**
+     * Returns an UserStateStruct object.First if there is a user in the session then return that.
+     * Else check if the user is trying to log in. If the log in credentials are valid then log in the user.
+     * Else create a brand new user.
+     *
+     * @param userRegistrationCommand
+     * @param userLoginCommand
+     * @param registrationBehavior
+     * @param bindingResult
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    public UserStateStruct getUserStateStruct(UserRegistrationCommand userRegistrationCommand,
+                                              UserLoginCommand userLoginCommand,
+                                              RegistrationBehavior registrationBehavior,
+                                              BindingResult bindingResult,
+                                              HttpServletRequest request,
+                                              HttpServletResponse response) throws Exception {
         User user = null;
         if (isIPBlocked(request)) {
             _log.error("Ip is blocked while registering or logging in the user.");
@@ -60,32 +73,48 @@ public class UserRegistrationOrLoginService {
         }
 
         user = getUserFromSession(registrationBehavior, request, response);
-
         if (user != null) {
-            return user;
+            UserStateStruct userStateStruct = new UserStateStruct();
+            userStateStruct.setUserInSession(true);
+            userStateStruct.setUser(user);
+            return userStateStruct;
         }
 
         user = loginUser(userLoginCommand, registrationBehavior, bindingResult, request, response);
-
         if (user != null) {
-            return user;
+            UserStateStruct userStateStruct = new UserStateStruct();
+            if (user.isEmailValidated() && user.matchesPassword(userLoginCommand.getPassword())) {
+                userStateStruct.setUserLoggedIn(true);
+            }
+            userStateStruct.setUser(user);
+            return userStateStruct;
         }
 
         user = registerUser(userRegistrationCommand, registrationBehavior, bindingResult, request, response);
-
         if (user != null) {
-            return user;
+            UserStateStruct userStateStruct = new UserStateStruct();
+            userStateStruct.setUserRegistered(true);
+            userStateStruct.setUser(user);
+            return userStateStruct;
         }
         return null;
     }
 
+    /**
+     * Get the user from a session
+     *
+     * @param registrationBehavior
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     public User getUserFromSession(RegistrationBehavior registrationBehavior,
                                    HttpServletRequest request,
-                                   HttpServletResponse response){
+                                   HttpServletResponse response) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = null;
         if (sessionContext != null) {
-            user = sessionContext.getUser();
+            User user = sessionContext.getUser();
             if (user != null) {
                 return user;
             }
@@ -93,10 +122,22 @@ public class UserRegistrationOrLoginService {
         return null;
     }
 
+    /**
+     * Signs in the user, if the user is email validated and the command object has the right credentials.
+     *
+     * @param userLoginCommand
+     * @param registrationBehavior
+     * @param bindingResult
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     public User loginUser(UserLoginCommand userLoginCommand, RegistrationBehavior registrationBehavior,
                           BindingResult bindingResult,
                           HttpServletRequest request,
-                          HttpServletResponse response){
+                          HttpServletResponse response) {
+
         _validatorFactory.validate(userLoginCommand, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -110,7 +151,7 @@ public class UserRegistrationOrLoginService {
                             PageHelper.setMemberAuthorized(request, response, user, true);
                         }
                     } catch (NoSuchAlgorithmException ex) {
-                     _log.error("Error while trying to log in the user."+ ex);
+                        _log.error("Error while trying to log in the user." + ex);
                         return null;
                     }
                 } else {
@@ -124,6 +165,18 @@ public class UserRegistrationOrLoginService {
         return null;
     }
 
+    /**
+     * Creates a new user.
+     *
+     * @param userRegistrationCommand
+     * @param registrationBehavior
+     * @param bindingResult
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+
     public User registerUser(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
                              BindingResult bindingResult,
                              HttpServletRequest request,
@@ -132,46 +185,58 @@ public class UserRegistrationOrLoginService {
         _validatorFactory.validate(userRegistrationCommand, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            _log.error("Validation Errors while logging in user.");
+            _log.error("Validation Errors while registering a user.");
         } else {
             boolean userExists = false;
-            User user = null;
-            try {
-                user = createNewUser(userRegistrationCommand, registrationBehavior);
+            User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
+            if (user == null) {
+                try {
+                    user = createNewUser(userRegistrationCommand, registrationBehavior);
 
-                getUserDao().saveUser(user);
+                    getUserDao().saveUser(user);
 
-                setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
+                    setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
 
-                user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationBehavior, user));
-                user.getUserProfile().setUser(user);
+                    user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationBehavior, user));
+                    user.getUserProfile().setUser(user);
 
-                getUserDao().updateUser(user);
+                    getUserDao().updateUser(user);
 
+                    ThreadLocalTransactionManager.commitOrRollback();
+                    // User object loses its session and this might fix that.
+                    user = getUserDao().findUserFromId(user.getId());
 
-                ThreadLocalTransactionManager.commitOrRollback();
-                // User object loses its session and this might fix that.
-                user = getUserDao().findUserFromId(user.getId());
+                    if (registrationBehavior.sendVerificationEmail()) {
+                        sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                    }
 
-                if (registrationBehavior.sendVerificationEmail()) {
-                    sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                } catch (NoSuchAlgorithmException e) {
+                    _log.error("Error while registering a user." + e);
+                    getUserDao().removeUser(user.getId());
+                    user = null;
+                } catch (IllegalStateException e) {
+                    _log.error("Error while registering a user." + e);
+                    getUserDao().removeUser(user.getId());
+                    user = null;
+                } catch (Exception e) {
+                    _log.error("Error while registering a user." + e);
+                    getUserDao().removeUser(user.getId());
+                    user = null;
                 }
 
-            } catch (NoSuchAlgorithmException e) {
-                getUserDao().removeUser(user.getId());
-                user = null;
-            } catch (IllegalStateException e) {
-                getUserDao().removeUser(user.getId());
-                user = null;
-            } catch (Exception ex) {
-                getUserDao().removeUser(user.getId());
-                user = null;
+                return user;
             }
-
-            return user;
         }
         return null;
     }
+
+    /**
+     * Method to read the fields from the command and set them on the user object.
+     *
+     * @param userCommand
+     * @param registrationBehavior
+     * @return
+     */
 
     public User createNewUser(UserRegistrationCommand userCommand, RegistrationBehavior registrationBehavior) {
         User user = new User();
@@ -211,6 +276,15 @@ public class UserRegistrationOrLoginService {
         return user;
     }
 
+    /**
+     * Method to read the fields from the command and set them on the user profile object.
+     *
+     * @param userRegistrationCommand
+     * @param registrationBehavior
+     * @param user
+     * @return
+     */
+
     public UserProfile createNewUserProfile(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior, User user) {
         UserProfile profile = new UserProfile();
 
@@ -224,7 +298,6 @@ public class UserRegistrationOrLoginService {
             profile.setCity(userRegistrationCommand.getCity());
         }
 
-        //TODO is this the only check required?
         if (StringUtils.isEmpty(userRegistrationCommand.getScreenName())) {
             profile.setScreenName("user" + user.getId());
         } else {
@@ -237,11 +310,30 @@ public class UserRegistrationOrLoginService {
         return profile;
     }
 
+    /**
+     * Set User's password
+     *
+     * @param user
+     * @param userRegistrationCommand
+     * @param registrationBehavior
+     * @param userExists
+     * @throws Exception
+     */
+
     public void setUsersPassword(User user, UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
                                  boolean userExists) throws Exception {
         setUsersPassword(user, userRegistrationCommand.getPassword(), registrationBehavior.requireEmailVerification(), userExists);
     }
 
+    /**
+     * Set user's password
+     *
+     * @param user
+     * @param password
+     * @param requireEmailValidation
+     * @param userExists
+     * @throws Exception
+     */
     public void setUsersPassword(User user, String password, boolean requireEmailValidation, boolean userExists) throws Exception {
         try {
             user.setPlaintextPassword(password);
@@ -260,6 +352,46 @@ public class UserRegistrationOrLoginService {
         }
     }
 
+    /**
+     * Method to send the validation email.
+     *
+     * @param request
+     * @param user
+     * @param redirectUrl
+     */
+
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl) {
+        sendValidationEmail(request, user, redirectUrl, false);
+    }
+
+    /**
+     * Method to send the validation email.
+     *
+     * @param request
+     * @param user
+     * @param redirectUrl
+     */
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl,
+                                       boolean schoolReviewFlow) {
+        if (user != null && StringUtils.isNotBlank(redirectUrl)) {
+            try {
+                if (schoolReviewFlow) {
+                    _emailVerificationEmail.sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+                } else {
+                    _emailVerificationEmail.sendVerificationEmail(request, user, redirectUrl);
+                }
+            } catch (Exception e) {
+                _log.error("Error sending email message: " + e, e);
+            }
+        }
+    }
+
+    /**
+     * Method to check if a request is from a blocked IP.
+     *
+     * @param request
+     * @return
+     */
     public boolean isIPBlocked(HttpServletRequest request) {
         // First, check to see if the request is from a blocked IP address. If so,
         // then, log the attempt and show the error view.
@@ -278,24 +410,6 @@ public class UserRegistrationOrLoginService {
         return false;
     }
 
-    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl) {
-        sendValidationEmail(request, user, redirectUrl, false);
-    }
-
-    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl,
-                                       boolean schoolReviewFlow) {
-        if (user != null && StringUtils.isNotBlank(redirectUrl)) {
-            try {
-                if (schoolReviewFlow) {
-                    _emailVerificationEmail.sendSchoolReviewVerificationEmail(request, user, redirectUrl);
-                } else {
-                    _emailVerificationEmail.sendVerificationEmail(request, user, redirectUrl);
-                }
-            } catch (Exception e) {
-                _log.error("Error sending email message: " + e, e);
-            }
-        }
-    }
 
     public void setPollFactory(ITableDaoFactory _tableDaoFactory) {
         _tableDao = _tableDaoFactory.getTableDao();
@@ -319,5 +433,47 @@ public class UserRegistrationOrLoginService {
 
     public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
         _emailVerificationEmail = emailVerificationEmail;
+    }
+
+    /**
+     * A structure to reflect if a user was obtained from the session,or was logged in or was a new user created.
+     */
+    public class UserStateStruct {
+        private boolean isUserLoggedIn = false;
+        private boolean isUserRegistered = false;
+        private boolean isUserInSession = false;
+        private User user;
+
+        public boolean isUserLoggedIn() {
+            return isUserLoggedIn;
+        }
+
+        public void setUserLoggedIn(boolean userLoggedIn) {
+            isUserLoggedIn = userLoggedIn;
+        }
+
+        public boolean isUserRegistered() {
+            return isUserRegistered;
+        }
+
+        public void setUserRegistered(boolean userRegistered) {
+            isUserRegistered = userRegistered;
+        }
+
+        public boolean isUserInSession() {
+            return isUserInSession;
+        }
+
+        public void setUserInSession(boolean userInSession) {
+            isUserInSession = userInSession;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
     }
 }
