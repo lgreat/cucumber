@@ -6,6 +6,7 @@ import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.security.Role;
+import gs.data.state.State;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
 import gs.web.school.EspRegistrationHelper;
@@ -198,6 +199,29 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                         break;
 
                     default:
+                }
+
+                //TODO refactor all esp/osp/usp into a method or service.
+                if(StringUtils.isNotBlank(request.getParameter("schoolId")) && StringUtils.isNotBlank(request.getParameter("state"))){
+                    School school = null;
+                    try{
+                        Integer schoolId = Integer.parseInt(request.getParameter("schoolId"));
+                        State state = State.fromString(request.getParameter("state"));
+                        school = getSchoolDao().getSchoolById(state,schoolId);
+                    }catch (Exception ex){
+                        school = null;
+                    }
+
+                    if(school != null && school.isActive()){
+                        //TODO check the state of the school.
+                        //TODO check for the 9 keys?
+                        //TODO check the source as well?
+                        List<EspResponse> responses = getEspResponseDao().getResponsesByUserAndSchool(school,user.getId(),true);
+                        if(!responses.isEmpty()){
+                            //TODO Do we need to keep the inactive responses?
+                            _espResponseDao.activateResponsesByUserForSchoolAndSource(school,user.getId(),EspResponseSource.usp);
+                        }
+                    }
                 }
 
                 if (user.hasRole(Role.ESP_MEMBER)) {

@@ -993,6 +993,7 @@ public class UspFormHelper {
                 urlBuilder.addParameter("schoolId", school.getId().toString());
                 urlBuilder.addParameter("state", school.getDatabaseState().toString());
                 registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
+                registrationBehavior.setSchool(school);
             }
             //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
             userRegistrationCommand.setHow("USP");
