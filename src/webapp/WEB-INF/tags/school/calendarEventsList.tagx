@@ -8,26 +8,31 @@
     <script type="text/javascript">
         $(function() {
             var ncesCode = '${school.ncesCode}';
-            var hasOspData = true;
+            var hasOspData = '${ospDataExists}';
             GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
                 // TODO: check events to see if there was any data
                 var hasCalendarData = true;
-
                 if (hasCalendarData) {
                     if (hasOspData) {
-                        // show a tile
+                        // hide a tile
+                        $('#js-tile-10-0, #js-tile-10-1, #js-tile-10-2').hide();
+
                     } else {
-                        // show a different tile
+                        // hide a different tile
+                        $('#js-tile-9-0, #js-tile-9-1-0, #js-tile-9-1-1').hide();
                     }
+                    $('#js-tile-tandem, #js-school-calendar-list').show();
                 }
             }).fail(function() {
                 // don't show tile
             });
+            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });
+
     </script>
 
 
-    <div id="js-school-calendar-list" class="line">
+    <div id="js-school-calendar-list" class="line dn">
         <div class="unit size100of100 lastUnit">
             <div class="mod standard_1-1">
                 <div class="inner ">
