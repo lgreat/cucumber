@@ -4,7 +4,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
-    <div id="js-modalUspRegistration" class="">
+    <div id="js-modalUspRegistration" class="dn">
         <div class="mod modal_1 width_12" id="js-modalUspRegistration">
             <div class="outer">
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
