@@ -692,7 +692,7 @@ public class UspFormHelper {
         put(FACILITIES_PERFORMANCE_RESPONSE_VALUE, "Performance stage");
         put(FACILITIES_PLAYGROUND_RESPONSE_VALUE, "Playground");
         put(FACILITIES_SCIENCE_RESPONSE_VALUE, "Science lab");
-        put(FACILITIES_SWIMMING_RESPONSE_VALUE, "Swimming");
+        put(FACILITIES_SWIMMING_RESPONSE_VALUE, "Swimming pool");
 
         /**
          * Foreign languages
