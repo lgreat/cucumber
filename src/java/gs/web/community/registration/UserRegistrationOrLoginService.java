@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -175,7 +177,7 @@ public class UserRegistrationOrLoginService {
                 }
             } else {
                 if (registrationBehavior.sendVerificationEmail()) {
-                    sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                    sendValidationEmail(request, user, registrationBehavior);
                 }
             }
             return user;
@@ -230,7 +232,7 @@ public class UserRegistrationOrLoginService {
                     user = getUserDao().findUserFromId(user.getId());
 
                     if (registrationBehavior.sendVerificationEmail()) {
-                        sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+                        sendValidationEmail(request, user, registrationBehavior);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
@@ -380,11 +382,43 @@ public class UserRegistrationOrLoginService {
      *
      * @param request
      * @param user
+     * @param registrationBehavior
+     */
+
+    protected void sendValidationEmail(HttpServletRequest request, User user, RegistrationBehavior registrationBehavior) {
+        if (registrationBehavior.getSchool() != null) {
+            Map<String, String> otherParams = new HashMap<String, String>();
+            otherParams.put("schoolId", registrationBehavior.getSchool().getId().toString());
+            otherParams.put("state", registrationBehavior.getSchool().getDatabaseState().toString());
+            sendValidationEmail(request, user, registrationBehavior.getRedirectUrl(), otherParams);
+        } else {
+            sendValidationEmail(request, user, registrationBehavior.getRedirectUrl());
+        }
+    }
+
+    /**
+     * Method to send the validation email.
+     *
+     * @param request
+     * @param user
+     * @param redirectUrl
+     */
+
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl, Map<String, String> otherParams) {
+        sendValidationEmail(request, user, redirectUrl, otherParams, false);
+    }
+
+
+    /**
+     * Method to send the validation email.
+     *
+     * @param request
+     * @param user
      * @param redirectUrl
      */
 
     protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl) {
-        sendValidationEmail(request, user, redirectUrl, false);
+        sendValidationEmail(request, user, redirectUrl, null, false);
     }
 
     /**
@@ -395,13 +429,13 @@ public class UserRegistrationOrLoginService {
      * @param redirectUrl
      */
     protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl,
-                                       boolean schoolReviewFlow) {
+                                       Map<String, String> otherParams, boolean schoolReviewFlow) {
         if (user != null && StringUtils.isNotBlank(redirectUrl)) {
             try {
                 if (schoolReviewFlow) {
                     _emailVerificationEmail.sendSchoolReviewVerificationEmail(request, user, redirectUrl);
                 } else {
-                    _emailVerificationEmail.sendVerificationEmail(request, user, redirectUrl);
+                    _emailVerificationEmail.sendVerificationEmail(request, user, redirectUrl, otherParams);
                 }
             } catch (Exception e) {
                 _log.error("Error sending email message: " + e, e);

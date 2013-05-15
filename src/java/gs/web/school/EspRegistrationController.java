@@ -1,9 +1,6 @@
 package gs.web.school;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
-import gs.data.community.WelcomeMessageStatus;
+import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
@@ -53,6 +50,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     private IUserDao _userDao;
 
     @Autowired
+    private ISubscriptionDao _subscriptionDao;
+
+    @Autowired
     private ISchoolDao _schoolDao;
 
     private ExactTargetAPI _exactTargetAPI;
@@ -98,6 +98,19 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             if (user.getUserProfile() != null && !StringUtils.isBlank(user.getUserProfile().getScreenName())) {
                 command.setScreenName(user.getUserProfile().getScreenName());
             }
+            Subscription mystatSubscription = user.findSubscription( SubscriptionProduct.MYSTAT );
+            if (mystatSubscription != null ) {
+                command.setOptInMystat(Boolean.TRUE);
+            } else {
+                command.setOptInMystat(Boolean.FALSE);
+            }
+            Subscription promosSubscription = user.findSubscription( SubscriptionProduct.PROMOS );
+            if (promosSubscription != null ) {
+                command.setOptInPromos(Boolean.TRUE);
+            } else {
+                command.setOptInPromos(Boolean.FALSE);
+            }
+
 
             //Check user status.
             List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
@@ -108,8 +121,13 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                     return view;
                 }
             }
-        } else if (request.getParameter("email") != null) {
-            command.setEmail(request.getParameter("email"));
+        } else {
+            if (request.getParameter("email") != null) {
+                command.setEmail(request.getParameter("email"));
+            }
+            // Default the OptIn's to true
+            command.setOptInPromos(Boolean.TRUE);
+            command.setOptInMystat(Boolean.TRUE);
         }
 
         //set preselectSchool to false initially
@@ -174,8 +192,15 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         //Set the user's password.
         setUsersPassword(command, user);
 
-        //Set the user's profile and save the user.
+        // Get the School object if possible
+        School school = null;
+        if (command.getSchoolId() != null && command.getState() != null) {
+            school = getSchoolDao().getSchoolById(command.getState(), command.getSchoolId());
+        }
+
+        //Set the user's profile, email subscription lists and save the user.
         updateUserProfile(command, user);
+        updateUserSubscriptions(command, user, school);
         getUserDao().updateUser(user);
 
         //Save ESP membership for user.
@@ -184,12 +209,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
 
-        if (command.getSchoolId() != null && command.getState() != null) {
-            School school = getSchoolDao().getSchoolById(command.getState(), command.getSchoolId());
-            if (!user.isEmailValidated() && school != null) {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                _emailVerificationEmail.sendOSPVerificationEmail(request, user, urlBuilder.asSiteRelative(request), school);
-            }
+        if (!user.isEmailValidated() && school != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            _emailVerificationEmail.sendOSPVerificationEmail(request, user, urlBuilder.asSiteRelative(request), school);
         }
 
         //If the user was saved as a provisional user and is logged in,then they need to be redirected
@@ -365,6 +387,99 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             userProfile.setHow("esp");
             user.setUserProfile(userProfile);
         }
+    }
+
+    /**
+     * Add the following Subscriptions (which are rows in list_active) </br>
+     * <ol>
+     *     <li>osp - Everyone gets this</li>
+     *     <li>mystat - if the user accepts the optIn for reviews</li>
+     *     <li>osp_partner_promos - if the user accepts the optIn for promos</li>
+     * </ol>
+     * @param espMembershipCommand
+     * @param user
+     * @param school
+     */
+    protected void updateUserSubscriptions(EspRegistrationCommand espMembershipCommand, User user, School school) {
+        Set<Subscription> subscriptions = user.getSubscriptions();
+        if (subscriptions == null ) {
+            subscriptions = new HashSet<Subscription>();
+            user.setSubscriptions( subscriptions );
+        }
+
+        // Have to add OSP subscription if it doesn't exist
+        Subscription ospSubscription = user.findSubscription( SubscriptionProduct.OSP );
+        if( ospSubscription == null ) {
+            ospSubscription = createSubscription(espMembershipCommand, user, school, SubscriptionProduct.OSP);
+            if (ospSubscription != null) {
+                if (subscriptions.add( ospSubscription )) {
+                    _subscriptionDao.saveSubscription(ospSubscription);
+                }
+            }
+        }
+
+        Subscription mystatSubscription = user.findSubscription( SubscriptionProduct.MYSTAT );
+        if( mystatSubscription == null ) {
+            if (espMembershipCommand.getOptInMystat().equals(Boolean.TRUE)) {
+                mystatSubscription = createSubscription(espMembershipCommand, user, school, SubscriptionProduct.MYSTAT);
+                if (mystatSubscription != null) {
+                    if (subscriptions.add( mystatSubscription )) {
+                        _subscriptionDao.saveSubscription(mystatSubscription);
+                    }
+                }
+            }
+        } else {
+            // handle case if we need to remove this subscription - should not happen here
+            if (espMembershipCommand.getOptInMystat().equals(Boolean.FALSE)) {
+                removeSubscription( subscriptions, SubscriptionProduct.MYSTAT );
+            }
+        }
+
+        Subscription promosSubscription = user.findSubscription( SubscriptionProduct.PROMOS );
+        if( promosSubscription == null ) {
+            if (espMembershipCommand.getOptInPromos().equals(Boolean.TRUE)) {
+                promosSubscription = createSubscription(espMembershipCommand, user, school, SubscriptionProduct.PROMOS);
+                if (promosSubscription != null) {
+                    if (subscriptions.add( promosSubscription )) {
+                        _subscriptionDao.saveSubscription(promosSubscription);
+                    }
+                }
+            }
+        } else {
+            // handle case if we need to remove this subscription
+            if (espMembershipCommand.getOptInPromos().equals(Boolean.FALSE)) {
+                removeSubscription( subscriptions, SubscriptionProduct.PROMOS );
+            }
+        }
+
+    }
+
+    private void removeSubscription(Set<Subscription> subscriptions, SubscriptionProduct product) {
+        if (subscriptions != null) {
+            Subscription subscriptionToRemove = null;
+
+            for (Iterator iter = subscriptions.iterator(); iter.hasNext();) {
+                Subscription subscription = (Subscription) iter.next();
+                if (subscription.getProduct().equals(product)) {
+                    subscriptionToRemove = subscription;
+                    break;
+                }
+            }
+
+            if( subscriptionToRemove != null ) {
+                _subscriptionDao.removeSubscription(subscriptionToRemove.getId());
+                subscriptions.remove(subscriptionToRemove);            }
+        }
+    }
+
+    private Subscription createSubscription(EspRegistrationCommand espMembershipCommand, User user, School school, SubscriptionProduct product) {
+        Subscription ospSubscription = null;
+        if (school != null) {
+            ospSubscription = new Subscription(user, product, school );
+        } else {
+            ospSubscription = new Subscription(user, product, espMembershipCommand.getState());
+        }
+        return ospSubscription;
     }
 
     protected void setUserProfileFieldsFromCommand(EspRegistrationCommand espMembershipCommand, UserProfile userProfile) {
