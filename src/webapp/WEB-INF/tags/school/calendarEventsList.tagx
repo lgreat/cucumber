@@ -26,7 +26,7 @@
             }).fail(function() {
                 // don't show tile
             });
-            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
+//            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });
 
     </script>

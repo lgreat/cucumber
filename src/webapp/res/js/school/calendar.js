@@ -145,7 +145,7 @@ GS.school.calendar =  (function($) {
             showListNoEvents();
         });
 
-        return referred;
+        return deferred;
     };
 
 
@@ -254,7 +254,6 @@ GS.school.calendar =  (function($) {
         getEventsAndUpdateListUI: getEventsAndUpdateListUI,
         show: show,
         hide: hide,
-        exportCalendar: exportCalendar,
-        init: init
+        exportCalendar: exportCalendar
     };
 })(jQuery);
