@@ -56,13 +56,9 @@
                                     </div>
                                     <c:forEach items="${sectionResponses}" var="sectionResponse">
                                         <c:if test="${!fn:endsWith(sectionResponse.responseKey, '_other')}">
-                                            <c:forEach items="${sectionResponse.responses}" var="response">
-                                                <c:if test="${response.responseValue eq 'none'}">
-                                                    <input type="hidden" name="${formResponse.fieldName}" class="js-noneValue"
-                                                           value="${sectionResponse.responseKey}__${formResponse.noneChecked ?
-                                                           response.responseValue : ''}"/>
-                                                </c:if>
-                                            </c:forEach>
+                                            <input type="hidden" name="${formResponse.fieldName}" class="js-noneValue"
+                                                   value="${sectionResponse.responseKey}__${formResponse.noneChecked ?
+                                                           'none' : ''}"/>
                                         </c:if>
                                     </c:forEach>
                                     <div class="fl small bottom">None</div>

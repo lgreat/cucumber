@@ -313,6 +313,7 @@ public class UspFormHelper {
     /**
      * Enum with form field section name and arrays of response keys.
      * "Other" field response key is not included because that is not listed in the drop down.
+     * Changing the order of the values in the enum will change the order in which they are displayed
      */
     public static enum SectionResponseKeys {
         arts(ARTS_MUSIC_PARAM, new String[]{ARTS_MEDIA_RESPONSE_KEY, ARTS_MUSIC_RESPONSE_KEY, ARTS_PERFORMING_WRITTEN_RESPONSE_KEY,
@@ -346,7 +347,6 @@ public class UspFormHelper {
     /**
      * Initialize static linked list multimap that maps a response key to multiple response values.
      * For each form field section, add the response values for all response keys
-     * Changing the order of the values will change the order in which they are displayed
      */
     public static final Multimap<String, String> SECTION_RESPONSE_KEY_VALUE_MAP = LinkedListMultimap.create();
 
@@ -530,7 +530,7 @@ public class UspFormHelper {
          */
         put(ARTS_MEDIA_RESPONSE_KEY, "Media");
         put(ARTS_MUSIC_RESPONSE_KEY, "Music");
-        put(ARTS_PERFORMING_WRITTEN_RESPONSE_KEY, "Performing");
+        put(ARTS_PERFORMING_WRITTEN_RESPONSE_KEY, "Performing and Written");
         put(ARTS_VISUAL_RESPONSE_KEY, "Visual");
     }};
 
@@ -659,7 +659,7 @@ public class UspFormHelper {
         put(STAFF_READING_SPECIALIST_RESPONSE_VALUE, "Reading specialist");
         put(STAFF_ROBOTICS_TEACHER_RESPONSE_VALUE, "Robotics / Technology specialist");
         put(STAFF_SCHOOL_PSYCHOLOGIST_RESPONSE_VALUE, "School psychologist");
-        put(STAFF_SCHOOL_COUNSELOR_RESPONSE_VALUE, "School social worker / counselors");
+        put(STAFF_SCHOOL_COUNSELOR_RESPONSE_VALUE, "School social worker / counselor");
         put(STAFF_SECURITY_RESPONSE_VALUE, "Security personnel");
         put(STAFF_SPECIAL_ED_COORD_RESPONSE_VALUE, "Special education coordinator");
         put(STAFF_SPEECH_THERAPIST_RESPONSE_VALUE, "Speech and language therapist");
@@ -692,7 +692,7 @@ public class UspFormHelper {
         put(FACILITIES_PERFORMANCE_RESPONSE_VALUE, "Performance stage");
         put(FACILITIES_PLAYGROUND_RESPONSE_VALUE, "Playground");
         put(FACILITIES_SCIENCE_RESPONSE_VALUE, "Science lab");
-        put(FACILITIES_SWIMMING_RESPONSE_VALUE, "Swimming pool");
+        put(FACILITIES_SWIMMING_RESPONSE_VALUE, "Swimming");
 
         /**
          * Foreign languages
@@ -830,21 +830,22 @@ public class UspFormHelper {
                     while (responseValueIter.hasNext()) {
                         String responseValue = responseValueIter.next();
 
-                        UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
-                                sectionResponse.new UspResponseValueStruct(responseValue);
-
-                        if (hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue) &&
-                                savedResponses.contains(responseValue)) {
-                            uspFormResponse.setIsNoneChecked(true);
+                        if (hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue)) {
+                            if (savedResponses.contains(responseValue)) {
+                                uspFormResponse.setIsNoneChecked(true);
+                            }
                         } else {
+                            UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
+                                    sectionResponse.new UspResponseValueStruct(responseValue);
+
                             uspResponseValue.setLabel(RESPONSE_VALUE_LABEL.get(responseValue));
 
                             if (savedResponses.contains(responseValue)) {
                                 uspResponseValue.setIsSelected(true);
                             }
-                        }
 
-                        uspResponseValues.add(uspResponseValue);
+                            uspResponseValues.add(uspResponseValue);
+                        }
                     }
                 }
 
