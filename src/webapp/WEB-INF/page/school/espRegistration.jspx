@@ -324,6 +324,22 @@
                 <!-- do not collapse -->
             </div>
         </div>
+        <div class="lal clearfix">
+            <div class="alpha grid_1">
+                <form:checkbox path="optInMystat" id="optInMystatField"/>
+            </div>
+            <div class="grid_14 omega">
+                <form:label path="optInMystat" for="optInMystatField">Send me timely updates for my school, including new data and recently posted reviews.</form:label>
+            </div>
+        </div>
+        <div class="lal clearfix">
+            <div class="alpha grid_1">
+                <form:checkbox path="optInPromos" id="optInPromosField"/>
+            </div>
+            <div class="grid_14 omega">
+                <form:label path="optInPromos" for="optInPromosField">Send me relevant, occasional offers and special promotions from carefully chosen partners.</form:label>
+            </div>
+        </div>
 <!--</div>-->
         <div class="nal">
             <p class="mumbo">By joining GreatSchools, you agree to our

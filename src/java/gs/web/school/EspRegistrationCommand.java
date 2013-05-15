@@ -15,7 +15,8 @@ public class EspRegistrationCommand implements EmailValidator.IEmail {
     private State _state;
     private String _city;
     private Integer _schoolId;
-
+    private Boolean _optInMystat;
+    private Boolean _optInPromos;
 
     public String getFirstName() {
         return _firstName;
@@ -104,4 +105,21 @@ public class EspRegistrationCommand implements EmailValidator.IEmail {
     public void setJobTitle(String jobTitle) {
         _jobTitle = jobTitle;
     }
+
+    public Boolean getOptInMystat() {
+        return _optInMystat;
+    }
+
+    public void setOptInMystat(Boolean optInMystat) {
+        this._optInMystat = optInMystat;
+    }
+
+    public Boolean getOptInPromos() {
+        return _optInPromos;
+    }
+
+    public void setOptInPromos(Boolean optInPromos) {
+        _optInPromos = optInPromos;
+    }
+
 }
