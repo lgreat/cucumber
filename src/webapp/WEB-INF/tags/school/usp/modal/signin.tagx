@@ -9,34 +9,49 @@
             <div class="outer">
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
+                    <div class="hd">
                     <h2 class="tac bottom pbm">Just one more step</h2>
                     <p class="tac small">In order to add your responses, we need to verify your email address.</p>
-                    <form style="background-color: white; border: solid thin #999999" class="pal rnd4 js_uspLoginForm">
-                        <label class="small">Email Address</label><br />
-                        <input name="email" size="45" type="text" class="mbm js_loginEmail"/><br />
-                        <div class="invalid error js_emailErr" style="display: none;">
-                            <div class="media">
-                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                                <div class="bd"><!-- error msg goes here --></div>
-                            </div>
-                        </div>
-                        <label class="small">Password</label><br />
-                        <input name="password" size="45" type="password" class="mbl js_loginPassword"/><br />
-                        <div class="invalid error js_passwordErr" style="display: none;">
-                            <div class="media">
-                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                                <div class="bd"><!-- error msg goes here --></div>
-                            </div>
-                        </div>
+                    </div>
+                    <form class="js_uspLoginForm">
+                        <div class="bd pal">
+                            <label class="small bottom">Email Address</label><br/>
+                            <input name="email" size="45" type="text" class="text mts mbm js_loginEmail"/><br/>
 
-                        <div class="clearfix">
-                            <div class="fl but but-rg but-1 js_uspLoginSubmit">Sign in</div><div class="ptm pll  fl smaller bottom">Not a member? <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Join GreatSchools</a></div>
+                            <div class="invalid error js_emailErr" style="display: none;">
+                                <div class="media">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                    <div class="bd"><!-- error msg goes here --></div>
+                                </div>
+                            </div>
+                            <label class="small bottom">Password</label><br/>
+                            <input name="password" size="45" type="password"
+                                   class="text mts mbl js_loginPassword"/><br/>
+
+                            <div class="invalid error js_passwordErr" style="display: none;">
+                                <div class="media">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                    <div class="bd"><!-- error msg goes here --></div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix">
+                                <div class="fl but but-rg but-1 js_uspLoginSubmit">Sign in</div>
+                                <div class="fl smaller bottom pll">
+                                    <a href="#">Forgot your password?</a><br/>
+                                    Not a member?
+                                    <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Join GreatSchools</a>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <div class="ptm">
-                        <p class="smallest"><gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                              href="/privacy/?state=$STATE">
-                            View our privacy policy</gsml:popupWindow>
+                        <p class="small bottom">
+                            <gsml:popupWindow width="800" height="600" left="50" top="50" href="/privacy/?state=$STATE">
+                                View our privacy policy
+                            </gsml:popupWindow>
                         </p>
                     </div>
                 </div>
