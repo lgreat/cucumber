@@ -35,7 +35,7 @@
                 Understanding and influencing key factors of student success and wellbeing</p>
         </div>
     </div>
-    <div class="tac pr"><p><img src="/res/img/content/gallup/gallup_hero_image_611×299.fw.png" alt="" /></p></div>
+    <div class="tac pr"><img src="/res/img/content/gallup/gallup_hero_image_611x299.png" alt="" /></div>
 </div>
 
 <div class="container_24 clearfix">
@@ -52,7 +52,7 @@
         </div>
         <div class="mtl">
             <h5 ><strong>Gallup Kids Approved</strong></h5>
-            <div class="tac mbm"><img src="/res/img/content/gallup/gallupLogo.png" alt="Gallup Logo"/></div>
+            <div class="tac mbm"><img src="/res/img/content/gallup/gallup_logo_211x43.png" alt="Gallup Logo"/></div>
             <div class="small">The Gallup-GreatSchools partnership will help families, educators, and others understand
                 key factors that help kids succeed, using insights from kids themselves. This year the Gallup Kids Approved
                 badge was given to the 4xxx highest-scoring schools that took the Gallup Student Poll.
@@ -93,7 +93,7 @@
                 <div class="hd pam"><strong>Participating Schools</strong></div>
                 <div class="bd pam" style="height: 500px ; overflow-y: scroll">
                     <c:forEach items="${gallupSchools}" var="gallupSchool">
-                    <div class="small bottom clearfix" style="height: 24px ;color: #0000FF  ">
+                    <div class="small bottom clearfix" style="height: 24px;">
                             <div class="fl">  <a href="${gallupSchool.schoolAddress}">${gallupSchool.schoolName}</a>, ${gallupSchool.city} </div>
                             <div class="fr ">${gallupSchool.state}</div>
 
