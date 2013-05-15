@@ -393,7 +393,21 @@
                         <div class="unit size2of5 lastUnit fr">
                             <c:choose>
                                 <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                                    <p class="reported smallAlertTextBold">You've reported this review.</p>
+                                    <!-- if the user is a moderator thay can report it again -->
+                                    <c:choose>
+                                        <c:when test="${moderator eq true}">
+                                            <div class="reportReview">
+                                                <div class="bd">
+                                                    <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
+                                                    <div class="dib vat"><a class="reportContent small no_interrupt" href="${loginRedirectUrl}"
+                                                                            id="report_schoolReview_${review.id}">Report it again</a></div>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p class="reported smallAlertTextBold">You've reported this review.</p>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:when>
 
                                 <c:otherwise>
