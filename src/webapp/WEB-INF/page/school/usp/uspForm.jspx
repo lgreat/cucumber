@@ -60,7 +60,7 @@
                 <div class="inner">
                     <h4 class="bottom">Administrator and teachers: is this you school?</h4>
                     <div class="small bottom">You can verify community-provided information, add photos and more!
-                        <a href="/official-school-profile/register.page?city=${school.city}&schoolId=${school.id}&state=${school.databaseState}"> Get started &amp;raquo;</a>
+                        <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
                     </div>
                 </div>
             </div>
