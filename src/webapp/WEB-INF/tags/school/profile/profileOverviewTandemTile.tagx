@@ -5,10 +5,11 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
+    <jsp:directive.attribute name="microsoftBranding" type="java.lang.Boolean" required="false"/>
     <c:set var="moduleTitleTandem">
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Important Upcoming Events</p>
     </c:set>
-    <div id="js-tile-9-0">
+    <div id="js-tile-tandem" class="dn">
         <gslink:linkToTab tabName="culture" anchor="Resources_table" customLink="overview_culture" cssClass="tdn make-555555 js-trigger">
             <school:profileOverviewCell1 title="${moduleTitleTandem}">
                 <div class="mam" style="height:150px;">

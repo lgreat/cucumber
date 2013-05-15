@@ -19,6 +19,7 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}"/>
+<c:set var="tandemTileMSBranding" value="true"/>
 <c:set var="dcNcsbRating" value=""/>
 <c:if test="${localInfo['content']  eq 'performanceManagementRating'}">
     <c:set var="dcNcsbRating" value="DC PCSB Rating"/>
@@ -113,20 +114,18 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
-                        <c:set var="showTandemTile" value="true"/>
-                        <c:choose>
-                            <c:when test="${showTandemTile}">
-                                <schoolprofile:profileOverviewTandemTile/>
-                            </c:when>
-                            <c:otherwise>
-                                <school:profileOverviewTransportationTile transportationModel="${transportation}" />
-                            </c:otherwise>
-                        </c:choose>
+                        <c:if test="${!ospDataExists}">
+                            <schoolprofile:profileOverviewTandemTile microsoftBranding="${tandemTileMSBranding}"/>
+                        </c:if>
+                        <school:profileOverviewTransportationTile transportationModel="${transportation}" />
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 4, tiles 10-12 -->
                     <div class="unit size32of100">
+                        <c:if test="${ospDataExists}">
+                            <schoolprofile:profileOverviewTandemTile microsoftBranding="${tandemTileMSBranding}"/>
+                        </c:if>
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
 
