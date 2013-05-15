@@ -5,16 +5,16 @@
         >
 
     <div id="js-modalUspSignIn" class="dn">
-        <div class="mod modal_1 width_11" id="js-modalUspSignIn">
+        <div class="mod modal_1 width_12" id="js-modalUspSignIn">
             <div class="outer">
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
                     <div class="hd">
                     <h2 class="tac bottom pbm">Just one more step</h2>
-                    <p class="tac small">In order to add your responses, we need to verify your email address.</p>
+                    <p class="tac">In order to add your responses, we need to verify your email address.</p>
                     </div>
                     <form class="js_uspLoginForm">
-                        <div class="bd pal">
+                        <div class="body pal">
                             <label class="small bottom">Email Address</label><br/>
                             <input name="email" size="45" type="text" class="text mts mbm js_loginEmail"/><br/>
 
@@ -48,7 +48,7 @@
                         </div>
                     </form>
                     <div class="ptm">
-                        <p class="small bottom">
+                        <p class="smaller bottom">
                             <gsml:popupWindow width="800" height="600" left="50" top="50" href="/privacy/?state=$STATE">
                                 View our privacy policy
                             </gsml:popupWindow>
