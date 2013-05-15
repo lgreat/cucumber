@@ -3,6 +3,9 @@ package gs.web.school;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -33,26 +36,45 @@ public class SchoolCalendarAjaxController {
 
     protected final Logger _log = Logger.getLogger(getClass());
 
+    // tracks NCES code to boolean. Cache value equals false if we know the school has no calendar data
+    protected static Cache _calendarDataCache;
+
+    public static final String CACHE_KEY = "gs.web.school.SchoolCalendarData";
+    static {
+        CacheManager cacheManager = CacheManager.getInstance();
+        _calendarDataCache = cacheManager.getCache(CACHE_KEY);
+    }
+
     @RequestMapping(method= RequestMethod.GET)
     public void handleGet(
         @RequestParam(value="ncesCode", required = true) String ncesCode,
         HttpServletResponse response
     ) {
 
+        // if we know the school has no data, abort
+        if (cachedLackOfData(ncesCode)) {
+            return;
+        }
+
         //Execute and get the response.
         try {
             HttpResponse apiResponse = getSchoolData(ncesCode);
             TandemApiResponse tandemApiResponse = TandemApiResponse.create(apiResponse);
 
-            // get the URL of the xcal file
-            String yearlyEventsXCal = tandemApiResponse.getYearlyEventsXCal();
+            if (tandemApiResponse.hasData()) {
+                // get the URL of the xcal file
+                String yearlyEventsXCal = tandemApiResponse.getYearlyEventsXCal();
 
-            HttpResponse xcalResponse = getXCalResponse(yearlyEventsXCal);
+                HttpResponse xcalResponse = getXCalResponse(yearlyEventsXCal);
 
-            // send the xcal back to the client
-            ByteStreams.copy(xcalResponse.getEntity().getContent(), response.getOutputStream());
+                // send the xcal back to the client
+                ByteStreams.copy(xcalResponse.getEntity().getContent(), response.getOutputStream());
 
-            response.getOutputStream().flush();
+                response.getOutputStream().flush();
+            } else {
+                cacheLackOfData(ncesCode);
+            }
+
         } catch (Exception e) {
             _log.debug("Api call to tandem failed:", e);
         }
@@ -63,6 +85,8 @@ public class SchoolCalendarAjaxController {
     @RequestMapping(value="/ical", method= RequestMethod.GET)
     public void handleGetICal(
             @RequestParam(value="ncesCode", required = true) String ncesCode,
+            @RequestParam(value="schoolName", required = true) String schoolName,
+            @RequestParam(value="format", defaultValue = "iCal") String format,
             HttpServletResponse response
     ) {
 
@@ -80,7 +104,7 @@ public class SchoolCalendarAjaxController {
 
 
             response.setContentType("text/Calendar");
-            String outFileName = "ical.ics";
+            String outFileName = schoolName + "-" + format + "calendar.ics";
             response.setHeader("Cache-control", "no-store");
             response.setHeader("Content-disposition", "inline; filename=\"" + outFileName + "\"");
             response.setHeader("Cache-Control", "private");
@@ -118,43 +142,82 @@ public class SchoolCalendarAjaxController {
         return new DefaultHttpClient();
     }
 
+    public boolean cachedLackOfData(String ncesCode) {
+        Element element = _calendarDataCache.get(getCacheKey(ncesCode));
+        if (element != null && (Boolean) element.getObjectValue() == false) {
+            return true; // there's no calendar data for this school
+        }
+        return false;
+    }
+
+    public void cacheLackOfData(String ncesCode) {
+        Element element = new Element(getCacheKey(ncesCode), false);
+        _calendarDataCache.put(element);
+    }
+
+    public String getCacheKey(String ncesCode) {
+        return ncesCode;
+    }
+
 }
 
 class TandemApiResponse {
-    JSONObject _jsonObject;
+    // A URL
+    private String _yearlyEventsXCal;
 
-    public static TandemApiResponse create(HttpResponse httpResponse) throws IOException, JSONException {
+    // A URL
+    private String _yearlyEventsICal;
 
-        InputStream inputStream = httpResponse.getEntity().getContent();
+    public static TandemApiResponse create(HttpResponse httpResponse) {
+        TandemApiResponse response;
+        InputStream inputStream;
 
-        String string = CharStreams.toString(new InputStreamReader(inputStream, "UTF-8"));
+        try {
+            inputStream = httpResponse.getEntity().getContent();
+            String string = CharStreams.toString(new InputStreamReader(inputStream, "UTF-8"));
+            response = create(string);
+        } catch (IOException e) {
+            response = new TandemApiResponse();
+        } catch (JSONException e) {
+            response = new TandemApiResponse();
+        }
 
-        return create(string);
+        return response;
     }
 
     public static TandemApiResponse create(String data) throws JSONException {
         JSONObject jsonObj = XML.toJSONObject(data);
-        TandemApiResponse response = new TandemApiResponse(jsonObj);
+        TandemApiResponse response = new TandemApiResponse();
+
+        response.setYearlyEventsXCal(
+            (String) jsonObj.getJSONObject("data").getJSONObject("school").get("yearly_events_xcal"));
+        response.setYearlyEventsICal(
+            (String) jsonObj.getJSONObject("data").getJSONObject("school").get("yearly_events_ical")
+        );
         return response;
     }
 
-    TandemApiResponse(JSONObject jsonObject) throws JSONException {
-        _jsonObject = jsonObject;
+    private TandemApiResponse() {
+
     }
 
-    public String getYearlyEventsXCal() {
-        try {
-            return (String) _jsonObject.getJSONObject("data").getJSONObject("school").get("yearly_events_xcal");
-        } catch (Exception e) {
-            return null;
-        }
+    public boolean hasData() {
+        return _yearlyEventsICal != null || _yearlyEventsXCal != null;
     }
 
-    public String getYearlyEventsICal() {
-        try {
-            return (String) _jsonObject.getJSONObject("data").getJSONObject("school").get("yearly_events_ical");
-        } catch (Exception e) {
-            return null;
-        }
+    String getYearlyEventsXCal() {
+        return _yearlyEventsXCal;
+    }
+
+    String getYearlyEventsICal() {
+        return _yearlyEventsICal;
+    }
+
+    void setYearlyEventsXCal(String yearlyEventsXCal) {
+        _yearlyEventsXCal = yearlyEventsXCal;
+    }
+
+    void setYearlyEventsICal(String yearlyEventsICal) {
+        _yearlyEventsICal = yearlyEventsICal;
     }
 }

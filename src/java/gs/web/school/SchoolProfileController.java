@@ -34,6 +34,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
     private ControllerFamily _controllerFamily;
     private SchoolProfileDataHelper _schoolProfileDataHelper;
     private SchoolProfileHelper _schoolProfileHelper;
+    public static final String SCHOOL_CALENDAR_ENABLED = "schoolCalendarEnabled";
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -136,6 +137,8 @@ public class SchoolProfileController extends AbstractSchoolController implements
         if (k12AffiliateUrl != null) {
             model.put("k12AffiliateUrl", k12AffiliateUrl);
         }
+
+        model.put(SCHOOL_CALENDAR_ENABLED, _schoolProfileDataHelper.isSchoolCalendarEnabled(school));
 
         return new ModelAndView(_viewName, model);
     }
