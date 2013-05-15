@@ -5,6 +5,26 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 
+    <script type="text/javascript">
+        $(function() {
+            var ncesCode = '${school.ncesCode}';
+            var hasOspData = true;
+            GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
+                // TODO: check events to see if there was any data
+                var hasCalendarData = true;
+
+                if (hasCalendarData) {
+                    if (hasOspData) {
+                        // show a tile
+                    } else {
+                        // show a different tile
+                    }
+                }
+            }).fail(function() {
+                // don't show tile
+            });
+        });
+    </script>
 
 
     <div id="js-school-calendar-list" class="line">
