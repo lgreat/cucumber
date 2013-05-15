@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+
         >
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page import="gs.data.gallup.GallupSchools"/>
@@ -23,6 +24,8 @@
 
 </head>
 <body>
+
+
 <div class="imageBgScale">
     <div class="pr" style="height:150px;">
         <div class="headerBar">
@@ -34,108 +37,72 @@
         </div>
     </div>
 </div>
-     <img src="#"/>
+     <img src="/res/img/content/gallup/gallupBadge.png"/>
 <div class="container_24 clearfix">
 
     <div class="grid_11 suffix_1">
         <div class="mtl">
+            <h5><strong>Gallup Education Practice</strong></h5>
+            <div class="small">For over 40 years, the Gallup Education Practice has provided its expertise and tools
+                               to school districts across the United States.
+                               As a thought leader in education, Gallup research informs discussions,
+                               from local schools boards to national debates.
 
-
-            <h5 class="make-d61">Gallup Kids Approved</h5>
-
-            <div class="tac mbm"><img src="" alt="Gallup Badge"/></div>
-            <div class="small">This year, the 4xx highest scoring schools whose students took the Gallup Student Poll
-                received the Gallup Kids Approved badge. Using the poll’s results, the Gallup-GreatSchools
-                partnership
-                will help families, educators, and leaders understand key factors –hope, engagement, and wellbeing
-                – of
-                student success.
             </div>
-
-
         </div>
         <div class="mtl">
-            <h5 class="make-d61"> The Gallup Student Poll</h5>
-
-            <div class="small">The Gallup Student Poll focuses on the youth voice on these key factors, a critical
-                missing part of the national dialogue about student success. For the next 10 years, the
+            <h5 ><strong>Gallup Kids Approved</strong></h5>
+            <div class="tac mbm"><img src="/res/img/content/gallup/gallupLogo.png" alt="Gallup Logo"/></div>
+            <div class="small">The Gallup-GreatSchools partnership will help families, educators, and others understand
+                key factors that help kids succeed, using insights from kids themselves. This year the Gallup Kids Approved
+                badge was given to the 4xxx highest-scoring schools that took the Gallup Student Poll.
+            </div>
+        </div>
+        <div class="mtl">
+            <h5 > <strong>The Gallup Student Poll</strong></h5>
+            <div class="small">The Gallup Student Poll is a landmark new measure that captures the youth voice, a critical
+                part of the national dialogue surrounding student performance and success. For 10 years, the
                 Gallup Student Poll will track the hope, engagement, and wellbeing of public school
-                students in grades 5 through 12 across the United States. These key factors have
-                shown to drive students’ grades, achievement scores, retention , and success in future
+                students in <strong>grades 5 through 12</strong> across the United States. <strong>Hope</strong>,
+                <strong>engagement</strong>, and <strong>wellbeing</strong> have been
+                shown to drive students’ grades, achievement scores, retention , and future
                 employment.
             </div>
-            <div class="make-d61 small bottom">Hope</div>
-            <div class="small">Hope fuels problem-solving and it helps educators understand how to work with
-                students to develop their personal strengths and social resources. Hopeful students channel ideas
-                and energy into producing positive outcomes for the future.
+            <div class="small bottom"><strong>Hope</strong></div>
+            <div class="small">The ideas and energy we have for the future. Hope drives attendance, credits earned, and
+                GPA of high school students. Hope scores are more robust predictors of college success than are high school
+                GPA, SAT, and ACT scores.
             </div>
-
-            <div class="make-d61 small bottom">Engagement</div>
-            <div class="small">Engagement shows how to optimize student performance by transforming classrooms into
-                environments where students thrive. Hope
-                and engagement work independently and interdependently to produce the positive outcomes of
-                higher wellbeing and increased academic success
+            <div class="small bottom"><strong>Engagement</strong></div>
+            <div class="small">The involvement in and enthusiasm for school. Engagement distinguishes between high-performing
+                and low-performing schools.
             </div>
-
-            <div class="make-d61 small bottom">Wellbeing</div>
-            <div class="small">Wellbeing highlights how students think about and experience their lives.
-                It tells us how our students are doing today within multiple contexts that are essential to their
-                success in the future.
+            <div class="small bottom"><strong>Wellbeing</strong></div>
+            <div class="small">How do we think about and experience our lives.
+                Wellbeing tells us how our students are doing today and predcits thier success in future.
             </div>
-
             <div class="small"><strong>For more information</strong>, visit the <a
-                    href="#">Gallup Student Poll page.</a></div>
-
-
-        </div>
-
-        <div class="mtl">
-
-
-            <h5 class="make-d61">Gallup Education</h5>
-
-            <div class="small">For more than 40 years, Gallup Education Practice has provided expertise
-                about hope, engagement, and wellbeing to school districts and leaders across the United States.
-                As a leader in education, Gallup research informs many discussions, from local schools boards to
-                national debates.
-
+                    href="http://www.gallupstudentpoll.com/">Gallup Student Poll page.</a>
             </div>
-
-
         </div>
+
     </div>
     <div class="grid_11">
-
-
-        <div class="standard_1-1 mtl">
+       <div class="standard_1-1 mtl">
             <div class="inner">
                 <div class="hd pam"><strong>Participating Schools</strong></div>
                 <div class="bd pam" style="height: 500px ; overflow-y: scroll">
-                    <div class="small bottom clearfix">
-                        <a href="#">
-                            <div class="fl">Jimmy School,San Jose</div>
-                            <div class="fr ">AZ</div>
+                    <c:forEach items="${gallupSchools}" var="gallupSchool">
+                    <div class="small bottom clearfix" style="height: 24px ">
+                        <a href="${gallupSchool.schoolAddress}">
+                            <div class="fl">${gallupSchool.schoolName}, ${gallupSchool.city} </div>
+                            <div class="fr ">${gallupSchool.state}</div>
                         </a>
                     </div>
-                    <div class="small bottom clearfix">
-                        <a href="#">
-                            <div class="fl">Jimmy School,San Jose</div>
-                            <div class="fr">AZ</div>
-                        </a>
-                    </div>
-                    <div class="small bottom clearfix">
-                        <a href="#">
-                            <div class="fl ">Jimmy School,San Jose</div>
-                            <div class="fr ">AZ</div>
-
-                        </a>
-                    </div>
-
-
+                     </c:forEach>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 </body>
