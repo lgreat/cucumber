@@ -141,4 +141,12 @@ public class UspFormController implements ReadWriteAnnotationController {
                               HttpServletResponse response) {
         return THANK_YOU_VIEW;
     }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
+    }
 }
