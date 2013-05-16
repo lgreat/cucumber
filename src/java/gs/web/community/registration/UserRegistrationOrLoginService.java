@@ -83,7 +83,7 @@ public class UserRegistrationOrLoginService {
             return userStateStruct;
         }
 
-        user = loginUser(userLoginCommand, registrationBehavior, bindingResult, request, response);
+        user = loginUser(userLoginCommand, registrationBehavior, request, response);
         if (user != null) {
             UserStateStruct userStateStruct = new UserStateStruct();
             if (user.isEmailValidated() && user.matchesPassword(userLoginCommand.getPassword())) {
@@ -116,7 +116,7 @@ public class UserRegistrationOrLoginService {
      */
     public User getUserFromSession(RegistrationBehavior registrationBehavior,
                                    HttpServletRequest request,
-                                   HttpServletResponse response) {
+                                   HttpServletResponse response) throws Exception{
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         if (sessionContext != null) {
             User user = sessionContext.getUser();
@@ -132,16 +132,14 @@ public class UserRegistrationOrLoginService {
      *
      * @param userLoginCommand
      * @param registrationBehavior
-     * @param bindingResult
      * @param request
      * @param response
      * @return
      * @throws Exception
      */
     public User loginUser(UserLoginCommand userLoginCommand, RegistrationBehavior registrationBehavior,
-                          BindingResult bindingResult,
                           HttpServletRequest request,
-                          HttpServletResponse response) {
+                          HttpServletResponse response) throws Exception{
 
         Set<ConstraintViolation<UserLoginCommand>> emailValidationErrors = _validatorFactory.validate(userLoginCommand, UserLoginCommand.ValidateJustEmail.class);
         if (!emailValidationErrors.isEmpty()) {
@@ -192,7 +190,7 @@ public class UserRegistrationOrLoginService {
     public User registerUser(UserRegistrationCommand userRegistrationCommand, RegistrationBehavior registrationBehavior,
                              BindingResult bindingResult,
                              HttpServletRequest request,
-                             HttpServletResponse response) {
+                             HttpServletResponse response){
 
         _validatorFactory.validate(userRegistrationCommand, bindingResult);
 
@@ -235,9 +233,8 @@ public class UserRegistrationOrLoginService {
                     getUserDao().removeUser(user.getId());
                     user = null;
                 }
-
-                return user;
             }
+            return user;
         }
         return null;
     }
