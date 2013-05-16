@@ -6,6 +6,34 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
     <jsp:directive.attribute name="microsoftBranding" type="java.lang.Boolean" required="false"/>
+    <jsp:directive.attribute name="ospDataExistsLocal" type="java.lang.Boolean" required="true"/>
+
+    <script type="text/javascript">
+        $(function() {
+            var ncesCode = '${school.ncesCode}';
+            var hasOspData = '${ospDataExistsLocal}';
+            GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
+                // TODO: check events to see if there was any data
+                var hasCalendarData = true;
+                if (hasCalendarData) {
+                    if (hasOspData) {
+                        // hide a tile
+                        $('#js-tile-10-0, #js-tile-10-1, #js-tile-10-2').hide();
+
+                    } else {
+                        // hide a different tile
+                        $('#js-tile-9-0, #js-tile-9-1-0, #js-tile-9-1-1').hide();
+                    }
+                    $('#js-tile-tandem, #js-school-calendar-list').show();
+                }
+            }).fail(function() {
+                        // don't show tile
+                    });
+//            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
+        });
+
+    </script>
+
     <c:set var="moduleTitleTandem">
         <p class="small_bold textshadow-1 pbs bottom make-555555 ptm" >Important Upcoming Events</p>
     </c:set>

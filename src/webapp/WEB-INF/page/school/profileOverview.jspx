@@ -117,7 +117,7 @@
 
                     <div class="unit size32of100 lastUnit">
                         <c:if test="${!ospDataExists}">
-                            <schoolprofile:profileOverviewTandemTile microsoftBranding="${tandemTileMSBranding}"/>
+                            <schoolprofile:profileOverviewTandemTile ospDataExistsLocal="${ospDataExists}" microsoftBranding="${tandemTileMSBranding}"/>
                         </c:if>
                         <school:profileOverviewTransportationTile transportationModel="${transportation}" />
                     </div>
@@ -126,7 +126,7 @@
                 <div class="line">   <!-- row 4, tiles 10-12 -->
                     <div class="unit size32of100">
                         <c:if test="${ospDataExists}">
-                            <schoolprofile:profileOverviewTandemTile microsoftBranding="${tandemTileMSBranding}"/>
+                            <schoolprofile:profileOverviewTandemTile ospDataExistsLocal="${ospDataExists}" microsoftBranding="${tandemTileMSBranding}"/>
                         </c:if>
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
