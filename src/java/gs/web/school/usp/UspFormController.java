@@ -80,7 +80,8 @@ public class UspFormController implements ReadWriteAnnotationController {
                                     BindingResult bindingResult,
                                     @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                     @RequestParam(value = PARAM_STATE, required = false) State state) {
-        _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult, schoolId, state);
+        _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult,
+                schoolId, state, false);
     }
 
     /**

@@ -2,9 +2,11 @@ package gs.web.school;
 
 import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.web.school.usp.UspFormHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +29,8 @@ public class EspSaveHelper {
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     @Autowired
     SchoolMediaDaoHibernate _schoolMediaDao;
+    @Autowired
+    private IEspMembershipDao _espMembershipDao;
 
     /**
      * This function performs validation, does data transformation and saves the responses to the database.
@@ -194,6 +198,30 @@ public class EspSaveHelper {
         Set<String> responseKeys = new HashSet<String>();
 
         boolean active = user.isEmailProvisional() ? false : true;
+
+        EspResponseSource responseSource = EspResponseSource.usp;
+
+        if(user.hasRole(Role.ESP_SUPERUSER)) {
+            responseSource = EspResponseSource.osp;
+            active = true;
+        }
+        else if(user.hasRole(Role.ESP_MEMBER)) {
+            EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(state, school.getId(),
+                    user.getId(), true);
+            if(espMembership != null) {
+                responseSource = EspResponseSource.osp;
+                active = true;
+            }
+        }
+        else {
+            EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(state, school.getId(),
+                    user.getId(), false);
+            if(espMembership != null && espMembership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+                responseSource = EspResponseSource.osp;
+                active = false;
+            }
+        }
+
         for(String responseParam : responseParams) {
             /**
              * Skip params that do not match usp form field names
@@ -219,7 +247,7 @@ public class EspSaveHelper {
                         responseKeys.add(keyValue[0]);
 
                         EspResponse espResponse = createEspResponse(user, school, now, keyValue[0], active, keyValue[1],
-                                EspResponseSource.usp);
+                                responseSource);
                         if(espResponse != null) {
                             responseList.add(espResponse);
                         }
@@ -228,6 +256,19 @@ public class EspSaveHelper {
             }
         }
 
+        /**
+         * If none of the subsection responses is selected, then include "response" value for that subsection response.
+         */
+        Set<String> subsectionResponseKeys = UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.keySet();
+        for(String subsectionResponseKey : subsectionResponseKeys) {
+            if(!responseKeys.contains(subsectionResponseKey)) {
+                EspResponse espResponse = createEspResponse(user, school, now, subsectionResponseKey, active,
+                        UspFormHelper.NONE_RESPONSE_VALUE, responseSource);
+                if(espResponse != null) {
+                    responseList.add(espResponse);
+                }
+            }
+        }
         saveUspResponses(school, responseList, user);
     }
 

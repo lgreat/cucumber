@@ -771,7 +771,7 @@ public class UspFormHelper {
                                         boolean isOspUser) {
 
         modelMap.put("school", school);
-        Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, state);
+        Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, state, isOspUser);
         List<UspFormResponseStruct> uspFormResponses = new LinkedList<UspFormResponseStruct>();
 
         /**
@@ -873,7 +873,8 @@ public class UspFormHelper {
                                  UserLoginCommand userLoginCommand,
                                  BindingResult bindingResult,
                                  Integer schoolId,
-                                 State state) {
+                                 State state,
+                                 boolean isOspUser) {
 
         response.setContentType("application/json");
         JSONObject responseObject = new JSONObject();
@@ -897,7 +898,7 @@ public class UspFormHelper {
         User user = userStateStruct.getUser();
         //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
         //Show the user his old responses.
-        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school);
+        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, isOspUser);
 
         if (doesUserAlreadyHaveResponses) {
             String redirectUrl = determineRedirects(user, userStateStruct, school, request);
@@ -930,9 +931,9 @@ public class UspFormHelper {
      * @return
      */
     public boolean checkIfUserHasExistingResponses(User user, UserStateStruct userStateStruct,
-                                                   School school) {
+                                                   School school, boolean isOspUser) {
         if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
-            Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, school.getDatabaseState());
+            Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, school.getDatabaseState(), isOspUser);
 
             return !savedResponseKeyValues.isEmpty();
 
@@ -1047,12 +1048,22 @@ public class UspFormHelper {
         return school;
     }
 
-    protected Multimap<String, String> getSavedResponses(User user, School school, State state) {
+    protected Multimap<String, String> getSavedResponses(User user, School school, State state, final boolean isOspUser) {
         Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
 
         if (user != null) {
+            List<EspResponseSource> responseSources = new ArrayList<EspResponseSource>(){{
+                if(isOspUser) {
+                    add(EspResponseSource.osp);
+                    add(EspResponseSource.datateam);
+                }
+                else {
+                    add(EspResponseSource.usp);
+                }
+            }};
+
             List<Object[]> keyValuePairs = _espResponseDao.getAllUniqueResponsesForSchoolBySourceAndByUser(school, state,
-                    EspResponseSource.usp, user.getId());
+                    responseSources, user.getId());
             for (Object[] keyValue : keyValuePairs) {
                 responseKeyValues.put((String) keyValue[0], (String) keyValue[1]);
             }
