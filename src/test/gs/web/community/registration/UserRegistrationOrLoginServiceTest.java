@@ -144,7 +144,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         BindingResult bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "userRegistrationCommand");
         User user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
 
-        assertNull("User email, password ,first name etc are not set in the command.Hence cannot register in user.", user);
+        assertNull("User email, password ,first name etc are not set in the command.Hence cannot register user.", user);
         assertTrue("There is no email, password, first name etc in the command.Hence errors.", bindingResult.hasErrors());
         resetAllMocks();
 
@@ -156,8 +156,8 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         _userRegistrationCommand.setFirstName("a");
 
         user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
-        assertNull("Invalid email,password and first name in the command.Hence cannot log in user.", user);
-        assertTrue("Invalid email, password and first name in the command.Hence errors.", bindingResult.hasErrors());
+        assertNull("Invalid email, password ,first name etc in the command.Hence cannot register user.", user);
+        assertTrue("Invalid email, password ,first name etc in the command.Hence errors.", bindingResult.hasErrors());
         resetAllMocks();
 
          //User already exists

@@ -11,10 +11,7 @@ import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.community.registration.UserLoginCommand;
-import gs.web.community.registration.UserRegistrationCommand;
-import gs.web.community.registration.UserRegistrationOrLoginService;
-import gs.web.community.registration.UspRegistrationBehavior;
+import gs.web.community.registration.*;
 import gs.web.school.EspSaveHelper;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.UrlBuilder;
@@ -889,7 +886,7 @@ public class UspFormHelper {
             return; // early exit
         }
 
-        UserRegistrationOrLoginService.UserStateStruct userStateStruct = getValidUser(request, response,
+        UserStateStruct userStateStruct = getValidUser(request, response,
                 userRegistrationCommand, userLoginCommand, bindingResult, school);
 
         if (userStateStruct == null || userStateStruct.getUser() == null) {
@@ -932,7 +929,7 @@ public class UspFormHelper {
      * @param school
      * @return
      */
-    public boolean checkIfUserHasExistingResponses(User user, UserRegistrationOrLoginService.UserStateStruct userStateStruct,
+    public boolean checkIfUserHasExistingResponses(User user, UserStateStruct userStateStruct,
                                                    School school) {
         if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
             Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, school.getDatabaseState());
@@ -951,9 +948,14 @@ public class UspFormHelper {
      * @param school
      */
 
-    public String determineRedirects(User user, UserRegistrationOrLoginService.UserStateStruct userStateStruct,
+    public String determineRedirects(User user, UserStateStruct userStateStruct,
                                      School school, HttpServletRequest request) {
         UrlBuilder urlBuilder = null;
+
+        if(user == null || userStateStruct == null || request == null || school == null){
+            return null;
+        }
+
         if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
             //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
             //Show the user his old responses.
@@ -966,17 +968,15 @@ public class UspFormHelper {
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
             urlBuilder.addParameter("schoolId", school.getId().toString());
             urlBuilder.addParameter("state", school.getDatabaseState().toString());
-        } else if (userStateStruct.isUserRegistered()) {
+        } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
             //If the user has registered via the register hover then show the profile page.
-            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        } else if(userStateStruct.isVerificationEmailSent()){
             //If the user was already existing but not email verified then sent an verification email and show the profile page.
             urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         }
         if (urlBuilder != null) {
             return urlBuilder.asFullUrl(request);
         }
-        return "";
+        return null;
     }
 
     /**
@@ -991,7 +991,7 @@ public class UspFormHelper {
      * @return
      */
 
-    public UserRegistrationOrLoginService.UserStateStruct getValidUser(HttpServletRequest request,
+    public UserStateStruct getValidUser(HttpServletRequest request,
                                                                        HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
                                                                        UserLoginCommand userLoginCommand,
                                                                        BindingResult bindingResult,
@@ -1008,7 +1008,7 @@ public class UspFormHelper {
             //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
             userRegistrationCommand.setHow("USP");
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
-            UserRegistrationOrLoginService.UserStateStruct userStateStruct =
+            UserStateStruct userStateStruct =
                     _userRegistrationOrLoginService.getUserStateStruct(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
 
             if (!bindingResult.hasErrors()) {

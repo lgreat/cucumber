@@ -34,6 +34,9 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         resetMocks(_userDao);
     }
 
+    /**
+     * Test with Nulls.
+     */
     public void testCheckUserStateNulls() throws Exception {
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
@@ -70,7 +73,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         String expectedJson = new String("{\"isCookieMatched\":true,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":true,\"isNewUser\":false,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":false}");
         assertEquals("application/json", getResponse().getContentType());
-        assertEquals(expectedJson, getResponse().getContentAsString());
+        assertEquals("User is provisional.",expectedJson, getResponse().getContentAsString());
     }
 
     public void testCheckUserStateWithValidatedUserWrongPassword() throws Exception {
@@ -95,7 +98,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         String expectedJson = new String("{\"isCookieMatched\":false,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":true,\"isNewUser\":false,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":true}");
         assertEquals("application/json", getResponse().getContentType());
-        assertEquals(expectedJson, getResponse().getContentAsString());
+        assertEquals("User is email validated.But passwords dont match.",expectedJson, getResponse().getContentAsString());
     }
 
     public void testCheckUserStateWithValidatedUser() throws Exception {
@@ -111,7 +114,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         user.setEmail("someuser@somedomain.com");
         user.setPlaintextPassword("password");
 
-        //Email is valid. However isLogin is false
+        //Email is valid.
         expect(_userDao.findUserFromEmailIfExists("someone@somedomain.com")).andReturn(user);
 
         replayAllMocks();
@@ -120,7 +123,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         String expectedJson = new String("{\"isCookieMatched\":true,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":true,\"isNewUser\":false,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":true}");
         assertEquals("application/json", getResponse().getContentType());
-        assertEquals(expectedJson, getResponse().getContentAsString());
+        assertEquals("User is email validated.",expectedJson, getResponse().getContentAsString());
     }
 
 }
