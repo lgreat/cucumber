@@ -37,7 +37,7 @@
     <c:set var="moduleTitleTandem">
         <p class="small_bold textshadow-1 pbs bottom make-555555 ptm" >Important Upcoming Events</p>
     </c:set>
-    <div id="js-tile-tandem" class="">
+    <div id="js-tile-tandem" class="dn">
         <gslink:linkToTab tabName="culture" anchor="Resources_table" customLink="overview_culture" cssClass="tdn make-555555 js-trigger">
             <div class="mod standard_7-1">
                 <div class="inner box-shadow-animation-1 tac">
