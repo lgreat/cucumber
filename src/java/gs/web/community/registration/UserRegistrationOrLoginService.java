@@ -107,10 +107,6 @@ public class UserRegistrationOrLoginService {
 
     /**
      * Get the user from a session
-     * <<<<<<< HEAD
-     * =======
-     * <p/>
-     * >>>>>>> master
      *
      * @param registrationBehavior
      * @param request
@@ -132,12 +128,7 @@ public class UserRegistrationOrLoginService {
     }
 
     /**
-     * <<<<<<< HEAD
      * Signs in the user, if the user is email validated and the command object has the right credentials.
-     * =======
-     * Signs in the user, if the user is email validated and the command object has the right credentials.
-     * <p/>
-     * >>>>>>> master
      *
      * @param userLoginCommand
      * @param registrationBehavior
@@ -188,10 +179,6 @@ public class UserRegistrationOrLoginService {
 
     /**
      * Creates a new user.
-     * <<<<<<< HEAD
-     * =======
-     * <p/>
-     * >>>>>>> master
      *
      * @param userRegistrationCommand
      * @param registrationBehavior
