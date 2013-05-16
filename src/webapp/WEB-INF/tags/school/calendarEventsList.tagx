@@ -10,13 +10,8 @@
                 <div class="inner ">
                     <div class="hd">
                     <p class="small_bold textshadow-1 pvs plm bottom">
-                        <span onclick="GS.school.calendar.getEventsAndUpdateListUI('181281002036');">[click to test] </span>
+                        <span>Upcoming Events</span>
                         <span class="js-school-calendar-month"></span>
-                        <select name="month">
-                            <option value="sdlfj">
-
-                            </option>
-                        </select>
                     </p>
                     </div>
                     <div class="mam small_bold textshadow-1 js-no-school-events">
@@ -44,15 +39,15 @@
                                 <tbody>
                                     <!-- template row -->
                                     <tr id="js-calendar-list-event-template" style="display:none">
-                                            <td>
-                                                {{date}}
-                                            </td>
-                                            <td>
-                                                {{time}}
-                                            </td>
-                                            <td>
-                                                {{title}}
-                                            </td>
+                                        <td>
+                                            {{date}}
+                                        </td>
+                                        <td>
+                                            {{time}}
+                                        </td>
+                                        <td>
+                                            {{title}}
+                                        </td>
                                     </tr>
                                 </tbody>
 

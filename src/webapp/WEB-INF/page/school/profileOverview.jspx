@@ -33,10 +33,10 @@
 
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
-        <!--  
+        <!--
 ==================================== -->
         <!--           ESP DATA AVAILABLE          -->
-        <!--  
+        <!--
 ==================================== -->
         <c:when test="${not empty espData}">
 
@@ -116,18 +116,13 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
-                        <c:if test="${!ospDataExists}">
-                            <schoolprofile:profileOverviewTandemTile ospDataExistsLocal="${ospDataExists}" microsoftBranding="${tandemTileMSBranding}"/>
-                        </c:if>
                         <school:profileOverviewTransportationTile transportationModel="${transportation}" />
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 4, tiles 10-12 -->
                     <div class="unit size32of100">
-                        <c:if test="${ospDataExists}">
-                            <schoolprofile:profileOverviewTandemTile ospDataExistsLocal="${ospDataExists}" microsoftBranding="${tandemTileMSBranding}"/>
-                        </c:if>
+                        <schoolprofile:profileOverviewTandemTile ospDataExistsLocal="${ospDataExists}" microsoftBranding="${tandemTileMSBranding}"/>
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
 
@@ -268,6 +263,7 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
+                        <schoolprofile:profileOverviewTandemTile ospDataExistsLocal="${ospDataExists}" microsoftBranding="${tandemTileMSBranding}"/>
                         <c:choose>
                             <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
                                 <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>

@@ -17,11 +17,14 @@ GS.school.calendar =  (function($) {
     var $listModule;
 
     $(function() {
-        eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
-        $listModule = $(listModuleSelector);
-        $('#js-export-school-calendar').on('change', function() {
-            exportCalendar("");
-        });
+        var templateHtml = $(eventTableRowTemplateSelector).html();
+        if (templateHtml !== undefined) {
+            eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
+            $listModule = $(listModuleSelector);
+            $('#js-export-school-calendar').on('change', function() {
+                exportCalendar("");
+            });
+        }
     });
 
 
@@ -92,6 +95,7 @@ GS.school.calendar =  (function($) {
      * Makes an AJAX call to server to get xcal document for the given school nces code
      */
     var getEventsViaAjax = function(ncesCode) {
+        log("getEventsViaAjax beginning");
         var deferred = $.Deferred();
 
         getEventsViaAjax.cache = getEventsViaAjax.cache || {};
@@ -120,6 +124,7 @@ GS.school.calendar =  (function($) {
             deferred.reject();
         });
 
+        log("getEventsViaAjax returning");
         return deferred.promise();
     };
 
@@ -128,10 +133,10 @@ GS.school.calendar =  (function($) {
      * should be called when user interacts with calendar's List module. Get events, then call UI methods
      */
     var getEventsAndUpdateListUI = function(ncesCode, year, month) {
+        log("beginnging getEventsAndUpdateListUI", arguments);
 
-        showListLoading();
-
-        var deferred = getEventsViaAjax(ncesCode).done(function(events) {
+        var promise = getEventsViaAjax(ncesCode).done(function(events) {
+            log("getEventsViaAjax promise was resolved", events);
 
             var today = new Date();
             var todayYear = year || today.getFullYear();
@@ -145,7 +150,8 @@ GS.school.calendar =  (function($) {
             showListNoEvents();
         });
 
-        return deferred;
+        log("returning getEventsAndUpdateListUI", promise);
+        return promise;
     };
 
 
@@ -153,33 +159,42 @@ GS.school.calendar =  (function($) {
      * Modifies the DOM. Gets the table that contains the calendar list view, and populates it
      */
     var fillCalendarList = function(events, year, month) {
+        log("fillCalendarList beginning", events, year, month);
 
         var $tbody = $listModule.find('tbody');
-
-        var todayYearAndMonth = "" + year + month;
-        var monthEvents = events[todayYearAndMonth];
         var today = new Date();
-
+        var currentYear = today.getFullYear();
+        var currentMonth = today.getMonth() + 1;
+        var currentDate = today.getDate();
+        var desiredYearAndMonth = "" + year + month;
         var i;
-        if (monthEvents !== undefined) {
 
-            // temporary hide table so that it isn't redrawn every time we add a row
-            $tbody.hide();
+        // temporary hide table so that it isn't redrawn every time we add a row
+        $tbody.hide();
 
-            i = monthEvents.length;
-            while (i--) {
-                var event = monthEvents[i];
-                if (event.dateStart.day >= today.getDate()) {
-                    var html = getEventTableRowHtml(event);
-                    $tbody.prepend(html);
+        for (var key in events) {
+            if (events.hasOwnProperty(key)) {
+                var monthEvents = events[key];
+
+                i = monthEvents.length;
+                while (i--) {
+                    var event = monthEvents[i];
+                    if (event.dateStart.year == currentYear && parseInt(event.dateStart.month) >= parseInt(currentMonth)) {
+
+                        var html = getEventTableRowHtml(event);
+                        if (html !== undefined) {
+                            $tbody.append(html);
+                        }
+                    }
                 }
+
+                $listModule.find('.js-school-calendar-year').html(monthEvents[0].dateStart.year);
             }
-
-            $listModule.find('.js-school-calendar-year').html(monthEvents[0].dateStart.year);
-            $listModule.find('.js-school-calendar-month').html(monthEvents[0].dateStart.monthName);
-
-            $tbody.show();
         }
+
+        $tbody.show();
+
+        log("fillCalendarList returning");
     };
 
 
@@ -187,8 +202,10 @@ GS.school.calendar =  (function($) {
      * Clear any events in the events list table. Make sure not to remove the hidden hogan template
      */
     var clearEventsList = function() {
+        log("clearEventsList beginning");
         var $tbody = $listModule.find('tbody');
         $tbody.find('tr:not(' + eventTableRowTemplateSelector + ')').remove();
+        log("clearEventsList returning");
     };
 
 
@@ -234,6 +251,9 @@ GS.school.calendar =  (function($) {
      * Returns the HTML necessary to display one event in list format
      */
     var getEventTableRowHtml = function(event) {
+        if (eventTableRowTemplate === undefined) {
+            return undefined;
+        }
 
         var html = eventTableRowTemplate.render({
             date: event.dateStart.month + '/' + event.dateStart.day,
@@ -247,6 +267,12 @@ GS.school.calendar =  (function($) {
     var exportCalendar = function(format) {
         var selector = "#js-export-school-calendar";
         window.location.href = "/school/calendar/ical.page?ncesCode=181281002036";
+    };
+
+    var log = function() {
+        if (window.location.search.indexOf('logging=true') > -1) {
+            console.log(arguments);
+        }
     };
 
 

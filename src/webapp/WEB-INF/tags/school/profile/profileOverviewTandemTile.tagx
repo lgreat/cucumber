@@ -16,13 +16,16 @@
                 // TODO: check events to see if there was any data
                 var hasCalendarData = true;
                 if (hasCalendarData) {
-                    if (hasOspData) {
+                    if (hasOspData == 'true') {
                         // hide a tile
                         $('#js-tile-10-0, #js-tile-10-1, #js-tile-10-2').hide();
 
                     } else {
                         // hide a different tile
-                        $('#js-tile-9-0, #js-tile-9-1-0, #js-tile-9-1-1').hide();
+                        // TODO: I think we have to give the other tiles in profileOverviewLocalInfoTile IDs, and hide
+                        // here as well
+                        $('#js-tile-13-1').hide();
+                        $('#js-tile-tandem').next('.mod.standard_1-1').hide(); // only way I could find to select the tile I need to hide
                     }
                     $('#js-tile-tandem, #js-school-calendar-list').show();
                 }

@@ -1100,7 +1100,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     }
 
     protected boolean isSchoolCalendarEnabled(School school) {
-        return (!school.getLevelCode().containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL))
+        return (!school.getLevelCode().equals(LevelCode.PRESCHOOL))
             && !_schoolCalendarAjaxController.cachedLackOfData(school.getNcesCode());
 
     }
