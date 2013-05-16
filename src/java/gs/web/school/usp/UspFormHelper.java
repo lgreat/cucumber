@@ -57,8 +57,8 @@ public class UspFormHelper {
      */
     public static final String ARTS_MUSIC_TITLE = "Arts & music";
     public static final String EXTENDED_CARE_TITLE = "Extended care";
-    public static final String GIRLS_SPORTS_TITLE = "Girls' sports";
-    public static final String BOYS_SPORTS_TITLE = "Boys' sports";
+    public static final String GIRLS_SPORTS_TITLE = "Girls sports";
+    public static final String BOYS_SPORTS_TITLE = "Boys sports";
     public static final String STAFF_TITLE = "Staff";
     public static final String FACILITIES_TITLE = "Facilities";
     public static final String FOREIGN_LANGUAGES_TITLE = "Foreign languages";
