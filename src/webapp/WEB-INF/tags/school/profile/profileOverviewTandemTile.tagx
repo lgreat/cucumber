@@ -44,7 +44,7 @@
                     ${moduleTitleTandem}
                     <div class="bd clearfix mha">
                         <p class="pts make-ffffff small_bold" id="js-tandemOverviewTileTitle">November 15th 2013</p>
-                        <p class="small ptl bottom" id="js-tandemOverviewTileEvent">Thanksgiving Vacation</p>
+                        <p class="small ptl bottom phs" id="js-tandemOverviewTileEvent">Thanksgiving Vacation</p>
                     </div>
                     <div class="ft clearfix small pvs" style="margin: 0 auto;">
                         See full calendar &amp;raquo;

@@ -30,13 +30,13 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>
+                                    <th style="width: 10%;">
                                         Date
                                     </th>
-                                    <th>
+                                    <th style="width: 10%;">
                                         Time
                                     </th>
-                                    <th>
+                                    <th style="width: 80%;">
                                         Title
                                     </th>
                                 </tr>
