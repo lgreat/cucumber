@@ -41,31 +41,40 @@
                 </div>
             </div>
         </div>
+        <c:set var="countPerPage" value="5"/>
         <div class="container_24 clearfix ptl">
             <!--<div class="mtl error-block js-uspSelectNone">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
-            <div class="tac pvl mvl ">
+            <div class="tac pvl mvl">
                 Intro text goes in here
             </div>
             <div class="mvl">
                 <form:form id="js_uspForm">
-                    <c:forEach items="${uspFormResponses}" var="formResponse">
-                        <usp:questionnaireBox formResponse="${formResponse}" showOspUserFields="${formResponse.schoolAdmin}"/>
-                    </c:forEach>
-
+                    <div class=" prefix_2 grid_10">
+                        <c:forEach items="${uspFormResponses}" var="formResponse" varStatus="status">
+                            <usp:questionnaireBox formResponse="${formResponse}"
+                                              showOspUserFields="${formResponse.schoolAdmin}"/>
+                            <c:if test="${(status.count % countPerPage eq 0) and status.last ne true}">
+                                <![CDATA[</div><div class="grid_10 suffix_2">]]>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                    <div class="grid_12">
+                    <div class="standard_2-4" style="width: 390px">
+                        <div class="inner">
+                            <h4 class="bottom">Administrator and teachers: is this you school?</h4>
+                            <div class="small bottom">You can verify community-provided information, add photos and more!
+                                <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                     <div class="clearfix">
-                        <button class="button-1 js_submit">Submit</button>
+                        <div class="prefix_11 grid_2 suffix_11 tac">
+                        <button class="but but-rg but-1 js_submit">Submit</button>
+                        </div>
                     </div>
                 </form:form>
             </div>
-            <div class="standard_2-4" style="width: 390px">
-                <div class="inner">
-                    <h4 class="bottom">Administrator and teachers: is this you school?</h4>
-                    <div class="small bottom">You can verify community-provided information, add photos and more!
-                        <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
-                    </div>
-                </div>
-            </div>
-
             <modal:registration/>
             <modal:signin/>
         </div>
