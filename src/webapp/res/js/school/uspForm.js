@@ -38,7 +38,7 @@ GS.form.UspForm = function () {
 
     this.validateTerms = function () {
         var dfd = jQuery.Deferred();
-        var isValid = jQuery('.js-checkBoxSpriteOn').is(':visible');
+        var isValid = jQuery('.js_uspRegistrationForm .js-checkBoxSpriteOn').is(':visible');
         if (isValid === false) {
             GS.form.uspForm.handleValidationResponse('.js_termsErr', 'Check accept.');
             dfd.reject();
@@ -335,7 +335,7 @@ jQuery(function () {
     });
 
     //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
-    //binding handlers to visible Ids.
+    //binding handlers to visible elements.
     jQuery('body').on('blur', '.js_regFirstName:visible', function (event) {
         GS.form.uspForm.validateFirstName(jQuery(event.target));
     });
