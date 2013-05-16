@@ -366,7 +366,7 @@ public class UrlBuilder {
      * Usp pages
      */
     public static final VPage USP_FORM = new VPage("vpage:uspForm");
-    public static final VPage USP_FORM_THANKYOU = new VPage("vpage:uspFormThankyou");
+    public static final VPage USP_FORM_THANKYOU = new VPage("vpage:uspFormThankYou");
 
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
@@ -1040,7 +1040,7 @@ public class UrlBuilder {
             _path = "/school/usp/form.page";
         } else if (USP_FORM_THANKYOU.equals(page)) {
             _perlPage = false;
-            _path = "/school/usp/thankyou.page";
+            _path = "/school/usp/thankYou.page";
         } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
             _perlPage = false;
             _path = "/about/feedback/addEditSchoolOrDistrict.page";

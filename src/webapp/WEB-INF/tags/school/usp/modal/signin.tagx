@@ -42,7 +42,7 @@
                                 <div class="fl smaller bottom pll">
                                     <a href="#">Forgot your password?</a><br/>
                                     Not a member?
-                                    <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Join GreatSchools</a>
+                                    <a href="#" class="js_lnchUspRegistration">Join GreatSchools</a>
                                 </div>
                             </div>
                         </div>
