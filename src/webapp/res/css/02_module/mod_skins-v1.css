@@ -339,21 +339,56 @@ General comments:
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
-/* ---------------- standard_6-1 ----------------- */
-/* ------------- principal's point of view ------- */
+/* ---------------- standard_7-1 ----------------- */
+/* ---------- Calendar tile profile overview ----- */
 
 
-.standard_6-1 {
-    border: 1px solid #BCDEED;
-    background: #F3FAFD;
+/*.standard_7-1 {*/
+    /*border: 1px solid #BCDEED;*/
+    /*background: #F3FAFD;*/
+    /*-webkit-border-radius: 4px; *//* Saf3-4, iOS 1-3.2, Android <1.6 */
+    /*-moz-border-radius: 4px; *//* FF1-3.6 */
+    /*border-radius: 4px; *//* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    /*padding: 10px;*/
+/*}*/
+
+/*.standard_7-1 h3{*/
+    /*margin-bottom: 5px;*/
+/*}*/
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_1-1 ----------------- */
+.standard_7-1{
+    margin-bottom:10px;
+}
+.standard_7-1 .inner{
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    padding: 10px;
+    border:1px solid #dddddd;
+    background-color: #F5F5F5;
 }
 
-.standard_6-1 h3{
-    margin-bottom: 5px;
+.standard_7-1 .inner.box-shadow-animation-1:hover{
+    border: solid 1px #2092C4;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Saf3-4 */
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* FF3.5 - 3.6 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+}
+
+.standard_7-1 .bd{
+    text-align: center;
+    background: url("/res/img/school/overview/tandem-calendar-tile-bg.png");
+    width: 154px;
+    height: 135px;
+}
+.standard_7-1 .bd-MS-brandedskin{
+    background: url("/res/img/school/overview/tandem-calendar-tile-bg.png");
+    width: 154px;
+    height: 135px;
+}
+.standard_7-1 .ft{
+   color:#2092C4;
 }
 
 
