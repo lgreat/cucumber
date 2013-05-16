@@ -41,8 +41,9 @@
                 </div>
             </div>
         </div>
-        <div class="container_24 clearfix">
-            <div class="tac pvl mvl">
+        <div class="container_24 clearfix ptl">
+            <!--<div class="mtl error-block js-uspSelectNone">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
+            <div class="tac pvl mvl ">
                 Intro text goes in here
             </div>
             <div class="mvl">
