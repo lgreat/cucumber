@@ -7,6 +7,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:schoolprofile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
@@ -16,8 +17,10 @@
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
-<c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}"/>
+<!--turnOnMicroSoftCampaign-->
+<!--<c:if test="${context.turnOnMicroSoftCampaign == 'true'}">-->
+<c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}" scope="request"/>
+<c:set var="tandemTileMSBranding" value="${context.turnOnMicroSoftCampaign}"/>
 <c:set var="dcNcsbRating" value=""/>
 <c:if test="${localInfo['content']  eq 'performanceManagementRating'}">
     <c:set var="dcNcsbRating" value="DC PCSB Rating"/>
@@ -27,6 +30,7 @@
     <ad:enableGptAsynchronousMode />
 
     <div id="profileProgramsTabs">
+
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
         <!--  
@@ -112,12 +116,18 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
+                        <c:if test="${!ospDataExists}">
+                            <schoolprofile:profileOverviewTandemTile microsoftBranding="${tandemTileMSBranding}"/>
+                        </c:if>
                         <school:profileOverviewTransportationTile transportationModel="${transportation}" />
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 4, tiles 10-12 -->
                     <div class="unit size32of100">
+                        <c:if test="${ospDataExists}">
+                            <schoolprofile:profileOverviewTandemTile microsoftBranding="${tandemTileMSBranding}"/>
+                        </c:if>
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
 

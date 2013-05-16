@@ -130,7 +130,8 @@ GS.school.calendar =  (function($) {
     var getEventsAndUpdateListUI = function(ncesCode, year, month) {
 
         showListLoading();
-        getEventsViaAjax(ncesCode).done(function(events) {
+
+        var deferred = getEventsViaAjax(ncesCode).done(function(events) {
 
             var today = new Date();
             var todayYear = year || today.getFullYear();
@@ -143,6 +144,8 @@ GS.school.calendar =  (function($) {
         }).fail(function() {
             showListNoEvents();
         });
+
+        return deferred;
     };
 
 
@@ -243,7 +246,7 @@ GS.school.calendar =  (function($) {
 
     var exportCalendar = function(format) {
         var selector = "#js-export-school-calendar";
-        window.location.href = "http://samson.greatschools.org:8080/school/calendar/ical.page?ncesCode=181281002036";
+        window.location.href = "/school/calendar/ical.page?ncesCode=181281002036";
     };
 
 

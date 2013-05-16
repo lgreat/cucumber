@@ -268,6 +268,9 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     public boolean isConnectWithUsRightRailEnabled() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.CONNECT_WITH_US_RIGHT_RAIL_ENABLED, "true"));
     }
+    public boolean isTurnOnMicroSoftCampaign() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.TURN_ON_MICROSOFT_CAMPAIGN, "true"));
+    }
 
     /**
      * We only turn advertising off when our ad serving company has an outage
