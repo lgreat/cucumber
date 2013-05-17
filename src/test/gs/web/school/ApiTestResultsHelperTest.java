@@ -87,7 +87,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         apiResults.add(constructApiResultObj(null, null));
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
-        expect(_apiResultDao.getApiLoadYears()).andReturn(new ArrayList<Integer>());
+//        expect(_apiResultDao.getApiLoadYears()).andReturn(new ArrayList<Integer>());
         replayAllMocks();
         results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
@@ -102,7 +102,7 @@ public class ApiTestResultsHelperTest extends BaseControllerTestCase {
         apiResults.add(null);
         expect(_apiResultDao.getApiScoresOrderByMostRecent(school,_helper.NUM_YEARS_FOR_HISTORICAL_DATA))
                 .andReturn(apiResults);
-        expect(_apiResultDao.getApiLoadYears()).andReturn(new ArrayList<Integer>());
+//        expect(_apiResultDao.getApiLoadYears()).andReturn(new ArrayList<Integer>());
         replayAllMocks();
         results = _helper.getApiTestResultsForSchool(school);
         verifyAllMocks();
