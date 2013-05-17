@@ -1062,8 +1062,12 @@ public class UspFormHelper {
                 }
             }};
 
+            /**
+             * for osp user, we need to get both both osp and datateam responses, so the user id needs to be null and the
+             * criteria filter condition will not be set.
+             */
             List<Object[]> keyValuePairs = _espResponseDao.getAllUniqueResponsesForSchoolBySourceAndByUser(school, state,
-                    responseSources, user.getId());
+                    responseSources, isOspUser ? null : user.getId());
             for (Object[] keyValue : keyValuePairs) {
                 responseKeyValues.put((String) keyValue[0], (String) keyValue[1]);
             }

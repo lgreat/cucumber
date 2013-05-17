@@ -163,23 +163,9 @@ public class EspSaveHelper {
                 // Deactivate existing data first, then save
                 _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
             } else {
-                //First delete any provisional data entered by the user for this school, then save.
-                //We delete since there is no need to have historical provisional data.
-                //When the provisional user has modified a page, save the keys on that page into the DB.These keys are used
-                //when the provisional user is approved.
-                Set<String> keysToDelete = new HashSet<String>();
-                keysToDelete.addAll(keysForPage);
-
                 //delete the keys that were stored for the page.
-                String key = getPageKeys(pageNum);
-                keysToDelete.add(key);
-                _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
-
-                EspResponse espResponse = createEspResponse(user, school, now, getPageKeys(pageNum), false, StringUtils.join(keysForPage, ","),
-                        EspResponseSource.osp);
-                if (espResponse != null) {
-                    responseList.add(espResponse);
-                }
+                String pageKey = getPageKeys(pageNum);
+                responseList.addAll(deleteAndCreateOspProvisionalUserResponse(pageKey, keysForPage, school, user, now));
             }
             if (responseList != null && !responseList.isEmpty()) {
                 _espResponseDao.saveResponses(school, responseList);
@@ -196,6 +182,7 @@ public class EspSaveHelper {
 
         Set<String> responseParams = responseKeyValues.keySet();
         Set<String> responseKeys = new HashSet<String>();
+        boolean isOspProvisional = false;
 
         boolean active = user.isEmailProvisional() ? false : true;
 
@@ -219,6 +206,7 @@ public class EspSaveHelper {
             if(espMembership != null && espMembership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                 responseSource = EspResponseSource.osp;
                 active = false;
+                isOspProvisional = true;
             }
         }
 
@@ -256,33 +244,92 @@ public class EspSaveHelper {
             }
         }
 
-        /**
-         * If none of the subsection responses is selected, then include "response" value for that subsection response.
-         */
-        Set<String> subsectionResponseKeys = UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.keySet();
-        for(String subsectionResponseKey : subsectionResponseKeys) {
-            if(!responseKeys.contains(subsectionResponseKey)) {
-                EspResponse espResponse = createEspResponse(user, school, now, subsectionResponseKey, active,
-                        UspFormHelper.NONE_RESPONSE_VALUE, responseSource);
-                if(espResponse != null) {
-                    responseList.add(espResponse);
+        if(EspResponseSource.osp.equals(responseSource)) {
+            /**
+             * If none of the subsection responses is selected, then include "response" value for that subsection response.
+             */
+            Set<String> subsectionResponseKeys = UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.keySet();
+            for(String subsectionResponseKey : subsectionResponseKeys) {
+                if(!responseKeys.contains(subsectionResponseKey)) {
+                    EspResponse espResponse = createEspResponse(user, school, now, subsectionResponseKey, active,
+                            UspFormHelper.NONE_RESPONSE_VALUE, responseSource);
+                    if(espResponse != null) {
+                        responseList.add(espResponse);
+                    }
                 }
             }
         }
-        saveUspResponses(school, responseList, user);
+        saveUspResponses(school, responseList, user, responseSource, now, isOspProvisional);
     }
 
     protected void saveUspResponses(School school, List<EspResponse> responseList,
-                                    User user) {
-        _espResponseDao.deactivateResponsesByUserAndSource(school, user.getId(), EspResponseSource.usp);
+                                    User user, EspResponseSource espResponseSource, Date now, boolean isOspProvisional) {
+        final boolean isOspSource = EspResponseSource.osp.equals(espResponseSource);
+        List<EspResponseSource> responseSources = new ArrayList<EspResponseSource>(){{
+            if(isOspSource) {
+                add(EspResponseSource.osp);
+                add(EspResponseSource.datateam);
+            }
+            else {
+                add(EspResponseSource.usp);
+            }
+        }};
+
+        if(isOspSource && isOspProvisional) {
+            Set<String> keysForPage = new HashSet<String>();
+
+            for(UspFormHelper.SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
+                String[] responseKeys = sectionResponseKeys.getResponseKeys();
+                if(responseKeys != null) {
+                    keysForPage.addAll(Arrays.asList(responseKeys));
+                }
+            }
+
+            //delete the keys that were stored for the page.
+            String pageName = "osp_gateway";
+            String pageKey = getPageKeys(pageName);
+            responseList.addAll(deleteAndCreateOspProvisionalUserResponse(pageKey, keysForPage, school, user, now));
+        }
+        else {
+            /**
+             * deactivate all osp and datateam active responses for osp approved/super user. For usp user, deactivate only previously saved
+             * responses of that user.
+             */
+            _espResponseDao.deactivateResponsesByUserAndSource(school, isOspSource ? null : user.getId(), responseSources);
+        }
+
         if (responseList != null && !responseList.isEmpty()) {
             _espResponseDao.saveResponses(school, responseList);
         }
     }
 
+    protected List<EspResponse> deleteAndCreateOspProvisionalUserResponse(String pageKey, Set<String> keysForPage,
+                                                                               School school, User user, Date now) {
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+
+        //First delete any provisional data entered by the user for this school, then save.
+        //We delete since there is no need to have historical provisional data.
+        //When the provisional user has modified a page, save the keys on that page into the DB.These keys are used
+        //when the provisional user is approved.
+        Set<String> keysToDelete = new HashSet<String>();
+        keysToDelete.addAll(keysForPage);
+        keysToDelete.add(pageKey);
+        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
+
+        EspResponse espResponse = createEspResponse(user, school, now, pageKey, false,
+                StringUtils.join(keysForPage, ","), EspResponseSource.osp);
+        if (espResponse != null) {
+            responseList.add(espResponse);
+        }
+        return responseList;
+    }
 
     protected String getPageKeys(int pageNum){
         return "_page_" + pageNum + "_keys";
+    }
+
+    protected String getPageKeys(String pageName){
+        return "_page_" + pageName + "_keys";
     }
 
     protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, String responseValue,
