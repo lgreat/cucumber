@@ -104,7 +104,7 @@ public class SchoolCalendarAjaxController {
 
 
             response.setContentType("text/Calendar");
-            String outFileName = schoolName + "-" + format + "calendar.ics";
+            String outFileName = schoolName + "-" + format + "-calendar.ics";
             response.setHeader("Cache-control", "no-store");
             response.setHeader("Content-disposition", "inline; filename=\"" + outFileName + "\"");
             response.setHeader("Cache-Control", "private");

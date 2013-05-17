@@ -56,11 +56,11 @@
                         </div>
                     </div>
                     <div class="ft" style="display:none;">
-                        <select id="js-export-school-calendar">
+                        <select id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
                             <option value="">Export calendar</option>
-                            <option value="outlook">Microsoft Outlook</option>
-                            <option value="ical">iCal Format</option>
-                            <option value="google">Google Calendar</option>
+                            <option value="Outlook">Microsoft Outlook</option>
+                            <option value="iCal">iCal Format</option>
+                            <option value="Google">Google Calendar</option>
                         </select>
                     </div>
                 </div>

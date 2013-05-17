@@ -22,7 +22,11 @@ GS.school.calendar =  (function($) {
             eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
             $listModule = $(listModuleSelector);
             $('#js-export-school-calendar').on('change', function() {
-                exportCalendar("");
+                var $select = $(this);
+                var format = $select.val();
+                var schoolName = $select.data('gs-school-name');
+                var ncesCode = $select.data('gs-school-nces-code');
+                exportCalendar(ncesCode, format, schoolName);
             });
         }
     });
@@ -264,9 +268,10 @@ GS.school.calendar =  (function($) {
         return '<tr>' + html + '</tr>';
     };
 
-    var exportCalendar = function(format) {
-        var selector = "#js-export-school-calendar";
-        window.location.href = "/school/calendar/ical.page?ncesCode=181281002036";
+    var exportCalendar = function(ncesCode, format, schoolName) {
+        var href = "/school/calendar/ical.page?ncesCode=" + encodeURIComponent(ncesCode) + "&format=" +
+                encodeURIComponent(format) + "&schoolName=" + encodeURIComponent(schoolName);
+        window.location.href = href;
     };
 
     var log = function() {
