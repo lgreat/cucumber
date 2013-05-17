@@ -10,8 +10,8 @@
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
                     <div class="hd">
-                        <h2 class="tac bottom pbm">Welcome To GreatSchools!</h2>
-                        <p class="tac small">Please create an account (it's quick!) to submit your answers.</p>
+                        <h2 class="tac bottom pbm">Welcome to GreatSchools!</h2>
+                        <p class="tac">Create an account to submit your answers.</p>
                     </div>
                     <form class="js_uspRegistrationForm">
                         <div class="body pal">
