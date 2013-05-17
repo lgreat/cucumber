@@ -160,6 +160,8 @@ public class EspFormController implements ReadWriteAnnotationController {
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
+        modelMap.put("isSchoolAdmin", true);
+
         _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, true);
         return USP_FORM_VIEW;
     }
