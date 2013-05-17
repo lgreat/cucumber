@@ -23,12 +23,12 @@
 
                 <p>It’s people like you who make GreatSchools the place millions of families go to get the inside scoop on local schools.  </p>
 
-                <p>While you’re here, please take a minute to share your opinion about one of your school’s programs.
+                <p class="pbl">While you’re here, please take a minute to share your opinion about one of your school’s programs.
                     <br/>You’ll be helping other families find their great school!</p>
 
                 <div class="mtl">
-                    <a href="#">&#171; Back to School Name</a>
-                    <button class="but but-rg but-1 mll" name="">Write a review now</button>
+                    <a href="${schoolUrl}">&#171; Back to School Name</a>
+                    <a href="${schoolUrl}?tab=reviews"><button class="but but-rg but-1 mll" name="">Write a review now</button></a>
                 </div>
             </div>
         </div>
