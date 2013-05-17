@@ -11,6 +11,7 @@ import gs.web.community.registration.UserRegistrationCommand;
 import gs.web.school.EspUserStateStruct;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
@@ -39,8 +40,6 @@ import java.util.*;
 public class UspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "/school/usp/uspForm";
     public static final String THANK_YOU_VIEW = "/school/usp/thankYou";
-    public static final String PARAM_STATE = "state";
-    public static final String PARAM_SCHOOL_ID = "schoolId";
 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
@@ -55,8 +54,8 @@ public class UspFormController implements ReadWriteAnnotationController {
     public String showUspUserForm(ModelMap modelMap,
                                   HttpServletRequest request,
                                   HttpServletResponse response,
-                                  @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
-                                  @RequestParam(value = PARAM_STATE, required = false) State state) {
+                                  @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = false) Integer schoolId,
+                                  @RequestParam(value = UspFormHelper.PARAM_STATE, required = false) State state) {
         School school = _uspFormHelper.getSchool(state, schoolId);
         if (school == null) {
             return "";
@@ -78,8 +77,8 @@ public class UspFormController implements ReadWriteAnnotationController {
                                     UserRegistrationCommand userRegistrationCommand,
                                     UserLoginCommand userLoginCommand,
                                     BindingResult bindingResult,
-                                    @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
-                                    @RequestParam(value = PARAM_STATE, required = false) State state) {
+                                    @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = false) Integer schoolId,
+                                    @RequestParam(value = UspFormHelper.PARAM_STATE, required = false) State state) {
         _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult,
                 schoolId, state, false);
     }
@@ -138,8 +137,15 @@ public class UspFormController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)
-    public String getThankYou(HttpServletRequest request,
-                              HttpServletResponse response) {
+    public String getThankYou(ModelMap modelMap, HttpServletRequest request,
+                              HttpServletResponse response,
+                              @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = true) Integer schoolId,
+                              @RequestParam(value = UspFormHelper.PARAM_STATE, required = true) State state) {
+        School school = _uspFormHelper.getSchool(state, schoolId);
+        if(school != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            modelMap.put("schoolUrl", urlBuilder.asFullUrl(request));
+        }
         return THANK_YOU_VIEW;
     }
 

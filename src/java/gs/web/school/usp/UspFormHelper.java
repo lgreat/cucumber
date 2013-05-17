@@ -39,6 +39,9 @@ public class UspFormHelper {
     public static final String BEAN_ID = "uspFormHelper";
     private static Logger _logger = Logger.getLogger(UspFormHelper.class);
 
+    public static final String PARAM_STATE = "state";
+    public static final String PARAM_SCHOOL_ID = "schoolId";
+
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     @Autowired
@@ -961,14 +964,14 @@ public class UspFormHelper {
             //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
             //Show the user his old responses.
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
-            urlBuilder.addParameter("schoolId", school.getId().toString());
-            urlBuilder.addParameter("state", school.getDatabaseState().toString());
+            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
             urlBuilder.addParameter("showExistingAnswersMsg", "true");
         } else if (user.isEmailValidated() && userStateStruct.isUserInSession()) {
             //If the user is already logged in and filled in the usp form then show the thank you page.
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
-            urlBuilder.addParameter("schoolId", school.getId().toString());
-            urlBuilder.addParameter("state", school.getDatabaseState().toString());
+            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
         } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
             //If the user has registered via the register hover then show the profile page.
             //If the user was already existing but not email verified then sent an verification email and show the profile page.
@@ -1001,8 +1004,8 @@ public class UspFormHelper {
             UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
             if (school != null) {
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
-                urlBuilder.addParameter("schoolId", school.getId().toString());
-                urlBuilder.addParameter("state", school.getDatabaseState().toString());
+                urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+                urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
                 registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
                 registrationBehavior.setSchool(school);
             }
