@@ -18,6 +18,7 @@
     <head>
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="${isSchoolAdmin ? 'Form for administrators to moderate USP results' : 'Form for USP input'}"/>
         <gsml:javascript src="/res/js/chosen/chosen.jquery.min.js" />
         <gsml:javascript  src="/res/js/school/uspForm.js"/>
         <link rel="stylesheet" href="/res/js/chosen/chosen.css" />
@@ -78,6 +79,8 @@
             <modal:registration/>
             <modal:signin/>
         </div>
+        <mod:tracking pageName="${isSchoolAdmin ? 'OSP Form USP Moderation Page' : 'USP Form Page'}"
+                      hier1="${isSchoolAdmin ? 'ESP' : 'USP, User input, USP Form Page'}"/>
         </body>
     </html>
 </jsp:root>

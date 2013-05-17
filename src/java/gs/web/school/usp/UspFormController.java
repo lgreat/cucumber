@@ -67,6 +67,8 @@ public class UspFormController implements ReadWriteAnnotationController {
             user = sessionContext.getUser();
         }
 
+        modelMap.put("isSchoolAdmin", false);
+
         _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, false);
         return FORM_VIEW;
     }
