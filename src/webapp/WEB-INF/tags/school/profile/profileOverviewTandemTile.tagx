@@ -6,16 +6,55 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
     <jsp:directive.attribute name="microsoftBranding" type="java.lang.Boolean" required="false"/>
+    <jsp:directive.attribute name="ospDataExistsLocal" type="java.lang.Boolean" required="true"/>
+
+    <script type="text/javascript">
+        $(function() {
+            var ncesCode = '${school.ncesCode}';
+            var hasOspData = '${ospDataExistsLocal}';
+            GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
+                // TODO: check events to see if there was any data
+                var hasCalendarData = true;
+                if (hasCalendarData) {
+                    if (hasOspData == 'true') {
+                        // hide a tile
+                        $('#js-tile-10-0, #js-tile-10-1, #js-tile-10-2').hide();
+
+                    } else {
+                        // hide a different tile
+                        // TODO: I think we have to give the other tiles in profileOverviewLocalInfoTile IDs, and hide
+                        // here as well
+                        $('#js-tile-13-1').hide();
+                        $('#js-tile-tandem').next('.mod.standard_1-1').hide(); // only way I could find to select the tile I need to hide
+                    }
+                    $('#js-tile-tandem, #js-school-calendar-list').show();
+                }
+            }).fail(function() {
+                        // don't show tile
+                    });
+//            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
+        });
+
+    </script>
+
     <c:set var="moduleTitleTandem">
-        <p class="small_bold textshadow-1 pvs plm bottom make-555555">Important Upcoming Events</p>
+        <p class="small_bold textshadow-1 pbs bottom make-555555 ptm" >Important Upcoming Events</p>
     </c:set>
     <div id="js-tile-tandem" class="dn">
         <gslink:linkToTab tabName="culture" anchor="Resources_table" customLink="overview_culture" cssClass="tdn make-555555 js-trigger">
-            <school:profileOverviewCell1 title="${moduleTitleTandem}">
-                <div class="mam" style="height:150px;">
-                    Hello Out There
+            <div class="mod standard_7-1">
+                <div class="inner box-shadow-animation-1 tac">
+                    ${moduleTitleTandem}
+                    <div class="bd clearfix mha">
+                        <p class="pts make-ffffff small_bold" id="js-tandemOverviewTileTitle">November 15th 2013</p>
+                        <p class="small ptl bottom phs" id="js-tandemOverviewTileEvent">Thanksgiving Vacation</p>
+                    </div>
+                    <div class="ft clearfix small pvs" style="margin: 0 auto;">
+                        See full calendar &amp;raquo;
+                    </div>
                 </div>
-            </school:profileOverviewCell1>
+            </div>
+
         </gslink:linkToTab>
     </div>
 </jsp:root>

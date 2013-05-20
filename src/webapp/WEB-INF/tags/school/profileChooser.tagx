@@ -77,7 +77,7 @@
                         <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
                         <div class="pam bg-outsmart">
                             <div class="fl">
-                                <p class="small_bold bottom">Outsmart the system in
+                                <p class="small_bold bottom">Navigate the system in
                                     <br/>${titleCity}</p>
                                 <a href="${outsmartArticleRelativeUrl}"
                                    class="small bottom">Read how to navigate the

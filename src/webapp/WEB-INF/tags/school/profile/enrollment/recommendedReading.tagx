@@ -21,7 +21,7 @@
             </div>
             <p class="tal pts "><strong>Recommended reading</strong><br />
             <a href="/content/cms/translate.page?Article=${outsmartingArticle.outsmartingArticleId}"
-               class="small bottom">Outsmarting the system in ${city} &amp;raquo;</a></p>
+               class="small bottom">Navigating the system in ${city} &amp;raquo;</a></p>
         </div>
     </div>
 
