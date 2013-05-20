@@ -28,7 +28,7 @@
                     <br/>You’ll be helping other families find their great school!</p>
 
                 <div class="mtl">
-                    <a href="${schoolUrl}">&#171; Back to School Name</a>
+                    <a href="${schoolUrl}">&#171; Back to ${school.name}</a>
                     <a href="${schoolUrl}?tab=reviews"><button class="but but-rg but-1 mll" name="">Write a review now</button></a>
                 </div>
             </div>
