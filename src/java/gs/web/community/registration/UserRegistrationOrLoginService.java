@@ -162,7 +162,6 @@ public class UserRegistrationOrLoginService {
                     }
                 } catch (NoSuchAlgorithmException ex) {
                     _log.error("Error while trying to log in the user." + ex);
-                    return null;
                 }
             } else {
                 if (registrationBehavior.sendVerificationEmail()) {
@@ -205,17 +204,16 @@ public class UserRegistrationOrLoginService {
 
                     getUserDao().saveUser(user);
 
+                    ThreadLocalTransactionManager.commitOrRollback();
+                    // User object loses its session and this might fix that.
+                    user = getUserDao().findUserFromId(user.getId());
+
                     setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
 
                     user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationBehavior, user));
                     user.getUserProfile().setUser(user);
 
                     getUserDao().updateUser(user);
-
-                    ThreadLocalTransactionManager.commitOrRollback();
-                    // User object loses its session and this might fix that.
-                    user = getUserDao().findUserFromId(user.getId());
-
                     if (registrationBehavior.sendVerificationEmail()) {
                         sendValidationEmail(request, user, registrationBehavior);
                     }
