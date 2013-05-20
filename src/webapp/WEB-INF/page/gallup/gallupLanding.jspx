@@ -39,53 +39,44 @@
 </div>
 
 <div class="container_24 clearfix">
-
     <div class="grid_11 suffix_1">
-        <div class="mtl">
-            <h5><strong>Gallup Education Practice</strong></h5>
-            <div class="small">For over 40 years, the Gallup Education Practice has provided its expertise and tools
-                               to school districts across the United States.
-                               As a thought leader in education, Gallup research informs discussions,
-                               from local schools boards to national debates.
-
-            </div>
-        </div>
-        <div class="mtl">
-            <h5 ><strong>Gallup Kids Approved</strong></h5>
-            <div class="tac mbm"><img src="/res/img/content/gallup/gallup_logo_211x43.png" alt="Gallup Logo"/></div>
-            <div class="small">The Gallup-GreatSchools partnership will help families, educators, and others understand
-                key factors that help kids succeed, using insights from kids themselves. This year the Gallup Kids Approved
-                badge was given to the 4xxx highest-scoring schools that took the Gallup Student Poll.
-            </div>
-        </div>
-        <div class="mtl">
-            <h5 > <strong>The Gallup Student Poll</strong></h5>
-            <div class="small">The Gallup Student Poll is a landmark new measure that captures the youth voice, a critical
-                part of the national dialogue surrounding student performance and success. For 10 years, the
-                Gallup Student Poll will track the hope, engagement, and wellbeing of public school
-                students in <strong>grades 5 through 12</strong> across the United States. <strong>Hope</strong>,
-                <strong>engagement</strong>, and <strong>wellbeing</strong> have been
-                shown to drive students’ grades, achievement scores, retention , and future
-                employment.
-            </div>
-            <div class="small bottom"><strong>Hope</strong></div>
-            <div class="small">The ideas and energy we have for the future. Hope drives attendance, credits earned, and
-                GPA of high school students. Hope scores are more robust predictors of college success than are high school
-                GPA, SAT, and ACT scores.
-            </div>
-            <div class="small bottom"><strong>Engagement</strong></div>
-            <div class="small">The involvement in and enthusiasm for school. Engagement distinguishes between high-performing
-                and low-performing schools.
-            </div>
-            <div class="small bottom"><strong>Wellbeing</strong></div>
-            <div class="small">How do we think about and experience our lives.
-                Wellbeing tells us how our students are doing today and predcits thier success in future.
-            </div>
-            <div class="small"><strong>For more information</strong>, visit the <a
-                    href="http://www.gallupstudentpoll.com/">Gallup Student Poll page.</a>
-            </div>
-        </div>
-
+        <h4 class="sourceSansPro-Semibold mbm mtl">Gallup Education Practice</h4>
+        <p class="small">For over 40 years, the Gallup Education Practice has provided its expertise and tools
+                           to school districts across the United States.
+                           As a thought leader in education, Gallup research informs discussions,
+                           from local schools boards to national debates.
+        </p>
+        <h4 class="sourceSansPro-Semibold mbm">Gallup Kids Approved</h4>
+        <div class="tac mbm"><img src="/res/img/content/gallup/gallup_logo_211x43.png" alt="Gallup Logo"/></div>
+        <p class="small">The Gallup-GreatSchools partnership will help families, educators, and others understand
+            key factors that help kids succeed, using insights from kids themselves. This year the Gallup Kids Approved
+            badge was given to the 4xxx highest-scoring schools that took the Gallup Student Poll.
+        </p>
+        <h4 class="sourceSansPro-Semibold mbm">The Gallup Student Poll</h4>
+        <p class="small">The Gallup Student Poll is a landmark new measure that captures the youth voice, a critical
+            part of the national dialogue surrounding student performance and success. For 10 years, the
+            Gallup Student Poll will track the hope, engagement, and wellbeing of public school
+            students in <strong>grades 5 through 12</strong> across the United States. <strong>Hope</strong>,
+            <strong>engagement</strong>, and <strong>wellbeing</strong> have been
+            shown to drive students’ grades, achievement scores, retention , and future
+            employment.
+        </p>
+        <h5 class="sourceSansPro-Semibold mbn">Hope</h5>
+        <p class="small">The ideas and energy we have for the future. Hope drives attendance, credits earned, and
+            GPA of high school students. Hope scores are more robust predictors of college success than are high school
+            GPA, SAT, and ACT scores.
+        </p>
+        <h5 class="sourceSansPro-Semibold mbn">Engagement</h5>
+        <p class="small">The involvement in and enthusiasm for school. Engagement distinguishes between high-performing
+            and low-performing schools.
+        </p>
+        <h5 class="sourceSansPro-Semibold mbn">Wellbeing</h5>
+        <p class="small">How do we think about and experience our lives.
+            Wellbeing tells us how our students are doing today and predcits thier success in future.
+        </p>
+        <p class="small"><strong>For more information</strong>, visit the <a
+                href="http://www.gallupstudentpoll.com/">Gallup Student Poll page.</a>
+        </p>
     </div>
     <div class="grid_11">
        <div class="standard_1-1 mtl">
