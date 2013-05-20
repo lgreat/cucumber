@@ -20,6 +20,7 @@ GS.school.calendar =  (function($) {
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
             eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
+            $(eventTableRowTemplateSelector).find('li').hide();
             $listModule = $(listModuleSelector);
             $('#js-export-school-calendar').on('change', function() {
                 var $select = $(this);
@@ -121,10 +122,12 @@ GS.school.calendar =  (function($) {
                 ncesCode: ncesCode
             }
         }).done(function(data) {
+                log("getEventsViaAjax done success");
             events = parseXCalData(data);
             getEventsViaAjax.cache[ncesCode] = events;
             deferred.resolve(events);
         }).fail(function() {
+                log("getEventsViaAjax done failure");
             deferred.reject();
         });
 
@@ -165,7 +168,8 @@ GS.school.calendar =  (function($) {
     var fillCalendarList = function(events, year, month) {
         log("fillCalendarList beginning", events, year, month);
 
-        var $tbody = $listModule.find('tbody');
+        var $ul = $(eventTableRowTemplateSelector);
+        log("fillCalendarList beginning", $ul);
         var today = new Date();
         var currentYear = today.getFullYear();
         var currentMonth = today.getMonth() + 1;
@@ -174,7 +178,7 @@ GS.school.calendar =  (function($) {
         var i;
 
         // temporary hide table so that it isn't redrawn every time we add a row
-        $tbody.hide();
+        $ul.hide();
 
         for (var key in events) {
             if (events.hasOwnProperty(key)) {
@@ -187,7 +191,7 @@ GS.school.calendar =  (function($) {
 
                         var html = getEventTableRowHtml(event);
                         if (html !== undefined) {
-                            $tbody.append(html);
+                            $ul.append(html);
                         }
                     }
                 }
@@ -196,7 +200,7 @@ GS.school.calendar =  (function($) {
             }
         }
 
-        $tbody.show();
+        $ul.show();
 
         log("fillCalendarList returning");
     };
@@ -265,7 +269,7 @@ GS.school.calendar =  (function($) {
             time: ""
         });
 
-        return '<tr>' + html + '</tr>';
+        return html;
     };
 
     var exportCalendar = function(ncesCode, format, schoolName) {

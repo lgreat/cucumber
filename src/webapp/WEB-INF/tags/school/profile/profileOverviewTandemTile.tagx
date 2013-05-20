@@ -9,9 +9,10 @@
     <jsp:directive.attribute name="ospDataExistsLocal" type="java.lang.Boolean" required="true"/>
 
     <script type="text/javascript">
+        var ncesCode = '${school.ncesCode}';
+        var hasOspData = '${ospDataExistsLocal}';
         $(function() {
-            var ncesCode = '${school.ncesCode}';
-            var hasOspData = '${ospDataExistsLocal}';
+
             GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
                 // TODO: check events to see if there was any data
                 var hasCalendarData = true;
