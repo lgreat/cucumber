@@ -184,8 +184,8 @@ GS.school.calendar =  (function($) {
             if (events.hasOwnProperty(key)) {
                 var monthEvents = events[key];
 
-                i = monthEvents.length;
-                while (i--) {
+                var ml = monthEvents.length;
+                for (var i = 0; i < ml; i++) {
                     var event = monthEvents[i];
                     if (event.dateStart.year == currentYear && parseInt(event.dateStart.month) >= parseInt(currentMonth)) {
 
