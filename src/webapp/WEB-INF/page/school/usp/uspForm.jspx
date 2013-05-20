@@ -44,7 +44,7 @@
         </div>
         <c:set var="countPerPage" value="5"/>
         <div class="container_24 clearfix ptl">
-            <!--<div class="mtl error-block js-uspSelectNone">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
+            <div class="mtl error-block js-uspSelectNone make-000000 dn">Please fill in at-least 1 form field.</div>
             <div class="tac pvl mvl">
                 Intro text goes in here
             </div>

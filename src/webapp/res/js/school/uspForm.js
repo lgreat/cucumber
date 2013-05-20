@@ -154,7 +154,8 @@ GS.form.UspForm = function () {
         var data = uspForm.serializeArray();
         var isUserSignedIn = GS.isSignedIn();
         if (!isOspUser && !GS.form.uspForm.doUspFormValidations(data)) {
-            alert('Please fill in at-least 1 form field.');
+            window.scrollTo(0,0);
+            $(".js-uspSelectNone").removeClass("dn");
         } else if (isOspUser && !GS.form.uspForm.doUspFormValidationsForOspUser(uspForm)) {
             alert('Please provide at least 1 response for all fields');
         }
