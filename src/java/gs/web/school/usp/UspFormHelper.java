@@ -783,91 +783,98 @@ public class UspFormHelper {
          * For each response key that the form field has, get all the response values from the multimap and construct
          * section response. Each section response has a list of response values objects.
          */
-        for (UspFormHelper.SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
-            String fieldName = sectionResponseKeys.getSectionFieldName();
-            String sectionTitle = FORM_FIELD_TITLES.get(fieldName);
-            UspFormResponseStruct uspFormResponse = new UspFormResponseStruct(fieldName, sectionTitle);
-            uspFormResponse.setIsSchoolAdmin(isOspUser);
-            boolean hasNoneField = false;
-
-            List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponse.getSectionResponses();
-
-            String[] responseKeys = sectionResponseKeys.getResponseKeys();
-            for (String responseKey : responseKeys) {
-                Collection<String> responseValues = SECTION_RESPONSE_KEY_VALUE_MAP.get(responseKey);
-                UspFormResponseStruct.SectionResponse sectionResponse = uspFormResponse.new SectionResponse(responseKey);
-                sectionResponse.setTitle(RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
-
-                Collection<String> savedResponses = savedResponseKeyValues.get(responseKey);
-
-                List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> uspResponseValues = sectionResponse.getResponses();
-
-                /**
-                 * If the key belongs to other field and the value is not blank, set the other checkbox and textfield value to
-                 * response_value for the form question
-                 */
-
-                if (responseKey.endsWith("_other")) {
-                    boolean isOtherFieldKey = true;
-                    uspFormResponse.setHasOtherField(isOtherFieldKey);
-
-                    Iterator<String> savedResponsesIter = savedResponses.iterator();
-                    while (savedResponsesIter.hasNext()) {
-                        String responseValue = savedResponsesIter.next();
-                        if (!responseValue.trim().equals("")) {
-                            uspFormResponse.setIsOtherChecked(true);
-                            uspFormResponse.setOtherTextValue(responseValue);
-                            UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
-                                    sectionResponse.new UspResponseValueStruct(responseValue);
-                            uspResponseValues.add(uspResponseValue);
-                        }
-                    }
-                }
-                /**
-                 * Set none checkbox to true if none response value exists for the current response key
-                 * or
-                 * Construct chosen select field options with the list of response values for the current response key
-                 */
-                else {
-                    if (!hasNoneField && responseValues.contains(UspFormHelper.NONE_RESPONSE_VALUE)) {
-                        hasNoneField = true;
-                        uspFormResponse.setHasNoneField(hasNoneField);
-                    }
-
-                    Iterator<String> responseValueIter = responseValues.iterator();
-
-                    while (responseValueIter.hasNext()) {
-                        String responseValue = responseValueIter.next();
-
-                        if (hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue)) {
-                            if (savedResponses.contains(responseValue)) {
-                                uspFormResponse.setIsNoneChecked(true);
-                            }
-                        } else {
-                            UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
-                                    sectionResponse.new UspResponseValueStruct(responseValue);
-
-                            uspResponseValue.setLabel(RESPONSE_VALUE_LABEL.get(responseKey + DOUBLE_UNDERSCORE_SEPARATOR
-                                    + responseValue));
-
-                            if (savedResponses.contains(responseValue)) {
-                                uspResponseValue.setIsSelected(true);
-                            }
-
-                            uspResponseValues.add(uspResponseValue);
-                        }
-                    }
-                }
-
-                sectionResponse.setResponses(uspResponseValues);
-                sectionResponses.add(sectionResponse);
-            }
-
-            uspFormResponse.setSectionResponses(sectionResponses);
-            uspFormResponses.add(uspFormResponse);
+        for (SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
+            uspFormResponses.add(buildSectionResponse(sectionResponseKeys, savedResponseKeyValues, isOspUser));
         }
 
         modelMap.put("uspFormResponses", uspFormResponses);
+    }
+
+    protected UspFormResponseStruct buildSectionResponse(SectionResponseKeys sectionResponseKeys,
+                                        Multimap<String, String> savedResponseKeyValues,
+                                        boolean isOspUser) {
+        String fieldName = sectionResponseKeys.getSectionFieldName();
+        String sectionTitle = FORM_FIELD_TITLES.get(fieldName);
+        UspFormResponseStruct uspFormResponse = new UspFormResponseStruct(fieldName, sectionTitle);
+        uspFormResponse.setIsSchoolAdmin(isOspUser);
+        boolean hasNoneField = false;
+
+        List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponse.getSectionResponses();
+
+        String[] responseKeys = sectionResponseKeys.getResponseKeys();
+        for (String responseKey : responseKeys) {
+            Collection<String> responseValues = SECTION_RESPONSE_KEY_VALUE_MAP.get(responseKey);
+            UspFormResponseStruct.SectionResponse sectionResponse = uspFormResponse.new SectionResponse(responseKey);
+            sectionResponse.setTitle(RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
+
+            Collection<String> savedResponses = savedResponseKeyValues.get(responseKey);
+
+            List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> uspResponseValues = sectionResponse.getResponses();
+
+            /**
+             * If the key belongs to other field and the value is not blank, set the other checkbox and textfield value to
+             * response_value for the form question
+             * Set only for osp users.
+             */
+
+            if (isOspUser && responseKey.endsWith("_other")) {
+                boolean isOtherFieldKey = true;
+                uspFormResponse.setHasOtherField(isOtherFieldKey);
+
+                Iterator<String> savedResponsesIter = savedResponses.iterator();
+                while (savedResponsesIter.hasNext()) {
+                    String responseValue = savedResponsesIter.next();
+                    if (!responseValue.trim().equals("")) {
+                        uspFormResponse.setIsOtherChecked(true);
+                        uspFormResponse.setOtherTextValue(responseValue);
+                        UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
+                                sectionResponse.new UspResponseValueStruct(responseValue);
+                        uspResponseValues.add(uspResponseValue);
+                    }
+                }
+            }
+            /**
+             * Set none checkbox to true if none response value exists for the current response key and if the user
+             * is a school admin or
+             * Construct chosen select field options with the list of response values for the current response key
+             */
+            else {
+                if (isOspUser && !hasNoneField && responseValues.contains(UspFormHelper.NONE_RESPONSE_VALUE)) {
+                    hasNoneField = true;
+                    uspFormResponse.setHasNoneField(hasNoneField);
+                }
+
+                Iterator<String> responseValueIter = responseValues.iterator();
+
+                while (responseValueIter.hasNext()) {
+                    String responseValue = responseValueIter.next();
+
+                    if (hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue)) {
+                        if (savedResponses.contains(responseValue)) {
+                            uspFormResponse.setIsNoneChecked(true);
+                        }
+                    } else {
+                        UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
+                                sectionResponse.new UspResponseValueStruct(responseValue);
+
+                        uspResponseValue.setLabel(RESPONSE_VALUE_LABEL.get(responseKey + DOUBLE_UNDERSCORE_SEPARATOR
+                                + responseValue));
+
+                        if (savedResponses.contains(responseValue)) {
+                            uspResponseValue.setIsSelected(true);
+                        }
+
+                        uspResponseValues.add(uspResponseValue);
+                    }
+                }
+            }
+
+            sectionResponse.setResponses(uspResponseValues);
+            sectionResponses.add(sectionResponse);
+        }
+
+        uspFormResponse.setSectionResponses(sectionResponses);
+        return uspFormResponse;
     }
 
     public void formSubmitHelper(HttpServletRequest request,
@@ -1090,5 +1097,29 @@ public class UspFormHelper {
         } catch (IOException ex) {
             _logger.warn("UspFormHelper - exception while trying to get writer for response.", ex);
         }
+    }
+
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao _espResponseDao) {
+        this._espResponseDao = _espResponseDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao _schoolDao) {
+        this._schoolDao = _schoolDao;
+    }
+
+    public EspSaveHelper getEspSaveHelper() {
+        return _espSaveHelper;
+    }
+
+    public void setEspSaveHelper(EspSaveHelper _espSaveHelper) {
+        this._espSaveHelper = _espSaveHelper;
     }
 }

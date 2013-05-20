@@ -139,7 +139,7 @@ public class UspFormController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)
-    public String getThankYou(ModelMap modelMap, HttpServletRequest request,
+    public String showThankYou(ModelMap modelMap, HttpServletRequest request,
                               HttpServletResponse response,
                               @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = true) Integer schoolId,
                               @RequestParam(value = UspFormHelper.PARAM_STATE, required = true) State state) {
@@ -157,5 +157,13 @@ public class UspFormController implements ReadWriteAnnotationController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public UspFormHelper getUspFormHelper() {
+        return _uspFormHelper;
+    }
+
+    public void setUspFormHelper(UspFormHelper _uspFormHelper) {
+        this._uspFormHelper = _uspFormHelper;
     }
 }
