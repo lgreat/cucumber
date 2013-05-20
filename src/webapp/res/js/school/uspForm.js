@@ -157,7 +157,8 @@ GS.form.UspForm = function () {
             window.scrollTo(0,0);
             $(".js-uspSelectNone").removeClass("dn");
         } else if (isOspUser && !GS.form.uspForm.doUspFormValidationsForOspUser(uspForm)) {
-            alert('Please provide at least 1 response for all fields');
+            window.scrollTo(0,0);
+            $(".js-uspSelectOneEach").removeClass("dn");
         }
         else if (isUserSignedIn === true) {
             GS.form.uspForm.saveForm(uspForm);

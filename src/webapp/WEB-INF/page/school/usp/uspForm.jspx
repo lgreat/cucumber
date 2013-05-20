@@ -44,7 +44,14 @@
         </div>
         <c:set var="countPerPage" value="5"/>
         <div class="container_24 clearfix ptl">
-            <div class="mtl error-block js-uspSelectNone make-000000 dn">Please fill in at-least 1 form field.</div>
+            <div class="mtl error-block js-uspSelectNone make-000000 dn">
+                <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
+                Opps! You need to answer at least one question to submit.
+            </div>
+            <div class="mtl error-block js-uspSelectOneEach make-000000 dn">
+                <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
+                Opps! All fields must be filled out to submit your response.
+            </div>
             <div class="tac pvl mvl">
                 Intro text goes in here
             </div>
