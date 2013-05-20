@@ -147,6 +147,7 @@ public class UspFormController implements ReadWriteAnnotationController {
         if(school != null) {
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             modelMap.put("schoolUrl", urlBuilder.asFullUrl(request));
+            modelMap.put("school", school);
         }
         return THANK_YOU_VIEW;
     }
