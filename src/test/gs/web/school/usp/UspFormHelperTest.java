@@ -52,7 +52,7 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         School school = new School();
         HttpServletRequest request = getRequest();
 
-        String url = _helper.determineRedirects(null, null, null, null);
+        String url = _helper.determineRedirects(null, null, null, null, false);
         assertEquals("Url should be blank since all params were null", null, url);
     }
 
@@ -72,7 +72,8 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         school.setDatabaseState(State.CA);
         HttpServletRequest request = getRequest();
 
-        String url = _helper.determineRedirects(user, userStateStruct, school, request);
+        //user already has previous answers
+        String url = _helper.determineRedirects(user, userStateStruct, school, request,true);
         assertEquals("User is logged in.",
                 "http://www.greatschools.org/school/usp/form.page?schoolId=1&showExistingAnswersMsg=true&state=CA", url);
 
@@ -94,7 +95,7 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         school.setDatabaseState(State.CA);
         HttpServletRequest request = getRequest();
 
-        String url = _helper.determineRedirects(user, userStateStruct, school, request);
+        String url = _helper.determineRedirects(user, userStateStruct, school, request,false);
         assertEquals("User is in the session in.",
                 "http://www.greatschools.org/school/usp/thankYou.page?schoolId=1&state=CA", url);
     }
@@ -116,7 +117,7 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         school.setDatabaseState(State.CA);
         HttpServletRequest request = getRequest();
 
-        String url = _helper.determineRedirects(user, userStateStruct, school, request);
+        String url = _helper.determineRedirects(user, userStateStruct, school, request,false);
         assertEquals("User has been registered.",
                 "http://www.greatschools.org/california/city/1-SchoolName/", url);
     }
