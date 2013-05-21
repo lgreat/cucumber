@@ -20,6 +20,7 @@ GS.school.calendar =  (function($) {
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
             eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
+            $(eventTableRowTemplateSelector).find('li').hide();
             $listModule = $(listModuleSelector);
             $('#js-export-school-calendar').on('change', function() {
                 var $select = $(this);
@@ -39,11 +40,32 @@ GS.school.calendar =  (function($) {
 
         parseDate.months = parseDate.months || ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+        var year = xCalDate.substring(0,4);
+        var month = xCalDate.substring(5,7);
+        var monthName = parseDate.months[xCalDate.substring(5,7)-1];
+        var day = xCalDate.substr(8,10);
+        var superscript;
+
+        if (day === 1 || day === 21 || day === 31) {
+            superscript = "st";
+        } else if (day === 2 || day === 22) {
+            superscript = "nd";
+        } else if (day === 3 || day === 23) {
+            superscript = "rd";
+        } else {
+            superscript = "th";
+        }
+
+        var prettyDate = function() {
+            return monthName + " " + parseInt(day, 10) + superscript + " " + year;
+        };
+
         return {
-            'year': xCalDate.substring(0,4),
-            'month': xCalDate.substring(5,7),
-            'monthName': parseDate.months[xCalDate.substring(5,7)-1],
-            'day': xCalDate.substr(8,10)
+            'year': year,
+            'month': month,
+            'monthName': monthName,
+            'day': day,
+            'prettyDate': prettyDate
         };
     };
 
@@ -121,10 +143,12 @@ GS.school.calendar =  (function($) {
                 ncesCode: ncesCode
             }
         }).done(function(data) {
+                log("getEventsViaAjax done success");
             events = parseXCalData(data);
             getEventsViaAjax.cache[ncesCode] = events;
             deferred.resolve(events);
         }).fail(function() {
+                log("getEventsViaAjax done failure");
             deferred.reject();
         });
 
@@ -142,12 +166,14 @@ GS.school.calendar =  (function($) {
         var promise = getEventsViaAjax(ncesCode).done(function(events) {
             log("getEventsViaAjax promise was resolved", events);
 
-            var today = new Date();
-            var todayYear = year || today.getFullYear();
-            var todayMonth = month || today.getMonth() + 1;
+            // var today = new Date();
+            // var todayYear = year || today.getFullYear();
+            // var todayMonth = month || today.getMonth() + 1;
+
+            events = filterEvents(events);
 
             clearEventsList();
-            fillCalendarList(events, todayYear, todayMonth);
+            fillCalendarList(events);
 
             showListEvents();
         }).fail(function() {
@@ -158,45 +184,76 @@ GS.school.calendar =  (function($) {
         return promise;
     };
 
+    /**
+     * Filters out events that are in the past. Could be changed to filter out events that aren't in a particular year/month
+     */
+    var filterEvents = function(events) {
+        log("filterEvents beginning", events);
+
+        var today = new Date();
+        var currentYear = today.getFullYear();
+        var currentMonth = today.getMonth() + 1;
+        var i,
+            monthEvents,
+            ml,
+            event;
+
+        var filteredEvents = [];
+
+        for (var key in events) {
+            if (events.hasOwnProperty(key)) {
+
+                monthEvents = events[key];
+                ml = monthEvents.length;
+
+                for (i = 0; i < ml; i++) {
+                    event = monthEvents[i];
+                    if (event.dateStart.year == currentYear && parseInt(event.dateStart.month) >= parseInt(currentMonth)) {
+                        filteredEvents.push(event);
+                    }
+                }
+            }
+        }
+
+        log("filterEvents returning");
+        return filteredEvents;
+    };
+
 
     /**
      * Modifies the DOM. Gets the table that contains the calendar list view, and populates it
      */
-    var fillCalendarList = function(events, year, month) {
-        log("fillCalendarList beginning", events, year, month);
+    var fillCalendarList = function(events) {
+        log("fillCalendarList beginning", events);
 
-        var $tbody = $listModule.find('tbody');
-        var today = new Date();
-        var currentYear = today.getFullYear();
-        var currentMonth = today.getMonth() + 1;
-        var currentDate = today.getDate();
-        var desiredYearAndMonth = "" + year + month;
-        var i;
+        var $ul = $(eventTableRowTemplateSelector);
+
+        var eventsLength = events.length;
+        var i,
+            event,
+            html;
 
         // temporary hide table so that it isn't redrawn every time we add a row
-        $tbody.hide();
+        $ul.hide();
 
-        for (var key in events) {
-            if (events.hasOwnProperty(key)) {
-                var monthEvents = events[key];
+        for (i = 0; i < eventsLength; i++) {
 
-                i = monthEvents.length;
-                while (i--) {
-                    var event = monthEvents[i];
-                    if (event.dateStart.year == currentYear && parseInt(event.dateStart.month) >= parseInt(currentMonth)) {
+            event = events[i];
 
-                        var html = getEventTableRowHtml(event);
-                        if (html !== undefined) {
-                            $tbody.append(html);
-                        }
-                    }
-                }
+            if (i === 0) {
+                $('#js-tandemOverviewTileEvent').html(event.summary);
+                $('#js-tandemOverviewTileTitle').html(event.dateStart.prettyDate);
+            }
 
-                $listModule.find('.js-school-calendar-year').html(monthEvents[0].dateStart.year);
+            html = getEventTableRowHtml(event);
+            if (html !== undefined) {
+                $ul.append(html);
             }
         }
 
-        $tbody.show();
+        $listModule.find('.js-school-calendar-year').html(events[0].dateStart.year);
+
+        $ul.show();
 
         log("fillCalendarList returning");
     };
@@ -265,7 +322,7 @@ GS.school.calendar =  (function($) {
             time: ""
         });
 
-        return '<tr>' + html + '</tr>';
+        return html;
     };
 
     var exportCalendar = function(ncesCode, format, schoolName) {

@@ -8,7 +8,7 @@
                              description="url to embed in the links - represents city and state in a hyphened space format"
                              required="false"/>
     <jsp:directive.attribute name="regionId" required="false" type="java.lang.Integer"/>
-    <div class="mls">
+    <div class="mbm">
          <c:choose>
             <c:when test="${not empty formattedUrl and  not empty regionId }">
                 <div style="width:298px;height:298px;border:1px solid #adaaad;background-color:#f4f4f4;box-shadow:inset -2px -2px 7px rgba(0,0,0,0.16);-moz-box-shadow: inset -2px -2px 7px rgba(0,0,0,0.16);-webkit-box-shadow: inset 2px 2px 7px rgba(0,0,0,0.16);border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;overflow:hidden;">

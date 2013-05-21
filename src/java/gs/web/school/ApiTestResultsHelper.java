@@ -47,38 +47,32 @@ public class ApiTestResultsHelper {
 
             //Get API results for the last 4 years order by the most recent first.
             List<ApiResult> historicalApiTestResults = _apiResultDao.getApiScoresOrderByMostRecent(school, NUM_YEARS_FOR_HISTORICAL_DATA);
-            if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
+
+            //Build a new list of historical results with non-null year and total.
+            List<ApiResult> nonNullHistoricalApiResults = buildNewApiResultsList(historicalApiTestResults);
+
+            if (nonNullHistoricalApiResults != null && !nonNullHistoricalApiResults.isEmpty()) {
 
                 //Assumes that the API test results are in descending order of year.
-                ApiResult apiTestResultForLatestYear = historicalApiTestResults.get(0);
-
-                // GS-13823 skip year if null and get latest not null value
-                if(apiTestResultForLatestYear != null && apiTestResultForLatestYear.getTotal() == null) {
-                    for(int i = 1; i < historicalApiTestResults.size(); i++) {
-                        ApiResult apiResult = historicalApiTestResults.get(i);
-                        if(apiResult.getTotal() != null) {
-                            apiTestResultForLatestYear = apiResult;
-                            break;
-                        }
-                    }
-                }
+                ApiResult apiTestResultForLatestYear = nonNullHistoricalApiResults.get(0);
 
                 List<Integer> loadYears = _apiResultDao.getApiLoadYears();
                 Integer mostRecentLoadYear = (loadYears != null && loadYears.size() > 0) ? loadYears.get(0) : null;
 
                 //To display API results, there should be results for at least 1 year of data.
                 // GS-13823 do not show if the latest year is older than load date by more than 3 years
-                if (apiTestResultForLatestYear != null && apiTestResultForLatestYear.getYear() != null
-                        && apiTestResultForLatestYear.getTotal() != null && apiTestResultForLatestYear.getTotal() != 0
-                        && mostRecentLoadYear != null && mostRecentLoadYear - apiTestResultForLatestYear.getYear() < 3) {
+                if (mostRecentLoadYear != null && mostRecentLoadYear - apiTestResultForLatestYear.getYear() < 3) {
                     Map<String, Object> apiTestResultsMap = new HashMap<String, Object>();
 
                     apiTestResultsMap.put(MODEL_MOST_RECENT_API_RESULT, apiTestResultForLatestYear);
 
                     apiTestResultsMap.put(MODEL_API_TEST_ETHNICITY_MAP, buildApiTestResultsMap(apiTestResultForLatestYear));
 
-                    putApiTestScoreChange(historicalApiTestResults, apiTestResultsMap);
-                    putTrendDataForApiGrowth(historicalApiTestResults, apiTestResultsMap);
+                    //Some schools have Total base value but do not have total. Therefore pass in historicalApiResults list
+                    //and not the nonNullHistoricalApiTestResults.Eg. school 7074 in CA.
+                    putApiTestScoreChange(apiTestResultForLatestYear, historicalApiTestResults, apiTestResultsMap);
+
+                    putTrendDataForApiGrowth(nonNullHistoricalApiResults, apiTestResultsMap);
                     putMostRecentStateRank(school, apiTestResultsMap);
                     putMostRecentSimilarSchoolsRank(school, apiTestResultsMap);
 
@@ -87,6 +81,21 @@ public class ApiTestResultsHelper {
             }
         }
         return null;
+    }
+
+    public List<ApiResult> buildNewApiResultsList(List<ApiResult> historicalApiTestResults) {
+        List<ApiResult> nonNullHistoricalApiResults = new ArrayList<ApiResult>();
+
+        if (historicalApiTestResults == null || historicalApiTestResults.isEmpty()) {
+            return nonNullHistoricalApiResults;
+        }
+        // GS-13823 skip year if null and get latest not null value
+        for (ApiResult apiResult : historicalApiTestResults) {
+            if (apiResult != null && apiResult.getYear() != null && apiResult.getTotal() != null && apiResult.getTotal() != 0) {
+                nonNullHistoricalApiResults.add(apiResult);
+            }
+        }
+        return nonNullHistoricalApiResults;
     }
 
     /**
@@ -260,26 +269,26 @@ public class ApiTestResultsHelper {
 
     /**
      * This method gets the change in API test score.
-     * @param historicalApiTestResults
-     * @param modelMap
      */
-    protected void putApiTestScoreChange(List<ApiResult> historicalApiTestResults, Map modelMap) {
+    protected void putApiTestScoreChange(ApiResult apiTestResultForLatestYear, List<ApiResult> historicalApiResults, Map modelMap) {
         //This method assumes that the API test results are in descending order of year.
-        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
-            ApiResult apiTestResult = historicalApiTestResults.get(0);
-            int recentYear = apiTestResult.getYear();
+        if (historicalApiResults != null && !historicalApiResults.isEmpty()
+                && apiTestResultForLatestYear != null && apiTestResultForLatestYear.getYear() != null
+                && apiTestResultForLatestYear.getTotal() != null) {
+            int recentYear = apiTestResultForLatestYear.getYear();
             int previousYear = recentYear - 1;
             modelMap.put(MODEL_PREVIOUS_YEAR, previousYear);
-            if (historicalApiTestResults.size() > 1) {
-                ApiResult previousYearApiTestResult = historicalApiTestResults.get(1);
-                if (previousYear == previousYearApiTestResult.getYear() && previousYearApiTestResult != null
-                        && previousYearApiTestResult.getTotalBase() != null && previousYearApiTestResult.getTotalBase() != 0) {
-                    Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
+
+            //Some schools have Total base value but do not have total. Therefore loop over the historicalApiResults list
+            //and not the nonNullHistoricalApiTestResults.Eg. school 7074 in CA
+            for (ApiResult result : historicalApiResults) {
+                if (result != null && result.getYear() != null && result.getYear() == previousYear
+                        && result.getTotalBase() != null && result.getTotalBase() != 0) {
+                    Integer scoreChange = apiTestResultForLatestYear.getTotal() - result.getTotalBase();
                     modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
                 }
             }
         }
-
     }
 
     /**

@@ -1,11 +1,13 @@
 package gs.web.school;
 
+import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.data.security.Role;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
@@ -143,6 +145,16 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
 
             model.put("gs_rating", gsRating);
             model.put("ratings", ratings);
+
+            // Check if the user is a ??? moderator and if so add it to the model so we can allow moderators for "Report" an issue multiple times
+            User user = (User) model.get("validUser");
+            if(user != null && PageHelper.isMemberAuthorized(request)){
+                boolean moderatorRole = user.hasRole(Role.COMMUNITY_MODERATOR);
+                if (moderatorRole) {
+                    model.put("moderator", Boolean.TRUE);
+                }
+            }
+
 
         }
 
