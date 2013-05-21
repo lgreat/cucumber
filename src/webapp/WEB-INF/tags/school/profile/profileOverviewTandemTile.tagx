@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="microsoftBranding" type="java.lang.Boolean" required="false"/>
     <jsp:directive.attribute name="ospDataExistsLocal" type="java.lang.Boolean" required="true"/>
 
+    <!--<c:set var="microsoftBranding" value="true"/>-->
     <script type="text/javascript">
         var ncesCode = '${school.ncesCode}';
         var hasOspData = '${ospDataExistsLocal}';
@@ -38,21 +39,33 @@
 
     </script>
 
+
+
+
     <c:set var="moduleTitleTandem">
-        <p class="small_bold textshadow-1 pbs bottom make-555555 ptm" >Important Upcoming Events</p>
+        <p class="small_bold textshadow-1 pbm bottom make-555555 ptl" >Important Upcoming Events</p>
     </c:set>
     <div id="js-tile-tandem" class="dn">
         <gslink:linkToTab tabName="culture" anchor="Resources_table" customLink="overview_culture" cssClass="tdn make-555555 js-trigger">
             <div class="mod standard_7-1">
                 <div class="inner box-shadow-animation-1 tac">
                     ${moduleTitleTandem}
-                    <div class="bd clearfix mha">
-                        <p class="pts make-ffffff small_bold" id="js-tandemOverviewTileTitle">November 15th 2013</p>
-                        <p class="small ptl bottom phs" id="js-tandemOverviewTileEvent">Thanksgiving Vacation</p>
+                    <c:set var="msBrandingBox" value="bd" />
+                    <c:if test="${microsoftBranding == 'true'}">
+                        <c:set var="msBrandingBox" value="bd-MS-brandedskin" />
+                    </c:if>
+                    <div class="${msBrandingBox} clearfix mha">
+                        <p class="pts make-ffffff small_bold" id="js-tandemOverviewTileTitle"><!-- do not collapse --></p>
+                        <p class="small ptm bottom phs" id="js-tandemOverviewTileEvent"><!-- do not collapse --></p>
                     </div>
-                    <div class="ft clearfix small pvs" style="margin: 0 auto;">
-                        See full calendar &amp;raquo;
-                    </div>
+                    <c:if test="${microsoftBranding == 'true'}">
+                        <div class="ft clearfix small pvs" style="margin: 0 auto;">
+                            <div style="width:170px" class="pll clearfix">
+                            <div class="fl tac plm smallest bottom make-999999" style="line-height: 12px">BROUGHT<br />TO YOU BY</div>
+                            <div class="fl plm"><img style="width: 79px; height: 18px;" src="/res/img/school/overview/tandem/microsoft_logo_79x18.png" alt="MS OFFICE 365" /></div>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 
