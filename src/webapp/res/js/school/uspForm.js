@@ -36,18 +36,6 @@ GS.form.UspForm = function () {
         return dfd.promise();
     };
 
-    this.validateTerms = function () {
-        var dfd = jQuery.Deferred();
-        var isValid = jQuery('.js_uspRegistrationForm .js-checkBoxSpriteOn').is(':visible');
-        if (isValid === false) {
-            GS.form.uspForm.handleValidationResponse('.js_termsErr', 'Check accept.');
-            dfd.reject();
-        } else {
-            return dfd.resolve();
-        }
-        return dfd.promise();
-    };
-
     this.validateUserState = function (emailField, validateUserLogin, isSignInHover, passwordField) {
         var email = jQuery.trim(emailField.val());
         var dfd = jQuery.Deferred();
@@ -94,9 +82,9 @@ GS.form.UspForm = function () {
         if (data.isEmailValid !== true) {
             GS.form.uspForm.handleValidationResponse('.js_emailErr', 'Please enter a valid email address.', emailField);
         } else if (isLogin === true && data.isNewUser === true) {
-            GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' class='js_lnchUspRegistration' >Register Here</a>.", emailField);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' class='js_lnchUspRegistration' >register here</a>.", emailField);
         } else if (isLogin === false && data.isNewUser !== true) {
-            GS.form.uspForm.handleValidationResponse('.js_emailErr', "<a href='#' class='js_lnchUspSignin'>Sign in Here</a>.", emailField);
+            GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' class='js_lnchUspSignin'>sign in here</a>.", emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated !== true) {
             var onclickStr = "'GS.form.uspForm.handleEmailVerification(); return false;'";
             GS.form.uspForm.handleValidationResponse('.js_emailErr', "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
@@ -172,8 +160,7 @@ GS.form.UspForm = function () {
         jQuery.when(
             GS.form.uspForm.validateUserState(uspRegistrationEmailField, false, false),
             GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
-            GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField),
-            GS.form.uspForm.validateTerms()
+            GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField)
         ).done(
             function () {
                 var firstName = jQuery.trim(uspRegistrationFirstNameField.val());
@@ -227,8 +214,6 @@ GS.form.UspForm = function () {
         if (email != undefined && email != '') {
             data.push({name:"email", value:email});
         }
-        //TODO terms from the form.
-        data.push({name:"terms", value:"true"});
 
         jQuery.ajax({type:'POST',
                 async:true,

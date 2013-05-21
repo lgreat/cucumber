@@ -911,7 +911,7 @@ public class UspFormHelper {
         boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, isOspUser);
 
         if (doesUserAlreadyHaveResponses) {
-            String redirectUrl = determineRedirects(user, userStateStruct, school, request);
+            String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
             if (StringUtils.isNotBlank(redirectUrl)) {
                 writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
             }
@@ -924,8 +924,7 @@ public class UspFormHelper {
 
         _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
 
-        String redirectUrl = determineRedirects(user, userStateStruct, school, request);
-
+        String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
         if (StringUtils.isNotBlank(redirectUrl)) {
             writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
         }
@@ -960,22 +959,24 @@ public class UspFormHelper {
      */
 
     public String determineRedirects(User user, UserStateStruct userStateStruct,
-                                     School school, HttpServletRequest request) {
+                                     School school, HttpServletRequest request, boolean doesUserAlreadyHaveResponses) {
         UrlBuilder urlBuilder = null;
 
         if(user == null || userStateStruct == null || request == null || school == null){
             return null;
         }
 
-        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
+        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn() && doesUserAlreadyHaveResponses) {
             //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
             //Show the user his old responses.
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
             urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
             urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
             urlBuilder.addParameter("showExistingAnswersMsg", "true");
-        } else if (user.isEmailValidated() && userStateStruct.isUserInSession()) {
-            //If the user is already logged in and filled in the usp form then show the thank you page.
+        } else if (user.isEmailValidated() && ((userStateStruct.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
+                || userStateStruct.isUserInSession())) {
+            //If the user has been logged in but did not have any previous responses.
+            //Or if the user is already in the session and filled in the usp form then show the thank you page.
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
             urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
             urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
@@ -1018,6 +1019,9 @@ public class UspFormHelper {
             }
             //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
             userRegistrationCommand.setHow("USP");
+            //By clicking the join now button, the user is accepting the GS terms.GS-13713.
+            userRegistrationCommand.setTerms(true);
+            //There is no additional confirm Password field. Hence set it to
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
             UserStateStruct userStateStruct =
                     _userRegistrationOrLoginService.getUserStateStruct(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
