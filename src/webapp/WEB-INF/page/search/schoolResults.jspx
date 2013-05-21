@@ -361,7 +361,8 @@
 
 <div id="col_right">
     <ad:AboveFold_300x600/>
-    <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />   
+    <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
+    <ad:multiTextAd blurb="Advertiser Links"/>
     <ad:Top_300x137/>
 </div>
 

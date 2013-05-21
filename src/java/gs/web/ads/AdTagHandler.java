@@ -239,6 +239,10 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
+        // GS-13764 - Do not serve any 300x125 ads
+        if (getPosition().endsWith("_300x125")) {
+            return "";
+        }
         // if this is a mobile ad, we will always
         // want to display GPT tag regardless of
         // if GPT is enabled for the desktop

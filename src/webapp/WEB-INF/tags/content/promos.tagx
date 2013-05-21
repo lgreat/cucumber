@@ -25,5 +25,6 @@
     </c:if>
 
     <c:if test="${fn:contains(pageContext.request.requestURI,'tutoring') }">
+        <ad:multiTextAd blurb="Advertiser links"/>
     </c:if>
 </jsp:root>
