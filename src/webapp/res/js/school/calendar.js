@@ -57,7 +57,7 @@ GS.school.calendar =  (function($) {
         }
 
         var prettyDate = function() {
-            return monthName + " " + parseInt(day, 10) + superscript + " " + year;
+            return monthName + " " + parseInt(day, 10) +  ", " + year;
         };
 
         return {

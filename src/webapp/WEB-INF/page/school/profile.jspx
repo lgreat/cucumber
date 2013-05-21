@@ -34,7 +34,7 @@
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
-
+<c:set var="tandemTileMSBranding" value="${context.turnOnMicroSoftCampaign}" scope="request" />
 
 <!-- determine the page name that is reported to omniture -->
 <c:set var="pageName" value="Overview" scope="request"/>
