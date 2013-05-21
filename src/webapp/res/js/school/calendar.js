@@ -193,6 +193,7 @@ GS.school.calendar =  (function($) {
         var today = new Date();
         var currentYear = today.getFullYear();
         var currentMonth = today.getMonth() + 1;
+        var currentDay = today.getDate();
         var i,
             monthEvents,
             ml,
@@ -209,7 +210,9 @@ GS.school.calendar =  (function($) {
                 for (i = 0; i < ml; i++) {
                     event = monthEvents[i];
                     if (event.dateStart.year == currentYear && parseInt(event.dateStart.month) >= parseInt(currentMonth)) {
-                        filteredEvents.push(event);
+                        if (!(parseInt(event.dateStart.month) === parseInt(currentMonth) && parseInt(event.dateStart.day) < parseInt(currentDay))) {
+                            filteredEvents.push(event);
+                        }
                     }
                 }
             }
