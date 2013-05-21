@@ -36,18 +36,15 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     }
 
     private void replayAllMocks() {
-        replayMocks(_userDao);
-        replayMocks(_uspHelper);
+        replayMocks(_userDao, _schoolDao, _uspHelper);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_userDao);
-        verifyMocks(_uspHelper);
+        verifyMocks(_userDao, _schoolDao, _uspHelper);
     }
 
     private void resetAllMocks() {
-        resetMocks(_userDao);
-        resetMocks(_uspHelper);
+        resetMocks(_userDao, _schoolDao, _uspHelper);
     }
 
     /**
@@ -164,7 +161,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
         _uspHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, null, false);
-        expectLastCall();
 
         replayAllMocks();
         view = _controller.showUspUserForm(modelMap, request, response, schoolId, state);
@@ -255,6 +251,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         school.setId(schoolId);
         school.setDatabaseState(state);
         school.setName("QWERT Elementary School");
+        school.setActive(true);
         return school;
     }
 }
