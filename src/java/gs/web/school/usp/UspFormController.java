@@ -351,6 +351,14 @@ public class UspFormController implements ReadWriteAnnotationController {
         return school;
     }
 
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
     public IUserDao getUserDao() {
         return _userDao;
     }
