@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
 
-    <div id="js-verifyYourEmailAddressUSP" class="">
+    <div id="js-verifyYourEmailAddressUSP" class="dn">
         <div class="mod modal_1 width_10" id="js-verifyYourEmailAddressUSP">
             <div class="outer">
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
@@ -12,7 +12,7 @@
                     <p class="small">
                         <strong>Thanks!</strong> We just sent you an email – please click on the link in the email to post your answers.
                     </p>
-                    <button class="button-1 js_closeHover" type="button">OK</button>
+                    <button class="but but-rg but-1 js_closeHover" type="button">OK</button>
 
                 </div>
             </div>
