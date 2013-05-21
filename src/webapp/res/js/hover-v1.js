@@ -2125,7 +2125,9 @@ jQuery(function() {
     } else if (showHover == "validateEmailSchoolReview") {
         GSType.hover.validateEmailSchoolReview.show();
     } else if (showHover == "reviewLandingPageInformational") {
-        GSType.hover.validateEmailSchoolReview.show();
+        GSType.hover.reviewLandingPageInformational.show();
+    } else if (showHover == "verifyYourEmailAddressUSP") {
+        GSType.hover.verifyYourEmailAddressUSP.show();
     } else if (showHover == "schoolReviewPostedThankYou") {
         GSType.hover.schoolReviewPostedThankYou.showHover();
     } else if (showHover == "schoolReviewNotPostedThankYou") {
@@ -2195,11 +2197,10 @@ GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printS
 GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 
 
-GSType.hover.ReviewLandingPageInformational = function() {
-//    this.show = function() {
-//        GSType.hover.reviewLandingPageInformational.showModal();
-//        return false;
-//    };
-};
+GSType.hover.ReviewLandingPageInformational = function() {};
 GSType.hover.ReviewLandingPageInformational.prototype = new GSType.hover.HoverDialog('js-reviewLandingPageInformational');
 GSType.hover.reviewLandingPageInformational = new GSType.hover.ReviewLandingPageInformational();
+
+GSType.hover.VerifyYourEmailAddressUSP = function() {};
+GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
+GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
