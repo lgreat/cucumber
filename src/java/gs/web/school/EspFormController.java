@@ -193,7 +193,14 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
 
-        //TODO redirect
+        /**
+         * Redirect to page 1 of osp form
+         */
+        UrlBuilder urlBuilder = new UrlBuilder(school, 1, UrlBuilder.SCHOOL_PROFILE_ESP_FORM);
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("redirect", urlBuilder.asFullUrl(request));
+        jsonResponse.write(response.getWriter());
+        response.getWriter().flush();
     }
 
 
