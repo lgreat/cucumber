@@ -46,12 +46,6 @@ public class UspFormHelper {
 
     @Autowired
     private IEspResponseDao _espResponseDao;
-    @Autowired
-    private EspSaveHelper _espSaveHelper;
-    @Autowired
-    private ISchoolDao _schoolDao;
-    @Autowired
-    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
 
     public static final String DOUBLE_UNDERSCORE_SEPARATOR = "__";
 
@@ -877,191 +871,6 @@ public class UspFormHelper {
         return uspFormResponse;
     }
 
-    public void formSubmitHelper(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 UserRegistrationCommand userRegistrationCommand,
-                                 UserLoginCommand userLoginCommand,
-                                 BindingResult bindingResult,
-                                 Integer schoolId,
-                                 State state,
-                                 boolean isOspUser) {
-
-        response.setContentType("application/json");
-        JSONObject responseObject = new JSONObject();
-        _cacheInterceptor.setNoCacheHeaders(response);
-
-
-        School school = getSchool(state, schoolId);
-        if (school == null) {
-            writeIntoJsonObject(response, responseObject, "error", "noSchool");
-            return; // early exit
-        }
-
-        UserStateStruct userStateStruct = getValidUser(request, response,
-                userRegistrationCommand, userLoginCommand, bindingResult, school);
-
-        if (userStateStruct == null || userStateStruct.getUser() == null) {
-            writeIntoJsonObject(response, responseObject, "error", "noUser");
-            return; // early exit
-        }
-
-        User user = userStateStruct.getUser();
-        //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
-        //Show the user his old responses.
-        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, isOspUser);
-
-        if (doesUserAlreadyHaveResponses) {
-            String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
-            if (StringUtils.isNotBlank(redirectUrl)) {
-                writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
-            }
-            return;
-        }
-
-        Map<String, Object[]> reqParamMap = request.getParameterMap();
-
-        Set<String> formFieldNames = FORM_FIELD_TITLES.keySet();
-
-        _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
-
-        String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
-        if (StringUtils.isNotBlank(redirectUrl)) {
-            writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
-        }
-        return;
-    }
-
-    /**
-     * Method to check if the user is being logged in via the sign in hover and already has responses.
-     *
-     * @param user
-     * @param userStateStruct
-     * @param school
-     * @return
-     */
-    public boolean checkIfUserHasExistingResponses(User user, UserStateStruct userStateStruct,
-                                                   School school, boolean isOspUser) {
-        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
-            Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, school.getDatabaseState(), isOspUser);
-
-            return !savedResponseKeyValues.isEmpty();
-
-        }
-        return false;
-    }
-
-    /**
-     * Method to determine where the user should be redirected to after they have filled in the usp form.
-     *
-     * @param user
-     * @param userStateStruct
-     * @param school
-     */
-
-    public String determineRedirects(User user, UserStateStruct userStateStruct,
-                                     School school, HttpServletRequest request, boolean doesUserAlreadyHaveResponses) {
-        UrlBuilder urlBuilder = null;
-
-        if(user == null || userStateStruct == null || request == null || school == null){
-            return null;
-        }
-
-        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn() && doesUserAlreadyHaveResponses) {
-            //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
-            //Show the user his old responses.
-            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
-            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
-            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
-            urlBuilder.addParameter("showExistingAnswersMsg", "true");
-        } else if (user.isEmailValidated() && ((userStateStruct.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
-                || userStateStruct.isUserInSession())) {
-            //If the user has been logged in but did not have any previous responses.
-            //Or if the user is already in the session and filled in the usp form then show the thank you page.
-            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
-            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
-            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
-        } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
-            //If the user has registered via the register hover then show the profile page.
-            //If the user was already existing but not email verified then sent an verification email and show the profile page.
-            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        }
-        if (urlBuilder != null) {
-            return urlBuilder.asFullUrl(request);
-        }
-        return null;
-    }
-
-    /**
-     * Gets a user object from the session or by signing in the existing user or creating a new user.
-     * The user object is and the state of the user object is encapsulated in the UserStateStruct.
-     *
-     * @param request
-     * @param response
-     * @param userRegistrationCommand
-     * @param userLoginCommand
-     * @param bindingResult
-     * @return
-     */
-
-    public UserStateStruct getValidUser(HttpServletRequest request,
-                                                                       HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
-                                                                       UserLoginCommand userLoginCommand,
-                                                                       BindingResult bindingResult,
-                                                                       School school) {
-        try {
-            UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-            if (school != null) {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
-                urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
-                urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
-                registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
-                registrationBehavior.setSchool(school);
-            }
-            //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
-            userRegistrationCommand.setHow("USP");
-            //By clicking the join now button, the user is accepting the GS terms.GS-13713.
-            userRegistrationCommand.setTerms(true);
-            //There is no additional confirm Password field. Hence set it to
-            userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
-            UserStateStruct userStateStruct =
-                    _userRegistrationOrLoginService.getUserStateStruct(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
-
-            if (!bindingResult.hasErrors()) {
-                return userStateStruct;
-            }
-        } catch (Exception ex) {
-            //Do nothing. Ideally, this should not happen since we have command validations and client side validations.
-        }
-        return null;
-    }
-
-    /**
-     * Parses the state and schoolId out of the request and fetches the school. Returns null if
-     * it can't parse parameters, can't find school, or the school is inactive
-     */
-    protected School getSchool(State state, Integer schoolId) {
-        if (state == null || schoolId == null) {
-            return null;
-        }
-        School school = null;
-        try {
-            school = _schoolDao.getSchoolById(state, schoolId);
-        } catch (Exception e) {
-            // handled below
-        }
-        if (school == null || (!school.isActive() && !school.isDemoSchool())) {
-            _logger.error("School is null or inactive: " + school);
-            return null;
-        }
-
-        if (school.isPreschoolOnly()) {
-            _logger.error("School is preschool only! " + school);
-            return null;
-        }
-
-        return school;
-    }
-
     protected Multimap<String, String> getSavedResponses(User user, School school, State state, final boolean isOspUser) {
         Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
 
@@ -1090,19 +899,6 @@ public class UspFormHelper {
         return responseKeyValues;
     }
 
-    protected void writeIntoJsonObject(HttpServletResponse response,
-                                       JSONObject responseObject, String key, String value) {
-        try {
-            responseObject.put(key, value);
-            responseObject.write(response.getWriter());
-            response.getWriter().flush();
-        } catch (JSONException ex) {
-            _logger.warn("UspFormHelper - exception while trying to write json object.", ex);
-        } catch (IOException ex) {
-            _logger.warn("UspFormHelper - exception while trying to get writer for response.", ex);
-        }
-    }
-
     public IEspResponseDao getEspResponseDao() {
         return _espResponseDao;
     }
@@ -1111,19 +907,4 @@ public class UspFormHelper {
         this._espResponseDao = _espResponseDao;
     }
 
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
-    }
-
-    public void setSchoolDao(ISchoolDao _schoolDao) {
-        this._schoolDao = _schoolDao;
-    }
-
-    public EspSaveHelper getEspSaveHelper() {
-        return _espSaveHelper;
-    }
-
-    public void setEspSaveHelper(EspSaveHelper _espSaveHelper) {
-        this._espSaveHelper = _espSaveHelper;
-    }
 }

@@ -144,14 +144,15 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "/uspForm.page", method = RequestMethod.GET)
-    public String showOspUserForm (ModelMap modelMap,
+    public String showOspGatewayForm (ModelMap modelMap,
                                    HttpServletRequest request,
                                    HttpServletResponse response,
                                    @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
                                    @RequestParam(value=PARAM_STATE, required=false) State state) {
         School school = getSchool(state, schoolId);
         if (school == null) {
-            return "";
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
         User user = getValidUser(request, state, school);
@@ -167,15 +168,32 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "/uspForm.page", method = RequestMethod.POST)
-    public void onOspUserSubmitForm(HttpServletRequest request,
+    public void onOspGatewayFormSubmit(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    UserRegistrationCommand userRegistrationCommand,
-                                    UserLoginCommand userLoginCommand,
-                                    BindingResult bindingResult,
                                     @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
-                                    @RequestParam(value = PARAM_STATE, required = false) State state) {
-        _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult,
-                schoolId, state, true);
+                                    @RequestParam(value = PARAM_STATE, required = false) State state) throws IOException, JSONException {
+        response.setContentType("application/json");
+
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            outputJsonError("noSchool", response);
+            return; // early exit
+        }
+
+        // Fetch parameters
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            outputJsonError("noUser", response);
+            return; // early exit
+        }
+
+        Map<String, Object[]> reqParamMap = request.getParameterMap();
+
+        Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
+
+        _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
+
+        //TODO redirect
     }
 
 

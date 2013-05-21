@@ -1,19 +1,22 @@
 package gs.web.school.usp;
 
+import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.email.EmailUtils;
-import gs.web.community.registration.UserLoginCommand;
-import gs.web.community.registration.UserRegistrationCommand;
+import gs.web.community.registration.*;
+import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -41,6 +45,9 @@ public class UspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "/school/usp/uspForm";
     public static final String THANK_YOU_VIEW = "/school/usp/thankYou";
 
+    public static final String PARAM_STATE = "state";
+    public static final String PARAM_SCHOOL_ID = "schoolId";
+
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     private static Logger _logger = Logger.getLogger(UspFormController.class);
@@ -49,6 +56,12 @@ public class UspFormController implements ReadWriteAnnotationController {
     private UspFormHelper _uspFormHelper;
     @Autowired
     private IUserDao _userDao;
+    @Autowired
+    private EspSaveHelper _espSaveHelper;
+    @Autowired
+    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
+    @Autowired
+    private ISchoolDao _schoolDao;
 
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
@@ -56,7 +69,7 @@ public class UspFormController implements ReadWriteAnnotationController {
                                   HttpServletResponse response,
                                   @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                   @RequestParam(value = UspFormHelper.PARAM_STATE, required = false) State state) {
-        School school = _uspFormHelper.getSchool(state, schoolId);
+        School school = getSchool(state, schoolId);
         if (school == null) {
             return "";
         }
@@ -81,8 +94,110 @@ public class UspFormController implements ReadWriteAnnotationController {
                                     BindingResult bindingResult,
                                     @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                     @RequestParam(value = UspFormHelper.PARAM_STATE, required = false) State state) {
-        _uspFormHelper.formSubmitHelper(request, response, userRegistrationCommand, userLoginCommand, bindingResult,
-                schoolId, state, false);
+        response.setContentType("application/json");
+        JSONObject responseObject = new JSONObject();
+        _cacheInterceptor.setNoCacheHeaders(response);
+
+
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            writeIntoJsonObject(response, responseObject, "error", "noSchool");
+            return; // early exit
+        }
+
+        UserStateStruct userStateStruct = getValidUser(request, response,
+                userRegistrationCommand, userLoginCommand, bindingResult, school);
+
+        if (userStateStruct == null || userStateStruct.getUser() == null) {
+            writeIntoJsonObject(response, responseObject, "error", "noUser");
+            return; // early exit
+        }
+
+        User user = userStateStruct.getUser();
+        //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
+        //Show the user his old responses.
+        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, false);
+
+        if (doesUserAlreadyHaveResponses) {
+            String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
+            if (StringUtils.isNotBlank(redirectUrl)) {
+                writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
+            }
+            return;
+        }
+
+        Map<String, Object[]> reqParamMap = request.getParameterMap();
+
+        Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
+
+        _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
+
+        String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
+        if (StringUtils.isNotBlank(redirectUrl)) {
+            writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
+        }
+        return;
+    }
+
+    /**
+     * Method to determine where the user should be redirected to after they have filled in the usp form.
+     *
+     * @param user
+     * @param userStateStruct
+     * @param school
+     */
+
+    public String determineRedirects(User user, UserStateStruct userStateStruct,
+                                     School school, HttpServletRequest request, boolean doesUserAlreadyHaveResponses) {
+        UrlBuilder urlBuilder = null;
+
+        if(user == null || userStateStruct == null || request == null || school == null){
+            return null;
+        }
+
+        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn() && doesUserAlreadyHaveResponses) {
+            //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
+            //Show the user his old responses.
+            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
+            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
+            urlBuilder.addParameter("showExistingAnswersMsg", "true");
+        } else if (user.isEmailValidated() && ((userStateStruct.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
+                || userStateStruct.isUserInSession())) {
+            //If the user has been logged in but did not have any previous responses.
+            //Or if the user is already in the session and filled in the usp form then show the thank you page.
+            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
+            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
+        } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
+            //If the user has registered via the register hover then show the profile page.
+            //If the user was already existing but not email verified then sent an verification email and show the profile page.
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        }
+        if (urlBuilder != null) {
+            return urlBuilder.asFullUrl(request);
+        }
+        return null;
+    }
+
+
+    /**
+     * Method to check if the user is being logged in via the sign in hover and already has responses.
+     *
+     * @param user
+     * @param userStateStruct
+     * @param school
+     * @return
+     */
+    public boolean checkIfUserHasExistingResponses(User user, UserStateStruct userStateStruct,
+                                                   School school, boolean isOspUser) {
+        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
+            Multimap<String, String> savedResponseKeyValues = _uspFormHelper.getSavedResponses(user, school, school.getDatabaseState(), isOspUser);
+
+            return !savedResponseKeyValues.isEmpty();
+
+        }
+        return false;
     }
 
     /**
@@ -137,19 +252,103 @@ public class UspFormController implements ReadWriteAnnotationController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+    /**
+     * Gets a user object from the session or by signing in the existing user or creating a new user.
+     * The user object is and the state of the user object is encapsulated in the UserStateStruct.
+     *
+     * @param request
+     * @param response
+     * @param userRegistrationCommand
+     * @param userLoginCommand
+     * @param bindingResult
+     * @return
+     */
+
+    public UserStateStruct getValidUser(HttpServletRequest request,
+                                        HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
+                                        UserLoginCommand userLoginCommand,
+                                        BindingResult bindingResult,
+                                        School school) {
+        try {
+            UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+            if (school != null) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
+                urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+                urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
+                registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
+                registrationBehavior.setSchool(school);
+            }
+            //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
+            userRegistrationCommand.setHow("USP");
+            //By clicking the join now button, the user is accepting the GS terms.GS-13713.
+            userRegistrationCommand.setTerms(true);
+            //There is no additional confirm Password field. Hence set it to
+            userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
+            UserStateStruct userStateStruct =
+                    _userRegistrationOrLoginService.getUserStateStruct(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
+
+            if (!bindingResult.hasErrors()) {
+                return userStateStruct;
+            }
+        } catch (Exception ex) {
+            //Do nothing. Ideally, this should not happen since we have command validations and client side validations.
+        }
+        return null;
+    }
+
 
     @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)
     public String showThankYou(ModelMap modelMap, HttpServletRequest request,
                               HttpServletResponse response,
                               @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = true) Integer schoolId,
                               @RequestParam(value = UspFormHelper.PARAM_STATE, required = true) State state) {
-        School school = _uspFormHelper.getSchool(state, schoolId);
+        School school = getSchool(state, schoolId);
         if(school != null) {
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             modelMap.put("schoolUrl", urlBuilder.asFullUrl(request));
             modelMap.put("school", school);
         }
         return THANK_YOU_VIEW;
+    }
+
+    protected void writeIntoJsonObject(HttpServletResponse response,
+                                       JSONObject responseObject, String key, String value) {
+        try {
+            responseObject.put(key, value);
+            responseObject.write(response.getWriter());
+            response.getWriter().flush();
+        } catch (JSONException ex) {
+            _logger.warn("UspFormHelper - exception while trying to write json object.", ex);
+        } catch (IOException ex) {
+            _logger.warn("UspFormHelper - exception while trying to get writer for response.", ex);
+        }
+    }
+
+    /**
+     * Parses the state and schoolId out of the request and fetches the school. Returns null if
+     * it can't parse parameters, can't find school, or the school is inactive
+     */
+    protected School getSchool(State state, Integer schoolId) {
+        if (state == null || schoolId == null) {
+            return null;
+        }
+        School school = null;
+        try {
+            school = _schoolDao.getSchoolById(state, schoolId);
+        } catch (Exception e) {
+            // handled below
+        }
+        if (school == null || (!school.isActive() && !school.isDemoSchool())) {
+            _logger.error("School is null or inactive: " + school);
+            return null;
+        }
+
+        if (school.isPreschoolOnly()) {
+            _logger.error("School is preschool only! " + school);
+            return null;
+        }
+
+        return school;
     }
 
     public IUserDao getUserDao() {
