@@ -51,12 +51,10 @@ public class UspFormControllerTest extends BaseControllerTestCase {
      * Test with Nulls.
      */
     public void testCheckUserStateNulls() throws Exception {
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
 
         //Null email. Hence email should be invalid
         replayAllMocks();
-        _controller.checkUserState(request,response,null,false,null);
+        _controller.checkUserState(getRequest(),getResponse(),null,false,null);
         verifyAllMocks();
 
         String expectedJson = "{\"isCookieMatched\":true,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":false,\"isNewUser\":true,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":false}";
@@ -65,11 +63,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     }
 
     public void testCheckUserStateWithProvisionalUser() throws Exception {
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
-
-        request = getRequest();
-        response = getResponse();
         //provisional user
         User user = new User();
         user.setId(1);
@@ -81,7 +74,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("someone@somedomain.com")).andReturn(user);
 
         replayAllMocks();
-        _controller.checkUserState(request,response,"someone@somedomain.com",false,null);
+        _controller.checkUserState(getRequest(),getResponse(),"someone@somedomain.com",false,null);
         verifyAllMocks();
 
         String expectedJson = new String("{\"isCookieMatched\":true,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":true,\"isNewUser\":false,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":false}");
@@ -90,11 +83,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     }
 
     public void testCheckUserStateWithValidatedUserWrongPassword() throws Exception {
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
-
-        request = getRequest();
-        response = getResponse();
 
         //Email validated user.
         User user = new User();
@@ -106,7 +94,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("someone@somedomain.com")).andReturn(user);
 
         replayAllMocks();
-        _controller.checkUserState(request,response,"someone@somedomain.com",true,null);
+        _controller.checkUserState(getRequest(),getResponse(),"someone@somedomain.com",true,null);
         verifyAllMocks();
 
         String expectedJson = new String("{\"isCookieMatched\":false,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":true,\"isNewUser\":false,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":true}");
@@ -115,11 +103,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     }
 
     public void testCheckUserStateWithValidatedUser() throws Exception {
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
-
-        request = getRequest();
-        response = getResponse();
 
         //Email validated user.
         User user = new User();
@@ -131,7 +114,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("someone@somedomain.com")).andReturn(user);
 
         replayAllMocks();
-        _controller.checkUserState(request,response,"someone@somedomain.com",true,"password");
+        _controller.checkUserState(getRequest(),getResponse(),"someone@somedomain.com",true,"password");
         verifyAllMocks();
 
         String expectedJson = new String("{\"isCookieMatched\":true,\"isUserESPPreApproved\":false,\"isUserESPDisabled\":false,\"isUserApprovedESPMember\":false,\"isUserESPRejected\":false,\"isEmailValid\":true,\"isNewUser\":false,\"isUserCookieSet\":false,\"isUserAwaitingESPMembership\":false,\"isUserEmailValidated\":true}");
@@ -142,13 +125,10 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     public void testShowUserForm() {
         resetAllMocks();
 
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
-
         ModelMap modelMap = new ModelMap();
 
         replayAllMocks();
-        String view = _controller.showUspUserForm(modelMap, request, response, null, null);
+        String view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), null, null);
         verifyAllMocks();
 
         assertEquals("", view);
@@ -160,10 +140,10 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = getSchool(state, schoolId);
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
-        _uspHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, null, false);
+        _uspHelper.formFieldsBuilderHelper(modelMap, getRequest(), getResponse(), school, state, null, false);
 
         replayAllMocks();
-        view = _controller.showUspUserForm(modelMap, request, response, schoolId, state);
+        view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), schoolId, state);
         verifyAllMocks();
 
         assertEquals(UspFormController.FORM_VIEW, view);
