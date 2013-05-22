@@ -1,21 +1,39 @@
 package gs.web.school;
 
 import gs.data.community.User;
-import gs.data.school.EspResponse;
-import gs.data.school.IEspResponseDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
+import gs.data.school.*;
+import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.school.usp.UspFormHelper;
+import org.easymock.classextension.EasyMock;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.*;
 
 
 public class EspSaveHelperTest extends BaseControllerTestCase {
+    private User _user;
+    private School _school;
+    private State _state;
+    private Map<String, Object[]> _responseKeyValues;
+    private Set<String> _formFieldNames = UspFormHelper.FORM_FIELD_TITLES.keySet();
+    private Set<String> _keysForOspForm = new HashSet<String>(){{
+        for(UspFormHelper.SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
+            String[] responseKeys = sectionResponseKeys.getResponseKeys();
+            if(responseKeys != null) {
+                for(String responseKey : responseKeys) {
+                    add(responseKey);
+                }
+            }
+        }
+        // one more key for the page itself to get the keys for page
+        add("_page_osp_gateway_keys");
+    }};
+
     private EspSaveHelper _helper;
     private IEspResponseDao _espResponseDao;
     private INoEditDao _noEditDao;
@@ -28,7 +46,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         super.setUp();
         _helper = new EspSaveHelper();
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
-        _espFormValidationHelper = new EspFormValidationHelper();
+        _espFormValidationHelper = EasyMock.createStrictMock(EspFormValidationHelper.class);
         _espResponseDao = createMock(IEspResponseDao.class);
         _noEditDao = createMock(INoEditDao.class);
         _schoolDao = createMock(ISchoolDao.class);
@@ -41,12 +59,16 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espFormExternalDataHelper.setSchoolDao(_schoolDao);
     }
 
+    private void resetAllMocks() {
+        resetMocks(_noEditDao, _espResponseDao, _schoolDao, _espFormValidationHelper);
+    }
+
     private void replayAllMocks() {
-        replayMocks(_noEditDao, _espResponseDao);
+        replayMocks(_noEditDao, _espResponseDao, _schoolDao, _espFormValidationHelper);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_noEditDao, _espResponseDao);
+        verifyMocks(_noEditDao, _espResponseDao, _schoolDao, _espFormValidationHelper);
     }
 
     public void testSaveEspFormDataBasicUserApproved() {
@@ -310,5 +332,114 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
+    public void testSaveUspFormDataForUspUser() throws NoSuchAlgorithmException {
+        List<EspResponseSource> espResponses = new ArrayList<EspResponseSource>(){{
+            add(EspResponseSource.usp);
+        }};
+
+        /**
+         * provisional user expectations:
+         * - is not osp provisional
+         * - save responses (in inactive state)
+         */
+        resetAllMocks();
+        uspFormDataSetters();
+        _user.setEmailProvisional("ahdld");
+
+        expect(_espFormValidationHelper.isUserProvisional(_user)).andReturn(false);
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+        expectLastCall();
+
+        replayAllMocks();
+        _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+
+        /*
+         * email verified usp user expectations:
+         * - is not osp provisional
+         * - deactivate active usp responses of that user for the school
+         * - save new responses
+         */
+        resetAllMocks();
+        uspFormDataSetters();
+
+        expect(_espFormValidationHelper.isUserProvisional(_user)).andReturn(false);
+        _espResponseDao.deactivateResponsesByUserAndSource(_school, _user.getId(), espResponses);
+        expectLastCall();
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+        expectLastCall();
+
+        replayAllMocks();
+        _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    public void testSaveUspFormDataForOspUser() throws NoSuchAlgorithmException {
+        List<EspResponseSource> espResponses = new ArrayList<EspResponseSource>(){{
+            add(EspResponseSource.osp);
+            add(EspResponseSource.datateam);
+        }};
+        Role role = new Role();
+        role.setKey(Role.ESP_MEMBER);
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(role);
+
+        /**
+         * osp members expectations:
+         * - has role set, so no need to validate osp user state (no expectation set)
+         * - deactivate active responses for school from osp and datateam sources
+         * - save new responses
+         */
+        resetAllMocks();
+        uspFormDataSetters();
+        _user.setRoles(roles);
+
+        _espResponseDao.deactivateResponsesByUserAndSource(_school, null, espResponses);
+        expectLastCall();
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+        expectLastCall();
+
+        replayAllMocks();
+        _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+
+        /**
+         * osp provisional expectations:
+         * - user is osp provisional
+         * - delete all previous osp form page responses for the school saved previously by this user
+         * - save responses
+         */
+        resetAllMocks();
+        uspFormDataSetters();
+
+        expect(_espFormValidationHelper.isUserProvisional(_user)).andReturn(true);
+        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(_school, _user.getId(), _keysForOspForm);
+        expectLastCall();
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+        expectLastCall();
+
+        replayAllMocks();
+        _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    private void uspFormDataSetters() throws NoSuchAlgorithmException {
+        _user = new User();
+        _user.setId(1);
+        _user.setPlaintextPassword("ahdld");
+
+        _state = State.CA;
+
+        _school = new School();
+        _school.setId(1);
+        _school.setDatabaseState(_state);
+
+        _responseKeyValues = new HashMap<String, Object[]>(){{
+            put(UspFormHelper.ARTS_MUSIC_PARAM, new Object[]{UspFormHelper.ARTS_VISUAL_RESPONSE_KEY + "__" + UspFormHelper.ARTS_VISUAL_PHOTO_RESPONSE_VALUE,
+                    UspFormHelper.ARTS_MEDIA_RESPONSE_KEY + "__" + UspFormHelper.ARTS_MEDIA_GRAPHICS_RESPONSE_VALUE});
+            put(UspFormHelper.FACILITIES_PARAM, new Object[]{UspFormHelper.FACILITIES_RESPONSE_KEY, UspFormHelper.FACILITIES_ARTS_RESPONSE_VALUE});
+            put("asdd", new Object[]{"", ""});
+        }};
+    }
 }
 

@@ -29,8 +29,6 @@ public class EspSaveHelper {
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     @Autowired
     SchoolMediaDaoHibernate _schoolMediaDao;
-    @Autowired
-    private IEspMembershipDao _espMembershipDao;
 
     /**
      * This function performs validation, does data transformation and saves the responses to the database.
@@ -284,8 +282,11 @@ public class EspSaveHelper {
             /**
              * deactivate all osp and datateam active responses for osp approved/super user. For usp user, deactivate only previously saved
              * responses of that user.
+             * for users not emil validat
              */
-            _espResponseDao.deactivateResponsesByUserAndSource(school, isOspSource ? null : user.getId(), responseSources);
+            if(user.isEmailProvisional()) {
+                _espResponseDao.deactivateResponsesByUserAndSource(school, isOspSource ? null : user.getId(), responseSources);
+            }
         }
 
         if (responseList != null && !responseList.isEmpty()) {
