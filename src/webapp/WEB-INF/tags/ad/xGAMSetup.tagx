@@ -253,7 +253,13 @@
                 if (GS.ad.onSchoolProfileTab(window.location.hash, GS.ad.tabParamValue, '${associatedTab}')) {
                 </c:if>
 
-                GS.ad.slots['${slotName}'] = googletag.defineSlot('/1002894/${slotName}', <c:choose>
+                <!-- GS-13764 The 300x125 slot should always display the ad ROS_TextAd_Top_300x125 -->
+                <c:set var="unitName" value="${slotName}"/>
+                <c:if test="${fn:endsWith(slotName, '_300x125')}">
+                    <c:set var="unitName" value="ROS_TextAd_Top_300x125"/>
+                </c:if>
+
+                GS.ad.slots['${slotName}'] = googletag.defineSlot('/1002894/${unitName}', <c:choose>
                     <c:when test="${fn:length(adSizes) > 1}">[<c:forEach var="size" items="${adSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
                 </c:choose>, <c:choose>
