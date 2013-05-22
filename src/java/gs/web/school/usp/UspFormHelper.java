@@ -759,6 +759,21 @@ public class UspFormHelper {
         put(PARENT_INVOLVEMENT_PARAM, PARENT_INVOLVEMENT_TITLE);
     }};
 
+    /**
+     * Ghost text values for fields
+     */
+    public static final Map<String, String> FORM_FIELD_GHOST_TEXT = new HashMap<String, String>() {{
+        put(ARTS_MUSIC_PARAM, "What arts and music programs does this school offer?");
+        put(FOREIGN_LANGUAGES_PARAM, "What foreign languages does this school offer?");
+        put(EXTENDED_CARE_PARAM, "What before/after school care does this school offer?");
+        put(TRANSPORTATION_PARAM, "What types of transportation does this school offer?");
+        put(GIRLS_SPORTS_PARAM, "What girls sports does this school offer?");
+        put(BOYS_SPORTS_PARAM, "What boys sports does this school offer?");
+        put(STAFF_PARAM, "What types of staff work at this school?");
+        put(PARENT_INVOLVEMENT_PARAM, "How are parents involved at this school?");
+        put(FACILITIES_PARAM, "What facilities does this school have?)");
+    }};
+
     public void formFieldsBuilderHelper(ModelMap modelMap,
                                         HttpServletRequest request,
                                         HttpServletResponse response,
@@ -789,8 +804,10 @@ public class UspFormHelper {
                                         boolean isOspUser) {
         String fieldName = sectionResponseKeys.getSectionFieldName();
         String sectionTitle = FORM_FIELD_TITLES.get(fieldName);
+        String ghostText = FORM_FIELD_GHOST_TEXT.get(fieldName);
         UspFormResponseStruct uspFormResponse = new UspFormResponseStruct(fieldName, sectionTitle);
         uspFormResponse.setIsSchoolAdmin(isOspUser);
+        uspFormResponse.setGhostText(ghostText);
         boolean hasNoneField = false;
 
         List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponse.getSectionResponses();

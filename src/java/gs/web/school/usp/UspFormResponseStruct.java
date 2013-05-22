@@ -16,6 +16,7 @@ public class UspFormResponseStruct {
      */
     String _fieldName;
     String _title;
+    String _ghostText;
     boolean _isSchoolAdmin;
     boolean _hasNoneField;
     boolean _hasOtherField;
@@ -30,6 +31,14 @@ public class UspFormResponseStruct {
 
     public void setTitle(String _title) {
         this._title = _title;
+    }
+
+    public String getGhostText() {
+        return _ghostText;
+    }
+
+    public void setGhostText(String _ghostText) {
+        this._ghostText = _ghostText;
     }
 
     public boolean isSchoolAdmin() {
