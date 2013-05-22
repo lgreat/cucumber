@@ -179,7 +179,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         HttpServletRequest request = getRequest();
 
-        String url = _controller.determineRedirects(null, null, null, null, false);
+        String url = _controller.determineRedirects(null, null, null,null, null, false);
         assertEquals("Url should be blank since all params were null", null, url);
     }
 
@@ -197,10 +197,9 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        HttpServletRequest request = getRequest();
 
         //user already has previous answers
-        String url = _controller.determineRedirects(user, userStateStruct, school, request,true);
+        String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), true);
         assertEquals("User is logged in.",
                 "http://www.greatschools.org/school/usp/form.page?schoolId=1&showExistingAnswersMsg=true&state=CA", url);
 
@@ -220,9 +219,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
-        HttpServletRequest request = getRequest();
 
-        String url = _controller.determineRedirects(user, userStateStruct, school, request,false);
+        String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), false);
         assertEquals("User is in the session in.",
                 "http://www.greatschools.org/school/usp/thankYou.page?schoolId=1&state=CA", url);
     }
@@ -242,9 +240,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         school.setName("schoolName");
         school.setCity("city");
         school.setDatabaseState(State.CA);
-        HttpServletRequest request = getRequest();
 
-        String url = _controller.determineRedirects(user, userStateStruct, school, request,false);
+        String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), false);
         assertEquals("User has been registered.",
                 "http://www.greatschools.org/california/city/1-SchoolName/", url);
     }
