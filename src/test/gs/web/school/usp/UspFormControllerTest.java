@@ -1,26 +1,46 @@
 package gs.web.school.usp;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.community.registration.UserStateStruct;
+import gs.web.community.registration.*;
+import gs.web.school.EspSaveHelper;
 import org.easymock.classextension.EasyMock;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.isA;
 
 public class UspFormControllerTest extends BaseControllerTestCase {
     UspFormController _controller;
     private IUserDao _userDao;
     private UspFormHelper _uspHelper;
     private ISchoolDao _schoolDao;
+    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
+    private EspSaveHelper _espSaveHelper;
+
+    HttpServletRequest _request;
+    HttpServletResponse _response;
+    UserRegistrationCommand _userRegistrationCommand;
+    UserLoginCommand _userLoginCommand;
+    BindingResult _bindingResult;
+    State _state;
+    Integer _schoolId;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -29,22 +49,26 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         _userDao = EasyMock.createStrictMock(IUserDao.class);
         _schoolDao = EasyMock.createStrictMock(ISchoolDao.class);
         _uspHelper = EasyMock.createStrictMock(UspFormHelper.class);
+        _userRegistrationOrLoginService = EasyMock.createStrictMock(UserRegistrationOrLoginService.class);
+        _espSaveHelper = EasyMock.createStrictMock(EspSaveHelper.class);
 
         _controller.setUserDao(_userDao);
         _controller.setUspFormHelper(_uspHelper);
         _controller.setSchoolDao(_schoolDao);
+        _controller.setUserRegistrationOrLoginService(_userRegistrationOrLoginService);
+        _controller.setEspSaveHelper(_espSaveHelper);
     }
 
     private void replayAllMocks() {
-        replayMocks(_userDao, _schoolDao, _uspHelper);
+        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_userDao, _schoolDao, _uspHelper);
+        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper);
     }
 
     private void resetAllMocks() {
-        resetMocks(_userDao, _schoolDao, _uspHelper);
+        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper);
     }
 
     /**
@@ -225,6 +249,78 @@ public class UspFormControllerTest extends BaseControllerTestCase {
                 "http://www.greatschools.org/california/city/1-SchoolName/", url);
     }
 
+    public void testFormSubmitNullSchoolId() throws UnsupportedEncodingException {
+        setUpFormSubmitVariables();
+        _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
+                null, _state);
+        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"error\":\"noSchool\"}");
+    }
+
+    public void testFormSubmitNonExistingSchool() throws UnsupportedEncodingException {
+        setUpFormSubmitVariables();
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(null);
+
+        replayAllMocks();
+        _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
+                _schoolId, _state);
+        verifyAllMocks();
+
+        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"error\":\"noSchool\"}");
+    }
+
+    public void testFormSubmitWithNoPrevSavedResponses() throws Exception {
+        setUpFormSubmitVariables();
+        UserStateStruct userStateStruct = new UserStateStruct();
+        User user = new User();
+        user.setId(1);
+        userStateStruct.setUser(user);
+        School school = getSchool(_state, _schoolId);
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
+        expect(_userRegistrationOrLoginService.getUserStateStruct(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
+                isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
+                isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
+//        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
+        _espSaveHelper.saveUspFormData(user, school, _state, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
+        expectLastCall();
+
+        replayAllMocks();
+        _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
+                _schoolId, _state);
+        verifyAllMocks();
+
+        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "");
+    }
+
+    public void testFormSubmitWithPrevSavedResponses() throws Exception {
+        setUpFormSubmitVariables();
+        UserStateStruct userStateStruct = new UserStateStruct();
+        User user = new User();
+        user.setId(1);
+        user.setPlaintextPassword("qwerty");
+        userStateStruct.setUser(user);
+        userStateStruct.setUserLoggedIn(true);
+        School school = getSchool(_state, _schoolId);
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
+        expect(_userRegistrationOrLoginService.getUserStateStruct(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
+                isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
+                isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
+        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
+        _espSaveHelper.saveUspFormData(user, school, _state, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
+        expectLastCall();
+
+        replayAllMocks();
+        _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
+                _schoolId, _state);
+        verifyAllMocks();
+
+        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"redirect\":\"http://www.greatschools.org/school/usp/thankYou.page?schoolId=1&state=CA\"}");
+    }
 
     public School getSchool(State state, Integer schoolId) {
         School school = new School();
@@ -233,5 +329,15 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         school.setName("QWERT Elementary School");
         school.setActive(true);
         return school;
+    }
+
+    public void setUpFormSubmitVariables() {
+        _request = getRequest();
+        _response = getResponse();
+        _userRegistrationCommand = new UserRegistrationCommand();
+        _userLoginCommand = new UserLoginCommand();
+        _bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "userRegistrationCommand");
+        _state = State.CA;
+        _schoolId = 1;
     }
 }

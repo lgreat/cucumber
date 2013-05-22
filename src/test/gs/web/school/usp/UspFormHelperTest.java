@@ -3,13 +3,9 @@ package gs.web.school.usp;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.User;
-import gs.data.school.EspResponse;
-import gs.data.school.EspResponseSource;
-import gs.data.school.IEspResponseDao;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.community.registration.UserStateStruct;
 import org.easymock.EasyMock;
 import org.springframework.ui.ModelMap;
 
@@ -50,9 +46,6 @@ public class UspFormHelperTest extends BaseControllerTestCase {
     public void testGetSavedResponses() {
         resetAllMocks();
 
-        ModelMap modelMap = new ModelMap();
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
         State state = State.CA;
         Integer schoolId = 1;
         School school = getSampleSchool(state, schoolId);
@@ -116,13 +109,10 @@ public class UspFormHelperTest extends BaseControllerTestCase {
 
         List<UspFormResponseStruct> uspFormResponses = (List<UspFormResponseStruct>) modelMap.get("uspFormResponses");
         assertionsForFormSectionOrder(uspFormResponses);
-        assertEquals(uspFormResponses.get(7).isSchoolAdmin(), false);
         UspFormResponseStruct boysSportsResponses = uspFormResponses.get(7);
-        assertEquals(boysSportsResponses.isSchoolAdmin(), false);
-        assertEquals(boysSportsResponses.getOtherTextValue(), null);
+        assertionsForAdminFields(boysSportsResponses, false, false, false, false, false, null);
         UspFormResponseStruct foreignLanguageResponses = uspFormResponses.get(5);
-        assertEquals(foreignLanguageResponses.isSchoolAdmin(), false);
-        assertEquals(foreignLanguageResponses.getHasNoneField(), false);
+        assertionsForAdminFields(foreignLanguageResponses, false, false, false, false, false, null);
 
         resetAllMocks();
 
@@ -143,14 +133,9 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         uspFormResponses = (List<UspFormResponseStruct>) modelMap.get("uspFormResponses");
         assertionsForFormSectionOrder(uspFormResponses);
         boysSportsResponses = uspFormResponses.get(7);
-        assertEquals(boysSportsResponses.isSchoolAdmin(), true);
-        assertEquals(boysSportsResponses.getOtherTextValue(), BOYS_SPORTS_OTHER_TEXT);
-        assertEquals(boysSportsResponses.getHasNoneField(), true);
-        assertEquals(boysSportsResponses.isNoneChecked(), false);
+        assertionsForAdminFields(boysSportsResponses, true, true, false, true, true, BOYS_SPORTS_OTHER_TEXT);
         foreignLanguageResponses = uspFormResponses.get(5);
-        assertEquals(foreignLanguageResponses.isSchoolAdmin(), true);
-        assertEquals(foreignLanguageResponses.getHasNoneField(), true);
-        assertEquals(foreignLanguageResponses.isNoneChecked(), true);
+        assertionsForAdminFields(foreignLanguageResponses, true, true, true, true, false, null);
     }
 
     public void testBuildSectionResponse() {
@@ -256,14 +241,6 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         assertEquals(formResponseStruct.getHasOtherField(), hasOtherField);
         assertEquals(formResponseStruct.isOtherChecked(), isOtherChecked);
         assertEquals(formResponseStruct.getOtherTextValue(), otherText);
-    }
-
-    public EspResponse buildEspResponse(String key, String value,boolean active) {
-        EspResponse espResponse = new EspResponse();
-        espResponse.setKey(key);
-        espResponse.setValue(value);
-        espResponse.setActive(active);
-        return espResponse;
     }
 
     public List<Object[]> getSampleKeyValuePairs() {

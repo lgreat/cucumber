@@ -374,4 +374,12 @@ public class UspFormController implements ReadWriteAnnotationController {
     public void setUspFormHelper(UspFormHelper _uspFormHelper) {
         this._uspFormHelper = _uspFormHelper;
     }
+
+    public void setUserRegistrationOrLoginService(UserRegistrationOrLoginService _userRegistrationOrLoginService) {
+        this._userRegistrationOrLoginService = _userRegistrationOrLoginService;
+    }
+
+    public void setEspSaveHelper(EspSaveHelper _espSaveHelper) {
+        this._espSaveHelper = _espSaveHelper;
+    }
 }
