@@ -174,11 +174,13 @@
 }
 .ui-dialog .ui-dialog-titlebar-close {
     position: absolute;
-    background: url(/res/img/discussion_boards/db_modalCloseX_bg.png) 100% 2px no-repeat;
-    right: .3em;
-    top: 50%;
+    background: url(/res/img/discussion_boards/db_modalCloseX_bg.png) 100%   no-repeat;
+    right: 0px;
+    top: 0px;
     margin: -10px 0 0 0;
-    height: 20px;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
 }
 .ui-dialog .ui-dialog-content {
     position: relative;
@@ -194,6 +196,7 @@
     background-position: 16px 16px;
 }
 .ui-dialog .ui-button-text{
+    display: none;
     position: absolute;
     top: 1px;
     right: 18px;
