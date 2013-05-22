@@ -188,25 +188,15 @@ public class EspSaveHelper {
 
         EspResponseSource responseSource = EspResponseSource.usp;
 
-        if(user.hasRole(Role.ESP_SUPERUSER)) {
+        if(user.hasRole(Role.ESP_SUPERUSER) || user.hasRole(Role.ESP_MEMBER)) {
             responseSource = EspResponseSource.osp;
             active = true;
         }
-        else if(user.hasRole(Role.ESP_MEMBER)) {
-            EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(state, school.getId(),
-                    user.getId(), true);
-            if(espMembership != null) {
-                responseSource = EspResponseSource.osp;
-                active = true;
-            }
-        }
         else {
-            EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(state, school.getId(),
-                    user.getId(), false);
-            if(espMembership != null && espMembership.getStatus() == EspMembershipStatus.PROVISIONAL) {
+            isOspProvisional = _espFormValidationHelper.isUserProvisional(user);
+            if(isOspProvisional) {
                 responseSource = EspResponseSource.osp;
                 active = false;
-                isOspProvisional = true;
             }
         }
 
@@ -275,7 +265,7 @@ public class EspSaveHelper {
             }
         }};
 
-        if(isOspSource && isOspProvisional) {
+        if(isOspProvisional) {
             Set<String> keysForPage = new HashSet<String>();
 
             for(UspFormHelper.SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
