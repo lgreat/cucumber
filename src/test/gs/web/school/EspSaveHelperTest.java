@@ -8,6 +8,7 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.usp.UspFormHelper;
 import org.easymock.classextension.EasyMock;
+import static org.easymock.classextension.EasyMock.reset;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -40,13 +41,15 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     private EspFormValidationHelper _espFormValidationHelper;
+    private EspFormValidationHelper _espFormValidationHelperMock;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
         _helper = new EspSaveHelper();
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
-        _espFormValidationHelper = EasyMock.createStrictMock(EspFormValidationHelper.class);
+        _espFormValidationHelper = new EspFormValidationHelper();
+        _espFormValidationHelperMock = EasyMock.createStrictMock(EspFormValidationHelper.class);
         _espResponseDao = createMock(IEspResponseDao.class);
         _noEditDao = createMock(INoEditDao.class);
         _schoolDao = createMock(ISchoolDao.class);
@@ -60,15 +63,15 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
     }
 
     private void resetAllMocks() {
-        resetMocks(_noEditDao, _espResponseDao, _schoolDao, _espFormValidationHelper);
+        resetMocks(_noEditDao, _espResponseDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_noEditDao, _espResponseDao, _schoolDao, _espFormValidationHelper);
+        replayMocks(_noEditDao, _espResponseDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_noEditDao, _espResponseDao, _schoolDao, _espFormValidationHelper);
+        verifyMocks(_noEditDao, _espResponseDao);
     }
 
     public void testSaveEspFormDataBasicUserApproved() {
@@ -185,7 +188,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         keysForPage.add("transportation");
 
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
-        _espResponseDao.deactivateResponsesByKeys(school,keysForPage);
+        _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -336,23 +339,29 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         List<EspResponseSource> espResponses = new ArrayList<EspResponseSource>(){{
             add(EspResponseSource.usp);
         }};
-
+        _helper.setEspFormValidationHelper(_espFormValidationHelperMock);
         /**
          * provisional user expectations:
          * - is not osp provisional
          * - save responses (in inactive state)
          */
         resetAllMocks();
+        reset(_schoolDao);
+        EasyMock.reset(_espFormValidationHelperMock);
         uspFormDataSetters();
         _user.setEmailProvisional("ahdld");
 
-        expect(_espFormValidationHelper.isUserProvisional(_user)).andReturn(false);
+        expect(_espFormValidationHelperMock.isUserProvisional(_user)).andReturn(false);
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
         expectLastCall();
 
         replayAllMocks();
+        replay(_schoolDao);
+        EasyMock.replay(_espFormValidationHelperMock);
         _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
         verifyAllMocks();
+        verify(_schoolDao);
+        EasyMock.verify(_espFormValidationHelperMock);
 
         /*
          * email verified usp user expectations:
@@ -361,17 +370,23 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
          * - save new responses
          */
         resetAllMocks();
+        reset(_schoolDao);
+        EasyMock.reset(_espFormValidationHelperMock);
         uspFormDataSetters();
 
-        expect(_espFormValidationHelper.isUserProvisional(_user)).andReturn(false);
+        expect(_espFormValidationHelperMock.isUserProvisional(_user)).andReturn(false);
         _espResponseDao.deactivateResponsesByUserAndSource(_school, _user.getId(), espResponses);
         expectLastCall();
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
         expectLastCall();
 
         replayAllMocks();
+        replay(_schoolDao);
+        EasyMock.replay(_espFormValidationHelperMock);
         _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
         verifyAllMocks();
+        verify(_schoolDao);
+        EasyMock.verify(_espFormValidationHelperMock);
     }
 
     public void testSaveUspFormDataForOspUser() throws NoSuchAlgorithmException {
@@ -383,7 +398,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         role.setKey(Role.ESP_MEMBER);
         Set<Role> roles = new HashSet<Role>();
         roles.add(role);
-
+        _helper.setEspFormValidationHelper(_espFormValidationHelperMock);
         /**
          * osp members expectations:
          * - has role set, so no need to validate osp user state (no expectation set)
@@ -391,6 +406,8 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
          * - save new responses
          */
         resetAllMocks();
+        reset(_schoolDao);
+        EasyMock.reset(_espFormValidationHelperMock);
         uspFormDataSetters();
         _user.setRoles(roles);
 
@@ -400,8 +417,12 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expectLastCall();
 
         replayAllMocks();
+        replay(_schoolDao);
+        EasyMock.replay(_espFormValidationHelperMock);
         _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
         verifyAllMocks();
+        verify(_schoolDao);
+        EasyMock.verify(_espFormValidationHelperMock);
 
         /**
          * osp provisional expectations:
@@ -410,17 +431,23 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
          * - save responses
          */
         resetAllMocks();
+        reset(_schoolDao);
+        EasyMock.reset(_espFormValidationHelperMock);
         uspFormDataSetters();
 
-        expect(_espFormValidationHelper.isUserProvisional(_user)).andReturn(true);
+        expect(_espFormValidationHelperMock.isUserProvisional(_user)).andReturn(true);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(_school, _user.getId(), _keysForOspForm);
         expectLastCall();
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
         expectLastCall();
 
         replayAllMocks();
+        replay(_schoolDao);
+        EasyMock.replay(_espFormValidationHelperMock);
         _helper.saveUspFormData(_user, _school, _state, _responseKeyValues, _formFieldNames);
         verifyAllMocks();
+        verify(_schoolDao);
+        EasyMock.verify(_espFormValidationHelperMock);
     }
 
     private void uspFormDataSetters() throws NoSuchAlgorithmException {

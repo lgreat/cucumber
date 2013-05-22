@@ -284,7 +284,7 @@ public class EspSaveHelper {
              * responses of that user.
              * for users not emil validat
              */
-            if(user.isEmailProvisional()) {
+            if(!user.isEmailProvisional()) {
                 _espResponseDao.deactivateResponsesByUserAndSource(school, isOspSource ? null : user.getId(), responseSources);
             }
         }
