@@ -96,7 +96,7 @@
 
         <c:if test="${!signedIn}">
 <![CDATA[
-        jQuery('#ryhAnswer').focus(function() {
+        jQuery('#ryhAnswer').click(function() {
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
         jQuery('#ryhSubmit').click(function() {
