@@ -14,7 +14,7 @@
                              type="gs.web.school.usp.UspFormResponseStruct"/>
 
     <c:set var="sectionResponses" value="${formFieldResponse.sectionResponses}"/>
-    <select name="${name}" multiple="multiple" style="width:${width}px" size="1" class="chosenElement">
+    <select name="${name}" multiple="multiple" style="width:${width}px" size="1" class="chosenElement" data-placeholder="${formFieldResponse.ghostText}">
         <c:choose>
             <c:when test="${fn:length(sectionResponses) > 1}">
                 <!-- If the question has sub sections -->

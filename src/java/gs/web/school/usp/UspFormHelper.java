@@ -771,7 +771,7 @@ public class UspFormHelper {
         put(BOYS_SPORTS_PARAM, "What boys sports does this school offer?");
         put(STAFF_PARAM, "What types of staff work at this school?");
         put(PARENT_INVOLVEMENT_PARAM, "How are parents involved at this school?");
-        put(FACILITIES_PARAM, "What facilities does this school have?)");
+        put(FACILITIES_PARAM, "What facilities does this school have?");
     }};
 
     public void formFieldsBuilderHelper(ModelMap modelMap,
