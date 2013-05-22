@@ -19,7 +19,7 @@
         <c:set var="tandem_fontColorTitle" value="make-ffffff" />
     </c:if>
 
-    <div id="js-school-calendar-list" class="line ">
+    <div id="js-school-calendar-list" class="line dn">
         <div class="unit size100of100 lastUnit">
             <div class="mod ${tandem_moduleToUse}">
                 <div class="inner ">
@@ -35,13 +35,13 @@
                             </div>
                         </c:if>
                     </div>
-                    <div class="mam small_bold textshadow-1 js-no-school-events">
+                    <div class="mam small_bold textshadow-1 js-no-school-events dn">
                         No upcoming events found for this school
                     </div>
-                    <div class="mam small_bold textshadow-1 js-school-events-loading" style="display:none;">
+                    <div class="mam small_bold textshadow-1 js-school-events-loading dn">
                         Searching for school events... <img src="/res/img/admin/spinner.gif"/>
                     </div>
-                    <div class="bd dn">
+                    <div class="bd">
                         <div class="clearfix plm ${tandem_subHeaderLayout}">
                             <div class="pas fl size10of100 small_bold  bottom">Date</div>
                             <div class="pas fl size10of100 small_bold bottom">Time</div>
@@ -63,7 +63,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="ft clearfix" style="display:none;">
+                    <div class="ft clearfix">
                         <div class="fl pam">
                             <select id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
                                 <option value="">Export calendar</option>

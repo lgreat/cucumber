@@ -44,17 +44,6 @@ GS.school.calendar =  (function($) {
         var month = xCalDate.substring(5,7);
         var monthName = parseDate.months[xCalDate.substring(5,7)-1];
         var day = xCalDate.substr(8,10);
-        var superscript;
-
-        if (day === 1 || day === 21 || day === 31) {
-            superscript = "st";
-        } else if (day === 2 || day === 22) {
-            superscript = "nd";
-        } else if (day === 3 || day === 23) {
-            superscript = "rd";
-        } else {
-            superscript = "th";
-        }
 
         var prettyDate = function() {
             return monthName + " " + parseInt(day, 10) +  ", " + year;
@@ -143,12 +132,16 @@ GS.school.calendar =  (function($) {
                 ncesCode: ncesCode
             }
         }).done(function(data) {
-                log("getEventsViaAjax done success");
-            events = parseXCalData(data);
-            getEventsViaAjax.cache[ncesCode] = events;
-            deferred.resolve(events);
+            log("getEventsViaAjax done success", data);
+            if(data === undefined || data === null || data === "" || data.length === 0) {
+                deferred.reject();
+            } else {
+                events = parseXCalData(data);
+                getEventsViaAjax.cache[ncesCode] = events;
+                deferred.resolve(events);
+            }
         }).fail(function() {
-                log("getEventsViaAjax done failure");
+            log("getEventsViaAjax done failure");
             deferred.reject();
         });
 
@@ -175,9 +168,9 @@ GS.school.calendar =  (function($) {
             clearEventsList();
             fillCalendarList(events);
 
-            showListEvents();
+            show();
         }).fail(function() {
-            showListNoEvents();
+            hide();
         });
 
         log("returning getEventsAndUpdateListUI", promise);
@@ -273,35 +266,6 @@ GS.school.calendar =  (function($) {
     };
 
 
-    /**
-     * Style table so that it shows the events for a school
-     */
-    var showListEvents = function() {
-        $listModule.find(listNoSchoolEventsSelector).hide();
-        $listModule.find('.bd').show();
-        $listModule.find('.ft').show();
-        $listModule.find(listEventsLoadingSelector).hide();
-    };
-
-    /**
-     * Style table so it displays a message that there are no events
-     */
-    var showListNoEvents = function() {
-        $listModule.find(listNoSchoolEventsSelector).show();
-        $listModule.find('.bd').hide();
-        $listModule.find('.ft').hide();
-        $listModule.find(listEventsLoadingSelector).hide();
-    };
-
-    /**
-     * Style table so that it shows a "Loading" state
-     */
-    var showListLoading = function() {
-        $listModule.find(listNoSchoolEventsSelector).show();
-        $listModule.find('.bd').hide();
-        $listModule.find('.ft').hide();
-        $listModule.find(listEventsLoadingSelector).show();
-    };
 
     var show = function() {
         $listModule.show();
