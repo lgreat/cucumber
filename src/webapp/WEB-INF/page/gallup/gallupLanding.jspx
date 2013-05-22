@@ -14,6 +14,9 @@
 <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<!--<c:set var="s" value="Tst"/>-->
+
 <head>
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -85,7 +88,7 @@
                 <div class="bd pam" style="height: 500px ; overflow-y: scroll">
                     <c:forEach items="${gallupSchools}" var="gallupSchool">
                     <div class="small bottom clearfix" style="height: 24px;">
-                            <div class="fl">  <a href="${gallupSchool.schoolAddress}">${gallupSchool.schoolName}</a>, ${gallupSchool.city} </div>
+                            <div class="fl">  <a href="${gallupSchool.schoolAddress}" onclick="if (s.tl) { s.tl(this, 'o', 'gallup_school'); }">${gallupSchool.schoolName}</a>, ${gallupSchool.city} </div>
                             <div class="fr ">${gallupSchool.state}</div>
 
                     </div>
@@ -95,6 +98,10 @@
         </div>
     </div>
 </div>
+
+<mod:tracking pageName="Gallup Landing Page"
+              hier1="Expanded Data Partnerships, Gallup"
+/>
 </body>
 </html>
 </jsp:root>
