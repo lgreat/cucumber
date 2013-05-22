@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+
+    <c:set var="tandem_moduleToUse" value="standard_1-1" />
+    <c:set var="tandem_fontColorHeaderFooter" value="make-999999" />
+    <c:set var="tandem_subHeaderLayout" value="make-ffffff bbt-light bg-777 " />
+    <c:set var="tandem_fontColorTitle" value="" />
+
+    <!--<c:set var="tandemTileMSBranding" value="true" />-->
+    <c:if test="${tandemTileMSBranding == 'true'}">
+        <c:set var="tandem_moduleToUse" value="standard_8-1" />
+        <c:set var="tandem_fontColorHeaderFooter" value="make-ffffff" />
+        <c:set var="tandem_subHeaderLayout" value="make-555555 bbt-dark bg-F1" />
+        <c:set var="tandem_fontColorTitle" value="make-ffffff" />
+    </c:if>
+
+    <div id="js-school-calendar-list" class="line dn">
+        <div class="unit size100of100 lastUnit">
+            <div class="mod ${tandem_moduleToUse}">
+                <div class="inner ">
+                    <div class="hd clearfix">
+                        <div class="fl">
+                            <h4 class="bottom pam ${tandem_fontColorTitle}">Upcoming Events</h4>
+                            <span class="js-school-calendar-month"><!-- do not collapse --></span>
+                        </div>
+                        <c:if test="${tandemTileMSBranding == 'true'}">
+                            <div class="fr clearfix pam">
+                                <div class="fl tac plm smallest bottom make-ffffff pts" style="line-height: 18px">BROUGHT TO YOU BY</div>
+                                <div class="fl plm"><img style="width: 90px; height: 25px;" src="/res/img/school/overview/tandem/microsoft_logo_90x25.png" alt="MS OFFICE 365" /></div>
+                            </div>
+                        </c:if>
+                    </div>
+                    <div class="mam small_bold textshadow-1 js-no-school-events dn">
+                        No upcoming events found for this school
+                    </div>
+                    <div class="mam small_bold textshadow-1 js-school-events-loading dn">
+                        Searching for school events... <img src="/res/img/admin/spinner.gif"/>
+                    </div>
+                    <div class="bd">
+                        <div class="clearfix plm ${tandem_subHeaderLayout}">
+                            <div class="pas fl size10of100 small_bold  bottom">Date</div>
+                            <div class="pas fl size10of100 small_bold bottom">Time</div>
+                            <div class="pas fl size70of100 small_bold bottom">Title</div>
+
+                        </div>
+                        <ul id="js-calendar-list-event-template" class="clearfix scrolling-vert-150" >
+                            <li class="man clearfix plm bbt-lighter lsn">
+
+                                <div class="pas fl size10of100 small_bold bottom">
+                                    {{date}}
+                                </div>
+                                <div class="pas plm fl size10of100 small bottom">
+                                    {{time}}
+                                </div>
+                                <div class="pas fl size70of100 small bottom">
+                                    {{title}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ft clearfix">
+                        <div class="fl pam">
+                            <select id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
+                                <option value="">Export calendar</option>
+                                <option value="Outlook">Microsoft Outlook</option>
+                                <option value="iCal">iCal Format</option>
+                                <option value="Google">Google Calendar</option>
+                            </select>
+                        </div>
+                        <div class="fr pam clearfix">
+                            <div class="prm fl smallest bottom ${tandem_fontColorHeaderFooter}">POWERED BY</div>
+                            <div class="fl"><img src="/res/img/school/overview/tandem/tandem_logo_70x16.png" alt="Tandem" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

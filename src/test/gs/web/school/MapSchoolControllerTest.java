@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.request.RequestAttributeHelper;
@@ -31,6 +32,7 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
     private MockControl _reviewControl;
     private GsMockHttpServletRequest _request;
     private RequestAttributeHelper _requestAttributeHelper;
+    private ZillowRegionDao _zillowDao;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -43,9 +45,14 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         _reviewDao = (IReviewDao) _reviewControl.getMock();
         _requestAttributeHelper = new RequestAttributeHelper();
 
+
+        _zillowDao = (ZillowRegionDao) MockControl.createControl(ZillowRegionDao.class).getMock();
+
+
         _controller.setSchoolDao(_schoolDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setViewName("/viewName");
+        _controller.setZillowDao(_zillowDao);
         _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
         _controller.setRequestAttributeHelper(_requestAttributeHelper);
 
@@ -98,6 +105,7 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         school.setId(1);
         school.setLevelCode(LevelCode.ALL_LEVELS);
         school.setActive(true);
+
 
         _request.setAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE, school);
 

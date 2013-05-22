@@ -108,14 +108,8 @@
 <!-- end: breadcrumbs -->
 
 <div class="${(tab eq 'overview')? 'overview' : ''}">
-
-    <!--<div id="schoolProfileHeaderGS" class="clearfix vcard">-->
-        <!--<div id="schoolHeaderInfoLeft" class="col">-->
         <div class="grid_13">
-        <!--<gslink:backToSearchResults/>-->
-            <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
-        <!-- School name -->
         <div id="schoolName">
             <h1>
                 <c:choose>
@@ -190,20 +184,6 @@
                 <span class="sprite rate2"><!-- do not collapse --></span>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">Rate &amp;amp; review</link:schoolProfileParentReview>
             </li>
-            <!--<li>
-                <span class="sprite print2">&lt;!&ndash; do not collapse &ndash;&gt;</span>
-                <a href="javascript:window.print();">Print</a>
-            </li>-->
-            <!--<li>
-                <gsml:url var="mailToFriendUrl"
-                          value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
-                <span class="sprite emailIt">&lt;!&ndash; do not collapse &ndash;&gt;</span>
-                <a href="${mailToFriendUrl}"
-                        onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</a>
-            </li>-->
-            <!--<li>
-                <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
-            </li>-->
             <li>
                 <a href="#" onclick="return false;"><span class="st_sharethis_custom sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
             </li>
@@ -275,20 +255,13 @@
                     </p>
                 </c:if>
             </div>
-            <!-- GS-10170 commenting out until 15.5 -->
-            <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-            <!--<div id="schoolInfoFooter" class="smallAlertText">-->
-                <!--<p>Like <span class="sprite facebook">&lt;!&ndash; do not collapse &ndash;&gt;</span> 12.932 people like Lowell High School</p>-->
-            <!--</div>-->
             </div>
 
         </div>
-    <!--</div>-->
-    <!-- end schoolProfileHeader -->
+
 
     <div class="spacer_15"><!-- do not collapse --></div>
-    <!--<div id="schoolProfileBody" class="clearfix">-->
-        <!--<div id="schoolProfileLeftColumn" class="col">-->
+
         <div class="grid_16">
             <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
 
@@ -335,14 +308,7 @@
                     </li>
                 </ul>
 
-            </div><!-- end schoolProfileTabsWrapper -->
-
-            <!-- Display subnav if:
-                * school stats tab is selected in main nav and any of the following
-                    - school is public or charter OR private and has either survay data or test scores
-                    - school is preschool and has survey data AND school stats
-                    - school has principal questionaire data
-            -->
+            </div>
 
             <c:set var="subtab1" value="${requestScope.hasTestScores}"/>
             <c:set var="subtab2" value="${school.type.name ne 'private'}"/>
@@ -361,12 +327,6 @@
             <c:set var="showPipe3" value="${subtab1 or subtab2}"/>
             <c:set var="showPipe4" value="${subtab1 or subtab2 or subtab3}"/>
 
-            <!--<p>Show subtab 1: <c:out value="${subtab1}" default="not set"/></p>-->
-            <!--<p>Show subtab 2: <c:out value="${subtab2}" default="not set"/></p>-->
-            <!--<p>Show subtab 3: <c:out value="${subtab3}" default="not set"/></p>-->
-            <!--<p>Show subtab 4: <c:out value="${subtab4}" default="not set"/></p>-->
-            <!--<p>Show subtab 5: <c:out value="${subtab5}" default="not set"/></p>-->
-            <!--<p>Show subtabCount: <c:out value="${subtabCount}" default="not set"/></p>-->
 
                 <c:if test="${tab eq 'schoolStats' and subtabCount gt 1
                             and ((school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
@@ -481,14 +441,8 @@
         </div>
         <!-- end schoolProfileLeftColumn -->
 
-
-
-        <!--<div id="schoolProfileRightColumn" class="col">-->
         <div class="grid_8">
-            <!--<p>tab is: <c:out value="${tab}" default="not set"/></p>-->
-            <!--<p>caller is: <c:out value="${caller}" default="not set"/></p>-->
-            <!--<p>school levelCode is: <c:out value="${school.levelCode}" default="not set"/></p>-->
-            <c:choose>
+             <c:choose>
                 <c:when test="${tab eq 'overview'}">
                     <ad:AboveFold_300x600/>
 
@@ -591,10 +545,7 @@
                     <div class="ad_middle">
                         <ad:AboveFold_300x600/>
                     </div>
-
-                    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${school.city}"
-                                               defaultState="${school.databaseState.abbreviation}" style="2011"/>
+                    <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
 
                 </c:when>
                 <c:otherwise>
@@ -604,10 +555,7 @@
 
 
                     <div class="spacer_15"><!-- do not collapse --></div>
-
-                    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${school.city}"
-                                               defaultState="${school.databaseState.abbreviation}" style="2011"/>
+                    <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
 
                     <!-- Community module -->
                     <c:set var="recentDiscussions" value=""/>
@@ -634,10 +582,5 @@
 <!-- end schoolProfile -->
 <br class="clearfloat"/>
 
-<!--<script type="text/javascript">
-    jQuery(function() {
-        document.title = 'Parent Reviews of ${school.name} - ${addr}';
-    });
-</script>-->
 
 </jsp:root>

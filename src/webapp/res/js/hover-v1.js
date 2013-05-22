@@ -1419,9 +1419,8 @@ GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("school
 //GS-13761
 GSType.hover.ClickToReviewYourSchool = function() {
     this.loadDialog = function() {
-        jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function(e) {
-            GSType.hover.clickToReviewYourSchool.cancelLoadOnExit(e);
-
+        jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
+            GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
             if (!$.support.leadingWhitespace) {
                 //IE7 and 8 stuff
                 GSType.hover.clickToReviewYourSchool.hide();
@@ -1443,7 +1442,7 @@ GSType.hover.ClickToReviewYourSchool = function() {
             f();
         });
     };
-    this.cancelLoadOnExit = function(e) {
+    this.cancelLoadOnExit = function() {
         jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).off('dialogclose');
     };
 
@@ -2125,6 +2124,10 @@ jQuery(function() {
         GSType.hover.validateEmail.show();
     } else if (showHover == "validateEmailSchoolReview") {
         GSType.hover.validateEmailSchoolReview.show();
+    } else if (showHover == "reviewLandingPageInformational") {
+        GSType.hover.reviewLandingPageInformational.show();
+    } else if (showHover == "verifyYourEmailAddressUSP") {
+        GSType.hover.verifyYourEmailAddressUSP.show();
     } else if (showHover == "schoolReviewPostedThankYou") {
         GSType.hover.schoolReviewPostedThankYou.showHover();
     } else if (showHover == "schoolReviewNotPostedThankYou") {
@@ -2194,11 +2197,10 @@ GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printS
 GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 
 
-GSType.hover.ReviewLandingPageInformational = function() {
-//    this.show = function() {
-//        GSType.hover.reviewLandingPageInformational.showModal();
-//        return false;
-//    };
-};
+GSType.hover.ReviewLandingPageInformational = function() {};
 GSType.hover.ReviewLandingPageInformational.prototype = new GSType.hover.HoverDialog('js-reviewLandingPageInformational');
 GSType.hover.reviewLandingPageInformational = new GSType.hover.ReviewLandingPageInformational();
+
+GSType.hover.VerifyYourEmailAddressUSP = function() {};
+GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
+GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();

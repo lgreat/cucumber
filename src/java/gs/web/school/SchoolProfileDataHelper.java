@@ -123,6 +123,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     @Autowired
     private ZillowRegionDao _zillowDao;
 
+    @Autowired
+    private SchoolCalendarAjaxController _schoolCalendarAjaxController;
+
     public Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
         String key = ESP_DATA_REQUEST_ATTRIBUTE;
@@ -1096,6 +1099,11 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return rval;
     }
 
+    protected boolean isSchoolCalendarEnabled(School school) {
+        return (!school.getLevelCode().equals(LevelCode.PRESCHOOL))
+            && !_schoolCalendarAjaxController.cachedLackOfData(school.getNcesCode());
+
+    }
 
     public Integer  getRegionIdForZillow(final String city , final String state ){
           return   _zillowDao.findRegionId(city,state)  ;

@@ -122,10 +122,13 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+        <c:if test="${not empty apiStateRank and not empty apiStateRank.year}">
             <div class="containerGrayBox fl mrs" style="width:121px;">
                 <div class="small bottom make-2b2b2b">API Statewide Rank<br/> (${apiStateRank.year})</div>
                 <c:choose>
+                    <c:when test="${empty apiStateRank.apiStateRank}">
+                        <h2 class="bold mtm bottom">N/A</h2>
+                    </c:when>
                     <c:when test="${apiStateRank.apiStateRank == '0'}">
                         <h2 class="bold mtm bottom">N/A</h2>
                     </c:when>
@@ -135,10 +138,13 @@
                 </c:choose>
             </div>
         </c:if>
-        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year}">
             <div class="containerGrayBox fl" style="width:121px;">
                 <div class="small bottom make-2b2b2b">API Similar Schools Rank (${apiSimilarSchoolsRank.year})</div>
                 <c:choose>
+                    <c:when test="${empty apiSimilarSchoolsRank.apiSimilarRank}">
+                        <h2 class="bold mtm bottom">N/A</h2>
+                    </c:when>
                     <c:when test="${apiSimilarSchoolsRank.apiSimilarRank == '0'}">
                         <h2 class="bold mtm bottom">N/A</h2>
                     </c:when>
@@ -261,11 +267,14 @@
                 <div class="small">Comparing the API Growth to the Base shows whether or not this school’s test score performance improved between Spring 2011 and Spring 2012. The API ranges between 200 and 1000, with 800 as the statewide goal for all schools. Schools scoring below an 800 are given at least a 5 point target for the next year.</div>
             </div>
         </div>
-        <c:if test="${not empty apiStateRank and not empty apiStateRank.year and not empty apiStateRank.apiStateRank}">
+        <c:if test="${not empty apiStateRank and not empty apiStateRank.year}">
             <div class="clearfix mbl">
                 <div class="containerGrayBox fl mrl" style="width:121px;">
                     <div class="small bottom make-2b2b2b">API Statewide Rank<br/> (${apiStateRank.year})</div>
                     <c:choose>
+                        <c:when test="${empty apiStateRank.apiStateRank}">
+                            <h2 class="bold mtm bottom">N/A</h2>
+                        </c:when>
                         <c:when test="${apiStateRank.apiStateRank == '0'}">
                             <h2 class="bold mtm bottom">N/A</h2>
                         </c:when>
@@ -280,11 +289,14 @@
                 </div>
             </div>
         </c:if>
-        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year and not empty apiSimilarSchoolsRank.apiSimilarRank}">
+        <c:if test="${not empty apiSimilarSchoolsRank and not empty apiSimilarSchoolsRank.year}">
             <div class="clearfix mbl">
                 <div class="containerGrayBox fl mrl" style="width:121px;">
                     <div class="small bottom make-2b2b2b">API Similar Schools Rank (${apiSimilarSchoolsRank.year})</div>
                     <c:choose>
+                        <c:when test="${empty apiSimilarSchoolsRank.apiSimilarRank}">
+                            <h2 class="bold mtm bottom">N/A</h2>
+                        </c:when>
                         <c:when test="${apiSimilarSchoolsRank.apiSimilarRank == '0'}">
                             <h2 class="bold mtm bottom">N/A</h2>
                         </c:when>

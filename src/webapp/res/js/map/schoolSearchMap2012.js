@@ -202,7 +202,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 opacity: 1,
                 width: "320px"
             },
-            closeBoxMargin: "8px 8px 0 8px",
+            closeBoxMargin: "23px 8px 0 8px",
             closeBoxURL:"/res/img/googleMaps/16x16_close.png",
             infoBoxClearance: new google.maps.Size(1, 1),
             isHidden: false,

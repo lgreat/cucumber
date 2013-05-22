@@ -68,7 +68,10 @@ public class ApiTestResultsHelper {
 
                     apiTestResultsMap.put(MODEL_API_TEST_ETHNICITY_MAP, buildApiTestResultsMap(apiTestResultForLatestYear));
 
-                    putApiTestScoreChange(nonNullHistoricalApiResults, apiTestResultsMap);
+                    //Some schools have Total base value but do not have total. Therefore pass in historicalApiResults list
+                    //and not the nonNullHistoricalApiTestResults.Eg. school 7074 in CA.
+                    putApiTestScoreChange(apiTestResultForLatestYear, historicalApiTestResults, apiTestResultsMap);
+
                     putTrendDataForApiGrowth(nonNullHistoricalApiResults, apiTestResultsMap);
                     putMostRecentStateRank(school, apiTestResultsMap);
                     putMostRecentSimilarSchoolsRank(school, apiTestResultsMap);
@@ -266,26 +269,26 @@ public class ApiTestResultsHelper {
 
     /**
      * This method gets the change in API test score.
-     * @param historicalApiTestResults
-     * @param modelMap
      */
-    protected void putApiTestScoreChange(List<ApiResult> historicalApiTestResults, Map modelMap) {
+    protected void putApiTestScoreChange(ApiResult apiTestResultForLatestYear, List<ApiResult> historicalApiResults, Map modelMap) {
         //This method assumes that the API test results are in descending order of year.
-        if (historicalApiTestResults != null && !historicalApiTestResults.isEmpty()) {
-            ApiResult apiTestResult = historicalApiTestResults.get(0);
-            int recentYear = apiTestResult.getYear();
+        if (historicalApiResults != null && !historicalApiResults.isEmpty()
+                && apiTestResultForLatestYear != null && apiTestResultForLatestYear.getYear() != null
+                && apiTestResultForLatestYear.getTotal() != null) {
+            int recentYear = apiTestResultForLatestYear.getYear();
             int previousYear = recentYear - 1;
             modelMap.put(MODEL_PREVIOUS_YEAR, previousYear);
-            if (historicalApiTestResults.size() > 1) {
-                ApiResult previousYearApiTestResult = historicalApiTestResults.get(1);
-                if (previousYear == previousYearApiTestResult.getYear() && previousYearApiTestResult != null
-                        && previousYearApiTestResult.getTotalBase() != null && previousYearApiTestResult.getTotalBase() != 0) {
-                    Integer scoreChange = apiTestResult.getTotal() - previousYearApiTestResult.getTotalBase();
+
+            //Some schools have Total base value but do not have total. Therefore loop over the historicalApiResults list
+            //and not the nonNullHistoricalApiTestResults.Eg. school 7074 in CA
+            for (ApiResult result : historicalApiResults) {
+                if (result != null && result.getYear() != null && result.getYear() == previousYear
+                        && result.getTotalBase() != null && result.getTotalBase() != 0) {
+                    Integer scoreChange = apiTestResultForLatestYear.getTotal() - result.getTotalBase();
                     modelMap.put(MODEL_API_SCORE_CHANGE, scoreChange);
                 }
             }
         }
-
     }
 
     /**
@@ -296,7 +299,8 @@ public class ApiTestResultsHelper {
      */
     protected void putMostRecentStateRank(School school, Map modelMap) {
         ApiResult apiStateRank = _apiResultDao.getMostRecentStateRank(school);
-        if (apiStateRank != null && apiStateRank.getYear() != null && apiStateRank.getApiStateRank() != null) {
+        // GS-13844 - rraker - Now include this data even if apiStateRank.getApiStateRank() is null
+        if (apiStateRank != null && apiStateRank.getYear() != null) {
             modelMap.put(MODEL_API_STATE_RANK, apiStateRank);
         }
     }
@@ -309,7 +313,8 @@ public class ApiTestResultsHelper {
      */
     protected void putMostRecentSimilarSchoolsRank(School school, Map modelMap) {
         ApiResult apiSimilarSchoolsRank = _apiResultDao.getMostRecentSimilarSchoolsRank(school);
-        if (apiSimilarSchoolsRank != null && apiSimilarSchoolsRank.getYear() != null && apiSimilarSchoolsRank.getApiSimilarRank() != null) {
+        // GS-13844 - rraker - Now include this data even if apiSimilarSchoolsRank.getApiSimilarRank() is null
+        if (apiSimilarSchoolsRank != null && apiSimilarSchoolsRank.getYear() != null) {
             modelMap.put(MODEL_API_SIMILAR_SCHOOLS_RANK, apiSimilarSchoolsRank);
         }
     }

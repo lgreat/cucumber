@@ -1,12 +1,16 @@
 package gs.web.community.registration;
 
 
+import gs.data.school.School;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class RegistrationBehavior {
     private String _how;
     private String _fbSignedRequest;
     private String _redirectUrl;
+
+    public School _school;
 
     public boolean isFacebookRegistration() {
         return _fbSignedRequest != null;
@@ -43,5 +47,13 @@ public class RegistrationBehavior {
 
     public void setRedirectUrl(String redirectUrl) {
         _redirectUrl = redirectUrl;
+    }
+
+    public School getSchool() {
+        return _school;
+    }
+
+    public void setSchool(School school) {
+        _school = school;
     }
 }
