@@ -47,8 +47,8 @@ public class PerlFetchControllerTest extends BaseControllerTestCase {
         assertEquals("http://dev.greatschools.org/cgi-bin/test/ca/1", href);
     }
 
-    public void testGetResponseFromUrl() throws Exception {
-        String response = _controller.getResponseFromUrl("http://ssprouse.dev.greatschools.org/cgi-bin/test");
+    public void xtestGetResponseFromUrl() throws Exception {
+        String response = _controller.getResponseFromUrl("http://dev.greatschools.org/cgi-bin/test");
 
         assertNotNull(response);
         assertTrue(response.length() > 0);

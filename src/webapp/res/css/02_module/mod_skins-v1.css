@@ -367,6 +367,7 @@ General comments:
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     border:1px solid #dddddd;
     background-color: #F5F5F5;
+    height:200px;
 }
 
 .standard_7-1 .inner.box-shadow-animation-1:hover{
@@ -378,20 +379,52 @@ General comments:
 
 .standard_7-1 .bd{
     text-align: center;
-    background: url("/res/img/school/overview/tandem-calendar-tile-bg.png");
-    width: 154px;
-    height: 135px;
+    background: url("/res/img/school/overview/tandem/bg_calendarTile.png");
+    width: 152px;
+    height: 123px;
 }
 .standard_7-1 .bd-MS-brandedskin{
-    background: url("/res/img/school/overview/tandem-calendar-tile-bg.png");
-    width: 154px;
-    height: 135px;
+    background: url("/res/img/school/overview/tandem/bg_calendarTile_microsoft.png");
+    width: 152px;
+    height: 113px;
 }
 .standard_7-1 .ft{
    color:#2092C4;
 }
 
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_8-1 ----------------- */
+/* MS Branding for culture tab module */
+.standard_8-1{
+    margin-bottom:10px;
+}
+.standard_8-1 .inner{
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    border:1px solid #E34100;
+}
 
+.standard_8-1 .hd{
+    background-color: #E34100; /* for non-css3 browsers */
+    border-bottom: 1px solid #dddddd;
+    -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
+    border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.standard_8-1 .bd{
+    background-color: #FAFAFA;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+.standard_8-1 .ft{
+    background-color: #E34100;
+    -webkit-border-radius: 0 0 4px 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
+    border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- No data container ----------------- */
@@ -1177,6 +1210,9 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 /* background color  */
 .bg-777{
     background:#777777;
+}
+.bg-F1{
+    background:#F1F1F1;
 }
 .lsn{
     list-style: none;
