@@ -8,11 +8,13 @@ import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.email.EmailUtils;
+import gs.web.community.HoverHelper;
 import gs.web.community.registration.*;
 import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -119,7 +121,7 @@ public class UspFormController implements ReadWriteAnnotationController {
         boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, false);
 
         if (doesUserAlreadyHaveResponses) {
-            String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
+            String redirectUrl = determineRedirects(user, userStateStruct, school, request, response, doesUserAlreadyHaveResponses);
             if (StringUtils.isNotBlank(redirectUrl)) {
                 writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
             }
@@ -132,7 +134,7 @@ public class UspFormController implements ReadWriteAnnotationController {
 
         _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
 
-        String redirectUrl = determineRedirects(user, userStateStruct, school, request, doesUserAlreadyHaveResponses);
+        String redirectUrl = determineRedirects(user, userStateStruct, school, request, response, doesUserAlreadyHaveResponses);
         if (StringUtils.isNotBlank(redirectUrl)) {
             writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
         }
@@ -148,7 +150,8 @@ public class UspFormController implements ReadWriteAnnotationController {
      */
 
     public String determineRedirects(User user, UserStateStruct userStateStruct,
-                                     School school, HttpServletRequest request, boolean doesUserAlreadyHaveResponses) {
+                                     School school, HttpServletRequest request, HttpServletResponse response,
+                                     boolean doesUserAlreadyHaveResponses) {
         UrlBuilder urlBuilder = null;
 
         if(user == null || userStateStruct == null || request == null || school == null){
@@ -172,6 +175,10 @@ public class UspFormController implements ReadWriteAnnotationController {
         } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
             //If the user has registered via the register hover then show the profile page.
             //If the user was already existing but not email verified then sent an verification email and show the profile page.
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
+            HoverHelper hoverHelper = new HoverHelper(cookie);
+            hoverHelper.setHoverCookie(HoverHelper.Hover.USP_GO_VERIFY);
+
             urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         }
         if (urlBuilder != null) {
