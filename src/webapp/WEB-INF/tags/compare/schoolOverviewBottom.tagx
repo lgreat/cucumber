@@ -22,7 +22,7 @@
         <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
         <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"
                         clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}&amp;source=${gsweb:urlEncode(requestScope.source)}"
-                        gsRating="${school.gsRating}" isPrivate="${school.private}"/>
+                        gsRating="${school.gsRating}" isPrivate="${school.privateSchool}"/>
     </c:if>
     <p class="smallText1">
         <gslink:realtorDotComLink styleClass="sprite i-house-sm" address="${school.school.physicalAddress}"
