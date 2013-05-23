@@ -6,12 +6,7 @@
         xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
-    <div class="header" style="position: fixed;
-    padding-top: 2px;;
-    height: 46px;
-    top: -2px;
-    width: 100%;
-    z-index: 2;">
+    <div class="header fixed-header-top">
         <link:home>
         <div class="logo"><!-- do not collapse --></div>
         <!--<gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
@@ -23,22 +18,23 @@
             <link:home styleClass="but-topnav" id="js-navigation-findSchool"><div class="iconx24 i-24-magnifying-glass mlm mtm"><!-- --></div></link:home>
             <div class="vertical-separator"><!-- not empty --></div>
         </div>
-        <div id="shownav">
-            <a href="/mobile/savedSchools.page" id="js-navigation-my-saved-schools">
-                 <div class="navline">
-                    <div class="fl default navlinktext">My Saved Schools</div>
-                    <div class="fr iconx24 i-24-home mrm mtm"><!-- not empty --></div>
-                 </div>
-            </a>
-            <div class="clearfloat"><!-- not empty -->
-            <hr class="keyline4" />
+
+    </div>
+    <div id="shownav">
+        <a href="/mobile/savedSchools.page" id="js-navigation-my-saved-schools">
+            <div class="navline">
+                <div class="fl default navlinktext">My Saved Schools</div>
+                <div class="fr iconx24 i-24-home mrm mtm"><!-- not empty --></div>
             </div>
-            <a href="/email/newsletterSubscription.page" id="js-navigation-subscribe-to-newsletter">
-                 <div class="navline">
-                    <div class="fl default navlinktext">Subscribe to Newsletter</div>
-                    <div class="fr iconx24 i-24-checkbox mrm mtm"><!-- not empty  --></div>
-                </div>
-            </a>
+        </a>
+        <div class="clearfloat"><!-- not empty -->
+            <hr class="keyline4" />
         </div>
+        <a href="/email/newsletterSubscription.page" id="js-navigation-subscribe-to-newsletter">
+            <div class="navline">
+                <div class="fl default navlinktext">Subscribe to Newsletter</div>
+                <div class="fr iconx24 i-24-checkbox mrm mtm"><!-- not empty  --></div>
+            </div>
+        </a>
     </div>
 </jsp:root>
