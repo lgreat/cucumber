@@ -268,11 +268,15 @@ GS.school.calendar =  (function($) {
 
 
     var show = function() {
-        $listModule.show();
+        if($listModule != undefined){
+            $listModule.show();
+        }
     };
 
     var hide = function() {
-        $listModule.hide();
+        if($listModule != undefined){
+            $listModule.hide();
+        }
     };
 
     /**
