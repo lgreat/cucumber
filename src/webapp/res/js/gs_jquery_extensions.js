@@ -630,9 +630,17 @@ jQuery(document).ready(function() {
 // WARNING: Will probably break during next jQuery upgrade
 // http://stackoverflow.com/questions/290254/how-to-order-events-bound-with-jquery#6152570
 (function($)
-{
+    {  $(document).click(function(e) {
+        e = e || event;
+        $.lastClicked = e.target || e.srcElement;
+    });
+
+
     $.fn.bindFirst = function(/*String*/ eventType, /*[Object])*/ eventData, /*Function*/ handler) {
         var indexOfDot = eventType.indexOf(".");
+        console.log("eventType:", eventType);
+        console.log("eventData:", eventData);
+        console.log("handler:", handler);
         var eventNameSpace = indexOfDot > 0 ? eventType.substring(indexOfDot) : "";
 
         eventType = indexOfDot > 0 ? eventType.substring(0, indexOfDot) : eventType;
@@ -655,8 +663,8 @@ jQuery(document).ready(function() {
 
             $this.bind(eventType + eventNameSpace, eventData, handler);
 
-            var allEvents = $this.data("events"); // Will probably break when upgrading jQuery
-            // var allEvents = $._data($this, "events"); // Might work if above line breaks during jQuery upgrade
+//            var allEvents = $this.data("events"); // Will probably break when upgrading jQuery
+             var allEvents = $._data(this, "events"); // Might work if above line breaks during jQuery upgrade
 
             var typeEvents = allEvents[eventType];
             var newEvent = typeEvents.pop();
