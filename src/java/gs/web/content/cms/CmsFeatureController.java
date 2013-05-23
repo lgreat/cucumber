@@ -402,10 +402,10 @@ public class CmsFeatureController extends AbstractController {
                 // then generate the ad code
                 if (isBts) {
                     // GS-11664 insert BTS list ad
-                    feature.setBtsListAdCode(adTagHandler.getContent(request, SessionContextUtil.getSessionContext(request), null));
+                    feature.setBtsListAdCode(adTagHandler.getGptContent(request, SessionContextUtil.getSessionContext(request), null));
                 } else {
                     // GS-12091 insert ad into non-bts articles.
-                    feature.setFeatureAdCode(adTagHandler.getContent(request, SessionContextUtil.getSessionContext(request), null));
+                    feature.setFeatureAdCode(adTagHandler.getGptContent(request, SessionContextUtil.getSessionContext(request), null));
                 }
 
             } catch (Exception e) {
