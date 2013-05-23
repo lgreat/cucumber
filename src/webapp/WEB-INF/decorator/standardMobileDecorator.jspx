@@ -80,7 +80,7 @@
     <div id="js-global-event-catcher" class="mod page_1-1">
         <div class="inner">
         <tags:standardMobileHeader />
-        <div id="content" class="body js-page-content">
+        <div id="content" class="body js-page-content" style="margin-top: 44px;">
             <decorator:body/>
         </div>
         <tags:standardMobileFooter />

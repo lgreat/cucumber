@@ -39,7 +39,8 @@ Example:
 .page_1-1 .inner{}
 
 .page_1-1 .header {
-    height: 44px;
+    height: 46px;
+
     background-color: #2092c4; /* Old browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#4da8d0), color-stop(100%,#2092c4)); /* Chrome,Safari4+ */
     background-image: -webkit-linear-gradient(top,  #4da8d0 30%, #2092c4 100%); /* Chrome10+,Safari5.1+ */

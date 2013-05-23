@@ -6,7 +6,12 @@
         xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
-    <div class="header">
+    <div class="header" style="position: fixed;
+    padding-top: 2px;;
+    height: 46px;
+    top: -2px;
+    width: 100%;
+    z-index: 2;">
         <link:home>
         <div class="logo"><!-- do not collapse --></div>
         <!--<gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
