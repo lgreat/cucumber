@@ -20,7 +20,7 @@
         </div>
 
     </div>
-    <div id="shownav">
+    <div id="shownav" class="fixed-header-topnav">
         <a href="/mobile/savedSchools.page" id="js-navigation-my-saved-schools">
             <div class="navline">
                 <div class="fl default navlinktext">My Saved Schools</div>

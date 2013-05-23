@@ -67,6 +67,12 @@ height: 46px;
 top: -2px;
 width: 100%;
 z-index: 2;}
+.page_1-1 .fixed-header-topnav {
+    position: fixed;
+    top: 44px;
+    height: 88px;
+    width: 100%;
+    z-index: 2;}
 .page_1-1 .body{background-color: #ffffff;}
 .page_1-1 .fixed-header { margin-top: 44px; }
 .page_1-1 .footer{background-color: #555555;padding: 15px 10px;}

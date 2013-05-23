@@ -48,7 +48,7 @@
     width:100%;
     border:solid 1px #79BEDC;
     display: none;
-    position: absolute;
+    /*position: absolute;*/
     margin: 0;
     padding: 0;
     top:44px;
