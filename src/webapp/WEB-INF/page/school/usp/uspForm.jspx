@@ -58,9 +58,20 @@
                     Whoops!  We already have your answers about this school. You can update or change them below.
                 </div>
             </div>
-            <div class="tac pvl mvl">
-                Intro text goes in here
-            </div>
+
+            <!--<div class=" prefix_4 grid_16 suffix_4 js-uspUser dn">-->
+                <!--<div class="tac pvl mvl js-uspUser"> USP USER-->
+                    <!--Help others by sharing what you know about ${school.name}. You don’t need to answer every question - even-->
+                    <!--one answer provides families with helpful information.-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class=" prefix_4 grid_16 suffix_4 js-ospUser dn">-->
+                <!--<div class="tac pvl mvl "> OSP USER-->
+                    <!--Help families learn more about your school by filling in or editing the information below. At least one-->
+                    <!--response is required for each question.-->
+                <!--</div>-->
+            <!--</div>-->
+
             <div class="mvl">
                 <form:form id="js_uspForm">
                     <div class=" prefix_2 grid_10">

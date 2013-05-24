@@ -150,6 +150,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .success-block    { background: #E7F3E5; border-color: #B7DBB2; color: #118800; }
 .slFormsV1-0 .notice-block     { background: #FCEFE7; border-color: #F3CAAC; color: #dd6611; }
 .slFormsV1-0 .error-block, .alert-block { background: #FAE5EA; border-color: #EDA6B8; color: #cc0033; }
+/*.slFormsV1-0 .alert-yellow {background:#FCEEE7;color:#2B2B2B;border:1px solid #FFCC66; border-radius: 4px;}*/
 
 /* Notifications */
 .slFormsV1-0 .error, .slFormsV1-0 .alert, .slFormsV1-0 .notice, .slFormsV1-0 .success, .slFormsV1-0 .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}

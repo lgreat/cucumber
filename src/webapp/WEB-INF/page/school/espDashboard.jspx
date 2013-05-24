@@ -46,6 +46,13 @@
                 </div>
             </div>
 
+
+            <!--<div class="grid_13 suffix_1">-->
+                <!--<div class="alert-yellow pal small">-->
+                    <!--Get started-->
+                <!--</div>-->
+            <!--</div>-->
+
             <!-- Provisional message if needed -->
             <c:if test="${isProvisional eq true}">
                 <div class="grid_24">
