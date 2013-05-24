@@ -46,10 +46,17 @@
                 </div>
             </div>
 
-
+            <!--Uncomment this block after putting condition around it-->
             <!--<div class="grid_13 suffix_1">-->
-                <!--<div class="alert-yellow pal small">-->
-                    <!--Get started-->
+                <!--<div class="alert-yellow pal small clearfix">-->
+                    <!--<div class="fl">-->
+                        <!--<strong>To begin</strong>, please fill out this quick form to make sure your<br/>-->
+                        <!--school's offerings are accurate. Once you're done, you can<br/>edit basic information, add-->
+                        <!--photos or videos, and more!-->
+                    <!--</div>-->
+                    <!--<div class="fr">-->
+                        <!--<div class="button-1">Get started</div>-->
+                    <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
 
