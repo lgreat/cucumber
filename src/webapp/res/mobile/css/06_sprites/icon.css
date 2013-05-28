@@ -131,7 +131,7 @@ Viewport: the width and height of each icon is 12px x 12px, the background posit
 
 .iconx24 {
     display: inline-block;
-    background-size:456px 48px;
+    background-size:480px 48px;
     width: 24px;
     height: 24px;
 }
