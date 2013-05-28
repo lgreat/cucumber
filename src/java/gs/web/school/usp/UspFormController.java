@@ -64,6 +64,8 @@ public class UspFormController implements ReadWriteAnnotationController {
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
     @Autowired
     private ISchoolDao _schoolDao;
+    @Autowired
+    private IEspResponseDao _espResponseDao;
 
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
