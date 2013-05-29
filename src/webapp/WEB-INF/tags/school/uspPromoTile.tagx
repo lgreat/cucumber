@@ -16,10 +16,10 @@
         <div class="outer">
             <div class="inner bg-uspPromo ie-moduleHeight-162">
                 <div class="hd tac">
-                    <h4 class="bottom">Do you know about this schools?</h4>
+                    <h4 class="bottom">Do you know this school?</h4>
                 </div>
-                <div class="bd" style="${moduleHeight}}">
-                    <a href="#" class="tac small mtm">Help other families learn more &amp;raquo;</a>
+                <div class="bd tac" style="${moduleHeight}}">
+                    <a href="#" class="tac small mtm">Help other families learn<br/>more  &amp;raquo;</a>
                 </div>
             </div>
         </div>
