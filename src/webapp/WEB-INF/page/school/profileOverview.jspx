@@ -65,6 +65,7 @@
                             </c:when>
                             <c:otherwise>
                                 <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                                <!--<school:uspPromoTile/>-->
                             </c:otherwise>
                         </c:choose>
                     </div>

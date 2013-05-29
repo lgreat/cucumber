@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+
+    <jsp:directive.attribute name="adjustHeight" type="java.lang.Boolean" required="false"/>
+
+    <c:set var="moduleHeight" value="height:120px;" />
+
+    <div class="mod standard_3-1">
+        <div class="outer">
+            <div class="inner bg-uspPromo ie-moduleHeight-162">
+                <div class="hd tac">
+                    <h4 class="bottom">Do you know about this schools?</h4>
+                </div>
+                <div class="bd" style="${moduleHeight}}">
+                    <a href="#" class="tac small mtm">Help other families learn more &amp;raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>
