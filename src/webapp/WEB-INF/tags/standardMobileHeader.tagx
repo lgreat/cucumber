@@ -36,5 +36,11 @@
                 <div class="fr iconx24 i-24-checkbox mrm mtm"><!-- not empty  --></div>
             </div>
         </a>
+        <a href="/school/parentReview.page?fromMobile=true" id="js-navigation-parent-review">
+            <div class="navline">
+                <div class="fl default navlinktext">Review Your School</div>
+                <div class="fr iconx24 i-24-pencil mrm mtm"><!-- not empty  --></div>
+            </div>
+        </a>
     </div>
 </jsp:root>

@@ -21,6 +21,9 @@ define(function() {
             $('#js-navigation-subscribe-to-newsletter').click( function(){
                 if (s.tl) {s.tl(this,'o', 'Mobile_Global_Newsletter');}
             });
+            $('#js-navigation-parent-review').click( function(){
+                if (s.tl) {s.tl(this,'o', 'Mobile_Review_Landing');}
+            });
 
             $topnav_link = $('#topnav_link');
             $shownav = $('#shownav');
