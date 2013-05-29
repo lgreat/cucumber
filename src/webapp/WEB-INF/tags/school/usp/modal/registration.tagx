@@ -45,11 +45,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="js-needText clearfix mvm">
+                            <div class="js-tou mvm clearfix">
                                 <div class="fl prm js-checkBoxSpriteOff">
                                     <span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
                                 </div>
                                 <div class="fl prm js-checkBoxSpriteOn dn">
+                                    <span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                                </div>
+                                <div class="small bottom">I agree to the
+                                    <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                      title="GreatSchools Terms of Use"
+                                                      href="/terms/?state=$STATE"> GreatSchools Terms of Use</gsml:popupWindow> and
+                                    <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                      title="GreatSchools Community Standards"
+                                                      href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
+                                </div>
+                            </div>
+                            <div class="js-needText clearfix mvm">
+                                <div class="fl prm js-checkBoxSpriteOff dn">
+                                    <span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
+                                </div>
+                                <div class="fl prm js-checkBoxSpriteOn">
                                     <span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
                                 </div>
                                 <div class="fl small bottom vam">Yes, send me monthly email updates about this school.</div>
@@ -69,21 +85,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="js-tou ptm clearfix">
-                            <div class="fl prm js-checkBoxSpriteOff">
-                                <span class=".js-checkBoxSprite iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
-                            </div>
-                            <div class="fl prm js-checkBoxSpriteOn dn">
-                                <span class=".js-checkBoxSprite iconx16 i-16-checkbox-on vam"><!-- do not collapse --></span>
-                            </div>
-                            <div class="small bottom">I agree to the
-                            <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                              title="GreatSchools Terms of Use"
-                                              href="/terms/?state=$STATE"> GreatSchools Terms of Use</gsml:popupWindow> and
-                            <gsml:popupWindow width="800" height="600" left="50" top="50" title="GreatSchools Community Standards"
-                                              href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
-                            </div>
-                    </div>
                 </div>
             </div>
         </div>
