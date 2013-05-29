@@ -36,6 +36,9 @@
                 <div class="fr iconx24 i-24-checkbox mrm mtm"><!-- not empty  --></div>
             </div>
         </a>
+        <div class="clearfloat"><!-- not empty -->
+            <hr class="keyline4" />
+        </div>
         <a href="/school/parentReview.page?fromMobile=true" id="js-navigation-parent-review">
             <div class="navline">
                 <div class="fl default navlinktext">Review Your School</div>
