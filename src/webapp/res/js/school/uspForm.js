@@ -300,6 +300,7 @@ jQuery(function () {
     uspSpriteCheckBoxes("js-needText", "form_needText", 1, 0);
     uspSpriteCheckBoxes("js-noneResponse", "formOther", 1, 0);
     uspSpriteCheckBoxes("js-otherResponse", "formOther", 1, 0);
+    uspSpriteCheckBoxes("js-tou", "formOther", 1, 0);
 
     var uspForm = jQuery('#js_uspForm');
 

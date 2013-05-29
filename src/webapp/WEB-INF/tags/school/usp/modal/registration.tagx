@@ -69,14 +69,14 @@
                             </div>
                         </div>
                     </form>
-                    <div class="ptm clearfix">
+                    <div class="js-tou ptm clearfix">
                             <div class="fl prm js-checkBoxSpriteOff">
                                 <span class=".js-checkBoxSprite iconx16 i-16-checkbox-off vam"><!-- do not collapse --></span>
                             </div>
                             <div class="fl prm js-checkBoxSpriteOn dn">
                                 <span class=".js-checkBoxSprite iconx16 i-16-checkbox-on vam"><!-- do not collapse --></span>
                             </div>
-                            <div class="small bottom">By joining GreatSchools, you agree to our
+                            <div class="small bottom">I agree to the
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
                                               title="GreatSchools Terms of Use"
                                               href="/terms/?state=$STATE"> GreatSchools Terms of Use</gsml:popupWindow> and
