@@ -40,7 +40,7 @@ Example:
 
 .page_1-1 .header {
     height: 46px;
-    background-color: #2092c4; /* Old browsers */
+    background-color: #007EAA; /* Old browsers */
     box-shadow:0 2px 4px rgba(0, 0, 0, 0.2);
     -moz-box-shadow:0 2px 4px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow:0 2px 4px rgba(0, 0, 0, 0.2);
@@ -77,9 +77,9 @@ z-index: 2;}
 .standard_6-1 .hd{
     text-shadow: 0 0 2px rgba(238, 246, 250, 0.6);
     line-height: 44px;
-    background:#D2E9F3;
-    border-bottom: solid 1px #79BEDC;
-    border-top: solid 1px #EEF6FA;
+    background:#BCDEED;
+    border-bottom: solid 1px #FFFFFF;
+    border-top: solid 1px #FFFFFF;
 }
 .standard_6-1 .hd a {color:#000000;}
 .standard_6-1 .hd .arrow {padding-right:16px; margin-top: 2px; float: right;}

@@ -9,13 +9,7 @@
 }
 #navbar .but-topnav:active{
     background-color: #79BEDC; /* Old browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%,#2092C4), color-stop(10%,#79BEDC)); /* Chrome,Safari4+ */
-    background-image: -webkit-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* Chrome10+,Safari5.1+ */
-    background-image:    -moz-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* FF3.6+ */
-    background-image:     -ms-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* IE10+ */
-    background-image:      -o-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* Opera 11.10+ */
-    background-image:         linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF2092C4', endColorstr='#FF79BEDC',GradientType=0 ); /* IE6-9 */
+
 }
 #navbar .but-topnav-on{
     display: block;
@@ -25,19 +19,13 @@
     /*height: 44px;
     border-left: solid 1px #2092C4;
     border-right: solid 1px #79BEDC; */
-    background-color: #79BEDC; /* Old browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%,#2092C4), color-stop(10%,#79BEDC)); /* Chrome,Safari4+ */
-    background-image: -webkit-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* Chrome10+,Safari5.1+ */
-    background-image:    -moz-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* FF3.6+ */
-    background-image:     -ms-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* IE10+ */
-    background-image:      -o-linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* Opera 11.10+ */
-    background-image:         linear-gradient(top,  #2092C4 100%, #79BEDC 10%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF2092C4', endColorstr='#FF79BEDC',GradientType=0 ); /* IE6-9 */
+    background-color: #3EA0CB; /* Old browsers */
+
 }
 
 #navbar .vertical-separator  {
     float:right;
-    border-left: solid 1px #2092C4;
+    border-left: solid 1px #2A8DB0;
     border-right: solid 1px #79BEDC;
     width:0px;
     height: 44px;
