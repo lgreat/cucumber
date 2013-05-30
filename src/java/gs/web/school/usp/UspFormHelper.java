@@ -79,6 +79,10 @@ public class UspFormHelper {
      * None checkbox value
      */
     public static final String NONE_RESPONSE_VALUE = "none";
+    /**
+     * For boys sports, the response value in osp dashboard form is "None"
+     */
+    public static final String BOYS_SPORTS_NONE_RESPONSE_VALUE = "None";
 
     /**
      * Response keys and values for Arts & music
@@ -129,6 +133,7 @@ public class UspFormHelper {
 
     public static final String EXTENDED_CARE_BEFORE_RESPONSE_VALUE = "before";
     public static final String EXTENDED_CARE_AFTER_RESPONSE_VALUE = "after";
+    public static final String EXTENDED_CARE_NEITHER_RESPONSE_VALUE = "neither";
 
     /**
      * Response key for girls sports
@@ -386,7 +391,7 @@ public class UspFormHelper {
                 } else if (EXTENDED_CARE_PARAM.equals(sectionFieldName) && EXTENDED_CARE_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(EXTENDED_CARE_RESPONSE_KEY, new String[]{
                             EXTENDED_CARE_BEFORE_RESPONSE_VALUE, EXTENDED_CARE_AFTER_RESPONSE_VALUE,
-                            NONE_RESPONSE_VALUE
+                            EXTENDED_CARE_NEITHER_RESPONSE_VALUE
                     });
                 } else if (GIRLS_SPORTS_PARAM.equals(sectionFieldName) && GIRLS_SPORTS_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(GIRLS_SPORTS_RESPONSE_KEY, new String[]{
@@ -432,7 +437,7 @@ public class UspFormHelper {
                             SPORTS_TRACK_RESPONSE_VALUE, SPORTS_ULTIMATE_RESPONSE_VALUE,
                             SPORTS_VOLLEYBALL_RESPONSE_VALUE, SPORTS_WATER_POLO_RESPONSE_VALUE,
                             SPORTS_WRESTLING_RESPONSE_VALUE,
-                            NONE_RESPONSE_VALUE
+                            BOYS_SPORTS_NONE_RESPONSE_VALUE
                     });
                 } else if (BOYS_SPORTS_PARAM.equals(sectionFieldName) && BOYS_SPORTS_OTHER_RESPONSE_KEY.equals(responseKey)) {
                     addKeyValueToSection(BOYS_SPORTS_OTHER_RESPONSE_KEY, new String[]{});
@@ -845,12 +850,15 @@ public class UspFormHelper {
                 }
             }
             /**
+             * There is none field for a question if there is a "none" or "None" or "neither" value in the enum
+             * SectionResponseKeys. Only boys sports has "None" and only extended care has "neither"
              * Set none checkbox to true if none response value exists for the current response key and if the user
-             * is a school admin or
+             * is a school admin and/or
              * Construct chosen select field options with the list of response values for the current response key
              */
             else {
-                if (isOspUser && !hasNoneField && responseValues.contains(UspFormHelper.NONE_RESPONSE_VALUE)) {
+                if (isOspUser && !hasNoneField && (responseValues.contains(NONE_RESPONSE_VALUE) ||
+                        responseKey.equals(BOYS_SPORTS_RESPONSE_KEY) || responseKey.equals(EXTENDED_CARE_RESPONSE_KEY))) {
                     hasNoneField = true;
                     uspFormResponse.setHasNoneField(hasNoneField);
                 }
@@ -860,7 +868,12 @@ public class UspFormHelper {
                 while (responseValueIter.hasNext()) {
                     String responseValue = responseValueIter.next();
 
-                    if (hasNoneField && NONE_RESPONSE_VALUE.equals(responseValue)) {
+                    /**
+                     * Ignore case so that none checkbox would be checked for boys_sports that has saved response value "None"
+                     * For extended care the response value for none is "neither"
+                     */
+                    if (hasNoneField && (NONE_RESPONSE_VALUE.equalsIgnoreCase(responseValue) ||
+                            (responseKey.equals(EXTENDED_CARE_RESPONSE_KEY) && EXTENDED_CARE_NEITHER_RESPONSE_VALUE.equals(responseValue)))) {
                         if (savedResponses.contains(responseValue)) {
                             uspFormResponse.setIsNoneChecked(true);
                         }

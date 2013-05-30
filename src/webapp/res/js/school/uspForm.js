@@ -279,9 +279,18 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
     checkOff.on("click", function () {
         $(this).addClass(' dn');
         $(this).siblings().removeClass(' dn');
-        // set the value for the hidden input field as [response_key]__none
+        // set the value for the hidden input field as [response_key]__None for boys sports,
+        // [response_key]__neither for extended care, [response_key]__none for other questions
         $(this).parent().find('input.js-noneValue').val(function (index, value) {
-            return value.substring(0, value.indexOf('__') + 2) + 'none';
+            var $this = $(this);
+            var responseVal = 'none';
+            if($this.hasClass('js-boys_sports')) {
+                responseVal = 'None';
+            }
+            else if($this.hasClass('js-before_after_care')) {
+                responseVal = 'neither';
+            }
+            return value.substring(0, value.indexOf('__') + 2) + responseVal;
         });
         checkBoxField.val(checkedValue);
     });

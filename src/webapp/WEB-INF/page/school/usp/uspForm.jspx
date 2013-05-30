@@ -82,14 +82,16 @@
                                 <![CDATA[</div><div class="grid_10 suffix_2">]]>
                             </c:if>
                         </c:forEach>
-                        <div class="standard_2-4" style="width: 390px">
-                            <div class="inner">
-                                <h4 class="bottom">School leaders - manage your school’s profile</h4>
-                                <div class="small bottom">Add program highlights, photos and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                        <c:if test="${!isSchoolAdmin}">
+                            <div class="standard_2-4" style="width: 390px">
+                                <div class="inner">
+                                    <h4 class="bottom">School leaders - manage your school’s profile</h4>
+                                    <div class="small bottom">Add program highlights, photos and more!
+                                        <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
                     </div>
                     <div class="clearfix">
                         <div class="prefix_11 grid_2 suffix_11 tac mtl">
