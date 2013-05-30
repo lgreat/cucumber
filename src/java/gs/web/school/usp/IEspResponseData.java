@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Wraps a list of EspResponses, in order to provide info about the specific collection of responses
+ * Decorator pattern. A List of EspResponses that wraps an underlying List of EspResponses and adds additional
+ * functionality
  */
 public interface IEspResponseData extends List<EspResponse> {
 

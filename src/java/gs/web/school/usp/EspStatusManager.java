@@ -54,6 +54,13 @@ public class EspStatusManager {
         /// ???
     }
 
+    /**
+     * Gets the EspStatus for this object's School. If it was previously calculated, just returns the old status.
+     * Loads Esp data from the database if it has not already been done. If the underlying data has changed, a new
+     * status is not returned.
+     *
+     * @return
+     */
     public EspStatus getEspStatus() {
         if (_espStatus != null) {
             return _espStatus;
@@ -71,6 +78,10 @@ public class EspStatusManager {
         return _espStatus;
     }
 
+    /**
+     * Loads a List of EspResponses from DB, and decorators it with a EspResponseData.
+     * Stores result onto instance variable
+     */
     public void loadEspResponsesFromDatabase() {
         List<EspResponse> ospResponses = _espResponseDao.getResponsesByKeys(_school, getOspKeySet());
         _espResponseData = new EspResponseData(ospResponses);
@@ -87,12 +98,21 @@ public class EspStatusManager {
         return newStatus;
     }
 
+    /**
+     * Gets the EspStatus for this object's School. Does not use any previous data that was loaded. Will load fresh
+     * data each time
+     * @return An updated EspStatus
+     */
     public EspStatus checkDatabaseForNewStatus() {
         loadEspResponsesFromDatabase();
 
         return checkObjectForNewStatus();
     }
 
+    /**
+     * Given an EspResponseData, gets info about the responses and calculates an EspStatus
+     * @return the correct EspStatus for a list of ESP data
+     */
     public static EspStatus getEspStatus(EspResponseData espResponseData) {
         EspStatus status;
 
