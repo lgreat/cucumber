@@ -58,17 +58,19 @@
                                         <c:if test="${!fn:endsWith(sectionResponse.responseKey, '_other')}">
                                             <!-- response value for none field - boys sports has "None", extended care has "neither",
                                              other questions that just have value as "none" -->
-                                            <c:choose>
-                                                <c:when test="${sectionResponse.responseKey eq 'boys_sports'}">
-                                                    <c:set var="none" value="None"/>
-                                                </c:when>
-                                                <c:when test="${sectionResponse.responseKey eq 'before_after_care'}">
-                                                    <c:set var="none" value="neither"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="none" value="none"/>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <c:set var="none">
+                                                <c:choose>
+                                                    <c:when test="${sectionResponse.responseKey eq 'boys_sports'}">
+                                                        None
+                                                    </c:when>
+                                                    <c:when test="${sectionResponse.responseKey eq 'before_after_care'}">
+                                                        neither
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        none
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:set>
                                             <input type="hidden" name="${formResponse.fieldName}" class="js-noneValue js-${sectionResponse.responseKey}"
                                                    value="${sectionResponse.responseKey}__${formResponse.noneChecked ?
                                                            none : ''}"/>
