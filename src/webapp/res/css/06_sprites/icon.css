@@ -487,6 +487,7 @@ a:active .i-16-search-filter-arrow-up {
 
 span:hover.i-24-close {
     background-position: 0 -24px;
+    cursor: pointer;
 }
 
 span:hover.i-24-gallery-close {
