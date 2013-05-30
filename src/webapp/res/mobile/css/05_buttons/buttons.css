@@ -73,15 +73,8 @@ BUTTONS
 /* Button 1
 ******************************************************************************/
 .but-1{
-    background-color: #2092C4; /* for non-css3 browsers */
+    background-color: #BCDEED; /* for non-css3 browsers */
     color: #ffffff;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#79BEDC), to(#2092C4)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #79BEDC, #2092C4); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #79BEDC, #2092C4); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #79BEDC, #2092C4); /* IE10 */
-    background-image:      -o-linear-gradient(top, #79BEDC, #2092C4); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #79BEDC, #2092C4); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#79BEDC', EndColorStr='#2092C4'); /* IE6�IE9 */
     border: 1px solid #0578AA;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -92,24 +85,10 @@ BUTTONS
 .but-1:hover{
     background: #4DA8D0; /* for non-css3 browsers */
     text-decoration: none;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#A6D3E7), to(#2092C4)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #A6D3E7, #2092C4); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #A6D3E7, #2092C4); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #A6D3E7, #2092C4); /* IE10 */
-    background-image:      -o-linear-gradient(top, #A6D3E7, #2092C4); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #A6D3E7, #2092C4); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#A6D3E7', EndColorStr='#2092C4'); /* IE6�IE9 */
 }
 
 .but-1:active{
     background: #79BEDC; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#79BEDC)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #2092C4, #79BEDC); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #2092C4, #79BEDC); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #2092C4, #79BEDC); /* IE10 */
-    background-image:      -o-linear-gradient(top, #2092C4, #79BEDC); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #2092C4, #79BEDC); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#79BEDC'); /* IE6�IE9 */
     -moz-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
     -webkit-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
     box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
@@ -136,17 +115,9 @@ BUTTONS
 /*Button 2
 **********************************************************************/
 .but-2{
-    background: #F8F8F8; /* for non-css3 browsers */
+    background: #EEEEEE; /* for non-css3 browsers */
     color: #555555;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#F8F8F8), to(#DDDDDD)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #F8F8F8, #DDDDDD); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #F8F8F8, #DDDDDD); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #F8F8F8, #DDDDDD); /* IE10 */
-    background-image:      -o-linear-gradient(top, #F8F8F8, #DDDDDD); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #F8F8F8, #DDDDDD); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#F8F8F8', EndColorStr='#DDDDDD'); /* IE6�IE9 */
     border: 1px solid #B8B8B8;
-    /* border-top-color: #2092C4; /* highlight */
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     -moz-box-shadow: inset 0 0 1px rgba(255, 255, 255, 1);
     -webkit-box-shadow: inset 0 0px 1px rgba(255, 255, 255, 1);
@@ -156,24 +127,10 @@ BUTTONS
 .but-2:hover{
     background: #CCCCCC; /* for non-css3 browsers */
     text-decoration: none;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#DDDDDD)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #FFFFFF, #DDDDDD); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #FFFFFF, #DDDDDD); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #FFFFFF, #DDDDDD); /* IE10 */
-    background-image:      -o-linear-gradient(top, #FFFFFF, #DDDDDD); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #FFFFFF, #DDDDDD); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#DDDDDD'); /* IE6�IE9 */
 }
 
 .but-2:active{
     background: #F1F1F1; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD), to(#F8F8F8)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #DDDDDD, #F8F8F8); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #DDDDDD, #F8F8F8); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #DDDDDD, #F8F8F8); /* IE10 */
-    background-image:      -o-linear-gradient(top, #DDDDDD, #F8F8F8); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #DDDDDD, #F8F8F8); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#DDDDDD', EndColorStr='#F8F8F8'); /* IE6�IE9 */
     -moz-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
     -webkit-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
     box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
@@ -198,34 +155,20 @@ BUTTONS
 
 .but-2-selected{
     background: #2092C4; /* for non-css3 browsers */
-    color: #FFF;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#A6D3E7));  /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #2092C4, #A6D3E7);  /*Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #2092C4, #A6D3E7);  /*FF3.6*/
-    background-image:     -ms-linear-gradient(top, #2092C4, #A6D3E7);  /*IE10*/
-    background-image:      -o-linear-gradient(top, #2092C4, #A6D3E7);  /*Opera 11.10+ */
-    background-image:         linear-gradient(top, #2092C4, #A6D3E7);  /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#A6D3E7'); /* IE6�IE9 */
+    color: #FFFFFF;
     border: 1px solid #2092C4;
     /* border-top-color: #2092C4; /* highlight */
     text-shadow: 0 1px 0 #777;
     -moz-box-shadow: inset 0 1px 0 #FFF);
     -webkit-box-shadow: inset 0 1px 0 #FFF);
-    box-shadow: inset 0 1px 0] #FFF);
+    box-shadow: inset 0 1px 0 #FFF);
 }
 
 /*Button 3
 **********************************************************************/
 .but-3{
-    background: #555555; /* for non-css3 browsers */
-    color: #FFF;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#777777), to(#555555)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #777777, #555555); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #777777, #555555); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #777777, #555555); /* IE10 */
-    background-image:      -o-linear-gradient(top, #777777, #555555); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #777777, #555555); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#777777', EndColorStr='#555555'); /* IE6�IE9 */
+    background: #444444; /* for non-css3 browsers */
+    color: #FFFFFF;
     border: 1px solid #2B2B2B;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.6); /* Box Shadow */
     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -236,25 +179,10 @@ BUTTONS
 .but-3:hover{
     background: #999; /* for non-css3 browsers */
     text-decoration: none;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#555555)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #999999, #555555); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #999999, #555555); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #999999, #555555); /* IE10 */
-    background-image:      -o-linear-gradient(top, #999999, #555555); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #999999, #555555); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#999999', EndColorStr='#555555'); /* IE6�IE9 */
-
 }
 
 .but-3:active{
     background: #B8B8B8; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#555555), to(#777777)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #555555, #777777); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #555555, #777777); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #555555, #777777); /* IE10 */
-    background-image:      -o-linear-gradient(top, #555555, #777777); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #555555, #777777); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#555555', EndColorStr='#777777'); /* IE6�IE9 */
     -moz-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
     -webkit-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
     box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);

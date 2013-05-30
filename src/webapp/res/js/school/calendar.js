@@ -82,12 +82,12 @@ GS.school.calendar =  (function($) {
 
         $xml.find('vevent').each(function() {
             var $this = $(this);
-            var dateStart = $this.find('dtstart').text().trim();
-            var dateEnd = $this.find('dtend').text().trim();
+            var dateStart = $.trim($this.find('dtstart').text());
+            var dateEnd = $.trim($this.find('dtend').text());
             var dateStartObj = parseDate(dateStart);
             var dateEndObj = parseDate(dateEnd);
-            var summary = $this.find('summary').text().trim();
-            var description = $this.find('description').text().trim();
+            var summary = $.trim($this.find('summary').text());
+            var description = $.trim($this.find('description').text());
 
             var obj = {
                 dateStart: dateStartObj,
@@ -268,11 +268,15 @@ GS.school.calendar =  (function($) {
 
 
     var show = function() {
-        $listModule.show();
+        if($listModule != undefined){
+            $listModule.show();
+        }
     };
 
     var hide = function() {
-        $listModule.hide();
+        if($listModule != undefined){
+            $listModule.hide();
+        }
     };
 
     /**

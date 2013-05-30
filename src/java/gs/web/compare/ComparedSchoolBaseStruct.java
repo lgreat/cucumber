@@ -130,6 +130,11 @@ public class ComparedSchoolBaseStruct {
         return "Private".equals(getType());
     }
 
+    // GS-14132 - Java 7 - Can't use isPrivate in jsp/tag because private is a reserved word.  Use this in jsp/tag instead of
+    public boolean isPrivateSchool() {
+        return "Private".equals(getType());
+    }
+
     public String getUniqueIdentifier() {
         return getSchool().getDatabaseState().getAbbreviationLowerCase() + getSchool().getId();
     }

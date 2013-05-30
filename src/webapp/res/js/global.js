@@ -544,7 +544,7 @@ GS.util.isBrowserIE7 = function(){
     return jQuery("html").hasClass("ie7");
 };
 GS.util.isBrowserIE8 = function(){
-    return jQuery("html").hasClass("ie7");
+    return jQuery("html").hasClass("ie8");
 };
 GS.util.isBrowserIELessThan9 = function(){
     return jQuery("html").hasClass("lt-ie9");

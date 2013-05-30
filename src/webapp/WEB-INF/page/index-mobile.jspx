@@ -80,7 +80,7 @@
                 <c:set var="selectByLocation" value="${(isFromByLocation || isNearbySearch || empty isSearch || isSearch eq false)}"/>
                 <ul class="tabStyle-3">
 
-                    <li><a class="${selectByLocation ? 'selected':''}">By location</a></li>
+                    <li style="padding-left: 0"><a class="${selectByLocation ? 'selected':''}">By location</a></li>
                     <li><a class="${(isSearch and not selectByLocation)? 'selected':''}">By name</a></li>
                 </ul>
                 <div class="contain_5-1 ${(isSearch and not selectByLocation)? 'dn':''}">

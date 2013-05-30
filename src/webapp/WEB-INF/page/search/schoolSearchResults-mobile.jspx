@@ -77,7 +77,11 @@
             <c:set var="count" value="0"/>
 
             <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                <div class="contain_6-1">
+                <div class="contain_6-1" style="position: fixed;
+    height: 34px;
+    top: 44px;
+    width: 100%;
+    z-index: 2;">
                     <div class="fl">
                         <!--<a data-role="button" data-inline="true" href="${requestInfo.requestURL}"-->
                         <!--class="ui-btn-active but but-sm but-2 mrm">List</a>-->
@@ -134,7 +138,7 @@
                     </c:choose>
                 </c:set>
 
-                <div class="contain_1-1">
+                <div class="contain_1-1" style="margin-top:44px;">
                     <c:choose>
                         <c:when test="${empty searchString and isNearbySearch}">
                             <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near this location</span>

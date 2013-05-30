@@ -9,8 +9,8 @@ package gs.web.gallup;
  */
 
 
+
 import gs.data.gallup.*;
-import java.util.ArrayList;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,10 @@ public class GallupLandingPageController {
     @RequestMapping(method= RequestMethod.GET)
     public String handleRequestInternal(HttpServletRequest request, Model model) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        final ArrayList<GallupSchools> gallupSchools= _gallupDao.findGallupSchoolsList();
-        model.addAttribute("gallupSchools",gallupSchools);
+        List<GallupSchools> gallupSchools= _gallupDao.findGallupSchoolsList();
+         model.addAttribute("gallupSchools",gallupSchools);
         return "/gallup/gallupLanding";
+
     }
 }
+

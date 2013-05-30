@@ -661,9 +661,16 @@
             <jsp:include page="/promo/emailSignUp.module"/>
 
             <div id="articleBottomRightAd">
-                <gsweb:adTagGenerator position="BelowFold2_300x250">
-                    <span class="jq-ghostText">ADVERTISEMENT</span>$AD
-                </gsweb:adTagGenerator>
+                <c:choose>
+                    <c:when test="${type eq 'articleSlideshow'}">
+                        <ad:BelowFold_Top_300x125/>
+                    </c:when>
+                    <c:otherwise>
+                        <gsweb:adTagGenerator position="BelowFold2_300x250">
+                            <span class="jq-ghostText">ADVERTISEMENT</span>$AD
+                        </gsweb:adTagGenerator>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
         </c:otherwise>

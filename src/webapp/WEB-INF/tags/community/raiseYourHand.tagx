@@ -177,7 +177,7 @@
         //</c:if>
 
         //<c:if test="${!signedIn}">
-        $j('#ryhAnswer, #ryhSubmit').focus(function() {
+        $j('#ryhAnswer, #ryhSubmit').click(function() {
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
         //</c:if>

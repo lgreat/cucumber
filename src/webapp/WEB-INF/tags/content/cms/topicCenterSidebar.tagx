@@ -232,4 +232,5 @@
         <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
     </c:if>
 
+    <ad:BelowFold_Top_300x125/>
 </jsp:root>

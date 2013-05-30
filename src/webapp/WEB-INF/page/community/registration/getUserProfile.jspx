@@ -19,7 +19,7 @@
                     </c:forEach>
                 </interests>
                 <other-interest>${member.userProfile.otherInterest}</other-interest>
-                <about-me private="${member.userProfile.private}">${member.userProfile.aboutMe}</about-me>
+                <about-me private="${member.userProfile.privateSchool}">${member.userProfile.aboutMe}</about-me>
                 <num-pre-k-children>${member.userProfile.numPreKChildren}</num-pre-k-children>
                 <num-school-children>${member.userProfile.numSchoolChildren}</num-school-children>
 
