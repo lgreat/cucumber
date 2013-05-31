@@ -20,6 +20,9 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,8 +46,9 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/school/usp/")
-public class UspFormController implements ReadWriteAnnotationController {
+public class UspFormController implements ReadWriteAnnotationController, BeanFactoryAware {
     public static final String FORM_VIEW = "/school/usp/uspForm";
+    public static final String FORM_UNAVAILABLE_VIEW = "/school/usp/uspFormUnavailable";
     public static final String THANK_YOU_VIEW = "/school/usp/thankYou";
 
     public static final String PARAM_STATE = "state";
@@ -53,6 +57,8 @@ public class UspFormController implements ReadWriteAnnotationController {
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     private static Logger _logger = Logger.getLogger(UspFormController.class);
+
+    private BeanFactory _beanFactory;
 
     @Autowired
     private UspFormHelper _uspFormHelper;
@@ -74,6 +80,7 @@ public class UspFormController implements ReadWriteAnnotationController {
                                   @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                   @RequestParam(value = UspFormHelper.PARAM_STATE, required = false) State state) {
         School school = getSchool(state, schoolId);
+        modelMap.put("school", school);
         if (school == null) {
             return "";
         }
@@ -86,8 +93,19 @@ public class UspFormController implements ReadWriteAnnotationController {
 
         modelMap.put("isSchoolAdmin", false);
 
-        _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, false);
-        return FORM_VIEW;
+        String view;
+        EspStatusManager espStatusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", school);
+
+        switch (espStatusManager.getEspStatus()) {
+            case OSP_PREFERRED:
+                view = FORM_UNAVAILABLE_VIEW;
+                break;
+            default:
+                _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, false);
+                view = FORM_VIEW;
+        }
+
+        return view;
     }
 
     @RequestMapping(value = "/form.page", method = RequestMethod.POST)
@@ -358,6 +376,14 @@ public class UspFormController implements ReadWriteAnnotationController {
         }
 
         return school;
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
+    }
+
+    public EspStatusManager createEspStatusManager(School school) {
+        return new EspStatusManager(school);
     }
 
     public ISchoolDao getSchoolDao() {

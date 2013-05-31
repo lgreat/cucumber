@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:usp="urn:jsptagdir:/WEB-INF/tags/school/usp"
+          xmlns:modal="urn:jsptagdir:/WEB-INF/tags/school/usp/modal"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <head>
+        <meta name="decorator" content="standardDecorator-v1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="${isSchoolAdmin ? 'Form for administrators to moderate USP results' : 'Form for USP input'}"/>
+        <gsml:javascript src="/res/js/chosen/chosen.jquery.min.js" />
+        <gsml:javascript  src="/res/js/school/uspForm.js"/>
+        <link rel="stylesheet" href="/res/js/chosen/chosen.css" />
+        <title>USP Form</title>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.chosenElement').chosen();
+            });
+        </script>
+    </head>
+        <body>
+        <div class="imageBgScale">
+            <div class="pr" style="height:170px;">
+                <div class="headerBar">
+                    <p class="truncated" style="font-family: SourceSansPro-Semibold, arial; font-size:48px;
+                        color: #FFFFFF; padding: 47px 0 17px 0;text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">${school.name}</p>
+                    <p style="font-family: SourceSansPro-It,  arial; font-size:16px; color: #996E18;
+                        padding-bottom: 15px;">${school.city}, ${school.databaseState}</p>
+                    <div class="white_arrow_up"><!-- do not collapse --></div>
+                </div>
+            </div>
+        </div>
+        <c:set var="countPerPage" value="5"/>
+        <div class="container_24 clearfix ptl">
+            <div class=" prefix_2 grid_20 suffix_2">
+                <div class="mtl error-block js-uspSelectNone make-000000 dn">
+                    <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
+                    Whoops! You need to answer at least one question to submit.
+                </div>
+                <div class="mtl error-block js-uspSelectOneEach make-000000 dn">
+                    <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
+                    Whoops! Please answer all questions below before submitting.
+                </div>
+                <div class="mtl error-block make-000000 dn">
+                    <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
+                    Whoops!  We already have your answers about this school. You can update or change them below.
+                </div>
+            </div>
+
+
+            <div class="mvl">
+                We've learned a lot about this school, but we still need your help!
+                <p>You can share what you know about your school <span>right now</span> -
+                    <link:schoolProfileParentReview school="${school}">Write a review.</link:schoolProfileParentReview>
+                School administrators, access your account <link:schoolEspSignIn>here.</link:schoolEspSignIn></p>
+            </div>
+            <modal:registration/>
+            <modal:signin/>
+        </div>
+        <mod:tracking pageName="${isSchoolAdmin ? 'OSP Form USP Moderation Page' : 'USP Form Page'}"
+                      hier1="${isSchoolAdmin ? 'ESP' : 'USP, User input, USP Form Page'}"/>
+        </body>
+    </html>
+</jsp:root>

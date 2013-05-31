@@ -11,8 +11,10 @@ import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.*;
 import gs.web.school.EspSaveHelper;
 import org.easymock.classextension.EasyMock;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -22,9 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.isA;
+import static org.easymock.EasyMock.*;
 
 public class UspFormControllerTest extends BaseControllerTestCase {
     UspFormController _controller;
@@ -41,6 +41,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     BindingResult _bindingResult;
     State _state;
     Integer _schoolId;
+    BeanFactory _beanFactory;
+    EspStatusManager _espStatusManager;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -51,24 +53,27 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         _uspHelper = EasyMock.createStrictMock(UspFormHelper.class);
         _userRegistrationOrLoginService = EasyMock.createStrictMock(UserRegistrationOrLoginService.class);
         _espSaveHelper = EasyMock.createStrictMock(EspSaveHelper.class);
+        _beanFactory = EasyMock.createStrictMock(BeanFactory.class);
+        _espStatusManager = EasyMock.createStrictMock(EspStatusManager.class);
 
         _controller.setUserDao(_userDao);
         _controller.setUspFormHelper(_uspHelper);
         _controller.setSchoolDao(_schoolDao);
         _controller.setUserRegistrationOrLoginService(_userRegistrationOrLoginService);
         _controller.setEspSaveHelper(_espSaveHelper);
+        _controller.setBeanFactory(_beanFactory);
     }
 
     private void replayAllMocks() {
-        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper);
+        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper);
+        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager);
     }
 
     private void resetAllMocks() {
-        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper);
+        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager);
     }
 
     /**
@@ -164,6 +169,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = getSchool(state, schoolId);
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
         _uspHelper.formFieldsBuilderHelper(modelMap, getRequest(), getResponse(), school, state, null, false);
 
         replayAllMocks();
@@ -171,6 +178,34 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
 
         assertEquals(UspFormController.FORM_VIEW, view);
+    }
+
+    public void testUserFormUnavailable() {
+        resetAllMocks();
+
+        ModelMap modelMap = new ModelMap();
+
+        replayAllMocks();
+        String view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), null, null);
+        verifyAllMocks();
+
+        assertEquals("", view);
+
+        resetAllMocks();
+
+        State state = State.CA;
+        Integer schoolId = 1;
+        School school = getSchool(state, schoolId);
+
+        expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
+
+        replayAllMocks();
+        view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), schoolId, state);
+        verifyAllMocks();
+
+        assertEquals(UspFormController.FORM_UNAVAILABLE_VIEW, view);
     }
 
     public void testDetermineRedirectsWithNulls() {
