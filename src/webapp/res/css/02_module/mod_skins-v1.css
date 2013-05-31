@@ -467,6 +467,8 @@ General comments:
 .bg-nearbySchool { background: url("/res/img/module/background/nearbySchools.png") no-repeat right bottom;}
 .bg-chooserBook { background: url("/res/img/module/background/chooserBook.png") no-repeat right bottom;}
 .bg-uspPromo { background: url("/res/img/usp/kids_tile_178x90.png") no-repeat right bottom;}
+.bg-uspPromo-lg { background: url("/res/img/usp/kids_promo220×105.png") no-repeat left bottom;}
+.bg-uspGetStarted { background: url("/res/img/usp/motherDaughter267×189.png") no-repeat right bottom;}
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds colors-------------- */
 
