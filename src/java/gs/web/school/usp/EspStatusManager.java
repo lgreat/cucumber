@@ -151,6 +151,13 @@ public class EspStatusManager {
         return status;
     }
 
+    /**
+     * Checks if all the question in the OSP gateway have been filled out.
+     * Some of the questions on the gateway form have "other" text boxes. Hence need to check if either the
+     * "other" text box or the multi-choice checkbox was answered in order to determine if a question has a response.
+     * @param ospResponses
+     * @return
+     */
     public boolean allOSPQuestionsAnswered(IEspResponseData ospResponses) {
         Map<String, List<EspResponse>> ospResponsesByKey = ospResponses.getResponsesByKey();
 
