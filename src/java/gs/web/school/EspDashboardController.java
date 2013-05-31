@@ -5,6 +5,7 @@ import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.community.HoverHelper;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -12,6 +13,9 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SubCookie;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +32,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/official-school-profile/dashboard")
-public class EspDashboardController {
+public class EspDashboardController implements BeanFactoryAware{
     private static final Log _log = LogFactory.getLog(EspDashboardController.class);
     public static final String VIEW = "school/espDashboard";
     public static final String PARAM_STATE = "state";
@@ -44,6 +48,8 @@ public class EspDashboardController {
     private ISchoolDao _schoolDao;
     @Autowired
     private EspFormValidationHelper _espFormValidationHelper;
+
+    private BeanFactory _beanFactory;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showLandingPage(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
@@ -145,6 +151,11 @@ public class EspDashboardController {
             modelMap.put("anyPageStarted", anyPageStarted);
             modelMap.put("isFruitcakeSchool", EspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
         }
+
+       //Use the BeanFactoryAware so that we get the espStatusManager component with auto injections.Otherwise we have to
+       //manually set the espResponseDao on the espStatusManager.
+       EspStatusManager statusManager = (EspStatusManager)_beanFactory.getBean("espStatusManager",new Object[] {school});
+       modelMap.put("schoolEspStatus", statusManager.getEspStatus());
 
         return VIEW;
     }
@@ -275,5 +286,9 @@ public class EspDashboardController {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
     }
 }

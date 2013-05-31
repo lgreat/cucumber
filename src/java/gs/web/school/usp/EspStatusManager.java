@@ -1,28 +1,27 @@
 package gs.web.school.usp;
 
 import gs.data.school.EspResponse;
+import gs.data.school.IEspResponseDao;
 import gs.data.school.School;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-@Component
-@Scope("prototype")
+@Component(value="espStatusManager")
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class EspStatusManager {
-
-    @Autowired
-    private gs.data.school.IEspResponseDao _espResponseDao;
 
     private School _school;
 
     private EspStatus _espStatus;
 
     private EspResponseData _espResponseData;
+
+    @Autowired
+    private IEspResponseDao _espResponseDao;
 
     public EspStatusManager(School school) {
         _school = school;
@@ -32,12 +31,27 @@ public class EspStatusManager {
         //TODO check for all keys or maybe just check for 1 key and its timestamp
         //TODO deal with the open text fields like other.
         return new HashSet<String>(
-            Arrays.asList(
-                new String[]{
-                    "girls_sports",
-                    "boys_sports"
-                }
-            )
+                Arrays.asList(
+                        new String[]{
+                                "arts_media",
+                                "arts_music",
+                                "arts_performing_written",
+                                "arts_visual",
+                                "before_after_care",
+                                "girls_sports",
+                                "girls_sports_other",
+                                "staff_resources",
+                                "facilities",
+                                "foreign_language",
+                                "foreign_language_other",
+                                "transportation",
+                                "transportation_other",
+                                "boys_sports",
+                                "boys_sports_other",
+                                "parent_involvement",
+                                "parent_involvement_other"
+                        }
+                )
         );
     }
 
@@ -139,4 +153,13 @@ public class EspStatusManager {
 
         return status;
     }
+
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
+    }
+
 }
