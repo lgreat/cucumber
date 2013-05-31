@@ -63,7 +63,7 @@
         <!-- GS-12953: END MOBILE GOMEZ TRACKING CODE -->
 
         <script src="/res/js/jquery/jquery-1.9.1.min.js" type="text/javascript"><!-- do not collapse --></script>
-        <!--<script src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" type="text/javascript">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
+        <script src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" type="text/javascript"><!-- do not collapse --></script>
 
         <pageHelper:ifAdsOnPage>
             <ad:xGPTMobileSetup/>
