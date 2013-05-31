@@ -317,17 +317,6 @@ jQuery(function () {
         return uspForm.find('.js-ospUserFields').length > 0;
     }
 
-//    if(!isOspUser){
-//        alert("osp user = " + uspForm.find('.js-ospUserFields').length > 0);
-//        $(".js-ospUser").addClass("dn");
-//        $(".js-uspUser").removeClass("dn");
-//    }
-//
-//   else{
-//        $(".js-ospUser").removeClass("dn");
-//        $(".js-uspUser").addClass("dn");
-//    }
-
     uspForm.on('click', '.js_submit', function () {
         GS.form.uspForm.hideAllErrors();
         GS.form.uspForm.validateUspDataAndShowHover(uspForm, isOspUser());

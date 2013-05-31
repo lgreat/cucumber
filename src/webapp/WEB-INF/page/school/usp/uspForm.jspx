@@ -59,18 +59,26 @@
                 </div>
             </div>
 
-            <!--<div class=" prefix_4 grid_16 suffix_4 js-uspUser dn">-->
-                <!--<div class="tac pvl mvl js-uspUser"> USP USER-->
-                    <!--Help others by sharing what you know about ${school.name}. You don’t need to answer every question - even-->
-                    <!--one answer provides families with helpful information.-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class=" prefix_4 grid_16 suffix_4 js-ospUser dn">-->
-                <!--<div class="tac pvl mvl "> OSP USER-->
-                    <!--Help families learn more about your school by filling in or editing the information below. At least one-->
-                    <!--response is required for each question.-->
-                <!--</div>-->
-            <!--</div>-->
+            <c:choose>
+                <c:when test="${isSchoolAdmin}">
+                    <div class=" prefix_4 grid_16 suffix_4">
+                        <div class="tac pvl mvl">
+                            <!--OSP User-->
+                            Help families learn more about your school by filling in or editing the information below. At least one
+                            response is required for each question.
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class=" prefix_4 grid_16 suffix_4">
+                        <div class="tac pvl mvl">
+                            <!--USP User-->
+                            Help others by sharing what you know about ${school.name}. You don’t need to answer every question - even
+                            one answer provides families with helpful information.
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
             <div class="mvl">
                 <form:form id="js_uspForm">
