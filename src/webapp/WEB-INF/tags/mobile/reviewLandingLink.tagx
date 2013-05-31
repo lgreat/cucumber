@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <jsp:directive.attribute name="trackingCode" required="false" type="java.lang.String"
+                             description="The value to set in omniture"/>
+    <jsp:directive.attribute name="schoolId" required="false" type="java.lang.String"
+                             description="Test value"/>
+    <jsp:directive.attribute name="stateId" required="false" type="java.lang.String"
+                             description="Test value"/>
+    <jsp:directive.attribute name="layoutType" required="false" type="java.lang.String"
+                             description="either home or sub page layout"/>
+    <jsp:directive.attribute name="noHorizontalMargin" required="false" type="java.lang.Boolean"
+                             description="Show the margin on the horizontal axis"/>
+
+    <c:set var="linkString" value=""/>
+    <c:if test="${not empty schoolId}">
+        <c:set var="linkString" value="id=${schoolId}&amp;state=${stateId}&amp;"/>
+    </c:if>
+    <c:set var="hMargin" value="" />
+    <c:if test="${noHorizontalMargin == 'true'}">
+        <c:set var="hMargin" value="mhn" />
+    </c:if>
+    <c:choose>
+            <c:when test="${layoutType == 'home'}">
+                <a href="/school/parentReview.page?${linkString}fromMobile=true" id="js-navigation-parent-review">
+                    <div class="contain_2-1 clearfix ${hMargin}">
+                        <div class="fl"><div class="fr iconx24 i-24-pencil mrm mts"><!-- not empty  --></div></div>
+                        <div class="fl"><p><span class="make-333"><strong>You know your school best</strong><br />
+                            <span class="small">Help others find their schools.</span></span><br />
+                            <span class="small">Write a review »</span></p></div>
+                    </div>
+                </a>
+            </c:when>
+            <c:otherwise>
+                <a href="/school/parentReview.page?${linkString}fromMobile=true" id="js-navigation-parent-review">
+                    <div class="contain_2-1 clearfix ${hMargin}">
+                        <div class="fl"><div class="fr iconx24 i-24-pencil mrm"><!-- not empty  --></div></div>
+                        <div class="fl"><p><strong  class="make-333">Know this school? </strong>
+                            <span class="small">Write a review »</span></p></div>
+                    </div>
+                </a>
+            </c:otherwise>
+    </c:choose>
+
+</jsp:root>
