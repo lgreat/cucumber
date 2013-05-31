@@ -33,23 +33,23 @@ public class EspStatusManager {
         return new HashSet<String>(
                 Arrays.asList(
                         new String[]{
-                                "arts_media",
-                                "arts_music",
-                                "arts_performing_written",
-                                "arts_visual",
-                                "before_after_care",
-                                "girls_sports",
-                                "girls_sports_other",
-                                "staff_resources",
-                                "facilities",
-                                "foreign_language",
-                                "foreign_language_other",
-                                "transportation",
-                                "transportation_other",
-                                "boys_sports",
-                                "boys_sports_other",
-                                "parent_involvement",
-                                "parent_involvement_other"
+                                UspFormHelper.ARTS_MEDIA_RESPONSE_KEY,
+                                UspFormHelper.ARTS_MUSIC_RESPONSE_KEY,
+                                UspFormHelper.ARTS_PERFORMING_WRITTEN_RESPONSE_KEY,
+                                UspFormHelper.ARTS_VISUAL_RESPONSE_KEY,
+                                UspFormHelper.EXTENDED_CARE_RESPONSE_KEY,
+                                UspFormHelper.GIRLS_SPORTS_RESPONSE_KEY,
+                                UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY,
+                                UspFormHelper.STAFF_RESPONSE_KEY,
+                                UspFormHelper.FACILITIES_RESPONSE_KEY,
+                                UspFormHelper.FOREIGN_LANGUAGES_RESPONSE_KEY,
+                                UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY,
+                                UspFormHelper.TRANSPORTATION_RESPONSE_KEY,
+                                UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY,
+                                UspFormHelper.BOYS_SPORTS_RESPONSE_KEY,
+                                UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY,
+                                UspFormHelper.PARENT_INVOLVEMENT_RESPONSE_KEY,
+                                UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY
                         }
                 )
         );
@@ -127,13 +127,10 @@ public class EspStatusManager {
      * Given an EspResponseData, gets info about the responses and calculates an EspStatus
      * @return the correct EspStatus for a list of ESP data
      */
-    public static EspStatus getEspStatus(EspResponseData espResponseData) {
+    public EspStatus getEspStatus(EspResponseData espResponseData) {
         EspStatus status;
 
-        boolean allOSPQuestionsAnswered = espResponseData.getOspResponses()
-            .getResponsesByKey()
-            .keySet()
-            .containsAll(getOspKeySet());
+        boolean allOSPQuestionsAnswered = allOSPQuestionsAnswered(espResponseData.getOspResponses());
 
         boolean isThereUSPData = espResponseData.hasUspResponseData();
         boolean isThereOSPData = espResponseData.hasOspResponseData();
@@ -152,6 +149,44 @@ public class EspStatusManager {
         }
 
         return status;
+    }
+
+    public boolean allOSPQuestionsAnswered(IEspResponseData ospResponses) {
+        Map<String, List<EspResponse>> ospResponsesByKey = ospResponses.getResponsesByKey();
+
+        boolean isGirlSportsAnswered = ospResponsesByKey.containsKey(UspFormHelper.GIRLS_SPORTS_RESPONSE_KEY) ||
+                ospResponsesByKey.containsKey(UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY);
+
+        boolean isForeignLanguagesAnswered = ospResponsesByKey.containsKey(UspFormHelper.FOREIGN_LANGUAGES_RESPONSE_KEY) ||
+                ospResponsesByKey.containsKey(UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY);
+
+        boolean isTransportationAnswered = ospResponsesByKey.containsKey(UspFormHelper.TRANSPORTATION_RESPONSE_KEY) ||
+                ospResponsesByKey.containsKey(UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY);
+
+        boolean isBoySportsAnswered = ospResponsesByKey.containsKey(UspFormHelper.BOYS_SPORTS_RESPONSE_KEY) ||
+                ospResponsesByKey.containsKey(UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY);
+
+        boolean isParentInvolvementAnswered = ospResponsesByKey.containsKey(UspFormHelper.PARENT_INVOLVEMENT_RESPONSE_KEY) ||
+                ospResponsesByKey.containsKey(UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY);
+
+        Set<String> ospKeysNonOther = new HashSet<String>(
+                Arrays.asList(
+                        new String[]{
+                                UspFormHelper.ARTS_MEDIA_RESPONSE_KEY,
+                                UspFormHelper.ARTS_MUSIC_RESPONSE_KEY,
+                                UspFormHelper.ARTS_PERFORMING_WRITTEN_RESPONSE_KEY,
+                                UspFormHelper.ARTS_VISUAL_RESPONSE_KEY,
+                                UspFormHelper.EXTENDED_CARE_RESPONSE_KEY,
+                                UspFormHelper.STAFF_RESPONSE_KEY,
+                                UspFormHelper.FACILITIES_RESPONSE_KEY
+                        }
+                ));
+
+        if (ospResponsesByKey.keySet().containsAll(ospKeysNonOther) && isGirlSportsAnswered && isForeignLanguagesAnswered
+                && isTransportationAnswered && isBoySportsAnswered && isParentInvolvementAnswered) {
+            return true;
+        }
+        return false;
     }
 
     public IEspResponseDao getEspResponseDao() {
