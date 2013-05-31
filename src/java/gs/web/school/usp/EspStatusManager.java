@@ -139,7 +139,7 @@ public class EspStatusManager {
         boolean isThereOSPData = espResponseData.hasOspResponseData();
         boolean isOspDataRecent = espResponseData.getOspResponses().hasRecentYearOfData();
 
-        if (true || allOSPQuestionsAnswered && isOspDataRecent) {
+        if (allOSPQuestionsAnswered && isOspDataRecent) {
             status = EspStatus.OSP_PREFERRED;
         } else if (isThereUSPData && !isThereOSPData) {
             status = EspStatus.USP_ONLY;
