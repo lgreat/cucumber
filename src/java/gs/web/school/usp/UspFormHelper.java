@@ -871,10 +871,20 @@ public class UspFormHelper {
                     /**
                      * Ignore case so that none checkbox would be checked for boys_sports that has saved response value "None"
                      * For extended care the response value for none is "neither"
+                     * If there is none field and if that is not checked, check if there is "none" or "neither" response. For arts and music, check
+                     * none only if all subsections have none response.
+                     * If the current response value is not "none" or "neither", build the chosen drop down.
                      */
-                    if (hasNoneField && (NONE_RESPONSE_VALUE.equalsIgnoreCase(responseValue) ||
+                    if (hasNoneField && !uspFormResponse.isNoneChecked() && (NONE_RESPONSE_VALUE.equalsIgnoreCase(responseValue) ||
                             (responseKey.equals(EXTENDED_CARE_RESPONSE_KEY) && EXTENDED_CARE_NEITHER_RESPONSE_VALUE.equals(responseValue)))) {
-                        if (savedResponses.contains(responseValue)) {
+                        boolean isArtsMusicSection = ARTS_MUSIC_TITLE.equals(sectionTitle);
+                        if(isArtsMusicSection && savedResponseKeyValues.get(ARTS_MEDIA_RESPONSE_KEY).contains(responseValue)
+                                && savedResponseKeyValues.get(ARTS_MUSIC_RESPONSE_KEY).contains(responseValue) &&
+                                savedResponseKeyValues.get(ARTS_PERFORMING_WRITTEN_RESPONSE_KEY).contains(responseValue) &&
+                                savedResponseKeyValues.get(ARTS_VISUAL_RESPONSE_KEY).contains(responseValue)) {
+                            uspFormResponse.setIsNoneChecked(true);
+                        }
+                        else if (!isArtsMusicSection && savedResponses.contains(responseValue)) {
                             uspFormResponse.setIsNoneChecked(true);
                         }
                     } else {
