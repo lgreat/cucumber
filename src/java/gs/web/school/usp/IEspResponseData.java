@@ -1,6 +1,7 @@
 package gs.web.school.usp;
 
 
+import com.google.common.collect.Multimap;
 import gs.data.school.EspResponse;
 
 import java.util.Date;
@@ -18,4 +19,6 @@ public interface IEspResponseData extends List<EspResponse> {
     public Map<String, List<EspResponse>> getResponsesByKey();
 
     public boolean hasRecentYearOfData();
+
+    public Multimap<String,String> getMultimap();
 }

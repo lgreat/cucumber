@@ -4,9 +4,12 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.school.EspResponse;
+import gs.data.school.IEspResponseDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.*;
 import gs.web.school.EspSaveHelper;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 import static org.easymock.EasyMock.*;
 
@@ -33,6 +37,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
     private EspSaveHelper _espSaveHelper;
+    private IEspResponseDao _espResponseDao;
 
     HttpServletRequest _request;
     HttpServletResponse _response;
@@ -55,6 +60,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         _espSaveHelper = EasyMock.createStrictMock(EspSaveHelper.class);
         _beanFactory = EasyMock.createStrictMock(BeanFactory.class);
         _espStatusManager = EasyMock.createStrictMock(EspStatusManager.class);
+        _espResponseDao = EasyMock.createStrictMock(IEspResponseDao.class);
 
         _controller.setUserDao(_userDao);
         _controller.setUspFormHelper(_uspHelper);
@@ -62,18 +68,19 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         _controller.setUserRegistrationOrLoginService(_userRegistrationOrLoginService);
         _controller.setEspSaveHelper(_espSaveHelper);
         _controller.setBeanFactory(_beanFactory);
+        ReflectionTestUtils.setField(_controller, "_espResponseDao", _espResponseDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager);
+        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager);
+        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao);
     }
 
     private void resetAllMocks() {
-        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager);
+        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao);
     }
 
     /**
@@ -157,52 +164,65 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         ModelMap modelMap = new ModelMap();
 
         replayAllMocks();
-        String view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), null, null);
+        String view = _controller.showUspUserForm(modelMap, getRequest(), null, null);
         verifyAllMocks();
 
         assertEquals("", view);
 
         resetAllMocks();
 
+        User user = new User();
+        user.setId(1);
+        getSessionContext().setUser(user);
         State state = State.CA;
         Integer schoolId = 1;
         School school = getSchool(state, schoolId);
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
-        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school))).andReturn(_espStatusManager);
+
+        expect(_espResponseDao.getResponsesByUserAndSchool(eq(school), isA(Integer.class), eq(false))).andReturn(
+            Arrays.asList(
+                EspResponse.with().school(school).key("abc").value("123").create(),
+                EspResponse.with().school(school).key("abc").value("456").create()
+            )
+        );
+
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
-        _uspHelper.formFieldsBuilderHelper(modelMap, getRequest(), getResponse(), school, state, null, false);
+        expect(_uspHelper.formFieldsBuilderHelper(isA(Multimap.class), eq(false))).andReturn(null);
 
         replayAllMocks();
-        view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), schoolId, state);
+        view = _controller.showUspUserForm(modelMap, getRequest(), schoolId, state);
         verifyAllMocks();
 
         assertEquals(UspFormController.FORM_VIEW, view);
     }
 
     public void testUserFormUnavailable() {
-        resetAllMocks();
-
         ModelMap modelMap = new ModelMap();
 
-        replayAllMocks();
-        String view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), null, null);
-        verifyAllMocks();
-
-        assertEquals("", view);
-
         resetAllMocks();
 
+        User user = new User();
+        user.setId(1);
+        getSessionContext().setUser(user);
         State state = State.CA;
         Integer schoolId = 1;
         School school = getSchool(state, schoolId);
+        expect(_schoolDao.getSchoolById(state, schoolId)).andReturn(school);
 
-        expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
-        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school))).andReturn(_espStatusManager);
+        expect(_espResponseDao.getResponsesByUserAndSchool(eq(school), isA(Integer.class), eq(false))).andReturn(
+            Arrays.asList(
+                EspResponse.with().school(school).create(),
+                EspResponse.with().school(school).create()
+            )
+        );
+
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
 
         replayAllMocks();
-        view = _controller.showUspUserForm(modelMap, getRequest(), getResponse(), schoolId, state);
+        String view = _controller.showUspUserForm(modelMap, getRequest(), schoolId, state);
         verifyAllMocks();
 
         assertEquals(UspFormController.FORM_UNAVAILABLE_VIEW, view);

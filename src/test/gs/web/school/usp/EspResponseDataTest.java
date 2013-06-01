@@ -20,12 +20,7 @@ public class EspResponseDataTest {
     School _school;
 
     private EspResponseFluentInterface basicResponse() {
-        return EspResponse.with()
-            .school(_school)
-            .active(true)
-            .memberId(1)
-            .value("value")
-            .created(new Date());
+        return EspResponse.with().school(_school).active(true).memberId(1).value("value").created(new Date());
     }
 
     @Before
@@ -41,13 +36,13 @@ public class EspResponseDataTest {
     public void testBasics() {
         assertNull(
             "Expect espResponseData to have null map", ReflectionTestUtils.getField(
-                _espResponseData, "_responsesBySource"
-            )
+            _espResponseData, "_responsesBySource"
+        )
         );
     }
 
     @Test
-    public void testGetOspResponses() throws Exception {
+    public void testGetUspResponses() throws Exception {
         _espResponseData.addAll(
             ListUtils.newArrayList(
                 basicResponse().source(EspResponseSource.osp).create(),
@@ -55,24 +50,24 @@ public class EspResponseDataTest {
             )
         );
 
-        List<EspResponse> responses = _espResponseData.getOspResponses();
+        List<EspResponse> responses = _espResponseData.getUspResponses();
 
         assertEquals(
-            "Expect responses to contain only one result, since only one result had source of OSP", 1, responses.size()
+            "Expect responses to contain only one result, since only one result had source of USP", 1, responses.size()
         );
         assertEquals(
-            "Expect to receive only responses with source of osp", EspResponseSource.osp, responses.get(0).getSource()
+            "Expect to receive only responses with source of usp", EspResponseSource.usp, responses.get(0).getSource()
         );
 
         // test making the call again returns same results:
 
-        responses = _espResponseData.getOspResponses();
+        responses = _espResponseData.getUspResponses();
 
         assertEquals(
-            "Expect responses to contain only one result, since only one result had source of OSP", 1, responses.size()
+            "Expect responses to contain only one result, since only one result had source of USP", 1, responses.size()
         );
         assertEquals(
-            "Expect to receive only responses with source of osp", EspResponseSource.osp, responses.get(0).getSource()
+            "Expect to receive only responses with source of USP", EspResponseSource.usp, responses.get(0).getSource()
         );
     }
 
@@ -96,33 +91,44 @@ public class EspResponseDataTest {
     }
 
     @Test
-    public void testGetUspResponses() throws Exception {
+    public void testGetOspResponses() throws Exception {
         _espResponseData.addAll(
             ListUtils.newArrayList(
                 basicResponse().source(EspResponseSource.osp).create(),
-                basicResponse().source(EspResponseSource.usp).create()
+                basicResponse().source(EspResponseSource.usp).create(),
+                basicResponse().source(EspResponseSource.datateam).create()
             )
         );
 
         List<EspResponse> responses = _espResponseData.getOspResponses();
 
         assertEquals(
-            "Expect responses to contain only one result, since only one result had source of OSP", 1, responses.size()
+            "Expect responses to contain two results, one for datateam and one for osp", 2, responses.size()
         );
         assertEquals(
-            "Expect to receive only responses with source of osp", EspResponseSource.osp, responses.get(0).getSource()
+            "Expect to receive only responses with source of usp and datateam",
+            EspResponseSource.osp,
+            responses.get(0).getSource()
+        );
+        assertEquals(
+            "Expect to receive only responses with source of usp and datateam",
+            EspResponseSource.datateam,
+            responses.get(1).getSource()
         );
 
-        // test making the call again gives same results:
+        _espResponseData.clear();
+
+        _espResponseData.addAll(
+            ListUtils.newArrayList(
+                basicResponse().source(EspResponseSource.datateam).create(),
+                basicResponse().source(EspResponseSource.usp).create(),
+                basicResponse().source(EspResponseSource.datateam).create()
+            )
+        );
 
         responses = _espResponseData.getOspResponses();
 
-        assertEquals(
-            "Expect responses to contain only one result, since only one result had source of OSP", 1, responses.size()
-        );
-        assertEquals(
-            "Expect to receive only responses with source of osp", EspResponseSource.osp, responses.get(0).getSource()
-        );
+        assertEquals("Expect responses to contain two results", 2, responses.size());
     }
 
     @Test

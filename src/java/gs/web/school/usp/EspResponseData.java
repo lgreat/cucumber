@@ -2,6 +2,7 @@ package gs.web.school.usp;
 
 import gs.data.school.EspResponse;
 import gs.data.school.EspResponseSource;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -10,7 +11,7 @@ import java.util.*;
  * functionality
  * Not thread safe
  */
-class EspResponseData extends BaseEspResponseData {
+public class EspResponseData extends BaseEspResponseData {
 
     /**
      * Make sure to default to null. "Caches" the information that this object finds out about the underlying list
@@ -40,7 +41,10 @@ class EspResponseData extends BaseEspResponseData {
      * @return A IEspResponseData that wraps the List of EspResponses
      */
     public IEspResponseData getOspResponses() {
-        return getResponsesBySource(EspResponseSource.osp);
+        EspResponseData responseData = new EspResponseData();
+        responseData.addAll(getResponsesBySource(EspResponseSource.osp));
+        responseData.addAll(getResponsesBySource(EspResponseSource.datateam));
+        return responseData;
     }
 
     /**

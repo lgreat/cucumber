@@ -27,6 +27,11 @@ public class EspStatusManager {
         _school = school;
     }
 
+    public EspStatusManager(School school, EspResponseData espResponseData) {
+        this(school);
+        _espResponseData = espResponseData;
+    }
+
     public static Set<String> getOspKeySet() {
         //TODO check for all keys or maybe just check for 1 key and its timestamp
         //TODO deal with the open text fields like other.

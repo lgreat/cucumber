@@ -76,15 +76,16 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
                                   HttpServletRequest request,
-                                  HttpServletResponse response,
                                   @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = false) Integer schoolId,
                                   @RequestParam(value = UspFormHelper.PARAM_STATE, required = false) State state) {
+        // First get the school
         School school = getSchool(state, schoolId);
         modelMap.put("school", school);
         if (school == null) {
             return "";
         }
 
+        // Now, we need a user
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = null;
         if (sessionContext != null) {
@@ -93,16 +94,36 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
         modelMap.put("isSchoolAdmin", false);
 
-        String view;
-        EspStatusManager espStatusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", school);
 
+        // We need the List of EspResponses all for ourselves
+        List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), false);
+
+        // Decorate the responses
+        EspResponseData espResponseData = new EspResponseData(espResponses);
+
+        // We could get EspStatus with static method on EspStatusManager, but that would make it a little harder to test
+        EspStatusManager espStatusManager = (EspStatusManager) _beanFactory.getBean(
+            "espStatusManager", school, espResponseData
+        );
+
+        String view;
         switch (espStatusManager.getEspStatus()) {
             case OSP_PREFERRED:
                 view = FORM_UNAVAILABLE_VIEW;
                 break;
             default:
-                _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, false);
+
+                // Get a multimap from EspResponses, give it to form helper so it can generate form data
+                Multimap<String, String> responseKeyValues = espResponseData.getUspResponses().getMultimap();
+                List<UspFormResponseStruct> uspFormResponses = _uspFormHelper.formFieldsBuilderHelper(
+                    responseKeyValues,
+                    false
+                );
+
+                modelMap.put("uspFormResponses", uspFormResponses);
+
                 view = FORM_VIEW;
+                break;
         }
 
         return view;

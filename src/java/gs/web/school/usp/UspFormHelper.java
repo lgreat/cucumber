@@ -789,6 +789,15 @@ public class UspFormHelper {
 
         modelMap.put("school", school);
         Multimap<String, String> savedResponseKeyValues = getSavedResponses(user, school, state, isOspUser);
+
+        List<UspFormResponseStruct> uspFormResponses = formFieldsBuilderHelper(savedResponseKeyValues, isOspUser);
+
+        modelMap.put("uspFormResponses", uspFormResponses);
+    }
+
+    public List<UspFormResponseStruct> formFieldsBuilderHelper(Multimap<String, String> savedResponseKeyValues,
+                                                                boolean isOspUser) {
+
         List<UspFormResponseStruct> uspFormResponses = new LinkedList<UspFormResponseStruct>();
 
         /**
@@ -797,11 +806,11 @@ public class UspFormHelper {
          * For each response key that the form field has, get all the response values from the multimap and construct
          * section response. Each section response has a list of response values objects.
          */
-        for (SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
+        for (SectionResponseKeys sectionResponseKeys : SectionResponseKeys.values()) {
             uspFormResponses.add(buildSectionResponse(sectionResponseKeys, savedResponseKeyValues, isOspUser));
         }
 
-        modelMap.put("uspFormResponses", uspFormResponses);
+        return uspFormResponses;
     }
 
     protected UspFormResponseStruct buildSectionResponse(SectionResponseKeys sectionResponseKeys,
