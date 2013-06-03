@@ -19,17 +19,41 @@
         </div>
     </c:set>
 
-    <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
-        <div class="ptn">
-            <!--<b>Highlights Data</b>-->
-            <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
+    <c:set var="highlightstab">
+        <c:if test="${fn:length(highlights) gt 0}">
+
+            <c:if test="${isNotOspPreffered}">
+                <div class="mod standard_3-1">
+                    <div class="outer">
+                        <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
+                            <div class="hd mtl mll">
+                                <h3 class="bottom">Let your school shine!</h3>
+                            </div>
+                            <div class="bd mbl mll">
+                                <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
+                                    community responses, adding program highlights and more on<br/>
+                                    GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
+            <div class="ptn">
+                <!--<b>Highlights Data</b>-->
+                <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
-            <c:forEach var="section" items="${highlights}" >
-                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}" articleIdToLinkMap="${ArticleIdToLinkMap}"/>
-            </c:forEach>
-        </div>
-        ${updateThisInfoBlurb}
-    </c:if></c:set>
+                <c:forEach var="section" items="${highlights}">
+                    <school:profileProgramsSectionBasic displayBean="${section}"
+                                                        rowList="${highlightsMap[section.sectionAbbreviation]}"
+                                                        dataMap="${ProfileData}"
+                                                        articleIdToLinkMap="${ArticleIdToLinkMap}"/>
+                </c:forEach>
+            </div>
+            ${updateThisInfoBlurb}
+        </c:if>
+    </c:set>
     <c:set var="applicationtab"><c:if test="${fn:length(application_info) gt 0}">
         <div class="ptn">
             <!--<b>Application Information</b>-->
@@ -45,6 +69,24 @@ where each entry is the first bean for that section, this allows access to the s
     <c:set var="programsresourcestab">
         <c:choose>
             <c:when test="${fn:length(programs_resources) gt 0}">
+                <c:if test="${isNotOspPreffered}">
+                    <div class="mod standard_3-1">
+                        <div class="outer">
+                            <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
+                                <div class="hd mtl mll">
+                                    <h3 class="bottom">Let your school shine!</h3>
+                                </div>
+                                <div class="bd mbl mll">
+                                <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
+                                    community responses, adding program highlights and more on<br/>
+                                    GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
                 <div class="ptn">
                     <!--<b>Programs and Resources</b>-->
                     <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
@@ -77,43 +119,24 @@ where each entry is the first bean for that section, this allows access to the s
     </c:set>
     <c:set var="extracurricularstab">
 
-        <div class="">
-            <h4 class="tac">This school has not yet provided program information.</h4>
-            <hr class="keyline1"/>
-            <h3 class="mtl">Help other families</h3>
-            <div class="bg-uspGetStarted pvl">
-                <div class="small">
-                    Millions of families turn to GreatSchools for help with their<br/> school search. You can help these
-                    families by providing<br/>a few details about this school.
-                </div>
-                <button class="but but-rg but-1" name="">Help now</button>
-            </div>
-            <hr class="keyline1"/>
-            <div class="bg-uspPromo-lg mtl">
-                <h3>Administrators &amp; teachers: Let your school shine!</h3>
-
-                <div class="small">School leaders - Help your school shine on GreatSchools by verifying community
-                    responses, adding program highlights and more on GreatSchools! Get started &amp;raquo;</div>
-            </div>
-
-        </div>
-
-        <div class="mod standard_3-1">
-            <div class="outer">
-                <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
-                    <div class="hd mtl mll">
-                        <h3 class="bottom">Let your school shine!</h3>
-                    </div>
-                    <div class="bd mbl mll">
-                        <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
-                            community responses, adding program highlights and more on<br/>
-                            GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <c:if test="${fn:length(extracurriculars) gt 0}">
+            <c:if test="${isNotOspPreffered}">
+                <div class="mod standard_3-1">
+                    <div class="outer">
+                        <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
+                            <div class="hd mtl mll">
+                                <h3 class="bottom">Let your school shine!</h3>
+                            </div>
+                            <div class="bd mbl mll">
+                                <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
+                                    community responses, adding program highlights and more on<br/>
+                                    GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
             <div class="ptn">
                 <!--<b>Extracurriculars</b>-->
                 <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
