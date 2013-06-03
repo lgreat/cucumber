@@ -64,11 +64,11 @@
 
 
         <script src="/res/js/jquery/jquery-1.9.1.min.js" type="text/javascript">/* do not collapse  */</script>
-        <!--<script src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" type="text/javascript">/* do not collapse  */</script>-->
+        <script src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" type="text/javascript">/* do not collapse  */</script>
 
-        <!--<pageHelper:ifAdsOnPage>-->
-            <!--<ad:xGPTMobileSetup/>-->
-        <!--</pageHelper:ifAdsOnPage>-->
+        <pageHelper:ifAdsOnPage>
+            <ad:xGPTMobileSetup/>
+        </pageHelper:ifAdsOnPage>
         <mobile:mobileBootstrapJS/>
 
 
