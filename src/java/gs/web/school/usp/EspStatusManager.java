@@ -144,7 +144,7 @@ public class EspStatusManager {
             status = EspStatus.OSP_PREFERRED;
         } else if (isThereUSPData && !isThereOSPData) {
             status = EspStatus.USP_ONLY;
-        } else if (!isThereUSPData && isThereOSPData && !isOspDataRecent) {
+        } else if (!isThereUSPData && ((isThereOSPData && !isOspDataRecent) || (isThereOSPData && isOspDataRecent && !allOSPQuestionsAnswered))) {
             status = EspStatus.OSP_OUTDATED;
         } else if (isThereUSPData && isThereOSPData) {
             status = EspStatus.MIX;
