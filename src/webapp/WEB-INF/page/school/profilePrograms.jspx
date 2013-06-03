@@ -99,19 +99,29 @@ where each entry is the first bean for that section, this allows access to the s
                 ${updateThisInfoBlurb}
             </c:when>
             <c:otherwise>
-                <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
-                <div class="rnd4 tac mbm noDataBox">
-                    <div  class="padAmount">
-                        <h3><strong>This school has not yet provided programming information.</strong></h3>
-                        <link:schoolEspRegister styleClass="tdn make-555555 no_interrupt" school="${school}">
-                            <div class="mod standard_3-1">
-                                <div class="outer">
-                                    <div class="inner pam">
-                                        Schools, <span class="make-06b">join today</span> to tell families more about what you offer.
-                                    </div>
-                                </div>
+                <div>
+                    <h4 class="tac">This school has not yet provided program information.</h4>
+                    <hr class="keyline1"/>
+                    <div class="bg-uspGetStarted">
+                        <h3 class="mtl">Help other families</h3>
+
+                        <div class=" pvl">
+                            <div class="small">
+                                Millions of families turn to GreatSchools for help with their<br/> school search. You can help these
+                                families by providing<br/>a few details about this school.
                             </div>
-                        </link:schoolEspRegister>
+                            <button class="but but-rg but-1" name="">Help now</button>
+                        </div>
+                        <hr class="keyline1"/>
+                    </div>
+                    <div class="bg-uspPromo-lg mvl clearfix">
+                        <div class="prefix_6 grid_9">
+                            <h4>Administrators &amp; teachers: Let your school shine!</h4>
+                            <div class="small">School leaders - Help your school shine on GreatSchools by verifying community
+                                responses, adding program highlights and more on GreatSchools! Get started &amp;raquo;
+                            </div>
+                        </div>
+                        <hr class="keyline1"/>
                     </div>
                 </div>
             </c:otherwise>
