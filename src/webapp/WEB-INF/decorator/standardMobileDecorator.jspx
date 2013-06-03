@@ -62,19 +62,20 @@
         </c:if>
         <!-- GS-12953: END MOBILE GOMEZ TRACKING CODE -->
 
-        <pageHelper:ifAdsOnPage>
-            <ad:xGPTMobileSetup/>
-        </pageHelper:ifAdsOnPage>
+
+        <script src="/res/js/jquery/jquery-1.9.1.min.js" type="text/javascript">/* do not collapse  */</script>
+        <!--<script src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" type="text/javascript">/* do not collapse  */</script>-->
+
+        <!--<pageHelper:ifAdsOnPage>-->
+            <!--<ad:xGPTMobileSetup/>-->
+        <!--</pageHelper:ifAdsOnPage>-->
         <mobile:mobileBootstrapJS/>
 
-        <![CDATA[
-        <script src="/res/js/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
-        <script src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" type="text/javascript"></script>
 
 
-        <script src="/res/js/require.min.js" data-main="main" type="text/javascript"></script>
 
-        ]]>
+        <script src="/res/js/require.min.js" data-main="main" type="text/javascript">/* do not collapse  */</script>
+
         <decorator:head/>
     </head>
     <body>
