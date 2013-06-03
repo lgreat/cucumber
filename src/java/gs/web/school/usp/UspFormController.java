@@ -98,11 +98,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         List<EspResponse> espResponses;
 
         // We need the List of EspResponses all for ourselves
-        if (user != null) {
-            espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), false);
-        } else {
-            espResponses = _espResponseDao.getResponses(school);
-        }
+        espResponses = _espResponseDao.getResponses(school);
 
         // Decorate the responses
         EspResponseData espResponseData = new EspResponseData(espResponses);
@@ -112,12 +108,20 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             "espStatusManager", school, espResponseData
         );
 
+        // get the EspStatus for all EspResponses for this school
+        EspStatus status = espStatusManager.getEspStatus();
+
         String view;
-        switch (espStatusManager.getEspStatus()) {
+        switch (status) {
             case OSP_PREFERRED:
                 view = FORM_UNAVAILABLE_VIEW;
                 break;
             default:
+
+                // if a user is logged in, remove responses not associated with the user
+                if (user != null) {
+                    espResponseData = (EspResponseData) espResponseData.getResponsesByUser(user.getId());
+                }
 
                 // Get a multimap from EspResponses, give it to form helper so it can generate form data
                 Multimap<String, String> responseKeyValues = espResponseData.getUspResponses().getMultimap();

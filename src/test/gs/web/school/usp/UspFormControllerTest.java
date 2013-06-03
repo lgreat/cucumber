@@ -1,13 +1,11 @@
 package gs.web.school.usp;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.school.EspResponse;
-import gs.data.school.IEspResponseDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
@@ -180,53 +178,32 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
 
-        expect(_espResponseDao.getResponsesByUserAndSchool(eq(school), isA(Integer.class), eq(false))).andReturn(
-            Arrays.asList(
-                EspResponse.with().school(school).key("abc").value("123").create(),
-                EspResponse.with().school(school).key("abc").value("456").create()
-            )
-        );
-
-        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(_espStatusManager);
-        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
-        expect(_uspHelper.formFieldsBuilderHelper(isA(Multimap.class), eq(false))).andReturn(null);
-
-        replayAllMocks();
-        view = _controller.showUspUserForm(modelMap, getRequest(), schoolId, state);
-        verifyAllMocks();
-
-        assertEquals(UspFormController.FORM_VIEW, view);
-    }
-
-    public void testShowUserForm_noUser() {
-        resetAllMocks();
-
-        ModelMap modelMap = new ModelMap();
-
-        replayAllMocks();
-        String view = _controller.showUspUserForm(modelMap, getRequest(), null, null);
-        verifyAllMocks();
-
-        assertEquals("", view);
-
-        resetAllMocks();
-
-        State state = State.CA;
-        Integer schoolId = 1;
-        School school = getSchool(state, schoolId);
-
-        expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
-
         expect(_espResponseDao.getResponses(eq(school))).andReturn(
             Arrays.asList(
-                EspResponse.with().school(school).key("abc").value("123").create(),
-                EspResponse.with().school(school).key("abc").value("456").create()
+                EspResponse.with()
+                    .school(school)
+                    .key("abc")
+                    .source(EspResponseSource.usp)
+                    .value("123")
+                    .memberId(user.getId())
+                    .create(),
+                EspResponse.with()
+                    .school(school)
+                    .key("abc")
+                    .source(EspResponseSource.usp)
+                    .value("456")
+                    .create()
             )
         );
 
-        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(_espStatusManager);
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(
+            _espStatusManager
+        );
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
-        expect(_uspHelper.formFieldsBuilderHelper(isA(Multimap.class), eq(false))).andReturn(null);
+
+        Multimap testMultimap = ArrayListMultimap.create();
+        testMultimap.put("abc", "123");
+        expect(_uspHelper.formFieldsBuilderHelper(eq(testMultimap), eq(false))).andReturn(null);
 
         replayAllMocks();
         view = _controller.showUspUserForm(modelMap, getRequest(), schoolId, state);
@@ -248,9 +225,9 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = getSchool(state, schoolId);
         expect(_schoolDao.getSchoolById(state, schoolId)).andReturn(school);
 
-        expect(_espResponseDao.getResponsesByUserAndSchool(eq(school), isA(Integer.class), eq(false))).andReturn(
+        expect(_espResponseDao.getResponses(eq(school))).andReturn(
             Arrays.asList(
-                EspResponse.with().school(school).create(),
+                EspResponse.with().school(school).memberId(user.getId()).create(),
                 EspResponse.with().school(school).create()
             )
         );

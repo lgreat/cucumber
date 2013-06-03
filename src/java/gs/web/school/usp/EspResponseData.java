@@ -113,4 +113,24 @@ public class EspResponseData extends BaseEspResponseData {
         }
     }
 
+    /**
+     * Returns a new EspResponseData with EspResponses matching the given member ID
+     * @param memberId
+     * @return a new EspResponseData
+     */
+    public IEspResponseData getResponsesByUser(Integer memberId) {
+        EspResponseData responseData = new EspResponseData();
+
+        Iterator<EspResponse> iterator = iterator();
+
+        while (iterator.hasNext()) {
+            EspResponse response = iterator.next();
+            if (response.getMemberId() != null && response.getMemberId().equals(memberId)) {
+                responseData.add(response);
+            }
+        }
+
+        return responseData;
+    }
+
 }
