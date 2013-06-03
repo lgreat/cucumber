@@ -144,10 +144,10 @@ public class EspStatusManager {
             status = EspStatus.OSP_PREFERRED;
         } else if (isThereUSPData && !isThereOSPData) {
             status = EspStatus.USP_ONLY;
-        } else if (isThereUSPData && isThereOSPData && !isOspDataRecent) {
-            status = EspStatus.MIX;
         } else if (!isThereUSPData && isThereOSPData && !isOspDataRecent) {
             status = EspStatus.OSP_OUTDATED;
+        } else if (isThereUSPData && isThereOSPData) {
+            status = EspStatus.MIX;
         } else {
             status = EspStatus.NO_DATA;
         }
