@@ -355,6 +355,12 @@ jQuery(function () {
         GSType.hover.modalUspSignIn.show();
     });
 
+    jQuery('body').on('click', '.js_modalUspSignIn_launchForgotPassword', function () {
+        GS.form.uspForm.hideAllErrors();
+        GSType.hover.modalUspSignIn.hide();
+        GSType.hover.forgotPassword.show();
+    });
+
     jQuery('body').on('click', '.js_lnchUspRegistration', function () {
         GS.form.uspForm.hideAllErrors();
         GSType.hover.modalUspSignIn.hide();

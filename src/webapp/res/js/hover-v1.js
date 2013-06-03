@@ -39,6 +39,7 @@ GSType.hover.HoverDialog = function(id,width) {
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
+
         $(document).on("click","#"+this.hoverId + ' .js_closeHover', function() {
             self.hide();
         });
@@ -2210,12 +2211,7 @@ GSType.hover.ModalUspRegistration = function() {
 GSType.hover.ModalUspRegistration.prototype = new GSType.hover.HoverDialog('js-modalUspRegistration');
 GSType.hover.modalUspRegistration = new GSType.hover.ModalUspRegistration();
 
-GSType.hover.ModalUspSignIn = function() {
-//    this.show = function() {
-//        GSType.hover.modalUspRegistration.showModal();
-//        return false;
-//    };
-};
+GSType.hover.ModalUspSignIn = function() {};
 GSType.hover.ModalUspSignIn.prototype = new GSType.hover.HoverDialog('js-modalUspSignIn');
 GSType.hover.modalUspSignIn = new GSType.hover.ModalUspSignIn();
 
