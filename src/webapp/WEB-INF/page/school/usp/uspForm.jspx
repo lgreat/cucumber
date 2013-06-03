@@ -53,10 +53,12 @@
                     <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
                     Whoops! Please answer all questions below before submitting.
                 </div>
-                <div class="mtl error-block make-000000 dn">
-                    <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
-                    Whoops!  We already have your answers about this school. You can update or change them below.
-                </div>
+                <c:if test="${param.showExistingAnswersMsg}">
+                    <div class="mtl error-block make-000000">
+                        <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
+                        Whoops!  We already have your answers about this school. You can update or change them below.
+                    </div>
+                </c:if>
             </div>
 
             <c:choose>
