@@ -36,7 +36,7 @@
                             <div class="clearfix">
                                 <div class="fl but but-rg but-1 js_uspLoginSubmit">Sign in</div>
                                 <div class="fl smaller bottom pll">
-                                    <a href="#">Forgot your password?</a><br/>
+                                    <a href="javascript:void(0);" id="signInHover_launchForgotPassword" class="js_closeHover smaller">Forgot your password?</a><br/>
                                     Not a member?
                                     <a href="#" class="js_lnchUspRegistration">Join GreatSchools</a>
                                 </div>
