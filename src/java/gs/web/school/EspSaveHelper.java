@@ -6,17 +6,23 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.web.school.usp.EspStatus;
+import gs.web.school.usp.EspStatusManager;
+import gs.web.school.usp.IEspResponseData;
 import gs.web.school.usp.UspFormHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component("espSaveHelper")
-public class EspSaveHelper {
+public class EspSaveHelper implements BeanFactoryAware {
     private static final Log _log = LogFactory.getLog(EspSaveHelper.class);
 
     @Autowired
@@ -30,9 +36,12 @@ public class EspSaveHelper {
     @Autowired
     SchoolMediaDaoHibernate _schoolMediaDao;
 
+    private BeanFactory _beanFactory;
+
     /**
      * This function performs validation, does data transformation and saves the responses to the database.
      * It handles both provisional and non-provisional data. It also handles external data.
+     *
      * @param user
      * @param school
      * @param keysForPage
@@ -45,8 +54,8 @@ public class EspSaveHelper {
      */
     public void saveEspFormData(User user, School school, Set<String> keysForPage,
                                 Map<String, Object[]> keyToResponseMap, State state, int pageNum,
-                                Map<String, String> errorFieldToMsgMap,List<EspResponse> responseList,
-                                boolean isProvisionalData,boolean ignoreErrors) {
+                                Map<String, String> errorFieldToMsgMap, List<EspResponse> responseList,
+                                boolean isProvisionalData, boolean ignoreErrors) {
 
         // Save page
         Set<String> keysForExternalData = _espFormExternalDataHelper.getKeysForExternalData(school);
@@ -116,8 +125,8 @@ public class EspSaveHelper {
                 active = false; // data saved elsewhere should be inactive
             }
             for (Object responseValue : responseValues) {
-                if(errorFieldToMsgMap.get(key) != null){
-                     continue;
+                if (errorFieldToMsgMap.get(key) != null) {
+                    continue;
                 }
 
                 EspResponse espResponse;
@@ -145,6 +154,7 @@ public class EspSaveHelper {
 
     /**
      * Saves the responses to the database.
+     *
      * @param school
      * @param keysForPage
      * @param responseList
@@ -172,130 +182,135 @@ public class EspSaveHelper {
 
     }
 
-    public void saveUspFormData(User user, School school, State state,
+    public void saveUspFormData(User user, School school,
                                 Map<String, Object[]> responseKeyValues,
                                 Set<String> formFieldNames) {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         Date now = new Date();
 
         Set<String> responseParams = responseKeyValues.keySet();
-        Set<String> responseKeys = new HashSet<String>();
+        Map<String, Boolean> responseKeysLookUpMap = new HashMap<String, Boolean>();
+
+        //Set up the defaults.
         boolean isOspProvisional = false;
-
         boolean active = user.isEmailProvisional() ? false : true;
-
         EspResponseSource responseSource = EspResponseSource.usp;
 
-        if(user.hasRole(Role.ESP_SUPERUSER) || user.hasRole(Role.ESP_MEMBER)) {
+        if (user.hasRole(Role.ESP_SUPERUSER) || user.hasRole(Role.ESP_MEMBER)) {
             responseSource = EspResponseSource.osp;
             active = true;
-        }
-        else {
+        } else {
             isOspProvisional = _espFormValidationHelper.isUserProvisional(user);
-            if(isOspProvisional) {
+            if (isOspProvisional) {
                 responseSource = EspResponseSource.osp;
                 active = false;
             }
         }
 
-        for(String responseParam : responseParams) {
+        for (String responseParam : responseParams) {
             /**
              * Skip params that do not match usp form field names
              */
-            if(!formFieldNames.contains(responseParam)) {
+            if (!formFieldNames.contains(responseParam)) {
                 continue;
             }
 
             Object[] values = responseKeyValues.get(responseParam);
-            if(values == null || values.length == 0) {
+            if (values == null || values.length == 0) {
                 continue;
             }
 
             /**
              * The param value is {response_key}__{response_value} with double underscore as the delimiter.
              */
-            for(Object value : values) {
+            for (Object value : values) {
                 String keyValuePair = (String) value;
-                if(keyValuePair.contains("__")) {
+                if (keyValuePair.contains("__")) {
                     String[] keyValue = keyValuePair.split("__");
 
-                    if(keyValue.length == 2) {
-                        responseKeys.add(keyValue[0]);
-
+                    if (keyValue.length == 2) {
                         EspResponse espResponse = createEspResponse(user, school, now, keyValue[0], active, keyValue[1],
                                 responseSource);
-                        if(espResponse != null) {
+                        if (espResponse != null) {
                             responseList.add(espResponse);
+                            //value does not matter its just used for look up.
+                            responseKeysLookUpMap.put(keyValue[0], true);
                         }
                     }
                 }
             }
         }
 
-        if(EspResponseSource.osp.equals(responseSource)) {
-            /**
-             * If none of the subsection responses is selected, then include "response" value for that subsection response.
-             */
-            Set<String> subsectionResponseKeys = UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.keySet();
-            for(String subsectionResponseKey : subsectionResponseKeys) {
-                if(!responseKeys.contains(subsectionResponseKey)) {
-                    EspResponse espResponse = createEspResponse(user, school, now, subsectionResponseKey, active,
-                            UspFormHelper.NONE_RESPONSE_VALUE, responseSource);
-                    if(espResponse != null) {
-                        responseList.add(espResponse);
-                    }
-                }
-            }
+        if (EspResponseSource.osp.equals(responseSource)) {
+            handleSubsectionResponses(responseKeysLookUpMap, user, school, now, active, responseSource, responseList);
         }
-        saveUspResponses(school, responseList, user, responseSource, now, isOspProvisional);
+        saveUspResponses(school, responseList, user, responseSource, now, isOspProvisional, responseKeysLookUpMap);
     }
 
     protected void saveUspResponses(School school, List<EspResponse> responseList,
-                                    User user, EspResponseSource espResponseSource, Date now, boolean isOspProvisional) {
+                                    User user, EspResponseSource espResponseSource, Date now, boolean isOspProvisional,
+                                    Map<String, Boolean> responseKeysLookUpMap) {
+
+        if (responseList == null || responseList.isEmpty()) {
+            return;
+        }
+
         final boolean isOspSource = EspResponseSource.osp.equals(espResponseSource);
-        List<EspResponseSource> responseSources = new ArrayList<EspResponseSource>(){{
-            if(isOspSource) {
+
+        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>() {{
+            if (isOspSource) {
                 add(EspResponseSource.osp);
                 add(EspResponseSource.datateam);
-            }
-            else {
+            } else {
                 add(EspResponseSource.usp);
             }
         }};
 
-        if(isOspProvisional) {
-            Set<String> keysForPage = new HashSet<String>();
+        //Use the BeanFactoryAware so that we get the espStatusManager component with auto injections.Otherwise we have to
+        //manually set the espResponseDao on the espStatusManager.
+        EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", new Object[]{school});
+        EspStatus espStatus = statusManager.getEspStatus();
 
-            for(UspFormHelper.SectionResponseKeys sectionResponseKeys : UspFormHelper.SectionResponseKeys.values()) {
-                String[] responseKeys = sectionResponseKeys.getResponseKeys();
-                if(responseKeys != null) {
-                    keysForPage.addAll(Arrays.asList(responseKeys));
-                }
+        if (!isOspSource && espStatus.equals(EspStatus.OSP_PREFERRED)) {
+            return;
+        } else if (!isOspSource) {
+            _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
+        } else if (isOspSource && !isOspProvisional) {
+            if (statusManager.allOSPQuestionsAnswered(responseKeysLookUpMap)) {
+                responseSourcesToDeactivate.add(EspResponseSource.usp);
             }
+            _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, responseKeysLookUpMap.keySet());
+        } else if (isOspProvisional) {
 
             //delete the keys that were stored for the page.
             String pageName = "osp_gateway";
             String pageKey = getPageKeys(pageName);
-            responseList.addAll(deleteAndCreateOspProvisionalUserResponse(pageKey, keysForPage, school, user, now));
-        }
-        else {
-            /**
-             * deactivate all osp and datateam active responses for osp approved/super user. For usp user, deactivate only previously saved
-             * responses of that user.
-             * for users not emil validat
-             */
-            if(!user.isEmailProvisional()) {
-                _espResponseDao.deactivateResponsesByUserAndSource(school, isOspSource ? null : user.getId(), responseSources);
-            }
+            deleteAndCreateOspProvisionalUserResponse(pageKey, responseKeysLookUpMap.keySet(), school, user, now);
         }
 
-        if (responseList != null && !responseList.isEmpty()) {
-            _espResponseDao.saveResponses(school, responseList);
+        _espResponseDao.saveResponses(school, responseList);
+    }
+
+    protected void handleSubsectionResponses(Map<String, Boolean> responseKeysLookUpMap, User user, School school,
+                                             Date now, boolean active, EspResponseSource responseSource,
+                                             List<EspResponse> responseList) {
+        //Sometimes the questions are grouped together. For ex arts_media and arts_music.However the user can answer
+        //just 1 of the questions. Therefore mark all the other questions that the user did not answer to "none".
+        Set<String> subsectionResponseKeys = UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.keySet();
+        for (String subsectionResponseKey : subsectionResponseKeys) {
+            if (!responseKeysLookUpMap.containsKey(subsectionResponseKey)) {
+                EspResponse espResponse = createEspResponse(user, school, now, subsectionResponseKey, active,
+                        UspFormHelper.NONE_RESPONSE_VALUE, responseSource);
+                if (espResponse != null) {
+                    responseList.add(espResponse);
+                    responseKeysLookUpMap.put(subsectionResponseKey, true);
+                }
+            }
         }
     }
 
     protected List<EspResponse> deleteAndCreateOspProvisionalUserResponse(String pageKey, Set<String> keysForPage,
-                                                                               School school, User user, Date now) {
+                                                                          School school, User user, Date now) {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
         //First delete any provisional data entered by the user for this school, then save.
@@ -315,11 +330,11 @@ public class EspSaveHelper {
         return responseList;
     }
 
-    protected String getPageKeys(int pageNum){
+    protected String getPageKeys(int pageNum) {
         return "_page_" + pageNum + "_keys";
     }
 
-    protected String getPageKeys(String pageName){
+    protected String getPageKeys(String pageName) {
         return "_page_" + pageName + "_keys";
     }
 
@@ -340,7 +355,7 @@ public class EspSaveHelper {
     }
 
     protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, Address responseValue) {
-        return createEspResponse(user, school, now, key, active, responseValue.toString(),EspResponseSource.osp);
+        return createEspResponse(user, school, now, key, active, responseValue.toString(), EspResponseSource.osp);
     }
 
     protected void handleSchoolAffiliation(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
@@ -359,7 +374,7 @@ public class EspSaveHelper {
                 && requestParameterMap.get("census_ethnicity_unavailable") != null
                 && requestParameterMap.get("census_ethnicity_unavailable").length == 1
                 && Boolean.valueOf(requestParameterMap.get("census_ethnicity_unavailable")[0].toString());
-        for (String key: keysForPage) {
+        for (String key : keysForPage) {
             if (StringUtils.startsWith(key, "ethnicity_") && requestParameterMap.get(key) != null && requestParameterMap.get(key).length == 1) {
                 keysToRemove.add(key);
                 try {
@@ -381,7 +396,7 @@ public class EspSaveHelper {
         keysForPage.removeAll(keysToRemove);
         if (breakdownToValueMap.size() > 0) {
             keysForPage.add("census_ethnicity");
-            requestParameterMap.put("census_ethnicity", new Object[] {breakdownToValueMap});
+            requestParameterMap.put("census_ethnicity", new Object[]{breakdownToValueMap});
         }
         return error;
     }
@@ -394,14 +409,14 @@ public class EspSaveHelper {
         List<EspFormExternalDataHelper.EspCensusDataTypeConfiguration> dataTypeConfigs =
                 EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState());
         if (dataTypeConfigs != null) {
-            for (EspFormExternalDataHelper.EspCensusDataTypeConfiguration dataTypeConfig: dataTypeConfigs) {
+            for (EspFormExternalDataHelper.EspCensusDataTypeConfiguration dataTypeConfig : dataTypeConfigs) {
                 String key = "census_" + dataTypeConfig.getId();
                 String keyUnavailable = key + "_unavailable";
                 if (keysForPage.contains(keyUnavailable)
                         && requestParameterMap.get(keyUnavailable) != null
                         && requestParameterMap.get(keyUnavailable).length == 1
                         && Boolean.valueOf(requestParameterMap.get(keyUnavailable)[0].toString())) {
-                    requestParameterMap.put(key, new Object[] {""}); // this will disable the existing value
+                    requestParameterMap.put(key, new Object[]{""}); // this will disable the existing value
                 }
             }
         }
@@ -435,13 +450,13 @@ public class EspSaveHelper {
 
             if (phoneNumberString.matches("\\d+")) {
                 phoneNumberString = "(" + schoolPhoneAreaCode + ") " + schoolPhoneOfficeCode + "-" + schoolPhoneLastFour;
-                requestedParameterMap.put("school_phone", new String[] {phoneNumberString});
+                requestedParameterMap.put("school_phone", new String[]{phoneNumberString});
                 keysForPage.add("school_phone");
                 requestedParameterMap.remove("school_phone_area_code");
                 requestedParameterMap.remove("school_phone_office_code");
                 requestedParameterMap.remove("school_phone_last_four");
-            } else if (StringUtils.isBlank(phoneNumberString)){
-                requestedParameterMap.put("school_phone", new String[] {""});
+            } else if (StringUtils.isBlank(phoneNumberString)) {
+                requestedParameterMap.put("school_phone", new String[]{""});
                 keysForPage.add("school_phone");
                 requestedParameterMap.remove("school_phone_area_code");
                 requestedParameterMap.remove("school_phone_office_code");
@@ -467,13 +482,13 @@ public class EspSaveHelper {
 
             if (faxNumberString.matches("\\d+")) {
                 faxNumberString = "(" + schoolFaxAreaCode + ") " + schoolFaxOfficeCode + "-" + schoolFaxLastFour;
-                requestedParameterMap.put("school_fax", new String[] {faxNumberString});
+                requestedParameterMap.put("school_fax", new String[]{faxNumberString});
                 keysForPage.add("school_fax");
                 requestedParameterMap.remove("school_fax_area_code");
                 requestedParameterMap.remove("school_fax_office_code");
                 requestedParameterMap.remove("school_fax_last_four");
-            } else if (StringUtils.isBlank(faxNumberString)){
-                requestedParameterMap.put("school_fax", new String[] {""});
+            } else if (StringUtils.isBlank(faxNumberString)) {
+                requestedParameterMap.put("school_fax", new String[]{""});
                 keysForPage.add("school_fax");
                 requestedParameterMap.remove("school_fax_area_code");
                 requestedParameterMap.remove("school_fax_office_code");
@@ -509,5 +524,7 @@ public class EspSaveHelper {
         _espFormValidationHelper = espFormValidationHelper;
     }
 
-
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
+    }
 }

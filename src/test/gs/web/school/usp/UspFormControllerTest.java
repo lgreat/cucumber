@@ -336,7 +336,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
                 isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
                 isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
 //        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
-        _espSaveHelper.saveUspFormData(user, school, _state, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
+        _espSaveHelper.saveUspFormData(user, school, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
         expectLastCall();
 
         replayAllMocks();
@@ -363,7 +363,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
                 isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
                 isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
         expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
-        _espSaveHelper.saveUspFormData(user, school, _state, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
+        _espSaveHelper.saveUspFormData(user, school, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
         expectLastCall();
 
         replayAllMocks();

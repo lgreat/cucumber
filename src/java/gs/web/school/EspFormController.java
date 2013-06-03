@@ -191,7 +191,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
 
-        _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
+        _espSaveHelper.saveUspFormData(user, school , reqParamMap, formFieldNames);
 
         /**
          * Redirect to page 1 of osp form

@@ -34,7 +34,6 @@ public class EspStatusManager {
 
     public static Set<String> getOspKeySet() {
         //TODO check for all keys or maybe just check for 1 key and its timestamp
-        //TODO deal with the open text fields like other.
         return new HashSet<String>(
                 Arrays.asList(
                         new String[]{
@@ -165,21 +164,24 @@ public class EspStatusManager {
      */
     public boolean allOSPQuestionsAnswered(IEspResponseData ospResponses) {
         Map<String, List<EspResponse>> ospResponsesByKey = ospResponses.getResponsesByKey();
+        return allOSPQuestionsAnswered(ospResponsesByKey);
+    }
 
-        boolean isGirlSportsAnswered = ospResponsesByKey.containsKey(UspFormHelper.GIRLS_SPORTS_RESPONSE_KEY) ||
-                ospResponsesByKey.containsKey(UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY);
+    public boolean allOSPQuestionsAnswered(Map<String, ? extends Object> responseKeyLookUpMap) {
+        boolean isGirlSportsAnswered = responseKeyLookUpMap.containsKey(UspFormHelper.GIRLS_SPORTS_RESPONSE_KEY) ||
+                responseKeyLookUpMap.containsKey(UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY);
 
-        boolean isForeignLanguagesAnswered = ospResponsesByKey.containsKey(UspFormHelper.FOREIGN_LANGUAGES_RESPONSE_KEY) ||
-                ospResponsesByKey.containsKey(UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY);
+        boolean isForeignLanguagesAnswered = responseKeyLookUpMap.containsKey(UspFormHelper.FOREIGN_LANGUAGES_RESPONSE_KEY) ||
+                responseKeyLookUpMap.containsKey(UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY);
 
-        boolean isTransportationAnswered = ospResponsesByKey.containsKey(UspFormHelper.TRANSPORTATION_RESPONSE_KEY) ||
-                ospResponsesByKey.containsKey(UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY);
+        boolean isTransportationAnswered = responseKeyLookUpMap.containsKey(UspFormHelper.TRANSPORTATION_RESPONSE_KEY) ||
+                responseKeyLookUpMap.containsKey(UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY);
 
-        boolean isBoySportsAnswered = ospResponsesByKey.containsKey(UspFormHelper.BOYS_SPORTS_RESPONSE_KEY) ||
-                ospResponsesByKey.containsKey(UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY);
+        boolean isBoySportsAnswered = responseKeyLookUpMap.containsKey(UspFormHelper.BOYS_SPORTS_RESPONSE_KEY) ||
+                responseKeyLookUpMap.containsKey(UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY);
 
-        boolean isParentInvolvementAnswered = ospResponsesByKey.containsKey(UspFormHelper.PARENT_INVOLVEMENT_RESPONSE_KEY) ||
-                ospResponsesByKey.containsKey(UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY);
+        boolean isParentInvolvementAnswered = responseKeyLookUpMap.containsKey(UspFormHelper.PARENT_INVOLVEMENT_RESPONSE_KEY) ||
+                responseKeyLookUpMap.containsKey(UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY);
 
         Set<String> ospKeysNonOther = new HashSet<String>(
                 Arrays.asList(
@@ -194,7 +196,7 @@ public class EspStatusManager {
                         }
                 ));
 
-        if (ospResponsesByKey.keySet().containsAll(ospKeysNonOther) && isGirlSportsAnswered && isForeignLanguagesAnswered
+        if (responseKeyLookUpMap.keySet().containsAll(ospKeysNonOther) && isGirlSportsAnswered && isForeignLanguagesAnswered
                 && isTransportationAnswered && isBoySportsAnswered && isParentInvolvementAnswered) {
             return true;
         }

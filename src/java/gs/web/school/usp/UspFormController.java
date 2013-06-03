@@ -53,6 +53,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final String PARAM_USP_SUBMISSION = "usp";
 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
@@ -141,7 +142,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         JSONObject responseObject = new JSONObject();
         _cacheInterceptor.setNoCacheHeaders(response);
 
-
         School school = getSchool(state, schoolId);
         if (school == null) {
             writeIntoJsonObject(response, responseObject, "error", "noSchool");
@@ -173,7 +173,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
         Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
 
-        _espSaveHelper.saveUspFormData(user, school, state, reqParamMap, formFieldNames);
+        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames);
 
         String redirectUrl = determineRedirects(user, userStateStruct, school, request, response, doesUserAlreadyHaveResponses);
         if (StringUtils.isNotBlank(redirectUrl)) {
@@ -323,6 +323,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
                 urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
                 urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
+                urlBuilder.addParameter(PARAM_USP_SUBMISSION, "true");
                 registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
                 registrationBehavior.setSchool(school);
             }
