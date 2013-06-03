@@ -132,8 +132,15 @@ public class EspRegistrationHelper {
                 }
             }
         }
+
         // check most recent timestamp on active rows in esp_response for the school
-        Date maxCreated = getEspResponseDao().getMaxCreatedForSchool(school, false);
+        Date maxCreated = getEspResponseDao().getMaxCreatedForSchool(
+            school,
+            false,
+            EspResponseSource.osp,
+            EspResponseSource.datateam
+        );
+
         if (maxCreated == null) {
             // no esp responses, so we're golden
             return true;
