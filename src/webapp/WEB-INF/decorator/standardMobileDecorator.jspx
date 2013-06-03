@@ -71,9 +71,6 @@
         </pageHelper:ifAdsOnPage>
         <mobile:mobileBootstrapJS/>
 
-
-
-
         <script src="/res/js/require.min.js" data-main="main" type="text/javascript">/* do not collapse  */</script>
 
         <decorator:head/>
