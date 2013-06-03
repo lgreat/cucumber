@@ -198,6 +198,43 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         assertEquals(UspFormController.FORM_VIEW, view);
     }
 
+    public void testShowUserForm_noUser() {
+        resetAllMocks();
+
+        ModelMap modelMap = new ModelMap();
+
+        replayAllMocks();
+        String view = _controller.showUspUserForm(modelMap, getRequest(), null, null);
+        verifyAllMocks();
+
+        assertEquals("", view);
+
+        resetAllMocks();
+
+        State state = State.CA;
+        Integer schoolId = 1;
+        School school = getSchool(state, schoolId);
+
+        expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
+
+        expect(_espResponseDao.getResponses(eq(school))).andReturn(
+            Arrays.asList(
+                EspResponse.with().school(school).key("abc").value("123").create(),
+                EspResponse.with().school(school).key("abc").value("456").create()
+            )
+        );
+
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
+        expect(_uspHelper.formFieldsBuilderHelper(isA(Multimap.class), eq(false))).andReturn(null);
+
+        replayAllMocks();
+        view = _controller.showUspUserForm(modelMap, getRequest(), schoolId, state);
+        verifyAllMocks();
+
+        assertEquals(UspFormController.FORM_VIEW, view);
+    }
+
     public void testUserFormUnavailable() {
         ModelMap modelMap = new ModelMap();
 

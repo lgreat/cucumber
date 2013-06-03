@@ -95,9 +95,14 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
         modelMap.put("isSchoolAdmin", false);
 
+        List<EspResponse> espResponses;
 
         // We need the List of EspResponses all for ourselves
-        List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), false);
+        if (user != null) {
+            espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), false);
+        } else {
+            espResponses = _espResponseDao.getResponses(school);
+        }
 
         // Decorate the responses
         EspResponseData espResponseData = new EspResponseData(espResponses);
