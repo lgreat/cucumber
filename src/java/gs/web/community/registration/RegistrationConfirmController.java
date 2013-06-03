@@ -483,4 +483,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
     }
+
+    public void setEspService(EspRegistrationConfirmationService espService) {
+        _espService = espService;
+    }
 }

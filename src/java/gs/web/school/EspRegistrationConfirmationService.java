@@ -107,4 +107,20 @@ public class EspRegistrationConfirmationService implements BeanFactoryAware {
         _beanFactory = beanFactory;
     }
 
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
+    }
+
+    public void setEspRegistrationHelper(EspRegistrationHelper espRegistrationHelper) {
+        _espRegistrationHelper = espRegistrationHelper;
+    }
+
 }

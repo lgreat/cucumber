@@ -9,6 +9,7 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
+import gs.web.school.EspRegistrationConfirmationService;
 import gs.web.school.EspRegistrationHelper;
 import gs.web.school.review.ReviewService;
 import gs.web.util.SitePrefCookie;
@@ -61,11 +62,11 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _schoolDao = createStrictMock(ISchoolDao.class);
         _espResponseDao = createStrictMock(IEspResponseDao.class);
 
-        EspRegistrationHelper espRegistrationHelper = new EspRegistrationHelper();
-        espRegistrationHelper.setEspMembershipDao(_espMembershipDao);
-        espRegistrationHelper.setEspResponseDao(_espResponseDao);
-        espRegistrationHelper.setSchoolDao(_schoolDao);
-//        _controller.set_espRegistrationHelper(espRegistrationHelper);
+        EspRegistrationConfirmationService espService = new EspRegistrationConfirmationService();
+        espService.setEspMembershipDao(_espMembershipDao);
+        espService.setEspResponseDao(_espResponseDao);
+        espService.setSchoolDao(_schoolDao);
+        _controller.setEspService(espService);
 
         _userDao = createStrictMock(IUserDao.class);
         _reviewDao = createStrictMock(IReviewDao.class);
