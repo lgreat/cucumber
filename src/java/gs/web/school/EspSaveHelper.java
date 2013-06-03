@@ -55,7 +55,7 @@ public class EspSaveHelper implements BeanFactoryAware {
     public void saveEspFormData(User user, School school, Set<String> keysForPage,
                                 Map<String, Object[]> keyToResponseMap, State state, int pageNum,
                                 Map<String, String> errorFieldToMsgMap, List<EspResponse> responseList,
-                                boolean isProvisionalData, boolean ignoreErrors) {
+                                boolean isProvisionalData, boolean ignoreErrors, boolean isActivateData) {
 
         // Save page
         Set<String> keysForExternalData = _espFormExternalDataHelper.getKeysForExternalData(school);
@@ -100,6 +100,8 @@ public class EspSaveHelper implements BeanFactoryAware {
         Date now = new Date(); // consistent time stamp for this save
         // this won't save any extra data that isn't in keysForPage
         // I'm not yet sure that's a good thing
+        Map allActiveKeysLookUpMap = new HashMap();
+
         for (String key : keysForPage) {
 
             Object[] responseValues;
@@ -111,6 +113,9 @@ public class EspSaveHelper implements BeanFactoryAware {
             if (responseValues == null || responseValues.length == 0) {
                 continue;
             }
+
+            allActiveKeysLookUpMap.put(key,"");
+
             boolean active = isProvisionalData ? false : true;
             // values that live elsewhere get saved out here
             // these values also go in esp_response but are disabled to clearly mark that they are not sourced from there
@@ -149,14 +154,25 @@ public class EspSaveHelper implements BeanFactoryAware {
             return; // early exit
         }
 
-        saveESPResponses(school, keysForPage, responseList, isProvisionalData, user, pageNum, now);
+        if (!isActivateData && !isProvisionalData) {
+            Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp,
+                    EspResponseSource.datateam));
+            List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
+
+            for (EspResponse espResponse : responses) {
+                if (!allActiveKeysLookUpMap.containsKey(espResponse.getKey())) {
+                    allActiveKeysLookUpMap.put(espResponse.getKey(), "");
+                }
+            }
+        }
+
+        saveESPResponses(school,keysForPage, responseList, isProvisionalData, user, pageNum, now, isActivateData, allActiveKeysLookUpMap);
     }
 
     /**
      * Saves the responses to the database.
      *
      * @param school
-     * @param keysForPage
      * @param responseList
      * @param isProvisionalData
      * @param user
@@ -164,21 +180,34 @@ public class EspSaveHelper implements BeanFactoryAware {
      * @param now
      */
     protected void saveESPResponses(School school, Set<String> keysForPage, List<EspResponse> responseList,
-                                    boolean isProvisionalData, User user, int pageNum, Date now) {
-
-        if (keysForPage != null && !keysForPage.isEmpty()) {
-            if (!isProvisionalData) {
-                // Deactivate existing data first, then save
-                _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
-            } else {
-                //delete the keys that were stored for the page.
-                String pageKey = getPageKeys(pageNum);
-                responseList.addAll(deleteAndCreateOspProvisionalUserResponse(pageKey, keysForPage, school, user, now));
-            }
-            if (responseList != null && !responseList.isEmpty()) {
-                _espResponseDao.saveResponses(school, responseList);
-            }
+                                    boolean isProvisionalData, User user, int pageNum, Date now, boolean isActivateData,
+                                    Map keyLookUpMap) {
+        if (responseList == null || responseList.isEmpty()) {
+            return;
         }
+        if (keysForPage == null || keysForPage.isEmpty() || keyLookUpMap == null || keyLookUpMap.isEmpty()) {
+            return;
+        }
+
+        if (!isProvisionalData) {
+            Set<EspResponseSource> responseSourcesToDeactivate =
+                    new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
+            Set<EspResponseSource> responseSourcesToDeactivateOr =
+                    new HashSet<EspResponseSource>();
+            // Deactivate existing data first, then save
+            EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", new Object[]{school});
+            boolean allOspQuestionsAnswered = statusManager.allOSPQuestionsAnswered(keyLookUpMap);
+            if (allOspQuestionsAnswered) {
+                responseSourcesToDeactivateOr.add(EspResponseSource.usp);
+            }
+            _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateOr, responseSourcesToDeactivate, keysForPage);
+
+        } else {
+            //delete the keys that were stored for the page.
+            String pageKey = getPageKeys(pageNum);
+            responseList.addAll(deleteAndCreateOspProvisionalUserResponse(pageKey, keysForPage, school, user, now));
+        }
+        _espResponseDao.saveResponses(school, responseList);
 
     }
 

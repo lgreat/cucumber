@@ -278,7 +278,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             //Construct the list of key to responses Map.
             for (EspResponse espResponse : espResponses) {
                 String key = espResponse.getKey();
-                if (!key.startsWith("_page_") && !espResponse.isActive()) {
+                if (!key.startsWith("_page_")&& !espResponse.isActive()) {
                     List<Object> ojbs = new ArrayList<Object>();
                     if (requestParameterMap.get(key) != null) {
                         ojbs = requestParameterMap.get(key);
@@ -319,7 +319,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
 
             _espSaveHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
-                    errorFieldToMsgMap, responseList, false, true);
+                    errorFieldToMsgMap, responseList, false, true, true);
 
             if (schoolHasNoUserCreatedRows) {
                 OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);

@@ -291,9 +291,9 @@ public class EspFormController implements ReadWriteAnnotationController {
                 externalKeysToRemove.add(allProvisionalKeys);
             }
         }
-
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
         //Get all the active(non-provisional) responses for the form.
-        List<EspResponse> responses = _espResponseDao.getResponses(school, EspResponseSource.osp);
+        List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
 
         //For every response for school, check if there is a provisional response.
         //If there is no provisional response then put in the active response.
@@ -328,8 +328,9 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected void putResponsesInModel(School school, ModelMap modelMap) {
         Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
 
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
         // fetch all responses to allow page to use ajax page switching if desired.
-        List<EspResponse> responses = _espResponseDao.getResponses(school, EspResponseSource.osp);
+        List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
 
         for (EspResponse response: responses) {
             putInResponseMap(responseMap,response);
@@ -462,8 +463,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         // Check if this is the first time this school has gotten any data(exclude data by provisional users).
         boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
-        _espSaveHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
-                isProvisionalData,false);
+        _espSaveHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap, responseList,
+                isProvisionalData, false, false);
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);
             return; // early exit

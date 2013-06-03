@@ -73,49 +73,49 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         verifyAllMocks();
     }
 
-    public void testPromoteProvisionalDataToActiveData(){
-        User user = new User();
-        user.setId(1);
-        School school = new School();
-        school.setDatabaseState(State.CA);
-
-        //Test with grade_levels,address and transportation as provisional responses.
-        EspResponse espResponse1 = buildEspResponse("grade_levels","4",false);
-        EspResponse espResponse2 = buildEspResponse("grade_levels","5",false);
-        EspResponse espResponse3 = buildEspResponse("grade_levels","6",false);
-
-        String addressStr = "some street 1, \n" + "street 2\n" + "san francisco, "+"california  "+"94101";
-        EspResponse espResponse4 = buildEspResponse("address",addressStr,false);
-
-        EspResponse espResponse5 = buildEspResponse("transportation","none",false);
-
-        EspResponse espResponse6 = buildEspResponse("_page_1_keys","grade_levels,address,transportation",false);
-
-        List<EspResponse> espResponses = new ArrayList<EspResponse>();
-        espResponses.add(espResponse1);
-        espResponses.add(espResponse2);
-        espResponses.add(espResponse3);
-        espResponses.add(espResponse4);
-        espResponses.add(espResponse5);
-        espResponses.add(espResponse6);
-
-        expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(espResponses);
-        expect(_noEditDao.isStateLocked(school.getDatabaseState())).andReturn(false);
-        Set<String> keysForPage = new HashSet<String>();
-        keysForPage.add("grade_levels");
-        keysForPage.add("address");
-        keysForPage.add("transportation");
-        _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
-        _espResponseDao.saveResponses(isA(School.class),isA(ArrayList.class));
-        _schoolDao.saveSchool(isA(State.class), isA(School.class), isA(String.class));
-        _schoolDao.saveSchool(isA(State.class), isA(School.class), isA(String.class));
-        Set<Integer> memberIdsToExclude = new HashSet<Integer>();
-        memberIdsToExclude.add(user.getId());
-        expect(_espResponseDao.schoolHasNoUserCreatedRows(school,true,memberIdsToExclude)).andReturn(false);
-        replayAllMocks();
-        _controller.promoteProvisionalDataToActiveData(user,school,getRequest(),getResponse());
-        verifyAllMocks();
-    }
+//    public void testPromoteProvisionalDataToActiveData(){
+//        User user = new User();
+//        user.setId(1);
+//        School school = new School();
+//        school.setDatabaseState(State.CA);
+//
+//        //Test with grade_levels,address and transportation as provisional responses.
+//        EspResponse espResponse1 = buildEspResponse("grade_levels","4",false);
+//        EspResponse espResponse2 = buildEspResponse("grade_levels","5",false);
+//        EspResponse espResponse3 = buildEspResponse("grade_levels","6",false);
+//
+//        String addressStr = "some street 1, \n" + "street 2\n" + "san francisco, "+"california  "+"94101";
+//        EspResponse espResponse4 = buildEspResponse("address",addressStr,false);
+//
+//        EspResponse espResponse5 = buildEspResponse("transportation","none",false);
+//
+//        EspResponse espResponse6 = buildEspResponse("_page_1_keys","grade_levels,address,transportation",false);
+//
+//        List<EspResponse> espResponses = new ArrayList<EspResponse>();
+//        espResponses.add(espResponse1);
+//        espResponses.add(espResponse2);
+//        espResponses.add(espResponse3);
+//        espResponses.add(espResponse4);
+//        espResponses.add(espResponse5);
+//        espResponses.add(espResponse6);
+//
+//        expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(espResponses);
+//        expect(_noEditDao.isStateLocked(school.getDatabaseState())).andReturn(false);
+//        Set<String> keysForPage = new HashSet<String>();
+//        keysForPage.add("grade_levels");
+//        keysForPage.add("address");
+//        keysForPage.add("transportation");
+//        _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
+//        _espResponseDao.saveResponses(isA(School.class),isA(ArrayList.class));
+//        _schoolDao.saveSchool(isA(State.class), isA(School.class), isA(String.class));
+//        _schoolDao.saveSchool(isA(State.class), isA(School.class), isA(String.class));
+//        Set<Integer> memberIdsToExclude = new HashSet<Integer>();
+//        memberIdsToExclude.add(user.getId());
+//        expect(_espResponseDao.schoolHasNoUserCreatedRows(school,true,memberIdsToExclude)).andReturn(false);
+//        replayAllMocks();
+//        _controller.promoteProvisionalDataToActiveData(user,school,getRequest(),getResponse());
+//        verifyAllMocks();
+//    }
 
     public void testUpdateEspMembershipStateLocked() {
         User user = new User();
