@@ -1,5 +1,6 @@
 package gs.web.school.usp;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
@@ -117,14 +118,15 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
                 view = FORM_UNAVAILABLE_VIEW;
                 break;
             default:
+                Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
 
-                // if a user is logged in, remove responses not associated with the user
+                // if a user is logged in, get key/val multimap for user USP responses
                 if (user != null) {
                     espResponseData = (EspResponseData) espResponseData.getResponsesByUser(user.getId());
+                    responseKeyValues = espResponseData.getUspResponses().getMultimap();
                 }
 
                 // Get a multimap from EspResponses, give it to form helper so it can generate form data
-                Multimap<String, String> responseKeyValues = espResponseData.getUspResponses().getMultimap();
                 List<UspFormResponseStruct> uspFormResponses = _uspFormHelper.formFieldsBuilderHelper(
                     responseKeyValues,
                     false

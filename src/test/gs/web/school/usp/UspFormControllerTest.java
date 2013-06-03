@@ -156,6 +156,58 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         assertEquals("User is email validated.",expectedJson, getResponse().getContentAsString());
     }
 
+    public void testShowUserForm_notLoggedIn() {
+        resetAllMocks();
+
+        ModelMap modelMap = new ModelMap();
+
+        replayAllMocks();
+        String view = _controller.showUspUserForm(modelMap, getRequest(), null, null);
+        verifyAllMocks();
+
+        assertEquals("", view);
+
+        resetAllMocks();
+
+        State state = State.CA;
+        Integer schoolId = 1;
+        School school = getSchool(state, schoolId);
+
+        expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
+
+        expect(_espResponseDao.getResponses(eq(school))).andReturn(
+            Arrays.asList(
+                EspResponse.with()
+                    .school(school)
+                    .key("abc")
+                    .source(EspResponseSource.usp)
+                    .value("123")
+                    .create(),
+                EspResponse.with()
+                    .school(school)
+                    .key("abc")
+                    .source(EspResponseSource.usp)
+                    .value("456")
+                    .create()
+            )
+        );
+
+        expect(_beanFactory.getBean(eq("espStatusManager"), eq(school), isA(EspResponseData.class))).andReturn(
+            _espStatusManager
+        );
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
+
+
+        Multimap testMultimap = ArrayListMultimap.create();
+        expect(_uspHelper.formFieldsBuilderHelper(eq(testMultimap), eq(false))).andReturn(null);
+
+        replayAllMocks();
+        view = _controller.showUspUserForm(modelMap, getRequest(), schoolId, state);
+        verifyAllMocks();
+
+        assertEquals(UspFormController.FORM_VIEW, view);
+    }
+
     public void testShowUserForm() {
         resetAllMocks();
 

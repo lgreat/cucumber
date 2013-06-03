@@ -101,7 +101,7 @@ public class EspStatusManager {
      * Stores result onto instance variable
      */
     public void loadEspResponsesFromDatabase() {
-        List<EspResponse> ospResponses = _espResponseDao.getResponsesByKeys(_school, getOspKeySet());
+        List<EspResponse> ospResponses = _espResponseDao.getAllActiveResponses(_school);
         _espResponseData = new EspResponseData(ospResponses);
     }
 
