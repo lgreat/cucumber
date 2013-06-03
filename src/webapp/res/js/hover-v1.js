@@ -131,6 +131,7 @@ GSType.hover.SubscriptionEmailValidated.prototype = new GSType.hover.HoverDialog
 //ForgotPasswordHover hover
 GSType.hover.ForgotPasswordHover = function() {
     this.loadOnExitUrl = null;
+    this._osp = false;
     this.loadDialog = function() {
         this.pageName='Forgot Password Hover';
         this.hier1='Hovers,Sign In,Forgot Password Hover';
@@ -174,7 +175,18 @@ GSType.hover.ForgotPasswordHover = function() {
             GSType.hover.forgotPassword.cancelLoadOnExit();
         }
         GSType.hover.forgotPassword.hide();
-        GSType.hover.signInHover.show();
+        if(GSType.hover.forgotPassword.isOsp()){
+            GSType.hover.modalUspSignIn.show();
+        }
+        else{
+            GSType.hover.signInHover.show();
+        }
+    };
+    this.isOsp = function(){
+        return this._osp;
+    };
+    this.setOsp = function(osp){
+        this._osp = osp;
     };
 };
 GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword',590);

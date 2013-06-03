@@ -358,6 +358,7 @@ jQuery(function () {
     jQuery('body').on('click', '.js_modalUspSignIn_launchForgotPassword', function () {
         GS.form.uspForm.hideAllErrors();
         GSType.hover.modalUspSignIn.hide();
+        GSType.hover.forgotPassword.setOsp("true");
         GSType.hover.forgotPassword.show();
     });
 
