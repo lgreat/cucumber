@@ -1037,10 +1037,10 @@ public class UrlBuilder {
             _path = "/official-school-profile/dashboard/";
         } else if (USP_FORM.equals(page)) {
             _perlPage = false;
-            _path = "/school/usp/form.page";
+            _path = "/school/QandA/form.page";
         } else if (USP_FORM_THANKYOU.equals(page)) {
             _perlPage = false;
-            _path = "/school/usp/thankYou.page";
+            _path = "/school/QandA/thankYou.page";
         } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
             _perlPage = false;
             _path = "/about/feedback/addEditSchoolOrDistrict.page";

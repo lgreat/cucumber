@@ -18,11 +18,20 @@
     <head>
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="${isSchoolAdmin ? 'Form for administrators to moderate USP results' : 'Form for USP input'}"/>
+        <c:choose>
+            <c:when test="${isSchoolAdmin}">
+                <title> GreatSchools Official School Profile, Program Q &amp;amp; A - San Francisco Flex Academy, San Francisco, CA </title>
+                <meta name="description" content="Form for administrators to moderate USP results"/>
+            </c:when>
+            <c:otherwise>
+                <title> GreatSchools School Program Q &amp;amp; A - San Francisco Flex Academy, San Francisco, CA </title>
+                <meta name="description" content="Form for USP input"/>
+            </c:otherwise>
+        </c:choose>
+        <meta name="robots" content="noindex"/>
         <gsml:javascript src="/res/js/chosen/chosen.jquery.min.js" />
         <gsml:javascript  src="/res/js/school/uspForm.js"/>
         <link rel="stylesheet" href="/res/js/chosen/chosen.css" />
-        <title>USP Form</title>
 
         <script type="text/javascript">
             $(document).ready(function () {

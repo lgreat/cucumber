@@ -143,7 +143,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         return VIEW;
     }
 
-    @RequestMapping(value = "/uspForm.page", method = RequestMethod.GET)
+    @RequestMapping(value = "/QandAForm.page", method = RequestMethod.GET)
     public String showOspGatewayForm (ModelMap modelMap,
                                    HttpServletRequest request,
                                    HttpServletResponse response,
@@ -167,7 +167,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         return USP_FORM_VIEW;
     }
 
-    @RequestMapping(value = "/uspForm.page", method = RequestMethod.POST)
+    @RequestMapping(value = "/QandAForm.page", method = RequestMethod.POST)
     public void onOspGatewayFormSubmit(HttpServletRequest request,
                                     HttpServletResponse response,
                                     @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,

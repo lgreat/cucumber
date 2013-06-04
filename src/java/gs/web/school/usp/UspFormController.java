@@ -46,7 +46,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/school/usp/")
+@RequestMapping("/school/QandA/")
 public class UspFormController implements ReadWriteAnnotationController, BeanFactoryAware {
     public static final String FORM_VIEW = "/school/usp/uspForm";
     public static final String FORM_UNAVAILABLE_VIEW = "/school/usp/uspFormUnavailable";
