@@ -296,10 +296,28 @@ GS.school.calendar =  (function($) {
         return html;
     };
 
+    // Send browser to download calendar
     var exportCalendar = function(ncesCode, format, schoolName) {
-        var href = "/school/calendar/ical.page?ncesCode=" + encodeURIComponent(ncesCode) + "&format=" +
-                encodeURIComponent(format) + "&schoolName=" + encodeURIComponent(schoolName);
-        window.location.href = href;
+        var customLink = "";
+        // formats:  Outlook, iCal, Google
+        if (format === 'Outlook') {
+            customLink = 'Tandem_Outlook';
+        } else if (format === 'iCal') {
+            customLink = 'Tandem_iCal';
+        } else if (format === 'Google') {
+            customLink = 'Tandem_GoogleCal';
+        }
+
+        s.tl(true, 'o', customLink);
+
+        if (customLink !== "") {
+            // without setTimeout, omniture request was being canceled by ical.page request
+            setTimeout(function() {
+                var href = "/school/calendar/ical.page?ncesCode=" + encodeURIComponent(ncesCode) + "&format=" +
+                        encodeURIComponent(format) + "&schoolName=" + encodeURIComponent(schoolName);
+                window.location.href = href;
+            }, 500);
+        }
     };
 
     var log = function() {
