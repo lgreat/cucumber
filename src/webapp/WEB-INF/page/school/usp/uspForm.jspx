@@ -20,11 +20,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <c:choose>
             <c:when test="${isSchoolAdmin}">
-                <title> GreatSchools Official School Profile, Program Q &amp;amp; A - San Francisco Flex Academy, San Francisco, CA </title>
+                <title> GreatSchools Official School Profile, Program Q &amp;amp; A - ${school.name}, ${school.city}, ${school.databaseState} </title>
                 <meta name="description" content="Form for administrators to moderate USP results"/>
             </c:when>
             <c:otherwise>
-                <title> GreatSchools School Program Q &amp;amp; A - San Francisco Flex Academy, San Francisco, CA </title>
+                <title> GreatSchools School Program Q &amp;amp; A - ${school.name}, ${school.city}, ${school.databaseState} </title>
                 <meta name="description" content="Form for USP input"/>
             </c:otherwise>
         </c:choose>
