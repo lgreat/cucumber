@@ -1,14 +1,16 @@
 package gs.web.school;
 
 import gs.data.school.*;
-import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.search.ICmsFeatureSearchResult;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
@@ -28,9 +30,13 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     SchoolProfileDataHelper _schoolProfileDataHelper;
     State _state;
     School _school;
+    BeanFactory _beanFactory;
+    EspStatusManager _espStatusManager;
 
     public void setUp() throws Exception {
         super.setUp();
+        _beanFactory = org.easymock.classextension.EasyMock.createStrictMock(BeanFactory.class);
+        _espStatusManager = org.easymock.classextension.EasyMock.createStrictMock(EspStatusManager.class);
 //        _espResponseDao = createStrictMock( IEspResponseDao.class );
         _schoolProfileDataHelper = createMock( SchoolProfileDataHelper.class );
         _schoolProfileProgramsHighlightsController = new SchoolProfileProgramsController();
@@ -41,6 +47,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 //        _schoolProfileProgramsHighlightsController.setIEspResponseDao( _espResponseDao );
         _schoolProfileProgramsHighlightsController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
         _schoolProfileProgramsHighlightsController.setRequestAttributeHelper(new RequestAttributeHelper());
+        _schoolProfileProgramsHighlightsController.setBeanFactory(_beanFactory);
         StateManager sm = new StateManager();
         _state = sm.getState( "CA" );
         _school = new School();
@@ -411,9 +418,15 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
     private ModelMap runController( Map<String, List<EspResponse>> espData) {
         resetMocks(_schoolProfileDataHelper);
+        org.easymock.classextension.EasyMock.reset(_beanFactory);
+        org.easymock.classextension.EasyMock.reset(_espStatusManager);
         ModelMap map = new ModelMap();
         //ESP data for school is fetched on the culture tab.
         expect(_schoolProfileDataHelper.getEspDataForSchool(getRequest())).andReturn(espData);
+        org.easymock.classextension.EasyMock.expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class), isA(EspResponseData.class))).andReturn(
+            _espStatusManager
+        );
+        org.easymock.classextension.EasyMock.expect(_espStatusManager.getEspStatus()).andReturn(null);
         List<SchoolMedia> photoGalleryImages = new ArrayList<SchoolMedia>();
         expect(_schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(photoGalleryImages).anyTimes();
 
@@ -432,8 +445,12 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         String [] cmsIds = new String [] {"7279"};
         expect( _schoolProfileDataHelper.getCmsArticles(eq(getRequest()), aryEq(cmsIds))).andReturn(new ArrayList< ICmsFeatureSearchResult >()).anyTimes();
 
+        org.easymock.classextension.EasyMock.replay(_beanFactory);
+        org.easymock.classextension.EasyMock.replay(_espStatusManager);
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
+        org.easymock.classextension.EasyMock.verify(_beanFactory);
+        org.easymock.classextension.EasyMock.verify(_espStatusManager);
         verify(_schoolProfileDataHelper);
         return map;
     }
