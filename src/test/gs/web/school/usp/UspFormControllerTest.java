@@ -322,7 +322,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         //user already has previous answers
         String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), true);
         assertEquals("User is logged in.",
-                "http://www.greatschools.org/school/usp/form.page?schoolId=1&showExistingAnswersMsg=true&state=CA", url);
+                "http://www.greatschools.org/school/QandA/form.page?schoolId=1&showExistingAnswersMsg=true&state=CA", url);
 
     }
 
@@ -343,7 +343,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), false);
         assertEquals("User is in the session in.",
-                "http://www.greatschools.org/school/usp/thankYou.page?schoolId=1&state=CA", url);
+                "http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&state=CA", url);
     }
 
     public void testDetermineRedirectsWithUserRegistered() throws Exception {
@@ -437,7 +437,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
                 _schoolId, _state);
         verifyAllMocks();
 
-        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"redirect\":\"http://www.greatschools.org/school/usp/thankYou.page?schoolId=1&state=CA\"}");
+        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"redirect\":\"http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&state=CA\"}");
     }
 
     public School getSchool(State state, Integer schoolId) {
