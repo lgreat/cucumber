@@ -56,9 +56,13 @@
                             school's offerings are accurate. Once you're done, you can<br/>edit basic information, add
                             photos or videos, and more!
                         </div>
-                        <div class="fr">
-                            <div class="button-1">Get started</div>
-                        </div>
+                        <c:if test="${not empty school}">
+                            <div class="fr">
+                                <a href="/school/esp/QandAForm.page?state=${school.databaseState}&amp;schoolId=${school.id}">
+                                    <button class="button-1">Get started</button>
+                                </a>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </c:when>
