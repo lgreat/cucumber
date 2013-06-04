@@ -53,7 +53,7 @@ GS.form.UspForm = function () {
 
             jQuery.ajax({
                 type:'GET',
-                url:'/school/usp/checkUserState.page',
+                url:'/school/QandA/checkUserState.page',
                 data:data,
                 dataType:'json',
                 async:true
