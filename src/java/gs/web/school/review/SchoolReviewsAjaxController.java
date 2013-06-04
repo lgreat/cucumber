@@ -233,7 +233,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             ThreadLocalTransactionManager.setRollbackOnly();
             return null;
         }
-
+        ThreadLocalTransactionManager.commitOrRollback();
         // Before any reports are created, we should check something:
         // if this review existed before (if the user is overwriting an existing review)
         // then we need to delete any reports on it
