@@ -1,9 +1,11 @@
 package gs.web.school;
 
+import com.restfb.util.StringUtils;
 import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
+import gs.web.school.usp.EspStatus;
 import gs.web.school.usp.EspStatusManager;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -59,6 +61,7 @@ public class EspDashboardController implements BeanFactoryAware{
         }
         // if school is explicitly specified in the URL, grab it here
         School school = getSchool(state, schoolId, modelMap);
+        boolean isProvisional = false;
         
         if (state != null) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -106,11 +109,12 @@ public class EspDashboardController implements BeanFactoryAware{
             for (EspMembership membership: espMemberships) {
                 if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                     provisionalMembership = membership;
+                    isProvisional = true;
                 }
             }
             if (provisionalMembership != null) {
                 school = getSchool(provisionalMembership);
-                modelMap.put("isProvisional", true);
+                modelMap.put("isProvisional", isProvisional);
             }
         }
 
@@ -120,20 +124,28 @@ public class EspDashboardController implements BeanFactoryAware{
             //Get the information about who else has ESP access to this school
             List<EspMembership> otherEspMemberships = getEspMembersForSchool(school);
 
+            //Use the BeanFactoryAware so that we get the espStatusManager component with auto injections.Otherwise we have to
+            //manually set the espResponseDao on the espStatusManager.
+            EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", new Object[]{school});
+            modelMap.put("schoolEspStatus", statusManager.getEspStatus());
+            boolean showOspGateway = false;
+
             //If there is a provisional user for the school, then block out other users.GS-13363.
             if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
-                EspMembership provisionalMembership = _espFormValidationHelper.getProvisionalMembershipForSchool(otherEspMemberships, user);
-                if (provisionalMembership != null) {
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
-                    urlBuilder.addParameter("message", "page3");
-                    urlBuilder.addParameter("schoolId", school.getId().toString());
-                    urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
-                    urlBuilder.addParameter("provisionalUserName",
-                            provisionalMembership.getUser().getFirstName() + " " + provisionalMembership.getUser().getLastName());
-                    return "redirect:" + urlBuilder.asFullUrl(request);
+                String redirect = checkForProvisionalMemberships(school, request, otherEspMemberships, user);
+                if (StringUtils.isBlank(redirect) && user.hasRole(Role.ESP_MEMBER)
+                        && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
+                    showOspGateway = true;
+                }
+            } else if (isProvisional && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
+                Set<String> keys = new HashSet<String>(Arrays.asList("_page_osp_gateway_keys"));
+                List<EspResponse> responses = _espResponseDao.getResponsesByUserAndSchoolAndKeys(school, user.getId(), keys, true);
+                if (responses == null || responses.isEmpty()) {
+                    showOspGateway = true;
                 }
             }
 
+            modelMap.put("showOspGateway", showOspGateway);
             modelMap.put("allEspMemberships", otherEspMemberships);
             
             // get percent completion info
@@ -149,12 +161,21 @@ public class EspDashboardController implements BeanFactoryAware{
             modelMap.put("isFruitcakeSchool", EspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
         }
 
-       //Use the BeanFactoryAware so that we get the espStatusManager component with auto injections.Otherwise we have to
-       //manually set the espResponseDao on the espStatusManager.
-       EspStatusManager statusManager = (EspStatusManager)_beanFactory.getBean("espStatusManager",new Object[] {school});
-       modelMap.put("schoolEspStatus", statusManager.getEspStatus());
-
         return VIEW;
+    }
+
+    public String checkForProvisionalMemberships(School school,HttpServletRequest request,List<EspMembership> otherEspMemberships,User user){
+        EspMembership provisionalMembership = _espFormValidationHelper.getProvisionalMembershipForSchool(otherEspMemberships, user);
+        if (provisionalMembership != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("message", "page3");
+            urlBuilder.addParameter("schoolId", school.getId().toString());
+            urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
+            urlBuilder.addParameter("provisionalUserName",
+                    provisionalMembership.getUser().getFirstName() + " " + provisionalMembership.getUser().getLastName());
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+        return "";
     }
 
     /**

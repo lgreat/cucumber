@@ -47,27 +47,30 @@
                 </div>
             </div>
 
-            <!--Uncomment this block after putting condition around it-->
-            <!--<div class="grid_13 suffix_1">-->
-                <!--<div class="alert-yellow pal small clearfix">-->
-                    <!--<div class="fl">-->
-                        <!--<strong>To begin</strong>, please fill out this quick form to make sure your<br/>-->
-                        <!--school's offerings are accurate. Once you're done, you can<br/>edit basic information, add-->
-                        <!--photos or videos, and more!-->
-                    <!--</div>-->
-                    <!--<div class="fr">-->
-                        <!--<div class="button-1">Get started</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
+            <c:choose>
+            <c:when test="${showOspGateway eq true}">
+                <div class="grid_13 suffix_1">
+                    <div class="alert-yellow pal small clearfix">
+                        <div class="fl">
+                            <strong>To begin</strong>, please fill out this quick form to make sure your<br/>
+                            school's offerings are accurate. Once you're done, you can<br/>edit basic information, add
+                            photos or videos, and more!
+                        </div>
+                        <div class="fr">
+                            <div class="button-1">Get started</div>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
             <!-- Provisional message if needed -->
             <c:if test="${isProvisional eq true}">
                 <div class="grid_24">
                     <div class="mod form">
                         <div class="inner">
                             <div class="bd">
-                                <p class="bottom"><strong>Thank you for updating ${school.name}'s OSP!</strong> </p>
+                                <p class="bottom"><strong>Thank you for updating ${school.name}'s OSP!</strong></p>
+
                                 <p class="small bottom">
                                     We are in the process of confirming that you are authorized to edit the OSP
                                     for this school. Please allow 2-4 weekdays for us to complete the verification process.
@@ -84,258 +87,265 @@
             <c:if test="${not empty school}">
             <input type="hidden" value="${school.id}" id="js_schoolId"/>
             <input type="hidden" value="${school.databaseState}" id="js_schoolState"/>
-                <div class="grid_13 suffix_1">
-                    <div class="mod form">
+
+            <div class="grid_13 suffix_1">
+                <div class="mod form">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="unit size65of100">
+                                    <p class="bottom">
+                                        ${school.name}<br/>
+                                        <c:if test="${school.physicalAddress.street ne null}">
+                                            <span class="small">${school.physicalAddress.street}</span><br/>
+                                        </c:if>
+                                        <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
+                                    </p>
+                                </div>
+                                <div class="unit size35of100 lastUnit">
+                                    <p class="small bottom">
+                                        <link:schoolProfileOverview
+                                                school="${school}">View profile</link:schoolProfileOverview><br/>
+                                        <c:if test="${isProvisional ne true}">
+                                            <link:schoolPrincipalReview
+                                                    school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                        </c:if>
+                                        <c:if test="${showOtherEditorsHover eq true}">
+                                            <br/>
+                                            <a href="#" id="js_otherEspEditors"
+                                               onclick="return false;">Add more administrators</a>
+                                        </c:if>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid_10">
+                <div class="spacer_25"><!-- do not collapse --></div>
+                <c:if test="${isProvisional eq true or !anyPageStarted}">
+                    <div class="alpha grid_5">
+                        <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
+                    </div>
+                    <div class="grid_4 suffix_1 omega">
+                        <link:schoolEspForm school="${school}" page="1"
+                                            styleClass="button-3 fltrt">Get started</link:schoolEspForm>
+                    </div>
+                </c:if>
+            </div>
+
+
+            <div class="grid_24">
+            <h3 class="bottom">Official School Profile Progress</h3>
+
+            <p class="small">Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
+
+            <div class="grid_12 alpha">
+                <c:set var="tabGetStartedLabel">Get started</c:set>
+                <c:set var="tabEditLabel">Edit</c:set>
+                <c:if test="${isProvisional eq true}">
+                    <!-- short cut to complicating every conditional below. Provisional users should always see "Edit" -->
+                    <c:set var="tabGetStartedLabel" value="Edit"/>
+                </c:if>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="1">
+                                        <span class="iconx48 i-48-sb img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="1">
+                                            School basics
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="1"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[1]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="2">
+                                        <span class="iconx48 i-48-im img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}"
+                                                            page="2">Instructional model</link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="2"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[2]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="3">
+                                        <span class="iconx48 i-48-ae img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}"
+                                                            page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="3"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[3]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="4">
+                                        <span class="iconx48 i-48-pr img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="4">
+                                            Programs &amp;amp; resources
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="4"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[4]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="grid_12 omega">
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="5">
+                                        <span class="iconx48 i-48-ee img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="5">
+                                            Enrichment &amp;amp; extracurriculars
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="5"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[5]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="6">
+                                        <span class="iconx48 i-48-sc img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="6">
+                                            School culture
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="6"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[6]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="7">
+                                        <span class="iconx48 i-48-ci img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="7">
+                                            Contact info
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="7"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[7]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <c:if test="${isFruitcakeSchool and isProvisional ne true}">
+                    <div class="mod osp-dashboard">
                         <div class="inner">
                             <div class="bd">
-                                <div class="line">
-                                    <div class="unit size65of100">
-                                        <p class="bottom">
-                                            ${school.name}<br/>
-                                            <c:if test="${school.physicalAddress.street ne null}">
-                                                <span class="small">${school.physicalAddress.street}</span><br/>
-                                            </c:if>
-                                            <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
-                                        </p>
-                                    </div>
-                                    <div class="unit size35of100 lastUnit">
-                                        <p class="small bottom">
-                                            <link:schoolProfileOverview
-                                                    school="${school}">View profile</link:schoolProfileOverview><br/>
-                                            <c:if test="${isProvisional ne true}">
-                                                <link:schoolPrincipalReview
-                                                        school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
-                                            </c:if>
-                                            <c:if test="${showOtherEditorsHover eq true}">
-                                                <br/>
-                                                <a href="#" id="js_otherEspEditors"
-                                                   onclick="return false;">Add more administrators</a>
-                                            </c:if>
-                                        </p>
-                                    </div>
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="8">
+                                        <span class="iconx48 i-48-si img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="8">
+                                            Student info
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="8"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="grid_10">
-                    <div class="spacer_25"><!-- do not collapse --></div>
-                        <c:if test="${isProvisional eq true or !anyPageStarted}">
-                            <div class="alpha grid_5">
-                                <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
-                            </div>
-                            <div class="grid_4 suffix_1 omega">
-                                <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
-                            </div>
-                        </c:if>
-                </div>
-
-
-                <div class="grid_24">
-                    <h3 class="bottom">Official School Profile Progress</h3>
-
-                    <p class="small">Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
-
-                    <div class="grid_12 alpha">
-                        <c:set var="tabGetStartedLabel">Get started</c:set>
-                        <c:set var="tabEditLabel">Edit</c:set>
-                        <c:if test="${isProvisional eq true}">
-                            <!-- short cut to complicating every conditional below. Provisional users should always see "Edit" -->
-                            <c:set var="tabGetStartedLabel" value="Edit"/>
-                        </c:if>
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="1">
-                                                <span class="iconx48 i-48-sb img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="1">
-                                                    School basics
-                                                </link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="1"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[1]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="2">
-                                                <span class="iconx48 i-48-im img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="2">Instructional model</link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="2"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[2]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="3">
-                                                <span class="iconx48 i-48-ae img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="3"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[3]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="4">
-                                                <span class="iconx48 i-48-pr img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="4">
-                                                    Programs &amp;amp; resources
-                                                </link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="4"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[4]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="grid_12 omega">
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="5">
-                                                <span class="iconx48 i-48-ee img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="5">
-                                                    Enrichment &amp;amp; extracurriculars
-                                                </link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="5"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[5]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="6">
-                                                <span class="iconx48 i-48-sc img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="6">
-                                                    School culture
-                                                </link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="6"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[6]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mod osp-dashboard">
-                            <div class="inner">
-                                <div class="bd">
-                                    <div class="line">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="7">
-                                                <span class="iconx48 i-48-ci img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="7">
-                                                    Contact info
-                                                </link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="7"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[7]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <c:if test="${isFruitcakeSchool and isProvisional ne true}">
-                            <div class="mod osp-dashboard">
-                                <div class="inner">
-                                    <div class="bd">
-                                        <div class="media unit size78of100 selected">
-                                            <link:schoolEspForm school="${school}" page="8">
-                                                <span class="iconx48 i-48-si img mrl"><!-- do not collapse --></span>
-                                            </link:schoolEspForm>
-
-                                            <p class="bd bottom">
-                                                <link:schoolEspForm school="${school}" page="8">
-                                                    Student info
-                                                </link:schoolEspForm>
-                                            </p>
-                                        </div>
-                                        <div class="unit size22of100 lastUnit pts">
-                                            <link:schoolEspForm school="${school}" page="8"
-                                                                styleClass="button-6 fltrt mtm">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:if>
-                    </div>
-                </div>
+                </c:if>
+            </div>
+            </div>
             </c:if>
+            </c:otherwise>
+            </c:choose>
 
             <c:if test="${not empty espMemberships and fn:length(espMemberships) gt 1}">
                 <div class="mtl grid_24">

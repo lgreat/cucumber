@@ -200,6 +200,11 @@ public class EspSaveHelper implements BeanFactoryAware {
             if (allOspQuestionsAnswered) {
                 responseSourcesToDeactivateOr.add(EspResponseSource.usp);
             }
+            if(isActivateData){
+                String pageKey = getPageKeys("osp_gateway");
+                Set<String> pageKeys = new HashSet<String>(Arrays.asList(pageKey));
+                _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school,user.getId(),pageKeys);
+            }
             _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateOr, responseSourcesToDeactivate, keysForPage);
 
         } else {
@@ -314,7 +319,7 @@ public class EspSaveHelper implements BeanFactoryAware {
             //delete the keys that were stored for the page.
             String pageName = "osp_gateway";
             String pageKey = getPageKeys(pageName);
-            deleteAndCreateOspProvisionalUserResponse(pageKey, responseKeysLookUpMap.keySet(), school, user, now);
+            responseList.addAll(deleteAndCreateOspProvisionalUserResponse(pageKey, responseKeysLookUpMap.keySet(), school, user, now));
         }
 
         _espResponseDao.saveResponses(school, responseList);
