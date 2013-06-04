@@ -629,6 +629,40 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             resultsModel.put("programs_resources/Basics/before_after_care", beforeAfterResults);
         }
 
+        // format Summer program before and after care into: Before[: starts at xx:xx] and After[: ends at xx:xx]
+        // Have to do this for each of the 5 possible programs
+        for (int i = 1; i <= 5; i++ ) {
+            List<EspResponse> summerPgmBeforeAfter = espResults.get("summer_program_before_after_care_" + i);
+            List<String> summerPgmBeforeAfterResults = new ArrayList<String>(2);
+            if( summerPgmBeforeAfter != null && summerPgmBeforeAfter.size() > 0 ) {
+                for( EspResponse e:summerPgmBeforeAfter ) {
+                    if( e.getSafeValue().equalsIgnoreCase("before") ) {
+                        // Have before now check for time
+                        List<EspResponse> start = espResults.get("summer_program_before_after_care_start_" + i);
+                        if( start != null && start.size() > 0 ) {
+                            summerPgmBeforeAfterResults.add( "Before: starts at " + start.get(0).getSafeValue() );
+                        }
+                        else {
+                            summerPgmBeforeAfterResults.add( "Before" );
+                        }
+                    }
+                    if( e.getSafeValue().equalsIgnoreCase("after") ) {
+                        // Have before now check for time
+                        List<EspResponse> end = espResults.get("summer_program_before_after_care_end_" + i);
+                        if( end != null && end.size() > 0 ) {
+                            summerPgmBeforeAfterResults.add( "After: ends at " + end.get(0).getSafeValue() );
+                        }
+                        else {
+                            summerPgmBeforeAfterResults.add( "After" );
+                        }
+                    }
+                }
+            }
+            if( summerPgmBeforeAfterResults.size() > 0 ) {
+                resultsModel.put("extracurriculars/" + SUMMER_PROGRAM_TYPE + i + "/summer_program_before_after_care_" + i, summerPgmBeforeAfterResults);
+            }
+        }
+
         // format times.  Some places a time is shown as AM or PM which should be turned into a.m. and p.m.
         if( resultsModel.get("programs_resources/Basics/start_time") != null ) {
             resultsModel.put("programs_resources/Basics/start_time", formatAmPm(resultsModel.get("programs_resources/Basics/start_time")) );
@@ -1434,26 +1468,30 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
              * set that to a temp value.
              */
         List<SchoolProfileDisplayBean> displayConfig = new ArrayList<SchoolProfileDisplayBean>();
+        String sectionAbbr = programType + index;
+
         if(AF_PROGRAM_TYPE.equals(programType)) {
             for(String key : programKeys) {
                 String rowTitle = afterSchoolKeysPrefix.get(key);
-                displayConfig.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, title, rowTitle, key, index));
+                displayConfig.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, sectionAbbr, title, rowTitle, key, index));
             }
         }
         else if(SUMMER_PROGRAM_TYPE.equals(programType)) {
             for(String key : programKeys) {
                 String rowTitle = summerProgramKeysPrefix.get(key);
-                displayConfig.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, title, rowTitle, key, index));
+                displayConfig.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, sectionAbbr, title, rowTitle, key, index));
             }
         }
         return displayConfig;
     }
 
-    public List<SchoolProfileDisplayBean> buildAfterSchoolSummerProgramHelper(String tabAbbrev, String title, String rowTitle,
+    public List<SchoolProfileDisplayBean> buildAfterSchoolSummerProgramHelper(String tabAbbrev, String sectionAbbr, String title, String rowTitle,
                                                                               String key, int i) {
         List<SchoolProfileDisplayBean> displayConfig = new ArrayList<SchoolProfileDisplayBean>();
-        displayConfig.add(new SchoolProfileDisplayBean(tabAbbrev, title, title, rowTitle,
+        displayConfig.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbr, title, rowTitle,
                 key + i));
+
+        // Special formatting requirements -  Note the Summer program before/after is handled in applyUniqueDataRules
         if(AF_PROGRAM_WEBSITE_KEY_PREFIX.equals(key) || SUMMER_PROGRAM_WEBSITE_KEY_PREFIX.equals(key)) {
             getLastDisplayBean(displayConfig).addUrl(key + i, key + i);
             getLastDisplayBean(displayConfig).setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.URL);
@@ -1462,10 +1500,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         else if(key.startsWith(SUMMER_PROGRAM_DATES_KEY_PREFIX)) {
             getLastDisplayBean(displayConfig).addKey(SUMMER_PROGRAM_DATES_KEY_PREFIX + "start_" + i);
             getLastDisplayBean(displayConfig).addKey(SUMMER_PROGRAM_DATES_KEY_PREFIX + "end_" + i);
-        }
-        else if(key.startsWith(SUMMER_PROGRAM_CARE_KEY_PREFIX)) {
-            getLastDisplayBean(displayConfig).addKey(SUMMER_PROGRAM_CARE_KEY_PREFIX + "start_" + i);
-            getLastDisplayBean(displayConfig).addKey(SUMMER_PROGRAM_CARE_KEY_PREFIX + "end_" + i);
         }
         else if(key.startsWith(AF_PROGRAM_ACTIVITIES_KEY_PREFIX)) {
             getLastDisplayBean(displayConfig).addKey(AF_PROGRAM_ACTIVITIES_KEY_PREFIX + "other_" + i);

@@ -10,13 +10,14 @@
     <c:set var="tandem_fontColorHeaderFooter" value="make-999999" />
     <c:set var="tandem_subHeaderLayout" value="make-ffffff bbt-light bg-777 " />
     <c:set var="tandem_fontColorTitle" value="" />
-
+    <c:set var="tandem_logoFileName" value="logo_tandem_grey.png" />
     <!--<c:set var="tandemTileMSBranding" value="true" />-->
     <c:if test="${tandemTileMSBranding == 'true'}">
         <c:set var="tandem_moduleToUse" value="standard_8-1" />
         <c:set var="tandem_fontColorHeaderFooter" value="make-ffffff" />
         <c:set var="tandem_subHeaderLayout" value="make-555555 bbt-dark bg-F1" />
         <c:set var="tandem_fontColorTitle" value="make-ffffff" />
+        <c:set var="tandem_logoFileName" value="logo_tandem_white.png" />
     </c:if>
 
     <div id="js-school-calendar-list" class="line dn">
@@ -64,8 +65,8 @@
                         </ul>
                     </div>
                     <div class="ft clearfix">
-                        <div class="fl pam">
-                            <select id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
+                        <div class="fl pam mts">
+                            <select class="" id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
                                 <option value="">Export calendar</option>
                                 <option value="Outlook">Microsoft Outlook</option>
                                 <option value="iCal">iCal Format</option>
@@ -73,8 +74,8 @@
                             </select>
                         </div>
                         <div class="fr pam clearfix">
-                            <div class="prm fl smallest bottom ${tandem_fontColorHeaderFooter}">POWERED BY</div>
-                            <div class="fl"><img src="/res/img/school/overview/tandem/tandem_logo_70x16.png" alt="Tandem" /></div>
+                            <div class="prm fl smallest bottom ptm ${tandem_fontColorHeaderFooter}">POWERED BY</div>
+                            <div class="fl"><img src="/res/img/school/overview/tandem/${tandem_logoFileName}" alt="Tandem" /></div>
                         </div>
                     </div>
                 </div>

@@ -2,10 +2,13 @@ package gs.web.school.review;
 
 
 import gs.data.community.User;
+import gs.data.school.School;
 import gs.data.util.NameValuePair;
+import gs.web.request.RequestAttributeHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -24,6 +27,8 @@ public class ParentReviewLandingPageController extends AbstractController {
     private static final String MODEL_MORGAN_STANLEY = "morganStanley";
     private String _viewName;
     private boolean _morganStanley = false;
+    @Autowired
+    RequestAttributeHelper _requestAttributeHelper;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String,Object> model = new HashMap<String,Object>();
@@ -35,6 +40,9 @@ public class ParentReviewLandingPageController extends AbstractController {
                 model.put("validUser", user);
             }
         }
+        School school = _requestAttributeHelper.getSchool(request);
+        model.put("school", school);
+
         model.put(MODEL_MORGAN_STANLEY, isMorganStanley());
         return new ModelAndView(getViewName(), model);
     }

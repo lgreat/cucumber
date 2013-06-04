@@ -782,7 +782,7 @@
                                                                  styleClass="img"/>
 
                                                   <div class="bd pts">
-                                                      <label for="form_${summer_program_before_after_care}_before" class="checkbox">Before </label>
+                                                      <label for="form_summer_program_before_after_care_before_${cur_program}" class="checkbox">Before </label>
                                                   </div>
                                               </div>
                                           </div>
@@ -811,7 +811,7 @@
                                                                  styleClass="img"/>
 
                                                   <div class="bd pts">
-                                                      <label for="form_${summer_program_before_after_care}_after" class="checkbox">After </label>
+                                                      <label for="form_summer_program_before_after_care_after_${cur_program}" class="checkbox">After </label>
                                                   </div>
                                               </div>
                                           </div>
@@ -840,7 +840,7 @@
                                                              styleClass="img"/>
 
                                               <div class="bd pts">
-                                                  <label for="form_${summer_program_before_after_care}_neither" class="checkbox">Neither </label>
+                                                  <label for="form_summer_program_before_after_care_neither_${cur_program}" class="checkbox">Neither </label>
                                               </div>
                                           </div>
                                       </div>

@@ -6,6 +6,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:gsweb="gstaglib"
         >
 
@@ -136,6 +137,7 @@
             </div>
         </div>
 
+    <mobile:reviewLandingLink layoutType="home" />
 
     <search:nearbyCities />
 
