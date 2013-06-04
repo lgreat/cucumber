@@ -43,7 +43,7 @@
 <div class="container_24 clearfix">
     <div class="grid_11 suffix_1">
 
-        <h4 class="sourceSansPro-Semibold mbm mtl">The Gallup Student Poll</h4>
+        <h3 class="sourceSansPro-Semibold mbm mtl">The Gallup Student Poll</h3>
         <p class="small">The Gallup Student Poll is a landmark new measure that captures the youth voice, a critical
             part of the national dialogue surrounding student performance and success. More than 1,700 schools are currently
             participating and enabling their students to take the free survey.
@@ -55,7 +55,7 @@
             employment.
         </p>
         <h5 class="sourceSansPro-Semibold mbn">Hope</h5>
-        <p class="small">Hope fuels problem-solving and helps educators understand how to work with students to
+        <p class="small">Hope fuels problem solving and helps educators understand how to work with students to
             develop their personal strengths and social resources. Hopeful students channel ideas and energy into
             producing positive outcomes for the future.
         </p>
