@@ -200,19 +200,17 @@ General comments:
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
-/* ---------------- standard_2-3 ----------------- */
+/* ---------------- standard_2-4 ----------------- */
 .standard_2-4{
-  margin-bottom:40px;
+  margin-bottom:10px;
 }
 .standard_2-4 .inner {
     /*border: 1px dashed #999999;*/
     background-color: #D2E9F3;
     padding: 20px;
-    margin-bottom: 15px;
     -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
        -moz-border-radius: 3px; /* FF1-3.6 */
             border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-
 }
 
 
