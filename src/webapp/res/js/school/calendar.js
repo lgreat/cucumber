@@ -7,6 +7,16 @@ GS.school = GS.school || {};
 GS.school.calendar =  (function($) {
     "use strict";
 
+    var mapCalNames = {
+        'Microsoft Outlook': 'Outlook',
+        'iCal Format': 'iCal',
+        'Google Calendar': 'Google'
+    };
+//    var mapCalNames = [];
+//    mapCalNames["Microsoft Outlook"] = "Outlook";
+//    mapCalNames["iCal Format"] = "iCal";
+//    mapCalNames["Google Calendar"] = "Google";
+
     var API_BASE_URL = "/school/calendar.page";
 
     var eventTableRowTemplateSelector = "#js-calendar-list-event-template";
@@ -17,21 +27,83 @@ GS.school.calendar =  (function($) {
     var $listModule;
 
     $(function() {
+        initializeCustomSelect("js-export-school-calendar", selectCallbackTandemCalFile);
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
             eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
             $(eventTableRowTemplateSelector).find('li').hide();
             $listModule = $(listModuleSelector);
-            $('#js-export-school-calendar').on('change', function() {
-                var $select = $(this);
-                var format = $select.val();
-                var schoolName = $select.data('gs-school-name');
-                var ncesCode = $select.data('gs-school-nces-code');
-                exportCalendar(ncesCode, format, schoolName);
-            });
+//            $('#js-export-school-calendar').on('change', function() {
+//                var $select = $(this);
+//                var format = $select.val();
+//                var schoolName = $select.data('gs-school-name');
+//                var ncesCode = $select.data('gs-school-nces-code');
+//                exportCalendar(ncesCode, format, schoolName);
+//            });
         }
     });
+    /**********************************************************************************************
+     *
+     * @param layerContainer  --- this is the surrounding layer that contains
+     .js-selectBox - this is the clickable element to open the drop down
+     .js-selectDropDown - this is the dropdown select list container
+     .js-ddValues - each element in the select list
+     .js-selectBoxText - the text that gets set.  This is the part that should be scrapped for option choice
+     * @param callbackFunction - optional function callback when selection is made.
+     * @constructor
+     */
+     var initializeCustomSelect = function(layerContainer, callbackFunction){
+        var selectContainer = $("#"+layerContainer); //notify
+        var selectBox = selectContainer.find(".js-selectBox");
+        var selectDropDownBox = selectContainer.find(".js-selectDropDown");
+        var selectDropDownItem = selectContainer.find(".js-ddValues");
+        var selectBoxText = selectContainer.find(".js-selectBoxText");
 
+        selectBox.on("click", showSelect);
+
+        selectDropDownBox.on("click", function(event) {
+            // Handle the click on the notify div so the document click doesn't close it
+            event.stopPropagation();
+        });
+
+        function showSelect(event) {
+            $(this).off('click');
+            selectDropDownBox.show();
+            $(document).on("click", hideSelect);
+            selectDropDownItem.on("click", showW);
+            // So the document doesn't immediately handle this same click event
+            event.stopPropagation();
+        };
+
+        function hideSelect(event) {
+            $(this).off('click');
+            selectDropDownItem.off('click');
+            selectDropDownBox.hide();
+            selectBox.on("click", showSelect);
+        }
+
+        function showW(event) {
+            hideSelect(event);
+            selectBoxText.html($(this).html());
+            if(callbackFunction) callbackFunction($(this).html());
+        }
+
+        selectDropDownItem.mouseover(function () {
+            $(this).addClass("ddValuesHighlight");
+        });
+
+        selectDropDownItem.mouseout(function () {
+            $(this).removeClass("ddValuesHighlight");
+        });
+    }
+    var selectCallbackTandemCalFile = function(selectValue){
+        var $select = $("#js-export-school-calendar");
+        var sv = $.trim(selectValue);
+        var format = mapCalNames[sv];
+        var schoolName = $select.data('gs-school-name');
+        var ncesCode = $select.data('gs-school-nces-code');
+        exportCalendar(ncesCode, format, schoolName);
+    }
 
     /**
      * A function to parse the XCAL format date into an object
