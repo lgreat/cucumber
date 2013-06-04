@@ -30,7 +30,16 @@
 
 
     <c:set var="showPageTwo" value="${not empty school}" />
-    <![CDATA[ <script>var showHeaderDefault = false;</script> ]]>
+    <![CDATA[ <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        var showHeaderDefault = false;
+        var fromMobile = getParameterByName('fromMobile');
+    </script> ]]>
     <c:set var="pageOneDisplay" value=""/>
     <c:set var="pageTwoDisplay" value="dn"/>
     <c:if test="${showPageTwo}">
