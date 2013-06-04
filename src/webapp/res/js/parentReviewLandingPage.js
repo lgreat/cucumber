@@ -256,8 +256,9 @@ $(document).ready(function() {
             searchBox.val("");
         });
     }
-    GS.form.stateDropDownConfig();
-
+    if(fromMobile != "true"){
+        GS.form.stateDropDownConfig();
+    }
     GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
 
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
