@@ -137,8 +137,7 @@ public class EspRegistrationHelper {
         Date maxCreated = getEspResponseDao().getMaxCreatedForSchool(
             school,
             false,
-            EspResponseSource.osp,
-            EspResponseSource.datateam
+            EspResponseSource.osp
         );
 
         if (maxCreated == null) {
