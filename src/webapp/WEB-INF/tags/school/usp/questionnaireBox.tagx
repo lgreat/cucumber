@@ -15,7 +15,7 @@
         <div class="inner pal">
             <div class="bd">
                 <div class="clearfix">
-                    <div class="fl mrl">
+                    <div class="fl mrm">
                         <span class="iconx32g i-32-usp-${formResponse.fieldName}"><!--Do not collapse--></span>
                     </div>
                     <div class="fl">
