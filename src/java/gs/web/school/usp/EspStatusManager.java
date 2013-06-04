@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component(value="espStatusManager")
+@Component(value=EspStatusManager.BEAN_NAME)
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class EspStatusManager {
 
@@ -19,6 +19,8 @@ public class EspStatusManager {
     private EspStatus _espStatus;
 
     private EspResponseData _espResponseData;
+
+    public static final String BEAN_NAME = "espStatusManager";
 
     @Autowired
     private IEspResponseDao _espResponseDao;

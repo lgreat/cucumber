@@ -26,6 +26,10 @@ public class EspResponseData extends BaseEspResponseData {
         super(responses);
     }
 
+    public EspResponseData(Map<String, List<EspResponse>> responsesByKey) {
+        super(responsesByKey);
+    }
+
     /**
      * sets instance variables back to null, so that the methods that populate them will be re-executed. Should be
      * called when underlying List of responses is modified

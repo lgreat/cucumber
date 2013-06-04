@@ -42,6 +42,28 @@ public class BaseEspResponseData implements IEspResponseData {
     }
 
     /**
+     * I had to add this constructor to avoid mayhem in SchoolProfileDataHelper when attempting to expose the underlying
+     * List of EspResponses from DB to the caller (in this case, the controller). Data helper only exposes a Map, and
+     * the SchoolProfileDataHelper patterns only expose/return a single attribute/object
+     * @param responsesByKey
+     */
+    public BaseEspResponseData(Map<String, List<EspResponse>> responsesByKey) {
+        if (responsesByKey == null) {
+            _responses = new ArrayList<EspResponse>();
+            return;
+        }
+
+        List<EspResponse> responses = new ArrayList<EspResponse>();
+        Iterator<Map.Entry<String, List<EspResponse>>> iterator= responsesByKey.entrySet().iterator();
+        while(iterator.hasNext()) {
+            Map.Entry<String, List<EspResponse>> entry = iterator.next();
+            responses.addAll(entry.getValue());
+        }
+        _responses = responses;
+        _responsesByKey = responsesByKey;
+    }
+
+    /**
      * Given a list of EspResponses, determines the Date of the oldest response. The result is "cached" within
      * an instance variable, so that multiple accesses on the same List of responses will not require iterating again
      * @return a Date

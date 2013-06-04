@@ -19,10 +19,12 @@
         </div>
     </c:set>
 
+    <c:set var="isNotOspPreferred" scope="page" value="${espStatus ne 'OSP_PREFERRED'}"/>
+
     <c:set var="highlightstab">
         <c:if test="${fn:length(highlights) gt 0}">
 
-            <c:if test="${isNotOspPreffered}">
+            <c:if test="${isNotOspPreferred}">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
@@ -69,7 +71,7 @@ where each entry is the first bean for that section, this allows access to the s
     <c:set var="programsresourcestab">
         <c:choose>
             <c:when test="${fn:length(programs_resources) gt 0}">
-                <c:if test="${isNotOspPreffered}">
+                <c:if test="${isNotOspPreferred}">
                     <div class="mod standard_3-1">
                         <div class="outer">
                             <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
@@ -130,7 +132,7 @@ where each entry is the first bean for that section, this allows access to the s
     <c:set var="extracurricularstab">
 
         <c:if test="${fn:length(extracurriculars) gt 0}">
-            <c:if test="${isNotOspPreffered}">
+            <c:if test="${isNotOspPreferred}">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
