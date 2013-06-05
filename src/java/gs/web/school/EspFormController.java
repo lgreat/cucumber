@@ -12,8 +12,6 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.CommunityUtil;
-import gs.web.community.registration.UserLoginCommand;
-import gs.web.community.registration.UserRegistrationCommand;
 import gs.web.school.usp.UspFormHelper;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
@@ -25,10 +23,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -463,8 +459,10 @@ public class EspFormController implements ReadWriteAnnotationController {
         // Check if this is the first time this school has gotten any data(exclude data by provisional users).
         boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
-        _espSaveHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap, responseList,
-                isProvisionalData, false, false);
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(isProvisionalData, false, false, true);
+        _espSaveHelper.saveEspFormData(user, school, state, page, keysForPage, requestParameterMap, responseList,
+                errorFieldToMsgMap, saveBehaviour);
+
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);
             return; // early exit

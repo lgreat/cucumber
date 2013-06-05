@@ -95,7 +95,8 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 //        _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
 
         replayAllMocks();
-        _helper.saveEspFormData(user, school, keysForPage, keyToResponseMap, state, pageNum, errorFieldToMsgMap, responseList, false,false,false);
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false,false,false,false);
+        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals(true, errorFieldToMsgMap.isEmpty());
