@@ -18,6 +18,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.AddEditSchoolOrDistrictCommandValidator;
+import gs.web.util.validator.AddFeedbackCommandValidator;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -51,7 +52,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
  * Time: 4:49 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AddEditSchoolOrDistrictController extends SimpleFormController implements ReadWriteAnnotationController {
+public class AddFeedbackController extends SimpleFormController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private INewEntityQueueDao _newEntityQueueDao;
@@ -119,13 +120,13 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         //play around and see what can be fed back to the page if it doesnt make it to onSubmit
 
         super.onBindAndValidate(request, command, errors);
-        AddEditSchoolOrDistrictCommandValidator validator = new AddEditSchoolOrDistrictCommandValidator();
+        AddFeedbackCommandValidator validator = new AddFeedbackCommandValidator();
         validator.validate(request, command, errors);
     }
 
     @Override
     protected ModelAndView onSubmit(Object o) throws ServletException {
-        AddEditSchoolOrDistrictCommand command = (AddEditSchoolOrDistrictCommand)o;
+        AddFeedbackCommand command = (AddFeedbackCommand)o;
 
         _log.warn("step 2");
 
@@ -135,7 +136,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         yesNo.put("No",0);
         yesNo.put("Yes",1);
         //model.put("action",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
-        model.put("submitterName",command.getSubmitterName());
+        model.put("name",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
         model.put("testvar",":" + command.getSchoolId() + ":");
         char[] digits = {0,1,2,3,4,5,6,7,8,9};
@@ -155,6 +156,10 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             model.put("testvar4","yes");
 
         }
+        Map<String,String> categoryMap = new HashMap<String,String>();
+        categoryMap.put("tests_ratings","Thank you for your feedback about Tests or Ratings!");
+        categoryMap.put("functionality","Thank you for your feedback about our site.");
+        categoryMap.put("osp","Thank you for your feedback about our Official School Profile.");
         NewEntityQueue newEntityQueue = new NewEntityQueue();
         newEntityQueue.setOriginalId(0);
         newEntityQueue.setStatus("Unprocessed");
@@ -167,23 +172,17 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             newEntityQueue.setStateId(school.getStateId());
             newEntityQueue.setNcesCode(school.getNcesCode());
             newEntityQueue.setDistrictId(school.getDistrictId());
+            categoryMap.put("tests_ratings","Thank you for your feedback regarding tests or ratings of " + school.getName() + "!");
+            categoryMap.put("osp","Thank you for your feedback about our Official School Profile for " + school.getName() + ".");
             //newEntityQueue.setOriginalId(0);
-        }else if(command.getDistrictId() != null && StringUtils.isNotBlank(command.getDistrictId())&& StringUtils.isNumeric(command.getDistrictId()) &&
-                command.getSchoolId() == null || StringUtils.isBlank(command.getSchoolId())
-                && command.getAddEdit().equals("edit")){
-                District district = _districtDao.findDistrictById(command.getState(),new Integer(command.getDistrictId()));
-                model.put("name",district.getName());
-                newEntityQueue.setGsId(new Integer(command.getDistrictId()));
-                newEntityQueue.setStateId(district.getStateId());
-                newEntityQueue.setNcesCode(district.getNcesCode());
-                newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
-                //newEntityQueue.setOriginalId(0);
         }else{
             //newEntityQueue.setOriginalId(0);
         }
         if(command.getDistrictId() != null && !(command.getDistrictId().equals("")) && command.getAddEdit().equals("add")){
             newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
         }
+        String thankyouMessage = categoryMap.get(command.getCategory()) != null ? categoryMap.get(command.getCategory()) : "Thank you for your feedback!";
+        model.put("thankyouMessage",thankyouMessage);
         //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
         newEntityQueue.setSchoolOrDistrict(command.getSchoolOrDistrict());
         newEntityQueue.setGradeLevels(new Grades(command.getGrades()));
@@ -273,32 +272,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
         _newEntityQueueDao.saveNewEntityQueue(newEntityQueue,"web form");
 
-        String emailType = command.getCategory();
-        if(
-            command.getSubmitterConnectionToSchool().equals("School Administrator")
-            || command.getSubmitterConnectionToSchool().equals("School Staff")
-           ){
-            emailType += "_with_ospnote";
-        }
-
-        String message = "Hello,\n" +
-                "\n" +
-                "Thank you for contacting GreatSchools!\n" +
-                "We’ve received your request and will get back to you with an answer as soon as possible.\n" +
-                "\n" +
-                "Please do not reply to this automated email - we will respond to you from your support request.\n" +
-                "\n" +
-                "Sincerely,\n" +
-                "GreatSchools Support\n";
-        Map <String,String> emailMap = new HashMap<String,String>();
-        emailMap.put("edit_school_with_ospnote","Thank you for school edit do osp.");
-        emailMap.put("edit_school","Thank you for school edit.");
-        emailMap.put("add_school_with_ospnote","Thank you for school add do osp.");
-        emailMap.put("add_school","Thank you for school add.");
-        if(emailMap.containsKey(emailType)){
-            message = emailMap.get(emailType);
-        }
-        sendTheEmail(message);
+        sendTheEmail();
 
 
         return new ModelAndView(getSuccessView(), model);
@@ -306,7 +280,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
     @Override
     protected Map referenceData(HttpServletRequest request, Object o, Errors errors) throws Exception {
-        AddEditSchoolOrDistrictCommand command = (AddEditSchoolOrDistrictCommand)o;
+        AddFeedbackCommand command = (AddFeedbackCommand)o;
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         Map<String,Object> map = new HashMap<String,Object>();
 
@@ -424,13 +398,14 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         map.put("cityOptions", cityOptions);
 
         // Populate county options
+        /*
         List<ICounty> counties = _geoDao.findCounties(stateOrDefault);
-        //_log.warn("this is the state " + stateOrDefault + " " + counties.size());
         List<FormOption> countyOptions = new ArrayList<FormOption>();
         for (ICounty county : counties) {
             countyOptions.add(new FormOption(county.getName(), county.getName()));
         }
         map.put("countyOptions", countyOptions);
+        */
 
         // Populate school options if a city was chosen
         List<FormOption> schoolOptions = new ArrayList<FormOption>();
@@ -458,7 +433,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         return map;
     }
 
-    protected void captureRequestParameters(HttpServletRequest request, AddEditSchoolOrDistrictCommand command, Map<String,Object> map) {
+    protected void captureRequestParameters(HttpServletRequest request, AddFeedbackCommand command, Map<String,Object> map) {
         if (!StringUtils.isBlank(request.getParameter("feedbackType"))) {
             command.setFeedbackType(ContactUsCommand.FeedbackType.valueOf(request.getParameter("feedbackType")));
             if (!StringUtils.isBlank(request.getParameter("city"))) {
@@ -512,11 +487,10 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             this.mailSender = mailSender;
         }
 
-        public void sendTheEmail(String messageText) {
+        public void sendTheEmail() {
 
             //... * Do the business calculations....
             //... * Call the collaborators to persist the order
-            final String message = messageText;
 
             MimeMessagePreparator preparator = new MimeMessagePreparator() {
                 public void prepare(MimeMessage mimeMessage) throws MessagingException {
@@ -524,7 +498,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
                             new InternetAddress("eford@greatschools.org"));
                     mimeMessage.setFrom(new InternetAddress("eford@greatschools.org"));
                     mimeMessage.setText(
-                            message
+                            "Dear "
                             );
 
                 }

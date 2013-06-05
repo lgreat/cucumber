@@ -39,16 +39,24 @@
             ]]>
         </script>
 
-        <pageHelper:externalCss file="/res/css/about/feedback/addEditSchoolOrDistrict.css"/>
+        <pageHelper:externalCss file="/res/css/about/feedback/addFeedback.css"/>
     </head>
 
-    <gsml:body adPageName="addEditSchoolOrDistrictConfirm" pageLayout="nocol">
+    <gsml:body adPageName="addFeedbackConfirm" pageLayout="nocol">
 
         <div class="content">
 
             <div class="pageTitle">
-                <h2>Thank you for updating us on your school or district, ${submitterName}!</h2>
-
+                <h2>${thankyouMessage}</h2>
+                <!--
+                school or district: ${schoolOrDistrict}
+                name: ${name}
+                testvar : ${testvar}
+                testvar1 : ${testvar1}
+                testvar2 : ${testvar2}
+                testvar3 : ${testvar3}
+                testvar4 : ${testvar4}
+                -->
             </div>
 
 

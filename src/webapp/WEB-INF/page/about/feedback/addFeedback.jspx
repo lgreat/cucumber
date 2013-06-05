@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:form="http://www.springframework.org/tags/form"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:hideFooterAd/>
+<pageHelper:externalJavascript file="http://api.recaptcha.net/js/recaptcha_ajax.js"/>
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="Description" content="Submit feedback to the GreatSchools web site"/>
+<title>Submit feedback to the GreatSchools web site</title>
+<script type="text/javascript">
+<![CDATA[
+//<!--
+var $j = jQuery;
+
+
+
+//$("#addFeedbackCommand_state").val(state);
+
+
+
+
+
+
+
+var QueryString = function () {
+    // This function is anonymous, is executed immediately and
+    // the return value is assigned to QueryString!
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        // If first entry with this name
+        if (typeof query_string[pair[0]] === "undefined") {
+            query_string[pair[0]] = pair[1];
+            // If second entry with this name
+        } else if (typeof query_string[pair[0]] === "string") {
+            var arr = [ query_string[pair[0]], pair[1] ];
+            query_string[pair[0]] = arr;
+            // If third or later entry with this name
+        } else {
+            query_string[pair[0]].push(pair[1]);
+        }
+    }
+    return query_string;
+} ();
+
+
+//function setTest22(QueryString){
+    function showInitial(){
+        if(QueryString.target == "osp"){
+            $("#div_choose_state").show();
+            $("#school_or_district").val("school");
+        }
+
+        if(QueryString.target == "tests_ratings"){
+            $("#div_choose_state").show();
+            $("#schoolOrDistrict").val("school");
+        }
+
+        if(QueryString.target == "functionality"){
+            $("#computerInfo").show();
+        }
+
+        $("#category").val(QueryString.target);
+        //alert($("#category").val() + QueryString.target);
+
+        $("#addFeedbackCommand_state").change(function() {
+            //alert($("#addFeedbackCommand_state").val());
+            $j.ajax({
+                url: '/community/registrationAjax.page',
+                dataType: 'text',
+                data: ({
+                    'state' : $("#addFeedbackCommand_state").val(),
+                    'type' : 'cityOptions'
+                }),
+                success: function(data) {
+                    $("#addFeedbackCommand_cityName").html(data);
+                }
+            });
+
+        });
+
+
+        $("#addFeedbackCommand_cityName").change(function() {
+            $j.ajax({
+                url: '/test/schoolsInCity.page',
+                dataType: 'text',
+                data: ({
+                    state : $("#addFeedbackCommand_state").val(),
+                    city : $("#addFeedbackCommand_cityName").val(),
+                    printOptionsOnly: 'true',
+                    includePrivateSchools: 'true',
+                    chooseSchoolLabel: '- Choose School -'
+                }),
+                success: function(data) {
+                    $("#addFeedbackCommand_schoolId").html(data);
+                }
+            });
+
+
+            $("#city").val($("#addFeedbackCommand_cityName").val());
+        });
+
+
+
+
+
+        //var elem = document.getElementById("test22");
+    //elem.innerHTML("eddie");
+    //alert("yep");
+    //$("#test22").html(QueryString.target);
+    //$("#test22").show();
+    //alert("yo");
+}
+
+$(document).ready(function(){
+
+    //alert(QueryString.target);
+
+    //setTest22(QueryString);
+    showInitial();
+    //$("#testdiv").val("eddie");
+
+    Recaptcha.create(
+            "6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL",
+            "addEdit_captcha",
+            {
+                theme: "white"
+            });
+
+});
+
+
+
+
+
+//-->
+]]>
+</script>
+
+<pageHelper:externalCss file="/res/css/about/feedback/addFeedback.css"/>
+</head>
+
+<gsml:body adPageName="addFeedback" pageLayout="nocol">
+
+<div class="content">
+
+<div class="pageTitle">
+    <h2>Submit Feedback</h2>
+</div>
+
+
+    <form:form action="/about/feedback/addFeedback.page" method="post"    commandName="addFeedbackCommand"
+           id="formAddEdit"
+           onsubmit="addEdit_challenge.value = Recaptcha.get_challenge(); addEdit_response.value = Recaptcha.get_response();">
+
+        <div id="link_to_update"><a href="/about/feedback/addEditSchoolOrDistrict.page">Want to update information?</a></div>
+        <div id="link_to_add"><a href="/about/feedback/addEditSchoolOrDistrict.page">Want to add a school to GS?</a></div>
+        <div class="field">
+            <div class="fieldLabel">Your name <span class="required">*</span></div>
+            <div class="fieldInput">
+                <spring:bind path="addFeedbackCommand.submitterName">
+                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+                </spring:bind>
+            </div>
+            <div class="fieldNote">
+                <gsml:errorMessage command="addFeedbackCommand" field="submitterName" useImage="true" styleClass="warning"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="fieldLabel">Your email address <span class="required">*</span></div>
+            <div class="fieldInput">
+                <spring:bind path="addFeedbackCommand.submitterEmail">
+                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+                </spring:bind>
+            </div>
+            <div class="fieldNote">
+                <gsml:errorMessage command="addFeedbackCommand" field="submitterEmail" useImage="true" styleClass="warning"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="fieldLabel">Re-enter your email for verification <span class="required">*</span></div>
+            <div class="fieldInput">
+                <spring:bind path="addFeedbackCommand.submitterEmailConfirm">
+                    <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+                </spring:bind>
+            </div>
+            <div class="fieldNote">
+                <gsml:errorMessage command="addFeedbackCommand" field="submitterEmailConfirm" useImage="true" styleClass="warning"/>
+            </div>
+        </div>
+
+        <div class="field" id="connection_to_school">
+            <div class="fieldLabel">Your connection to the school <span class="required">*</span></div>
+            <div class="fieldInput">
+                <spring:bind path="addFeedbackCommand.submitterConnectionToSchool">
+                    <form:select path="submitterConnectionToSchool" onchange="doConnection();">
+                        <form:option value="" label="- Choose one -"/>
+                        <form:options items="${requestScope.submitterConnectionToSchool}" itemValue="value" itemLabel="name"/>
+                    </form:select>
+                </spring:bind>
+            </div>
+            <div class="fieldNote">
+                <gsml:errorMessage command="addFeedbackCommand" field="submitterConnectionToSchool" useImage="true" styleClass="warning"/>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="field" id="div_choose_state">
+
+            <fieldset class="fieldset1 bg-ebebeb">
+                <legend class="legend1">
+                    <span class="legend1-position" id="details_label">School Details</span>
+                </legend>
+                <ol class="formlist1">
+
+                    <form:hidden path="challenge" id="addEdit_challenge"/>
+                    <form:hidden path="response" id="addEdit_response"/>
+                    <form:hidden path="category" id="category" value=""/>
+                    <form:hidden path="schoolOrDistrict" id="schoolOrDistrict" value=""/>
+
+                    <li class="fl1-item">
+                        <form:label cssClass="label1 text2bold" path="state" for="addFeedbackCommand.state">
+                            StateName <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="state" id="addFeedbackCommand_state">
+                            <form:option value="" label="- Choose state -"/>
+                            <form:options items="${requestScope.stateOptions}" itemValue="value" itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="state">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText">
+                                    <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
+                    </li>
+
+                    <li class="fl1-item" id="city_list">
+                        <form:label cssClass="label1 text2bold" path="cityName" for="addFeedbackCommand.cityName">
+                            City <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="cityName" id="addFeedbackCommand_cityName">
+                            <form:option value="" label="- Choose city -"/>
+                            <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="cityName">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText">
+                                    <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
+                    </li>
+
+                    <li class="fl1-item" id="school_list">
+                        <form:label cssClass="label1 text2bold" path="schoolId" for="addFeedbackCommand.schoolId">
+                            School <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                        </form:label>
+                        <form:select path="schoolId" id="addFeedbackCommand_schoolId">
+                            <form:option value="" label="- Choose School -"/>
+                            <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
+                        </form:select>
+                        <form:errors path="schoolId">
+                            <c:forEach items="${messages}" var="message"> 
+                                <strong class="errorMessage1 formErrorText">
+                                    <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                </strong>
+                            </c:forEach>
+                        </form:errors>
+                    </li>
+
+                </ol>
+            </fieldset>
+        </div>
+
+        <div id="computerInfo">
+            <div class="field">
+                <div class="fieldLabel">Operating system</div>
+                <div class="fieldInput">
+                    <spring:bind path="addFeedbackCommand.operatingSystem"><!--  -->
+                        <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="operatingSystem"/>
+                    </spring:bind>
+                </div>
+                <div class="fieldNote">
+                    <gsml:errorMessage command="addFeedbackCommand" field="operatingSystem" useImage="true" styleClass="warning"/>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="fieldLabel">Browser</div>
+                <div class="fieldInput">
+                    <spring:bind path="addFeedbackCommand.browser"><!--  -->
+                        <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="browser"/>
+                    </spring:bind>
+                </div>
+                <div class="fieldNote">
+                    <gsml:errorMessage command="addFeedbackCommand" field="browser" useImage="true" styleClass="warning"/>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="field">
+            <div class="fieldLabel">Extra Notes</div>
+            <div class="fieldInput">
+                <spring:bind path="addFeedbackCommand.contactNotes"><!--  -->
+                    <!-- <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="contactNotes"/>   -->
+                    <textarea type="text" name="${status.expression}" id="contactNotes">${status.value}</textarea>
+                </spring:bind>
+            </div>
+            <div class="fieldNote">
+                <gsml:errorMessage command="addFeedbackCommand" field="contactNotes" useImage="true" styleClass="warning"/>
+            </div>
+        </div>
+
+        <div class="personalInfoMessage">
+            Your personal information is confidential and will only be used in case we need to contact you
+            to follow up on the school you submit.<br/>
+            Please see our
+            <link:privacyPolicy target="_blank">Privacy Policy</link:privacyPolicy> for more information.
+        </div>
+
+
+
+
+        <div><p>&amp;nbsp;</p></div>
+<li class="fl1-item">
+    <div class="captcha" id="addEdit_captcha">
+        <!-- no collapse -->
+    </div>
+    <form:errors path="response">
+        <c:forEach items="${messages}" var="message"> 
+            <strong class="captcha errorMessage1 formErrorText"><span
+                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+            </strong>
+        </c:forEach>
+    </form:errors>
+</li>
+
+<div id="submitButton">
+    <input type="image" name="_submit" value="Submit" alt="Submit" src="/res/img/button/btn_submit.gif"/>
+</div>
+
+
+
+
+</form:form>
+
+
+<div class="separator">
+    <hr/>
+</div>
+
+
+</div>
+
+<mod:tracking pageName="${pageName}"
+              hier1="Home,ContactUs,${pageName}"/>
+
+</gsml:body>
+</html>
+</jsp:root>

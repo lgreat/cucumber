@@ -8,7 +8,7 @@
 
     <div class="header fixed-header-top">
         <link:home>
-        <div class="logo"><!-- do not collapse --></div>
+        <div class="logo" style="margin-top: 2px;"><!-- do not collapse --></div>
         <!--<gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
         alt="GreatSchools: Involved Parents. Successful Kids"/>-->
         </link:home>

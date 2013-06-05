@@ -49,7 +49,7 @@ function showWhatIsNecessary(clear){
 }
 
 function showSchoolDistrictFields(){
-    if($('input:radio[name=addEdit]:checked').val() == 'add' ){
+    if($('input:radio[name=addEdit]:checked').val() == 'add' || $('input:radio[name=addEdit]:checked').val() == 'edit'){
         $("#schoolDistrictFields").show();
     }
 }
@@ -126,42 +126,6 @@ function doSchoolTypeSections(){
     }
 }
 
-function doAddEditSections(){
-    if($('input:radio[name=addEdit]:checked').val() == 'edit'
-            && $('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
-        $("#div_choose_state").show();
-        $("#div_school_type").show();
-        $("#school_list").show();
-        $("#city_list").show();
-        $("#district_list").hide();
-        $("#county_list").hide();
-        $("#lowerCounty").show();
-    }
-
-    if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
-        $("#div_choose_state").show();
-        $("#div_school_type").hide();
-        $("#school_list").hide();
-        $("#city_list").hide();
-        $("#district_list").show();
-        $("#county_list").show();
-        $("#schoolDistrictFields").show();
-    }
-
-    if($('input:radio[name=addEdit]:checked').val() == 'add'){
-        if($('input:radio[name=schoolType]:checked').val() == 'public'
-                || $('input:radio[name=schoolType]:checked').val() == 'charter'){
-            $("#div_choose_state").show();
-        }
-        $("#div_school_type").show();
-        $("#school_list").hide();
-        $("#city_list").hide();
-        $("#district_list").show();
-        $("#county_list").show();
-        $("#lowerCounty").hide();
-        $("#schoolDistrictFields").show();
-    }
-}
 
 function do_radio_school_district(clear){
     if(clear == "1"){
@@ -210,6 +174,7 @@ function doAddEditSections(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#lowerCounty").show();
+        $("#category").val("edit_school");
     }
 
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
@@ -219,6 +184,7 @@ function doAddEditSections(clear){
         $("#city_list").hide();
         $("#district_list").show();
         $("#county_list").show();
+        $("#category").val("edit_district");
     }
 
     if($('input:radio[name=addEdit]:checked').val() == 'add'){
@@ -233,6 +199,7 @@ function doAddEditSections(clear){
         $("#county_list").show();
         $("#lowerCounty").hide();
         $("#schoolDistrictFields").show();
+        $("#category").val("add_school");
     }
 }
 
@@ -252,6 +219,7 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
+        $("#category").val("edit_school");
     }
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'){
         $("#div_choose_state").show();
@@ -266,6 +234,7 @@ function do_radio_school_district(clear){
         $("input[name=addEdit][value=edit]").prop('checked', true);
         $("#detailsLabel").html("District Details");
         $("#lowerCounty").hide();
+        $("#category").val("edit_district");
         do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
     }
 }
@@ -543,7 +512,8 @@ function do_add_edit(state,clear){
         }
 
     });
-    doAddEditSections();
+    //doAddEditSections();
+    doAddEditSections(clear);
 }
 
 
@@ -553,6 +523,7 @@ $(document).ready(function(){
     document.getElementById('formAddEdit').reset();
     do_radio_school_district();
     do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
+    showSchoolDistrictFields();
 
 
 
@@ -734,7 +705,7 @@ $(document).ready(function(){
 
             <form:hidden path="challenge" id="addEdit_challenge"/>
             <form:hidden path="response" id="addEdit_response"/>
-            <form:hidden path="category" id="addEdit_category" value="add_edit"/>
+            <form:hidden path="category" id="category" value="add_edit"/>
 
             <li class="fl1-item">
                 <form:label cssClass="label1 text2bold" path="state" for="addEditSchoolOrDistrictCommand.state">
