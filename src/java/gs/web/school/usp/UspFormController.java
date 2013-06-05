@@ -2,8 +2,7 @@ package gs.web.school.usp;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
@@ -74,6 +73,8 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     private ISchoolDao _schoolDao;
     @Autowired
     private IEspResponseDao _espResponseDao;
+    @Autowired
+    private ISubscriptionDao _subscriptionDao;
 
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
@@ -168,6 +169,29 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         }
 
         User user = userStateStruct.getUser();
+
+        try {
+            List<Subscription> userSubs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.USP);
+            if(userSubs == null || userSubs.isEmpty()) {
+                List subscriptions = new ArrayList();
+                Subscription sub = new Subscription(user, SubscriptionProduct.USP, school);
+                subscriptions.add(sub);
+                getSubscriptionDao().saveSubscription(sub);
+            }
+            /**
+             * MSS subscription will be set for only new members submitting response with the join hover and the checkbox
+             * is checked, so not checking for any prev subscriptions to see if max limit has been reached.
+             */
+            if(userRegistrationCommand.isMss()) {
+                List subscriptions = new ArrayList();
+                Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
+                subscriptions.add(sub);
+                getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+            }
+        } catch (Exception e) {
+            _logger.debug("Error while adding subscription: " +e);
+        }
+
         //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
         //Show the user his old responses.
         boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, false);
@@ -449,5 +473,13 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
     public void setEspSaveHelper(EspSaveHelper _espSaveHelper) {
         this._espSaveHelper = _espSaveHelper;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

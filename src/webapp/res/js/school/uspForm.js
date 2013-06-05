@@ -215,6 +215,10 @@ GS.form.UspForm = function () {
             data.push({name:"email", value:email});
         }
 
+        if(jQuery('.js-joinHover:visible').find('.js-mss .js-checkBoxSpriteOn:visible').length > 0) {
+            data.push({name:"mss", value:true});
+        }
+
         jQuery.ajax({type:'POST',
                 async:true,
                 url:document.location,

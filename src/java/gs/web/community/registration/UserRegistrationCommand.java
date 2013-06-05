@@ -45,6 +45,8 @@ public class UserRegistrationCommand  {
     private String gender;
     private String facebookId;
 
+    private boolean mss;
+
     @AssertTrue
     private boolean terms;
 
@@ -152,5 +154,13 @@ public class UserRegistrationCommand  {
 
     public void setHow(String how) {
         this.how = how;
+    }
+
+    public boolean isMss() {
+        return mss;
+    }
+
+    public void setMss(boolean mss) {
+        this.mss = mss;
     }
 }
