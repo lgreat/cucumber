@@ -313,6 +313,7 @@ public class UrlBuilder {
     public static final VPage SUBMIT_PRIVATE_SCHOOL = new VPage("vpage:submitPrivateSchool");
 
     public static final VPage ADD_EDIT_SCHOOL_OR_DISTRICT = new VPage("vpage:addEditSchoolOrDistrict");
+    public static final VPage ADD_FEEDBACK = new VPage("vpage:addFeedback");
 
     /**
      * browse pages
@@ -1029,6 +1030,9 @@ public class UrlBuilder {
         } else if (ESP_DASHBOARD.equals(page)) {
             _perlPage = false;
             _path = "/official-school-profile/dashboard/";
+        } else if(ADD_FEEDBACK.equals(page)){
+            _perlPage = false;
+            _path = "/about/feedback/addFeedback.page";
         } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
             _perlPage = false;
             _path = "/about/feedback/addEditSchoolOrDistrict.page";

@@ -279,6 +279,8 @@
           autowire="byName" lazy-init="true"/>
     <bean id="addEditSchoolOrDistrictCommandValidator" class="gs.web.util.validator.AddEditSchoolOrDistrictCommandValidator"
           autowire="byName" lazy-init="true"/>
+    <bean id="addFeedbackCommandValidator" class="gs.web.util.validator.AddFeedbackCommandValidator"
+          autowire="byName" lazy-init="true"/>
     <bean id="emailVerificationLinkValidator" class="gs.web.community.registration.EmailVerificationLinkValidator"
           autowire="byName" lazy-init="true"/>
     <bean id="schoolSearchCommandValidator" class="gs.web.search.SchoolSearchCommandValidator"
@@ -2559,6 +2561,17 @@
         <property name="type" value="private school"/>   -->
     </bean>
 
+    <bean name="/about/feedback/addFeedback.page"
+          class="gs.web.about.feedback.AddFeedbackController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="addFeedbackCommand"/>
+        <property name="commandClass" value="gs.web.about.feedback.AddFeedbackCommand"/>
+        <property name="formView" value="/about/feedback/addFeedback"/>
+        <property name="successView" value="/about/feedback/addFeedbackConfirm"/>
+        <!-- <property name="fromEmail" value="gs_support@greatschools.org"/>
+        <property name="type" value="private school"/>   -->
+    </bean>
 
     <!-- directory structure url beans - start -->
     <!-- see also directoryStructureUrlHandlerMapping -->
