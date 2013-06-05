@@ -459,7 +459,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         // Check if this is the first time this school has gotten any data(exclude data by provisional users).
         boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(isProvisionalData, false, false, true);
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(isProvisionalData, false, true);
         _espSaveHelper.saveEspFormData(user, school, state, page, keysForPage, requestParameterMap, responseList,
                 errorFieldToMsgMap, saveBehaviour);
 

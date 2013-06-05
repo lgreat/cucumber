@@ -94,7 +94,7 @@ public class EspSaveHelper implements BeanFactoryAware {
 
         //If there are validation errors and if the errors should not be ignored, then exit.
         //There are cases where the errors should be ignored. example:- errors while promoting provisional data.
-        if (!errorFieldToMsgMap.isEmpty() && !saveBehaviour.isIgnoreErrors()) {
+        if (!errorFieldToMsgMap.isEmpty() && !saveBehaviour.isActivateProvisionalData()) {
             return; // early exit
         }
 
@@ -151,7 +151,7 @@ public class EspSaveHelper implements BeanFactoryAware {
 
         //If there are errors while saving external data and if the errors should not be ignored, then exit.
         //There are cases where the errors should be ignored. example:- errors while promoting provisional data.
-        if (!errorFieldToMsgMap.isEmpty() && !saveBehaviour.isIgnoreErrors()) {
+        if (!errorFieldToMsgMap.isEmpty() && !saveBehaviour.isActivateProvisionalData()) {
             return; // early exit
         }
 

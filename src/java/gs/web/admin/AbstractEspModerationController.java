@@ -319,7 +319,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             // Check if this is the first time this school has gotten any data(exclude data by the user being approved).
             boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
 
-            EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, true, false);
+            EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
             _espSaveHelper.saveEspFormData(user, school, school.getDatabaseState(), -1, keysForPage, keyToResponseMap,
                     responseList, errorFieldToMsgMap, saveBehaviour);
 
