@@ -2,25 +2,6 @@ var GS = GS || {};
 GS.form = GS.form || {};
 GS.form.UspForm = function () {
 
-    this.validateFirstName = function (elem) {
-        var fieldVal = jQuery.trim(elem.val());
-        var namereg = /[0-9<>&\\]/;
-        var dfd = jQuery.Deferred();
-
-        GS.form.uspForm.hideErrors('.js_firstNameErr', elem);
-
-        if (fieldVal.length > 24 || fieldVal.length < 2) {
-            GS.form.uspForm.handleValidationResponse('.js_firstNameErr', 'First name must be 2-24 characters long.', elem);
-            dfd.reject();
-        } else if (namereg.test(fieldVal)) {
-            GS.form.uspForm.handleValidationResponse('.js_firstNameErr', 'Please remove the numbers or symbols.', elem);
-            dfd.reject();
-        } else {
-            return dfd.resolve();
-        }
-        dfd.promise();
-    };
-
     this.validatePassword = function (elem) {
         var fieldVal = elem.val();
         var dfd = jQuery.Deferred();
@@ -155,19 +136,17 @@ GS.form.UspForm = function () {
         }
     };
 
-    this.registerAndSaveData = function (uspForm, uspRegistrationFirstNameField, uspRegistrationPasswordField, uspRegistrationEmailField) {
+    this.registerAndSaveData = function (uspForm, uspRegistrationPasswordField, uspRegistrationEmailField) {
         //First do validations and then save the form.
         jQuery.when(
             GS.form.uspForm.validateUserState(uspRegistrationEmailField, false, false),
-            GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
-            GS.form.uspForm.validateFirstName(uspRegistrationFirstNameField)
+            GS.form.uspForm.validatePassword(uspRegistrationPasswordField)
         ).done(
             function () {
-                var firstName = jQuery.trim(uspRegistrationFirstNameField.val());
                 var password = uspRegistrationPasswordField.val();
                 var email = jQuery.trim(uspRegistrationEmailField.val());
                 jQuery.when(
-                    GS.form.uspForm.saveForm(uspForm, firstName, password, email)
+                    GS.form.uspForm.saveForm(uspForm, password, email)
                 ).done(function () {
                         GSType.hover.modalUspRegistration.hide();
                     })
@@ -200,14 +179,11 @@ GS.form.UspForm = function () {
         )
     };
 
-    this.saveForm = function (uspForm, firstName, password, email) {
+    this.saveForm = function (uspForm, password, email) {
         var dfd = jQuery.Deferred();
 
         var data = uspForm.serializeArray();
 
-        if (firstName != undefined && firstName != '') {
-            data.push({name:"firstName", value:firstName});
-        }
         if (password != undefined && password != '') {
             data.push({name:"password", value:password});
         }
@@ -237,7 +213,6 @@ GS.form.UspForm = function () {
     };
 
     this.hideAllErrors = function () {
-        jQuery('.js_firstNameErr').hide();
         jQuery('.js_passwordErr').hide();
         jQuery('.js_emailErr').hide();
         jQuery('.js_termsErr').hide();
@@ -337,10 +312,6 @@ jQuery(function () {
 
     //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
     //binding handlers to visible elements.
-    jQuery('body').on('blur', '.js_regFirstName:visible', function (event) {
-        GS.form.uspForm.validateFirstName(jQuery(event.target));
-    });
-
     jQuery('body').on('blur', '.js_regPassword:visible', function (event) {
         GS.form.uspForm.validatePassword(jQuery(event.target));
     });
@@ -375,10 +346,9 @@ jQuery(function () {
     jQuery('body').on('click', '.js_uspRegistrationSubmit:visible', function () {
         //TODO find a better way to get the form values.
         var uspRegistrationForm = jQuery('.js_uspRegistrationForm:visible');
-        var uspRegistrationFirstNameField = uspRegistrationForm.find('.js_regFirstName');
         var uspRegistrationPasswordField = uspRegistrationForm.find('.js_regPassword');
         var uspRegistrationEmailField = uspRegistrationForm.find('.js_regEmail');
-        GS.form.uspForm.registerAndSaveData(uspForm, uspRegistrationFirstNameField, uspRegistrationPasswordField, uspRegistrationEmailField);
+        GS.form.uspForm.registerAndSaveData(uspForm, uspRegistrationPasswordField, uspRegistrationEmailField);
     });
 
     jQuery('body').on('click', '.js_uspLoginSubmit:visible', function () {

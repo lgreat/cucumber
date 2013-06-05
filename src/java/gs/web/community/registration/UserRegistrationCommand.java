@@ -44,8 +44,6 @@ public class UserRegistrationCommand  {
     private String gender;
     private String facebookId;
 
-    private boolean mss;
-
     @AssertTrue
     private boolean terms;
 
@@ -155,14 +153,6 @@ public class UserRegistrationCommand  {
         this.how = how;
     }
 
-    public boolean isMss() {
-        return mss;
-    }
-
-    public void setMss(boolean mss) {
-        this.mss = mss;
-    }
-
     // fluent interface methods generated with IntelliJ plugin
 
     public UserRegistrationCommand email(final String email) {
@@ -224,6 +214,4 @@ public class UserRegistrationCommand  {
         this.how = how;
         return this;
     }
-
-
 }

@@ -208,6 +208,44 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         resetAllMocks();
     }
 
+    @Test
+    public void testRegisterUserWithNoFirstName() throws Exception{
+        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        HttpServletRequest request = getRequest();
+        HttpServletResponse response = getResponse();
+        BindingResult bindingResult;
+        User user;
+
+        bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "_userRegistrationCommand");
+        registrationBehavior.setRedirectUrl("something");
+
+        _userRegistrationCommand = RegistrationTestUtils.validUserRegistrationCommand()
+            .firstName(null);
+
+        expect(_userDao.findUserFromEmailIfExists(_userRegistrationCommand.getEmail())).andReturn(null);
+
+        User user2 = _service.createNewUser(_userRegistrationCommand, registrationBehavior);
+
+        _userDao.saveUser(user2);
+
+        expect(_userDao.findUserFromId(user2.getId())).andReturn(user2);
+
+        _userDao.updateUser(user2);
+        _userDao.updateUser(user2);
+        try {
+            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationBehavior.getRedirectUrl(), null);
+        } catch (Exception ex) {
+
+        }
+
+        replayAllMocks();
+        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        verifyAllMocks();
+        assertNotNull("Valid user.", user);
+        assertFalse("User is not email validated.", user.isEmailValidated());
+        resetAllMocks();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testRegisterUserWithException() throws Exception{
         RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();

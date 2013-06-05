@@ -16,16 +16,6 @@
                     </div>
                     <form class="js_uspRegistrationForm">
                         <div class="body pal">
-                            <div class="">
-                                <label class="small bottom">Your first name</label><br/>
-                                <input name="first_name" type="text" class="text input_7 mts js_regFirstName"/><br/>
-                                <div class="invalid error js_firstNameErr" style="display: none;">
-                                    <div class="media skin-1 ">
-                                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                                        <div class="bd"><!-- error msg goes here --></div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="mtm">
                                 <label class="small bottom">Your email address</label><br/>
                                 <input name="email" type="text" class="text input_7 mts js_regEmail"/><br/>
