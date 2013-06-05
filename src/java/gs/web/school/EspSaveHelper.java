@@ -53,7 +53,7 @@ public class EspSaveHelper implements BeanFactoryAware {
      * @param errorFieldToMsgMap
      * @param saveBehaviour
      */
-    public void saveEspFormData(User user, School school, State state, int pageNum,
+    public void saveOspFormData(User user, School school, State state, int pageNum,
                                 Set<String> keysForPage,
                                 Map<String, Object[]> keyToResponseMap,
                                 List<EspResponse> responseList,
@@ -164,7 +164,7 @@ public class EspSaveHelper implements BeanFactoryAware {
             fillInKeysForExistingActiveOSPResponses(school, allKeysWithActiveResponses);
         }
 
-        saveESPResponses(user, school, pageNum, now, keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
+        saveOspResponses(user, school, pageNum, now, keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
     }
 
     /**
@@ -179,7 +179,7 @@ public class EspSaveHelper implements BeanFactoryAware {
      * @param responseList
      * @param saveBehaviour
      */
-    public void saveESPResponses(User user, School school, int pageNum, Date now,
+    public void saveOspResponses(User user, School school, int pageNum, Date now,
                                  Set<String> keysForPage, Map<String, String> allKeysWithActiveResponses,
                                  List<EspResponse> responseList, EspSaveBehaviour saveBehaviour) {
         if (responseList == null || responseList.isEmpty()) {

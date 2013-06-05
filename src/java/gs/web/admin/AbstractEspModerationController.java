@@ -320,7 +320,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
 
             EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
-            _espSaveHelper.saveEspFormData(user, school, school.getDatabaseState(), -1, keysForPage, keyToResponseMap,
+            _espSaveHelper.saveOspFormData(user, school, school.getDatabaseState(), -1, keysForPage, keyToResponseMap,
                     responseList, errorFieldToMsgMap, saveBehaviour);
 
             if (schoolHasNoUserCreatedRows) {

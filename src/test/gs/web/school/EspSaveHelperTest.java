@@ -13,7 +13,6 @@ import org.easymock.classextension.EasyMock;
 import org.springframework.beans.factory.BeanFactory;
 
 import static org.easymock.EasyMock.eq;
-import static org.easymock.classextension.EasyMock.reset;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -85,12 +84,12 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         verifyMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager);
     }
 
-    public void testSaveEspFormDataBasicUserApproved() {
+    public void testSaveOspFormDataBasic_ApprovedUser() {
+        //Test with empty keys and responses.
         User user = new User();
         user.setId(2);
         School school = new School();
         Set<String> keysForPage = new HashSet<String>();
-        keysForPage.add("instructional_model");
         Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
         State state = State.CA;
         int pageNum = 1;
@@ -105,18 +104,18 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals(true, errorFieldToMsgMap.isEmpty());
     }
 
-    public void testSaveEspFormDataBasicUserProvisional() {
+    public void testSaveOspFormDataBasic_ProvisionalUser() {
+        //Test with empty keys and responses.
         User user = new User();
         user.setId(2);
         School school = new School();
         Set<String> keysForPage = new HashSet<String>();
-        keysForPage.add("instructional_model");
         Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
         State state = State.CA;
         int pageNum = 1;
@@ -131,13 +130,39 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, false, false);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals(true, errorFieldToMsgMap.isEmpty());
     }
 
-    public void testSaveEspFormDataWithValidationErrors() {
+    public void testSaveOspFormDataBasic_ActivateProvisionalData() {
+        //Test with empty keys and responses.
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        Set<String> keysForPage = new HashSet<String>();
+        Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
+        State state = State.CA;
+        int pageNum = 1;
+        Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
+
+        expect(_noEditDao.isStateLocked(state)).andReturn(false);
+        Set<String> keysToDelete = new HashSet<String>();
+        keysToDelete.addAll(keysForPage);
+        String key = _helper.getPageKeys(pageNum);
+        keysToDelete.add(key);
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+
+        replayAllMocks();
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        verifyAllMocks();
+
+        assertEquals(true, errorFieldToMsgMap.isEmpty());
+    }
+
+    public void testSaveOspFormDataWithValidationErrors_ApprovedUser() {
         User user = new User();
         user.setId(2);
         School school = new School();
@@ -164,7 +189,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals("Phone number must be numeric", errorFieldToMsgMap.get("school_phone"));
@@ -172,7 +197,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         assertEquals("Must be positive integer", errorFieldToMsgMap.get("average_class_size"));
     }
 
-    public void testSaveEspFormDataWithValidationErrorsIgnoreErrors() {
+    public void testSaveOspFormDataWithValidationErrors_ActivateProvisionalData() {
         User user = new User();
         user.setId(2);
         School school = new School();
@@ -217,7 +242,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals("Phone number must be numeric", errorFieldToMsgMap.get("school_phone"));
@@ -227,12 +252,12 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         assertEquals("No Error in transportation.Hence it should be saved to the database", "transportation", responseList.get(0).getKey());
     }
 
-    public void testSaveEspFormDataWithExternalDataErrorsApprovedUser() {
+    public void testSaveOspFormDataWithExternalDataErrors_ApprovedUser() {
         User user = new User();
         user.setId(2);
         School school = new School();
         Set<String> keysForPage = new HashSet<String>();
-        // student_enrollment is external data
+        //student_enrollment is external data
         keysForPage.add("student_enrollment");
         Map<String, Object[]> keyToResponseMap = new HashMap<String, Object[]>();
         keyToResponseMap.put("student_enrollment", new Object[]{"abc"});
@@ -247,13 +272,13 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals("Must be an integer.", errorFieldToMsgMap.get("student_enrollment"));
     }
 
-    public void testSaveEspFormDataWithExternalDataErrorsProvisionalUser() {
+    public void testSaveOspFormDataWithExternalDataErrors_ProvisionalUser() {
         User user = new User();
         user.setId(2);
         School school = new School();
@@ -273,13 +298,13 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, false, false);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals("You must select a grade level.", errorFieldToMsgMap.get("grade_levels"));
     }
 
-    public void testSaveEspFormDataWithExternalDataErrorsIgnoreErrors() {
+    public void testSaveOspFormDataWithExternalDataErrors_ActivateProvisionalData() {
         User user = new User();
         user.setId(2);
         School school = new School();
@@ -324,7 +349,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
-        _helper.saveEspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
+        _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
         assertEquals("Must be an integer.", errorFieldToMsgMap.get("student_enrollment"));
@@ -333,20 +358,161 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         assertEquals("No Error in school_fax.Hence it should be saved to the database", "school_fax", responseList.get(0).getKey());
     }
 
-//    public void testSaveESPResponsesApprovedUser() {
-//        User user = new User();
-//        user.setId(2);
-//        School school = new School();
-//        Set<String> keysForPage = new HashSet<String>();
-//        keysForPage.add("grade_levels");
-//        int pageNum = 1;
-//        List<EspResponse> responseList = new ArrayList<EspResponse>();
-//        _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
-//
-//        replayAllMocks();
-//        _helper.saveESPResponses(school, keysForPage, responseList, false, user, pageNum, new Date());
-//        verifyAllMocks();
-//    }
+    public void testSaveOSPResponsesTestBasic() {
+        //Test nulls
+        replayAllMocks();
+        _helper.saveOspResponses(null, null, -1, null, null, null, null, null);
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        //Test empty
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        replayAllMocks();
+        _helper.saveOspResponses(user, school, -1, new Date(), new HashSet<String>(),new HashMap<String, String>(), new ArrayList<EspResponse>(), null);
+        verifyAllMocks();
+    }
+
+    public void testSaveOSPResponses_ApprovedUser_NonOSPPreferredStatus() {
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("grade_levels");
+        int pageNum = 1;
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+        responseList.add(_helper.createEspResponse(user, school, new Date(), "grade_levels", false, "1", EspResponseSource.osp));
+        Map<String, String> allKeysWithActiveResponses = new HashMap<String, String>();
+        allKeysWithActiveResponses.put("grade_levels", "");
+        Set<EspResponseSource> responseSourcesToDeactivate =
+                new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
+        Set<EspResponseSource> responseSourcesToDeactivateIfOspPreferred =
+                new HashSet<EspResponseSource>();
+
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        //All questions are not answered , hence the school is not in an OSP preferred state.
+        expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
+        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.saveResponses(school, responseList);
+
+        replayAllMocks();
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
+        verifyAllMocks();
+    }
+
+    public void testSaveOSPResponses_ApprovedUser_OSPPreferredStatus() {
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("grade_levels");
+        int pageNum = 1;
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+        responseList.add(_helper.createEspResponse(user, school, new Date(), "grade_levels", false, "1", EspResponseSource.osp));
+        Map<String, String> allKeysWithActiveResponses = new HashMap<String, String>();
+        allKeysWithActiveResponses.put("grade_levels", "");
+        Set<EspResponseSource> responseSourcesToDeactivate =
+                new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
+        Set<EspResponseSource> responseSourcesToDeactivateIfOspPreferred =
+                new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.usp));
+
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        //All questions are answered , hence the school is in an OSP preferred state.
+        expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(true);
+        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.saveResponses(school, responseList);
+
+        replayAllMocks();
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
+        verifyAllMocks();
+    }
+
+    public void testSaveOSPResponses_ProvisionalUser() {
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("grade_levels");
+        int pageNum = 1;
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+        responseList.add(_helper.createEspResponse(user, school, new Date(), "grade_levels", false, "1", EspResponseSource.osp));
+        Map<String, String> allKeysWithActiveResponses = new HashMap<String, String>();
+        allKeysWithActiveResponses.put("grade_levels", "");
+
+        Set<String> keysToDelete = new HashSet<String>();
+        keysToDelete.add(_helper.getPageKeys(pageNum));
+        keysToDelete.add("grade_levels");
+        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school,user.getId(),keysToDelete);
+        _espResponseDao.saveResponses(school, responseList);
+
+        replayAllMocks();
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, false, false);
+        _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
+        verifyAllMocks();
+    }
+
+    public void testSaveOSPResponses_ActivateProvisionalData_NonOSPPreferredStatus() {
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("grade_levels");
+        int pageNum = 1;
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+        responseList.add(_helper.createEspResponse(user, school, new Date(), "grade_levels", false, "1", EspResponseSource.osp));
+        Map<String, String> allKeysWithActiveResponses = new HashMap<String, String>();
+        allKeysWithActiveResponses.put("grade_levels", "");
+        Set<EspResponseSource> responseSourcesToDeactivate =
+                new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
+        Set<EspResponseSource> responseSourcesToDeactivateIfOspPreferred =
+                new HashSet<EspResponseSource>();
+
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        //All questions are not answered , hence the school is not in an OSP preferred state.
+        expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
+        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
+        _espResponseDao.saveResponses(school, responseList);
+
+        replayAllMocks();
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
+        verifyAllMocks();
+    }
+
+    public void testSaveOSPResponses_ActivateProvisionalData_OSPPreferredStatus() {
+        User user = new User();
+        user.setId(2);
+        School school = new School();
+        Set<String> keysForPage = new HashSet<String>();
+        keysForPage.add("grade_levels");
+        int pageNum = 1;
+        List<EspResponse> responseList = new ArrayList<EspResponse>();
+        responseList.add(_helper.createEspResponse(user, school, new Date(), "grade_levels", false, "1", EspResponseSource.osp));
+        Map<String, String> allKeysWithActiveResponses = new HashMap<String, String>();
+        allKeysWithActiveResponses.put("grade_levels", "");
+        Set<EspResponseSource> responseSourcesToDeactivate =
+                new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
+        Set<EspResponseSource> responseSourcesToDeactivateIfOspPreferred =
+                new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.usp));
+
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        //All questions are not answered , hence the school is not in an OSP preferred state.
+        expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(true);
+        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
+        _espResponseDao.saveResponses(school, responseList);
+
+        replayAllMocks();
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
+        verifyAllMocks();
+    }
+
 
 //    public void testSaveESPResponsesProvisionalUser() {
 //        User user = new User();
