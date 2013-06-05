@@ -520,7 +520,7 @@ GS.form.handleInputsWithGhostTextAsValue = function(arrayOfObjects, containerSel
  *  Added for browser feature detection.  This will allow us to support different solutions for different browser / os systems
  *
  */
-
+var latestIEVersion = 10;
 conditionizr({
     debug      : false,
     ieLessThan : { active: true, version: '9', scripts: false, styles: false, classes: true, customScript: false},
@@ -540,6 +540,15 @@ conditionizr({
     x11        : true,
     linux      : true
 });
+
+GS.util.isBrowserIE = function(){
+    for(var i=5; i <= latestIEVersion; i++ ){
+      if(jQuery("html").hasClass("ie"+i)){
+          return true;
+      }
+    }
+    return false;
+};
 GS.util.isBrowserIE7 = function(){
     return jQuery("html").hasClass("ie7");
 };
@@ -548,6 +557,9 @@ GS.util.isBrowserIE8 = function(){
 };
 GS.util.isBrowserIELessThan9 = function(){
     return jQuery("html").hasClass("lt-ie9");
+};
+GS.util.isBrowserIELessThan8 = function(){
+    return (jQuery("html").hasClass("lt-ie9") && !(jQuery("html").hasClass("ie8")));
 };
 GS.util.isBrowserChrome = function(){
     return jQuery("html").hasClass("chrome");

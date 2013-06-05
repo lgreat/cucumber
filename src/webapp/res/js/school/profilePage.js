@@ -472,7 +472,7 @@ jQuery(document).ready(function() {
     if(hashValue != ""){
         GS.util.jumpToAnchor(hashValue);
     }
-    if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
+    if ( GS.util.isBrowserIELessThan8() ){ jQuery(".arrowdiv").remove() }
 
     /* this initializes all of the star rating options on the reviews page */
     starRatingInterface("starRatingContainer1", 16, 5, "overallAsString", "js_reviewTopStarDescriptor");

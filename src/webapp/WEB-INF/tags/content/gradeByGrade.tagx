@@ -177,7 +177,7 @@
         //
         // Initialize handle variables and limit handle positioning
         var minpos = theTabsLeftMargin;
-        if (jQuery.browser.mozilla) {
+        if (GS.util.isBrowserFirefox()) {
             var maxpos = theTabContainerWidth;
 
         } else {

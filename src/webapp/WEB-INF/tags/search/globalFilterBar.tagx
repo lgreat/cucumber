@@ -220,7 +220,7 @@ i.e. school type filter, grade level filter
                 $("#js-moreThanOne").show()
             }
             $("#js_totalResultsCountReturn").popover('show');
-            if ($.browser.webkit) {
+            if (GS.util.isWebkit()) {
                 $(".popover.top").css('margin-top', '30px');
             }
             $(".js_closeOopsPopover").click(function () {
