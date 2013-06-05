@@ -567,6 +567,8 @@
     ${recentDiscussions}
 
     <jsp:include page="/promo/emailSignUp.module"/>
+
+    <ad:BelowFold_Top_300x125/>
 </div>
 
 <c:set var="omnitureLocale"><c:choose>

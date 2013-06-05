@@ -43,15 +43,15 @@
 <div class="container_24 clearfix">
     <div class="grid_11 suffix_1">
 
-        <h4 class="sourceSansPro-Semibold mbm mtl">The Gallup Student Poll</h4>
+        <h3 class="sourceSansPro-Semibold mbm mtl">The Gallup Student Poll</h3>
         <p class="small">The Gallup Student Poll is a landmark new measure that captures the youth voice, a critical
-            part of the national dialogue surrounding student performance and success.More than 1,700 schools are currently
+            part of the national dialogue surrounding student performance and success. More than 1,700 schools are currently
             participating and enabling their students to take the free survey.
             For 10 years, the
             Gallup Student Poll will track the hope, engagement, and wellbeing of public school
             students in <strong>grades 5 through 12</strong> across the United States. <strong>Hope</strong>,
             <strong>engagement</strong>, and <strong>wellbeing</strong> have been
-            shown to drive students’ grades, achievement scores, retention , and future
+            shown to drive students’ grades, achievement scores, retention, and future
             employment.
         </p>
         <h5 class="sourceSansPro-Semibold mbn">Hope</h5>
@@ -69,14 +69,14 @@
             It tells us how our students are doing today within multiple contexts that are essential to their success
             in the future.
         </p>
-        <h4 class="sourceSansPro-Semibold mbm">Gallup Kids Approved</h4>
+        <h3 class="sourceSansPro-Semibold mbm">Gallup Kids Approved</h3>
         <div class="tac mbm"><img src="/res/img/content/gallup/gallup_logo_211x43.png" alt="Gallup Logo"/></div>
         <p class="small">The Gallup-GreatSchools partnership will help families, educators and others understand key
-            factors of student success – hope, engagement and well-being – using insights from kids themselves.
+            factors of student success – hope, engagement and wellbeing – using insights from kids themselves.
             The Gallup Kids Approved badge will be given to the highest-scoring schools that take the Gallup Student
             Poll.
         </p>
-        <h4 class="sourceSansPro-Semibold mbm ">Gallup Education Practice</h4>
+        <h3 class="sourceSansPro-Semibold mbm ">Gallup Education Practice</h3>
         <p class="small">For more than 40 years, Gallup Education Practice has provided expertise to school districts
             and leaders across the United States. As a thought leader in education,
             Gallup research informs discussions from local school boards to national debates.
@@ -84,7 +84,7 @@
 
 
         <p class="small"><strong>For more information</strong>, visit the <a
-                href="http://www.gallupstudentpoll.com/" target="_blank">Gallup Student Poll page.</a> or email <a>studentpoll@gallup.com</a>
+                href="http://www.gallupstudentpoll.com/" target="_blank">Gallup Student Poll page</a> or email <a href="mailto:studentpoll@gallup.com">studentpoll@gallup.com</a>
         </p>
     </div>
     <div class="grid_11">

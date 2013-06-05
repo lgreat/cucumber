@@ -69,7 +69,7 @@
 </head>
 
 <body>
-<div class="contain_1-2">
+<div class="contain_1-2 clearfix">
 
     <mobile:schoolProfileIntro school="${school}" linkSchool="${false}"/>
 
@@ -111,8 +111,8 @@
             </link:schoolProfileParentReview>
         </c:if>
     </div>
-
 </div>
+<mobile:reviewLandingLink schoolId="${school.id}" stateId="${school.stateAbbreviation}" />
 <div class="clearfloat pvm">
     <hr class="keyline1"/>
 </div>
@@ -223,6 +223,9 @@ Android seems to require the address to be blank for the same behavior -->
                 </h2>
             </div>
         </link:schoolProfileParentReview>
+
+        <mobile:reviewLandingLink schoolId="${school.id}" stateId="${school.stateAbbreviation}" />
+
         <c:if test="${numberOfReviews gt 0}">
             <div class="bd">
                 <school:parentReviewsMobile reviews="${reviewsToShow}"/>

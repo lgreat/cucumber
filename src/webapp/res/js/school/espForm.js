@@ -968,6 +968,7 @@ new (function() {
             $('#js_form_sports_error').show();
         }
         // bob raker - 3/4/13 - per Michael Hicks, no validation at this time
+        // If this is to be activated one issue to address is what to do if the form is cleared.
 //        validations.push(GS.validation.validateRequired('#js_form_after_school_name_1', '#js_form_after_school_name_1_error'));
 //        validations.push(GS.validation.validateRequired('#js_form_after_school_name_2', '#js_form_after_school_name_2_error'));
 //        validations.push(GS.validation.validateRequired('#js_form_after_school_name_3', '#js_form_after_school_name_3_error'));
@@ -976,6 +977,12 @@ new (function() {
         // The following didn't work when activated
 //        validations.push(GS.validation.validateRequired('input:checkbox[name=after_school_activities_1]', '#js_form_after_school_activities_1_error'));
 //        validations.push(GS.validation.validateRequiredIfChecked('input:text#form_after_school_activities_1_other', 'input:checkbox#form_after_school_activities_1__other', '#js_form_after_school_activities_1_other_error'));
+//        validations.push(GS.validation.validateRequired('input[name=summer_program_before_after_care_1]', '#js_form_summer_program_before_after_care_error_1'));
+//        validations.push(GS.validation.validateRequired('input[name=summer_program_before_after_care_2]', '#js_form_summer_program_before_after_care_error_2'));
+//        validations.push(GS.validation.validateRequired('input[name=summer_program_before_after_care_3]', '#js_form_summer_program_before_after_care_error_3'));
+//        validations.push(GS.validation.validateRequired('input[name=summer_program_before_after_care_4]', '#js_form_summer_program_before_after_care_error_4'));
+//        validations.push(GS.validation.validateRequired('input[name=summer_program_before_after_care_5]', '#js_form_summer_program_before_after_care_error_5'));
+
         // END PAGE 5
 
         // PAGE 6
@@ -1148,6 +1155,16 @@ new (function() {
         GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_3', '[name=summer_program_fee_3]', 'yes');
         GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_4', '[name=summer_program_fee_4]', 'yes');
         GS.form.controlVisibilityOfElementWithRadio('#form_summer_program_fee_5', '[name=summer_program_fee_5]', 'yes');
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_before_group_1','#form_summer_program_before_after_care_before_1', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_after_group_1','#form_summer_program_before_after_care_after_1', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_before_group_2','#form_summer_program_before_after_care_before_2', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_after_group_2','#form_summer_program_before_after_care_after_2', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_before_group_3','#form_summer_program_before_after_care_before_3', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_after_group_3','#form_summer_program_before_after_care_after_3', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_before_group_4','#form_summer_program_before_after_care_before_4', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_after_group_4','#form_summer_program_before_after_care_after_4', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_before_group_5','#form_summer_program_before_after_care_before_5', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_summer_program_before_after_care_after_group_5','#form_summer_program_before_after_care_after_5', true);
         $('#js_add_after_school').click(function(){
             $('.js_after_school:hidden').first().show();
             // Hide the link if all of the available programs are shown
@@ -1174,6 +1191,102 @@ new (function() {
                 divContent.find(".form_after_school_fee").hide();
                 divContent.find(".form_summer_program_fee").hide();
 
+            }
+        });
+
+        // Summer program before/after checkbox management.  If neither is checked clear before & after.  And, if before or after is checked clear neither
+        $('#form_summer_program_before_after_care_neither_1').on('click', function(){
+        if (this.checked === true) {
+            $('#form_summer_program_before_after_care_before_1')[0].checked=false;
+            $('#form_summer_program_before_after_care_before_group_1').hide();
+            $('#form_summer_program_before_after_care_after_1')[0].checked=false;
+            $('#form_summer_program_before_after_care_after_group_1').hide();
+        }
+        });
+        $('#form_summer_program_before_after_care_before_1').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_1')[0].checked=false;
+            }
+        });
+        $('#form_summer_program_before_after_care_after_1').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_1')[0].checked=false;
+            }
+        });
+
+        $('#form_summer_program_before_after_care_neither_2').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_before_2')[0].checked=false;
+                $('#form_summer_program_before_after_care_before_group_2').hide();
+                $('#form_summer_program_before_after_care_after_2')[0].checked=false;
+                $('#form_summer_program_before_after_care_after_group_2').hide();
+            }
+        });
+        $('#form_summer_program_before_after_care_before_2').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_2')[0].checked=false;
+            }
+        });
+        $('#form_summer_program_before_after_care_after_2').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_2')[0].checked=false;
+            }
+        });
+
+        $('#form_summer_program_before_after_care_neither_3').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_before_3')[0].checked=false;
+                $('#form_summer_program_before_after_care_before_group_3').hide();
+                $('#form_summer_program_before_after_care_after_3')[0].checked=false;
+                $('#form_summer_program_before_after_care_after_group_3').hide();
+            }
+        });
+        $('#form_summer_program_before_after_care_before_3').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_3')[0].checked=false;
+            }
+        });
+        $('#form_summer_program_before_after_care_after_3').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_3')[0].checked=false;
+            }
+        });
+
+        $('#form_summer_program_before_after_care_neither_4').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_before_4')[0].checked=false;
+                $('#form_summer_program_before_after_care_before_group_4').hide();
+                $('#form_summer_program_before_after_care_after_4')[0].checked=false;
+                $('#form_summer_program_before_after_care_after_group_4').hide();
+            }
+        });
+        $('#form_summer_program_before_after_care_before_4').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_4')[0].checked=false;
+            }
+        });
+        $('#form_summer_program_before_after_care_after_4').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_4')[0].checked=false;
+            }
+        });
+
+        $('#form_summer_program_before_after_care_neither_5').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_before_5')[0].checked=false;
+                $('#form_summer_program_before_after_care_before_group_5').hide();
+                $('#form_summer_program_before_after_care_after_5')[0].checked=false;
+                $('#form_summer_program_before_after_care_after_group_5').hide();
+            }
+        });
+        $('#form_summer_program_before_after_care_before_5').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_5')[0].checked=false;
+            }
+        });
+        $('#form_summer_program_before_after_care_after_5').on('click', function(){
+            if (this.checked === true) {
+                $('#form_summer_program_before_after_care_neither_5')[0].checked=false;
             }
         });
 

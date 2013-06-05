@@ -28,6 +28,27 @@
         <meta name="robots" content="follow,noindex"/>
     </c:if>
 
+
+    <c:set var="showPageTwo" value="${not empty school}" />
+    <![CDATA[ <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        var showHeaderDefault = false;
+        var fromMobile = getParameterByName('fromMobile');
+    </script> ]]>
+    <c:set var="pageOneDisplay" value=""/>
+    <c:set var="pageTwoDisplay" value="dn"/>
+    <c:if test="${showPageTwo}">
+        <![CDATA[ <script>showHeaderDefault = true;</script> ]]>
+        <c:set var="pageOneDisplay" value="dn"/>
+        <c:set var="pageTwoDisplay" value=""/>
+    </c:if>
+
+
     <jsp:scriptlet>
             java.util.List stateList = gs.data.state.StateManager.getList();
             request.setAttribute("stateList", stateList);
@@ -53,6 +74,7 @@
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
     <script>
             var theStateValueToSet = "${requestScope.context.state}";
+
     </script>
     ]]>
     <style type="text/css">
@@ -132,7 +154,7 @@
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
-<div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding">
+<div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
     <div class="img-container">
         <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt=""/>
     </div>
@@ -179,17 +201,47 @@
         </form>
     </div>
 </div>
-
-<div class="imageBgScale js-pageTwoReviewLandingPage dn">
+<c:set var="addSlash" value=" / "/>
+<div class="imageBgScale js-pageTwoReviewLandingPage ${pageTwoDisplay}">
     <div style="height: 180px;">
-        <div class="headerBar moduleHeaderPreAnimationTop--200 dn">
-            <p id="js-bannerSchoolName" class="truncated bottom SourceSansPro-Semibold" style="font-size:48px; line-height: 68px;color: #FFFFFF; padding: 30px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">School Name</p>
+        <div class="headerBar moduleHeaderPreAnimationTop--200">
+            <p id="js-bannerSchoolName" class="truncated bottom SourceSansPro-Semibold" style="font-size:48px; line-height: 68px;color: #FFFFFF; padding: 30px 0 0 0;text-shadow: 0 -1px 0px rgba(0,0,0.25)">${school.name}</p>
             <p id="js-bannerSchoolInfo" style="font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif; font-size:16px; line-height: 16px; color: #b2811d;">
-                <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
-                <span class="js-bannerPageIcon dn"><span class="iconx16 i-16-pageOrange mrs mll"><!-- do not collapse --></span></span>
-                <span class="js-bannerSchoolType dn" style="text-transform:capitalize;"><!-- do not collapse --></span>
-                <span class="js-bannerSchoolGradeRange dn"><!-- do not collapse --></span>
-                <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
+                <c:choose>
+                    <c:when test="${showPageTwo}">
+                        <c:if test="${not empty school.physicalAddress.street || not empty school.physicalAddress.cityStateZip}">
+                            <span class="iconx16 i-16-locationOrange mrs mt3"><!-- do not collapse --></span>
+                            <span class="js-bannerSchoolAddress">${school.physicalAddress.street} ${school.physicalAddress.cityStateZip}</span>
+                        </c:if>
+                        <c:if test="${not empty school.enrollment || not empty school.type || not empty school.gradeLevels}">
+                            <span class="js-bannerPageIcon"><span class="iconx16 i-16-pageOrange mrs mll"><!-- do not collapse --></span></span>
+                        </c:if>
+                        <c:if test="${not empty school.type}">
+                            <span class="js-bannerSchoolType" style="text-transform:capitalize;">${school.type.schoolTypeName}</span>
+                        </c:if>
+                        <c:if test="${not empty school.gradeLevels}">
+                            <c:if test="${not empty school.type}">
+                                ${addSlash}
+                            </c:if>
+                            <span class="js-bannerSchoolGradeRange">${school.gradeLevels}</span>
+                        </c:if>
+                        <c:if test="${not empty school.enrollment}">
+                            <c:if test="${not empty school.type || not empty school.gradeLevels}">
+                                ${addSlash}
+                            </c:if>
+                            <span class="js-bannerSchoolEnrollment">${school.enrollment} Students</span>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="js-bannerSchoolAddressIcon iconx16 i-16-locationOrange mrs mt3"><!-- do not collapse --></span>
+                        <span class="js-bannerSchoolAddress dn"><!-- do not collapse --></span>
+                        <span class="js-bannerPageIcon dn"><span class="iconx16 i-16-pageOrange mrs mll"><!-- do not collapse --></span></span>
+                        <span class="js-bannerSchoolType dn" style="text-transform:capitalize;"><!-- do not collapse --></span>
+                        <span class="js-bannerSchoolGradeRange dn"><!-- do not collapse --></span>
+                        <span class="js-bannerSchoolEnrollment dn"><!-- do not collapse --></span>
+                    </c:otherwise>
+
+                </c:choose>
             </p>
             <div class="white_arrow_up"><!-- do not collapse --></div>
         </div>
@@ -207,10 +259,10 @@
             <input type="hidden" id="sendMeEmailUpdates" value="1" name="sendMeEmailUpdates"/>
             <input type="hidden" id="mssSub" value="1" name="mssSub"/>
             <input type="hidden" id="selectValueIAm" value="" name="userRoleAsString"/>
-            <input type="hidden" id="schoolId" value="" name="schoolId"/>
+            <input type="hidden" id="schoolId" value="${school.id}" name="schoolId"/>
             <input type="hidden" class="js-posterAsString" name="posterAsString" id="posterAsString" value=""/>
             <input type="hidden" name="source" value="${pageName}"/>
-            <input type="hidden" name="state" id="schoolState" value=""/>
+            <input type="hidden" name="state" id="schoolState" value="${school.stateAbbreviation}"/>
             <input type="hidden" name="isAddNewParentReview" value="true"/>
             <input type="hidden" name="fromReviewLandingPage" value="true"/>
 

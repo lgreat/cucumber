@@ -10,17 +10,54 @@
     <c:set var="tandem_fontColorHeaderFooter" value="make-999999" />
     <c:set var="tandem_subHeaderLayout" value="make-ffffff bbt-light bg-777 " />
     <c:set var="tandem_fontColorTitle" value="" />
-
+    <c:set var="tandem_logoFileName" value="logo_tandem_grey.png" />
     <!--<c:set var="tandemTileMSBranding" value="true" />-->
     <c:if test="${tandemTileMSBranding == 'true'}">
         <c:set var="tandem_moduleToUse" value="standard_8-1" />
         <c:set var="tandem_fontColorHeaderFooter" value="make-ffffff" />
         <c:set var="tandem_subHeaderLayout" value="make-555555 bbt-dark bg-F1" />
         <c:set var="tandem_fontColorTitle" value="make-ffffff" />
+        <c:set var="tandem_logoFileName" value="logo_tandem_white.png" />
     </c:if>
+    <style type="text/css">
 
-    <div id="js-school-calendar-list" class="line dn">
-        <div class="unit size100of100 lastUnit">
+        .js-ddValues{
+            padding: 3px;
+            font-size:12px;
+            font-weight: bold;
+            cursor:pointer;
+            color:#555555;
+        }
+        .ui-state-focus,
+        .ddValuesHighlight {
+            background-color: #999999;
+        }
+
+        .selectListFont {
+            width: 165px;
+            font:normal 12px/20px Arial, Helvetica, sans-serif;
+            /*border: 1px solid #2B2B2B;*/
+            /*height: 37px;*/
+            /*width: 300px;*/
+            /*padding-top: 10px;*/
+        }
+        .selectBox2{overflow: hidden; height:24px;}
+
+        .selectDropDown2 {
+            margin-top: 5px;;
+            width: 180px;
+            border: 1px solid #666666;
+            /*height: 100px;*/
+            background-color: #dddddd;
+            z-index: 2;
+        }
+        .mt3{margin-top: 3px;}
+
+
+    </style>
+    <a id="js-school-calendar-list-anchor"><!-- do not collapse --></a>
+    <div id="js-school-calendar-list" class="line dn"  style="overflow:visible ;">
+        <div class="unit size100of100 lastUnit"  style="overflow:visible ;">
             <div class="mod ${tandem_moduleToUse}">
                 <div class="inner ">
                     <div class="hd clearfix">
@@ -43,38 +80,53 @@
                     </div>
                     <div class="bd">
                         <div class="clearfix plm ${tandem_subHeaderLayout}">
-                            <div class="pas fl size10of100 small_bold  bottom">Date</div>
-                            <div class="pas fl size10of100 small_bold bottom">Time</div>
-                            <div class="pas fl size70of100 small_bold bottom">Title</div>
+                            <div class="pls fl size10of100 small_bold  bottom">Date</div>
+                            <!--<div class="pas fl size10of100 small_bold bottom">Time</div>-->
+                            <div class="pls fl size80of100 small_bold bottom">Title</div>
 
                         </div>
                         <ul id="js-calendar-list-event-template" class="clearfix scrolling-vert-150" >
                             <li class="man clearfix plm bbt-lighter lsn">
 
-                                <div class="pas fl size10of100 small_bold bottom">
+                                <div class="pas fl size10of100 small_bold bottom make-555">
                                     {{date}}
                                 </div>
-                                <div class="pas plm fl size10of100 small bottom">
-                                    {{time}}
-                                </div>
-                                <div class="pas fl size70of100 small bottom">
+                                <!--<div class="pas plm fl size10of100 small bottom">-->
+                                    <!--{{time}}-->
+                                <!--</div>-->
+                                <div class="pas fl size80of100 small bottom  make-555">
                                     {{title}}
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div class="ft clearfix">
-                        <div class="fl pam">
-                            <select id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
-                                <option value="">Export calendar</option>
-                                <option value="Outlook">Microsoft Outlook</option>
-                                <option value="iCal">iCal Format</option>
-                                <option value="Google">Google Calendar</option>
-                            </select>
+                        <div class="fl pam mts">
+                            <div class="pr" id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">
+                                <div class="js-selectBox selectBox2 clearfix selectList">
+                                    <div class="js-selectBoxText  fl selectListFont mt3">Export calendar </div>
+                                    <div class="fr  pls" style="background-color: #666666"><div class="mrs mt3"><span class="iconx16 i-16-downArrowWhite-sm"><!--do not collapse--></span></div></div>
+                                </div>
+                                <div class="js-selectDropDown selectDropDown2 pa pam dn">
+                                    <div class="js-ddValues">Microsoft Outlook </div>
+                                    <div class="js-ddValues">iCal Format </div>
+                                    <div class="js-ddValues">Google Calendar </div>
+                                    <!--<option value="">Export calendar</option>-->
+                                    <!--<option value="Outlook">Microsoft Outlook</option>-->
+                                    <!--<option value="iCal">iCal Format</option>-->
+                                    <!--<option value="Google">Google Calendar</option>-->
+                                </div>
+                            </div>
+                            <!--<select class="" id="js-export-school-calendar" data-gs-school-name="${school.name}" data-gs-school-nces-code="${school.ncesCode}">-->
+                                <!--<option value="">Export calendar</option>-->
+                                <!--<option value="Outlook">Microsoft Outlook</option>-->
+                                <!--<option value="iCal">iCal Format</option>-->
+                                <!--<option value="Google">Google Calendar</option>-->
+                            <!--</select>-->
                         </div>
                         <div class="fr pam clearfix">
-                            <div class="prm fl smallest bottom ${tandem_fontColorHeaderFooter}">POWERED BY</div>
-                            <div class="fl"><img src="/res/img/school/overview/tandem/tandem_logo_70x16.png" alt="Tandem" /></div>
+                            <div class="prm fl smallest bottom ptm ${tandem_fontColorHeaderFooter}">POWERED BY</div>
+                            <div class="fl"><img src="/res/img/school/overview/tandem/${tandem_logoFileName}" alt="Tandem" /></div>
                         </div>
                     </div>
                 </div>

@@ -758,6 +758,95 @@
                                   </div>
                               </div>
 
+                              <!-- Start of before/after -->
+                              <div class="lal clearfix">
+                                  <c:set var="summer_program_before_after_care" value="summer_program_before_after_care_${cur_program}"/>
+                                  <c:set var="summer_program_before_after_care_start" value="summer_program_before_after_care_start_${cur_program}"/>
+                                  <c:set var="summer_program_before_after_care_end" value="summer_program_before_after_care_end_${cur_program}"/>
+                                  <div class="grid_5 alpha">
+                                      <p class="labelGroup">Does the program have before and/or after care?</p>
+                                      <div id="js_form_summer_program_before_after_care_error_${cur_program}"  class="error fltlt" style="display: none">
+                                          <div class="media">
+                                              <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                              <div class="bd">Please specify.</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="grid_18 omega">
+                                      <div class="line">
+                                          <div class="unit size9of100">
+                                              <div class="media">
+                                                  <gsml:checkbox styleId="form_summer_program_before_after_care_before_${cur_program}" name="${summer_program_before_after_care}" value="before"
+                                                                 checked="${not empty responseMap[summer_program_before_after_care].valueMap['before']}"
+                                                                 styleClass="img"/>
+
+                                                  <div class="bd pts">
+                                                      <label for="form_summer_program_before_after_care_before_${cur_program}" class="checkbox">Before </label>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="unit size91of100 lastUnit">
+                                              <div class="line mts">
+                                                <span id="form_summer_program_before_after_care_before_group_${cur_program}">
+                                                    <div class="unit size2of100"><span class="small bottom">|</span></div>
+                                                    <div class="unit size11of100">
+                                                        <label for="${summer_program_before_after_care_start}" class="checkbox">Start time</label>
+                                                    </div>
+                                                    <div class="unit size87of100 lastUnit">
+                                                        <input class="text-smaller input_3" type="text" name="${summer_program_before_after_care_start}"
+                                                               id="${summer_program_before_after_care_start}"
+                                                               readonly="readonly" value="${responseMap[summer_program_before_after_care_start].value}"/>
+                                                    </div>
+                                                </span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="line">
+                                          <div class="unit size9of100">
+                                              <div class="media">
+                                                  <gsml:checkbox styleId="form_summer_program_before_after_care_after_${cur_program}" name="${summer_program_before_after_care}" value="after"
+                                                                 checked="${not empty responseMap[summer_program_before_after_care].valueMap['after']}"
+                                                                 styleClass="img"/>
+
+                                                  <div class="bd pts">
+                                                      <label for="form_summer_program_before_after_care_after_${cur_program}" class="checkbox">After </label>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="unit size91of100 lastUnit">
+                                              <div class="line mts">
+                                                <span id="form_summer_program_before_after_care_after_group_${cur_program}">
+                                                    <div class="unit size2of100"><span class="small bottom">|</span></div>
+                                                    <div class="unit size11of100">
+                                                        <label for="${summer_program_before_after_care_end}" class="checkbox">End time </label>
+                                                    </div>
+                                                    <div class="unit size87of100 lastUnit">
+                                                        <input class="text-smaller input_3" type="text" name="${summer_program_before_after_care_end}"
+                                                               id="${summer_program_before_after_care_end}"
+                                                               readonly="readonly" value="${responseMap[summer_program_before_after_care_end].value}"/>
+                                                    </div>
+                                                </span>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="line">
+                                          <div class="media">
+                                              <gsml:checkbox styleId="form_summer_program_before_after_care_neither_${cur_program}" name="${summer_program_before_after_care}" value="neither"
+                                                             checked="${not empty responseMap[summer_program_before_after_care].valueMap['neither']}"
+                                                             styleClass="img"/>
+
+                                              <div class="bd pts">
+                                                  <label for="form_summer_program_before_after_care_neither_${cur_program}" class="checkbox">Neither </label>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- End of before/after  -->
                               <div class="lal clearfix">
                                   <c:set var="summer_program_day" value="summer_program_day_${cur_program}"/>
                                   <div class="alpha grid_5">
@@ -925,6 +1014,16 @@
             jQuery('#form_summer_program_date_end_4').datepicker();
             jQuery('#form_summer_program_date_start_5').datepicker();
             jQuery('#form_summer_program_date_end_5').datepicker();
+            jQuery('#summer_program_before_after_care_start_1').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_end_1').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_start_2').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_end_2').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_start_3').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_end_3').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_start_4').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_end_4').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_start_5').ptTimeSelect();
+            jQuery('#summer_program_before_after_care_end_5').ptTimeSelect();
         });
     </script>
     </school:espFormTemplate>

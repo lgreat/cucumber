@@ -5958,6 +5958,7 @@ div .gallery-thumbnail-selected:hover {
 /* =12d- community join hovers
 -------------------------------------------------------------------------------------------*/
 
+
 .ui-dialog {
     background: #ebebeb;
     padding: 20px 20px;
@@ -9290,7 +9291,7 @@ div#YahooRealEstateLink {
 
 #footer .cities {
     margin: 20px auto 0;
-    padding: 12px 54px;
+    /*padding: 12px 54px;*/
     background: #333333;
     overflow: hidden;
 }

@@ -129,8 +129,9 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
     $("#schoolState").val(school.state);
     $("#js-bannerSchoolName").html(school.name);
     if(school.address != null && school.address != ""){
-        var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs mt3"><!-- do not collapse --></span>'+school.address;
-        $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(iconAddressBanner).show();
+        $("#js-bannerSchoolInfo .js-bannerSchoolAddressIcon").show();
+//        var iconAddressBanner = '<span class="iconx16 i-16-locationOrange mrs mt3"><!-- do not collapse --></span>'+school.address;
+        $("#js-bannerSchoolInfo .js-bannerSchoolAddress").html(school.address).show();
     }
     var iconPageBanner = false;
     var contentExistsBefore = false;
@@ -174,9 +175,23 @@ GS.parentReviewLandingPage.updateUIWithSchool = function(school) {
  * To change this template use File | Settings | File Templates.
  */
 
+
 $(document).ready(function() {
     var searchBox = $('.js-parentReviewLandingPageSearchBox').find("input");
-
+    if(showHeaderDefault){
+//        $('.js-pageTwoReviewLandingPage').fadeIn('fast', function() {
+            $('.headerBar').show().delay(1000).animate({
+                    top: '+=200'
+                },
+                {
+                    duration:1000
+//                    ,
+//                    complete: function () {
+//                        GSType.hover.reviewLandingPageInformational.showModal();
+//                    }
+                });
+//        });
+    }
     $('#js-reviewContent').characterCounter({charLimit:1200});
     $('#js_submitSelectSchool').on("click",function() {
 
@@ -241,8 +256,9 @@ $(document).ready(function() {
             searchBox.val("");
         });
     }
-    GS.form.stateDropDownConfig();
-
+    if(fromMobile != "true"){
+        GS.form.stateDropDownConfig();
+    }
     GS_initializeCustomSelect("js-reviewLandingIAm", GS_selectCallbackReviewsIAm);
 
     starRatingInterface("starRatingContainerReview", 16, 5, "overallAsString", "");
@@ -278,11 +294,10 @@ function GS_spriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
     });
 }
 
-// special ipad case -- so far only click with touchstart works
-var ua = navigator.userAgent;
-var gs_eventclick = (ua.match(/iPad/i)) ? "touchstart" : "click";
-var gs_eventmove = (ua.match(/iPad/i)) ? "touchmove" : "mousemove";
-var gs_eventend = (ua.match(/iPad/i)) ? "touchend" : "mouseleave";
+
+var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";
+var gs_eventmove = (GS.util.isBrowserTouch()) ? "touchmove" : "mousemove";
+var gs_eventend = (GS.util.isBrowserTouch()) ? "touchend" : "mouseleave";
 
 
 /********************************************************************************************************
