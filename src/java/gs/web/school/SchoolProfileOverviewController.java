@@ -122,13 +122,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
         modelMap.put( "espData", espResults );
 
-        List<EspResponse> espResponses = new ArrayList<EspResponse>();
-        Iterator<List<EspResponse>> responsesIter = espResults.values().iterator();
-        while (responsesIter.hasNext()) {
-            List<EspResponse> responses = responsesIter.next();
-            espResponses.addAll(responses);
-        }
-        EspResponseData espResponseData = new EspResponseData(espResponses);
+        EspResponseData espResponseData = new EspResponseData(espResults);
 
         // We could get EspStatus with static method on EspStatusManager, but that would make it a little harder to test
         EspStatusManager espStatusManager = (EspStatusManager) _beanFactory.getBean(
