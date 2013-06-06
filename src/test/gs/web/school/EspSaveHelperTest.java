@@ -7,6 +7,7 @@ import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatus;
 import gs.web.school.usp.EspStatusManager;
 import gs.web.school.usp.UspFormHelper;
 import org.easymock.classextension.EasyMock;
@@ -21,9 +22,6 @@ import static org.easymock.EasyMock.*;
 
 
 public class EspSaveHelperTest extends BaseControllerTestCase {
-    private User _user;
-    private School _school;
-    private State _state;
     private Map<String, Object[]> _responseKeyValues;
     private Set<String> _formFieldNames = UspFormHelper.FORM_FIELD_TITLES.keySet();
     private Set<String> _keysForOspForm = new HashSet<String>() {{
@@ -45,7 +43,6 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private EspFormExternalDataHelper _espFormExternalDataHelper;
     private EspFormValidationHelper _espFormValidationHelper;
-    private EspFormValidationHelper _espFormValidationHelperMock;
     private BeanFactory _beanFactory;
     EspStatusManager _espStatusManager;
 
@@ -54,14 +51,13 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         super.setUp();
         _helper = new EspSaveHelper();
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
-        _espFormValidationHelper = new EspFormValidationHelper();
 
-        _espFormValidationHelperMock = EasyMock.createStrictMock(EspFormValidationHelper.class);
-        _espResponseDao = createMock(IEspResponseDao.class);
-        _noEditDao = createMock(INoEditDao.class);
-        _schoolDao = createMock(ISchoolDao.class);
-        _beanFactory = org.easymock.classextension.EasyMock.createStrictMock(BeanFactory.class);
-        _espStatusManager = org.easymock.classextension.EasyMock.createStrictMock(EspStatusManager.class);
+        _espFormValidationHelper = EasyMock.createStrictMock(EspFormValidationHelper.class);
+        _espResponseDao = EasyMock.createStrictMock(IEspResponseDao.class);
+        _noEditDao = EasyMock.createStrictMock(INoEditDao.class);
+        _schoolDao = EasyMock.createStrictMock(ISchoolDao.class);
+        _beanFactory = EasyMock.createStrictMock(BeanFactory.class);
+        _espStatusManager = EasyMock.createStrictMock(EspStatusManager.class);
 
         _helper.setNoEditDao(_noEditDao);
         _helper.setEspResponseDao(_espResponseDao);
@@ -73,15 +69,15 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
     }
 
     private void resetAllMocks() {
-        resetMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager);
+        resetMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager, _schoolDao, _espFormValidationHelper);
     }
 
     private void replayAllMocks() {
-        replayMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager);
+        replayMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager, _schoolDao, _espFormValidationHelper);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager);
+        verifyMocks(_noEditDao, _espResponseDao, _beanFactory, _espStatusManager, _schoolDao, _espFormValidationHelper);
     }
 
     public void testSaveOspFormDataBasic_ApprovedUser() {
@@ -97,6 +93,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
+        expect(_espFormValidationHelper.performValidation(keyToResponseMap, keysForPage, school)).andReturn(errorFieldToMsgMap);
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
         Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp,
                 EspResponseSource.datateam));
@@ -121,7 +118,9 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         int pageNum = 1;
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
 
+        expect(_espFormValidationHelper.performValidation(keyToResponseMap, keysForPage, school)).andReturn(errorFieldToMsgMap);
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
+
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
         String key = _helper.getPageKeys(pageNum);
@@ -147,7 +146,9 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         int pageNum = 1;
         Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
 
+        expect(_espFormValidationHelper.performValidation(keyToResponseMap, keysForPage, school)).andReturn(errorFieldToMsgMap);
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
+
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
         String key = _helper.getPageKeys(pageNum);
@@ -163,6 +164,10 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
     }
 
     public void testSaveOspFormDataWithValidationErrors_ApprovedUser() {
+        //Ideally I should be using the mock.
+        EspFormValidationHelper validationHelper = new EspFormValidationHelper();
+        _helper.setEspFormValidationHelper(validationHelper);
+
         User user = new User();
         user.setId(2);
         School school = new School();
@@ -198,6 +203,10 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
     }
 
     public void testSaveOspFormDataWithValidationErrors_ActivateProvisionalData() {
+        //Ideally I should be using the mock.
+        EspFormValidationHelper validationHelper = new EspFormValidationHelper();
+        _helper.setEspFormValidationHelper(validationHelper);
+
         User user = new User();
         user.setId(2);
         School school = new School();
@@ -268,6 +277,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
+        expect(_espFormValidationHelper.performValidation(keyToResponseMap, keysForPage, school)).andReturn(errorFieldToMsgMap);
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
 
         replayAllMocks();
@@ -294,6 +304,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
+        expect(_espFormValidationHelper.performValidation(keyToResponseMap, keysForPage, school)).andReturn(errorFieldToMsgMap);
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
 
         replayAllMocks();
@@ -340,7 +351,9 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         Set<EspResponseSource> responseSourcesToDeactivateIfOspPreferred =
                 new HashSet<EspResponseSource>();
 
+        expect(_espFormValidationHelper.performValidation(keyToResponseMap, keysForPage, school)).andReturn(errorFieldToMsgMap);
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
+        _schoolDao.saveSchool(school.getDatabaseState(), school, "ESP-2");
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
         _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
@@ -371,7 +384,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         user.setId(2);
         School school = new School();
         replayAllMocks();
-        _helper.saveOspResponses(user, school, -1, new Date(), new HashSet<String>(),new HashMap<String, String>(), new ArrayList<EspResponse>(), null);
+        _helper.saveOspResponses(user, school, -1, new Date(), new HashSet<String>(), new HashMap<String, String>(), new ArrayList<EspResponse>(), null);
         verifyAllMocks();
     }
 
@@ -446,7 +459,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.add(_helper.getPageKeys(pageNum));
         keysToDelete.add("grade_levels");
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school,user.getId(),keysToDelete);
+        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -513,33 +526,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-
-//    public void testSaveESPResponsesProvisionalUser() {
-//        User user = new User();
-//        user.setId(2);
-//        int pageNum = 1;
-//        School school = new School();
-//        Set<String> keysForPage = new HashSet<String>();
-//        keysForPage.add("instructional_model");
-//        Set<String> keysToDelete = new HashSet<String>();
-//        keysToDelete.addAll(keysForPage);
-//        String key = _helper.getPageKeys(pageNum);
-//        keysToDelete.add(key);
-//        keysToDelete.add(key);
-//
-//        List<EspResponse> responseList = new ArrayList<EspResponse>();
-//        EspResponse response = new EspResponse();
-//        response.setKey("instructional_model");
-//        response.setValue("none");
-//        responseList.add(response);
-//        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
-//        _espResponseDao.saveResponses(school, responseList);
-//        replayAllMocks();
-//        _helper.saveESPResponses(school, keysForPage, responseList, true, user, pageNum, new Date());
-//        verifyAllMocks();
-//    }
-
-//    public void testSaveUspFormDataForUspUser() throws NoSuchAlgorithmException {
+    //    public void testSaveUspFormDataForUspUser() throws NoSuchAlgorithmException {
 //        List<EspResponseSource> espResponses = new ArrayList<EspResponseSource>(){{
 //            add(EspResponseSource.usp);
 //        }};
@@ -585,13 +572,148 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 //        expectLastCall();
 //
 //        replayAllMocks();
-//        replay(_schoolDao);
 //        EasyMock.replay(_espFormValidationHelperMock);
 //        _helper.saveUspFormData(_user, _school, _responseKeyValues, _formFieldNames);
 //        verifyAllMocks();
-//        verify(_schoolDao);
 //        EasyMock.verify(_espFormValidationHelperMock);
 //    }
+//
+
+    public void testSaveUspFormData_UspUser_EmailNotVerified_OspPreferredStatus() throws Exception {
+        User user = getUser();
+        user.setEmailProvisional("something");
+        School school = getSchool();
+        uspFormDataSetters();
+
+        expect(_espFormValidationHelper.isUserProvisional(user)).andReturn(false);
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
+
+        replayAllMocks();
+        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    public void testSaveUspFormData_UspUser_EmailVerified_OspPreferredStatus() throws Exception {
+        User user = getUser();
+        School school = getSchool();
+        uspFormDataSetters();
+
+        expect(_espFormValidationHelper.isUserProvisional(user)).andReturn(false);
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
+
+        replayAllMocks();
+        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    public void testSaveUspFormData_UspUser_EmailNotVerified_NonOspPreferredStatus() throws Exception {
+        User user = getUser();
+        user.setEmailProvisional("something");
+        School school = getSchool();
+        uspFormDataSetters();
+
+        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>() {{
+            add(EspResponseSource.usp);
+        }};
+
+        expect(_espFormValidationHelper.isUserProvisional(user)).andReturn(false);
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
+        //TODO this is not needed for email unverified users.
+        _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+
+        replayAllMocks();
+        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    public void testSaveUspFormData_UspUser_EmailVerified_NonOspPreferredStatus() throws Exception {
+        User user = getUser();
+        School school = getSchool();
+
+        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>(Arrays.asList(EspResponseSource.usp));
+        uspFormDataSetters();
+
+        expect(_espFormValidationHelper.isUserProvisional(user)).andReturn(false);
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_OUTDATED);
+        _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+
+        replayAllMocks();
+        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    public void testSaveUspFormData_OspUser_OspPreferredStatus() throws Exception {
+        User user = getUser();
+        Role role = new Role();
+        role.setKey(Role.ESP_MEMBER);
+        user.addRole(role);
+        School school = getSchool();
+
+        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>(
+                Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam, EspResponseSource.usp));
+        uspFormDataSetters();
+
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        //TODO remove this call.
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_OUTDATED);
+        //Answering all the questions will put the school in OSP preferred status.
+        expect(_espStatusManager.allOSPQuestionsAnswered(isA(Map.class))).andReturn(true);
+
+        _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, getResponseKeys());
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+
+        replayAllMocks();
+        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+    public void testSaveUspFormData_OspUser_NonOspPreferredStatus() throws Exception {
+        User user = getUser();
+        Role role = new Role();
+        role.setKey(Role.ESP_MEMBER);
+        user.addRole(role);
+        School school = getSchool();
+
+        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>(
+                Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
+        uspFormDataSetters();
+
+        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+        //TODO remove this call.
+        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_OUTDATED);
+        //All the questions are not answered.Hence the school will not be in OSP preferred status.
+        expect(_espStatusManager.allOSPQuestionsAnswered(isA(Map.class))).andReturn(false);
+
+        _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, getResponseKeys());
+        _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
+
+        replayAllMocks();
+        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+        verifyAllMocks();
+    }
+
+//    public void testSaveUspFormData_ProvisionalOSPUser() throws Exception {
+//        //TODO fix this test case.
+//        User user = getUser();
+//        School school = getSchool();
+//        uspFormDataSetters();
+//
+//        //Provisional USP user.
+//        expect(_espFormValidationHelper.isUserProvisional(user)).andReturn(true);
+//        expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
+//        expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
+//
+//        replayAllMocks();
+//        _helper.saveUspFormData(user, school, _responseKeyValues, _formFieldNames);
+//        verifyAllMocks();
+//    }
+
 
 //    public void testSaveUspFormDataForOspUser() throws NoSuchAlgorithmException {
 //        List<EspResponseSource> espResponses = new ArrayList<EspResponseSource>(){{
@@ -654,16 +776,31 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 //        EasyMock.verify(_espFormValidationHelperMock);
 //    }
 
+    private User getUser() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setPlaintextPassword("something");
+        return user;
+    }
+
+    private School getSchool() {
+        School school = new School();
+        school.setActive(true);
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        return school;
+    }
+
+    private Set<String> getResponseKeys() {
+        return new HashSet<String>() {{
+            add("arts_music");
+            add("arts_media");
+            add("arts_visual");
+            add("arts_performing_written");
+        }};
+    }
+
     private void uspFormDataSetters() throws NoSuchAlgorithmException {
-        _user = new User();
-        _user.setId(1);
-        _user.setPlaintextPassword("ahdld");
-
-        _state = State.CA;
-
-        _school = new School();
-        _school.setId(1);
-        _school.setDatabaseState(_state);
 
         _responseKeyValues = new HashMap<String, Object[]>() {{
             put(UspFormHelper.ARTS_MUSIC_PARAM, new Object[]{UspFormHelper.ARTS_VISUAL_RESPONSE_KEY + "__" + UspFormHelper.ARTS_VISUAL_PHOTO_RESPONSE_VALUE,

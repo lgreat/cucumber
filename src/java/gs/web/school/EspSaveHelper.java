@@ -225,7 +225,6 @@ public class EspSaveHelper implements BeanFactoryAware {
             }
         }
         _espResponseDao.saveResponses(school, responseList);
-
     }
 
     /**
@@ -249,6 +248,7 @@ public class EspSaveHelper implements BeanFactoryAware {
         boolean active = user.isEmailProvisional() ? false : true;
         EspResponseSource responseSource = EspResponseSource.usp;
 
+        //TODO what if the OSP user is filling an USP form?
         //For the gateway form.
         if (user.hasRole(Role.ESP_SUPERUSER) || user.hasRole(Role.ESP_MEMBER)) {
             responseSource = EspResponseSource.osp;
@@ -333,18 +333,21 @@ public class EspSaveHelper implements BeanFactoryAware {
             }
         }};
 
-        EspStatus espStatus = getStateManager(school).getEspStatus();
+        EspStatusManager statusManager = getStateManager(school);
+        //TODO no need to get the status if the source is OSP.
+        EspStatus espStatus = statusManager.getEspStatus();
 
         if (!isOspSource && espStatus.equals(EspStatus.OSP_PREFERRED)) {
             //If  its a USP form save and the school is in OSP preferred status then do not save the data.
             return;
         } else if (!isOspSource) {
             //If its a USP form save and the school is not in OSP preferred status then deactivate data first.
+            //TODO this is not needed for email unverified users.
             _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
         } else if (isOspSource && !isOspProvisional) {
             //If its a OSP gateway form save and the user is not provisional, then check if the user has answered all questions
             //If all the questions were answered then the school will be in OSP preferred status. Therefore deactivate all USP data.
-            if (getStateManager(school).allOSPQuestionsAnswered(responseKeysLookUpMap)) {
+            if (statusManager.allOSPQuestionsAnswered(responseKeysLookUpMap)) {
                 responseSourcesToDeactivate.add(EspResponseSource.usp);
             }
             _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, responseKeysLookUpMap.keySet());
