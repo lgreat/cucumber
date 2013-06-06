@@ -5,8 +5,10 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.*;
@@ -25,8 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.createStrictMock;
 
 public class UspFormControllerTest extends BaseControllerTestCase {
     UspFormController _controller;
@@ -36,6 +40,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
     private EspSaveHelper _espSaveHelper;
     private IEspResponseDao _espResponseDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     HttpServletRequest _request;
     HttpServletResponse _response;
@@ -59,6 +64,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         _beanFactory = EasyMock.createStrictMock(BeanFactory.class);
         _espStatusManager = EasyMock.createStrictMock(EspStatusManager.class);
         _espResponseDao = EasyMock.createStrictMock(IEspResponseDao.class);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
 
         _controller.setUserDao(_userDao);
         _controller.setUspFormHelper(_uspHelper);
@@ -66,19 +72,20 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         _controller.setUserRegistrationOrLoginService(_userRegistrationOrLoginService);
         _controller.setEspSaveHelper(_espSaveHelper);
         _controller.setBeanFactory(_beanFactory);
+        _controller.setExactTargetAPI(_exactTargetAPI);
         ReflectionTestUtils.setField(_controller, "_espResponseDao", _espResponseDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao);
+        replayMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao, _exactTargetAPI);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao);
+        verifyMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao, _exactTargetAPI);
     }
 
     private void resetAllMocks() {
-        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao);
+        resetMocks(_userDao, _schoolDao, _uspHelper, _userRegistrationOrLoginService, _espSaveHelper, _beanFactory, _espStatusManager, _espResponseDao, _exactTargetAPI);
     }
 
     /**
@@ -404,6 +411,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 //        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
         _espSaveHelper.saveUspFormData(user, school, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
         expectLastCall();
+        _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
+        expectLastCall();
 
         replayAllMocks();
         _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
@@ -431,6 +440,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
         _espSaveHelper.saveUspFormData(user, school, _request.getParameterMap(), UspFormHelper.FORM_FIELD_TITLES.keySet());
         expectLastCall();
+        _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
+        expectLastCall();
 
         replayAllMocks();
         _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
@@ -446,6 +457,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         school.setDatabaseState(state);
         school.setName("QWERT Elementary School");
         school.setActive(true);
+        school.setLevelCode(LevelCode.createLevelCode(LevelCode.HIGH));
+        school.setPhysicalAddress(new Address("123 st", "city", state, "12345"));
         return school;
     }
 
