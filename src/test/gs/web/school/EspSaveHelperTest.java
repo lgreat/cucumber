@@ -246,7 +246,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
-        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
         replayAllMocks();
@@ -356,7 +356,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _schoolDao.saveSchool(school.getDatabaseState(), school, "ESP-2");
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
-        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
 
@@ -407,7 +407,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //All questions are not answered , hence the school is not in an OSP preferred state.
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
-        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -435,7 +435,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //All questions are answered , hence the school is in an OSP preferred state.
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(true);
-        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -487,7 +487,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //All questions are not answered , hence the school is not in an OSP preferred state.
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
-        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
 
@@ -516,7 +516,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //All questions are not answered , hence the school is not in an OSP preferred state.
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(true);
-        _espResponseDao.deactivateResponsesBySourceOrSourceKeys(school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+        _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
 
@@ -614,7 +614,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         School school = getSchool();
         uspFormDataSetters();
 
-        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>() {{
+        Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
             add(EspResponseSource.usp);
         }};
 
@@ -622,7 +622,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
         //TODO this is not needed for email unverified users.
-        _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
+        _espResponseDao.deactivateResponses(school, user.getId(), responseSourcesToDeactivate);
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
 
         replayAllMocks();
@@ -634,13 +634,15 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         User user = getUser();
         School school = getSchool();
 
-        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>(Arrays.asList(EspResponseSource.usp));
+        Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
+            add(EspResponseSource.usp);
+        }};
         uspFormDataSetters();
 
         expect(_espFormValidationHelper.isUserProvisional(user)).andReturn(false);
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_OUTDATED);
-        _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
+        _espResponseDao.deactivateResponses(school, user.getId(), responseSourcesToDeactivate);
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
 
         replayAllMocks();
@@ -654,10 +656,13 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         role.setKey(Role.ESP_MEMBER);
         user.addRole(role);
         School school = getSchool();
-
-        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>(
-                Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam, EspResponseSource.usp));
         uspFormDataSetters();
+
+        Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
+            add(EspResponseSource.osp);
+            add(EspResponseSource.datateam);
+            add(EspResponseSource.usp);
+        }};
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //TODO remove this call.
@@ -665,7 +670,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         //Answering all the questions will put the school in OSP preferred status.
         expect(_espStatusManager.allOSPQuestionsAnswered(isA(Map.class))).andReturn(true);
 
-        _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, getResponseKeys());
+        _espResponseDao.deactivateResponses(school, getResponseKeys(), responseSourcesToDeactivate, null);
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
 
         replayAllMocks();
@@ -679,10 +684,12 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         role.setKey(Role.ESP_MEMBER);
         user.addRole(role);
         School school = getSchool();
-
-        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>(
-                Arrays.asList(EspResponseSource.osp, EspResponseSource.datateam));
         uspFormDataSetters();
+
+        Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
+            add(EspResponseSource.osp);
+            add(EspResponseSource.datateam);
+        }};
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //TODO remove this call.
@@ -690,7 +697,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         //All the questions are not answered.Hence the school will not be in OSP preferred status.
         expect(_espStatusManager.allOSPQuestionsAnswered(isA(Map.class))).andReturn(false);
 
-        _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, getResponseKeys());
+        _espResponseDao.deactivateResponses(school, getResponseKeys(), responseSourcesToDeactivate, null);
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
 
         replayAllMocks();

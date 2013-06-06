@@ -204,8 +204,8 @@ public class EspSaveHelper implements BeanFactoryAware {
                 responseSourcesToDeactivateIfOspPreferred.add(EspResponseSource.usp);
             }
 
-            _espResponseDao.deactivateResponsesBySourceOrSourceKeys
-                    (school, responseSourcesToDeactivateIfOspPreferred, responseSourcesToDeactivate, keysForPage);
+            _espResponseDao.deactivateResponses
+                    (school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
 
             //If we are approving the provisional user thereby activating their data then,
             //delete the '_page_osp_gateway_' key. The existence of this key is used to determine if the provisional user
@@ -324,7 +324,7 @@ public class EspSaveHelper implements BeanFactoryAware {
 
         final boolean isOspSource = EspResponseSource.osp.equals(espResponseSource);
 
-        List<EspResponseSource> responseSourcesToDeactivate = new ArrayList<EspResponseSource>() {{
+        Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
             if (isOspSource) {
                 add(EspResponseSource.osp);
                 add(EspResponseSource.datateam);
@@ -343,14 +343,14 @@ public class EspSaveHelper implements BeanFactoryAware {
         } else if (!isOspSource) {
             //If its a USP form save and the school is not in OSP preferred status then deactivate data first.
             //TODO this is not needed for email unverified users.
-            _espResponseDao.deactivateResponsesByUserSourceKeys(school, user.getId(), responseSourcesToDeactivate, null);
+            _espResponseDao.deactivateResponses(school, user.getId(), responseSourcesToDeactivate);
         } else if (isOspSource && !isOspProvisional) {
             //If its a OSP gateway form save and the user is not provisional, then check if the user has answered all questions
             //If all the questions were answered then the school will be in OSP preferred status. Therefore deactivate all USP data.
             if (statusManager.allOSPQuestionsAnswered(responseKeysLookUpMap)) {
                 responseSourcesToDeactivate.add(EspResponseSource.usp);
             }
-            _espResponseDao.deactivateResponsesByUserSourceKeys(school, null, responseSourcesToDeactivate, responseKeysLookUpMap.keySet());
+            _espResponseDao.deactivateResponses(school, responseKeysLookUpMap.keySet(), responseSourcesToDeactivate, null);
         } else if (isOspProvisional) {
             //If the provisional user is saving the form, delete the keys that were stored for the page earlier.
             String pageKey = getPageKeys(OSP_GATEWAY_PAGE_NAME);
