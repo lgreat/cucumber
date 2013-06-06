@@ -31,12 +31,11 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/official-school-profile/dashboard")
-public class EspDashboardController implements BeanFactoryAware{
-    private static final Log _log = LogFactory.getLog(EspDashboardController.class);
-    public static final String VIEW = "school/espDashboard";
+public class OspDashboardController implements BeanFactoryAware{
+    private static final Log _log = LogFactory.getLog(OspDashboardController.class);
+    public static final String VIEW = "school/ospDashboard";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
-    public static final String PARAM_MESSAGE_ID = "message";
     public static final String MODEL_SUPERUSER_ERROR = "superUserError";
 
     @Autowired
@@ -152,13 +151,13 @@ public class EspDashboardController implements BeanFactoryAware{
             Map<Long, Boolean> pageStartedMap = new HashMap<Long, Boolean>(8);
             boolean anyPageStarted = false;
             for (long x=1; x < 9; x++) {
-                boolean pageStarted = _espResponseDao.getKeyCount(school, EspFormController.KEYS_BY_PAGE.get((int)x), false) > 0;
+                boolean pageStarted = _espResponseDao.getKeyCount(school, OspFormController.KEYS_BY_PAGE.get((int)x), false) > 0;
                 pageStartedMap.put(x, pageStarted);
                 anyPageStarted |= pageStarted;
             }
             modelMap.put("pageStarted", pageStartedMap);
             modelMap.put("anyPageStarted", anyPageStarted);
-            modelMap.put("isFruitcakeSchool", EspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
+            modelMap.put("isFruitcakeSchool", OspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
         }
 
         return VIEW;

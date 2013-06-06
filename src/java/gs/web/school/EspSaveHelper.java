@@ -457,7 +457,7 @@ public class EspSaveHelper implements BeanFactoryAware {
         }
         EspResponse espResponse = new EspResponse();
         espResponse.setKey(key);
-        espResponse.setValue(StringUtils.left(responseValue, EspFormController.MAX_RESPONSE_VALUE_LENGTH));
+        espResponse.setValue(StringUtils.left(responseValue, OspFormController.MAX_RESPONSE_VALUE_LENGTH));
         espResponse.setSchool(school);
         espResponse.setMemberId(user.getId());
         espResponse.setCreated(now);

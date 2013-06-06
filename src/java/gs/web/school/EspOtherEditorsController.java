@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +33,7 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
     private EspCreateUsersController _espCreateUsersController;
 
     @Autowired
-    private EspDashboardController _espDashboardController;
+    private OspDashboardController _ospDashboardController;
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -54,7 +53,7 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
         Map<String, Object> debugInfo = new HashMap<String, Object>();
 
         //get a valid logged in user.
-        User user = _espDashboardController.getValidUser(request);
+        User user = _ospDashboardController.getValidUser(request);
         if (user == null) {
             writeErrorResponse(response, "noCookie");
             return;

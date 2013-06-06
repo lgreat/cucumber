@@ -2,10 +2,8 @@ package gs.web.school;
 import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
-import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
-import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.springframework.ui.ModelMap;
@@ -19,9 +17,9 @@ import static org.easymock.EasyMock.expect;
  * User: rraker
  * Date: 3/7/13
  */
-public class EspFormControllerTest extends BaseControllerTestCase {
+public class OspFormControllerTest extends BaseControllerTestCase {
 
-    EspFormController _espFormController;
+    OspFormController _ospFormController;
 
     private IEspResponseDao _espResponseDao;
     private ICensusInfo _censusInfo;
@@ -30,13 +28,13 @@ public class EspFormControllerTest extends BaseControllerTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        _espFormController = new EspFormController();
+        _ospFormController = new OspFormController();
         _espFormExternalDataHelper = new EspFormExternalDataHelper();
         _espResponseDao = createMock(IEspResponseDao.class);
         _censusInfo = createMock(ICensusInfo.class);
 
-        _espFormController.setEspResponseDao(_espResponseDao);
-        _espFormController.setEspFormExternalDataHelper(_espFormExternalDataHelper);
+        _ospFormController.setEspResponseDao(_espResponseDao);
+        _ospFormController.setEspFormExternalDataHelper(_espFormExternalDataHelper);
     }
 
     private void replayAllMocks() {
@@ -63,7 +61,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 //        l.add(createEspResponse("academic_award_1", "Award 1"));
 //        Map<String, List<EspResponse>> espData = convertToEspData(l);
 //        modelMap.put()
-        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+        _ospFormController.putAfterSchoolIndicatorInModel(school, modelMap);
 
         String result = (String)modelMap.get("after_school_qualified");
         assertNotNull(result);
@@ -85,7 +83,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 //        l.add(createEspResponse("academic_award_1", "Award 1"));
 //        Map<String, List<EspResponse>> espData = convertToEspData(l);
 //        modelMap.put()
-        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+        _ospFormController.putAfterSchoolIndicatorInModel(school, modelMap);
 
         String result = (String)modelMap.get("after_school_qualified");
         assertNull(result);
@@ -102,7 +100,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         school.setDistrictId(999);
         school.setNewProfileSchool(2);
 
-        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+        _ospFormController.putAfterSchoolIndicatorInModel(school, modelMap);
 
         String result = (String)modelMap.get("after_school_qualified");
         assertNull(result);
@@ -119,7 +117,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         school.setDistrictId(999);
         school.setNewProfileSchool(2);
 
-        _espFormController.putAfterSchoolIndicatorInModel(school, modelMap);
+        _ospFormController.putAfterSchoolIndicatorInModel(school, modelMap);
 
         String result = (String)modelMap.get("after_school_qualified");
         assertNotNull(result);
@@ -137,7 +135,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 
         String prefix = "after_school_";
 
-        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+        _ospFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
 
         Integer result = (Integer)modelMap.get(prefix);
         assertNotNull(result);
@@ -153,7 +151,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 
         String prefix = "after_school_";
 
-        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+        _ospFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
 
         Integer result = (Integer)modelMap.get(prefix);
         assertNotNull(result);
@@ -171,7 +169,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 
         String prefix = "after_school_";
 
-        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+        _ospFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
 
         Integer result = (Integer)modelMap.get(prefix);
         assertNotNull(result);
@@ -189,7 +187,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
 
         String prefix = "after_school_";
 
-        _espFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
+        _ospFormController.putRepeatingFormIndicatorInModel(modelMap, prefix, 5);
 
         Integer result = (Integer)modelMap.get(prefix);
         assertNotNull(result);
@@ -291,7 +289,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_censusInfo.getManual(school,CensusDataType.HEAD_OFFICIAL_NAME)).andReturn(censusValue1);
 
         replayAllMocks();
-        _espFormController.putProvisionalResponsesInModel(user, school, modelMap);
+        _ospFormController.putProvisionalResponsesInModel(user, school, modelMap);
         verifyAllMocks();
 
         Map<String, EspFormResponseStruct> responseMap = (HashMap<String, EspFormResponseStruct>)modelMap.get("responseMap");
@@ -382,7 +380,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         expect(_espResponseDao.getResponses(school, responseSources)).andReturn(responses);
 
         replayAllMocks();
-        _espFormController.putProvisionalResponsesInModel(user, school, modelMap);
+        _ospFormController.putProvisionalResponsesInModel(user, school, modelMap);
         verifyAllMocks();
 
         Map<String, EspFormResponseStruct> responseMap = (HashMap<String, EspFormResponseStruct>)modelMap.get("responseMap");

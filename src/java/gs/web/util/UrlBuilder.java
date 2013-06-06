@@ -22,7 +22,7 @@ import gs.data.community.User;
 import gs.web.path.DirectoryStructureUrlFields.ExtraResourceIdentifier;
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
-import gs.web.school.EspFormController;
+import gs.web.school.OspFormController;
 import gs.web.school.EspPreRegistrationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -645,10 +645,10 @@ public class UrlBuilder {
             handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), pageNumber);
         } else if (SCHOOL_PROFILE_ESP_FORM.equals(page)) {
             _perlPage = false;
-            _path = EspFormController.PATH_TO_FORM;
-            setParameter(EspFormController.PARAM_STATE, school.getDatabaseState().getAbbreviationLowerCase());
-            setParameter(EspFormController.PARAM_SCHOOL_ID, String.valueOf(school.getId()));
-            setParameter(EspFormController.PARAM_PAGE, String.valueOf(pageNumber));
+            _path = OspFormController.PATH_TO_FORM;
+            setParameter(OspFormController.PARAM_STATE, school.getDatabaseState().getAbbreviationLowerCase());
+            setParameter(OspFormController.PARAM_SCHOOL_ID, String.valueOf(school.getId()));
+            setParameter(OspFormController.PARAM_PAGE, String.valueOf(pageNumber));
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
