@@ -67,7 +67,7 @@ public class AbstractEspModerationControllerTest extends BaseControllerTestCase 
         school.setDatabaseState(State.CA);
 
         //Test with null
-        expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(null);
+        expect(_espResponseDao.getResponses(school, user.getId(), true)).andReturn(null);
         replayAllMocks();
         _controller.promoteProvisionalDataToActiveData(user,school,getRequest(),getResponse());
         verifyAllMocks();

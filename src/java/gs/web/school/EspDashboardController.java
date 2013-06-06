@@ -139,7 +139,7 @@ public class EspDashboardController implements BeanFactoryAware{
                 }
             } else if (isProvisional && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
                 Set<String> keys = new HashSet<String>(Arrays.asList("_page_osp_gateway_keys"));
-                List<EspResponse> responses = _espResponseDao.getResponsesByUserAndSchoolAndKeys(school, user.getId(), keys, true);
+                List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true, keys);
                 if (responses == null || responses.isEmpty()) {
                     showOspGateway = true;
                 }

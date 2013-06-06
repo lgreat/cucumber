@@ -241,7 +241,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         Map<String, String> provisionalExternalKeysToValueMap = new HashMap<String, String>();
 
         //Get all the responses that the provisional user has made for this school.
-        List<EspResponse> provisionalResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+        List<EspResponse> provisionalResponses = _espResponseDao.getResponses(school, user.getId(), true);
 
         for (EspResponse espResponse : provisionalResponses) {
 

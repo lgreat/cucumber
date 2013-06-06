@@ -61,7 +61,7 @@ public class EspRegistrationConfirmationService implements BeanFactoryAware {
 
                 //If the school is in osp preferred status then do not activate the data.
                 if (!espStatus.equals(EspStatus.OSP_PREFERRED)) {
-                    List<EspResponse> responses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+                    List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true);
                     if (!responses.isEmpty()) {
                         //TODO Do we need to keep the inactive responses?
                         _espResponseDao.activateResponsesByUserForSchoolAndSource(school, user.getId(), EspResponseSource.usp);

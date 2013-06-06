@@ -273,7 +273,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
         //Get all the provisional responses.
-        List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+        List<EspResponse> espResponses = _espResponseDao.getResponses(school, user.getId(), true);
 
         if (espResponses != null && !espResponses.isEmpty()) {
             //Construct the list of key to responses Map.

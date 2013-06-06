@@ -277,7 +277,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
 
         expect(_espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true)).andReturn(provisionalKeysList);
-        expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(provisionalResponses);
+        expect(_espResponseDao.getResponses(school, user.getId(), true)).andReturn(provisionalResponses);
         expect(_espResponseDao.getResponses(school, responseSources)).andReturn(responses);
 
         SchoolCensusValue censusValue = new SchoolCensusValue();
@@ -378,7 +378,7 @@ public class EspFormControllerTest extends BaseControllerTestCase {
         Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
 
         expect(_espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true)).andReturn(provisionalKeysList);
-        expect(_espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true)).andReturn(provisionalResponses);
+        expect(_espResponseDao.getResponses(school, user.getId(), true)).andReturn(provisionalResponses);
         expect(_espResponseDao.getResponses(school, responseSources)).andReturn(responses);
 
         replayAllMocks();

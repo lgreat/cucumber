@@ -198,7 +198,7 @@ public class EspSaveHelper implements BeanFactoryAware {
 
             //Check if all the the OSP questions have answers(either existing or the current form save).
             // If so then the school is already in or about to enter OSP preferred state.
-            //Therefore deactivate all the USP data.
+            //Therefore deactivate all the USP data as well as the OSP data for the page keys.
             boolean allOspQuestionsAnswered = getStateManager(school).allOSPQuestionsAnswered(allKeysWithActiveResponses);
             if (allOspQuestionsAnswered) {
                 responseSourcesToDeactivateIfOspPreferred.add(EspResponseSource.usp);
@@ -411,6 +411,7 @@ public class EspSaveHelper implements BeanFactoryAware {
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
         keysToDelete.add(pageKey);
+        //TODO do we need to check the source here? what if provisional user is filling in the USP form?
         _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
 
         return createEspResponse(user, school, now, pageKey, false,
