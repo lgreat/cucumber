@@ -213,7 +213,7 @@ public class EspSaveHelper implements BeanFactoryAware {
             if (saveBehaviour.isActivateProvisionalData()) {
                 String pageKey = getPageKeys("osp_gateway");
                 Set<String> pageKeys = new HashSet<String>(Arrays.asList(pageKey));
-                _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), pageKeys);
+                _espResponseDao.deleteResponses(school, user.getId(), pageKeys);
             }
 
         } else {
@@ -412,7 +412,7 @@ public class EspSaveHelper implements BeanFactoryAware {
         keysToDelete.addAll(keysForPage);
         keysToDelete.add(pageKey);
         //TODO do we need to check the source here? what if provisional user is filling in the USP form?
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
+        _espResponseDao.deleteResponses(school, user.getId(), keysToDelete);
 
         return createEspResponse(user, school, now, pageKey, false,
                 StringUtils.join(keysForPage, ","), EspResponseSource.osp);

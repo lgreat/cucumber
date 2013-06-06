@@ -64,7 +64,7 @@ public class EspRegistrationConfirmationService implements BeanFactoryAware {
                     List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true);
                     if (!responses.isEmpty()) {
                         //TODO Do we need to keep the inactive responses?
-                        _espResponseDao.activateResponsesByUserForSchoolAndSource(school, user.getId(), EspResponseSource.usp);
+                        _espResponseDao.activateResponses(school, user.getId(), EspResponseSource.usp);
                     }
                 }
             }

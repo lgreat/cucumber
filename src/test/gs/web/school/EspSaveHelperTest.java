@@ -247,7 +247,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
         _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
+        _espResponseDao.deleteResponses(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
         replayAllMocks();
         EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
@@ -357,7 +357,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
         _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
+        _espResponseDao.deleteResponses(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -459,7 +459,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.add(_helper.getPageKeys(pageNum));
         keysToDelete.add("grade_levels");
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), keysToDelete);
+        _espResponseDao.deleteResponses(school, user.getId(), keysToDelete);
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -488,7 +488,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         //All questions are not answered , hence the school is not in an OSP preferred state.
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(false);
         _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
+        _espResponseDao.deleteResponses(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
@@ -517,7 +517,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         //All questions are not answered , hence the school is not in an OSP preferred state.
         expect(_espStatusManager.allOSPQuestionsAnswered(allKeysWithActiveResponses)).andReturn(true);
         _espResponseDao.deactivateResponses(school, keysForPage, responseSourcesToDeactivate, responseSourcesToDeactivateIfOspPreferred);
-        _espResponseDao.deleteResponsesForSchoolByUserAndByKeys(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
+        _espResponseDao.deleteResponses(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
