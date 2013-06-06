@@ -170,7 +170,7 @@ GS.form.UspForm = function () {
             function () {
                 var password = uspLoginPasswordField.val();
                 var email = jQuery.trim(uspLoginEmailField.val());
-                GS.form.uspForm.saveForm(uspForm, '', password, email);
+                GS.form.uspForm.saveForm(uspForm, password, email);
             }
         ).fail(
             function () {
