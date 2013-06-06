@@ -3,6 +3,7 @@ package gs.web.school.usp;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
@@ -24,6 +25,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -75,6 +77,9 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     private IEspResponseDao _espResponseDao;
     @Autowired
     private ISubscriptionDao _subscriptionDao;
+    @Autowired
+    @Qualifier("exactTargetAPI")
+    private ExactTargetAPI _exactTargetAPI;
 
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
@@ -214,6 +219,13 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         if (StringUtils.isNotBlank(redirectUrl)) {
             writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
         }
+
+        Map<String, String> emailAttributes = new HashMap<String, String>();
+        emailAttributes.put("school_name", school.getName());
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        emailAttributes.put("school_URL", urlBuilder.asFullUrl(request));
+        getExactTargetAPI().sendTriggeredEmail("USP-thank-you", user, emailAttributes);
+
         return;
     }
 
@@ -481,5 +493,13 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI _exactTargetAPI) {
+        this._exactTargetAPI = _exactTargetAPI;
     }
 }
