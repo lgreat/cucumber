@@ -36,7 +36,8 @@
                     prop48 : clickCapture.getProp(48,'${pageScope.hasOsp}'),
                     prop49 : clickCapture.getProp(49,"${pageScope.numberOfReviews}"),
                     prop51 : clickCapture.getProp(51,"${DC_PCSB_Rating}"),
-                    prop52 : clickCapture.getProp(52,"${applyNowUrl}")
+                    prop52 : clickCapture.getProp(52,"${applyNowUrl}"),
+                    prop55 : clickCapture.getProp(55,"${ospStatus}")
                 };
 
                 // if page name was not passed in, setting these props (that use page name) here will overwrite these props with potentially incorrect values

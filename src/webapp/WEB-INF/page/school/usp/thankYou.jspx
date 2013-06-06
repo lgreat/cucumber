@@ -39,8 +39,8 @@
         </div>
     </div>
 
-    <mod:tracking pageName="USP Published Hover"
-                  hier1="USP, User input, USP Published Hover"/>
+    <mod:tracking pageName="USP Thank you Page"
+                  hier1="USP, User input, USP Thank you Page"/>
     </body>
     </html>
 </jsp:root>

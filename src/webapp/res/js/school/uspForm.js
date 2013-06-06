@@ -299,6 +299,12 @@ jQuery(function () {
     uspForm.on('click', '.js_submit', function () {
         GS.form.uspForm.hideAllErrors();
         GS.form.uspForm.validateUspDataAndShowHover(uspForm, isOspUser());
+
+        if(s) {
+            pageTracking.clear();
+            pageTracking.successEvents = "event81";
+            pageTracking.send();
+        }
         return false;
     });
 
@@ -341,9 +347,21 @@ jQuery(function () {
         GS.form.uspForm.hideAllErrors();
         GSType.hover.modalUspSignIn.hide();
         GSType.hover.modalUspRegistration.show();
+
+        if(s) {
+            pageTracking.clear();
+            pageTracking.pageName = "USP Join Hover";
+            pageTracking.hierarchy =  "Hovers, Join, USP Join Hover";
+            pageTracking.send();
+        }
     });
 
     jQuery('body').on('click', '.js_uspRegistrationSubmit:visible', function () {
+        if(s) {
+            pageTracking.clear();
+            pageTracking.successEvents = "event82";
+            pageTracking.send();
+        }
         //TODO find a better way to get the form values.
         var uspRegistrationForm = jQuery('.js_uspRegistrationForm:visible');
         var uspRegistrationPasswordField = uspRegistrationForm.find('.js_regPassword');
