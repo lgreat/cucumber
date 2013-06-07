@@ -93,7 +93,7 @@ GS.form.UspForm = function () {
     this.handleEmailVerification = function () {
         var uspForm = jQuery('#js_uspForm');
         var emailField = jQuery('.js_loginEmail:visible');
-        GS.form.uspForm.saveForm(uspForm, '', '', emailField.val());
+        GS.form.uspForm.saveForm(uspForm, '', emailField.val());
     };
 
     this.handleValidationResponse = function (fieldSelector, errorMsg, elem) {
