@@ -137,8 +137,7 @@ public class OspDashboardController implements BeanFactoryAware{
                     showOspGateway = true;
                 }
             } else if (isProvisional && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
-                Set<String> keys = new HashSet<String>(Arrays.asList("_page_osp_gateway_keys"));
-                List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true, keys);
+                List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true, "_page_osp_gateway_keys");
                 if (responses == null || responses.isEmpty()) {
                     showOspGateway = true;
                 }

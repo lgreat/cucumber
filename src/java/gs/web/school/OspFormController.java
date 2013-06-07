@@ -184,10 +184,11 @@ public class OspFormController implements ReadWriteAnnotationController {
         }
 
         Map<String, Object[]> reqParamMap = request.getParameterMap();
-
         Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
+        boolean isProvisionalOsp = _espFormValidationHelper.isUserProvisional(user);
+        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.osp, isProvisionalOsp);
 
-        _espSaveHelper.saveUspFormData(user, school , reqParamMap, formFieldNames);
+        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, saveBehaviour);
 
         /**
          * Redirect to page 1 of osp form

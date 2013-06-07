@@ -11,6 +11,7 @@ import gs.data.state.State;
 import gs.data.util.email.EmailUtils;
 import gs.web.community.HoverHelper;
 import gs.web.community.registration.*;
+import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
 import gs.web.util.HttpCacheInterceptor;
@@ -210,10 +211,9 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         }
 
         Map<String, Object[]> reqParamMap = request.getParameterMap();
-
         Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
 
-        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames);
+        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, getSaveBehaviour(user));
 
         String redirectUrl = determineRedirects(user, userStateStruct, school, request, response, doesUserAlreadyHaveResponses);
         if (StringUtils.isNotBlank(redirectUrl)) {
@@ -443,6 +443,11 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         }
 
         return school;
+    }
+
+    public EspSaveBehaviour getSaveBehaviour(User user){
+        boolean isUserEmailVerified = !(user.isEmailProvisional());
+        return new EspSaveBehaviour(isUserEmailVerified, EspResponseSource.usp, false);
     }
 
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {

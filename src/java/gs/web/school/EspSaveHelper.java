@@ -2,7 +2,6 @@ package gs.web.school;
 
 import gs.data.community.User;
 import gs.data.school.*;
-import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.Address;
@@ -237,29 +236,21 @@ public class EspSaveHelper implements BeanFactoryAware {
      */
     public void saveUspFormData(User user, School school,
                                 Map<String, Object[]> responseKeyValues,
-                                Set<String> formFieldNames) {
+                                Set<String> formFieldNames,
+                                EspSaveBehaviour saveBehaviour) {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         Date now = new Date();
         Set<String> responseParams = responseKeyValues.keySet();
         Map<String, String> responseKeysLookUpMap = new HashMap<String, String>();
 
-        //Set up the defaults.
-        boolean isOspProvisional = false;
-        boolean active = user.isEmailProvisional() ? false : true;
-        EspResponseSource responseSource = EspResponseSource.usp;
-
-        //TODO what if the OSP user is filling an USP form?
-        //For the gateway form.
-        if (user.hasRole(Role.ESP_SUPERUSER) || user.hasRole(Role.ESP_MEMBER)) {
-            responseSource = EspResponseSource.osp;
-            active = true;
-        } else {
-            isOspProvisional = _espFormValidationHelper.isUserProvisional(user);
-            if (isOspProvisional) {
-                responseSource = EspResponseSource.osp;
-                active = false;
-            }
+        //Set up the defaults
+        boolean active = true;
+        if (saveBehaviour.isSaveProvisional() || !saveBehaviour.isUserEmailVerified()) {
+            active = false;
         }
+
+        EspResponseSource espResponseSource = saveBehaviour.getEspResponseSource() != null ? saveBehaviour.getEspResponseSource() :
+                EspResponseSource.usp;
 
         for (String responseParam : responseParams) {
             /**
@@ -284,7 +275,7 @@ public class EspSaveHelper implements BeanFactoryAware {
 
                     if (keyValue.length == 2) {
                         EspResponse espResponse = createEspResponse(user, school, now, keyValue[0], active, keyValue[1],
-                                responseSource);
+                                espResponseSource);
                         if (espResponse != null) {
                             responseList.add(espResponse);
                             //value does not matter its just used for look up.
@@ -297,10 +288,10 @@ public class EspSaveHelper implements BeanFactoryAware {
 
         //We do not require the user to response to all USP fields.
         //OSP members are required to respond to all questions.Hence do this only for OSP.
-        if (EspResponseSource.osp.equals(responseSource)) {
-            handleSubsectionResponses(user, school, now, active, responseSource, responseList, responseKeysLookUpMap);
+        if (EspResponseSource.osp.equals(espResponseSource)) {
+            handleSubsectionResponses(user, school, now, active, espResponseSource, responseList, responseKeysLookUpMap);
         }
-        saveUspResponses(user, school, now, responseList, responseSource, responseKeysLookUpMap, isOspProvisional);
+        saveUspResponses(user, school, now, responseList, responseKeysLookUpMap, saveBehaviour);
     }
 
     /**
@@ -310,20 +301,17 @@ public class EspSaveHelper implements BeanFactoryAware {
      * @param school
      * @param now
      * @param responseList
-     * @param espResponseSource
      * @param responseKeysLookUpMap
-     * @param isOspProvisional
      */
     public void saveUspResponses(User user, School school, Date now, List<EspResponse> responseList,
-                                 EspResponseSource espResponseSource, Map<String, String> responseKeysLookUpMap,
-                                 boolean isOspProvisional) {
+                                 Map<String, String> responseKeysLookUpMap,EspSaveBehaviour saveBehaviour) {
 
         if (responseList == null || responseList.isEmpty()) {
             return;
         }
 
-        final boolean isOspSource = EspResponseSource.osp.equals(espResponseSource);
-
+        final boolean isOspProvisional = saveBehaviour.isSaveProvisional();
+        final boolean isOspSource = EspResponseSource.osp.equals(saveBehaviour.getEspResponseSource());
         Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
             if (isOspSource) {
                 add(EspResponseSource.osp);
@@ -334,16 +322,19 @@ public class EspSaveHelper implements BeanFactoryAware {
         }};
 
         EspStatusManager statusManager = getStateManager(school);
-        //TODO no need to get the status if the source is OSP.
-        EspStatus espStatus = statusManager.getEspStatus();
 
-        if (!isOspSource && espStatus.equals(EspStatus.OSP_PREFERRED)) {
-            //If  its a USP form save and the school is in OSP preferred status then do not save the data.
-            return;
-        } else if (!isOspSource) {
-            //If its a USP form save and the school is not in OSP preferred status then deactivate data first.
-            //TODO this is not needed for email unverified users.
-            _espResponseDao.deactivateResponses(school, user.getId(), responseSourcesToDeactivate);
+        if (!isOspSource) {
+            EspStatus espStatus = statusManager.getEspStatus();
+            if (espStatus.equals(EspStatus.OSP_PREFERRED)) {
+                //If  its a USP form save and the school is in OSP preferred status then do not save the data.
+                return;
+            } else if(!saveBehaviour.isUserEmailVerified()){
+                //Delete data for email unverified users. Their data should already be inactive;
+                _espResponseDao.deleteResponses(school, user.getId(), null,EspResponseSource.usp);
+            }else if (saveBehaviour.isUserEmailVerified()) {
+                //If its a USP form save and the school is not in OSP preferred status then deactivate data first.
+                _espResponseDao.deactivateResponses(school, user.getId(), responseSourcesToDeactivate);
+            }
         } else if (isOspSource && !isOspProvisional) {
             //If its a OSP gateway form save and the user is not provisional, then check if the user has answered all questions
             //If all the questions were answered then the school will be in OSP preferred status. Therefore deactivate all USP data.
@@ -411,8 +402,7 @@ public class EspSaveHelper implements BeanFactoryAware {
         Set<String> keysToDelete = new HashSet<String>();
         keysToDelete.addAll(keysForPage);
         keysToDelete.add(pageKey);
-        //TODO do we need to check the source here? what if provisional user is filling in the USP form?
-        _espResponseDao.deleteResponses(school, user.getId(), keysToDelete);
+        _espResponseDao.deleteResponses(school, user.getId(), keysToDelete,EspResponseSource.osp );
 
         return createEspResponse(user, school, now, pageKey, false,
                 StringUtils.join(keysForPage, ","), EspResponseSource.osp);
