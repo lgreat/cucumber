@@ -38,10 +38,10 @@
                             </div>
                             <div class="js-tou mtm mbs clearfix">
                                 <div class="fl prm js-checkBoxSpriteOff">
-                                    <span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
+                                    <span class="js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span>
                                 </div>
                                 <div class="fl prm js-checkBoxSpriteOn dn">
-                                    <span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
+                                    <span class="js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span>
                                 </div>
                                 <div class="smaller bottom">I agree to the
                                     <gsml:popupWindow width="800" height="600" left="50" top="50"
@@ -50,6 +50,12 @@
                                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                       title="GreatSchools Community Standards"
                                                       href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
+                                </div>
+                            </div>
+                            <div class="invalid error js_termsErr" style="display: none;">
+                                <div class="media">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                    <div class="bd"><!-- error msg goes here --></div>
                                 </div>
                             </div>
                             <c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
@@ -63,12 +69,6 @@
                                     <div class="fl smaller bottom vam">Yes, send me monthly email updates about this school.</div>
                                 </div>
                             </c:if>
-                            <div class="invalid error js_termsErr" style="display: none;">
-                                <div class="media">
-                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                                    <div class="bd"><!-- error msg goes here --></div>
-                                </div>
-                            </div>
                             <div class="clearfix">
                                 <div class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</div>
                                 <div class="pll pts fl small bottom">

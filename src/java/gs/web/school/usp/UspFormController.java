@@ -376,8 +376,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             }
             //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
             userRegistrationCommand.setHow("USP");
-            //By clicking the join now button, the user is accepting the GS terms.GS-13713.
-            userRegistrationCommand.setTerms(true);
             //There is no additional confirm Password field. Hence set it to
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
             UserStateStruct userStateStruct =

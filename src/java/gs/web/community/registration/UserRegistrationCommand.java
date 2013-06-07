@@ -46,7 +46,7 @@ public class UserRegistrationCommand  {
 
     private boolean mss;
 
-    @AssertTrue
+    @AssertTrue(message="You must accept the terms of use.")
     private boolean terms;
 
     @AssertTrue(message="Password should be 6-14 characters.")

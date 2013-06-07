@@ -2,6 +2,19 @@ var GS = GS || {};
 GS.form = GS.form || {};
 GS.form.UspForm = function () {
 
+    this.validateTermsOfUse = function(termsField) {
+        var deferred = jQuery.Deferred();
+        var valid = termsField.parent().hasClass('js-checkBoxSpriteOn');
+        if (valid) {
+            GS.form.uspForm.hideErrors('.js_termsErr');
+            deferred.resolve();
+        } else {
+            GS.form.uspForm.handleValidationResponse('.js_termsErr', 'You must agree to the terms of use.', termsField);
+            deferred.reject();
+        }
+        return deferred.promise();
+    };
+
     this.validatePassword = function (elem) {
         var fieldVal = elem.val();
         var dfd = jQuery.Deferred();
@@ -136,17 +149,19 @@ GS.form.UspForm = function () {
         }
     };
 
-    this.registerAndSaveData = function (uspForm, uspRegistrationPasswordField, uspRegistrationEmailField) {
+    this.registerAndSaveData = function (uspForm, uspRegistrationPasswordField, uspRegistrationEmailField, uspTermsOfUseField) {
         //First do validations and then save the form.
         jQuery.when(
             GS.form.uspForm.validateUserState(uspRegistrationEmailField, false, false),
-            GS.form.uspForm.validatePassword(uspRegistrationPasswordField)
+            GS.form.uspForm.validatePassword(uspRegistrationPasswordField),
+            GS.form.uspForm.validateTermsOfUse(uspTermsOfUseField)
         ).done(
             function () {
                 var password = uspRegistrationPasswordField.val();
                 var email = jQuery.trim(uspRegistrationEmailField.val());
+                var terms = true; // must be true for above validation to pass
                 jQuery.when(
-                    GS.form.uspForm.saveForm(uspForm, password, email)
+                    GS.form.uspForm.saveForm(uspForm, password, email, terms)
                 ).done(function () {
                         GSType.hover.modalUspRegistration.hide();
                     })
@@ -162,7 +177,7 @@ GS.form.UspForm = function () {
         )
     };
 
-    this.loginAndSaveData = function (uspForm, uspLoginPasswordField, uspLoginEmailField) {
+    this.loginAndSaveData = function (uspForm, uspLoginPasswordField, uspLoginEmailField, uspTermsOfUseField) {
         //First do validations and then save the form.
         jQuery.when(
             GS.form.uspForm.validateUserState(uspLoginEmailField, true, true, uspLoginPasswordField)
@@ -179,7 +194,7 @@ GS.form.UspForm = function () {
         )
     };
 
-    this.saveForm = function (uspForm, password, email) {
+    this.saveForm = function (uspForm, password, email, terms) {
         var dfd = jQuery.Deferred();
 
         var data = uspForm.serializeArray();
@@ -193,6 +208,10 @@ GS.form.UspForm = function () {
 
         if(jQuery('.js-joinHover:visible').find('.js-mss .js-checkBoxSpriteOn:visible').length > 0) {
             data.push({name:"mss", value:true});
+        }
+
+        if (terms !== undefined && terms !== '') {
+            data.push({name:"terms", value:terms});
         }
 
         jQuery.ajax({type:'POST',
@@ -366,7 +385,8 @@ jQuery(function () {
         var uspRegistrationForm = jQuery('.js_uspRegistrationForm:visible');
         var uspRegistrationPasswordField = uspRegistrationForm.find('.js_regPassword');
         var uspRegistrationEmailField = uspRegistrationForm.find('.js_regEmail');
-        GS.form.uspForm.registerAndSaveData(uspForm, uspRegistrationPasswordField, uspRegistrationEmailField);
+        var uspTermsOfUseField = uspRegistrationForm.find('.js-tou .js-checkBoxSprite:visible');
+        GS.form.uspForm.registerAndSaveData(uspForm, uspRegistrationPasswordField, uspRegistrationEmailField, uspTermsOfUseField);
     });
 
     jQuery('body').on('click', '.js_uspLoginSubmit:visible', function () {
