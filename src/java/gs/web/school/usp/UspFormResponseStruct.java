@@ -1,7 +1,9 @@
 package gs.web.school.usp;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +25,16 @@ public class UspFormResponseStruct {
     boolean _isNoneChecked;
     boolean _isOtherChecked;
     String _otherTextValue;
+    Integer _otherTextLength;
     List<SectionResponse> _SectionResponses = new LinkedList<SectionResponse>();
+
+    static Map<String, Integer> OTHER_TEXT_FIELD_MAX_LENGTH = new HashMap<String, Integer>(){{
+        put(UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY, 30);
+        put(UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY, 30);
+        put(UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY, 40);
+        put(UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY, 30);
+        put(UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY, 40);
+    }};
 
     public String getTitle() {
         return _title;
@@ -103,6 +114,18 @@ public class UspFormResponseStruct {
 
     public void setFieldName(String _fieldName) {
         this._fieldName = _fieldName;
+    }
+
+    public int getOtherTextLength() {
+        return _otherTextLength;
+    }
+
+    public void setOtherTextLength(String responseKey) {
+        setOtherTextLength(OTHER_TEXT_FIELD_MAX_LENGTH.get(responseKey));
+    }
+
+    public void setOtherTextLength(Integer _otherTextLength) {
+        this._otherTextLength = _otherTextLength;
     }
 
     /**

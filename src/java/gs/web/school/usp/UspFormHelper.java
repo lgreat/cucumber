@@ -845,6 +845,7 @@ public class UspFormHelper {
             if (isOspUser && responseKey.endsWith("_other")) {
                 boolean isOtherFieldKey = true;
                 uspFormResponse.setHasOtherField(isOtherFieldKey);
+                uspFormResponse.setOtherTextLength(responseKey);
 
                 Iterator<String> savedResponsesIter = savedResponses.iterator();
                 while (savedResponsesIter.hasNext()) {

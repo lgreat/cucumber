@@ -43,7 +43,8 @@
                                                    value="${sectionResponse.responseKey}__${otherTextValue}"/>
                                         </c:if>
                                     </c:forEach><div class="fl small bottom mrm">Other</div>
-                                    <input name="otherValue" type="text" class="js-otherText" value="${otherTextValue}"/>
+                                    <input name="otherValue" type="text" class="js-otherText" value="${otherTextValue}"
+                                            maxlength="${formResponse.otherTextLength != null ? formResponse.otherTextLength : ''}"/>
                                 </div>
                             </c:if>
                             <c:if test="${formResponse.hasNoneField}">
