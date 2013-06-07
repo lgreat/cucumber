@@ -27,14 +27,14 @@
             <c:if test="${isNotOspPreferred}">
                 <div class="mod standard_3-1">
                     <div class="outer">
-                        <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
-                            <div class="hd mtl mll">
+                        <div class="inner bg-uspPromo-lg">
+                            <div class="hd mtm mlm">
                                 <h3 class="bottom">Let your school shine!</h3>
                             </div>
-                            <div class="bd mbl mll">
-                                <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
-                                    community responses, adding program highlights and more on<br/>
-                                    GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a>
+                            <div class="bd mbm mlm">
+                                <span class="small">School leaders - Help your school shine on GreatSchools<br/>
+                                    by verifying community responses, adding program highlights<br/>and more on GreatSchools!
+                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
                                 </span>
                             </div>
                         </div>
@@ -74,14 +74,14 @@ where each entry is the first bean for that section, this allows access to the s
                 <c:if test="${isNotOspPreferred}">
                     <div class="mod standard_3-1">
                         <div class="outer">
-                            <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
-                                <div class="hd mtl mll">
+                            <div class="inner bg-uspPromo-lg">
+                                <div class="hd mtm mlm">
                                     <h3 class="bottom">Let your school shine!</h3>
                                 </div>
-                                <div class="bd mbl mll">
-                                <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
-                                    community responses, adding program highlights and more on<br/>
-                                    GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a>
+                                <div class="bd mbm mlm">
+                                <span class="small">School leaders - Help your school shine on GreatSchools<br/>
+                                    by verifying community responses, adding program highlights<br/>and more on GreatSchools!
+                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}" class="tac small mtm"> Get started &amp;raquo;</a>
                                 </span>
                                 </div>
                             </div>
@@ -104,27 +104,30 @@ where each entry is the first bean for that section, this allows access to the s
                 <div>
                     <h4 class="tac">This school has not yet provided program information.</h4>
                     <hr class="keyline1"/>
-                    <div class="bg-uspGetStarted">
-                        <h3 class="mtl">Help other families</h3>
+                    <div class="bg-uspGetStarted moduleHeight-185">
+                        <h3 class="ptl mts bottom">Help other families</h3>
 
-                        <div class=" pvl">
+                        <div class="pbl">
                             <div class="small">
                                 Millions of families turn to GreatSchools for help with their<br/> school search. You can help these
                                 families by providing<br/>a few details about this school.
                             </div>
+                            <a href="/school/QandA/form.page?schoolId=${school.id}&amp;state=${school.databaseState}">
                             <button class="but but-rg but-1" name="">Help now</button>
+                            </a>
                         </div>
-                        <hr class="keyline1"/>
                     </div>
-                    <div class="bg-uspPromo-lg mvl clearfix">
+                    <hr class="keyline1"/>
+                    <div class="bg-uspPromo-lg-left pvl clearfix moduleHeight-80">
                         <div class="prefix_6 grid_9">
-                            <h4>Administrators &amp; teachers: Let your school shine!</h4>
-                            <div class="small">School leaders - Help your school shine on GreatSchools by verifying community
-                                responses, adding program highlights and more on GreatSchools! Get started &amp;raquo;
+                            <h4 class="ptm bottom">Administrators &amp; teachers: Let your school shine!</h4>
+                            <div class="small">Help your school shine online by adding program highlights, photos and
+                                more on GreatSchools!
+                                <a href="/school/esp/QandAForm.page?schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
                             </div>
                         </div>
-                        <hr class="keyline1"/>
                     </div>
+                    <hr class="keyline1"/>
                 </div>
             </c:otherwise>
         </c:choose>
@@ -135,14 +138,14 @@ where each entry is the first bean for that section, this allows access to the s
             <c:if test="${isNotOspPreferred}">
                 <div class="mod standard_3-1">
                     <div class="outer">
-                        <div class="inner bg-uspPromo moduleHeight-125 ie-moduleHeight-162">
-                            <div class="hd mtl mll">
+                        <div class="inner bg-uspPromo-lg">
+                            <div class="hd mtm mlm">
                                 <h3 class="bottom">Let your school shine!</h3>
                             </div>
-                            <div class="bd mbl mll">
-                                <span class="small">School leaders - Help your school shine on GreatSchools by verifying<br/>
-                                    community responses, adding program highlights and more on<br/>
-                                    GreatSchools!<a href="#" class="tac small mtm"> Get started &amp;raquo;</a>
+                            <div class="bd mbm mlm">
+                                <span class="small">School leaders - Help your school shine on GreatSchools<br/>by verifying
+                                    community responses, adding program highlights<br/>and more on GreatSchools!
+                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}" class="tac small mtm"> Get started &amp;raquo;</a>
                                 </span>
                             </div>
                         </div>

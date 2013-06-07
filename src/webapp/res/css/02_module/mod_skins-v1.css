@@ -465,7 +465,8 @@ General comments:
 .bg-nearbySchool { background: url("/res/img/module/background/nearbySchools.png") no-repeat right bottom;}
 .bg-chooserBook { background: url("/res/img/module/background/chooserBook.png") no-repeat right bottom;}
 .bg-uspPromo { background: url("/res/img/usp/kids_tile_178x90.png") no-repeat right bottom;}
-.bg-uspPromo-lg { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat left bottom;}
+.bg-uspPromo-lg { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat; background-position: 374px 23px;}
+.bg-uspPromo-lg-left { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat left bottom;}
 .bg-uspGetStarted { background: url("/res/img/usp/mother_Daughter_267x189.png") no-repeat right bottom;}
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds colors-------------- */
@@ -1119,8 +1120,10 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 ***************************************************************************************************************/
 
 .add-photos-height{ height:160px;}
+.moduleHeight-185{ height:185px; }
 .moduleHeight-125{ height:125px; }
 .moduleHeight-79{ height:79px; }
+.moduleHeight-80{ height:80px; }
 .moduleHeight-69{height:69px;}
 
 
