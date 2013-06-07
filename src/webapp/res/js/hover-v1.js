@@ -167,7 +167,12 @@ GSType.hover.ForgotPasswordHover = function() {
             GSType.hover.forgotPassword.cancelLoadOnExit();
         }
         GSType.hover.forgotPassword.hide();
-        GSType.hover.signInHover.showJoinFunction();
+        if(GSType.hover.forgotPassword.isOsp()) {
+            GSType.hover.modalUspRegistration.show();
+        }
+        else {
+            GSType.hover.signInHover.showJoinFunction();
+        }
     };
     this.showSignin = function() {
         if (GSType.hover.forgotPassword.loadOnExitUrl) {
