@@ -4,14 +4,35 @@ GS.form = GS.form || {};
 GS.form.uspForm = (function ($) {
     "use strict";
 
+    var USP_FORM_SELECTOR = '#js_uspForm';
+    var OSP_USER_FIELDS_SELECTOR = '.js-ospUserFields';
+    var SUBMIT_SELECTOR = '.js_submit';
+
+    var REGISTRATION_FORM_SELECTOR = '.js_uspRegistrationForm:visible';
+    var REGISTRATION_PASSWORD_SELECTOR = '.js_regPassword:visible';
+    var REGISTRATION_EMAIL_SELECTOR = '.js_regEmail:visible';
+    var REGISTRATION_TERMS_OF_USE_SELECTOR = '.js-tou .js-checkBoxSprite:visible';
+    var REGISTRATION_SUBMIT_SELECTOR = '.js_uspRegistrationSubmit:visible';
+
+    var LOGIN_SUBMIT_SELECTOR = '.js_uspLoginSubmit:visible';
+    var LOGIN_FORM_SELECTOR = '.js_uspLoginForm:visible';
+    var LOGIN_EMAIL_SELECTOR = '.js_loginEmail:visible';
+    var LOGIN_PASSWORD_SELECTOR = '.js_loginPassword:visible';
+
+    var PASSWORD_ERROR_SELECTOR = '.js_passwordErr';
+    var EMAIL_ERROR_SELECTOR = '.js_emailErr';
+    var TERMS_OF_USE_ERROR_SELECTOR = '.js_termsErr';
+
+    var CHECK_USER_STATE_URL = '/school/QandA/checkUserState.page';
+
     var validateTermsOfUse = function(termsField) {
         var deferred = $.Deferred();
         var valid = termsField.parent().hasClass('js-checkBoxSpriteOn');
         if (valid) {
-            hideErrors('.js_termsErr');
+            hideErrors(TERMS_OF_USE_ERROR_SELECTOR);
             deferred.resolve();
         } else {
-            handleValidationResponse('.js_termsErr', 'You must agree to the terms of use.', termsField);
+            handleValidationResponse(TERMS_OF_USE_ERROR_SELECTOR, 'You must agree to the terms of use.', termsField);
             deferred.reject();
         }
         return deferred.promise();
@@ -21,10 +42,10 @@ GS.form.uspForm = (function ($) {
         var fieldVal = elem.val();
         var dfd = $.Deferred();
 
-        hideErrors('.js_passwordErr', elem);
+        hideErrors(PASSWORD_ERROR_SELECTOR, elem);
 
         if (fieldVal.length < 6 || fieldVal.length > 14) {
-            handleValidationResponse('.js_passwordErr', 'Password should be 6-14 characters.', elem);
+            handleValidationResponse(PASSWORD_ERROR_SELECTOR, 'Password should be 6-14 characters.', elem);
             dfd.reject();
         } else {
             return dfd.resolve();
@@ -35,7 +56,7 @@ GS.form.uspForm = (function ($) {
     var validateUserState = function (emailField, validateUserLogin, isSignInHover, passwordField) {
         var email = $.trim(emailField.val());
         var dfd = $.Deferred();
-        hideErrors('.js_emailErr', emailField);
+        hideErrors(EMAIL_ERROR_SELECTOR, emailField);
 
         if (email !== "" && email !== undefined) {
             var data = [];
@@ -49,7 +70,7 @@ GS.form.uspForm = (function ($) {
 
             $.ajax({
                 type:'GET',
-                url:'/school/QandA/checkUserState.page',
+                url:CHECK_USER_STATE_URL,
                 data:data,
                 dataType:'json',
                 async:true
@@ -66,7 +87,7 @@ GS.form.uspForm = (function ($) {
                     dfd.reject();
                 });
         } else {
-            handleValidationResponse('.js_emailErr', 'Please enter a valid email address.', emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, 'Please enter a valid email address.', emailField);
             dfd.reject();
         }
         return dfd.promise();
@@ -75,16 +96,16 @@ GS.form.uspForm = (function ($) {
     var handleEmailErrors = function (data, email, emailField, isLogin) {
         var isValid = false;
         if (data.isEmailValid !== true) {
-            handleValidationResponse('.js_emailErr', 'Please enter a valid email address.', emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, 'Please enter a valid email address.', emailField);
         } else if (isLogin === true && data.isNewUser === true) {
-            handleValidationResponse('.js_emailErr', "Please <a href='#' class='js_lnchUspRegistration' >register here</a>.", emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='#' class='js_lnchUspRegistration' >register here</a>.", emailField);
         } else if (isLogin === false && data.isNewUser !== true) {
-            handleValidationResponse('.js_emailErr', "Please <a href='#' class='js_lnchUspSignin'>sign in here</a>.", emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='#' class='js_lnchUspSignin'>sign in here</a>.", emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated !== true) {
             var onclickStr = "'GS.form.uspForm.handleEmailVerification(); return false;'";
-            handleValidationResponse('.js_emailErr', "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else if (isLogin === true && data.isCookieMatched !== true) {
-            handleValidationResponse('.js_emailErr', 'The password you entered is incorrect.', emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, 'The password you entered is incorrect.', emailField);
         } else {
             isValid = true;
         }
@@ -92,8 +113,8 @@ GS.form.uspForm = (function ($) {
     };
 
     var handleEmailVerification = function () {
-        var uspForm = $('#js_uspForm');
-        var emailField = $('.js_loginEmail:visible');
+        var uspForm = $(USP_FORM_SELECTOR);
+        var emailField = $(LOGIN_EMAIL_SELECTOR);
         saveForm(uspForm, '', emailField.val());
     };
 
@@ -133,13 +154,13 @@ GS.form.uspForm = (function ($) {
         handleValidationResponse(errorClass, '', elem);
     };
 
-    var validateUspDataAndShowHover = function (uspForm, isOspUser) {
+    var validateUspDataAndShowHover = function (uspForm) {
         var data = uspForm.serializeArray();
         var isUserSignedIn = GS.isSignedIn();
-        if (!isOspUser && !doUspFormValidations(data)) {
+        if (!isOspUser() && !doUspFormValidations(data)) {
             window.scrollTo(0,0);
             $(".js-uspSelectNone").removeClass("dn");
-        } else if (isOspUser && !doUspFormValidationsForOspUser(uspForm)) {
+        } else if (isOspUser() && !doUspFormValidationsForOspUser(uspForm)) {
             window.scrollTo(0,0);
             $(".js-uspSelectOneEach").removeClass("dn");
         }
@@ -233,9 +254,9 @@ GS.form.uspForm = (function ($) {
     };
 
     var hideAllErrors = function () {
-        $('.js_passwordErr').hide();
-        $('.js_emailErr').hide();
-        $('.js_termsErr').hide();
+        $(PASSWORD_ERROR_SELECTOR).hide();
+        $(EMAIL_ERROR_SELECTOR).hide();
+        $(TERMS_OF_USE_ERROR_SELECTOR).hide();
     };
 
     var doUspFormValidations = function (data) {
@@ -267,6 +288,101 @@ GS.form.uspForm = (function ($) {
         return true;
     };
 
+    var isOspUser = function() {
+        var $uspForm = $(USP_FORM_SELECTOR);
+        return $uspForm.find(OSP_USER_FIELDS_SELECTOR).length > 0;
+    };
+
+    var attachEventHandlers = function() {
+        var $uspForm = $(USP_FORM_SELECTOR);
+        var $body = $('body');
+
+        $uspForm.on('click', SUBMIT_SELECTOR, function () {
+            hideAllErrors();
+            validateUspDataAndShowHover($uspForm);
+
+            if(s) {
+                pageTracking.clear();
+                pageTracking.successEvents = "event81";
+                pageTracking.send();
+            }
+            return false;
+        });
+
+        // sets the value of hidden other field as [response_key]__[other_text_field_value]
+        $('.js-otherText').on('change', function () {
+            var $this = $(this);
+            $this.parent().find('input.js-otherValue').val(function (index, value) {
+                return value.substring(0, value.indexOf('__') + 2) + $this.val();
+            });
+        });
+
+        //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
+        //binding handlers to visible elements.
+        $body.on('blur', REGISTRATION_PASSWORD_SELECTOR, function (event) {
+            validatePassword($(event.target));
+        });
+
+        $body.on('blur', REGISTRATION_EMAIL_SELECTOR, function (event) {
+            validateUserState($(event.target), false, false);
+        });
+
+        $body.on('blur', LOGIN_EMAIL_SELECTOR, function (event) {
+            validateUserState($(event.target), false, true);
+        });
+
+        $body.on('click', '.js_lnchUspSignin', function () {
+            hideAllErrors();
+            GSType.hover.modalUspRegistration.hide();
+            GSType.hover.modalUspSignIn.show();
+        });
+
+        $body.on('click', '.js_modalUspSignIn_launchForgotPassword', function () {
+            hideAllErrors();
+            GSType.hover.modalUspSignIn.hide();
+            GSType.hover.forgotPassword.setOsp("true");
+            GSType.hover.forgotPassword.show();
+        });
+
+        $body.on('click', '.js_lnchUspRegistration', function () {
+            hideAllErrors();
+            GSType.hover.modalUspSignIn.hide();
+            GSType.hover.modalUspRegistration.show();
+
+            if(s) {
+                pageTracking.clear();
+                pageTracking.pageName = "USP Join Hover";
+                pageTracking.hierarchy =  "Hovers, Join, USP Join Hover";
+                pageTracking.send();
+            }
+        });
+
+        $body.on('click', REGISTRATION_SUBMIT_SELECTOR, function () {
+            if(s) {
+                pageTracking.clear();
+                pageTracking.successEvents = "event82";
+                pageTracking.send();
+            }
+
+            var uspRegistrationForm = $(REGISTRATION_FORM_SELECTOR);
+            var uspRegistrationPasswordField = uspRegistrationForm.find(REGISTRATION_PASSWORD_SELECTOR);
+            var uspRegistrationEmailField = uspRegistrationForm.find(REGISTRATION_EMAIL_SELECTOR);
+            var uspTermsOfUseField = uspRegistrationForm.find(REGISTRATION_TERMS_OF_USE_SELECTOR);
+
+            registerAndSaveData($uspForm, uspRegistrationPasswordField, uspRegistrationEmailField, uspTermsOfUseField);
+        });
+
+        $body.on('click', LOGIN_SUBMIT_SELECTOR, function () {
+            var uspLoginForm = $(LOGIN_FORM_SELECTOR);
+            var uspLoginPasswordField = uspLoginForm.find(LOGIN_PASSWORD_SELECTOR);
+            var uspLoginEmailField = uspLoginForm.find(LOGIN_EMAIL_SELECTOR);
+
+            loginAndSaveData($uspForm, uspLoginPasswordField, uspLoginEmailField);
+        });
+
+        //TODO forgot password
+    };
+
     return {
         validateTermsOfUse: validateTermsOfUse,
         validatePassword: validatePassword,
@@ -283,7 +399,9 @@ GS.form.uspForm = (function ($) {
         saveForm: saveForm,
         hideAllErrors: hideAllErrors,
         doUspFormValidations: doUspFormValidations,
-        doUspFormValidationsForOspUser: doUspFormValidationsForOspUser
+        doUspFormValidationsForOspUser: doUspFormValidationsForOspUser,
+        attachEventHandlers: attachEventHandlers,
+        isOspUser: isOspUser
     };
 })(jQuery);
 
@@ -293,6 +411,7 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
     var checkOff = container.find(".js-checkBoxSpriteOff");
     var checkBoxField = $("#" + fieldToSet);
     checkOff.on("click", function () {
+        var $this = $(this);
         $(this).addClass(' dn');
         $(this).siblings().removeClass(' dn');
         // set the value for the hidden input field as [response_key]__None for boys sports,
@@ -311,10 +430,11 @@ function uspSpriteCheckBoxes(containerLayer, fieldToSet, checkedValue, unchecked
         checkBoxField.val(checkedValue);
     });
     checkOn.on("click", function () {
-        $(this).addClass(' dn');
-        $(this).siblings().removeClass(' dn');
+        var $this = $(this);
+        $this.addClass(' dn');
+        $this.siblings().removeClass(' dn');
         // set the value for the hidden input field as [response_key]__
-        $(this).parent().find('input.js-noneValue').val(function (index, value) {
+        $this.parent().find('input.js-noneValue').val(function (index, value) {
             return value.substring(0, value.indexOf('__') + 2);
         });
         checkBoxField.val(uncheckedValue);
@@ -327,93 +447,5 @@ jQuery(function () {
     uspSpriteCheckBoxes("js-otherResponse", "formOther", 1, 0);
     uspSpriteCheckBoxes("js-tou", "formOther", 1, 0);
 
-    var uspForm = $('#js_uspForm');
-    var $body = $('body');
-
-    var isOspUser = function () {
-        return uspForm.find('.js-ospUserFields').length > 0;
-    };
-
-    uspForm.on('click', '.js_submit', function () {
-        GS.form.uspForm.hideAllErrors();
-        GS.form.uspForm.validateUspDataAndShowHover(uspForm, isOspUser());
-
-        if(s) {
-            pageTracking.clear();
-            pageTracking.successEvents = "event81";
-            pageTracking.send();
-        }
-        return false;
-    });
-
-    // sets the value of hidden other field as [response_key]__[other_text_field_value]
-    $('.js-otherText').on('change', function () {
-        var $this = $(this);
-        $this.parent().find('input.js-otherValue').val(function (index, value) {
-            return value.substring(0, value.indexOf('__') + 2) + $this.val();
-        });
-    });
-
-    //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
-    //binding handlers to visible elements.
-    $body.on('blur', '.js_regPassword:visible', function (event) {
-        GS.form.uspForm.validatePassword($(event.target));
-    });
-
-    $body.on('blur', '.js_regEmail:visible', function (event) {
-        GS.form.uspForm.validateUserState($(event.target), false, false);
-    });
-
-    $body.on('blur', '.js_loginEmail:visible', function (event) {
-        GS.form.uspForm.validateUserState($(event.target), false, true);
-    });
-
-    $body.on('click', '.js_lnchUspSignin', function () {
-        GS.form.uspForm.hideAllErrors();
-        GSType.hover.modalUspRegistration.hide();
-        GSType.hover.modalUspSignIn.show();
-    });
-
-    $body.on('click', '.js_modalUspSignIn_launchForgotPassword', function () {
-        GS.form.uspForm.hideAllErrors();
-        GSType.hover.modalUspSignIn.hide();
-        GSType.hover.forgotPassword.setOsp("true");
-        GSType.hover.forgotPassword.show();
-    });
-
-    $body.on('click', '.js_lnchUspRegistration', function () {
-        GS.form.uspForm.hideAllErrors();
-        GSType.hover.modalUspSignIn.hide();
-        GSType.hover.modalUspRegistration.show();
-
-        if(s) {
-            pageTracking.clear();
-            pageTracking.pageName = "USP Join Hover";
-            pageTracking.hierarchy =  "Hovers, Join, USP Join Hover";
-            pageTracking.send();
-        }
-    });
-
-    $body.on('click', '.js_uspRegistrationSubmit:visible', function () {
-        if(s) {
-            pageTracking.clear();
-            pageTracking.successEvents = "event82";
-            pageTracking.send();
-        }
-        //TODO find a better way to get the form values.
-        var uspRegistrationForm = $('.js_uspRegistrationForm:visible');
-        var uspRegistrationPasswordField = uspRegistrationForm.find('.js_regPassword');
-        var uspRegistrationEmailField = uspRegistrationForm.find('.js_regEmail');
-        var uspTermsOfUseField = uspRegistrationForm.find('.js-tou .js-checkBoxSprite:visible');
-        GS.form.uspForm.registerAndSaveData(uspForm, uspRegistrationPasswordField, uspRegistrationEmailField, uspTermsOfUseField);
-    });
-
-    $body.on('click', '.js_uspLoginSubmit:visible', function () {
-        //TODO find a better way to get the form values.
-        var uspLoginForm = $('.js_uspLoginForm:visible');
-        var uspLoginPasswordField = uspLoginForm.find('.js_loginPassword');
-        var uspLoginEmailField = uspLoginForm.find('.js_loginEmail');
-        GS.form.uspForm.loginAndSaveData(uspForm, uspLoginPasswordField, uspLoginEmailField);
-    });
-
+    GS.form.uspForm.attachEventHandlers();
 });
