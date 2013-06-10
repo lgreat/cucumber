@@ -65,6 +65,40 @@
                         </c:if>
                     </div>
                 </div>
+                <div class="grid_13 suffix_1">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <div class="line">
+                                    <div class="unit size65of100">
+                                        <p class="bottom">
+                                            ${school.name}<br/>
+                                            <c:if test="${school.physicalAddress.street ne null}">
+                                                <span class="small">${school.physicalAddress.street}</span><br/>
+                                            </c:if>
+                                            <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
+                                        </p>
+                                    </div>
+                                    <div class="unit size35of100 lastUnit">
+                                        <p class="small bottom">
+                                            <link:schoolProfileOverview
+                                                    school="${school}">View profile</link:schoolProfileOverview><br/>
+                                            <c:if test="${isProvisional ne true}">
+                                                <link:schoolPrincipalReview
+                                                        school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                            </c:if>
+                                            <c:if test="${showOtherEditorsHover eq true}">
+                                                <br/>
+                                                <a href="#" id="js_otherEspEditors"
+                                                   onclick="return false;">Add more administrators</a>
+                                            </c:if>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </c:when>
             <c:otherwise>
             <!-- Provisional message if needed -->
