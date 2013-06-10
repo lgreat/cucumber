@@ -513,11 +513,9 @@ jQuery(document).ready(function() {
     }
 });
 
-// special ipad case -- so far only click with touchstart works
-var ua = navigator.userAgent;
-var gs_eventclick = (ua.match(/iPad/i)) ? "touchstart" : "click";
-var gs_eventmove = (ua.match(/iPad/i)) ? "touchmove" : "mousemove";
-var gs_eventend = (ua.match(/iPad/i)) ? "touchend" : "mouseleave";
+var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";
+var gs_eventmove = (GS.util.isBrowserTouch()) ? "touchmove" : "mousemove";
+var gs_eventend = (GS.util.isBrowserTouch()) ? "touchend" : "mouseleave";
 
 /********************************************************************************************************
  *
@@ -548,7 +546,7 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
             removeClassStr += " ";
         }
     }
-    $('#'+containerS).mousemove (function(e){
+    $('#'+containerS).on(gs_eventmove, function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -572,7 +570,7 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextV
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
 
     });
-    $('#'+containerS).mouseleave (function(e){
+    $('#'+containerS).on(gs_eventend, function(e){
         var currentRating = overallStarRating.val();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
