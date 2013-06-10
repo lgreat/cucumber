@@ -73,7 +73,7 @@
                                 <div class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</div>
                                 <div class="pll pts fl small bottom">
                                     Already a member?
-                                    <a href="#" class="js_lnchUspSignin">Sign in</a>
+                                    <a href="javascript:void(0);" class="js_lnchUspSignin">Sign in</a>
                                 </div>
                             </div>
                         </div>

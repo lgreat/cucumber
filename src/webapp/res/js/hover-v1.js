@@ -2219,12 +2219,7 @@ GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printS
 GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 
 
-GSType.hover.ModalUspRegistration = function() {
-//    this.show = function() {
-//        GSType.hover.modalUspRegistration.showModal();
-//        return false;
-//    };
-};
+GSType.hover.ModalUspRegistration = function() {};
 GSType.hover.ModalUspRegistration.prototype = new GSType.hover.HoverDialog('js-modalUspRegistration');
 GSType.hover.modalUspRegistration = new GSType.hover.ModalUspRegistration();
 

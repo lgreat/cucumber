@@ -38,7 +38,7 @@
                                 <div class="fl smaller bottom pll">
                                     <a href="javascript:void(0);" class="js_modalUspSignIn_launchForgotPassword smaller">Forgot your password?</a><br/>
                                     Not a member?
-                                    <a href="#" class="js_lnchUspRegistration">Join GreatSchools</a>
+                                    <a href="javascript:void(0);" class="js_lnchUspRegistration">Join GreatSchools</a>
                                 </div>
                             </div>
                         </div>
