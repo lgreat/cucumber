@@ -638,7 +638,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         Set<String> responseKeys = new HashSet<String>(){{
             add("_page_osp_gateway_keys");
-            addAll(getResponseKeys());
+            addAll(EspStatusManager.getOspKeySet());
         }};
         _espResponseDao.deleteResponses(school, user.getId(),responseKeys, EspResponseSource.osp);
         _espResponseDao.saveResponses(isA(School.class), isA(ArrayList.class));
