@@ -413,8 +413,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 //        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
         _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(EspSaveBehaviour.class));
         expectLastCall();
-        _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
-        expectLastCall();
 
         replayAllMocks();
         _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
@@ -443,15 +441,13 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         EspSaveBehaviour saveBehaviour = _controller.getSaveBehaviour(user);
         _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(EspSaveBehaviour.class));
         expectLastCall();
-        _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
-        expectLastCall();
 
         replayAllMocks();
         _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
                 _schoolId, _state);
         verifyAllMocks();
 
-        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"redirect\":\"http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&state=CA\"}");
+        assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"redirect\":\"http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&sendThankYouEmail=true&state=CA\"}");
     }
 
     public School getSchool(State state, Integer schoolId) {

@@ -57,6 +57,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String PARAM_USP_SUBMISSION = "usp";
+    public static final String PARAM_SEND_THANK_YOU_EMAIL = "sendThankYouEmail";
 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
@@ -220,12 +221,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
         }
 
-        Map<String, String> emailAttributes = new HashMap<String, String>();
-        emailAttributes.put("school_name", school.getName());
-        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        emailAttributes.put("school_URL", urlBuilder.asFullUrl(request));
-        getExactTargetAPI().sendTriggeredEmail("USP-thank-you", user, emailAttributes);
-
         return;
     }
 
@@ -260,6 +255,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
             urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
             urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
+            urlBuilder.addParameter(PARAM_SEND_THANK_YOU_EMAIL, "true");
         } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
             //If the user has registered via the register hover then show the profile page.
             //If the user was already existing but not email verified then sent an verification email and show the profile page.
@@ -371,6 +367,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
                 urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
                 urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
                 urlBuilder.addParameter(PARAM_USP_SUBMISSION, "true");
+                urlBuilder.addParameter(PARAM_SEND_THANK_YOU_EMAIL, "true");
                 registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
                 registrationBehavior.setSchool(school);
             }
@@ -394,13 +391,32 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)
     public String showThankYou(ModelMap modelMap, HttpServletRequest request,
                               HttpServletResponse response,
+                              UserRegistrationCommand userRegistrationCommand,
+                              UserLoginCommand userLoginCommand,
+                              BindingResult bindingResult,
                               @RequestParam(value = UspFormHelper.PARAM_SCHOOL_ID, required = true) Integer schoolId,
-                              @RequestParam(value = UspFormHelper.PARAM_STATE, required = true) State state) {
+                              @RequestParam(value = UspFormHelper.PARAM_STATE, required = true) State state,
+                              @RequestParam(value = PARAM_SEND_THANK_YOU_EMAIL, required = false) String sendThankYouEmail) {
         School school = getSchool(state, schoolId);
         if(school != null) {
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             modelMap.put("schoolUrl", urlBuilder.asFullUrl(request));
             modelMap.put("school", school);
+        }
+
+        UserStateStruct userStateStruct = getValidUser(request, response,
+                userRegistrationCommand, userLoginCommand, bindingResult, school);
+
+        if(userStateStruct != null) {
+            User user = userStateStruct.getUser();
+            if(sendThankYouEmail != null && "true".equals(sendThankYouEmail)) {
+                Map<String, String> emailAttributes = new HashMap<String, String>();
+                emailAttributes.put("school_name", school.getName());
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                emailAttributes.put("school_URL", urlBuilder.asFullUrl(request));
+                getExactTargetAPI().sendTriggeredEmail("USP-thank-you", user, emailAttributes);
+
+            }
         }
         return THANK_YOU_VIEW;
     }
