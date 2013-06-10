@@ -416,6 +416,4 @@ jQuery(function () {
         GS.form.uspForm.loginAndSaveData(uspForm, uspLoginPasswordField, uspLoginEmailField);
     });
 
-    //TODO forgot password
-
 });

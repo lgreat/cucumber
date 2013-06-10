@@ -343,9 +343,13 @@ public class EspSaveHelper implements BeanFactoryAware {
             }
             _espResponseDao.deactivateResponses(school, responseKeysLookUpMap.keySet(), responseSourcesToDeactivate, null);
         } else if (isOspProvisional) {
-            //If the provisional user is saving the form, delete the keys that were stored for the page earlier.
+            //If the provisional user then keys on the page = all the keys on the gateway form. This is done so that the "_page_osp_gateway_keys" contains
+            //all the keys on the gateway form(including the "other") keys. When provisional user is approved and the data is promoted,
+            //"_page_osp_gateway_keys" is used to recognise all the existing keys that need to be deactivated.
+            //Hence it is important that "_page_osp_gateway_keys" contains "other" keys even if the provisional user did not enter
+            //anything into the other text box).
             String pageKey = getPageKeys(OSP_GATEWAY_PAGE_NAME);
-            EspResponse response = deleteAndCreateProvisionalUserResponse(pageKey, responseKeysLookUpMap.keySet(), school, user, now);
+            EspResponse response = deleteAndCreateProvisionalUserResponse(pageKey, EspStatusManager.getOspKeySet(), school, user, now);
             if (response != null) {
                 responseList.add(response);
             }
