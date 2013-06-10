@@ -15,7 +15,21 @@
 
     <c:set var="updateThisInfoBlurb" scope="page">
         <div class="pa small bottom">
-            School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
+            <c:choose>
+                <c:when test="${espStatus eq 'USP_ONLY'}">
+                    Note: Data provided by community members, needs to be verified by <link:schoolEspRegister styleClass="no_interrupt" school="${school}">school leaders</link:schoolEspRegister>.
+                </c:when>
+                <c:when test="${espStatus eq 'OSP_PREFERRED' or espStatus eq 'OSP_OUTDATED'}">
+                    School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
+                </c:when>
+                <c:when test="${espStatus eq 'MIX'}">
+                    Note: Data provided by school administrators and community. School leaders, update and verify information
+                    <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
+                </c:when>
+                <c:otherwise>
+                    School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
+                </c:otherwise>
+            </c:choose>
         </div>
     </c:set>
 

@@ -122,14 +122,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
         modelMap.put( "espData", espResults );
 
-        EspResponseData espResponseData = new EspResponseData(espResults);
+        /*EspResponseData espResponseData = new EspResponseData(espResults);
 
         // We could get EspStatus with static method on EspStatusManager, but that would make it a little harder to test
         EspStatusManager espStatusManager = (EspStatusManager) _beanFactory.getBean(
                 "espStatusManager", school, espResponseData
-        );
+        );*/
 
-        modelMap.put("ospStatus", espStatusManager.getEspStatus().getStatus());
+        modelMap.put("ospStatus", _schoolProfileDataHelper.getOspStatus(request, espResults));
 
         if( espResults != null && !espResults.isEmpty() ) {
             // OSP case
