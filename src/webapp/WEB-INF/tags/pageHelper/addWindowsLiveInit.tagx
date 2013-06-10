@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag import="gs.data.util.CmsUtil"/>
+    <jsp:directive.tag import="java.net.URLEncoder"/>
+
+    <!--
+    Currently used for wl.js (Windows Live) OAuth 2.0 implicit grant flow
+    Current feature using this is Tandem Calendar's export to Outlook.com feature
+
+    Requires existence of windowsLiveScript.html
+    Requires GreatSchools windowsLive.js module
+    Requires JQuery to load the wl.js script asyncronously and then call WL.init
+
+    OAuth info:
+    http://msdn.microsoft.com/en-us/library/live/hh243647.aspx#implicitgrant
+
+    Example code:
+    http://isdk.dev.live.com/ISDK.aspx?category=scenarioGroup_hotmail&index=2
+
+    API Reference:
+    http://msdn.microsoft.com/en-us/library/live/hh243643.aspx
+    -->
+
+        <jsp:scriptlet>
+            request.setAttribute("windowsLiveAppId", CmsUtil.getWindowsLiveAppId());
+        </jsp:scriptlet>
+
+        <script type="text/javascript">
+            $(function() {
+                $.getScript("//js.live.net/v5.0/en/wl.js").done(function(script, textStatus) {
+                    WL.init({
+                        client_id: '${windowsLiveAppId}',
+                        response_type: 'token',
+                        redirect_uri: '/res/windowsLiveScript.html'
+                    }).then(function(response){
+                        GS.windowsLive.init();
+                    }, function(response) {
+                        //something went wrong
+                    });
+                })
+                .fail(function(jqxhr, settings, exception) {
+                    // something went wrong
+                });
+            });
+        </script>
+
+</jsp:root>

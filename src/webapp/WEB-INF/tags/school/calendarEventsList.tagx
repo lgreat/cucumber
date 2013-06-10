@@ -108,6 +108,7 @@
                                     <div class="fr  pls" style="background-color: #666666"><div class="mrs mt3"><span class="iconx16 i-16-downArrowWhite-sm"><!--do not collapse--></span></div></div>
                                 </div>
                                 <div class="js-selectDropDown selectDropDown2 pa pam dn">
+                                    <div class="js-ddValues">Outlook.com </div>
                                     <div class="js-ddValues">Microsoft Outlook </div>
                                     <div class="js-ddValues">iCal Format </div>
                                     <div class="js-ddValues">Google Calendar </div>
@@ -123,6 +124,10 @@
                                 <!--<option value="iCal">iCal Format</option>-->
                                 <!--<option value="Google">Google Calendar</option>-->
                             <!--</select>-->
+                        </div>
+                        <div id="js-outlook-uploading" class="dn fl ptl small_bold">
+                            Uploading, please wait...
+                            <img id="" src="/res/img/admin/spinner.gif"></img>
                         </div>
                         <div class="fr pam clearfix">
                             <div class="prm fl smallest bottom ptm ${tandem_fontColorHeaderFooter}">POWERED BY</div>
