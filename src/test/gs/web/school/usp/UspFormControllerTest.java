@@ -352,7 +352,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), false);
         assertEquals("User is in the session in.",
-                "http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&state=CA", url);
+                "http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&sendThankYouEmail=true&state=CA", url);
     }
 
     public void testDetermineRedirectsWithUserRegistered() throws Exception {
