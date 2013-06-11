@@ -123,7 +123,7 @@ where each entry is the first bean for that section, this allows access to the s
                             <h4 class="ptm bottom">Administrators &amp; teachers: Let your school shine!</h4>
                             <div class="small">Help your school shine online by adding program highlights, photos and
                                 more on GreatSchools!
-                                <a href="/school/esp/QandAForm.page?schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                                <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
                             </div>
                         </div>
                     </div>
