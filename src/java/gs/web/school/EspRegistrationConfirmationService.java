@@ -1,21 +1,26 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.school.usp.EspStatus;
 import gs.web.school.usp.EspStatusManager;
 import gs.web.school.usp.UspFormController;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class EspRegistrationConfirmationService implements BeanFactoryAware {
@@ -28,6 +33,9 @@ public class EspRegistrationConfirmationService implements BeanFactoryAware {
     private IEspResponseDao _espResponseDao;
     @Autowired
     private EspRegistrationHelper _espRegistrationHelper;
+    @Autowired
+    @Qualifier("exactTargetAPI")
+    private ExactTargetAPI _exactTargetAPI;
 
     private BeanFactory _beanFactory;
 
@@ -65,6 +73,13 @@ public class EspRegistrationConfirmationService implements BeanFactoryAware {
                     if (!responses.isEmpty()) {
                         //TODO Do we need to keep the inactive responses?
                         _espResponseDao.activateResponses(school, user.getId(), EspResponseSource.usp);
+
+                        // send thank you email after responses are activated on email verification
+                        Map<String, String> emailAttributes = new HashMap<String, String>();
+                        emailAttributes.put("school_name", school.getName());
+                        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                        emailAttributes.put("school_URL", urlBuilder.asFullUrl(request));
+                        getExactTargetAPI().sendTriggeredEmail("USP-thank-you", user, emailAttributes);
                     }
                 }
             }
@@ -123,4 +138,11 @@ public class EspRegistrationConfirmationService implements BeanFactoryAware {
         _espRegistrationHelper = espRegistrationHelper;
     }
 
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI _exactTargetAPI) {
+        this._exactTargetAPI = _exactTargetAPI;
+    }
 }

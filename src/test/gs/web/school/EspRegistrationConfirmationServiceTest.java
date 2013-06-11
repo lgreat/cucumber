@@ -1,9 +1,11 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.school.usp.EspStatus;
@@ -24,6 +26,7 @@ public class EspRegistrationConfirmationServiceTest extends BaseControllerTestCa
     private ISchoolDao _schoolDao;
     EspStatusManager _espStatusManager;
     private EspRegistrationHelper _espRegistrationHelper;
+    private ExactTargetAPI _exactTargetAPI;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -35,24 +38,26 @@ public class EspRegistrationConfirmationServiceTest extends BaseControllerTestCa
         _beanFactory = EasyMock.createStrictMock(BeanFactory.class);
         _espStatusManager = EasyMock.createStrictMock(EspStatusManager.class);
         _espRegistrationHelper = EasyMock.createStrictMock(EspRegistrationHelper.class);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
 
         _service.setEspResponseDao(_espResponseDao);
         _service.setEspMembershipDao(_espMembershipDao);
         _service.setBeanFactory(_beanFactory);
         _service.setSchoolDao(_schoolDao);
         _service.setEspRegistrationHelper(_espRegistrationHelper);
+        _service.setExactTargetAPI(_exactTargetAPI);
     }
 
     private void resetAllMocks() {
-        resetMocks(_espResponseDao,_espMembershipDao,_schoolDao, _beanFactory, _espStatusManager, _espRegistrationHelper);
+        resetMocks(_espResponseDao,_espMembershipDao,_schoolDao, _beanFactory, _espStatusManager, _espRegistrationHelper, _exactTargetAPI);
     }
 
     private void replayAllMocks() {
-        replayMocks(_espResponseDao,_espMembershipDao,_schoolDao, _beanFactory, _espStatusManager, _espRegistrationHelper);
+        replayMocks(_espResponseDao,_espMembershipDao,_schoolDao, _beanFactory, _espStatusManager, _espRegistrationHelper, _exactTargetAPI);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_espResponseDao,_espMembershipDao,_schoolDao, _beanFactory,_espStatusManager, _espRegistrationHelper);
+        verifyMocks(_espResponseDao,_espMembershipDao,_schoolDao, _beanFactory,_espStatusManager, _espRegistrationHelper, _exactTargetAPI);
     }
 
     public void testGetProcessingMembershipForUser() {
@@ -108,6 +113,9 @@ public class EspRegistrationConfirmationServiceTest extends BaseControllerTestCa
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
+        school.setPhysicalAddress(new Address("ASD St", "Some city", State.CA, "12345"));
+        school.setName("QWERTY Elementary");
+        school.setLevelCode(LevelCode.ELEMENTARY);
 
         List<EspResponse> responses = new ArrayList<EspResponse>(Arrays.asList(new EspResponse()));
 
@@ -131,6 +139,8 @@ public class EspRegistrationConfirmationServiceTest extends BaseControllerTestCa
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_OUTDATED);
         expect(_espResponseDao.getResponses(school, user.getId(), true)).andReturn(responses);
         _espResponseDao.activateResponses(school, user.getId(), EspResponseSource.usp);
+        _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(Map.class));
+        expectLastCall();
 
         replayAllMocks();
         status = _service.handleEspSubmissions(request, user);
