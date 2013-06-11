@@ -14,7 +14,7 @@
                         <h2 class="tac bottom pbm">Join GreatSchools</h2>
                         <p class="tac">Create an account to submit your answers.</p>
                     </div>
-                    <form class="js_uspRegistrationForm">
+                    <form class="js_uspRegistrationForm" onsubmit="return false;">
                         <div class="body pal">
                             <div class="mtm">
                                 <label class="small bottom">Your email address</label><br/>
