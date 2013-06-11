@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="clearfix">
-                                <div class="fl but but-rg but-1 js_uspLoginSubmit">Sign in</div>
+                                <button class="fl but but-rg but-1 js_uspLoginSubmit">Sign in</button>
                                 <div class="fl smaller bottom pll">
                                     <a href="javascript:void(0);" class="js_modalUspSignIn_launchForgotPassword smaller">Forgot your password?</a><br/>
                                     Not a member?

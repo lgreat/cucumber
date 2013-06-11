@@ -70,7 +70,7 @@
                                 </div>
                             </c:if>
                             <div class="clearfix">
-                                <div class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</div>
+                                <button class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</button>
                                 <div class="pll pts fl small bottom">
                                     Already a member?
                                     <a href="javascript:void(0);" class="js_lnchUspSignin">Sign in</a>
