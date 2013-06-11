@@ -342,6 +342,12 @@ GS.form.uspForm = (function ($) {
             GSType.hover.modalUspSignIn.hide();
             GSType.hover.forgotPassword.setOsp("true");
             GSType.hover.forgotPassword.show();
+            jQuery('button[name=forgotPasswordCancel]:visible').addClass('js_showSignIn').removeClass('js_closeHover');
+        });
+
+        $body.on('click', '.js_showSignIn', function() {
+            GSType.hover.forgotPassword.hide();
+            GSType.hover.modalUspSignIn.show();
         });
 
         $body.on('click', '.js_lnchUspRegistration', function () {
