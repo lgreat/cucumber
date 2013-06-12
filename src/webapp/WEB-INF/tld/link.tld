@@ -4773,5 +4773,27 @@
             <description>HTML id attribute</description>
         </attribute>
     </tag>
-
+    <tag>
+        <name>uspForm</name>
+        <tag-class>gs.web.jsp.link.school.UspFormTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>USP Form</display-name>
+        <description>
+            <![CDATA[USP Form page]]>
+        </description>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML class attribute</description>
+        </attribute>
+    </tag>
 </taglib>

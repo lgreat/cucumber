@@ -12,9 +12,11 @@
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 
     <jsp:directive.attribute name="photosModel" type="java.lang.Object" required="true"/>
+    <jsp:directive.attribute name="hasOspData" type="java.lang.Boolean" required="true"/>
     <c:set var="images" value="${photosModel['photoGalleryImages']}" scope="page"/>
     <c:set var="basePath" value="${photosModel['basePhotoPath']}" scope="page"/>
     <!-- Old
@@ -85,24 +87,42 @@
                                   basePath="${basePath}"/>
         </c:when>
         <c:otherwise>
-            <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
-            <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
-                <div class="outer">
-                    <div class="inner bg-addPhotos ie-moduleHeight-162">
-                        <div class="hd">
-                            <h3 class="bottom">Add photos</h3>
-                        </div>
-                        <div class="bd" style="height:125px;">
-                            <p class="small mtm">
-                                <span class="make-555555">Schools,</span><br />
-                                join today<br />
-                                <span class="make-555555">to upload<br />photos.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </link:schoolEspRegister>
+            <c:choose>
+                <!-- if school has osp data but no photos -->
+                <c:when test="${hasOspData}">
+                    <c:choose>
+                        <!-- if in osp preferred state, display add photos tile -->
+                        <c:when test="${ospStatus eq 'osp_preferred'}">
+                            <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
+                                <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
+                                    <div class="outer">
+                                        <div class="inner bg-addPhotos ie-moduleHeight-162">
+                                            <div class="hd">
+                                                <h3 class="bottom">Add photos</h3>
+                                            </div>
+                                            <div class="bd" style="height:125px;">
+                                                <p class="small mtm">
+                                                    <span class="make-555555">Schools,</span><br />
+                                                    join today<br />
+                                                    <span class="make-555555">to upload<br />photos.</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </link:schoolEspRegister>
+                        </c:when>
+                        <!-- if in any state other than OSP_PREFERRED, show USP promo tile -->
+                        <c:otherwise>
+                            <school:uspPromoTile/>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <!-- If no osp data and no photos, show usp promo tile instead of add photos -->
+                <c:otherwise>
+                    <school:uspPromoTile/>
+                </c:otherwise>
+            </c:choose>
         </c:otherwise>
     </c:choose>
 </jsp:root>

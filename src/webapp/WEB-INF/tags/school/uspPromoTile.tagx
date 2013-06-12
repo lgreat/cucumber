@@ -19,7 +19,9 @@
                     <h4 class="bottom">Do you know this school?</h4>
                 </div>
                 <div class="bd tac" style="${moduleHeight}}">
-                    <a href="#" class="tac small mtm">Help other families learn<br/>more  &amp;raquo;</a>
+                    <link:uspForm school="${school}" styleClass="tac small mtm">
+                        Help other families learn<br/>more  &amp;raquo;
+                    </link:uspForm>
                 </div>
             </div>
         </div>
