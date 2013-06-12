@@ -17,7 +17,7 @@
         <div class="pa small bottom">
             <c:choose>
                 <c:when test="${espStatus eq 'USP_ONLY'}">
-                    Note: Data provided by community members, needs to be verified by <link:schoolEspRegister styleClass="no_interrupt" school="${school}">school leaders</link:schoolEspRegister>.
+                    Note: Data provided by community members,<br/>needs to be verified by <link:schoolEspRegister styleClass="no_interrupt" school="${school}">school leaders</link:schoolEspRegister>.
                 </c:when>
                 <c:when test="${espStatus eq 'OSP_PREFERRED' or espStatus eq 'OSP_OUTDATED'}">
                     School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
