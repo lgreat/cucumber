@@ -7,12 +7,13 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
-import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatus;
 import gs.web.school.usp.EspStatusManager;
 import gs.web.search.ICmsFeatureSearchResult;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
@@ -418,15 +419,11 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
     private ModelMap runController( Map<String, List<EspResponse>> espData) {
         resetMocks(_schoolProfileDataHelper);
-        org.easymock.classextension.EasyMock.reset(_beanFactory);
-        org.easymock.classextension.EasyMock.reset(_espStatusManager);
         ModelMap map = new ModelMap();
         //ESP data for school is fetched on the culture tab.
         expect(_schoolProfileDataHelper.getEspDataForSchool(getRequest())).andReturn(espData);
-        org.easymock.classextension.EasyMock.expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class), isA(EspResponseData.class))).andReturn(
-            _espStatusManager
-        );
-        org.easymock.classextension.EasyMock.expect(_espStatusManager.getEspStatus()).andReturn(null);
+        expect(_schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(new ArrayList<SchoolMedia>());
+        expect(_schoolProfileDataHelper.getOspStatus(isA(HttpServletRequest.class), isA(Map.class))).andReturn(isA(EspStatus.class));
         List<SchoolMedia> photoGalleryImages = new ArrayList<SchoolMedia>();
         expect(_schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(photoGalleryImages).anyTimes();
 
@@ -445,12 +442,8 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         String [] cmsIds = new String [] {"7279"};
         expect( _schoolProfileDataHelper.getCmsArticles(eq(getRequest()), aryEq(cmsIds))).andReturn(new ArrayList< ICmsFeatureSearchResult >()).anyTimes();
 
-        org.easymock.classextension.EasyMock.replay(_beanFactory);
-        org.easymock.classextension.EasyMock.replay(_espStatusManager);
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
-        org.easymock.classextension.EasyMock.verify(_beanFactory);
-        org.easymock.classextension.EasyMock.verify(_espStatusManager);
         verify(_schoolProfileDataHelper);
         return map;
     }

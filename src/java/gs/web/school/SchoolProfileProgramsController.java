@@ -174,12 +174,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Get Data
         if (school != null) {
             Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
-            /*EspResponseData espResponseData = getEspResponseData(espResults);
-            EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean(
-                EspStatusManager.BEAN_NAME,
-                school,
-                espResponseData
-            );*/
+
             modelMap.put("espStatus", _schoolProfileDataHelper.getOspStatus( request, espResults));
 
             boolean hasEspData = (espResults != null && espResults.size() > 0) ? true : false;
