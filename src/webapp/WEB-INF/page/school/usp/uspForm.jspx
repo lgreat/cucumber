@@ -104,7 +104,7 @@
                         <c:if test="${!isSchoolAdmin}">
                             <div class="standard_2-4" style="width: 390px">
                                 <div class="inner">
-                                    <h4 class="bottom">School leaders - manage your school’s profile</h4>
+                                    <h4 class="bottom">School leaders: Manage your school’s profile</h4>
                                     <div class="small bottom">Add program highlights, photos and more!
                                         <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
                                     </div>
