@@ -92,7 +92,7 @@
                 <c:when test="${hasOspData}">
                     <c:choose>
                         <!-- if in osp preferred state, display add photos tile -->
-                        <c:when test="${ospStatus eq 'osp_preferred'}">
+                        <c:when test="${ospStatus eq 'OSP_PREFERRED'}">
                             <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
                                 <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                                     <div class="outer">
