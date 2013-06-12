@@ -23,7 +23,7 @@
                     School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
                 </c:when>
                 <c:when test="${espStatus eq 'MIX'}">
-                    Note: Data provided by school administrators and community. School leaders, update and verify information
+                    Note: Data provided by school administrators and community.<br/>School leaders, update and verify information
                     <link:schoolEspRegister styleClass="no_interrupt" school="${school}">here</link:schoolEspRegister>.
                 </c:when>
                 <c:otherwise>
