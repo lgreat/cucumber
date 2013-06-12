@@ -94,6 +94,16 @@ GS.profile = GS.profile || (function() {
     var refreshableOverviewAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
     var refreshableReviewsAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
 
+    var refreshableCultureAdSlotKeys = [
+        'School_Profile_Page_Footer_728x90',
+        'School_Profile_Page_Header_728x90',
+        'School_Profile_Page_Community_Ad_300x50',
+        'School_Profile_Page_BelowFold_300x250',
+        'School_Profile_Page_BelowFold_Top_300x125',
+        'School_Profile_Page_Culture_AboveFold_300x600'
+    ];
+
+
     var otherAdSlotKeys = [
         'Global_NavPromo_970x30',
         'Custom_Welcome_Ad'
@@ -138,12 +148,16 @@ GS.profile = GS.profile || (function() {
         handleHashBang();
 
         var currentTab = GS.tabManager.getCurrentTab();
+
         initialTab = currentTab;
         if (initialTab.name === 'overview') {
             refreshableOverviewAdSlotKeys.push('School_Profile_Page_Sponsor_630x40');
         } else if (initialTab.name === 'reviews') {
             refreshableReviewsAdSlotKeys.push('School_Profile_Page_Reviews_CustomSponsor_630x40');
+        } else if (initialTab.name === 'culture') {
+//            refreshableCultureAdSlotKeys.push('School_Profile_Page_Culture_CustomSponsor_630x40');
         }
+        refreshAdsForTab(currentTab.name);
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             window.History.Adapter.bind(window, 'statechange', function() {
@@ -170,11 +184,23 @@ GS.profile = GS.profile || (function() {
     };
 
     var refreshAdsForTab = function(tabName) {
+        $("#AboveFold_300x600").hide();
+        $("#AboveFold_Culture_300x600").hide();
         if (tabName === "overview") {
+            console.log("refreshOverviewAds tab");
+            $("#AboveFold_300x600").show();
             refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
         } else if (tabName === 'reviews') {
+            console.log("refreshReviewsAds tab");
+            $("#AboveFold_300x600").show();
             refreshReviewsAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
+        } else if (tabName === 'culture') {
+            console.log("culture tab");
+            $("#AboveFold_Culture_300x600").show();
+            refreshCultureAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
         } else {
+            console.log("refreshNonOverviewAds tab");
+            $("#AboveFold_300x600").show();
             refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
         }
     };
@@ -286,6 +312,11 @@ GS.profile = GS.profile || (function() {
         //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
         GS.ad.unhideGhostTextForAdSlots(refreshableReviewsAdSlotKeys);
         GS.ad.setTargetingAndRefresh(refreshableReviewsAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+    };
+    var refreshCultureAds = function(tabName) {
+        //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
+        GS.ad.unhideGhostTextForAdSlots(refreshableCultureAdSlotKeys);
+        GS.ad.setTargetingAndRefresh(refreshableCultureAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
     };
     var refreshNonOverviewAds = function(tabName) {
         //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);

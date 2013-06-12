@@ -4,6 +4,7 @@ GS.school = GS.school || {};
 // module to manage the List and Calendar views of the Tandem Calendar on the school profile culture tab
 // does not include overview tile code. look for profilePage.js for that
 // Revealing module pattern:
+
 GS.school.calendar =  (function($) {
     "use strict";
 
@@ -25,8 +26,18 @@ GS.school.calendar =  (function($) {
     var listNoSchoolEventsSelector = ".js-no-school-events";
     var eventTableRowTemplate;
     var $listModule;
+    var tandemAdActive = false;
 
-    $(function() {
+    var isTandemAdActive = function () {
+        return tandemAdActive;
+    }
+
+    var setTandemAdActive = function(val){
+        tandemAdActive = val;
+    }
+
+    $(function () {
+
         initializeCustomSelect("js-export-school-calendar", selectCallbackTandemCalFile);
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
@@ -52,6 +63,7 @@ GS.school.calendar =  (function($) {
      * @param callbackFunction - optional function callback when selection is made.
      * @constructor
      */
+
      var initializeCustomSelect = function(layerContainer, callbackFunction){
         var selectContainer = $("#"+layerContainer); //notify
         var selectBox = selectContainer.find(".js-selectBox");
@@ -230,7 +242,6 @@ GS.school.calendar =  (function($) {
 
         var promise = getEventsViaAjax(ncesCode).done(function(events) {
             log("getEventsViaAjax promise was resolved", events);
-
             // var today = new Date();
             // var todayYear = year || today.getFullYear();
             // var todayMonth = month || today.getMonth() + 1;
@@ -239,7 +250,7 @@ GS.school.calendar =  (function($) {
 
             clearEventsList();
             fillCalendarList(events);
-
+            setTandemAdActive("true");
             show();
         }).fail(function() {
             hide();
@@ -400,6 +411,7 @@ GS.school.calendar =  (function($) {
 
 
     return {
+        isTandemAdActive: isTandemAdActive,
         getEventsAndUpdateListUI: getEventsAndUpdateListUI,
         show: show,
         hide: hide,

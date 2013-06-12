@@ -451,6 +451,7 @@
 
     <div class="">
         <ad:AboveFold_300x600 />
+        <ad:AboveFold_Culture_300x600 />
 
         <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
 
