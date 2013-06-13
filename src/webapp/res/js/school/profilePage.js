@@ -213,10 +213,10 @@ GS.profile = GS.profile || (function() {
 
                 /// calls to calendar
 
-                if(GS.school.calendar.isTandemBranded()){
-                    if(GS.school.calendar.isTandemReturned()){
+                if(GS.school.tandem.isTandemBranded()){
+                    if(GS.school.tandem.isTandemReturned()){
                        // show branded ad by pushing on the
-                        if(GS.school.calendar.isTandemActive()){
+                        if(GS.school.tandem.isTandemActive()){
                             $("#AboveFold_Culture_300x600").show();
                             refreshableCultureAdSlotKeys.push(refreshableCultureBranding);
                         }
@@ -226,9 +226,9 @@ GS.profile = GS.profile || (function() {
                         }
                     }
                     else{
-                        GS.school.calendar.setTandemShowAd('true');
-                        GS.school.calendar.setTandemTabName(tabName);
-                        GS.school.calendar.setTandemWhichAd(refreshableCultureBranding, 'AboveFold_Culture_300x600', refreshableCultureNoBranding, 'AboveFold_300x600');
+                        GS.school.tandem.setTandemShowAd('true');
+                        GS.school.tandem.setTandemTabName(tabName);
+                        GS.school.tandem.setTandemWhichAd(refreshableCultureBranding, 'AboveFold_Culture_300x600', refreshableCultureNoBranding, 'AboveFold_300x600');
                     }
                 }
                 else{
