@@ -164,10 +164,17 @@ GS.form.uspForm = (function ($) {
             window.scrollTo(0,0);
             $(".js-uspSelectOneEach").removeClass("dn");
         }
-        else if (isUserSignedIn === true) {
-            saveForm(uspForm);
-        } else {
-            GSType.hover.modalUspSignIn.show();
+        else {
+            if(s) {
+                pageTracking.clear();
+                pageTracking.successEvents = "event81";
+                pageTracking.send();
+            }
+            if (isUserSignedIn === true) {
+                saveForm(uspForm);
+            } else {
+                GSType.hover.modalUspSignIn.show();
+            }
         }
     };
 
@@ -301,11 +308,6 @@ GS.form.uspForm = (function ($) {
             hideAllErrors();
             validateUspDataAndShowHover($uspForm);
 
-            if(s) {
-                pageTracking.clear();
-                pageTracking.successEvents = "event81";
-                pageTracking.send();
-            }
             return false;
         });
 
@@ -364,12 +366,6 @@ GS.form.uspForm = (function ($) {
         });
 
         $body.on('click', REGISTRATION_SUBMIT_SELECTOR, function () {
-            if(s) {
-                pageTracking.clear();
-                pageTracking.successEvents = "event82";
-                pageTracking.send();
-            }
-
             var uspRegistrationForm = $(REGISTRATION_FORM_SELECTOR);
             var uspRegistrationPasswordField = uspRegistrationForm.find(REGISTRATION_PASSWORD_SELECTOR);
             var uspRegistrationEmailField = uspRegistrationForm.find(REGISTRATION_EMAIL_SELECTOR);

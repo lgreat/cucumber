@@ -14,6 +14,8 @@ import gs.web.community.registration.*;
 import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.SitePrefCookie;
@@ -270,6 +272,9 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             hoverHelper.setHoverCookie(HoverHelper.Hover.USP_GO_VERIFY);
 
             urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+
+            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.UspJoin);
         }
         if (urlBuilder != null) {
             return urlBuilder.asFullUrl(request);
