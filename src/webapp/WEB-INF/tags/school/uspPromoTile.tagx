@@ -12,19 +12,21 @@
 
     <c:set var="moduleHeight" value="height:120px;" />
 
-    <div class="mod standard_3-1">
-        <div class="outer">
-            <div class="inner bg-uspPromo ie-moduleHeight-162">
-                <div class="hd tac">
-                    <h4 class="bottom">Do you know this school?</h4>
-                </div>
-                <div class="bd tac" style="${moduleHeight}}">
-                    <link:uspForm school="${school}" styleClass="tac small mtm">
-                        Help other families learn<br/>more  &amp;raquo;
-                    </link:uspForm>
+    <link:uspForm school="${school}" styleClass="tdn">
+        <div class="mod standard_3-1">
+            <div class="outer">
+                <div class="inner bg-uspPromo ie-moduleHeight-162">
+                    <div class="hd tac">
+                        <h4 class="bottom">Do you know this school?</h4>
+                    </div>
+                    <div class="bd tac" style="${moduleHeight}}">
+                        <div class="small mtm">
+                            Help other families<br/>learn more  &amp;raquo;
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </link:uspForm>
 
 </jsp:root>
