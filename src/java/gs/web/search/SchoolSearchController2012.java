@@ -233,9 +233,17 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                 return new ModelAndView(new RedirectView(builder.asSiteRelative(request)));
             }
         }
+        /**
+         * Adding the logic for packard search GS-14110  -Shomi Arora .
+         */
+        final  boolean shouldShowPackardFilter=showPackardFilters(schoolSearchCommand,commandAndFields,model);
+        if (shouldShowPackardFilter) {
+            final String MODEL_SHOW_PACKARD_FILTERS = "showPackardFilters";
+            model.put(MODEL_SHOW_PACKARD_FILTERS, true);
+        }
 
         // support new additional OSP filters for redesigned search
-        boolean showAdvancedFilters = showAdvancedFilters(schoolSearchCommand, commandAndFields, model);
+        boolean showAdvancedFilters = showAdvancedFilters(schoolSearchCommand, commandAndFields, model) ||shouldShowPackardFilter;
 
 
         // local board module support
@@ -505,6 +513,35 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         return showAdvancedFilters;
+    }
+
+    /**
+     * Adding the logic to find is a page should have packard filters enabled or not -GS-14110 -Shomi Arora.
+     * @param schoolSearchCommand
+     * @param commandWithFields
+     * @param model
+     * @return
+     */
+    private  boolean showPackardFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,
+                                       Map<String, Object> model) {
+        boolean showPackardFilters = false;
+        if(commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
+            City city = commandWithFields.getCity();
+            if(city != null && SchoolHelper.isNewAdvanceSearch(city.getName(), city.getState().getAbbreviation())) {
+                showPackardFilters = true;
+            }
+        }
+        else if (commandWithFields.isNearbySearch()) {
+            if (SchoolHelper.isZipForNewAdvanceSearchFilters(schoolSearchCommand.getZipCode()) || SchoolHelper.isNewAdvanceSearch(schoolSearchCommand.getCity(), schoolSearchCommand.getState())) {
+                showPackardFilters = true;
+            }
+        }
+        else {
+            if (SchoolHelper.isNewAdvanceSearch(schoolSearchCommand.getSearchString(), schoolSearchCommand.getState())) {
+                showPackardFilters = true;
+            }
+        }
+     return showPackardFilters;
     }
 
     private String getNoResultsView(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
