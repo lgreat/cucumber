@@ -39,22 +39,25 @@
         <c:if test="${fn:length(highlights) gt 0}">
 
             <c:if test="${isNotOspPreferred}">
-                <div class="mod standard_3-1">
-                    <div class="outer">
-                        <div class="inner bg-uspPromo-lg">
-                            <div class="hd mtm mlm">
-                                <h3 class="bottom">Let your school shine!</h3>
-                            </div>
-                            <div class="bd mbm mlm">
+                <link:schoolEspRegister school="${school}" styleClass="noUnderline">
+                    <div class="mod standard_3-1">
+                        <div class="outer">
+                            <div class="inner bg-uspPromo-lg">
+                                <div class="hd mtm mlm">
+                                    <h3 class="bottom">Let your school shine!</h3>
+                                </div>
+                                <div class="bd mbm mlm">
                                 <span class="small">
                                     School leaders: Help your school shine on GreatSchools<br/>by verifying community
                                     responses, adding program highlights<br/>and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"
+                                       class="small"> Get started &amp;raquo;</a>
                                 </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </link:schoolEspRegister>
             </c:if>
 
             <div class="ptn">
@@ -87,22 +90,25 @@ where each entry is the first bean for that section, this allows access to the s
         <c:choose>
             <c:when test="${fn:length(programs_resources) gt 0}">
                 <c:if test="${isNotOspPreferred}">
-                    <div class="mod standard_3-1">
-                        <div class="outer">
-                            <div class="inner bg-uspPromo-lg">
-                                <div class="hd mtm mlm">
-                                    <h3 class="bottom">Let your school shine!</h3>
-                                </div>
-                                <div class="bd mbm mlm">
+                    <link:schoolEspRegister school="${school}" styleClass="noUnderline">
+                        <div class="mod standard_3-1">
+                            <div class="outer">
+                                <div class="inner bg-uspPromo-lg">
+                                    <div class="hd mtm mlm">
+                                        <h3 class="bottom">Let your school shine!</h3>
+                                    </div>
+                                    <div class="bd mbm mlm">
                                 <span class="small">
                                     School leaders: Help your school shine on GreatSchools<br/>by verifying community
                                     responses, adding program highlights<br/>and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"
+                                       class="small"> Get started &amp;raquo;</a>
                                 </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </link:schoolEspRegister>
                 </c:if>
 
                 <div class="ptn">
@@ -152,22 +158,25 @@ where each entry is the first bean for that section, this allows access to the s
 
         <c:if test="${fn:length(extracurriculars) gt 0}">
             <c:if test="${isNotOspPreferred}">
-                <div class="mod standard_3-1">
-                    <div class="outer">
-                        <div class="inner bg-uspPromo-lg">
-                            <div class="hd mtm mlm">
-                                <h3 class="bottom">Let your school shine!</h3>
-                            </div>
-                            <div class="bd mbm mlm">
+                <link:schoolEspRegister school="${school}" styleClass="noUnderline">
+                    <div class="mod standard_3-1">
+                        <div class="outer">
+                            <div class="inner bg-uspPromo-lg">
+                                <div class="hd mtm mlm">
+                                    <h3 class="bottom">Let your school shine!</h3>
+                                </div>
+                                <div class="bd mbm mlm">
                                 <span class="small">
                                     School leaders: Help your school shine on GreatSchools<br/>by verifying community
                                     responses, adding program highlights<br/>and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"> Get started &amp;raquo;</a>
+                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"
+                                       class="small"> Get started &amp;raquo;</a>
                                 </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </link:schoolEspRegister>
             </c:if>
             <div class="ptn">
                 <!--<b>Extracurriculars</b>-->
