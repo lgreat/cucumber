@@ -26,31 +26,92 @@ GS.school.calendar =  (function($) {
     var listNoSchoolEventsSelector = ".js-no-school-events";
     var eventTableRowTemplate;
     var $listModule;
-    var tandemAdActive = false;
 
-    var isTandemAdActive = function () {
-        return tandemAdActive;
+    var tandemAd = {
+        'returned': false,
+        'active': false,
+        'showAd': false,
+        'whichAd': {
+            'positive': null,
+            'positiveLayer': null,
+            'negative': null,
+            'negativeLayer': null
+        },
+        'tabname': 'overview',
+        'branding': 'false'
+    };
+
+    // set value in js within the tagx.   Microsoft value in db
+    var isTandemBranded = function () {
+        return tandemAd.branding;
+    }
+    var setTandemBranded = function(val){
+        tandemAd.branding = val;
     }
 
-    var setTandemAdActive = function(val){
-        tandemAdActive = val;
+    var isTandemActive = function () {
+        return tandemAd.active;
     }
+    var setTandemActive = function(val){
+        tandemAd.active = val;
+    }
+
+    // this is set to true once it returns
+    // used by profilePage.js to display ad slot
+    var isTandemReturned = function () {
+        return tandemAd.returned;
+    }
+    var setTandemReturned = function(val){
+        tandemAd.returned = val;
+    }
+
+    // This is set when tandom has not returned yet.
+    var getTandemTabName = function () {
+        return tandemAd.tabname;
+    }
+    var setTandemTabName = function(val){
+        tandemAd.tabname = val;
+    }
+
+    // This is set when tandom has not returned yet.
+    var isTandemShowAd = function () {
+        return tandemAd.showAd;
+    }
+    var setTandemShowAd = function(val){
+        tandemAd.showAd = val;
+    }
+
+    // need an array of the slot to fill in the positive and the negative
+    // ad will be called in refreshAds
+    var tandemWhichAdPositive = function () {
+        return tandemAd.whichAd.positive;
+    }
+    var tandemWhichAdPositiveLayerId = function () {
+        return tandemAd.whichAd.positiveLayerId;
+    }
+    var tandemWhichAdNegative = function () {
+        return tandemAd.whichAd.negative;
+    }
+    var tandemWhichAdNegativeLayerId = function () {
+        return tandemAd.whichAd.negativeLayerId;
+    }
+    var setTandemWhichAd = function(p, pl, n, nl){
+        tandemAd.whichAd.positive = p;
+        tandemAd.whichAd.positiveLayerId = pl;
+        tandemAd.whichAd.negative = n;
+        tandemAd.whichAd.negativeLayerId = nl;
+    }
+
+
 
     $(function () {
-
+        setTandemBranded(hasTandemBranding);
         initializeCustomSelect("js-export-school-calendar", selectCallbackTandemCalFile);
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
             eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
             $(eventTableRowTemplateSelector).find('li').hide();
             $listModule = $(listModuleSelector);
-//            $('#js-export-school-calendar').on('change', function() {
-//                var $select = $(this);
-//                var format = $select.val();
-//                var schoolName = $select.data('gs-school-name');
-//                var ncesCode = $select.data('gs-school-nces-code');
-//                exportCalendar(ncesCode, format, schoolName);
-//            });
         }
     });
     /**********************************************************************************************
@@ -250,15 +311,40 @@ GS.school.calendar =  (function($) {
 
             clearEventsList();
             fillCalendarList(events);
-            setTandemAdActive("true");
+            handleTandemAd(true);
             show();
         }).fail(function() {
+            handleTandemAd(false);
             hide();
         });
 
         log("returning getEventsAndUpdateListUI", promise);
         return promise;
     };
+
+    var handleTandemAd = function(val){
+        setTandemReturned(true);
+        setTandemActive(val);
+        // it had not returned when called so now it needs to show ads
+        if(isTandemShowAd()){
+            if(isTandemBranded()){
+                if(isTandemActive()){
+                   if(tandemWhichAdPositive() != null && tandemWhichAdPositive() != ""){
+                       //in profilePage.js
+                       GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
+                   }
+                }
+                else{
+                    if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
+                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()],tandemWhichAdNegativeLayerId());
+                    }
+                }
+            }
+            else{
+                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()]);
+            }
+        }
+    }
 
     /**
      * Filters out events that are in the past. Could be changed to filter out events that aren't in a particular year/month
@@ -411,7 +497,13 @@ GS.school.calendar =  (function($) {
 
 
     return {
-        isTandemAdActive: isTandemAdActive,
+        isTandemBranded: isTandemBranded,
+        isTandemReturned:isTandemReturned,
+        setTandemActive : setTandemActive,
+        setTandemWhichAd: setTandemWhichAd,
+        setTandemShowAd : setTandemShowAd,
+        setTandemTabName: setTandemTabName,
+        isTandemActive: isTandemActive,
         getEventsAndUpdateListUI: getEventsAndUpdateListUI,
         show: show,
         hide: hide,
