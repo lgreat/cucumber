@@ -222,7 +222,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         if(!user.isEmailProvisional()) {
             Map<String, String> emailAttributes = new HashMap<String, String>();
             emailAttributes.put("school_name", school.getName());
-            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             emailAttributes.put("school_URL", urlBuilder.asFullUrl(request));
             getExactTargetAPI().sendTriggeredEmail("USP-thank-you", user, emailAttributes);
         }
