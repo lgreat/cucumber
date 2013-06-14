@@ -87,7 +87,7 @@ public class EspResponseData extends BaseEspResponseData {
         IEspResponseData result = _responsesBySource.get(source);
 
         if (result == null) {
-            result = new BaseEspResponseData();
+            result = new EspResponseData();
         }
 
         return result;
@@ -110,7 +110,7 @@ public class EspResponseData extends BaseEspResponseData {
 
             IEspResponseData responsesForSource = _responsesBySource.get(source);
             if (responsesForSource == null) {
-                responsesForSource = new BaseEspResponseData();
+                responsesForSource = new EspResponseData();
                 _responsesBySource.put(response.getSource(), responsesForSource);
             }
             responsesForSource.add(response);
