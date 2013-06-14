@@ -5,7 +5,7 @@ import gs.data.community.User;
 /**
  * A structure to reflect if a user was obtained from the session,or was logged in or was a new user created.
  */
-public class UserStateStruct {
+public class UserStatus {
     private boolean isUserLoggedIn = false;
     private boolean isUserRegistered = false;
     private boolean isUserInSession = false;
