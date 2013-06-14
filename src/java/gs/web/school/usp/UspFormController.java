@@ -375,18 +375,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
                                         BindingResult bindingResult,
                                         School school) {
         try {
-            UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-            if (school != null) {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
-                urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
-                urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
-                urlBuilder.addParameter(PARAM_USP_SUBMISSION, "true");
-                registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
-                registrationBehavior.setSchool(school);
-            }
-            userRegistrationCommand.setHow("USP");
-            //There is no additional confirm Password field. Hence set it to
-            userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
+            UspRegistrationBehavior registrationBehavior = getRegistrationBehaviour(school, request, userRegistrationCommand);
             UserStatus userStateStruct =
                     _userRegistrationOrLoginService.loginOrRegister(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
 
@@ -398,7 +387,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         }
         return null;
     }
-
 
     @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)
     public String showThankYou(ModelMap modelMap, HttpServletRequest request,
@@ -430,6 +418,24 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             _logger.warn("UspFormHelper - exception while trying to get writer for response.", ex);
         }
     }
+
+    private UspRegistrationBehavior getRegistrationBehaviour(School school, HttpServletRequest request,
+                                                             UserRegistrationCommand userRegistrationCommand) {
+        UspRegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        if (school != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
+            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
+            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
+            urlBuilder.addParameter(PARAM_USP_SUBMISSION, "true");
+            registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
+            registrationBehavior.setSchool(school);
+        }
+        userRegistrationCommand.setHow("USP");
+        //There is no additional confirm Password field. Hence set it to the password.
+        userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
+        return registrationBehavior;
+    }
+
 
     /**
      * Parses the state and schoolId out of the request and fetches the school. Returns null if
