@@ -52,6 +52,24 @@ public class EspResponseData extends BaseEspResponseData {
     }
 
     /**
+     * Method to get the EspResponses for the special keys and with source of OSP.
+     * @return
+     */
+    public IEspResponseData getOspResponsesForSpecialKeys() {
+        Iterator<EspResponse> iterator = iterator();
+        EspResponseData ospResponseDataSpecialKeys = new EspResponseData();
+
+        while (iterator.hasNext()) {
+            EspResponse response = iterator.next();
+            if (EspStatusManager.getOspKeySet().contains(response.getKey()) &&
+                    (EspResponseSource.osp.equals(response.getSource()) || (EspResponseSource.datateam.equals(response.getSource())))) {
+                ospResponseDataSpecialKeys.add(response);
+            }
+        }
+        return ospResponseDataSpecialKeys;
+    }
+
+    /**
      * Helper method. Returns EspResponses with source of USP.
      * @return A IEspResponseData that wraps the List of EspResponses
      */
