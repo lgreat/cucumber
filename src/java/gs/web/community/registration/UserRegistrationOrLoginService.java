@@ -50,7 +50,8 @@ public class UserRegistrationOrLoginService {
     private EmailVerificationEmail _emailVerificationEmail;
 
     /**
-     * Returns an UserStateStruct object.First if there is a user in the session then return that.
+     * Returns an UserStatus object that reflects if the user was in the session or logged in or registered.
+     * First if there is a user in the session then return that.
      * Else check if the user is trying to log in. If the log in credentials are valid then log in the user.
      * Else create a brand new user.
      *
@@ -63,7 +64,7 @@ public class UserRegistrationOrLoginService {
      * @return
      * @throws Exception
      */
-    public UserStateStruct getUserStateStruct(UserRegistrationCommand userRegistrationCommand,
+    public UserStatus loginOrRegister(UserRegistrationCommand userRegistrationCommand,
                                               UserLoginCommand userLoginCommand,
                                               RegistrationBehavior registrationBehavior,
                                               BindingResult bindingResult,
@@ -77,7 +78,7 @@ public class UserRegistrationOrLoginService {
 
         user = getUserFromSession(registrationBehavior, request, response);
         if (user != null) {
-            UserStateStruct userStateStruct = new UserStateStruct();
+            UserStatus userStateStruct = new UserStatus();
             userStateStruct.setUserInSession(true);
             userStateStruct.setUser(user);
             return userStateStruct;
@@ -85,7 +86,7 @@ public class UserRegistrationOrLoginService {
 
         user = loginUser(userLoginCommand, registrationBehavior, request, response);
         if (user != null) {
-            UserStateStruct userStateStruct = new UserStateStruct();
+            UserStatus userStateStruct = new UserStatus();
             if (user.isEmailValidated() && user.matchesPassword(userLoginCommand.getPassword())) {
                 userStateStruct.setUserLoggedIn(true);
             } else if (!user.isEmailValidated() && registrationBehavior.sendVerificationEmail()) {
@@ -97,7 +98,7 @@ public class UserRegistrationOrLoginService {
 
         user = registerUser(userRegistrationCommand, registrationBehavior, bindingResult, request, response);
         if (user != null) {
-            UserStateStruct userStateStruct = new UserStateStruct();
+            UserStatus userStateStruct = new UserStatus();
             userStateStruct.setUserRegistered(true);
             userStateStruct.setUser(user);
             return userStateStruct;
