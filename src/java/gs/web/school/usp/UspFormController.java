@@ -11,7 +11,6 @@ import gs.data.state.State;
 import gs.data.util.email.EmailUtils;
 import gs.web.community.HoverHelper;
 import gs.web.community.registration.*;
-import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
 import gs.web.school.UspSaveBehaviour;
@@ -169,15 +168,15 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             return; // early exit
         }
 
-        UserStateStruct userStateStruct = getValidUser(request, response,
+        UserStatus userStatus = getValidUser(request, response,
                 userRegistrationCommand, userLoginCommand, bindingResult, school);
 
-        if (userStateStruct == null || userStateStruct.getUser() == null) {
+        if (userStatus == null || userStatus.getUser() == null) {
             writeIntoJsonObject(response, responseObject, "error", "noUser");
             return; // early exit
         }
 
-        User user = userStateStruct.getUser();
+        User user = userStatus.getUser();
 
         try {
             List<Subscription> userSubs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.USP);
@@ -203,10 +202,10 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
         //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
         //Show the user his old responses.
-        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStateStruct, school, false);
+        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStatus, school, false);
 
         if (doesUserAlreadyHaveResponses) {
-            String redirectUrl = determineRedirects(user, userStateStruct, school, request, response, doesUserAlreadyHaveResponses);
+            String redirectUrl = determineRedirects(user, userStatus, school, request, response, doesUserAlreadyHaveResponses);
             if (StringUtils.isNotBlank(redirectUrl)) {
                 writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
             }
@@ -229,7 +228,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             getExactTargetAPI().sendTriggeredEmail("USP-thank-you", user, emailAttributes);
         }
 
-        String redirectUrl = determineRedirects(user, userStateStruct, school, request, response, doesUserAlreadyHaveResponses);
+        String redirectUrl = determineRedirects(user, userStatus, school, request, response, doesUserAlreadyHaveResponses);
         if (StringUtils.isNotBlank(redirectUrl)) {
             writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
         }
@@ -241,34 +240,34 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
      * Method to determine where the user should be redirected to after they have filled in the usp form.
      *
      * @param user
-     * @param userStateStruct
+     * @param userStatus
      * @param school
      */
 
-    public String determineRedirects(User user, UserStateStruct userStateStruct,
+    public String determineRedirects(User user, UserStatus userStatus,
                                      School school, HttpServletRequest request, HttpServletResponse response,
                                      boolean doesUserAlreadyHaveResponses) {
         UrlBuilder urlBuilder = null;
 
-        if(user == null || userStateStruct == null || request == null || school == null){
+        if(user == null || userStatus == null || request == null || school == null){
             return null;
         }
 
-        if (user.isEmailValidated() && userStateStruct.isUserLoggedIn() && doesUserAlreadyHaveResponses) {
+        if (user.isEmailValidated() && userStatus.isUserLoggedIn() && doesUserAlreadyHaveResponses) {
             //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
             //Show the user his old responses.
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
             urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
             urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
             urlBuilder.addParameter("showExistingAnswersMsg", "true");
-        } else if (user.isEmailValidated() && ((userStateStruct.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
-                || userStateStruct.isUserInSession())) {
+        } else if (user.isEmailValidated() && ((userStatus.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
+                || userStatus.isUserInSession())) {
             //If the user has been logged in but did not have any previous responses.
             //Or if the user is already in the session and filled in the usp form then show the thank you page.
             urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM_THANKYOU);
             urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
             urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
-        } else if ((userStateStruct.isUserRegistered() || userStateStruct.isVerificationEmailSent())) {
+        } else if ((userStatus.isUserRegistered() || userStatus.isVerificationEmailSent())) {
             //If the user has registered via the register hover then show the profile page.
             //If the user was already existing but not email verified then sent an verification email and show the profile page.
             SitePrefCookie cookie = new SitePrefCookie(request, response);
@@ -295,7 +294,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
      * @param school
      * @return
      */
-    public boolean checkIfUserHasExistingResponses(User user, UserStateStruct userStateStruct,
+    public boolean checkIfUserHasExistingResponses(User user, UserStatus userStateStruct,
                                                    School school, boolean isOspUser) {
         if (user.isEmailValidated() && userStateStruct.isUserLoggedIn()) {
             Multimap<String, String> savedResponseKeyValues = _uspFormHelper.getSavedResponses(user, school, school.getDatabaseState(), isOspUser);
@@ -370,7 +369,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
      * @return
      */
 
-    public UserStateStruct getValidUser(HttpServletRequest request,
+    public UserStatus getValidUser(HttpServletRequest request,
                                         HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
                                         UserLoginCommand userLoginCommand,
                                         BindingResult bindingResult,
@@ -388,8 +387,8 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             userRegistrationCommand.setHow("USP");
             //There is no additional confirm Password field. Hence set it to
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
-            UserStateStruct userStateStruct =
-                    _userRegistrationOrLoginService.getUserStateStruct(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
+            UserStatus userStateStruct =
+                    _userRegistrationOrLoginService.loginOrRegister(userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response);
 
             if (!bindingResult.hasErrors()) {
                 return userStateStruct;

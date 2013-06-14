@@ -303,11 +303,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
     }
 
     public void testDetermineRedirectsWithNulls() {
-        User user = new User();
-        UserStateStruct userStateStruct = new UserStateStruct();
-        School school = new School();
-        HttpServletRequest request = getRequest();
-
         String url = _controller.determineRedirects(null, null, null,null, null, false);
         assertEquals("Url should be blank since all params were null", null, url);
     }
@@ -320,15 +315,15 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         user.setEmail("someuser@somedomain.com");
         user.setPlaintextPassword("password");
 
-        UserStateStruct userStateStruct = new UserStateStruct();
-        userStateStruct.setUserLoggedIn(true);
+        UserStatus userStatus = new UserStatus();
+        userStatus.setUserLoggedIn(true);
 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
 
         //user already has previous answers
-        String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), true);
+        String url = _controller.determineRedirects(user, userStatus, school, getRequest(), getResponse(), true);
         assertEquals("User is logged in.",
                 "http://www.greatschools.org/school/QandA/form.page?schoolId=1&showExistingAnswersMsg=true&state=CA", url);
 
@@ -342,14 +337,14 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         user.setEmail("someuser@somedomain.com");
         user.setPlaintextPassword("password");
 
-        UserStateStruct userStateStruct = new UserStateStruct();
-        userStateStruct.setUserInSession(true);
+        UserStatus userStatus = new UserStatus();
+        userStatus.setUserInSession(true);
 
         School school = new School();
         school.setId(1);
         school.setDatabaseState(State.CA);
 
-        String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), false);
+        String url = _controller.determineRedirects(user, userStatus, school, getRequest(), getResponse(), false);
         assertEquals("User is in the session in.",
                 "http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&state=CA", url);
     }
@@ -361,8 +356,8 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         user.setEmail("someuser@somedomain.com");
         user.setPlaintextPassword("password");
 
-        UserStateStruct userStateStruct = new UserStateStruct();
-        userStateStruct.setUserRegistered(true);
+        UserStatus userStatus = new UserStatus();
+        userStatus.setUserRegistered(true);
 
         School school = new School();
         school.setId(1);
@@ -370,7 +365,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         school.setCity("city");
         school.setDatabaseState(State.CA);
 
-        String url = _controller.determineRedirects(user, userStateStruct, school, getRequest(), getResponse(), false);
+        String url = _controller.determineRedirects(user, userStatus, school, getRequest(), getResponse(), false);
         assertEquals("User has been registered.",
                 "http://www.greatschools.org/california/city/1-SchoolName/", url);
     }
@@ -398,17 +393,17 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
     public void testFormSubmitWithNoPrevSavedResponses() throws Exception {
         setUpFormSubmitVariables();
-        UserStateStruct userStateStruct = new UserStateStruct();
+        UserStatus userStatus = new UserStatus();
         User user = new User();
         user.setId(1);
-        userStateStruct.setUser(user);
+        userStatus.setUser(user);
         School school = getSchool(_state, _schoolId);
         resetAllMocks();
 
         expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
-        expect(_userRegistrationOrLoginService.getUserStateStruct(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
+        expect(_userRegistrationOrLoginService.loginOrRegister(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
                 isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
-                isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
+                isA(MockHttpServletResponse.class))).andReturn(userStatus);
         _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(UspSaveBehaviour.class));
         expectLastCall();
         _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
@@ -424,19 +419,19 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
     public void testFormSubmitWithPrevSavedResponses() throws Exception {
         setUpFormSubmitVariables();
-        UserStateStruct userStateStruct = new UserStateStruct();
+        UserStatus userStatus = new UserStatus();
         User user = new User();
         user.setId(1);
         user.setPlaintextPassword("qwerty");
-        userStateStruct.setUser(user);
-        userStateStruct.setUserLoggedIn(true);
+        userStatus.setUser(user);
+        userStatus.setUserLoggedIn(true);
         School school = getSchool(_state, _schoolId);
         resetAllMocks();
 
         expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
-        expect(_userRegistrationOrLoginService.getUserStateStruct(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
+        expect(_userRegistrationOrLoginService.loginOrRegister(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
                 isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
-                isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
+                isA(MockHttpServletResponse.class))).andReturn(userStatus);
         expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
         _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(UspSaveBehaviour.class));
         expectLastCall();

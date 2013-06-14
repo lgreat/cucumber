@@ -15,17 +15,9 @@ public class UspSaveBehaviour extends EspSaveBehaviour {
     public boolean isUserEmailVerified() {
         return _userEmailVerified;
     }
-//
-//    public void setUserEmailVerified(boolean userEmailVerified) {
-//        _userEmailVerified = userEmailVerified;
-//    }
 
     public boolean isOspGatewayFormSave() {
         return _ospGatewayFormSave;
     }
-//
-//    public void setOspGatewayFormSave(boolean ospGatewayFormSave) {
-//        _ospGatewayFormSave = ospGatewayFormSave;
-//    }
 
 }

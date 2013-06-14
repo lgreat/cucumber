@@ -16,15 +16,7 @@ public class OspSaveBehaviour extends EspSaveBehaviour {
         return _activateProvisionalData;
     }
 
-//    public void setActivateProvisionalData(boolean activateProvisionalData) {
-//        _activateProvisionalData = activateProvisionalData;
-//    }
-
     public boolean isApprovedUserFormSave() {
         return _approvedUserFormSave;
     }
-
-//    public void setApprovedUserFormSave(boolean approvedUserFormSave) {
-//        _approvedUserFormSave = approvedUserFormSave;
-//    }
 }
