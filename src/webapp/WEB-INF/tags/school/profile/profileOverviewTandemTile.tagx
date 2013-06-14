@@ -12,11 +12,13 @@
     <script type="text/javascript">
         var ncesCode = '${school.ncesCode}';
         var hasOspData = '${ospDataExistsLocal}';
+        var hasCalendarData = null;
+        var hasTandemBranding = '${microsoftBranding}';
         $(function() {
 
             GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
                 // TODO: check events to see if there was any data
-                var hasCalendarData = true;
+                hasCalendarData = true;
                 if (hasCalendarData) {
                     if (hasOspData == 'true') {
                         // hide a tile
@@ -33,6 +35,7 @@
                 }
             }).fail(function() {
                         // don't show tile
+                        hasCalendarData = false;
                     });
 //            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });

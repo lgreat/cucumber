@@ -4,11 +4,13 @@ GS.school = GS.school || {};
 // module to manage the List and Calendar views of the Tandem Calendar on the school profile culture tab
 // does not include overview tile code. look for profilePage.js for that
 // Revealing module pattern:
+
 GS.school.calendar =  (function($) {
     "use strict";
 
     var mapCalNames = {
         'Microsoft Outlook': 'Outlook',
+        'Outlook.com': 'Outlook.com',
         'iCal Format': 'iCal',
         'Google Calendar': 'Google'
     };
@@ -26,20 +28,18 @@ GS.school.calendar =  (function($) {
     var eventTableRowTemplate;
     var $listModule;
 
-    $(function() {
+
+
+
+
+    $(function () {
+        setTandemBranded(hasTandemBranding);
         initializeCustomSelect("js-export-school-calendar", selectCallbackTandemCalFile);
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
             eventTableRowTemplate = Hogan.compile($(eventTableRowTemplateSelector).html());
             $(eventTableRowTemplateSelector).find('li').hide();
             $listModule = $(listModuleSelector);
-//            $('#js-export-school-calendar').on('change', function() {
-//                var $select = $(this);
-//                var format = $select.val();
-//                var schoolName = $select.data('gs-school-name');
-//                var ncesCode = $select.data('gs-school-nces-code');
-//                exportCalendar(ncesCode, format, schoolName);
-//            });
         }
     });
     /**********************************************************************************************
@@ -52,6 +52,7 @@ GS.school.calendar =  (function($) {
      * @param callbackFunction - optional function callback when selection is made.
      * @constructor
      */
+
      var initializeCustomSelect = function(layerContainer, callbackFunction){
         var selectContainer = $("#"+layerContainer); //notify
         var selectBox = selectContainer.find(".js-selectBox");
@@ -230,7 +231,6 @@ GS.school.calendar =  (function($) {
 
         var promise = getEventsViaAjax(ncesCode).done(function(events) {
             log("getEventsViaAjax promise was resolved", events);
-
             // var today = new Date();
             // var todayYear = year || today.getFullYear();
             // var todayMonth = month || today.getMonth() + 1;
@@ -239,15 +239,18 @@ GS.school.calendar =  (function($) {
 
             clearEventsList();
             fillCalendarList(events);
-
+            GS.school.tandem.handleTandemAd(true);
             show();
         }).fail(function() {
+            GS.school.tandem.handleTandemAd(false);
             hide();
         });
 
         log("returning getEventsAndUpdateListUI", promise);
         return promise;
     };
+
+
 
     /**
      * Filters out events that are in the past. Could be changed to filter out events that aren't in a particular year/month
@@ -378,18 +381,95 @@ GS.school.calendar =  (function($) {
             customLink = 'Tandem_iCal';
         } else if (format === 'Google') {
             customLink = 'Tandem_GoogleCal';
+        } else if (format === 'Outlook.com') {
+            customLink = 'Tandem_Outlook_com';
         }
 
         s.tl(true, 'o', customLink);
 
         if (customLink !== "") {
-            // without setTimeout, omniture request was being canceled by ical.page request
-            setTimeout(function() {
-                var href = "/school/calendar/ical.page?ncesCode=" + encodeURIComponent(ncesCode) + "&format=" +
-                        encodeURIComponent(format) + "&schoolName=" + encodeURIComponent(schoolName);
-                window.location.href = href;
-            }, 500);
+            if (format === 'Outlook.com') {
+                uploadToOutlook(ncesCode, schoolName);
+            } else {
+                // without setTimeout, omniture request was being canceled by ical.page request
+                setTimeout(function() {
+                    var href = "/school/calendar/ical.page?ncesCode=" + encodeURIComponent(ncesCode) + "&format=" +
+                            encodeURIComponent(format) + "&schoolName=" + encodeURIComponent(schoolName);
+                    window.location.href = href;
+                }, 500);
+            }
         }
+    };
+
+    // hides/shows DOM nodes to let the user know the school Calendar is being uploaded to their Outlook.com account
+    var styleAsUploadingToOutlook = function() {
+        var $spinner = $('#js-outlook-uploading');
+        $spinner.show();
+    };
+
+    // hides/shows DOM nodes to let the user know the school Calendar is done uploading to their Outlook.com account
+    var styleAsUploadingDone = function() {
+        var $spinner = $('#js-outlook-uploading');
+        $spinner.hide();
+    };
+
+    var uploadToOutlook = function(ncesCode, schoolName) {
+        var date = '';
+        var event;
+        var calendarName = schoolName + ' Calendar';
+
+        // login() call returns a promise
+        GS.windowsLive.login().done(function() {
+            styleAsUploadingToOutlook();
+
+            // now create an Outlook.com calendar for the user
+            GS.windowsLive.createCalendar(calendarName).done(function(createCalendarResponse) {
+
+                // getEventsViaAjax also returns a promise, but should already be resolved
+                var promise = getEventsViaAjax(ncesCode).done(function(events) {
+                    events = filterEvents(events);
+                    var numberOfEvents = events.length;
+                    var i = 0;
+
+                    // we'll need to recursively call this function
+                    function uploadEvent(i) {
+                        event = events[i];
+                        date = event.dateStart.year + '-' + event.dateStart.month + '-' + event.dateStart.day + "T00:00:00Z";
+
+                        // createEvent returns a promise
+                        GS.windowsLive.createEvent(
+                            createCalendarResponse.id,
+                            event.summary,
+                            'Description:' + event.summary,
+                            date,
+                            date
+                        ).done(function() {
+                            i = i + 1;
+                            if (i < numberOfEvents) {
+                                uploadEvent(i);
+                            } else {
+                                styleAsUploadingDone();
+                            }
+                        }).fail(function(response) {
+                            // event creation failed
+                            log('failed event:', response);
+                        });
+                    }
+                    uploadEvent(i);
+                }).fail(function() {
+                    // could not get the Tandem events
+                    alert('Upload to Outlook.com could not be completed.');
+                });
+            }).fail(function(response) {
+                // failed
+                alert('Upload to Outlook.com could not be completed.');
+                log(response);
+            });
+
+        }).fail(function() {
+            // could not log in to WindowsLive
+            alert("We're sorry, we were not able to connect to Outlook.com to upload the school calendar. You might not have given permissions to access your Outlook.com calendar.");
+        });
     };
 
     var log = function() {
@@ -403,6 +483,117 @@ GS.school.calendar =  (function($) {
         getEventsAndUpdateListUI: getEventsAndUpdateListUI,
         show: show,
         hide: hide,
-        exportCalendar: exportCalendar
+        exportCalendar: exportCalendar,
+        uploadToOutlook: uploadToOutlook
+    };
+})(jQuery);
+
+GS.school.tandem =  (function($) {
+    var tandemAd = {
+        'returned': false,
+        'active': false,
+        'showAd': false,
+        'whichAd': {
+            'positive': null,
+            'positiveLayer': null,
+            'negative': null,
+            'negativeLayer': null
+        },
+        'tabname': 'overview',
+        'branding': 'false'
+    };
+
+    // set value in js within the tagx.   Microsoft value in db
+    var isTandemBranded = function () {
+        return tandemAd.branding;
+    }
+    var setTandemBranded = function(val){
+        tandemAd.branding = val;
+    }
+
+    var isTandemActive = function () {
+        return tandemAd.active;
+    }
+    var setTandemActive = function(val){
+        tandemAd.active = val;
+    }
+
+    // this is set to true once it returns
+    // used by profilePage.js to display ad slot
+    var isTandemReturned = function () {
+        return tandemAd.returned;
+    }
+    var setTandemReturned = function(val){
+        tandemAd.returned = val;
+    }
+
+    // This is set when tandom has not returned yet.
+    var getTandemTabName = function () {
+        return tandemAd.tabname;
+    }
+    var setTandemTabName = function(val){
+        tandemAd.tabname = val;
+    }
+
+    // This is set when tandom has not returned yet.
+    var isTandemShowAd = function () {
+        return tandemAd.showAd;
+    }
+    var setTandemShowAd = function(val){
+        tandemAd.showAd = val;
+    }
+
+    // need an array of the slot to fill in the positive and the negative
+    // ad will be called in refreshAds
+    var tandemWhichAdPositive = function () {
+        return tandemAd.whichAd.positive;
+    }
+    var tandemWhichAdPositiveLayerId = function () {
+        return tandemAd.whichAd.positiveLayerId;
+    }
+    var tandemWhichAdNegative = function () {
+        return tandemAd.whichAd.negative;
+    }
+    var tandemWhichAdNegativeLayerId = function () {
+        return tandemAd.whichAd.negativeLayerId;
+    }
+    var setTandemWhichAd = function(p, pl, n, nl){
+        tandemAd.whichAd.positive = p;
+        tandemAd.whichAd.positiveLayerId = pl;
+        tandemAd.whichAd.negative = n;
+        tandemAd.whichAd.negativeLayerId = nl;
+    }
+    var handleTandemAd = function(val){
+        setTandemReturned(true);
+        setTandemActive(val);
+        // it had not returned when called so now it needs to show ads
+        if(isTandemShowAd()){
+            if(isTandemBranded()){
+                if(isTandemActive()){
+                    if(tandemWhichAdPositive() != null && tandemWhichAdPositive() != ""){
+                        //in profilePage.js
+                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
+                    }
+                }
+                else{
+                    if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
+                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()],tandemWhichAdNegativeLayerId());
+                    }
+                }
+            }
+            else{
+                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()]);
+            }
+        }
+    }
+    return {
+        handleTandemAd:handleTandemAd,
+        isTandemBranded: isTandemBranded,
+        isTandemReturned:isTandemReturned,
+        setTandemActive : setTandemActive,
+        setTandemWhichAd: setTandemWhichAd,
+        setTandemShowAd : setTandemShowAd,
+        setTandemTabName: setTandemTabName,
+        isTandemActive: isTandemActive
     };
 })(jQuery);
