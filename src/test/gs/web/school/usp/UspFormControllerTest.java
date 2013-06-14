@@ -183,7 +183,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
 
-        expect(_espResponseDao.getResponses(eq(school))).andReturn(
+        expect(_espResponseDao.getAllActiveResponses(eq(school))).andReturn(
             Arrays.asList(
                 EspResponse.with()
                     .school(school)
@@ -238,7 +238,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(state,schoolId)).andReturn(school);
 
-        expect(_espResponseDao.getResponses(eq(school))).andReturn(
+        expect(_espResponseDao.getAllActiveResponses(eq(school))).andReturn(
             Arrays.asList(
                 EspResponse.with()
                     .school(school)
@@ -285,7 +285,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         School school = getSchool(state, schoolId);
         expect(_schoolDao.getSchoolById(state, schoolId)).andReturn(school);
 
-        expect(_espResponseDao.getResponses(eq(school))).andReturn(
+        expect(_espResponseDao.getAllActiveResponses(eq(school))).andReturn(
             Arrays.asList(
                 EspResponse.with().school(school).memberId(user.getId()).create(),
                 EspResponse.with().school(school).create()
