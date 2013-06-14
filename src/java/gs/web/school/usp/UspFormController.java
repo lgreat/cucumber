@@ -416,9 +416,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             modelMap.put("school", school);
         }
 
-        UserStateStruct userStateStruct = getValidUser(request, response,
-                userRegistrationCommand, userLoginCommand, bindingResult, school);
-
         return THANK_YOU_VIEW;
     }
 
