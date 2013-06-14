@@ -188,7 +188,7 @@ public class OspFormController implements ReadWriteAnnotationController {
         boolean isProvisionalOsp = _espFormValidationHelper.isUserProvisional(user);
         UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, true, isProvisionalOsp);
 
-
+        //TODO In hind sight maybe its better to call saveOspFormData and pass in OspSaveBehaviour, when the osp user is saving the gateway form?
         _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, saveBehaviour);
 
         /**

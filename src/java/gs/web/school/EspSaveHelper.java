@@ -287,8 +287,8 @@ public class EspSaveHelper implements BeanFactoryAware {
         }
 
         //We do not require the user to response to all USP fields.
-        //OSP members are required to respond to all questions.Hence do this only for OSP.
-        if (EspResponseSource.osp.equals(espResponseSource)) {
+        //OSP members are required to respond to all questions.Hence do this only for OSP gateway form save.
+        if (saveBehaviour.isOspGatewayFormSave()) {
             handleSubsectionResponses(user, school, now, active, espResponseSource, responseList, responseKeysLookUpMap);
         }
         saveUspResponses(user, school, now, responseList, responseKeysLookUpMap, saveBehaviour);
