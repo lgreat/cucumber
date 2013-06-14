@@ -9,11 +9,10 @@ import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.Address;
-import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.*;
-import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
+import gs.web.school.UspSaveBehaviour;
 import org.easymock.classextension.EasyMock;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -410,8 +409,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         expect(_userRegistrationOrLoginService.getUserStateStruct(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
                 isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
                 isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
-//        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
-        _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(EspSaveBehaviour.class));
+        _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(UspSaveBehaviour.class));
         expectLastCall();
         _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
         expectLastCall();
@@ -440,8 +438,7 @@ public class UspFormControllerTest extends BaseControllerTestCase {
                 isA(UspRegistrationBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
                 isA(MockHttpServletResponse.class))).andReturn(userStateStruct);
         expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
-        EspSaveBehaviour saveBehaviour = _controller.getSaveBehaviour(user);
-        _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(EspSaveBehaviour.class));
+        _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(UspSaveBehaviour.class));
         expectLastCall();
         _exactTargetAPI.sendTriggeredEmail(isA(String.class), isA(User.class), isA(HashMap.class));
         expectLastCall();

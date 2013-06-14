@@ -86,7 +86,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_espResponseDao.getResponses(school, responseSources)).andReturn(new ArrayList<EspResponse>());
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, false, true);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -114,7 +114,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, false, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(true, false, false);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -142,7 +142,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -179,7 +179,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         keysForPage.add("average_class_size");
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, false, true);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -236,7 +236,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.deleteResponses(school, user.getId(), new HashSet<String>(Arrays.asList("_page_osp_gateway_keys")));
         _espResponseDao.saveResponses(school, responseList);
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -267,7 +267,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, false, true);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -294,7 +294,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         expect(_noEditDao.isStateLocked(state)).andReturn(false);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, false, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(true, false, false);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -347,7 +347,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
         _helper.saveOspFormData(user, school, state, pageNum, keysForPage, keyToResponseMap, responseList, errorFieldToMsgMap, saveBehaviour);
         verifyAllMocks();
 
@@ -397,7 +397,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, false, true);
         _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
         verifyAllMocks();
     }
@@ -425,7 +425,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, false, true);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, false, true);
         _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
         verifyAllMocks();
     }
@@ -449,7 +449,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, false, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(true, false, false);
         _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
         verifyAllMocks();
     }
@@ -478,7 +478,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
         _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
         verifyAllMocks();
     }
@@ -507,7 +507,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         _espResponseDao.saveResponses(school, responseList);
 
         replayAllMocks();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
         _helper.saveOspResponses(user, school, pageNum, new Date(), keysForPage, allKeysWithActiveResponses, responseList, saveBehaviour);
         verifyAllMocks();
     }
@@ -516,7 +516,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         User user = getUser();
         School school = getSchool();
         uspFormDataSetters();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, EspResponseSource.usp, false);
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(false, false, false);
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
@@ -530,7 +530,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         User user = getUser();
         School school = getSchool();
         uspFormDataSetters();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.usp, false);
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, false, false);
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
@@ -544,7 +544,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         User user = getUser();
         School school = getSchool();
         uspFormDataSetters();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, EspResponseSource.usp, false);
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(false, false, false);
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.NO_DATA);
@@ -564,7 +564,7 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
             add(EspResponseSource.usp);
         }};
         uspFormDataSetters();
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.usp, false);
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, false, false);
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_OUTDATED);
@@ -587,7 +587,8 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
             add(EspResponseSource.usp);
         }};
 
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.osp, false);
+        //Osp user is filling in the gateway form.
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, true, false);
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         //Answering all the questions will put the school in OSP preferred status.
@@ -609,7 +610,8 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         School school = getSchool();
         uspFormDataSetters();
 
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.osp, false);
+        //Osp user is filling in the gateway form.
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, true, false);
 
         Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
             add(EspResponseSource.osp);
@@ -633,7 +635,8 @@ public class EspSaveHelperTest extends BaseControllerTestCase {
         School school = getSchool();
         uspFormDataSetters();
 
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.osp, true);
+        //Osp user is filling in the gateway form.
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, true, true);
 
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         Set<String> responseKeys = new HashSet<String>(){{

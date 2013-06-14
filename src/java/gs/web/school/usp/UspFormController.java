@@ -14,6 +14,7 @@ import gs.web.community.registration.*;
 import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
 import gs.web.school.EspUserStateStruct;
+import gs.web.school.UspSaveBehaviour;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.HttpCacheInterceptor;
@@ -215,7 +216,10 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         Map<String, Object[]> reqParamMap = request.getParameterMap();
         Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
 
-        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, getSaveBehaviour(user));
+        boolean isUserEmailVerified = !(user.isEmailProvisional());
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(isUserEmailVerified, false, false);
+
+        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, saveBehaviour);
 
         if(!user.isEmailProvisional()) {
             Map<String, String> emailAttributes = new HashMap<String, String>();
@@ -381,7 +385,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
                 registrationBehavior.setRedirectUrl(urlBuilder.asFullUrl(request));
                 registrationBehavior.setSchool(school);
             }
-            //TODO set the below as a default in the  userRegistrationCommandand  registrationBehavior
             userRegistrationCommand.setHow("USP");
             //There is no additional confirm Password field. Hence set it to
             userRegistrationCommand.setConfirmPassword(userRegistrationCommand.getPassword());
@@ -459,17 +462,8 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         return school;
     }
 
-    public EspSaveBehaviour getSaveBehaviour(User user){
-        boolean isUserEmailVerified = !(user.isEmailProvisional());
-        return new EspSaveBehaviour(isUserEmailVerified, EspResponseSource.usp, false);
-    }
-
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         _beanFactory = beanFactory;
-    }
-
-    public EspStatusManager createEspStatusManager(School school) {
-        return new EspStatusManager(school);
     }
 
     public ISchoolDao getSchoolDao() {

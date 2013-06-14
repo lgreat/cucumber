@@ -57,7 +57,7 @@ public class EspSaveHelper implements BeanFactoryAware {
                                 Map<String, Object[]> keyToResponseMap,
                                 List<EspResponse> responseList,
                                 Map<String, String> errorFieldToMsgMap,
-                                EspSaveBehaviour saveBehaviour) {
+                                OspSaveBehaviour saveBehaviour) {
 
         // Save page
         Set<String> keysForExternalData = _espFormExternalDataHelper.getKeysForExternalData(school);
@@ -180,7 +180,7 @@ public class EspSaveHelper implements BeanFactoryAware {
      */
     public void saveOspResponses(User user, School school, int pageNum, Date now,
                                  Set<String> keysForPage, Map<String, String> allKeysWithActiveResponses,
-                                 List<EspResponse> responseList, EspSaveBehaviour saveBehaviour) {
+                                 List<EspResponse> responseList, OspSaveBehaviour saveBehaviour) {
         if (responseList == null || responseList.isEmpty()) {
             return;
         }
@@ -237,7 +237,7 @@ public class EspSaveHelper implements BeanFactoryAware {
     public void saveUspFormData(User user, School school,
                                 Map<String, Object[]> responseKeyValues,
                                 Set<String> formFieldNames,
-                                EspSaveBehaviour saveBehaviour) {
+                                UspSaveBehaviour saveBehaviour) {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         Date now = new Date();
         Set<String> responseParams = responseKeyValues.keySet();
@@ -249,7 +249,7 @@ public class EspSaveHelper implements BeanFactoryAware {
             active = false;
         }
 
-        EspResponseSource espResponseSource = saveBehaviour.getEspResponseSource() != null ? saveBehaviour.getEspResponseSource() :
+        EspResponseSource espResponseSource = saveBehaviour.isOspGatewayFormSave() ? EspResponseSource.osp :
                 EspResponseSource.usp;
 
         for (String responseParam : responseParams) {
@@ -304,14 +304,14 @@ public class EspSaveHelper implements BeanFactoryAware {
      * @param responseKeysLookUpMap
      */
     public void saveUspResponses(User user, School school, Date now, List<EspResponse> responseList,
-                                 Map<String, String> responseKeysLookUpMap,EspSaveBehaviour saveBehaviour) {
+                                 Map<String, String> responseKeysLookUpMap,UspSaveBehaviour saveBehaviour) {
 
         if (responseList == null || responseList.isEmpty()) {
             return;
         }
 
         final boolean isOspProvisional = saveBehaviour.isSaveProvisional();
-        final boolean isOspSource = EspResponseSource.osp.equals(saveBehaviour.getEspResponseSource());
+        final boolean isOspSource = saveBehaviour.isOspGatewayFormSave();
         Set<EspResponseSource> responseSourcesToDeactivate = new HashSet<EspResponseSource>() {{
             if (isOspSource) {
                 add(EspResponseSource.osp);

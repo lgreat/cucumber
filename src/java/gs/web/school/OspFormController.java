@@ -186,7 +186,8 @@ public class OspFormController implements ReadWriteAnnotationController {
         Map<String, Object[]> reqParamMap = request.getParameterMap();
         Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
         boolean isProvisionalOsp = _espFormValidationHelper.isUserProvisional(user);
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(true, EspResponseSource.osp, isProvisionalOsp);
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, true, isProvisionalOsp);
+
 
         _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, saveBehaviour);
 
@@ -460,7 +461,7 @@ public class OspFormController implements ReadWriteAnnotationController {
         // Check if this is the first time this school has gotten any data(exclude data by provisional users).
         boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
-        EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(isProvisionalData, false, true);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(isProvisionalData, false, true);
         _espSaveHelper.saveOspFormData(user, school, state, page, keysForPage, requestParameterMap, responseList,
                 errorFieldToMsgMap, saveBehaviour);
 

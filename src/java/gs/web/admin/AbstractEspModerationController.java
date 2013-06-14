@@ -17,6 +17,7 @@ import gs.data.util.Address;
 import gs.data.util.DigestUtil;
 import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
+import gs.web.school.OspSaveBehaviour;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
@@ -319,7 +320,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             // Check if this is the first time this school has gotten any data(exclude data by the user being approved).
             boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
 
-            EspSaveBehaviour saveBehaviour = new EspSaveBehaviour(false, true, false);
+            OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
             _espSaveHelper.saveOspFormData(user, school, school.getDatabaseState(), -1, keysForPage, keyToResponseMap,
                     responseList, errorFieldToMsgMap, saveBehaviour);
 
