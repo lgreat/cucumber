@@ -100,6 +100,7 @@ public class AdPosition extends Enum {
     public static final AdPosition Homepage_House_Ad_300x137 = new AdPosition("Homepage_House_Ad_300x137", true);
     public static final AdPosition AboveFold_300x600 = new AdPosition("AboveFold_300x600", true);
     public static final AdPosition AboveFold_Culture_300x600 = new AdPosition("AboveFold_Culture_300x600", true);
+    public static final AdPosition Branded_Tandem_Tile_150x30 = new AdPosition("Branded_Tandem_Tile_150x30", true);
     public static final AdPosition BelowFold_300x250 = new AdPosition("BelowFold_300x250", true);
     public static final AdPosition BelowFold2_300x250 = new AdPosition("BelowFold2_300x250", true);
     public static final AdPosition BelowFold_Top_300x125 = new AdPosition("BelowFold_Top_300x125", true);

@@ -103,8 +103,8 @@ GS.profile = GS.profile || (function() {
     ];
 
     var refreshableCultureBranding = 'School_Profile_Page_Culture_AboveFold_300x600';
-
     var refreshableCultureNoBranding = 'School_Profile_Page_AboveFold_300x600';
+    var refreshableTandemTileBranding = 'School_Profile_Page_Branded_Tandem_Tile_150x30';
 
     var otherAdSlotKeys = [
         'Global_NavPromo_970x30',
@@ -195,8 +195,22 @@ GS.profile = GS.profile || (function() {
 
         switch (tabName) {
             case "overview":{
-                console.log("refreshOverviewAds tab");
                 $("#AboveFold_300x600").show();
+
+                if(GS.school.tandem.isTandemBranded()){
+                    if(GS.school.tandem.isTandemReturned()){
+                        // show branded ad by pushing on the
+                        if(GS.school.tandem.isTandemActive()){
+                            $("#AboveFold_Culture_300x600").show();
+                            refreshableOverviewAdSlotKeys.push(refreshableTandemTileBranding);
+                        }
+                    }
+                    else{
+                        GS.school.tandem.setTandemShowAd('true');
+                        GS.school.tandem.setTandemTabName(tabName);
+                        GS.school.tandem.setTandemWhichAd(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '');
+                    }
+                }
                 refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
                 break;
             }
