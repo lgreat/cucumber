@@ -301,10 +301,10 @@ public class EspSaveHelper implements BeanFactoryAware {
      * @param school
      * @param now
      * @param responseList
-     * @param responseKeysLookUpMap
+     * @param responseKeysToDeactivate
      */
     public void saveUspResponses(User user, School school, Date now, List<EspResponse> responseList,
-                                 Map<String, String> responseKeysLookUpMap,UspSaveBehaviour saveBehaviour) {
+                                 Map<String, String> responseKeysToDeactivate,UspSaveBehaviour saveBehaviour) {
 
         if (responseList == null || responseList.isEmpty()) {
             return;
@@ -338,10 +338,15 @@ public class EspSaveHelper implements BeanFactoryAware {
         } else if (isOspSource && !isOspProvisional) {
             //If its a OSP gateway form save and the user is not provisional, then check if the user has answered all questions
             //If all the questions were answered then the school will be in OSP preferred status. Therefore deactivate all USP data.
-            if (statusManager.allOSPQuestionsAnswered(responseKeysLookUpMap)) {
+            if (statusManager.allOSPQuestionsAnswered(responseKeysToDeactivate)) {
                 responseSourcesToDeactivate.add(EspResponseSource.usp);
             }
-            _espResponseDao.deactivateResponses(school, responseKeysLookUpMap.keySet(), responseSourcesToDeactivate, null);
+
+            //If the question was answered by selecting from the drop down, then make sure that the existing
+            //responses for the "other" field are deactivated.Or if the question was answered by only entering data in the "other" text box,
+            //then deactivate the existing "non-other" responses.
+            handleOtherResponses(responseKeysToDeactivate);
+            _espResponseDao.deactivateResponses(school, responseKeysToDeactivate.keySet(), responseSourcesToDeactivate, null);
         } else if (isOspProvisional) {
             //If the provisional user then keys on the page = all the keys on the gateway form. This is done so that the "_page_osp_gateway_keys" contains
             //all the keys on the gateway form(including the "other") keys. When provisional user is approved and the data is promoted,
@@ -384,6 +389,44 @@ public class EspSaveHelper implements BeanFactoryAware {
                     responseKeysLookUpMap.put(subsectionResponseKey, "");
                 }
             }
+        }
+    }
+
+    /**
+     * Add the "other" keys for deactivation. Or add the "non-other" keys for deactivation.
+     * Probably, I could have just added all below keys to the map(since all of them are required on the gateway form)
+     * and not bother with the IF-ELSE. However, if the javaScript validation breaks,
+     * this should be the expected behaviour.
+     * @param responseKeysLookUpMap
+     */
+    private void handleOtherResponses(Map<String, String> responseKeysLookUpMap) {
+        if (responseKeysLookUpMap.containsKey(UspFormHelper.GIRLS_SPORTS_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY, "");
+        } else if (responseKeysLookUpMap.containsKey(UspFormHelper.GIRLS_SPORTS_OTHER_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.GIRLS_SPORTS_RESPONSE_KEY, "");
+        }
+
+        if (responseKeysLookUpMap.containsKey(UspFormHelper.FOREIGN_LANGUAGES_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY, "");
+        } else if (responseKeysLookUpMap.containsKey(UspFormHelper.FOREIGN_LANGUAGES_OTHER_RESPONSE_KEY)) {
+            responseKeysLookUpMap.containsKey(UspFormHelper.FOREIGN_LANGUAGES_RESPONSE_KEY);
+        }
+
+        if (responseKeysLookUpMap.containsKey(UspFormHelper.TRANSPORTATION_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY, "");
+        } else if (responseKeysLookUpMap.containsKey(UspFormHelper.TRANSPORTATION_OTHER_RESPONSE_KEY)) {
+            responseKeysLookUpMap.containsKey(UspFormHelper.TRANSPORTATION_RESPONSE_KEY);
+        }
+
+        if (responseKeysLookUpMap.containsKey(UspFormHelper.BOYS_SPORTS_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY, "");
+        } else if (responseKeysLookUpMap.containsKey(UspFormHelper.BOYS_SPORTS_OTHER_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.BOYS_SPORTS_RESPONSE_KEY, "");
+        }
+        if (responseKeysLookUpMap.containsKey(UspFormHelper.PARENT_INVOLVEMENT_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY, "");
+        } else if (responseKeysLookUpMap.containsKey(UspFormHelper.PARENT_INVOLVEMENT_OTHER_RESPONSE_KEY)) {
+            responseKeysLookUpMap.put(UspFormHelper.PARENT_INVOLVEMENT_RESPONSE_KEY, "");
         }
     }
 
