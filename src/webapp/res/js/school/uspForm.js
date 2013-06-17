@@ -98,12 +98,12 @@ GS.form.uspForm = (function ($) {
         if (data.isEmailValid !== true) {
             handleValidationResponse(EMAIL_ERROR_SELECTOR, 'Please enter a valid email address.', emailField);
         } else if (isLogin === true && data.isNewUser === true) {
-            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='#' class='js_lnchUspRegistration' >register here</a>.", emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='javascript:void(0);' class='js_lnchUspRegistration' >register here</a>.", emailField);
         } else if (isLogin === false && data.isNewUser !== true) {
-            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='#' class='js_lnchUspSignin'>sign in here</a>.", emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='javascript:void(0);' class='js_lnchUspSignin'>sign in here</a>.", emailField);
         } else if (data.isNewUser !== true && data.isUserEmailValidated !== true) {
             var onclickStr = "'GS.form.uspForm.handleEmailVerification(); return false;'";
-            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='#' onclick=" + onclickStr + ">verify your email</a>.", emailField);
+            handleValidationResponse(EMAIL_ERROR_SELECTOR, "Please <a href='javascript:void(0);' onclick=" + onclickStr + ">verify your email</a>.", emailField);
         } else if (isLogin === true && data.isCookieMatched !== true) {
             handleValidationResponse(EMAIL_ERROR_SELECTOR, 'The password you entered is incorrect.', emailField);
         } else {
