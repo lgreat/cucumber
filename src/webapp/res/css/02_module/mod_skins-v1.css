@@ -362,15 +362,17 @@ General comments:
 }
 
 .standard_7-1 .bd{
+    margin-top: 32px;
     text-align: center;
     background: url("/res/img/school/overview/tandem/bg_calendarTile.png");
-    width: 152px;
-    height: 123px;
+    width: 150px;
+    height: 143px;
 }
 .standard_7-1 .bd-MS-brandedskin{
+    margin-top: 17px;
     background: url("/res/img/school/overview/tandem/bg_calendarTile_microsoft.png");
-    width: 152px;
-    height: 113px;
+    width: 150px;
+    height: 143px;
 }
 .standard_7-1 .ft{
    color:#2092C4;

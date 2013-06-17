@@ -8,6 +8,9 @@ GS.school = GS.school || {};
 GS.school.calendar =  (function($) {
     "use strict";
 
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+
     var mapCalNames = {
         'Microsoft Outlook': 'Outlook',
         'Outlook.com': 'Outlook.com',
@@ -33,7 +36,7 @@ GS.school.calendar =  (function($) {
 
 
     $(function () {
-        setTandemBranded(hasTandemBranding);
+        GS.school.tandem.setTandemBranded(hasTandemBranding);
         initializeCustomSelect("js-export-school-calendar", selectCallbackTandemCalFile);
         var templateHtml = $(eventTableRowTemplateSelector).html();
         if (templateHtml !== undefined) {
@@ -313,7 +316,10 @@ GS.school.calendar =  (function($) {
 
             if (i === 0) {
                 $('#js-tandemOverviewTileEvent').html(event.summary);
-                $('#js-tandemOverviewTileTitle').html(event.dateStart.prettyDate);
+                $('#js-tandemOverviewTileMonth').html(monthNames[event.dateStart.month-1]);
+//                console.log("event.dateStart.day",parseInt(event.dateStart.day));
+                $('#js-tandemOverviewTileDay').html(parseInt(event.dateStart.day));
+//                $('#js-tandemOverviewTileTitle').html(event.dateStart.prettyDate);
             }
 
             html = getEventTableRowHtml(event);
@@ -590,6 +596,7 @@ GS.school.tandem =  (function($) {
     }
     return {
         handleTandemAd:handleTandemAd,
+        setTandemBranded: setTandemBranded,
         isTandemBranded: isTandemBranded,
         isTandemReturned:isTandemReturned,
         setTandemActive : setTandemActive,
