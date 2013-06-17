@@ -63,7 +63,9 @@
                     </div>
                     <c:if test="${microsoftBranding == 'true'}">
                         <div class="ft clearfix small pvs" style="margin: 0 auto;">
+                            <!--Branded_Tandem_Tile_150x30-->
                             <div style="width:170px" class="pll clearfix">
+
                             <div class="fl tac plm smallest bottom make-999999" style="line-height: 12px">BROUGHT<br />TO YOU BY</div>
                             <div class="fl plm"><img style="width: 79px; height: 18px;" src="/res/img/school/overview/tandem/microsoft_logo_79x18.png" alt="MS OFFICE 365" /></div>
                             </div>

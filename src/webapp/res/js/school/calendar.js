@@ -582,7 +582,9 @@ GS.school.tandem =  (function($) {
                 }
             }
             else{
-                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()]);
+                if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
+                    GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()], tandemWhichAdNegativeLayerId());
+                }
             }
         }
     }
