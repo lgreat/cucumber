@@ -83,6 +83,20 @@ GS.profile = GS.profile || (function() {
     var originalQueryData;
     var initialTab;
 
+    var refreshableProfileAllAdSlotKeys = [
+        'School_Profile_Page_Footer_728x90',
+        'School_Profile_Page_Header_728x90',
+        'School_Profile_Page_Community_Ad_300x50',
+        'School_Profile_Page_BelowFold_300x250',
+        'School_Profile_Page_BelowFold_Top_300x125',
+        'School_Profile_Page_AboveFold_300x600',
+        'School_Profile_Page_AboveFold_Culture_300x600',
+        'School_Profile_Page_AboveFold_300x600',
+        'School_Profile_Page_Branded_Tandem_Tile_150x30',
+        'Global_NavPromo_970x30',
+        'Custom_Welcome_Ad'
+    ];
+
     var refreshableNonOverviewAdSlotKeys = [
         'School_Profile_Page_Footer_728x90',
         'School_Profile_Page_Header_728x90',
@@ -102,7 +116,7 @@ GS.profile = GS.profile || (function() {
         'School_Profile_Page_BelowFold_Top_300x125'
     ];
 
-    var refreshableCultureBranding = 'School_Profile_Page_Culture_AboveFold_300x600';
+    var refreshableCultureBranding = 'School_Profile_Page_AboveFold_Culture_300x600';
     var refreshableCultureNoBranding = 'School_Profile_Page_AboveFold_300x600';
     var refreshableTandemTileBranding = 'School_Profile_Page_Branded_Tandem_Tile_150x30';
 
@@ -186,72 +200,95 @@ GS.profile = GS.profile || (function() {
         return this;
     };
 
+    var hideAllAds = function(){
+        var len = refreshableProfileAllAdSlotKeys.length;
+        var needle = "School_Profile_Page_";
+        var title = "";
+        for( var i=0; i < len; i++){
+            var title = refreshableProfileAllAdSlotKeys[i];
+            if(title.indexOf(needle) >= 0){
+                $("#"+title.substring(20)).hide();
+            }
+            else{
+                $("#"+title).hide();
+            }
+
+        }
+    }
+
+    var showReleventAds = function(adslots){
+        var len = adslots.length;
+        var needle = "School_Profile_Page_";
+        var title = "";
+        for( var i=0; i < len; i++){
+            var title = adslots[i];
+            if(title.indexOf(needle) >= 0){
+                $("#"+title.substring(20)).show();
+            }
+            else{
+                $("#"+title).show();
+            }
+
+        }
+    }
+
     var refreshAdsForTab = function (tabName) {
         /*  For the culture page with tandem
         *   Need to hide both ads as we don't know which will be filled yet.
         * */
-        $("#AboveFold_300x600").hide();
-        $("#AboveFold_Culture_300x600").hide();
+
+        hideAllAds();
 
         switch (tabName) {
             case "overview":{
-                $("#AboveFold_300x600").show();
-                if(hasTandemBranding == 'true'){
-                    if(GS.school.tandem.isTandemReturned()){
-                        // show branded ad by pushing on array
-                        if(GS.school.tandem.isTandemActive()){
-                            refreshableOverviewAdSlotKeys.push(refreshableTandemTileBranding);
-                        }
-                    }
-                    else{
-                        // defer decision to tandem load complete
-                        GS.school.tandem.setTandemShowAd('true');
-                        GS.school.tandem.setTandemTabName(tabName);
-                        GS.school.tandem.setTandemWhichAd(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '');
-                    }
-                }
+                handleTandemBranding(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '', tabName);
                 refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
                 break;
             }
             case "reviews":{
-                console.log("refreshReviewsAds tab");
-                $("#AboveFold_300x600").show();
                 refreshReviewsAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
                 break;
             }
             case "culture":{
-                /// calls to calendar
-                if(hasTandemBranding == 'true'){
-                    if(GS.school.tandem.isTandemReturned()){
-                       // show branded ad by pushing on the
-                        if(GS.school.tandem.isTandemActive()){
-                            $("#AboveFold_Culture_300x600").show();
-                            refreshableCultureAdSlotKeys.push(refreshableCultureBranding);
-                        }
-                        else{
-                            $("#AboveFold_300x600").show();
-                            refreshableCultureAdSlotKeys.push(refreshableCultureNoBranding);
-                        }
-                    }
-                    else{
-                        GS.school.tandem.setTandemShowAd('true');
-                        GS.school.tandem.setTandemTabName(tabName);
-                        GS.school.tandem.setTandemWhichAd(refreshableCultureBranding, 'AboveFold_Culture_300x600', refreshableCultureNoBranding, 'AboveFold_300x600');
-                    }
-                }
-                else{
-                    $("#AboveFold_300x600").show();
-                    refreshableCultureAdSlotKeys.push(refreshableCultureNoBranding);
-                }
+                handleTandemBranding(refreshableCultureBranding, 'AboveFold_Culture_300x600', refreshableCultureNoBranding, 'AboveFold_300x600', tabName);
                 refreshCultureAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
                 break;
             }
             default:{
-                $("#AboveFold_300x600").show();
                 refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
             }
         }
     };
+
+    var handleTandemBranding = function(refreshableBranding, brandingLayerId, refreshableNoBranding, noBrandingLayerId, tabName) {
+        // this is not set on load if I check in tandem object
+        if(hasTandemBranding == 'true'){
+            if(GS.school.tandem.isTandemReturned()){
+                // show branded ad by pushing on the
+                if(GS.school.tandem.isTandemActive()){
+                    $("#"+brandingLayerId).show();
+                    refreshableCultureAdSlotKeys.push(refreshableBranding);
+                }
+                else{
+                    if(noBrandingLayerId != ""){
+                        $("#"+noBrandingLayerId).show();
+                        refreshableCultureAdSlotKeys.push(refreshableNoBranding);
+                    }
+                }
+            }
+            else{
+                GS.school.tandem.setTandemShowAd('true');
+                GS.school.tandem.setTandemTabName(tabName);
+                GS.school.tandem.setTandemWhichAd(refreshableBranding, brandingLayerId, refreshableNoBranding, noBrandingLayerId);
+            }
+        }
+        else{
+            if(noBrandingLayerId != ""){
+                $("#"+noBrandingLayerId).show();
+                refreshableCultureAdSlotKeys.push(refreshableNoBranding);
+            }
+        }
+    }
 
     var beforeTabChange = function(newTab) {
         if (newTab.name === 'reviews' && originalQueryData.hasOwnProperty('page') && originalQueryData.page !== '1') {
@@ -261,7 +298,6 @@ GS.profile = GS.profile || (function() {
     };
 
     var onTabChanged = function(currentTab, options) {
-        //console.log('on tab changed', currentTab);
         options = options || {};
         var $a = $(currentTab.selector);
         var jumpedToAnchor = false;
@@ -351,31 +387,40 @@ GS.profile = GS.profile || (function() {
         }
     };
 
+    // need to replace all these calls to directly call refreshAdsOnTabGeneric
+
     var refreshOverviewAds = function(tabName) {
-        //console.log('refreshing overview ads', refreshableOverviewAdSlotKeys);
-        GS.ad.unhideGhostTextForAdSlots(refreshableOverviewAdSlotKeys);
-        GS.ad.setTargetingAndRefresh(refreshableOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+        refreshAdsOnTabGeneric(refreshableOverviewAdSlotKeys, tabName, true);
     };
     var refreshReviewsAds = function(tabName) {
-        //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
-        GS.ad.unhideGhostTextForAdSlots(refreshableReviewsAdSlotKeys);
-        GS.ad.setTargetingAndRefresh(refreshableReviewsAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+        refreshAdsOnTabGeneric(refreshableReviewsAdSlotKeys, tabName, true);
     };
     var refreshCultureAds = function(tabName) {
-        //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
-        GS.ad.unhideGhostTextForAdSlots(refreshableCultureAdSlotKeys);
-        GS.ad.setTargetingAndRefresh(refreshableCultureAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+        refreshAdsOnTabGeneric(refreshableCultureAdSlotKeys, tabName, true);
     };
     var refreshNonOverviewAds = function(tabName) {
-        //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
-        GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
-        GS.ad.setTargetingAndRefresh(refreshableNonOverviewAdSlotKeys, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+        refreshAdsOnTabGeneric(refreshableNonOverviewAdSlotKeys, tabName, true);
     };
     var refreshNonOverviewAdsWithoutTargetingChange = function() {
-        //console.log('refresh non overview ads without targeting change', refreshableNonOverviewAdSlotKeys);
-        GS.ad.unhideGhostTextForAdSlots(refreshableNonOverviewAdSlotKeys);
-        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
+        refreshAdsOnTabGeneric(refreshableNonOverviewAdSlotKeys, '', false);
     };
+
+    /*
+        adslots - array of ad slots to show and refresh
+        tabName - tab name for targeting
+        targeting - boolean to either target tab(true) or no tab target (false)
+     */
+    var refreshAdsOnTabGeneric = function(adslots, tabName, targeting) {
+        showReleventAds(adslots);
+        GS.ad.unhideGhostTextForAdSlots(adslots);
+        if(targeting){
+            GS.ad.setTargetingAndRefresh(adslots, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+        }
+        else{
+            GS.ad.refreshAds(adslots);
+        }
+    };
+
 
     var getAlternateSitePath = function() {
         var $currentTabLayer = GS.tabManager.getActiveLayer();
@@ -384,7 +429,6 @@ GS.profile = GS.profile || (function() {
     };
 
     var refreshSingleAd = function(tabName, adSlots, showID) {
-        console.log('refreshSingleAd refreshing reviews ads', adSlots);
         $("#"+showID).show();
         GS.ad.unhideGhostTextForAdSlots(adSlots);
         GS.ad.setTargetingAndRefresh(adSlots, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
