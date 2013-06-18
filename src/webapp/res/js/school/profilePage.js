@@ -196,16 +196,15 @@ GS.profile = GS.profile || (function() {
         switch (tabName) {
             case "overview":{
                 $("#AboveFold_300x600").show();
-
-                if(GS.school.tandem.isTandemBranded()){
-                    if(GS.school.tandem.isTandemReturned()){
-                        // show branded ad by pushing on the
-                        if(GS.school.tandem.isTandemActive()){
-                            $("#AboveFold_Culture_300x600").show();
+                if(GS.school.tandem.isTandemBranded() == true){
+                    if(GS.school.tandem.isTandemReturned() == true){
+                        // show branded ad by pushing on array
+                        if(GS.school.tandem.isTandemActive() == true){
                             refreshableOverviewAdSlotKeys.push(refreshableTandemTileBranding);
                         }
                     }
                     else{
+                        // defer decision to tandem load complete
                         GS.school.tandem.setTandemShowAd('true');
                         GS.school.tandem.setTandemTabName(tabName);
                         GS.school.tandem.setTandemWhichAd(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '');
@@ -221,16 +220,11 @@ GS.profile = GS.profile || (function() {
                 break;
             }
             case "culture":{
-                //console.log("culture tab");
-                // check for tandem - is it loaded, does it have data and is branding turned on.
-//                $("#AboveFold_Culture_300x600").show();
-
                 /// calls to calendar
-
-                if(GS.school.tandem.isTandemBranded()){
-                    if(GS.school.tandem.isTandemReturned()){
+                if(GS.school.tandem.isTandemBranded() == true){
+                    if(GS.school.tandem.isTandemReturned() == true){
                        // show branded ad by pushing on the
-                        if(GS.school.tandem.isTandemActive()){
+                        if(GS.school.tandem.isTandemActive() == true){
                             $("#AboveFold_Culture_300x600").show();
                             refreshableCultureAdSlotKeys.push(refreshableCultureBranding);
                         }

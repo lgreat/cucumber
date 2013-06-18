@@ -317,9 +317,7 @@ GS.school.calendar =  (function($) {
             if (i === 0) {
                 $('#js-tandemOverviewTileEvent').html(event.summary);
                 $('#js-tandemOverviewTileMonth').html(monthNames[event.dateStart.month-1]);
-//                console.log("event.dateStart.day",parseInt(event.dateStart.day));
                 $('#js-tandemOverviewTileDay').html(parseInt(event.dateStart.day));
-//                $('#js-tandemOverviewTileTitle').html(event.dateStart.prettyDate);
             }
 
             html = getEventTableRowHtml(event);
@@ -574,8 +572,8 @@ GS.school.tandem =  (function($) {
         setTandemActive(val);
         // it had not returned when called so now it needs to show ads
         if(isTandemShowAd()){
-            if(isTandemBranded()){
-                if(isTandemActive()){
+            if(isTandemBranded() == true){
+                if(isTandemActive() == true){
                     if(tandemWhichAdPositive() != null && tandemWhichAdPositive() != ""){
                         //in profilePage.js
                         GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
