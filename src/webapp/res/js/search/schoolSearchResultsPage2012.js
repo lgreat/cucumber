@@ -1,12 +1,12 @@
 GS = GS || {};
 
-GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
+GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function () {
     var body = '#contentGS';
 
-    var init = function() {
+    var init = function () {
         registerEventHandlers();
         GS.search.schoolSearchForm.init(GS.search.filters, GS.ui.contentDropdowns);
-        GS.school.compare.initializeSchoolsInCompare(function() {
+        GS.school.compare.initializeSchoolsInCompare(function () {
             return window.location.pathname + GS.search.filters.getUpdatedQueryString();
         });
 
@@ -44,13 +44,13 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         $(".js-facebook-logout").parent().parent().show();
     };
 
-    var writeCompareNowLink = function(schoolId, state) {
+    var writeCompareNowLink = function (schoolId, state) {
         //The 'compare' label should be switched to 'compare now' link.
         var compareLabel = $('#js_' + state + schoolId + '_compare_label');
         compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
     };
 
-    var removeCompareNowLinks = function(schoolId, state) {
+    var removeCompareNowLinks = function (schoolId, state) {
         //The 'compare now' link should be switched to 'compare' label for the school that has been deleted.
         removeCompareNowLink(schoolId, state);
 
@@ -66,7 +66,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         }
     };
 
-    var removeCompareNowLink = function(schoolId, state) {
+    var removeCompareNowLink = function (schoolId, state) {
         //The 'compare now' link should be switched to 'compare' label .
         var compareLabel = $('#js_' + state + schoolId + '_compare_label');
         compareLabel.html('Compare');
@@ -79,9 +79,11 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         omnitureEventNotifier.send();
     };
 
-    var registerEventHandlers = function() {
+    var registerEventHandlers = function () {
         // Bind the behavior when clicking on a compare checkbox in the list
-        $(body).on('click', '.compare-school-checkbox', function() {
+//        $(body).on('click', '.compare-school-checkbox', function() {
+        var compareCheck = $('.compare-school-checkbox');
+        compareCheck.on('click', function () {
             var schoolCheckbox = $(this);
             var schoolSelected = schoolCheckbox.attr('id');
             var schoolId = schoolSelected.substr(2, schoolSelected.length);
@@ -91,7 +93,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                 //If the checkbox was checked then try adding a school to the compare module.
                 //If adding a school fails then un check the checkbox.
                 GS.school.compare.addSchoolToCompare(schoolId, state).done(
-                    function() {
+                    function () {
                         //If there are more than 2 schools in compare then the 'compare' label
                         //should be switched to 'compare now' link.
                         var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
@@ -103,7 +105,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                             }
                         }
                     }).fail(
-                    function() {
+                    function () {
                         schoolCheckbox.prop('checked', false);
                     }
                 );
@@ -124,9 +126,9 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
         //Bind the custom event that gets triggered after the schools are initialized in the compare module.
         //This is used to check the check boxes for the schools that are in the compare module.
-        $(body).on('schoolsInitialized', function(event, schoolsInCompare) {
-            if (schoolsInCompare.length==0){
-                $('.compare-school-checkbox').prop('checked',false);
+        $(body).on('schoolsInitialized', function (event, schoolsInCompare) {
+            if (schoolsInCompare.length == 0) {
+                $('.compare-school-checkbox').prop('checked', false);
             }
             for (var i = 0; i < schoolsInCompare.length; i++) {
                 var schoolId = schoolsInCompare[i].schoolId;
@@ -145,7 +147,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
         //Bind the custom event that gets triggered after a school is removed from the compare module.
         //This is used to un check the check boxes for the school that is removed from the compare module.
-        $(body).on('schoolRemoved', function(event, schoolId, state) {
+        $(body).on('schoolRemoved', function (event, schoolId, state) {
             var checkBox = $('#' + state + schoolId);
             checkBox.prop('checked', false);
             //After the school is removed, the 'compare now' link should be switched to 'compare' label.
@@ -155,7 +157,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         });
 
         // Bind the behavior when clicking on the compare now link that appears when at least two schools are checked
-        $(body).on('click', '.js_compare_link', function() {
+        $(body).on('click', '.js_compare_link', function () {
             return GS.school.compare.compareSchools();
         });
 
