@@ -15,7 +15,7 @@
         var hasOspData = '${ospDataExistsLocal}';
         var hasCalendarData = null;
         var hasTandemBranding = '${microsoftBranding}';
-        console.log("hasTandemBranding",hasTandemBranding);
+//        console.log("hasTandemBranding",hasTandemBranding);
         $(function() {
 
             GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {

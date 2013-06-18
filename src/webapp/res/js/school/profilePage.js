@@ -196,10 +196,10 @@ GS.profile = GS.profile || (function() {
         switch (tabName) {
             case "overview":{
                 $("#AboveFold_300x600").show();
-                if(GS.school.tandem.isTandemBranded() == true){
-                    if(GS.school.tandem.isTandemReturned() == true){
+                if(hasTandemBranding == 'true'){
+                    if(GS.school.tandem.isTandemReturned()){
                         // show branded ad by pushing on array
-                        if(GS.school.tandem.isTandemActive() == true){
+                        if(GS.school.tandem.isTandemActive()){
                             refreshableOverviewAdSlotKeys.push(refreshableTandemTileBranding);
                         }
                     }
@@ -221,10 +221,10 @@ GS.profile = GS.profile || (function() {
             }
             case "culture":{
                 /// calls to calendar
-                if(GS.school.tandem.isTandemBranded() == true){
-                    if(GS.school.tandem.isTandemReturned() == true){
+                if(hasTandemBranding == 'true'){
+                    if(GS.school.tandem.isTandemReturned()){
                        // show branded ad by pushing on the
-                        if(GS.school.tandem.isTandemActive() == true){
+                        if(GS.school.tandem.isTandemActive()){
                             $("#AboveFold_Culture_300x600").show();
                             refreshableCultureAdSlotKeys.push(refreshableCultureBranding);
                         }
@@ -247,28 +247,10 @@ GS.profile = GS.profile || (function() {
                 break;
             }
             default:{
-                console.log("refreshNonOverviewAds tab");
                 $("#AboveFold_300x600").show();
                 refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
             }
         }
-//        if (tabName === "overview") {
-//            console.log("refreshOverviewAds tab");
-//            $("#AboveFold_300x600").show();
-//            refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
-//        } else if (tabName === 'reviews') {
-//            console.log("refreshReviewsAds tab");
-//            $("#AboveFold_300x600").show();
-//            refreshReviewsAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
-//        } else if (tabName === 'culture') {
-//            console.log("culture tab");
-//            $("#AboveFold_Culture_300x600").show();
-//            refreshCultureAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
-//        } else {
-//            console.log("refreshNonOverviewAds tab");
-//            $("#AboveFold_300x600").show();
-//            refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
-//        }
     };
 
     var beforeTabChange = function(newTab) {

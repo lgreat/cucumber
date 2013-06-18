@@ -572,8 +572,8 @@ GS.school.tandem =  (function($) {
         setTandemActive(val);
         // it had not returned when called so now it needs to show ads
         if(isTandemShowAd()){
-            if(isTandemBranded() == true){
-                if(isTandemActive() == true){
+            if(isTandemBranded() == 'true'){
+                if(isTandemActive()){
                     if(tandemWhichAdPositive() != null && tandemWhichAdPositive() != ""){
                         //in profilePage.js
                         GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
