@@ -1117,6 +1117,14 @@ Extends button-1 by changing:
 /* =8 Primary and secondary button styles
 -------------------------------------------------------------------------------------------*/
 
+/*Implementation*/
+
+/*
+
+<button class="but but-rg but-1" name="">Button 1</button>
+
+*/
+
 .but{
     width: auto;
     overflow: visible; /* for button width bug in IE */

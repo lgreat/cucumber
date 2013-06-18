@@ -34,6 +34,9 @@
                 request.setAttribute("footnotes", footnotes);
             ]]>
     </jsp:scriptlet>
+    <c:choose>
+        <c:when test=""></c:when>
+    </c:choose>
     <div class="grid_16 alpha omega ptn mtn">
         <div data-gs-tabs="studentsAndTeachersMaster" class="gsTabs">
             <ul class="tabStyle-5">
@@ -164,6 +167,19 @@
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
                 <c:if test="${hasTeacherEspData}">
+                    <c:set var="footnote">
+                        <c:choose>
+                            <c:when test="${ospStatus eq 'USP_ONLY'}">
+                                Source: Provided by school community.
+                            </c:when>
+                            <c:when test="${ospStatus eq 'OSP_PREFERRED' or ospStatus eq 'OSP_OUTDATED'}">
+                                Source: Provided by a school official.
+                            </c:when>
+                            <c:when test="${ospStatus eq 'MIX'}">
+                                Source: Provided by school officials and community members.
+                            </c:when>
+                        </c:choose>
+                    </c:set>
                     <c:set var="staffResources" value="${espResults['staff_resources']}" property="java.util.List"/>
                     <c:set var="numStaffResources" value="${fn:length(staffResources)}"/>
                     <c:set var="staffLanguages" value="${espResults['staff_languages']}" property="java.util.List"/>
@@ -219,7 +235,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
+                        <div class="smaller bottom tar">${footnote}</div>
                     </c:if>
 
                 </c:if>

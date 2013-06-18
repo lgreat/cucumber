@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <head>
+        <meta name="decorator" content="standardDecorator-v1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Thank you/Your results are published hover for USP"/>
+        <title>
+            Thank you! - GreatSchools School Program Q &amp;amp; A - ${school.name}, ${school.city}, ${school.databaseState}
+        </title>
+        <meta name="robots" content="noindex"/>
+    </head>
+    <body>
+
+    <div class="container_24 clearfix">
+        <div class="tac"
+             style="margin:50px 0 50px; height:339px; background-image: url(/res/img/parentReviewLanding/reviewLandingThankYouCard.png); background-repeat:no-repeat;">
+            <div style="padding: 61px 0;">
+                <p style="font-family: SourceSansPro-Semibold, arial; font-size:40px; margin-bottom: 40px">
+                    Thanks for sharing what you know!</p>
+
+                <p>It’s people like you who make GreatSchools the place millions of families go to get the inside scoop on local schools.  </p>
+
+                <p class="pbl">While you’re here, please take a minute to share your opinion about one of your school’s programs.
+                    <br/>You’ll be helping other families find their great school!</p>
+
+                <div class="mtl">
+                    <a href="${schoolUrl}">&#171; Back to ${school.name}</a>
+                    <a href="${schoolUrl}?tab=reviews"><button class="but but-rg but-1 mll" name="">Write a review now</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mod:tracking pageName="USP Thank you Page"
+                  hier1="USP, User input, USP Thank you Page"/>
+    </body>
+    </html>
+</jsp:root>

@@ -149,6 +149,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         statsModel.put(MODEL_ESP_RESULTS_MAP_KEY, espResults);
 
         model.putAll(statsModel);
+        model.put("ospStatus", _schoolProfileDataHelper.getOspStatus(request, espResults));
         return model;
     }
 

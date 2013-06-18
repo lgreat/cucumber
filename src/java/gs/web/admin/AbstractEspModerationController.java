@@ -15,7 +15,9 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.util.Address;
 import gs.data.util.DigestUtil;
+import gs.web.school.EspSaveBehaviour;
 import gs.web.school.EspSaveHelper;
+import gs.web.school.OspSaveBehaviour;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
@@ -272,13 +274,13 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         List<EspResponse> responseList = new ArrayList<EspResponse>();
 
         //Get all the provisional responses.
-        List<EspResponse> espResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+        List<EspResponse> espResponses = _espResponseDao.getResponses(school, user.getId(), true);
 
         if (espResponses != null && !espResponses.isEmpty()) {
             //Construct the list of key to responses Map.
             for (EspResponse espResponse : espResponses) {
                 String key = espResponse.getKey();
-                if (!key.startsWith("_page_") && !espResponse.isActive()) {
+                if (!key.startsWith("_page_")&& !espResponse.isActive()) {
                     List<Object> ojbs = new ArrayList<Object>();
                     if (requestParameterMap.get(key) != null) {
                         ojbs = requestParameterMap.get(key);
@@ -318,8 +320,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             // Check if this is the first time this school has gotten any data(exclude data by the user being approved).
             boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true , provisionalMemberIds);
 
-            _espSaveHelper.saveEspFormData(user, school, keysForPage, keyToResponseMap, school.getDatabaseState(), -1,
-                    errorFieldToMsgMap, responseList, false, true);
+            OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(false, true, false);
+            _espSaveHelper.saveOspFormData(user, school, school.getDatabaseState(), -1, keysForPage, keyToResponseMap,
+                    responseList, errorFieldToMsgMap, saveBehaviour);
 
             if (schoolHasNoUserCreatedRows) {
                 OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);

@@ -39,6 +39,7 @@ GSType.hover.HoverDialog = function(id,width) {
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
+
         $(document).on("click","#"+this.hoverId + ' .js_closeHover', function() {
             self.hide();
         });
@@ -130,6 +131,7 @@ GSType.hover.SubscriptionEmailValidated.prototype = new GSType.hover.HoverDialog
 //ForgotPasswordHover hover
 GSType.hover.ForgotPasswordHover = function() {
     this.loadOnExitUrl = null;
+    this._osp = false;
     this.loadDialog = function() {
         this.pageName='Forgot Password Hover';
         this.hier1='Hovers,Sign In,Forgot Password Hover';
@@ -165,7 +167,12 @@ GSType.hover.ForgotPasswordHover = function() {
             GSType.hover.forgotPassword.cancelLoadOnExit();
         }
         GSType.hover.forgotPassword.hide();
-        GSType.hover.signInHover.showJoinFunction();
+        if(GSType.hover.forgotPassword.isOsp()) {
+            GSType.hover.modalUspRegistration.show();
+        }
+        else {
+            GSType.hover.signInHover.showJoinFunction();
+        }
     };
     this.showSignin = function() {
         if (GSType.hover.forgotPassword.loadOnExitUrl) {
@@ -173,7 +180,18 @@ GSType.hover.ForgotPasswordHover = function() {
             GSType.hover.forgotPassword.cancelLoadOnExit();
         }
         GSType.hover.forgotPassword.hide();
-        GSType.hover.signInHover.show();
+        if(GSType.hover.forgotPassword.isOsp()){
+            GSType.hover.modalUspSignIn.show();
+        }
+        else{
+            GSType.hover.signInHover.show();
+        }
+    };
+    this.isOsp = function(){
+        return this._osp;
+    };
+    this.setOsp = function(osp){
+        this._osp = osp;
     };
 };
 GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword',590);
@@ -2124,6 +2142,10 @@ jQuery(function() {
         GSType.hover.validateEmail.show();
     } else if (showHover == "validateEmailSchoolReview") {
         GSType.hover.validateEmailSchoolReview.show();
+    } else if (showHover == "modalUspRegistration") {
+        GSType.hover.modalUspRegistration.show();
+    } else if (showHover == "modalUspSignIn") {
+        GSType.hover.modalUspSignIn.show();
     } else if (showHover == "reviewLandingPageInformational") {
         GSType.hover.reviewLandingPageInformational.show();
     } else if (showHover == "verifyYourEmailAddressUSP") {
@@ -2197,6 +2219,15 @@ GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printS
 GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 
 
+GSType.hover.ModalUspRegistration = function() {};
+GSType.hover.ModalUspRegistration.prototype = new GSType.hover.HoverDialog('js-modalUspRegistration');
+GSType.hover.modalUspRegistration = new GSType.hover.ModalUspRegistration();
+
+GSType.hover.ModalUspSignIn = function() {};
+GSType.hover.ModalUspSignIn.prototype = new GSType.hover.HoverDialog('js-modalUspSignIn');
+GSType.hover.modalUspSignIn = new GSType.hover.ModalUspSignIn();
+
+
 GSType.hover.ReviewLandingPageInformational = function() {};
 GSType.hover.ReviewLandingPageInformational.prototype = new GSType.hover.HoverDialog('js-reviewLandingPageInformational');
 GSType.hover.reviewLandingPageInformational = new GSType.hover.ReviewLandingPageInformational();
@@ -2204,3 +2235,4 @@ GSType.hover.reviewLandingPageInformational = new GSType.hover.ReviewLandingPage
 GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
+

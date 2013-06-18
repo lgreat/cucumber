@@ -1,17 +1,20 @@
 package gs.web.school;
 
+import com.restfb.util.StringUtils;
 import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
-import gs.web.community.HoverHelper;
-import gs.web.util.SitePrefCookie;
+import gs.web.school.usp.EspStatus;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SubCookie;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +31,11 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/official-school-profile/dashboard")
-public class EspDashboardController {
-    private static final Log _log = LogFactory.getLog(EspDashboardController.class);
-    public static final String VIEW = "school/espDashboard";
+public class OspDashboardController implements BeanFactoryAware{
+    private static final Log _log = LogFactory.getLog(OspDashboardController.class);
+    public static final String VIEW = "school/ospDashboard";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
-    public static final String PARAM_MESSAGE_ID = "message";
     public static final String MODEL_SUPERUSER_ERROR = "superUserError";
 
     @Autowired
@@ -44,6 +46,8 @@ public class EspDashboardController {
     private ISchoolDao _schoolDao;
     @Autowired
     private EspFormValidationHelper _espFormValidationHelper;
+
+    private BeanFactory _beanFactory;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showLandingPage(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
@@ -56,6 +60,7 @@ public class EspDashboardController {
         }
         // if school is explicitly specified in the URL, grab it here
         School school = getSchool(state, schoolId, modelMap);
+        boolean isProvisional = false;
         
         if (state != null) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -103,11 +108,12 @@ public class EspDashboardController {
             for (EspMembership membership: espMemberships) {
                 if (membership.getStatus() == EspMembershipStatus.PROVISIONAL) {
                     provisionalMembership = membership;
+                    isProvisional = true;
                 }
             }
             if (provisionalMembership != null) {
                 school = getSchool(provisionalMembership);
-                modelMap.put("isProvisional", true);
+                modelMap.put("isProvisional", isProvisional);
             }
         }
 
@@ -117,36 +123,57 @@ public class EspDashboardController {
             //Get the information about who else has ESP access to this school
             List<EspMembership> otherEspMemberships = getEspMembersForSchool(school);
 
+            //Use the BeanFactoryAware so that we get the espStatusManager component with auto injections.Otherwise we have to
+            //manually set the espResponseDao on the espStatusManager.
+            EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", new Object[]{school});
+            modelMap.put("schoolEspStatus", statusManager.getEspStatus());
+            boolean showOspGateway = false;
+
             //If there is a provisional user for the school, then block out other users.GS-13363.
             if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
-                EspMembership provisionalMembership = _espFormValidationHelper.getProvisionalMembershipForSchool(otherEspMemberships, user);
-                if (provisionalMembership != null) {
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
-                    urlBuilder.addParameter("message", "page3");
-                    urlBuilder.addParameter("schoolId", school.getId().toString());
-                    urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
-                    urlBuilder.addParameter("provisionalUserName",
-                            provisionalMembership.getUser().getFirstName() + " " + provisionalMembership.getUser().getLastName());
-                    return "redirect:" + urlBuilder.asFullUrl(request);
+                String redirect = checkForProvisionalMemberships(school, request, otherEspMemberships, user);
+                if (StringUtils.isBlank(redirect) && user.hasRole(Role.ESP_MEMBER)
+                        && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
+                    showOspGateway = true;
+                }
+            } else if (isProvisional && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
+                List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true, "_page_osp_gateway_keys");
+                if (responses == null || responses.isEmpty()) {
+                    showOspGateway = true;
                 }
             }
 
+            modelMap.put("showOspGateway", showOspGateway);
             modelMap.put("allEspMemberships", otherEspMemberships);
             
             // get percent completion info
             Map<Long, Boolean> pageStartedMap = new HashMap<Long, Boolean>(8);
             boolean anyPageStarted = false;
             for (long x=1; x < 9; x++) {
-                boolean pageStarted = _espResponseDao.getKeyCount(school, EspFormController.KEYS_BY_PAGE.get((int)x), false) > 0;
+                boolean pageStarted = _espResponseDao.getKeyCount(school, OspFormController.KEYS_BY_PAGE.get((int)x), false) > 0;
                 pageStartedMap.put(x, pageStarted);
                 anyPageStarted |= pageStarted;
             }
             modelMap.put("pageStarted", pageStartedMap);
             modelMap.put("anyPageStarted", anyPageStarted);
-            modelMap.put("isFruitcakeSchool", EspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
+            modelMap.put("isFruitcakeSchool", OspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
         }
 
         return VIEW;
+    }
+
+    public String checkForProvisionalMemberships(School school,HttpServletRequest request,List<EspMembership> otherEspMemberships,User user){
+        EspMembership provisionalMembership = _espFormValidationHelper.getProvisionalMembershipForSchool(otherEspMemberships, user);
+        if (provisionalMembership != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION_ERROR);
+            urlBuilder.addParameter("message", "page3");
+            urlBuilder.addParameter("schoolId", school.getId().toString());
+            urlBuilder.addParameter("state", school.getStateAbbreviation().toString());
+            urlBuilder.addParameter("provisionalUserName",
+                    provisionalMembership.getUser().getFirstName() + " " + provisionalMembership.getUser().getLastName());
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+        return "";
     }
 
     /**
@@ -275,5 +302,9 @@ public class EspDashboardController {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
     }
 }

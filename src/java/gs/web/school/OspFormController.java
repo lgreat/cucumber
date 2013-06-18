@@ -12,6 +12,7 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.CommunityUtil;
+import gs.web.school.usp.UspFormHelper;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
 import gs.web.util.ReadWriteAnnotationController;
@@ -40,16 +41,17 @@ import java.util.regex.Pattern;
  */
 @Controller
 @RequestMapping("/school/esp/")
-public class EspFormController implements ReadWriteAnnotationController {
-    private static final Log _log = LogFactory.getLog(EspFormController.class);
+public class OspFormController implements ReadWriteAnnotationController {
+    private static final Log _log = LogFactory.getLog(OspFormController.class);
     public static final int MAX_RESPONSE_VALUE_LENGTH = 6000;
-    public static final String VIEW = "school/espForm";
+    public static final String VIEW = "school/ospForm";
     public static final String PATH_TO_FORM = "/school/esp/form.page"; // used by UrlBuilder
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
     public static final String [] CMS_ARTICLE_IDS_FOR_DESCRIPTION = {"7279", "7006"};
+    public static final String USP_FORM_VIEW = "/school/usp/uspForm";
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -68,6 +70,8 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected IEspMembershipDao _espMembershipDao;
     @Autowired
     private GsSolrSearcher _gsSolrSearcher;
+    @Autowired
+    private UspFormHelper _uspFormHelper;
 
 
     // TODO: If user is valid but school/state is not, redirect to landing page
@@ -135,6 +139,69 @@ public class EspFormController implements ReadWriteAnnotationController {
         return VIEW;
     }
 
+    @RequestMapping(value = "/QandAForm.page", method = RequestMethod.GET)
+    public String showOspGatewayForm (ModelMap modelMap,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                                   @RequestParam(value=PARAM_STATE, required=false) State state) {
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+
+        modelMap.put("isSchoolAdmin", true);
+
+        _uspFormHelper.formFieldsBuilderHelper(modelMap, request, response, school, state, user, true);
+        return USP_FORM_VIEW;
+    }
+
+    @RequestMapping(value = "/QandAForm.page", method = RequestMethod.POST)
+    public void onOspGatewayFormSubmit(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
+                                    @RequestParam(value = PARAM_STATE, required = false) State state) throws IOException, JSONException {
+        response.setContentType("application/json");
+
+        School school = getSchool(state, schoolId);
+        if (school == null) {
+            outputJsonError("noSchool", response);
+            return; // early exit
+        }
+
+        // Fetch parameters
+        User user = getValidUser(request, state, school);
+        if (user == null) {
+            outputJsonError("noUser", response);
+            return; // early exit
+        }
+
+        Map<String, Object[]> reqParamMap = request.getParameterMap();
+        Set<String> formFieldNames = _uspFormHelper.FORM_FIELD_TITLES.keySet();
+        boolean isProvisionalOsp = _espFormValidationHelper.isUserProvisional(user);
+        UspSaveBehaviour saveBehaviour = new UspSaveBehaviour(true, true, isProvisionalOsp);
+
+        //TODO In hind sight maybe its better to call saveOspFormData and pass in OspSaveBehaviour, when the osp user is saving the gateway form?
+        _espSaveHelper.saveUspFormData(user, school, reqParamMap, formFieldNames, saveBehaviour);
+
+        /**
+         * Redirect to page 1 of osp form
+         */
+        UrlBuilder urlBuilder = new UrlBuilder(school, 1, UrlBuilder.SCHOOL_PROFILE_ESP_FORM);
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("redirect", urlBuilder.asFullUrl(request));
+        jsonResponse.write(response.getWriter());
+        response.getWriter().flush();
+    }
+
+
     /**
      *  Function to fetch the provisional responses and put in the model. When a provisional user saves a page, all the
      *  keys on that page are saved in the db as a key value pair. This key value pair is used to ascertain what
@@ -176,7 +243,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         Map<String, String> provisionalExternalKeysToValueMap = new HashMap<String, String>();
 
         //Get all the responses that the provisional user has made for this school.
-        List<EspResponse> provisionalResponses = _espResponseDao.getResponsesByUserAndSchool(school, user.getId(), true);
+        List<EspResponse> provisionalResponses = _espResponseDao.getResponses(school, user.getId(), true);
 
         for (EspResponse espResponse : provisionalResponses) {
 
@@ -222,9 +289,9 @@ public class EspFormController implements ReadWriteAnnotationController {
                 externalKeysToRemove.add(allProvisionalKeys);
             }
         }
-
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
         //Get all the active(non-provisional) responses for the form.
-        List<EspResponse> responses = _espResponseDao.getResponses(school);
+        List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
 
         //For every response for school, check if there is a provisional response.
         //If there is no provisional response then put in the active response.
@@ -259,8 +326,9 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected void putResponsesInModel(School school, ModelMap modelMap) {
         Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
 
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
         // fetch all responses to allow page to use ajax page switching if desired.
-        List<EspResponse> responses = _espResponseDao.getResponses(school);
+        List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
 
         for (EspResponse response: responses) {
             putInResponseMap(responseMap,response);
@@ -393,8 +461,10 @@ public class EspFormController implements ReadWriteAnnotationController {
         // Check if this is the first time this school has gotten any data(exclude data by provisional users).
         boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true, provisionalMemberIds);
 
-        _espSaveHelper.saveEspFormData(user, school, keysForPage, requestParameterMap, state, page, errorFieldToMsgMap,responseList,
-                isProvisionalData,false);
+        OspSaveBehaviour saveBehaviour = new OspSaveBehaviour(isProvisionalData, false, true);
+        _espSaveHelper.saveOspFormData(user, school, state, page, keysForPage, requestParameterMap, responseList,
+                errorFieldToMsgMap, saveBehaviour);
+
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);
             return; // early exit

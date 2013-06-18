@@ -44,7 +44,9 @@ public class UserRegistrationCommand  {
     private String gender;
     private String facebookId;
 
-    @AssertTrue
+    private boolean mss;
+
+    @AssertTrue(message="You must accept the terms of use.")
     private boolean terms;
 
     @AssertTrue(message="Password should be 6-14 characters.")
@@ -153,6 +155,13 @@ public class UserRegistrationCommand  {
         this.how = how;
     }
 
+    public boolean isMss() {
+        return mss;
+    }
+
+    public void setMss(boolean mss) {
+        this.mss = mss;
+    }
 
     // fluent interface methods generated with IntelliJ plugin
 
@@ -216,5 +225,9 @@ public class UserRegistrationCommand  {
         return this;
     }
 
+    public UserRegistrationCommand mss(final boolean mss) {
+        this.mss = mss;
+        return this;
+    }
 
 }

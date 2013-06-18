@@ -20,7 +20,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,7 +39,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 @Controller
@@ -216,7 +214,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
         }
         EspResponse espResponse = new EspResponse();
         espResponse.setKey(key);
-        espResponse.setValue(StringUtils.left(responseValue, EspFormController.MAX_RESPONSE_VALUE_LENGTH));
+        espResponse.setValue(StringUtils.left(responseValue, OspFormController.MAX_RESPONSE_VALUE_LENGTH));
         espResponse.setSchool(school);
         espResponse.setMemberId(user.getId());
         espResponse.setCreated(now);

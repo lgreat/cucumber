@@ -19,6 +19,8 @@ import gs.data.state.State;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsContentLinkResolver;
 import gs.web.i18n.LanguageToggleHelper;
+import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
@@ -28,6 +30,9 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,7 +44,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/school/profileOverview.page")
-public class SchoolProfileOverviewController extends AbstractSchoolProfileController {
+public class SchoolProfileOverviewController extends AbstractSchoolProfileController implements BeanFactoryAware {
     protected static final Log _log = LogFactory.getLog(SchoolProfileOverviewController.class.getName());
     public static final String VIEW = "school/profileOverview";
 
@@ -85,6 +90,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     public static final String MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST = "schoolPerformanceManagementRating";
 
     String _viewName;
+    private BeanFactory _beanFactory;
 
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
@@ -115,6 +121,15 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Then execute the Esp or non-Esp code
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
         modelMap.put( "espData", espResults );
+
+        /*EspResponseData espResponseData = new EspResponseData(espResults);
+
+        // We could get EspStatus with static method on EspStatusManager, but that would make it a little harder to test
+        EspStatusManager espStatusManager = (EspStatusManager) _beanFactory.getBean(
+                "espStatusManager", school, espResponseData
+        );*/
+
+        modelMap.put("ospStatus", _schoolProfileDataHelper.getOspStatus(request, espResults));
 
         if( espResults != null && !espResults.isEmpty() ) {
             // OSP case
@@ -1816,4 +1831,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 //        _publicationDao = publicationDao;
 //    }
 
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
+    }
 }

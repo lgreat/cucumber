@@ -6,22 +6,21 @@ import gs.data.community.User;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
-import gs.data.school.census.ICensusInfo;
-import gs.data.school.district.District;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
-import gs.web.promo.GetSurveyHoverInterceptConfigurationController;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatus;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.search.CmsRelatedFeatureSearchService;
 import gs.web.search.CmsRelatedFeatureSearchServiceSolrImpl;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
+import org.springframework.beans.factory.BeanFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -52,9 +51,13 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
 
     State _state;
     School _school;
+    BeanFactory _beanFactory;
+    EspStatusManager _espStatusManager;
 
     public void setUp() throws Exception {
         super.setUp();
+        _beanFactory = org.easymock.classextension.EasyMock.createStrictMock(BeanFactory.class);
+        _espStatusManager = org.easymock.classextension.EasyMock.createStrictMock(EspStatusManager.class);
         _espResponseDao = createStrictMock(IEspResponseDao.class);
         _schoolMediaDao = createStrictMock(ISchoolMediaDao.class);
 //        _censusInfo = createStrictMock( ICensusInfo.class );
@@ -72,6 +75,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         _schoolProfileDataHelper.setRequestAttributeHelper( _requestAttributeHelper );
         _schoolProfileDataHelper.setGeoDao( _geoDao );
         _schoolProfileDataHelper.setCmsRelatedFeatureSearchService( _cmsRelatedFeatureSearchService );
+        _schoolProfileDataHelper.setBeanFactory(_beanFactory);
 
         StateManager sm = new StateManager();
         _state = sm.getState( "CA" );
@@ -164,6 +168,36 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         verify(_requestAttributeHelper);
 
         assertEquals("Incorrect value", 500, enrollment.intValue());
+    }
+
+    // Test for osp status
+    public void testGetOspStatus() {
+
+        School school = createStrictMock( School.class );
+        getRequest().setAttribute( "school", school );
+        reset(_requestAttributeHelper);       // reset so we don't use the one from setUp()
+        org.easymock.classextension.EasyMock.reset(_beanFactory);
+        org.easymock.classextension.EasyMock.reset(_espStatusManager);
+
+        expect( _requestAttributeHelper.getSchool( getRequest() ) ).andReturn( school ).times(2); // This will be called for each getEnrollment call
+        org.easymock.classextension.EasyMock.expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class), isA(EspResponseData.class))).andReturn(
+                _espStatusManager
+        );
+        org.easymock.classextension.EasyMock.expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
+        replay(_requestAttributeHelper);
+
+        org.easymock.classextension.EasyMock.replay(_beanFactory);
+        org.easymock.classextension.EasyMock.replay(_espStatusManager);
+        replay(school);
+        _schoolProfileDataHelper.getOspStatus(getRequest(), new HashMap<String, List<EspResponse>>());
+        // getOspStatus again, this time it gets from shared data in the request
+        EspStatus ospStatus = _schoolProfileDataHelper.getOspStatus(getRequest(), new HashMap<String, List<EspResponse>>());
+        verify(school);
+        verify(_requestAttributeHelper);
+        org.easymock.classextension.EasyMock.verify(_beanFactory);
+        org.easymock.classextension.EasyMock.verify(_espStatusManager);
+
+        assertEquals(EspStatus.OSP_PREFERRED, ospStatus);
     }
 
     // Tests for SchoolMedia

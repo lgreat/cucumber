@@ -8,7 +8,9 @@ import gs.data.state.State;
 import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.school.usp.EspStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static org.easymock.EasyMock.createStrictMock;
@@ -97,6 +99,8 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
         expect(_schoolProfileDataHelper.getEspDataForSchool(_request)).andReturn(espResults);
         mockModel.put(SchoolProfileStatsController.MODEL_ESP_RESULTS_MAP_KEY, espResults);
 
+        expect(_schoolProfileDataHelper.getOspStatus(_request, espResults)).andReturn(EspStatus.OSP_PREFERRED);
+        mockModel.put("ospStatus", EspStatus.OSP_PREFERRED);
         org.easymock.classextension.EasyMock.replay(holder);
         replayAllMocks();
 
@@ -171,6 +175,7 @@ public class SchoolProfileStatsControllerTest extends BaseControllerTestCase {
         Map<String, List<EspResponse>> espResults = new HashMap<String, List<EspResponse>>();
         expect(_schoolProfileDataHelper.getEspDataForSchool(_request)).andReturn(espResults);
 
+        expect(_schoolProfileDataHelper.getOspStatus(_request, espResults)).andReturn(EspStatus.OSP_PREFERRED);
 
         org.easymock.classextension.EasyMock.replay(holder);
         replayAllMocks();
