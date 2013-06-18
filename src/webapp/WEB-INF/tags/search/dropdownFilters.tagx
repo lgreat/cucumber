@@ -18,7 +18,7 @@
                          hideApplyReset="${hideApplyReset}" noclear="${noclear}">
         <c:choose>
             <c:when test="${not empty pageScope.title or not hideApplyReset}">
-                <div class="mod standard_6-3" style="width: 250px;">
+                <div class="mod standard_7-3" style="width: 250px;">
                     <c:if test="${not empty pageScope.title}">
                         <div class="hd">
                             <div class="line">
@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="unit size15of100 lastUnit">
-                                    <span class="fltrt" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">
+                                    <span class="fr" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">
                                         <span class="iconx16 i-16-close-grey"><!-- do not collapse --></span>
                                     </span>
                                 </div>
@@ -58,7 +58,7 @@
             </c:when>
 
             <c:when test="${not empty pageScope.title or not empty noclear}">
-                <div class="mod standard_6-3" style="width: 175px;">
+                <div class="mod standard_7-3" style="width: 175px;">
                     <div class="bd" style="height:63px;">
                         <jsp:doBody/>
                     </div>
@@ -70,7 +70,7 @@
             </c:when>
 
             <c:otherwise>
-                <div class="mod standard_6-3">
+                <div class="mod standard_7-3">
                     <div class="bd">
                         <jsp:doBody/>
                     </div>
