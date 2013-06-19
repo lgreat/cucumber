@@ -8,6 +8,12 @@ import gs.web.pagination.RequestedPage;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/**
+ *   Adding the changes needed for GS-14144
+ *   @author sarora@greatschools.org   - Shomi Arora
+ */
+
 public class SchoolSearchCommand {
 
     private String _searchString;
@@ -49,6 +55,15 @@ public class SchoolSearchCommand {
     private String[] _studentClubs;
     private String[] _staffResources; // and facilities
     private String[] _ratingCategories; // low | average | high
+
+
+
+    /**
+     * GS-14144 Adding the two new filters -Shomi Arora
+     */
+    private Boolean _summerprogram;
+    private Boolean _afterschool;
+    private String[] _services;
 
 
     private RequestedPage requestedPage;
@@ -472,5 +487,33 @@ public class SchoolSearchCommand {
     public void setLocationSearchString(String locationSearchString) {
         _locationSearchString = locationSearchString;
     }
-}
+
+    /**
+     * GS-14144 Adding the two new filters for Packard -Shomi Arora
+     *
+     */
+
+    public Boolean getsummerprogram() {
+        return _summerprogram;
+    }
+
+    public void setsummerprogram(final Boolean _summerprogram) {
+        this._summerprogram = _summerprogram;
+    }
+
+    public Boolean getafterschool() {
+        return _afterschool;
+    }
+
+    public void setafterschool(final Boolean _afterschool) {
+        this._afterschool = _afterschool;
+    }
+
+    public String[] getServices() {
+        return _services;
+    }
+
+    public void setServices(String[] _services) {
+        this._services = _services;
+    }
 

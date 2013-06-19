@@ -56,6 +56,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
+/**
+ *   Adding the changes needed for GS-14144
+ *   @author sarora@greatschools.org   - Shomi Arora
+ */
+
 public class SchoolSearchController2012  extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     @Autowired
@@ -236,14 +241,14 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         /**
          * Adding the logic for packard search GS-14110  -Shomi Arora .
          */
-        final  boolean shouldShowPackardFilter=showPackardFilters(schoolSearchCommand,commandAndFields,model);
+        final  boolean shouldShowPackardFilter= showPackardFilters(schoolSearchCommand, commandAndFields);
         if (shouldShowPackardFilter) {
             final String MODEL_SHOW_PACKARD_FILTERS = "showPackardFilters";
             model.put(MODEL_SHOW_PACKARD_FILTERS, true);
         }
 
         // support new additional OSP filters for redesigned search
-        boolean showAdvancedFilters = showAdvancedFilters(schoolSearchCommand, commandAndFields, model) ||shouldShowPackardFilter;
+        boolean showAdvancedFilters = showAdvancedFilters(schoolSearchCommand, commandAndFields, model) || shouldShowPackardFilter;
 
 
         // local board module support
@@ -516,18 +521,16 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     }
 
     /**
-     * Adding the logic to find is a page should have packard filters enabled or not -GS-14110 -Shomi Arora.
-     * @param schoolSearchCommand
-     * @param commandWithFields
-     * @param model
+     *  Adding the logic to find is a page should have packard filters enabled or not -GS-14110 -Shomi Arora.
+     * @param schoolSearchCommand      The schoolSearchCommand.
+     * @param commandWithFields        The commandWithFields.
      * @return
      */
-    private  boolean showPackardFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,
-                                       Map<String, Object> model) {
+    private  boolean showPackardFilters(final SchoolSearchCommand schoolSearchCommand, final SchoolSearchCommandWithFields commandWithFields) {
         boolean showPackardFilters = false;
-        if(commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
+        if (commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
             City city = commandWithFields.getCity();
-            if(city != null && SchoolHelper.isNewAdvanceSearch(city.getName(), city.getState().getAbbreviation())) {
+            if (city != null && SchoolHelper.isNewAdvanceSearch(city.getName(), city.getState().getAbbreviation())) {
                 showPackardFilters = true;
             }
         }
@@ -661,9 +664,35 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                 q.filter(SchoolFields.STUDENTS_VOUCHERS, "no");
             }
         }
+        /**
+         * Adding the summer program and after school and grouping services  to the solr query - GS-14144 Shomi Arora
+         */
+        if (schoolSearchCommand.getsummerprogram() != null)
+        {
+                q.filter(SchoolFields.SUMMER_PROGRAM, "yes");
+        }
+        if (schoolSearchCommand.getafterschool() != null)
+        {
+                q.filter(SchoolFields.AFTER_SCHOOL, "yes");
+        }
+
+        if (schoolSearchCommand.getServices() != null) {
+            q.filterAnyField(new SolrField[]{
+                    SchoolFields.BEFORE_AFTER_CARE,
+                    SchoolFields.TRANSPORTATION
+            }, schoolSearchCommand.getServices());
+        }
+        /**
+         * Change Done for GS-14144 Ends
+         */
+
+
 
         if (schoolSearchCommand.getSpecialEdPrograms() != null) {
-            q.filter(SchoolFields.SPECIAL_ED_PROGRAMS, schoolSearchCommand.getSpecialEdPrograms());
+            q.filterAnyField(new SolrField[]{
+                    SchoolFields.SPECIAL_ED_PROGRAMS,
+                    SchoolFields.ELL_LEVEL
+            }, schoolSearchCommand.getSpecialEdPrograms());
         }
 
         if (schoolSearchCommand.getSchoolFocus() != null) {
