@@ -39,8 +39,8 @@ GSType.hover.HoverDialog = function(id,width) {
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
-
-        $(document).on("click","#"+this.hoverId + ' .js_closeHover', function() {
+        var gs_eventclickclose = (GS.util.isBrowserTouch()) ? "touchstart" : "click";
+        $(document).on(gs_eventclickclose,"#"+this.hoverId + ' .js_closeHover', function() {
             self.hide();
         });
 
