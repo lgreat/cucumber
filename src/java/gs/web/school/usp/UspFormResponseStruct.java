@@ -132,7 +132,7 @@ public class UspFormResponseStruct {
      *  Section response key object - one or more for a section (Subsection if more than one).
      *  Title is null if only one response key for the form section.
      */
-    protected class SectionResponse {
+    public class SectionResponse {
         private String _title;
         private String _responseKey;
         private List<UspResponseValueStruct> _responses = new LinkedList<UspResponseValueStruct>();
@@ -168,7 +168,7 @@ public class UspFormResponseStruct {
         /**
          * Response values for section/subsection response keys
          */
-        protected class UspResponseValueStruct {
+        public class UspResponseValueStruct {
             private String _label;
             private String _responseValue;
             private boolean _isSelected;
