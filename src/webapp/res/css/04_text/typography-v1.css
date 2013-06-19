@@ -26,17 +26,15 @@ Misc classes
    typography.css
    * Sets up some sensible default typography.
 
-
-
 -------------------------------------------------------------- */
 
 /* Default font settings
 -------------------------------------------------------------- */
 
 body {
-  font: normal 14px/20px Arial, Helvetica, sans-serif;
-  color: #555;
-  /*background: #fff;*/
+    font: normal 14px/20px Arial, Helvetica, sans-serif;
+    color: #555;
+    /*background: #fff;*/
 }
 
 /* Headings
@@ -62,7 +60,6 @@ body {
     url('fonts/SourceSansPro-Semibold-webfont.ttf')  format('truetype'),
     url('fonts/SourceSansPro-Semibold-webfont.svg#SourceSansPro-Semibold') format('svg');
 }
-
 
 h1,
 h2,
@@ -158,9 +155,6 @@ dd          { margin-left: 1.5em;}
 /* Tables
 -------------------------------------------------------------- */
 
-
-
-
 /*
     You can zebra-stripe your tables in outdated browsers by adding
     the class "even" to every other table row.
@@ -186,13 +180,11 @@ tbody tr:nth-child(even) td,
     background-color: #f5f5f5;
 }
 
-
-
 /*
-    Because of the need for padding on TH and TD, the vertical rhythm
-    on table cells has to be 27px, instead of the standard 18px or 36px
-    of other elements.
- */
+   Because of the need for padding on TH and TD, the vertical rhythm
+   on table cells has to be 27px, instead of the standard 18px or 36px
+   of other elements.
+*/
 
 table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 16px; width:100%; color: #2b2b2b;
     /*margin-bottom: 4px; */
@@ -257,8 +249,6 @@ table.tableLayout1 .ohValueBelow { color: #D62243; }
 table.tableLayout1 .ohValueAbove { color: #3F9333; }
 table.tableLayout1 .ohValueMet { color: #555555; }
 
-
-
 .grayBoxForPieChartLegend {margin-top:2px; border:1px solid #CCCCCC; width: 10px; height: 10px;}
 
 .make-000000 { color: #000000; }
@@ -286,7 +276,6 @@ table.tableLayout1 .ohValueMet { color: #555555; }
 #headerCobrand td {
     padding:0;
 }
-
 
 /* Misc classes
 -------------------------------------------------------------- */
@@ -354,19 +343,3 @@ ul.disc li  { list-style-type: disc }
 .enrollmentApply .grayBox .numberFormat{ font-size: 24px; line-height: 24px; font-weight: bold}
 
 .addMousePointer{cursor: pointer;}
-.truncated { display:inline-block; max-width:960px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-
-.sourceSansPro-Regular{
-    font-weight: normal;
-    font-family: 'SourceSansPro-Regular', Arial, Helvetica, sans-serif; ;
-}
-.sourceSansPro-It{
-    font-weight: normal;
-    font-style: italic;
-    font-family: 'SourceSansPro-It', Arial, Helvetica, sans-serif;;
-}
-.sourceSansPro-Semibold{
-    font-weight: bold;
-    font-family: 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;;
-}
-

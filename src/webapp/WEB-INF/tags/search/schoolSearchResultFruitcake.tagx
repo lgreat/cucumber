@@ -42,7 +42,7 @@
     <div class="mod standard_1-1">
         <div class="js-school-search-result line inner box-shadow-animation-1" id="school-search-result-${school.databaseState}${school.id}">
             <!-- School Name -->
-            <div class="bd pam">
+            <div class="bd pam clearfix">
                 <div class="unit ${nameSearchWidth}"
                      id="school-search-result-link-${school.databaseState}${school.id}">
                     <div class="js-school-search-result-name">
@@ -93,8 +93,11 @@
                                                                      name="${school.name}"
                                                                      physicalAddress="${school.address}"
                                                                      levelCode="${school.levelCode}">
-                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
-                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
+                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" 
+                                                       gsRating="${school.greatSchoolsRating}"
+                                                       schoolType="${school.schoolType}" 
+                                                       isPreschoolOnly="${school.levelCode eq 'p'}" 
+                                                       spriteSize="small"/>
                             </link:schoolProfileOverviewForPrimitives>
                         </c:when>
                         <c:otherwise>
@@ -136,8 +139,8 @@
                     </c:if>
                 </div></div>
             </div>
-            <div class="ft phm pvs">
-                <div class="alpha grid_11 omega">
+            <div class="ft phm pvs clearfix">
+                <div class="alpha grid_11 suffix_5 omega">
                     <div class="line">
                         <div class="unit size30of100">
                             <div id="js-compare-${school.databaseState}${school.id}">
@@ -150,7 +153,8 @@
                                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
                                                type="checkbox"/>
                                         <label class="js-compareLabelNotChecked small"
-                                               for="${school.databaseState}${school.id}" id="js_${school.databaseState}${school.id}_compare_label">Compare</label>
+                                               for="${school.databaseState}${school.id}"
+                                               id="js_${school.databaseState}${school.id}_compare_label">Compare</label>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

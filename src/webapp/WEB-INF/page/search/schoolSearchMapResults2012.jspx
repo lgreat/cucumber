@@ -27,6 +27,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <c:if test="${not empty title}">
         <title>${title}</title>
     </c:if>
@@ -44,28 +45,28 @@
     <meta name="robots" content="follow,noindex"/>
 
     <ad:enableGptAsynchronousMode/>
-    <pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
-    <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
+    <!--<pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>-->
+    <![CDATA[<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"></script>]]>
+    <gsml:javascript src="/res/js/googleMapsInfobox.min.js"/>
 
     <!-- uncomment to get un-minified -->
-    <!--<pageHelper:externalJavascript file="/res/js/json2.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/filters.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/map/schoolSearchMap2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/history.min.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>-->
-    <pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>
+    <!--<gsml:javascript src="/res/js/json2.js"/>-->
+    <!--<gsml:javascript src="/res/js/search/schoolSearchForm.js"/>-->
+    <!--<gsml:javascript src="/res/js/util/htmlMirrors.js"/>-->
+    <!--<gsml:javascript src="/res/js/search/filters.js"/>-->
+    <!--<gsml:javascript src="/res/js/ui/contentDropdowns.js"/>-->
+    <!--<gsml:javascript src="/res/js/tracking/customLinks.js"/>-->
+    <!--<gsml:javascript src="/res/js/search/schoolResults.js"/>-->
+    <!--<gsml:javascript src="/res/js/map/schoolSearchMap2012.js"/>-->
+    <!--<gsml:javascript src="/res/js/search/schoolSearchResultsTable2012.js"/>-->
+    <!--<gsml:javascript src="/res/js/search/schoolSearchResultsPage2012.js"/>-->
+    <!--<gsml:javascript src="/res/js/history.min.js"/>-->
+    <!--<gsml:javascript src="/res/js/compare/persistentCompare.js"/>-->
+    <gsml:javascript src="/res/js/combined.search.min.js"/>
 
-    <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-tooltip.js"/>
-    <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-popover.js"/>
-    <pageHelper:externalJavascript file="/res/js/hogan.js"/>
+    <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
+    <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+    <gsml:javascript src="/res/js/hogan.js"/>
 
 
     <k12:trafficDriverIncludes/>
@@ -74,7 +75,7 @@
    Note the property in the db must still be enabled for an interstitial to appear
    GS-3852 -->
     <c:if test="${requestScope.context.interstitialEnabled}">
-        <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+        <gsml:javascript src="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
     </c:if>
     <script type="text/javascript">
@@ -132,6 +133,7 @@
 <search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}"
                                       pageTotalItems="${page.pager.totalItems}" tabSelect="map"
                                       searchResultsNav="${page.pager.totalItems gt 0 ? 'block' : 'none'}"/>
+
 <div id="js-school-search-results-table-body" class="pbm alpha grid_16 omega" style="display: none;">
     <div class="media">
         <span class="sprite i-alert img"><!-- do not collapse --></span>
@@ -169,12 +171,12 @@ that this is updated for ajax refresh -->
                             ${school.schoolType}, <span class="ttu">${school.grades.rangeString}</span>
                         </div>
                         <div class="line small bottom">
-                            <div class="unit size53of100">
+                            <div class="unit size55of100">
                                 ${school.street}<br/>
                                 ${school.city}, ${school.databaseState} ${school.zip}
                             </div>
 
-                            <div class="unit size47of100 lastUnit">
+                            <div class="unit size45of100 lastUnit">
                                 <div class="mhm">
                                     <div class="media skin-1 attribution">
                                         <div class="img mrs">
@@ -182,7 +184,8 @@ that this is updated for ajax refresh -->
                                         </div>
                                         <div class="bd">
                                             <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.city}%20${school.databaseState}%20${school.zip}"
-                                               target="_blank" onclick="if (s.tl) { s.tl(this, 'o', 'Search Bubble - Get Directions'); }">Get directions</a>
+                                               target="_blank"
+                                               onclick="if (s.tl) { s.tl(this, 'o', 'Search Bubble - Get Directions'); }">Get directions</a>
                                         </div>
                                     </div>
                                     <c:if test="${requestScope.context.showRealtorDotComPromos}">
@@ -209,7 +212,8 @@ that this is updated for ajax refresh -->
                                         <input id="${school.databaseState}${school.id}"
                                                class="js-compare-school-checkbox"
                                                type="checkbox"/>
-                                        <label class="js-compareLabel checkbox" id="js-${school.databaseState}${school.id}-compare-label"
+                                        <label class="js-compareLabel checkbox"
+                                               id="js-${school.databaseState}${school.id}-compare-label"
                                                for="${school.databaseState}${school.id}">Compare</label>
                                         <button class="js-compareButton button-1Ext-2"
                                                 style="display: none;">Compare<br/>Now
@@ -248,10 +252,10 @@ that this is updated for ajax refresh -->
                                         </div>
                                     </div>
                                     <div class="js-notInMsl" style="display: ${notInMsl};">
-                                        <div class="fltlft mrs">
+                                        <div class="fl mrs">
                                             <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="js-msl-text fltlft small bottom">
+                                        <div class="js-msl-text fl small bottom">
                                             <a href="#" class="js-add-msl-link"
                                                id="js-add-msl-link-${school.databaseState}${school.id}"
                                                onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
@@ -307,30 +311,31 @@ that this is updated for ajax refresh -->
 
 <!--${fn:length(pointsArray)}-->
 <!--<c:choose>-->
-    <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
+<!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
 
-    <!--<c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">-->
-        <script type="text/javascript">
-            ${pointsArray}
-            $.getScript('/res/js/googleMapsInfobox.min.js').done(function () {
-                GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
-            });
-        </script>
-        <div class="pr" data-role="content">
-            <div id="js-map-canvas"><!-- no collapse --></div>
-            <div id="js_reloadMap" class="pa pam" style="display:none; bottom:0px; width:610px;background: rgb(0, 0, 6); background: rgba(0, 0, 0, 0.6);">
-                <div class="line">
-                    <div class="unit size33of100">
-                        <span class="fltrt prm"><button class="but but-lg but-2">Redo search</button></span>
-                    </div>
-                    <div class="unit size67of100 lastUnit">
-                        <div class="small_bold bottom make-FFCC66">Your search filters may not be available for this area.</div>
-                        <div class="small bottom make-ffffff">Redoing search in this area may remove some applied filters.</div>
-                    </div>
-                </div>
+<!--<c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">-->
+<script type="text/javascript">
+    ${pointsArray}
+    $.getScript('/res/js/googleMapsInfobox.min.js').done(function () {
+        GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
+    });
+</script>
+<div class="pr" data-role="content">
+    <div id="js-map-canvas"><!-- no collapse --></div>
+    <div id="js_reloadMap" class="pa pam"
+         style="display:none; bottom:0px; width:610px;background: rgb(0, 0, 6); background: rgba(0, 0, 0, 0.6);">
+        <div class="line">
+            <div class="unit size33of100">
+                <span class="fltrt prm"><button class="but but-lg but-2">Redo search</button></span>
+            </div>
+            <div class="unit size67of100 lastUnit">
+                <div class="small_bold bottom make-FFCC66">Your search filters may not be available for this area.</div>
+                <div class="small bottom make-ffffff">Redoing search in this area may remove some applied filters.</div>
             </div>
         </div>
-    <!--</c:when>-->
+    </div>
+</div>
+<!--</c:when>-->
 <!--</c:choose>-->
 
 <div class="prefix_4 alpha grid_9 omega suffix_3 mvm">
@@ -355,7 +360,7 @@ that this is updated for ajax refresh -->
 
 <hr class="keyline1"/>
 
-<search:schoolSearchResultsMapLegend />
+<search:schoolSearchResultsMapLegend/>
 
 <div class="alpha grid_16 omega mts">
                 <span class="small bottom quiet">
@@ -390,11 +395,11 @@ that this is updated for ajax refresh -->
                     {{schoolType}}, <span class="ttu">{{gradesRange}}</span>
                 </div>
                 <div class="line small bottom">
-                    <div class="unit size53of100">
+                    <div class="unit size55of100">
                         {{street}}<br/>
                         {{city}}, {{state}} {{zip}}
                     </div>
-                    <div class="unit size47of100 lastUnit">
+                    <div class="unit size45of100 lastUnit">
                         <div class="media skin-1 attribution">
                             <div class="img mrs">
                                 <span class="iconx16 i-16-getDirections"><!--Do not collapse--></span>
@@ -402,7 +407,8 @@ that this is updated for ajax refresh -->
                             <div class="bd">
                                 <a href=""
                                    data-href="http://maps.google.com/maps?saddr=&amp;daddr={{street}}%20{{city}}%20{{state}}%20{{zip}}"
-                                   onclick="if (s.tl) { s.tl(this, 'o', 'Search Bubble - Get Directions'); }" target="_blank">Get directions</a>
+                                   onclick="if (s.tl) { s.tl(this, 'o', 'Search Bubble - Get Directions'); }"
+                                   target="_blank">Get directions</a>
                             </div>
                         </div>
                         <div class="small bottom {{showHomesForSale}}">
@@ -437,8 +443,10 @@ that this is updated for ajax refresh -->
                         <!--for="disabled-{{state}}{{id}}"-->
                         <!--style="display: {{isPkCompare}}">Compare</label>-->
                         <div class="js-compareLine bottom {{showCompare}}">
-                            <input id="{{state}}{{id}}" class="js-compare-school-checkbox {{showCompare}}" type="checkbox"/>
-                            <label class="js-compareLabel checkbox {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
+                            <input id="{{state}}{{id}}" class="js-compare-school-checkbox {{showCompare}}"
+                                   type="checkbox"/>
+                            <label class="js-compareLabel checkbox {{showCompare}}"
+                                   id="js-{{state}}{{id}}-compare-label"
                                    for="{{state}}{{id}}">Compare</label>
                             <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
                             </button>
@@ -614,7 +622,8 @@ that this is updated for ajax refresh -->
         <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
             <div id="js-schoolList">
                 <c:forEach var="school" items="${schoolSearchResults}">
-                    <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1" id="school-listitem-${school.databaseState}-${school.id}">
+                    <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1"
+                         id="school-listitem-${school.databaseState}-${school.id}">
                         <!--<div id="mapBubble_${school.databaseState}_${school.id}" class="schoolInfoWindow">-->
                         <div class="line">
                             <div class="unit size75of100">
@@ -645,8 +654,11 @@ that this is updated for ajax refresh -->
                                                                                      name="${school.name}"
                                                                                      physicalAddress="${school.address}"
                                                                                      levelCode="${school.levelCode}">
-                                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
-                                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
+                                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}"
+                                                                       gsRating="${school.greatSchoolsRating}"
+                                                                       schoolType="${school.schoolType}"
+                                                                       isPreschoolOnly="${school.levelCode eq 'p'}"
+                                                                       spriteSize="small"/>
                                             </link:schoolProfileOverviewForPrimitives>
                                         </c:when>
                                         <c:otherwise>
@@ -654,8 +666,11 @@ that this is updated for ajax refresh -->
                                                                           schoolId="${school.id}"
                                                                           levelCode="${school.levelCode}"
                                                                           styleClass="noUnderline">
-                                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
-                                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
+                                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}"
+                                                                       gsRating="${school.greatSchoolsRating}"
+                                                                       schoolType="${school.schoolType}"
+                                                                       isPreschoolOnly="${school.levelCode eq 'p'}"
+                                                                       spriteSize="small"/>
                                             </link:schoolProfileRating2010>
                                         </c:otherwise>
                                     </c:choose>
@@ -771,26 +786,26 @@ that this is updated for ajax refresh -->
     <div class="unit size3of5 fltrt lastUnit" id="sidebarPageNav">
         <c:if test="${page.pageNumber gt 1}">
             <a href="javascript:void(0)" class="noUnderline">
-            <search:easierPaginationPage useJavascriptPaging="${true}"
-                                         mode="${true}"
-                                         pageSize="${page.pager.pageSize}"
-                                         url=""
-                                         linkText="&amp;#171;  Prev"
-                                         indexNumber="${page.pageNumber - 1}"
-                                         javascriptMethod="GS.search.results.pagination"
-                                         addClassPrevNext="prv_nxt"/>
+                <search:easierPaginationPage useJavascriptPaging="${true}"
+                                             mode="${true}"
+                                             pageSize="${page.pager.pageSize}"
+                                             url=""
+                                             linkText="&amp;#171;  Prev"
+                                             indexNumber="${page.pageNumber - 1}"
+                                             javascriptMethod="GS.search.results.pagination"
+                                             addClassPrevNext="prv_nxt"/>
             </a>
         </c:if>
         <c:if test="${page.pageNumber lt page.pager.lastPageNumber}">
             <a href="javascript:void(0)" class="noUnderline">
-            <search:easierPaginationPage useJavascriptPaging="${true}"
-                                         mode="${true}"
-                                         pageSize="${page.pager.pageSize}"
-                                         url=""
-                                         linkText="Next  &amp;#187;"
-                                         indexNumber="${page.pageNumber + 1}"
-                                         javascriptMethod="GS.search.results.pagination"
-                                         addClassPrevNext="prv_nxt"/>
+                <search:easierPaginationPage useJavascriptPaging="${true}"
+                                             mode="${true}"
+                                             pageSize="${page.pager.pageSize}"
+                                             url=""
+                                             linkText="Next  &amp;#187;"
+                                             indexNumber="${page.pageNumber + 1}"
+                                             javascriptMethod="GS.search.results.pagination"
+                                             addClassPrevNext="prv_nxt"/>
             </a>
         </c:if>
     </div>
@@ -802,7 +817,8 @@ that this is updated for ajax refresh -->
     <compare:persistentCompare/>
 </div>
 
-<jsp:include page="/promo/emailSignUp.module?style=2012"/>
+<!--<jsp:include page="/promo/emailSignUp.module?style=2012"/>-->
+<promo:emailSignUp-v1 userIsAlreadySignedUp="false"/>
 
 <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
 <ad:BelowFold_Top_300x125/>
