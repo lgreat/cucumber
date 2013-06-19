@@ -121,6 +121,7 @@
     <c:if test="${facebookFacepilesEnabled eq true}">
         <pageHelper:includeFacebookInit/>
     </c:if>
+    <div class="container_24 clearfix">
     
     <div class="grid_16 mtl clearfix">
         <div class="fl">
@@ -164,7 +165,7 @@
         <ad:AboveFold_300x250/>
         
         <c:if test="${facebookFacepilesEnabled eq true}">
-            <div class="standard_7-1">
+            <div class="standard_9-1">
                 <div class="inner tac">
                     <h2 class="make-ffffff">Which schools do<br/>your friends like?</h2>
                     <div class="js-facebook-login FBSigninButton mha">
@@ -173,7 +174,7 @@
                     </div>
                 </div>
             </div>
-            <div class="standard_7-2 dn">
+            <div class="standard_9-2 dn">
                 <div class="inner tac">
                     <div class="js-facebook-logout FBSignOutButton mha">
                         <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
@@ -200,6 +201,7 @@
         <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
         <ad:BelowFold_Top_300x125/>
   </div>
+    </div>
 
 
     <c:set var="omnitureLocale"><c:choose>

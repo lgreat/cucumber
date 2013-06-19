@@ -14,7 +14,7 @@
 
 
     <div id="${id}" class="${cssClass}">
-        <div class="mod standard_7-2">
+        <div class="mod standard_9-2">
             <div class="line" data-gs-dropdown-opener="${id}">
                 <div class="unit size85of100">
                     <div class="bd">

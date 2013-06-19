@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="lon" required="false" type="java.lang.Float"/>
     <jsp:directive.attribute name="noStorage" required="false" type="java.lang.Boolean"/>
 
-    <div class="mod standard_7-1 js-nearby-districts" style="display:none;">
+    <div class="mod standard_9-1 js-nearby-districts" style="display:none;">
         <div class="inner">
             <div class="hd">
                 <h3>Nearby districts</h3>

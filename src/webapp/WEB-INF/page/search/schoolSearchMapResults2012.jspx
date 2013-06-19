@@ -109,6 +109,7 @@
 
 
 <gsml:body adPageName="searchMap" pageLayout="nocol">
+<div class="container_24 clearfix">
 <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
 
 <div class="fltlft">
@@ -822,6 +823,7 @@ that this is updated for ajax refresh -->
 
 <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
 <ad:BelowFold_Top_300x125/>
+</div>
 </div>
 
 <c:set var="omnitureLocale"><c:choose>

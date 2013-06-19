@@ -10,7 +10,7 @@
           xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
         >
-    <div id="findASchoolTabs" class="mod standard_7-1 clearfix">
+    <div id="findASchoolTabs" class="mod standard_9-1 clearfix">
         <c:set var="onclickLocation">if (s.tl) {s.tl(true,'o', 'Search_location_tab_click');} return true;</c:set>
         <c:set var="onclickName">if (s.tl) {s.tl(true,'o', 'Search_name_tab_click');} return true;</c:set>
 
