@@ -662,6 +662,8 @@
                                 <param>mssAutoHoverInterceptor.js</param>
                                 <param>hogan.js</param>
                                 <param>school/calendar.js</param>
+                                <param>school/calendar.js</param>
+                                <param>windowsLive.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>school-profile.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
