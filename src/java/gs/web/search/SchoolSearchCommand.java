@@ -516,4 +516,5 @@ public class SchoolSearchCommand {
     public void setServices(String[] _services) {
         this._services = _services;
     }
+}
 
