@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0" >
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+
+    <c:set var="tandemTileMSBranding" value="${context.turnOnMicroSoftCampaign}" scope="request" />
+
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="decorator" content="minimalDecorator"/>
+
+        <title>Printable Calendar for ${schoolName}</title>
+
+        <pageHelper:addCss-v1/>
+
+        <gsml:javascript src="/res/js/jquery/jquery-1.9.1.min.js"/>
+        <gsml:javascript src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>
+        <gsml:javascript src="/res/js/lib/conditionizr.min.js"/>
+        <gsml:javascript src="/res/js/global.js"/>
+        <gsml:javascript src="/res/js/trackIt.js"/>
+        <gsml:javascript src="/res/js/uri/uri.js"/>
+        <gsml:javascript src="/res/js/gs_jquery_extensions.js"/>
+        <gsml:javascript src="/res/js/house_ads.js"/>
+        <gsml:javascript src="/res/js/deferredcontent.js"/>
+        <gsml:javascript src="/res/js/externalTracking.js"/>
+        <gsml:javascript src="/res/js/omnitureEventNotifier.js"/>
+        <gsml:javascript src="/res/js/hogan.js"/>
+        <gsml:javascript src="/res/js/school/calendar.js"/>
+    </head>
+
+
+    <gsml:body adPageName="printTandemCalendar" pageLayout="nocol">
+
+        <script type="text/javascript">
+            var ncesCode = '${school.ncesCode}';
+
+            $(function() {
+                GS.school.calendar.loadEventsFromDomAndFillCalendarList();
+            });
+        </script>
+
+        <div style="display:none" id="js-calendardata">${data}</div>
+
+        <table id="js-school-calendar-list">
+            <tr>
+                <td>Date</td>
+                <td>Title</td>
+            </tr>
+            <!-- the template node must wrap the actual template html. the tr node will get cloned -->
+            <tbody id="js-calendar-list-event-template">
+                <tr>
+                    <td>{{date}}</td>
+                    <td>{{title}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </gsml:body>
+    </html>
+</jsp:root>

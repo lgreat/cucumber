@@ -293,6 +293,36 @@ GS.school.calendar =  (function($) {
         return filteredEvents;
     };
 
+    /**
+     * Filters out events that are in the past. Could be changed to filter out events that aren't in a particular year/month
+     */
+    var formatEvents = function(events) {
+        log("filterEvents beginning", events);
+
+        var i,
+                monthEvents,
+                ml,
+                event;
+
+        var filteredEvents = [];
+
+        for (var key in events) {
+            if (events.hasOwnProperty(key)) {
+
+                monthEvents = events[key];
+                ml = monthEvents.length;
+
+                for (i = 0; i < ml; i++) {
+                    event = monthEvents[i];
+                    filteredEvents.push(event);
+                }
+            }
+        }
+
+        log("filterEvents returning");
+        return filteredEvents;
+    };
+
 
     /**
      * Modifies the DOM. Gets the table that contains the calendar list view, and populates it
@@ -476,19 +506,53 @@ GS.school.calendar =  (function($) {
         });
     };
 
+    var print = function() {
+        var $select = $("#js-export-school-calendar");
+        var ncesCode = $select.data('gs-school-nces-code');
+        var schoolName = $select.data('gs-school-name');
+        var url = "/school/calendar/printTandemCalendar.page";
+
+        getEventsViaAjax(ncesCode).done(function(events) {
+
+            var formattedEvents = filterEvents(events);
+            var serializedData = JSON.stringify(formattedEvents);
+
+            $('body').append($('<form/>')
+                    .attr({'action': url, 'method': 'post', 'id': 'printCalendarForm'})
+                    .append($('<input/>')
+                            .attr({'type': 'hidden', 'name': 'data', 'value': serializedData})
+                    )
+                    .append($('<input/>')
+                            .attr({'type': 'hidden', 'name': 'schoolName', 'value': schoolName})
+                    )
+            ).find('#printCalendarForm').submit();
+        });
+    };
+
+    // Looks for a JSON string in a div node, reads that, and uses that to draw a table
+    var loadEventsFromDomAndFillCalendarList = function() {
+        var selector = "#js-calendardata";
+        var stringifiedJson = $(selector).html();
+        var json = JSON.parse(stringifiedJson);
+
+        fillCalendarList(json);
+    };
+
     var log = function() {
         if (window.location.search.indexOf('logging=true') > -1) {
             console.log(arguments);
         }
     };
 
-
     return {
         getEventsAndUpdateListUI: getEventsAndUpdateListUI,
         show: show,
         hide: hide,
         exportCalendar: exportCalendar,
-        uploadToOutlook: uploadToOutlook
+        uploadToOutlook: uploadToOutlook,
+        print: print,
+        formatEvents : formatEvents,
+        loadEventsFromDomAndFillCalendarList: loadEventsFromDomAndFillCalendarList
     };
 })(jQuery);
 
