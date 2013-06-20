@@ -321,7 +321,7 @@
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/articles/?topics=372&amp;grades=206" id="PN_H_2-Graduation"
                                class="GS_CI9_">Graduation</a></li>
-                        <li><a href="/articles/?topics=152" id="PN_H_2-CollegePrep" class="GS_CI9_">College Prep</a>
+                        <li><a href="/college/" id="PN_H_2-CollegePrep/" class="GS_CI9_">College Prep</a>
                         </li>
                         <li><a href="/bullying.topic?content=4350" id="PN_H_2-Bullying"
                                class="GS_CI9_">Bullying</a>
@@ -355,50 +355,62 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
+
+<td class="${(pw == tabs.BACK_TO_SCHOOL ? 'selected' : '')} menuItem home">
     <div class="dropdownReference">
-        <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
-
-        <div class="dropdown_6 text2 dropdown_align_right">
-            <div class="col_1">
-                <div class="col_content brdrt_dotted">
-                    <ul class="none"> <!-- bullet type: disc/square/circle-->
-                        <li><a href="/college-prep.topic?content=1542" id="PN_C_1-PlanningForCollege"
-                               class="GS_CI9_">Planning For College</a></li>
-                        <li class="lastone"><a href="/test-prep/" id="PN_C_1-TestPrep" class="GS_CI9_">Test Prep</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col_1">
-                <div class="col_content">
-                    <ul class="none"> <!-- bullet type: disc/square/circle-->
-                        <li><a href="/articles/?topics=152" id="PN_C_2-ApplyingForCollege"
-                               class="GS_CI9_">Applying for College</a></li>
-                        <li class="lastone"><a href="/articles/?topics=167" id="PN_C_2-PayingForCollege"
-                                               class="GS_CI9_">Paying for College</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col_2">
-                <div class="ft_content clearfix">
-                    <!-- for perl pages -->
-                    <!--<img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="college hot topic"/>-->
-                    <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130"
-                                              height="66"
-                                              alt="college hot topic"/></div>
-
-                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
-
-                        <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
-                              id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="small GS_CI9_">Easing college admissions<br/>anxiety</a>
-                        </p></div>
-                </div>
-            </div>
-        </div>
+        <a href="" id="PN-BackToSchool" class="menuItemAnchorText GS_CI9_">
+            <span class="iconx24 i-24-yellow-bus mrm vam"><!-- do not collapse --></span>
+            Back to School
+        </a>
     </div>
 </td>
+
+
+
+<!--<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">-->
+    <!--<div class="dropdownReference">-->
+        <!--<link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>-->
+
+        <!--<div class="dropdown_6 text2 dropdown_align_right">-->
+            <!--<div class="col_1">-->
+                <!--<div class="col_content brdrt_dotted">-->
+                    <!--<ul class="none"> &lt;!&ndash; bullet type: disc/square/circle&ndash;&gt;-->
+                        <!--<li><a href="/college-prep.topic?content=1542" id="PN_C_1-PlanningForCollege"-->
+                               <!--class="GS_CI9_">Planning For College</a></li>-->
+                        <!--<li class="lastone"><a href="/test-prep/" id="PN_C_1-TestPrep" class="GS_CI9_">Test Prep</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col_1">-->
+                <!--<div class="col_content">-->
+                    <!--<ul class="none"> &lt;!&ndash; bullet type: disc/square/circle&ndash;&gt;-->
+                        <!--<li><a href="/articles/?topics=152" id="PN_C_2-ApplyingForCollege"-->
+                               <!--class="GS_CI9_">Applying for College</a></li>-->
+                        <!--<li class="lastone"><a href="/articles/?topics=167" id="PN_C_2-PayingForCollege"-->
+                                               <!--class="GS_CI9_">Paying for College</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col_2">-->
+                <!--<div class="ft_content clearfix">-->
+                    <!--&lt;!&ndash; for perl pages &ndash;&gt;-->
+                    <!--&lt;!&ndash;<img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="college hot topic"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash; for java pages &ndash;&gt;-->
+                    <!--<div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130"-->
+                                              <!--height="66"-->
+                                              <!--alt="college hot topic"/></div>-->
+
+                    <!--<div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>-->
+
+                        <!--<p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"-->
+                              <!--id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="small GS_CI9_">Easing college admissions<br/>anxiety</a>-->
+                        <!--</p></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</td>-->
 
 </tr>
 </tbody>

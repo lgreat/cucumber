@@ -31,6 +31,8 @@
                                         class="menuItemAnchorText GS_CI9_">Hot Topics
                     <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
                     <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem"><a href="" id="SN_HT-BackToSchool"
+                                                                           class="subMenuItemAnchorText GS_CI9_">Back to School</a></li>
                         <li class="subMenuItem"><a href="/reading/7094-importance-of-reading-success.gs" id="SN_HT-TheRightWayToTeachReading"
                                                    class="subMenuItemAnchorText GS_CI9_">The "right" way to teach reading</a></li>
                         <li class="subMenuItem"><a

@@ -378,7 +378,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/130326-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/130620-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -492,6 +492,11 @@ a:active .i-16-search-filter-arrow-up {
 .i-24-yellow-modal-close {
     background-position: -648px 0;
 }
+
+.i-24-yellow-bus {
+    background-position: -672px 0;
+}
+
 /* row 24 */
 
 span:hover.i-24-close {
