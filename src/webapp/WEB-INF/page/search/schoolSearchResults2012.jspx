@@ -133,7 +133,8 @@
         </div>
 
         <div class="alpha grid_16 omega mtl">
-            <school:findASchoolForm/>
+            <!--<school:findASchoolForm/>-->
+            <school:findASchoolForm-v1/>
         </div>
         <!--Probably above and below elements should be in one grid-->
         <!--<div class="alpha grid_16 omega">-->

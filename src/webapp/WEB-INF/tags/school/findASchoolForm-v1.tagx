@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
+        >
+    <div id="findASchoolTabs" class="mod standard_9-1 clearfix">
+        <c:set var="onclickLocation">if (s.tl) {s.tl(true,'o', 'Search_location_tab_click');} return true;</c:set>
+        <c:set var="onclickName">if (s.tl) {s.tl(true,'o', 'Search_name_tab_click');} return true;</c:set>
+
+        <c:set var="byLocation"
+               value="${commandAndFields.nearbySearch or isCityBrowse or isDistrictBrowse ? true : false}"
+               property="java.lang.Boolean"/>
+
+        <!--<div class="bd gsTabs">-->
+            <!--<ul class="tabStyle-4">-->
+                <!--<li><a id="js-byLocationTab" class="${byLocation ? 'selected':''}"-->
+                       <!--onclick="${onclickLocation}">By location</a>-->
+
+                    <!--<div id="arrowdiv" class="${byLocation ? 'selected':''} arrowdiv">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
+                <!--</li>-->
+                <!--<li class="mlm"><a id="js-byNameTab" class="${!byLocation ? 'selected':''}"-->
+                                   <!--onclick="${onclickName}">By name</a>-->
+
+                    <!--<div id="arrowdiv"-->
+                         <!--class="down-pointer ${!byLocation ? 'selected':''} arrowdiv">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+
+
+            <div id="js-byLocationTabBody" style="${!byLocation ? 'display:none;':''}">
+                <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
+                      method="get" onsubmit="return false;">
+                    <input type="hidden" name="lat"/>
+                    <input type="hidden" name="lon"/>
+                    <input type="hidden" name="zipCode"/>
+                    <input type="hidden" name="state"/>
+                    <input type="hidden" name="locationType" value=""/>
+                    <!--<input type="hidden" name="partialMatch" value=""/>-->
+                    <input type="hidden" name="normalizedAddress" value=""/>
+                    <input type="hidden" name="totalResults" value="0"/>
+                    <input type="hidden" name="city"/>
+
+                    <div class="line">
+                        <div class="unit size17of20">
+                            <form:input type="text" name="locationSearchString" class="text-bigger input_13"
+                                        id="js-findByLocationBox"
+                                        placeholder="Search by city AND state or address ..."
+                                        path="schoolSearchCommand.locationSearchString"/>
+                        </div>
+                        <div class="unit size3of20 lastUnit">
+                            <button class="button-4 searchSubmit" type="submit">Search</button>
+                        </div>
+                    </div>
+                    <div class="smallest quiet bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
+                </form>
+                <a id="js-byNameTab" class="${!byLocation ? 'selected':''}"
+                   onclick="${onclickName}">By name</a>
+            </div>
+
+            <div id="js-byNameTabBody" style="${byLocation ? 'display:none;':''}">
+                <form name="searchByNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
+                    <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
+                    <input type="hidden" name="search_type" value="1"/>
+                    <c:if test="${not empty schoolSearchCommand.searchString}">
+                        <c:set var="searchString"><c:out value="${schoolSearchCommand.searchString}"
+                                                         escapeXml="true"/></c:set>
+                    </c:if>
+
+                    <div class="line">
+                        <div class='unit searchBarFas size83of100 mrm clearfix pr'
+                             style='background: #fff; border: 1px solid #b8b8b8;'>
+                            <div class="fl">
+                                <input type="text" name="q"
+                                       class="text-bigger"
+                                       style="width: 400px; border: none;"
+                                       id="js-findByNameBox"
+                                       placeholder="Search by school or district ..."
+                                       value="${searchString}"/>
+                            </div>
+                            <div class="unit size17of100 pa" style="top:6px;left:410px;">
+                                <span class="quiet bottom"> | </span>
+                                <span class="showState make-06b"><!-- Do not collapse--></span>
+                                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                                     noStateLabel="Select state"
+                                                     usingLongNames="false"
+                                                     state="${requestScope.context.state}"
+                                                     styleClass="stateSelectSearch"
+                                                     styleId="js-findByNameStateSelect"/>
+                                <span class="pa" style="left:76px;top:3px;"><span
+                                        class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
+                            </div>
+                        </div>
+                        <div class="unit size20of100 lastUnit">
+                            <button class="button-4 searchSubmit" type="submit">Search</button>
+                        </div>
+                    </div>
+                    <div class="smallest quiet bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
+
+                </form>
+                <a id="js-byLocationTab" class="${byLocation ? 'selected':''}"
+                   onclick="${onclickLocation}">By location</a>
+            </div>
+
+
+        <!--</div>-->
+        <div class="ft">
+            <search:globalFilterBar includeDistance="${true}"/>
+            <search:schoolSearchFiltersPanel
+                    showAdvancedFilters="${byLocation}"/> <!--replace this to re-enable advanced filters-->
+            <!--<search:schoolSearchFiltersPanel showAdvancedFilters="${false}"/>-->
+        </div>
+
+    </div>
+</jsp:root>
