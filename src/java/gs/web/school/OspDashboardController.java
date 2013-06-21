@@ -126,17 +126,18 @@ public class OspDashboardController implements BeanFactoryAware{
             //Use the BeanFactoryAware so that we get the espStatusManager component with auto injections.Otherwise we have to
             //manually set the espResponseDao on the espStatusManager.
             EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", new Object[]{school});
-            modelMap.put("schoolEspStatus", statusManager.getEspStatus());
+            EspStatus schoolEspStatus = statusManager.getEspStatus();
             boolean showOspGateway = false;
 
             //If there is a provisional user for the school, then block out other users.GS-13363.
             if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
                 String redirect = checkForProvisionalMemberships(school, request, otherEspMemberships, user);
-                if (StringUtils.isBlank(redirect) && user.hasRole(Role.ESP_MEMBER)
-                        && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
+                if (!StringUtils.isBlank(redirect)) {
+                    return redirect;
+                } else if (user.hasRole(Role.ESP_MEMBER) && !schoolEspStatus.equals(EspStatus.OSP_PREFERRED)) {
                     showOspGateway = true;
                 }
-            } else if (isProvisional && !statusManager.getEspStatus().equals(EspStatus.OSP_PREFERRED)) {
+            } else if (isProvisional && !schoolEspStatus.equals(EspStatus.OSP_PREFERRED)) {
                 List<EspResponse> responses = _espResponseDao.getResponses(school, user.getId(), true, "_page_osp_gateway_keys");
                 if (responses == null || responses.isEmpty()) {
                     showOspGateway = true;
