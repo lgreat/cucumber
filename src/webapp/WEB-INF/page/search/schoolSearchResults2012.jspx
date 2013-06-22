@@ -123,7 +123,7 @@
     <div id="js-search-body">
     
     <c:if test="${facebookFacepilesEnabled eq true}">
-        <pageHelper:includeFacebookInit/>
+        <pageHelper:turnOnFacebookInit/>
     </c:if>
     <div class="container_24 clearfix">
     

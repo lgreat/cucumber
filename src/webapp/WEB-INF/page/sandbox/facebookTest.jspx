@@ -42,8 +42,8 @@
     </head>
 
     <body>
-    <pageHelper:includeFacebookInit/>
-aalsdf
+    <pageHelper:turnOnFacebookInit/>
+
     <p>
         OAuth access token: ${accessToken}
     </p>

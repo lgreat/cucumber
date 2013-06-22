@@ -52,10 +52,14 @@
         <decorator:head/>
 
         <ad:xGAMSetup/>
+
+        <pageHelper:turnOnFacebookInit/>
     </head>
 
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
           onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}">
+
+    <pageHelper:addFacebookInit/>
 
     <div class="site-gradient">
         <c:if test="${requestScope.pageHelper.showingLeaderboard}">
