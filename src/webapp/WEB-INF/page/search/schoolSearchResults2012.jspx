@@ -77,7 +77,6 @@
         <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
         <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
 
-
         <k12:trafficDriverIncludes/>
 
     <!-- Allow interstitials for this page.
