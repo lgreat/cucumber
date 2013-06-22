@@ -14,6 +14,7 @@ import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
+import gs.web.authorization.FacebookSession;
 import gs.web.jsp.Util;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -123,6 +124,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private Boolean _gptEnabledOverride = null;
     private Boolean _gptAsynchronousModeEnabledOverride = null;
     private Boolean _gptAsynchronousModeOnMobileEnabledOverride = null;
+    private FacebookSession _facebookSession = null;
 
     /**
      * GS-14332 Added the method to check if the Sweep Stakes Module should be on or off based on the property value - Shomi Arora .
@@ -801,5 +803,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setIosSafari(boolean iosSafari) {
         _iosSafari = iosSafari;
+    }
+
+    public FacebookSession getFacebookSession() {
+        return _facebookSession;
+    }
+
+    public void setFacebookSession(FacebookSession facebookSession) {
+        _facebookSession = facebookSession;
     }
 }

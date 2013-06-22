@@ -7,8 +7,8 @@ import gs.data.community.WelcomeMessageStatus;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.util.table.ITableDao;
-import gs.web.authorization.Facebook;
-import gs.web.authorization.FacebookRequestData;
+import gs.web.authorization.FacebookHelper;
+import gs.web.authorization.FacebookSession;
 import gs.web.util.*;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -153,9 +153,9 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
 
     public View doSocialSignon(HttpServletRequest request, HttpServletResponse response, User user) {
 
-        FacebookRequestData facebookRequestData = Facebook.getRequestData(request);
+        FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
 
-        if (facebookRequestData.isOwnedBy(user)) {
+        if (facebookSession.isOwnedBy(user)) {
             // log user in
             try {
                 PageHelper.setMemberAuthorized(request, response, user);

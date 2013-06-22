@@ -10,6 +10,8 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.authorization.FacebookHelper;
+import gs.web.authorization.FacebookSession;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.CookieUtil;
@@ -684,6 +686,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     public SessionContext prepareSessionContext(
             HttpServletRequest request,
             HttpServletResponse response) {
+
+        FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
+
         /*
         The normal case is that things are persisted in individual cookies. We support
         the ability to add request-level attributes for testing and a few other

@@ -1,7 +1,7 @@
 package gs.web.request;
 
-import gs.web.authorization.Facebook;
-import gs.web.authorization.FacebookRequestData;
+import gs.web.authorization.FacebookHelper;
+import gs.web.authorization.FacebookSession;
 import gs.web.mobile.Device;
 import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;
@@ -50,10 +50,8 @@ public class RequestInfo {
             _device = new Device(new UnknownDevice());
         }
 
-        FacebookRequestData facebookRequestData = Facebook.getFacebookDataFromCookie(_request);
-        if (facebookRequestData.isValid()) {
-            _signedInWithFacebook = true;
-        }
+        FacebookSession facebookSession = FacebookHelper.getFacebookSession(_request);
+        _signedInWithFacebook = facebookSession.isValid();
 
         _request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, this);
     }

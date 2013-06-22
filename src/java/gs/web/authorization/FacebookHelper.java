@@ -1,8 +1,16 @@
 package gs.web.authorization;
 
 
+import facebook4j.Facebook;
+import facebook4j.FacebookException;
+import facebook4j.FacebookFactory;
+import facebook4j.User;
+import facebook4j.auth.AccessToken;
+import facebook4j.auth.OAuthAuthorization;
 import gs.data.util.CmsUtil;
+import gs.web.request.RequestInfo;
 import gs.web.util.CookieUtil;
+import gs.web.util.UrlUtil;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.codec.DecoderException;
@@ -14,24 +22,47 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
-public class Facebook {
+public class FacebookHelper {
+    public static final String OAUTH_AUTHENTICATION_CODE_PARAM = "oauthCode";
 
     public static final String SIGNED_REQUEST_PARAM = "fbSignedRequest";
 
-    public static FacebookRequestData getRequestData(HttpServletRequest request) {
-        FacebookRequestData facebookRequestData = new FacebookRequestData();
-        if (request.getParameter(SIGNED_REQUEST_PARAM) != null) {
-            facebookRequestData = parseSignedRequest(request.getParameter(SIGNED_REQUEST_PARAM));
+    public static final String OAUTH_DONE_CALLBACK_PARAM = "oauthDoneCallback";
+
+    public static FacebookSession getFacebookSession(HttpServletRequest request) {
+        FacebookSession facebookSession = (FacebookSession) request.getAttribute(FacebookSession.REQUEST_ATTRIBUTE);
+
+        if (facebookSession == null) {
+            if (request.getParameter(SIGNED_REQUEST_PARAM) != null) {
+                facebookSession = parseSignedRequest(request.getParameter(SIGNED_REQUEST_PARAM));
+            } else if (request.getParameter(OAUTH_AUTHENTICATION_CODE_PARAM) != null) {
+                String oauthCode = request.getParameter(OAUTH_AUTHENTICATION_CODE_PARAM);
+                facebookSession = FacebookSession.builder().authorizationCode(oauthCode).build();
+            } else {
+                facebookSession = FacebookSession.builder().build();
+            }
         }
-        return facebookRequestData;
+
+        return facebookSession;
     }
 
-    public static FacebookRequestData parseSignedRequest(String signedRequest) {
+    public static String getOAuthCallbackUrl(HttpServletRequest request) {
+
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+
+        String thisUrl = requestInfo.getRequestURL();
+
+        String callback = UrlUtil.buildHostAndPortString(request).toString() + OAuthCallbackHandler.PATH;
+
+        String oauthCallback = callback + "?" + OAUTH_DONE_CALLBACK_PARAM + "=" + thisUrl;
+
+        return oauthCallback;
+    }
+
+    public static FacebookSession parseSignedRequest(String signedRequest) {
         boolean valid = false;
 
-        String facebookSecretKey = CmsUtil.getFacebookSecret();
-        String facebookAppId = CmsUtil.getFacebookAppId();
-        FacebookRequestData requestData = new FacebookRequestData();
+        FacebookSession.GsFacebookSessionBuilder requestData = FacebookSession.builder();
 
         try {
             //parse signed_request
@@ -57,36 +88,38 @@ public class Facebook {
             }
 
             //check if data is signed correctly
-            if(hmacSHA256(signedRequestParts[1], facebookSecretKey).equals(signedRequestParts[0])) {
+            if(hmacSHA256(signedRequestParts[1], CmsUtil.getFacebookSecret()).equals(signedRequestParts[0])) {
                 if (data.has("code")) {
-                    requestData.setAuthorizationCode(data.getString("code"));
+                    requestData.authorizationCode(data.getString("code"));
                 }
-                requestData.setUserId(data.getString("user_id"));
+                requestData.userId(data.getString("user_id"));
             } else {
                 //signature is not correct, possibly the data was tampered with
                 valid = false;
             }
 
         } catch (Exception e) {
-            requestData = new FacebookRequestData();
+            requestData = FacebookSession.builder();
         }
 
-        return requestData;
+        return requestData.build();
     }
 
-    public static FacebookRequestData getFacebookDataFromCookie(HttpServletRequest request) {
-        FacebookRequestData facebookRequestData = new FacebookRequestData();
+    public static FacebookSession getFacebookDataFromCookie(HttpServletRequest request) {
+        FacebookSession facebookSession;
         Cookie cookie = CookieUtil.getCookie(request, "fbsr_" + CmsUtil.getFacebookAppId());
 
         if (cookie != null) {
             String signedRequest = cookie.getValue();
-            facebookRequestData = parseSignedRequest(signedRequest);
+            facebookSession = parseSignedRequest(signedRequest);
+        } else {
+            facebookSession = FacebookSession.builder().build();
         }
 
-        return facebookRequestData;
+        return facebookSession;
     }
 
-    static private String decode(String data) throws DecoderException, UnsupportedEncodingException {
+    private static String decode(String data) throws DecoderException, UnsupportedEncodingException {
         String result = new String(Base64.decodeBase64(data.replaceAll("-_", "+/").getBytes("UTF-8")));
         return result;
     }
@@ -102,6 +135,7 @@ public class Facebook {
         result = result.substring(0,result.length()-1);
         return result;
     }
+
 
 
 }
