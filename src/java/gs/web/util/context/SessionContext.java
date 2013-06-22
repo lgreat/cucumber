@@ -14,7 +14,7 @@ import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
-import gs.web.authorization.FacebookSession;
+import gs.web.auth.FacebookSession;
 import gs.web.jsp.Util;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;

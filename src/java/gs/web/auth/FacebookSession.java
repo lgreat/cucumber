@@ -1,4 +1,4 @@
-package gs.web.authorization;
+package gs.web.auth;
 
 
 import facebook4j.*;

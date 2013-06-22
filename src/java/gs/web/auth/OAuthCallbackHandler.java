@@ -1,4 +1,4 @@
-package gs.web.authorization;
+package gs.web.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

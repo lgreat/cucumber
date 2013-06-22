@@ -1,10 +1,7 @@
-package gs.web.authorization;
+package gs.web.auth;
 
 
 import facebook4j.Facebook;
-import facebook4j.FacebookFactory;
-import gs.web.request.RequestInfo;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;

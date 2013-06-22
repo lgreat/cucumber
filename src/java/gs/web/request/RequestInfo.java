@@ -1,7 +1,7 @@
 package gs.web.request;
 
-import gs.web.authorization.FacebookHelper;
-import gs.web.authorization.FacebookSession;
+import gs.web.auth.FacebookHelper;
+import gs.web.auth.FacebookSession;
 import gs.web.mobile.Device;
 import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;

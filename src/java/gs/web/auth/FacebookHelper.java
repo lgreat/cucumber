@@ -1,12 +1,6 @@
-package gs.web.authorization;
+package gs.web.auth;
 
 
-import facebook4j.Facebook;
-import facebook4j.FacebookException;
-import facebook4j.FacebookFactory;
-import facebook4j.User;
-import facebook4j.auth.AccessToken;
-import facebook4j.auth.OAuthAuthorization;
 import gs.data.util.CmsUtil;
 import gs.web.request.RequestInfo;
 import gs.web.util.CookieUtil;
