@@ -1,75 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    
-    <jsp:directive.tag body-content="empty"
-                       description="Convenience method to add javascript files and libraries to decorators. It is the sitemesh decorator's reponsibility to include the proper code."/>
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
-    <jsp:directive.attribute name="uncompressedScripts"
-                           type="java.lang.String"
-                           required="true"/>
-    <jsp:directive.attribute name="compressedScripts"
-                           type="java.lang.String"
-                           required="true"/>
-    <jsp:directive.attribute name="serverName"
-                           type="java.lang.String"
-                           required="true"/>
+<jsp:directive.tag body-content="empty"
+                   description="Convenience method to add javascript files and libraries to decorators. It is the sitemesh decorator's reponsibility to include the proper code."/>
 
-    <c:choose>
-        <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or fn:startsWith(serverName, '172.18.1.') or serverName eq '127.0.0.1' or fn:contains(serverName,'samson') or fn:contains(serverName,'rcox.office') or fn:contains(serverName,'mitchtest')) and empty compressedScripts}">
-            <gsml:url var="conditionizrjs" value="/res/js/lib/conditionizr.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="trackitjs" value="/res/js/trackIt.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+<jsp:directive.attribute name="uncompressedScripts" type="java.lang.String" required="true"/>
+<jsp:directive.attribute name="compressedScripts" type="java.lang.String" required="true"/>
+<jsp:directive.attribute name="serverName" type="java.lang.String" required="true"/>
 
-            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.9.1.min.js" allowCdn="true"/>
-            <gsml:url var="jqueryjs_migrate" value="/res/js/jquery/jquery-migrate-1.1.1-warnings.js" allowCdn="true"/>
-            <gsml:url var="tabjs" value="/res/js/tabs.js" allowCdn="true"/>
-            <!--<gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>-->
-            <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
-            <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
+<gsml:combinedJavascript src="/res/js/combined-v1.min.js">
 
-            <gsml:url var="urijs" value="/res/js/uri/uri.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="schoolautocomplete" value="/res/js/search/schoolAutocomplete.js" allowCdn="true"/>
-            <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js" allowCdn="true"/>
-            <gsml:url var="timepicker" value="/res/js/jquery/plugins/timepicker/jquery.ptTimeSelect.js" allowCdn="true"/>
-            <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="hoverjs" value="/res/js/hover-v1.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="modaljs" value="/res/js/modal/modalManager.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="gs_jquery_extensionsjs" value="/res/js/gs_jquery_extensions.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="houseadsjs" value="/res/js/house_ads.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
-
-            <![CDATA[<script type="text/javascript" src="${conditionizrjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${jqueryjs_migrate}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${tabjs}"></script>]]>
-            <!--<![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>-->
-            <![CDATA[<script type="text/javascript" src="${jqueryautocomplete}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${urijs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${schoolautocomplete}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${timepicker}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${trackitjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${modaljs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
-
-            <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${gs_jquery_extensionsjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${houseadsjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
-        </c:when>
-        <c:otherwise>
-            <gsml:url var="combinedjs" value="/res/js/combined-v1.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
-        </c:otherwise>
-    </c:choose>
+    <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
+    <gsml:javascript src="/res/js/lib/conditionizr.min.js"/>
+    <gsml:javascript src="/res/js/jquery/jquery-1.9.1.min.js"/>
+    <gsml:javascript src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>
+    <gsml:javascript src="/res/js/tabs.js"/>
+    <gsml:javascript src="/res/js/jquery/jquery.autocomplete.js"/>
+    <gsml:javascript src="/res/js/uri/uri.js"/>
+    <gsml:javascript src="/res/js/search/schoolAutocomplete.js"/>
+    <gsml:javascript src="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js"/>
+    <gsml:javascript src="/res/js/jquery/plugins/timepicker/jquery.ptTimeSelect.js"/>
+    <gsml:javascript src="/res/js/global.js"/>
+    <gsml:javascript src="/res/js/trackIt.js"/>
+    <gsml:javascript src="/res/js/topnavpromo.js"/>
+    <gsml:javascript src="/res/js/modal/modalManager.js"/>
+    <gsml:javascript src="/res/js/hover-v1.js"/>
+    <gsml:javascript src="/res/js/topnav.js"/>
+    <gsml:javascript src="/res/js/gs_jquery_extensions.js"/>
+    <gsml:javascript src="/res/js/house_ads.js"/>
+    <gsml:javascript src="/res/js/deferredcontent.js"/>
+    <gsml:javascript src="/res/js/externalTracking.js"/>
+</gsml:combinedJavascript>
 
 </jsp:root>
