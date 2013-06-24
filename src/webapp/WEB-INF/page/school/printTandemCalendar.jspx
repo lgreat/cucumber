@@ -57,7 +57,7 @@
 
         <div style="display:none" id="js-calendardata">${data}</div>
 
-        <div class="" style="width: 750px;">
+        <div class="" style="">
             <div class="hd clearfix">
                 <div class="fl">Upcoming events at</div>
                 <div class="fr">
@@ -67,28 +67,30 @@
             </div>
             <div class="bd clearfix">
                 <div class="title">${schoolName}</div>
-                <div class="fl" style="width:435px;">
+                <div class="fl" style="width: 67%">
                     <table id="js-school-calendar-list" class="">
                         <tr>
-                            <th>Date</th>
-                            <th>Title</th>
+                            <th width="20%">Date</th>
+                            <th width="80%">Title</th>
                         </tr>
                         <!-- the template node must wrap the actual template html. the tr node will get cloned -->
                         <tbody id="js-calendar-list-event-template" class="tandemPrint">
                         <tr>
-                            <td class="default_bold" width="30%">{{date}}</td>
-                            <td class="default" width="70%">{{title}}</td>
+                            <td class="default_bold" width="20%">{{date}}</td>
+                            <td class="default" width="80%">{{title}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="fr">
+                <div class="fr" style="width:300px;">
                     <div class="ad" style="background-color: grey; width: 300px; height:600px;">Adslot</div>
                 </div>
             </div>
             <div class="ft clearfix">
                 <div class="fl">
-                    <img src="/res/img/tandem/microsoft_logo.png" alt="Mircosoft logo" width="134"/>
+                    <c:if test="${tandemTileMSBranding}">
+                        <img src="/res/img/tandem/microsoft_logo.png" alt="Mircosoft logo" width="134"/>
+                    </c:if>
                 </div>
                 <div class="fr">
                     <img src="/res/img/tandem/gs_logo.png" alt="GS logo" width="167"/>

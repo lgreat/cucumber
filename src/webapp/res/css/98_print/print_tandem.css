@@ -91,15 +91,15 @@ General comments:
 }
 .hd .fl{
     font-family: SourceSansPro-Semibold, arial;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 18pt;
+    line-height: 21pt;
     padding: 6px;
     color: #FFFFFF;
     background-color: #EB3C18;
 }
 
 .hd .fr{
-    font: normal 10px/16px Arial, Helvetica, sans-serif;
+    font: normal 10pt/16pt Arial, Helvetica, sans-serif;
     color: #9E2D00;
     margin-top: 7px;
 }
@@ -110,14 +110,14 @@ General comments:
 
 .title{
     font-family: SourceSansPro-Semibold, arial;
-    font-size: 43px;
-    line-height: 47px;
+    font-size: 43pt;
+    line-height: 47pt;
     color: #333;
     margin: 15px 0 30px 3px;
 }
 
 table th{
-    font: bold 12px/20px Arial, Helvetica, sans-serif;
+    font: bold 12pt/20pt Arial, Helvetica, sans-serif;
     background: #F1F1F1;
     border-top: 1px solid #CCCCCC;
     border-bottom: 1px solid #CCCCCC;
@@ -130,8 +130,8 @@ table  tbody.tandemPrint td{
     color: #555555;
 }
 
-.default{ font: normal 14px/20px Arial, Helvetica, sans-serif;}
-.default_bold{ font: bold 14px/20px Arial, Helvetica, sans-serif;}
+.default{ font: normal 14pt/20pt Arial, Helvetica, sans-serif;}
+.default_bold{ font: bold 14pt/20pt Arial, Helvetica, sans-serif;}
 
 .ft{
     margin-top: 60px;
