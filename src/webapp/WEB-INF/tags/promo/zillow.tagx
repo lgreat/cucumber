@@ -13,8 +13,10 @@
         function processMouseOver() { isOverIFrame = true; }
         function processIFrameClick() {
             if(isOverIFrame) {
-                alert('123 '+omniturePageName);
-                if (s.tl) {s.tl(this,'o', 'Mobile_Global_Saved_Schools');}
+
+                if (s.tl) {
+                    s.tl(true, 'o', 'Zillow_Widget');
+                }
             }
         }
 
@@ -49,18 +51,16 @@
                     src="http://www.zillow.com/widgets/search/PartnerAdWidget.htm?bucket=map&amp;pn=Great+Schools&amp;rid=${regionId}&amp;style=default&amp;ulbm=false"
                     vspace="0"> Your browser doesn't support frames. Please visit <a
                     href="http://www.zillow.com?cbpartner=Great+Schools&amp;utm_source=Great_Schools&amp;utm_medium=referral&amp;utm_content=map&amp;utm_campaign=partner_widgets"
-                    onclick="alert('Hello from JavaScript!')"
                     target="_blank" style="text-decoration:none;" id="zillow">Zillow Home Page</a> to see this content.
                     </iframe>
-
-                    <div style="margin:4px 10px 0;overflow:hidden;">
+                   <div style="margin:4px 10px 0;overflow:hidden;">
                     <a href="http://www.zillow.com/${formattedUrl}/"
                                                                target="_blank"
-                                                               onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget_${omniturePageName}');} return true;"
+                                                               onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget');} return true;"
                                                                style="font-size:11px;display:inline;width:222px;float:left;text-decoration:none;color:#999;font-family:arial;font-weight:normal;">Browse on Zillow</a>
                     <a
                     href="http://www.zillow.com/" target="_blank"
-                    onclick="alert('Hello from JavaScript!123')"
+                    onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget');} return true;"
                     style="display:block;float:right;text-decoration:none;width:56px;height:15px;"><img
                     src="http://www.zillow.com/widgets/GetVersionedResource.htm?path=/static/images/logo_zillow_56x15.png"
                     style="display:block;border:0;" alt="Homes for Sale - Zillow"></img></a>
@@ -76,10 +76,9 @@
                     src="http://www.zillow.com/widgets/search/PartnerAdWidget.htm?bucket=map&amp;pn=Great+Schools&amp;style=default&amp;ulbm=true"
                     vspace="0"> Your browser doesn't support frames. Please visit <a
                     href="http://www.zillow.com?cbpartner=Great+Schools&amp;utm_source=Great_Schools&amp;utm_medium=referral&amp;utm_content=map&amp;utm_campaign=partner_widgets"
-                    onclick="alert('Hello from JavaScript234!')"
                     target="_blank" style="text-decoration:none;">Zillow Home Page</a> to see this content.
                    </iframe>
-                     <div style="margin:4px 10px 0;overflow:hidden;"><a href="http://www.zillow.com/page/"
+                   <div style="margin:4px 10px 0;overflow:hidden;"><a href="http://www.zillow.com/page/"
                                                                target="_blank"
                                                                style="font-size:11px;display:inline;width:222px;float:left;text-decoration:none;color:#999;font-family:arial;font-weight:normal;">Browse on Zillow</a><a
                     href="http://www.zillow.com/" target="_blank"
