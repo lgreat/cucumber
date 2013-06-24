@@ -109,6 +109,7 @@ GS.school.calendar =  (function($) {
         exportCalendar(ncesCode, format, schoolName);
     }
 
+
     /**
      * A function to parse the XCAL format date into an object
      */
@@ -449,6 +450,7 @@ GS.school.calendar =  (function($) {
 
     var uploadToOutlook = function(ncesCode, schoolName) {
         var date = '';
+        var endDate = '';
         var event;
         var calendarName = schoolName + ' Calendar';
 
@@ -468,7 +470,8 @@ GS.school.calendar =  (function($) {
                     // we'll need to recursively call this function
                     function uploadEvent(i) {
                         event = events[i];
-                        date = event.dateStart.year + '-' + event.dateStart.month + '-' + event.dateStart.day + "T00:00:00Z";
+                        date = event.dateStart.year + '-' + event.dateStart.month + '-' + event.dateStart.day + "T00:00:00" + getTimezoneOffset();
+                        endDate = event.dateStart.year + '-' + event.dateStart.month + '-' + event.dateStart.day + "T23:59:59" + getTimezoneOffset();
 
                         // createEvent returns a promise
                         GS.windowsLive.createEvent(
@@ -476,7 +479,7 @@ GS.school.calendar =  (function($) {
                             event.summary,
                             'Description:' + event.summary,
                             date,
-                            date
+                            endDate
                         ).done(function() {
                             i = i + 1;
                             if (i < numberOfEvents) {
@@ -504,6 +507,13 @@ GS.school.calendar =  (function($) {
             // could not log in to WindowsLive
             alert("We're sorry, we were not able to connect to Outlook.com to upload the school calendar. You might not have given permissions to access your Outlook.com calendar.");
         });
+    };
+
+    var getTimezoneOffset = function() {
+        // The windowsLive API doesn't properly handle dates unless I specify UTC offset. Currently all school events
+        // have no actual time (they're all day events) so it shouldn't even matter. But we need to specify a time
+        // for the windows live API to work.
+        return '-0' + (((new Date()).getTimezoneOffset() / 60) * 100);
     };
 
     var print = function() {
@@ -544,6 +554,12 @@ GS.school.calendar =  (function($) {
         }
     };
 
+    var pad = function(number, width, z) {
+        z = z || '0';
+        number = number + '';
+        return number.length >= width ? number : new Array(width - number.length + 1).join(z) + number;
+    };
+
     return {
         getEventsAndUpdateListUI: getEventsAndUpdateListUI,
         show: show,
@@ -552,7 +568,8 @@ GS.school.calendar =  (function($) {
         uploadToOutlook: uploadToOutlook,
         print: print,
         formatEvents : formatEvents,
-        loadEventsFromDomAndFillCalendarList: loadEventsFromDomAndFillCalendarList
+        loadEventsFromDomAndFillCalendarList: loadEventsFromDomAndFillCalendarList,
+        getTimezoneOffset: getTimezoneOffset
     };
 })(jQuery);
 
