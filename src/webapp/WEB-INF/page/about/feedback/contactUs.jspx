@@ -58,7 +58,7 @@
                     window.location.href = "${addFeedbackURL}"+"?target=tests_ratings";
                     return;
                 }
-                if (selectedValue == 'other') {
+                if (selectedValue == 'join') {
                     window.location.href = "${addFeedbackURL}"+"?target=functionality";
                     return;
                 }
@@ -222,7 +222,7 @@
         <select id="mainFeedbackTopicSelect" disabled="disabled">
             <option value="defaultOption">- Select an option -</option>
             <option value="incorrectSchoolDistrictInfo">Incorrect school/district information</option>
-            <option value="addSchoolToSite">Add a preschool or private school listing</option>
+            <option value="addSchoolToSite">Adding a school to GreatSchools</option>
             <option value="join">Trouble joining or signing in</option>
             <option value="esp">Official School Profiles for school administrators</option>
             <option value="gsRatings">GreatSchools Ratings &amp;amp; test scores</option>
