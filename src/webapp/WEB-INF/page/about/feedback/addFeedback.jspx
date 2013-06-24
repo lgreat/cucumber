@@ -70,21 +70,26 @@ var QueryString = function () {
 
 //function setTest22(QueryString){
     function showInitial(){
-        if(QueryString.target == "osp"){
+        //alert("category: " + $("#category").val());
+        if(QueryString.target == "osp" || $("#category").val() == "osp"){
             $("#div_choose_state").show();
             $("#school_or_district").val("school");
+            $("#category").val("osp");
         }
 
-        if(QueryString.target == "tests_ratings"){
+        if(QueryString.target == "tests_ratings" || $("#category").val() == "tests_ratings"){
             $("#div_choose_state").show();
             $("#schoolOrDistrict").val("school");
+            $("#category").val("tests_ratings");
         }
 
-        if(QueryString.target == "functionality"){
+        if(QueryString.target == "functionality" || $("#category").val() == "functionality"){
+            $("#connection_to_school").hide();
             $("#computerInfo").show();
+            $("#category").val("functionality");
         }
 
-        $("#category").val(QueryString.target);
+        //$("#category").val(QueryString.target);
         //alert($("#category").val() + QueryString.target);
 
         $("#addFeedbackCommand_state").change(function() {
@@ -179,6 +184,7 @@ $(document).ready(function(){
 
         <div id="link_to_update"><a href="/about/feedback/addEditSchoolOrDistrict.page">Want to update information?</a></div>
         <div id="link_to_add"><a href="/about/feedback/addEditSchoolOrDistrict.page">Want to add a school to GS?</a></div>
+        <div id="link_to_add"><a href="/osp">Sign up for an Official School Profile</a></div>
         <div class="field">
             <div class="fieldLabel">Your name <span class="required">*</span></div>
             <div class="fieldInput">
@@ -335,7 +341,7 @@ $(document).ready(function(){
 
 
         <div class="field">
-            <div class="fieldLabel">Extra Notes</div>
+            <div class="fieldLabel">Enter Comments or Questions Here <span class="required">*</span></div>
             <div class="fieldInput">
                 <spring:bind path="addFeedbackCommand.contactNotes"><!--  -->
                     <!-- <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="contactNotes"/>   -->

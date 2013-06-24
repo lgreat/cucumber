@@ -32,6 +32,8 @@ public class AddFeedbackCommandValidator implements IRequestAwareValidator  {
             "Please re-enter your email address.";
     static final String ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING =
             "Please enter your connection to the school.";
+    static final String ERROR_CONTACT_NOTES_MISSING =
+            "Please enter your question or comment.";
     static final String ERROR_ADD_EDIT =
             "Please choose whether you wish to add or edit.";
     static final String ERROR_GRADES =
@@ -58,10 +60,15 @@ public class AddFeedbackCommandValidator implements IRequestAwareValidator  {
             errors.rejectValue("submitterEmailConfirm", null, ERROR_SUBMITTER_EMAIL_UNMATCHED);
         }
 
-        if (StringUtils.isBlank(command.getSubmitterConnectionToSchool())) {
+        if (StringUtils.isBlank(command.getSubmitterConnectionToSchool()) &&
+                (command.getCategory().equals("tests_ratings") ||  command.getCategory().equals("osp"))
+                ) {
             errors.rejectValue("submitterConnectionToSchool", null, ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING);
         }
 
+        if (StringUtils.isBlank(command.getContactNotes())) {
+            errors.rejectValue("contactNotes", null, ERROR_CONTACT_NOTES_MISSING);
+        }
 
     }
 

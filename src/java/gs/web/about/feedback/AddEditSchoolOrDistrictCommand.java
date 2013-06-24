@@ -71,6 +71,9 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
     private String _open;
     private String _openSeason;
     private String _openYear;
+    private String _applicable;
+    private String _applicableSeason;
+    private String _applicableYear;
 
 
     //private String[] listSubmitterName = {"eddie","andy"};
@@ -533,6 +536,32 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
 
     public void setOpenSeason(String openSeason) {
         _openSeason = openSeason;
+    }
+
+
+    public String getApplicable() {
+        if(_applicable == null){_applicable = "now";}
+        return _applicable;
+    }
+
+    public void setApplicable(String applicable) {
+        _applicable = applicable;
+    }
+
+    public String getApplicableSeason() {
+        return _applicableSeason;
+    }
+
+    public void setApplicableSeason(String applicableSeason) {
+        _applicableSeason = applicableSeason;
+    }
+
+    public String getApplicableYear() {
+        return _applicableYear;
+    }
+
+    public void setApplicableYear(String applicableYear) {
+        _applicableYear = applicableYear;
     }
 
 

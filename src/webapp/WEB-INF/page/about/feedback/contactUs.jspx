@@ -46,9 +46,21 @@
                 }
 
                 //NEW REDIRECT
-                if (selectedValue == 'incorrectSchoolDistrictInfo') {
-                    //window.location.href = "${addEditURL}";
-                    //return;
+                if (selectedValue == 'incorrectSchoolDistrictInfo' || selectedValue == 'addSchoolToSite') {
+                    window.location.href = "${addEditURL}";
+                    return;
+                }
+                if (selectedValue == 'esp') {
+                    window.location.href = "${addFeedbackURL}"+"?target=osp";
+                    return;
+                }
+                if (selectedValue == 'gsRatings') {
+                    window.location.href = "${addFeedbackURL}"+"?target=tests_ratings";
+                    return;
+                }
+                if (selectedValue == 'other') {
+                    window.location.href = "${addFeedbackURL}"+"?target=functionality";
+                    return;
                 }
 
                 $j('div.jqFeedback').hide();

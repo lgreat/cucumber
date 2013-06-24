@@ -162,7 +162,7 @@ public class AddFeedbackController extends SimpleFormController implements ReadW
         categoryMap.put("osp","Thank you for your feedback about our Official School Profile.");
         NewEntityQueue newEntityQueue = new NewEntityQueue();
         newEntityQueue.setOriginalId(0);
-        newEntityQueue.setStatus("Unprocessed");
+        newEntityQueue.setStatus("unprocessed");
         //if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
         if(command.getSchoolId() != null && StringUtils.isNotBlank(command.getSchoolId()) && StringUtils.isNumeric(command.getSchoolId())){
             model.put("schoolId",command.getSchoolId());
@@ -272,7 +272,16 @@ public class AddFeedbackController extends SimpleFormController implements ReadW
 
         _newEntityQueueDao.saveNewEntityQueue(newEntityQueue,"web form");
 
-        sendTheEmail();
+        String message = "Hello,\n" +
+                "\n" +
+                "Thank you for contacting GreatSchools!\n" +
+                "We’ve received your request and will get back to you with an answer as soon as possible.\n" +
+                "\n" +
+                "Please do not reply to this automated email - we will respond to you from your support request.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "GreatSchools Support\n";
+        sendTheEmail(message);
 
 
         return new ModelAndView(getSuccessView(), model);
@@ -481,36 +490,41 @@ public class AddFeedbackController extends SimpleFormController implements ReadW
     }
 
 
-         JavaMailSender mailSender;
+    JavaMailSender mailSender;
 
-        public void setMailSender(JavaMailSender mailSender) {
-            this.mailSender = mailSender;
-        }
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
-        public void sendTheEmail() {
+    public void sendTheEmail(String messageText) {
 
-            //... * Do the business calculations....
-            //... * Call the collaborators to persist the order
+        //... * Do the business calculations....
+        //... * Call the collaborators to persist the order
+        final String message = messageText;
 
-            MimeMessagePreparator preparator = new MimeMessagePreparator() {
-                public void prepare(MimeMessage mimeMessage) throws MessagingException {
-                    mimeMessage.setRecipient(Message.RecipientType.TO,
-                            new InternetAddress("eford@greatschools.org"));
-                    mimeMessage.setFrom(new InternetAddress("eford@greatschools.org"));
-                    mimeMessage.setText(
-                            "Dear "
-                            );
-
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws MessagingException {
+                mimeMessage.setRecipient(Message.RecipientType.TO,
+                        new InternetAddress("eford@greatschools.org"));
+                try{
+                    mimeMessage.setFrom(new InternetAddress("gs_support@greatschools.org","GreatSchools Support"));
+                }catch(Exception e){
                 }
-            };
-            try{
-                mailSender.send(preparator);
+                mimeMessage.setSubject("Thank you for contacting GreatSchools!");
+                mimeMessage.setText(
+                        message
+                );
+
             }
-            catch (MailException ex) {
-                //log it and go on
-                System.err.println(ex.getMessage());
-            }
+        };
+        try{
+            mailSender.send(preparator);
         }
+        catch (MailException ex) {
+            //log it and go on
+            System.err.println(ex.getMessage());
+        }
+    }
 
 
 
