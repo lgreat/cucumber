@@ -294,10 +294,10 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         String sday = StringUtils.leftPad(day.toString(),2,'0');
         String whenApplicable = year + "-" + smonth + "-" + sday;
 
-        if(command.getApplicableSeason() != null && !(command.getApplicableSeason().isEmpty())){
+        if(command.getApplicableSeason() != null && !(command.getApplicableSeason().equals(""))){
             whenApplicable = command.getApplicableSeason();
         }
-        if(command.getApplicableYear() != null && !(command.getApplicableYear().isEmpty())){
+        if(command.getApplicableYear() != null && !(command.getApplicableYear().equals(""))){
             whenApplicable += " " + command.getApplicableYear();
         }
         //_log.warn("at applicable" + whenApplicable);
