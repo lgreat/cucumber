@@ -360,8 +360,8 @@
                         </div>
                     </div>
                     <div class="ptm pbs"><!-- do not collapse --></div>
-                    <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
-                    <div class="hd pam " id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;"><h4 class="bottom sourceSansPro-Regular">Helpful reviews answer questions</h4></div>
+                    <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0"><h4 class="bottom sourceSansPro-Semibold">Please rate these additional areas</h4></div>
+                    <div class="hd pam " id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;"><h4 class="bottom sourceSansPro-Semibold">Helpful reviews answer questions</h4></div>
                     <div class="mod standard_1-1">
                         <div class="inner">
 
