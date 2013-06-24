@@ -103,6 +103,7 @@
             </div>
         </div>
         <script language="javascript">
+
             var refreshableCultureBranding = ['School_Profile_Page_AboveFold_Culture_300x600'];
             GS.ad.refreshAds(refreshableCultureBranding);
         </script>
