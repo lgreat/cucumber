@@ -152,7 +152,7 @@
            list-style-type: none;
             padding-left: 0;
             padding-top: 5px;
-            font-size: small;
+            /*font-size: small;*/
         }
         ul.listNoBullet li{
             list-style-type: none;
@@ -350,7 +350,7 @@
                         </div>
                     </div>
                     <div style="width: 312px; ">
-                         <p style="font-size: 80%;color: gray; margin-bottom: 5px;"><strong>Don&#39;t worry!</strong> We won&#39;t share your email with anyone. We use your email to confirm that your review is posted.</p>
+                         <p style="color: #787878;" class="small"><strong>Don&#39;t worry!</strong> We won&#39;t share your email with anyone. We use your email to confirm that your review is posted.</p>
                     </div>
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
@@ -364,30 +364,30 @@
                             <div class="js-ddValues">Other</div>
                         </div>
                     </div>
-                    <!--End--> <br />
+                    <div class="ptm pbs"><!-- do not collapse --></div>
                     <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
                     <div class="hd pam " id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;"><h4 class="bottom sourceSansPro-Regular">Helpful reviews answer questions</h4></div>
                     <div class="mod standard_1-1">
                         <div class="inner">
 
-                            <div class="bd pam" style="height:90px;">
+                            <div class="bd pam" style="height:75px;">
                                 <div id="js-reviewsLandingStarBox-Parent" class="dn">
                                     <div class="clearfix pas" style="padding-top: 0;">
-                                        <div class="fl"><p class="bottom regular smallText">Teacher quality</p></div>
+                                        <div class="fl"><p class="bottom regular small">Teacher quality</p></div>
                                         <div id="starRatingContainerReviewTeacher" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
                                     <div class="clearfix pas">
-                                        <div class="fl"><p class="bottom regular smallText">Principal leadership</p></div>
+                                        <div class="fl"><p class="bottom regular small">Principal leadership</p></div>
                                         <div id="starRatingContainerReviewPrincipal" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
                                     <div class="clearfix pas">
-                                        <div class="fl"><p class="bottom smallText">Parent involvement</p></div>
+                                        <div class="fl"><p class="bottom small">Parent involvement</p></div>
                                         <div id="starRatingContainerReviewParent" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
@@ -395,7 +395,7 @@
                                     </div>
                                 </div>
                                 <div id="js-reviewsLandingStarBox-Start">
-                                    <ul class="listNoBullet">
+                                    <ul class="listNoBullet small">
                                         <li>What do you think others should know?</li>
                                         <li>What do you like?</li>
                                         <li>How could your school improve?</li>
