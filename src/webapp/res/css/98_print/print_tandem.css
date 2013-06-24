@@ -1,0 +1,138 @@
+/* @charset "UTF-8"; */
+/* CSS Document */
+
+/*
+Theme Name: Text
+Description: All the specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+/* --------------------------------------------------------------
+
+   * Sets up styles for printing tandem calender.
+
+-------------------------------------------------------------- */
+
+
+.fl { float: left; }
+.fr { float: right; }
+
+/* `Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix {
+  zoom: 1;
+}
+
+@font-face {
+    font-family: 'SourceSansPro-Regular';
+    src: url('fonts/SourceSansPro-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/SourceSansPro-Regular-webfont.woff') format('woff'),
+        url('fonts/SourceSansPro-Regular-webfont.ttf')  format('truetype'),
+        url('fonts/SourceSansPro-Regular-webfont.svg#SourceSansPro-Regular') format('svg');
+}
+@font-face {
+    font-family: 'SourceSansPro-It';
+    src: url('fonts/SourceSansPro-It-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/SourceSansPro-It-webfont.woff') format('woff'),
+    url('fonts/SourceSansPro-It-webfont.ttf')  format('truetype'),
+    url('fonts/SourceSansPro-It-webfont.svg#SourceSansPro-It') format('svg');
+}
+@font-face {
+    font-family: 'SourceSansPro-Semibold';
+    src: url('fonts/SourceSansPro-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/SourceSansPro-Semibold-webfont.woff') format('woff'),
+    url('fonts/SourceSansPro-Semibold-webfont.ttf')  format('truetype'),
+    url('fonts/SourceSansPro-Semibold-webfont.svg#SourceSansPro-Semibold') format('svg');
+}
+
+.hd {
+    background-color: #EB3C18;
+}
+.hd .fl{
+    font-family: SourceSansPro-Semibold, arial;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 6px;
+    color: #FFFFFF;
+    background-color: #EB3C18;
+}
+
+.hd .fr{
+    font: normal 10px/16px Arial, Helvetica, sans-serif;
+    color: #9E2D00;
+    margin-top: 7px;
+}
+
+.hd img{vertical-align: middle; margin: 0 10px;}
+
+.vam { vertical-align: middle; }
+
+.title{
+    font-family: SourceSansPro-Semibold, arial;
+    font-size: 43px;
+    line-height: 47px;
+    color: #333;
+    margin: 15px 0 30px 3px;
+}
+
+table th{
+    font: bold 12px/20px Arial, Helvetica, sans-serif;
+    background: #F1F1F1;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    color: #555555;
+}
+
+table  tbody.tandemPrint td{
+    background: #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+    color: #555555;
+}
+
+.default{ font: normal 14px/20px Arial, Helvetica, sans-serif;}
+.default_bold{ font: bold 14px/20px Arial, Helvetica, sans-serif;}
+
+.ft{
+    margin-top: 60px;
+}

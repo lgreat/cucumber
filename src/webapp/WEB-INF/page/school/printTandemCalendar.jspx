@@ -13,15 +13,20 @@
 
 
     <c:set var="tandemTileMSBranding" value="${context.turnOnMicroSoftCampaign}" scope="request" />
-
+    <c:set var="hasTandemBranding" value="${tandemTileMSBranding}" />
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="decorator" content="minimalDecorator"/>
 
         <title>Printable Calendar for ${schoolName}</title>
+        <script type="text/javascript">
+                    var hasTandemBranding = '${tandemTileMSBranding}';
+                    var ncesCode = '${school.ncesCode}';
+                </script>
 
         <pageHelper:addCss-v1/>
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/print_tandem.css" />
 
         <gsml:javascript src="/res/js/jquery/jquery-1.9.1.min.js"/>
         <gsml:javascript src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>
@@ -46,24 +51,50 @@
 
             $(function() {
                 GS.school.calendar.loadEventsFromDomAndFillCalendarList();
+                $("#js-school-calendar-list").find("tr:eq(1)").hide();
             });
         </script>
 
         <div style="display:none" id="js-calendardata">${data}</div>
 
-        <table id="js-school-calendar-list">
-            <tr>
-                <td>Date</td>
-                <td>Title</td>
-            </tr>
-            <!-- the template node must wrap the actual template html. the tr node will get cloned -->
-            <tbody id="js-calendar-list-event-template">
-                <tr>
-                    <td>{{date}}</td>
-                    <td>{{title}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="" style="width: 750px;">
+            <div class="hd clearfix">
+                <div class="fl">Upcoming events at</div>
+                <div class="fr">
+                    <span class="">POWERED BY</span>
+                    <img src="/res/img/tandem/tandem_logo_orange.png" alt="Powered by Tandem" width="83"/>
+                </div>
+            </div>
+            <div class="bd clearfix">
+                <div class="title">${schoolName}</div>
+                <div class="fl" style="width:435px;">
+                    <table id="js-school-calendar-list" class="">
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                        </tr>
+                        <!-- the template node must wrap the actual template html. the tr node will get cloned -->
+                        <tbody id="js-calendar-list-event-template" class="tandemPrint">
+                        <tr>
+                            <td class="default_bold" width="30%">{{date}}</td>
+                            <td class="default" width="70%">{{title}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fr">
+                    <div class="ad" style="background-color: grey; width: 300px; height:600px;">Adslot</div>
+                </div>
+            </div>
+            <div class="ft clearfix">
+                <div class="fl">
+                    <img src="/res/img/tandem/microsoft_logo.png" alt="Mircosoft logo" width="134"/>
+                </div>
+                <div class="fr">
+                    <img src="/res/img/tandem/gs_logo.png" alt="GS logo" width="167"/>
+                </div>
+            </div>
+        </div>
 
     </gsml:body>
     </html>
