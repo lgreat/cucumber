@@ -72,6 +72,8 @@
 
                 <input type="hidden" name="rememberMe" value="true"/>
                 <input type="hidden" name="redirect" class="redirect_field" value=""/>
+
+            <a class="js-facebook-login" href="javascript:void(0)">Sign in with Facebook</a>
             <!--</fieldset>-->
         </form>
     </div>

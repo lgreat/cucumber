@@ -207,14 +207,14 @@ GS.facebook = GS.facebook || (function () {
                     };
                     // Handle GS reg/login
                     // Backed out from r226
-                    /*$.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
+                    $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                         if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
                             if (regLoginResponse.GSAccountCreated) {
                                 trackGSAccountCreated();
                             }
                             updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.screenName, regLoginResponse.numberMSLItems);
                         }
-                    });*/
+                    });
                 });
                 loginAttemptDeferred.resolve();
             } else {
