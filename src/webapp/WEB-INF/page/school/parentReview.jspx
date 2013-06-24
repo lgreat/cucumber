@@ -159,10 +159,7 @@
             /*margin-bottom: 5px;*/
         }
 
-        p.smallText{
-            font: normal 12px/20px Arial, Helvetica, sans-serif;
 
-        }
 
     </style>
 </head>
