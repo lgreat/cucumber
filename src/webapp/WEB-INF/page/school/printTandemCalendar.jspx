@@ -59,12 +59,22 @@
 
         <div style="display:none" id="js-calendardata">${data}</div>
 
-        <!--<div class="" style="">-->
+        <c:if test="${tandemTileMSBranding}">
+            <c:set value="MSBranding" var="cssClass"></c:set>
+        </c:if>
+        <div class="${cssClass}">
             <div class="hd clearfix">
                 <div class="fl">Upcoming events at</div>
                 <div class="fr">
-                    <span class="">POWERED BY</span>
-                    <img src="/res/img/tandem/tandem_logo_orange.png" alt="Powered by Tandem" width="83"/>
+                    <span class="vam">POWERED BY</span>
+                    <c:choose>
+                        <c:when test="${tandemTileMSBranding}">
+                            <img src="/res/img/tandem/tandem_logo_orange.png" alt="Powered by Tandem" width="83" class="vam"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/res/img/tandem/tandem_logo_yellow.png" alt="Powered by Tandem" width="83" class="vam"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <div class="bd clearfix">
@@ -85,8 +95,6 @@
                     </table>
                 </div>
                 <div class="fr" style="width:300px;">
-
-                    <!--<div class="ad" style="background-color: grey; width: 300px; height:600px;">Adslot</div>-->
                     <ad:AboveFold_Culture_300x600 />
                 </div>
             </div>
@@ -100,10 +108,8 @@
                     <img src="/res/img/tandem/gs_logo.png" alt="GS logo" width="167"/>
                 </div>
             </div>
-        <!--</div>-->
-        <!--</div>-->
+        </div>
         <script>
-
             var refreshableCultureBranding = ['School_Profile_Page_AboveFold_Culture_300x600'];
             GS.ad.refreshAds(refreshableCultureBranding);
         </script>

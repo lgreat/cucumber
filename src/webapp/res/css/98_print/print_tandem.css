@@ -87,6 +87,10 @@ General comments:
 }
 
 .hd {
+    background-color: #FFB725;
+}
+
+.MSBranding .hd{
     background-color: #EB3C18;
 }
 .hd .fl{
@@ -94,14 +98,21 @@ General comments:
     font-size: 18pt;
     line-height: 21pt;
     padding: 6px;
+    color: #333333;
+}
+
+.MSBranding .hd .fl{
     color: #FFFFFF;
-    background-color: #EB3C18;
 }
 
 .hd .fr{
     font: normal 10pt/16pt Arial, Helvetica, sans-serif;
+    color: #B57C00;
+    margin-top: 8px;
+}
+
+.MSBranding .hd .fr{
     color: #9E2D00;
-    margin-top: 7px;
 }
 
 .hd img{vertical-align: middle; margin: 0 10px;}
@@ -113,7 +124,7 @@ General comments:
     font-size: 43pt;
     line-height: 47pt;
     color: #333;
-    margin: 15px 0 30px 3px;
+    margin: 20px 0 30px 3px;
 }
 
 table th{
