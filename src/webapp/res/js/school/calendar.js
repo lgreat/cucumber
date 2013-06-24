@@ -101,12 +101,18 @@ GS.school.calendar =  (function($) {
         });
     }
     var selectCallbackTandemCalFile = function(selectValue){
-        var $select = $("#js-export-school-calendar");
-        var sv = $.trim(selectValue);
-        var format = mapCalNames[sv];
-        var schoolName = $select.data('gs-school-name');
-        var ncesCode = $select.data('gs-school-nces-code');
-        exportCalendar(ncesCode, format, schoolName);
+        if(selectValue == "Print Calendar"){
+            GS.school.calendar.print();
+        }
+        else{
+            var $select = $("#js-export-school-calendar");
+            var sv = $.trim(selectValue);
+            var format = mapCalNames[sv];
+            var schoolName = $select.data('gs-school-name');
+            var ncesCode = $select.data('gs-school-nces-code');
+            exportCalendar(ncesCode, format, schoolName);
+        }
+
     }
 
 
@@ -528,7 +534,7 @@ GS.school.calendar =  (function($) {
             var serializedData = JSON.stringify(formattedEvents);
 
             $('body').append($('<form/>')
-                    .attr({'action': url, 'method': 'post', 'id': 'printCalendarForm'})
+                    .attr({'action': url, 'method': 'post', 'id': 'printCalendarForm', 'target': '_blank'})
                     .append($('<input/>')
                             .attr({'type': 'hidden', 'name': 'data', 'value': serializedData})
                     )
