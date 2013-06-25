@@ -285,7 +285,7 @@
                 </div>
                 <div class="fr" style="width:400px">
                     <h5 class="bold bottom">API Statewide Rank (${apiStateRank.year})</h5>
-                    <div class="small">The API Statewide Rank ranges from 1 to 10. A rank of 10, for example, means that the school’s API fell into the top 10% of all schools in the state with a comparable grade range. The 2011 rank is based on results from tests students took in Spring 2011.</div>
+                    <div class="small">The API Statewide Rank ranges from 1 to 10. A rank of 10, for example, means that the school’s API fell into the top 10% of all schools in the state with a comparable grade range. The ${apiStateRank.year} rank is based on results from tests students took in Spring ${apiStateRank.year}.</div>
                 </div>
             </div>
         </c:if>
