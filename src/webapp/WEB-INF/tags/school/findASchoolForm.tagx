@@ -88,7 +88,7 @@
                                                      noStateLabel="Select state"
                                                      usingLongNames="false"
                                                      state="${requestScope.context.state}"
-                                                     styleClass="stateSelectSearch"
+                                                     styleClass="stateSelect"
                                                      styleId="js-findByNameStateSelect"/>
                                 <span class="pa" style="left:76px;top:3px;"><span
                                         class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
