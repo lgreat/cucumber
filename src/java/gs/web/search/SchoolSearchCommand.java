@@ -61,8 +61,8 @@ public class SchoolSearchCommand {
     /**
      * GS-14144 Adding the two new filters -Shomi Arora
      */
-    private Boolean _summerprogram;
-    private Boolean _afterschool;
+    private Boolean _summerProgram;
+    private Boolean _afterSchool;
     private String[] _services;
 
 
@@ -493,20 +493,20 @@ public class SchoolSearchCommand {
      *
      */
 
-    public Boolean getsummerprogram() {
-        return _summerprogram;
+    public Boolean getSummerProgram() {
+        return _summerProgram;
     }
 
-    public void setsummerprogram(final Boolean _summerprogram) {
-        this._summerprogram = _summerprogram;
+    public void setSummerProgram(final Boolean _summerProgram) {
+        this._summerProgram = _summerProgram;
     }
 
-    public Boolean getafterschool() {
-        return _afterschool;
+    public Boolean getAfterSchool() {
+        return _afterSchool;
     }
 
-    public void setafterschool(final Boolean _afterschool) {
-        this._afterschool = _afterschool;
+    public void setAfterSchool(final Boolean _afterSchool) {
+        this._afterSchool = _afterSchool;
     }
 
     public String[] getServices() {

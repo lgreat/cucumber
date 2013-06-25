@@ -667,12 +667,10 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         /**
          * Adding the summer program and after school and grouping services  to the solr query - GS-14144 Shomi Arora
          */
-        if (schoolSearchCommand.getsummerprogram() != null)
-        {
+        if (schoolSearchCommand.getSummerProgram() != null) {
                 q.filter(SchoolFields.SUMMER_PROGRAM, "yes");
         }
-        if (schoolSearchCommand.getafterschool() != null)
-        {
+        if (schoolSearchCommand.getAfterSchool() != null) {
                 q.filter(SchoolFields.AFTER_SCHOOL, "yes");
         }
 
