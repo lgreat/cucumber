@@ -5,7 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          version="2.0" >
+          version="2.0" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <jsp:directive.page contentType="text/html"/>
     <jsp:output doctype-root-element="html"
@@ -18,31 +18,21 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="decorator" content="minimalDecorator"/>
+        <meta name="decorator" content="minimalDecoratorWithAdsAndJs"/>
 
         <title>Printable Calendar for ${schoolName}</title>
         <script type="text/javascript">
                     var hasTandemBranding = '${tandemTileMSBranding}';
                     var ncesCode = '${school.ncesCode}';
                 </script>
-        <ad:xGAMSetup/>
         <pageHelper:addCss-v1/>
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/print_tandem.css" />
 
-        <gsml:javascript src="/res/js/jquery/jquery-1.9.1.min.js"/>
-        <gsml:javascript src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>
-        <gsml:javascript src="/res/js/lib/conditionizr.min.js"/>
-        <gsml:javascript src="/res/js/global.js"/>
-        <gsml:javascript src="/res/js/trackIt.js"/>
-        <gsml:javascript src="/res/js/uri/uri.js"/>
-        <gsml:javascript src="/res/js/gs_jquery_extensions.js"/>
-        <gsml:javascript src="/res/js/house_ads.js"/>
-        <gsml:javascript src="/res/js/deferredcontent.js"/>
-        <gsml:javascript src="/res/js/externalTracking.js"/>
-        <gsml:javascript src="/res/js/omnitureEventNotifier.js"/>
         <gsml:javascript src="/res/js/hogan.js"/>
         <gsml:javascript src="/res/js/school/calendar.js"/>
 
+        <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
+        <ad:enableGptAsynchronousMode />
     </head>
 
 

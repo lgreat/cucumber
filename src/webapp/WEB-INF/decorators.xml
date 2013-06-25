@@ -55,6 +55,8 @@
 
     <decorator name="standardDecorator-v1" page="standardDecorator-v1.jspx">
     </decorator>
+    <decorator name="minimalDecoratorWithAdsAndJs" page="minimalDecoratorWithAdsAndJs.jspx">
+    </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
     <excludes>
