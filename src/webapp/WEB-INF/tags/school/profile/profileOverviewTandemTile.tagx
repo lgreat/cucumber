@@ -2,8 +2,9 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+
         >
     <jsp:directive.attribute name="microsoftBranding" type="java.lang.Boolean" required="false"/>
     <jsp:directive.attribute name="ospDataExistsLocal" type="java.lang.Boolean" required="true"/>
@@ -12,11 +13,14 @@
     <script type="text/javascript">
         var ncesCode = '${school.ncesCode}';
         var hasOspData = '${ospDataExistsLocal}';
+        var hasCalendarData = null;
+        var hasTandemBranding = '${microsoftBranding}';
+//        console.log("hasTandemBranding",hasTandemBranding);
         $(function() {
 
             GS.school.calendar.getEventsAndUpdateListUI(ncesCode).done(function(events) {
                 // TODO: check events to see if there was any data
-                var hasCalendarData = true;
+                hasCalendarData = true;
                 if (hasCalendarData) {
                     if (hasOspData == 'true') {
                         // hide a tile
@@ -33,6 +37,7 @@
                 }
             }).fail(function() {
                         // don't show tile
+                        hasCalendarData = false;
                     });
 //            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });
@@ -49,20 +54,22 @@
         <gslink:linkToTab tabName="culture" anchor="js-school-calendar-list-anchor" customLink="overview_culture_calendar" cssClass="tdn make-555555 js-trigger">
             <div class="mod standard_7-1">
                 <div class="inner box-shadow-animation-1 tac">
-                    ${moduleTitleTandem}
+                    <!--${moduleTitleTandem}-->
                     <c:set var="msBrandingBox" value="bd" />
                     <c:if test="${microsoftBranding == 'true'}">
                         <c:set var="msBrandingBox" value="bd-MS-brandedskin" />
                     </c:if>
                     <div class="${msBrandingBox} clearfix mha">
-                        <p class="pts make-ffffff small_bold" id="js-tandemOverviewTileTitle"><!-- do not collapse --></p>
-                        <p class="small ptm bottom phs" id="js-tandemOverviewTileEvent"><!-- do not collapse --></p>
+                        <p class="make-ffffff" style="padding-top:8px; font-family: SourceSansPro-Bold; font-size: 18px;" id="js-tandemOverviewTileMonth"><!-- do not collapse --></p>
+                        <p class="pts bottom" style="font-family: SourceSansPro-Bold; font-size: 47px;" id="js-tandemOverviewTileDay"><!-- do not collapse --></p>
+                        <p class="ptm small ptm bottom phs" id="js-tandemOverviewTileEvent"><!-- do not collapse --></p>
                     </div>
                     <c:if test="${microsoftBranding == 'true'}">
-                        <div class="ft clearfix small pvs" style="margin: 0 auto;">
-                            <div style="width:170px" class="pll clearfix">
-                            <div class="fl tac plm smallest bottom make-999999" style="line-height: 12px">BROUGHT<br />TO YOU BY</div>
-                            <div class="fl plm"><img style="width: 79px; height: 18px;" src="/res/img/school/overview/tandem/microsoft_logo_79x18.png" alt="MS OFFICE 365" /></div>
+                        <div class="ft small pvs pls" style="margin: 0 auto;">
+                            <div style="width:150px" class="pll">
+                            <ad:Branded_Tandem_Tile_150x30 />
+                            <!--<div class="fl tac plm smallest bottom make-999999" style="line-height: 12px">BROUGHT<br />TO YOU BY</div>-->
+                            <!--<div class="fl plm"><img style="width: 79px; height: 18px;" src="/res/img/school/overview/tandem/microsoft_logo_79x18.png" alt="MS OFFICE 365" /></div>-->
                             </div>
                         </div>
                     </c:if>

@@ -638,9 +638,9 @@ jQuery(document).ready(function() {
 
     $.fn.bindFirst = function(/*String*/ eventType, /*[Object])*/ eventData, /*Function*/ handler) {
         var indexOfDot = eventType.indexOf(".");
-        console.log("eventType:", eventType);
-        console.log("eventData:", eventData);
-        console.log("handler:", handler);
+//        console.log("eventType:", eventType);
+//        console.log("eventData:", eventData);
+//        console.log("handler:", handler);
         var eventNameSpace = indexOfDot > 0 ? eventType.substring(indexOfDot) : "";
 
         eventType = indexOfDot > 0 ? eventType.substring(0, indexOfDot) : eventType;

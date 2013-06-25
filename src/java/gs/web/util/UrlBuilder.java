@@ -22,7 +22,7 @@ import gs.data.community.User;
 import gs.web.path.DirectoryStructureUrlFields.ExtraResourceIdentifier;
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
-import gs.web.school.EspFormController;
+import gs.web.school.OspFormController;
 import gs.web.school.EspPreRegistrationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -313,6 +313,7 @@ public class UrlBuilder {
     public static final VPage SUBMIT_PRIVATE_SCHOOL = new VPage("vpage:submitPrivateSchool");
 
     public static final VPage ADD_EDIT_SCHOOL_OR_DISTRICT = new VPage("vpage:addEditSchoolOrDistrict");
+    public static final VPage ADD_FEEDBACK = new VPage("vpage:addFeedback");
 
     /**
      * browse pages
@@ -361,6 +362,12 @@ public class UrlBuilder {
     public static final VPage ESP_DASHBOARD = new VPage("vpage:espLanding");
     public static final VPage ESP_REGISTRATION_ERROR = new VPage("vpage:espRegistrationError");
     public static final VPage ESP_PRE_REGISTRATION = new VPage("vpage:espPreRegistration");
+
+    /**
+     * Usp pages
+     */
+    public static final VPage USP_FORM = new VPage("vpage:uspForm");
+    public static final VPage USP_FORM_THANKYOU = new VPage("vpage:uspFormThankYou");
 
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
@@ -638,10 +645,10 @@ public class UrlBuilder {
             handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), pageNumber);
         } else if (SCHOOL_PROFILE_ESP_FORM.equals(page)) {
             _perlPage = false;
-            _path = EspFormController.PATH_TO_FORM;
-            setParameter(EspFormController.PARAM_STATE, school.getDatabaseState().getAbbreviationLowerCase());
-            setParameter(EspFormController.PARAM_SCHOOL_ID, String.valueOf(school.getId()));
-            setParameter(EspFormController.PARAM_PAGE, String.valueOf(pageNumber));
+            _path = OspFormController.PATH_TO_FORM;
+            setParameter(OspFormController.PARAM_STATE, school.getDatabaseState().getAbbreviationLowerCase());
+            setParameter(OspFormController.PARAM_SCHOOL_ID, String.valueOf(school.getId()));
+            setParameter(OspFormController.PARAM_PAGE, String.valueOf(pageNumber));
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -1029,6 +1036,15 @@ public class UrlBuilder {
         } else if (ESP_DASHBOARD.equals(page)) {
             _perlPage = false;
             _path = "/official-school-profile/dashboard/";
+        } else if (USP_FORM.equals(page)) {
+            _perlPage = false;
+            _path = "/school/QandA/form.page";
+        } else if (USP_FORM_THANKYOU.equals(page)) {
+            _perlPage = false;
+            _path = "/school/QandA/thankYou.page";
+        } else if(ADD_FEEDBACK.equals(page)){
+            _perlPage = false;
+            _path = "/about/feedback/addFeedback.page";
         } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
             _perlPage = false;
             _path = "/about/feedback/addEditSchoolOrDistrict.page";

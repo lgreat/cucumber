@@ -410,11 +410,10 @@ that this is updated for ajax refresh -->
                                 <div class="img mrs">
                                     <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
                                 </div>
-
                                 <div class="bd small bottom">
                                     <a href=""
                                        data-href="http://www.zillow.com/${requestScope.context.stateOrDefault.abbreviation}-${school.physicalAddress.zip}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=schoolSearch&amp;amp;cbpartner=Great+Schools"
-                                       onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_{{omniturePageName}}_inlinelinkheader');} return true;"
+                                       onclick="if (s.tl) {s.tl(this,'o', 'Zillow_{{omniturePageName}}');} return true;"
                                        target="_blank"
                                        rel="nofollow">
                                         Homes for sale

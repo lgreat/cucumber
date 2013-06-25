@@ -64,7 +64,8 @@
                                 <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" adjustHeight="true" />
                             </c:when>
                             <c:otherwise>
-                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                                <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${true}"/>
+                                <!--<school:uspPromoTile/>-->
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -73,7 +74,7 @@
                     <c:choose>
                         <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
                             <div class="unit size32of100 lastUnit">
-                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                                <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${true}"/>
                             </div>
                         </c:when>
                         <c:otherwise>
@@ -210,7 +211,7 @@
                                 <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
                             </c:when>
                             <c:otherwise>
-                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                                <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${false}"/>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -220,7 +221,7 @@
                     <div class="unit size32of100 lastUnit">
                         <c:choose>
                             <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                                <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${false}"/>
                             </c:when>
                             <c:otherwise>
                                 <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>

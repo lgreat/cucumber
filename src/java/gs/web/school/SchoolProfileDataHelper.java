@@ -18,12 +18,18 @@ import gs.data.test.*;
 import gs.data.zillow.ZillowRegionDao;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.school.review.ParentReviewHelper;
+import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatus;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.search.CmsRelatedFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +45,7 @@ import java.util.*;
  */
 
 @Component("schoolProfileDataHelper")
-public class SchoolProfileDataHelper extends AbstractDataHelper {
+public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanFactoryAware {
 
     protected static final Log _log = LogFactory.getLog(SchoolProfileDataHelper.class.getName());
 
@@ -59,9 +65,11 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String RELATED_CONTENT = "relatedContent";
     private final static String CMS_ARTICLES = "cmsArticles";
     private final static String SCHOOL_VIDEOS = "schoolVideos";
+    private final static String OSP_STATUS = "ospStatus";
 //    private static final String FACEBOOK_MODEL_KEY = "facebook";
 
     private final static String CENSUS_DATA = "censusData";
+    private BeanFactory _beanFactory;
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -1053,6 +1061,55 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return dataMap;
     }
 
+    protected EspStatus getOspStatus( HttpServletRequest request ) {
+        Map<String, List<EspResponse>> espResults = getEspDataForSchool(request);
+        return getOspStatus( request, espResults);
+    }
+
+    protected EspStatus getOspStatus( HttpServletRequest request, Map<String, List<EspResponse>> espResults ) {
+
+        String key = OSP_STATUS;
+        String noKey = "NO_" + key;
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+
+        // Get Data
+        // First see if it is already in the request
+        EspStatus ospStatus = (EspStatus) getSharedData( request, key );
+
+        // If it isn't in the request try to retrieve it
+        if( ospStatus == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( getSharedData( request, noKey ) != null ) {
+                return  null;
+            }
+
+            EspResponseData espResponseData = new EspResponseData(espResults);
+            EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean(
+                    EspStatusManager.BEAN_NAME,
+                    school,
+                    espResponseData
+            );
+            ospStatus = statusManager.getEspStatus();
+
+            if( ospStatus != null ) {
+
+                setSharedData( request, key, ospStatus ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                setSharedData( request, noKey, "yes" );
+            }
+        }
+
+        return ospStatus;
+    }
+
     public static class PerformanceRatingObj implements Comparable<PerformanceRatingObj> {
        LevelCode _levelCode;
        Double _score;
@@ -1160,6 +1217,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     public void setzillowDao(ZillowRegionDao zillowDao) {
         this._zillowDao = zillowDao;
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
     }
 }
 

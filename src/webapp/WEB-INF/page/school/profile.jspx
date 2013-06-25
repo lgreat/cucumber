@@ -92,6 +92,7 @@
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
         <gsml:javascript src="/res/js/hogan.js"/>
         <gsml:javascript src="/res/js/school/calendar.js"/>
+        <gsml:javascript src="/res/js/windowsLive.js"/>
     </gsml:combinedJavascript>
 
 
@@ -127,6 +128,7 @@
     <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 
+
     <!-- One of the modules is clearing the variable "overallRating" so I need to cache it here -->
     <!-- Urgent change for merge into 21.3. TODO: investigate why it is getting cleared -->
     <c:set var="overallRatingForMap" value="NR"/>
@@ -136,6 +138,7 @@
 
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
+<pageHelper:addWindowsLiveInit> <!-- do not collapse --> </pageHelper:addWindowsLiveInit>
 <div class="container_24 clearfix">
 <div class="phs clearfix">
 <div id="fb-root"><!-- do not collapse --></div>
@@ -451,6 +454,7 @@
 
     <div class="">
         <ad:AboveFold_300x600 />
+        <ad:AboveFold_Culture_300x600 />
 
         <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
 

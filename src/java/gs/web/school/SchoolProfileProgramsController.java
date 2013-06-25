@@ -3,11 +3,16 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
+import gs.web.school.usp.EspResponseData;
+import gs.web.school.usp.EspStatusManager;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,8 +29,9 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/school/profilePrograms.page")
-public class SchoolProfileProgramsController extends AbstractSchoolProfileController {
+public class SchoolProfileProgramsController extends AbstractSchoolProfileController implements BeanFactoryAware {
     private static final Log _log = LogFactory.getLog(SchoolProfileProgramsController.class);
+    private BeanFactory _beanFactory;
     public static final String VIEW = "school/profilePrograms";
 
     // The following is a prefix for the Model items specific to this page
@@ -168,6 +174,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Get Data
         if (school != null) {
             Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
+
+            modelMap.put("espStatus", _schoolProfileDataHelper.getOspStatus( request, espResults));
+
             boolean hasEspData = (espResults != null && espResults.size() > 0) ? true : false;
             //  There is some data in the school table that can be used to enhance EspResults
             espResults = enhanceEspResultsFromSchool( school, espResults );
@@ -214,6 +223,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         return VIEW;
+    }
+
+    protected EspResponseData getEspResponseData(Map<String, List<EspResponse>> responsesByKey) {
+        return new EspResponseData(responsesByKey);
     }
 
     /**
@@ -1508,4 +1521,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         put(SUMMER_PROGRAM_TEMP_TITLE_PREFIX + "4", "4");
         put(SUMMER_PROGRAM_TEMP_TITLE_PREFIX + "5", "5");
     }};
+
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
+    }
 }

@@ -98,7 +98,7 @@ height += heightMultiplier * 13;-->
             <c:if test="${requestScope.context.showRealtorDotComPromos}">
                 <div class="unit size1of3 lastUnit">
                     <div class="homesForSale">
-                    <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                    <c:set var="customLinkValue" value="Zillow_${requestScope.omniturePageName}"/>
                     <a href="http://www.zillow.com/${requestScope.context.stateOrDefault.abbreviation}-${school.physicalAddress.zip}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=schooltab&amp;amp;cbpartner=Great+Schools"
                        onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
                        rel="nofollow">Homes for sale</a>

@@ -86,7 +86,7 @@
                 <div class="unit size4of13">
                     <div class="brdlft-solid brdrt-solid homesForSale">
                         <c:set var="customLinkValue"
-                               value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                               value="Zillow_${requestScope.omniturePageName}"/>
 
                         <a href="http://www.zillow.com/${school.state}-${school.school.zipcode}?utm_source=GreatSchools&amp;amp;utm_medium=referral&amp;amp;utm_campaign=schoolsearch&amp;amp;cbpartner=Great+Schools"
                            onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"

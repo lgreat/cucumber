@@ -135,7 +135,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         yesNo.put("No",0);
         yesNo.put("Yes",1);
         //model.put("action",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
-        model.put("name",command.getSubmitterName());
+        model.put("submitterName",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
         model.put("testvar",":" + command.getSchoolId() + ":");
         char[] digits = {0,1,2,3,4,5,6,7,8,9};
@@ -157,7 +157,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }
         NewEntityQueue newEntityQueue = new NewEntityQueue();
         newEntityQueue.setOriginalId(0);
-        newEntityQueue.setStatus("Unprocessed");
+        newEntityQueue.setStatus("unprocessed");
         //if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
         if(command.getSchoolId() != null && StringUtils.isNotBlank(command.getSchoolId()) && StringUtils.isNumeric(command.getSchoolId())){
             model.put("schoolId",command.getSchoolId());
@@ -171,13 +171,13 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }else if(command.getDistrictId() != null && StringUtils.isNotBlank(command.getDistrictId())&& StringUtils.isNumeric(command.getDistrictId()) &&
                 command.getSchoolId() == null || StringUtils.isBlank(command.getSchoolId())
                 && command.getAddEdit().equals("edit")){
-                District district = _districtDao.findDistrictById(command.getState(),new Integer(command.getDistrictId()));
-                model.put("name",district.getName());
-                newEntityQueue.setGsId(new Integer(command.getDistrictId()));
-                newEntityQueue.setStateId(district.getStateId());
-                newEntityQueue.setNcesCode(district.getNcesCode());
-                newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
-                //newEntityQueue.setOriginalId(0);
+            District district = _districtDao.findDistrictById(command.getState(),new Integer(command.getDistrictId()));
+            model.put("name",district.getName());
+            newEntityQueue.setGsId(new Integer(command.getDistrictId()));
+            newEntityQueue.setStateId(district.getStateId());
+            newEntityQueue.setNcesCode(district.getNcesCode());
+            newEntityQueue.setDistrictId(new Integer(command.getDistrictId()));
+            //newEntityQueue.setOriginalId(0);
         }else{
             //newEntityQueue.setOriginalId(0);
         }
@@ -216,7 +216,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         String countyName = command.getCounty();
         if(countyName == null || countyName.equals("")){
             countyName = command.getCounty1();        }
-        _log.warn("county:" + countyName + ":");
+        //_log.warn("county:" + countyName + ":");
         newEntityQueue.setCounty(countyName);
         if(command.getEnrollment() != null && StringUtils.isNotBlank(command.getEnrollment())){
             newEntityQueue.setEnrollment(new Integer(command.getEnrollment()));
@@ -257,13 +257,28 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         newEntityQueue.setBrowser(command.getBrowser());
 
         newEntityQueue.setCategory(command.getCategory());
-        if(command.getOpen() != null && command.getOpen().equals("Yes")){
+        //The question, when adding a school, is "Is this school open yet?"
+        if(command.getOpen() != null && command.getOpen().equals("Yes") && command.getAddEdit().equals("add")){
             newEntityQueue.setOpen("Yes");
         }
-        if(command.getOpen() != null && command.getOpen().equals("No")){
-            String whenOpen = "No";
+        //The question, when editing a school, is "Is this school closing?"
+        if(command.getOpen() != null && command.getOpen().equals("No") && command.getAddEdit().equals("edit")){
+            newEntityQueue.setOpen("Yes");
+        }
+        if(command.getOpen() != null && command.getOpen().equals("No") && command.getAddEdit().equals("add")){
+            String whenOpen = "Will open: ";
             if(command.getOpenSeason() != null){
-                whenOpen = command.getOpenSeason();
+                whenOpen += command.getOpenSeason();
+            }
+            if(command.getOpenYear() != null){
+                whenOpen += " " + command.getOpenYear();
+            }
+            newEntityQueue.setOpen(whenOpen);
+        }
+        if(command.getOpen() != null && command.getOpen().equals("Yes") && command.getAddEdit().equals("edit")){
+            String whenOpen = "Will close: ";
+            if(command.getOpenSeason() != null){
+                whenOpen += command.getOpenSeason();
             }
             if(command.getOpenYear() != null){
                 whenOpen += " " + command.getOpenYear();
@@ -271,9 +286,57 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             newEntityQueue.setOpen(whenOpen);
         }
 
+        Integer year = new Integer(Calendar.getInstance().get(Calendar.YEAR));
+        Integer month = new Integer(Calendar.getInstance().get(Calendar.MONTH));
+        month++;
+        Integer day = new Integer(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        String smonth = StringUtils.leftPad(month.toString(),2,'0');
+        String sday = StringUtils.leftPad(day.toString(),2,'0');
+        String whenApplicable = year + "-" + smonth + "-" + sday;
+
+        if(command.getApplicableSeason() != null && !(command.getApplicableSeason().equals(""))){
+            whenApplicable = command.getApplicableSeason();
+        }
+        if(command.getApplicableYear() != null && !(command.getApplicableYear().equals(""))){
+            whenApplicable += " " + command.getApplicableYear();
+        }
+        //_log.warn("at applicable" + whenApplicable);
+        //newEntityQueue.setFax("eddie");
+        newEntityQueue.setApplicable(whenApplicable);
+
+
         _newEntityQueueDao.saveNewEntityQueue(newEntityQueue,"web form");
 
-        sendTheEmail();
+        /*  This was added when I thought I needed to send a different type of email for different submissions.
+        String emailType = command.getCategory();
+        if(
+                command.getSubmitterConnectionToSchool().equals("School Administrator")
+                        || command.getSubmitterConnectionToSchool().equals("School Staff")
+                ){
+            emailType += "_with_ospnote";
+        }
+        */
+
+        String message = "Hello,\n" +
+                "\n" +
+                "Thank you for contacting GreatSchools!\n" +
+                "We’ve received your request and will get back to you with an answer as soon as possible.\n" +
+                "\n" +
+                "Please do not reply to this automated email - we will respond to you from your support request.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "GreatSchools Support\n";
+        /*  This was added when I thought I needed to send a different type of email for different submissions.
+        Map <String,String> emailMap = new HashMap<String,String>();
+        emailMap.put("edit_school_with_ospnote","Thank you for school edit do osp.");
+        emailMap.put("edit_school","Thank you for school edit.");
+        emailMap.put("add_school_with_ospnote","Thank you for school add do osp.");
+        emailMap.put("add_school","Thank you for school add.");
+        if(emailMap.containsKey(emailType)){
+            message = emailMap.get(emailType);
+        }
+        */
+        sendTheEmail(message);
 
 
         return new ModelAndView(getSuccessView(), model);
@@ -300,6 +363,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         gradesList.add("10");
         gradesList.add("11");
         gradesList.add("12");
+        gradesList.add("UG");
         map.put("gradesList", gradesList);
 
         List<String> schoolOrDistrict = new ArrayList();
@@ -366,6 +430,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         openSeason.add(new FormOption("Spring","Spring"));
         openSeason.add(new FormOption("Summer","Summer"));
         map.put("openSeason", openSeason);
+        map.put("applicableSeason", openSeason);
 
         List<FormOption> openYear = new ArrayList<FormOption>();
         Integer year = new Integer(Calendar.getInstance().get(Calendar.YEAR));
@@ -373,6 +438,11 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         openYear.add(new FormOption(year.toString(),year.toString()));
         openYear.add(new FormOption(nextyear.toString(),nextyear.toString()));
         map.put("openYear", openYear);
+
+        List<FormOption> applicableYear = new ArrayList<FormOption>();
+        applicableYear.add(new FormOption(year.toString(),year.toString()));
+        applicableYear.add(new FormOption(nextyear.toString(),nextyear.toString()));
+        map.put("applicableYear", applicableYear);
 
         captureRequestParameters(request, command, map);
 
@@ -400,6 +470,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
         // Populate county options
         List<ICounty> counties = _geoDao.findCounties(stateOrDefault);
+        //_log.warn("this is the state " + stateOrDefault + " " + counties.size());
         List<FormOption> countyOptions = new ArrayList<FormOption>();
         for (ICounty county : counties) {
             countyOptions.add(new FormOption(county.getName(), county.getName()));
@@ -421,9 +492,26 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
                 districtOptions.add(new FormOption(StringEscapeUtils.escapeHtml(district.getName()), district.getId().toString()));
             }
         }
+        if (
+                (command.getSchoolOrDistrict() != null && command.getSchoolOrDistrict().equals("district") && !StringUtils.isBlank(command.getCounty()))
+
+                || (command.getSchoolOrDistrict() != null && command.getSchoolOrDistrict().equals("school") && !StringUtils.isBlank(command.getCounty())
+                && command.getAddEdit() != null && command.getAddEdit().equals("add"))
+
+                ) {
+            List<District> districts = _districtDao.findDistrictsInCounty(stateOrDefault, command.getCounty(),false);
+            for (District district : districts) {
+                districtOptions.add(new FormOption(StringEscapeUtils.escapeHtml(district.getName()), district.getId().toString()));
+            }
+        }
+
         map.put("schoolOptions", schoolOptions);
         map.put("districtOptions", districtOptions);
 
+        Map<String,String> applicable = new HashMap();
+        applicable.put("Now","now");
+        applicable.put("Later","later");
+        map.put("applicable", applicable);
 
 
         //map.put("addEditURL",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
@@ -441,7 +529,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             if (!StringUtils.isBlank(request.getParameter("schoolId"))) {
                 command.setSchoolId(request.getParameter("schoolId"));
             }
-	    command.setState(SessionContextUtil.getSessionContext(request).getStateOrDefault());
+            command.setState(SessionContextUtil.getSessionContext(request).getStateOrDefault());
         }
     }
 
@@ -480,36 +568,41 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
     }
 
 
-         JavaMailSender mailSender;
+    JavaMailSender mailSender;
 
-        public void setMailSender(JavaMailSender mailSender) {
-            this.mailSender = mailSender;
-        }
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
-        public void sendTheEmail() {
+    public void sendTheEmail(String messageText) {
 
-            //... * Do the business calculations....
-            //... * Call the collaborators to persist the order
+        //... * Do the business calculations....
+        //... * Call the collaborators to persist the order
+        final String message = messageText;
 
-            MimeMessagePreparator preparator = new MimeMessagePreparator() {
-                public void prepare(MimeMessage mimeMessage) throws MessagingException {
-                    mimeMessage.setRecipient(Message.RecipientType.TO,
-                            new InternetAddress("eford@greatschools.org"));
-                    mimeMessage.setFrom(new InternetAddress("eford@greatschools.org"));
-                    mimeMessage.setText(
-                            "Dear "
-                            );
-
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws MessagingException {
+                mimeMessage.setRecipient(Message.RecipientType.TO,
+                        new InternetAddress("eford@greatschools.org"));
+                try{
+                    mimeMessage.setFrom(new InternetAddress("gs_support@greatschools.org","GreatSchools Support"));
+                }catch(Exception e){
                 }
-            };
-            try{
-                mailSender.send(preparator);
+                mimeMessage.setSubject("Thank you for contacting GreatSchools!");
+                mimeMessage.setText(
+                        message
+                );
+
             }
-            catch (MailException ex) {
-                //log it and go on
-                System.err.println(ex.getMessage());
-            }
+        };
+        try{
+            mailSender.send(preparator);
         }
+        catch (MailException ex) {
+            //log it and go on
+            System.err.println(ex.getMessage());
+        }
+    }
 
 
 

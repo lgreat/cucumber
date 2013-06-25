@@ -47,14 +47,8 @@
         <div class="content">
 
             <div class="pageTitle">
-                <h2>Thank you for updating us on your school or district, ${name}!</h2>
-                school or district: ${schoolOrDistrict}
-                name: ${name}
-                testvar : ${testvar}
-                testvar1 : ${testvar1}
-                testvar2 : ${testvar2}
-                testvar3 : ${testvar3}
-                testvar4 : ${testvar4}
+                <h2>Thank you for updating us on your school or district, ${submitterName}!</h2>
+
             </div>
 
 

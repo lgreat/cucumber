@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,16 +41,15 @@ public class SchoolCalendarAjaxController {
     protected static Cache _calendarDataCache;
 
     public static final String CACHE_KEY = "gs.web.school.SchoolCalendarData";
+
     static {
         CacheManager cacheManager = CacheManager.getInstance();
         _calendarDataCache = cacheManager.getCache(CACHE_KEY);
     }
 
-    @RequestMapping(method= RequestMethod.GET)
-    public void handleGet(
-        @RequestParam(value="ncesCode", required = true) String ncesCode,
-        HttpServletResponse response
-    ) {
+    @RequestMapping(method = RequestMethod.GET)
+    public void handleGet(@RequestParam(value = "ncesCode", required = true) String ncesCode,
+                          HttpServletResponse response) {
 
         // if we know the school has no data, abort
         if (cachedLackOfData(ncesCode)) {
@@ -82,13 +82,11 @@ public class SchoolCalendarAjaxController {
         return;
     }
 
-    @RequestMapping(value="/ical", method= RequestMethod.GET)
-    public void handleGetICal(
-            @RequestParam(value="ncesCode", required = true) String ncesCode,
-            @RequestParam(value="schoolName", required = true) String schoolName,
-            @RequestParam(value="format", defaultValue = "iCal") String format,
-            HttpServletResponse response
-    ) {
+    @RequestMapping(value = "/ical", method = RequestMethod.GET)
+    public void handleGetICal(@RequestParam(value = "ncesCode", required = true) String ncesCode,
+                              @RequestParam(value = "schoolName", required = true) String schoolName,
+                              @RequestParam(value = "format", defaultValue = "iCal") String format,
+                              HttpServletResponse response) {
 
         //Execute and get the response.
         try {
@@ -118,6 +116,15 @@ public class SchoolCalendarAjaxController {
         }
 
         return;
+    }
+
+    @RequestMapping(value = "/printTandemCalendar", method = RequestMethod.POST)
+    public String handlePost(ModelMap modelMap,
+                             @RequestParam(value = "data", required = true) String data,
+                             @RequestParam(value = "schoolName", required = true) String schoolName) {
+        modelMap.put("data", data);
+        modelMap.put("schoolName", schoolName);
+        return "school/printTandemCalendar";
     }
 
     public HttpResponse getSchoolData(String ncesCode) throws IOException {
@@ -190,7 +197,8 @@ class TandemApiResponse {
         TandemApiResponse response = new TandemApiResponse();
 
         response.setYearlyEventsXCal(
-            (String) jsonObj.getJSONObject("data").getJSONObject("school").get("yearly_events_xcal"));
+            (String) jsonObj.getJSONObject("data").getJSONObject("school").get("yearly_events_xcal")
+        );
         response.setYearlyEventsICal(
             (String) jsonObj.getJSONObject("data").getJSONObject("school").get("yearly_events_ical")
         );

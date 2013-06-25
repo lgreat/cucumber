@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <c:set var="pageTitle" value="GreatSchools Official School Profile Dashboard"/>
+    <c:if test="${not empty school}">
+        <c:choose>
+            <c:when test="${school.databaseState eq 'DC'}">
+                <c:set var="addr" value="Washington, DC"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState}"/>
+            </c:otherwise>
+        </c:choose>
+        <c:set var="pageTitle" value="${pageTitle} - ${school.name}, ${addr}"/>
+    </c:if>
+    <head>
+        <title>${pageTitle}</title>
+    </head>
+
+    <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
+        <c:if test="${isProvisional ne true and (school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC')}">
+            <school:espOtherEditorsHover otherEspMemberships="${allEspMemberships}"/>
+            <c:set value="true" var="showOtherEditorsHover"/>
+        </c:if>
+        <!--<div class="container_24">-->
+        <div class="slStylesV1-0 slFormsV1-0">
+            <div class="spacer_20"><!-- do not collapse --></div>
+            <div class="grid_21">
+                <h1 class="fltlft">Your Official School Profile</h1>
+            </div>
+
+            <div class="grid_3">
+                <div class="fltrt mtm">
+                    <school:espNeedHelp school="${school}"/>
+                </div>
+            </div>
+
+            <c:choose>
+            <c:when test="${showOspGateway eq true}">
+                <div class="grid_13 suffix_1">
+                    <div class="alert-yellow pal small clearfix">
+                        <div class="fl">
+                            <strong>To begin</strong>, please fill out this quick form to make sure your<br/>
+                            school's offerings are accurate. Once you're done, you can<br/>edit basic information, add
+                            photos or videos, and more!
+                        </div>
+                        <c:if test="${not empty school}">
+                            <div class="fr">
+                                <a href="/school/esp/QandAForm.page?state=${school.databaseState}&amp;schoolId=${school.id}">
+                                    <button class="button-1">Get started</button>
+                                </a>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="grid_13 suffix_1">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <div class="line">
+                                    <div class="unit size65of100">
+                                        <p class="bottom">
+                                            ${school.name}<br/>
+                                            <c:if test="${school.physicalAddress.street ne null}">
+                                                <span class="small">${school.physicalAddress.street}</span><br/>
+                                            </c:if>
+                                            <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
+                                        </p>
+                                    </div>
+                                    <div class="unit size35of100 lastUnit">
+                                        <p class="small bottom">
+                                            <link:schoolProfileOverview
+                                                    school="${school}">View profile</link:schoolProfileOverview><br/>
+                                            <c:if test="${isProvisional ne true}">
+                                                <link:schoolPrincipalReview
+                                                        school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                            </c:if>
+                                            <c:if test="${showOtherEditorsHover eq true}">
+                                                <br/>
+                                                <a href="#" id="js_otherEspEditors"
+                                                   onclick="return false;">Add more administrators</a>
+                                            </c:if>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+            <!-- Provisional message if needed -->
+            <c:if test="${isProvisional eq true}">
+                <div class="grid_24">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <p class="bottom"><strong>Thank you for updating ${school.name}'s OSP!</strong></p>
+
+                                <p class="small bottom">
+                                    We are in the process of confirming that you are authorized to edit the OSP
+                                    for this school. Please allow 2-4 weekdays for us to complete the verification process.
+                                    As soon as we've verified your account we will publish your saved edits
+                                    to the site, and you can begin uploading photos to your profile and
+                                    increasing your visibility in search results.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty school}">
+            <input type="hidden" value="${school.id}" id="js_schoolId"/>
+            <input type="hidden" value="${school.databaseState}" id="js_schoolState"/>
+
+            <div class="grid_13 suffix_1">
+                <div class="mod form">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="unit size65of100">
+                                    <p class="bottom">
+                                        ${school.name}<br/>
+                                        <c:if test="${school.physicalAddress.street ne null}">
+                                            <span class="small">${school.physicalAddress.street}</span><br/>
+                                        </c:if>
+                                        <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
+                                    </p>
+                                </div>
+                                <div class="unit size35of100 lastUnit">
+                                    <p class="small bottom">
+                                        <link:schoolProfileOverview
+                                                school="${school}">View profile</link:schoolProfileOverview><br/>
+                                        <c:if test="${isProvisional ne true}">
+                                            <link:schoolPrincipalReview
+                                                    school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                        </c:if>
+                                        <c:if test="${showOtherEditorsHover eq true}">
+                                            <br/>
+                                            <a href="#" id="js_otherEspEditors"
+                                               onclick="return false;">Add more administrators</a>
+                                        </c:if>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid_10">
+                <div class="spacer_25"><!-- do not collapse --></div>
+                <c:if test="${isProvisional eq true or !anyPageStarted}">
+                    <div class="alpha grid_5">
+                        <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
+                    </div>
+                    <div class="grid_4 suffix_1 omega">
+                        <link:schoolEspForm school="${school}" page="1"
+                                            styleClass="button-3 fltrt">Get started</link:schoolEspForm>
+                    </div>
+                </c:if>
+            </div>
+
+
+            <div class="grid_24">
+            <h3 class="bottom">Official School Profile Progress</h3>
+
+            <p class="small">Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
+
+            <div class="grid_12 alpha">
+                <c:set var="tabGetStartedLabel">Get started</c:set>
+                <c:set var="tabEditLabel">Edit</c:set>
+                <c:if test="${isProvisional eq true}">
+                    <!-- short cut to complicating every conditional below. Provisional users should always see "Edit" -->
+                    <c:set var="tabGetStartedLabel" value="Edit"/>
+                </c:if>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="1">
+                                        <span class="iconx48 i-48-sb img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="1">
+                                            School basics
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="1"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[1]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="2">
+                                        <span class="iconx48 i-48-im img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}"
+                                                            page="2">Instructional model</link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="2"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[2]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="3">
+                                        <span class="iconx48 i-48-ae img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}"
+                                                            page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="3"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[3]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="4">
+                                        <span class="iconx48 i-48-pr img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="4">
+                                            Programs &amp;amp; resources
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="4"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[4]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="grid_12 omega">
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="5">
+                                        <span class="iconx48 i-48-ee img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="5">
+                                            Enrichment &amp;amp; extracurriculars
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="5"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[5]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="6">
+                                        <span class="iconx48 i-48-sc img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="6">
+                                            School culture
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="6"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[6]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mod osp-dashboard">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="line">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="7">
+                                        <span class="iconx48 i-48-ci img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="7">
+                                            Contact info
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="7"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[7]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <c:if test="${isFruitcakeSchool and isProvisional ne true}">
+                    <div class="mod osp-dashboard">
+                        <div class="inner">
+                            <div class="bd">
+                                <div class="media unit size78of100 selected">
+                                    <link:schoolEspForm school="${school}" page="8">
+                                        <span class="iconx48 i-48-si img mrl"><!-- do not collapse --></span>
+                                    </link:schoolEspForm>
+
+                                    <p class="bd bottom">
+                                        <link:schoolEspForm school="${school}" page="8">
+                                            Student info
+                                        </link:schoolEspForm>
+                                    </p>
+                                </div>
+                                <div class="unit size22of100 lastUnit pts">
+                                    <link:schoolEspForm school="${school}" page="8"
+                                                        styleClass="button-6 fltrt mtm">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+            </div>
+            </c:if>
+            </c:otherwise>
+            </c:choose>
+
+            <c:if test="${not empty espMemberships and fn:length(espMemberships) gt 1}">
+                <div class="mtl grid_24">
+                    <p>You have access to the following schools' official school profiles. Please click on a school name to edit its profile.</p>
+                    <ul>
+                        <c:forEach var="membership" items="${espMemberships}">
+                            <li><link:schoolEspDashboard school="${membership.school}">${membership.school.name}</link:schoolEspDashboard></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
+
+            <c:if test="${espSuperuser}">
+                <div class="mtl grid_24">
+                    <h3>Super user:</h3>
+                    <c:if test="${not empty superUserError}">
+                        <p style="font-weight: bold; color:#cc0033;">${superUserError}</p>
+                    </c:if>
+                    <p>Please input a school to view the form:</p>
+                    <form action="" method="GET">
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <label>State abbreviation:</label>
+                            </div>
+                            <div class="grid_5 postfix_14 omega">
+                                <input type="text" name="state" value="${(not empty school)?school.databaseState:requestScope.context.state}"/>
+                            </div>
+                        </div>
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <label>School Id:</label>
+                            </div>
+                            <div class="grid_5 postfix_14 omega">
+                                <input type="text" name="schoolId" value="${school.id}" id="js_super_user_school_id"/>
+                            </div>
+                        </div>
+                        <div class="formRow clearfix">
+                            <input class="button-1" type="submit" value="Go" id="js_super_user_input_submit"/>
+                        </div>
+                    </form>
+                </div>
+                <script type="text/javascript">
+                    var validateSchoolId = function() {
+                        var fieldSelector = '#js_super_user_school_id';
+                        jQuery(fieldSelector).removeClass("warning");
+                        var formField = jQuery(fieldSelector);
+                        var fieldVal = jQuery.trim(formField.val());
+                        if (fieldVal == '' || !(/^\d+$/.test(fieldVal)) ) {
+                            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
+                            alert("Please choose an integer school id!");
+                            return false;
+                        }
+                        return true;
+                    };
+                    jQuery('#js_super_user_school_id').change(function() {
+                        jQuery(this).removeClass("warning");
+                    });
+                    jQuery('#js_super_user_input_submit').click(function() {
+                        return validateSchoolId();
+                    });
+                </script>
+                <div class="grid_24">
+                    <p>Or select a school from the drop downs:</p>
+                    <mod:cityStateSchoolSelect url=""
+                                               defaultState="${(not empty school)?school.databaseState:requestScope.context.state}"
+                                               defaultCity="${school.city}"
+                                               defaultSchoolId="${school.id}"
+                                               excludePreschoolsOnly="${true}"/>
+                </div>
+            </c:if>
+
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form for active user-->
+            <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
+                <h2>Your Official School Profile has been saved.</h2>
+                <p>
+                    You can come back and add more information anytime.
+                </p>
+                <c:if test="${not empty school}">
+                    <p>
+                        <link:schoolEspDisplay school="${school}">See your changes on the school profile</link:schoolEspDisplay>.
+                    </p>
+                </c:if>
+
+                <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
+            </div>
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form for provisional user-->
+            <div id="espProvisionalReminderHover" class="dialog_white" style="display:none;">
+                <h2>Your Official School Profile has been saved.</h2>
+
+                <p><strong>Thank you!</strong>
+                    We've saved your changes to the Official School Profile.
+                    We are in the process of verifying that you are an approved administrator of this school's page.
+                    As soon as your account is approved we will publish your changes to the site.
+                    Please check back in 2-4 weekdays.
+                </p>
+                <button class="button-1 espProvisionalReminderHover_hideHover" type="button">OK</button>
+
+            </div>
+        </div>
+        <!--</div>-->
+
+        <div class="spacer_60"><!-- do not collapse --></div>
+
+        <div style="display:none;">
+            <mod:tracking pageName="OSP Dashboard" hier1="ESP"/>
+        </div>
+    </gsml:body>
+    </html>
+</jsp:root>

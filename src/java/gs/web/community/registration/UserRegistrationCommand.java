@@ -33,7 +33,6 @@ public class UserRegistrationCommand  {
     private State state;
 
     @Size(min=2, max=24, message="First name must be 2-24 characters long.")
-    @NotNull(message="First name must be 2-24 characters long.")
     private String firstName;
 
     private String lastName;
@@ -45,7 +44,9 @@ public class UserRegistrationCommand  {
     private String gender;
     private String facebookId;
 
-    @AssertTrue
+    private boolean mss;
+
+    @AssertTrue(message="You must accept the terms of use.")
     private boolean terms;
 
     @AssertTrue(message="Password should be 6-14 characters.")
@@ -153,4 +154,80 @@ public class UserRegistrationCommand  {
     public void setHow(String how) {
         this.how = how;
     }
+
+    public boolean isMss() {
+        return mss;
+    }
+
+    public void setMss(boolean mss) {
+        this.mss = mss;
+    }
+
+    // fluent interface methods generated with IntelliJ plugin
+
+    public UserRegistrationCommand email(final String email) {
+        this.email = email;
+        return this;
+    }
+
+    public UserRegistrationCommand password(final String password) {
+        this.password = password;
+        return this;
+    }
+
+    public UserRegistrationCommand confirmPassword(final String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+        return this;
+    }
+
+    public UserRegistrationCommand state(final State state) {
+        this.state = state;
+        return this;
+    }
+
+    public UserRegistrationCommand firstName(final String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public UserRegistrationCommand lastName(final String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public UserRegistrationCommand city(final String city) {
+        this.city = city;
+        return this;
+    }
+
+    public UserRegistrationCommand screenName(final String screenName) {
+        this.screenName = screenName;
+        return this;
+    }
+
+    public UserRegistrationCommand gender(final String gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public UserRegistrationCommand facebookId(final String facebookId) {
+        this.facebookId = facebookId;
+        return this;
+    }
+
+    public UserRegistrationCommand terms(final boolean terms) {
+        this.terms = terms;
+        return this;
+    }
+
+    public UserRegistrationCommand how(final String how) {
+        this.how = how;
+        return this;
+    }
+
+    public UserRegistrationCommand mss(final boolean mss) {
+        this.mss = mss;
+        return this;
+    }
+
 }

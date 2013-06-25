@@ -148,6 +148,16 @@
         }
         .mt3{margin-top: 3px;}
 
+        ul.listNoBullet{
+           list-style-type: none;
+            padding-left: 0;
+            padding-top: 5px;
+            /*font-size: small;*/
+        }
+        ul.listNoBullet li{
+            list-style-type: none;
+            /*margin-bottom: 5px;*/
+        }
 
     </style>
 </head>
@@ -312,7 +322,7 @@
                         </div>
                     </div>
 
-                    <div class="selectBox2 clearfix selectList mbl">
+                    <div class="selectBox2 clearfix selectList mbl" style="margin-bottom: 5px;">
                         <div class="mtm fl ">
                             <c:choose>
                                 <c:when test="${not empty validUser.email}">
@@ -323,7 +333,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                        <div class="fr pbm plm js_emailPopOver" ><div class="mrm mtm"><span class="iconx16 i-16-lock"><!--do not collapse--></span></div></div>
+                        <!--<div class="fr pbm plm js_emailPopOver" ><div class="mrm mtm"><span class="iconx16 i-16-lock">&lt;!&ndash;do not collapse&ndash;&gt;</span></div></div>-->
                     </div>
                     <!--start-->
                     <div class="js-posterAsString-error dn form-alert pbs ptm dn">
@@ -333,6 +343,9 @@
                             </div>
                             <div class="js-msg smaller bottom error_msg">Please select your role.</div>
                         </div>
+                    </div>
+                    <div style="width: 312px; ">
+                         <p style="color: #787878;" class="small"><strong>Don&#39;t worry!</strong> We won&#39;t share your email with anyone. We use your email to confirm that your review is posted.</p>
                     </div>
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
@@ -346,29 +359,30 @@
                             <div class="js-ddValues">Other</div>
                         </div>
                     </div>
-                    <!--End--> <br />
+                    <div class="ptm pbs"><!-- do not collapse --></div>
+                    <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0"><h4 class="bottom sourceSansPro-Semibold">Please rate these additional areas</h4></div>
+                    <div class="hd pam " id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;"><h4 class="bottom sourceSansPro-Semibold">Helpful reviews answer questions</h4></div>
                     <div class="mod standard_1-1">
                         <div class="inner">
-                            <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl"><h4 class="bottom sourceSansPro-Regular">Please rate these additional areas</h4></div>
-                            <div class="hd pam" id="js-reviewsLandingTitleHelpful"><h4 class="bottom sourceSansPro-Regular">Helpful reviews answer questions</h4></div>
-                            <div class="bd pam" style="height:90px;">
+
+                            <div class="bd pam" style="height:75px;">
                                 <div id="js-reviewsLandingStarBox-Parent" class="dn">
-                                    <div class="clearfix pas">
-                                        <div class="fl"><p class="bottom regular">Teacher quality</p></div>
+                                    <div class="clearfix pas" style="padding-top: 0;">
+                                        <div class="fl"><p class="bottom regular small">Teacher quality</p></div>
                                         <div id="starRatingContainerReviewTeacher" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
                                     <div class="clearfix pas">
-                                        <div class="fl"><p class="bottom regular">Principal leadership</p></div>
+                                        <div class="fl"><p class="bottom regular small">Principal leadership</p></div>
                                         <div id="starRatingContainerReviewPrincipal" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                                         </div>
                                     </div>
                                     <div class="clearfix pas">
-                                        <div class="fl"><p class="bottom">Parent involvement</p></div>
+                                        <div class="fl"><p class="bottom small">Parent involvement</p></div>
                                         <div id="starRatingContainerReviewParent" class="fr pan man mlm">
                                             <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                             <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
@@ -376,7 +390,7 @@
                                     </div>
                                 </div>
                                 <div id="js-reviewsLandingStarBox-Start">
-                                    <ul>
+                                    <ul class="listNoBullet small">
                                         <li>What do you think others should know?</li>
                                         <li>What do you like?</li>
                                         <li>How could your school improve?</li>

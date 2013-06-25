@@ -157,6 +157,10 @@ hr {
     display:none;
 }
 
+#applicableSeasonYear{
+    display:none;
+}
+
 #contactNotes{
     width:280px;
     height:100px;
