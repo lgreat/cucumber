@@ -7,6 +7,9 @@ GS.search.filters = GS.search.filters || (function() {
         $(function() {
             $('.js-applyFilters').on('click', function(){
                 /*if (window.location.pathname.indexOf('search.page') > -1) {*/
+                if($('#js-packardFilters').length === 1) {
+                    checkboxAndRadioFilters = checkboxAndRadioFilters.concat(packardCheckboxFilters);
+                }
                 jQuery("#js_totalResultsCountReturn").hide();
                 jQuery("#js-spinny-search").show();
                 GS.search.results.update();
@@ -76,6 +79,11 @@ GS.search.filters = GS.search.filters || (function() {
         'studentClubs',
         'ratingCategories',
         'staffResources'
+    ];
+
+    var packardCheckboxFilters = [
+        'afterSchool',
+        'summerProgram'
     ];
 
     // strings must match checkbox group field names
