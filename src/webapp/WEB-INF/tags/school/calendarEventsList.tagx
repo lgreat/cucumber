@@ -126,7 +126,7 @@
         <c:otherwise>
             <div id="js-school-calendar-list" class="line dn"  style="overflow:visible ;">
                 <div class="unit size100of100 lastUnit"  style="overflow:visible ;">
-                    <div class="mod ${tandem_moduleToUse}">
+                    <div class="mod standard_1-1">
                         <div class="inner ">
                             <div class="hd clearfix">
                                 <div class="fl">
