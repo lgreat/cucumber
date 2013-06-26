@@ -177,6 +177,33 @@ General comments:
   background-color:#fafafa;
   padding:20px;
 }
+/*!!!!!!!!!!!!!*/
+
+
+/*.standard_2-2 .bd-inner{*/
+    /*padding: 10px;*/
+/*}*/
+
+.standard_2-2 .ft ul{
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.standard_2-2 .ft-inner{
+    border-top:1px solid #ddd;
+    margin-top:5px;
+    padding:0 5px 5px;
+}
+
+.standard_2-2 .ft li{
+    list-style: none outside none;
+    float: left;
+    margin: 0 5px;
+    padding: 0;
+    line-height: 28px;
+    color: #555555
+}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_2-3 ----------------- */
@@ -1362,3 +1389,61 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 .lsn{
     list-style: none;
 }
+
+.mod{
+    margin:0;
+}
+
+/*.articleDistribution2{*/
+    /*margin-bottom:10px;*/
+/*}*/
+
+.articleDistribution2 .ft-inner{
+    border-top:1px solid #ddd;
+    margin-top:5px;
+    padding:0 5px 5px;
+}
+
+/*.articleDistribution2 .inner .bd{*/
+    /*height:65px;*/
+/*}*/
+
+/*.articleDistribution2 .bd-inner{*/
+    /*padding:10px;*/
+/*}*/
+
+/*.mod.articleDistribution2 .bd {*/
+    /*overflow:visible;*/
+}
+
+/*.articleDistribution2 .ft ul{*/
+    /*float: left;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*.articleDistribution2 .ft li{*/
+    /*list-style: none outside none;*/
+    /*float: left;*/
+    /*margin: 0 5px;*/
+    /*padding: 0;*/
+    /*line-height: 28px;*/
+/*}*/
+
+/*.articleDistribution2 .ft{*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*.relatedArticles2{*/
+    /*margin-bottom:10px;*/
+/*}*/
+
+/*.relatedArticles2 .inner{*/
+    /*border:1px solid #e6e6e6;*/
+    /*background-color:#fff;*/
+    /*padding:10px;*/
+/*}*/
+
+/*.articleComments2{*/
+   /*margin-top: 15px;*/
+/*}*/
