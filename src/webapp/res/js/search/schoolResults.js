@@ -498,7 +498,7 @@ GS.search.results = GS.search.results || (function() {
 
         var showHomesForSale = 'block';
         if(!data.salePromo[1].homesForSale) {
-            showHomesForSale = 'hidden';
+            showHomesForSale = 'dn';
         }
 
         var schoolList = $('#js-schoolList');
@@ -510,10 +510,10 @@ GS.search.results = GS.search.results || (function() {
 
             var parentRating = school.parentRating;
             var showParentRating = 'block';
-            var showRateSchool = 'hidden';
+            var showRateSchool = 'dn';
             var starsOff = 0;
             if(parentRating == null) {
-               showParentRating = 'hidden';
+               showParentRating = 'dn';
                showRateSchool = 'block';
             }
             else {
@@ -523,31 +523,31 @@ GS.search.results = GS.search.results || (function() {
             var gsRating = school.greatSchoolsRating;
             var gsRatingUrl = school.gsRatingUrl;
             var showNonPrivate = 'block';
-            var showNewRatingNonPrivate ='hidden';
-            var showPrivate = 'hidden';
-            var showNewRatingPrivate = 'hidden';
-            var showPreschool = 'hidden';
+            var showNewRatingNonPrivate ='dn';
+            var showPrivate = 'dn';
+            var showNewRatingPrivate = 'dn';
+            var showPreschool = 'dn';
 
             if (school.levelCode == 'p') {
-                showNonPrivate = 'hidden';
-                showNewRatingNonPrivate = 'hidden';
-                showPrivate = 'hidden';
-                showNewRatingPrivate = 'hidden';
+                showNonPrivate = 'dn';
+                showNewRatingNonPrivate = 'dn';
+                showPrivate = 'dn';
+                showNewRatingPrivate = 'dn';
                 showPreschool = 'block';
                 gsRatingUrl = school.schoolUrl;
             } else if (school.schoolType == 'private') {
-                showNonPrivate = 'hidden';
-                showNewRatingNonPrivate = 'hidden';
-                showPreschool = 'hidden';
-                showNewRatingPrivate = school.isNewGSRating === true ? 'block' : 'hidden';
-                showPrivate = school.isNewGSRating === true ? 'hidden' : 'block';
+                showNonPrivate = 'dn';
+                showNewRatingNonPrivate = 'dn';
+                showPreschool = 'dn';
+                showNewRatingPrivate = school.isNewGSRating === true ? 'block' : 'dn';
+                showPrivate = school.isNewGSRating === true ? 'dn' : 'block';
                 gsRatingUrl = school.schoolUrl;
             } else if ((school.schoolType == 'public' || school.schoolType == 'charter')) {
-                showPrivate = 'hidden';
-                showNewRatingPrivate = 'hidden';
-                showPreschool = 'hidden';
-                showNewRatingNonPrivate = school.isNewGSRating === true ? 'block' : 'hidden';
-                showNonPrivate = school.isNewGSRating === true ? 'hidden' : 'block';
+                showPrivate = 'dn';
+                showNewRatingPrivate = 'dn';
+                showPreschool = 'dn';
+                showNewRatingNonPrivate = school.isNewGSRating === true ? 'block' : 'dn';
+                showNonPrivate = school.isNewGSRating === true ? 'dn' : 'block';
             }
 
             if (gsRating === null) {
@@ -556,18 +556,18 @@ GS.search.results = GS.search.results || (function() {
             var isPkCompare = "none", showCompare = "inline";
             if(school.levelCode == 'p') {
                 isPkCompare = "inline";
-                showCompare = "hidden";
+                showCompare = "dn";
             }
 
-            var showExistsInMsl = "hidden", showNotInMsl = "inline";
+            var showExistsInMsl = "dn", showNotInMsl = "inline";
             if(school.mslHasSchool) {
                 showExistsInMsl = 'inline';
-                showNotInMsl = 'hidden';
+                showNotInMsl = 'dn';
             }
 
             var showDistance = "inline";
             if(school.distance == null) {
-                showDistance = "hidden";
+                showDistance = "dn";
             }
 
             var infoBoxHtml = infoBoxTemplate.render({
@@ -724,7 +724,7 @@ GS.search.results = GS.search.results || (function() {
     }
 
     var setPageNavIndex = function(pageNum, pageSize, indexValue) {
-        var index = "<span><a class='js-prev noUnderline' href='javascript:void(0)' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
+        var index = "<span><a class='js-prev' href='javascript:void(0)' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
             indexValue + "</a></span>\n";
         return index;
     }
