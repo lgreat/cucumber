@@ -81,7 +81,8 @@
                 </div>
                 <div id="js_nearbyHomesForSale" class="fr dn">
                     <div class="di vam mrs"><span class="iconx16 i-16-home-sales"><!-- do not collapse --></span></div>
-                    <div class="di vam"><a href="#" class="small" target="_blank">Nearby homes for sale</a></div>
+                   TEST S ${omniturePageName}
+                    <div class="di vam"><a href="#" class="small" target="_blank"  onclick="if (s.tl) {s.tl(this,'o', 'Zillow_BoundariesMap');} return true;">Nearby homes for sale</a></div>
             </div>
 
             </div>

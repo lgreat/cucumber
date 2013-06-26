@@ -15,7 +15,7 @@
             if(isOverIFrame) {
 
                 if (s.tl) {
-                    s.tl(true, 'o', 'Zillow_Widget');
+                    s.tl(true, 'o', 'Zillow_Widget_'+s.pageName);
                 }
             }
         }
@@ -56,11 +56,11 @@
                    <div style="margin:4px 10px 0;overflow:hidden;">
                     <a href="http://www.zillow.com/${formattedUrl}/"
                                                                target="_blank"
-                                                               onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget');} return true;"
+                                                               onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget_'+s.pageName);} return true;"
                                                                style="font-size:11px;display:inline;width:222px;float:left;text-decoration:none;color:#999;font-family:arial;font-weight:normal;">Browse on Zillow</a>
                     <a
                     href="http://www.zillow.com/" target="_blank"
-                    onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget');} return true;"
+                    onclick="if (s.tl) {s.tl(this,'o', 'Zillow_Widget_'+s.pageName);} return true;"
                     style="display:block;float:right;text-decoration:none;width:56px;height:15px;"><img
                     src="http://www.zillow.com/widgets/GetVersionedResource.htm?path=/static/images/logo_zillow_56x15.png"
                     style="display:block;border:0;" alt="Homes for Sale - Zillow"></img></a>
