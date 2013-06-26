@@ -84,7 +84,7 @@
                                      selectedValueLabel="All">
         <!--<div class="mod standard_6-3">-->
         <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="ell" value="ell"
-                                      label="English Language Learners (ELL) support" omnitureCustomLink="ELL"/>
+                                      label="English Language Learners (ELL)" omnitureCustomLink="ELL"/>
         Special Education
         <search:searchFilterWithCount name="specialEdPrograms" value="autism" styleClass="js-advFilters"
                                       facetCountsMap="${specialEdCounts}"
@@ -344,9 +344,9 @@
 <div class="pam">
     <div class="line">
         <div class="unit size87of100 smaller bottom">
-            <input type="checkbox"/> After School Programs &amp;nbsp; &amp;nbsp;<input type="checkbox" /> Summer Programs
-            <!--<search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="afterSchoolPrograms" value="afterSchoolPrograms" label="After School Programs" omnitureCustomLink="AfterSchoolPrograms"/>-->
-            <!--<search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="summerPrograms" value="summerPrograms" label="Summer Programs" omnitureCustomLink="SummerPrograms"/>-->
+            <!--<input type="checkbox"/> After School Programs &amp;nbsp; &amp;nbsp;<input type="checkbox" /> Summer Programs-->
+            <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="afterSchool" value="afterSchool" label="After School Programs" omnitureCustomLink="AfterSchoolPrograms"/>
+            <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="summerPrograms" value="summerPrograms" label="Summer Programs" omnitureCustomLink="SummerPrograms"/>
         </div>
         <div class="unit size13of100 lastUnit js-resetFiltersLink">
             <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Reset">

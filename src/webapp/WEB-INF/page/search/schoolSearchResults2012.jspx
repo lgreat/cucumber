@@ -56,19 +56,19 @@
         <ad:enableGptAsynchronousMode/>
         <!--<gsml:javascript src="/res/js/json2.js"/>-->
         <![CDATA[<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>]]>
-        <!--<gsml:javascript src="/res/js/uri/uri.js"/>-->
+        <gsml:javascript src="/res/js/uri/uri.js"/>
 
-        <!--<gsml:javascript src="/res/js/search/schoolSearchForm.js"/>-->
+        <gsml:javascript src="/res/js/search/schoolSearchForm.js"/>
 
-        <!--<gsml:javascript src="/res/js/util/htmlMirrors.js"/>-->
-        <!--<gsml:javascript src="/res/js/search/filters.js"/>-->
-        <!--<gsml:javascript src="/res/js/search/compare.js"/>-->
-        <!--<gsml:javascript src="/res/js/tracking/customLinks.js"/>-->
-        <!--<gsml:javascript src="/res/js/search/schoolResults.js"/>-->
-        <!--<gsml:javascript src="/res/js/ui/contentDropdowns.js"/>-->
+        <gsml:javascript src="/res/js/util/htmlMirrors.js"/>
+        <gsml:javascript src="/res/js/search/filters.js"/>
+        <gsml:javascript src="/res/js/search/compare.js"/>
+        <gsml:javascript src="/res/js/tracking/customLinks.js"/>
+        <gsml:javascript src="/res/js/search/schoolResults.js"/>
+        <gsml:javascript src="/res/js/ui/contentDropdowns.js"/>
 
-        <!--<gsml:javascript src="/res/js/search/schoolSearchResultsPage2012.js"/>-->
-        <gsml:javascript src="/res/js/combined.search.min.js"/>
+        <gsml:javascript src="/res/js/search/schoolSearchResultsPage2012.js"/>
+        <!--<gsml:javascript src="/res/js/combined.search.min.js"/>-->
         <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
         <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
         <!--<gsml:javascript src="/res/js/search/schoolSearchResultsTable2012.js"/>-->
@@ -133,8 +133,14 @@
         </div>
 
         <div class="alpha grid_16 omega mtl">
-            <!--<school:findASchoolForm/>-->
-            <school:findASchoolForm-v1/>
+            <c:choose>
+                <c:when test="${showPackardFilters}">
+                    <school:findASchoolForm-v1/>
+                </c:when>
+                <c:otherwise>
+                    <school:findASchoolForm/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <!--Probably above and below elements should be in one grid-->
         <!--<div class="alpha grid_16 omega">-->
