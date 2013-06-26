@@ -1,6 +1,6 @@
 var GS = GS || {};
 GS.map = GS.map || {};
-GS.map.getMap = GS.map.getMap ||(function(){
+GS.map.getMap = GS.map.getMap || (function () {
     var GS_openSchoolInfoBubble = null;
     var GS_mapMarkers = {};
     var map = null;
@@ -15,16 +15,16 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var bubblesSticky = true;
     var defaultPageSize = 25;
 
-    var init = function(){
+    var init = function () {
         GS.search.schoolSearchForm.init(GS.search.filters, GS.ui.contentDropdowns);
         GS.search.results.updateSortAndPageSize();
-        GS.school.compare.initializeSchoolsInCompare(function() {
+        GS.school.compare.initializeSchoolsInCompare(function () {
             return window.location.pathname + GS.search.filters.getUpdatedQueryString();
         });
         schoolList = $('#js-schoolList');
         var height = getHeight();
-        schoolList.css({height: height, overflowY: 'auto', overflowX: 'hidden'});
-        $('.js-mouseover-open-bubble').live('mouseover', function() {
+        schoolList.css({height:height, overflowY:'auto', overflowX:'hidden'});
+        $('.js-mouseover-open-bubble').live('mouseover', function () {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
             if (GS_openSchoolInfoBubble !== null) {
@@ -35,24 +35,24 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 var marker = GS_mapMarkers[schoolIdentifier];
 
                 var tooltipOptions = {
-                    content: marker.title,
-                    maxWidth: 0,
-                    disableAutoPan: false,
-                    pixelOffset: new google.maps.Size(-15, 5),
-                    zIndex: null,
-                    boxStyle: {
-                        opacity: 1,
-                        border: "1px solid black",
-                        textAlign: "center",
-                        fontSize: "8pt",
-                        width: "200px",
-                        background: "white"
+                    content:marker.title,
+                    maxWidth:0,
+                    disableAutoPan:false,
+                    pixelOffset:new google.maps.Size(-15, 5),
+                    zIndex:null,
+                    boxStyle:{
+                        opacity:1,
+                        border:"1px solid black",
+                        textAlign:"center",
+                        fontSize:"8pt",
+                        width:"200px",
+                        background:"white"
                     },
-                    closeBoxURL: "",
-                    infoBoxClearance: new google.maps.Size(1, 1),
-                    isHidden: false,
-                    pane: "floatPane",
-                    enableEventPropagation: false
+                    closeBoxURL:"",
+                    infoBoxClearance:new google.maps.Size(1, 1),
+                    isHidden:false,
+                    pane:"floatPane",
+                    enableEventPropagation:false
                 };
 
                 //tooltipInfoBox = new InfoBox(tooltipOptions);
@@ -61,14 +61,14 @@ GS.map.getMap = GS.map.getMap ||(function(){
             }
         });
 
-        $('.js-mouseover-open-bubble').live('mouseout', function() {
+        $('.js-mouseover-open-bubble').live('mouseout', function () {
             if (!bubblesSticky) {
                 closeInfoBox();
             }
         });
 
-        $('.js-mouseover-open-bubble').live('mouseover', function() {
-            if(GS_openSchoolInfoBubble !== null) {
+        $('.js-mouseover-open-bubble').live('mouseover', function () {
+            if (GS_openSchoolInfoBubble !== null) {
                 // if a marker is open and it wasnt opened from an event triggered from the list, don't do anything
                 if (bubblesSticky) {
                     return;
@@ -87,8 +87,8 @@ GS.map.getMap = GS.map.getMap ||(function(){
             bubblesSticky = false;
         });
 
-        $('.js-mouseover-open-bubble').live('click', function() {
-            if(GS_openSchoolInfoBubble !== null) {
+        $('.js-mouseover-open-bubble').live('click', function () {
+            if (GS_openSchoolInfoBubble !== null) {
                 GS_openSchoolInfoBubble = null;
                 infoBoxInstance.close();
                 removeHighlight();
@@ -106,7 +106,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         //Bind the custom event that gets triggered after a school is removed from the compare module.
         //This is used to un check the check boxes for the school that is removed from the compare module.
-        $('body').on('schoolRemoved', function(event, schoolId, state) {
+        $('body').on('schoolRemoved', function (event, schoolId, state) {
             var checkBox = $('#' + state + schoolId);
             checkBox.prop('checked', false);
             //After the school is removed, the 'compare now' link should be switched to 'compare' label.
@@ -121,7 +121,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             }
         });
 
-        $('#contentGS').on('click', '#js_reloadMap', function() {
+        $('#contentGS').on('click', '#js_reloadMap', function () {
             if (s.tl) {
                 s.tl(this, 'o', 'SearchResults_Map_Redo_Search');
             }
@@ -136,20 +136,20 @@ GS.map.getMap = GS.map.getMap ||(function(){
         var infoWindow = new google.maps.InfoWindow();
 
         var myOptions = {
-            center: centerPoint,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true,
-            mapTypeControl: true,
-            mapTypeControlOptions: {
-                mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+            center:centerPoint,
+            mapTypeId:google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI:true,
+            mapTypeControl:true,
+            mapTypeControlOptions:{
+                mapTypeIds:[google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
             },
-            zoomControl: true,
-            zoomControlOptions: {
-                style: google.maps.ZoomControlStyle.DEFAULT
+            zoomControl:true,
+            zoomControlOptions:{
+                style:google.maps.ZoomControlStyle.DEFAULT
             },
-            streetViewControl: true,
-            panControl: true,
-            infoWindow: infoWindow
+            streetViewControl:true,
+            panControl:true,
+            infoWindow:infoWindow
         };
 
         // need to change the difference based on design or
@@ -168,10 +168,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
     }
 
-    var getHeight = function() {
+    var getHeight = function () {
         var height;
-        if (window.innerHeight){
-            height = (window.innerHeight > 1000)? window.innerHeight/2 : 500;
+        if (window.innerHeight) {
+            height = (window.innerHeight > 1000) ? window.innerHeight / 2 : 500;
         }
         else {
             height = 500;
@@ -182,44 +182,44 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var loadMarkers = function (points) {
         var bounds = new google.maps.LatLngBounds();
         var p_length = 0;
-        if(points !== null) {
+        if (points !== null) {
             p_length = points.length;
         }
         // shape defines clickable region of icon as a series of points
         // coordinates increase in the X direction to the right and in the Y direction down.
         var markerShape = {
-            coord: [1, 0, 27, 0, 27, 32, 1, 32],
-            type: 'poly'
+            coord:[1, 0, 27, 0, 27, 32, 1, 32],
+            type:'poly'
         };
 
         infoBoxOptions = {
-            map: map,
-            maxWidth: 0,
-            disableAutoPan: false,
-            pixelOffset: new google.maps.Size(-150, -45),
-            zIndex: null,
-            boxStyle: {
-                opacity: 1,
-                width: "320px"
+            map:map,
+            maxWidth:0,
+            disableAutoPan:false,
+            pixelOffset:new google.maps.Size(-150, -45),
+            zIndex:null,
+            boxStyle:{
+                opacity:1,
+                width:"320px"
             },
-            closeBoxMargin: "23px 8px 0 8px",
+            closeBoxMargin:"8px 8px 0 8px",
             closeBoxURL:"/res/img/googleMaps/16x16_close.png",
-            infoBoxClearance: new google.maps.Size(1, 1),
-            isHidden: false,
-            pane: "floatPane",
+            infoBoxClearance:new google.maps.Size(1, 1),
+            isHidden:false,
+            pane:"floatPane",
             alignBottom:true,
-            enableEventPropagation: false
+            enableEventPropagation:false
         };
 
-        for ( var i = 0; i < p_length; i++ ) {
+        for (var i = 0; i < p_length; i++) {
             var point = points[i];
             var position = new google.maps.LatLng(point.lat, point.lng);
             var markerOptions = {
-                map: map,
-                shape: markerShape,
-                position: position,
-                infoWindowMarkup: point.infoWindowMarkup,
-                title: point.name
+                map:map,
+                shape:markerShape,
+                position:position,
+                infoWindowMarkup:point.infoWindowMarkup,
+                title:point.name
             };
 
             var imageUrlPreschool = '/res/img/sprites/mapPins/x32/120906-mapPins-preschool.png';
@@ -272,9 +272,9 @@ GS.map.getMap = GS.map.getMap ||(function(){
             GS_mapMarkers[schoolIdentifier] = marker;
 
             infoBoxInstance = new InfoBox(infoBoxOptions);
-            google.maps.event.addListener(marker, 'click', (function(marker, i, schoolIdentifier) {
-                return function() {
-                    if(selectedSchool !== null) {
+            google.maps.event.addListener(marker, 'click', (function (marker, i, schoolIdentifier) {
+                return function () {
+                    if (selectedSchool !== null) {
                         removeHighlight();
                     }
                     showInfoBox(marker, infoBoxInstance, schoolIdentifier);
@@ -288,8 +288,8 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         }
 
-        if(p_length > 0) {
-            google.maps.event.addListener(infoBoxInstance,'closeclick', closeInfoBox);
+        if (p_length > 0) {
+            google.maps.event.addListener(infoBoxInstance, 'closeclick', closeInfoBox);
 
             google.maps.event.addListener(infoBoxInstance, 'domready', attachEventsToBubble);
 
@@ -301,11 +301,11 @@ GS.map.getMap = GS.map.getMap ||(function(){
             bounds.extend(position);
         }
 
-        google.maps.event.addListener(map, 'dragend', function() {
+        google.maps.event.addListener(map, 'dragend', function () {
             closeInfoBox();
             var currentCenter = map.getCenter();
-            var distancePanned = google.maps.geometry.spherical.computeDistanceBetween (center, currentCenter, 3963.1676);
-            if(distancePanned >= 3) {
+            var distancePanned = google.maps.geometry.spherical.computeDistanceBetween(center, currentCenter, 3963.1676);
+            if (distancePanned >= 3) {
                 var $redoSearch = $("#js_reloadMap");
                 $redoSearch.show();
             }
@@ -317,24 +317,24 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
     };
 
-    var redoSearchOnMapMove = function() {
+    var redoSearchOnMapMove = function () {
         var queryString = window.location.search;
         var queryStringData = GS.uri.Uri.getQueryData(queryString);
 
         var geocoder = new google.maps.Geocoder();
         var currentCenter = map.getCenter();
         var newData = {};
-        geocoder.geocode({latLng: currentCenter}, function(results, status) {
-            if(status === google.maps.GeocoderStatus.OK) {
+        geocoder.geocode({latLng:currentCenter}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
                 var addressComponents = results[0].address_components;
-                $.each(addressComponents, function(i, addressComponent) {
-                    if(addressComponent.types[0] === 'administrative_area_level_1') {
+                $.each(addressComponents, function (i, addressComponent) {
+                    if (addressComponent.types[0] === 'administrative_area_level_1') {
                         newData.state = addressComponent.short_name;
                     }
-                    else if(addressComponent.types[0] === 'locality') {
+                    else if (addressComponent.types[0] === 'locality') {
                         newData.city = addressComponent.long_name;
                     }
-                    else if(addressComponent.types[0] === 'postal_code') {
+                    else if (addressComponent.types[0] === 'postal_code') {
                         newData.zipCode = addressComponent.short_name;
                     }
                 });
@@ -342,15 +342,15 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 newData.lat = currentCenter.lat();
                 newData.lon = currentCenter.lng();
 
-                var keysToPersist = ['search_type', 'c', 'view', 'sortBy', 'st', 'gradeLevels','distance'];
-                for(var key in queryStringData) {
-                    if($.inArray(key, keysToPersist) === -1) {
+                var keysToPersist = ['search_type', 'c', 'view', 'sortBy', 'st', 'gradeLevels', 'distance'];
+                for (var key in queryStringData) {
+                    if ($.inArray(key, keysToPersist) === -1) {
                         delete queryStringData[key];
                     }
                 }
                 queryStringData.start = 0;
                 queryStringData.rs = true;
-                if(queryStringData.sortBy === undefined) {
+                if (queryStringData.sortBy === undefined) {
                     queryStringData.sortBy = 'DISTANCE';
                 }
                 $.extend(queryStringData, newData);
@@ -360,22 +360,22 @@ GS.map.getMap = GS.map.getMap ||(function(){
         });
     };
 
-    var changeCompareLabelToLink = function(state, schoolId) {
-        var $compareLabel = $('#js-' +state + schoolId + '-compare-label');
+    var changeCompareLabelToLink = function (state, schoolId) {
+        var $compareLabel = $('#js-' + state + schoolId + '-compare-label');
         $compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
         $compareLabel.find('a').on('click', function () {
             GS.school.compare.compareSchools();
         });
     };
 
-    var changeCompareLinkToLabel = function(state, schoolId) {
+    var changeCompareLinkToLabel = function (state, schoolId) {
         $('#js-' + state + schoolId + '-compare-label').html('Compare');
     };
 
-    var attachEventsToBubble = function() {
+    var attachEventsToBubble = function () {
         var compareCheck = $('.js-compare-school-checkbox');
         // Bind the behavior when clicking on a compare checkbox in the list
-        compareCheck.on('click', function() {
+        compareCheck.on('click', function () {
             var schoolCheckbox = $(this);
             var schoolSelected = schoolCheckbox.attr('id');
             var schoolId = schoolSelected.substr(2, schoolSelected.length);
@@ -385,7 +385,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 //If the checkbox was checked then try adding a school to the compare module.
                 //If adding a school fails then un check the checkbox.
                 GS.school.compare.addSchoolToCompare(schoolId, state).done(
-                    function() {
+                    function () {
                         //If there are more than 2 schools in compare then the 'compare' label
                         //should be switched to 'compare now' link.
                         var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
@@ -395,7 +395,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                             }
                         }
                     }).fail(
-                    function() {
+                    function () {
                         schoolCheckbox.prop('checked', false);
                     }
                 );
@@ -414,9 +414,9 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
         if (schoolsInCompare) {
-            var myState = compareCheck.attr('id').substr(0,2);
+            var myState = compareCheck.attr('id').substr(0, 2);
             var myId = compareCheck.attr('id').substr(2);
-            for (var index=0; index < schoolsInCompare.length; index++) {
+            for (var index = 0; index < schoolsInCompare.length; index++) {
                 if (schoolsInCompare[index].state == myState && schoolsInCompare[index].schoolId == myId) {
                     compareCheck.prop('checked', true);
                     if (schoolsInCompare.length >= 2) {
@@ -429,29 +429,29 @@ GS.map.getMap = GS.map.getMap ||(function(){
         updateInfoBoxText();
     };
 
-    var refreshMarkers = function(points) {
+    var refreshMarkers = function (points) {
         closeInfoBox();
-        if(tooltipInfoBox !== null) {
+        if (tooltipInfoBox !== null) {
             tooltipInfoBox.close();
         }
         deleteMarkers();
-        if(points !== undefined && points !== null) {
+        if (points !== undefined && points !== null) {
             loadMarkers(points);
         }
     }
 
-    var deleteMarkers = function() {
-        for(var i = 0; i < newMarkers.length; i++) {
+    var deleteMarkers = function () {
+        for (var i = 0; i < newMarkers.length; i++) {
             newMarkers[i].setMap(null);
         }
         newMarkers = [];
     }
 
-    var showInfoBox = function(marker, infoBox, schoolIdentifier) {
+    var showInfoBox = function (marker, infoBox, schoolIdentifier) {
         var div = document.createElement('div');
         div.innerHTML = marker.infoWindowMarkup;
         div.setAttribute('style', 'background: white');
-        $(div).tabs();
+//        $(div).tabs();
         infoBox.setContent(div);
         infoBox.open(map, marker);
         map.panTo(marker.position);
@@ -461,35 +461,35 @@ GS.map.getMap = GS.map.getMap ||(function(){
         addHighlight();
     }
 
-    var closeInfoBox =  function() {
-        if(infoBoxInstance !== null) {
+    var closeInfoBox = function () {
+        if (infoBoxInstance !== null) {
             bubblesSticky = true;
             infoBoxInstance.close();
         }
         GS_openSchoolInfoBubble = null;
-        if(selectedSchool !== null) {
+        if (selectedSchool !== null) {
             removeHighlight();
         }
     }
 
-    var updateInfoBoxText = function() {
+    var updateInfoBoxText = function () {
         var schoolInfo = $('.js-schoolInfo');
         var addMsl = schoolInfo.find('.js-add-msl');
         var addMslLink = addMsl.find('.js-add-msl-link');
-        for(var i = 0; i < savedSchools.length; i++) {
-            if(addMslLink.attr('id') === savedSchools[i]) {
+        for (var i = 0; i < savedSchools.length; i++) {
+            if (addMslLink.attr('id') === savedSchools[i]) {
                 var notInMsl = addMsl.find('.js-notInMsl').hide();
                 var existsInMsl = addMsl.find('.js-existsInMsl').show();
                 return;
             }
         }
 
-        schoolInfo.find('a').each(function() {
+        schoolInfo.find('a').each(function () {
             $(this).attr('href', $(this).attr('data-href'));
         });
     }
 
-    var addHighlight = function() {
+    var addHighlight = function () {
 //        var isWhite = null;
 //        var patternBlueClassMarker = /_b/gi;
 //        var communityRatingToHighlight = selectedSchool.find('.js-communityRating .sprite');
@@ -510,11 +510,11 @@ GS.map.getMap = GS.map.getMap ||(function(){
         selectedSchool.css('background', '#E2F1F7');
     }
 
-    var addMouseoverHighlight = function() {
-        selectedSchool.css('background','#F8F8F8');
+    var addMouseoverHighlight = function () {
+        selectedSchool.css('background', '#F8F8F8');
     }
 
-    var removeHighlight = function() {
+    var removeHighlight = function () {
         selectedSchool.css('background', '#FFF');
 //        var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
 //        var communityRating = selectedSchool.find('.js-communityRating .sprite');
@@ -530,28 +530,28 @@ GS.map.getMap = GS.map.getMap ||(function(){
         selectedSchool = null;
     }
 
-    var scrollSchoolList = function() {
+    var scrollSchoolList = function () {
         var listTop = schoolList.offset().top;
         var listBottom = listTop + schoolList.height();
 
         var itemTop = selectedSchool.offset().top;
         var itemBottom = itemTop + selectedSchool.height();
 
-        if((itemBottom >= listBottom) || (itemTop <= listTop)) {
+        if ((itemBottom >= listBottom) || (itemTop <= listTop)) {
             schoolList.animate({
-                scrollTop: itemTop - listTop + schoolList.scrollTop()
+                scrollTop:itemTop - listTop + schoolList.scrollTop()
             });
         }
     }
 
-    var addSavedSchool = function(identifier) {
+    var addSavedSchool = function (identifier) {
         savedSchools.push(identifier);
     }
 
     return {
         init:init,
         initMap:initMap,
-        refreshMarkers: refreshMarkers,
-        addSavedSchool: addSavedSchool
+        refreshMarkers:refreshMarkers,
+        addSavedSchool:addSavedSchool
     }
 })();
