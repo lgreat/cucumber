@@ -266,8 +266,13 @@ GS.profile = GS.profile || (function() {
             if(GS.school.tandem.isTandemReturned()){
                 // show branded ad by pushing on the
                 if(GS.school.tandem.isTandemActive()){
-                    $("#"+brandingLayerId).show();
-                    refreshableCultureAdSlotKeys.push(refreshableBranding);
+                    if(tabName == "overview"){
+                        refreshableOverviewAdSlotKeys.push(refreshableBranding);
+                    }
+                    else{
+                        $("#"+brandingLayerId).show();
+                        refreshableCultureAdSlotKeys.push(refreshableBranding);
+                    }
                 }
                 else{
                     if(noBrandingLayerId != ""){
