@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+
+<jsp:directive.attribute name="showAdvancedFilters" required="false" type="java.lang.Boolean"/>
+<!--<c:if test="${showAdditionalFilters}">&lt;!&ndash;  enable filters &ndash;&gt;-->
+<!--<c:if test="${showAdvancedFilters}">--><!-- disable filters -->
+<div class="js-schoolSearchFiltersPanel ${showAdvancedFilters eq true ? '' : 'dn'}">
+
+<div id="js-moreFiltersLine" class=" dn" style="z-index:450;">
+    <div class="alpha prefix_3 grid_9 suffix_4  omega js-moreFiltersLink phs pts dn">
+        <div class="media skin-2 attribution">
+            <div class="img mrm">
+                <img src="/res/img/search/120918-sharpieCallout.png" alt="Sharpie Callout"/>
+            </div>
+            <div class="bd">
+                <h4 class="bottom">
+                    <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Open">
+                        <div class="media skin-2 attribution">
+                            <div class="img mrm">
+                                Narrow your search
+                            </div>
+                            <div class="bd">
+                                <span class="iconx16 i-16-search-filter-arrow-down"><!-- do not collapse --></span>
+                            </div>
+                        </div>
+                    </a>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="js-moreFiltersPanel" class="grid_16 alpha omega dn" style="z-index:450;">
+<c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
+<c:set var="selectedStyle" value="padding:3px;margin-top:3px;background-color:#ccc;border:1px solid grey;"/>
+
+<!--<p style="${fn:contains(param.beforeAfterCare,'before')?selectedStyle:buttonStyle}"><a id="beforeCare" href="javascript:void(0);"><span>Before care</span></a></p>
+            <p style="${fn:contains(param.beforeAfterCare,'after')?selectedStyle:buttonStyle}"><a id="afterCare" href="javascript:void(0);"><span >After care</span></a></p>
+            <p style="${fn:contains(param.transportation,'true')?selectedStyle:buttonStyle}"><a id="transportation" href="javascript:void(0);">Transportation</a></p>
+            <p style="${fn:contains(param.ell,'true')?selectedStyle:buttonStyle}"><a id="ell" href="javascript:void(0);">ELL</a></p>
+
+            <br/>Accepts students on vouchers
+            <p style="${fn:contains(param.studentsVouchers,'true')?selectedStyle:buttonStyle}"><a id="studentsVouchersYes" href="javascript:void(0);">Yes</a></p>
+            <p style="${fn:contains(param.studentsVouchers,'false')?selectedStyle:buttonStyle}"><a id="studentsVouchersNo" href="javascript:void(0);">No</a></p>
+
+-->
+
+<c:set var="academicFocusCounts" value="${facetCounts.academic_focus}"/>
+<c:set var="instructionalModelCounts" value="${facetCounts.instructional_model}"/>
+<c:set var="specialEdCounts" value="${facetCounts.special_ed_programs}"/>
+<c:set var="studentClubsCounts" value="${facetCounts.student_clubs}"/>
+<c:set var="sportsCounts" value="${facetCounts.sports_counts}"/>
+
+<c:set var="artsMediaCounts" value="${facetCounts.arts_media}"/>
+<c:set var="artsPerforming" value="${facetCounts.arts_performing}"/>
+<c:set var="artsVisualCounts" value="${facetCounts.arts_visual}"/>
+<c:set var="artsMusicCounts" value="${facetCounts.arts_music}"/>
+
+
+
+<div class="pam" style=" border-bottom: 1px solid #DDDDDD;">
+<div class="line">
+<div class="unit size47of100 prm">
+    <search:dropdownFiltersWithLabel id="beforeAfterCare" cssClass="mbs" label="Services" selectedValueLabel="All">
+        <!--<div class="mod standard_6-3">-->
+        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="beforeAfterCare" value="after"
+                                      label="After care" omnitureCustomLink="AfterCare"/>
+        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="beforeAfterCare" value="before"
+                                      label="Before care" omnitureCustomLink="BeforeCare"/>
+        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="transportation"
+                                      value="transportation"
+                                      label="Transportation" omnitureCustomLink="Transportation"/>
+
+        <!--</div>-->
+    </search:dropdownFiltersWithLabel>
+
+    <search:dropdownFiltersWithLabel id="specialEdPrograms" cssClass="mbs" label="Student Support"
+                                     selectedValueLabel="All">
+        <!--<div class="mod standard_6-3">-->
+        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="ell" value="ell"
+                                      label="English Language Learners (ELL) support" omnitureCustomLink="ELL"/>
+        Special Education
+        <search:searchFilterWithCount name="specialEdPrograms" value="autism" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Autism" omnitureCustomLink="SpecialEd_Autism"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="cognitive" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Cognitive disability"
+                                      omnitureCustomLink="SpecialEd_CognitiveDisability"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="emotional" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Emotional behavioral disabilities"
+                                      omnitureCustomLink="SpecialEd_EmotionalDisability"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="deafness" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Hearing impairments"
+                                      omnitureCustomLink="SpecialEd_HearingImpairments"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="multiple" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Multiple disabilities"
+                                      omnitureCustomLink="SpecialEd_MultipleDisabilities"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="orthopedic" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Orthopedic impairments"
+                                      omnitureCustomLink="SpecialEd_OrthopedicImpairments"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="developmental_delay" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Significant developmental delay"
+                                      omnitureCustomLink="SpecialEd_DevelopmentalDelay"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="ld" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Specific learning disabilities"
+                                      omnitureCustomLink="SpecialEd_LearningDisabilities"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="speech" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Speech and language impairments"
+                                      omnitureCustomLink="SpecialEd_SpeechImpairments"/>
+        <search:searchFilterWithCount name="specialEdPrograms" value="blindness" styleClass="js-advFilters"
+                                      facetCountsMap="${specialEdCounts}"
+                                      label="Visual impairments"
+                                      omnitureCustomLink="SpecialEd_VisualImpairments"/>
+        <!--</div>-->
+    </search:dropdownFiltersWithLabel>
+
+    <search:dropdownFiltersWithLabel id="artsAndMusic" cssClass="mbs" label="Arts and Music" selectedValueLabel="All">
+        <!--<div class="mod standard_6-3">-->
+        <search:searchFilterWithCount name="artsAndMusic" value="band" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMusicCounts}"
+                                      label="Band" omnitureCustomLink="Arts_Band"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="ceramics" styleClass="js-advFilters"
+                                      facetCountsMap="${artsVisualCounts}"
+                                      label="Ceramics" omnitureCustomLink="Arts_Ceramics"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="chorus" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMusicCounts}"
+                                      label="Choir / chorus" omnitureCustomLink="Arts_Choir"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="graphics" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMediaCounts}"
+                                      label="Computer graphics" omnitureCustomLink="Arts_ComputerGraphics"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="creative_writing" styleClass="js-advFilters"
+                                      facetCountsMap="${artsPerforming}"
+                                      label="Creative writing" omnitureCustomLink="Arts_CreativeWriting"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="dance" styleClass="js-advFilters"
+                                      facetCountsMap="${artsPerforming}"
+                                      label="Dance" omnitureCustomLink="Arts_Dance"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="drama" styleClass="js-advFilters"
+                                      facetCountsMap="${artsPerforming}"
+                                      label="Drama" omnitureCustomLink="Arts_Drama"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="drawing" styleClass="js-advFilters"
+                                      facetCountsMap="${artsVisualCounts}"
+                                      label="Drawing" omnitureCustomLink="Arts_Drawing"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="music_lessons" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMusicCounts}"
+                                      label="Instrumental music lessons" omnitureCustomLink="Arts_MusicLessons"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="jazz_band" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMusicCounts}"
+                                      label="Jazz band" omnitureCustomLink="Arts_JazzBand"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="orchestra" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMusicCounts}"
+                                      label="Orchestra" omnitureCustomLink="Arts_Orchestra"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="painting" styleClass="js-advFilters"
+                                      facetCountsMap="${artsVisualCounts}"
+                                      label="Painting" omnitureCustomLink="Arts_Painting"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="photography" styleClass="js-advFilters"
+                                      facetCountsMap="${artsVisualCounts}"
+                                      label="Photography" omnitureCustomLink="Arts_Photography"/>
+        <search:searchFilterWithCount name="artsAndMusic" value="video" styleClass="js-advFilters"
+                                      facetCountsMap="${artsMediaCounts}"
+                                      label="Video / Film production" omnitureCustomLink="Arts_VideoFilm"/>
+
+        <!--</div>-->
+    </search:dropdownFiltersWithLabel>
+
+</div>
+
+<div class="size47of100 lastUnit plm" style="border-left: 1px solid #DDD">
+<!--Add grid to lable and drop down-->
+<search:dropdownFiltersWithLabel id="schoolFocus" cssClass="mbs" label="School Focus" selectedValueLabel="All">
+    <!--<div class="mod standard_6-3">-->
+    <search:searchFilterWithCount name="schoolFocus" value="AP_courses" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="AP courses offered" omnitureCustomLink="Focus_APCourses"/>
+    <search:searchFilterWithCount name="schoolFocus" value="core_knowledge" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="Core Knowledge" omnitureCustomLink="Focus_CoreKnowledge"/>
+    <search:searchFilterWithCount name="schoolFocus" value="engineering" styleClass="js-advFilters"
+                                  facetCountsMap="${academicFocusCounts}"
+                                  label="Engineering focus" omnitureCustomLink="Focus_Engineering"/>
+    <search:searchFilterWithCount name="schoolFocus" value="gifted" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="Gifted" omnitureCustomLink="Focus_Gifted"/>
+    <search:searchFilterWithCount name="schoolFocus" value="ib" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="International Baccalaureate (IB)" omnitureCustomLink="Focus_IB"/>
+    <search:searchFilterWithCount name="schoolFocus" value="montessori" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="Montessori" omnitureCustomLink="Focus_Montessori"/>
+    <search:searchFilterWithCount name="schoolFocus" value="performing_arts" styleClass="js-advFilters"
+                                  facetCountsMap="${academicFocusCounts}"
+                                  label="Performing arts focus" omnitureCustomLink="Focus_PerformingArts"/>
+    <search:searchFilterWithCount name="schoolFocus" value="project_based" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="Project-based learning" omnitureCustomLink="Focus_ProjectBased"/>
+    <search:searchFilterWithCount name="schoolFocus" value="special_education" styleClass="js-advFilters"
+                                  facetCountsMap="${academicFocusCounts}"
+                                  label="Special education focus" omnitureCustomLink="Focus_SpecialEdFocus"/>
+    <search:searchFilterWithCount name="schoolFocus" value="virtual" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="Virtual" omnitureCustomLink="Focus_Virtual"/>
+    <search:searchFilterWithCount name="schoolFocus" value="waldorf" styleClass="js-advFilters"
+                                  facetCountsMap="${instructionalModelCounts}"
+                                  label="Waldorf" omnitureCustomLink="Focus_Waldorf"/>
+    <!--</div>-->
+</search:dropdownFiltersWithLabel>
+
+<search:dropdownFiltersWithLabel id="sports" cssClass="mbs" label="Sports" selectedValueLabel="All">
+    <!--<div class="mod standard_6-3">-->
+    <search:searchFilterWithCount name="sports" value="baseball" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Baseball"
+                                  omnitureCustomLink="Sports_Baseball"/>
+    <search:searchFilterWithCount name="sports" value="basketball" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Basketball"
+                                  omnitureCustomLink="Sports_Basketball"/>
+    <search:searchFilterWithCount name="sports" value="cheerleading" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Cheerleading"
+                                  omnitureCustomLink="Sports_Cheerleading"/>
+    <search:searchFilterWithCount name="sports" value="crew" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Crew / Rowing" omnitureCustomLink="Sports_Rowing"/>
+    <search:searchFilterWithCount name="sports" value="cross_country" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Cross country"
+                                  omnitureCustomLink="Sports_CrossCountry"/>
+    <search:searchFilterWithCount name="sports" value="field_hockey" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Field hockey"
+                                  omnitureCustomLink="Sports_FieldHockey"/>
+    <search:searchFilterWithCount name="sports" value="football" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Football"
+                                  omnitureCustomLink="Sports_Football"/>
+    <search:searchFilterWithCount name="sports" value="golf" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Golf" omnitureCustomLink="Sports_Golf"/>
+    <search:searchFilterWithCount name="sports" value="ice_hockey" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Ice hockey"
+                                  omnitureCustomLink="Sports_IceHockey"/>
+    <search:searchFilterWithCount name="sports" value="martial_arts" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}"
+                                  label="Judo / Other martial arts"
+                                  omnitureCustomLink="Sports_Judo"/>
+    <search:searchFilterWithCount name="sports" value="lacrosse" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Lacrosse"
+                                  omnitureCustomLink="Sports_Lacrosse"/>
+    <search:searchFilterWithCount name="sports" value="rugby" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Rugby" omnitureCustomLink="Sports_Rugby"/>
+    <search:searchFilterWithCount name="sports" value="ski" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Skiing" omnitureCustomLink="Sports_Skiing"/>
+    <search:searchFilterWithCount name="sports" value="soccer" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Soccer" omnitureCustomLink="Sports_Soccer"/>
+    <search:searchFilterWithCount name="sports" value="softball" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Softball"
+                                  omnitureCustomLink="Sports_Softball"/>
+    <search:searchFilterWithCount name="sports" value="squash" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Squash" omnitureCustomLink="Sports_Squash"/>
+    <search:searchFilterWithCount name="sports" value="swimming"
+                                  styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Swimming"
+                                  omnitureCustomLink="Sports_Swimming"/>
+    <search:searchFilterWithCount name="sports" value="tennis" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Tennis" omnitureCustomLink="Sports_Tennis"/>
+    <search:searchFilterWithCount name="sports" value="track" facetCountsMap="${sportsCounts}"
+                                  styleClass="js-advFilters"
+                                  label="Track" omnitureCustomLink="Sports_Track"/>
+    <search:searchFilterWithCount name="sports" value="volleyball"
+                                  styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Volleyball"
+                                  omnitureCustomLink="Sports_Volleyball"/>
+    <search:searchFilterWithCount name="sports" value="wrestling" styleClass="js-advFilters"
+                                  facetCountsMap="${sportsCounts}" label="Wrestling"
+                                  omnitureCustomLink="Sports_Wrestling"/>
+    <!--</div>-->
+</search:dropdownFiltersWithLabel>
+
+<search:dropdownFiltersWithLabel id="staffResources" label="Resources"
+                                 selectedValueLabel="All">
+    <!--<div class="mod standard_6-3">-->
+
+    Staff Resources
+    <search:searchFilterWithCount name="staffResources" value="gifted_specialist" styleClass="js-advFilters"
+                                  label="Gifted specialist"
+                                  omnitureCustomLink="Resources_GiftedSpecialist"/>
+    <search:searchFilterWithCount name="staffResources" value="poetry_teacher" styleClass="js-advFilters"
+                                  label="Poetry / Creative writing teacher"
+                                  omnitureCustomLink="Resources_PoetryWritingTeacher"/>
+    <search:searchFilterWithCount name="staffResources" value="priest" styleClass="js-advFilters"
+                                  label="Priest / Pastor / Religious personnel"
+                                  omnitureCustomLink="Resources_PriestPastor"/>
+    <search:searchFilterWithCount name="staffResources" value="robotics_teacher" styleClass="js-advFilters"
+                                  label="Robotics / Technology specialist"
+                                  omnitureCustomLink="Resources_RoboticsTechnology"/>
+    <search:searchFilterWithCount name="staffResources" value="school_counselor" styleClass="js-advFilters"
+                                  label="School social worker / counselor"
+                                  omnitureCustomLink="Resources_SocialWorkerCounselor"/>
+    <search:searchFilterWithCount name="staffResources" value="security" styleClass="js-advFilters"
+                                  label="Security personnel"
+                                  omnitureCustomLink="Resources_SecurityPersonnel"/>
+    <search:searchFilterWithCount name="staffResources" value="tutor" styleClass="js-advFilters"
+                                  label="Tutors" omnitureCustomLink="Resources_Tutors"/>
+
+    Facilities
+    <search:searchFilterWithCount name="staffResources" value="college_center" styleClass="js-advFilters"
+                                  label="College / Career center"
+                                  omnitureCustomLink="Facilities_CollegeCareerCenter"/>
+    <search:searchFilterWithCount name="staffResources" value="computer" styleClass="js-advFilters"
+                                  label="Computer lab" omnitureCustomLink="Facilities_ComputerLab"/>
+    <search:searchFilterWithCount name="staffResources" value="garden" styleClass="js-advFilters"
+                                  label="Garden / Greenhouse"
+                                  omnitureCustomLink="Facilities_GardenGreenhouse"/>
+    <search:searchFilterWithCount name="staffResources" value="gym" styleClass="js-advFilters"
+                                  label="Gym" omnitureCustomLink="Facilities_Gym"/>
+    <search:searchFilterWithCount name="staffResources" value="industrial" styleClass="js-advFilters"
+                                  label="Industrial shop" omnitureCustomLink="Facilities_IndustrialShop"/>
+    <search:searchFilterWithCount name="staffResources" value="kitchen" styleClass="js-advFilters"
+                                  label="Kitchen" omnitureCustomLink="Facilities_Kitchen"/>
+    <search:searchFilterWithCount name="staffResources" value="parent" styleClass="js-advFilters"
+                                  label="Parent center" omnitureCustomLink="Facilities_ParentCenter"/>
+    <search:searchFilterWithCount name="staffResources" value="science" styleClass="js-advFilters"
+                                  label="Science lab" omnitureCustomLink="Facilities_ScienceLab"/>
+    <!--</div>-->
+</search:dropdownFiltersWithLabel>
+
+</div>
+</div>
+
+</div>
+<div class="pam">
+    <div class="line">
+        <div class="unit size87of100 smaller bottom">
+            <input type="checkbox"/> After School Programs &amp;nbsp; &amp;nbsp;<input type="checkbox" /> Summer Programs
+            <!--<search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="afterSchoolPrograms" value="afterSchoolPrograms" label="After School Programs" omnitureCustomLink="AfterSchoolPrograms"/>-->
+            <!--<search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="summerPrograms" value="summerPrograms" label="Summer Programs" omnitureCustomLink="SummerPrograms"/>-->
+        </div>
+        <div class="unit size13of100 lastUnit js-resetFiltersLink">
+            <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Reset">
+                Reset filters
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+<div class="grid_16 alpha omega">
+    <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pas dn">
+        <h4 class="bottom">
+            <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">
+                <div class="media skin-2 attribution">
+                    <div class="img mrm">
+                        Close filters
+                    </div>
+                    <div class="bd">
+                        <div class="iconx16 i-16-search-filter-arrow-up"><!-- do not collapse --></div>
+                    </div>
+                </div>
+            </a>
+        </h4>
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.js-moreFiltersLink').on('click', function () {
+            $('#js-moreFiltersLine').hide();
+            $('#js-closeMoreFiltersLink').show();
+            $('#js-moreFiltersPanel').slideDown();
+        });
+
+        $('#js-closeMoreFiltersLink').on('click', function () {
+            $('#js-closeMoreFiltersLink').hide();
+            $('#js-moreFiltersPanel').slideUp();
+            $('#js-moreFiltersLine').show();
+        });
+
+
+        $('.js-resetFiltersLink').on('click', function () {
+            GS.search.filters.reset();
+            GS.search.results.update();
+        });
+
+    })
+</script>
+
+<!--</c:if>-->
+
+</jsp:root>
