@@ -107,6 +107,7 @@ General comments:
     font: normal 10pt/16pt Arial, Helvetica, sans-serif;
     color: #B57C00;
     margin-top: 4px;
+    padding-left: 20px;
 }
 
 .MSBranding .hd .fr{
@@ -151,9 +152,13 @@ table  tbody.tandemPrint td{
     width: 300px;
     background: url("/res/img/tandem/GSAd_300x600.png") no-repeat;
     margin: auto;
+    position: relative;
 }
 
 .gs-ad .writeReview{
+    position: absolute;
+    top:270px;
+    left:32px;
     width:232px;
     margin: auto;
     color: #FFFFFF;
