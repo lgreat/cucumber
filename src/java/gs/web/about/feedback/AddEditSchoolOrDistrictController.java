@@ -500,7 +500,8 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
                 && command.getAddEdit() != null && command.getAddEdit().equals("add"))
 
                 ) {
-            List<District> districts = _districtDao.findDistrictsInCounty(stateOrDefault, command.getCounty(),false);
+            String county = stateOrDefault.equals(State.HI) ? "Honolulu" : command.getCounty();
+            List<District> districts = _districtDao.findDistrictsInCounty(stateOrDefault, county,false);
             for (District district : districts) {
                 districtOptions.add(new FormOption(StringEscapeUtils.escapeHtml(district.getName()), district.getId().toString()));
             }
