@@ -94,9 +94,7 @@ General comments:
     background-color: #EB3C18;
 }
 .hd .fl{
-    font-family: SourceSansPro-Semibold, arial;
-    font-size: 18pt;
-    line-height: 21pt;
+    font: bold 14pt/16pt SourceSansPro-Semibold, arial;
     padding: 6px;
     color: #333333;
 }
@@ -108,7 +106,7 @@ General comments:
 .hd .fr{
     font: normal 10pt/16pt Arial, Helvetica, sans-serif;
     color: #B57C00;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .MSBranding .hd .fr{
@@ -146,4 +144,25 @@ table  tbody.tandemPrint td{
 
 .ft{
     margin-top: 60px;
+}
+
+.gs-ad{
+    height: 600px;
+    width: 300px;
+    background: url("/res/img/tandem/GSAd_300x600.png") no-repeat;
+    margin: auto;
+}
+
+.gs-ad .writeReview{
+    width:232px;
+    margin: auto;
+    color: #FFFFFF;
+    font: normal 14pt/25px Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.gs-ad .writeReview .schoolName{
+    margin: auto;
+    font: bold 18pt/23pt Arial, Helvetica, sans-serif;
+    color: #FFB725;
 }

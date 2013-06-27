@@ -69,7 +69,7 @@
             </div>
             <div class="bd clearfix">
                 <div class="title">${schoolName}</div>
-                <div class="fl" style="width: 67%">
+                <div class="fl" style="width: 64%">
                     <table id="js-school-calendar-list" class="">
                         <tr>
                             <th width="20%">Date</th>
@@ -84,8 +84,22 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="fr" style="width:300px;">
-                    <ad:AboveFold_Culture_300x600 />
+                <div class="fr" style="width:320px; padding-right: 20px;">
+                    <c:choose>
+                        <c:when test="${tandemTileMSBranding}">
+                            <ad:AboveFold_Culture_300x600 />
+                        </c:when>
+                        <c:otherwise>
+                        <div class="gs-ad">
+                            <div style="height: 270px"><!--do not collapse--></div>
+                            <div class="writeReview">
+                                Write a review about<br/>
+                                <span class="schoolName">${schoolName}</span><br/>
+                                on GreatSchools today!
+                            </div>
+                        </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <div class="ft clearfix">
