@@ -91,7 +91,7 @@
                         </c:when>
                         <c:otherwise>
                         <div class="gs-ad">
-                            <div style="height: 270px"><!--do not collapse--></div>
+                            <img src="/res/img/tandem/GSAd_300x600.png" alt="GS AD"/>
                             <div class="writeReview">
                                 Write a review about<br/>
                                 <span class="schoolName">${schoolName}</span><br/>
@@ -108,7 +108,7 @@
                         <img src="/res/img/tandem/microsoft_logo.png" alt="Mircosoft logo" width="134"/>
                     </c:if>
                 </div>
-                <div class="fr">
+                <div class="fr" style="padding-right: 20px;">
                     <img src="/res/img/tandem/gs_logo.png" alt="GS logo" width="167"/>
                 </div>
             </div>
