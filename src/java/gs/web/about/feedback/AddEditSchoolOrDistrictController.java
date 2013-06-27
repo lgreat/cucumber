@@ -115,6 +115,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         }
 
         _log.warn("step 1");
+        _log.warn("eddie");
 
         //play around and see what can be fed back to the page if it doesnt make it to onSubmit
 
@@ -320,7 +321,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         String message = "Hello,\n" +
                 "\n" +
                 "Thank you for contacting GreatSchools!\n" +
-                "We’ve received your request and will get back to you with an answer as soon as possible.\n" +
+                "We've received your request and will get back to you with an answer as soon as possible.\n" +
                 "\n" +
                 "Please do not reply to this automated email - we will respond to you from your support request.\n" +
                 "\n" +
@@ -336,7 +337,7 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
             message = emailMap.get(emailType);
         }
         */
-        sendTheEmail(message);
+        sendTheEmail(message,command.getSubmitterEmail());
 
 
         return new ModelAndView(getSuccessView(), model);
@@ -574,16 +575,17 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         this.mailSender = mailSender;
     }
 
-    public void sendTheEmail(String messageText) {
+    public void sendTheEmail(String messageText,String emailText) {
 
         //... * Do the business calculations....
         //... * Call the collaborators to persist the order
         final String message = messageText;
+        final String email = emailText;
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws MessagingException {
                 mimeMessage.setRecipient(Message.RecipientType.TO,
-                        new InternetAddress("eford@greatschools.org"));
+                        new InternetAddress(email));
                 try{
                     mimeMessage.setFrom(new InternetAddress("gs_support@greatschools.org","GreatSchools Support"));
                 }catch(Exception e){

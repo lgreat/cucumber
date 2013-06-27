@@ -31,11 +31,18 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
             "Please re-enter your email address.";
     static final String ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING =
             "Please enter your connection to the school.";
+    static final String ERROR_SCHOOL_OR_DISTRICT_MISSING =
+            "Please choose whether this is a school or district.";
     static final String ERROR_ADD_EDIT =
             "Please choose whether you wish to add or edit.";
     static final String ERROR_GRADES =
             "Please choose at least one grade.";
-
+    static final String ERROR_DISTRICTID_MISSING =
+            "Please select a district.";
+    static final String ERROR_COUNTY_MISSING =
+            "Please select a county.";
+    static final String ERROR_SCHOOLID_MISSING =
+            "Please select a school.";
     static final String ERROR_SCHOOLTYPE_MISSING =
             "Please select if the school is public, private or charter.";
 
@@ -60,6 +67,9 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
         if (StringUtils.isBlank(command.getSubmitterConnectionToSchool())) {
             errors.rejectValue("submitterConnectionToSchool", null, ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING);
         }
+        if (StringUtils.isBlank(command.getSchoolOrDistrict())) {
+            errors.rejectValue("schoolOrDistrict", null, ERROR_SCHOOL_OR_DISTRICT_MISSING);
+        }
         if (StringUtils.isBlank(command.getAddEdit())) {
             errors.rejectValue("addEdit", null, ERROR_ADD_EDIT);
         }
@@ -70,7 +80,16 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
         if (command.getSchoolType() == null ) {
             //errors.rejectValue("schoolType", null, ERROR_SCHOOLTYPE_MISSING);
         }
+        if (command.getSchoolOrDistrict().equals("district") && StringUtils.isBlank(command.getDistrictId())) {
+            errors.rejectValue("districtId", null, ERROR_DISTRICTID_MISSING);
+        }
+        if (command.getSchoolOrDistrict().equals("district") && StringUtils.isBlank(command.getCounty())) {
+            errors.rejectValue("county", null, ERROR_COUNTY_MISSING);
+        }
 
+        if (command.getSchoolOrDistrict().equals("school") && command.getAddEdit().equals("edit") && StringUtils.isBlank(command.getSchoolId())) {
+            errors.rejectValue("schoolId", null, ERROR_SCHOOLID_MISSING);
+        }
 
     }
 
