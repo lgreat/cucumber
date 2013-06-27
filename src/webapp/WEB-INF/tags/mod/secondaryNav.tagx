@@ -147,11 +147,6 @@
                     </ul>
                 </li>
 
-                <li class="menuItem ">
-                    <a href="/digital-family.topic?content=6766" id="SN-DigitalFamily"
-                                         class="last menuItemAnchorText GS_CI9_ ">Digital Family</a>
-                </li>
-
                 <!--<li class="menuItem"><a href="/parenting.topic?content=1539" id="SN-HealthBehavior"-->
                                         <!--class="menuItemAnchorText GS_CI9_">Health &amp; Behavior-->
                     <!--<span class="iconx16 i-16-sort-list-arrow-down vam">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
@@ -200,6 +195,11 @@
                 <!-- <li class="menuItem "><a href="/raising-successful-students.topic?content=7213" id="SN-SuccessfulStudents"
                                              class="last menuItemAnchorText GS_CI9_ ">Successful Students</a>
                 </li> -->
+
+                <li class="menuItem ">
+                    <a href="/digital-family.topic?content=6766" id="SN-DigitalFamily"
+                       class="menuItemAnchorText GS_CI9_ ">Digital Family</a>
+                </li>
                 <li class="menuItem "><a href="/summer-reading.topic?content=7082" id="SN-SummerReading"
                                          class="last menuItemAnchorText GS_CI9_ ">Summer Reading</a>
                 </li>
