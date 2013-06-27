@@ -10,7 +10,7 @@
           xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
         >
-    <script>var searchBarVersion = "old";</script>
+    <script>var searchBarVersion = "v1";</script>
     <div id="findASchoolTabs" class="mod standard_9-1 clearfix">
         <c:set var="onclickLocation">if (s.tl) {s.tl(true,'o', 'Search_location_tab_click');} return true;</c:set>
         <c:set var="onclickName">if (s.tl) {s.tl(true,'o', 'Search_name_tab_click');} return true;</c:set>
@@ -19,21 +19,23 @@
                value="${commandAndFields.nearbySearch or isCityBrowse or isDistrictBrowse ? true : false}"
                property="java.lang.Boolean"/>
 
-        <div class="bd gsTabs">
-            <ul class="tabStyle-4">
-                <li><a id="js-byLocationTab" class="${byLocation ? 'selected':''}"
-                       onclick="${onclickLocation}">By location</a>
+        <!--<div class="bd gsTabs">-->
+            <!--<ul class="tabStyle-4">-->
+                <!--<li><a id="js-byLocationTab" class="${byLocation ? 'selected':''}"-->
+                       <!--onclick="${onclickLocation}">By location</a>-->
 
-                    <div id="arrowdiv" class="${byLocation ? 'selected':''} arrowdiv"><!--Do not collapse--></div>
-                </li>
-                <li class="mlm"><a id="js-byNameTab" class="${!byLocation ? 'selected':''}"
-                                   onclick="${onclickName}">By name</a>
+                    <!--<div id="arrowdiv" class="${byLocation ? 'selected':''} arrowdiv">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
+                <!--</li>-->
+                <!--<li class="mlm"><a id="js-byNameTab" class="${!byLocation ? 'selected':''}"-->
+                                   <!--onclick="${onclickName}">By name</a>-->
 
-                    <div id="arrowdiv"
-                         class="down-pointer ${!byLocation ? 'selected':''} arrowdiv"><!--Do not collapse--></div>
-                </li>
-            </ul>
-            <div id="js-byLocationTabBody" style="${!byLocation ? 'display:none;':''}">
+                    <!--<div id="arrowdiv"-->
+                         <!--class="down-pointer ${!byLocation ? 'selected':''} arrowdiv">&lt;!&ndash;Do not collapse&ndash;&gt;</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+
+
+            <div id="js-byLocationTabBody" class="pam ${!byLocation ? 'dn':''}">
                 <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
                       method="get" onsubmit="return false;">
                     <input type="hidden" name="lat"/>
@@ -57,12 +59,13 @@
                             <button class="button-4 searchSubmit" type="submit">Search</button>
                         </div>
                     </div>
-                    <div class="smallest quiet bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
+                    <!--<div class="smallest quiet bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>-->
                 </form>
-
+                <a id="js-byNameTab" class="make-2b2b2b smaller bottom ${!byLocation ? 'selected':''}"
+                   onclick="${onclickName}">Search by school name</a>
             </div>
 
-            <div id="js-byNameTabBody" style="${byLocation ? 'display:none;':''}">
+            <div id="js-byNameTabBody" class="pam ${byLocation ? 'dn':''}">
                 <form name="searchByNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
                     <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                     <input type="hidden" name="search_type" value="1"/>
@@ -99,16 +102,18 @@
                             <button class="button-4 searchSubmit" type="submit">Search</button>
                         </div>
                     </div>
-                    <div class="smallest quiet bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
+                    <!--<div class="smallest quiet bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>-->
 
                 </form>
+                <a id="js-byLocationTab" class="make-2b2b2b smaller bottom ${byLocation ? 'selected':''}"
+                   onclick="${onclickLocation}">Search by location</a>
             </div>
 
 
-        </div>
+        <!--</div>-->
         <div class="ft">
-            <search:globalFilterBar includeDistance="${true}"/>
-            <search:schoolSearchFiltersPanel
+            <search:globalFilterBar-v1 includeDistance="${true}"/>
+            <search:schoolSearchFiltersPanel-v1
                     showAdvancedFilters="${byLocation}"/> <!--replace this to re-enable advanced filters-->
             <!--<search:schoolSearchFiltersPanel showAdvancedFilters="${false}"/>-->
         </div>

@@ -9,8 +9,12 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     var init = function(_filtersModule, _contentDropdownsModule) {
         filtersModule = _filtersModule;
         contentDropdownsModule = _contentDropdownsModule;
-        setupTabs();
-
+        if(searchBarVersion == "v1"){
+            initFalseTabs();
+        }
+        else{
+            setupTabs();
+        }
         $('#jq-findByLocationForm').submit(function() {
             return byLocation.submitByLocationSearch();
         });
@@ -37,6 +41,45 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         byLocation.init();
         contentDropdownsModule.init();
     };
+    var initFalseTabs = function(){
+
+        console.log("initFalseTabs");
+        $("#js-byLocationTab").on("click", function(){
+            console.log("byLocationTab");
+            noTabSwitch('location');
+        });
+        $("#js-byNameTab").on("click", function(){
+            console.log("byNameTab");
+            noTabSwitch('name');
+        });
+
+        var noTabSwitch = function(tabname){
+            if('location' == tabname){
+
+                // hide all name section
+                // show filters
+                // show content
+                $("#js-byNameTabBody").addClass("dn");
+                $("#js-byLocationTabBody").removeClass("dn");
+                $("#js-radius").removeClass("dn");
+                $("#js-schoolSearchFiltersPanel").removeClass("dn");
+                $("#js-moreFiltersPanel").removeClass("dn");
+                $(".js-schoolSearchFiltersPanel").removeClass("dn");
+            }
+            else{
+                // hide location section
+                // hide filters section
+                $("#js-byLocationTabBody").addClass("dn");
+                $("#js-byNameTabBody").removeClass("dn");
+                $("#js-radius").addClass("dn");
+                $("#js-schoolSearchFiltersPanel").addClass("dn");
+                $("#js-moreFiltersPanel").addClass("dn");
+                $(".js-schoolSearchFiltersPanel").addClass("dn");
+            }
+        };
+    };
+
+
 
     var setupTabs = function() {
         $("#js-byLocationTab").click(function() {
@@ -287,6 +330,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 formatResult: locationFormatter
             });
         };
+
 
         var gsGeocode = function(searchInput, callbackFunction) {
             var geocoder = new google.maps.Geocoder();

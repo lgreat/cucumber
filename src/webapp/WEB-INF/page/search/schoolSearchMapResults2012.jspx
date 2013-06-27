@@ -753,8 +753,8 @@ that this is updated for ajax refresh -->
     </div>
 </div>
 
-<div class="ft">
-    <div class="unit size2of5 fltlft lastUnit">
+<div class="ft clearfix">
+    <div class="unit size2of5 fl lastUnit">
         <label for="page-size">Display </label>
         <select id="page-size" name="pageSize">
             <c:choose>
@@ -783,9 +783,9 @@ that this is updated for ajax refresh -->
             </c:choose>
         </select>
     </div>
-    <div class="unit size3of5 fltrt lastUnit" id="sidebarPageNav">
+    <div class="unit size3of5 fr lastUnit" id="sidebarPageNav">
         <c:if test="${page.pageNumber gt 1}">
-            <a href="javascript:void(0)" class="noUnderline">
+            <a href="javascript:void(0)">
                 <search:easierPaginationPage useJavascriptPaging="${true}"
                                              mode="${true}"
                                              pageSize="${page.pager.pageSize}"
@@ -797,7 +797,7 @@ that this is updated for ajax refresh -->
             </a>
         </c:if>
         <c:if test="${page.pageNumber lt page.pager.lastPageNumber}">
-            <a href="javascript:void(0)" class="noUnderline">
+            <a href="javascript:void(0)">
                 <search:easierPaginationPage useJavascriptPaging="${true}"
                                              mode="${true}"
                                              pageSize="${page.pager.pageSize}"
