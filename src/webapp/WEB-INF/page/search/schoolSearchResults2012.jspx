@@ -62,7 +62,8 @@
 
         <gsml:javascript src="/res/js/util/htmlMirrors.js"/>
         <gsml:javascript src="/res/js/search/filters.js"/>
-        <gsml:javascript src="/res/js/search/compare.js"/>
+        <gsml:javascript src="/res/js/compare/persistentCompare.js"/>
+        <gsml:javascript src="/res/js/compare/compare.js"/>
         <gsml:javascript src="/res/js/tracking/customLinks.js"/>
         <gsml:javascript src="/res/js/search/schoolResults.js"/>
         <gsml:javascript src="/res/js/ui/contentDropdowns.js"/>
@@ -71,6 +72,8 @@
         <!--<gsml:javascript src="/res/js/combined.search.min.js"/>-->
         <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
         <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+        <gsml:javascript src="/res/js/facebook.js"/>
+        <gsml:javascript src="/res/js/interstitial.js"/>
         <!--<gsml:javascript src="/res/js/search/schoolSearchResultsTable2012.js"/>-->
         <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
         <!--<pageHelper:externalJavascript file="/res/js/history.min.js"/> &lt;!&ndash; TODO: Move this to bottom of page? &ndash;&gt;-->

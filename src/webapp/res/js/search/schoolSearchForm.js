@@ -10,7 +10,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         filtersModule = _filtersModule;
         contentDropdownsModule = _contentDropdownsModule;
         if(searchBarVersion == "v1"){
-            initFalseTabs();
+            initNewVersionNoTabs();
         }
         else{
             setupTabs();
@@ -41,15 +41,31 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         byLocation.init();
         contentDropdownsModule.init();
     };
-    var initFalseTabs = function(){
+    var initNewVersionNoTabs = function(){
 
-        console.log("initFalseTabs");
+        $('#js-openSearchFilters').on('click', function () {
+            $('#js-openSearchFilters').hide();
+            $('#js-closeSearchFilters').show();
+            $('#js-moreFiltersPanel').slideDown();
+
+
+        });
+
+        $('#js-closeSearchFilters').on('click', function () {
+            $('#js-closeSearchFilters').hide();
+            $('#js-moreFiltersPanel').slideUp();
+            $('#js-openSearchFilters').show();
+        });
+
+        $('.js-resetFiltersLink').on('click', function () {
+            GS.search.filters.reset();
+            GS.search.results.update();
+        });
+
         $("#js-byLocationTab").on("click", function(){
-            console.log("byLocationTab");
             noTabSwitch('location');
         });
         $("#js-byNameTab").on("click", function(){
-            console.log("byNameTab");
             noTabSwitch('name');
         });
 

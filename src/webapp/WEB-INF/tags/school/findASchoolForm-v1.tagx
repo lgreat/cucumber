@@ -118,5 +118,10 @@
             <!--<search:schoolSearchFiltersPanel showAdvancedFilters="${false}"/>-->
         </div>
 
+
     </div>
+
+    <div data-gs-html-mirror="total-results-count" id="js_totalResultsCountReturn"
+         class="largest bottom mtl">TEST<!-- do not collapse --></div>
+    <!--<div id="js_totalResultsCountReturn">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 </jsp:root>
