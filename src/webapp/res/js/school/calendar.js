@@ -101,8 +101,11 @@ GS.school.calendar =  (function($) {
         });
     }
     var selectCallbackTandemCalFile = function(selectValue){
-        if(selectValue == "Print Calendar"){
-            GS.school.calendar.print();
+        if(selectValue === "Print Calendar"){
+            s.tl(true, 'o', 'Tandem_Print');
+            setTimeout(function() {
+                print();
+            }, 500);
         }
         else{
             var $select = $("#js-export-school-calendar");
@@ -112,8 +115,7 @@ GS.school.calendar =  (function($) {
             var ncesCode = $select.data('gs-school-nces-code');
             exportCalendar(ncesCode, format, schoolName);
         }
-
-    }
+    };
 
 
     /**
