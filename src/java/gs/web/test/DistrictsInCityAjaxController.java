@@ -69,6 +69,10 @@ public class DistrictsInCityAjaxController implements Controller {
             choosedistrictLabel = "Choose district";
         }
         List<District> districts = null;
+        if(state.equals(State.HI)){
+            county = "Honolulu";
+        }
+
         if(county != null){
             districts = _districtDao.findDistrictsInCounty(state, county,false);
         }else if(city != null){

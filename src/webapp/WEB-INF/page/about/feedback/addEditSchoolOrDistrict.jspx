@@ -471,7 +471,7 @@ function do_add_edit(state,clear){
                         $("#district_list").show();
                     }
                 }
-                if($('input:radio[name=schoolType]:checked').val() == 'private'){
+                if($('input:radio[name=schoolType]:checked').val() == 'private' || $("#addEditSchoolOrDistrictCommand_state").val() == "HI"){
                     $("#schoolDistrictFields").show();
                 }
             }
@@ -556,6 +556,11 @@ function do_add_edit(state,clear){
 
             }
         });
+        if($("#addEditSchoolOrDistrictCommand_schoolId").val() == ""){
+            $("#schoolDistrictFields").hide();
+        }else{
+            $("#schoolDistrictFields").show();
+        }
 
     });
 
@@ -591,9 +596,14 @@ function do_add_edit(state,clear){
                     $("#schoolDistrictFields").show();
                 }
             });
+        }
+
+        if($("#addEditSchoolOrDistrictCommand_districtId").val() == ""){
+            $("#schoolDistrictFields").hide();
         }else{
             $("#schoolDistrictFields").show();
         }
+
 
     });
     //doAddEditSections();
@@ -801,7 +811,7 @@ $(document).ready(function(){
 
             <li class="fl1-item">
                 <form:label cssClass="label1 text2bold" path="state" for="addEditSchoolOrDistrictCommand.state">
-                    StateName <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                    State <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                 </form:label>
                 <form:select path="state" id="addEditSchoolOrDistrictCommand_state">
                     <form:option value="" label="- Choose state -"/>
