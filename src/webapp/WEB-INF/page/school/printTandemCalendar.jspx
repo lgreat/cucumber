@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           version="2.0" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator">
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <jsp:directive.page contentType="text/html"/>
     <jsp:output doctype-root-element="html"
@@ -33,6 +34,15 @@
 
         <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
         <ad:enableGptAsynchronousMode />
+
+        <jsp:scriptlet>
+            try {
+                gs.web.util.PageHelper pageHelper = (gs.web.util.PageHelper) request.getAttribute(gs.web.util.PageHelper.REQUEST_ATTRIBUTE_NAME);
+                if (null != pageHelper) {
+                    pageHelper.addAdKeyword("template", "printable");
+                }
+            } catch (Exception e) { /* ignore */ }
+        </jsp:scriptlet>
     </head>
 
 
