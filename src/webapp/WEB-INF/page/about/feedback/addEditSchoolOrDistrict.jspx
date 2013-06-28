@@ -951,6 +951,9 @@ $(document).ready(function(){
             <gsweb:yesNoSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true" onChange="doWhenOpen();" styleId="openSelect"/>
         </spring:bind>
     </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="open" useImage="true" styleClass="warning"/>
+    </div>
 </div>
 
 <div class="field" id="whenOpen">
@@ -965,6 +968,9 @@ $(document).ready(function(){
             <form:option value="" label="-Select Year-"/>
             <form:options items="${requestScope.openYear}" itemValue="value" itemLabel="name"/>
         </form:select>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="openSeason" useImage="true" styleClass="warning"/>
     </div>
 </div>
 
