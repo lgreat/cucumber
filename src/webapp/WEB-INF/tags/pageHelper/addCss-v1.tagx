@@ -9,112 +9,61 @@
 
     <!-- Begin CSS files.  All CSS should be above JS files. -->
     <!--<c:if test="${!requestScope.pageHelper.adFree}">
-        <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <gsml:css href="/res/css/ads.css"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
     </c:if>-->
 
-    <c:choose>
-        <c:when test="${(not empty param.uncompressedScripts
-                         or pageContext.request.serverName eq 'localhost'
-                         or fn:contains(pageContext.request.serverName, 'samson')
-                         or fn:contains(pageContext.request.serverName, 'mitchtest')
-                         or fn:contains(pageContext.request.serverName, 'rcox.office')
-                         or fn:startsWith(pageContext.request.serverName, '172.18.1.')
-                         or pageContext.request.serverName eq '127.0.0.1')
-                         and empty param.compressedScripts}">
-            <gsml:url var="reset" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="grid960" value="/res/css/01_grids/grid_960.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="module" value="/res/css/02_module/mod-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="moduleskin" value="/res/css/02_module/mod_skins-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="media" value="/res/css/03_media/media-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="text" value="/res/css/04_text/typography-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="forms" value="/res/css/05_forms/forms-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="icon" value="/res/css/06_sprites/icon.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="ratings" value="/res/css/06_sprites/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="uispritecss" value="/res/css/06_sprites/ui.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="utilityLinks" value="/res/css/07_navigation/utilityLinks-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="topSearch" value="/res/css/07_navigation/topSearch-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="primarynavigation" value="/res/css/07_navigation/primary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="secondarynavigation" value="/res/css/07_navigation/secondary-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="ospnavigation" value="/res/css/07_navigation/osp.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="pagination" value="/res/css/07_navigation/pagination.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="footer" value="/res/css/07_navigation/footer-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="buttons" value="/res/css/08_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="spacing" value="/res/css/09_spacing/spacing-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="roundedcorners" value="/res/css/10_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="lineargradients" value="/res/css/10_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="opacityshadow" value="/res/css/10_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="modal" value="/res/css/11_modal/modal.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="ad" value="/res/css/12_advertising/ad.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="adIE7" value="/res/css/12_advertising/ad-IE7.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="adIE8" value="/res/css/12_advertising/ad-IE8.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="tabcss" value="/res/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="maps" value="/res/css/14_maps/maps.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <!--<gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
-            <!--<gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
-            <!--<gsml:url var="themeroller" value="/res/css/97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
-            <!--<gsml:url var="timepicker" value="/res/css/97_jQueryUI/timepicker/jquery.ptTimeSelect.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
-            <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <!--<gsml:url var="hovercss" value="/res/css/hovers-v0.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
-            <gsml:url var="houseadscss" value="/res/css/house_ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <!--
+        IE CSS limits:
+        1) up to 31 imports
+        2) up to 4 levels deep
+        3) 4,096 rules per style sheet
+        4) <= 285kb per file
+        -->
+    <gsml:combinedCss
+            href="/res/css/gs_styles-v1.combined.min.css"
+            IE7href="/res/css/gs_styles_IE7-v1.combined.min.css"
+            IE8href="/res/css/gs_styles_IE8-v1.combined.min.css">
 
-            <!--
-            IE CSS limits:
-            1) up to 31 imports
-            2) up to 4 levels deep
-            3) 4,096 rules per style sheet
-            4) <= 285kb per file
-            -->
+        <!-- 01 --> <gsml:css href="/res/css/00_reset/reset.css"/>
+        <!-- 02 --> <gsml:css href="/res/css/01_grids/grid_960.css"/>
+        <!-- 03 --> <gsml:css href="/res/css/01_grids/grid_oocss.css"/>
+        <!-- 04 --> <gsml:css href="/res/css/02_module/mod-v1.css"/>
+        <!-- 05 --> <gsml:css href="/res/css/02_module/mod_skins-v1.css"/>
+        <!-- 06 --> <gsml:css href="/res/css/03_media/media-v1.css"/>
+        <!-- 07 --> <gsml:css href="/res/css/04_text/typography-v1.css"/>
+        <!-- 08 --> <gsml:css href="/res/css/05_forms/forms-v1.css"/>
+        <!-- 09 --> <gsml:css href="/res/css/06_sprites/icon.css"/>
+        <!-- 10 --> <gsml:css href="/res/css/06_sprites/ratings.css"/>
+        <!-- 11 --> <gsml:css href="/res/css/06_sprites/ui.css"/>
+        <!-- 12 --> <gsml:css href="/res/css/07_navigation/utilityLinks-v1.css"/>
+        <!-- 13 --> <gsml:css href="/res/css/07_navigation/topSearch-v1.css"/>
+        <!-- 14 --> <gsml:css href="/res/css/07_navigation/primary.css"/>
+        <!-- 15 --> <gsml:css href="/res/css/07_navigation/secondary-v1.css"/>
+        <!-- 16 --> <gsml:css href="/res/css/07_navigation/osp.css"/>
+        <!-- 17 --> <gsml:css href="/res/css/07_navigation/footer-v1.css"/>
+        <!-- 18 --> <gsml:css href="/res/css/08_buttons/buttons.css"/>
+        <!-- 19 --> <gsml:css href="/res/css/09_spacing/spacing-v1.css"/>
+        <!-- 20 --> <gsml:css href="/res/css/10_css3/rounded_corners.css"/>
+        <!-- 21 --> <gsml:css href="/res/css/10_css3/linear_gradients.css"/>
+        <!-- 22 --> <gsml:css href="/res/css/10_css3/opacity_shadow.css"/>
+        <!-- 23 --> <gsml:css href="/res/css/11_modal/modal.css"/>
+        <!-- 24 --> <gsml:css href="/res/css/12_advertising/ad.css"/>
+        <!-- 25 --> <gsml:css href="/res/css/12_advertising/ad-IE7.css" IEConditional="if IE 7"/>
+        <!-- 26 --> <gsml:css href="/res/css/12_advertising/ad-IE8.css" IEConditional="if IE 8"/>
+        <!-- 27 --> <gsml:css href="/res/css/13_tabs/tabs.css"/>
+        <!-- 28 --> <gsml:css href="/res/css/14_maps/maps.css"/>
+        <!--<gsml:css href="/res/css/38_special/cms_content.css"/>-->
+        <!--<gsml:css href="/res/css/38_special/community_hover.css"/>-->
+        <!--<gsml:css href="/res/css/97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css"/>-->
+        <!--<gsml:css href="/res/css/97_jQueryUI/timepicker/jquery.ptTimeSelect.css"/>-->
+        <!-- 29 --> <gsml:css href="/res/css/99_debugging/debug.css"/>
+        <!--<gsml:css href="/res/css/hovers-v0.css"/>-->
+        <!-- 30 --> <gsml:css href="/res/css/house_ads.css"/>
+        <!-- 31 --> <gsml:css href="/res/css/jquery.autocomplete.css"/>
+        <!-- 32 --> <gsml:css href="/res/css/07_navigation/pagination.css"/>
 
-            <!-- 01 --> <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
-            <!-- 02 --> <![CDATA[<link rel="stylesheet" href="${grid960}" type="text/css" />]]>
-            <!-- 03 --> <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
-            <!-- 04 --> <![CDATA[<link rel="stylesheet" href="${module}" type="text/css" />]]>
-            <!-- 05 --> <![CDATA[<link rel="stylesheet" href="${moduleskin}" type="text/css" />]]>
-            <!-- 06 --> <![CDATA[<link rel="stylesheet" href="${media}" type="text/css" />]]>
-            <!-- 07 --> <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
-            <!-- 08 --> <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>
-            <!-- 09 --> <![CDATA[<link rel="stylesheet" href="${icon}" type="text/css" />]]>
-            <!-- 10 --> <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
-            <!-- 11 --> <![CDATA[<link rel="stylesheet" href="${uispritecss}" type="text/css" />]]>
-            <!-- 12 --> <![CDATA[<link rel="stylesheet" href="${utilityLinks}" type="text/css" />]]>
-            <!-- 13 --> <![CDATA[<link rel="stylesheet" href="${topSearch}" type="text/css" />]]>
-            <!-- 14 --> <![CDATA[<link rel="stylesheet" href="${primarynavigation}" type="text/css" />]]>
-            <!-- 15 --> <![CDATA[<link rel="stylesheet" href="${secondarynavigation}" type="text/css" />]]>
-            <!-- 16 --> <![CDATA[<link rel="stylesheet" href="${ospnavigation}" type="text/css" />]]>
-            <!-- 17 --> <![CDATA[<link rel="stylesheet" href="${footer}" type="text/css" />]]>
-            <!-- 18 --> <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
-            <!-- 19 --> <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
-            <!-- 20 --> <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
-            <!-- 21 --> <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
-            <!-- 22 --> <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
-            <!-- 23 --> <![CDATA[<link rel="stylesheet" href="${modal}" type="text/css" />]]>
-            <!-- 24 --> <![CDATA[<link rel="stylesheet" href="${ad}" type="text/css" />]]>
-            <!-- 25 --> <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${adIE7}" type="text/css" /><![endif]-->]]>
-            <!-- 26 --> <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${adIE8}" type="text/css" /><![endif]-->]]>
-            <!-- 27 --> <![CDATA[<link rel="stylesheet" href="${tabcss}" type="text/css" />]]>
-            <!-- 28 --> <![CDATA[<link rel="stylesheet" href="${maps}" type="text/css" />]]>
-            <!--<![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>-->
-            <!--<![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>-->
-            <!--<![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>-->
-            <!--<![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>-->
-            <!-- 29 --> <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
-            <!--&lt;!&ndash; 29 &ndash;&gt; <![CDATA[<link rel="stylesheet" href="${hovercss}" type="text/css" />]]>-->
-            <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
-            <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
-            <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${pagination}" type="text/css" />]]>
+    </gsml:combinedCss>
 
-        </c:when>
-        <c:otherwise>
-            <gsml:url var="gs_stylescss_v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="gs_stylescssIE7_v1" value="/res/css/gs_styles_IE7-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="gs_stylescssIE8_v1" value="/res/css/gs_styles_IE8-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <![CDATA[<link rel="stylesheet" href="${gs_stylescss_v1}" type="text/css" />]]>
-            <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${gs_stylescssIE7_v1}" type="text/css" /><![endif]-->]]>
-            <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${gs_stylescssIE8_v1}" type="text/css" /><![endif]-->]]>
-        </c:otherwise>
-    </c:choose>
 
 </jsp:root>
