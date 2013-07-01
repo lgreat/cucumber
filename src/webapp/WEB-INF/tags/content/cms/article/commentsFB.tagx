@@ -50,7 +50,7 @@
                 );
             });
         </script>
-     <span class="hidden" id="js_articleCommentsCountFB"><fb:comments-count href="${pageScope.feature.permaLinkForFbComments}"></fb:comments-count></span>
+     <div class="dn" id="js_articleCommentsCountFB"><fb:comments-count href="${pageScope.feature.permaLinkForFbComments}"></fb:comments-count></div>
      ]]>
 
     <div class="gsTabs" id="articleCommentsLinkTo">
@@ -76,7 +76,7 @@
                     </div>
                     <div class="bd">
                         <c:forEach var="comment" items="${pageScope.comments}">
-                            <div class="small articleCommentDate"><fmt:formatDate value="${comment.posted}"
+                            <div class="small_bold articleCommentDate mbs"><fmt:formatDate value="${comment.posted}"
                                                                                   pattern="MM/d/yyyy"/>:
                             </div>
 

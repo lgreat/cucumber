@@ -12,25 +12,25 @@
     <jsp:directive.attribute name="includeEmailBtn" required="false" type="java.lang.Boolean"
                              description="Whether to include the share button"/>
 
-    <div class="fltlft jq-socialTools mbm mhs">
+    <div class="jq-socialTools mbm mhs">
 
         <c:if test="${includeShareBtn==true}">
-            <span class="mrs vert-align-top iblock">
+            <div class="fl mrs">
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
                 <script type="text/javascript">var switchTo5x = false;</script>
                 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
                 <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
-            </span>
+            </div>
         </c:if>
 
 
-        <span class="mhs">
+        <div class="fl mhs">
             <promo:tweetButtonArticle/>
-        </span>
+        </div>
 
-        <span class="mls">
+        <div class="fl mlm">
             <community:addGooglePlusOne url="${fullUrl}"/>
-        </span>
+        </div>
 
     </div>
 

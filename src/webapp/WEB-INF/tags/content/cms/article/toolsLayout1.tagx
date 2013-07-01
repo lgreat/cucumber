@@ -28,21 +28,20 @@
                 </div>
             </div>
 
-           <!--email and print-->
-            <div style="overflow: hidden;">
-                <div class="border pls pts">
+            <div>
+                <div class="border pls pts" style="padding-bottom: 35px">
                     <ul class="fl" style="padding: 0; margin: 0;">
-                        <li class="smaller fl mts" style="list-style-type: none; padding: 0">
+                        <li class="smaller fl mts mls mrl" style="list-style-type: none; padding: 0">
                             <gsml:url var="mailToFriendUrl"
                                       value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                             <gsml:a href="${mailToFriendUrl}"
                                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=700,height=600,scrollbars=yes'); return false;">
-                                <span class="sprite i-email vert-align-mid mrs fl"><!-- do not collapse --></span>Email</gsml:a>
+                                <span class="iconx16 i-16-email vert-align-mid mrs fl"><!-- do not collapse --></span>Email</gsml:a>
                         </li>
                         <li class="smaller fl mts" style="list-style-type: none; padding: 0">
                             <a href="javascript:void(0);"
                                onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=700,height=600,scrollbars=yes'); return false;"><span
-                                    class="sprite i-print vert-align-mid mrs fl"><!-- do not collapse --></span>Print</a>
+                                    class="iconx16 i-16-print vert-align-mid mrs fl"><!-- do not collapse --></span>Print</a>
                         </li>
                         <c:if test="${not empty feature.otherLanguageUri}">
                             <li class="smaller wsnw">
