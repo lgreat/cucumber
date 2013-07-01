@@ -13,7 +13,7 @@
 <div class="js-schoolSearchFiltersPanel ${showAdvancedFilters eq true ? '' : 'dn'}">
 
 
-<div id="js-moreFiltersPanel" class="grid_16 alpha omega dn" style="z-index:450;">
+<div id="js-moreFiltersPanel" class="grid_16 alpha omega dn">
 <c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
 <c:set var="selectedStyle" value="padding:3px;margin-top:3px;background-color:#ccc;border:1px solid grey;"/>
 
@@ -333,37 +333,6 @@
     </div>
 </div>
 </div>
-<div class="grid_16 alpha omega">
-    <div id="js-closeSearchFilters" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pas ">
-        <h4 class="bottom">
-            <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">
-                <div class="media skin-2 attribution">
-                    <div class="img mrm">
-                        Close
-                    </div>
-                    <div class="bd">
-                        <div class="iconx16 i-16-search-filter-arrow-up"><!-- do not collapse --></div>
-                    </div>
-                </div>
-            </a>
-        </h4>
-    </div>
-</div>
-<div class="grid_16 alpha omega">
-    <div id="js-openSearchFilters" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pas dn">
-        <h4 class="bottom">
-            <!--<a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">-->
-                <div class="media skin-2 attribution">
-                    <div class="img mrm">
-                        Advanced
-                    </div>
-                    <div class="bd">
-                        <div class="iconx16 i-16-search-filter-arrow-up"><!-- do not collapse --></div>
-                    </div>
-                </div>
-            <!--</a>-->
-        </h4>
-    </div>
-</div>
+
 </div>
 </jsp:root>

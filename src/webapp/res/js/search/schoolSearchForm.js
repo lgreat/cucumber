@@ -42,12 +42,12 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         contentDropdownsModule.init();
     };
     var initNewVersionNoTabs = function(){
-
+        var currentFilterState = "open";
         $('#js-openSearchFilters').on('click', function () {
             $('#js-openSearchFilters').hide();
             $('#js-closeSearchFilters').show();
             $('#js-moreFiltersPanel').slideDown();
-
+            currentFilterState = "open";
 
         });
 
@@ -55,6 +55,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             $('#js-closeSearchFilters').hide();
             $('#js-moreFiltersPanel').slideUp();
             $('#js-openSearchFilters').show();
+            currentFilterState = "closed";
         });
 
         $('.js-resetFiltersLink').on('click', function () {
@@ -81,6 +82,14 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 $("#js-schoolSearchFiltersPanel").removeClass("dn");
                 $("#js-moreFiltersPanel").removeClass("dn");
                 $(".js-schoolSearchFiltersPanel").removeClass("dn");
+                if(currentFilterState == "open"){
+                    //show close button
+                    $('#js-closeSearchFilters').show();
+                }
+                else{
+                    // show advanced button
+                    $('#js-openSearchFilters').show();
+                }
             }
             else{
                 // hide location section
@@ -91,6 +100,8 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 $("#js-schoolSearchFiltersPanel").addClass("dn");
                 $("#js-moreFiltersPanel").addClass("dn");
                 $(".js-schoolSearchFiltersPanel").addClass("dn");
+                $('#js-closeSearchFilters').hide();
+                $('#js-openSearchFilters').hide();
             }
         };
     };

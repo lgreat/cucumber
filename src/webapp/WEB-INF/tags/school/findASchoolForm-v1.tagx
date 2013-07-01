@@ -120,8 +120,49 @@
 
 
     </div>
+    <div class="grid_16 alpha omega">
+        <div id="js-closeSearchFilters"  class="dn" style="width:79px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
+            <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 3px;">
+                <!--<a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">-->
+                <div class="fl prs">Close</div>
+                <div class="fl">
+                    <div  style="margin-top: 3px;" class="iconx16 i-16-sort-list-arrow-up"><!-- do not collapse --></div>
+                </div>
 
-    <div class="largest bottom mbm mtl">
+                <!--</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="grid_16 alpha omega">
+        <div id="js-openSearchFilters" class="dn" style="width:107px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
+            <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 3px;">
+                <!--<a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">-->
+                <div class="fl prs">Advanced</div>
+                <div class="fl">
+                    <div  style="margin-top: 3px;" class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></div>
+                </div>
+
+                <!--</a>-->
+            </div>
+        </div>
+    </div>
+    <!--<div class="grid_16 alpha omega">-->
+        <!--<div id="js-openSearchFilters" class="alpha prefix_7 grid_4 suffix_5 omega pas dn">-->
+            <!--<h4 class="bottom">-->
+                <!--&lt;!&ndash;<a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">&ndash;&gt;-->
+                <!--<div class="media skin-2 attribution">-->
+                    <!--<div class="img mrm">-->
+                        <!--Advanced-->
+                    <!--</div>-->
+                    <!--<div class="bd">-->
+                        <!--<div class="iconx16 i-16-search-filter-arrow-up">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--</h4>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="largest bottom mbm mtl ptl">
         We found <span style="color: #009900"><span data-gs-html-mirror="total-results-count" id="js_totalResultsCountReturn"><!-- do not collapse --></span> schools</span><br />
         <span class="small bottom"><strong>Note:</strong> Results are among schools that have shared info with us.</span>
     </div>
