@@ -1254,4 +1254,6 @@ Extends button-1 by changing:
     border: none;
 }
 
+.cp{ cursor:pointer; }
+
 

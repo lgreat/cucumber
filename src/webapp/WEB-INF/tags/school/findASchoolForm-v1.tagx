@@ -49,19 +49,19 @@
                     <input type="hidden" name="city"/>
 
                     <div class="line">
-                        <div class="unit size17of20">
+                        <div class="unit size17of20" style="margin-top: 2px;">
                             <form:input type="text" name="locationSearchString" class="text-bigger input_13"
                                         id="js-findByLocationBox"
                                         placeholder="Search by city AND state or address ..."
                                         path="schoolSearchCommand.locationSearchString"/>
                         </div>
                         <div class="unit size3of20 lastUnit">
-                            <button class="button-4 searchSubmit" type="submit">Search</button>
+                            <button class="but but-lg but-1" type="submit">Search</button>
                         </div>
                     </div>
                     <!--<div class="smallest quiet bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>-->
                 </form>
-                <a id="js-byNameTab" class="make-2b2b2b smaller bottom"
+                <a id="js-byNameTab" class="make-2b2b2b smaller bottom cp"
                    onclick="${onclickName}">Search by school name &#187;</a>
             </div>
 
@@ -76,7 +76,7 @@
 
                     <div class="line">
                         <div class='unit searchBarFas size83of100 mrm clearfix pr'
-                             style='background: #fff; border: 1px solid #b8b8b8;'>
+                             style='background: #fff; border: 1px solid #b8b8b8; margin-top: 2px;'>
                             <div class="fl">
                                 <input type="text" name="q"
                                        class="text-bigger"
@@ -99,13 +99,13 @@
                             </div>
                         </div>
                         <div class="unit size20of100 lastUnit">
-                            <button class="button-4 searchSubmit" type="submit">Search</button>
+                            <button class="but but-lg but-1" type="submit">Search</button>
                         </div>
                     </div>
                     <!--<div class="smallest quiet bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>-->
 
                 </form>
-                <a id="js-byLocationTab" class="make-2b2b2b smaller bottom"
+                <a id="js-byLocationTab" class="make-2b2b2b smaller bottom cp"
                    onclick="${onclickLocation}">Search by location &#187;</a>
             </div>
 
@@ -146,22 +146,6 @@
             </div>
         </div>
     </div>
-    <!--<div class="grid_16 alpha omega">-->
-        <!--<div id="js-openSearchFilters" class="alpha prefix_7 grid_4 suffix_5 omega pas dn">-->
-            <!--<h4 class="bottom">-->
-                <!--&lt;!&ndash;<a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">&ndash;&gt;-->
-                <!--<div class="media skin-2 attribution">-->
-                    <!--<div class="img mrm">-->
-                        <!--Advanced-->
-                    <!--</div>-->
-                    <!--<div class="bd">-->
-                        <!--<div class="iconx16 i-16-search-filter-arrow-up">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-            <!--</h4>-->
-        <!--</div>-->
-    <!--</div>-->
     <div class="largest bottom mbm mtl ptl">
         We found <span style="color: #009900"><span data-gs-html-mirror="total-results-count" id="js_totalResultsCountReturn"><!-- do not collapse --></span> schools</span><br />
         <span class="small bottom"><strong>Note:</strong> Results are among schools that have shared info with us.</span>
