@@ -54,7 +54,7 @@
     </c:if>
 
         <ad:enableGptAsynchronousMode/>
-        <!--<gsml:javascript src="/res/js/json2.js"/>-->
+        <gsml:javascript src="/res/js/json2.js"/>
         <![CDATA[<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>]]>
         <gsml:javascript src="/res/js/uri/uri.js"/>
 
