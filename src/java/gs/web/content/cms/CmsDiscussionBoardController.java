@@ -154,7 +154,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         }
         model.put(MODEL_PAGE, page);
         model.put(MODEL_PAGE_SIZE, pageSize);
-        model.put(MODEL_SORT, sort);
+        model.put(MODEL_SORT, sort.toString());
 
         boolean includeInactive = false;
         if (user != null && user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
