@@ -36,8 +36,14 @@
                         href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
             </c:if>
             <li>
-                Welcome,
-                <link:userAccount styleClass="nav_group_heading">${requestScope.context.screenName}</link:userAccount>
+                <c:choose>
+                    <c:when test="${not empty requestScope.context.firstName}">
+                        Welcome, <link:userAccount styleClass="nav_group_heading">${requestScope.context.firstName}</link:userAccount>
+                    </c:when>
+                    <c:otherwise>
+                        <link:userAccount styleClass="nav_group_heading">My account</link:userAccount>
+                    </c:otherwise>
+                </c:choose>
             </li>
             <li>
                 <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
