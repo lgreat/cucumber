@@ -69,6 +69,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private User _user;
     private String _userHash;
     private String _screenName;
+    private String _firstName;
     private Integer _memberId;
     private String _email;
     private String _nickname;
@@ -639,6 +640,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setScreenName(String screenName) {
         _screenName = screenName;
+    }
+
+    public String getFirstName() {
+        return _firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        _firstName = firstName;
     }
 
     public void setMssCount(int mssCount) {

@@ -40,6 +40,7 @@ public class ClientSideSessionCache {
     private int _mslCount;
     private String _userHash;
     private String _screenName;
+    private String _firstName;
 
     private static final Log _log = LogFactory.getLog(ClientSideSessionCache.class);
 
@@ -93,6 +94,7 @@ public class ClientSideSessionCache {
         final String[] p = _email.split("@");
         _nickname = p[0];
         _screenName = (user.getUserProfile() != null)?user.getUserProfile().getScreenName():null;
+        _firstName = user.getFirstName();
         try {
             _userHash = AuthenticationManager.generateCookieValue(user);
         } catch (NoSuchAlgorithmException e) {
@@ -243,7 +245,7 @@ public class ClientSideSessionCache {
      */
     public String getCookieRepresentation() {
         StringBuffer b = new StringBuffer();
-        b.append("4"); // version
+        b.append("5"); // version
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(_email);
         b.append(INTRA_COOKIE_DELIMETER);
@@ -260,6 +262,8 @@ public class ClientSideSessionCache {
         b.append( (getUserHash() == null)?"":getUserHash()); // 7
         b.append(INTRA_COOKIE_DELIMETER);
         b.append( (getScreenName() == null)?"":getScreenName()); // 8
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append( (getFirstName() == null)?"":getFirstName()); // 8
         String cookie = b.toString();
         String encoded;
         try {
@@ -295,9 +299,20 @@ public class ClientSideSessionCache {
         if (version > 3) {
             _screenName = s[8];
         }
+        if (version > 4) {
+            _firstName = s[9];
+        }
     }
 
     public Integer getMemberId() {
         return _memberId;
+    }
+
+    public String getFirstName() {
+        return _firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        _firstName = firstName;
     }
 }
