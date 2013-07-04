@@ -168,7 +168,6 @@ GS.facebook = GS.facebook || (function () {
             var $this = $(this);
             var href = $this.attr('href');
 
-            alert('logout clicked');
             FB.getLoginStatus(function(response){
                 if (response.status === "connected") {
                     FB.logout(function (response) {
