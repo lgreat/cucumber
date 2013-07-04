@@ -286,8 +286,18 @@
                 <div class="mod myAccount brdlft_dotted">
                     <h4 class="subhead2">Manage my account</h4>
                     <ul class="text3-d61">
-                        <li><link:changeEmail>Update my email address</link:changeEmail></li>
-                        <li><link:resetPassword>Change my password</link:resetPassword></li>
+                        <c:choose>
+                            <c:when test="${pageUser.facebookUser}">
+                                <li><a href="https://www.facebook.com">Change my email on Facebook</a></li>
+                                <li><a href="https://www.facebook.com">Change my password on Facebook</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><link:changeEmail>Update Email Address</link:changeEmail></li>
+                                <li><link:resetPassword>Change My Password</link:resetPassword></li>
+
+                            </c:otherwise>
+                        </c:choose>
+
                         <li><link:newsletterManagement>Manage emails &amp;amp; newsletters</link:newsletterManagement></li>
                         <li><link:mySchoolList>Edit My School List</link:mySchoolList></li>
                     </ul>
