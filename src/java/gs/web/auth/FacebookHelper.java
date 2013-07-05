@@ -25,10 +25,13 @@ public class FacebookHelper {
 
     public static FacebookSession getFacebookSession(HttpServletRequest request) {
         FacebookSession facebookSession = (FacebookSession) request.getAttribute(FacebookSession.REQUEST_ATTRIBUTE);
+        String fbsrCookieName = "fbsr_" + CmsUtil.getFacebookAppId();
 
         if (facebookSession == null) {
-            if (request.getParameter(SIGNED_REQUEST_PARAM) != null) {
-                facebookSession = parseSignedRequest(request.getParameter(SIGNED_REQUEST_PARAM));
+            if (CookieUtil.hasCookie(request, fbsrCookieName)) {
+                facebookSession = getFacebookDataFromCookie(request);
+            } else if (request.getParameter(SIGNED_REQUEST_PARAM) != null) {
+                facebookSession = parseSignedRequest(request, request.getParameter(SIGNED_REQUEST_PARAM));
             } else if (request.getParameter(OAUTH_AUTHENTICATION_CODE_PARAM) != null) {
                 String oauthCode = request.getParameter(OAUTH_AUTHENTICATION_CODE_PARAM);
                 facebookSession = FacebookSession.builder().authorizationCode(oauthCode).build();
@@ -42,9 +45,8 @@ public class FacebookHelper {
 
     public static String getOAuthCallbackUrl(HttpServletRequest request) {
 
-        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
 
-        String thisUrl = requestInfo.getRequestURL();
+        String thisUrl = request.getRequestURL().toString();
 
         String callback = UrlUtil.buildHostAndPortString(request).toString() + OAuthCallbackHandler.PATH;
 
@@ -53,10 +55,11 @@ public class FacebookHelper {
         return oauthCallback;
     }
 
-    public static FacebookSession parseSignedRequest(String signedRequest) {
+    public static FacebookSession parseSignedRequest(HttpServletRequest request, String signedRequest) {
         boolean valid = false;
 
-        FacebookSession.GsFacebookSessionBuilder requestData = FacebookSession.builder();
+        FacebookSession.GsFacebookSessionBuilder fbSessionBuilder = FacebookSession.builder();
+        fbSessionBuilder.callbackUrl(getOAuthCallbackUrl(request));
 
         try {
             //parse signed_request
@@ -84,19 +87,30 @@ public class FacebookHelper {
             //check if data is signed correctly
             if(hmacSHA256(signedRequestParts[1], CmsUtil.getFacebookSecret()).equals(signedRequestParts[0])) {
                 if (data.has("code")) {
-                    requestData.authorizationCode(data.getString("code"));
+                    fbSessionBuilder.authorizationCode(data.getString("code"));
                 }
-                requestData.userId(data.getString("user_id"));
+                // access token
+                if (data.has("oauth_token")) {
+                    fbSessionBuilder.accessToken(data.getString("oauth_token"));
+                }
+                fbSessionBuilder.userId(data.getString("user_id"));
             } else {
                 //signature is not correct, possibly the data was tampered with
                 valid = false;
             }
 
         } catch (Exception e) {
-            requestData = FacebookSession.builder();
+            fbSessionBuilder = FacebookSession.builder();
         }
 
-        return requestData.build();
+        FacebookSession session;
+        try {
+            session = fbSessionBuilder.build();
+        } catch (Exception e) {
+            session = FacebookSession.builder().build();
+        }
+
+        return session;
     }
 
     public static FacebookSession getFacebookDataFromCookie(HttpServletRequest request) {
@@ -105,7 +119,7 @@ public class FacebookHelper {
 
         if (cookie != null) {
             String signedRequest = cookie.getValue();
-            facebookSession = parseSignedRequest(signedRequest);
+            facebookSession = parseSignedRequest(request, signedRequest);
         } else {
             facebookSession = FacebookSession.builder().build();
         }

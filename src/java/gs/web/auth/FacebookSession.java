@@ -9,6 +9,7 @@ import facebook4j.internal.org.json.JSONArray;
 import facebook4j.internal.org.json.JSONObject;
 import gs.data.community.User;
 import gs.data.util.CmsUtil;
+import org.apache.log4j.Logger;
 
 import java.net.URL;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class FacebookSession implements Facebook {
 
     public static final String REQUEST_ATTRIBUTE = "facebookSession";
+    private Logger _log = Logger.getLogger(FacebookSession.class);
 
     public static class GsFacebookSessionBuilder {
         private FacebookSession _facebookSession = new FacebookSession();
@@ -40,9 +42,15 @@ public class FacebookSession implements Facebook {
             return this;
         }
 
+        public GsFacebookSessionBuilder callbackUrl(String callbackUrl) {
+            // yeah, unfortunately the get method actually modifies the underlying state
+            _facebookSession.getOAuthAuthorizationURL(callbackUrl);
+            return this;
+        }
+
         public FacebookSession build() {
             if (!hasAccessToken && _facebookSession.getAuthorizationCode() != null) {
-                _facebookSession.loadAccessToken();
+                //_facebookSession.loadAccessToken();
             }
             return _facebookSession;
         }
@@ -68,13 +76,12 @@ public class FacebookSession implements Facebook {
     public boolean loadAccessToken() {
         boolean success = false;
 
-        if (getOAuthAccessToken() == null) {
-            try {
-                AccessToken token = getOAuthAccessToken(_authorizationCode);
-                success = token != null;
-            } catch (FacebookException e) {
-                // fail
-            }
+        try {
+            AccessToken token = getOAuthAccessToken(_authorizationCode);
+            success = token != null;
+        } catch (Exception e) {
+            _log.debug("Problem getting access token: ", e);
+            // fail
         }
         return success;
     }
@@ -83,7 +90,8 @@ public class FacebookSession implements Facebook {
         if (_userId == null) {
             try {
                 _userId = _facebook.getId();
-            } catch (FacebookException e) {
+            } catch (Exception e) {
+                _log.debug("Could not get userId from Facebook");
                 // fail
             }
         }
@@ -119,6 +127,12 @@ public class FacebookSession implements Facebook {
         setOAuthAccessToken(new AccessToken(accessToken, null));
     }
 
+    public boolean isSignedIn() {
+        String userId = getUserId();
+
+        return (userId != null);
+    }
+
     public boolean isValid() {
         boolean valid = false;
 
@@ -129,7 +143,7 @@ public class FacebookSession implements Facebook {
 
         try {
             valid = getMe() != null;
-        } catch (FacebookException e) {
+        } catch (Exception e) {
         }
 
         return valid;

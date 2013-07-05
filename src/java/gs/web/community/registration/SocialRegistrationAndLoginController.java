@@ -52,6 +52,7 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
     public String NUMBER_MSL_ITEMS_MODEL_KEY = "numberMSLItems";
     public String MODEL_ACCOUNT_CREATED_KEY = "GSAccountCreated";
     public String MODEL_SUCCESS_KEY = "success";
+    public String MODEL_FIRST_NAME_KEY= "firstName";
 
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
@@ -75,16 +76,21 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
             return new MappingJacksonJsonView();
         }
 
-        if (isIPBlocked(request)) {
+        /*if (isIPBlocked(request)) {
             modelMap.put(MODEL_SUCCESS_KEY, "false");
             return view;
-        };
+        };*/
 
         User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
 
         boolean userExists = (user != null);
 
         if (userExists) {
+            FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
+            if (user.getFacebookId() == null) {
+                user.setFacebookId(facebookSession.getUserId());
+            }
+
             // If the user had previously created a GS account but not verified their email, we'll take care of that
             // now.
             if (user.isEmailProvisional()) {
@@ -98,6 +104,8 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
             if (registrationBehavior.isFacebookRegistration()) {
                 view = doSocialSignon(request, response, user);
             }
+
+            _userDao.saveUser(user);
             modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "false");
         } else {
             // only create the user if the user is new
@@ -144,6 +152,7 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
         modelMap.put(EMAIL_MODEL_KEY, user.getEmail());
         modelMap.put(NUMBER_MSL_ITEMS_MODEL_KEY, user.getFavoriteSchools() != null? user.getFavoriteSchools().size() : 0 );
         modelMap.put(MODEL_SUCCESS_KEY, "true");
+        modelMap.put(MODEL_FIRST_NAME_KEY, user.getFirstName());
         modelMap.remove("userRegistrationCommand");
         modelMap.remove("userSubscriptionCommand");
         modelMap.remove("registrationBehavior");
