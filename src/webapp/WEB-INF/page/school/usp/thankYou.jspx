@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
           version="2.0">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <jsp:directive.page contentType="text/html"/>
@@ -34,7 +35,7 @@
                 <div class="mtl">
                     <a href="${schoolUrl}">&#171; Back to ${school.name}</a>
                     <button class="but but-rg but-1 mll" name=""
-                            onclick="javascript:location.href = '${schoolUrl}?tab=reviews'">Write a review now</button>
+                            onclick="javascript:location.href = '${gsweb:escapeJavaScript(schoolUrl)}?tab=reviews';">Write a review now</button>
                 </div>
             </div>
         </div>
