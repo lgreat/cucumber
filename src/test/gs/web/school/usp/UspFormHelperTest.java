@@ -3,9 +3,14 @@ package gs.web.school.usp;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
+import gs.data.json.JSONArray;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.easymock.EasyMock;
 import org.springframework.ui.ModelMap;
 
@@ -13,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.easymock.EasyMock.expect;
@@ -243,6 +249,44 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         assertEquals(formResponseStruct.getOtherTextValue(), otherText);
     }
 
+    public void testJsonFormFieldsHelper() throws JSONException {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("asdfgh@gs.org");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setScreenName("asdfgh");
+        user.setUserProfile(userProfile);
+
+        List<UspFormResponseStruct> uspFormResponses = getSampleFormResponses();
+
+        JSONObject responseJson = _helper.jsonFormFieldsBuilderHelper(uspFormResponses, null, false);
+
+        JSONArray formFields = responseJson.getJSONArray(UspFormHelper.FORM_FIELDS_JSON_RESPONSE_KEY);
+
+        assertEquals(formFields.length(), 2); // we are passing in only 2 fields for test
+
+        JSONObject artsMusicField = (JSONObject) formFields.get(0);
+        assertEquals(artsMusicField.get(UspFormHelper.FIELD_NAME_JSON_RESPONSE_KEY), UspFormHelper.ARTS_MUSIC_PARAM);
+
+        JSONArray artsMusicResponses = artsMusicField.getJSONArray(UspFormHelper.RESPONSES_JSON_RESPONSE_KEY);
+        JSONObject response = (JSONObject) artsMusicResponses.get(0);
+        JSONArray responseValues = response.getJSONArray(UspFormHelper.VALUES_JSON_RESPONSE_KEY);
+        assertEquals(responseValues.get(0).toString(), "{\"label\":\"Computer animation\",\"isSelected\":true,\"responseValue\":\"animation\"}");
+        assertEquals(responseValues.get(1).toString(), "{\"label\":\"Graphics\",\"isSelected\":false,\"responseValue\":\"graphics\"}");
+        assertEquals(artsMusicResponses.get(1).toString(), "{\"key\":\"arts_music\",\"title\":\"Music\",\"values\":[{\"label\":\"Band\",\"isSelected\":true,\"responseValue\":\"band\"}," +
+                "{\"label\":\"Bell / Handbell choir\",\"isSelected\":false,\"responseValue\":\"bells\"}]}");
+
+        JSONObject extendedCareField = (JSONObject) formFields.get(1);
+        assertEquals(extendedCareField.get(UspFormHelper.FIELD_NAME_JSON_RESPONSE_KEY), UspFormHelper.EXTENDED_CARE_PARAM);
+        assertEquals(extendedCareField.toString(), "{\"responses\":[{\"key\":\"before\",\"values\":[{\"isSelected\":true,\"responseValue\":\"after\"}]" +
+                "}],\"title\":\"Extended care\",\"ghostText\":\"What before/after school care does " +
+                "this school offer?\",\"fieldName\":\"extCare\"}");
+
+        responseJson = _helper.jsonFormFieldsBuilderHelper(uspFormResponses, user, false);
+        JSONObject userDetails = responseJson.getJSONObject(UspFormHelper.USER_JSON_RESPONSE_KEY);
+        assertEquals(userDetails.toString(), "{\"numberMSLItems\":0,\"screenName\":\"asdfgh\",\"email\":\"asdfgh@gs.org\",\"id\":1}");
+    }
+
     public List<Object[]> getSampleKeyValuePairs() {
         return new ArrayList<Object[]>(){{
             add(new Object[]{UspFormHelper.BOYS_SPORTS_RESPONSE_KEY, UspFormHelper.SPORTS_SOCCER_RESPONSE_VALUE});
@@ -275,5 +319,86 @@ public class UspFormHelperTest extends BaseControllerTestCase {
         school.setId(schoolId);
         school.setDatabaseState(state);
         return school;
+    }
+
+    public List<UspFormResponseStruct> getSampleFormResponses() {
+        List<UspFormResponseStruct> uspFormResponses = new ArrayList<UspFormResponseStruct>();
+
+        String fieldName = UspFormHelper.ARTS_MUSIC_PARAM;
+        UspFormResponseStruct uspFormResponseStruct = new UspFormResponseStruct(fieldName, UspFormHelper.ARTS_MUSIC_TITLE);
+        uspFormResponseStruct.setGhostText(UspFormHelper.FORM_FIELD_GHOST_TEXT.get(fieldName));
+        List<UspFormResponseStruct.SectionResponse> sectionResponses = uspFormResponseStruct.getSectionResponses();
+
+        String responseKey = UspFormHelper.ARTS_MEDIA_RESPONSE_KEY;
+        UspFormResponseStruct.SectionResponse sectionResponse = uspFormResponseStruct.new SectionResponse(responseKey);
+        sectionResponse.setTitle(UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
+        List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> uspResponseValues =
+                sectionResponse.getResponses();
+
+        String responseValue = UspFormHelper.ARTS_MEDIA_ANIMATION_RESPONSE_VALUE;
+        UspFormResponseStruct.SectionResponse.UspResponseValueStruct uspResponseValue =
+                sectionResponse.new UspResponseValueStruct(responseValue);
+        uspResponseValue.setLabel(UspFormHelper.RESPONSE_VALUE_LABEL.get(responseKey + UspFormHelper.DOUBLE_UNDERSCORE_SEPARATOR
+                + responseValue));
+        uspResponseValue.setIsSelected(true);
+        uspResponseValues.add(uspResponseValue);
+
+        responseValue = UspFormHelper.ARTS_MEDIA_GRAPHICS_RESPONSE_VALUE;
+        uspResponseValue = sectionResponse.new UspResponseValueStruct(responseValue);
+        uspResponseValue.setLabel(UspFormHelper.RESPONSE_VALUE_LABEL.get(responseKey + UspFormHelper.DOUBLE_UNDERSCORE_SEPARATOR
+                + responseValue));
+        uspResponseValues.add(uspResponseValue);
+
+//        sectionResponse.setResponses(uspResponseValues);
+        sectionResponses.add(sectionResponse);
+
+        responseKey = UspFormHelper.ARTS_MUSIC_RESPONSE_KEY;
+        sectionResponse = uspFormResponseStruct.new SectionResponse(responseKey);
+        sectionResponse.setTitle(UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
+        uspResponseValues = sectionResponse.getResponses();
+
+        responseValue = UspFormHelper.ARTS_MUSIC_BAND_RESPONSE_VALUE;
+        uspResponseValue = sectionResponse.new UspResponseValueStruct(responseValue);
+        uspResponseValue.setLabel(UspFormHelper.RESPONSE_VALUE_LABEL.get(responseKey + UspFormHelper.DOUBLE_UNDERSCORE_SEPARATOR
+                + responseValue));
+        uspResponseValue.setIsSelected(true);
+        uspResponseValues.add(uspResponseValue);
+
+        responseValue = UspFormHelper.ARTS_MUSIC_BELLS_RESPONSE_VALUE;
+        uspResponseValue = sectionResponse.new UspResponseValueStruct(responseValue);
+        uspResponseValue.setLabel(UspFormHelper.RESPONSE_VALUE_LABEL.get(responseKey + UspFormHelper.DOUBLE_UNDERSCORE_SEPARATOR
+                + responseValue));
+        uspResponseValues.add(uspResponseValue);
+
+//        sectionResponse.setResponses(uspResponseValues);
+        sectionResponses.add(sectionResponse);
+
+//        uspFormResponseStruct.setSectionResponses(sectionResponses);
+        uspFormResponses.add(uspFormResponseStruct);
+
+        fieldName = UspFormHelper.EXTENDED_CARE_PARAM;
+        uspFormResponseStruct = new UspFormResponseStruct(fieldName, UspFormHelper.EXTENDED_CARE_TITLE);
+        uspFormResponseStruct.setGhostText(UspFormHelper.FORM_FIELD_GHOST_TEXT.get(fieldName));
+        sectionResponses = uspFormResponseStruct.getSectionResponses();
+
+        responseKey = UspFormHelper.EXTENDED_CARE_BEFORE_RESPONSE_VALUE;
+        sectionResponse = uspFormResponseStruct.new SectionResponse(responseKey);
+        sectionResponse.setTitle(UspFormHelper.RESPONSE_KEY_SUB_SECTION_LABEL.get(responseKey));
+        uspResponseValues = sectionResponse.getResponses();
+
+        responseValue = UspFormHelper.EXTENDED_CARE_AFTER_RESPONSE_VALUE;
+        uspResponseValue = sectionResponse.new UspResponseValueStruct(responseValue);
+        uspResponseValue.setLabel(UspFormHelper.RESPONSE_VALUE_LABEL.get(responseKey + UspFormHelper.DOUBLE_UNDERSCORE_SEPARATOR
+                + responseValue));
+        uspResponseValue.setIsSelected(true);
+        uspResponseValues.add(uspResponseValue);
+
+//        sectionResponse.setResponses(uspResponseValues);
+        sectionResponses.add(sectionResponse);
+
+//        uspFormResponseStruct.setSectionResponses(sectionResponses);
+        uspFormResponses.add(uspFormResponseStruct);
+
+        return uspFormResponses;
     }
 }

@@ -514,6 +514,35 @@ GS.form.handleInputsWithGhostTextAsValue = function(arrayOfObjects, containerSel
     return arrayOfObjects;
 };
 
+GS.GlobalUI = GS.GlobalUI || (function() {
+    var firstLinkSelector = "#utilLinks a:eq(0)";
+    var secondLinkSelector = "#utilLinks a:eq(1)";
+    var thirdLinkSelector = "#utilLinks a:eq(2)";
+    var getSignOutLink = function (email, userId) {
+        return "/cgi-bin/logout/CA/?email=" + encodeURIComponent(email) + "&mid=" + userId;
+    };
+    var getSignOutLinkHtml = function (email, userId) {
+        var html = '<a class="js-log-out" href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
+        return html;
+    };
+    var getWelcomeHtml = function (screenName) {
+        var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + screenName + '</a></li>';
+        return html;
+    };
+    var getMySchoolListHtml = function (numberMSLItems) {
+        var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
+        return html;
+    };
+    var updateUIForLogin = function (userId, email, screenName, numberMSLItems) {
+        $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(screenName));
+        $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
+        $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
+    };
+    return {
+        updateUIForLogin: updateUIForLogin
+    };
+})();
+
 
 /************************************************************************************************************
  *

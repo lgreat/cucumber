@@ -22,6 +22,7 @@ GS.form.uspForm = (function ($) {
     var PASSWORD_ERROR_SELECTOR = '.js_passwordErr';
     var EMAIL_ERROR_SELECTOR = '.js_emailErr';
     var TERMS_OF_USE_ERROR_SELECTOR = '.js_termsErr';
+    var EXISTING_ANSWERS_ERROR = '#js-existingAnswersError';
 
     var CHECK_USER_STATE_URL = '/school/QandA/checkUserState.page';
 
@@ -255,7 +256,48 @@ GS.form.uspForm = (function ($) {
                 if (data.redirect !== undefined && data.redirect !== '') {
                     window.location = data.redirect;
                 }
+                else if(data.hasExistingSavedResponses === 'true') {
+                    if(data.formFields === undefined) {
+                        return;
+                    }
+                    var formFields = data.formFields;
+                    var formElements = uspForm.find('select.js-chosenSelect');
+                    formElements.val('').trigger("liszt:updated");
+                    var user = data.user;
+                    if(user !== undefined) {
+                        GS.GlobalUI.updateUIForLogin(user.id, user.email, user.screenName, user.numberMSLItems);
+                    }
+                    var numFormFields = data.formFields.length;
+                    for(var i = 0; i < numFormFields; i++) {
+                        var formField = formFields[i];
+                        var formElement = uspForm.find('select[name=' + formField.fieldName + ']');
+                        var sectionResponses = formField.responses;
+                        var numSectionResponses = sectionResponses.length;
+                        for(var j = 0; j < numSectionResponses; j++) {
+                            var sectionResponse = sectionResponses[j];
+                            var responseKey = sectionResponse.key;
 
+                            var responseValues = sectionResponse.values;
+                            var numResponseValues = responseValues.length;
+                            for(var k = 0; k < numResponseValues; k++) {
+                                var responseValue = responseValues[k];
+                                var respValue = responseValue.responseValue;
+                                var isSelected = responseValue.isSelected;
+
+                                if(isSelected) {
+                                    console.log(responseKey + '__' + respValue);
+                                    formElement.find('option[value=' + responseKey + '__' +
+                                        respValue + ']').prop("selected", true);
+                                }
+                            }
+                        }
+                    }
+
+                    formElements.trigger("liszt:updated");
+                    GSType.hover.modalUspSignIn.hide();
+                    jQuery(EXISTING_ANSWERS_ERROR).show();
+                    window.scrollTo(0,0);
+                }
             });
         return dfd.promise();
     };
@@ -264,6 +306,7 @@ GS.form.uspForm = (function ($) {
         $(PASSWORD_ERROR_SELECTOR).hide();
         $(EMAIL_ERROR_SELECTOR).hide();
         $(TERMS_OF_USE_ERROR_SELECTOR).hide();
+        $(EXISTING_ANSWERS_ERROR).hide();
     };
 
     var doUspFormValidations = function (data) {

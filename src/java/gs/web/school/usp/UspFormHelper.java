@@ -4,27 +4,19 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import gs.data.community.User;
+import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
-import gs.data.school.EspResponseSource;
-import gs.data.school.IEspResponseDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.State;
-import gs.web.community.registration.*;
-import gs.web.school.EspSaveHelper;
 import gs.web.util.HttpCacheInterceptor;
-import gs.web.util.UrlBuilder;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -948,6 +940,118 @@ public class UspFormHelper {
 
         return responseKeyValues;
     }
+
+    /**
+     * Returns json object that has a list of form elements (json array). Each form element has a list of section responses
+     * (json array), and the length of that will most likely be 1, except for arts & music which has 4 subsections. Each
+     * section in the form element has response key that will have list of response values (json array).
+     * The json object returned will look like this -
+     * {"formFields":
+     * [{form element 1 attributes... , "responses":
+     * [{section 1 attributes... , "values":
+     * [{response value 1 attributes}, {response value 2 attributes}... ]},
+     * {section 2 attributes}... ]},
+     * {form element 2... },
+     * ... ]}
+     *
+     * @param uspFormResponses
+     * @param user
+     * @param isOspUser
+     * @return
+     */
+    public JSONObject jsonFormFieldsBuilderHelper(List<UspFormResponseStruct> uspFormResponses,
+                                                  User user,
+                                                  boolean isOspUser) {
+        JSONObject responseJson = new JSONObject();
+        try {
+            JSONArray formFields = new JSONArray();
+            int numFormSections = uspFormResponses.size();
+
+            for(int i = 0; i < numFormSections; i++) {
+                UspFormResponseStruct formResponseStruct = uspFormResponses.get(i);
+
+                JSONObject formField = new JSONObject();
+                formField.put(FIELD_NAME_JSON_RESPONSE_KEY, formResponseStruct.getFieldName());
+                formField.put(TITLE_JSON_RESPONSE_KEY, formResponseStruct.getTitle());
+                formField.put(GHOST_TEXT_JSON_RESPONSE_KEY, formResponseStruct.getGhostText());
+
+                JSONArray responses = new JSONArray();
+                List<UspFormResponseStruct.SectionResponse> sectionResponses = formResponseStruct.getSectionResponses();
+                int numSectionResponses = sectionResponses.size();
+
+                for(int j = 0; j < numSectionResponses; j++) {
+                    UspFormResponseStruct.SectionResponse sectionResponse = sectionResponses.get(j);
+                    String key = sectionResponse.getResponseKey();
+                    if(key.endsWith("_other") && !isOspUser) {
+                        continue;
+                    }
+
+                    JSONObject response = new JSONObject();
+                    response.put(TITLE_JSON_RESPONSE_KEY, sectionResponse.getTitle());
+                    response.put(KEY_JSON_RESPONSE_KEY, key);
+
+                    JSONArray values = new JSONArray();
+                    List<UspFormResponseStruct.SectionResponse.UspResponseValueStruct> responseValues = sectionResponse.getResponses();
+                    int numresponseValues = responseValues.size();
+
+                    for (int k = 0; k < numresponseValues; k++) {
+                        UspFormResponseStruct.SectionResponse.UspResponseValueStruct responseValue = responseValues.get(k);
+                        String respValue = responseValue.getResponseValue();
+                        if((NONE_RESPONSE_VALUE.equalsIgnoreCase(respValue) || EXTENDED_CARE_NEITHER_RESPONSE_VALUE.equals(respValue))
+                                && !isOspUser) {
+                            continue;
+                        }
+
+                        JSONObject value = new JSONObject();
+                        value.put(LABEL_JSON_RESPONSE_KEY, responseValue.getLabel());
+                        value.put(VALUE_JSON_RESPONSE_KEY, respValue);
+                        value.put(IS_SELECTED_JSON_RESPONSE_KEY, responseValue.isSelected());
+
+                        values.put(value);
+                    }
+
+                    response.put(VALUES_JSON_RESPONSE_KEY, values);
+                    responses.put(response);
+                }
+
+                formField.put(RESPONSES_JSON_RESPONSE_KEY, responses);
+                formFields.put(formField);
+            }
+            responseJson.put(FORM_FIELDS_JSON_RESPONSE_KEY, formFields);
+
+            if(user != null) {
+                JSONObject userDetails = new JSONObject();
+                userDetails.put(USER_ID_JSON_RESPONSE_KEY, user.getId());
+                userDetails.put(USER_EMAIL_JSON_RESPONSE_KEY, user.getEmail());
+                userDetails.put(USER_SCREENNAME_JSON_RESPONSE_KEY, user.getUserProfile() != null ? user.getUserProfile().getScreenName()
+                        : "");
+                userDetails.put(NUM_MSL_JSON_RESPONSE_KEY, user.getFavoriteSchools() != null ?
+                        user.getFavoriteSchools().size() : 0);
+
+                responseJson.put(USER_JSON_RESPONSE_KEY, userDetails);
+            }
+        } catch (JSONException ex) {
+            _logger.warn("UspFormHelper - exception while trying to write json object.", ex);
+        }
+
+        return responseJson;
+    }
+
+    public static final String FORM_FIELDS_JSON_RESPONSE_KEY = "formFields";
+    public static final String RESPONSES_JSON_RESPONSE_KEY = "responses";
+    public static final String FIELD_NAME_JSON_RESPONSE_KEY = "fieldName";
+    public static final String TITLE_JSON_RESPONSE_KEY = "title";
+    public static final String GHOST_TEXT_JSON_RESPONSE_KEY = "ghostText";
+    public static final String KEY_JSON_RESPONSE_KEY = "key";
+    public static final String LABEL_JSON_RESPONSE_KEY = "label";
+    public static final String VALUE_JSON_RESPONSE_KEY = "responseValue";
+    public static final String IS_SELECTED_JSON_RESPONSE_KEY = "isSelected";
+    public static final String VALUES_JSON_RESPONSE_KEY = "values";
+    public static final String USER_ID_JSON_RESPONSE_KEY = "id";
+    public static final String USER_EMAIL_JSON_RESPONSE_KEY = "email";
+    public static final String USER_SCREENNAME_JSON_RESPONSE_KEY = "screenName";
+    public static final String NUM_MSL_JSON_RESPONSE_KEY = "numberMSLItems";
+    public static final String USER_JSON_RESPONSE_KEY = "user";
 
     public IEspResponseDao getEspResponseDao() {
         return _espResponseDao;
