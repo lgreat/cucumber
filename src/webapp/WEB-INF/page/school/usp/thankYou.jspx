@@ -33,7 +33,8 @@
 
                 <div class="mtl">
                     <a href="${schoolUrl}">&#171; Back to ${school.name}</a>
-                    <a href="${schoolUrl}?tab=reviews"><button class="but but-rg but-1 mll" name="">Write a review now</button></a>
+                    <button class="but but-rg but-1 mll" name=""
+                            onclick="javascript:location.href = '${schoolUrl}?tab=reviews'">Write a review now</button>
                 </div>
             </div>
         </div>
