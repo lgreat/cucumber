@@ -32,6 +32,7 @@
         <gsml:javascript src="/res/js/deferredcontent.js"/>
         <gsml:javascript src="/res/js/externalTracking.js"/>
         <gsml:javascript src="/res/js/trackIt.js"/>
+        <gsml:javascript src="/res/js/facebook.js"/>
     </gsml:combinedJavascript>
 
 </jsp:root>
