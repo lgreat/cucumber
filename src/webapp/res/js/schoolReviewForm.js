@@ -433,6 +433,15 @@ GS.form.SchoolReviewForm = function(id) {
                 this.review.isValid() && this.overallRating.isValid() && this.termsOfUse.isValid();
     }.gs_bind(this);
 
+    this.formValidForFacebook = function () {
+        return (
+            this.poster.isValid()
+            && this.review.isValid()
+            && this.overallRating.isValid()
+            && this.termsOfUse.isValid()
+        );
+    }.gs_bind(this);
+
     this.resetStars = function() {
         this.showStars(this.overallRating.getElement().val());
     }.gs_bind(this);
@@ -573,7 +582,7 @@ GS.form.SchoolReviewForm = function(id) {
 
     this.facebookSubmitHandler = function() {
         var that = this;
-        if (this.formValid()) {
+        if (this.formValidForFacebook()) {
             GS.facebook.login().done(function(data) {
                 console.log('got data', data);
                 that.postReview(data.email);
