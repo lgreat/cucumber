@@ -51,7 +51,7 @@ public class RequestInfo {
         }
 
         FacebookSession facebookSession = FacebookHelper.getFacebookSession(_request);
-        _signedInWithFacebook = facebookSession.isValid();
+        _signedInWithFacebook = facebookSession.isSignedIn();
 
         _request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, this);
     }
