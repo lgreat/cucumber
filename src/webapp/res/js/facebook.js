@@ -129,6 +129,14 @@ GS.facebook = GS.facebook || (function () {
             // we'll set up click handler for login buttons here
             $(loginSelector).on('click', function () {
                 if (!loginDisabled) {
+                    if (typeof ModalManager !== "undefined") {
+                        ModalManager.hideModal({
+                            'layerId' : 'signInHover'
+                        });
+                    } else {
+                        GSType.hover.signInHover.hide();
+                    }
+
                     // even though we don't know if the user is logged in or not, disable login right away.
                     // if we were to put it inside the callback, there would be a delay before the login button is disabled
                     loginDisabled = true;
@@ -203,11 +211,13 @@ GS.facebook = GS.facebook || (function () {
 
         var currentUrl = window.location.href;
 
-        if (currentUrl.match("mySchoolList\\.page|resetPassword\\.page|changeEmail\\.page|accountInformation\\.page|interstitial\\.page")) {
+        if (currentUrl.match("mySchoolList\\.page|resetPassword\\.page|changeEmail\\.page|accountInformation\\.page|interstitial\\.page") !== null) {
             redirectUrl = "/index.page";
-        } else if (currentUrl.match("community\\.") && currentUrl.match("dashboard|members.*profile|members.*awards|recommend\\-content")) {
+        } else if (currentUrl.match("community\\.") !== null && currentUrl.match("dashboard|members.*profile|members.*awards|recommend\\-content") !== null) {
             redirectUrl = "/index.page";
-        } else if (!currentUrl.match("^http")) {
+        } else if (currentUrl.match("^http") === null) {
+            redirectUrl = "/index.page";
+        } else if (currentUrl.match("/account/$").length !== null) {
             redirectUrl = "/index.page";
         } else {
             redirectUrl = currentUrl;
