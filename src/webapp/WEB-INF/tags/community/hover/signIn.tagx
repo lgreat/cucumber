@@ -13,7 +13,12 @@
         </div>
         <form id="signin" action="/community/loginOrRegister.page" method="post">
             <fieldset class="signin">
-                <h3>Sign in with an existing GreatSchools account:</h3>
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <h3 class="fl">Sign in with an existing GreatSchools account:</h3>
+                <div class="fr mrl">
+                    <button class="mrl button-1 js-facebook-login" type="button" name="signinBtn">Sign in with Facebook</button>
+                </div>
+                <div class="spacer_15 clearfloat"><!-- do not collapse --></div>
                 <ul>
                     <li>
                         <label for="semail">Email address</label><input type="text" id="semail" name="email"/>

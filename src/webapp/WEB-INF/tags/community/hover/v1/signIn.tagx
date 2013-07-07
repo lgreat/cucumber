@@ -21,8 +21,15 @@
             <p class="error"><!-- message --></p>
         </div>
         <form id="signin" action="/community/loginOrRegister.page" method="post">
-            <!--<fieldset class="signin">-->
-                <p>Sign in with an existing GreatSchools account:</p>
+            <div class="line">
+                <div class="unit size12of19">
+                    <p>Sign in with an existing GreatSchools account:</p>
+                </div>
+                <div class="unit size7of19 lastUnit">
+                    <button class="button-1 signinBtn js-facebook-login" onclick="javascript:ModalManager.hideModal('signInHover');" type="button">Sign in with Facebook</button>
+                </div>
+            </div>
+
             <div class="line">
                     <div class="unit size4of19">
                         <label for="semail" class="longLabel">Email address</label>
