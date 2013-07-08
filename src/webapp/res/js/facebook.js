@@ -217,7 +217,7 @@ GS.facebook = GS.facebook || (function () {
             redirectUrl = "/index.page";
         } else if (currentUrl.match("^http") === null) {
             redirectUrl = "/index.page";
-        } else if (currentUrl.match("/account/$").length !== null) {
+        } else if (currentUrl.match("/account/$") !== null) {
             redirectUrl = "/index.page";
         } else {
             redirectUrl = currentUrl;
