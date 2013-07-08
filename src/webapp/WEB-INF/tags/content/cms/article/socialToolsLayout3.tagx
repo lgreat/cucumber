@@ -43,6 +43,7 @@
                        because of layout issues with FB like button,
                        need to check with Stephen/Chuck? -->
             <span class="mls vert-align-top articleFB">
+                I am 3
                 <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
             </span>
         </span>

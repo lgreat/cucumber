@@ -13,7 +13,9 @@
                              description="Whether to include the share button"/>
 
     <div class="bd-inner">
+
         <div class="mbm">
+            <!--H! Do you work? 1-->
             <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
         </div>
 
