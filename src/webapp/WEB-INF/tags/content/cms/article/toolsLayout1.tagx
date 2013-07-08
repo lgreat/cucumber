@@ -12,37 +12,42 @@
 
     <div class="mod standard_2-2">
         <div class="inner rnd4" style="padding: 0;">
-            <div class="bd" style="overflow: visible; height: 55px; padding: 10px;"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
+            <div class="bd" style="overflow: visible; height: 65px; padding: 10px;"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
             <!-- 2012 03 26 - mitch added comment to the toolbar with count -->
             <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
 
                 <c:set var="commentCount" value="${fn:length(pageScope.comments)}" />
             </c:if>
             <div id="js_commentToolTipLinkDown" class="ft hidden" style="display: block;">
-                <div class="smaller plm clearfix border bottom pvm">
-                <!--<div class="fl mrs"><gsml:url var="linkToComments"-->
-                          <!--value="#articleCommentsLinkTo"/></div>-->
-                    <gsml:a href="${linkToComments}">
-                    <span class="iconx16 i-16-comment vert-align-mid mrs fl"><!-- do not collapse --></span>
-                    <div id="js_articleCommentsCount" class="fl mrs"><c:out value="${commentCount}" default="0 " /></div> comment<c:if test="${commentCount != 1}">s</c:if></gsml:a>
+                <div class="ft-inner">
+                    <ul>
+
+                        <li class="smaller">
+                            <gsml:url var="linkToComments"
+                                      value="#articleCommentsLinkTo"/>
+                            <gsml:a href="${linkToComments}">
+                                <span class="iconx16 i-16-comment vert-align-mid mrs"><!-- do not collapse --></span>
+                                <div id="js_articleCommentsCount" class="inline"><c:out value="${commentCount}" default="0 " /></div> comment<c:if test="${commentCount != 1}">s</c:if></gsml:a>
+                            </li>
+
+                    </ul>
                 </div>
             </div>
 
-           <!--email and print-->
-            <div style="overflow: hidden;">
-                <div class="border pls pts">
-                    <ul class="fl" style="padding: 0; margin: 0;">
-                        <li class="smaller fl mts" style="list-style-type: none; padding: 0">
+            <div class="ft" style="overflow: hidden;">
+                <div class="ft-inner">
+                    <ul>
+                        <li class="smaller">
                             <gsml:url var="mailToFriendUrl"
                                       value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                             <gsml:a href="${mailToFriendUrl}"
                                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=700,height=600,scrollbars=yes'); return false;">
-                                <span class="sprite i-email vert-align-mid mrs fl"><!-- do not collapse --></span>Email</gsml:a>
+                                <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</gsml:a>
                         </li>
-                        <li class="smaller fl mts" style="list-style-type: none; padding: 0">
+                        <li class="smaller">
                             <a href="javascript:void(0);"
                                onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=700,height=600,scrollbars=yes'); return false;"><span
-                                    class="sprite i-print vert-align-mid mrs fl"><!-- do not collapse --></span>Print</a>
+                                    class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a>
                         </li>
                         <c:if test="${not empty feature.otherLanguageUri}">
                             <li class="smaller wsnw">

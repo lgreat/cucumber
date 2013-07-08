@@ -14,12 +14,12 @@
     </c:forEach>
 
     <c:if test="${hasPublishedRelatedArticles}">
-        <div class="mod standard_3-2">
+        <div class="mod relatedArticles2">
             <div class="inner rnd4 mvm">
-                <div class="hd" style="overflow: hidden;">
+                <div class="hd">
                     <h3>Related articles</h3>
                 </div>
-                <div class="bd" style="overflow: hidden;">
+                <div class="bd">
                     <article:relatedArticlesList feature="${feature}"/>
                 </div>
             </div>

@@ -180,19 +180,28 @@ General comments:
 /*!!!!!!!!!!!!!*/
 
 
+/*.standard_2-2 .bd-inner{*/
+    /*padding: 10px;*/
+/*}*/
+
 .standard_2-2 .ft ul{
     float: left;
     margin: 0;
     padding: 0;
 }
 
-.standard_2-2 .border{
+.standard_2-2 .ft-inner{
     border-top:1px solid #ddd;
-
+    margin-top:5px;
+    padding:0 5px 5px;
 }
 
 .standard_2-2 .ft li{
     list-style: none outside none;
+    float: left;
+    margin: 0 5px;
+    padding: 0;
+    line-height: 28px;
     color: #555555
 }
 
