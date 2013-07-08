@@ -28,7 +28,7 @@
 
         <!-- Share This -->
         <c:if test="${includeShareBtn==true}">
-            <div class="ShareAndTweet fl" style="margin-right: 8px;">
+            <div class="ShareAndTweet fl">
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
                 <script type="text/javascript">var switchTo5x = false;</script>
                 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
@@ -36,12 +36,12 @@
             </div>
         </c:if>
 
-        <div class="googlePlusOne fl" style="margin-right: 8px;">
-            <community:addGooglePlusOne url="${fullUrl}"/>
+        <div class="googlePlusOne fl">
+            <community:addGooglePlusOne url="${fullUrl}" />
         </div>
         
         <!-- Twitter -->
-        <div class="ShareAndTweet fl" style="margin-right: 8px;">
+        <div class="ShareAndTweet fl">
             <promo:tweetButtonArticle/>
         </div>
 
@@ -52,7 +52,7 @@
 
         <!-- Email -->
         <c:if test="${includeEmailBtn==true}">
-            <div class="lastShareAndTweet fl" style="margin-right: 8px;">
+            <div class="lastShareAndTweet fl">
                 <span class='st_email_button' displayText='Email'><!-- do not collapse --></span>
                 <script type="text/javascript">var switchTo5x = false;</script>
                 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"><!-- do not collapse --></script>
