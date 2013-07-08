@@ -41,8 +41,50 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         byLocation.init();
         contentDropdownsModule.init();
     };
+
+    var noTabSwitch = function(tabname, currentFilterState){
+//            console.log("here 1", tabname);
+        if('location' == tabname){
+
+            // hide all name section
+            // show filters
+            // show content
+            $("#js-byNameTabBody").addClass("dn");
+            $("#js-byLocationTabBody").removeClass("dn");
+            $("#js-radius").removeClass("dn");
+            $("#js-schoolSearchFiltersPanel").removeClass("dn");
+            $("#js-moreFiltersPanel").removeClass("dn");
+            $(".js-schoolSearchFiltersPanel").removeClass("dn");
+            if(currentFilterState == "open"){
+                //show close button
+                $('#js-closeSearchFilters').show();
+            }
+            else{
+                // show advanced button
+                $('#js-openSearchFilters').show();
+            }
+        }
+        else{
+            // hide location section
+            // hide filters section
+            $("#js-byLocationTabBody").addClass("dn");
+            $("#js-byNameTabBody").removeClass("dn");
+            $("#js-radius").addClass("dn");
+            $("#js-schoolSearchFiltersPanel").addClass("dn");
+            $("#js-moreFiltersPanel").addClass("dn");
+            $(".js-schoolSearchFiltersPanel").addClass("dn");
+            $('#js-closeSearchFilters').hide();
+            $('#js-openSearchFilters').hide();
+        }
+    };
+
     var initNewVersionNoTabs = function(){
         var currentFilterState = "open";
+//        console.log("test", filterLocationShow);
+        if(filterLocationShow == true){
+//            console.log("inside", filterLocationShow);
+            noTabSwitch('location', currentFilterState);
+        }
         $('#js-openSearchFilters').on('click', function () {
             $('#js-openSearchFilters').hide();
             $('#js-closeSearchFilters').show();
@@ -64,46 +106,13 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         });
 
         $("#js-byLocationTab").on("click", function(){
-            noTabSwitch('location');
+            noTabSwitch('location', currentFilterState);
         });
         $("#js-byNameTab").on("click", function(){
-            noTabSwitch('name');
+            noTabSwitch('name', currentFilterState);
         });
 
-        var noTabSwitch = function(tabname){
-            if('location' == tabname){
 
-                // hide all name section
-                // show filters
-                // show content
-                $("#js-byNameTabBody").addClass("dn");
-                $("#js-byLocationTabBody").removeClass("dn");
-                $("#js-radius").removeClass("dn");
-                $("#js-schoolSearchFiltersPanel").removeClass("dn");
-                $("#js-moreFiltersPanel").removeClass("dn");
-                $(".js-schoolSearchFiltersPanel").removeClass("dn");
-                if(currentFilterState == "open"){
-                    //show close button
-                    $('#js-closeSearchFilters').show();
-                }
-                else{
-                    // show advanced button
-                    $('#js-openSearchFilters').show();
-                }
-            }
-            else{
-                // hide location section
-                // hide filters section
-                $("#js-byLocationTabBody").addClass("dn");
-                $("#js-byNameTabBody").removeClass("dn");
-                $("#js-radius").addClass("dn");
-                $("#js-schoolSearchFiltersPanel").addClass("dn");
-                $("#js-moreFiltersPanel").addClass("dn");
-                $(".js-schoolSearchFiltersPanel").addClass("dn");
-                $('#js-closeSearchFilters').hide();
-                $('#js-openSearchFilters').hide();
-            }
-        };
     };
 
 

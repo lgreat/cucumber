@@ -18,7 +18,7 @@
         <c:set var="byLocation"
                value="${commandAndFields.nearbySearch or isCityBrowse or isDistrictBrowse ? true : false}"
                property="java.lang.Boolean"/>
-
+        <script>var filterLocationShow = ${byLocation};</script>
             <div id="js-byLocationTabBody" class="pam ${!byLocation ? 'dn':''}">
                 <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
                       method="get" onsubmit="return false;">

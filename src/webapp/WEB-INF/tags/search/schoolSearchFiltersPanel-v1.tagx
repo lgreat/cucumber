@@ -46,11 +46,11 @@
 <div class="unit size47of100 prm">
     <search:dropdownFiltersWithLabel id="beforeAfterCare" cssClass="mbs" label="Services" selectedValueLabel="All">
         <!--<div class="mod standard_6-3">-->
-        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="beforeAfterCare" value="after"
+        <search:searchFilterWithCount styleClass="js-advFilters" name="beforeAfterCare" value="after"
                                       label="After care" omnitureCustomLink="AfterCare"/>
-        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="beforeAfterCare" value="before"
+        <search:searchFilterWithCount styleClass="js-advFilters" name="beforeAfterCare" value="before"
                                       label="Before care" omnitureCustomLink="BeforeCare"/>
-        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="transportation"
+        <search:searchFilterWithCount styleClass="js-advFilters" name="transportation"
                                       value="transportation"
                                       label="Transportation" omnitureCustomLink="Transportation"/>
 
@@ -60,7 +60,7 @@
     <search:dropdownFiltersWithLabel id="specialEdPrograms" cssClass="mbs" label="Student Support"
                                      selectedValueLabel="All">
         <!--<div class="mod standard_6-3">-->
-        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="ell" value="ell"
+        <search:searchFilterWithCount styleClass="js-advFilters" name="ell" value="ell"
                                       label="English Language Learners (ELL)" omnitureCustomLink="ELL"/>
         Special Education
         <search:searchFilterWithCount name="specialEdPrograms" value="autism" styleClass="js-advFilters"
