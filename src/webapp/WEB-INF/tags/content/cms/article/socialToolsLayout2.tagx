@@ -13,7 +13,7 @@
                              description="Whether to include the share button"/>
 
     <div class="jq-socialTools mbm mhs">
-        Hello! Do you work?2
+
         <c:if test="${includeShareBtn==true}">
             <div class="fl mrs">
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>

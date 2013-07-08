@@ -136,7 +136,7 @@
             ${feature.embedVideoCode}
         </div>
 
-        <div class="pvm" style="padding-bottom: 0;">
+        <div class="pvm">
             ${(feature.body)}
         </div>
 
