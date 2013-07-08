@@ -117,8 +117,15 @@
             </div>
         </div>
     </div>
-    <div class="largest bottom mbm mtl ptl">
-        We found <span style="color: #009900"><span data-gs-html-mirror="total-results-count" id="js_totalResultsCountReturn"><!-- do not collapse --></span> schools</span><br />
-        <span class="small bottom"><strong>Note:</strong> Results are among schools that have shared info with us.</span>
+    <div class="largest bottom mbm mtl ptl clearfix">
+        <div class="fl prs">We found
+            <span data-gs-html-mirror="total-results-count" id="js_totalResultsCountReturn" style="color: #009900"><!-- do not collapse --></span>
+        </div>
+        <div id="js-spinny-search" style="display:none;" class="fl mhs">
+            <img src="/res/img/search/120726-preloader21.gif" alt="spinny img"/>
+        </div>
+        <div class="fl" style="color: #009900"> schools</div>
+        <div class="js-filterNotes">
+        <span class="small bottom"><br /><strong>Note:</strong> Results are among schools that have shared info with us.</span></div>
     </div>
 </jsp:root>
