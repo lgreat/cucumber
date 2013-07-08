@@ -31,9 +31,9 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             return true;
         });
 
-        $('#contentGS [data-gs-uncheckall]').on('click', function() {
+        $('#js-search-body [data-gs-uncheckall]').on('click', function() {
             var checkboxesToUncheck = $(this).data('gs-uncheckall');
-            var $checkboxes = $('#contentGS input[name=' + checkboxesToUncheck + ']');
+            var $checkboxes = $('#js-search-body input[name=' + checkboxesToUncheck + ']');
             $checkboxes.prop('checked',false).trigger('change');
         });
 

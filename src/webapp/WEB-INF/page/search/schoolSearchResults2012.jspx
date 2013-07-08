@@ -119,6 +119,7 @@
 </c:choose>
 
 <gsml:body adPageName="search" pageLayout="nocol">
+    <div id="js-search-body">
     
     <c:if test="${facebookFacepilesEnabled eq true}">
         <pageHelper:includeFacebookInit/>
@@ -231,6 +232,7 @@
                   findASchoolByName="${omnitureNameSearch}"
                   locale="${omnitureLocale}"
             />
+    </div>
 
 </gsml:body>
 </jsp:root>

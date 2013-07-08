@@ -109,6 +109,7 @@
 
 
 <gsml:body adPageName="searchMap" pageLayout="nocol">
+<div id="js-search-body">
 <div class="container_24 clearfix">
 <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
 
@@ -469,7 +470,7 @@ that this is updated for ajax refresh -->
                                 </div>
                                 <div class="js-msl-text fltlft small bottom">
                                     <a href="#" class="js-add-msl-link" id="js-add-msl-link-{{state}}{{id}}"
-                                       onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', '{{id}}', '{{state}}', this, true) == false){
+                                       onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', '{{id}}', '{{state}}', this) == false){
                                                 GS.map.getMap.addSavedSchool('js-add-msl-link-{{state}}{{id}}');
                                             }
                                             return false;">
@@ -822,6 +823,7 @@ that this is updated for ajax refresh -->
 
 <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
 <ad:BelowFold_Top_300x125/>
+</div>
 </div>
 </div>
 

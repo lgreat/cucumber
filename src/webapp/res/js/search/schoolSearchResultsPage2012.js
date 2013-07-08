@@ -1,7 +1,7 @@
 GS = GS || {};
 
 GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function () {
-    var body = '#contentGS';
+    var body = '#js-search-body';
 
     var init = function () {
         registerEventHandlers();

@@ -121,7 +121,7 @@ GS.map.getMap = GS.map.getMap || (function () {
             }
         });
 
-        $('#contentGS').on('click', '#js_reloadMap', function () {
+        $('#js-search-body').on('click', '#js_reloadMap', function () {
             if (s.tl) {
                 s.tl(this, 'o', 'SearchResults_Map_Redo_Search');
             }
