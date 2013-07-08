@@ -1396,3 +1396,46 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     padding:0 5px 5px;
 }
 
+/*.articleDistribution2 .inner .bd{*/
+    /*height:65px;*/
+/*}*/
+
+/*.articleDistribution2 .bd-inner{*/
+    /*padding:10px;*/
+/*}*/
+
+/*.mod.articleDistribution2 .bd {*/
+    /*overflow:visible;*/
+}
+
+/*.articleDistribution2 .ft ul{*/
+    /*float: left;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*.articleDistribution2 .ft li{*/
+    /*list-style: none outside none;*/
+    /*float: left;*/
+    /*margin: 0 5px;*/
+    /*padding: 0;*/
+    /*line-height: 28px;*/
+/*}*/
+
+/*.articleDistribution2 .ft{*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*.relatedArticles2{*/
+    /*margin-bottom:10px;*/
+/*}*/
+
+/*.relatedArticles2 .inner{*/
+    /*border:1px solid #e6e6e6;*/
+    /*background-color:#fff;*/
+    /*padding:10px;*/
+/*}*/
+
+/*.articleComments2{*/
+   /*margin-top: 15px;*/
+/*}*/

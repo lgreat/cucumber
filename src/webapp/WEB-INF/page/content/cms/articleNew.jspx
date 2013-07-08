@@ -66,8 +66,6 @@
 
     <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>
-
-    <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
 </head>
 
 <gsml:body adPageName="article" pageLayout="nocol">
@@ -80,8 +78,8 @@
     </c:if>
 
     <div class="container_24 clearfix">
-        <div class="grid_16">
-            <div class="articles clearfix pbl">
+        <div class="grid_16 slStylesV1-0 slFormsV1-0">
+            <div class="articleText clearfix">
                 <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
                 <!--Licensor logo-->
@@ -178,27 +176,26 @@
                 <!--Content-->
 
                 <div class="grid_16 alpha omega">
-
                     <!--Share buttons-->
                     <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
                     <!--Share buttons-->
 
                     <!-- Pagination -->
                     <c:if test="${feature.numPages > 1}">
-                        <div class="pagination fr js-pageNumbers">
-                            <!--Page-->
+                        <div class="articlePagination">
+                            Page
                             <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
                                 <c:choose>
                                     <c:when test="${pageNum == feature.currentPageNum}">
-                                        <span class="active">${pageNum}</span>
+                                        <span class="active rnd3">${pageNum}</span>
                                     </c:when>
                                     <c:otherwise>
                                         <c:choose>
                                             <c:when test="${pageNum == 1}">
-                                                <span><a href="${contentUrl}">${pageNum}</a></span>
+                                                <a href="${contentUrl}">${pageNum}</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <span><a href="${contentUrl}?page=${pageNum}">${pageNum}</a></span>
+                                                <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:otherwise>
@@ -215,8 +212,6 @@
                         </div>
                     </c:if>
                     <!-- Pagination -->
-
-
                 </div>
 
                 <div class="spacer_20"><!-- do not collapse --></div>
