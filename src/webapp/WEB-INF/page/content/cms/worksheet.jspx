@@ -37,33 +37,28 @@
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
 
-    <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
     <k12:trafficDriverIncludes/>
-
-    <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
-
 </head>
 <body>
 
-<div class="container_24">
-    <div class="grid_16 zir-2 articles">
+<!--<div class="container_24">-->
+    <div class="grid_16 zir-2">
 
-        <div class="smaller pbs mbn mtm">
+        <div class="smallText1 mtm pbs">
             <link:home>Home</link:home> &amp;gt;
             <link:cmsContent contentKey="TopicCenter#4313"
                              fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
             <link:cmsWorksheetGallery>Worksheets</link:cmsWorksheetGallery>
         </div>
 
-
-        <h1 class="mts" style="margin-bottom: 0">${feature.title}</h1>
+        <h1 class="mts">${feature.title}</h1>
 
         <div class="clearfloat brdbtm_dotted-ccc mbm mrm"><!-- do not collapse --></div>
 
-        <p class="text2 fl mbn">
+        <p class="text2 fltlft">
             <c:if test="${not empty feature.grades}">
                 <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/> |
             </c:if>
@@ -72,32 +67,32 @@
         </p>
 
         <!-- DONE-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
-        <div class="fr mrm">
+        <div class="fltrt mrm">
             <cms:articleDistribution includeFbSendBtn="true" includeShareBtn="false" includeEmailBtn="true"/>
         </div>
 
-        <div class="shim-15"><!-- don't collapse --></div>
+        <div class="spacer_15"><!-- don't collapse --></div>
 
         <div class="grid_9 alpha">
 
             <!-- deck -->
-            <p class="text1 mbn">
+            <p class="text1">
                 ${fn:escapeXml(feature.summary)}
             </p>
 
-            <div class="shim-15"><!-- don't collapse --></div>
+            <div class="spacer_15"><!-- don't collapse --></div>
 
             <!-- body (optional) - do not escape XML due to possible intentional HTML tags -->
             <c:if test="${not empty feature.body}">
-                <p class="text2 mbn">
+                <p class="text2">
                     ${feature.body}
                 </p>
             </c:if>
 
-            <div class="shim-15"><!-- don't collapse --></div>
+            <div class="spacer_15"><!-- don't collapse --></div>
 
             <c:if test="${not empty feature.skillsList}">
-                <p class="text2 mbn">
+                <p class="text2">
                     Skills:
                     <c:forEach var="skill" items="${feature.skillsList}" varStatus="loopStatus">
                         ${fn:escapeXml(skill)}<c:if test="${!loopStatus.last}">, </c:if>
@@ -105,14 +100,14 @@
                 </p>
             </c:if>
 
-            <div class="shim-15"><!-- don't collapse --></div>
+            <div class="spacer_15"><!-- don't collapse --></div>
 
             <gsml:a href="${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
 
-            <div class="shim-20"><!-- don't collapse --></div>
+            <div class="spacer_20"><!-- don't collapse --></div>
 
             <c:if test="${not empty feature.commonCoreStandardsList}">
-                <p class="smaller mbn" id="js-ccs-links" style="color:#333;">
+                <p class="smallText1-333" id="js-ccs-links">
                     Common Core Standards:
                     <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
                         <a href="${standard.url}" target="_blank" class="js-ccs-link" onclick="if (s.tl) {s.tl(this, 'o', 'WorksheetSingle_CCS_Link');}">${fn:escapeXml(standard.name)}</a><c:if
@@ -121,9 +116,9 @@
                 </p>
             </c:if>
 
-            <div class="shim-15"><!-- don't collapse --></div>
+            <div class="spacer_15"><!-- don't collapse --></div>
 
-            <p class="smallest mbn" style="color: #777;">
+            <p class="smallText2-777">
                 <c:forEach var="standard" items="${feature.commonCoreStandardsMap}" varStatus="loopStatus">
                     ${fn:escapeXml(standard.key)}<c:if
                         test="${!loopStatus.last}">, </c:if>
@@ -137,20 +132,20 @@
                 <gsml:img src="${feature.previewImageUrl}"
                           title="${feature.previewImageTitle}"
                           alt="${feature.previewImageAltText}"
-                        styleClass="" style="border: 1px solid #ccc"/>
+                        styleClass="worksheetImage"/>
                 </gsml:a>
             </c:if>
 
             <!-- DONE-11818 acrobat reader icon -->
-            <p class="smaller mtm">
-                <span class="iconx16 i-16-pdf vert-align-mid"><!-- do not collapse --></span> Don't have Acrobat Reader? <a
+            <p class="smallText1 mtm">
+                <span class="sprite pdf_sm vert-align-mid"><!-- do not collapse --></span> Don't have Acrobat Reader? <a
                     href="http://get.adobe.com/reader/" target="_blank">Get it now</a>.
             </p>
         </div>
 
-        <div class="shim-20 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
+        <div class="spacer_20 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
 
-        <div class="text3 fr">
+        <div class="text3 fltrt">
             <ul>
                 <c:if test="${not empty feature.otherLanguageUri}">
                     <li><a href="${feature.otherLanguageUri}">
@@ -174,7 +169,7 @@
         <!-- TODO-11818 switch to new version; see GS-11856 -->
         <cms:communityDistribution content="${feature}" hideShareThis="true"/>
 
-        <div class="shim-10"><!-- do not collapse --></div>
+        <div class="spacer_10"><!-- do not collapse --></div>
 
         <!-- related worksheets -->
         <c:if test="${feature.hasPublishedRelatedWorksheets}">
@@ -203,7 +198,7 @@
                         <!-- end #cmsArticleForm -->
                     </div>
 
-                    <div class="shim-10 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
+                    <div class="spacer_10 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
 
                     <div id="cmsArticleComments">
                         <c:if test="${not empty comments and fn:length(comments) gt 0}">
@@ -243,7 +238,7 @@
             </gsweb:adTagGenerator>
         </div>
     </div>
-</div>
+<!--</div>-->
 
 <c:set var="pageName" value="WorksheetSingle"/>
 

@@ -20,7 +20,6 @@
 <head>
     <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}" primaryCategoryName="${feature.primaryKategory.name}"/>
 
-    <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description"
           content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
@@ -47,16 +46,13 @@
     <c:if test="${nextPageNum != -1}">
         <link rel="next" href="${nextPageContentUrl}"/>
     </c:if>
-
-    <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
-
 </head>
 <gsml:body adPageName="askTheExperts" pageLayout="nocol">
 
-<div class="container_24">
-<div class="grid_16">
+<!--<div class="container_24">-->
+<div class="grid_16 slStylesV1-0 slFormsV1-0">
 
-    <div class="articles clearfix pbl">
+    <div class="articleText clearfix">
 
         <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
@@ -147,7 +143,7 @@
 <div class="grid_8">
     <article:rightColumn feature="${feature}" omniturePageName="${omniturePageName}" showCompanionAd="${showCompanionAd}"/>
 </div>
-</div>
+<!--</div>-->
 
 <mod:tracking pageName="${omniturePageName}"
               hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"

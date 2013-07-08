@@ -71,13 +71,11 @@ General comments:
 .shim-1 { clear: both; height: 1px; font-size: 1px; line-height: 1px; }
 .shim-2 { clear: both; height: 2px; font-size: 1px; line-height: 2px; }
 .shim-5 { clear: both; height: 5px; font-size: 1px; line-height: 5px; }
-.shim-10{ clear: both; height: 10px; font-size: 1px; line-height: 10px; }
-.shim-15{ clear: both; height: 15px; font-size: 1px; line-height: 15px; }
+.shim-10 { clear: both; height: 10px; font-size: 1px; line-height: 10px; }
 .shim-20 { clear: both; height: 20px; font-size: 1px; line-height: 20px; }
 .shim-25 { clear: both; height: 25px; font-size: 1px; line-height: 25px; }
 .shim-50 { clear: both; height: 50px; font-size: 1px; line-height: 50px; }
 .shim-100 { clear: both; height: 100px; font-size: 1px; line-height: 100px; }
-
 
 .db { display: block; }
 .di { display: inline; }
@@ -104,7 +102,3 @@ General comments:
 .zir-2{position:relative;z-index:2;}
 .zir-3{position:relative;z-index:3;}
 .zir-4{position:relative;z-index:4;}
-
-.brdbtm_dotted-ccc {
-    border-bottom: 2px dotted #ccc;
-}

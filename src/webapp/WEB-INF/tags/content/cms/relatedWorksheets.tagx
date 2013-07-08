@@ -6,10 +6,10 @@
 
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
-    <div class="mod mbl">
-        <div class="inner" style="background-color: #ebebeb; padding: 20px 20px 10px">
+    <div class="mod relatedContent">
+        <div class="inner">
             <div class="hd">
-                <h4 class="subhead2" style="margin-bottom: 5px">Related worksheets</h4>
+                <h4 class="subhead2 mbs">Related worksheets</h4>
             </div>
             <div class="bd">
                 <ul>
