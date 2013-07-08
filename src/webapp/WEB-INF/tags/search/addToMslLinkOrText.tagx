@@ -33,7 +33,7 @@
             <c:otherwise>
                 <div class="media skin-1 attribution">
                     <div class="img mrs">
-                        <span class="iconx16  i-16-cross"><!-- do not collapse --></span>
+                        <span class="js-add-msl-success-icon iconx16  i-16-cross"><!-- do not collapse --></span>
                     </div>
 
                     <div class="bd js-msl-text small bottom">
