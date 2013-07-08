@@ -10,15 +10,15 @@
     <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="comments" required="true" type="java.util.List"/>
 
-    <div class="mod standard_2-2">
-        <div class="inner rnd4" style="padding: 0;">
-            <div class="bd" style="overflow: visible; height: 65px; padding: 10px;"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
+    <div class="mod articleDistribution">
+        <div class="inner rnd4">
+            <div class="bd"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
             <!-- 2012 03 26 - mitch added comment to the toolbar with count -->
             <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
 
                 <c:set var="commentCount" value="${fn:length(pageScope.comments)}" />
             </c:if>
-            <div id="js_commentToolTipLinkDown" class="ft hidden" style="display: block;">
+            <div id="js_commentToolTipLinkDown" class="ft hidden">
                 <div class="ft-inner">
                     <ul>
 
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="ft" style="overflow: hidden;">
+            <div class="ft">
                 <div class="ft-inner">
                     <ul>
                         <li class="smaller">

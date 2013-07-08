@@ -14,7 +14,7 @@
     </c:forEach>
 
     <c:if test="${hasPublishedRelatedArticles}">
-        <div class="mod relatedArticles2">
+        <div class="mod relatedArticles">
             <div class="inner rnd4 mvm">
                 <div class="hd">
                     <h3>Related articles</h3>

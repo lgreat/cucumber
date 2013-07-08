@@ -25,7 +25,6 @@
     <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}"
                    primaryCategoryName="${feature.primaryKategory.name}"/>
 
-    <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
@@ -77,7 +76,7 @@
         <c:set var="showPhotoGallery" value="${true}"/>
     </c:if>
 
-    <div class="container_24 clearfix">
+    <!--<div class="container_24">-->
         <div class="grid_16 slStylesV1-0 slFormsV1-0">
             <div class="articleText clearfix">
                 <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
@@ -248,7 +247,7 @@
             <article:rightColumn feature="${feature}" omniturePageName="${omniturePageName}"
                                  showCompanionAd="${showCompanionAd}"/>
         </div>
-    </div>
+    <!--</div>-->
 
     <mod:tracking pageName="${omniturePageName}"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"
