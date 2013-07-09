@@ -163,7 +163,9 @@
 </head>
 
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
+ TEST
 
+<c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
 <div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
     <div class="img-container">
         <img class="scaling" src="/res/img/school/parentReviews/home_img.jpg" alt=""/>
