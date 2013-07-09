@@ -174,7 +174,7 @@ GS.form.uspForm = (function ($) {
             if (isUserSignedIn === true) {
                 saveForm(uspForm);
             } else {
-                GSType.hover.modalUspSignIn.show();
+                GSType.hover.modalUspRegistration.show();
             }
         }
     };
