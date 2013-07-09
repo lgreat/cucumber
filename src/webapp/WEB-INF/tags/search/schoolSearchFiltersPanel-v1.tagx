@@ -322,8 +322,8 @@
     <div class="line">
         <div class="unit size87of100 smaller bottom clearfix" id="js-packardFilters">
             <!--<input type="checkbox"/> After School Programs &amp;nbsp; &amp;nbsp;<input type="checkbox" /> Summer Programs-->
-            <div class="fl mrm" style="width:150px"><search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="afterSchool" value="afterSchool" label="After School Programs" omnitureCustomLink="AfterSchoolPrograms"/></div>
-            <div class="fl mrm" style="width:150px" ><search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="summerProgram" value="summerProgram" label="Summer Programs" omnitureCustomLink="SummerPrograms"/></div>
+            <div class="fl mrm" style="width:150px"><search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="afterSchool" value="afterSchool" label="After School Programs" omnitureCustomLink="AfterSchool"/></div>
+            <div class="fl mrm" style="width:150px" ><search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="summerProgram" value="summerProgram" label="Summer Programs" omnitureCustomLink="SummerProgram"/></div>
         </div>
         <div class="unit size13of100 lastUnit js-resetFiltersLink">
             <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Reset">
