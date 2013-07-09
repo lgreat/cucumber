@@ -245,11 +245,11 @@ that this is updated for ajax refresh -->
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <div class="js-existsInMsl" style="display: ${existsInMsl};">
-                                        <div class="fltlft mrs">
+                                    <div class="js-existsInMsl clearfix" style="display: ${existsInMsl};">
+                                        <div class="fl mrs">
                                             <span class="iconx16 i-16-success"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="fltlft small bottom">
+                                        <div class="fl small bottom">
                                             Added to <a href="/mySchoolList.page">My School List</a>
                                         </div>
                                     </div>
@@ -456,19 +456,19 @@ that this is updated for ajax refresh -->
 
                     <div class="unit size65of100">
                         <div class="js-add-msl js-add-msl-{{state}}{{id}}">
-                            <div class="js-existsInMsl {{showExistsInMsl}}">
-                                <div class="fltlft mrs">
+                            <div class="js-existsInMsl clearfix {{showExistsInMsl}}">
+                                <div class="fl mrs">
                                     <span class="iconx16 i-16-success"><!-- do not collapse --></span>
                                 </div>
-                                <div class="msl-textt fltlft small bottom">
+                                <div class="msl-textt fl small bottom">
                                     Added to <a href="/mySchoolList.page">My School List</a>
                                 </div>
                             </div>
-                            <div class="js-notInMsl {{showNotInMsl}}">
-                                <div class="fltlft mrs">
+                            <div class="js-notInMsl clearfix {{showNotInMsl}}">
+                                <div class="fl mrs">
                                     <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
                                 </div>
-                                <div class="js-msl-text fltlft small bottom">
+                                <div class="js-msl-text fl small bottom">
                                     <a href="#" class="js-add-msl-link" id="js-add-msl-link-{{state}}{{id}}"
                                        onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', '{{id}}', '{{state}}', this) == false){
                                                 GS.map.getMap.addSavedSchool('js-add-msl-link-{{state}}{{id}}');
