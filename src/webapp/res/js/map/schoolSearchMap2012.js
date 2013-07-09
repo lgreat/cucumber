@@ -24,7 +24,7 @@ GS.map.getMap = GS.map.getMap || (function () {
         schoolList = $('#js-schoolList');
         var height = getHeight();
         schoolList.css({height:height, overflowY:'auto', overflowX:'hidden'});
-        $('.js-mouseover-open-bubble').live('mouseover', function () {
+        $('.js-mouseover-open-bubble').on('mouseover', function () {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
             if (GS_openSchoolInfoBubble !== null) {
@@ -61,13 +61,13 @@ GS.map.getMap = GS.map.getMap || (function () {
             }
         });
 
-        $('.js-mouseover-open-bubble').live('mouseout', function () {
+        $('.js-mouseover-open-bubble').on('mouseout', function () {
             if (!bubblesSticky) {
                 closeInfoBox();
             }
         });
 
-        $('.js-mouseover-open-bubble').live('mouseover', function () {
+        $('.js-mouseover-open-bubble').on('mouseover', function () {
             if (GS_openSchoolInfoBubble !== null) {
                 // if a marker is open and it wasnt opened from an event triggered from the list, don't do anything
                 if (bubblesSticky) {
@@ -87,7 +87,7 @@ GS.map.getMap = GS.map.getMap || (function () {
             bubblesSticky = false;
         });
 
-        $('.js-mouseover-open-bubble').live('click', function () {
+        $('.js-mouseover-open-bubble').on('click', function () {
             if (GS_openSchoolInfoBubble !== null) {
                 GS_openSchoolInfoBubble = null;
                 infoBoxInstance.close();
