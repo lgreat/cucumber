@@ -125,7 +125,9 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private Boolean _gptAsynchronousModeOnMobileEnabledOverride = null;
 
     /**
-     * GS-14332 Added the method to check if the Sweep Stakes Module should be on or on based on the property value - Shomi Arora
+     * GS-14332 Added the method to check if the Sweep Stakes Module should be on or off based on the property value - Shomi Arora .
+     * Please note that the property gets cached in hibernated so the change will be effective 5 min after making the change in property table  value.
+     *
      * @return
      */
     public boolean isSweepStakesEnabled() {
