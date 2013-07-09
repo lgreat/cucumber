@@ -232,7 +232,7 @@ GS.facebook = GS.facebook || (function () {
         var redirectUrl = getLogoutRedirectUrl();
 
         deleteCookie("MEMBER"); // subscriber login
-        deleteCookie("MEMID"); // MSL
+        deleteCookie("MEMID", ".greatschools.org"); // MSL
         deleteCookie("SESSION_CACHE"); //
 
         var communityCookieName = "community_www";
@@ -247,17 +247,21 @@ GS.facebook = GS.facebook || (function () {
             communityCookieName = "community_www";
         }
 
-        deleteCookie(communityCookieName);
+        deleteCookie(communityCookieName, ".greatschools.org");
 
         window.location.href = redirectUrl;
     };
 
-    var deleteCookie = function(name) {
+    var deleteCookie = function(name, domain) {
         var dayLength = 24 * 60 * 60 * 1000;
         var date = new Date();
         date.setTime(date.getTime() - dayLength);
         var expires = "; expires=" + date.toGMTString();
-        document.cookie = name + "=" + expires + "; path=/";
+        if (domain) {
+            document.cookie = name + "=" + expires + "; domain=" + domain + "; path=/";
+        } else {
+            document.cookie = name + "=" + expires + "; path=/";
+        }
     };
 
     // should log user into FB and GS (backend creates GS account if none exists)
