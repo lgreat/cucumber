@@ -12,8 +12,8 @@
                 </div>
                 <div class="inner">
                     <div class="hd">
-                        <h2 class="tac bottom pbm">Just one more step</h2>
-                        <p class="tac">In order to post your answers, we need<br/>to verify your email address.</p>
+                        <h2 class="tac bottom pbm">Sign in</h2>
+                        <p class="tac">Log in below to post your answers.</p>
                     </div>
                     <form class="js_uspLoginForm" onsubmit="return false;">
                         <div class="body pal">
