@@ -82,7 +82,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/130604-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/130710-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -288,6 +288,9 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 }
 .i-16-downArrowWhite-sm {
     background-position: -800px 0;
+}
+.i-16-dollar {
+    background-position: -816px 0;
 }
 
 
