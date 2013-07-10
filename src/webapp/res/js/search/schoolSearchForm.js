@@ -55,6 +55,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             $("#js-schoolSearchFiltersPanel").removeClass("dn");
             $("#js-moreFiltersPanel").removeClass("dn");
             $(".js-schoolSearchFiltersPanel").removeClass("dn");
+            $(".js-filterNotes").removeClass("dn");
             if(currentFilterState == "open"){
                 //show close button
                 $('#js-closeSearchFilters').show();
@@ -69,6 +70,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             // hide filters section
             $("#js-byLocationTabBody").addClass("dn");
             $("#js-byNameTabBody").removeClass("dn");
+            $(".js-filterNotes").addClass("dn");
             $("#js-radius").addClass("dn");
             $("#js-schoolSearchFiltersPanel").addClass("dn");
             $("#js-moreFiltersPanel").addClass("dn");

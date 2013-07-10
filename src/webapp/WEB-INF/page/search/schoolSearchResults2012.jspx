@@ -74,8 +74,8 @@
 
 <!-- uncomment this when done testing -->
         <gsml:javascript src="/res/js/combined.search.min.js"/>
-        <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
-        <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+        <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>-->
+        <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>-->
 
 
         <k12:trafficDriverIncludes/>
@@ -90,10 +90,12 @@
     <script type="text/javascript">
         jQuery(function () {
             GS.schoolSearchResultsPage.init();
-//           jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-55,topPosition:5,hideDelay:0});
-//           jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-55,topPosition:5,hideDelay:0});
-           jQuery("#js-bubbleInfo-8").popover({content:jQuery("#js-bubbleInfo7 .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
-           jQuery("#js-bubbleInfo-9").popover({content: jQuery("#js-bubbleInfoFirst .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+           jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-55,topPosition:5,hideDelay:0});
+           jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-55,topPosition:5,hideDelay:0});
+//            jQuery("#js-bubbleInfo-8").popover({content:jQuery("#js-bubbleInfo-8 .js-popup").html(), placement:'bottom', delay:{ show: 100, hide: 500 }});
+//            jQuery("#js-bubbleInfo-9  .js-trigger").popover({content:jQuery("#js-bubbleInfo-9 .js-popup").html(), placement:'bottom', delay:{ show: 100, hide: 500 }});
+//            jQuery("#js-bubbleInfo-8").popover({content:jQuery("#js-bubbleInfo7 .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+//           jQuery("#js-bubbleInfo-9").popover({content: jQuery("#js-bubbleInfoFirst .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
         });
     </script>
 

@@ -64,8 +64,8 @@
     <!--<gsml:javascript src="/res/js/compare/persistentCompare.js"/>-->
     <gsml:javascript src="/res/js/combined.search.min.js"/>
 
-    <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
-    <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+    <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>-->
+    <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>-->
     <gsml:javascript src="/res/js/hogan.js"/>
 
 
@@ -113,10 +113,10 @@
 <div class="container_24 clearfix">
 <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
 
-<div class="fltlft">
+<div class="fl">
     <search:schoolResultsFor_text/>
 </div>
-<div class="fltrt">
+<div class="fr">
     <school:nearbyCitiesPopup/>&amp;nbsp;&amp;nbsp;
     <school:nearbyDistrictsPopup/>
 </div>

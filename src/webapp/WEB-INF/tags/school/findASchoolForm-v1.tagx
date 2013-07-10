@@ -125,7 +125,9 @@
             <img src="/res/img/search/120726-preloader21.gif" alt="spinny img"/>
         </div>
         <div class="fl" style="color: #009900"> schools</div>
-        <div class="js-filterNotes">
-        <span class="small bottom"><br /><strong>Note:</strong> Results are among schools that have shared info with us.</span></div>
+
+        <div class="js-filterNotes dn">
+            <span class="small bottom"><br /><strong>Note:</strong> Filtered results are generated from information schools have shared with us.</span>
+        </div>
     </div>
 </jsp:root>
