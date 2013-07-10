@@ -23,6 +23,7 @@
         String unEncodedUrl = permalink;
         String encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
         request.setAttribute("pageUrlOnFacebook", encodedUrl);
+        request.setAttribute("pageUrlOnFacebookUN", unEncodedUrl);
 
         gs.web.util.PageHelper.addMetaProperty(request, "og:type", "worksheet");
         gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");
