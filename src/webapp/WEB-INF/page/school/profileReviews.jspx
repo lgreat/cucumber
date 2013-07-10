@@ -145,14 +145,31 @@
                     </c:set>
 
                     <c:choose>
-                        <c:when test="${not empty communityRatings}">
+                        <c:when test="${sweepstakes}">
                             <div>
-                                <div id="communityRatings">
-                                    <school:profileParentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                                <img src="/res/img/sweepstakes/sweeps_tile.png" alt="Sweep tile"/>
+
+                                <div class="mam tal make-666666"
+                                     style="font: normal 9px/10px Arial, Helvetica, sans-serif; margin-bottom: 16px; color:#666666;">
+                                    No purchase necessary. Void where prohibited. Open to
+                                    legal residents of the U.S. and D.C., 13 years and older. Three new reviews are
+                                    required each month in order for a school to receive an entry in a monthly drawing.
+                                    Thereafter, each new review per month will count as one additional entry in the
+                                    monthly drawing, limit up to ten additional monthly entries.
+                                    <a href="/catalog/pdf/BestYearEverRules.pdf" class="underline make-666666">Official rules</a>.
                                 </div>
-                                <!--${aboutTheseRatings}-->
                             </div>
                         </c:when>
+                        <c:otherwise>
+                            <c:if test="${not empty communityRatings}">
+                                <div>
+                                    <div id="communityRatings">
+                                        <school:profileParentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                                    </div>
+                                    <!--${aboutTheseRatings}-->
+                                </div>
+                            </c:if>
+                        </c:otherwise>
                         <!--<c:when test="${cmd.ratings.count gt 0}">-->
                             <!--<div>-->
                                 <!--&lt;!&ndash;${aboutTheseRatings}&ndash;&gt;-->
