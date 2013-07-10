@@ -43,11 +43,15 @@
     </div>
 
 
+
+
+
     <!--Hover to warn the users when they try to compare schools in 2 states.-->
     <div id="js_compareDifferentStatesWarningHover" class="dn">
         <div class="mod modal_1 width_13" id="js_compareDifferentStatesWarningHover">
         <!--<div id="js_compareDifferentStatesWarningHover" class="dialog_white" style="display:none;">-->
             <div class="outer">
+                <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
                     <div class="hd">
                         <h2>Sorry, you may only compare schools in the same state.</h2>
