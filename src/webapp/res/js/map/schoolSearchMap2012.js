@@ -38,7 +38,7 @@ GS.map.getMap = GS.map.getMap || (function () {
                     content:marker.title,
                     maxWidth:0,
                     disableAutoPan:false,
-                    pixelOffset:new google.maps.Size(-15, 5),
+                    pixelOffset:new google.maps.Size(100, 5),
                     zIndex:null,
                     boxStyle:{
                         opacity:1,
@@ -196,7 +196,7 @@ GS.map.getMap = GS.map.getMap || (function () {
             map:map,
             maxWidth:0,
             disableAutoPan:false,
-            pixelOffset:new google.maps.Size(-150, -45),
+            pixelOffset:new google.maps.Size(-150, -35),
             zIndex:null,
             boxStyle:{
                 opacity:1,
