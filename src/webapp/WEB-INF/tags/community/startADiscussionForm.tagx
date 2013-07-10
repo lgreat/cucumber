@@ -77,7 +77,11 @@
             });
 
             jQuery('.submitButton').click(function() {
-                return validPost();
+                if (GS.showJoinHover('${requestScope.user.email}', window.location.href, GSType.hover.joinHover.showJoinPostComment)) {
+                    return validPost();
+                } else {
+                    return false;
+                }
             });
 
             function validPost() {
