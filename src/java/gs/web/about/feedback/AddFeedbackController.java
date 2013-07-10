@@ -275,7 +275,7 @@ public class AddFeedbackController extends SimpleFormController implements ReadW
         String message = "Hello,\n" +
                 "\n" +
                 "Thank you for contacting GreatSchools!\n" +
-                "We�ve received your request and will get back to you with an answer as soon as possible.\n" +
+                "We've received your request and will get back to you with an answer as soon as possible.\n" +
                 "\n" +
                 "Please do not reply to this automated email - we will respond to you from your support request.\n" +
                 "\n" +
