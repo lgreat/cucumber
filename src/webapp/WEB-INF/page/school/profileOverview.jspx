@@ -86,9 +86,8 @@
                                                 <div class="mam" style="height:170px;">
                                                     <img src="/res/img/sweepstakes/profile_tile.png"
                                                          alt="sweepstakes callout"/>
-
                                                     <div class="smaller">
-                                                        <a href="/catalog/pdf/BestYearEverRules.pdf" class=" make-999999">See official rules</a>
+                                                        <a href="/catalog/pdf/BestYearEverRules.pdf" class="underline make-999999">See official rules</a>
                                                     </div>
                                                 </div>
                                             </div>

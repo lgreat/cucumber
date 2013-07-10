@@ -118,6 +118,8 @@ a           { color: #06b; text-decoration: none; }
 a:hover.noUnderline {text-decoration: none;}
 a.noUnderline { color: #2B2B2B; text-decoration: none; }
 
+a.underline{text-decoration: underline;}
+
 a.selectedSort{color:#2B2B2B;}
 a:hover.selectedSort{text-decoration: underline;}
 
