@@ -174,7 +174,7 @@
     <div class="unit size3of19 formHelperWrapper">
         <div class="media formHelperText mbm">
             <div class="img mrs">*</div>
-            <div class="bd">Indicates a required field.</div>
+            <div class="bd">Required.</div>
         </div>
         <div class="media formHelperText">
             <div class="img mrs">&amp;nbsp;</div>
@@ -387,11 +387,8 @@
 
 <div class="line joinSubmit">
     <div class="unit size4of19">&amp;nbsp;</div>
-    <div class="unit size4of19">
+    <div class="unit size15of19 lastUnit">
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
-    </div>
-    <div class="unit size11of19 lastUnit">
-        <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
     </div>
 </div>
 

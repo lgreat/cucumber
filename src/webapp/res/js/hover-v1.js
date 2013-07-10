@@ -572,7 +572,6 @@ GSType.hover.JoinHover = function() {
         }
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
-        jQuery('#joinHover_cancel').hide();
 
         GSType.hover.joinHover.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
 

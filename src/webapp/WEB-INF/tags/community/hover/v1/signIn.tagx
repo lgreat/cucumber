@@ -23,7 +23,7 @@
         <form id="signin" action="/community/loginOrRegister.page" method="post">
             <div class="line">
                 <div class="unit size12of19">
-                    <p>Sign in with an existing GreatSchools account:</p>
+                    <p>Sign in with an existing GreatSchools account or using Facebook:</p>
                 </div>
                 <div class="unit size7of19 lastUnit">
                     <button class="button-1 signinBtn js-facebook-login" onclick="javascript:ModalManager.hideModal('signInHover');" type="button">Sign in with Facebook</button>

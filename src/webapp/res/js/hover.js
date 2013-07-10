@@ -452,7 +452,6 @@ GSType.hover.JoinHover = function() {
         }
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
-        jQuery('#joinHover_cancel').hide();
 
         GSType.hover.joinHover.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
 
@@ -1796,11 +1795,6 @@ jQuery(function() {
     });
 
     jQuery('#joinState').change(GSType.hover.joinHover.loadCities);
-
-    jQuery('#joinHover_cancel').click(function() {
-        GSType.hover.joinHover.hide();
-        return false;
-    });
 
     jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
     jQuery('#joinHover #jemail').blur(GSType.hover.joinHover.validateEmail);

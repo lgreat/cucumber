@@ -307,6 +307,8 @@
                 <button id="parentReviewFormSubmit-facebook" class="button-1 fl prm mrm" type="submit" name="Submit-facebook" value="facebook" onclick="">Submit using Facebook
                 </button>
                 <div><a class="plm smaller bold js-submit-using-email" onclick="javascript:$('#js-submit-using-email').show()">Or submit using your email</a></div>
+                <div class="clearfloat pts"><!-- do not collapse --></div>
+                <div class="smaller bottom">Don’t worry, your email address and Facebook identity will remain private.</div>
                 <div class="spacer_15 clearfloat pvs"><!-- do not collapse --></div>
 
 
@@ -332,7 +334,6 @@
                                        value="${validUser.email}" disabled="disabled"/>
                             </c:otherwise>
                         </c:choose>
-                        <div class="smaller bottom">Don’t worry, your email address will remain private.</div>
                     </div>
                     <div class="unit size26of100 lastUnit">
                         <div class="formErrorText form-error">
@@ -355,7 +356,7 @@
                     </div>
                 </div>
 
-
+                <div class="spacer_5 clearfloat pvs"><!-- do not collapse --></div>
 
                 <button id="parentReviewFormSubmit" class="button-1 fl " type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
