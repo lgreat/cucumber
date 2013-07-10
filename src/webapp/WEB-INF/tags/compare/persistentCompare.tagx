@@ -44,22 +44,24 @@
 
 
     <!--Hover to warn the users when they try to compare schools in 2 states.-->
-    <div id="js_compareDifferentStatesWarningHover" class="dialog_white" style="display:none;">
-        <div class="mod">
-            <div class="inner">
-                <div class="hd">
-                    <h2>Sorry, you may only compare schools in the same state.</h2>
-                </div>
-                <div class="bd">
-                    <p>
-                        To start a new list, click <strong>OK</strong>. Otherwise click <strong>Cancel</strong>.
-                    </p>
-                    <button class="button-1 mrm" type="button" id="js_compareDifferentStatePicked">OK</button>
-                    <button type="button" id="js_compareDifferentStateCancel" class="button-1 js_compareDifferentStatesWarningHover_hideHover">Cancel</button>
+    <div id="js_compareDifferentStatesWarningHover" class="dn">
+        <div class="mod modal_1 width_13" id="js_compareDifferentStatesWarningHover">
+        <!--<div id="js_compareDifferentStatesWarningHover" class="dialog_white" style="display:none;">-->
+            <div class="outer">
+                <div class="inner">
+                    <div class="hd">
+                        <h2>Sorry, you may only compare schools in the same state.</h2>
+                    </div>
+                    <div class="bd">
+                        <p>
+                            To start a new list, click <strong>OK</strong>. Otherwise click <strong>Cancel</strong>.
+                        </p>
+                        <button class="button-1 mrm" type="button" id="js_compareDifferentStatePicked">OK</button>
+                        <button type="button" id="js_compareDifferentStateCancel" class="button-1 js_closeHover js_compareDifferentStatesWarningHover_hideHover">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
 </jsp:root>
