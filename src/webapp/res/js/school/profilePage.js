@@ -86,6 +86,8 @@ GS.profile = GS.profile || (function() {
     var refreshableProfileAllAdSlotKeys = [
         'School_Profile_Page_Footer_728x90',
         'School_Profile_Page_Header_728x90',
+        'School_Profile_Page_Footer_Branded_Tandem_728x90',
+        'School_Profile_Page_Header_Branded_Tandem_728x90',
         'School_Profile_Page_Community_Ad_300x50',
         'School_Profile_Page_BelowFold_300x250',
         'School_Profile_Page_BelowFold_Top_300x125',

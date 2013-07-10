@@ -98,8 +98,8 @@
 
     </div>
     <div class="grid_16 alpha omega">
-        <div id="js-closeSearchFilters"  class="dn" style="width:79px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
-            <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 3px;">
+        <div id="js-closeSearchFilters"  class="dn small bottom" style="width:77px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
+            <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 7px;">
                 <div class="fl prs">Close</div>
                 <div class="fl">
                     <div  style="margin-top: 3px;" class="iconx16 i-16-sort-list-arrow-up"><!-- do not collapse --></div>
@@ -108,8 +108,8 @@
         </div>
     </div>
     <div class="grid_16 alpha omega">
-        <div id="js-openSearchFilters" class="dn" style="width:107px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
-            <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 3px;">
+        <div id="js-openSearchFilters" class="dn small bottom" style="width:97px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
+            <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 7px;">
                 <div class="fl prs">Advanced</div>
                 <div class="fl">
                     <div  style="margin-top: 3px;" class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></div>
@@ -118,13 +118,13 @@
         </div>
     </div>
     <div class="largest bottom mbm mtl ptl clearfix">
-        <div class="fl prs">We found
+        <div class="fl prs SourceSansPro-Semibold-h2">We found
             <span data-gs-html-mirror="total-results-count" id="js_totalResultsCountReturn" style="color: #009900"><!-- do not collapse --></span>
         </div>
         <div id="js-spinny-search" style="display:none;" class="fl mhs">
             <img src="/res/img/search/120726-preloader21.gif" alt="spinny img"/>
         </div>
-        <div class="fl" style="color: #009900"> schools</div>
+        <div class="fl SourceSansPro-Semibold-h2" style="color: #009900"> schools</div>
 
         <div class="js-filterNotes dn">
             <span class="small bottom"><br /><strong>Note:</strong> Filtered results are generated from information schools have shared with us.</span>
