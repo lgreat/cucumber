@@ -21,6 +21,10 @@
 <div class="pbm"><!-- do not collapse --></div>
 
 <div class="bd tal">
+    <div>
+        <button type="button" class="button-1 js-facebook-login" style="-webkit-user-select: none;">Sign in with Facebook</button>
+    </div>
+    <div class="pbm"><!-- do not collapse --></div>
     <div class="introTxt col">
         <!-- GS-11161 -->
         <p>

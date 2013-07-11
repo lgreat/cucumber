@@ -133,6 +133,9 @@ GS.facebook = GS.facebook || (function () {
                         ModalManager.hideModal({
                             'layerId' : 'signInHover'
                         });
+                        ModalManager.hideModal({
+                            'layerId' : 'joinHover'
+                        });
                     } else {
                         if (GSType.hover.signInHover.initialized) {
                             GSType.hover.signInHover.hide();
