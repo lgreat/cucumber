@@ -1403,7 +1403,16 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     height:281px;
 }
 
+.sweep_bg{
+    background: url('/res/img/sweepstakes/sweep_bg_container.png') no-repeat;
+    height: 500px;
+    width: 630px;
+    margin: auto;
+    padding: 40px;
+}
+
 .moduleHeight-560{height:560px;}
+.moduleHeight-1000{height:1000px;}
 .moduleTop-125{top:125px;}
 .moduleTop-150{top:150px;}
 .moduleTop-250{top:250px;}
