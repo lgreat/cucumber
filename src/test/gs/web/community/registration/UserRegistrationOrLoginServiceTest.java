@@ -2,7 +2,10 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.WelcomeMessageStatus;
 import gs.web.BaseControllerTestCase;
+import gs.web.auth.FacebookHelper;
+import gs.web.auth.FacebookSession;
 import gs.web.util.context.SessionContext;
 import org.easymock.classextension.EasyMock;
 import org.hibernate.validator.HibernateValidator;
@@ -246,6 +249,52 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         resetAllMocks();
     }
 
+    @Test
+    public void testRegisterUserWithFacebookId() throws Exception{
+        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        HttpServletRequest request = getRequest();
+        HttpServletResponse response = getResponse();
+        BindingResult bindingResult;
+        User user;
+
+        bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "_userRegistrationCommand");
+        registrationBehavior.setRedirectUrl("something");
+        registrationBehavior.setFbSignedRequest("bogus");
+
+        _userRegistrationCommand = RegistrationTestUtils.validUserRegistrationCommand()
+            .facebookId("bogus")
+            .password(null)
+            .confirmPassword(null)
+            .firstName("Timmy");
+
+        expect(_userDao.findUserFromEmailIfExists(_userRegistrationCommand.getEmail())).andReturn(null);
+
+        User user2 = _service.createNewUser(_userRegistrationCommand, registrationBehavior);
+        user2.setEmailVerified(true);
+
+        _userDao.saveUser(user2);
+
+        expect(_userDao.findUserFromId(user2.getId())).andReturn(user2);
+
+        // happens after user profile is created
+        _userDao.updateUser(user2);
+
+        try {
+            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationBehavior.getRedirectUrl(), null);
+        } catch (Exception ex) {
+
+        }
+
+        replayAllMocks();
+        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        verifyAllMocks();
+        assertNotNull("Expect valid user.", user);
+        assertTrue("Expect user email to be flagged validated", user.getEmailVerified());
+        assertEquals("Expect user facebookId to be correctly set", "bogus", user.getFacebookId());
+        assertNull("Expect user password to be empty", user.getPasswordMd5());
+        resetAllMocks();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testRegisterUserWithException() throws Exception{
         RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
@@ -280,5 +329,100 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         resetAllMocks();
     }
 
+    @Test
+    public void testConvertToFacebookAccountIfNeeded_noExistingFacebookId() throws Exception {
+        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        registrationBehavior.setFbSignedRequest("bogus");
+
+        FacebookSession facebookSession = org.easymock.classextension.EasyMock.createStrictMock(FacebookSession.class);
+        getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
+
+        _userLoginCommand.setEmail("someuser@somedomain.com");
+
+        User user = new User();
+        user.setId(1);
+        user.setEmail("someuser@somedomain.com");
+        user.setEmailVerified(true);
+        user.setFacebookId(null);
+        user.setPlaintextPassword("abc");
+        user.setEmailProvisional("abc");
+
+        org.easymock.classextension.EasyMock.expect(facebookSession.getUserId()).andReturn("bogusUserId");
+        _userDao.saveUser(user);
+
+        replayAllMocks();
+        org.easymock.classextension.EasyMock.replay(facebookSession);
+
+        _service.convertToFacebookAccountIfNeeded(user, getRequest());
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(facebookSession);
+
+        assertEquals("Expect user's facebook ID to have been set", "bogusUserId", user.getFacebookId());
+        assertEquals("Expect user's email to still be verified", Boolean.TRUE, user.getEmailVerified());
+        assertFalse("Expect user to still not be provisional", user.isEmailProvisional());
+    }
+
+    @Test
+    public void testConvertToFacebookAccountIfNeeded_emailNotAlreadyVerified() throws Exception {
+        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        registrationBehavior.setFbSignedRequest("bogus");
+
+        FacebookSession facebookSession = org.easymock.classextension.EasyMock.createStrictMock(FacebookSession.class);
+        getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
+
+        _userLoginCommand.setEmail("someuser@somedomain.com");
+
+        User user = new User();
+        user.setId(1);
+        user.setEmail("someuser@somedomain.com");
+        user.setEmailVerified(false);
+        user.setFacebookId(null);
+
+        org.easymock.classextension.EasyMock.expect(facebookSession.getUserId()).andReturn("bogusUserId");
+        _userDao.saveUser(user);
+
+        replayAllMocks();
+        org.easymock.classextension.EasyMock.replay(facebookSession);
+
+        _service.convertToFacebookAccountIfNeeded(user, getRequest());
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(facebookSession);
+
+        assertEquals("Expect user's facebook ID to have been set", "bogusUserId", user.getFacebookId());
+        assertTrue("Expect user's email to have been marked verified", user.getEmailVerified());
+    }
+
+    @Test
+    public void testConvertToFacebookAccountIfNeeded_withProvisionalEmail() throws Exception {
+        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        registrationBehavior.setFbSignedRequest("bogus");
+
+        FacebookSession facebookSession = org.easymock.classextension.EasyMock.createStrictMock(FacebookSession.class);
+        getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
+
+        _userLoginCommand.setEmail("someuser@somedomain.com");
+
+        User user = new User();
+        user.setId(1);
+        user.setEmail("someuser@somedomain.com");
+        user.setPlaintextPassword("abc");
+        user.setEmailProvisional("abc");
+
+        org.easymock.classextension.EasyMock.expect(facebookSession.getUserId()).andReturn("bogusUserId");
+        _userDao.saveUser(user);
+
+        replayAllMocks();
+        org.easymock.classextension.EasyMock.replay(facebookSession);
+
+        _service.convertToFacebookAccountIfNeeded(user, getRequest());
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(facebookSession);
+
+        assertEquals("Expect user's facebook ID to have been set", "bogusUserId", user.getFacebookId());
+        assertFalse("Expect user to no longer be provisional", user.isEmailProvisional());
+    }
 
 }

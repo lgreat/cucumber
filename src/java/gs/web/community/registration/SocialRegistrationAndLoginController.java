@@ -46,25 +46,28 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
     @Autowired
     private LocalValidatorFactoryBean _validatorFactory;
 
+    @Autowired
+    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
+
     public String EMAIL_MODEL_KEY = "email";
     public String SCREEN_NAME_MODEL_KEY = "screenName";
     public String USER_ID_MODEL_KEY = "userId";
     public String NUMBER_MSL_ITEMS_MODEL_KEY = "numberMSLItems";
     public String MODEL_ACCOUNT_CREATED_KEY = "GSAccountCreated";
     public String MODEL_SUCCESS_KEY = "success";
-    public String MODEL_FIRST_NAME_KEY= "firstName";
+    public String MODEL_FIRST_NAME_KEY = "firstName";
 
     public static final String SPREADSHEET_ID_FIELD = "ip";
 
-    @RequestMapping(value="/socialRegistrationAndLogin.json", method=RequestMethod.POST)
-    public View handleJoin(
-            ModelMap modelMap,
-            @Valid UserRegistrationCommand userRegistrationCommand,
-            BindingResult bindingResult,
-            UserSubscriptionCommand userSubscriptionCommand,
-            RegistrationBehavior registrationBehavior,
-            HttpServletRequest request,
-            HttpServletResponse response
+    @RequestMapping(value = "/socialRegistrationAndLogin.json", method = RequestMethod.POST)
+    public View handleJoin(ModelMap modelMap,
+                           @Valid UserRegistrationCommand userRegistrationCommand,
+                           @Valid UserLoginCommand userLoginCommand,
+                           BindingResult bindingResult,
+                           UserSubscriptionCommand userSubscriptionCommand,
+                           RegistrationBehavior registrationBehavior,
+                           HttpServletRequest request,
+                           HttpServletResponse response
 
     ) throws Exception {
         View view = new MappingJacksonJsonView();
@@ -76,81 +79,23 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
             return new MappingJacksonJsonView();
         }
 
-        /*if (isIPBlocked(request)) {
-            modelMap.put(MODEL_SUCCESS_KEY, "false");
-            return view;
-        };*/
+        UserStatus status = _userRegistrationOrLoginService.loginOrRegister(
+            userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response
+        );
 
-        User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
+        User user = status.getUser();
 
-        boolean userExists = (user != null);
-
-        if (userExists) {
-            FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
-            if (user.getFacebookId() == null) {
-                user.setFacebookId(facebookSession.getUserId());
-            }
-
-            // If the user had previously created a GS account but not verified their email, we'll take care of that
-            // now.
-            if (user.isEmailProvisional()) {
-                user.setEmailVerified(true);
-                user.setEmailValidated();
-                if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
-                    user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
-                }
-            }
-
-            if (registrationBehavior.isFacebookRegistration()) {
-                view = doSocialSignon(request, response, user);
-            }
-
-            _userDao.saveUser(user);
-            modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "false");
-        } else {
-            // only create the user if the user is new
-            user = createUser(userRegistrationCommand);
-
-            if (!registrationBehavior.requireEmailVerification()) {
-                user.setEmailVerified(true);
-            }
-
-            if (registrationBehavior.sendConfirmationEmail()) {
-                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
-            }
-
-            getUserDao().saveUser(user);
-
-            try {
-                if (registrationBehavior.isFacebookRegistration()) {
-                    user.setUserProfile(createUserProfile(userRegistrationCommand));
-                    user.getUserProfile().setUser(user);
-                    user.getUserProfile().setScreenName("user" + user.getId());
-                    user.setPlaintextPassword(RandomStringUtils.randomAlphanumeric(24));
-                } else {
-                    user.setPlaintextPassword(userRegistrationCommand.getPassword());
-                }
-
-                getUserDao().updateUser(user);
-
-                modelMap.put(MODEL_ACCOUNT_CREATED_KEY, "true");
-            } catch (NoSuchAlgorithmException e) {
-                getUserDao().removeUser(user.getId());
-            } catch (IllegalStateException e) {
-                getUserDao().removeUser(user.getId());
-            }
-
-            ThreadLocalTransactionManager.commitOrRollback();
-            PageHelper.setMemberAuthorized(request, response, user);
-        }
-
-
+        modelMap.put(MODEL_ACCOUNT_CREATED_KEY, String.valueOf(status.isUserRegistered()));
         modelMap.put(USER_ID_MODEL_KEY, user.getId());
+
         if (user.getUserProfile() != null) {
             modelMap.put(SCREEN_NAME_MODEL_KEY, user.getUserProfile().getScreenName());
         }
         modelMap.put(EMAIL_MODEL_KEY, user.getEmail());
-        modelMap.put(NUMBER_MSL_ITEMS_MODEL_KEY, user.getFavoriteSchools() != null? user.getFavoriteSchools().size() : 0 );
+        modelMap.put(
+            NUMBER_MSL_ITEMS_MODEL_KEY,
+            user.getFavoriteSchools() != null ? user.getFavoriteSchools().size() : 0
+        );
         modelMap.put(MODEL_SUCCESS_KEY, "true");
         modelMap.put(MODEL_FIRST_NAME_KEY, user.getFirstName());
         modelMap.remove("userRegistrationCommand");
@@ -158,87 +103,6 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
         modelMap.remove("registrationBehavior");
 
         return view;
-    }
-
-    public View doSocialSignon(HttpServletRequest request, HttpServletResponse response, User user) {
-
-        FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
-
-        if (facebookSession.isOwnedBy(user)) {
-            // log user in
-            try {
-                PageHelper.setMemberAuthorized(request, response, user);
-            } catch (NoSuchAlgorithmException e) {
-                return new MappingJacksonJsonView();
-            }
-            return new MappingJacksonJsonView();
-        }
-
-        return new MappingJacksonJsonView();
-    }
-
-    protected User createUser(UserRegistrationCommand userCommand) {
-        User user = new User();
-
-        user.setEmail(userCommand.getEmail());
-
-        if (userCommand.getState() != null) {
-            user.setStateAsString(userCommand.getState().getAbbreviation());
-        }
-
-        user.setFirstName(userCommand.getFirstName());
-
-        user.setLastName(userCommand.getLastName());
-
-        user.setGender(userCommand.getGender());
-
-        user.setTimeAdded(new Date());
-
-        user.setHow(userCommand.getHow());
-
-        user.setFacebookId(userCommand.getFacebookId());
-
-        return user;
-    }
-
-    public UserProfile createUserProfile(UserRegistrationCommand userRegistrationCommand) {
-        UserProfile profile = new UserProfile();
-
-        profile.setScreenName(userRegistrationCommand.getScreenName());
-
-        if (userRegistrationCommand.getState() != null) {
-            profile.setState(userRegistrationCommand.getState());
-        }
-
-        if (userRegistrationCommand.getCity() != null) {
-            profile.setCity(userRegistrationCommand.getCity());
-        }
-
-        profile.setHow(userRegistrationCommand.getHow());
-
-        Date now = new Date();
-        profile.setCreated(now);
-        profile.setCreated(now);
-
-        return profile;
-    }
-
-    protected boolean isIPBlocked(HttpServletRequest request) {
-        // First, check to see if the request is from a blocked IP address. If so,
-        // then, log the attempt and show the error view.
-        String requestIP = (String) request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
-            requestIP = request.getRemoteAddr();
-        }
-        try {
-            if (_tableDao.getFirstRowByKey(SPREADSHEET_ID_FIELD, requestIP) != null) {
-                _log.warn("Request from blocked IP Address: " + requestIP);
-                return true;
-            }
-        } catch (Exception e) {
-            _log.warn("Error checking IP address", e);
-        }
-        return false;
     }
 
     public IUserDao getUserDao() {
@@ -263,5 +127,9 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
 
     public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
         _exactTargetAPI = exactTargetAPI;
+    }
+
+    public void setUserRegistrationOrLoginService(UserRegistrationOrLoginService userRegistrationOrLoginService) {
+        _userRegistrationOrLoginService = userRegistrationOrLoginService;
     }
 }

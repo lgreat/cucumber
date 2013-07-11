@@ -7,6 +7,8 @@ import gs.data.community.WelcomeMessageStatus;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableDaoFactory;
+import gs.web.auth.FacebookHelper;
+import gs.web.auth.FacebookSession;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -150,6 +152,10 @@ public class UserRegistrationOrLoginService {
 
         User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
         if (user != null) {
+            if (registrationBehavior.isFacebookRegistration()) {
+                convertToFacebookAccountIfNeeded(user, request);
+            }
+
             if (user.isEmailValidated()) {
 
                 Set<ConstraintViolation<UserLoginCommand>> loginErrors = _validatorFactory.validate(userLoginCommand, UserLoginCommand.ValidateLoginCredentials.class);
@@ -209,7 +215,11 @@ public class UserRegistrationOrLoginService {
                     // User object loses its session and this might fix that.
                     user = getUserDao().findUserFromId(user.getId());
 
-                    setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
+                    if (registrationBehavior.isFacebookRegistration()) {
+                        user.setFacebookId(userRegistrationCommand.getFacebookId());
+                    } else {
+                        setUsersPassword(user, userRegistrationCommand, registrationBehavior, userExists);
+                    }
 
                     user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationBehavior, user));
                     user.getUserProfile().setUser(user);
@@ -450,6 +460,37 @@ public class UserRegistrationOrLoginService {
         return false;
     }
 
+    public void convertToFacebookAccountIfNeeded(User user, HttpServletRequest request) {
+        boolean userModified = false;
+
+        if (user.getFacebookId() == null) {
+            FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
+            if (facebookSession != null) {
+                String userId = facebookSession.getUserId();
+                if (userId != null) {
+                    user.setFacebookId(userId);
+                    userModified = true;
+                }
+            }
+        }
+
+        if (user.isEmailProvisional()) {
+            user.setEmailValidated();
+            if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
+            }
+            userModified = true;
+        }
+
+        if (!Boolean.TRUE.equals(user.getEmailVerified())) {
+            user.setEmailVerified(true);
+            userModified = true;
+        }
+
+        if (userModified) {
+            _userDao.saveUser(user);
+        }
+    }
 
     public void setPollFactory(ITableDaoFactory _tableDaoFactory) {
         _tableDao = _tableDaoFactory.getTableDao();
