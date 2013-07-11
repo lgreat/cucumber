@@ -134,7 +134,12 @@ GS.facebook = GS.facebook || (function () {
                             'layerId' : 'signInHover'
                         });
                     } else {
-                        GSType.hover.signInHover.hide();
+                        if (GSType.hover.signInHover.initialized) {
+                            GSType.hover.signInHover.hide();
+                        }
+                        if (GSType.hover.joinHover.initialized) {
+                            GSType.hover.joinHover.hide();
+                        }
                     }
 
                     // even though we don't know if the user is logged in or not, disable login right away.
