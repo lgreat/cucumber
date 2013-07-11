@@ -9,7 +9,8 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     var init = function(_filtersModule, _contentDropdownsModule) {
         filtersModule = _filtersModule;
         contentDropdownsModule = _contentDropdownsModule;
-        if(searchBarVersion == "v1"){
+
+        if($('#findASchoolTabs').hasClass('js-searchbarversion-v1')){
             initNewVersionNoTabs();
         }
         else{
@@ -82,9 +83,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
     var initNewVersionNoTabs = function(){
         var currentFilterState = "open";
-//        console.log("test", filterLocationShow);
-        if(filterLocationShow == true){
-//            console.log("inside", filterLocationShow);
+        if(!$('#js-byLocationTabBody').hasClass('dn')){
             noTabSwitch('location', currentFilterState);
         }
         $('#js-openSearchFilters').on('click', function () {

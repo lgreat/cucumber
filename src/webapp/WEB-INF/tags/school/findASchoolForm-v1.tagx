@@ -10,8 +10,8 @@
           xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
         >
-    <script>var searchBarVersion = "v1";</script>
-    <div id="findASchoolTabs" class="mod standard_9-1 clearfix">
+
+    <div id="findASchoolTabs" class="mod standard_9-1 clearfix js-searchbarversion-v1">
         <c:set var="onclickLocation">if (s.tl) {s.tl(true,'o', 'Search_location_tab_click');} return true;</c:set>
         <c:set var="onclickName">if (s.tl) {s.tl(true,'o', 'Search_name_tab_click');} return true;</c:set>
 
@@ -108,7 +108,7 @@
         </div>
     </div>
     <div class="grid_16 alpha omega">
-        <div id="js-openSearchFilters" class="dn small bottom" style="width:97px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
+        <div id="js-openSearchFilters" class="dn small bottom" style="width:99px;margin:auto; cursor: pointer; border-bottom:2px solid #FFCC00;">
             <div class="phm bottom clearfix" style="border:1px solid #cccccc; border-top:none; padding-top: 7px;">
                 <div class="fl prs">Advanced</div>
                 <div class="fl">
