@@ -22,6 +22,7 @@
 <head>
     <article:slideshowTitle articleSlideshow="${articleSlideshow}"/>
 
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
     <pageHelper:externalJavascript file="/res/js/content/cms/article/combined.js"/>
@@ -48,12 +49,14 @@
     <c:if test="${nextPageNum != -1}">
         <link rel="next" href="${nextPageContentUrl}"/>
     </c:if>
+
+    <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
 </head>
 <gsml:body adPageName="article" pageLayout="nocol">
 
-    <!--<div class="container_24">-->
-        <div class="grid_16 slStylesV1-0 slFormsV1-0">
-            <div class="articleText clearfix">
+<div class="container_24">
+    <div class="grid_16">
+        <div class="articles clearfix">
                 <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
                 <h1>${feature.title}</h1>
@@ -83,7 +86,7 @@
 
                 <!-- Previous and Next button implementation -->
                 <c:set var="stepNavContent">
-                    <div class="stepNav fltrt">
+                <div class="stepNav fr">
 
                         <c:set var="hasPreviousSlide" value="${not empty articleSlideshow.previousSlide}"/>
                         <c:choose>
@@ -107,12 +110,12 @@
                         <c:choose>
                             <c:when test="${hasNextSlide}">
                                 <span class="next"><a class="button-1"
-                                        href="${contentUrl}?page=${pageNum + 1}">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
+                                                      href="${contentUrl}?page=${pageNum + 1}">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
                                 </span>
                             </c:when>
                             <c:otherwise>
                                 <span class="next"><a class="button-1-inactive"
-                                         href="javascript:void(0);">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
+                                                      href="javascript:void(0);">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
                                 </span>
                             </c:otherwise>
                         </c:choose>
@@ -171,7 +174,7 @@
                                     </div>
 
                                     <c:if test="${hasNextSlide}">
-                                        <p class="ss_text ss_next fltrt">Next:&amp;nbsp;
+                                    <p class="ss_text ss_next fr">Next:&amp;nbsp;
                                             <a href="${contentUrl}?page=${pageNum + 1}">
                                                 <c:set var="nextSlideHasPromo"
                                                        value="${not empty articleSlideshow.nextSlide.promo}"/>
@@ -245,7 +248,7 @@
             <article:rightColumn feature="${feature}" omniturePageName="${omniturePageName}"
                                  showCompanionAd="${showCompanionAd}"/>
         </div>
-    <!--</div>-->
+    </div>
 
     <mod:tracking pageName="${omniturePageName}"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
