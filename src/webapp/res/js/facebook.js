@@ -103,7 +103,9 @@ GS.facebook = GS.facebook || (function () {
     };
 
     var trackGSAccountCreated = function() {
-        s.tl(true,'o', 'GS_FB_account_created');
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event80;";
+        omnitureEventNotifier.send();
     };
 
     var getLoginDeferred = function () {
@@ -302,7 +304,8 @@ GS.facebook = GS.facebook || (function () {
                         // Backed out from r226
                         $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                             if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
-                                if (regLoginResponse.GSAccountCreated) {
+                                console.log("RES", regLoginResponse);
+                                if (regLoginResponse.GSAccountCreated === "true") {
                                     trackGSAccountCreated();
                                 }
                                 updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.firstName, regLoginResponse.numberMSLItems);
