@@ -287,6 +287,10 @@ public class UserRegistrationOrLoginService {
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
         }
 
+        if (userCommand.getFacebookId() != null) {
+            user.setFacebookId(userCommand.getFacebookId());
+        }
+
         user.setTimeAdded(new Date());
 
         user.setHow(userCommand.getHow());
@@ -489,6 +493,7 @@ public class UserRegistrationOrLoginService {
 
         if (userModified) {
             _userDao.saveUser(user);
+            ThreadLocalTransactionManager.commitOrRollback();
         }
     }
 

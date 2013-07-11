@@ -885,6 +885,8 @@ GSType.hover.SignInHover = function() {
             jQuery('#signInHover .errors .error').html(errorIcon + data.userDeactivated).show();
         } else if (data.passwordMismatch) {
             jQuery('#signInHover .errors .error2').html(errorIcon + data.passwordMismatch).show();
+        } else if (data.facebookUser) {
+            jQuery('#signInHover .errors .error2').html(errorIcon + data.facebookUser).show();
         } else {
             GSType.hover.signInHover.cancelLoadOnExit();
             if (GSType.hover.signInHover.onSubmitCallback) {
