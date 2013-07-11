@@ -81,7 +81,7 @@
 
 <div class="container_24 clearfix">
     <div class="grid_16">
-        <div class="articles clearfix pbl">
+        <div class="articles clearfix">
             <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
             <!--Licensor logo-->
@@ -110,7 +110,7 @@
             <!--Sidebar-->
             <div class="grid_5 alpha">
                 <!-- 2012 03 26 - mitch added comment to parameter list so I could access it in the toolbar -->
-                <article:toolsLayout1 feature="${feature}" uri="${uri}" comments="${comments}"/>
+                <article:toolsLayout1-v1 feature="${feature}" uri="${uri}" comments="${comments}"/>
 
                 <!--GS-12398 Display sidebar blog module only when there is no photo gallery or related videos or related articles or feature sidebar is displayed-->
                 <c:set var="showBlogModule" value="${true}" property="java.lang.Boolean"/>
@@ -129,7 +129,7 @@
 
                 <c:if test="${not empty feature.relatedArticles}">
                     <c:set var="showBlogModule" value="${false}"/>
-                    <article:relatedArticles feature="${feature}"/>
+                    <article:relatedArticles-v1 feature="${feature}"/>
                 </c:if>
 
 
@@ -165,7 +165,7 @@
                 ${currentPage}
 
                 <c:if test="${not empty feature.pdfUri and (-1 eq feature.currentPageNum or feature.numPages eq feature.currentPageNum)}">
-                    <div class="fltlft">
+                    <div class="fl">
                         <a class="button-1" href="${feature.pdfUri}">Download <span
                                 class="sprite i-downloadarrow"><!-- do not collapse --></span></a>
                     </div>
@@ -179,7 +179,7 @@
 
             <div class="grid_16 alpha omega">
                 <!--Share buttons-->
-                <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
+                <article:socialToolsLayout2-v1 includeFbSendBtn="false" includeShareBtn="true"/>
                 <!--Share buttons-->
 
                 <!-- Pagination -->
