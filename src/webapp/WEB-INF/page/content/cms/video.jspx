@@ -83,7 +83,7 @@
 <div class="grid_16 articles">
 
     <div class="mrm phs">
-        <div class="smaller mtm pts" style="margin-bottom: 0;">
+        <div class="smaller mtm pts bottom">
             <link:home>Home</link:home> &amp;gt;
             <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
                 <c:choose>
@@ -162,7 +162,7 @@
         <div class="shim-10"><!-- do not collapse --></div>
 
         <c:if test="${not empty feature.relatedVideos}">
-            <cms:relatedVideos/>
+            <cms:relatedVideos-v1/>
         </c:if>
 
         <!-- Related links -->
@@ -307,7 +307,7 @@
                 </div>
             </c:if>
 
-            <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
+            <jsp:include page="/content/cms/moreInCategory-v1.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
                     feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
             <c:set var="ckid" value="${feature.contentKey.identifier}"/>

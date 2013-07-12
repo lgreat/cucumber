@@ -46,14 +46,6 @@ paragraph
     color: #2b2b2b;
 }
 
-.articles h5{}
-
-.articles h6{}
-
-/*.articles ul{*/
-    /*padding-bottom: 20px;*/
-/*}*/
-
 .articles .text1{
     font: 14px Arial,Helvetica,sans-serif;
     color: #333;
@@ -261,6 +253,10 @@ paragraph
 
 .brdbtm_dotted-ccc {
     border-bottom: 2px dotted #ccc;
+}
+
+.brdbtm_solid-c6c6c6 {
+    border-bottom: 1px solid #c6c6c6;
 }
 
 /* --------------- authorBios ---------------- */
