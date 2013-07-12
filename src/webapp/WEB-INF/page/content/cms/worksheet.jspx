@@ -58,7 +58,7 @@
             <link:cmsWorksheetGallery>Worksheets</link:cmsWorksheetGallery>
         </div>
 
-        <h1 class="mts">${feature.title}</h1>
+        <div><h1 class="mts">${feature.title}</h1></div>
 
         <div class="clearfloat brdbtm_dotted-ccc mbm mrm"><!-- do not collapse --></div>
 
@@ -77,10 +77,10 @@
 
         <div class="shim-15"><!-- don't collapse --></div>
 
-        <div class="grid_9 alpha">
+        <div class="grid_9 alpha mtm">
 
             <!-- deck -->
-            <p class="text1 mbn">
+            <p class="text1 mbm">
                 ${fn:escapeXml(feature.summary)}
             </p>
 
@@ -96,7 +96,7 @@
             <div class="shim-15"><!-- don't collapse --></div>
 
             <c:if test="${not empty feature.skillsList}">
-                <p class="text2 mbn">
+                <p class="text2">
                     Skills:
                     <c:forEach var="skill" items="${feature.skillsList}" varStatus="loopStatus">
                         ${fn:escapeXml(skill)}<c:if test="${!loopStatus.last}">, </c:if>
@@ -111,7 +111,7 @@
             <div class="shim-20"><!-- don't collapse --></div>
 
             <c:if test="${not empty feature.commonCoreStandardsList}">
-                <p class="smaller mbn" id="js-ccs-links" style="color:#333;">
+                <p class="smaller" id="js-ccs-links" style="color:#333;">
                     Common Core Standards:
                     <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
                         <a href="${standard.url}" target="_blank" class="js-ccs-link" onclick="if (s.tl) {s.tl(this, 'o', 'WorksheetSingle_CCS_Link');}">${fn:escapeXml(standard.name)}</a><c:if
@@ -129,7 +129,7 @@
                 </c:forEach>
             </p>
         </div>
-        <div class="grid_7 omega">
+        <div class="grid_7 omega mtm">
 
             <c:if test="${not empty feature.previewImageUrl}">
                 <gsml:a href="${feature.pdfUri}" target="_blank">
@@ -141,7 +141,7 @@
             </c:if>
 
             <!-- DONE-11818 acrobat reader icon -->
-            <p class="smaller mtm">
+            <p class="smaller mtm bottom">
                 <span class="iconx16 i-16-pdf vert-align-mid"><!-- do not collapse --></span> Don't have Acrobat Reader? <a
                     href="http://get.adobe.com/reader/" target="_blank">Get it now</a>.
             </p>
@@ -178,7 +178,7 @@
         <!-- related worksheets -->
         <c:if test="${feature.hasPublishedRelatedWorksheets}">
             <div class="mrm">
-                <cms:relatedWorksheets feature="${feature}"/>
+                <cms:relatedWorksheets-v1 feature="${feature}"/>
             </div>
         </c:if>
 
@@ -188,7 +188,7 @@
             <c:choose>
                 <c:when test="${requestScope.context.fbCommentsEnabled}">
                     <!-- FB Comments -->
-                    <div><article:commentsFB comments="${comments}" feature="${feature}" fbWidth="610"/></div>
+                    <div><article:commentsFB-v1 comments="${comments}" feature="${feature}" fbWidth="610"/></div>
                 </c:when>
                 <c:otherwise>
                     <div id="enterComment">

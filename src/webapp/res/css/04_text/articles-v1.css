@@ -50,9 +50,9 @@ paragraph
 
 .articles h6{}
 
-.articles ul{
-    padding-bottom: 20px;
-}
+/*.articles ul{*/
+    /*padding-bottom: 20px;*/
+/*}*/
 
 .articles .text1{
     font: 14px Arial,Helvetica,sans-serif;
@@ -251,4 +251,14 @@ paragraph
     position: absolute;
     top: 11px;
     right: 37px;
+}
+
+
+
+/* borders
+-------------------------------------------------------------------------------------------*/
+
+
+.brdbtm_dotted-ccc {
+    border-bottom: 2px dotted #ccc;
 }

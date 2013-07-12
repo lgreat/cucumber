@@ -7,12 +7,12 @@
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
     <div class="mod mbl">
-        <div class="inner">
+        <div class="inner " style="background-color: #ebebeb; padding: 20px 20px 10px">
             <div class="hd">
                 <h4 class="subhead2" style="margin-bottom: 5px">Related worksheets</h4>
             </div>
             <div class="bd">
-                <ul>
+                <ul class="bottom">
                     <c:forEach var="relatedWorksheet" items="${feature.publishedRelatedWorksheets}" varStatus="status" begin="0"
                                end="3">
                         <c:choose>
