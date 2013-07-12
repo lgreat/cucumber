@@ -77,10 +77,10 @@
                     <!--Sidebar-->
                     <div class="grid_5 alpha">
                         <!-- 2012 03 26 - mitch added comment to parameter list so I could access it in the toolbar -->
-                        <article:toolsLayout1 feature="${feature}" uri="${uri}" comments="${comments}"/>
+                        <article:toolsLayout1-v1 feature="${feature}" uri="${uri}" comments="${comments}"/>
 
                         <c:if test="${not empty feature.relatedArticles}">
-                            <article:relatedArticles feature="${feature}"/>
+                            <article:relatedArticles-v1 feature="${feature}"/>
                         </c:if>
                     </div>
                     <!--Sidebar-->
@@ -113,7 +113,7 @@
                     <hr class="keyline1"/>
 
                     <!--Share buttons-->
-                    <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
+                    <article:socialToolsLayout2-v1 includeFbSendBtn="false" includeShareBtn="true"/>
                     <!--Share buttons-->
 
                     <div class="spacer_15"><!-- do not collapse --></div>
@@ -135,7 +135,7 @@
                 <c:choose>
                     <c:when test="${requestScope.context.fbCommentsEnabled}">
                         <!-- FB Comments -->
-                        <div><article:commentsFB comments="${comments}" feature="${feature}"/></div>
+                        <div><article:commentsFB-v1 comments="${comments}" feature="${feature}"/></div>
                     </c:when>
                     <c:otherwise>
                         <!-- Old Comments with Form -->
