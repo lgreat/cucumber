@@ -73,7 +73,7 @@
                     <div class="unit size2of100 ">&amp;nbsp;</div>
                     <c:choose>
                         <c:when test="${sweepstakes}">
-                            <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile">
+                            <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile"  anchor="from..SweepStakes">
                                 <div class="unit size32of100 lastUnit">
                                     <div class="mod standard_1-1">
                                         <div class="inner box-shadow-animation-1">
@@ -245,7 +245,7 @@
                     <div class="unit size32of100 lastUnit">
                         <c:choose>
                             <c:when test="${sweepstakes}">
-                                <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile">
+                                <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile" anchor="from..SweepStakes">
                                     <div class="unit size32of100 lastUnit">
                                         <div class="mod standard_1-1">
                                             <div class="inner box-shadow-animation-1">
