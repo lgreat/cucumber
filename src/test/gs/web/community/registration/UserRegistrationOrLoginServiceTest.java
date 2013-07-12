@@ -2,9 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.community.WelcomeMessageStatus;
 import gs.web.BaseControllerTestCase;
-import gs.web.auth.FacebookHelper;
 import gs.web.auth.FacebookSession;
 import gs.web.util.context.SessionContext;
 import org.easymock.classextension.EasyMock;
@@ -36,7 +34,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
     public void setUp() throws Exception {
         super.setUp();
         _service = new UserRegistrationOrLoginService(){
-            public User createNewUser(UserRegistrationCommand userCommand, RegistrationBehavior registrationBehavior) {
+            public User createNewUser(UserRegistrationCommand userCommand, RegistrationOrLoginBehavior registrationOrLoginBehavior) {
                 User user = new User();
                 user.setId(1);
                 user.setEmail("someone@somedomain.com");
@@ -71,10 +69,10 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testGetUserFromSession() throws Exception {
-        RegistrationBehavior registrationBehavior = new RegistrationBehavior();
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new RegistrationOrLoginBehavior();
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
-        User user = _service.getUserFromSession(registrationBehavior, request, response);
+        User user = _service.getUserFromSession(request);
 
         assertNull("No user in the session.", user);
 
@@ -82,24 +80,24 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         SessionContext sessionContext = getSessionContext();
         User newUser = new User();
         sessionContext.setUser(newUser);
-        user = _service.getUserFromSession(registrationBehavior, request, response);
+        user = _service.getUserFromSession(request);
 
         assertEquals("Get the user from the session.", newUser, user);
     }
 
     @Test
     public void testLoginUser() throws Exception {
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
 
         //Empty command
-        User user = _service.loginUser(_userLoginCommand, registrationBehavior, request, response);
+        User user = _service.loginUser(_userLoginCommand, registrationOrLoginBehavior, request, response);
         assertNull("There is no email and password in the command.Hence cannot log in user.", user);
 
         //Invalid email.
         _userLoginCommand.setEmail("asd");
-        user = _service.loginUser(_userLoginCommand, registrationBehavior, request, response);
+        user = _service.loginUser(_userLoginCommand, registrationOrLoginBehavior, request, response);
         assertNull("Invalid email in the command.Hence cannot log in user.", user);
         resetAllMocks();
 
@@ -107,7 +105,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         _userLoginCommand.setEmail("someuser@somedomain.com");
         _userLoginCommand.setPassword("password");
 
-        registrationBehavior.setRedirectUrl("index.page");
+        registrationOrLoginBehavior.setRedirectUrl("index.page");
 
         User user1 = new User();
         user1.setId(1);
@@ -117,10 +115,10 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         user1.setEmailProvisional("password");
 
         expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(user1);
-        _emailVerificationEmail.sendVerificationEmail(request, user1, registrationBehavior.getRedirectUrl(), null);
+        _emailVerificationEmail.sendVerificationEmail(request, user1, registrationOrLoginBehavior.getRedirectUrl(), null);
 
         replayAllMocks();
-        user = _service.loginUser(_userLoginCommand, registrationBehavior, request, response);
+        user = _service.loginUser(_userLoginCommand, registrationOrLoginBehavior, request, response);
         verifyAllMocks();
         assertNotNull("Valid user.", user);
         assertFalse("User is not email validated.", user.isEmailValidated());
@@ -135,7 +133,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(user1);
 
         replayAllMocks();
-        user = _service.loginUser(_userLoginCommand, registrationBehavior, request, response);
+        user = _service.loginUser(_userLoginCommand, registrationOrLoginBehavior, request, response);
         verifyAllMocks();
 
         assertNotNull("Valid user.", user);
@@ -144,13 +142,13 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testRegisterUser() throws Exception{
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
 
         //Empty command
         BindingResult bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "userRegistrationCommand");
-        User user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        User user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
 
         assertNull("User email, password ,first name etc are not set in the command.Hence cannot register user.", user);
         assertTrue("There is no email, password, first name etc in the command.Hence errors.", bindingResult.hasErrors());
@@ -163,7 +161,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         _userRegistrationCommand.setConfirmPassword("as");
         _userRegistrationCommand.setFirstName("a");
 
-        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
         assertNull("Invalid email, password ,first name etc in the command.Hence cannot register user.", user);
         assertTrue("Invalid email, password ,first name etc in the command.Hence errors.", bindingResult.hasErrors());
         resetAllMocks();
@@ -181,7 +179,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_userRegistrationCommand.getEmail())).andReturn(user1);
 
         replayAllMocks();
-        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
         verifyAllMocks();
         assertNotNull("Valid user.", user);
         assertFalse("User is not email validated.", user.isEmailValidated());
@@ -189,22 +187,22 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
         //No user exists.
         bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "_userRegistrationCommand");
-        registrationBehavior.setRedirectUrl("something");
+        registrationOrLoginBehavior.setRedirectUrl("something");
 
         expect(_userDao.findUserFromEmailIfExists(_userRegistrationCommand.getEmail())).andReturn(null);
-        User user2 = _service.createNewUser(_userRegistrationCommand, registrationBehavior);
+        User user2 = _service.createNewUser(_userRegistrationCommand, registrationOrLoginBehavior);
         _userDao.saveUser(user2);
         expect(_userDao.findUserFromId(user2.getId())).andReturn(user2);
         _userDao.updateUser(user2);
         _userDao.updateUser(user2);
         try {
-            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationBehavior.getRedirectUrl(), null);
+            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationOrLoginBehavior.getRedirectUrl(), null);
         } catch (Exception ex) {
 
         }
 
         replayAllMocks();
-        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
         verifyAllMocks();
         assertNotNull("Valid user.", user);
         assertFalse("User is not email validated.", user.isEmailValidated());
@@ -213,21 +211,21 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testRegisterUserWithNoFirstName() throws Exception{
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
         BindingResult bindingResult;
         User user;
 
         bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "_userRegistrationCommand");
-        registrationBehavior.setRedirectUrl("something");
+        registrationOrLoginBehavior.setRedirectUrl("something");
 
         _userRegistrationCommand = RegistrationTestUtils.validUserRegistrationCommand()
             .firstName(null);
 
         expect(_userDao.findUserFromEmailIfExists(_userRegistrationCommand.getEmail())).andReturn(null);
 
-        User user2 = _service.createNewUser(_userRegistrationCommand, registrationBehavior);
+        User user2 = _service.createNewUser(_userRegistrationCommand, registrationOrLoginBehavior);
 
         _userDao.saveUser(user2);
 
@@ -236,13 +234,13 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         _userDao.updateUser(user2);
         _userDao.updateUser(user2);
         try {
-            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationBehavior.getRedirectUrl(), null);
+            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationOrLoginBehavior.getRedirectUrl(), null);
         } catch (Exception ex) {
 
         }
 
         replayAllMocks();
-        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
         verifyAllMocks();
         assertNotNull("Valid user.", user);
         assertFalse("User is not email validated.", user.isEmailValidated());
@@ -251,15 +249,15 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testRegisterUserWithFacebookId() throws Exception{
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
         BindingResult bindingResult;
         User user;
 
         bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "_userRegistrationCommand");
-        registrationBehavior.setRedirectUrl("something");
-        registrationBehavior.setFbSignedRequest("bogus");
+        registrationOrLoginBehavior.setRedirectUrl("something");
+        registrationOrLoginBehavior.setFbSignedRequest("bogus");
 
         _userRegistrationCommand = RegistrationTestUtils.validUserRegistrationCommand()
             .facebookId("bogus")
@@ -269,7 +267,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
         expect(_userDao.findUserFromEmailIfExists(_userRegistrationCommand.getEmail())).andReturn(null);
 
-        User user2 = _service.createNewUser(_userRegistrationCommand, registrationBehavior);
+        User user2 = _service.createNewUser(_userRegistrationCommand, registrationOrLoginBehavior);
         user2.setEmailVerified(true);
 
         _userDao.saveUser(user2);
@@ -280,13 +278,13 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         _userDao.updateUser(user2);
 
         try {
-            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationBehavior.getRedirectUrl(), null);
+            _emailVerificationEmail.sendVerificationEmail(request, user2, registrationOrLoginBehavior.getRedirectUrl(), null);
         } catch (Exception ex) {
 
         }
 
         replayAllMocks();
-        user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
         verifyAllMocks();
         assertNotNull("Expect valid user.", user);
         assertTrue("Expect user email to be flagged validated", user.getEmailVerified());
@@ -297,7 +295,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testRegisterUserWithException() throws Exception{
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
         BindingResult bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "userRegistrationCommand");
@@ -312,7 +310,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
         //No user exists. But there was an error, therefore make sure the user is removed from the database.
         bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "_userRegistrationCommand");
-        registrationBehavior.setRedirectUrl("something");
+        registrationOrLoginBehavior.setRedirectUrl("something");
         _service = new UserRegistrationOrLoginService();
         _service.setValidatorFactory(_validatorFactory);
         _service.setUserDao(_userDao);
@@ -323,7 +321,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         _userDao.removeUser(null);
 
         replayAllMocks();
-        User user = _service.registerUser(_userRegistrationCommand, registrationBehavior, bindingResult, request, response);
+        User user = _service.registerUser(_userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
         verifyAllMocks();
         assertNull("Valid user.", user);
         resetAllMocks();
@@ -331,8 +329,8 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testConvertToFacebookAccountIfNeeded_noExistingFacebookId() throws Exception {
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-        registrationBehavior.setFbSignedRequest("bogus");
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
+        registrationOrLoginBehavior.setFbSignedRequest("bogus");
 
         FacebookSession facebookSession = org.easymock.classextension.EasyMock.createStrictMock(FacebookSession.class);
         getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
@@ -365,8 +363,8 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testConvertToFacebookAccountIfNeeded_emailNotAlreadyVerified() throws Exception {
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-        registrationBehavior.setFbSignedRequest("bogus");
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
+        registrationOrLoginBehavior.setFbSignedRequest("bogus");
 
         FacebookSession facebookSession = org.easymock.classextension.EasyMock.createStrictMock(FacebookSession.class);
         getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
@@ -396,8 +394,8 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testConvertToFacebookAccountIfNeeded_withProvisionalEmail() throws Exception {
-        RegistrationBehavior registrationBehavior = new UspRegistrationBehavior();
-        registrationBehavior.setFbSignedRequest("bogus");
+        RegistrationOrLoginBehavior registrationOrLoginBehavior = new UspRegistrationOrLoginBehavior();
+        registrationOrLoginBehavior.setFbSignedRequest("bogus");
 
         FacebookSession facebookSession = org.easymock.classextension.EasyMock.createStrictMock(FacebookSession.class);
         getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);

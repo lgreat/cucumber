@@ -2,16 +2,9 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.community.UserProfile;
-import gs.data.community.WelcomeMessageStatus;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.util.table.ITableDao;
-import gs.web.auth.FacebookHelper;
-import gs.web.auth.FacebookSession;
 import gs.web.util.*;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.Valid;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/community/registration")
@@ -65,7 +56,7 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
                            @Valid UserLoginCommand userLoginCommand,
                            BindingResult bindingResult,
                            UserSubscriptionCommand userSubscriptionCommand,
-                           RegistrationBehavior registrationBehavior,
+                           RegistrationOrLoginBehavior registrationBehavior,
                            HttpServletRequest request,
                            HttpServletResponse response
 
@@ -79,13 +70,13 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
             return new MappingJacksonJsonView();
         }
 
-        UserStatus status = _userRegistrationOrLoginService.loginOrRegister(
+        UserRegistrationOrLoginService.Summary summary = _userRegistrationOrLoginService.loginOrRegister(
             userRegistrationCommand, userLoginCommand, registrationBehavior, bindingResult, request, response
         );
 
-        User user = status.getUser();
+        User user = summary.getUser();
 
-        modelMap.put(MODEL_ACCOUNT_CREATED_KEY, String.valueOf(status.isUserRegistered()));
+        modelMap.put(MODEL_ACCOUNT_CREATED_KEY, String.valueOf(summary.wasUserRegistered()));
         modelMap.put(USER_ID_MODEL_KEY, user.getId());
 
         if (user.getUserProfile() != null) {
