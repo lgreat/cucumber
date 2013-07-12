@@ -272,7 +272,7 @@
                     <li class="mvl">Get two more people to write reviews.
                         <span class="make-ffffff">GetWhen your school has 3 new reviews this month, it’s entered
                         in the drawing! Mobilize your school community with these
-                            <a href="/promote" class="make-ffffff underline">helpful tips &amp; tools.</a>
+                            <a href="/promote" class="make-ffffff underline" target="_blank">helpful tips &amp; tools.</a>
                         </span>
                     </li>
                     <li class="mvl">Increase your school’s chances to win <span class="make-ffffff">– every review over
@@ -280,12 +280,13 @@
                 </ol>
             <div class="pam mbl" style="border: 1px solid #6EBF64; border-radius: 3px;">
                 <span class="make-FFB843">Best of all,</span> there are three chances for your school to win $5,000 in
-                the Best Year Ever Sweepstakes – August, September and October 2013! Questions? Contact us here.
+                the Best Year Ever Sweepstakes – August, September and October 2013! Questions? Contact us
+                <a href="http://www.greatschools.org/about/feedback.page" class="make-ffffff underline" target="_blank">here</a>.
             </div>
             <div class="ptm small">
-                <a href="/promote" class="make-ffffff underline mrs">Promotion Center </a>|
-                <a href="/catalog/pdf/BestYearEverRules.pdf" class="make-ffffff underline mhs">Official Rules </a>|
-                <a href="/privacy/" class="make-ffffff underline">Privacy Policy </a>
+                <a href="/promote" class="make-ffffff underline mrs" target="_blank">Promotion Center </a>|
+                <a href="/catalog/pdf/BestYearEverRules.pdf" class="make-ffffff underline mhs" target="_blank">Official Rules </a>|
+                <a href="/privacy/" class="make-ffffff underline" target="_blank">Privacy Policy </a>
             </div>
             <div>
                 <!--facebook-->
