@@ -74,8 +74,8 @@
 
 <!-- uncomment this when done testing -->
         <gsml:javascript src="/res/js/combined.search.min.js"/>
-        <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>-->
-        <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>-->
+        <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
+        <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
 
 
         <k12:trafficDriverIncludes/>

@@ -64,8 +64,8 @@
     <!--<gsml:javascript src="/res/js/compare/persistentCompare.js"/>-->
     <gsml:javascript src="/res/js/combined.search.min.js"/>
 
-    <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>-->
-    <!--<gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>-->
+    <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
+    <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
     <gsml:javascript src="/res/js/hogan.js"/>
 
 
