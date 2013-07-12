@@ -418,6 +418,15 @@
        <property name="maxResults" value="5"/>
    </bean>
 
+    <bean name="/content/cms/moreInCategory-v1.module"
+          class="gs.web.content.ArticlesByCategoryController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/search/moreInCategory-v1"/>
+        <property name="showAdTargeting" value="false"/>
+        <property name="randomResults" value="true"/>
+        <property name="maxResults" value="5"/>
+    </bean>
+
     <bean name="/content/cms/mostPopularContent.module"
          class="gs.web.content.cms.CmsMostPopularContentController"
          autowire="byName" lazy-init="true">

@@ -235,7 +235,7 @@
             <c:choose>
                 <c:when test="${requestScope.context.fbCommentsEnabled}">
                     <!-- FB Comments -->
-                    <div><article:commentsFB comments="${comments}" feature="${feature}"/></div>
+                    <div><article:commentsFB-v1 comments="${comments}" feature="${feature}"/></div>
                 </c:when>
                 <c:otherwise>
                     <!-- Old Comments with Form -->

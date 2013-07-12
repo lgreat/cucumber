@@ -233,7 +233,7 @@
 
         <jsp:include page="/promo/emailSignUp.module"/>
 
-        <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
+        <jsp:include page="/content/cms/moreInCategory-v1.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
                     feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
         <div id="articleBottomRightAd">

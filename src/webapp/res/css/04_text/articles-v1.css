@@ -273,6 +273,7 @@ paragraph
     background-color: #fff;
     border: 1px solid #DDDDDD;
     padding: 20px 20px 4px;
+
 }
 
 .authorBios .bd p {
@@ -293,3 +294,16 @@ paragraph
     font: normal 12px/18px Arial, Helvetica, sans-serif;
     margin-bottom: 18px;
 }
+
+/* ************** Ask the experts *************** */
+/* ----------------- authorBio ------------------ */
+/*.authorBio {margin-bottom:20px;}*/
+/*.authorBio .inner {background-color: #fff;border: 1px solid #000;padding: 20px 20px 2px;}*/
+/* ---------------- authorBios ------------------ */
+/*.authorBios {}*/
+/*.authorBios .inner {border: none;padding: 0;}*/
+/*.authorBios .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}*/
+/* -------------- articleDisclaimer -------------- */
+/*.articleDisclaimer{}*/
+/*.articleDisclaimer .inner{border: none;padding: 0;}*/
+/*.articleDisclaimer .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}*/

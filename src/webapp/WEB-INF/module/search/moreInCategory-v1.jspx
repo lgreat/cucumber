@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.org/taglib/link">
+
+    <c:if test="${not empty mainResults}">
+        <div class="mod standard_1-1">
+            <div class="inner">
+                <div class="hd ptm plm">
+                    <h3 class="mbm">More in
+                        <c:choose>
+                            <c:when test="${fn:length(categories) eq 1}">
+                                ${category.name}
+                            </c:when>
+                            <c:otherwise>
+                                this topic
+                            </c:otherwise>
+                        </c:choose>
+                    </h3>
+                </div>
+                <c:choose>
+                    <c:when test="${total lt maxResults}">
+                        <c:set var="actualMax" value="${total}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="actualMax" value="${maxResults}"/>
+                    </c:otherwise>
+                </c:choose>
+
+                <div class="bd">
+                    <div class="bd-inner ptm prs">
+                        <ul class="small">
+                            <c:forEach var="result" items="${mainResults}" varStatus="status">
+                                <c:if test="${status.count le actualMax}">
+                                    <c:choose>
+                                        <c:when test="${status.count eq actualMax}">
+                                            <c:set var="className" value="lastone"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="className" value=""/>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <li class="moreinItem tint_f4891d ${className}">
+                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}"
+                                                         styleClass="link">
+                                            <c:out value="${result.title}" escapeXml="false"/>
+                                        </link:cmsContent>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+
+                        <c:if test="${total gt maxResults}">
+                            <p>
+                                <c:choose>
+                                    <c:when test="${fn:length(categories) eq 1}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(topics) eq 1}">
+                                                <link:cmsCategoryBrowse topicIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link small">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
+                                            <c:when test="${fn:length(grades) eq 1}">
+                                                <link:cmsCategoryBrowse gradeIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link small">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
+                                            <c:when test="${fn:length(subjects) eq 1}">
+                                                <link:cmsCategoryBrowse subjectIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link small">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
+                                            <c:when test="${fn:length(locations) eq 1}">
+                                                <link:cmsCategoryBrowse locationIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link small">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
+                                            <c:when test="${fn:length(outcomes) eq 1}">
+                                                <link:cmsCategoryBrowse outcomeIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link small">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
+                                                                gradeIDs="${gradeIds}" locationIDs="${locationIds}"
+                                                                outcomeIDs="${outcomeIds}"
+                                                                language="${param.language}"
+                                                                styleClass="link small">
+                                            More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                        </link:cmsCategoryBrowse>
+                                    </c:otherwise>
+                                </c:choose>
+                            </p>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
+</jsp:root>

@@ -119,7 +119,7 @@
                     <div class="spacer_15"><!-- do not collapse --></div>
 
                     <!-- Author bios, Licensor attribution, and disclaimer -->
-                    <article:authorBios authorBios="${authorBios}"/>
+                    <article:authorBios-v1 authorBios="${authorBios}"/>
                     <article:disclaimer showDisclaimer="${true}"/>
                     <c:if test="${not empty feature.licensorAttribution}">
                         <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>

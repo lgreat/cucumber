@@ -31,6 +31,7 @@
                     jQuery("#js_articleCommentsCount").html(total_com_count).show();
                     jQuery("#js_commentToolTipLinkDown").show();
                     jQuery("#js_commentCountFB").html(fb_com_count);
+                    jQuery(".fb_comments_count").hide();
                 }
                 setTimeout(updateCommentsTotal, 100);
 
