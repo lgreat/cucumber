@@ -82,7 +82,7 @@
                                                     <img src="/res/img/sweepstakes/profile_tile.png"
                                                          alt="sweepstakes callout"/>
                                                     <div class="smaller">
-                                                        <a href="/catalog/pdf/BestYearEverRules.pdf"
+                                                        <a href="/catalog/pdf/BestYearEverRules.pdf" target="_blank"
                                                            class="underline make-999999">See official rules</a>
                                                     </div>
                                                 </div>
