@@ -4,7 +4,6 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolHelper;
-import gs.web.FruitcakeControllerFamilyResolver;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.util.RedirectView301;
@@ -14,15 +13,12 @@ import gs.web.util.UrlBuilder.VPage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.LastModified;
 import org.springframework.web.servlet.support.WebContentGenerator;
-
-import java.util.Map;
 
 /**
  * This class is intended to be the base class for School Profile pages and other pages that need
@@ -131,10 +127,15 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), fields.getCityName());
                 urlBuilder.addParameter("noSchoolAlert", "1");
                 return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+            } else if (s.getDatabaseState() != null && StringUtils.isNotEmpty(s.getCity())) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), s.getCity());
+                urlBuilder.addParameter("noSchoolAlert", "1");
+                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
             }
         }
 
         // display error view.
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         return new ModelAndView(getErrorViewName());
     }
 
