@@ -330,7 +330,7 @@
             <c:choose>
                 <c:when test="${sweepstakes}">
                     <div>
-                        <gslink:linkToTab tabName="reviews" customLink="overview_communityrating">
+                        <gslink:linkToTab tabName="reviews" customLink="sweepstakes_headerlink" anchor="from..ACB">
                             <span class="iconx16 i-16-dollar mrs vam"><!--Do not collapse--></span>
                             <span class="small vam">Help this school win $5,000!</span>
                         </gslink:linkToTab>
