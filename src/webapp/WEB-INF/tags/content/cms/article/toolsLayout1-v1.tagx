@@ -23,7 +23,7 @@
                     <!--<div class="fl mrs"><gsml:url var="linkToComments"-->
                     <!--value="#articleCommentsLinkTo"/></div>-->
                     <gsml:a href="${linkToComments}">
-                        <span class="iconx16 i-16-comment vert-align-mid mrs fl"><!-- do not collapse --></span>
+                        <span class="iconx16 i-16-comment vam mrs fl"><!-- do not collapse --></span>
                         <div id="js_articleCommentsCount" class="fl mrs"><c:out value="${commentCount}" default="0 " /></div> comment<c:if test="${commentCount != 1}">s</c:if></gsml:a>
                 </div>
             </div>
@@ -36,12 +36,12 @@
                                       value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                             <gsml:a href="${mailToFriendUrl}"
                                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=700,height=600,scrollbars=yes'); return false;">
-                                <span class="iconx16 i-16-email vert-align-mid mrs fl"><!-- do not collapse --></span>Email</gsml:a>
+                                <span class="iconx16 i-16-email vam mrs fl"><!-- do not collapse --></span>Email</gsml:a>
                         </li>
                         <li class="smaller fl mts" style="list-style-type: none;">
                             <a href="javascript:void(0);"
                                onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=700,height=600,scrollbars=yes'); return false;"><span
-                                    class="iconx16 i-16-print vert-align-mid mrs fl"><!-- do not collapse --></span>Print</a>
+                                    class="iconx16 i-16-print vam mrs fl"><!-- do not collapse --></span>Print</a>
                         </li>
                         <c:if test="${not empty feature.otherLanguageUri}">
                             <li class="smaller wsnw">
@@ -49,9 +49,9 @@
                                     <a href="${feature.otherLanguageUri}">
                                         <c:choose>
                                             <c:when test="${feature.language eq 'ES'}"><span
-                                                    class="sprite i-usa vert-align-mid mrs"><!-- do not collapse --></span>In english</c:when>
+                                                    class="iconx16 i-16-english vam mrs"><!-- do not collapse --></span>In english</c:when>
                                             <c:otherwise><span
-                                                    class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
+                                                    class="iconx16 i-16-spanish vam mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
                                         </c:choose>
                                     </a>
                                 </strong>

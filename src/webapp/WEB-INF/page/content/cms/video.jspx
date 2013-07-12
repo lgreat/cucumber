@@ -210,7 +210,7 @@
             <c:choose>
                 <c:when test="${requestScope.context.fbCommentsEnabled}">
                     <!-- FB Comments -->
-                    <div><article:commentsFB comments="${comments}" feature="${feature}" fbWidth="610"/></div>
+                    <div><article:commentsFB-v1 comments="${comments}" feature="${feature}" fbWidth="610"/></div>
                 </c:when>
                 <c:otherwise>
                     <div id="enterComment">

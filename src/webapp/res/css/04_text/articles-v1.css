@@ -295,15 +295,98 @@ paragraph
     margin-bottom: 18px;
 }
 
-/* ************** Ask the experts *************** */
-/* ----------------- authorBio ------------------ */
-/*.authorBio {margin-bottom:20px;}*/
-/*.authorBio .inner {background-color: #fff;border: 1px solid #000;padding: 20px 20px 2px;}*/
-/* ---------------- authorBios ------------------ */
-/*.authorBios {}*/
-/*.authorBios .inner {border: none;padding: 0;}*/
-/*.authorBios .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}*/
-/* -------------- articleDisclaimer -------------- */
-/*.articleDisclaimer{}*/
-/*.articleDisclaimer .inner{border: none;padding: 0;}*/
-/*.articleDisclaimer .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}*/
+/* ---------------- GS-12262 ----------------- */
+/* ------------ articleSlideshow ------------- */
+.articleSlideshow {
+    margin-bottom: 20px;
+}
+
+.articleSlideshow .inner {
+    border: 1px solid #bcdeed;
+}
+
+.articleSlideshow .hd, .articleSlideshow .ft {
+    height: 33px;
+    padding-top: 7px;
+}
+
+.articleSlideshow .hd {
+    border-bottom: 1px solid #bcdeed;
+}
+
+.articleSlideshow .ft {
+    border-top: 1px solid #bcdeed;
+}
+
+.articleSlideshow .stepNav {
+    float: right;
+    margin-right: 5px;
+}
+
+.articleSlideshow .stepNavText {
+    margin: 0 5px;
+}
+
+.articleSlideshow .hd select {
+    width: 130px;
+    height: 25px;
+    opacity: 0;
+    position: relative;
+    padding: 0;
+    margin: 0 0 0 5px;
+    filter: alpha(opacity = 0);
+    zoom: 1;
+}
+
+.ie7 .articleSlideshow .hd select, .ie8 .articleSlideshow .hd select {
+    width: 260px;
+}
+
+.articleSlideshow .hd .behaviorSelect {
+    position: absolute;
+    left: 14px;
+    width: 130px;
+    height: 24px;
+}
+
+.articleSlideshow .hd .skinSelect {
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #79bddb;
+    border-bottom-color: #79bddb;
+    position: absolute;
+    padding: 2px 15px 2px 5px;
+    width: 108px;
+    height: 18px;
+    color: #777;
+}
+
+.articleSlideshow .hd .skinSelectArrow {
+    font: bold 14px/18px Arial, Helvetica, sans-serif;
+    color: #4da7cf;
+    display: inline-block;
+    padding: 2px 0;
+    border: 1px solid #79bdd8;
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    width: 22px;
+    height: 18px;
+    text-align: center;
+}
+
+.win .articleSlideshow .hd .skinSelectArrow {
+    line-height: 24px;
+}
+
+.articleSlideshow .bd .bd-content {
+    padding: 20px 10px 0;
+}
+
+.articleSlideshow .bd .bd-content img {
+    float: left;
+    margin: 0 20px 20px 0;
+}
+
+.chrome .articleFB {
+    float: right;

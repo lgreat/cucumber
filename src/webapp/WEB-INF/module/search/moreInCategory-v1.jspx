@@ -63,35 +63,35 @@
                                             <c:when test="${fn:length(topics) eq 1}">
                                                 <link:cmsCategoryBrowse topicIDs="${category.id}"
                                                                         language="${param.language}"
-                                                                        styleClass="link small">
+                                                                        styleClass="link small pls">
                                                     More <span class="alertDoubleArrow">&amp;raquo;</span>
                                                 </link:cmsCategoryBrowse>
                                             </c:when>
                                             <c:when test="${fn:length(grades) eq 1}">
                                                 <link:cmsCategoryBrowse gradeIDs="${category.id}"
                                                                         language="${param.language}"
-                                                                        styleClass="link small">
+                                                                        styleClass="link small pls">
                                                     More <span class="alertDoubleArrow">&amp;raquo;</span>
                                                 </link:cmsCategoryBrowse>
                                             </c:when>
                                             <c:when test="${fn:length(subjects) eq 1}">
                                                 <link:cmsCategoryBrowse subjectIDs="${category.id}"
                                                                         language="${param.language}"
-                                                                        styleClass="link small">
+                                                                        styleClass="link small pls">
                                                     More <span class="alertDoubleArrow">&amp;raquo;</span>
                                                 </link:cmsCategoryBrowse>
                                             </c:when>
                                             <c:when test="${fn:length(locations) eq 1}">
                                                 <link:cmsCategoryBrowse locationIDs="${category.id}"
                                                                         language="${param.language}"
-                                                                        styleClass="link small">
+                                                                        styleClass="link small pls">
                                                     More <span class="alertDoubleArrow">&amp;raquo;</span>
                                                 </link:cmsCategoryBrowse>
                                             </c:when>
                                             <c:when test="${fn:length(outcomes) eq 1}">
                                                 <link:cmsCategoryBrowse outcomeIDs="${category.id}"
                                                                         language="${param.language}"
-                                                                        styleClass="link small">
+                                                                        styleClass="link small pls">
                                                     More <span class="alertDoubleArrow">&amp;raquo;</span>
                                                 </link:cmsCategoryBrowse>
                                             </c:when>
@@ -102,7 +102,7 @@
                                                                 gradeIDs="${gradeIds}" locationIDs="${locationIds}"
                                                                 outcomeIDs="${outcomeIds}"
                                                                 language="${param.language}"
-                                                                styleClass="link small">
+                                                                styleClass="link small pls">
                                             More <span class="alertDoubleArrow">&amp;raquo;</span>
                                         </link:cmsCategoryBrowse>
                                     </c:otherwise>

@@ -75,7 +75,7 @@
                 <!-- Byline -->
 
                 <!-- 2012 03 26 - mitch added comment to parameter list so I could access it in the toolbar -->
-                <article:toolsLayout2 feature="${feature}" uri="${uri}" comments="${comments}" slideShowUrl="${slideShowUrl}" slideShowImage="${feature.currentSlide.imageUrl}"/>
+                <article:toolsLayout2-v1 feature="${feature}" uri="${uri}" comments="${comments}" slideShowUrl="${slideShowUrl}" slideShowImage="${feature.currentSlide.imageUrl}"/>
 
                 <!-- TODO! make sure these 610x ads look right -->
                 <ad:adTag position="Sponsor_610x16"/>
@@ -92,12 +92,12 @@
                         <c:choose>
                             <c:when test="${hasPreviousSlide}">
                                 <span class="prev"><a class="button-1"
-                                                      href="${contentUrl}?page=${pageNum - 1}"><span class="lineheight-20 vert-align-top">&amp;laquo;</span> Previous</a>
+                                                      href="${contentUrl}?page=${pageNum - 1}"><span class="lineheight-20 vat">&amp;laquo;</span> Previous</a>
                                 </span>
                             </c:when>
                             <c:otherwise>
                                 <span class="prev"><a class="button-1-inactive"
-                                                      href="javascript:void(0);"><span class="lineheight-20 vert-align-top">&amp;laquo;</span> Previous</a>
+                                                      href="javascript:void(0);"><span class="lineheight-20 vat">&amp;laquo;</span> Previous</a>
                                 </span>
                             </c:otherwise>
                         </c:choose>
@@ -110,12 +110,12 @@
                         <c:choose>
                             <c:when test="${hasNextSlide}">
                                 <span class="next"><a class="button-1"
-                                                      href="${contentUrl}?page=${pageNum + 1}">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
+                                                      href="${contentUrl}?page=${pageNum + 1}">Next <span class="lineheight-20 vat">&amp;raquo;</span></a>
                                 </span>
                             </c:when>
                             <c:otherwise>
                                 <span class="next"><a class="button-1-inactive"
-                                                      href="javascript:void(0);">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
+                                                      href="javascript:void(0);">Next <span class="lineheight-20 vat">&amp;raquo;</span></a>
                                 </span>
                             </c:otherwise>
                         </c:choose>
@@ -174,7 +174,8 @@
                                     </div>
 
                                     <c:if test="${hasNextSlide}">
-                                    <p class="ss_text ss_next fr">Next:&amp;nbsp;
+                                    <div class="fr">
+                                        <p class="ss_text ss_next fr">Next:&amp;nbsp;
                                             <a href="${contentUrl}?page=${pageNum + 1}">
                                                 <c:set var="nextSlideHasPromo"
                                                        value="${not empty articleSlideshow.nextSlide.promo}"/>
@@ -188,6 +189,7 @@
                                                 </c:choose>
                                             </a>
                                         </p>
+                                     </div>
                                     </c:if>
 
                                 </div>
@@ -197,7 +199,7 @@
                         </c:forEach>
 
                         <div id="ss_footer" class="ft gradient-6 rnd-bottom-4">
-                            <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true" />
+                            <article:socialToolsLayout2-v1 includeFbSendBtn="false" includeShareBtn="true" />
                             ${stepNavContent}
                         </div>
                         <!-- ss_footer -->
@@ -211,7 +213,7 @@
 
             <!-- Author bios, Licensor attribution -->
             <c:if test="${(feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum)}">
-                <article:authorBios authorBios="${authorBios}"/>
+                <article:authorBios-v1 authorBios="${authorBios}"/>
             </c:if>
             <article:disclaimer showDisclaimer="${false}"/>
             <c:if test="${not empty feature.licensorAttribution}">
@@ -221,7 +223,7 @@
 
             <!-- Related articles -->
             <c:if test="${not empty feature.relatedArticles}">
-                <article:relatedArticles feature="${feature}"/>
+                <article:relatedArticles-v1 feature="${feature}"/>
             </c:if>
             <!-- Related articles -->
 
@@ -231,7 +233,7 @@
             </c:if>
             <!-- Related links -->
 
-            <div class="spacer_20"><!-- do not collapse --></div>
+            <div class="shim-20"><!-- do not collapse --></div>
             <c:choose>
                 <c:when test="${requestScope.context.fbCommentsEnabled}">
                     <!-- FB Comments -->
