@@ -34,6 +34,7 @@ public class SchoolInterceptorTest extends TestCase {
         _school = new School();
         _school.setId(1);
         _school.setDatabaseState(State.CA);
+        _school.setCity("Alameda");
         _school.setActive(true);
 
         _request = new GsMockHttpServletRequest();
