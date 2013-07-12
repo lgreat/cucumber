@@ -156,7 +156,7 @@
                                     required each month in order for a school to receive an entry in a monthly drawing.
                                     Thereafter, each new review per month will count as one additional entry in the
                                     monthly drawing, limit up to ten additional monthly entries.
-                                    <a href="/catalog/pdf/BestYearEverRules.pdf" class="underline make-666666">Official rules</a>.
+                                    <a href="/catalog/pdf/BestYearEverRules.pdf" target="_blank" class="underline make-666666">Official rules</a>.
                                 </div>
                             </div>
                         </c:when>
