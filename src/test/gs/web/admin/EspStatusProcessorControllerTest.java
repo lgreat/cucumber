@@ -90,6 +90,7 @@ public class EspStatusProcessorControllerTest extends BaseControllerTestCase {
         expect(_schoolDao.getSchoolById(State.MO, 1)).andReturn(new School());
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);
         expect(_espStatusManager.getEspStatus()).andReturn(EspStatus.OSP_PREFERRED);
+        _espResponseDao.deactivateResponses(isA(School.class),isA(Set.class));
 
         expect(_schoolDao.getSchoolById(State.MO, 2)).andReturn(new School());
         expect(_beanFactory.getBean(eq(EspStatusManager.BEAN_NAME), isA(School.class))).andReturn(_espStatusManager);

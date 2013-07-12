@@ -80,7 +80,6 @@ public class EspStatusProcessorController implements ReadWriteAnnotationControll
                     EspStatusManager statusManager = (EspStatusManager) _beanFactory.getBean("espStatusManager", new Object[]{school});
 
                     EspStatus espStatus = statusManager.getEspStatus();
-                    System.out.println("--------espStatus------------" + espStatus);
                     if (EspStatus.OSP_PREFERRED.equals(espStatus)) {
                         Set<EspResponseSource> responseSourcesToDeactivate =
                                 new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.usp));
@@ -93,7 +92,7 @@ public class EspStatusProcessorController implements ReadWriteAnnotationControll
 
         if (!schoolIdsModified.isEmpty()) {
             String mailBody = "ESP Status Modified in " + state + " for the following schoolIds:" + StringUtils.join(schoolIdsModified, ",");
-//            sendEmail(mailBody);
+            sendEmail(mailBody);
         }
 
         return;
