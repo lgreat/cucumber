@@ -4,6 +4,7 @@ import gs.data.school.School;
 import static gs.data.util.XMLUtil.*;
 
 import gs.web.request.RequestAttributeHelper;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -47,6 +48,15 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
 
         _log.warn("Could not get a valid or active school: " +
                 RequestAttributeHelper.getSchoolId(request) + " in state: " + RequestAttributeHelper.getState(request));
+
+
+        if (s != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), s.getCity());
+            urlBuilder.addParameter("noSchoolAlert", "1");
+            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+            response.setHeader("Location", urlBuilder.asFullUrl(request));
+            return false;
+        }
 
         // If we get this far we have an error, now determine the error format as html, json, or xml
         if ("xml".equals(request.getParameter(OUTPUT_PARAMETER))) showXmlErrorPage(response);
@@ -95,6 +105,7 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
     }
 
     protected void showHtmlErrorPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         request.getRequestDispatcher("/school/error.page").include(request, response);
     }
 }
