@@ -16,6 +16,7 @@ General comments:
 =1 x12
 =2 x16
 =3 x24
+=4 x32
 
 */
 
@@ -220,4 +221,24 @@ Viewport: the width and height of each icon is 12px x 12px, the background posit
 
 .i-24-collapse {
     background-position: -144px -24px;
+}
+
+
+/* =4 x32
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx32 {
+    display: inline-block;
+    background-size:32px 32px;
+    width: 32px;
+    height: 32px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-32-dollar {
+    background-position: 0 0;
 }
