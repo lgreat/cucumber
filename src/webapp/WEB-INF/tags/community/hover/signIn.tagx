@@ -17,7 +17,7 @@
                 <div class="line">
                     <h3 class="unit size12of19">Sign in with an existing GreatSchools account or using Facebook:</h3>
                     <div class="unit size7of9 lastUnit">
-                        <button class="mrl button-1 js-facebook-login" type="button" name="signinBtn">Sign in with Facebook</button>
+                        <button class="mrl button-1 js-facebook-login-signin" type="button" name="signinBtn">Sign in with Facebook</button>
                     </div>
                 </div>
                 <div class="spacer_15 clearfloat"><!-- do not collapse --></div>

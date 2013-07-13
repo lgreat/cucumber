@@ -304,7 +304,6 @@ GS.facebook = GS.facebook || (function () {
                         // Backed out from r226
                         $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                             if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
-                                console.log("RES", regLoginResponse);
                                 if (regLoginResponse.GSAccountCreated === "true") {
                                     trackGSAccountCreated();
                                 }

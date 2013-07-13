@@ -201,6 +201,7 @@ GSType.hover.JoinHover = function() {
     this.schoolName = null;
     this.loadOnExitUrl = null;
     this.onSubmitCallback = null;
+    this.onFacebookSubmitCallback = null;
 
     this.undoSimpleMssFields = function() {
         // show first name
@@ -270,6 +271,7 @@ GSType.hover.JoinHover = function() {
                 'promotions from GreatSchools and our carefully chosen partners.');
     };
     this.baseFields = function() {
+        $('.js-facebook-login-join').hide();
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
         // hide nth / MSS
@@ -666,6 +668,14 @@ GSType.hover.JoinHover = function() {
     // see GS-13450
     this.showJoinNth = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.js-facebook-login-join').click(function() {
+            ModalManager.hideModal({layerId:'joinHover'});
+            GS.facebook.login().done(function(data) {
+                if (GSType.hover.joinHover.onSubmitCallback) {
+                    GSType.hover.joinHover.onSubmitCallback(data.email);
+                }
+            });
+        });
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Is your child on track?");
@@ -677,9 +687,16 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configureOmniture('Weekly NL Join Hover', 'Hovers,Join,Weekly NL Join Hover');
 
         GSType.hover.joinHover.show();
+        $('.js-facebook-login-join').show();
     };
     this.showJoinMsl = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.js-facebook-login-join').click(function() {
+            GS.facebook.login().done(function(data) {
+                GSType.hover.joinHover.onFacebookSubmitCallback(data);
+            });
+        });
+        $('.js-facebook-login-join').show();
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Welcome to My School List");
@@ -694,6 +711,7 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinMsl;
         GSType.hover.joinHover.show();
+        $('.js-facebook-login-join').show();
     };
     this.validateFirstName = function() {
         jQuery.getJSON(
@@ -813,6 +831,7 @@ GSType.hover.SignInHover = function() {
     this.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
     this.loadOnExitUrl = null;
     this.onSubmitCallback = null;
+    this.onFacebookSubmitCallback = null;
     this.loadDialog = function() {
         this.pageName='Sign In Hover';
         this.hier1='Hovers,Sign In,Sign In Hover';
@@ -909,6 +928,15 @@ GSType.hover.SignInHover = function() {
             GSType.hover.signInHover.showJoinFunction = showJoinFunction;
         }
         jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
+
+        jQuery('.js-facebook-login-signin').click(function() {
+            ModalManager.signInHover({layerId:'joinHover'});
+            GS.facebook.login().done(function(data) {
+                if (GSType.hover.signInHover.onSubmitCallback) {
+                    GSType.hover.signInHover.onSubmitCallback(data.email);
+                }
+            });
+        });
 
         GSType.hover.signInHover.show();
         return false;
@@ -1676,6 +1704,9 @@ GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, school
         };
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
+        GSType.hover.joinHover.onFacebookSubmitCallback = function(data) {
+            mslHelper.addSchool(schoolState, schoolId, function() {}, function() {}, data.email);
+        };
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
         } else {
@@ -1718,6 +1749,13 @@ GS.showAddMslJoinHoverAllSchools = function(schoolIdList, schoolState) {
             window.setTimeout(function() {jQuery('#' + formId).submit()}, 100); // give MSL time to commit
         };
         GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
+        GSType.hover.joinHover.onFacebookSubmitCallback = function(data) {
+            var idsArr = schoolIdList.split(",");
+            var counter;
+            for (counter=0; counter < idsArr.length; counter++) {
+                mslHelper.addSchool(schoolState, idsArr[counter], function() {}, function() {}, data.email);
+            }
+        };
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
         } else {

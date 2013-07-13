@@ -12,10 +12,10 @@
     <span class="fltlft">Already a member? <a href="#" id="lnchSignin" onclick="">Sign in</a></span>
 </div>
 
-<div class="spacer_10"><!-- do not collapse --></div>
 
-<div class="line" style="width:100%; margin:auto">
-    <button class="button-1 js-facebook-login" type="button" style="-webkit-user-select: none;">Sign in with Facebook</button>
+<div class="dn line js-facebook-login-join" style="width:100%; margin:auto">
+    <div class="spacer_10"><!-- do not collapse --></div>
+    <button class="button-1" type="button" style="-webkit-user-select: none;">Sign in with Facebook</button>
 </div>
 
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
