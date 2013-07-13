@@ -12,6 +12,7 @@ import gs.web.auth.FacebookSession;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,7 +79,12 @@ public class UserRegistrationOrLoginService {
             return summary;
         }
 
-        user = loginUser(userLoginCommand, registrationOrLoginBehavior, request, response);
+        if (registrationOrLoginBehavior.isFacebookRegistration()) {
+            user = loginFacebookUser(userLoginCommand, request, response);
+        } else {
+            user = loginUser(userLoginCommand, registrationOrLoginBehavior, request, response);
+        }
+
         if (user != null) {
             Summary summary = new Summary();
             if (user.isEmailValidated() && user.matchesPassword(userLoginCommand.getPassword())) {
@@ -112,6 +118,41 @@ public class UserRegistrationOrLoginService {
                 return user;
             }
         }
+        return null;
+    }
+
+    public User loginFacebookUser(UserLoginCommand userLoginCommand,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) throws Exception{
+
+        Set<ConstraintViolation<UserLoginCommand>> emailValidationErrors = _validatorFactory.validate(userLoginCommand, UserLoginCommand.ValidateJustEmail.class);
+        if (!emailValidationErrors.isEmpty()) {
+            _log.error("Validation Errors while logging in user.");
+            return null;
+        }
+
+        User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
+        if (user != null) {
+            FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
+
+            if (facebookSession != null && facebookSession.isOwnedBy(user)) {
+                boolean modified = convertToFacebookAccountIfNeeded(user, request);
+
+                if (modified) {
+                    _userDao.saveUser(user);
+                    ThreadLocalTransactionManager.commitOrRollback();
+                }
+
+                try {
+                    PageHelper.setMemberAuthorized(request, response, user, true);
+                } catch (NoSuchAlgorithmException ex) {
+                    _log.error("Error while trying to log in the user." + ex);
+                }
+            }
+
+            return user;
+        }
+
         return null;
     }
 
@@ -187,6 +228,8 @@ public class UserRegistrationOrLoginService {
 
                     if (registrationOrLoginBehavior.isFacebookRegistration()) {
                         user.setFacebookId(userRegistrationCommand.getFacebookId());
+                        String password = RandomStringUtils.randomAlphanumeric(14);
+                        setUsersPassword(user, password, registrationOrLoginBehavior.requireEmailVerification(), userExists);
                     } else {
                         setUsersPassword(user, userRegistrationCommand, registrationOrLoginBehavior, userExists);
                     }
@@ -409,7 +452,7 @@ public class UserRegistrationOrLoginService {
         return false;
     }
 
-    public void convertToFacebookAccountIfNeeded(User user, HttpServletRequest request) {
+    public boolean convertToFacebookAccountIfNeeded(User user, HttpServletRequest request) {
         boolean userModified = false;
 
         if (user.getFacebookId() == null) {
@@ -436,10 +479,7 @@ public class UserRegistrationOrLoginService {
             userModified = true;
         }
 
-        if (userModified) {
-            _userDao.saveUser(user);
-            ThreadLocalTransactionManager.commitOrRollback();
-        }
+        return userModified;
     }
 
     public void setPollFactory(ITableDaoFactory _tableDaoFactory) {
