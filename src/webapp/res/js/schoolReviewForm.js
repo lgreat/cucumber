@@ -584,7 +584,6 @@ GS.form.SchoolReviewForm = function(id) {
         var that = this;
         if (this.formValidForFacebook()) {
             GS.facebook.login().done(function(data) {
-                console.log('got data', data);
                 that.postReview(data.email);
             }).fail(function() {
                 alert("Facebook signin failed. Review not submitted.");

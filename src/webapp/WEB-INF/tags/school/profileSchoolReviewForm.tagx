@@ -285,7 +285,7 @@
                 </div>
 
                 <c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-                    <div class="line terms pvm">
+                    <div class="line terms pbm">
                         <div class="unit size1of1 lastUnit">
                             <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
                             <label for="rememberMeBox"
