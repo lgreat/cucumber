@@ -146,7 +146,7 @@
 
                 <c:if test="${showBlogModule}">
                     <gsweb:cache key="article_sidebar_blog">
-                        <content:articleSidebarBlogModule/>
+                        <content:articleSidebarBlogModule-v1/>
                     </gsweb:cache>
                 </c:if>
             </div>
@@ -172,7 +172,7 @@
                     <div class="lineheight-25"><a class="padlft_10"
                                                   href="${feature.pdfUri}">Download and print at home.</a>
                     </div>
-                    <div class="spacer_10"><!-- do not collapse --></div>
+                    <div class="shim-10"><!-- do not collapse --></div>
                 </c:if>
             </div>
             <!--Content-->
@@ -216,7 +216,7 @@
                 <!-- Pagination -->
             </div>
 
-            <div class="spacer_20"><!-- do not collapse --></div>
+            <div class="shim-20"><!-- do not collapse --></div>
 
             <!-- Author bios, Licensor attribution -->
             <c:if test="${(feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum)}">

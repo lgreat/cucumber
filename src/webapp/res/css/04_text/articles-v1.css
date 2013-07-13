@@ -60,6 +60,192 @@ paragraph
     color: #333;
 }
 
+/* =12c-3.3.1 infinite carousel 5 (photo: 1 up GS-12260)
+-------------------------------------------------------------------------------------------*/
+
+.infiniteCarousel5 {
+    width: 188px;
+    height: 218px;
+    border: 1px solid #ddd;
+    position: relative;
+    margin-bottom: 10px;
+    outline: 0;
+
+    /* backkground */
+    background-color: #fafafa; /* Old browsers */
+}
+
+.infiniteCarousel5 .ic_hd {
+    height: 35px;
+}
+
+.infiniteCarousel5 .wrapper {
+    clear: both;
+    width: 188px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: auto;
+    height: 173px;
+    margin: 0;
+    position: absolute;
+    top: 35px;
+}
+
+.infiniteCarousel5 .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 -20px;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel5 ul li {
+    display: block;
+    float: left;
+    padding: 0 20px;
+    width: 188px;
+    height: 130px;
+}
+
+.infiniteCarousel5 ul li img {
+    display: block;
+    background-color: gray;
+    cursor: pointer;
+}
+
+.infiniteCarousel5 .arrow {
+    display: block;
+    top: 10px;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    font: bold 18px/12px Arial, Helvetica, sans-serif;
+    text-align: center;
+    /*rounded corners*/
+    -moz-border-radius: 9px; /* FF1+ */
+    -webkit-border-radius: 9px; /* Saf3+, Chrome */
+    border-radius: 9px; /* Opera 10.5, IE 9 */
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e6e6e6)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #ffffff 0%, #e6e6e6 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #e6e6e6 100%); /* FF3.6+ */
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #e6e6e6 100%); /* IE10+ */
+    background-image: -o-linear-gradient(top, #ffffff 0%, #e6e6e6 100%); /* Opera11.10+ */
+    background-image: linear-gradient(top, #ffffff 0%, #e6e6e6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#e6e6e6', GradientType = 0); /* IE6-9 */
+}
+
+.infiniteCarousel5 .forward {
+    right: 10px;
+}
+
+.infiniteCarousel5 .back {
+    left: 98px;
+}
+
+.infiniteCarousel5 .forward:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.infiniteCarousel5 .back:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.infiniteCarousel5 .forward:active {
+    text-decoration: none;
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #ffffff)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -moz-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* FF3.6+ */
+    background-image: -ms-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* IE10+ */
+    background-image: -o-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* Opera11.10+ */
+    background-image: linear-gradient(top, #cccccc 0%, #ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#cccccc', endColorstr = '#ffffff', GradientType = 0); /* IE6-9 */
+}
+
+.infiniteCarousel5 .back:active {
+    text-decoration: none;
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #ffffff)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -moz-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* FF3.6+ */
+    background-image: -ms-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* IE10+ */
+    background-image: -o-linear-gradient(top, #cccccc 0%, #ffffff 100%); /* Opera11.10+ */
+    background-image: linear-gradient(top, #cccccc 0%, #ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#cccccc', endColorstr = '#ffffff', GradientType = 0); /* IE6-9 */
+}
+
+.ie9 .infiniteCarousel5 .arrow {
+    background-color: #fff;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.ie9 .infiniteCarousel5 .forward:hover {
+    text-decoration: none;
+    background-color: #f2f2f2;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.ie9 .infiniteCarousel5 .back:hover {
+    text-decoration: none;
+    background-color: #f2f2f2;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.ie9 .infiniteCarousel5 .forward:active {
+    background-color: #e6e6e6;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.ie9 .infiniteCarousel5 .back:active {
+    background-color: #e6e6e6;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.infiniteCarousel5 .ic_title {
+    margin: 8px 14px;
+    float: left;
+}
+
+.infiniteCarousel5 .captioned_photo img {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: block;
+}
+
+.infiniteCarousel5 .captioned_photo span {
+    width: 100%;
+    height: 30px;
+    margin: 9px 0 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    overflow: hidden;
+}
+
+.infiniteCarousel5 .carouselCounter {
+    position: absolute;
+    top: 11px;
+    right: 37px;
+}
+
 /* =12c-3.3.2 infinite carousel 6 (video: 1 up GS-12260)
 -------------------------------------------------------------------------------------------*/
 
@@ -386,3 +572,4 @@ paragraph
 
 .chrome .articleFB {
     float: right;
+}

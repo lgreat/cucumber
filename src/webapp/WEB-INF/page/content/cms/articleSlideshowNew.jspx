@@ -190,6 +190,7 @@
                                             </a>
                                         </p>
                                      </div>
+                                     <!--<div class="clearfix"></div>   -->
                                     </c:if>
 
                                 </div>

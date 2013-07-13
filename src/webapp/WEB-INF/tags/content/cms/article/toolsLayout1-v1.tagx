@@ -44,7 +44,7 @@
                                     class="iconx16 i-16-print vam mrs fl"><!-- do not collapse --></span>Print</a>
                         </li>
                         <c:if test="${not empty feature.otherLanguageUri}">
-                            <li class="smaller wsnw">
+                            <li class="smaller wsnw fl" style="list-style-type: none;">
                                 <strong>
                                     <a href="${feature.otherLanguageUri}">
                                         <c:choose>
