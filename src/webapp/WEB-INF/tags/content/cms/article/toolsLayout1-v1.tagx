@@ -29,8 +29,8 @@
             </div>
 
             <div>
-                <div class="pls pts" style="padding-bottom: 35px; border-top: 1px solid #ddd;">
-                    <ul class="fl pan man">
+                <div class="pls pts clearfix" style="border-top: 1px solid #ddd;">
+                    <ul class="fl pan man clearfix">
                         <li class="smaller fl mts mls mrl pan" style="list-style-type: none;">
                             <gsml:url var="mailToFriendUrl"
                                       value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>

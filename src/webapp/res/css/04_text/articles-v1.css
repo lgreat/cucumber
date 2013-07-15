@@ -573,3 +573,34 @@ paragraph
 .chrome .articleFB {
     float: right;
 }
+
+/* ---------------- GS-12398 ----------------- */
+/* -------- articleSidebarBlogModule --------- */
+.articleSidebarBlogModule {
+}
+
+.articleSidebarBlogModule .inner {
+    border: 1px solid #e6e6e6;
+}
+
+.articleSidebarBlogModule .hd h6 {
+    color: #2b2b2b;
+    padding: 10px 10px 0px;
+    margin: 0;
+}
+
+.articleSidebarBlogModule .bd a {
+    font-weight: bold;
+}
+
+.articleSidebarBlogModule .bd ul {
+    float: left;
+    padding: 0 10px 10px;
+    margin: 0;
+}
+
+.articleSidebarBlogModule .bd li {
+    list-style: none outside none;
+    margin: 0;
+    padding: 5px 0;
+}

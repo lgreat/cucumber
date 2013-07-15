@@ -18,11 +18,11 @@
                     <h6>GreatSchools Blog</h6>
                 </div>
                 <div class="bd">
-                    <ul>
+                    <ul class="pln" style="list-style-type: none;">
                         <c:forEach var="blogEntry" items="${blogEntries}">
-                            <li>
+                            <li style="list-style-type: none;">
                                 <hr class="keyline2"/>
-                                <a class="small" onclick="Popup=window.open('${blogEntry.link}','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;" href="${blogEntry.link}"> ${blogEntry.title} </a><br/>
+                                <a class="small_bold" onclick="Popup=window.open('${blogEntry.link}','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;" href="${blogEntry.link}"> ${blogEntry.title} </a><br/>
                                 <span class="smaller">
                                     ${blogEntry.author} <br/>
                                     ${blogEntry.date} <br/>
