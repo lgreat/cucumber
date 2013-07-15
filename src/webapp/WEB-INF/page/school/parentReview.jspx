@@ -216,7 +216,7 @@
                 <c:when test="${sweepstakes}">
                     <p style="font:bold 56px/60px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
                         text-shadow: 0 0 24px rgba(0,0,0,1)">Win $5,000 for your school!</p>
-                    <p style="font:bold 24px/26px 'SourceSansPro-It',Arial,Helvetica,sans-serif;color:#ffCE7A;
+                    <p style="font:bold 24px/26px 'SourceSansPro-It',Arial,Helvetica,sans-serif;font-style:italic;color:#ffCE7A;
                         text-shadow: 0 0 20px rgba(0,0,0,.6)">Write a review to help your school win</p>
                 </c:when>
                 <c:otherwise>
@@ -258,35 +258,35 @@
             <div class="pa" style="right: 20px; top:20px;">
                 <img src="/res/img/sweepstakes/sweeps_logo.png" alt=""/>
             </div>
-            <h1 style="font-family: 'SourceSansPro-It';" class="make-ffffff pbm">Entering is as easy as 1, 2,3:</h1>
+            <h1 style="font-family: 'SourceSansPro-It',Arial,Helvetica,sans-serif;font-style:italic;" class="make-ffffff pbm">Entering is as easy as 1, 2, 3:</h1>
                 <ol class="make-FFB843">
                     <li>Write a review about your school.
                         <span class="make-ffffff">
                             Get started by typing<br/>your school’s name in the search box and click Go!<br/>
                             <div class="mvl">
-                                Get a FREE <span style="font-family: 'SourceSansPro-It';">
+                                Get a FREE <span style="font-family: 'SourceSansPro-It',Arial,Helvetica,sans-serif;font-style:italic;">
                                 Back-to-School Survival Guide</span> when you submit your review!
                             </div>
                         </span>
                     </li>
                     <li class="mvl">Get two more people to write reviews.
-                        <span class="make-ffffff">GetWhen your school has 3 new reviews this month, it’s entered
+                        <span class="make-ffffff">When your school has 3 new reviews this month, it’s entered
                         in the drawing! Mobilize your school community with these
-                            <a href="/promote" class="make-ffffff underline" target="_blank">helpful tips &amp; tools.</a>
+                            <a href="/promote" class="make-ffffff underline" target="_blank">helpful tips &amp; tools</a>.
                         </span>
                     </li>
-                    <li class="mvl">Increase your school’s chances to win <span class="make-ffffff">– every review over
-                        three gives your school another entry into the drawing – up to ten entries each month!</span></li>
+                    <li class="mvl">Increase your school’s chances to win. <span class="make-ffffff">Every review over
+                        3 gives your school another entry into the drawing – up to 10 entries each month!</span></li>
                 </ol>
             <div class="pam mbl" style="border: 1px solid #6EBF64; border-radius: 3px;">
-                <span class="make-FFB843">Best of all,</span> there are three chances for your school to win $5,000 in
+                <span class="make-FFB843">Best of all,</span> there are 3 chances for your school to win $5,000 in
                 the Best Year Ever Sweepstakes – August, September and October 2013! Questions? Contact us
                 <a href="http://www.greatschools.org/about/feedback.page" class="make-ffffff underline" target="_blank">here</a>.
             </div>
             <div class="ptm small">
-                <a href="/promote" class="make-ffffff underline mrs" target="_blank">Promotion Center </a>|
-                <a href="/catalog/pdf/BestYearEverRules.pdf" class="make-ffffff underline mhs" target="_blank">Official Rules </a>|
-                <a href="/privacy/" class="make-ffffff underline" target="_blank">Privacy Policy </a>
+                <a href="/promote" class="make-ffffff underline mrs" target="_blank">Promotion Center</a>|
+                <a href="/catalog/pdf/BestYearEverRules.pdf" class="make-ffffff underline mrs" target="_blank">Official Rules</a>|
+                <a href="/privacy/" class="make-ffffff underline" target="_blank">Privacy Policy</a>
             </div>
             <div>
                 <!--facebook-->
