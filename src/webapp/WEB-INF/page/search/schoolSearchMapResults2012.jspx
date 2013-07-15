@@ -122,7 +122,14 @@
 </div>
 
 <div class="alpha grid_16 omega mtl">
-    <school:findASchoolForm/>
+    <c:choose>
+        <c:when test="${showPackardFilters}">
+            <school:findASchoolForm-v1/>
+        </c:when>
+        <c:otherwise>
+            <school:findASchoolForm/>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
