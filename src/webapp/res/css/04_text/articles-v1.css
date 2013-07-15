@@ -525,8 +525,8 @@ paragraph
 }
 
 .articleSlideshow .hd .behaviorSelect {
-    position: absolute;
-    left: 14px;
+    /*position: absolute;*/
+    /*left: 14px;*/
     width: 130px;
     height: 24px;
 }
