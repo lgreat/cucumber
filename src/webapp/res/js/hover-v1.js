@@ -930,7 +930,7 @@ GSType.hover.SignInHover = function() {
         jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
 
         jQuery('.js-facebook-login-signin').click(function() {
-            ModalManager.signInHover({layerId:'joinHover'});
+            ModalManager.hideModal({layerId:'signInHover'});
             GS.facebook.login().done(function(data) {
                 if (GSType.hover.signInHover.onSubmitCallback) {
                     GSType.hover.signInHover.onSubmitCallback(data.email);
