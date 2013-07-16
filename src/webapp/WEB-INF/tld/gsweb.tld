@@ -9,6 +9,12 @@
     <uri>gstaglib</uri>
 
     <function>
+        <name>generateGoogleAPISignature</name>
+        <function-class>gs.data.util.DigestUtil</function-class>
+        <function-signature>java.lang.String generateGoogleAPICryptographicSignature(java.lang.String)</function-signature>
+    </function>
+
+    <function>
         <name>splitAfterXWords</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>java.lang.String[] splitAfterXWords(java.lang.String,int)</function-signature>
