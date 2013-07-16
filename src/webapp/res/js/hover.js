@@ -576,6 +576,7 @@ GSType.hover.JoinHover = function() {
     this.showJoinMsl = function() {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         jQuery('.js-facebook-login-join').click(function() {
+            GSType.hover.joinHover.hide();
             GS.facebook.login().done(function(data) {
                 GSType.hover.joinHover.onFacebookSubmitCallback(data);
             });
