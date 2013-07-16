@@ -586,14 +586,13 @@ GS.school.tandem =  (function($) {
         'returned': false,
         'active': false,
         'showAd': false,
-        'whichAd': {
-            'positive': null,
-            'positiveLayer': null,
-            'negative': null,
-            'negativeLayer': null
-        },
+        'whichAd': [],
         'tabname': 'overview',
-        'branding': 'false'
+        'branding': 'false',
+        'positiveAd':[],
+        'positiveLayer':[],
+        'negativeAd':[],
+        'negativeLayer':[]
     };
 
     // set value in js within the tagx.   Microsoft value in db
@@ -638,24 +637,61 @@ GS.school.tandem =  (function($) {
 
     // need an array of the slot to fill in the positive and the negative
     // ad will be called in refreshAds
-    var tandemWhichAdPositive = function () {
-        return tandemAd.whichAd.positive;
+    var tandemWhichAdPositive = function (val) {
+        return tandemAd.positiveAd[val];
     }
-    var tandemWhichAdPositiveLayerId = function () {
-        return tandemAd.whichAd.positiveLayerId;
+    var tandemWhichAdPositiveLayerId = function (val) {
+        return tandemAd.positiveLayer[val];
     }
-    var tandemWhichAdNegative = function () {
-        return tandemAd.whichAd.negative;
+    var tandemWhichAdNegative = function (val) {
+        return tandemAd.negativeAd[val];
     }
-    var tandemWhichAdNegativeLayerId = function () {
-        return tandemAd.whichAd.negativeLayerId;
+    var tandemWhichAdNegativeLayerId = function (val) {
+        return tandemAd.negativeLayer[val];
     }
-    var setTandemWhichAd = function(p, pl, n, nl){
-        tandemAd.whichAd.positive = p;
-        tandemAd.whichAd.positiveLayerId = pl;
-        tandemAd.whichAd.negative = n;
-        tandemAd.whichAd.negativeLayerId = nl;
+    var setTandemWhichAds = function(p, pl, n, nl){
+//        var t = {
+//            'positive': p,
+//            'positiveLayer': pl,
+//            'negative': n,
+//            'negativeLayer': nl
+//        }
+//        tandemAd.whichAd.push = t;
+
+        tandemAd.positiveAd = p;
+        tandemAd.positiveLayer = pl;
+        tandemAd.negativeAd = n;
+        tandemAd.negativeLayer = nl;
     }
+//    var setTandemWhichAd = function(p, pl, n, nl){
+//        var t = {}
+//
+//        if(p != null && $.isArray(p)){
+//            for(i=0; i< p.length; i++){
+//                var x = new t;
+//                x = {
+//                    'positive': p[i],
+//                    'positiveLayer': pl[i],
+//                    'negative': n[i],
+//                    'negativeLayer': nl[i]
+//                }
+//
+//                tandemAd.whichAd.push = x;
+//            }
+//        }
+//    }
+
+    var refreshTandemAds = function(showTandem){
+        for(var i=0; i<tandemAd.positiveAd.length; i++){
+            if(showTandem){
+                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive(i)], tandemWhichAdPositiveLayerId(i));
+            }
+            else{
+                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative(i)],tandemWhichAdNegativeLayerId(i));
+            }
+        }
+    }
+
     var handleTandemAd = function(val){
         setTandemReturned(true);
         setTandemActive(val);
@@ -665,18 +701,21 @@ GS.school.tandem =  (function($) {
                 if(isTandemActive()){
                     if(tandemWhichAdPositive() != null && tandemWhichAdPositive() != ""){
                         //in profilePage.js
-                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
+                        refreshTandemAds(true);
+//                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
                     }
                 }
                 else{
                     if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
-                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()],tandemWhichAdNegativeLayerId());
+                        refreshTandemAds(false);
+//                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()],tandemWhichAdNegativeLayerId());
                     }
                 }
             }
             else{
                 if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
-                    GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()], tandemWhichAdNegativeLayerId());
+                    refreshTandemAds(false);
+//                    GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()], tandemWhichAdNegativeLayerId());
                 }
             }
         }
@@ -687,7 +726,8 @@ GS.school.tandem =  (function($) {
         isTandemBranded: isTandemBranded,
         isTandemReturned:isTandemReturned,
         setTandemActive : setTandemActive,
-        setTandemWhichAd: setTandemWhichAd,
+//        setTandemWhichAd: setTandemWhichAd,
+        setTandemWhichAds: setTandemWhichAds,
         setTandemShowAd : setTandemShowAd,
         setTandemTabName: setTandemTabName,
         isTandemActive: isTandemActive

@@ -97,7 +97,7 @@
                 <div class="fr" style="width:320px; padding-right: 20px;">
                     <c:choose>
                         <c:when test="${tandemTileMSBranding}">
-                            <ad:AboveFold_Culture_300x600 />
+                            <ad:AboveFold_Branded_Tandem_300x600 />
                         </c:when>
                         <c:otherwise>
                         <div class="gs-ad">
@@ -124,7 +124,7 @@
             </div>
         </div>
         <script>
-            var refreshableCultureBranding = ['School_Profile_Page_AboveFold_Culture_300x600'];
+            var refreshableCultureBranding = ['School_Profile_Page_AboveFold_Branded_Tandem_300x600'];
             GS.ad.refreshAds(refreshableCultureBranding);
         </script>
     </gsml:body>

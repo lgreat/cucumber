@@ -468,7 +468,7 @@
 
     <div class="">
         <ad:AboveFold_300x600 />
-        <ad:AboveFold_Culture_300x600 />
+        <ad:AboveFold_Branded_Tandem_300x600 />
 
         <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
 
@@ -486,6 +486,7 @@
         </c:if>
 
         <ad:BelowFold_300x250/>
+        <ad:BelowFold_Branded_Tandem_300x250 />
 
         <c:set var="isDcNclbSchool" value="${school.physicalAddress.state eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and school.levelCode ne 'p'}"/>
         <c:if test="${isDcNclbSchool and requestScope.context.showDcNclbModules}">
