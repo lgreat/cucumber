@@ -23,11 +23,15 @@
 <c:if test="${localInfo['content']  eq 'performanceManagementRating'}">
     <c:set var="dcNcsbRating" value="DC PCSB Rating"/>
 </c:if>
+<c:set var="pageTiles" property="java.util.List" scope="request"/>
+
     <!-- Even though profileOverview.jspx is curently a module included in school profile,
         SessionContext is not shared among the modules, and so asyncronous mode must be enabled here -->
     <ad:enableGptAsynchronousMode />
 
     <div id="profileProgramsTabs">
+
+    <input id="js-omniturePageName" value="${pageName}" type="hidden"/>
 
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
@@ -73,6 +77,7 @@
                     <div class="unit size2of100 ">&amp;nbsp;</div>
                     <c:choose>
                         <c:when test="${sweepstakes}">
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
                             <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile"  anchor="from..SweepStakes">
                                 <div class="unit size32of100 lastUnit">
                                     <div class="mod standard_1-1">
@@ -245,6 +250,7 @@
                     <div class="unit size32of100 lastUnit">
                         <c:choose>
                             <c:when test="${sweepstakes}">
+                                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
                                 <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile" anchor="from..SweepStakes">
                                     <div class="unit size32of100 lastUnit">
                                         <div class="mod standard_1-1">
@@ -345,9 +351,9 @@
     </c:if>
 
     </div>
-
-    <mod:deferredTracking key="overview" pageName="${pageName}"  hier1="School,SchoolProfileSuite,Overview"/>
+    <mod:deferredTracking key="overview" pageName="${pageName}"  hier1="School,SchoolProfileSuite,Overview" tilesInPage="${gsweb:convertListToString(pageTiles, '|')}"/>
 
     <mod:deferredTracking hier1="School,SchoolProfileSuite" hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}" DC_PCSB_Rating="${dcNcsbRating}"/>
 
+    <mod:tabSpecificTracking pageName="overview" listNumber="list1" />
 </jsp:root>

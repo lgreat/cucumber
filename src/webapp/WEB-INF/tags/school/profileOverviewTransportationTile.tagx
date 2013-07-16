@@ -24,7 +24,7 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Transportation')}" scope="request"/>
             <div id="js-tile-9-0">
             <gslink:linkToTab tabName="programs-resources" anchor="Resources_table" customLink="overview_transportation" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t9dc}">
@@ -64,6 +64,7 @@
         <c:when test="${content eq 'substitute1'}">
             <c:set var="classSize" value="${transportationModel['substitute1ClassSize']}" scope="page"/>
             <c:set var="studentsPerTeacher" value="${transportationModel['substitute1StudentsPerTeacher']}" scope="page"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Student/Teacher Ratio')}" scope="request"/>
             <c:choose>
                 <c:when test="${not empty classSize}">
                     <c:set var="t9s1">
@@ -125,6 +126,7 @@
             </c:choose>
         </c:when>
         <c:when test="${content eq 'substitute2'}">
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Mobile Promo')}" scope="request"/>
             <school:profileOverviewMobileTile/>
         </c:when>
     </c:choose>

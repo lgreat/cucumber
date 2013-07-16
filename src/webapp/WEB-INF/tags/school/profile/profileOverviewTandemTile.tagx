@@ -34,6 +34,10 @@
                         $('#js-tile-tandem').next('.mod.standard_1-1').hide(); // only way I could find to select the tile I need to hide
                     }
                     $('#js-tile-tandem, #js-school-calendar-list').show();
+
+                    GS.tracking.data['overview'].props['prop56'] = 'Tandem';
+                    GS.tracking.addTabSpecificProps('overview', 'prop56');
+                    GS.tracking.sendAndRestore({'pageName' : jQuery('#js-omniturePageName').val(), 'prop56' : 'Tandem'});
                 }
             }).fail(function() {
                         // don't show tile

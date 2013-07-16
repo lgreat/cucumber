@@ -20,6 +20,7 @@
 
     <div class="mod standard_3-1">
         <div class="outer">
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Checklist')}" scope="request"/>
             <div class="inner bg-checklist ie-moduleHeight-171">
                 <div class="hd">
                     <h3 class="bottom">Be sure to visit</h3>

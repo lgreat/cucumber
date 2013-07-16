@@ -35,7 +35,7 @@
         </c:otherwise>
         </c:choose>
     </c:set>
-
+    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Student Diversity')}" scope="request"/>
     <c:choose>
     <c:when test="${content eq 'default'}">
 

@@ -31,7 +31,7 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Photos')}" scope="request"/>
             <div class="mod standard_1-1">
                 <div class="inner box-shadow-animation-1">
                     <div id="js-tile-2-0">
@@ -93,6 +93,7 @@
                     <c:choose>
                         <!-- if in osp preferred state, display add photos tile -->
                         <c:when test="${ospStatus eq 'OSP_PREFERRED'}">
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Photos CTA')}" scope="request"/>
                             <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
                                 <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                                     <div class="outer">
@@ -114,12 +115,14 @@
                         </c:when>
                         <!-- if in any state other than OSP_PREFERRED, show USP promo tile -->
                         <c:otherwise>
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'USP Promo')}" scope="request"/>
                             <school:uspPromoTile/>
                         </c:otherwise>
                     </c:choose>
                 </c:when>
                 <!-- If no osp data and no photos, show usp promo tile instead of add photos -->
                 <c:otherwise>
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'USP Promo')}" scope="request"/>
                     <school:uspPromoTile/>
                 </c:otherwise>
             </c:choose>

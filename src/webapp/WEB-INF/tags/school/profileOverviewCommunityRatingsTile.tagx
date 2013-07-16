@@ -41,6 +41,7 @@
         <!--</c:choose>-->
         <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
     </c:set>
+    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Community Rating')}" scope="request"/>
 
     <div id="js-tile-4-0">
     <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555 js-trigger">
