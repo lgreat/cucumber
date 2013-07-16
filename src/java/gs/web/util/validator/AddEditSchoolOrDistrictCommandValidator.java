@@ -79,20 +79,23 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
         AddEditSchoolOrDistrictCommand command = (AddEditSchoolOrDistrictCommand)object;
         EmailValidator emv = EmailValidator.getInstance();
 
-        // personal information
+        boolean choseSchoolOrDistrict = StringUtils.isNotBlank(command.getSchoolOrDistrict()) ? true : false;
+        boolean schoolDistFieldsDisplayed = new Boolean(command.getSchoolDistFieldsDisplayed());
 
-        if (StringUtils.isBlank(command.getCity())) {
-            errors.rejectValue("city", null, ERROR_CITY_MISSING);
+
+        if(schoolDistFieldsDisplayed){
+            if (StringUtils.isBlank(command.getCity())) {
+                errors.rejectValue("city", null, ERROR_CITY_MISSING);
+            }
+
+            if (StringUtils.isBlank(command.getZipcode())) {
+                errors.rejectValue("Zipcode", null, ERROR_ZIPCODE_MISSING);
+            }
+
+            if (StringUtils.isBlank(command.getPhone())) {
+                errors.rejectValue("phone", null, ERROR_PHONE_MISSING);
+            }
         }
-
-        if (StringUtils.isBlank(command.getZipcode())) {
-            errors.rejectValue("Zipcode", null, ERROR_ZIPCODE_MISSING);
-        }
-
-        if (StringUtils.isBlank(command.getPhone())) {
-            errors.rejectValue("phone", null, ERROR_PHONE_MISSING);
-        }
-
         if (StringUtils.isBlank(command.getSubmitterName())) {
             errors.rejectValue("submitterName", null, ERROR_SUBMITTER_NAME_MISSING);
         }
@@ -111,34 +114,35 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
         if (StringUtils.isBlank(command.getSchoolOrDistrict())) {
             errors.rejectValue("schoolOrDistrict", null, ERROR_SCHOOL_OR_DISTRICT_MISSING);
         }
-        if (StringUtils.isBlank(command.getAddEdit())) {
+        if (choseSchoolOrDistrict && StringUtils.isBlank(command.getAddEdit())) {
             errors.rejectValue("addEdit", null, ERROR_ADD_EDIT);
         }
 
-        if (StringUtils.isBlank(command.getGrades())) {
-            errors.rejectValue("grades", null, ERROR_GRADES);
-        }else{
-            if(command.getGrades().equals("PK") || command.getGrades().equals("PK,KG")){
-                if (StringUtils.isBlank(command.getLowAge())) {
-                    errors.rejectValue("lowAge", null, ERROR_LOWAGE_MISSING);
-                }
-                if (StringUtils.isBlank(command.getHighAge())) {
-                    errors.rejectValue("highAge", null, ERROR_HIGHAGE_MISSING);
+        if(schoolDistFieldsDisplayed){
+            if (StringUtils.isBlank(command.getGrades())) {
+                errors.rejectValue("grades", null, ERROR_GRADES);
+            }else{
+                if(command.getGrades().equals("PK") || command.getGrades().equals("PK,KG")){
+                    if (StringUtils.isBlank(command.getLowAge())) {
+                        errors.rejectValue("lowAge", null, ERROR_LOWAGE_MISSING);
+                    }
+                    if (StringUtils.isBlank(command.getHighAge())) {
+                        errors.rejectValue("highAge", null, ERROR_HIGHAGE_MISSING);
+                    }
                 }
             }
-        }
-        if (!StringUtils.isBlank(command.getEnrollment())) {
-            if(!StringUtils.isNumeric(command.getEnrollment())){
-                errors.rejectValue("enrollment", null, ERROR_ENROLLMENT_NOTNUMBER);
+            if (StringUtils.isNotBlank(command.getEnrollment())) {
+                if(!StringUtils.isNumeric(command.getEnrollment())){
+                    errors.rejectValue("enrollment", null, ERROR_ENROLLMENT_NOTNUMBER);
+                }
+            }
+            if (StringUtils.isBlank(command.getStreet())) {
+                errors.rejectValue("street", null, ERROR_STREET_MISSING);
             }
         }
-        if (StringUtils.isBlank(command.getStreet())) {
-            errors.rejectValue("street", null, ERROR_STREET_MISSING);
-        }
-
         /* DISTRICT SPECIFIC */
         if (command.getSchoolOrDistrict() != null && command.getSchoolOrDistrict().equals("district")){
-            if (StringUtils.isBlank(command.getName())) {
+            if (schoolDistFieldsDisplayed && StringUtils.isBlank(command.getName())) {
                 errors.rejectValue("name", null, ERROR_SCHOOLNAME_MISSING.replaceAll("school","district"));
             }
             if (StringUtils.isBlank(command.getDistrictId())) {
@@ -156,7 +160,7 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
                 errors.rejectValue("schoolType", null, ERROR_SCHOOLTYPE_MISSING);
             }
 
-            if (StringUtils.isBlank(command.getName())) {
+            if (schoolDistFieldsDisplayed && StringUtils.isBlank(command.getName())) {
                 errors.rejectValue("name", null, ERROR_SCHOOLNAME_MISSING);
             }
 
@@ -167,12 +171,14 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
                 }
 
                 //Question is: Will this school be closing?
-                if (StringUtils.isBlank(command.getOpen())) {
-                    errors.rejectValue("open", null, ERROR_CLOSE_MISSING);
-                }else{
-                    if(command.getOpen().equals("Yes")){
-                        if (StringUtils.isBlank(command.getOpenSeason()) || StringUtils.isBlank(command.getOpenYear()) ) {
-                            errors.rejectValue("openSeason", null, ERROR_CLOSESEASONYEAR_MISSING);
+                if(schoolDistFieldsDisplayed){
+                    if (StringUtils.isBlank(command.getOpen())) {
+                        errors.rejectValue("open", null, ERROR_CLOSE_MISSING);
+                    }else{
+                        if(command.getOpen().equals("Yes")){
+                            if (StringUtils.isBlank(command.getOpenSeason()) || StringUtils.isBlank(command.getOpenYear()) ) {
+                                errors.rejectValue("openSeason", null, ERROR_CLOSESEASONYEAR_MISSING);
+                            }
                         }
                     }
                 }
@@ -183,15 +189,17 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
                 if (StringUtils.isBlank(command.getDistrictId()) && command.getSchoolType() != null && command.getSchoolType().equals("public")) {
                     errors.rejectValue("districtId", null, ERROR_DISTRICTID_MISSING);
                 }
-                if (StringUtils.isBlank(command.getEnrollment())) {
-                    errors.rejectValue("enrollment", null, ERROR_ENROLLMENT_MISSING);
-                }
-                if (StringUtils.isBlank(command.getOpen())) {
-                    errors.rejectValue("open", null, ERROR_OPEN_MISSING);
-                }else{
-                    if(command.getOpen().equals("No")){
-                        if (StringUtils.isBlank(command.getOpenSeason()) || StringUtils.isBlank(command.getOpenYear())) {
-                            errors.rejectValue("openSeason", null, ERROR_OPENSEASONYEAR_MISSING);
+                if(schoolDistFieldsDisplayed){
+                    if (StringUtils.isBlank(command.getEnrollment())) {
+                        errors.rejectValue("enrollment", null, ERROR_ENROLLMENT_MISSING);
+                    }
+                    if (StringUtils.isBlank(command.getOpen())) {
+                        errors.rejectValue("open", null, ERROR_OPEN_MISSING);
+                    }else{
+                        if(command.getOpen().equals("No")){
+                            if (StringUtils.isBlank(command.getOpenSeason()) || StringUtils.isBlank(command.getOpenYear())) {
+                                errors.rejectValue("openSeason", null, ERROR_OPENSEASONYEAR_MISSING);
+                            }
                         }
                     }
                 }

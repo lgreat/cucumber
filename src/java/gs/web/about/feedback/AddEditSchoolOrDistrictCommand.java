@@ -91,6 +91,7 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
     private String _challenge = "";
     private String _response = "";
 
+    private String _schoolDistFieldsDisplayed;
 
 
     public String getDistrictId() {
@@ -562,6 +563,14 @@ public class AddEditSchoolOrDistrictCommand  implements ICaptchaCommand {
 
     public void setApplicableYear(String applicableYear) {
         _applicableYear = applicableYear;
+    }
+
+    public String getSchoolDistFieldsDisplayed() {
+        return _schoolDistFieldsDisplayed;
+    }
+
+    public void setSchoolDistFieldsDisplayed(String schoolDistFieldsDisplayed) {
+        _schoolDistFieldsDisplayed = schoolDistFieldsDisplayed;
     }
 
 
