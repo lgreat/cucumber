@@ -19,7 +19,7 @@
     </c:set>
 
     <c:if test="${hasBios}">
-        <div class="mod authorBios" style="padding-top: 50px">
+        <div class="mod authorBios">
             <div class="inner rnd3 mtl">
                 <div class="bd">
                     ${biosContent}
