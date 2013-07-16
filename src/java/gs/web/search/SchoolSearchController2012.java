@@ -801,7 +801,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     public ModelAndView handleCityBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model, boolean showAdvancedFilters) {
         // City Browse Specific: check valid city
-        ModelAndView redirect = _cityBrowseHelper.checkForRedirectConditions(response, commandAndFields);
+        ModelAndView redirect = _cityBrowseHelper.checkForRedirectConditions(request, response, commandAndFields);
         if (redirect != null) {
             return redirect;
         }
@@ -1185,7 +1185,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         State enabledState = State.CA;
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
 
-        if (commandWithFields.isCityBrowse() && enabledState.equals(commandWithFields.getState())) {
+        if (commandWithFields.isCityBrowse() && enabledState.equals(commandWithFields.getState()) && commandWithFields.getCity() != null) {
             for (String city : FACEBOOK_FACEPILE_PILOT_CITIES) {
                 if (city.equals(commandWithFields.getCity().getName())) {
                     includeFacebook = true;
