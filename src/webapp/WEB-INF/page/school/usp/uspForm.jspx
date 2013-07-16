@@ -64,7 +64,7 @@
                 </div>
                 <div id="js-existingAnswersError" class="mtl error-block make-000000" style="display: none;">
                     <span class="iconx16 i-16-alert vam mrm"><!--Do not collapse--></span>
-                    Whoops!  We already have your answers about this school. You can update or change them below.
+                    Whoops! Since we already have your responses for this school, we couldn’t save the information you just entered. Please update or change your answers below.
                 </div>
             </div>
 
