@@ -65,7 +65,6 @@
                         slotPrefix = "";
                         _log.warn(">empty prefix for: " + ad.getName());
                     }
-                    _log.warn(ad.getName());
                     AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, ad, slotPrefix, true);
                 }
             }
