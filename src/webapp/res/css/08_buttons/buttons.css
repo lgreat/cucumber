@@ -1256,4 +1256,47 @@ Extends button-1 by changing:
 
 .cp{ cursor:pointer; }
 
+/*************************Button-3*************************/
+
+.but-3{
+    background: #3B579D; /* for non-css3 browsers */
+    color: #FFF;
+    border: 1px solid #B8B8B8;
+    border-radius: 3px;
+    /* border-top-color: #2092C4; /* highlight */
+    /*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);*/
+    -moz-box-shadow: inset 0 0 1px rgba(255, 255, 255, 1);
+    -webkit-box-shadow: inset 0 0px 1px rgba(255, 255, 255, 1);
+    box-shadow: inset 0 0 1px rgba(255, 255, 255, 1);
+
+    font-size: 14px;
+    font: sourcesanspro-semibold;
+}
+
+.but-3:hover{
+    background: #4465B6;
+    text-decoration: none;
+}
+
+.but-3:active{
+}
+
+.but-3-inactive{
+    background: #F0F0F0; /* for non-css3 browsers */
+    border: 1px solid #B8B8B8;
+}
+/* IE7 bug: vertical centering */
+*+html button.but-3,
+*+html button.but-3-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.but-3:-moz-focus-inner,
+.but-3-inactive::-moz-focus-inner {
+    border: none;
+}
+
+.cp{ cursor:pointer; }
+
 
