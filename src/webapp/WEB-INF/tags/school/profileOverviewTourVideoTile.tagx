@@ -25,7 +25,7 @@
             <school:profileOverviewReviewsCTA/>
         </c:when>
         <c:otherwise>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'School Video')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'GreatSchools Video')}" scope="request"/>
             <a class="tdn" href="${contentUrl}">
                 <school:profileOverviewCell1 title="${t12s1}">
                     <div class="mam" style="height:149px">

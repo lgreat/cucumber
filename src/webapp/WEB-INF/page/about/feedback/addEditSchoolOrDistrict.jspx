@@ -979,6 +979,9 @@ $(document).ready(function(){
             <form:options items="${requestScope.openYear}" itemValue="value" itemLabel="name"/>
         </form:select>
     </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="openSeason" useImage="true" styleClass="warning"/>
+    </div>
 </div>
 
 <!--  doPKOnly() -->
