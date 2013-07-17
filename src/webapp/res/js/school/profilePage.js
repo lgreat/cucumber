@@ -292,7 +292,7 @@ GS.profile = GS.profile || (function() {
         for(var i=0; i < layers.length; i++){
             $("#"+layers[i]).show();
         }
-        originalArr.concat(slots);
+        return originalArr.concat(slots);
     }
 
     var handleTandemBranding = function(refreshableBranding, brandingLayerId, refreshableNoBranding, noBrandingLayerId, tabName) {
@@ -302,18 +302,19 @@ GS.profile = GS.profile || (function() {
                 // show branded ad by pushing on the
                 if(GS.school.tandem.isTandemActive()){
                     if(tabName == "overview"){
-                        refreshTandemAds(refreshableOverviewAdSlotKeys, refreshableBranding, brandingLayerId);
+                        refreshableOverviewAdSlotKeys = refreshTandemAds(refreshableOverviewAdSlotKeys, refreshableBranding, brandingLayerId);
 //                        refreshableOverviewAdSlotKeys.concat(refreshableBranding);
                     }
                     else{
-                        refreshTandemAds(refreshableCultureAdSlotKeys,refreshableBranding, brandingLayerId);
+                        refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys,refreshableBranding, brandingLayerId);
+//                        console.log(refreshableCultureAdSlotKeys, refreshableBranding, brandingLayerId);
 //                        $("#"+brandingLayerId).show();
 //                        refreshableCultureAdSlotKeys.push(refreshableBranding);
                     }
                 }
                 else{
                     if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
-                        refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
+                        refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
 //                        $("#"+noBrandingLayerId).show();
 //                        refreshableCultureAdSlotKeys.push(refreshableNoBranding);
                     }
@@ -441,6 +442,7 @@ GS.profile = GS.profile || (function() {
         refreshAdsOnTabGeneric(refreshableReviewsAdSlotKeys, tabName, true);
     };
     var refreshCultureAds = function(tabName) {
+        console.log("refreshCultureAds",refreshableCultureAdSlotKeys);
         refreshAdsOnTabGeneric(refreshableCultureAdSlotKeys, tabName, true);
     };
     var refreshNonOverviewAds = function(tabName) {

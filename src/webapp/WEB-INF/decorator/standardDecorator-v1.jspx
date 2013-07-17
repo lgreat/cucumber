@@ -60,6 +60,7 @@
     <div class="site-gradient">
         <c:if test="${requestScope.pageHelper.showingLeaderboard}">
             <ad:x22 position="Header_728x90"/>
+            <ad:x22 position="Header_Branded_Tandem_728x90"/>
         </c:if>
         <cobrand:header/>
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
