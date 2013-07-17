@@ -14,6 +14,7 @@ GS.map.getMap = GS.map.getMap || (function () {
     var center = null;
     var bubblesSticky = true;
     var defaultPageSize = 25;
+    var $searchBody = null;
 
     var init = function () {
         GS.search.schoolSearchForm.init(GS.search.filters, GS.ui.contentDropdowns);
@@ -22,9 +23,10 @@ GS.map.getMap = GS.map.getMap || (function () {
             return window.location.pathname + GS.search.filters.getUpdatedQueryString();
         });
         schoolList = $('#js-schoolList');
+        $searchBody = $('#js-search-body');
         var height = getHeight();
         schoolList.css({height:height, overflowY:'auto', overflowX:'hidden'});
-        $('.js-mouseover-open-bubble').on('mouseover', function () {
+        $searchBody.on('mouseover', '.js-mouseover-open-bubble', function () {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
             if (GS_openSchoolInfoBubble !== null) {
@@ -61,13 +63,13 @@ GS.map.getMap = GS.map.getMap || (function () {
             }
         });
 
-        $('.js-mouseover-open-bubble').on('mouseout', function () {
+        $searchBody.on('mouseout', '.js-mouseover-open-bubble', function () {
             if (!bubblesSticky) {
                 closeInfoBox();
             }
         });
 
-        $('.js-mouseover-open-bubble').on('mouseover', function () {
+        $searchBody.on('mouseover', '.js-mouseover-open-bubble', function () {
             if (GS_openSchoolInfoBubble !== null) {
                 // if a marker is open and it wasnt opened from an event triggered from the list, don't do anything
                 if (bubblesSticky) {
@@ -87,7 +89,7 @@ GS.map.getMap = GS.map.getMap || (function () {
             bubblesSticky = false;
         });
 
-        $('.js-mouseover-open-bubble').on('click', function () {
+        $searchBody.on('click', '.js-mouseover-open-bubble', function () {
             if (GS_openSchoolInfoBubble !== null) {
                 GS_openSchoolInfoBubble = null;
                 infoBoxInstance.close();
@@ -121,7 +123,7 @@ GS.map.getMap = GS.map.getMap || (function () {
             }
         });
 
-        $('#js-search-body').on('click', '#js_reloadMap', function () {
+        $searchBody.on('click', '#js_reloadMap', function () {
             if (s.tl) {
                 s.tl(this, 'o', 'SearchResults_Map_Redo_Search');
             }
