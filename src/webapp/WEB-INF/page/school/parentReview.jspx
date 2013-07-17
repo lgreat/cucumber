@@ -17,6 +17,9 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:scriptlet>
+request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName(request));
+</jsp:scriptlet>
 <head>
 
     <title>Write a school review | GreatSchools</title>
@@ -26,7 +29,14 @@
      more informed choice about which school is right for their family."/>
     <meta property="og:title" content="Help your school win $5,000 from GreatSchools!"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="http://qa.greatschools.org/sweepstakes"/>
+    <c:choose>
+        <c:when test="${env ==  'dev'}">
+            <meta property="og:url" content="http://qa.greatschools.org/sweepstakes"></meta>
+        </c:when>
+        <c:otherwise>
+            <meta property="og:url" content="http://www.greatschools.org/sweepstakes"></meta>
+        </c:otherwise>
+    </c:choose>
     <meta property="og:image" content="http://www.greatschools.org/catalog/ads/leadGen/img/gs-sweeps.png"/>
     <meta property="og:description" content="Write a review to help your school win $5,000 from GreatSchools, a national
      nonprofit that helps parents get a great education for their children. "/>
@@ -62,6 +72,7 @@
         PageHelper.hideLeaderboard(request);
         PageHelper.hideFooterAd(request);
         PageHelper.hideBelowNavAds(request);
+
     </jsp:scriptlet>
 
     ${requestScope.pageHelper.headElementsWithoutCss}
