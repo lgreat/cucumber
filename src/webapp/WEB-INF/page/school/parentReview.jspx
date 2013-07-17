@@ -21,26 +21,30 @@
 request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName(request));
 </jsp:scriptlet>
 <head>
-
+    <c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
     <title>Write a school review | GreatSchools</title>
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description" content="Write a review for your child's school today and you can help other parents make a
      more informed choice about which school is right for their family."/>
+
+
+    <c:if test="${sweepstakes}">
     <meta property="og:title" content="Help your school win $5,000 from GreatSchools!"/>
     <meta property="og:type" content="website"/>
-    <c:choose>
-        <c:when test="${env ==  'dev'}">
-            <meta property="og:url" content="http://qa.greatschools.org/sweepstakes"></meta>
-        </c:when>
-        <c:otherwise>
-            <meta property="og:url" content="http://www.greatschools.org/sweepstakes"></meta>
-        </c:otherwise>
-    </c:choose>
     <meta property="og:image" content="http://www.greatschools.org/catalog/ads/leadGen/img/gs-sweeps.png"/>
     <meta property="og:description" content="Write a review to help your school win $5,000 from GreatSchools, a national
      nonprofit that helps parents get a great education for their children. "/>
     <meta property="og:site_name" content="GreatSchools"/>
+     <c:choose>
+            <c:when test="${env ==  'dev'}">
+                <meta property="og:url" content="http://qa.greatschools.org/sweepstakes"></meta>
+            </c:when>
+            <c:otherwise>
+                <meta property="og:url" content="http://www.greatschools.org/sweepstakes"></meta>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
     <c:if test="${morganStanley}">
         <meta name="robots" content="follow,noindex"/>
     </c:if>
@@ -186,7 +190,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
 
-<c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
+
 <c:choose>
     <c:when test="${sweepstakes}">
     <![CDATA[<div class="imageBgScale moduleHeight-1040 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}" style="background-color:#000000;">]]>
