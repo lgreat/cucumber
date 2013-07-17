@@ -316,7 +316,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                 </span>
                 <!--twitter-->
                 <span class="">
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Win your school $5K! Write a review to enter: http://bit.ly/sweeps2013 See rules. @GreatSchools #BestYearEverSweeps">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-text="Win your school $5K! Write a review to enter: http://bit.ly/sweeps2013 See rules. @GreatSchools #BestYearEverSweeps" data-via="greatschools">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 </span>
             </div>
             <div class="mvl smaller">
