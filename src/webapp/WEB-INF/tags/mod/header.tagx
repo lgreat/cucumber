@@ -182,18 +182,20 @@
                             jQuery(".selectSchoolArticle").on("change", function(){
                                 if(jQuery(this).val() == "S"){
                                     var e = jQuery('#stateSelector');
-
-                                    jQuery("#topnav_search_school").show();
-                                    jQuery("#topnav_search_articlesAndCommunity").hide();
+                                    jQuery("#topnav_search_articlesAndCommunity").removeClass("db");
+                                    jQuery("#topnav_search_articlesAndCommunity").addClass("dn");
+                                    jQuery("#topnav_search_school").removeClass("dn");
+                                    jQuery("#topnav_search_school").addClass("db");
                                     jQuery(".selectSchoolArticle option[value='S']").attr('selected', 'selected');
                                     e.focus();
                                     e.select();
                                 }
                                 else{
                                     jQuery(".selectSchoolArticle option[value='A']").attr('selected', 'selected');
-                                    jQuery("#topnav_search_school").hide();
-                                    jQuery("#topnav_search_articlesAndCommunity").show();
-
+                                    jQuery("#topnav_search_school").addClass("dn");
+                                    jQuery("#topnav_search_school").removeClass("db");
+                                    jQuery("#topnav_search_articlesAndCommunity").removeClass("dn");
+                                    jQuery("#topnav_search_articlesAndCommunity").addClass("db");
                                 }
                             });
                             jQuery("#topnav_search_school").on("submit", function(){
