@@ -78,24 +78,22 @@
                     <c:choose>
                         <c:when test="${sweepstakes}">
                             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
-                            <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile"  anchor="from..SweepStakes">
-                                <div class="unit size32of100 lastUnit">
-                                    <div class="mod standard_1-1">
-                                        <div class="inner box-shadow-animation-1">
-                                            <div class="bd tac">
-                                                <div class="mam" style="height:170px;">
-                                                    <img src="/res/img/sweepstakes/profile_tile.png"
-                                                         alt="sweepstakes callout"/>
-                                                    <div class="smaller">
-                                                        <a href="/catalog/pdf/BestYearEverRules.pdf" target="_blank"
-                                                           class="underline make-999999">See official rules</a>
-                                                    </div>
+                            <div class="unit size32of100 lastUnit">
+                                <div class="mod standard_1-1">
+                                    <div class="inner box-shadow-animation-1">
+                                        <div class="bd tac">
+                                            <div class="mam" style="height:170px;">
+                                                <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile" anchor="from..SweepStakes">
+                                                    <img src="/res/img/sweepstakes/profile_tile.png" alt="sweepstakes callout"/>
+                                                </gslink:linkToTab>
+                                                <div class="smaller">
+                                                    <a href="/catalog/pdf/BestYearEverRules.pdf" target="_blank" class="underline make-999999">See official rules</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </gslink:linkToTab>
+                            </div>
                         </c:when>
                         <c:otherwise>
                             <c:choose>
@@ -251,25 +249,22 @@
                         <c:choose>
                             <c:when test="${sweepstakes}">
                                 <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
-                                <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile" anchor="from..SweepStakes">
-                                    <div class="unit size32of100 lastUnit">
-                                        <div class="mod standard_1-1">
-                                            <div class="inner box-shadow-animation-1">
-                                                <div class="bd tac">
-                                                    <div class="mam" style="height:170px;">
-                                                        <img src="/res/img/sweepstakes/profile_tile.png"
-                                                             alt="sweepstakes callout"/>
-
-                                                        <div class="smaller">
-                                                            <a href="/catalog/pdf/BestYearEverRules.pdf"
-                                                               class="underline make-999999">See official rules</a>
-                                                        </div>
+                                <div class="unit size32of100 lastUnit">
+                                    <div class="mod standard_1-1">
+                                        <div class="inner box-shadow-animation-1">
+                                            <div class="bd tac">
+                                                <div class="mam" style="height:170px;">
+                                                    <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile" anchor="from..SweepStakes">
+                                                        <img src="/res/img/sweepstakes/profile_tile.png" alt="sweepstakes callout"/>
+                                                    </gslink:linkToTab>
+                                                    <div class="smaller">
+                                                        <a href="/catalog/pdf/BestYearEverRules.pdf" class="underline make-999999">See official rules</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </gslink:linkToTab>
+                                </div>
                             </c:when>
                             <c:otherwise>
                                 <c:choose>
