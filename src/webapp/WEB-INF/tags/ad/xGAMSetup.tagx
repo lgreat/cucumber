@@ -43,11 +43,13 @@
                         AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Homepage_Footer_728x90, slotPrefix, true);
                     } else {
                         AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Footer_728x90, slotPrefix, true);
+                        AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Footer_Branded_Tandem_728x90, slotPrefix, true);
                     }
                 }
 
                 if (pageHelper.isShowingBannerAd() && pageHelper.isShowingLeaderboard()) {
                     AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Header_728x90, slotPrefix, true);
+                    AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Header_Branded_Tandem_728x90, slotPrefix, true);
                 }
 
                 if (!pageHelper.isAdFree() && !pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
