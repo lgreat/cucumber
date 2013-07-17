@@ -34,10 +34,28 @@
                         $('#js-tile-tandem').next('.mod.standard_1-1').hide(); // only way I could find to select the tile I need to hide
                     }
                     $('#js-tile-tandem, #js-school-calendar-list').show();
+
+                    GS.tracking.data['overview'].props['prop56'] = 'Tandem';
+                    GS.tracking.addTabSpecificProps('overview', 'prop56');
+                    GS.tracking.sendAndRestore({'pageName' : jQuery('#js-omniturePageName').val(), 'prop56' : 'Tandem'});
                 }
             }).fail(function() {
                         // don't show tile
                         hasCalendarData = false;
+                        // depends on the tile in profileOverviewProgramsTile that is displayed
+                        var tileName = '';
+                        if (jQuery('#js-tile-10-0').is(':visible')) {
+                            tileName = 'Programs'
+                        }
+                        else if (jQuery('#js-tile-10-1').is(':visible')) {
+                            tileName = 'Parent Involvement'
+                        }
+                        else if (jQuery('#js-tile-10-2').is(':visible')) {
+                            tileName = 'Highlights'
+                        }
+                        GS.tracking.data['overview'].props['prop56'] = tileName;
+                        GS.tracking.addTabSpecificProps('overview', 'prop56');
+                        GS.tracking.sendAndRestore({'pageName' : jQuery('#js-omniturePageName').val(), 'prop56' : tileName});
                     });
 //            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });

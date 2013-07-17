@@ -276,7 +276,6 @@ General comments:
     border: none;
 }
 
-
 /* =1-1 standard button extension-1
 -------------------------------------------------------------------------------------------*/
 /*
@@ -425,7 +424,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 5px;
-    margin:0;
+    margin: 0;
     height: auto;
     color: white;
     text-decoration: none;
@@ -492,7 +491,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 5px;
-    margin:0;
+    margin: 0;
     height: auto;
     color: white;
     text-decoration: none;
@@ -501,7 +500,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: default;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #b2bdc9; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #e5e9ec, #b2bdc9 50%, #b2bdc9 51%, #f0f2f5); /* FF3.6 */
@@ -547,7 +546,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 8px;
-    margin:0;
+    margin: 0;
     height: 22px;
     color: white;
     text-decoration: none;
@@ -556,7 +555,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: pointer;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #0f6487; /* for non-css3 browsers */
     white-space: nowrap;
 
@@ -600,7 +599,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
-    margin:0;
+    margin: 0;
     height: 33px;
     color: white;
     text-decoration: none;
@@ -609,7 +608,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: pointer;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #2092C4; /* for non-css3 browsers */
     white-space: nowrap;
 
@@ -667,7 +666,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
-    margin:0;
+    margin: 0;
     height: 33px;
     color: white;
     text-decoration: none;
@@ -676,7 +675,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: default;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #b2bdc9; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #e5e9ec, #b2bdc9 50%, #b2bdc9 51%, #f0f2f5); /* FF3.6 */
@@ -789,7 +788,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
-    margin:0;
+    margin: 0;
     height: 33px;
     color: white;
     text-decoration: none;
@@ -798,7 +797,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: default;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #b2bdc9; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #e5e9ec, #b2bdc9 50%, #b2bdc9 51%, #f0f2f5); /* FF3.6 */
@@ -844,7 +843,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 4px 0 3px;
-    margin:0;
+    margin: 0;
     height: 18px;
     color: #0066bb;
     text-decoration: none;
@@ -853,7 +852,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: pointer;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     white-space: nowrap;
 
     background-color: #dddddd;
@@ -915,7 +914,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: default;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #787878; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #dddddd, #787878); /* FF3.6 */
@@ -962,7 +961,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 1px 12px;
-    margin:0;
+    margin: 0;
     height: 18px;
     color: #0066bb;
     text-decoration: none;
@@ -971,7 +970,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: pointer;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     white-space: nowrap;
 
     background-color: #dddddd;
@@ -1024,7 +1023,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 4px 0 3px;
-    margin:0;
+    margin: 0;
     height: 18px;
     color: white;
     text-decoration: none;
@@ -1033,7 +1032,7 @@ Extends button-1 by changing:
     text-align: center;
     position: relative;
     cursor: default;
-    outline:0; /* Background Gradients */
+    outline: 0; /* Background Gradients */
     background: #787878; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #dddddd, #787878); /* FF3.6 */
@@ -1066,6 +1065,8 @@ Extends button-1 by changing:
 .button-6-inactive::-moz-focus-inner {
     border: none;
 }
+
+
 
 /* =7 Dropdown button icons
 -------------------------------------------------------------------------------------------*/
@@ -1253,5 +1254,6 @@ Extends button-1 by changing:
     border: none;
 }
 
+.cp{ cursor:pointer; }
 
 

@@ -58,7 +58,7 @@
             });
 
             jQuery('.previewButton').click(function() {
-                if (validPost()) {
+                if (GS.showJoinHover('${requestScope.user.email}', window.location.href, GSType.hover.joinHover.showJoinPostComment) &amp;&amp; validPost()) {
                     var previewBody = escapeHTML(jQuery(".bodyInput").val());
                     <![CDATA[
                     previewBody = previewBody.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>');
@@ -77,7 +77,11 @@
             });
 
             jQuery('.submitButton').click(function() {
-                return validPost();
+                if (GS.showJoinHover('${requestScope.user.email}', window.location.href, GSType.hover.joinHover.showJoinPostComment)) {
+                    return validPost();
+                } else {
+                    return false;
+                }
             });
 
             function validPost() {

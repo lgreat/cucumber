@@ -21,6 +21,7 @@
     <jsp:directive.attribute name="school" required="false" type="gs.data.school.School"/>
     <jsp:directive.attribute name="DC_PCSB_Rating" required="false"/>
     <jsp:directive.attribute name="applyNowUrl" required="false"/>
+    <jsp:directive.attribute name="tilesInPage" required="false"/>
 
     <script type="text/javascript">
         GS.tracking.registerTrackingData("${not empty pageScope.key? pageScope.key : '_shared'}", {
@@ -59,7 +60,13 @@
                 }
 
                 return props;
-            })()
+            })(),
+            lists : (function() {
+                    var oLists =  {
+                        list1 : '${tilesInPage}'
+                    };
+                     return oLists;
+                    })()
         });
     </script>
 

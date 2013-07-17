@@ -1639,7 +1639,7 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     return false;
 };
 
-GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, schoolState, elem) {
+GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, schoolState, elem, mapSearch) {
     if (omniturePageName && s.tl) {
         s.tl(true, 'o', 'Add_to_MSL_Link_' + omniturePageName);
     }
@@ -1649,8 +1649,16 @@ GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, school
     if (GS.isSignedIn()) {
         if (omniturePageName) {
             mslHelper.addSchool(schoolState, schoolId, function() {
-                jQuery('.js-add-msl-' + statePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
-                jQuery('.js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
+                var addToMsl = jQuery('.js-add-msl-' + statePlusId);
+                // We already have the html on search map results page, so just use show and hide instead of writing html.
+                if(mapSearch) {
+                    addToMsl.find('.js-notInMsl').hide();
+                    addToMsl.find('.js-existsInMsl').show();
+                }
+                else {
+                    addToMsl.find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
+                    addToMsl.find('.js-add-msl-success-icon').attr("class", "iconx16 i-16-success");
+                }
             }, function() {});
         } else {
             return true;

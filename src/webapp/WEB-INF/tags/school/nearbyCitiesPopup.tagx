@@ -27,12 +27,12 @@
             <span>&amp;raquo;</span></a></span>
 
             <div id="nearby-cities" class="js-popup ptl">
-                <div id="" class="mod standard_5-1">
+                <div id="" class="mod standard_11-1">
                     <div class="up-pointer">
                         <div class="border-edge"><!-- not empty --></div>
                         <div class="border-bd"><!-- not empty --></div>
                     </div>
-                    <div class="bd mvm">
+                    <div class="bd mvm clearfix">
                         <!--<c:set var="openCloseDiv2col">-->
                             <!--<![CDATA[</div><div class="unit size50of100 lastUnit">]]>-->
                         <!--</c:set>-->

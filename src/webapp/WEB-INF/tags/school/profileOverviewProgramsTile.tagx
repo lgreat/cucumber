@@ -24,7 +24,6 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-
             <div id="js-tile-10-0">
             <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t10dc}">
@@ -54,7 +53,6 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-
             <div id="js-tile-10-1">
             <gslink:linkToTab tabName="culture" customLink="overview_parentinvolvement" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t10s1}">
@@ -93,7 +91,6 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-
             <div id="js-tile-10-2">
             <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t10s2}">

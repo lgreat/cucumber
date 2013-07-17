@@ -9,6 +9,12 @@
     <uri>gstaglib</uri>
 
     <function>
+        <name>generateGoogleAPISignature</name>
+        <function-class>gs.data.util.DigestUtil</function-class>
+        <function-signature>java.lang.String generateGoogleAPICryptographicSignature(java.lang.String)</function-signature>
+    </function>
+
+    <function>
         <name>splitAfterXWords</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>java.lang.String[] splitAfterXWords(java.lang.String,int)</function-signature>
@@ -390,6 +396,24 @@
         <name>defaultString</name>
         <function-class>gs.data.util.string.StringUtils</function-class>
         <function-signature>java.lang.String defaultString(java.lang.String,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>addToList</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.util.List addToList(java.util.List,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>addToOmnitureList</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.util.List addToOmnitureList(java.util.List,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>convertListToString</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String convertListToString(java.util.List,java.lang.String)</function-signature>
     </function>
 
     <tag>

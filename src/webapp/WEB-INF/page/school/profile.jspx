@@ -35,6 +35,7 @@
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
 <c:set var="tandemTileMSBranding" value="${context.turnOnMicroSoftCampaign}" scope="request" />
+<c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
 
 <!-- determine the page name that is reported to omniture -->
 <c:set var="pageName" value="Overview" scope="request"/>
@@ -292,7 +293,7 @@
 
         <!-- tool links -->
         <div class="toolLinks">
-            <ul class="none small mtm">
+            <ul class="none small mtm bottom">
                 <li>
                 <span class="media js-add-msl-${school.databaseState}${school.id}">
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
@@ -326,6 +327,16 @@
                 </span>
                 </li>
             </ul>
+            <c:choose>
+                <c:when test="${sweepstakes}">
+                    <div class="mbm">
+                        <gslink:linkToTab tabName="reviews" customLink="sweepstakes_headerlink" anchor="from..SweepStakes">
+                            <span class="iconx16 i-16-dollar mrs vam"><!--Do not collapse--></span>
+                            <span class="small vam">Help this school win $5,000!</span>
+                        </gslink:linkToTab>
+                    </div>
+                </c:when>
+            </c:choose>
         </div>
 
     </div>
@@ -387,6 +398,9 @@
                     <div class="box-shadow-animation-1">
                         <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">
                             <div class="pr">
+                                <!-- Code preparing for GS-14354 -->
+                                <!--<c:set var="pathToSign" value="/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;client=gme-greatschools&amp;sensor=false"/>-->
+                                <!--<c:set var="googleApiSignature" value="${gsweb:generateGoogleAPISignature(pathToSign)}"/>-->
                                 <img height="98" width="98" alt="Map thumbnail"
                                  src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
                                 <div style="position:absolute; top:73px; right:1px;z-index: 0;"><span class="iconx24 i-24-map-plus"><!-- do not collapse --></span></div>
@@ -454,7 +468,7 @@
 
     <div class="">
         <ad:AboveFold_300x600 />
-        <ad:AboveFold_Culture_300x600 />
+        <ad:AboveFold_Branded_Tandem_300x600 />
 
         <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
 
@@ -472,6 +486,7 @@
         </c:if>
 
         <ad:BelowFold_300x250/>
+        <ad:BelowFold_Branded_Tandem_300x250 />
 
         <c:set var="isDcNclbSchool" value="${school.physicalAddress.state eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and school.levelCode ne 'p'}"/>
         <c:if test="${isDcNclbSchool and requestScope.context.showDcNclbModules}">

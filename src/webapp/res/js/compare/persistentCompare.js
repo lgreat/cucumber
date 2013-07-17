@@ -407,7 +407,7 @@ GS.school.compare = (function() {
     };
 
     var areSchoolStatesSame = function(state) {
-        var dfd = jQuery.Deferred();
+                var dfd = jQuery.Deferred();
         if (!validateSchoolStatesSame(state)) {
             compareDifferentStatesWarningHover.showHover().done(
                 function() {
@@ -421,6 +421,21 @@ GS.school.compare = (function() {
         }
         return dfd.promise();
     };
+
+//        var dfd = jQuery.Deferred();
+//        if (!validateSchoolStatesSame(state)) {
+//            compareDifferentStatesWarningHover.showHover().done(
+//                function() {
+//                    clearSchoolsInCompare();
+//                    dfd.resolve();
+//                }).fail(function() {
+//                    dfd.reject();
+//                });
+//        } else {
+//            dfd.resolve();
+//        }
+//        return dfd.promise();
+//    };
 
     var clearSchoolsInCompare = function() {
         for (var i = 0; i < schoolsInCompare.length; i++) {
@@ -436,29 +451,31 @@ GS.school.compare = (function() {
     //Hover to warn the users when they try to compare schools in 2 states.
     var CompareDifferentStatesWarningHover = function() {
         this.dfd = null;
-        this.loadDialog = function() {
-        };
-
+//        this.loadDialog = function() {
+//        };
+//
         this.showHover = function() {
             this.dfd = jQuery.Deferred();
             jQuery('#js_compareDifferentStatesWarningHover').on('dialogclose.compare', this.onClose.gs_bind(this));
             compareDifferentStatesWarningHover.show();
             return compareDifferentStatesWarningHover.dfd.promise();
         };
-
-        //When the user picks a school in different state to compare.
+//
+//        //When the user picks a school in different state to compare.
         this.onSubmitCompare = function() {
             jQuery('#js_compareDifferentStatesWarningHover').off('dialogclose.compare');
             compareDifferentStatesWarningHover.hide();
             compareDifferentStatesWarningHover.dfd.resolve();
         };
-
+//
         this.onClose = function() {
             compareDifferentStatesWarningHover.dfd.reject();
         };
     };
 
-    CompareDifferentStatesWarningHover.prototype = new GSType.hover.HoverDialog("js_compareDifferentStatesWarningHover", 480);
+
+//    var CompareDifferentStatesWarningHover = function() {};
+    CompareDifferentStatesWarningHover.prototype = new GSType.hover.HoverDialog("js_compareDifferentStatesWarningHover");
     var compareDifferentStatesWarningHover = new CompareDifferentStatesWarningHover();
 
     //Draws the div for a given school in the compare module.
@@ -541,7 +558,7 @@ GS.school.compare = (function() {
 
     $(function() {
 
-        compareDifferentStatesWarningHover.loadDialog();
+        //compareDifferentStatesWarningHover.loadDialog();
 
         //Bind the click handler to remove a school from compare.
         $('#js_compareSchoolsDiv').on('click', '.js_removeSchoolFromCompare', function() {

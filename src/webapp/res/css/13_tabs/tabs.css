@@ -184,14 +184,7 @@
     border: 1px solid #DDDDDD;
     text-shadow: 0 1px 0 #FFFFFF;
     *zoom: 1;
-    background-color: #E6E6E6; /* for non-css3 browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(E6E6E6)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #F5F5F5, #E6E6E6); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image: -moz-linear-gradient(top, #F5F5F5, #E6E6E6); /* FF3.6 */
-    background-image: -ms-linear-gradient(top, #F5F5F5, #E6E6E6); /* IE10 */
-    background-image: -o-linear-gradient(top, #F5F5F5, #E6E6E6); /* Opera 11.10+ */
-    background-image: linear-gradient(top, #F5F5F5, #E6E6E6); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFF5F5F5', EndColorStr = '#FFE6E6E6'); /* IE6�IE9 */
+    background-color: #f1f1f1; /* for non-css3 browsers */
 }
 
 .gsTabs1 ul.tabStyle-2-1 li a {

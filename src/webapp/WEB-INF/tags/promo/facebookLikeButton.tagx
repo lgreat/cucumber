@@ -88,7 +88,7 @@
         </c:otherwise>
     </c:choose>
     <![CDATA[
-    <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light"
+    <fb:like href="${pageUrlOnFacebookUN}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light"
         font="arial"></fb:like>
     ]]>
 </jsp:root>

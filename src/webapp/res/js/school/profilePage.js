@@ -86,15 +86,20 @@ GS.profile = GS.profile || (function() {
     var refreshableProfileAllAdSlotKeys = [
         'School_Profile_Page_Footer_728x90',
         'School_Profile_Page_Header_728x90',
+        'School_Profile_Page_Footer_Branded_Tandem_728x90',
+        'School_Profile_Page_Header_Branded_Tandem_728x90',
         'School_Profile_Page_Community_Ad_300x50',
         'School_Profile_Page_BelowFold_300x250',
         'School_Profile_Page_BelowFold_Top_300x125',
         'School_Profile_Page_AboveFold_300x600',
-        'School_Profile_Page_AboveFold_Culture_300x600',
         'School_Profile_Page_AboveFold_300x600',
         'School_Profile_Page_Branded_Tandem_Tile_150x30',
         'Global_NavPromo_970x30',
-        'Custom_Welcome_Ad'
+        'Custom_Welcome_Ad',
+        'School_Profile_Page_Footer_Branded_Tandem_728x90',
+        'School_Profile_Page_Header_Branded_Tandem_728x90',
+        'School_Profile_Page_AboveFold_Branded_Tandem_300x600',
+        'School_Profile_Page_BelowFold_Branded_Tandem_300x250'
     ];
 
     var refreshableNonOverviewAdSlotKeys = [
@@ -109,16 +114,25 @@ GS.profile = GS.profile || (function() {
     var refreshableReviewsAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
 
     var refreshableCultureAdSlotKeys = [
-        'School_Profile_Page_Footer_728x90',
-        'School_Profile_Page_Header_728x90',
         'School_Profile_Page_Community_Ad_300x50',
-        'School_Profile_Page_BelowFold_300x250',
         'School_Profile_Page_BelowFold_Top_300x125'
     ];
 
-    var refreshableCultureBranding = 'School_Profile_Page_AboveFold_Culture_300x600';
-    var refreshableCultureNoBranding = 'School_Profile_Page_AboveFold_300x600';
-    var refreshableTandemTileBranding = 'School_Profile_Page_Branded_Tandem_Tile_150x30';
+    var refreshableCultureBranding = [
+        'School_Profile_Page_Footer_Branded_Tandem_728x90',
+        'School_Profile_Page_Header_Branded_Tandem_728x90',
+        'School_Profile_Page_AboveFold_Branded_Tandem_300x600',
+        'School_Profile_Page_BelowFold_Branded_Tandem_300x250'
+    ];
+    var refreshableCultureNoBranding = [
+        'School_Profile_Page_Footer_728x90',
+        'School_Profile_Page_Header_728x90',
+        'School_Profile_Page_AboveFold_300x600',
+        'School_Profile_Page_BelowFold_300x250'
+    ];
+    var refreshableTandemTileBranding = [
+        'School_Profile_Page_Branded_Tandem_Tile_150x30'
+    ];
 
     var otherAdSlotKeys = [
         'Global_NavPromo_970x30',
@@ -241,7 +255,9 @@ GS.profile = GS.profile || (function() {
 
         switch (tabName) {
             case "overview":{
-                handleTandemBranding(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '', tabName);
+//                handleTandemBranding(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '', tabName);
+                var layerArr = ['Branded_Tandem_Tile_150x30'];
+                handleTandemBranding(refreshableTandemTileBranding, layerArr, '', '', tabName);
                 refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
                 break;
             }
@@ -250,7 +266,19 @@ GS.profile = GS.profile || (function() {
                 break;
             }
             case "culture":{
-                handleTandemBranding(refreshableCultureBranding, 'AboveFold_Culture_300x600', refreshableCultureNoBranding, 'AboveFold_300x600', tabName);
+                var layerArrCultureBranded = [
+                    'Footer_Branded_Tandem_728x90',
+                    'Header_Branded_Tandem_728x90',
+                    'AboveFold_Branded_Tandem_300x600',
+                    'BelowFold_Branded_Tandem_300x250'
+                ];
+                var layerArrCulture = [
+                    'Footer_728x90',
+                    'Header_728x90',
+                    'AboveFold_300x600',
+                    'BelowFold_300x250'
+                ];
+                handleTandemBranding(refreshableCultureBranding, layerArrCultureBranded, refreshableCultureNoBranding, layerArrCulture, tabName);
                 refreshCultureAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
                 break;
             }
@@ -260,6 +288,13 @@ GS.profile = GS.profile || (function() {
         }
     };
 
+    var refreshTandemAds = function(originalArr, slots, layers){
+        for(var i=0; i < layers.length; i++){
+            $("#"+layers[i]).show();
+        }
+        return originalArr.concat(slots);
+    }
+
     var handleTandemBranding = function(refreshableBranding, brandingLayerId, refreshableNoBranding, noBrandingLayerId, tabName) {
         // this is not set on load if I check in tandem object
         if(hasTandemBranding == 'true'){
@@ -267,30 +302,36 @@ GS.profile = GS.profile || (function() {
                 // show branded ad by pushing on the
                 if(GS.school.tandem.isTandemActive()){
                     if(tabName == "overview"){
-                        refreshableOverviewAdSlotKeys.push(refreshableBranding);
+                        refreshableOverviewAdSlotKeys = refreshTandemAds(refreshableOverviewAdSlotKeys, refreshableBranding, brandingLayerId);
+//                        refreshableOverviewAdSlotKeys.concat(refreshableBranding);
                     }
                     else{
-                        $("#"+brandingLayerId).show();
-                        refreshableCultureAdSlotKeys.push(refreshableBranding);
+                        refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys,refreshableBranding, brandingLayerId);
+//                        console.log(refreshableCultureAdSlotKeys, refreshableBranding, brandingLayerId);
+//                        $("#"+brandingLayerId).show();
+//                        refreshableCultureAdSlotKeys.push(refreshableBranding);
                     }
                 }
                 else{
-                    if(noBrandingLayerId != ""){
-                        $("#"+noBrandingLayerId).show();
-                        refreshableCultureAdSlotKeys.push(refreshableNoBranding);
+                    if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
+                        refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
+//                        $("#"+noBrandingLayerId).show();
+//                        refreshableCultureAdSlotKeys.push(refreshableNoBranding);
                     }
                 }
             }
             else{
                 GS.school.tandem.setTandemShowAd('true');
                 GS.school.tandem.setTandemTabName(tabName);
-                GS.school.tandem.setTandemWhichAd(refreshableBranding, brandingLayerId, refreshableNoBranding, noBrandingLayerId);
+                GS.school.tandem.setTandemWhichAds(refreshableBranding, brandingLayerId, refreshableNoBranding, noBrandingLayerId);
             }
         }
         else{
-            if(noBrandingLayerId != ""){
-                $("#"+noBrandingLayerId).show();
-                refreshableCultureAdSlotKeys.push(refreshableNoBranding);
+            if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
+                refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
+                //$("#"+noBrandingLayerId).show();
+//                refreshableCultureAdSlotKeys.push(refreshableNoBranding);
+                //refreshableCultureAdSlotKeys.concat(refreshableNoBranding);
             }
         }
     }
@@ -401,6 +442,7 @@ GS.profile = GS.profile || (function() {
         refreshAdsOnTabGeneric(refreshableReviewsAdSlotKeys, tabName, true);
     };
     var refreshCultureAds = function(tabName) {
+        console.log("refreshCultureAds",refreshableCultureAdSlotKeys);
         refreshAdsOnTabGeneric(refreshableCultureAdSlotKeys, tabName, true);
     };
     var refreshNonOverviewAds = function(tabName) {
@@ -472,7 +514,7 @@ jQuery(document).ready(function() {
     if(hashValue != ""){
         GS.util.jumpToAnchor(hashValue);
     }
-    if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
+    if ( GS.util.isBrowserIELessThan8() ){ jQuery(".arrowdiv").remove() }
 
     /* this initializes all of the star rating options on the reviews page */
     starRatingInterface("starRatingContainer1", 16, 5, "overallAsString", "js_reviewTopStarDescriptor");

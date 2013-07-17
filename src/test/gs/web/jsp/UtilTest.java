@@ -4,7 +4,9 @@ import junit.framework.TestCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -363,5 +365,39 @@ public class UtilTest extends TestCase {
             threwException = true;
         }
         assertTrue(threwException);
+    }
+
+    public void testAddToList() {
+        List<String> list = Util.addToList(null, null);
+
+        assertEquals(0, list.size());
+        assertEquals(1, Util.addToList(list, "page tile 1").size());
+        assertEquals(2, Util.addToList(list, "page tile 1").size());
+        assertEquals(2, Util.addToList(list, null).size());
+        assertEquals(3, Util.addToList(list, "page tile 1").size());
+    }
+
+    public void testAddToOmnitureList() {
+        List<String> omnitureList = Util.addToOmnitureList(null, null);
+
+        assertEquals(0, omnitureList.size());
+        assertEquals(0, Util.addToOmnitureList(omnitureList, "").size());
+        assertEquals(1, Util.addToOmnitureList(omnitureList, "page tile 1").size());
+        assertEquals(2, Util.addToOmnitureList(omnitureList, "page tile 1").size());
+        assertEquals(2, Util.addToOmnitureList(omnitureList, null).size());
+        assertEquals(3, Util.addToOmnitureList(omnitureList, "page tile 1").size());
+        assertEquals(3, Util.addToOmnitureList(omnitureList, "").size());
+    }
+
+    public void testConvertListToString() {
+        List<String> list = new ArrayList<String>(){{
+            add("page tile 1");
+            add("page tile 2");
+        }};
+
+        assertEquals("", Util.convertListToString(null, null));
+        assertEquals("", Util.convertListToString(null, "|"));
+        assertEquals("page tile 1,page tile 2", Util.convertListToString(list, null));
+        assertEquals("page tile 1|page tile 2", Util.convertListToString(list, "|"));
     }
 }

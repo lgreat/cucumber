@@ -256,7 +256,7 @@ $(document).ready(function(){
 
                     <li class="fl1-item">
                         <form:label cssClass="label1 text2bold" path="state" for="addFeedbackCommand.state">
-                            StateName <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                            State <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                         </form:label>
                         <form:select path="state" id="addFeedbackCommand_state">
                             <form:option value="" label="- Choose state -"/>
@@ -387,9 +387,7 @@ $(document).ready(function(){
 </form:form>
 
 
-<div class="separator">
-    <hr/>
-</div>
+
 
 
 </div>

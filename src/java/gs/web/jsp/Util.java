@@ -559,4 +559,38 @@ public class Util {
         }
         return (long) Math.ceil((double) items / itemsPerPage);
     }
+
+    public static List<String> addToList(List<String> list, String val) {
+        if(list == null) {
+            list = new ArrayList<String>();
+        }
+
+        if(val != null) {
+            list.add(val);
+        }
+
+        return list;
+    }
+
+    public static List<String> addToOmnitureList(List<String> omnitureList, String omnitureData) {
+        // empty strings need not be added to the omniture list
+        if(omnitureData == null || "".equals(omnitureData.trim())) {
+            return addToList(omnitureList, null);
+        }
+
+        return addToList(omnitureList, omnitureData);
+    }
+
+    public static String convertListToString(List<String> list, String delimiter) {
+        if(list == null) {
+            return "";
+        }
+
+        // by default use comma as delimiter
+        if(delimiter == null) {
+            delimiter = ",";
+        }
+
+        return StringUtils.join(list, delimiter);
+    }
 }

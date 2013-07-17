@@ -125,20 +125,8 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
                 view = FORM_UNAVAILABLE_VIEW;
                 break;
             default:
-                Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
-
-                // if a user is logged in, get key/val multimap for user USP responses
-                if (user != null) {
-                    EspResponseData userResponseData = (EspResponseData) espResponseData.getUspResponses();
-                    userResponseData = (EspResponseData) userResponseData.getResponsesByUser(user.getId());
-                    responseKeyValues = userResponseData.getMultimap();
-                }
-
                 // Get a multimap from EspResponses, give it to form helper so it can generate form data
-                List<UspFormResponseStruct> uspFormResponses = _uspFormHelper.formFieldsBuilderHelper(
-                    responseKeyValues,
-                    false
-                );
+                List<UspFormResponseStruct> uspFormResponses = buildFormWithSavedResponsesForUser(espResponseData, user);
 
                 modelMap.put("uspFormResponses", uspFormResponses);
 
@@ -204,10 +192,18 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, userStatus, school, false);
 
         if (doesUserAlreadyHaveResponses) {
-            String redirectUrl = determineRedirects(user, userStatus, school, request, response, doesUserAlreadyHaveResponses);
-            if (StringUtils.isNotBlank(redirectUrl)) {
-                writeIntoJsonObject(response, responseObject, "redirect", redirectUrl);
-            }
+            // We need the List of EspResponses all for ourselves
+            List<EspResponse> espResponses = _espResponseDao.getAllActiveResponses(school);
+
+            // Decorate the responses
+            EspResponseData espResponseData = new EspResponseData(espResponses);
+
+            // Get a multimap from EspResponses, give it to form helper so it can generate form data
+            List<UspFormResponseStruct> uspFormResponses = buildFormWithSavedResponsesForUser(espResponseData, user);
+
+
+            responseObject = _uspFormHelper.jsonFormFieldsBuilderHelper(uspFormResponses, user, false);
+            writeIntoJsonObject(response, responseObject, "hasExistingSavedResponses", "true");
             return;
         }
 
@@ -251,15 +247,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
         if(user == null || userStatus == null || request == null || school == null){
             return null;
         }
-
-        if (user.isEmailValidated() && userStatus.isUserLoggedIn() && doesUserAlreadyHaveResponses) {
-            //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
-            //Show the user his old responses.
-            urlBuilder = new UrlBuilder(UrlBuilder.USP_FORM);
-            urlBuilder.addParameter(PARAM_SCHOOL_ID, school.getId().toString());
-            urlBuilder.addParameter(PARAM_STATE, school.getDatabaseState().toString());
-            urlBuilder.addParameter("showExistingAnswersMsg", "true");
-        } else if (user.isEmailValidated() && ((userStatus.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
+        if (user.isEmailValidated() && ((userStatus.isUserLoggedIn() && !doesUserAlreadyHaveResponses)
                 || userStatus.isUserInSession())) {
             //If the user has been logged in but did not have any previous responses.
             //Or if the user is already in the session and filled in the usp form then show the thank you page.
@@ -302,6 +290,31 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
         }
         return false;
+    }
+
+    /**
+     * Returns list of form elements. if the user has saved responses, those response values would be preselected.
+     * @param espResponseData
+     * @param user
+     * @return
+     */
+    public List<UspFormResponseStruct> buildFormWithSavedResponsesForUser(EspResponseData espResponseData, User user) {
+        Multimap<String, String> responseKeyValues = ArrayListMultimap.create();
+
+        // if a user is logged in, get key/val multimap for user USP responses
+        if (user != null) {
+            EspResponseData userResponseData = (EspResponseData) espResponseData.getUspResponses();
+            userResponseData = (EspResponseData) userResponseData.getResponsesByUser(user.getId());
+            responseKeyValues = userResponseData.getMultimap();
+        }
+
+        // Get a multimap from EspResponses, give it to form helper so it can generate form data
+        List<UspFormResponseStruct> uspFormResponses = _uspFormHelper.formFieldsBuilderHelper(
+                responseKeyValues,
+                false
+        );
+
+        return uspFormResponses;
     }
 
     /**

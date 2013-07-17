@@ -53,10 +53,9 @@
                     </c:otherwise>
                 </c:choose>
             </c:set>
-
             <c:choose>
                 <c:when test="${specEdPgmsProvided eq 'call'}">
-
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Special Education')}" scope="request"/>
                     <school:profileOverviewCell2 title="${t8_1dc}">
                         <div class="mam" style="height:46px;">
                             <p class="small bottom tac">The school has not provided this information yet.</p>
@@ -65,7 +64,7 @@
 
                 </c:when>
                 <c:otherwise>
-
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Special Education')}" scope="request"/>
                     <div id="js-tile-8-0-1">
                     <gslink:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}"
                                       tabName="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? 'programs-resources':'programs-culture'}"
@@ -138,7 +137,7 @@
 
             <c:choose>
                 <c:when test="${extdCareProvided eq 'noInfo'}">
-
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Extended Care')}" scope="request"/>
                     <school:profileOverviewCell2 title="${t8_2dc}">
                         <div class="mam" style="height:40px;">
                             <p class="small bottom tac">The school has not provided this information yet.</p>
@@ -147,7 +146,7 @@
 
                 </c:when>
                 <c:otherwise>
-
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Extended Care')}" scope="request"/>
                     <div id="js-tile-8-0-2">
                         <gslink:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources"
                                           anchor="School_basics_table" cssClass="tdn make-555555 js-trigger"
@@ -211,6 +210,7 @@
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
             <div id="js-tile-8-1">
+                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Staff')}" scope="request"/>
             <gslink:linkToTab tabName="programs-resources" cssClass="tdn make-555555 js-trigger" customLink="overview_staff">
                 <school:profileOverviewCell1 title="${t8s1}">
                     <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />

@@ -8,6 +8,7 @@ import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.state.State;
 import gs.web.pagination.RequestedPage;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView302;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
@@ -287,10 +288,16 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
         return _log;
     }
 
-    protected ModelAndView checkForRedirectConditions(HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
+    protected ModelAndView checkForRedirectConditions(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
         // City Browse and District Browse Specific:  We're in a city browse or district browse page, so get the city
-        // from the URL. If it's not a real city then 404. Otherwise add city to the model
+        // from the URL. If it's not a real city, then 302 to the state home. If we can't find the state home for
+        // some reason, then 404. Otherwise add city to the model
         if (commandAndFields.getCityFromUrl() == null) {
+            if (commandAndFields.getState() != null) {
+                UrlBuilder stateHome = new UrlBuilder(UrlBuilder.RESEARCH, commandAndFields.getState());
+                RedirectView302 view302 = new RedirectView302(stateHome.asSiteRelative(request));
+                return new ModelAndView(view302);
+            }
             return redirectTo404(response);
         }
 

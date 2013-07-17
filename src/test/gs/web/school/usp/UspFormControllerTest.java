@@ -307,28 +307,6 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         assertEquals("Url should be blank since all params were null", null, url);
     }
 
-    public void testDetermineRedirectsWithUserLoggedIn() throws Exception {
-
-        //Email validated user.
-        User user = new User();
-        user.setId(1);
-        user.setEmail("someuser@somedomain.com");
-        user.setPlaintextPassword("password");
-
-        UserStatus userStatus = new UserStatus();
-        userStatus.setUserLoggedIn(true);
-
-        School school = new School();
-        school.setId(1);
-        school.setDatabaseState(State.CA);
-
-        //user already has previous answers
-        String url = _controller.determineRedirects(user, userStatus, school, getRequest(), getResponse(), true);
-        assertEquals("User is logged in.",
-                "http://www.greatschools.org/school/QandA/form.page?schoolId=1&showExistingAnswersMsg=true&state=CA", url);
-
-    }
-
     public void testDetermineRedirectsWithUserInSession() throws Exception {
 
         //Email validated user.

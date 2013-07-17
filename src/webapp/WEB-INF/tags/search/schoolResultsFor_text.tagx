@@ -16,7 +16,7 @@
         </c:choose>
     </c:set>
     <c:if test="${commandAndFields.search}">
-        <h1 class="js-schoolResultsHeader bottom">
+        <h1 class="js-schoolResultsHeader bottom SourceSansPro-Semibold">
             <c:choose>
                 <c:when test="${param.rs}">
                     Schools near this location

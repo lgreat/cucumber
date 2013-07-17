@@ -22,7 +22,7 @@
         </div>
     </c:if>
 
-    <jsp:include page="/content/cms/moreInCategory.module?topics=${pageScope.feature.primaryKategory.id}&amp;excludeType=${
+    <jsp:include page="/content/cms/moreInCategory-v1.module?topics=${pageScope.feature.primaryKategory.id}&amp;excludeType=${
                     pageScope.feature.contentKey.type}&amp;excludeContentId=${pageScope.feature.contentKey.identifier}&amp;language=${pageScope.feature.language}&amp;strict=true"/>
 
     <!-- TODO! move into pojo/cmsconstants - some articles, some article slideshows -->
@@ -32,7 +32,6 @@
     </c:if>
 
     <jsp:include page="/promo/emailSignUp.module"/>
-
     <div id="articleBottomRightAd">
         <c:choose>
             <c:when test="${pageScope.feature.contentKey.type eq 'ArticleSlideshow'}">

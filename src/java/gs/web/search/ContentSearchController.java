@@ -155,7 +155,7 @@ public class ContentSearchController extends AbstractController {
 
                     if (onlyTypeWithResults != null) {
                         addPagingDataToModel(model, requestedPage, resultsInfo.totalFound);
-                        model.put(MODEL_TYPE, onlyTypeWithResults);
+                        model.put(MODEL_TYPE, onlyTypeWithResults.toString().toLowerCase());
                     }
                 }
 

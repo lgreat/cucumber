@@ -29,9 +29,9 @@ public class AbstractSchoolControllerTest extends BaseControllerTestCase {
     public void testHandleRequestInternal() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
-        // Inactive school
+        // Missing school
         request.setParameter("state", "CA");
-        request.setParameter("id", "11");
+        request.setParameter("id", "999");
         request.setMethod("GET");
         
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
@@ -48,6 +48,18 @@ public class AbstractSchoolControllerTest extends BaseControllerTestCase {
         School school = (School)request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
         assertNotNull(school);
         assertEquals("Alameda High School", school.getName());
+
+        request.removeAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
+        request.removeAttribute(RequestAttributeHelper.SCHOOL_ID_ATTRIBUTE);
+
+        // Inactive school
+        request.setParameter("state", "CA");
+        request.setParameter("id", "11");
+        request.setMethod("GET");
+
+        mAndV = _controller.handleRequest(request, getResponse());
+        assertNotNull(mAndV); // make sure handleRequestInternal is not called.
+        assertEquals("gs.web.util.RedirectView301", mAndV.getView().getClass().getName());
     }
 
     private static AbstractSchoolController createController() {

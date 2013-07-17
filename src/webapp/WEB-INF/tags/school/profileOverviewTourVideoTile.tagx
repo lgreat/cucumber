@@ -5,6 +5,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
         >
 
     <jsp:directive.attribute name="tourModel" type="java.lang.Object" required="true"/>
@@ -20,9 +21,11 @@
 
     <c:choose>
         <c:when test="${empty contentUrl}">
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Write Review CTA')}" scope="request"/>
             <school:profileOverviewReviewsCTA/>
         </c:when>
         <c:otherwise>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'School Video')}" scope="request"/>
             <a class="tdn" href="${contentUrl}">
                 <school:profileOverviewCell1 title="${t12s1}">
                     <div class="mam" style="height:149px">

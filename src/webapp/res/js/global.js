@@ -514,13 +514,42 @@ GS.form.handleInputsWithGhostTextAsValue = function(arrayOfObjects, containerSel
     return arrayOfObjects;
 };
 
+GS.GlobalUI = GS.GlobalUI || (function() {
+    var firstLinkSelector = "#utilLinks a:eq(0)";
+    var secondLinkSelector = "#utilLinks a:eq(1)";
+    var thirdLinkSelector = "#utilLinks a:eq(2)";
+    var getSignOutLink = function (email, userId) {
+        return "/cgi-bin/logout/CA/?email=" + encodeURIComponent(email) + "&mid=" + userId;
+    };
+    var getSignOutLinkHtml = function (email, userId) {
+        var html = '<a class="js-log-out" href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
+        return html;
+    };
+    var getWelcomeHtml = function (screenName) {
+        var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + screenName + '</a></li>';
+        return html;
+    };
+    var getMySchoolListHtml = function (numberMSLItems) {
+        var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
+        return html;
+    };
+    var updateUIForLogin = function (userId, email, screenName, numberMSLItems) {
+        $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(screenName));
+        $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
+        $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
+    };
+    return {
+        updateUIForLogin: updateUIForLogin
+    };
+})();
+
 
 /************************************************************************************************************
  *
  *  Added for browser feature detection.  This will allow us to support different solutions for different browser / os systems
  *
  */
-
+var latestIEVersion = 10;
 conditionizr({
     debug      : false,
     ieLessThan : { active: true, version: '9', scripts: false, styles: false, classes: true, customScript: false},
@@ -540,14 +569,29 @@ conditionizr({
     x11        : true,
     linux      : true
 });
+
+GS.util.isBrowserIE = function(){
+    for(var i=5; i <= latestIEVersion; i++ ){
+      if(jQuery("html").hasClass("ie"+i)){
+          return true;
+      }
+    }
+    return false;
+};
 GS.util.isBrowserIE7 = function(){
     return jQuery("html").hasClass("ie7");
 };
 GS.util.isBrowserIE8 = function(){
     return jQuery("html").hasClass("ie8");
 };
+GS.util.isBrowserIE9 = function(){
+    return jQuery("html").hasClass("ie9");
+};
 GS.util.isBrowserIELessThan9 = function(){
     return jQuery("html").hasClass("lt-ie9");
+};
+GS.util.isBrowserIELessThan8 = function(){
+    return (jQuery("html").hasClass("lt-ie9") && !(jQuery("html").hasClass("ie8")));
 };
 GS.util.isBrowserChrome = function(){
     return jQuery("html").hasClass("chrome");

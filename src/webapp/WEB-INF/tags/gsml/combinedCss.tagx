@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="href" required="true" description="location of the compressed css file"/>
+    <jsp:directive.attribute name="allowCdn" required="false" description="whether to use the CDN. Defaults to true" />
+    <!--<jsp:directive.attribute name="omitVersionParam" required="false" description="omit ?v= param, which is included by default" />-->
+
+    <jsp:directive.attribute name="IE7href" required="true" description="location of the compressed css file to add for IE7"/>
+    <jsp:directive.attribute name="IE8href" required="true" description="location of the compressed css file to add for IE8"/>
+
+    <c:if test="${empty allowCdn}">
+        <c:set scope="page" var="allowCdn" value="true"/>
+    </c:if>
+
+    <c:set scope="page" var="serverName" value="${pageContext.request.serverName}"/>
+    <c:set scope="page" var="compressedScripts" value="${param.compressedScripts}"/>
+    <c:set scope="page" var="uncompressedScripts" value="${param.uncompressedScripts}"/>
+
+    <c:choose>
+        <c:when test="${(not empty param.uncompressedScripts
+                         or pageContext.request.serverName eq 'localhost'
+                         or fn:contains(pageContext.request.serverName, 'samson')
+                         or fn:contains(pageContext.request.serverName, 'mitchtest')
+                         or fn:contains(pageContext.request.serverName, 'rcox.office')
+                         or fn:startsWith(pageContext.request.serverName, '172.18.1.')
+                         or pageContext.request.serverName eq '127.0.0.1')
+                         and empty param.compressedScripts}">
+            <jsp:doBody/>
+        </c:when>
+        <c:otherwise>
+            <gsml:url var="csshref" value="${href}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
+            <link rel="stylesheet" href="${csshref}" type="text/css" />
+            <c:if test="${not empty IE7href}">
+                <gsml:url var="cssIE7href" value="${IE7href}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
+                <!--[if IE 7]><link rel="stylesheet" href="${cssIE7href}" type="text/css" /><![endif]-->
+            </c:if>
+            <c:if test="${not empty IE8href}">
+                <gsml:url var="cssIE8href" value="${IE8href}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
+                <!--[if IE 8]><link rel="stylesheet" href="${cssIE8href}" type="text/css" /><![endif]-->
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>

@@ -73,14 +73,17 @@
         </script>
     </c:if>
     <k12:trafficDriverIncludes/>
+
+    <meta name="decorator" content="standardDecorator-v1"/>
+    <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
 </head>
 <body>
 
-<!--<div class="container_24">-->
-<div class="grid_16">
+<div class="container_24">
+<div class="grid_16 articles">
 
     <div class="mrm phs">
-        <div class="smallText1 mtm pts">
+        <div class="smaller mtm pts bottom">
             <link:home>Home</link:home> &amp;gt;
             <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
                 <c:choose>
@@ -95,24 +98,27 @@
             </c:forEach>
         </div>
 
-        <h1 class="mts">${feature.title}</h1>
+        <div class="mts mbn">
+            <h1>${feature.title}</h1>
+        </div>
+        <div>
+            <p class="fl" style="font: 16px Arial,Helvetica,sans-serif; color: #333; margin-bottom: 0;">
+                ${fn:escapeXml(feature.summary)}
+            </p>
+        </div>
 
-        <p class="introText fltlft">
-            ${fn:escapeXml(feature.summary)}
-        </p>
+        <div class="shim-10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
-
-        <div class="text3 fltrt">
-            <ul>
+        <div class="text3 fr">
+            <ul style="padding-bottom: 0;">
                 <c:if test="${not empty feature.otherLanguageUri}">
                     <li><a href="${feature.otherLanguageUri}">
                         <c:choose>
                             <c:when test="${feature.language eq 'ES'}">
-                                    <span class="bolder">Watch video in English &amp;raquo;</span>
+                                <span class="bolder">Watch video in English &amp;raquo;</span>
                             </c:when>
                             <c:otherwise>
-                                    <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
+                                <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
                             </c:otherwise>
                         </c:choose>
                     </a></li>
@@ -122,7 +128,7 @@
 
         <div class="clear">&amp;nbsp;</div>
 
-        <div class="fltrt mts mbm">
+        <div class="fr mts mbm">
             <cms:articleDistribution includeShareBtn="false" includeFbSendBtn="true"/>
         </div>
 
@@ -130,7 +136,7 @@
             ${feature.embedVideoCode}
         </div>
 
-        <div class="pvm">
+        <div class="pvm" style="padding-bottom: 0;">
             ${(feature.body)}
         </div>
 
@@ -138,7 +144,7 @@
         <ad:adTag position="Sponsor_610x16"/>
         <ad:adTag position="Sponsor_610x30"/>
 
-        <div class="spacer_15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
+        <div class="shim-15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
 
         <!-- Licensor attribution -->
         <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
@@ -153,10 +159,10 @@
         <!-- share this -->
         <cms:communityDistribution content="${feature}"/>
 
-        <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="shim-10"><!-- do not collapse --></div>
 
         <c:if test="${not empty feature.relatedVideos}">
-            <cms:relatedVideos/>
+            <cms:relatedVideos-v1/>
         </c:if>
 
         <!-- Related links -->
@@ -170,8 +176,8 @@
         </c:if>
 
         <c:if test="${not empty feature.externalLinks}">
-            <div class="mod relatedContent">
-                <div class="inner">
+            <div class="mod mbl clearfix">
+                <div class="inner" style="background-color: #ebebeb; padding: 20px 20px 10px;">
                     <div class="line">
                         <c:choose>
                             <c:when test="${hasPublishedRelatedArticles and not empty feature.externalLinks}">
@@ -191,7 +197,7 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="spacer_15"><!-- do not collapse --></div>
+                    <div class="shim-15"><!-- do not collapse --></div>
                 </div>
             </div>
         </c:if>
@@ -204,7 +210,7 @@
             <c:choose>
                 <c:when test="${requestScope.context.fbCommentsEnabled}">
                     <!-- FB Comments -->
-                    <div><article:commentsFB comments="${comments}" feature="${feature}" fbWidth="610"/></div>
+                    <div><article:commentsFB-v1 comments="${comments}" feature="${feature}" fbWidth="610"/></div>
                 </c:when>
                 <c:otherwise>
                     <div id="enterComment">
@@ -218,7 +224,7 @@
                         <!-- end #cmsArticleForm -->
                     </div>
 
-                    <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+                    <div class="shim-10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
                     <div id="cmsArticleComments">
                         <c:if test="${not empty comments and fn:length(comments) gt 0}">
@@ -301,7 +307,7 @@
                 </div>
             </c:if>
 
-            <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
+            <jsp:include page="/content/cms/moreInCategory-v1.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
                     feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
             <c:set var="ckid" value="${feature.contentKey.identifier}"/>
@@ -330,13 +336,13 @@
         </c:otherwise>
     </c:choose>
 </div>
-<!--</div>-->
+</div>
 
 <!--<div id="main">-->
-    <!--<div id="content">-->
-    <!-- title, licensor, summary, current page -->
+<!--<div id="content">-->
+<!-- title, licensor, summary, current page -->
 
-    <!--</div>-->
+<!--</div>-->
 <!-- end #content -->
 <!--</div>-->
 <!-- end #main -->

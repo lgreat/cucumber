@@ -416,7 +416,7 @@ public class UserCommand implements EmailValidator.IEmail {
     }
 
 
-    protected static class StudentCommand {
+    public static class StudentCommand {
         private int _schoolIdSelected;
         private Grade _gradeSelected;
         private State _stateSelected;

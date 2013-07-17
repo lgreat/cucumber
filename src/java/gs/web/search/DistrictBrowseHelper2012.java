@@ -8,6 +8,7 @@ import gs.data.seo.SeoUtil;
 import gs.web.pagination.RequestedPage;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
+import gs.web.util.RedirectView302;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
@@ -120,16 +121,25 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
 
     protected ModelAndView checkForRedirectConditions(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
         // City Browse and District Browse Specific:  We're in a city browse or district browse page, so get the city
-        // from the URL. If it's not a real city then 404. Otherwise add city to the model
+        // from the URL. If it's not a real city then 302 to the state page (or 404 if no state). Otherwise add city to the model
         if (commandAndFields.getCityFromUrl() == null) {
+            if (commandAndFields.getState() != null) {
+                UrlBuilder stateHome = new UrlBuilder(UrlBuilder.RESEARCH, commandAndFields.getState());
+                RedirectView302 view302 = new RedirectView302(stateHome.asSiteRelative(request));
+                return new ModelAndView(view302);
+            }
+
             return redirectTo404(response);
         }
 
 
         // District Browse Specific:  We're in a district browse page, so get the district from the URL.
-        // If it's not a real city then 404. Otherwise add district to the model
+        // If it's not a real district, then 302 to the city page (guaranteed to exist by code block above).
+        // Otherwise add district to the model
         if (commandAndFields.getDistrict() == null) {
-            return redirectTo404(response);
+            UrlBuilder cityHome = new UrlBuilder(commandAndFields.getCityFromUrl(), UrlBuilder.CITY_PAGE);
+            RedirectView302 view302 = new RedirectView302(cityHome.asSiteRelative(request));
+            return new ModelAndView(view302);
         }
 
 

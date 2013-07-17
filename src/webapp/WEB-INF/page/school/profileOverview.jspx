@@ -23,17 +23,21 @@
 <c:if test="${localInfo['content']  eq 'performanceManagementRating'}">
     <c:set var="dcNcsbRating" value="DC PCSB Rating"/>
 </c:if>
+<c:set var="pageTiles" property="java.util.List" scope="request"/>
+
     <!-- Even though profileOverview.jspx is curently a module included in school profile,
         SessionContext is not shared among the modules, and so asyncronous mode must be enabled here -->
     <ad:enableGptAsynchronousMode />
 
     <div id="profileProgramsTabs">
 
+    <input id="js-omniturePageName" value="${pageName}" type="hidden"/>
+
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
         <!--
 ==================================== -->
-        <!--           ESP DATA AVAILABLE          -->
+        <!--           OSP DATA AVAILABLE          -->
         <!--
 ==================================== -->
         <c:when test="${not empty espData}">
@@ -72,15 +76,40 @@
 
                     <div class="unit size2of100 ">&amp;nbsp;</div>
                     <c:choose>
-                        <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                            <div class="unit size32of100 lastUnit">
-                                <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${true}"/>
-                            </div>
+                        <c:when test="${sweepstakes}">
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
+                            <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile"  anchor="from..SweepStakes">
+                                <div class="unit size32of100 lastUnit">
+                                    <div class="mod standard_1-1">
+                                        <div class="inner box-shadow-animation-1">
+                                            <div class="bd tac">
+                                                <div class="mam" style="height:170px;">
+                                                    <img src="/res/img/sweepstakes/profile_tile.png"
+                                                         alt="sweepstakes callout"/>
+                                                    <div class="smaller">
+                                                        <a href="/catalog/pdf/BestYearEverRules.pdf" target="_blank"
+                                                           class="underline make-999999">See official rules</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </gslink:linkToTab>
                         </c:when>
                         <c:otherwise>
-                            <div data-gs-custom-link="overview_schoolvideo" class="unit size32of100 lastUnit">
-                                <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
-                            </div>
+                            <c:choose>
+                                <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                                    <div class="unit size32of100 lastUnit">
+                                        <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${true}"/>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div data-gs-custom-link="overview_schoolvideo" class="unit size32of100 lastUnit">
+                                        <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -193,7 +222,7 @@
         <c:otherwise>
             <!--  
 ==================================== -->
-            <!--         NO ESP DATA AVAILABLE         -->
+            <!--         NO OSP DATA AVAILABLE         -->
             <!--  
 ==================================== -->
             <div class="alpha grid_16 omega">
@@ -220,11 +249,38 @@
 
                     <div class="unit size32of100 lastUnit">
                         <c:choose>
-                            <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
-                                <school:profileOverviewPhotosTile photosModel="${photos}" hasOspData="${false}"/>
+                            <c:when test="${sweepstakes}">
+                                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
+                                <gslink:linkToTab tabName="reviews" customLink="sweepstakes_profile_tile" anchor="from..SweepStakes">
+                                    <div class="unit size32of100 lastUnit">
+                                        <div class="mod standard_1-1">
+                                            <div class="inner box-shadow-animation-1">
+                                                <div class="bd tac">
+                                                    <div class="mam" style="height:170px;">
+                                                        <img src="/res/img/sweepstakes/profile_tile.png"
+                                                             alt="sweepstakes callout"/>
+
+                                                        <div class="smaller">
+                                                            <a href="/catalog/pdf/BestYearEverRules.pdf"
+                                                               class="underline make-999999">See official rules</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </gslink:linkToTab>
                             </c:when>
                             <c:otherwise>
-                                <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
+                                <c:choose>
+                                    <c:when test="${localInfo['content']  eq 'performanceManagementRating'}">
+                                        <school:profileOverviewPhotosTile photosModel="${photos}"
+                                                                          hasOspData="${false}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -295,9 +351,9 @@
     </c:if>
 
     </div>
-
-    <mod:deferredTracking key="overview" pageName="${pageName}"  hier1="School,SchoolProfileSuite,Overview"/>
+    <mod:deferredTracking key="overview" pageName="${pageName}"  hier1="School,SchoolProfileSuite,Overview" tilesInPage="${gsweb:convertListToString(pageTiles, '|')}"/>
 
     <mod:deferredTracking hier1="School,SchoolProfileSuite" hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}" DC_PCSB_Rating="${dcNcsbRating}"/>
 
+    <mod:tabSpecificTracking pageName="overview" listNumber="list1" />
 </jsp:root>

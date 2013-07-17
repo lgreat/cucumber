@@ -30,8 +30,8 @@
                                         class="js-trigger small bottom"><a href="javascript:void(0);">${moreNearbyDistrictsLabel}
             <span>&amp;raquo;</span></a></span>
 
-            <div id="nearby-districts" class="js-popup  ptl">
-                <div id="" class="mod standard_5-1">
+            <div id="nearby-districts" class="js-popup  ptl ">
+                <div id="" class="mod standard_11-1">
                     <div class="up-pointer">
                         <div class="border-edge"><!-- not empty --></div>
                         <div class="border-bd"><!-- not empty --></div>
@@ -39,7 +39,7 @@
                     <!--<c:set var="openCloseTr">-->
                     <!--<![CDATA[</tr><tr>]]>-->
                     <!--</c:set>-->
-                    <div class="bd mts mbm">
+                    <div class="bd mts mbm clearfix">
                         <c:choose>
                             <c:when test="${fn:length(districtSearchResults) lt 5}">
                                 <c:set var="districtTableColumns" value="${1}"/>

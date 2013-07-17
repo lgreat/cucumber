@@ -12,10 +12,10 @@
     <jsp:directive.attribute name="includeEmailBtn" required="false" type="java.lang.Boolean"
                              description="Whether to include the share button"/>
 
-    <div class="shareThis articleDistribution jq-socialTools">
+    <div class="shareThis standard_2-2 jq-socialTools">
 
-         <!--Pintrest -->
-        <div class="pinIt" style="float: left; margin-right: 8px;">
+        <!--Pintrest -->
+        <div class="pinIt fl" style="margin-right: 8px;">
             <c:choose>
                 <c:when test="${not empty feature.previewImageUrl}">
                     <promo:addPinItButton url="${requestInfo.requestURL}" title="${feature.title}" image="${feature.previewImageUrl}"/>
@@ -28,7 +28,7 @@
 
         <!-- Share This -->
         <c:if test="${includeShareBtn==true}">
-            <div class="ShareAndTweet">
+            <div class="ShareAndTweet fl" style="margin-right: 8px;">
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
                 <script type="text/javascript">var switchTo5x = false;</script>
                 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
@@ -36,23 +36,23 @@
             </div>
         </c:if>
 
-        <div class="googlePlusOne">
-            <community:addGooglePlusOne url="${fullUrl}" />
+        <div class="googlePlusOne fl" style="margin-right: 8px;">
+            <community:addGooglePlusOne url="${fullUrl}"/>
         </div>
-        
+
         <!-- Twitter -->
-        <div class="ShareAndTweet">
+        <div class="ShareAndTweet fl" style="margin-right: 8px;">
             <promo:tweetButtonArticle/>
         </div>
 
         <!--Facebook -->
-        <div class="${includeEmailBtn ? 'ShareAndTweet' : 'lastShareAndTweet'}">
+        <div class="${includeEmailBtn ? 'ShareAndTweet' : 'lastShareAndTweet'} fl">
             <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
         </div>
 
         <!-- Email -->
         <c:if test="${includeEmailBtn==true}">
-            <div class="lastShareAndTweet">
+            <div class="lastShareAndTweet fl" style="margin-right: 8px;">
                 <span class='st_email_button' displayText='Email'><!-- do not collapse --></span>
                 <script type="text/javascript">var switchTo5x = false;</script>
                 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"><!-- do not collapse --></script>

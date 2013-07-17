@@ -52,24 +52,32 @@ function showSchoolDistrictFields(){
     if($('input:radio[name=schoolOrDistrict]:checked').val() == 'district'
             && $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
         $("#schoolDistrictFields").show();
+        $("#schoolDistFieldsDisplayed").val("true");
     }else if($('input:radio[name=schoolOrDistrict]:checked').val() == 'school'
             && $("#addEditSchoolOrDistrictCommand_schoolId").val() > 0){
         $("#schoolDistrictFields").show();
+        $("#schoolDistFieldsDisplayed").val("true");
     }else if($('input:radio[name=addEdit]:checked').val() == 'add'){
         if($('input:radio[name=schoolType]:checked').val() == 'public'
                 && $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }else if($('input:radio[name=schoolType]:checked').val() == 'charter'
-                && $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
+                && $("#addEditSchoolOrDistrictCommand_county").val() != ""){
+                //&& $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }else if($('input:radio[name=schoolType]:checked').val() == 'private'
                 && $("#addEditSchoolOrDistrictCommand_county").val() != ""){
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }else{
             $("#schoolDistrictFields").hide();
+            $("#schoolDistFieldsDisplayed").val("false");
         }
     }else{
         $("#schoolDistrictFields").hide();
+        $("#schoolDistFieldsDisplayed").val("false");
     }
     //if($('input:radio[name=addEdit]:checked').val() == 'add' || $('input:radio[name=addEdit]:checked').val() == 'edit'){
         //$("#schoolDistrictFields").show();
@@ -84,11 +92,11 @@ function doPKOnly(){
     if(warngrades == ":PK:" || warngrades == ":PK:KG:") {
         $("#headOfficialSection").hide();
         $("#div_preschool_only").show();
-        $("#enrollmentLabel").html("Capacity");
+        $("#enrollmentLabel").html("Capacity <span class=\"required\">*</span>");
     }else{
         $("#headOfficialSection").show();
         $("#div_preschool_only").hide();
-        $("#enrollmentLabel").html("Enrollment");
+        $("#enrollmentLabel").html("Enrollment <span class=\"required\">*</span>");
     }
 }
 
@@ -99,6 +107,7 @@ function doSchoolTypeSections(){
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
             $("#div_choose_state").show();
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
             $("#school_list").hide();
             $("#city_list").hide();
             $("#district_list").hide();
@@ -112,6 +121,7 @@ function doSchoolTypeSections(){
         }
     }
     if($('input:radio[name=schoolType]:checked').val() == 'public'){
+        $("#districtLabel").html("District <em class=\"sprite i-required requiredIndicator1\"><!-- do not collapse --></em>");
         $("#privateSection1").hide();
         $("#div_choose_state").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
@@ -120,6 +130,7 @@ function doSchoolTypeSections(){
             $("#district_list").show();
             $("#county_list").show();
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }
         if($('input:radio[name=addEdit]:checked').val() == 'edit'){
             $("#school_list").show();
@@ -129,6 +140,7 @@ function doSchoolTypeSections(){
         }
     }
     if($('input:radio[name=schoolType]:checked').val() == 'charter'){
+        $("#districtLabel").html("District");
         $("#privateSection1").hide();
         $("#div_choose_state").show();
         if($('input:radio[name=addEdit]:checked').val() == 'add'){
@@ -137,6 +149,7 @@ function doSchoolTypeSections(){
             $("#district_list").show();
             $("#county_list").show();
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }
         if($('input:radio[name=addEdit]:checked').val() == 'edit'){
             $("#school_list").show();
@@ -157,7 +170,7 @@ function doAddEditSections(clear){
     if($('input:radio[name=addEdit]:checked').val() == 'edit'
             && $('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
         $("#isSchoolOpen").show();
-        $("#openQuestion").html("Is this school closing?");
+        $("#openQuestion").html("Is this school closing? <span class=\"required\">*</span>");
         $("#whenOpenQuestion").html("When will this school close?");
         $("#div_choose_state").show();
         $("#div_school_type").hide();
@@ -187,7 +200,7 @@ function doAddEditSections(clear){
             $("#div_choose_state").show();
         }
         $("#isSchoolOpen").show();
-        $("#openQuestion").html("Is this school open yet?");
+        $("#openQuestion").html("Is this school open yet? <span class=\"required\">*</span>");
         $("#whenOpenQuestion").html("When will this school open?");
         $("#div_school_type").show();
         $("#school_list").hide();
@@ -196,6 +209,7 @@ function doAddEditSections(clear){
         $("#county_list").show();
         $("#lowerCounty").hide();
         $("#schoolDistrictFields").show();
+        $("#schoolDistFieldsDisplayed").val("true");
         $("#category").val("add_school");
     }
 }
@@ -335,6 +349,7 @@ function clear_values(){
     $("#addEditSchoolOrDistrictCommand_districtId").html("<option value=''> -- Choose District -- </option>");
     $("#addEditSchoolOrDistrictCommand_county").val("");
     $("#schoolDistrictFields").hide();
+    $("#schoolDistFieldsDisplayed").val("false");
     $("#div_choose_state").hide();
 
     /*var $radios = $('input:radio[name=applicable]');
@@ -471,8 +486,9 @@ function do_add_edit(state,clear){
                         $("#district_list").show();
                     }
                 }
-                if($('input:radio[name=schoolType]:checked').val() == 'private' || $("#addEditSchoolOrDistrictCommand_state").val() == "HI"){
+                if($('input:radio[name=schoolType]:checked').val() == 'private' || $('input:radio[name=schoolType]:checked').val() == 'charter' || $("#addEditSchoolOrDistrictCommand_state").val() == "HI"){
                     $("#schoolDistrictFields").show();
+                    $("#schoolDistFieldsDisplayed").val("true");
                 }
             }
         });
@@ -553,13 +569,16 @@ function do_add_edit(state,clear){
                 doPreschoolYesNo(obj.bilingual,obj.specialEd,obj.computers,obj.extendedCare);
                 doPKSubtypes(obj.preschoolSubtype);
                 $("#schoolDistrictFields").show();
+                $("#schoolDistFieldsDisplayed").val("true");
 
             }
         });
         if($("#addEditSchoolOrDistrictCommand_schoolId").val() == ""){
             $("#schoolDistrictFields").hide();
+            $("#schoolDistFieldsDisplayed").val("false");
         }else{
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }
 
     });
@@ -594,14 +613,17 @@ function do_add_edit(state,clear){
                     $("#headOfficialName").val(obj.headOfficialName);
                     $("#headOfficialEmail").val(obj.headOfficialEmail);
                     $("#schoolDistrictFields").show();
+                    $("#schoolDistFieldsDisplayed").val("true");
                 }
             });
         }
 
         if($("#addEditSchoolOrDistrictCommand_districtId").val() == ""){
             $("#schoolDistrictFields").hide();
+            $("#schoolDistFieldsDisplayed").val("false");
         }else{
             $("#schoolDistrictFields").show();
+            $("#schoolDistFieldsDisplayed").val("true");
         }
 
 
@@ -727,19 +749,6 @@ $(document).ready(function(){
     </div>
 </div>
 
-<div class="field">
-    <div class="fieldLabel">Enter Comments or Questions Here</div>
-    <div class="fieldInput">
-        <spring:bind path="addEditSchoolOrDistrictCommand.contactNotes"><!--  -->
-            <!-- <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="contactNotes"/>   -->
-            <textarea type="text" name="${status.expression}" id="contactNotes">${status.value}</textarea>
-        </spring:bind>
-    </div>
-    <div class="fieldNote">
-        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="contactNotes" useImage="true" styleClass="warning"/>
-    </div>
-</div>
-
 <div class="personalInfoMessage">
     Your personal information is confidential and will only be used in case we need to contact you
     to follow up on the school you submit.<br/>
@@ -808,6 +817,7 @@ $(document).ready(function(){
             <form:hidden path="challenge" id="addEdit_challenge"/>
             <form:hidden path="response" id="addEdit_response"/>
             <form:hidden path="category" id="category" value="add_edit"/>
+            <form:hidden path="schoolDistFieldsDisplayed" id="schoolDistFieldsDisplayed" value="false"/>
 
             <li class="fl1-item">
                 <form:label cssClass="label1 text2bold" path="state" for="addEditSchoolOrDistrictCommand.state">
@@ -878,7 +888,7 @@ $(document).ready(function(){
             </li>
 
             <li class="fl1-item" id="district_list">
-                <form:label cssClass="label1 text2bold" path="districtId" for="addEditSchoolOrDistrictCommand.districtId">
+                <form:label cssClass="label1 text2bold" path="districtId" for="addEditSchoolOrDistrictCommand.districtId" id="districtLabel">
                     District <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                 </form:label>
                 <form:select path="districtId" id="addEditSchoolOrDistrictCommand_districtId">
@@ -1034,7 +1044,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">City</div>
+    <div class="fieldLabel">City <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.city"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="city"/>
@@ -1046,7 +1056,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Zipcode</div>
+    <div class="fieldLabel">Zipcode <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.Zipcode"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="Zipcode"/>
@@ -1058,7 +1068,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field" id="lowerCounty">
-    <div class="fieldLabel">County</div>
+    <div class="fieldLabel">County <span class="required">*</span></div>
     <div class="fieldInput">
         <form:select path="county1" id="addEditSchoolOrDistrictCommand_county1">
             <form:option value="" label="- Choose county -"/>
@@ -1078,7 +1088,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field" id="enrollmentSection">
-    <div class="fieldLabel" id="enrollmentLabel">Enrollment</div>
+    <div class="fieldLabel" id="enrollmentLabel">Enrollment <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.enrollment"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="enrollment"/>
@@ -1090,7 +1100,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Phone</div>
+    <div class="fieldLabel">Phone <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.phone"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="phone"/>
@@ -1330,8 +1340,24 @@ $(document).ready(function(){
     </div>
 </div>
 
+<div class="field">
+    <div class="fieldLabel">Enter Comments or Questions Here</div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.contactNotes"><!--  -->
+            <!-- <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="contactNotes"/>   -->
+            <textarea type="text" name="${status.expression}" id="contactNotes">${status.value}</textarea>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="contactNotes" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+
 
 </div>
+
+
 
 
 <div><p>&amp;nbsp;</p></div>
@@ -1364,9 +1390,7 @@ $(document).ready(function(){
 
 
 
-<div class="separator">
-    <hr/>
-</div>
+
 
 
 </div>

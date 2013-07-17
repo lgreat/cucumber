@@ -51,13 +51,13 @@
         var config = {mouseDownOnSelect:false};
         var select = $.Autocompleter.Select(options, input, selectCurrent, config);
         var blockSubmit;
-        $.browser.opera && $(input.form).bind("submit.autocomplete", function () {
+        GS.util.isBrowserOpera() && $(input.form).bind("submit.autocomplete", function () {
             if (blockSubmit) {
                 blockSubmit = false;
                 return false;
             }
         });
-        $input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete",
+        $input.bind((GS.util.isBrowserOpera() ? "keypress" : "keydown") + ".autocomplete",
                 function (event) {
                     lastKeyPressCode = event.keyCode;
                     switch (event.keyCode) {
@@ -530,7 +530,7 @@
             if (options.scroll) {
                 list.scrollTop(0);
                 list.css({maxHeight:options.scrollHeight, overflow:'auto'});
-                if ($.browser.msie && typeof document.body.style.maxHeight === "undefined") {
+                if (GS.util.isBrowserIE() && typeof document.body.style.maxHeight === "undefined") {
                     var listHeight = 0;
                     listItems.each(function () {
                         listHeight += this.offsetHeight;
