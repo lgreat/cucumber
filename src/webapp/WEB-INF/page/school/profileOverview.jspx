@@ -350,5 +350,5 @@
 
     <mod:deferredTracking hier1="School,SchoolProfileSuite" hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}" DC_PCSB_Rating="${dcNcsbRating}"/>
 
-    <mod:tabSpecificTracking pageName="overview" listNumber="list1" />
+    <mod:tabSpecificTracking pageName="overview" propNumber="prop54" />
 </jsp:root>

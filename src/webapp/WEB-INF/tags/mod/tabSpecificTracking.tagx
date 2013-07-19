@@ -7,17 +7,12 @@
 
     <jsp:directive.attribute name="propNumber" required="false"/>
     <jsp:directive.attribute name="pageName" required="false"/>
-    <jsp:directive.attribute name="listNumber" required="false"/>
 
     <![CDATA[
     <script type="text/javascript">
     ]]>
     <c:if test="${not empty propNumber}">
         GS.tracking.addTabSpecificProps('${pageName}', '${propNumber}');
-    </c:if>
-
-    <c:if test="${not empty listNumber}">
-        GS.tracking.addTabSpecificLists('${pageName}', '${listNumber}');
     </c:if>
 
     <![CDATA[
