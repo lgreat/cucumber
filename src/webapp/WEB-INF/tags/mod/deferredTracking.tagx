@@ -38,6 +38,7 @@
                     prop49 : clickCapture.getProp(49,"${pageScope.numberOfReviews}"),
                     prop51 : clickCapture.getProp(51,"${DC_PCSB_Rating}"),
                     prop52 : clickCapture.getProp(52,"${applyNowUrl}"),
+                    prop54 : clickCapture.getProp(54, "${tilesInPage}"),
                     prop55 : clickCapture.getProp(55,"${ospStatus}")
                 };
 
@@ -60,13 +61,7 @@
                 }
 
                 return props;
-            })(),
-            lists : (function() {
-                    var oLists =  {
-                        list1 : '${tilesInPage}'
-                    };
-                     return oLists;
-                    })()
+            })()
         });
     </script>
 
