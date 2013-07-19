@@ -57,12 +57,12 @@
                 <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
                 <c:choose>
                     <c:when test="${requestScope.context.topicPage or (inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING)}">
-                        <c:set var="showSearchSchoolForm" value="dn"/>
+                        <c:set var="showSearchSchoolForm" value="dn hidden"/>
                         <c:set var="showSearchArticleForm" value="db"/>
                     </c:when>
                     <c:otherwise>
                         <c:set var="showSearchSchoolForm" value="db"/>
-                        <c:set var="showSearchArticleForm" value="dn"/>
+                        <c:set var="showSearchArticleForm" value="dn hidden"/>
                     </c:otherwise>
                 </c:choose>
                 <!-- text in following script also hard-coded into global.js -->
@@ -182,7 +182,6 @@
                             jQuery(".selectSchoolArticle").on("change", function(){
                                 if(jQuery(this).val() == "S"){
                                     var e = jQuery('#stateSelector');
-
                                     jQuery("#topnav_search_school").show();
                                     jQuery("#topnav_search_articlesAndCommunity").hide();
                                     jQuery(".selectSchoolArticle option[value='S']").attr('selected', 'selected');
@@ -193,7 +192,6 @@
                                     jQuery(".selectSchoolArticle option[value='A']").attr('selected', 'selected');
                                     jQuery("#topnav_search_school").hide();
                                     jQuery("#topnav_search_articlesAndCommunity").show();
-
                                 }
                             });
                             jQuery("#topnav_search_school").on("submit", function(){
