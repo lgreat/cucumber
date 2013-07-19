@@ -354,7 +354,7 @@ General comments:
     padding-left: 20px;
 }
 
-.hidden {
+.dn, .hidden {
     display: none;
 }
 
