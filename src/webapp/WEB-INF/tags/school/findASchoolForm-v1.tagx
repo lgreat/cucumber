@@ -124,7 +124,8 @@
         <div id="js-spinny-search" style="display:none;" class="fl mhs">
             <img src="/res/img/search/120726-preloader21.gif" alt="spinny img"/>
         </div>
-        <div class="fl SourceSansPro-Semibold-h2" style="color: #009900"> schools</div>
+        <div class="fl SourceSansPro-Semibold-h2" style="color: #009900"> <span id="js-moreThanOne">schools</span>
+            <span id="js-onlyOne" style="display:none;">school</span></div>
 
         <div class="js-filterNotes dn">
             <span class="small bottom"><br /><strong>Note:</strong> Filtered results are generated from information schools have shared with us.</span>

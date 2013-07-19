@@ -38,10 +38,12 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         }
         else {
             var count = $elementToCopyFrom.html();
-            if(parseInt(count) === 1) {
+            //comma breaks if 1,000
+            var countCompare = count.replace(/,/g, "");
+            if(parseInt(countCompare) === 1) {
                 $('#js-onlyOne').show();
             }
-            else if(parseInt(count) > 1) {
+            else {
                 $('#js-moreThanOne').show();
             }
             $dataRecipient.html(count);

@@ -31,6 +31,7 @@
 <jsp:directive.page contentType="text/html"/>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
+<c:set var="profilePageCurrent" value="true" scope="request"/>
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
