@@ -34,6 +34,7 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         var $elementToCopyFrom = $('#' + $dataRecipient.data(recipientDataAttribute));
         if(($elementToCopyFrom.length == 0 || $elementToCopyFrom.html() == '') && $dataRecipient.attr('id') === 'js_totalResultsCountReturn') {
             $dataRecipient.html('0');
+            $('#js-moreThanOne').show();
             $('#js-noResultsPopup').show();
         }
         else {
@@ -55,7 +56,7 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         $('#js-onlyOne').hide();
         $('#js-moreThanOne').hide();
         $("#js-spinny-search").hide();
-        jQuery("#js_totalResultsCountReturn").show();
+        $("#js_totalResultsCountReturn").show();
         $('[data-' + recipientDataAttribute + ']').each(function() {
             updateOneMirror($(this));
         });
