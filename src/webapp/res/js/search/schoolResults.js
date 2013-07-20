@@ -389,6 +389,7 @@ GS.search.results = GS.search.results || (function() {
                 if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
                     if(jQuery("#js_totalResultsCountReturn").html() == ""){jQuery("#js_totalResultsCountReturn").html("0");jQuery("#js-moreThanOne").show()}
                     jQuery("#js_totalResultsCountReturn").popover('show');
+                    jQuery('#js-moreThanOne').show();
                     jQuery(".js_closeOopsPopover").click(function() {
                         jQuery("#js_totalResultsCountReturn").popover('hide');
                     });
