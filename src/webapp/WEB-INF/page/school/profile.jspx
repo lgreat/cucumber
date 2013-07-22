@@ -297,7 +297,7 @@
         <hr class="keyline1"/>
 
         <!-- tool links -->
-        <div class="toolLinks">
+        <div class="toolLinks mbm">
             <ul class="none small mtm bottom">
                 <li>
                 <span class="media js-add-msl-${school.databaseState}${school.id}">
@@ -332,16 +332,14 @@
                 </span>
                 </li>
             </ul>
-            <c:choose>
-                <c:when test="${sweepstakes}">
-                    <div class="mbm">
-                        <gslink:linkToTab tabName="reviews" customLink="sweepstakes_headerlink" anchor="from..SweepStakes">
-                            <span class="iconx16 i-16-dollar mrs vam"><!--Do not collapse--></span>
-                            <span class="small vam">Help this school win $5,000!</span>
-                        </gslink:linkToTab>
-                    </div>
-                </c:when>
-            </c:choose>
+            <c:if test="${sweepstakes}">
+                <div>
+                    <gslink:linkToTab tabName="reviews" customLink="sweepstakes_headerlink" anchor="from..SweepStakes">
+                        <span class="iconx16 i-16-dollar mrs vam"><!--Do not collapse--></span>
+                        <span class="small vam">Help this school win $5,000!</span>
+                    </gslink:linkToTab>
+                </div>
+            </c:if>
         </div>
 
     </div>
