@@ -22,7 +22,7 @@
         <div class="line mbm dn" id="js_facebookModuleOverviewPage">
             <div class="unit size100of100 lastUnit">
                 <div class="line">
-                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Facebook Plugin')}" scope="request"/>
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'fbplug')}" scope="request"/>
                     <gslink:linkToTab tabName="culture" customLink="overview_facebook" cssClass="tdn make-555555 js-trigger">
                         <div class="unit size32of100">
                             <div class="mod standard_3-1">

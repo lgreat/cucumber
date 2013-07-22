@@ -77,7 +77,7 @@
                     <div class="unit size2of100 ">&amp;nbsp;</div>
                     <c:choose>
                         <c:when test="${sweepstakes}">
-                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'sweeps')}" scope="request"/>
                             <div class="unit size32of100 lastUnit">
                                 <div class="mod standard_1-1">
                                     <div class="inner box-shadow-animation-1">
@@ -248,7 +248,7 @@
                     <div class="unit size32of100 lastUnit">
                         <c:choose>
                             <c:when test="${sweepstakes}">
-                                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Sweepstakes')}" scope="request"/>
+                                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'sweeps')}" scope="request"/>
                                 <div class="unit size32of100 lastUnit">
                                     <div class="mod standard_1-1">
                                         <div class="inner box-shadow-animation-1">

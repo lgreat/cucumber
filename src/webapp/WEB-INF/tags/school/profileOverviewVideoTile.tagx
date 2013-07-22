@@ -35,7 +35,7 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'School Video')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'schvid')}" scope="request"/>
 
                 <div class="mod standard_1-1">
                     <div class="inner box-shadow-animation-1">
@@ -69,7 +69,7 @@
             <c:if test="${school.districtId ne 0}">
                 <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
             </c:if>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'School Boundaries')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'bounds')}" scope="request"/>
             <link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
                 <div class="mod standard_3-1">
                     <div class="outer">

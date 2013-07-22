@@ -39,7 +39,7 @@
 
     <c:choose>
     <c:when test="${content eq 'reviews'}">
-        <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Community Reviews')}" scope="request"/>
+        <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'comrev')}" scope="request"/>
     <div class="mod standard_1-1">
         <div class="inner box-shadow-animation-1">
             <div id="js-tile-5-0">
@@ -81,7 +81,7 @@
 
     </c:when>
     <c:otherwise>
-        <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Write Review CTA')}" scope="request"/>
+        <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'revcta')}" scope="request"/>
         <div id="js-tile-5-0">
         <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content eq 'reviews'}" cssClass="tdn make-555555 js-trigger">
             <div class="mod standard_1-1">
