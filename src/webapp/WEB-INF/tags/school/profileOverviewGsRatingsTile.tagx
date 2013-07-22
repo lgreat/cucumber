@@ -25,7 +25,7 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'GreatSchools Ratings')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'gsrate')}" scope="request"/>
             <div id="js-tile-1-0">
             <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1dc}">
@@ -101,7 +101,7 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Awards')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'awards')}" scope="request"/>
             <div id="js-tile-1-1">
             <gslink:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1s1}">
@@ -124,7 +124,7 @@
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
             <div id="js-tile-1-2">
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'About the school')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'about')}" scope="request"/>
             <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_about" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1s2}">
                     <c:set var="actualCharMax" value="${fn:length(gsRatingsModel['autotext'])}"/>

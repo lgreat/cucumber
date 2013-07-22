@@ -37,7 +37,7 @@
             </div>
         </c:set>
         <div id="js-tile-14-0">
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Extracurriculars')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'eca')}" scope="request"/>
             <!--<div data-gs-show-tab="extracurriculars"  onclick="if (s.tl) { s.tl(this, 'o', 'overview_extracurriculars'); }" style="cursor:pointer" class="tdn">-->
             <gslink:linkToTab tabName="extracurriculars" customLink="overview_extracurriculars" cssClass="tdn make-555555 js-trigger">
 

@@ -33,6 +33,8 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
     <meta property="og:title" content="Help your school win $5,000 from GreatSchools!"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="http://www.greatschools.org/catalog/ads/leadGen/img/gs-sweeps.png"/>
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
     <meta property="og:description" content="Write a review to help your school win $5,000 from GreatSchools, a national
      nonprofit that helps parents get a great education for their children. "/>
     <meta property="og:site_name" content="GreatSchools"/>

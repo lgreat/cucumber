@@ -26,7 +26,7 @@
     <c:set var="t14t15dc">
         <p class="small_bold textshadow-1 pvs plm bottom">In the know: Get our expert advice on schools</p>
     </c:set>
-    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Related Content')}" scope="request"/>
+    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'gscont')}" scope="request"/>
 
     <!-- set the image of the module -->
     <c:set var="imageResult">

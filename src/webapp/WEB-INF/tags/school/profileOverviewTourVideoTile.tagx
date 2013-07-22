@@ -21,11 +21,11 @@
 
     <c:choose>
         <c:when test="${empty contentUrl}">
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Write Review CTA')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'revcta')}" scope="request"/>
             <school:profileOverviewReviewsCTA/>
         </c:when>
         <c:otherwise>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'GreatSchools Video')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'gsvid')}" scope="request"/>
             <a class="tdn" href="${contentUrl}">
                 <school:profileOverviewCell1 title="${t12s1}">
                     <div class="mam" style="height:149px">
