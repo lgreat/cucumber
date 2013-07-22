@@ -309,7 +309,7 @@ GS.profile = GS.profile || (function() {
                     }
                 }
                 else{
-                    if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
+                    if(noBrandingLayerId != "" && $.isArray(noBrandingLayerId) && noBrandingLayerId.length > 0){
                         refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
                     }
                 }
@@ -321,7 +321,7 @@ GS.profile = GS.profile || (function() {
             }
         }
         else{
-            if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
+            if(noBrandingLayerId != "" && $.isArray(noBrandingLayerId) && noBrandingLayerId.length > 0){
                 refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
             }
         }
