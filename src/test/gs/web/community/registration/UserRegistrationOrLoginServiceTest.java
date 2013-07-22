@@ -457,7 +457,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
     }
 
     @Test
-    public void testLoginFacebookUser() throws Exception {
+    public void testLoginFacebookUser_existingFacebookUser() throws Exception {
         RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
         registrationBehavior.setFbSignedRequest("bogus");
 
@@ -466,14 +466,12 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
         _userLoginCommand.setEmail("someuser@somedomain.com");
 
-        User user = new User();
-        user.setId(1);
+        User user = RegistrationTestUtils.facebookUser();
         user.setEmail("someuser@somedomain.com");
         user.setPlaintextPassword("abc");
         user.setEmailProvisional("abc");
         user.setEmailValidated();
         user.setEmailVerified(true);
-        user.setFacebookId("facebookId");
 
         expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(user);
         org.easymock.classextension.EasyMock.expect(facebookSession.isOwnedBy(user)).andReturn(true);
@@ -487,10 +485,11 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         org.easymock.classextension.EasyMock.verify(facebookSession);
 
         assertNotNull("Expect MEMID cookie to have been set", _response.getCookie("MEMID"));
+        assertEquals("Expect facebookId to still be set", "facebookId", user.getFacebookId());
     }
 
     @Test
-    public void testLoginFacebookUser_wrongUser() throws Exception {
+    public void testLoginFacebookUser_existingRegularUser() throws Exception {
         RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
         registrationBehavior.setFbSignedRequest("bogus");
 
@@ -506,7 +505,62 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         user.setEmailProvisional("abc");
         user.setEmailValidated();
         user.setEmailVerified(true);
-        user.setFacebookId("facebookId");
+
+        expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(user);
+        _userDao.saveUser(user);
+        expect(facebookSession.getUserId()).andReturn("facebookId");
+
+        replayAllMocks();
+        org.easymock.classextension.EasyMock.replay(facebookSession);
+
+        _service.loginFacebookUser(_userLoginCommand, _request, _response);
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(facebookSession);
+
+        assertNotNull("Expect MEMID cookie to have been set", _response.getCookie("MEMID"));
+        assertEquals("Expect facebookId to have been set on user", "facebookId", user.getFacebookId());
+    }
+
+    @Test
+    public void testLoginFacebookUser_wrongEmail() throws Exception {
+        RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
+        registrationBehavior.setFbSignedRequest("bogus");
+
+        FacebookSession facebookSession = org.easymock.classextension.EasyMock.createMock(FacebookSession.class);
+        getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
+
+        _userLoginCommand.setEmail("someuser@somedomain.com");
+
+        expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(null);
+
+        replayAllMocks();
+        org.easymock.classextension.EasyMock.replay(facebookSession);
+
+        _service.loginFacebookUser(_userLoginCommand, _request, _response);
+
+        verifyAllMocks();
+        org.easymock.classextension.EasyMock.verify(facebookSession);
+
+        assertNull("Expect MEMID cookie to have NOT been set", _response.getCookie("MEMID"));
+    }
+
+    @Test
+    public void testLoginFacebookUser_wrongFacebookId() throws Exception {
+        RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
+        registrationBehavior.setFbSignedRequest("bogus");
+
+        FacebookSession facebookSession = org.easymock.classextension.EasyMock.createMock(FacebookSession.class);
+        getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
+
+        _userLoginCommand.setEmail("someuser@somedomain.com");
+
+        User user = RegistrationTestUtils.facebookUser();
+        user.setEmail("someuser@somedomain.com");
+        user.setPlaintextPassword("abc");
+        user.setEmailProvisional("abc");
+        user.setEmailValidated();
+        user.setEmailVerified(true);
 
         expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(user);
         org.easymock.classextension.EasyMock.expect(facebookSession.isOwnedBy(user)).andReturn(false);
@@ -521,5 +575,4 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
         assertNull("Expect MEMID cookie to have NOT been set", _response.getCookie("MEMID"));
     }
-
 }

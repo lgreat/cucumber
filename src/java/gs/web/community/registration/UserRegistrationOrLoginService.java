@@ -135,18 +135,28 @@ public class UserRegistrationOrLoginService {
         if (user != null) {
             FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
 
-            if (facebookSession != null && facebookSession.isOwnedBy(user)) {
-                boolean modified = convertToFacebookAccountIfNeeded(user, request);
+            // If facebook session isn't null, then the signed request was properly decrypted
+            if (facebookSession != null) {
+                boolean authenticated = (
+                    (user.isFacebookUser() && facebookSession.isOwnedBy(user))
+                    || !user.isFacebookUser()
+                );
 
-                if (modified) {
-                    _userDao.saveUser(user);
-                    ThreadLocalTransactionManager.commitOrRollback();
+                if (authenticated) {
+                    try {
+                        PageHelper.setMemberAuthorized(request, response, user, true);
+                    } catch (NoSuchAlgorithmException ex) {
+                        _log.error("Error while trying to log in the user." + ex);
+                    }
                 }
 
-                try {
-                    PageHelper.setMemberAuthorized(request, response, user, true);
-                } catch (NoSuchAlgorithmException ex) {
-                    _log.error("Error while trying to log in the user." + ex);
+                if (!user.isFacebookUser()) {
+                    boolean modified = convertToFacebookAccountIfNeeded(user, request);
+
+                    if (modified) {
+                        _userDao.saveUser(user);
+                        ThreadLocalTransactionManager.commitOrRollback();
+                    }
                 }
             }
 
