@@ -8,10 +8,6 @@ var pageTracking = {
     eVars: {},
     props: {},
 
-// http://stackoverflow.com/questions/15261644/how-to-pass-a-list-comma-separated-to-a-traffic-variable-in-omniture -
-// the delimiter can be anything
-    lists: {},
-
     send: function(){
         s.pageName = this.pageName;
         s.server = this.server;
@@ -22,9 +18,6 @@ var pageTracking = {
         }
         for (var prop in this.props){
             s[prop] = this.props[prop];
-        }
-        for (var list in this.lists){
-            s[list] = this.lists[list];
         }
         var s_code=s.t();
         if(s_code){
@@ -37,7 +30,6 @@ var pageTracking = {
         this.successEvents = "";
         this.eVars = {};
         this.props = {};
-        this.lists = {};
     }
 };
 
@@ -50,7 +42,6 @@ GS.tracking.registerTrackingData = function(key, data) {
     if (GS.tracking.data[key] === undefined) {
         GS.tracking.data[key] = {};
         GS.tracking.data[key].props = {};
-        GS.tracking.data[key].lists = {};
     }
 
     var destination = GS.tracking.data[key];
@@ -66,21 +57,10 @@ GS.tracking.registerTrackingData = function(key, data) {
         }
     }
 
-    if (data.lists !== undefined) {
-        var listData = data.lists;
-        for (var l in listData) {
-            if (listData.hasOwnProperty(l)) {
-                if (listData[l] !== '') {
-                    destination.lists[l] = listData[l];
-                }
-            }
-        }
-    }
-
     for (var k in data) {
         if (data.hasOwnProperty(k)) {
             var item = data[k];
-            if (item !== '' && k !== 'props' && k !== 'lists') {
+            if (item !== '' && k !== 'props') {
                 destination[k] = item;
             }
         }
@@ -91,7 +71,6 @@ GS.tracking.sendOmnitureData = function(key, preserveSuccessEvents) {
     var sharedData = GS.tracking.data['_shared'];
     if (data !== undefined) {
         GS.tracking.removeTabSpecificProps(key, data);
-        GS.tracking.removeTabSpecificLists(key, data);
         pageTracking.clear();
         $.extend(pageTracking, data);
         if (sharedData !== undefined) {
@@ -138,36 +117,6 @@ GS.tracking.removeTabSpecificProps = function(currentTab, data) {
     }
 };
 
-GS.tracking.tabSpecificListsMap = GS.tracking.tabSpecificListsMap || {};
-GS.tracking.addTabSpecificLists = function(tabName, listKey) {
-    if(GS.tracking.tabSpecificListsMap[tabName] === undefined) {
-        GS.tracking.tabSpecificListsMap[tabName] = {};
-        GS.tracking.tabSpecificListsMap[tabName].lists = [];
-    }
-
-    var listsMap = GS.tracking.tabSpecificListsMap[tabName].lists;
-
-    if(listKey !== undefined) {
-        listsMap.push(listKey);
-    }
-};
-
-GS.tracking.removeTabSpecificLists = function(currentTab, data) {
-    if (currentTab === undefined || data === undefined) {
-        return;
-    }
-    for(var tab in GS.tracking.tabSpecificListsMap) {
-        if(tab !== currentTab && GS.tracking.tabSpecificListsMap.hasOwnProperty(tab) && GS.tracking.tabSpecificListsMap[tab].lists !== undefined) {
-            for(var i in GS.tracking.tabSpecificListsMap[tab].lists) {
-                var list = GS.tracking.tabSpecificListsMap[tab].lists[i];
-                if(list !== undefined) {
-                    data.lists[list] = '';
-                }
-            }
-        }
-    }
-};
-
 /**
  * Based off of:
  * http://stackoverflow.com/questions/7692746/javascript-omniture-how-to-clear-all-properties-of-an-object-s-object
@@ -175,7 +124,6 @@ GS.tracking.removeTabSpecificLists = function(currentTab, data) {
 GS.tracking.clearSvariable = function() {
     var maxPropsAndEvars = 75; // Omniture currently gives us a max of 75 props and evars
     var svarArr = ['pageName','channel','products','events','campaign','purchaseID','state','zip','server','linkName'];
-    var maxLists = 3;
     var i;
 
     i = maxPropsAndEvars;
@@ -190,11 +138,6 @@ GS.tracking.clearSvariable = function() {
     i = svarArr.length;
     while (i--) {
         s[svarArr[i]]='';
-    }
-
-    i = maxLists;
-    while(i--) {
-        s['list'+i]='';
     }
 };
 
