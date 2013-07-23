@@ -47,12 +47,10 @@
                                     <h3 class="bottom">Let your school shine!</h3>
                                 </div>
                                 <div class="bd mbm mlm">
-                                <span class="small">
-                                    School leaders: Help your school shine on GreatSchools<br/>by verifying community
-                                    responses, adding program highlights<br/>and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"
-                                       class="small"> Get started &amp;raquo;</a>
-                                </span>
+                                    <span class="small">
+                                        School leaders: Help your school shine on GreatSchools<br/>by verifying community
+                                        responses, adding program highlights<br/>and more! <span class="make-06b">Get started &amp;raquo;</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -98,12 +96,10 @@ where each entry is the first bean for that section, this allows access to the s
                                         <h3 class="bottom">Let your school shine!</h3>
                                     </div>
                                     <div class="bd mbm mlm">
-                                <span class="small">
-                                    School leaders: Help your school shine on GreatSchools<br/>by verifying community
-                                    responses, adding program highlights<br/>and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"
-                                       class="small"> Get started &amp;raquo;</a>
-                                </span>
+                                        <span class="small">
+                                            School leaders: Help your school shine on GreatSchools<br/>by verifying community
+                                            responses, adding program highlights<br/>and more! <span class="make-06b">Get started &amp;raquo;</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -166,12 +162,10 @@ where each entry is the first bean for that section, this allows access to the s
                                     <h3 class="bottom">Let your school shine!</h3>
                                 </div>
                                 <div class="bd mbm mlm">
-                                <span class="small">
-                                    School leaders: Help your school shine on GreatSchools<br/>by verifying community
-                                    responses, adding program highlights<br/>and more!
-                                    <a href="/official-school-profile/register.page?city=${school.city}&amp;schoolId=${school.id}&amp;state=${school.databaseState}"
-                                       class="small"> Get started &amp;raquo;</a>
-                                </span>
+                                    <span class="small">
+                                        School leaders: Help your school shine on GreatSchools<br/>by verifying community
+                                        responses, adding program highlights<br/>and more! <span class="make-06b">Get started &amp;raquo;</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
