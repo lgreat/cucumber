@@ -40,10 +40,10 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
     <meta property="og:site_name" content="GreatSchools"/>
      <c:choose>
             <c:when test="${env ==  'dev'}">
-                <meta property="og:url" content="http://qa.greatschools.org/sweepstakes"></meta>
+                <meta property="og:url" content="http://qa.greatschools.org/sweepstakes/"></meta>
             </c:when>
             <c:otherwise>
-                <meta property="og:url" content="http://www.greatschools.org/sweepstakes"></meta>
+                <meta property="og:url" content="http://www.greatschools.org/sweepstakes/"></meta>
             </c:otherwise>
         </c:choose>
     </c:if>
