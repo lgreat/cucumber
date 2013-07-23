@@ -5,6 +5,7 @@
 
     <jsp:directive.attribute name="id" required="false" description="id of the element"/>
     <jsp:directive.attribute name="cssClass" required="false" description="an extra css class to add to element"/>
+    <jsp:directive.attribute name="onclick" required="false" description="value for element's onclick attribute"/>
     <jsp:directive.attribute name="size" required="false" description="Choose size: [32]"/>
 
     <c:choose>

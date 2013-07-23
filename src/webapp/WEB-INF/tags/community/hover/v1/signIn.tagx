@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
     <div id="signInHover" class="dn">
@@ -26,7 +26,7 @@
                     <p>Sign in with an existing GreatSchools account or using Facebook:</p>
                 </div>
                 <div class="unit size7of19 lastUnit">
-                    <button class="button-1 signinBtn js-facebook-login-signin" onclick="javascript:ModalManager.hideModal('signInHover');" type="button">Sign in with Facebook</button>
+                    <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-signin" onclick="javascript:ModalManager.hideModal('signInHover');"><!-- do not collapse --></gsml:signInWithFacebookButton>
                 </div>
             </div>
 
@@ -80,7 +80,6 @@
                 <input type="hidden" name="rememberMe" value="true"/>
                 <input type="hidden" name="redirect" class="redirect_field" value=""/>
 
-            <a class="js-facebook-login" href="javascript:void(0)">Sign in with Facebook</a>
             <!--</fieldset>-->
         </form>
     </div>
