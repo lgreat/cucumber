@@ -1216,6 +1216,7 @@ GSType.hover.NlSubscription = function() {
         $j('#nlSubEmail_error_alreadySub').hide();
         GSType.hover.nlSubscription.show();
         $j("#nlSubEmail").blur();
+        $j("#removeNlSubscriptionFromPage").remove();
     };
     this.validateEmail = function() {
         var isEmailValid = false;
@@ -2009,7 +2010,7 @@ jQuery(function() {
         return false;
     });
 
-    jQuery('#hover_nlSubscriptionSubmit').click(function() {
+    jQuery('#hover_nlSubscriptionSubmit').on("click", function() {
         var validEmail = GSType.hover.nlSubscription.validateEmail();
         if(!validEmail || $j('#nlSubEmail').val() === ''){
             $j('#nlSubEmail_error').show();
