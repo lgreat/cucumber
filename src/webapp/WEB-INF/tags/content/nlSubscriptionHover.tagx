@@ -4,40 +4,46 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsweb="gstaglib"
         >
-    <div id="hover_nlSubscription" class="dn">
-        <div id="hover_nlSubscription" class=" mod modal_1 width_16">
-            <div class="nlContent">
-                <h2>Like this article?</h2>
-
-                <p>Sign up for our free newsletter and we'll send you more just like it every week.</p>
-
-                <div class="nlSignUp">
-                    <div id="nlSubEmail_error" class="smaller bottom validEmail"
-                         style="display:none">Please enter a valid email address
+    <div id="removeNlSubscriptionFromPage">
+        <div id="hover_nlSubscription" class="dn">
+            <div id="hover_nlSubscription" class="mod modal_1 width_16">
+                <div class="outer bg-nlSubscription">
+                    <div class="fr">
+                        <span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span>
                     </div>
-                    <div id="nlSubEmail_error_alreadySub" class="smaller bottom validEmail"
-                         style="display:none">The email address is already in use.
-                    </div>
-                    <span class="nlEmail">
-                        <input type="text" id="nlSubEmail" name="email" class="small bottom"
-                               onfocus="GS_textSwitch(this, '', '[Your email address]')"
-                               onblur="GS_textSwitch(this, '[Your email address]', '');"
-                               value="[Your email address]"/>
-                    </span>
-                    <button class="button-1" type="submit" name="nlSubSubmit"
-                                id="hover_nlSubscriptionSubmit">Sign up
-                    </button>
-                </div>
-
-                <div class="line mtl">
-                    <div class="unit size9of100">
-                        <input type="checkbox" name="partnerNewsletter" value="true" id="partnerNewsletter"
-                               checked="checked"/>
-                    </div>
-                    <div class="unit size90of100 lastUnit">
-                        <label for="partnerNewsletter"
-                               class="smaller">Send me offers to save on family activities and special
-                            promotions from our carefully chosen partners.</label>
+                    <div class="inner">
+                        <div class="nlContent">
+                            <h2>Like this article?</h2>
+                            <p>Sign up for our free newsletter and we'll send you<br/>more just like it every week.</p>
+                            <div class="nlSignUp">
+                                <div id="nlSubEmail_error" class="smaller bottom validEmail" style="display:none">
+                                    Please enter a valid email address
+                                </div>
+                                <div id="nlSubEmail_error_alreadySub" class="smaller bottom validEmail" style="display:none">
+                                    The email address is already in use.
+                                </div>
+                                <span class="nlEmail">
+                                    <input type="text" id="nlSubEmail" name="email" class="small bottom text input_6 mrm"
+                                            onfocus="GS_textSwitch(this, '', '[Your email address]')"
+                                            onblur="GS_textSwitch(this, '[Your email address]', '');"
+                                            value="[Your email address]"/>
+                               </span>
+                                <button class="but but-rg but-1" type="submit" name="nlSubSubmit" id="hover_nlSubscriptionSubmit">
+                                    Sign up
+                                </button>
+                            </div>
+                            <div class="line mtl">
+                                <div class="unit size4of100">
+                                    <input type="checkbox" name="partnerNewsletter" value="true" id="partnerNewsletter" checked="checked"/>
+                                </div>
+                                <div class="unit size96of100 lastUnit">
+                                    <label for="partnerNewsletter" class="smaller make-999999">
+                                        Send me offers to save on family activities and special<br/>
+                                        promotions from our carefully chosen partners.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
