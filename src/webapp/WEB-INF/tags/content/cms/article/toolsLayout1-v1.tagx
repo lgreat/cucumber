@@ -20,8 +20,8 @@
             </c:if>
             <div id="js_commentToolTipLinkDown" class="ft hidden" style="display: block;">
                 <div class="smaller plm clearfix bottom pvm" style="border-top: 1px solid #ddd;">
-                    <!--<div class="fl mrs"><gsml:url var="linkToComments"-->
-                    <!--value="#articleCommentsLinkTo"/></div>-->
+                    <div class="fl mrs"><gsml:url var="linkToComments"
+                    value="#articleCommentsLinkTo"/></div>
                     <gsml:a href="${linkToComments}">
                         <span class="iconx16 i-16-comment vam mrs fl"><!-- do not collapse --></span>
                         <div id="js_articleCommentsCount" class="fl mrs"><c:out value="${commentCount}" default="0 " /></div> comment<c:if test="${commentCount != 1}">s</c:if></gsml:a>
