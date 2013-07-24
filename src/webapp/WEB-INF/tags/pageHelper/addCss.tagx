@@ -68,8 +68,8 @@
         </c:when>
         <c:otherwise>
             <gsml:css href="/res/css/gs2010_styles.combined.min.css"/>
-            <gsml:css href="/res/css/gs2010_styles.combined.IE_1of2.min.css" IEConditional="if IE"/>
-            <gsml:css href="/res/css/gs2010_styles.combined.IE_2of2.min.css" IEConditional="if IE"/>
+            <!--<gsml:css href="/res/css/gs2010_styles.combined.IE_1of2.min.css" IEConditional="if IE"/>-->
+            <!--<gsml:css href="/res/css/gs2010_styles.combined.IE_2of2.min.css" IEConditional="if IE"/>-->
             <gsml:css href="/res/css/gs_styles_IE7-v1.combined.min.css" IEConditional="if IE 7"/>
             <gsml:css href="/res/css/gs_styles_IE8-v1.combined.min.css" IEConditional="if IE 8"/>
         </c:otherwise>
