@@ -1247,7 +1247,7 @@ GSType.hover.NlSubscription = function() {
                 } else {
                     GSType.hover.nlSubscription.hide();
                     if (data.thankYouMsg != '' && data.thankYouMsg != null) {
-                        jQuery('#hover_nlSubscriptionThankYou #thankYouMsg').append("<p>" + data.thankYouMsg + "</p>");
+                        jQuery('#hover_nlSubscriptionThankYou #thankYouMsg').append("<p class='make-2b2b2b'>" + data.thankYouMsg + "</p>");
                     }
                     GSType.hover.nlSubscriptionThankYou.show();
                     s.linkTrackVars = "events";
