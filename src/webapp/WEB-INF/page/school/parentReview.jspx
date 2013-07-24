@@ -322,11 +322,11 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                     </span>
                     <!--pinterest-->
                     <span class="mrm">
-                        <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.greatschools.org%2Fschool%2FparentReview.page&amp;media=http://www.greatschools.org/catalog/ads/leadGen/img/gs-sweeps.png&amp;description=Write a review to help your school win $5,000 from GreatSchools! To enter, learn details and see official rules visit: http://bit.ly/sweeps2013" data-pin-do="buttonPin" data-pin-config="beside" target="_blank"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+                        <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.greatschools.org%2Fschool%2FparentReview.page&amp;media=http://www.greatschools.org/catalog/ads/leadGen/img/gs-sweeps.png&amp;description=Write a review to help your school win $5,000 from GreatSchools! To enter, learn details and see official rules visit: http://www.greatschools.org/sweepstakes" data-pin-do="buttonPin" data-pin-config="beside" target="_blank"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
                     </span>
                     <!--twitter-->
                     <span class="">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-text="Win your school $5K! Write a review to enter: http://bit.ly/sweeps2013 See rules. @GreatSchools #BestYearEverSweeps" data-via="greatschools">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-text="Win your school $5K! Write a review to enter: http://bit.ly/sweeps2013 See rules. @GreatSchools #BestYearEverSweeps">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </span>
                 </div>
                 <div class="mvl smaller">
