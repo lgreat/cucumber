@@ -67,7 +67,6 @@ jQuery(function() {
                 }
             }
         }).fail(function(data){
-                    console.log(data);
             alert("We're sorry, but we were not able to process your review submission. Please try again soon.");
         });
     }.gs_bind(GS.form.ParentReviewTabSchoolReviewForm.prototype);

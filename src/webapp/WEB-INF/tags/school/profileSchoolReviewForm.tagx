@@ -113,50 +113,6 @@
                     </div>
                 </div>
 
-                <div class="line email">
-                    <div class="unit size15of100">
-                        <label for="frmPRModule-email" class="">Email:
-                            <em class="sprite i-required"><!-- do not collapse --></em>
-                        </label>
-                    </div>
-                    <div class="unit size50of100">
-                        <c:choose>
-                            <c:when test="${validUser.email eq null}">
-                                <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
-                                       type="text"
-                                       value="[Enter email address]"
-                                       onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                       onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                            </c:when>
-                            <c:otherwise>
-                                <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
-                                       type="text"
-                                       value="${validUser.email}" disabled="disabled"/>
-                            </c:otherwise>
-                        </c:choose>
-                        <div class="smaller bottom">Don’t worry, your email address will remain private.</div>
-                    </div>
-                    <div class="unit size26of100 lastUnit">
-                        <div class="formErrorText form-error">
-                            <div class="media">
-                                <div class="img mrs">
-                                    <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
-                                </div>
-                                <div class="js-msg smaller bottom error_msg">Please enter your email.</div>
-                            </div>
-                        </div>
-                        <div class="formErrorText form-alert">
-                            <div class="media">
-                                <div class="img mrs">
-                                    <span class="iconx16 i-16-notice vam"><!-- do not collapse --></span>
-                                </div>
-
-                                <div class="js-msg smaller bottom">You must verify your email address on submit.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="line role ptm">
                     <div class="unit size4of7">
                         <div class="line">
@@ -329,7 +285,7 @@
                 </div>
 
                 <c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-                    <div class="line terms pvm">
+                    <div class="line terms pbm">
                         <div class="unit size1of1 lastUnit">
                             <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
                             <label for="rememberMeBox"
@@ -348,15 +304,71 @@
                 </div>
 
 
+                <gsml:signInWithFacebookButton size="32" id="parentReviewFormSubmit-facebook"/>
+                <!--<div><a class="plm smaller bold js-submit-using-email" onclick="javascript:$('#js-submit-using-email').show()">Or submit using your email</a></div>-->
+                <div class="clearfloat pts"><!-- do not collapse --></div>
+                <div class="smaller bottom">Don’t worry, your email address and Facebook identity will remain private.</div>
 
+                <c:if test="${not requestInfo.signedInWithFacebook}">
+                    <div>- OR -</div>
 
-                <button id="parentReviewFormSubmit" class="button-1 fl " type="submit" name="Submit" value="submit" onclick="">Submit
-                </button>
+                    <div class="spacer_15 clearfloat pvs"><!-- do not collapse --></div>
+
+                    <div id="js-submit-using-email">
+                        <div class="line email">
+                            <div class="unit size15of100">
+                                <label for="frmPRModule-email" class="">Email:
+                                    <em class="sprite i-required"><!-- do not collapse --></em>
+                                </label>
+                            </div>
+                            <div class="unit size50of100">
+                                <c:choose>
+                                    <c:when test="${validUser.email eq null}">
+                                        <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
+                                               type="text"
+                                               value="[Enter email address]"
+                                               onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                                               onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
+                                               type="text"
+                                               value="${validUser.email}" disabled="disabled"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="unit size26of100 lastUnit">
+                                <div class="formErrorText form-error">
+                                    <div class="media">
+                                        <div class="img mrs">
+                                            <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="js-msg smaller bottom error_msg">Please enter your email.</div>
+                                    </div>
+                                </div>
+                                <div class="formErrorText form-alert">
+                                    <div class="media">
+                                        <div class="img mrs">
+                                            <span class="iconx16 i-16-notice vam"><!-- do not collapse --></span>
+                                        </div>
+
+                                        <div class="js-msg smaller bottom">You must verify your email address on submit.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="spacer_5 clearfloat pvs"><!-- do not collapse --></div>
+
+                        <button id="parentReviewFormSubmit" class="button-1 fl " type="submit" name="Submit" value="submit" onclick="">Submit
+                        </button>
+                    </div>
+                </c:if>
+
                 <div class="helperMessage smaller media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
                     <div class="bd dn">Indicates a required field</div>
                 </div>
-
 
         </gsweb:form>
 

@@ -5,7 +5,7 @@ import gs.data.school.School;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class RegistrationBehavior {
+public class RegistrationOrLoginBehavior {
     private String _how;
     private String _fbSignedRequest;
     private String _redirectUrl;

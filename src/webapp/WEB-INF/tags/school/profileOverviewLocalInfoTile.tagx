@@ -32,7 +32,7 @@
             <c:set var="t13dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Local information</p>
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Local Information')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'linfo')}" scope="request"/>
             <school:profileOverviewCell1 title="${t13dc}">
                 <div class="mam" style="height:156px;">
                     <!-- The spec is currently under development for this option -->
@@ -44,7 +44,7 @@
 
         <!-- When content is DC charter Performance Management Rating-->
         <c:when test="${content eq 'performanceManagementRating'}">
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Local Rating')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'lrate')}" scope="request"/>
             <profile:profileOverviewDcCharterPerformance localInfoModel="${localInfoModel}" adjustHeight="${adjustHeight}"  />
         </c:when>
         <!-- END When content is DC charter Performance Management Rating-->
@@ -58,7 +58,7 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'District Information')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'dist')}" scope="request"/>
             <div id="js-tile-13-1">
             <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_district'); }" styleClass="tdn make-555555 js-trigger">
             <school:profileOverviewCell1 title="${t13s1}">
@@ -117,7 +117,7 @@
             <c:set var="t13s2">
                 <p class="small_bold textshadow-1 pvs plm bottom">${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}</p>
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Living In')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'live')}" scope="request"/>
             <school:profileOverviewCell1 title="${t13s2}" logoClass="true">
                 <div class="mam moduleHeight-125 ie-moduleHeight-117">
                     <p class="small bottom">${localInfoModel['neighborhoodInfo']}</p>
@@ -130,7 +130,7 @@
         </c:when>
 
         <c:when test="${content eq 'mobilePromo'}">
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'Mobile Promo')}" scope="request"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'mobile')}" scope="request"/>
             <school:profileOverviewMobileTile/>
         </c:when>
     </c:choose>

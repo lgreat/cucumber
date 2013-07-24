@@ -82,8 +82,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function () {
     var registerEventHandlers = function () {
         // Bind the behavior when clicking on a compare checkbox in the list
 //        $(body).on('click', '.compare-school-checkbox', function() {
-        var compareCheck = $('.compare-school-checkbox');
-        compareCheck.on('click', function () {
+        $(body).on('click', '.compare-school-checkbox', function() {
             var schoolCheckbox = $(this);
             var schoolSelected = schoolCheckbox.attr('id');
             var schoolId = schoolSelected.substr(2, schoolSelected.length);

@@ -303,20 +303,14 @@ GS.profile = GS.profile || (function() {
                 if(GS.school.tandem.isTandemActive()){
                     if(tabName == "overview"){
                         refreshableOverviewAdSlotKeys = refreshTandemAds(refreshableOverviewAdSlotKeys, refreshableBranding, brandingLayerId);
-//                        refreshableOverviewAdSlotKeys.concat(refreshableBranding);
                     }
                     else{
                         refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys,refreshableBranding, brandingLayerId);
-//                        console.log(refreshableCultureAdSlotKeys, refreshableBranding, brandingLayerId);
-//                        $("#"+brandingLayerId).show();
-//                        refreshableCultureAdSlotKeys.push(refreshableBranding);
                     }
                 }
                 else{
-                    if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
+                    if(noBrandingLayerId != "" && $.isArray(noBrandingLayerId) && noBrandingLayerId.length > 0){
                         refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
-//                        $("#"+noBrandingLayerId).show();
-//                        refreshableCultureAdSlotKeys.push(refreshableNoBranding);
                     }
                 }
             }
@@ -327,11 +321,8 @@ GS.profile = GS.profile || (function() {
             }
         }
         else{
-            if(noBrandingLayerId != "" && noBrandingLayerId.isArray() && noBrandingLayerId.length > 0){
-                refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
-                //$("#"+noBrandingLayerId).show();
-//                refreshableCultureAdSlotKeys.push(refreshableNoBranding);
-                //refreshableCultureAdSlotKeys.concat(refreshableNoBranding);
+            if(noBrandingLayerId != "" && $.isArray(noBrandingLayerId) && noBrandingLayerId.length > 0){
+                refreshableCultureAdSlotKeys = refreshTandemAds(refreshableCultureAdSlotKeys, refreshableNoBranding, noBrandingLayerId);
             }
         }
     }
@@ -442,7 +433,6 @@ GS.profile = GS.profile || (function() {
         refreshAdsOnTabGeneric(refreshableReviewsAdSlotKeys, tabName, true);
     };
     var refreshCultureAds = function(tabName) {
-        console.log("refreshCultureAds",refreshableCultureAdSlotKeys);
         refreshAdsOnTabGeneric(refreshableCultureAdSlotKeys, tabName, true);
     };
     var refreshNonOverviewAds = function(tabName) {
@@ -468,22 +458,15 @@ GS.profile = GS.profile || (function() {
         }
     };
 
-
     var getAlternateSitePath = function() {
         var $currentTabLayer = GS.tabManager.getActiveLayer();
         var href = $currentTabLayer.find('a.js-alternateSitePath').attr('href');
         return href;
     };
 
-    var refreshSingleAd = function(tabName, adSlots, showID) {
-        $("#"+showID).show();
-        GS.ad.unhideGhostTextForAdSlots(adSlots);
-        GS.ad.setTargetingAndRefresh(adSlots, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
-    };
-
     return {
         init:init,
-        refreshSingleAd:refreshSingleAd,
+        refreshAdsOnTabGeneric:refreshAdsOnTabGeneric,
         refreshAdsForTab:refreshAdsForTab,
         getAlternateSitePath:getAlternateSitePath,
         refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange

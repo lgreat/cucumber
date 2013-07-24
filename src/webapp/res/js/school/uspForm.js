@@ -257,50 +257,58 @@ GS.form.uspForm = (function ($) {
                     window.location = data.redirect;
                 }
                 else if(data.hasExistingSavedResponses === 'true') {
+                    hideAllErrors();
                     if(data.formFields === undefined) {
                         return;
                     }
-                    var formFields = data.formFields;
-                    var formElements = uspForm.find('select.js-chosenSelect');
-                    formElements.val('').trigger("liszt:updated");
-                    var user = data.user;
-                    if(user !== undefined) {
-                        GS.GlobalUI.updateUIForLogin(user.id, user.email, user.screenName, user.numberMSLItems);
-                    }
-                    var numFormFields = data.formFields.length;
-                    for(var i = 0; i < numFormFields; i++) {
-                        var formField = formFields[i];
-                        var formElement = uspForm.find('select[name=' + formField.fieldName + ']');
-                        var sectionResponses = formField.responses;
-                        var numSectionResponses = sectionResponses.length;
-                        for(var j = 0; j < numSectionResponses; j++) {
-                            var sectionResponse = sectionResponses[j];
-                            var responseKey = sectionResponse.key;
-
-                            var responseValues = sectionResponse.values;
-                            var numResponseValues = responseValues.length;
-                            for(var k = 0; k < numResponseValues; k++) {
-                                var responseValue = responseValues[k];
-                                var respValue = responseValue.responseValue;
-                                var isSelected = responseValue.isSelected;
-
-                                if(isSelected) {
-                                    console.log(responseKey + '__' + respValue);
-                                    formElement.find('option[value=' + responseKey + '__' +
-                                        respValue + ']').prop("selected", true);
-                                }
-                            }
-                        }
-                    }
-
-                    formElements.trigger("liszt:updated");
-                    GSType.hover.modalUspSignIn.hide();
-                    jQuery(EXISTING_ANSWERS_ERROR).show();
-                    window.scrollTo(0,0);
+                    updateUspFormFields(data, uspForm);
                 }
             });
         return dfd.promise();
     };
+
+    var updateUspFormFields = function(data, uspForm) {
+        var formFields = data.formFields;
+        var formElements = uspForm.find('select.js-chosenSelect');
+        // first clear the chosen fields to remove any selected values
+        formElements.val('').trigger("liszt:updated");
+        var user = data.user;
+        if(user !== undefined) {
+            // if user data is able, update the global header to show that the user is signed in
+            GS.GlobalUI.updateUIForLogin(user.id, user.email, user.screenName, user.numberMSLItems);
+        }
+        var numFormFields = data.formFields.length;
+        for(var i = 0; i < numFormFields; i++) {
+            var formField = formFields[i];
+            // for each select element, check if the response value has isSelected is set to true then update the option's selected property
+            var formElement = uspForm.find('select[name=' + formField.fieldName + ']');
+            var sectionResponses = formField.responses;
+            var numSectionResponses = sectionResponses.length;
+            for(var j = 0; j < numSectionResponses; j++) {
+                var sectionResponse = sectionResponses[j];
+                var responseKey = sectionResponse.key;
+
+                var responseValues = sectionResponse.values;
+                var numResponseValues = responseValues.length;
+                for(var k = 0; k < numResponseValues; k++) {
+                    var responseValue = responseValues[k];
+                    var respValue = responseValue.responseValue;
+                    var isSelected = responseValue.isSelected;
+
+                    if(isSelected) {
+                        formElement.find('option[value=' + responseKey + '__' +
+                            respValue + ']').prop("selected", true);
+                    }
+                }
+            }
+        }
+
+        // once all the elements in the form have been updated with the previously saved responses, trigger chosen update to display the saved responses
+        formElements.trigger("liszt:updated");
+        GSType.hover.modalUspSignIn.hide();
+        jQuery(EXISTING_ANSWERS_ERROR).show();
+        window.scrollTo(0,0);
+    }
 
     var hideAllErrors = function () {
         $(PASSWORD_ERROR_SELECTOR).hide();

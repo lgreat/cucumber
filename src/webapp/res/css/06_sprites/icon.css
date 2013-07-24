@@ -523,7 +523,7 @@ span:hover.i-24-yellow-modal-close {
 
 .iconx32g {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x32/130506-32x32.png);
+    background-image: url(/res/img/sprites/icon/x32/130717_32x32.png);
     width: 32px;
     height: 32px;
 }
@@ -603,6 +603,9 @@ span:hover.i-24-yellow-modal-close {
     background-position: -544px 0;
 }
 
+.i-32-facebook-t {
+    background-position: -576px 0;
+}
 
 
 /********************Row 2*****************/

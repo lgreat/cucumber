@@ -21,6 +21,10 @@
 <div class="pbm"><!-- do not collapse --></div>
 
 <div class="bd tal">
+    <div>
+        <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
+    </div>
+    <div class="pbm"><!-- do not collapse --></div>
     <div class="introTxt col">
         <!-- GS-11161 -->
         <p>
@@ -189,7 +193,7 @@
     <div class="unit size3of19 formHelperWrapper">
         <div class="media mbm">
             <div class="img hint mrs">*</div>
-            <div class="bd hint">Indicates a required field.</div>
+            <div class="bd hint">Required.</div>
         </div>
         <div >
 
@@ -346,11 +350,8 @@
 
 <div class="line joinSubmit ptl dn">
     <div class="unit size4of19">&amp;nbsp;</div>
-    <div class="unit size4of19">
+    <div class="unit size15of19 lastUnit">
         <button class="button-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>
-    </div>
-    <div class="unit size11of19 lastUnit small">
-        <a href="javascript:void(0)" class="js_closeHover">No thanks</a>
     </div>
 </div>
 

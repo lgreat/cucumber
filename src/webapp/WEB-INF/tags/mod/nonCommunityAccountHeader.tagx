@@ -40,7 +40,7 @@
             <!--<li><link:aboutUs>About GreatSchools</link:aboutUs></li>-->
             <li><link:registration
                     onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
-                    email="${requestScope.context.email}">Join Us</link:registration></li>
+                    email="${requestScope.context.email}">Join</link:registration></li>
 
             <li class="last"><link:loginOrRegister email="${requestScope.context.email}"
                                                    onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"

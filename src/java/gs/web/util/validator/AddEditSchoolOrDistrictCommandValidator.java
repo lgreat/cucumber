@@ -205,7 +205,16 @@ public class AddEditSchoolOrDistrictCommandValidator implements IRequestAwareVal
                 }
             }
         }
+        if (command.getSchoolOrDistrict() != null && command.getSchoolOrDistrict().equals("district") && StringUtils.isBlank(command.getDistrictId())) {
+            errors.rejectValue("districtId", null, ERROR_DISTRICTID_MISSING);
+        }
+        if (command.getSchoolOrDistrict() != null && command.getSchoolOrDistrict().equals("district") && StringUtils.isBlank(command.getCounty())) {
+            errors.rejectValue("county", null, ERROR_COUNTY_MISSING);
+        }
 
+        if (command.getSchoolOrDistrict() != null && command.getSchoolOrDistrict().equals("school") && command.getAddEdit().equals("edit") && StringUtils.isBlank(command.getSchoolId())) {
+            errors.rejectValue("schoolId", null, ERROR_SCHOOLID_MISSING);
+        }
 
 
 

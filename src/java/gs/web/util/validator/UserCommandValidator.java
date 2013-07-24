@@ -87,6 +87,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "Please tell us the number of children you have in K-12 schools.";
     protected static final String ERROR_TERMS_MISSING =
             "Please read and accept our Terms of Use to join GreatSchools.";
+    protected static final String ERROR_FACEBOOK_USER =
+            "This account is linked to a Facebook account. Please sign in using Facebook.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
@@ -134,6 +136,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
                             "/report/email-moderator\">contact us</a> for more information.";
                     errors.rejectValue("email", null, errmsg);
                     _log.info("Registration error: " + errmsg);
+                } else if (user.isFacebookUser()) {
+                    String errmsg = ERROR_FACEBOOK_USER;
+                    errors.rejectValue("email", null, errmsg);
                 } else if (user.isEmailValidated()) {
                     UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
                     builder.addParameter("email",email);

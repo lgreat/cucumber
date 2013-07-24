@@ -34,14 +34,17 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         var $elementToCopyFrom = $('#' + $dataRecipient.data(recipientDataAttribute));
         if(($elementToCopyFrom.length == 0 || $elementToCopyFrom.html() == '') && $dataRecipient.attr('id') === 'js_totalResultsCountReturn') {
             $dataRecipient.html('0');
+            $('#js-moreThanOne').show();
             $('#js-noResultsPopup').show();
         }
         else {
             var count = $elementToCopyFrom.html();
-            if(parseInt(count) === 1) {
+            //comma breaks if 1,000
+            var countCompare = count.replace(/,/g, "");
+            if(parseInt(countCompare) === 1) {
                 $('#js-onlyOne').show();
             }
-            else if(parseInt(count) > 1) {
+            else {
                 $('#js-moreThanOne').show();
             }
             $dataRecipient.html(count);
@@ -53,7 +56,7 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         $('#js-onlyOne').hide();
         $('#js-moreThanOne').hide();
         $("#js-spinny-search").hide();
-        jQuery("#js_totalResultsCountReturn").show();
+        $("#js_totalResultsCountReturn").show();
         $('[data-' + recipientDataAttribute + ']').each(function() {
             updateOneMirror($(this));
         });

@@ -586,8 +586,7 @@ GS.school.tandem =  (function($) {
         'returned': false,
         'active': false,
         'showAd': false,
-        'whichAd': [],
-        'tabname': 'overview',
+        'tabName': 'overview',
         'branding': 'false',
         'positiveAd':[],
         'positiveLayer':[],
@@ -621,10 +620,10 @@ GS.school.tandem =  (function($) {
 
     // This is set when tandom has not returned yet.
     var getTandemTabName = function () {
-        return tandemAd.tabname;
+        return tandemAd.tabName;
     }
     var setTandemTabName = function(val){
-        tandemAd.tabname = val;
+        tandemAd.tabName = val;
     }
 
     // This is set when tandom has not returned yet.
@@ -650,46 +649,10 @@ GS.school.tandem =  (function($) {
         return tandemAd.negativeLayer[val];
     }
     var setTandemWhichAds = function(p, pl, n, nl){
-//        var t = {
-//            'positive': p,
-//            'positiveLayer': pl,
-//            'negative': n,
-//            'negativeLayer': nl
-//        }
-//        tandemAd.whichAd.push = t;
-
         tandemAd.positiveAd = p;
         tandemAd.positiveLayer = pl;
         tandemAd.negativeAd = n;
         tandemAd.negativeLayer = nl;
-    }
-//    var setTandemWhichAd = function(p, pl, n, nl){
-//        var t = {}
-//
-//        if(p != null && $.isArray(p)){
-//            for(i=0; i< p.length; i++){
-//                var x = new t;
-//                x = {
-//                    'positive': p[i],
-//                    'positiveLayer': pl[i],
-//                    'negative': n[i],
-//                    'negativeLayer': nl[i]
-//                }
-//
-//                tandemAd.whichAd.push = x;
-//            }
-//        }
-//    }
-
-    var refreshTandemAds = function(showTandem){
-        for(var i=0; i<tandemAd.positiveAd.length; i++){
-            if(showTandem){
-                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive(i)], tandemWhichAdPositiveLayerId(i));
-            }
-            else{
-                GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative(i)],tandemWhichAdNegativeLayerId(i));
-            }
-        }
     }
 
     var handleTandemAd = function(val){
@@ -699,24 +662,14 @@ GS.school.tandem =  (function($) {
         if(isTandemShowAd()){
             if(isTandemBranded() == 'true'){
                 if(isTandemActive()){
-                    if(tandemWhichAdPositive() != null && tandemWhichAdPositive() != ""){
-                        //in profilePage.js
-                        refreshTandemAds(true);
-//                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdPositive()], tandemWhichAdPositiveLayerId());
-                    }
+                    GS.profile.refreshAdsOnTabGeneric(tandemAd.positiveAd, getTandemTabName(), true);
                 }
                 else{
-                    if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
-                        refreshTandemAds(false);
-//                        GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()],tandemWhichAdNegativeLayerId());
-                    }
+                   GS.profile.refreshAdsOnTabGeneric(tandemAd.negativeAd, getTandemTabName(), true);
                 }
             }
             else{
-                if(tandemWhichAdNegative() != null && tandemWhichAdNegative() != ""){
-                    refreshTandemAds(false);
-//                    GS.profile.refreshSingleAd(getTandemTabName(), [tandemWhichAdNegative()], tandemWhichAdNegativeLayerId());
-                }
+                GS.profile.refreshAdsOnTabGeneric(tandemAd.negativeAd, getTandemTabName(), true);
             }
         }
     }
@@ -726,7 +679,6 @@ GS.school.tandem =  (function($) {
         isTandemBranded: isTandemBranded,
         isTandemReturned:isTandemReturned,
         setTandemActive : setTandemActive,
-//        setTandemWhichAd: setTandemWhichAd,
         setTandemWhichAds: setTandemWhichAds,
         setTandemShowAd : setTandemShowAd,
         setTandemTabName: setTandemTabName,

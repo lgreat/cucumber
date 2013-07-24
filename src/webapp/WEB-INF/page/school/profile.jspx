@@ -31,6 +31,7 @@
 <jsp:directive.page contentType="text/html"/>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
+<c:set var="profilePageCurrent" value="true" scope="request"/>
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
@@ -126,6 +127,10 @@
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
     <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
     <ad:disableGptGhostTextHiding position="BelowFold_300x250"/>
+    <ad:disableGptGhostTextHiding position="Header_Branded_Tandem_728x90"/>
+    <ad:disableGptGhostTextHiding position="Footer_Branded_Tandem_728x90"/>
+    <ad:disableGptGhostTextHiding position="AboveFold_Branded_Tandem_300x600"/>
+    <ad:disableGptGhostTextHiding position="BelowFold_Branded_Tandem_300x250"/>
     <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 
@@ -292,7 +297,7 @@
         <hr class="keyline1"/>
 
         <!-- tool links -->
-        <div class="toolLinks">
+        <div class="toolLinks mbm">
             <ul class="none small mtm bottom">
                 <li>
                 <span class="media js-add-msl-${school.databaseState}${school.id}">
@@ -327,16 +332,14 @@
                 </span>
                 </li>
             </ul>
-            <c:choose>
-                <c:when test="${sweepstakes}">
-                    <div class="mbm">
-                        <gslink:linkToTab tabName="reviews" customLink="sweepstakes_headerlink" anchor="from..SweepStakes">
-                            <span class="iconx16 i-16-dollar mrs vam"><!--Do not collapse--></span>
-                            <span class="small vam">Help this school win $5,000!</span>
-                        </gslink:linkToTab>
-                    </div>
-                </c:when>
-            </c:choose>
+            <c:if test="${sweepstakes}">
+                <div>
+                    <gslink:linkToTab tabName="reviews" customLink="sweepstakes_headerlink" anchor="from..SweepStakes">
+                        <span class="iconx16 i-16-dollar mrs vam"><!--Do not collapse--></span>
+                        <span class="small vam">Help this school win $5,000!</span>
+                    </gslink:linkToTab>
+                </div>
+            </c:if>
         </div>
 
     </div>

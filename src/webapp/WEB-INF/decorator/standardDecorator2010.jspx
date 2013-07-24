@@ -73,6 +73,8 @@
         <decorator:head/>
 
         <ad:xGAMSetup/>
+
+        <pageHelper:turnOnFacebookInit/>
     </head>
 
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"

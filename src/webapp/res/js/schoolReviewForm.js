@@ -96,6 +96,7 @@ GS.review.Validator = function() {
  */
 GS.form.SchoolReviewForm = function(id) {
     this.submitButton = jQuery('#parentReviewFormSubmit');
+    this.facebookButton = jQuery('#parentReviewFormSubmit-facebook');
     var form = jQuery('#' + id);
     this.submitSuccessRedirect = window.location.href;
 
@@ -432,6 +433,15 @@ GS.form.SchoolReviewForm = function(id) {
                 this.review.isValid() && this.overallRating.isValid() && this.termsOfUse.isValid();
     }.gs_bind(this);
 
+    this.formValidForFacebook = function () {
+        return (
+            this.poster.isValid()
+            && this.review.isValid()
+            && this.overallRating.isValid()
+            && this.termsOfUse.isValid()
+        );
+    }.gs_bind(this);
+
     this.resetStars = function() {
         this.showStars(this.overallRating.getElement().val());
     }.gs_bind(this);
@@ -570,6 +580,20 @@ GS.form.SchoolReviewForm = function(id) {
         return false;
     }.gs_bind(this);
 
+    this.facebookSubmitHandler = function() {
+        var that = this;
+        if (this.formValidForFacebook()) {
+            GS.facebook.login().done(function(data) {
+                that.postReview(data.email);
+            }).fail(function() {
+                alert("Facebook signin failed. Review not submitted.");
+            });
+        } else {
+            this.updateAllErrors();
+        }
+        return false;
+    }.gs_bind(this);
+
     this.serialize = function() {
         var serialized = {};
         form.find(':input').not(':checkbox').each(function() {
@@ -591,6 +615,7 @@ GS.form.SchoolReviewForm = function(id) {
     /////////// form setup - register event handlers /////////
     this.attachEventHandlers = function() {
         this.submitButton.click(this.submitHandler);
+        this.facebookButton.click(this.facebookSubmitHandler);
 
         this.overallRating.getElement().blur(this.overallRating.validateAndDisplayErrors);
         this.poster.getElement().change(this.onRoleChanged);

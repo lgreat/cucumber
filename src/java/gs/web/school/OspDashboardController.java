@@ -1,6 +1,5 @@
 package gs.web.school;
 
-import com.restfb.util.StringUtils;
 import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.security.Role;
@@ -10,6 +9,7 @@ import gs.web.school.usp.EspStatusManager;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;

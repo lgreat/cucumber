@@ -399,6 +399,7 @@
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
                                 <param>trackIt.js</param>
+                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -491,7 +492,6 @@
                                 <param>search/schoolSearchResultsPage2012.js</param>
                                 <param>history.min.js</param>
                                 <param>compare/persistentCompare.js</param>
-                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.search.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -634,6 +634,7 @@
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
+                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined-v1.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -1042,11 +1043,6 @@
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf-itext5</artifactId>
             <version>9.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.restfb</groupId>
-            <artifactId>restfb</artifactId>
-            <version>1.6.12</version>
         </dependency>
         <dependency>
             <groupId>com.google.oauth-client</groupId>

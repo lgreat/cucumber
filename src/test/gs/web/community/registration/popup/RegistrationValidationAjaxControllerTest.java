@@ -236,6 +236,36 @@ public class RegistrationValidationAjaxControllerTest extends BaseControllerTest
         verifyMocks(_userDao, _mockUserCommandValidator);
     }
 
+    public void testFailureBecauseFacebookAccount() throws Exception {
+        _request.setParameter(RegistrationValidationAjaxController.FIELD_PARAMETER, RegistrationValidationAjaxController.EMAIL);
+        _command.setFirstName("Samson");
+        _command.setScreenName("testRegistrationValidationController");
+        _command.setEmail("testRegistrationValidationController@greatschools.org");
+        _command.setTerms(true);
+
+        _user.setFacebookId("abc");
+        _user.setHow("facebook");
+
+        expect(_userDao.findUserFromEmailIfExists("testRegistrationValidationController@greatschools.org")).andReturn(
+            _user
+        );
+
+        replay(_userDao);
+
+        getRequest().setAttribute("joinHoverType", "ChooserTipSheet");
+
+        _controller.handle(getRequest(), getResponse(), _command, _errors);
+
+        verify(_userDao);
+        assertTrue(
+            "Expect error message since user is a 'Facebook user' and must log in with Facebook",
+            StringUtils.containsIgnoreCase(
+                getResponse().getContentAsString(),
+                "This account is linked to a Facebook account. Please sign in using Facebook."
+            )
+        );
+    }
+
     /*
     public void testBasics() throws Exception {
         _command.setFirstName("Samson");

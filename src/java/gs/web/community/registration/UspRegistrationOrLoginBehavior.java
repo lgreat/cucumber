@@ -1,6 +1,6 @@
 package gs.web.community.registration;
 
-public class UspRegistrationBehavior extends RegistrationBehavior {
+public class UspRegistrationOrLoginBehavior extends RegistrationOrLoginBehavior {
 
     // whether the user needs to verify email, and hence have a provisional password.
     public boolean requireEmailVerification() {

@@ -1,7 +1,7 @@
 package gs.web.content;
 
 
-import gs.web.authorization.GsOAuth2AuthenticationClient;
+import gs.web.auth.GsOAuth2AuthenticationClient;
 
 public class GsFacebookClient {
 

@@ -7,10 +7,16 @@
         >
 
 <div id="joinHover" style="display:none">
-<div class="hoverTitle">
+<div class="hoverTitle clearfix">
     <h2 class="fltlft">Speak your mind</h2>
     <span class="fltlft">Already a member? <a href="#" id="lnchSignin" onclick="">Sign in</a></span>
 </div>
+
+<div style="width:229px;">
+    <div class="spacer_10"><!-- do not collapse --></div>
+    <gsml:signInWithFacebookButton size="32" cssClass="dn js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
+</div>
+
 
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
@@ -174,7 +180,7 @@
     <div class="unit size3of19 formHelperWrapper">
         <div class="media formHelperText mbm">
             <div class="img mrs">*</div>
-            <div class="bd">Indicates a required field.</div>
+            <div class="bd">Required.</div>
         </div>
         <div class="media formHelperText">
             <div class="img mrs">&amp;nbsp;</div>
@@ -387,11 +393,8 @@
 
 <div class="line joinSubmit">
     <div class="unit size4of19">&amp;nbsp;</div>
-    <div class="unit size4of19">
+    <div class="unit size15of19 lastUnit">
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
-    </div>
-    <div class="unit size11of19 lastUnit">
-        <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
     </div>
 </div>
 

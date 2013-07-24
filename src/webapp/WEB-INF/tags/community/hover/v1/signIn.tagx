@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
     <div id="signInHover" class="dn">
@@ -21,8 +21,15 @@
             <p class="error"><!-- message --></p>
         </div>
         <form id="signin" action="/community/loginOrRegister.page" method="post">
-            <!--<fieldset class="signin">-->
-                <p>Sign in with an existing GreatSchools account:</p>
+            <div class="line">
+                <div class="unit size12of19">
+                    <p>Sign in with an existing GreatSchools account or using Facebook:</p>
+                </div>
+                <div class="unit size7of19 lastUnit">
+                    <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-signin" onclick="javascript:ModalManager.hideModal('signInHover');"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                </div>
+            </div>
+
             <div class="line">
                     <div class="unit size4of19">
                         <label for="semail" class="longLabel">Email address</label>
@@ -72,6 +79,7 @@
 
                 <input type="hidden" name="rememberMe" value="true"/>
                 <input type="hidden" name="redirect" class="redirect_field" value=""/>
+
             <!--</fieldset>-->
         </form>
     </div>
