@@ -70,7 +70,7 @@
         <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
 
             <!-- 2012 03 26 - mitch added id to the comments to link to from the toolbar  -->
-            <div class="mod articleComments hidden">
+            <div class="mod articleComments dn">
                 <div class="inner">
                     <div class="hd">
                         <h3>Comments from GreatSchools.org readers</h3>
