@@ -4,11 +4,21 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsweb="gstaglib"
         >
-    <div id="hover_nlSubscriptionThankYou" class="slStylesV1-0 nlHover" style="display:none;">
-        <div class="nlContent" id="thankYouMsg">
-            <h2>Thank you!</h2>
 
-            <!--<p ><div id="thankYouMsg"></div></p>-->
+    <div id="hover_nlSubscriptionThankYou" class="dn">
+        <div id="hover_nlSubscriptionThankYou" class="nlHover mod modal_1 width_16">
+            <div class="outer bg-nlSubscription moduleHeight-225">
+                <div class="fr">
+                    <span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span>
+                </div>
+                <div class="inner" style="width: 56%; margin-top:40px;">
+                    <div class="nlContent" id="thankYouMsg">
+                        <h2>Thank you!</h2>
+
+                        <!--<p ><div id="thankYouMsg"></div></p>-->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </jsp:root>

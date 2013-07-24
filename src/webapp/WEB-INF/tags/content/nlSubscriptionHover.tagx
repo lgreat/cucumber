@@ -16,10 +16,10 @@
                             <h2>Like this article?</h2>
                             <p>Sign up for our free newsletter and we'll send you<br/>more just like it every week.</p>
                             <div class="nlSignUp">
-                                <div id="nlSubEmail_error" class="smaller bottom validEmail" style="display:none">
+                                <div id="nlSubEmail_error" class="smaller bottom validEmail error_msg" style="display:none">
                                     Please enter a valid email address
                                 </div>
-                                <div id="nlSubEmail_error_alreadySub" class="smaller bottom validEmail" style="display:none">
+                                <div id="nlSubEmail_error_alreadySub" class="smaller bottom validEmail error_msg" style="display:none">
                                     The email address is already in use.
                                 </div>
                                 <span class="nlEmail">
