@@ -186,13 +186,13 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                     List<EspResponse> responses = espResults.get(AF_PROGRAM_NAME_KEY_PREFIX + i);
                     EspResponse response = responses != null ? responses.get(0) : null;
                     String title = response != null && response.getValue() != null ? response.getValue() + " (after school program)" : AF_PROGRAM_TEMP_TITLE_PREFIX + i;
-                    displayConfig.addAll(buildAfterSchoolSummerPrograms(AF_PROGRAM_TYPE, "extracurriculars", title, afterSchoolKeysPrefix.keySet(), i));
+                    displayConfig.addAll(buildAfterSchoolSummerPrograms(AF_PROGRAM_TYPE, MODEL_PREFIXES[1], title, afterSchoolKeysPrefix.keySet(), i));
                 }
                 for(int i = 1; i < 6; i++) {
                     List<EspResponse> responses = espResults.get(SUMMER_PROGRAM_NAME_KEY_PREFIX + i);
                     EspResponse response = responses != null ? responses.get(0) : null;
                     String title = response != null && response.getValue() != null ? response.getValue() + " (summer program)" : SUMMER_PROGRAM_TEMP_TITLE_PREFIX + i;
-                    displayConfig.addAll(buildAfterSchoolSummerPrograms(SUMMER_PROGRAM_TYPE, "extracurriculars", title, summerProgramKeysPrefix.keySet(), i));
+                    displayConfig.addAll(buildAfterSchoolSummerPrograms(SUMMER_PROGRAM_TYPE, MODEL_PREFIXES[1], title, summerProgramKeysPrefix.keySet(), i));
                 }
 
                 // The following builds the display data based on the DB results and the display requirements.
