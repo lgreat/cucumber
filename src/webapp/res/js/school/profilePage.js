@@ -188,7 +188,13 @@ GS.profile = GS.profile || (function() {
         } else if (initialTab.name === 'culture') {
 //            refreshableCultureAdSlotKeys.push('School_Profile_Page_Culture_CustomSponsor_630x40');
         }
-        refreshAdsForTab(currentTab.name);
+
+        // We can't just call refreshAdsForTab, since then non-delayed ads would get hit with two impressions
+        // on initial page load, any ads which have not been delayed have been displayed()ed and shown.
+        // but, there's logic that's needed to initialize the existing "handleTandem" logic, so that when Tandem
+        // call resolves/rejects, the handleTandem code knows which ads to refresh
+        initializeAdsForTab(currentTab.name);
+        //refreshAdsForTab(currentTab);
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             window.History.Adapter.bind(window, 'statechange', function() {
@@ -255,7 +261,6 @@ GS.profile = GS.profile || (function() {
 
         switch (tabName) {
             case "overview":{
-//                handleTandemBranding(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '', tabName);
                 var layerArr = ['Branded_Tandem_Tile_150x30'];
                 handleTandemBranding(refreshableTandemTileBranding, layerArr, '', '', tabName);
                 refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
@@ -284,6 +289,38 @@ GS.profile = GS.profile || (function() {
             }
             default:{
                 refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
+            }
+        }
+    };
+
+    var initializeAdsForTab = function (tabName) {
+        // on initial page load, any ads which have not been delayed have been displayed()ed and shown.
+        // but, there's logic that's needed to initialize the existing "handleTandemAd" logic in calendar.js, so that
+        // when Tandem call resolves/rejects, the handleTandem code knows which ads to refresh
+
+        switch (tabName) {
+            case "overview":{
+                var layerArr = ['Branded_Tandem_Tile_150x30'];
+                handleTandemBranding(refreshableTandemTileBranding, layerArr, '', '', tabName);
+                break;
+            }
+            case "culture":{
+                var layerArrCultureBranded = [
+                    'Footer_Branded_Tandem_728x90',
+                    'Header_Branded_Tandem_728x90',
+                    'AboveFold_Branded_Tandem_300x600',
+                    'BelowFold_Branded_Tandem_300x250'
+                ];
+                var layerArrCulture = [
+                    'Footer_728x90',
+                    'Header_728x90',
+                    'AboveFold_300x600',
+                    'BelowFold_300x250'
+                ];
+                handleTandemBranding(refreshableCultureBranding, layerArrCultureBranded, refreshableCultureNoBranding, layerArrCulture, tabName);
+                break;
+            }
+            default:{
             }
         }
     };
@@ -448,13 +485,35 @@ GS.profile = GS.profile || (function() {
         targeting - boolean to either target tab(true) or no tab target (false)
      */
     var refreshAdsOnTabGeneric = function(adslots, tabName, targeting) {
-        showReleventAds(adslots);
-        GS.ad.unhideGhostTextForAdSlots(adslots);
+        // patch for ads issue GS-14387. Should be combined with existing GS.ad.refreshAds call in xGAMSetup
+        var numberAdSlots = adslots.length;
+        var i, slot, slotName;
+        var adslotsCopy = adslots.slice(0);
+        for (i = 0; i < numberAdSlots; i++) {
+            slotName = adslots[i];
+            slot = GS.ad.slots[slotName];
+            if(slot.GS_displayedYet === false) {
+                // need to display instead of refresh
+                GS.ad.displayAd(slotName, slot.GS_domId);
+                // remove adslot from incoming array, so that it doesnt get refreshed
+                delete adslots[i];
+            }
+        }
+
+        showReleventAds(adslotsCopy);
+
+        GS.ad.unhideGhostTextForAdSlots(adslotsCopy);
+
+        // if no ad slots are left to be refreshed, exit early
+        if (!adslotsCopy.length > 0) {
+            return;
+        }
+
         if(targeting){
-            GS.ad.setTargetingAndRefresh(adslots, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+            GS.ad.setTargetingAndRefresh(adslotsCopy, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
         }
         else{
-            GS.ad.refreshAds(adslots);
+            GS.ad.refreshAds(adslotsCopy);
         }
     };
 
@@ -464,12 +523,85 @@ GS.profile = GS.profile || (function() {
         return href;
     };
 
+
+    var getDelayedAds= function() {
+        var slots = [];
+        var tab = GS.uri.Uri.getQueryData().tab || "overview";
+
+        switch (tab) {
+            case "overview":{
+                slots = slots.concat(refreshableTandemTileBranding);
+                slots = slots.concat(refreshableCultureBranding);
+                break;
+            }
+            case "culture":{
+                slots = slots.concat(refreshableCultureBranding);
+                slots = slots.concat(refreshableCultureNoBranding);
+                slots = slots.concat(refreshableTandemTileBranding);
+                break;
+            }
+            default:{
+                slots = slots.concat(refreshableCultureBranding);
+                slots = slots.concat(refreshableTandemTileBranding);
+            }
+        }
+
+        return slots;
+    };
+
+
+    var getImmediateAdsForTab = function(tabName) {
+        var slots = [];
+
+        switch (tabName) {
+            case "overview":{
+                slots.push(refreshableOverviewAdSlotKeys);
+                break;
+            }
+            case "reviews":{
+                slots.push(refreshableReviewsAdSlotKeys);
+                break;
+            }
+            case "culture":{
+                var layerArrCultureBranded = [
+                    'Footer_Branded_Tandem_728x90',
+                    'Header_Branded_Tandem_728x90',
+                    'AboveFold_Branded_Tandem_300x600',
+                    'BelowFold_Branded_Tandem_300x250'
+                ];
+                var layerArrCulture = [
+                    'Footer_728x90',
+                    'Header_728x90',
+                    'AboveFold_300x600',
+                    'BelowFold_300x250'
+                ];
+                // handleTandemBranding(refreshableCultureBranding, layerArrCultureBranded, refreshableCultureNoBranding, layerArrCulture, tabName);
+                // refreshCultureAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
+                break;
+            }
+            default:{
+                slots.push(refreshableNonOverviewAdSlotKeys);
+            }
+        }
+
+        return slots;
+    };
+
+    var shouldDelayAd = function(slotName) {
+        var delayedAds = GS.profile.getDelayedAds();
+        var shouldDelay = ($.inArray(slotName, delayedAds) > -1);
+        return shouldDelay;
+    };
+
     return {
         init:init,
         refreshAdsOnTabGeneric:refreshAdsOnTabGeneric,
         refreshAdsForTab:refreshAdsForTab,
         getAlternateSitePath:getAlternateSitePath,
-        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange
+        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange,
+        getImmediateAdsForCurrentTab:getImmediateAdsForTab,
+        getDelayedAds:getDelayedAds,
+        shouldDelayAd:shouldDelayAd
     };
 }());
 
@@ -1306,3 +1438,84 @@ function enableReview(reviewId) {
             window.location.reload();
         });
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+// Code for testing Ads
+
+GS.ad = GS.ad || {};
+GS.ad.slotTimers || {};
+
+GS.ad.startConsoleLogging = function() {
+
+    var pos = 0;
+
+    (function log(){
+        var logItems = googletag.getEventLog().H;
+        for (; pos < logItems.length; pos++) {
+            console.log(logItems[pos].Xa);
+        }
+        setTimeout(log, 100);
+    })();
+};
+
+GS.ad.displayAd = function(slotName) {
+    slotName = slotName || 'School_Profile_Page_BelowFold_Branded_Tandem_300x250';
+
+    var googleSlot = GS.ad.slots[slotName];
+    var domId = googleSlot.getSlotId().ob;
+
+    googletag.cmd.push(function() {
+        googletag.display(domId);
+        googleSlot.GS_displayedYet = true;
+    });
+};
+
+GS.ad.displayAndRefreshAd = function(slotName) {
+    slotName = slotName || 'School_Profile_Page_BelowFold_Branded_Tandem_300x250';
+
+    var googleSlot = GS.ad.slots[slotName];
+    var domId = googleSlot.getSlotId().ob;
+
+    googletag.cmd.push(function() {
+        googletag.display(domId);
+        googletag.pubads().refresh([googleSlot]);
+    });
+};
+
+GS.ad.refreshAd = function(slotName) {
+    slotName = slotName || 'School_Profile_Page_BelowFold_Branded_Tandem_300x250';
+
+    var googleSlot = GS.ad.slots[slotName];
+
+    googletag.cmd.push(function() {
+        googletag.pubads().refresh([googleSlot]);
+    });
+};
+
+GS.ad.displayThenRefreshAdAfterDelay = function(slotName, delay) {
+    GS.ad.displayAd(slotName);
+    setTimeout(function() {
+        GS.ad.refreshAd(slotName);
+    }, delay);
+};
+
+// called from within AdTagHandler
+// Profile page implementation of an ad's GPT display() step. Delay displaying ad if it's visibility is conditional
+GS.ad.display = function(slotName, domId) {
+    if(GS.profile.shouldDelayAd(slotName)) {
+        // When existing code goes to refresh the ad, we must first check if it has already been displayed
+        GS.ad.slots[slotName].GS_displayedYet = false;
+        GS.ad.slots[slotName].GS_domId = domId;
+
+        $("#"+domId).parent().parent().hide();
+    } else {
+        googletag.cmd.push(function() {
+            googletag.display(domId);
+
+            //GS.ad.slotTimers[slotName] = {};
+            //GS.ad.slotTimers[slotName].timestamp = new Date().getTime();
+            //GS.ad.slotTimers[slotName].adSlot = GS.ad.slots[slotName];
+        });
+    }
+};

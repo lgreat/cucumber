@@ -179,6 +179,7 @@
 
         <![CDATA[
                 GS.ad.refreshAds = function(slotKeys) {
+                console.log("REFRESHING:", slotKeys);
                     if(typeof(googletag) !== 'undefined' && googletag.pubads) {
             ]]>
         <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
@@ -289,8 +290,14 @@
 
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
-                googletag.pubads().enableSingleRequest();
             ]]>
+
+            <c:if test="${requestScope.context.gptSingleRequestMode}">
+                <![CDATA[
+                    googletag.pubads().enableSingleRequest();
+                ]]>
+            </c:if>
+
             <c:if test="${!requestScope.context.gptAsynchronousModeEnabled}">
                 <![CDATA[
                     googletag.pubads().enableSyncRendering();
@@ -298,6 +305,7 @@
             </c:if>
             <![CDATA[
                 googletag.enableServices();
+                GS.ad.startConsoleLogging(); //TODO: remove
                 }
             ]]>
 

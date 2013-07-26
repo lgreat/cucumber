@@ -120,6 +120,7 @@
     <k12:trafficDriverIncludes/>
 
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
+    <ad:disableGptSingleRequestMode/>
     <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
     <ad:enableGptAsynchronousMode />
     <ad:setGptSlotLevelTargetingKeyAssignment adKeyword="template" jsLookupVariable="GS.ad.profile.tabNameForAdTargeting"/>

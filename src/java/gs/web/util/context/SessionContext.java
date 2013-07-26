@@ -123,6 +123,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private Boolean _gptEnabledOverride = null;
     private Boolean _gptAsynchronousModeEnabledOverride = null;
     private Boolean _gptAsynchronousModeOnMobileEnabledOverride = null;
+    private boolean _gptSingleRequestMode = true;
 
     /**
      * GS-14332 Added the method to check if the Sweep Stakes Module should be on or off based on the property value - Shomi Arora .
@@ -801,5 +802,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setIosSafari(boolean iosSafari) {
         _iosSafari = iosSafari;
+    }
+
+    public boolean isGptSingleRequestMode() {
+        return _gptSingleRequestMode;
+    }
+
+    public void setGptSingleRequestMode(boolean gptSingleRequestMode) {
+        _gptSingleRequestMode = gptSingleRequestMode;
     }
 }

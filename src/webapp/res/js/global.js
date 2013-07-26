@@ -614,3 +614,33 @@ GS.util.isBrowserRetina = function(){
 GS.util.isWebkit = function(){
     return (jQuery("html").hasClass("safari") || jQuery("html").hasClass("chrome"));
 };
+
+
+var GS = GS || {};
+GS.ad = GS.ad || {};
+
+/*
+GS.ad.jsLoadedDeferred = function() {
+    var deferred = $.Deferred();
+
+    var planBTimer = function() {
+        var adLogString =
+    }
+
+    setTimeout(function() {
+        deferred.resolve();
+    }, 3000);
+
+    var pubads = googletag.pubads();
+    var existingOnGoogleAdsJsLoad = pubads.onGoogleAdsJsLoad;
+
+    pubads.onGoogleAdsJsLoad = function() {
+        GS.ad.deferred.resolve();
+        existingOnGoogleAdsJsLoad.apply(pubads, arguments);
+    };
+
+
+
+};*/
+
+

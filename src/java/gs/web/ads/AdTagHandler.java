@@ -6,6 +6,7 @@ package gs.web.ads;
 
 import gs.web.jsp.AbstractDeferredContentTagHandler;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -200,7 +201,12 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             }
 
             String divContainingAd = (disabledGptGhostTextHiding ? "gpt" + getId() : getAdId());
-            adCodeBuffer.append("googletag.display(\"").append(divContainingAd).append("\");");
+
+            if (isOnSchoolProfile(pageHelper)) {
+                adCodeBuffer.append("GS.ad.display(\""+ slotName + "\", \"" + divContainingAd + "\");");
+            } else {
+                adCodeBuffer.append("googletag.display(\"").append(divContainingAd).append("\");");
+            }
 
             if (isAsyncMode(sc)) {
                 adCodeBuffer.append("});");
@@ -317,5 +323,10 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
+    }
+
+    public boolean isOnSchoolProfile(PageHelper pageHelper) {
+
+        return pageHelper.hasAdKeywordWithValue("template","NewRating");
     }
 }
