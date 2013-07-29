@@ -1466,74 +1466,74 @@ GSType.hover.SchoolReviewPosted = function() {
 GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("schoolReviewPosted",640);
 
 //GS-13761
-GSType.hover.ClickToReviewYourSchool = function() {
-    this.loadDialog = function() {
-        jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
-            GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
-            if (!$.support.leadingWhitespace) {
-                //IE7 and 8 stuff
-                GSType.hover.clickToReviewYourSchool.hide();
-                function getPathFromUrl(url) {
-                    return url.split("?")[0];
-                }
-                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#schoolReviewSubmitForm";
-                window.location.href = linkToStr;
-            }
-        });
-    };
-    this.showHover = function() {
-        GSType.hover.clickToReviewYourSchool.show();
-    };
-    this.pageName = 'Review Your School Hover';
-    this.hier1 = 'Hovers,Crowdsourcing,Review Your School Hover';
-    this.executeOnExit = function(f) {
-        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).on('dialogclose', function() {
-            f();
-        });
-    };
-    this.cancelLoadOnExit = function() {
-        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).off('dialogclose');
-    };
-
-    this.showInterruptHoverOnPageExit = function(showHoverFunction) {
-        // automatically ignore any links with class no_interrupt
-        // assumes this is the first event executed when 'click' is triggered
-        $('a:not(.no_interrupt)').bindFirst('click', function(event) {
-            var $this = $(this);
-            var href = $this.attr('href');
-
-            if (!(href && href !== '' && href !== '#' && href !== (window.location.href+'#'))) {
-                return true;
-            } else if ($this.attr('target') || $this.attr('onclick')){
-                return true;
-            }
-
-            //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
-            //the same functionality as existing "mss auto hover on exit", but displays depending on number of reviews
-            //Therefore, use the same cookie and don't mess too much with existing code at this time. GS-13761
-            if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
-                // set cookie to avoid hover repeating
-                var threeMinuteDuration = getCookieExpiresDate(0,0,3);
-                createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
-                // cause whatever link triggered this event to be triggered by closing the hover
-                GSType.hover.clickToReviewYourSchool.executeOnExit(function() {
-                    var foo = $this.triggerHandler('click');
-                    if (foo) {
-                        window.location.href = href;
-                    }
-                });
-
-                showHoverFunction();
-
-                event.stopImmediatePropagation();
-                return false;
-            } else {
-                return true;
-            }
-        });
-    };
-};
-GSType.hover.ClickToReviewYourSchool.prototype = new GSType.hover.HoverDialog("clickToReviewYourSchoolHover",640);
+//GSType.hover.ClickToReviewYourSchool = function() {
+//    this.loadDialog = function() {
+//        jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
+//            GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
+//            if (!$.support.leadingWhitespace) {
+//                //IE7 and 8 stuff
+//                GSType.hover.clickToReviewYourSchool.hide();
+//                function getPathFromUrl(url) {
+//                    return url.split("?")[0];
+//                }
+//                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#schoolReviewSubmitForm";
+//                window.location.href = linkToStr;
+//            }
+//        });
+//    };
+//    this.showHover = function() {
+//        GSType.hover.clickToReviewYourSchool.show();
+//    };
+//    this.pageName = 'Review Your School Hover';
+//    this.hier1 = 'Hovers,Crowdsourcing,Review Your School Hover';
+//    this.executeOnExit = function(f) {
+//        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).on('dialogclose', function() {
+//            f();
+//        });
+//    };
+//    this.cancelLoadOnExit = function() {
+//        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).off('dialogclose');
+//    };
+//
+//    this.showInterruptHoverOnPageExit = function(showHoverFunction) {
+//        // automatically ignore any links with class no_interrupt
+//        // assumes this is the first event executed when 'click' is triggered
+//        $('a:not(.no_interrupt)').bindFirst('click', function(event) {
+//            var $this = $(this);
+//            var href = $this.attr('href');
+//
+//            if (!(href && href !== '' && href !== '#' && href !== (window.location.href+'#'))) {
+//                return true;
+//            } else if ($this.attr('target') || $this.attr('onclick')){
+//                return true;
+//            }
+//
+//            //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
+//            //the same functionality as existing "mss auto hover on exit", but displays depending on number of reviews
+//            //Therefore, use the same cookie and don't mess too much with existing code at this time. GS-13761
+//            if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
+//                // set cookie to avoid hover repeating
+//                var threeMinuteDuration = getCookieExpiresDate(0,0,3);
+//                createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
+//                // cause whatever link triggered this event to be triggered by closing the hover
+//                GSType.hover.clickToReviewYourSchool.executeOnExit(function() {
+//                    var foo = $this.triggerHandler('click');
+//                    if (foo) {
+//                        window.location.href = href;
+//                    }
+//                });
+//
+//                showHoverFunction();
+//
+//                event.stopImmediatePropagation();
+//                return false;
+//            } else {
+//                return true;
+//            }
+//        });
+//    };
+//};
+//GSType.hover.ClickToReviewYourSchool.prototype = new GSType.hover.HoverDialog("clickToReviewYourSchoolHover",640);
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
@@ -1568,7 +1568,7 @@ GSType.hover.reportContentHover = new GSType.hover.ReportContentHover();
 
 GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
-GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
+//GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
 
 GSType.hover.espProvisionalReminder = new GSType.hover.EspProvisionalReminder();
 
@@ -1954,7 +1954,7 @@ jQuery(function() {
     GSType.hover.reportContentHover.loadDialog();
     GSType.hover.miniStateLauncher.loadDialog();
     GSType.hover.schoolReviewPosted.loadDialog();
-    GSType.hover.clickToReviewYourSchool.loadDialog();
+//    GSType.hover.clickToReviewYourSchool.loadDialog();
 
     GSType.hover.espProvisionalReminder.loadDialog();
 
@@ -2239,9 +2239,10 @@ jQuery(function() {
         GSType.hover.schoolReviewPosted.show();
     } else if (showHover == "espProvisionalReminder") {
         GSType.hover.espProvisionalReminder.show();
-    } else if (showHover == "clickToReviewYourSchool") {
-        GSType.hover.clickToReviewYourSchool.show();
     }
+// else if (showHover == "clickToReviewYourSchool") {
+//        GSType.hover.clickToReviewYourSchool.show();
+//    }
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
     //Omniture tracking for facebook share button on school review hovers.GS-12508
