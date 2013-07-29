@@ -83,12 +83,13 @@
                     <!--<p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"-->
                     <!--id="PN_F_HT-ChoosingASchoolFromADistance"-->
                     <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
-                    <div class="fl"><p class="small_bold make-2b2b2b">New!</p>
-
-                        <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap"
-                                                      styleClass="small GS_CI9_"
-                                                      school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
-                        </p></div>
+                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
+                        <p>
+                            <a href="/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs"
+                                id="PN_P_HT-FindingTheRightElementarySchool"
+                                class="small GS_CI9_">Finding the right elementary school</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,10 +154,9 @@
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
-
-                        <p><a href="/reading/6990-young-children-reading.gs"
-                              id="PN_P_HT-ShouldYourPreschoolerAlreadyBeReading"
-                              class="small GS_CI9_">Should your preschooler already<br/> be reading?</a></p></div>
+                        <p><a href="/parenting/behavior-discipline/slideshows/4379-brain-preschool.gs"
+                              id="PN_P_HT-InsideYourPreschoolersBrain"
+                              class="small GS_CI9_">Inside your preschooler's brain</a></p></div>
                 </div>
             </div>
         </div>
@@ -230,8 +230,8 @@
 
                     <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/students/homework-help/60-five-skills-for-academic-success.gs"
-                              id="PN_E_HT-5KeySkillsForAcademicSuccess" class="small GS_CI9_">5 key skills for academic <br/>success</a></p></div>
+                        <p><a href="/reading/7096-children-learning-to-read.gs"
+                              id="PN_E_HT-NeverSettleForShellCatchUp" class="small GS_CI9_">Never settle for, "she'll catch up"</a></p></div>
                 </div>
             </div>
         </div>
@@ -292,9 +292,9 @@
 
                     <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/raising-successful-students.topic?content=7213"
-                              id="PN_M_HT-SecretsToMiddleSchoolSuccess"
-                              class="small GS_CI9_">Secrets to middle school <br/>success</a></p></div>
+                        <p><a href="/math/7559-algebra-middle-school-math-track.gs"
+                              id="PN_M_HT-BewareYourChildIsNowBeingTrackedInMath"
+                              class="small GS_CI9_">Beware: your child is now being<br/>tracked in math</a></p></div>
                 </div>
             </div>
         </div>
@@ -357,8 +357,8 @@
 
                     <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
 
-                        <p><a href="/parenting/behavior-discipline/slideshows/4414-brain-high-school.gs"
-                              id="PN_H_HT-AnInsideLookAtYourTeensBrain" class="small GS_CI9_">An inside look at your teen's<br/> brain</a>
+                        <p><a href="/back-to-school/slideshows/7567-back-to-school-learning-digital-devices.gs"
+                              id="PN_H_HT-9TechToolsForYourTeen" class="small GS_CI9_">9 tech tools for your teen</a>
                         </p></div>
                 </div>
             </div>
