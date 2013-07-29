@@ -84,6 +84,13 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     @Qualifier("exactTargetAPI")
     private ExactTargetAPI _exactTargetAPI;
 
+    public enum LoginOrRegistrationActions {
+        userInSession,
+        login,
+        sendVerificationEmail,
+        registration;
+    }
+
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
                                   HttpServletRequest request,
@@ -326,14 +333,20 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             userState.setEmailValid(true);
             User user = _userDao.findUserFromEmailIfExists(email);
             if (user != null) {
-                userState.setNewUser(false);
-                userState.setUserEmailValidated(user.isEmailValidated());
-                if (user.isEmailValidated() && isLogin) {
-                    try {
-                        boolean isValidLoginCredentials = user.matchesPassword(password);
-                        userState.setCookieMatched(isValidLoginCredentials);
-                    } catch (NoSuchAlgorithmException ex) {
-                        userState.setCookieMatched(false);
+
+                if (user.isPasswordEmpty()) {
+                    //Email only users should be treated as new users.
+                    userState.setNewUser(true);
+                } else {
+                    userState.setNewUser(false);
+                    userState.setUserEmailValidated(user.isEmailValidated());
+                    if (user.isEmailValidated() && isLogin) {
+                        try {
+                            boolean isValidLoginCredentials = user.matchesPassword(password);
+                            userState.setCookieMatched(isValidLoginCredentials);
+                        } catch (NoSuchAlgorithmException ex) {
+                            userState.setCookieMatched(false);
+                        }
                     }
                 }
             } else {
@@ -361,15 +374,26 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
      */
 
     public UserRegistrationOrLoginService.Summary getValidUser(HttpServletRequest request,
-                                        HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
-                                        UserLoginCommand userLoginCommand,
-                                        BindingResult bindingResult,
-                                        School school) {
+                                                               HttpServletResponse response, UserRegistrationCommand userRegistrationCommand,
+                                                               UserLoginCommand userLoginCommand,
+                                                               BindingResult bindingResult,
+                                                               School school) {
+
         try {
             UspRegistrationOrLoginBehavior registrationOrLoginBehavior = getRegistrationOrLoginBehaviour(school, request, userRegistrationCommand);
-            UserRegistrationOrLoginService.Summary summary =
-                    _userRegistrationOrLoginService.loginOrRegister(userRegistrationCommand, userLoginCommand, registrationOrLoginBehavior, bindingResult, request, response);
 
+            String action = request.getParameter("action");
+            UserRegistrationOrLoginService.Summary summary = null;
+            if (action.equals(LoginOrRegistrationActions.userInSession)) {
+                summary = _userRegistrationOrLoginService.getUserFromSession(request);
+            } else if (action.equals(LoginOrRegistrationActions.login)) {
+                summary = _userRegistrationOrLoginService.loginUser(userLoginCommand, request, response);
+            } else if (action.equals(LoginOrRegistrationActions.sendVerificationEmail)) {
+                summary = _userRegistrationOrLoginService.sendVerificationEmail(userLoginCommand, registrationOrLoginBehavior, request);
+            } else if (action.equals(LoginOrRegistrationActions.registration)) {
+                summary = _userRegistrationOrLoginService.registerUser(userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
+            }
+            User user = summary.getUser();
             if (!bindingResult.hasErrors()) {
                 return summary;
             }

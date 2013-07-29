@@ -116,7 +116,10 @@ GS.form.uspForm = (function ($) {
     var handleEmailVerification = function () {
         var uspForm = $(USP_FORM_SELECTOR);
         var emailField = $(LOGIN_EMAIL_SELECTOR);
-        saveForm(uspForm, '', emailField.val());
+        var data = uspForm.serializeArray();
+        data.push({name:"email", value:emailField.val()});
+        data.push({name:"action",value:"sendVerificationEmail"});
+        saveForm(data);
     };
 
     var handleValidationResponse = function (fieldSelector, errorMsg, elem) {
@@ -172,7 +175,8 @@ GS.form.uspForm = (function ($) {
                 pageTracking.send();
             }
             if (isUserSignedIn === true) {
-                saveForm(uspForm);
+                data.push({name:"action", value:"userInSession"});
+                saveForm(data);
             } else {
                 GSType.hover.modalUspRegistration.show();
             }
@@ -190,8 +194,19 @@ GS.form.uspForm = (function ($) {
                 var password = uspRegistrationPasswordField.val();
                 var email = $.trim(uspRegistrationEmailField.val());
                 var terms = true; // must be true for above validation to pass
+
+                var data = uspForm.serializeArray();
+                data.push({name:"email", value:email});
+                data.push({name:"password", value:password});
+                data.push({name:"terms", value:terms});
+                data.push({name:"action",value:"registration"});
+
+                if ($('.js-joinHover:visible').find('.js-mss .js-checkBoxSpriteOn:visible').length > 0) {
+                    data.push({name:"mss", value:true});
+                }
+
                 $.when(
-                    saveForm(uspForm, password, email, terms)
+                    saveForm(data)
                 ).done(function () {
                         GSType.hover.modalUspRegistration.hide();
                     })
@@ -215,7 +230,12 @@ GS.form.uspForm = (function ($) {
             function () {
                 var password = uspLoginPasswordField.val();
                 var email = $.trim(uspLoginEmailField.val());
-                saveForm(uspForm, password, email);
+                var data = uspForm.serializeArray();
+                data.push({name:"email", value:email});
+                data.push({name:"password", value:password});
+                data.push({name:"action", value:"login"});
+
+                saveForm(data);
             }
         ).fail(
             function () {
@@ -224,25 +244,8 @@ GS.form.uspForm = (function ($) {
         );
     };
 
-    var saveForm = function (uspForm, password, email, terms) {
+    var saveForm = function (data) {
         var dfd = $.Deferred();
-
-        var data = uspForm.serializeArray();
-
-        if (password !== undefined && password !== '') {
-            data.push({name:"password", value:password});
-        }
-        if (email !== undefined && email !== '') {
-            data.push({name:"email", value:email});
-        }
-
-        if($('.js-joinHover:visible').find('.js-mss .js-checkBoxSpriteOn:visible').length > 0) {
-            data.push({name:"mss", value:true});
-        }
-
-        if (terms !== undefined && terms !== '') {
-            data.push({name:"terms", value:terms});
-        }
 
         $.ajax({type:'POST',
                 async:true,
@@ -433,7 +436,6 @@ GS.form.uspForm = (function ($) {
             loginAndSaveData($uspForm, uspLoginPasswordField, uspLoginEmailField);
         });
 
-        //TODO forgot password
     };
 
     return {
