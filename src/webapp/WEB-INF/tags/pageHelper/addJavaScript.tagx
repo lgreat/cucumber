@@ -15,7 +15,7 @@
         <gsml:javascript src="/res/js/lib/conditionizr.min.js"/>
         <gsml:javascript src="/res/js/jquery/jquery-1.9.1.min.js"/>
         <!--<gsml:javascript src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>-->
-        <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.full.old.decorator.min.js"/>
+        <!--<gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.full.old.decorator.min.js"/>-->
         <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
         <gsml:javascript src="/res/js/jquery/jquery.autocomplete.js"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
         <gsml:javascript src="/res/js/uri/uri.js"/>
@@ -24,8 +24,8 @@
         <gsml:javascript src="/res/js/jquery/plugins/timepicker/jquery.ptTimeSelect.js"/>
         <gsml:javascript src="/res/js/global.js"/>
         <gsml:javascript src="/res/js/topnavpromo.js"/>
-        <gsml:javascript src="/res/js/hover.js"/>
-        <!--<gsml:javascript src="/res/js/modal/modalManager.js"/>-->
+        <gsml:javascript src="/res/js/modal/modalManager.js"/>
+        <gsml:javascript src="/res/js/hover-v1.js"/>
         <gsml:javascript src="/res/js/topnav.js"/>
         <gsml:javascript src="/res/js/gs_jquery_extensions.js"/>
         <gsml:javascript src="/res/js/house_ads.js"/>

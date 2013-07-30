@@ -1,367 +1,503 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
-<div id="joinHover" class="dn">
-<div class="mod modal_1 width_16" id="joinHover">
-<div class="outer">
-<div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
-<div class="inner">
-<div class="hoverTitle hd">
-    <div class="fl"><h2 class="bottom" >Speak your mind</h2></div>
-    <div class="fr small bottom" style="padding:5px 50px 0px 0px">Already a member? <a href="#" id="lnchSignin">Sign in</a></div>
-
-</div>
-<div style="clear: both" class="pbm"><!-- do not collapse --></div>
-<hr class="keyline1" />
-<div class="pbm"><!-- do not collapse --></div>
-
-<div class="bd tal">
-    <div>
-        <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
-    </div>
-    <div class="pbm"><!-- do not collapse --></div>
-    <div class="introTxt col">
-        <!-- GS-11161 -->
-        <p>
-            <span class="small_bold title">Join GreatSchools </span>
-            <span class="small subtitle">to participate in the parent community and other discussions on our site.</span>
-        </p>
-    </div>
-
-
-<form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post" class="pbn mbn">
-<div class="line">
-    <div id="js_ProcessError" class="unit size1of1 lastUnit dn pbm alert">
-        <span class="iconx16 i-16-alert"><!--not empty--></span> Please correct the errors below to continue.
-    </div>
-    <div class="clearfloat"><!-- do not collapse --></div>
-</div>
-
-<div class="line">
-    <div class="unit size1of1 lastUnit">
-        <div class="line joinHover_firstName">
-            <div class="unit size4of19">
-                <label for="fName">First name *</label>
-            </div>
-            <div class="unit size5of14">
-                <input type="text" id="fName" class="text-smaller input_5" name="firstName"/>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class="valid sucess dn"><span class="iconx16 i-16-success "><!-- do not collapse --></span> </span>
-                    <span class="invalid alert dn"><!-- not empty --></span>
-                </div>
-            </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-        </div>
-
-        <div class="line joinHover_email">
-            <div class="unit size4of19 joinLabel">
-                <label for="jemail" class="longLabel">Email address <span class="req">*</span></label>
-                <label for="jemail" class="shortLabel">Email</label>
-            </div>
-            <div class="unit size5of14">
-                <input type="text" id="jemail" class="text-smaller input_5" name="email"/>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class="valid sucess dn"><span class="iconx16 i-16-success "><!-- do not collapse --></span> </span>
-                    <span class="invalid alert dn"><!-- not empty --></span>
-                </div>
-            </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-        </div>
-
-        <div class="line joinHover_confirmEmail">
-            <div class="unit size4of19">
-                <label for="jcemail">Confirm email</label>
-            </div>
-            <div class="unit size5of14">
-                <input type="text" id="jcemail" class="text-smaller input_5" name="confirmEmail"/>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class="valid sucess dn"><span class="iconx16 i-16-success "><!-- do not collapse --></span> </span>
-                    <span class="invalid alert dn"><!-- not empty --></span>
-                </div>
-            </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-        </div>
-        <div class="line joinSubmitconfirm ptl dn">
-            <div class="unit size4of19">&amp;nbsp;</div>
-            <div class="unit size4of19">
-                <button class="button-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>
-            </div>
-            <div class="unit size11of19 lastUnit small">
-                <a href="#" class="js_closeHover">No thanks</a>
-            </div>
-        </div>
-
-        <div class="line joinHover_username">
-            <div class="unit size4of19">
-                <label for="uName">Username * </label>
-
-            </div>
-            <div class="unit size5of14">
-                <input type="text" id="uName" class="text-smaller input_5" name="screenName"/><br />
-                <div class="hint">6-14 characters</div>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class="valid dn success"><span class="iconx16 i-16-success "><!-- do not collapse --></span> Your username is available</span>
-                    <span class="invalid dn alert"><!-- do not collapse --></span>
-                </div>
-            </div>
-            <div class="spacer_7"><!-- do not collapse --></div>
-        </div>
-        <!--<p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>-->
-
-        <div class="line joinHover_password">
-            <div class="unit size4of19">
-                <label for="jpword">Password * </label>
-            </div>
-            <div class="unit size5of14">
-                <input type="password" id="jpword" class="text-smaller input_5" name="password"/><br/>
-                <div class="hint">6-14 characters</div>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class=" valid dn success" id="pw"><span class="iconx16 i-16-success "><!-- do not collapse --></span></span>
-                    <span class=" invalid dn alert" id="pw_invalid"><!-- not empty --></span>
-                </div>
-            </div>
-            <div class="spacer_7"><!-- do not collapse --></div>
-        </div>
-
-        <div class="line joinHover_confirmPassword">
-            <div class="unit size4of19">
-                <label for="cpword">Retype password *</label>
-            </div>
-            <div class="unit size5of14">
-                <input type="password" id="cpword" class="text-smaller input_5" name="confirmPassword"/>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class="valid sucess dn" id="pwmatch"><span class="iconx16 i-16-success "><!-- do not collapse --></span> </span>
-                    <span class="invalid alert dn" id="pwnomatch"><!-- not empty --></span>
-                </div>
-            </div>
-            <div class="clearfloat"><!-- do not collapse --></div>
-        </div>
-
-        <div class="line joinHover_location">
-            <div class="spacer_15"><!-- do not collapse --></div>
-            <div class="unit size4of19">
-                <label for="joinState">Where do you live?</label>
-            </div>
-            <div class="unit size5of14">
-                <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="joinState"/>
-                <select name="city" id="joinCity">
-                    <option>Loading...</option>
-                </select>
-            </div>
-            <div class="unit size3of7 lastUnit">
-                <div class="errors">
-                    <span class="invalid alert dn" id="joinHover_chooseLocation"><!-- not empty --></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="line separator">
-    <div class="unit size4of19">&amp;nbsp;</div>
-    <div class="unit size15of19 lastUnit">
-        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-        <div class="spacer_10"><!-- do not collapse --></div>
-    </div>
-</div>
-
-<div class="line separatorMss">
-    <div class="unit size1of1 lastUnit">
-        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-        <div class="spacer_10"><!-- do not collapse --></div>
-    </div>
-</div>
-
-<div class="line bottomHalf">
-    <div class="unit size3of19 formHelperWrapper">
-        <div class="media mbm">
-            <div class="img hint mrs">*</div>
-            <div class="bd hint">Required.</div>
-        </div>
-        <div >
-
-            <div class="hint ">Your privacy is important to us.
-                <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                  title="GreatSchools Privacy Policy"
-                                  href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow>
-            </div>
-        </div>
-    </div>
-    <div class="unit size1of19 formHelperSpacer">
-        &amp;nbsp;
-    </div>
-    <div class="unit size15of19 lastUnit btstips">
-        <div class="media grades">
-            <div class="img mrm">
-                <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>
-            </div>
-            <div class="bd">
-                <label for="opt1" class="checkbox-smaller">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
-                    <strong>Lowell High School</strong>.</label>
-            </div>
-        </div>
-
-        <div class="grades2" style="margin-left: 30px;">
-            <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-            <p class="smaller bottom "><a href="#" id="js_ShowHideGrades">Choose grades &amp;#187;</a></p>
-            <!--<ul class="none">-->
-                <!--<li id="pickGrade">-->
-
-                    <!--<button id="grdShow" type="button" title="show more">show more</button>-->
-                    <div id="js_showGradeSelect" class="rnd3 dn">
-                        <div class="line">
-                            <div class="unit size1of3">
-                                <div>
-                                    <input type="checkbox" value="mypk" id="gp" name="grades"/>
-                                    <label for="gp" class="checkbox-smaller">Preschool</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="myk" id="gk" name="grades"/>
-                                    <label for="gk" class="checkbox-smaller">Kindergarten</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my1" id="g1" name="grades"/>
-                                    <label for="g1" class="checkbox-smaller">1st Grade</label>
+    <div id="joinHover" class="dn">
+        <div class="mod modal_1 width_12 js-joinHover" id="joinHover">
+            <div class="outer">
+                <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner">
+                    <div class="hd">
+                        <h2 class="tal js-joinHoverTitle">Join GreatSchools</h2>
+                        <p class="tal mbn pbm">Create an account to submit your answers.</p>
+                    </div>
+                    <!--<form class="js_uspRegistrationForm" onsubmit="return false;">-->
+                    <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
+                        <div class="body pal">
+                            <div class="tac">
+                                <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                            </div>
+                            <h5 class="orText">
+                                <span>OR</span>
+                            </h5>
+                            <div class="joinHover_email clearfix">
+                                <label for="jemail" class="small_bold bottom">Email address</label><br/>
+                                <input type="text" id="jemail" class="fl small bottom input_5" name="email"/>
+                                <div class="errors fl" style="margin-top: 5px; margin-left: 5px;">
+                                    <span class="valid sucess dn"><span class="iconx16 i-16-success "><!-- do not collapse --></span> </span>
+                                    <span class="invalid alert dn"><!-- not empty --></span>
                                 </div>
                             </div>
-                            <div class="unit size1of3">
-                                <div>
-                                    <input type="checkbox" value="my2" id="g2" name="grades"/>
-                                    <label for="g2" class="checkbox-smaller">2nd Grade</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my3" id="g3" name="grades"/>
-                                    <label for="g3" class="checkbox-smaller">3rd Grade</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my4" id="g4" name="grades"/>
-                                    <label for="g4" class="checkbox-smaller">4th Grade</label>
+                            <div class="mtm joinHover_password clearfix">
+                                <label for="jpword" class="small_bold bottom">Choose a password</label><br/>
+                                <input type="password" id="jpword" class="fl small bottom input_5" name="password"/>
+                                <div class="errors fl" style="margin-top: 5px; margin-left: 5px;">
+                                    <span class=" valid dn success" id="pw"><span class="iconx16 i-16-success "><!-- do not collapse --></span></span>
+                                    <span class=" invalid dn alert" id="pw_invalid"><!-- not empty --></span>
                                 </div>
                             </div>
-                            <div class="unit size1of3 lastUnit">
-                                <div>
-                                    <input type="checkbox" value="my5" id="g5" name="grades"/>
-                                    <label for="g5" class="checkbox-smaller">5th Grade</label>
+                            <div class="mtm joinHover_confirmPassword clearfix">
+                                <label for="cpword" class="small_bold bottom">Retype password</label><br/>
+                                <input type="password" id="cpword" class="fl small bottom input_5" name="confirmPassword"/>
+                                <div class="errors fl pbm" style="margin-top: 5px; margin-left: 5px;">
+                                    <span class="valid dn success" id="pwmatch"><span class="iconx16 i-16-success "><!-- do not collapse --></span></span>
+                                    <span class="invalid dn alert" id="pwnomatch"><!-- not empty --></span>
                                 </div>
-                                <div>
-                                    <input type="checkbox" value="myms" id="gM" name="grades"/>
-                                    <label for="gM" class="checkbox-smaller">Middle School</label>
+                            </div>
+                            <div>
+                                <div class="media grades">
+                                    <div class="img mrm">
+                                        <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>
+                                    </div>
+                                    <div class="bd">
+                                        <label for="opt1" class="checkbox-smaller">Sign me up for weekly grade-by-grade tips and special offers in my area. <a href="#" class="js_ShowHideGrades">Choose grades &amp;#187;</a></label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input type="checkbox" value="myhs" id="gH" name="grades"/>
-                                    <label for="gH" class="checkbox-smaller">High School</label>
+
+                                <div id="js_showGradeSelect" class="js_showGradeSelect rnd3 dn clearfix">
+                                    <div class="line phl">
+                                        <div class="unit size1of3">
+                                            <div>
+                                                <input type="checkbox" value="mypk" id="gp" name="grades"/>
+                                                <label for="gp" class="checkbox-smaller">Preschool</label>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" value="myk" id="gk" name="grades"/>
+                                                <label for="gk" class="checkbox-smaller">Kindergarten</label>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" value="my1" id="g1" name="grades"/>
+                                                <label for="g1" class="checkbox-smaller">1st Grade</label>
+                                            </div>
+                                        </div>
+                                        <div class="unit size1of3">
+                                            <div>
+                                                <input type="checkbox" value="my2" id="g2" name="grades"/>
+                                                <label for="g2" class="checkbox-smaller">2nd Grade</label>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" value="my3" id="g3" name="grades"/>
+                                                <label for="g3" class="checkbox-smaller">3rd Grade</label>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" value="my4" id="g4" name="grades"/>
+                                                <label for="g4" class="checkbox-smaller">4th Grade</label>
+                                            </div>
+                                        </div>
+                                        <div class="unit size1of3 lastUnit">
+                                            <div>
+                                                <input type="checkbox" value="my5" id="g5" name="grades"/>
+                                                <label for="g5" class="checkbox-smaller">5th Grade</label>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" value="myms" id="gM" name="grades"/>
+                                                <label for="gM" class="checkbox-smaller">Middle School</label>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" value="myhs" id="gH" name="grades"/>
+                                                <label for="gH" class="checkbox-smaller">High School</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix ptm">
+                                <button class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</button>
+                                <div class="pll pts fl small bottom">
+                                    Already a member?
+                                    <strong><a href="#" id="lnchSignin">Sign in</a></strong>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="line">-->
-                            <!--<div class="unit size1of1 lastUnit">-->
-                                <!--<button class="button-1" id="gradeDone" type="button">Done</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <div class="clearFloat"><!-- do not collapse --></div>
+                    </form>
+                    <div class="modalFooter pts">By joining GreatSchools, you agree to our
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Terms of Use"
+                                          href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>,
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Community Standards"
+                                          href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>, and
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Community Standards"
+                                          href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>
+                        <link:privacyPolicy>GreatSchools Privacy policy</link:privacyPolicy>.
                     </div>
-                <!--</li>-->
-            <!--</ul>-->
-        </div>
-
-        <div class="media joinHover_ld mtm">
-            <div class="img mrm">
-                <input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>
+                </div>
             </div>
-            <div class="bd">
-                <label for="opt2" class="checkbox-smaller">Send me monthly emails about Learning Difficulties.</label>
-            </div>
-        </div>
-
-        <div class="media joinHover_btstip mtm">
-            <div class="img mrm">
-                <input type="checkbox" name="btsTip" value="true" id="opt4"/>
-            </div>
-            <div class="bd">
-                <label for="opt4" class="checkbox-smaller">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
-                <ul class="inner-row">
-                    <li class="btstip_version">
-                        <span>Select a version:</span>
-                        <input type="radio" name="btsTipVersion" value="e" id="btstip_elem"
-                               checked="checked"/>
-                        <label for="btstip_elem">Elementary School</label>
-                        <input type="radio" name="btsTipVersion" value="m" id="btstip_middle"/>
-                        <label for="btstip_middle">Middle School</label>
-                        <input type="radio" name="btsTipVersion" value="h" id="btstip_high"/>
-                        <label for="btstip_high">High School</label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="media joinHover_partners mtm">
-            <div class="img mrm">
-                <c:choose>
-                    <c:when test="${requestScope.context.partnerOptInCheckedByDefault}">
-                        <input type="checkbox" name="partnerNewsletter" value="true" id="opt3"
-                               checked="checked"/>
-                    </c:when>
-                    <c:otherwise>
-                        <input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-            <div class="bd">
-                <label for="opt3" class="checkbox-smaller">Send me offers to save on family activities and special
-                    promotions from our carefully chosen partners.</label>
-            </div>
-        </div>
-
-        <div class="joinHover_terms pts">
-
-           <input type="checkbox" name="terms" value="true" class="dn" checked="checked"/>
-
-                <label for="touy" class="mumbo">
-                By joining GreatSchools, you agree to our
-                <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                  title="GreatSchools Terms of Use"
-                                  href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
-                and
-                <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                  title="GreatSchools Community Standards"
-                                  href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>. *</label>
-
         </div>
     </div>
 
-</div>
 
-<div class="line joinSubmit ptl dn">
-    <div class="unit size4of19">&amp;nbsp;</div>
-    <div class="unit size15of19 lastUnit">
-        <button class="button-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>
-    </div>
-</div>
-
-<input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser"/>
-<input type="hidden" name="redirectUrl" class="redirect_field" value=""/>
-<input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>
-<input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>
-</form>
-
-</div></div></div></div>
-</div>
 
 </jsp:root>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<jsp:root version="2.0"-->
+          <!--xmlns:jsp="http://java.sun.com/JSP/Page"-->
+          <!--xmlns:c="http://java.sun.com/jsp/jstl/core"-->
+          <!--xmlns:gsweb="gstaglib"-->
+          <!--xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"-->
+        <!-->-->
+
+<!--<div id="joinHover" class="dn">-->
+<!--<div class="mod modal_1 width_16" id="joinHover">-->
+<!--<div class="outer">-->
+<!--<div class="fr"><span class="iconx24 i-24-close  js_closeHover">&lt;!&ndash; do not collapse &ndash;&gt;</span></div>-->
+<!--<div class="inner">-->
+<!--<div class="hoverTitle hd">-->
+    <!--<div class="fl"><h2 class="bottom" >Speak your mind</h2></div>-->
+    <!--<div class="fr small bottom" style="padding:5px 50px 0px 0px">Already a member? <a href="#" id="lnchSignin">Sign in</a></div>-->
+
+<!--</div>-->
+<!--<div style="clear: both" class="pbm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+<!--<hr class="keyline1" />-->
+<!--<div class="pbm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+
+<!--<div class="bd tal">-->
+    <!--<div>-->
+        <!--<gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join">&lt;!&ndash; do not collapse &ndash;&gt;</gsml:signInWithFacebookButton>-->
+    <!--</div>-->
+    <!--<div class="pbm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+    <!--<div class="introTxt col">-->
+        <!--&lt;!&ndash; GS-11161 &ndash;&gt;-->
+        <!--<p>-->
+            <!--<span class="small_bold title">Join GreatSchools </span>-->
+            <!--<span class="small subtitle">to participate in the parent community and other discussions on our site.</span>-->
+        <!--</p>-->
+    <!--</div>-->
+
+
+<!--<form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post" class="pbn mbn">-->
+<!--<div class="line">-->
+    <!--<div id="js_ProcessError" class="unit size1of1 lastUnit dn pbm alert">-->
+        <!--<span class="iconx16 i-16-alert">&lt;!&ndash;not empty&ndash;&gt;</span> Please correct the errors below to continue.-->
+    <!--</div>-->
+    <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+<!--</div>-->
+
+<!--<div class="line">-->
+    <!--<div class="unit size1of1 lastUnit">-->
+        <!--<div class="line joinHover_firstName">-->
+            <!--<div class="unit size4of19">-->
+                <!--<label for="fName">First name *</label>-->
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<input type="text" id="fName" class="text-smaller input_5" name="firstName"/>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class="valid sucess dn"><span class="iconx16 i-16-success ">&lt;!&ndash; do not collapse &ndash;&gt;</span> </span>-->
+                    <!--<span class="invalid alert dn">&lt;!&ndash; not empty &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</div>-->
+
+        <!--<div class="line joinHover_email">-->
+            <!--<div class="unit size4of19 joinLabel">-->
+                <!--<label for="jemail">Email address <span class="req">*</span></label>-->
+                <!--<label for="jemail" class="shortLabel">Email</label>-->
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<input type="text" id="jemail" class="text-smaller input_5" name="email"/>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class="valid sucess dn"><span class="iconx16 i-16-success ">&lt;!&ndash; do not collapse &ndash;&gt;</span> </span>-->
+                    <!--<span class="invalid alert dn">&lt;!&ndash; not empty &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</div>-->
+
+        <!--<div class="line joinHover_confirmEmail">-->
+            <!--<div class="unit size4of19">-->
+                <!--<label for="jcemail">Confirm email</label>-->
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<input type="text" id="jcemail" class="text-smaller input_5" name="confirmEmail"/>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class="valid sucess dn"><span class="iconx16 i-16-success ">&lt;!&ndash; do not collapse &ndash;&gt;</span> </span>-->
+                    <!--<span class="invalid alert dn">&lt;!&ndash; not empty &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</div>-->
+        <!--<div class="line joinSubmitconfirm ptl dn">-->
+            <!--<div class="unit size4of19">&amp;nbsp;</div>-->
+            <!--<div class="unit size4of19">-->
+                <!--<button class="button-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>-->
+            <!--</div>-->
+            <!--<div class="unit size11of19 lastUnit small">-->
+                <!--<a href="#" class="js_closeHover">No thanks</a>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="line joinHover_username">-->
+            <!--<div class="unit size4of19">-->
+                <!--<label for="uName">Username * </label>-->
+
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<input type="text" id="uName" class="text-smaller input_5" name="screenName"/><br />-->
+                <!--<div class="hint">6-14 characters</div>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class="valid dn success"><span class="iconx16 i-16-success ">&lt;!&ndash; do not collapse &ndash;&gt;</span> Your username is available</span>-->
+                    <!--<span class="invalid dn alert">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="spacer_7">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>&ndash;&gt;-->
+
+        <!--<div class="line joinHover_password">-->
+            <!--<div class="unit size4of19">-->
+                <!--<label for="jpword">Password * </label>-->
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<input type="password" id="jpword" class="text-smaller input_5" name="password"/><br/>-->
+                <!--<div class="hint">6-14 characters</div>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class=" valid dn success" id="pw"><span class="iconx16 i-16-success ">&lt;!&ndash; do not collapse &ndash;&gt;</span></span>-->
+                    <!--<span class=" invalid dn alert" id="pw_invalid">&lt;!&ndash; not empty &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="spacer_7">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</div>-->
+
+        <!--<div class="line joinHover_confirmPassword">-->
+            <!--<div class="unit size4of19">-->
+                <!--<label for="cpword">Retype password *</label>-->
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<input type="password" id="cpword" class="text-smaller input_5" name="confirmPassword"/>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class="valid sucess dn" id="pwmatch"><span class="iconx16 i-16-success ">&lt;!&ndash; do not collapse &ndash;&gt;</span> </span>-->
+                    <!--<span class="invalid alert dn" id="pwnomatch">&lt;!&ndash; not empty &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</div>-->
+
+        <!--<div class="line joinHover_location">-->
+            <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+            <!--<div class="unit size4of19">-->
+                <!--<label for="joinState">Where do you live?</label>-->
+            <!--</div>-->
+            <!--<div class="unit size5of14">-->
+                <!--<gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="joinState"/>-->
+                <!--<select name="city" id="joinCity">-->
+                    <!--<option>Loading...</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="unit size3of7 lastUnit">-->
+                <!--<div class="errors">-->
+                    <!--<span class="invalid alert dn" id="joinHover_chooseLocation">&lt;!&ndash; not empty &ndash;&gt;</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="line separator">-->
+    <!--<div class="unit size4of19">&amp;nbsp;</div>-->
+    <!--<div class="unit size15of19 lastUnit">-->
+        <!--<div class="spacer_10 brdbtm_dotted">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="line separatorMss">-->
+    <!--<div class="unit size1of1 lastUnit">-->
+        <!--<div class="spacer_10 brdbtm_dotted">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="line bottomHalf">-->
+    <!--<div class="unit size3of19 formHelperWrapper">-->
+        <!--<div class="media mbm">-->
+            <!--<div class="img hint mrs">*</div>-->
+            <!--<div class="bd hint">Required.</div>-->
+        <!--</div>-->
+        <!--<div >-->
+
+            <!--<div class="hint ">Your privacy is important to us.-->
+                <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
+                                  <!--title="GreatSchools Privacy Policy"-->
+                                  <!--href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="unit size1of19 formHelperSpacer">-->
+        <!--&amp;nbsp;-->
+    <!--</div>-->
+    <!--<div class="unit size15of19 lastUnit btstips">-->
+        <!--<div class="media grades">-->
+            <!--<div class="img mrm">-->
+                <!--<input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>-->
+            <!--</div>-->
+            <!--<div class="bd">-->
+                <!--<label for="opt1" class="checkbox-smaller">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about-->
+                    <!--<strong>Lowell High School</strong>.</label>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="grades2" style="margin-left: 30px;">-->
+            <!--&lt;!&ndash;<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>&ndash;&gt;-->
+            <!--<p class="smaller bottom "><a href="#" id="js_ShowHideGrades">Choose grades &amp;#187;</a></p>-->
+            <!--&lt;!&ndash;<ul class="none">&ndash;&gt;-->
+                <!--&lt;!&ndash;<li id="pickGrade">&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<button id="grdShow" type="button" title="show more">show more</button>&ndash;&gt;-->
+                    <!--<div id="js_showGradeSelect" class="rnd3 dn">-->
+                        <!--<div class="line">-->
+                            <!--<div class="unit size1of3">-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="mypk" id="gp" name="grades"/>-->
+                                    <!--<label for="gp" class="checkbox-smaller">Preschool</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="myk" id="gk" name="grades"/>-->
+                                    <!--<label for="gk" class="checkbox-smaller">Kindergarten</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my1" id="g1" name="grades"/>-->
+                                    <!--<label for="g1" class="checkbox-smaller">1st Grade</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="unit size1of3">-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my2" id="g2" name="grades"/>-->
+                                    <!--<label for="g2" class="checkbox-smaller">2nd Grade</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my3" id="g3" name="grades"/>-->
+                                    <!--<label for="g3" class="checkbox-smaller">3rd Grade</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my4" id="g4" name="grades"/>-->
+                                    <!--<label for="g4" class="checkbox-smaller">4th Grade</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="unit size1of3 lastUnit">-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my5" id="g5" name="grades"/>-->
+                                    <!--<label for="g5" class="checkbox-smaller">5th Grade</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="myms" id="gM" name="grades"/>-->
+                                    <!--<label for="gM" class="checkbox-smaller">Middle School</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="myhs" id="gH" name="grades"/>-->
+                                    <!--<label for="gH" class="checkbox-smaller">High School</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="line">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="unit size1of1 lastUnit">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<button class="button-1" id="gradeDone" type="button">Done</button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--<div class="clearFloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <!--</div>-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="media joinHover_ld mtm">-->
+            <!--<div class="img mrm">-->
+                <!--<input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>-->
+            <!--</div>-->
+            <!--<div class="bd">-->
+                <!--<label for="opt2" class="checkbox-smaller">Send me monthly emails about Learning Difficulties.</label>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="media joinHover_btstip mtm">-->
+            <!--<div class="img mrm">-->
+                <!--<input type="checkbox" name="btsTip" value="true" id="opt4"/>-->
+            <!--</div>-->
+            <!--<div class="bd">-->
+                <!--<label for="opt4" class="checkbox-smaller">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>-->
+                <!--<ul class="inner-row">-->
+                    <!--<li class="btstip_version">-->
+                        <!--<span>Select a version:</span>-->
+                        <!--<input type="radio" name="btsTipVersion" value="e" id="btstip_elem"-->
+                               <!--checked="checked"/>-->
+                        <!--<label for="btstip_elem">Elementary School</label>-->
+                        <!--<input type="radio" name="btsTipVersion" value="m" id="btstip_middle"/>-->
+                        <!--<label for="btstip_middle">Middle School</label>-->
+                        <!--<input type="radio" name="btsTipVersion" value="h" id="btstip_high"/>-->
+                        <!--<label for="btstip_high">High School</label>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="media joinHover_partners mtm">-->
+            <!--<div class="img mrm">-->
+                <!--<c:choose>-->
+                    <!--<c:when test="${requestScope.context.partnerOptInCheckedByDefault}">-->
+                        <!--<input type="checkbox" name="partnerNewsletter" value="true" id="opt3"-->
+                               <!--checked="checked"/>-->
+                    <!--</c:when>-->
+                    <!--<c:otherwise>-->
+                        <!--<input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/>-->
+                    <!--</c:otherwise>-->
+                <!--</c:choose>-->
+            <!--</div>-->
+            <!--<div class="bd">-->
+                <!--<label for="opt3" class="checkbox-smaller">Send me offers to save on family activities and special-->
+                    <!--promotions from our carefully chosen partners.</label>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="joinHover_terms pts">-->
+
+           <!--<input type="checkbox" name="terms" value="true" class="dn" checked="checked"/>-->
+
+                <!--<label for="touy" class="mumbo">-->
+                <!--By joining GreatSchools, you agree to our-->
+                <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
+                                  <!--title="GreatSchools Terms of Use"-->
+                                  <!--href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>-->
+                <!--and-->
+                <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
+                                  <!--title="GreatSchools Community Standards"-->
+                                  <!--href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>. *</label>-->
+
+        <!--</div>-->
+    <!--</div>-->
+
+<!--</div>-->
+
+<!--<div class="line joinSubmit ptl dn">-->
+    <!--<div class="unit size4of19">&amp;nbsp;</div>-->
+    <!--<div class="unit size15of19 lastUnit">-->
+        <!--<button class="button-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser"/>-->
+<!--<input type="hidden" name="redirectUrl" class="redirect_field" value=""/>-->
+<!--<input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>-->
+<!--<input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>-->
+<!--</form>-->
+
+<!--</div></div></div></div>-->
+<!--</div>-->

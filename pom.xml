@@ -363,6 +363,8 @@
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
                                 <param>11_modal/jquery-ui-1.10.2.custom.css</param>
+                                <param>11_modal/modal.css</param>
+                                <param>11_modal/modalContentLayout.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>38_special/cms_content.css</param>
@@ -394,7 +396,8 @@
                                 <param>topnavpromo.js</param>
                                 <param>topnav.js</param>
                                 <param>gs_jquery_extensions.js</param>
-                                <param>hover.js</param>
+                                <param>modal/modalManager.js</param>
+                                <param>hover-v1.js</param>
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
@@ -601,6 +604,7 @@
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
                                 <param>11_modal/modal.css</param>
+                                <param>11_modal/modalContentLayout.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>14_maps/maps.css</param>

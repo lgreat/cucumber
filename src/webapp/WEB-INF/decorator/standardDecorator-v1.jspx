@@ -127,6 +127,12 @@
     </script>
     <![endif]-->   ]]>
     <mobile:desktopSiteSwitchJS/>
+    <br /><br /><br /><br /><br /><br />
+    <a onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;">Join</a>
+    <br /><br />
+    <a onclick="GSType.hover.emailValidated.show(); return false;">emailValidated</a>
+
+    <br /><br /><br />
     </body>
     </html>
 

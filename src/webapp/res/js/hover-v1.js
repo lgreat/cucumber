@@ -545,9 +545,9 @@ GSType.hover.JoinHover = function() {
         // show nth / MSS
         // GS-11161
         //GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabelNew();
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabelNew();
 
-        GSType.hover.joinHover.showSimpleMssFields();
+//        GSType.hover.joinHover.showSimpleMssFields();
 
         GSType.hover.joinHover.setJoinHoverType("Auto");
 
@@ -567,11 +567,11 @@ GSType.hover.JoinHover = function() {
             " to submit your review. Once you verify your email address, your review will be posted, provided it meets our guidelines.");
 
         // set label for weekly updates opt-in
-        if (GSType.hover.joinHover.schoolName) {
-            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
-        } else {
-            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
-        }
+//        if (GSType.hover.joinHover.schoolName) {
+//            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+//        } else {
+//            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        }
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
 
@@ -588,7 +588,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
             "to get the resources you need to support your child with a learning difficulty or attention problem");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show LD newsletter
         jQuery('#joinHover .joinHover_ld').show();
 
@@ -610,7 +610,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
             "to get Back-to-School tips delivered straight to your inbox!");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show BTS tip
         jQuery('#joinHover .joinHover_btstip').show();
         // hide partners
@@ -634,7 +634,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
             "to participate in the parent community and other discussions on our site");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.setJoinHoverType("PostComment");
 
@@ -682,7 +682,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
             "to get grade-by-grade tips and practical advice to help you guide your child to educational success.");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.configureOmniture('Weekly NL Join Hover', 'Hovers,Join,Weekly NL Join Hover');
 
@@ -704,7 +704,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
             "to save one or more schools of interest to your personalized list.");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.setJoinHoverType("MSL");
 
@@ -2140,28 +2140,29 @@ jQuery(function() {
         return false;
     });
      */
-    jQuery('.js_chooseEnableDisable').click(function( ) {
+    jQuery('.js_chooseEnableDisable').on("click",function( ) {
         if(jQuery(this).is(':checked')){
-            jQuery('#js_ShowHideGrades').removeClass('disabled_field');
+            jQuery('.js_ShowHideGrades').removeClass('disabled_field');
         }
         else{
-            jQuery("#js_showGradeSelect").hide('fast');
-            jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
-            jQuery('#js_ShowHideGrades').addClass('disabled_field');
+            jQuery(".js_showGradeSelect").hide('fast');
+            jQuery('.js_ShowHideGrades').html("Choose grades &#187;");
+            jQuery('.js_ShowHideGrades').addClass('disabled_field');
         }
     })
 
-    jQuery('#js_ShowHideGrades').click(function( event) {
+    jQuery('.js_ShowHideGrades').on("click", function( event) {
+        console.log("test");
         event.preventDefault();
-        if(!jQuery('#js_ShowHideGrades').hasClass('disabled_field')){
-            if(jQuery("#js_showGradeSelect").css("display") == "none"){
+        if(!jQuery('.js_ShowHideGrades').hasClass('disabled_field')){
+            if(jQuery(".js_showGradeSelect").css("display") == "none"){
 
-                jQuery("#js_showGradeSelect").show('fast');
-                jQuery('#js_ShowHideGrades').html("&#171; Hide Grade Chooser");
+                jQuery(".js_showGradeSelect").show('fast');
+                jQuery('.js_ShowHideGrades').html("&#171; Hide Grade Chooser");
             }
             else{
-                jQuery("#js_showGradeSelect").hide('fast');
-                jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
+                jQuery(".js_showGradeSelect").hide('fast');
+                jQuery('.js_ShowHideGrades').html("Choose grades &#187;");
             }
         }
     });

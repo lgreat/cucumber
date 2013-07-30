@@ -52,7 +52,8 @@
             <!-- 19 --> <gsml:css href="/res/css/10_css3/linear_gradients.css"/>
             <!-- 20 --> <gsml:css href="/res/css/10_css3/opacity_shadow.css"/>
             <!-- 21 --> <gsml:css href="/res/css/13_tabs/tabs.css"/>
-            <!--<gsml:css href="/res/css/11_modal/modal.css"/>-->
+            <gsml:css href="/res/css/11_modal/modal.css"/>
+            <gsml:css href="/res/css/11_modal/modalContentLayout.css"/>
             <!-- 22 --> <gsml:css href="/res/css/12_advertising/ad.css"/>
             <!-- 23 --> <gsml:css href="/res/css/12_advertising/ad-IE7.css" IEConditional="if IE 7"/>
             <!-- 24 --> <gsml:css href="/res/css/12_advertising/ad-IE8.css" IEConditional="if IE 8"/>

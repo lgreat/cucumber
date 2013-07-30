@@ -618,21 +618,21 @@ h4.subhead2 a {
 
 /* **************** BLOCK STRUCTURES ***************** */
 /* ------------------- mod ------------------- */
-.mod {
-    margin: 0;
-}
+/*.mod {*/
+    /*margin: 0;*/
+/*}*/
 
-.mod .outer {
-}
+/*.mod .outer {*/
+/*}*/
 
-.mod .inner {
-}
+/*.mod .inner {*/
+/*}*/
 
-.bd, .ft, .hd {
-    overflow: hidden;
-    *overflow: visible;
-    zoom: 1;
-}
+/*.bd, .ft, .hd {*/
+    /*overflow: hidden;*/
+    /**overflow: visible;*/
+    /*zoom: 1;*/
+/*}*/
 
 /* **************** BLOCK SKINS ***************** */
 /* --------- standard (extends mod) ---------- */

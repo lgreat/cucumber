@@ -1,0 +1,58 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Modal Content Layout
+Description: Created to support Old Decorator conversion to new layout by name spacing
+Author: Mitchell Seltzer
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+.modal_1 h2{
+    font: normal 21px/25px  Arial, Helvetica, sans-serif; color: #2b2b2b; margin-bottom: 20px;
+}
+.modal_1 h2.js-joinHoverTitle{
+    font: normal 21px/25px  Arial, Helvetica, sans-serif; color: #2b2b2b; margin-bottom: 10px;
+}
+.modal_1 .small_bold  { font: bold 12px/20px Arial, Helvetica, sans-serif;}
+.modal_1 .small  { font: normal 12px/20px Arial, Helvetica, sans-serif;}
+.modal_1 .bottom  { margin-bottom: 0px; padding-bottom: 0px}
+.modal_1 label.checkbox-smaller, label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; display: inline; }
+
+
+.modal_1 form input[type="text"],
+.modal_1 form input[type="password"]{width: 320px; margin-bottom: 10px; padding: 3px;}
+.modal_1 .dn { display: none; }
+
+.modal_1 .orText {
+    font: 14px sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.modal_1 .orText:before {
+    border-top: 1px solid #dfdfdf;
+    content:"";
+    margin: 0 auto;
+    position: absolute;
+    top: 8px; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.modal_1 .orText span { background: #fff; padding: 0 10px; }
+
+.modal_1 .modalFooter{color:#999999; font-size: 11px;}
+.modal_1 .modalFooter a{color:#999999; font-size: 11px; text-decoration: underline}

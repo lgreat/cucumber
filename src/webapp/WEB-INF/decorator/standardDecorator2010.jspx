@@ -10,10 +10,10 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
         xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare/v1"
         xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -106,8 +106,8 @@
         <communityHover:forgotPassword/>
         <communityHover:schoolReviewThankYou/>
         <communityHover:emailValidatedSchoolReview/>
-        <school:principalConfirmHover/>
-        <school:principalReviewSubmitted/>
+        <profile:principalConfirmHover/>
+        <profile:principalReviewSubmitted/>
         <compare:compareSchoolsLimitReachedHover/>
         <communityHover:espAccountVerified/>
 
@@ -145,6 +145,13 @@
     <div id="fullPageOverlay"><!-- do not collapse --></div>
     ${requestScope.pageHelper.bottomJavaScript}
     <mobile:desktopSiteSwitchJS/>
+    <br /><br /><br /><br /><br /><br />
+    <a onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;">Join</a>
+<br /><br />
+    <a onclick="GSType.hover.emailValidated.show(); return false;">emailValidated</a>
+
+    <br /><br /><br />
+
     </body>
     </html>
 </jsp:root>
