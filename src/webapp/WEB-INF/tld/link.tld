@@ -4795,5 +4795,12 @@
             <type>java.lang.String</type>
             <description>HTML class attribute</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>JavaScript onclick attribute</description>
+        </attribute>
     </tag>
 </taglib>

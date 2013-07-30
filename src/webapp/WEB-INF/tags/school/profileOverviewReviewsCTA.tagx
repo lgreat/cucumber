@@ -4,7 +4,7 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
         >
 
-    <gslink:linkToTab tabName="reviews" cssClass="tdn make-555555" customLink="overview_writereview">
+    <gslink:linkToTab tabName="reviews" cssClass="tdn make-555555" customLink="overview_writereview" tileName="revcta">
         <div class="mod standard_3-1">
             <div class="outer">
                 <div class="inner bg-writeReviews ie-moduleHeight-171">

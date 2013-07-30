@@ -35,12 +35,13 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'schvid')}" scope="request"/>
+            <c:set var="omnitureTileName" value="schvid"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
 
                 <div class="mod standard_1-1">
                     <div class="inner box-shadow-animation-1">
                         <div id="js-tile-3-0">
-                            <gslink:linkToTab tabName="culture" cssClass="tdn make-555555 js-trigger">
+                            <gslink:linkToTab tabName="culture" cssClass="tdn make-555555 js-trigger" tileName="${omnitureTileName}">
                                 <div class="hd pr">
                                     ${t3dc}
                                 </div>
@@ -69,8 +70,9 @@
             <c:if test="${school.districtId ne 0}">
                 <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
             </c:if>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'bounds')}" scope="request"/>
-            <link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
+            <c:set var="omnitureTileName" value="bounds"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
+            <link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-districtMap ie-moduleHeight-162">

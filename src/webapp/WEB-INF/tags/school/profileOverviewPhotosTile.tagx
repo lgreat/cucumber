@@ -31,11 +31,12 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'photo')}" scope="request"/>
+            <c:set var="omnitureTileName" value="photo"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
             <div class="mod standard_1-1">
                 <div class="inner box-shadow-animation-1">
                     <div id="js-tile-2-0">
-                        <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn make-555555 js-trigger">
+                        <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn make-555555 js-trigger" tileName="${omnitureTileName}">
                             <div class="hd pr">
                                 ${t2dc}
                             </div>
@@ -93,9 +94,10 @@
                     <c:choose>
                         <!-- if in osp preferred state, display add photos tile -->
                         <c:when test="${ospStatus eq 'OSP_PREFERRED'}">
-                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'piccta')}" scope="request"/>
+                            <c:set var="omnitureTileName" value="piccta"/>
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
                             <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
-                                <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
+                                <div class="mod standard_3-1" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                                     <div class="outer">
                                         <div class="inner bg-addPhotos ie-moduleHeight-162">
                                             <div class="hd">
@@ -115,15 +117,17 @@
                         </c:when>
                         <!-- if in any state other than OSP_PREFERRED, show USP promo tile -->
                         <c:otherwise>
-                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'uspcta')}" scope="request"/>
-                            <school:uspPromoTile/>
+                            <c:set var="omnitureTileName" value="uspcta"/>
+                            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
+                            <school:uspPromoTile omnitureTileName="${omnitureTileName}"/>
                         </c:otherwise>
                     </c:choose>
                 </c:when>
                 <!-- If no osp data and no photos, show usp promo tile instead of add photos -->
                 <c:otherwise>
-                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'uspcta')}" scope="request"/>
-                    <school:uspPromoTile/>
+                    <c:set var="omnitureTileName" value="uspcta"/>
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
+                    <school:uspPromoTile omnitureTileName="${omnitureTileName}"/>
                 </c:otherwise>
             </c:choose>
         </c:otherwise>

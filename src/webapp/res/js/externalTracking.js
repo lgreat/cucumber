@@ -156,3 +156,34 @@ GS.tracking.sendAndRestore= function(trackingObj) {
 
     s = sBackup;
 };
+
+GS.tracking.profile = GS.tracking.profile || (function(){
+    var omnitureProfileNavElementName;
+
+    var setOmnitureProfileNavElementName = function(elementName) {
+        omnitureProfileNavElementName = elementName;
+    };
+
+    var getOmnitureProfileNavElementName = function() {
+        return omnitureProfileNavElementName;
+    }
+
+    return {
+        setOmnitureProfileNavElementName: setOmnitureProfileNavElementName,
+        getOmnitureProfileNavElementName: getOmnitureProfileNavElementName
+    };
+})();
+
+GS.tracking.data.updateProps = GS.tracking.data.updateProps || (function(){
+    var setProps = function(tabName, props) {
+        for (var key in props) {
+            if(props.hasOwnProperty(key)) {
+                GS.tracking.data[tabName].props[key] =  props[key];
+            }
+        }
+    };
+
+    return {
+        setProps: setProps
+    };
+})();

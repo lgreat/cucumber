@@ -15,6 +15,8 @@ GS.tabManager = (function() {
     var allTabs;
     var onTabChanged;
     var beforeTabChange;
+    var tabNamesToOmniturePageName = {};
+    var previousActiveTabName;
 
     // initialize the tab manager
     var init = function() {
@@ -173,6 +175,22 @@ GS.tabManager = (function() {
         beforeTabChange = callback;
     };
 
+    var setOmniturePageNameForTab = function(tabName, omniturePageName) {
+        tabNamesToOmniturePageName[tabName] = omniturePageName;
+    }
+
+    var getOmniturePageNameForTab = function(tabName) {
+        return tabNamesToOmniturePageName[tabName];
+    }
+
+    var getPreviousActiveTabName = function() {
+        return previousActiveTabName;
+    }
+
+    var setPreviousActiveTabName = function(tabName) {
+        previousActiveTabName = tabName;
+    }
+
     return {
         init:init,
         getTabNamesToTabModules:getTabNamesToTabModules,
@@ -184,7 +202,11 @@ GS.tabManager = (function() {
         getTabByName:getTabByName,
         setOnTabChanged:setOnTabChanged,
         setBeforeTabChange:setBeforeTabChange,
-        getActiveLayer:getActiveLayer
+        getActiveLayer:getActiveLayer,
+        setOmniturePageNameForTab: setOmniturePageNameForTab,
+        getOmniturePageNameForTab: getOmniturePageNameForTab,
+        getPreviousActiveTabName: getPreviousActiveTabName,
+        setPreviousActiveTabName: setPreviousActiveTabName
     };
 }()).init();
 
@@ -239,6 +261,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
 
             // set up click handler for tabs
             $tabs.click(function() {
+                GS.tracking.profile.setOmnitureProfileNavElementName('LN-' + GS.tabManager.getOmniturePageNameForTab(GS.tabManager.getCurrentTab().name));
                 return GS.tabManager.tabClickHandler($(this), self);
             });
 

@@ -64,13 +64,15 @@
 
                 </c:when>
                 <c:otherwise>
-                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'sped')}" scope="request"/>
+                    <c:set var="omnitureTileName" value="sped"/>
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
                     <div id="js-tile-8-0-1">
                     <gslink:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}"
                                       tabName="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? 'programs-resources':'programs-culture'}"
                                       anchor="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? 'Programs_table':'Special_education_/_special_needs_table'}"
                                       cssClass="tdn make-555555 js-trigger"
-                                      customLink="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? '':'overview_specialed'}">
+                                      customLink="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? '':'overview_specialed'}"
+                                      tileName="${omnitureTileName}">
                         <school:profileOverviewCell1 title="${t8_1dc}">
 
                             <div class="mam" style="height:46px;">
@@ -146,11 +148,12 @@
 
                 </c:when>
                 <c:otherwise>
-                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'excare')}" scope="request"/>
+                    <c:set var="omnitureTileName" value="excare"/>
+                    <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
                     <div id="js-tile-8-0-2">
                         <gslink:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources"
                                           anchor="School_basics_table" cssClass="tdn make-555555 js-trigger"
-                                          customLink="overview_extendedcare">
+                                          customLink="overview_extendedcare" tileName="${omnitureTileName}">
                             <school:profileOverviewCell1 title="${t8_2dc}">
                                 <div class="mam" style="height:40px;">
                                     <c:if test="${extdCareBefore and empty extdCareBeforeTime}">
@@ -210,8 +213,9 @@
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
             <div id="js-tile-8-1">
-                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'staff')}" scope="request"/>
-            <gslink:linkToTab tabName="programs-resources" cssClass="tdn make-555555 js-trigger" customLink="overview_staff">
+                <c:set var="omnitureTileName" value="staff"/>
+                <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
+            <gslink:linkToTab tabName="programs-resources" cssClass="tdn make-555555 js-trigger" customLink="overview_staff" tileName="${omnitureTileName}">
                 <school:profileOverviewCell1 title="${t8s1}">
                     <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
                     <div class="mam" style="height:149px;">

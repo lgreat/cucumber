@@ -369,6 +369,9 @@ GS.profile = GS.profile || (function() {
             $('.infiniteCarousel11:visible').trigger('shown');
         }
 
+        if(GS.tracking.profile.getOmnitureProfileNavElementName() !== undefined) {
+            GS.tracking.data.updateProps.setProps(currentTab.name, {'prop9' : GS.tabManager.getOmniturePageNameForTab(currentTab.name) + ' ' + GS.tracking.profile.getOmnitureProfileNavElementName()});
+        }
         GS.tracking.sendOmnitureData(currentTab.name);
         GS_notifyQuantcastComscore();
         refreshAdsForTab(currentTab.name);

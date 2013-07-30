@@ -44,7 +44,7 @@
     <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'rate')}" scope="request"/>
 
     <div id="js-tile-4-0">
-    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555 js-trigger">
+    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555 js-trigger" tileName="rate">
         <school:profileOverviewCell1 title="${t4dc}">
             <div class="mal" style="height:47px;">
 

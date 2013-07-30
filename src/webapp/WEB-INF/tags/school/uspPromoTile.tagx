@@ -9,10 +9,11 @@
         >
 
     <jsp:directive.attribute name="adjustHeight" type="java.lang.Boolean" required="false"/>
+    <jsp:directive.attribute name="omnitureTileName" type="java.lang.String" required="false"/>
 
     <c:set var="moduleHeight" value="height:120px;" />
 
-    <link:uspForm school="${school}" styleClass="tdn">
+    <link:uspForm school="${school}" styleClass="tdn" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');">
         <div class="mod standard_3-1">
             <div class="outer">
                 <div class="inner bg-uspPromo ie-moduleHeight-162">
