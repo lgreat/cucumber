@@ -12,10 +12,9 @@
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
                     <div class="hd">
-                        <h2 class="tal js-joinHoverTitle">Join GreatSchools</h2>
+                        <h2 class="tal js-smallSpacingTitle">Join GreatSchools</h2>
                         <p class="tal mbn pbm">Create an account to submit your answers.</p>
                     </div>
-                    <!--<form class="js_uspRegistrationForm" onsubmit="return false;">-->
                     <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
                         <div class="body pal">
                             <div class="tac">
@@ -48,7 +47,7 @@
                                     <span class="invalid dn alert" id="pwnomatch"><!-- not empty --></span>
                                 </div>
                             </div>
-                            <div>
+                            <div class="ptm">
                                 <div class="media grades">
                                     <div class="img mrm">
                                         <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>
@@ -107,13 +106,18 @@
                             </div>
 
                             <div class="clearfix ptm">
-                                <button class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</button>
+                                <!--<button class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</button>-->
+                                <button class="fl but but-rg but-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>
                                 <div class="pll pts fl small bottom">
                                     Already a member?
                                     <strong><a href="#" id="lnchSignin">Sign in</a></strong>
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser"/>
+                        <input type="hidden" name="redirectUrl" class="redirect_field" value=""/>
+                        <input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>
+                        <input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>
                     </form>
                     <div class="modalFooter pts">By joining GreatSchools, you agree to our
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
@@ -122,18 +126,17 @@
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                           title="GreatSchools Community Standards"
                                           href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>, and
-                        <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                          title="GreatSchools Community Standards"
-                                          href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>
+
+                        <!-- TODO: ASK ANTHONY  - should be popup not link - needs state appended :) -->
+                        <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
+                                          <!--title="GreatSchools Community Standards"-->
+                                          <!--href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>-->
                         <link:privacyPolicy>GreatSchools Privacy policy</link:privacyPolicy>.
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </jsp:root>
 
 <!--<?xml version="1.0" encoding="UTF-8"?>-->

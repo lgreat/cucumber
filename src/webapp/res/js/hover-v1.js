@@ -723,6 +723,7 @@ GSType.hover.JoinHover = function() {
             });
     };
     this.validateEmail = function() {
+        console.log(jQuery('#joinGS #jemail').val());
         jQuery.getJSON(
             GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
             {email:jQuery('#joinGS #jemail').val(), field:'email', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
@@ -792,9 +793,9 @@ GSType.hover.JoinHover = function() {
 
 
         //if - Choose city - is selected, just remove this from the form, as if no city was given
-        if (jQuery('#joinCity').val() == '- Choose city -') {
-            params = params.replace(/&city=([^&]+)/, "");
-        }
+//        if (jQuery('#joinCity').val() == '- Choose city -') {
+//            params = params.replace(/&city=([^&]+)/, "");
+//        }
 
         var first = true;
         var newsletters = [];

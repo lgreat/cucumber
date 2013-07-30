@@ -18,7 +18,7 @@ General comments:
 .modal_1 h2{
     font: normal 21px/25px  Arial, Helvetica, sans-serif; color: #2b2b2b; margin-bottom: 20px;
 }
-.modal_1 h2.js-joinHoverTitle{
+.modal_1 h2.js-smallSpacingTitle{
     font: normal 21px/25px  Arial, Helvetica, sans-serif; color: #2b2b2b; margin-bottom: 10px;
 }
 .modal_1 .small_bold  { font: bold 12px/20px Arial, Helvetica, sans-serif;}
