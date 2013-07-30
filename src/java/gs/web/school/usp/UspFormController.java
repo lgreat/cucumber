@@ -84,13 +84,6 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
     @Qualifier("exactTargetAPI")
     private ExactTargetAPI _exactTargetAPI;
 
-    public enum LoginOrRegistrationActions {
-        userInSession,
-        login,
-        sendVerificationEmail,
-        registration;
-    }
-
     @RequestMapping(value = "/form.page", method = RequestMethod.GET)
     public String showUspUserForm(ModelMap modelMap,
                                   HttpServletRequest request,
@@ -384,16 +377,16 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
             String action = request.getParameter("action");
             UserRegistrationOrLoginService.Summary summary = null;
-            if (action.equals(LoginOrRegistrationActions.userInSession)) {
+
+            if (action.equals(LoginOrRegistrationActions.USER_IN_SESSION.getName())) {
                 summary = _userRegistrationOrLoginService.getUserFromSession(request);
-            } else if (action.equals(LoginOrRegistrationActions.login)) {
+            } else if (action.equals(LoginOrRegistrationActions.LOGIN.getName())) {
                 summary = _userRegistrationOrLoginService.loginUser(userLoginCommand, request, response);
-            } else if (action.equals(LoginOrRegistrationActions.sendVerificationEmail)) {
+            } else if (action.equals(LoginOrRegistrationActions.SEND_VERIFICATION_EMAIL.getName())) {
                 summary = _userRegistrationOrLoginService.sendVerificationEmail(userLoginCommand, registrationOrLoginBehavior, request);
-            } else if (action.equals(LoginOrRegistrationActions.registration)) {
+            } else if (action.equals(LoginOrRegistrationActions.REGISTRATION.getName())) {
                 summary = _userRegistrationOrLoginService.registerUser(userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request);
             }
-            User user = summary.getUser();
             if (!bindingResult.hasErrors()) {
                 return summary;
             }
@@ -401,6 +394,26 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             //Do nothing. Ideally, this should not happen since we have command validations and client side validations.
         }
         return null;
+    }
+
+    /**
+     * Enum to reflect the user actions.
+     */
+    public enum LoginOrRegistrationActions {
+        USER_IN_SESSION("userInSession"),
+        LOGIN("login"),
+        SEND_VERIFICATION_EMAIL("sendVerificationEmail"),
+        REGISTRATION("registration");
+
+        private String _name;
+
+        private LoginOrRegistrationActions(String name) {
+            _name = name;
+        }
+
+        public String getName() {
+            return _name;
+        }
     }
 
     @RequestMapping(value = "/thankYou.page", method = RequestMethod.GET)

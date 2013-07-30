@@ -377,10 +377,12 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         summary.setUser(user);
         School school = getSchool(_state, _schoolId);
         resetAllMocks();
+        //Set the user action to login
+        getRequest().setParameter("action","login");
 
         expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
-        expect(_userRegistrationOrLoginService.loginOrRegister(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
-                isA(UspRegistrationOrLoginBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
+        expect(_userRegistrationOrLoginService.loginUser(isA(UserLoginCommand.class),
+                isA(MockHttpServletRequest.class),
                 isA(MockHttpServletResponse.class))).andReturn(summary);
         _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(UspSaveBehaviour.class));
         expectLastCall();
@@ -404,11 +406,13 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         summary.setUser(user);
         summary.setWasUserLoggedIn(true);
         School school = getSchool(_state, _schoolId);
+        //Set the user action to login
+        getRequest().setParameter("action","login");
         resetAllMocks();
 
         expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
-        expect(_userRegistrationOrLoginService.loginOrRegister(isA(UserRegistrationCommand.class), isA(UserLoginCommand.class),
-                isA(UspRegistrationOrLoginBehavior.class), isA(BindingResult.class), isA(MockHttpServletRequest.class),
+        expect(_userRegistrationOrLoginService.loginUser(isA(UserLoginCommand.class),
+                isA(MockHttpServletRequest.class),
                 isA(MockHttpServletResponse.class))).andReturn(summary);
         expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn((Multimap) LinkedListMultimap.create());
         _espSaveHelper.saveUspFormData(isA(User.class), isA(School.class), isA(Map.class), eq(UspFormHelper.FORM_FIELD_TITLES.keySet()),isA(UspSaveBehaviour.class));
