@@ -28,7 +28,7 @@ General comments:
 
 
 .modal_1 form input[type="text"],
-.modal_1 form input[type="password"]{width: 320px; margin-bottom: 10px; padding: 3px;}
+.modal_1 form input[type="password"]{width: 320px;padding: 3px;}
 .modal_1 .dn { display: none; }
 
 .modal_1 .orText {
