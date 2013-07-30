@@ -488,32 +488,34 @@ GS.profile = GS.profile || (function() {
         // patch for ads issue GS-14387. Should be combined with existing GS.ad.refreshAds call in xGAMSetup
         var numberAdSlots = adslots.length;
         var i, slot, slotName;
-        var adslotsCopy = adslots.slice(0);
+        var slotsLeftToRefresh = [];
+
         for (i = 0; i < numberAdSlots; i++) {
             slotName = adslots[i];
             slot = GS.ad.slots[slotName];
             if(slot.GS_displayedYet === false) {
                 // need to display instead of refresh
                 GS.ad.displayAd(slotName, slot.GS_domId);
-                // remove adslot from incoming array, so that it doesnt get refreshed
-                delete adslots[i];
+            } else {
+                // track that we still need to refresh this slot
+                slotsLeftToRefresh.push(slotName);
             }
         }
 
-        showReleventAds(adslotsCopy);
-
-        GS.ad.unhideGhostTextForAdSlots(adslotsCopy);
+        // show all slots that were passed into this function, regardless of how we tell google to refresh/show them
+        showReleventAds(adslots);
+        GS.ad.unhideGhostTextForAdSlots(adslots);
 
         // if no ad slots are left to be refreshed, exit early
-        if (!adslotsCopy.length > 0) {
+        if (!slotsLeftToRefresh.length > 0) {
             return;
         }
 
         if(targeting){
-            GS.ad.setTargetingAndRefresh(adslotsCopy, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+            GS.ad.setTargetingAndRefresh(slotsLeftToRefresh, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
         }
         else{
-            GS.ad.refreshAds(adslotsCopy);
+            GS.ad.refreshAds(slotsLeftToRefresh);
         }
     };
 
@@ -1508,7 +1510,7 @@ GS.ad.display = function(slotName, domId) {
         GS.ad.slots[slotName].GS_displayedYet = false;
         GS.ad.slots[slotName].GS_domId = domId;
 
-        $("#"+domId).parent().parent().hide();
+        $("#"+domId).closest('.ad').parent().hide();
     } else {
         googletag.cmd.push(function() {
             googletag.display(domId);

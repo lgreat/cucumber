@@ -179,7 +179,6 @@
 
         <![CDATA[
                 GS.ad.refreshAds = function(slotKeys) {
-                console.log("REFRESHING:", slotKeys);
                     if(typeof(googletag) !== 'undefined' && googletag.pubads) {
             ]]>
         <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
