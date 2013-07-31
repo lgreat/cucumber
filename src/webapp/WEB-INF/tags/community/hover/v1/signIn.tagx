@@ -43,7 +43,7 @@
                 <input type="text" id="semail" class="fl small bottom input_5 setemail" name="email"
                        onfocus="if(this.value=='[Enter email address]'){this.value='';}"
                        onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                <div class="errors">
+                <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
                     <p class="error"><!-- message --></p>
                 </div>
                     <!--<div class="unit size4of19">-->
@@ -66,7 +66,7 @@
                 <span class="fr"><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" class="smaller">Forgot your password?</a></span></div><br/>
                 <input type="password" id="spword" class="fl small bottom input_5" name="password"/>
 
-                <div class="errors">
+                <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
                     <p class="error2"><!-- message --></p>
                 </div>
                 <!--<div class="unit size4of19">-->

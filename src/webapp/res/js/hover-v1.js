@@ -299,7 +299,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover form#joinGS input#joinHoverType').val(type);
     };
     this.setTitle = function(title) {
-        jQuery('#joinHover div.hoverTitle h2').html(title);
+        jQuery('#joinHover div.js-smallSpacingTitle h2').html(title);
     };
     this.setSubTitle = function(subTitle, subTitleText) {
         // GS-11161
@@ -714,14 +714,14 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
         $('.js-facebook-login-join').show();
     };
-    this.validateFirstName = function() {
-        jQuery.getJSON(
-            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-            {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
-            function(data) {
-                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
-            });
-    };
+//    this.validateFirstName = function() {
+//        jQuery.getJSON(
+//            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+//            {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
+//            function(data) {
+//                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
+//            });
+//    };
     this.validateEmail = function() {
         console.log(jQuery('#joinGS #jemail').val());
         jQuery.getJSON(
@@ -731,22 +731,22 @@ GSType.hover.JoinHover = function() {
                 GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
             });
     };
-    this.validateConfirmEmail = function() {
-        jQuery.getJSON(
-            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-            {email:jQuery('#joinGS #jemail').val(), confirmEmail:jQuery('#joinGS #jcemail').val(), field:'confirmEmail', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
-            function(data) {
-                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmEmail .errors', 'confirmEmail', data);
-            });
-    };
-    this.validateUsername = function() {
-        jQuery.getJSON(
-            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-            {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
-            function(data) {
-                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
-            });
-    };
+//    this.validateConfirmEmail = function() {
+//        jQuery.getJSON(
+//            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+//            {email:jQuery('#joinGS #jemail').val(), confirmEmail:jQuery('#joinGS #jcemail').val(), field:'confirmEmail', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
+//            function(data) {
+//                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmEmail .errors', 'confirmEmail', data);
+//            });
+//    };
+//    this.validateUsername = function() {
+//        jQuery.getJSON(
+//            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+//            {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
+//            function(data) {
+//                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
+//            });
+//    };
     this.validatePassword = function() {
         jQuery.getJSON(
             GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
@@ -2058,10 +2058,10 @@ jQuery(function() {
 //        return false;
 //    });
 
-    jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
+//    jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
     jQuery('#joinHover #jemail').blur(GSType.hover.joinHover.validateEmail);
-    jQuery('#joinHover #jcemail').blur(GSType.hover.joinHover.validateConfirmEmail);
-    jQuery('#joinHover #uName').blur(GSType.hover.joinHover.validateUsername);
+//    jQuery('#joinHover #jcemail').blur(GSType.hover.joinHover.validateConfirmEmail);
+//    jQuery('#joinHover #uName').blur(GSType.hover.joinHover.validateUsername);
     jQuery('#joinHover #jpword').blur(GSType.hover.joinHover.validatePassword);
     jQuery('#joinHover #cpword').blur(GSType.hover.joinHover.validateConfirmPassword);
 //    jQuery('#joinHover .js_closeJoinHover').click(GSType.hover.joinHover.hide);
