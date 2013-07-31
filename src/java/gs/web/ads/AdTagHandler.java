@@ -6,7 +6,6 @@ package gs.web.ads;
 
 import gs.web.jsp.AbstractDeferredContentTagHandler;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -327,6 +326,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     public boolean isOnSchoolProfile(PageHelper pageHelper) {
 
+        // the logic for setting this template value is in SchoolProfileController - just search for "template"
         return pageHelper.hasAdKeywordWithValue("template","NewRating");
     }
 }

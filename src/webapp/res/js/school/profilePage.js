@@ -223,11 +223,12 @@ GS.profile = GS.profile || (function() {
     var hideAllAds = function(){
         var len = refreshableProfileAllAdSlotKeys.length;
         var needle = "School_Profile_Page_";
+        var needleLength = needle.length;
         var title = "";
         for( var i=0; i < len; i++){
             var title = refreshableProfileAllAdSlotKeys[i];
             if(title.indexOf(needle) >= 0){
-                $("#"+title.substring(20)).hide();
+                $("#"+title.substring(needleLength)).hide();
             }
             else{
                 $("#"+title).hide();
@@ -236,14 +237,15 @@ GS.profile = GS.profile || (function() {
         }
     }
 
-    var showReleventAds = function(adslots){
+    var showRelevantAdDivs = function(adslots){
         var len = adslots.length;
         var needle = "School_Profile_Page_";
+        var needleLength = needle.length;
         var title = "";
         for( var i=0; i < len; i++){
             var title = adslots[i];
             if(title.indexOf(needle) >= 0){
-                $("#"+title.substring(20)).show();
+                $("#"+title.substring(needleLength)).show();
             }
             else{
                 $("#"+title).show();
@@ -503,7 +505,7 @@ GS.profile = GS.profile || (function() {
         }
 
         // show all slots that were passed into this function, regardless of how we tell google to refresh/show them
-        showReleventAds(adslots);
+        showRelevantAdDivs(adslots);
         GS.ad.unhideGhostTextForAdSlots(adslots);
 
         // if no ad slots are left to be refreshed, exit early
@@ -529,61 +531,11 @@ GS.profile = GS.profile || (function() {
     var getDelayedAds= function() {
         var slots = [];
         var tab = GS.uri.Uri.getQueryData().tab || "overview";
+        slots = slots.concat(refreshableTandemTileBranding);
+        slots = slots.concat(refreshableCultureBranding);
 
-        switch (tab) {
-            case "overview":{
-                slots = slots.concat(refreshableTandemTileBranding);
-                slots = slots.concat(refreshableCultureBranding);
-                break;
-            }
-            case "culture":{
-                slots = slots.concat(refreshableCultureBranding);
-                slots = slots.concat(refreshableCultureNoBranding);
-                slots = slots.concat(refreshableTandemTileBranding);
-                break;
-            }
-            default:{
-                slots = slots.concat(refreshableCultureBranding);
-                slots = slots.concat(refreshableTandemTileBranding);
-            }
-        }
-
-        return slots;
-    };
-
-
-    var getImmediateAdsForTab = function(tabName) {
-        var slots = [];
-
-        switch (tabName) {
-            case "overview":{
-                slots.push(refreshableOverviewAdSlotKeys);
-                break;
-            }
-            case "reviews":{
-                slots.push(refreshableReviewsAdSlotKeys);
-                break;
-            }
-            case "culture":{
-                var layerArrCultureBranded = [
-                    'Footer_Branded_Tandem_728x90',
-                    'Header_Branded_Tandem_728x90',
-                    'AboveFold_Branded_Tandem_300x600',
-                    'BelowFold_Branded_Tandem_300x250'
-                ];
-                var layerArrCulture = [
-                    'Footer_728x90',
-                    'Header_728x90',
-                    'AboveFold_300x600',
-                    'BelowFold_300x250'
-                ];
-                // handleTandemBranding(refreshableCultureBranding, layerArrCultureBranded, refreshableCultureNoBranding, layerArrCulture, tabName);
-                // refreshCultureAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
-                break;
-            }
-            default:{
-                slots.push(refreshableNonOverviewAdSlotKeys);
-            }
+        if (tab === "culture") {
+            slots = slots.concat(refreshableCultureNoBranding);
         }
 
         return slots;
@@ -601,7 +553,6 @@ GS.profile = GS.profile || (function() {
         refreshAdsForTab:refreshAdsForTab,
         getAlternateSitePath:getAlternateSitePath,
         refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange,
-        getImmediateAdsForCurrentTab:getImmediateAdsForTab,
         getDelayedAds:getDelayedAds,
         shouldDelayAd:shouldDelayAd
     };
@@ -1443,13 +1394,11 @@ function enableReview(reviewId) {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
-// Code for testing Ads
+// Code for GS-18347
 
 GS.ad = GS.ad || {};
-GS.ad.slotTimers || {};
 
 GS.ad.startConsoleLogging = function() {
-
     var pos = 0;
 
     (function log(){
@@ -1462,10 +1411,12 @@ GS.ad.startConsoleLogging = function() {
 };
 
 GS.ad.displayAd = function(slotName) {
-    slotName = slotName || 'School_Profile_Page_BelowFold_Branded_Tandem_300x250';
+    if (slotName === undefined || slotName === null || slotName === '') {
+        return;
+    }
 
     var googleSlot = GS.ad.slots[slotName];
-    var domId = googleSlot.getSlotId().ob;
+    var domId = googleSlot.GS_domId;
 
     googletag.cmd.push(function() {
         googletag.display(domId);
@@ -1473,51 +1424,19 @@ GS.ad.displayAd = function(slotName) {
     });
 };
 
-GS.ad.displayAndRefreshAd = function(slotName) {
-    slotName = slotName || 'School_Profile_Page_BelowFold_Branded_Tandem_300x250';
-
-    var googleSlot = GS.ad.slots[slotName];
-    var domId = googleSlot.getSlotId().ob;
-
-    googletag.cmd.push(function() {
-        googletag.display(domId);
-        googletag.pubads().refresh([googleSlot]);
-    });
-};
-
-GS.ad.refreshAd = function(slotName) {
-    slotName = slotName || 'School_Profile_Page_BelowFold_Branded_Tandem_300x250';
-
-    var googleSlot = GS.ad.slots[slotName];
-
-    googletag.cmd.push(function() {
-        googletag.pubads().refresh([googleSlot]);
-    });
-};
-
-GS.ad.displayThenRefreshAdAfterDelay = function(slotName, delay) {
-    GS.ad.displayAd(slotName);
-    setTimeout(function() {
-        GS.ad.refreshAd(slotName);
-    }, delay);
-};
-
 // called from within AdTagHandler
-// Profile page implementation of an ad's GPT display() step. Delay displaying ad if it's visibility is conditional
+// Profile page implementation of an ad's GPT display() step. Delay displaying ad if its visibility is conditional
 GS.ad.display = function(slotName, domId) {
     if(GS.profile.shouldDelayAd(slotName)) {
         // When existing code goes to refresh the ad, we must first check if it has already been displayed
         GS.ad.slots[slotName].GS_displayedYet = false;
         GS.ad.slots[slotName].GS_domId = domId;
 
+        // the "ad" class attribute is specified in AdTagHandler.java
         $("#"+domId).closest('.ad').parent().hide();
     } else {
         googletag.cmd.push(function() {
             googletag.display(domId);
-
-            //GS.ad.slotTimers[slotName] = {};
-            //GS.ad.slotTimers[slotName].timestamp = new Date().getTime();
-            //GS.ad.slotTimers[slotName].adSlot = GS.ad.slots[slotName];
         });
     }
 };
