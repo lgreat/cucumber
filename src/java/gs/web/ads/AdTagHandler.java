@@ -327,6 +327,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     public boolean isOnSchoolProfile(PageHelper pageHelper) {
 
         // the logic for setting this template value is in SchoolProfileController - just search for "template"
-        return pageHelper.hasAdKeywordWithValue("template","NewRating");
+        return pageHelper.hasAdKeywordWithValue("template","SchoolProf");
     }
 }
