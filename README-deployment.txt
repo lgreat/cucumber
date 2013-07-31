@@ -80,3 +80,4 @@ mvn minify:minify
 See the maven-minify-plugin section in GSWeb's pom.xml for configuration details.
 To edit s_code.js, make the changes to s_code.orig.js, then edit pom.xml to minify just that
 file, and copy the result into s_code.js (see GS-10397)
+
