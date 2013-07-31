@@ -31,6 +31,6 @@
                 Can't find the email? Click the button below to receive a new one.
             </p>
 
-            <button class="button-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
+            <button class="but but-rg but-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
     </div></div></div></div></div>
 </jsp:root>
