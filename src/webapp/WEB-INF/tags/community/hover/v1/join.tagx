@@ -126,12 +126,9 @@
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                           title="GreatSchools Community Standards"
                                           href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>, and
-
-                        <!-- TODO: ASK ANTHONY  - should be popup not link - needs state appended :) -->
-                        <!--<gsml:popupWindow width="800" height="600" left="50" top="50"-->
-                                          <!--title="GreatSchools Community Standards"-->
-                                          <!--href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>-->
-                        <link:privacyPolicy>GreatSchools Privacy policy</link:privacyPolicy>.
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Privacy Policy"
+                                          href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow>.
                     </div>
                 </div>
             </div>
