@@ -112,7 +112,36 @@
                         <div id="js-charCount" class=" smaller fr mrm">1200 characters remaining</div>
                     </div>
                 </div>
+                <div class="line terms">
+                    <div class="unit size1of1 lastUnit">
+                        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
+                        <label for="terms" class="smaller frmPRLabel-2">I agree to the <link:termsOfUse
+                                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and
+                            <link:parentReviewGuidelines
+                                    target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
+                            <em class="sprite i-required"><!-- do not collapse --></em>
+                        </label>
+                    </div>
+                </div>
 
+                <c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
+                    <div class="line terms pbm">
+                        <div class="unit size1of1 lastUnit">
+                            <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
+                            <label for="rememberMeBox"
+                                   class="smaller frmPRLabel-2">Yes, send me monthly email updates about this school.
+                            </label>
+                        </div>
+                    </div>
+                </c:if>
+
+                <div class="spacer_15">
+                    <div class="form-error formErrorText media" id="js-termsError">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                        <div class="smaller error_msg">Please read and accept our Terms of Use to join GreatSchools.</div>
+                    </div>
+                </div>
                 <div class="line role ptm">
                     <div class="unit size4of7">
                         <div class="line">
@@ -145,8 +174,8 @@
 
                 <div class="subStarRatings" style="display:none;">
                     <div class="spacer_5"><!-- do not collapse --></div>
-                    <div class="medium ptl mbs"><h6 class="bottom">How do you rate this school in these additional areas?</h6></div>
-                    <hr class="keyline2"><!-- do not collapse --></hr>
+                    <div class="ptl mbm"><span class="small_bold bottom">How do you rate this school in these additional areas?</span></div>
+                    <!--<hr class="keyline2">&lt;!&ndash; do not collapse &ndash;&gt;</hr>-->
                     <div id="js-bubbleInfo2" class="text3 teacher  mtm">
                         <div class="js-trigger student_only line">
                             <div class="unit size3of5 pas" style="background-color: #FFFFFF">
@@ -271,79 +300,51 @@
                     </c:if>
                     <div class="spacer_15"><!-- do not collapse --></div>
                 </div>
-
-                <div class="line terms ptm">
-                    <div class="unit size1of1 lastUnit">
-                        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                        <label for="terms" class="smaller frmPRLabel-2">I agree to the <link:termsOfUse
-                                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and
-                            <link:parentReviewGuidelines
-                                    target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
-                            <em class="sprite i-required"><!-- do not collapse --></em>
-                        </label>
-                    </div>
-                </div>
-
-                <c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-                    <div class="line terms pbm">
-                        <div class="unit size1of1 lastUnit">
-                            <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
-                            <label for="rememberMeBox"
-                                   class="smaller frmPRLabel-2">Yes, send me monthly email updates about this school.
-                            </label>
-                        </div>
-                    </div>
-                </c:if>
-
-                <div class="spacer_15">
-                    <div class="form-error formErrorText media" id="js-termsError">
-                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
-                        <div class="smaller error_msg">Please read and accept our Terms of Use to join GreatSchools.</div>
-                    </div>
-                </div>
+                <div class="pvl"><span class="small_bold bottom">Registration is required to post your anonymous review</span></div>
 
 
-                <gsml:signInWithFacebookButton size="32" id="parentReviewFormSubmit-facebook"/>
+
+
+                <div class="tac"><gsml:signInWithFacebookButton size="32" id="parentReviewFormSubmit-facebook"/></div>
                 <!--<div><a class="plm smaller bold js-submit-using-email" onclick="javascript:$('#js-submit-using-email').show()">Or submit using your email</a></div>-->
-                <div class="clearfloat pts"><!-- do not collapse --></div>
-                <div class="smaller bottom">Don’t worry, your email address and Facebook identity will remain private.</div>
+
+                <div class="smaller bottom pts clearfix"><div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div><div class="fl">We will not display your name, photo or email address with your review.</div></div>
 
                 <c:if test="${not requestInfo.signedInWithFacebook}">
-                    <div>- OR -</div>
+                    <h5 class="orText">
+                        <span>OR</span>
+                    </h5>
 
-                    <div class="spacer_15 clearfloat pvs"><!-- do not collapse --></div>
+
 
                     <div id="js-submit-using-email">
-                        <div class="line email">
-                            <div class="unit size15of100">
-                                <label for="frmPRModule-email" class="">Email:
-                                    <em class="sprite i-required"><!-- do not collapse --></em>
-                                </label>
-                            </div>
-                            <div class="unit size50of100">
+                        <div class="line email clearfix">
+
+                            <div class="fl">
                                 <c:choose>
                                     <c:when test="${validUser.email eq null}">
-                                        <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
+                                        <input id="frmPRModule-email" name="email" class="input_5 text-padding-3" style="width:300px"
                                                type="text"
                                                value="[Enter email address]"
                                                onfocus="if(this.value=='[Enter email address]'){this.value='';}"
                                                onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <input id="frmPRModule-email" name="email" class="input_5 text-padding-3"
+                                        <input id="frmPRModule-email" name="email" class="input_5 text-padding-3" style="width:300px"
                                                type="text"
                                                value="${validUser.email}" disabled="disabled"/>
                                     </c:otherwise>
                                 </c:choose>
+
                             </div>
-                            <div class="unit size26of100 lastUnit">
+                            <div class="fr"><button id="parentReviewFormSubmit" class="but but-rg but-1" type="submit" name="Submit" value="submit" onclick="">Post</button></div>
+                            <div class="fl">
                                 <div class="formErrorText form-error">
                                     <div class="media">
                                         <div class="img mrs">
                                             <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="js-msg smaller bottom error_msg">Please enter your email.</div>
+                                        <div class="js-msg smaller bottom error_msg" style="margin-top:2px; width:300px;">Please enter your email.</div>
                                     </div>
                                 </div>
                                 <div class="formErrorText form-alert">
@@ -352,16 +353,15 @@
                                             <span class="iconx16 i-16-notice vam"><!-- do not collapse --></span>
                                         </div>
 
-                                        <div class="js-msg smaller bottom">You must verify your email address on submit.</div>
+                                        <div class="js-msg smaller bottom" style="margin-top:2px; width:300px;">You must verify your email address on submit.</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="spacer_5 clearfloat pvs"><!-- do not collapse --></div>
+                        <div class="smaller bottom pts clearfix"><div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div><div class="fl">Your email address will never be published or shared.</div></div>
 
-                        <button id="parentReviewFormSubmit" class="button-1 fl " type="submit" name="Submit" value="submit" onclick="">Submit
-                        </button>
+
                     </div>
                 </c:if>
 

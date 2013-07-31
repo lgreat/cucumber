@@ -102,3 +102,26 @@ General comments:
 .zir-2{position:relative;z-index:2;}
 .zir-3{position:relative;z-index:3;}
 .zir-4{position:relative;z-index:4;}
+
+.orText {
+    font: 14px sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.orText:before {
+    border-top: 1px solid #dfdfdf;
+    content:"";
+    margin: 0 auto;
+    position: absolute;
+    top: 8px; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.orText span { background: #f5f5f5; padding: 0 10px; }
