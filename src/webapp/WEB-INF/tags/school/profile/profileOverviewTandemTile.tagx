@@ -37,7 +37,7 @@
 
                     GS.tracking.data['overview'].props['prop56'] = 'cal';
                     GS.tracking.addTabSpecificProps('overview', 'prop56');
-                    GS.tracking.sendAndRestore({'prop56' : 'cal'});
+                    GS.tracking.sendNewTrackingData({'prop56' : 'cal'});
                 }
             }).fail(function() {
                         // don't show tile
@@ -55,7 +55,7 @@
                         }
                         GS.tracking.data['overview'].props['prop56'] = tileName;
                         GS.tracking.addTabSpecificProps('overview', 'prop56');
-                        GS.tracking.sendAndRestore({'prop56' : tileName});
+                        GS.tracking.sendNewTrackingData({'prop56' : tileName});
                     });
 //            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });

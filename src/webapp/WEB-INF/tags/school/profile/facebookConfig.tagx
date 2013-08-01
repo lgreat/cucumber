@@ -37,7 +37,7 @@
                             var overviewTile = 'fbplug';
                             GS.tracking.data['overview'].props['prop53'] = overviewTile;
                             GS.tracking.addTabSpecificProps('overview', 'prop53');
-                            GS.tracking.sendAndRestore({'prop53' : overviewTile});
+                            GS.tracking.sendNewTrackingData({'prop53' : overviewTile});
                         }
                     }
                 );
