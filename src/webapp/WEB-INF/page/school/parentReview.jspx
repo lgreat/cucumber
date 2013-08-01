@@ -502,11 +502,11 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                         </div>
                     </div>
                     <div class="ptm pbs"><!-- do not collapse --></div>
-                    <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0">
-                        <h4 class="bottom sourceSansPro-Semibold">Please rate these other areas</h4>
+                    <div class="hd pvm dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0">
+                        <span class="small_bold bottom sourceSansPro-Semibold">Please rate these other areas</span>
                     </div>
-                    <div class="hd pam " id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;">
-                        <h4 class="bottom sourceSansPro-Semibold">Helpful reviews answer questions</h4>
+                    <div class="hd pvm" id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;">
+                        <span class="small_bold bottom sourceSansPro-Semibold">Helpful reviews answer questions</span>
                     </div>
                     <div class="mod standard_1-1">
                         <div class="inner">
@@ -553,11 +553,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                         </div>
                     </div>
 
-                    <div class="pvl"><span class="small_bold bottom">Registration is required to post your anonymous review</span></div>
-
-
-
-
+                    <div class="ptm pbs"><span class="small_bold bottom sourceSansPro-Semibold">Please register to post your anonymous review</span></div>
 
                     <!--IN BOX-->
                     <!---->
