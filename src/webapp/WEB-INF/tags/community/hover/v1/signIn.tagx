@@ -44,7 +44,7 @@
                     </div>
                         <div class="clearfix ptl">
                             <button class="fl but but-rg but-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
-                            <div class="pll pts fl small bottom">
+                            <div class="pll pts fl smaller bottom">
                                 Not a member?
                                 <strong><a href="#" id="signInHover_launchJoin">Join GreatSchools</a></strong>.
                             </div>
