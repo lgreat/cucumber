@@ -110,6 +110,14 @@ input.text1{
        -moz-border-radius: 3px; /* FF1-3.6 */
             border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+.selectList_ongray{
+    height: 38px;
+    padding-left: 8px;
+    border:1px solid #B8B8B8;
+    -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 3px; /* FF1-3.6 */
+    border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
 
 input.text1:focus{
     border:1px solid #B8B8B8;
@@ -119,6 +127,11 @@ input.text1:focus{
 input.text1noborder{
     font: normal 14px/20px 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
     color:#666666;
+}
+input.text1noborder_ongray{
+    font: normal 14px/20px 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+    color:#333333;
+    background-color: #f6f6f6;
 }
 
 input.reviewsLanding{
