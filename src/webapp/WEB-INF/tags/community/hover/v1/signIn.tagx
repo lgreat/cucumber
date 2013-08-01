@@ -10,7 +10,7 @@
             <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
             <div class="inner">
                 <div class="hoverTitle hd">
-                    <h2 class="js-smallSpacingTitle">Sign in to GreatSchools</h2>
+                    <h1 class="js-smallSpacingTitle">Sign in to GreatSchools</h1>
                     <p class="tal mbn pbm">Sign in with an existing GreatSchools account or using Facebook:</p>
                 </div>
                 <div class="messages pbm dn">
