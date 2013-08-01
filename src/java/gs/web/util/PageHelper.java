@@ -1132,4 +1132,8 @@ public class PageHelper {
     public boolean isIncludeFacebookInit() {
         return includeFacebookInit;
     }
+
+    public void setGptSingleRequestMode(boolean value) {
+        _sessionContext.setGptSingleRequestMode(value);
+    }
 }
