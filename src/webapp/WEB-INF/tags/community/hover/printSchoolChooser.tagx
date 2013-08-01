@@ -5,12 +5,15 @@
           xmlns:gsweb="gstaglib"
         >
 
-    <div id="printSchoolChooser" class="dialog_white modal_3" style="display:none;">
-        <div class="width_13 slStylesV1-0" id="printSchoolChooser">
+    <div id="printSchoolChooser" class="dn">
+        <div class="mod modal_3 width_16 slStylesV1-0" id="printSchoolChooser">
             <c:set var="pyocCount" value="${requestScope.context.mslCount}"/>
             <c:set var="pageCount" value=""/>
             <c:set var="num" value="3" />
             <div class="outer">
+                <div class="fr">
+                    <span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span>
+                </div>
                 <div class="inner">
                     <h2 class="">Choose the schools you'd like to download:</h2>
                     <div class="clearfix">
@@ -41,16 +44,21 @@
                     <form id="js-printSchoolChooserSubmit" method="POST" action="/my-school-list.pdf" target="_blank">
                         <input type="hidden" id="selectedState" name="states" value="" />
                         <input type="hidden" id="selectedId" name="schoolIds" value="" />
-                        <div id="js-pyocChecklist" class="ft pas mbl">
+                        <div id="js-pyocChecklist" class="ft pas mbl pr">
                             <input type="checkbox" checked="checked" id="js-appendCheckList" name="appendChecklist" value="yes"/>
                             <span class="mlm">Include our handy School Visit Checklist</span>
-                            <div class="pa" style="top:-13px; right:40px;">
+                            <div class="pa" style="top:-15px; right:40px;">
                                 <img src="/res/img/pdfChooser/icon_checklist.png" alt="checklist background"/>
                             </div>
                         </div>
                     </form>
-                    <a href="javascript:void(0)" class="printSchoolChooser_hideHover"><button class="button-1 downloadPYOC " type="button">Download PDF</button></a>
-                    <span class="js-showError mlm error_msg small" style="display: none;"><span class="iconx16 i-16-alert vam"><!-- do not collapse --></span><span class="mls vam">Please select at least one school</span></span>
+                    <a href="javascript:void(0)" class="printSchoolChooser_hideHover">
+                        <button class="button-1 downloadPYOC " type="button">Download PDF</button>
+                    </a>
+                    <span class="js-showError mlm error_msg small" style="display: none;">
+                        <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                        <span class="mls vam">Please select at least one school</span>
+                    </span>
                 </div>
             </div>
         </div>
