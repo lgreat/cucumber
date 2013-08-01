@@ -10,9 +10,11 @@
 
     <c:choose>
         <c:when test="${size eq 32}">
-            <div id="${id}" style="padding-left: 2px; line-height: 200%" class="but but-rg but-3 ${cssClass}">
-                <span class="iconx32g i-32-facebook-t" style="border-right: 1px solid #5F7EBD; margin-bottom:-10px; line-height: .875em"><!-- do not collapse --></span>
-                <span style="padding-left: 20px">Sign in with Facebook</span>
+            <!--style="padding-left: 2px; line-height: 200%"   class="but but-rg but-3 ${cssClass}"-->
+            <!--style="border-right: 1px solid #5F7EBD; margin-bottom:-10px; line-height: .875em"-->
+            <div id="${id}" class="but but-rg but-3 pan mbn ${cssClass}" style="">
+                <span class="fl iconx32g i-32-facebook-t prs" style="border-right: 1px solid #5F7EBD;"><!-- do not collapse --></span>
+                <span class="fl phl pt1">Sign in with Facebook</span>
             </div>
         </c:when>
         <c:otherwise>
