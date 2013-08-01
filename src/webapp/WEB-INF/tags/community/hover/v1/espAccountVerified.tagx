@@ -16,6 +16,6 @@
             The information you provide is extremely valuable in helping parents and students learn more about your
             school, so thanks for taking the time!</p>
 
-        <button class="button-1 js_closeHover" type="button">Update school profile</button>
+        <button class="but but-rg but-1 js_closeHover" type="button">Update school profile</button>
     </div></div></div></div></div>
 </jsp:root>

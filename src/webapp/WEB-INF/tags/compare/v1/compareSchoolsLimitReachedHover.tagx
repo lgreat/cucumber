@@ -16,10 +16,10 @@
                         <p class="mbl"><strong>Continue to compare</strong> the schools you have already selected or
                             <strong>Edit schools</strong> to change your selection.
                         </p>
-                        <button class="button-1 jq_compareSchoolsLimitReachedHover_continue mrm"
+                        <button class="but but-rg but-1 jq_compareSchoolsLimitReachedHover_continue mrm"
                                 type="button">Continue to compare
                         </button>
-                        <button class="button-1 jq_compareSchoolsLimitReachedHover_edit"
+                        <button class="but but-rg but-1 jq_compareSchoolsLimitReachedHover_edit"
                                 type="button">Edit schools
                         </button>
                         <div class="jq_compareSchoolsLimitReachedHover_uncheckAll_div mtl">
