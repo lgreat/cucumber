@@ -86,7 +86,7 @@
 <div class="grid_16 slStylesV1-0">
 
 <!-- Start LogoAd-->
-<div class="logoAd fltrt mtm pts">
+<div class="logoAd fr mtm pts">
     <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
         <c:set var="licensorLogo">
             <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
@@ -110,9 +110,9 @@
     <!--Start Top Story Box-->
     <div class="mod standard_1-2">
         <div class="inner">
-            <div class="bd  pam">
+            <div class="bd pam clearfix">
                 <a href="${topicCenter.mainFeatureLink.url}"><gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
-                          styleClass="fltrt"/></a>
+                          styleClass="fr plm"/></a>
 
                 <h2 class=""><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h2>
 
