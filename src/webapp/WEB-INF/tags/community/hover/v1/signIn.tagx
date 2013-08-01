@@ -12,108 +12,48 @@
                 <div class="hoverTitle hd">
                     <h2 class="js-smallSpacingTitle">Sign in to GreatSchools</h2>
                     <p class="tal mbn pbm">Sign in with an existing GreatSchools account or using Facebook:</p>
-                    <!--<div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover">&lt;!&ndash; do not collapse &ndash;&gt;</a></div>-->
-
                 </div>
-                <!--<div style="clear: both" class="pbm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-                <!--<hr class="keyline1" />-->
-                <!--<div class="pbm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-        <div class="messages pbm dn">
-            <p class="error"><!-- message --></p>
-        </div>
-        <form id="signin" action="/community/loginOrRegister.page" method="post">
-            <div class="body pal">
-                <div class="tac">
-                    <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
-                </div>
-                <h5 class="orText">
-                    <span>OR</span>
-                </h5>
-            <!--<div class="line">-->
-                <!--<div class="unit size12of19">-->
-                    <!--<p>Sign in with an existing GreatSchools account or using Facebook:</p>-->
-                <!--</div>-->
-                <!--<div class="unit size7of19 lastUnit">-->
-                    <!--<gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-signin" onclick="javascript:ModalManager.hideModal('signInHover');">&lt;!&ndash; do not collapse &ndash;&gt;</gsml:signInWithFacebookButton>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <div class="line">
-                <label for="semail" class="small_bold bottom">Email address</label><br/>
-                <input type="text" id="semail" class="fl small bottom input_5 setemail" name="email"
-                       onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                       onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
+                <div class="messages pbm dn">
                     <p class="error"><!-- message --></p>
                 </div>
-                    <!--<div class="unit size4of19">-->
-                        <!--<label for="semail" class="longLabel">Email address</label>-->
-
-                    <!--</div>-->
-                    <!--<div class="unit size5of14">-->
-                        <!--<input type="text" id="semail" class="text-smaller input_5 setemail" name="email"-->
-                               <!--onfocus="if(this.value=='[Enter email address]'){this.value='';}"-->
-                               <!--onblur="if(this.value==''){this.value='[Enter email address]';}"/>-->
-                    <!--</div>-->
-                    <!--<div class="unit size3of7 lastUnit">-->
-                        <!--<div class="errors">-->
-                            <!--<p class="error">&lt;!&ndash; message &ndash;&gt;</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-            </div>
-            <div class="line clearfix ptl">
-                <div style="width:320px;"><label for="spword" class="fl small_bold bottom">Choose a password</label>
-                <span class="fr"><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" class="smaller">Forgot your password?</a></span></div><br/>
-                <input type="password" id="spword" class="fl small bottom input_5" name="password"/>
-
-                <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
-                    <p class="error2"><!-- message --></p>
-                </div>
-                <!--<div class="unit size4of19">-->
-                        <!---->
-                    <!--</div>-->
-                    <!--<div class="unit size5of14">-->
-                        <!--<input type="password" id="spword" name="password" class="text-smaller input_5" />-->
-                    <!--</div>-->
-                    <!--<div class="unit size3of7 lastUnit">-->
-                        <!--<div class="errors">-->
-                            <!--<p class="error2">&lt;!&ndash; message &ndash;&gt;</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-            </div>
-            <!--</fieldset>-->
-
-            <!--<fieldset class="btns">-->
-                <div class="clearfix ptl">
-                    <!--<button class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</button>-->
-                    <button class="fl but but-rg but-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
-                    <div class="pll pts fl small bottom">
-                        Not a member?
-                        <strong><a href="#" id="signInHover_launchJoin">Join GreatSchools</a></strong>.
+                <form id="signin" action="/community/loginOrRegister.page" method="post">
+                    <div class="body pal">
+                        <div class="tac">
+                            <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                        </div>
+                        <h5 class="orText">
+                            <span>OR</span>
+                        </h5>
+                    <div class="line">
+                        <label for="semail" class="small_bold bottom">Email address</label><br/>
+                        <input type="text" id="semail" class="fl small bottom input_5 setemail" name="email"
+                               onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                               onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                        <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
+                            <p class="error"><!-- message --></p>
+                        </div>
                     </div>
-                </div>
-            <!--<div class="line ptm">-->
-                <!--<div class="unit size4of19"> &amp;nbsp;-->
-                   <!--&lt;!&ndash; do not collapse &ndash;&gt;-->
+                    <div class="line clearfix ptl">
+                        <div style="width:320px;"><label for="spword" class="fl small_bold bottom">Choose a password</label>
+                        <span class="fr"><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" class="smaller make-787878">Forgot your password?</a></span></div><br/>
+                        <input type="password" id="spword" class="fl small bottom input_5" name="password"/>
 
-                <!--</div>-->
-                <!--<div class="unit size5of14">-->
-                    <!--<button class="button-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>-->
-                    <!--<div class="fr small bottom" style="padding:5px 75px 0px 0px">Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</div>-->
-
-
-                <!--</div>-->
-                <!--<div class="unit size3of7 lastUnit">-->
-                    <!--&lt;!&ndash; do not collapse &ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>-->
-
-                <input type="hidden" name="rememberMe" value="true"/>
-                <input type="hidden" name="redirect" class="redirect_field" value=""/>
-
-            <!--</fieldset>-->
+                        <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
+                            <p class="error2"><!-- message --></p>
+                        </div>
+                    </div>
+                        <div class="clearfix ptl">
+                            <button class="fl but but-rg but-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
+                            <div class="pll pts fl small bottom">
+                                Not a member?
+                                <strong><a href="#" id="signInHover_launchJoin">Join GreatSchools</a></strong>.
+                            </div>
+                        </div>
+                        <input type="hidden" name="rememberMe" value="true"/>
+                        <input type="hidden" name="redirect" class="redirect_field" value=""/>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-    </div></div></div>
+        </div>
+    </div></div>
 </jsp:root>

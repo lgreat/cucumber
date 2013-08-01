@@ -12,7 +12,7 @@
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
                     <div class="hd">
-                        <h2 class="tal js-smallSpacingTitle">Join GreatSchools</h2>
+                        <h1 class="tal js-smallSpacingTitle">Join GreatSchools</h1>
                         <p class="tal mbn pbm">Create an account to submit your answers.</p>
                     </div>
                     <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="ptm">
                                 <div class="media grades">
-                                    <div class="img mrm">
+                                    <div class="img mrs">
                                         <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>
                                     </div>
                                     <div class="bd">
@@ -108,7 +108,7 @@
                             <div class="clearfix ptm">
                                 <!--<button class="fl but but-rg but-1 js_uspRegistrationSubmit">Join Now</button>-->
                                 <button class="fl but but-rg but-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>
-                                <div class="pll pts fl small bottom">
+                                <div class="pll pts fl smaller bottom">
                                     Already a member?
                                     <strong><a href="#" id="lnchSignin">Sign in</a></strong>
                                 </div>

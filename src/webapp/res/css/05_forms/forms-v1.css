@@ -55,7 +55,9 @@ input[type=radio] { margin-top:5px; margin-bottom:5px; outline:0; }
 input[type=text],
 input[type=password],
 input.text,
-textarea {background-color:#fff;border:1px solid #cccccc;font: normal 12px/18px Arial, Helvetica, sans-serif;color:#2b2b2b; outline:0;}
+textarea {background-color:#fff;border:1px solid #cccccc;font: normal 12px/18px Arial, Helvetica, sans-serif;color:#2b2b2b; outline:0;-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;}
 
 input.text-smaller { background-color:#fff;border:1px solid #cccccc;font: normal 11px/16px Arial, Helvetica, sans-serif;color:#2b2b2b; outline:0; }
 input.text-padding-3{padding:3px}

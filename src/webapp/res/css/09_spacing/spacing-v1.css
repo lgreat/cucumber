@@ -58,6 +58,15 @@ General comments:
 .mlm,.mhm,.mam{margin-left:10px}
 .mll,.mhl,.mal{margin-left:20px}
 
+.pt1 {padding-top:1px}
+.pt2 {padding-top:2px}
+.pt3 {padding-top:3px}
+.pt4 {padding-top:4px}
+.pt6 {padding-top:6px}
+.pt7 {padding-top:7px}
+.pt8 {padding-top:8px}
+.pt9 {padding-top:9px}
+
 .mha{margin-right: auto;margin-left: auto;}
 
 .fl { float: left; }
@@ -102,6 +111,7 @@ General comments:
 .zir-2{position:relative;z-index:2;}
 .zir-3{position:relative;z-index:3;}
 .zir-4{position:relative;z-index:4;}
+
 
 .orText {
     font: 14px sans-serif;
