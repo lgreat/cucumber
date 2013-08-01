@@ -130,9 +130,27 @@
     <br /><br /><br /><br /><br /><br />
     <a onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;">Join</a>
     <br /><br />
+    <a onclick="GSType.hover.subscriptionEmailValidated.show(); return false;">subscriptionEmailValidated</a>
+    <br /><br />
+    <a onclick="GSType.hover.validateEmail.show(); return false;">validateEmail</a>
+    <br /><br />
+    <a onclick="GSType.hover.validateEmailSchoolReview.show(); return false;">validateEmailSchoolReview</a>
+    <br /><br />
+    <a onclick="GSType.hover.validateEditEmail.show(); return false;">validateEditEmail</a>
+    <br /><br />
     <a onclick="GSType.hover.emailValidated.show(); return false;">emailValidated</a>
     <br /><br />
-    <a onclick="GSType.hover.schoolReviewPostedThankYou.show(); return false;">schoolReviewThankYou</a>
+    <a onclick="GSType.hover.emailNotValidated.show(); return false;">emailNotValidated</a>
+    <br /><br />
+    <a onclick="GSType.hover.editEmailValidated.show(); return false;">editEmailValidated</a>
+    <br /><br />
+    <a onclick="GSType.hover.espPreApprovalEmail.show(); return false;">espPreApprovalEmail</a>
+    <br /><br />
+    <a onclick="GSType.hover.validateLinkExpired.show(); return false;">validateLinkExpired</a>
+    <br /><br />
+    <a onclick="GSType.hover.forgotPassword.show(); return false;">forgotPassword</a>
+
+
     <br /><br /><br />
     </body>
     </html>
