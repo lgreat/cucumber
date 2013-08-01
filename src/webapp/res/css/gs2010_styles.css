@@ -1916,12 +1916,17 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 /* -------------- raiseYourHand -------------- */
-.raiseYourHand {
-    margin: 10px 0;
-}
-
 .raiseYourHand .bd {
     background-color: #ebebeb;
+    overflow: hidden;
+    *overflow: visible;
+    zoom: 1;
+}
+
+.raiseYourHand .ft, .hd{
+    overflow: hidden;
+    *overflow: visible;
+    zoom: 1;
 }
 
 /* ---------------- ryh-topic ---------------- */
