@@ -131,7 +131,8 @@
     <a onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;">Join</a>
     <br /><br />
     <a onclick="GSType.hover.emailValidated.show(); return false;">emailValidated</a>
-
+    <br /><br />
+    <a onclick="GSType.hover.schoolReviewPostedThankYou.show(); return false;">schoolReviewThankYou</a>
     <br /><br /><br />
     </body>
     </html>
