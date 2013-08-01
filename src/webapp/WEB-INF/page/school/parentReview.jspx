@@ -473,7 +473,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                         </div>
                     </div>
                 </div>
-                <div class="fr">
+                <div class="fr" style="width:310px;">
 
                     <!--start-->
                     <div class="js-posterAsString-error dn form-alert pbs ptm dn">
@@ -561,9 +561,9 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                     <div class="mod form">
                         <div class="inner">
                     <div class="tac ptm"><gsml:signInWithFacebookButton size="32" id="parentReviewFormSubmit-facebook"/></div>
-                    <div class="smaller bottom pts clearfix" style="width:300px;">
+                    <div class="smaller bottom pts clearfix" style="width:290px;">
                         <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
-                        <div class="fl" style="width: 270px">We will not display your name, photo or email address with your review.</div>
+                        <div class="fl" style="width: 250px">We will not display your name, photo or email address with your review.</div>
                     </div>
 
                             <!--<div><a class="plm smaller bold js-submit-using-email" onclick="javascript:$('#js-submit-using-email').show()">Or submit using your email</a></div>-->
@@ -588,11 +588,11 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                             <c:choose>
                                 <c:when test="${not empty validUser.email}">
                                     <input class="email text1noborder_ongray js-email" type="text" readonly="true" name="email"
-                                           placeholder="Email address" value="${validUser.email}" style="width: 210px; border: none;"/>
+                                           placeholder="Email address" value="${validUser.email}" style="width: 170px; border: none;"/>
                                 </c:when>
                                 <c:otherwise>
                                     <input class="email text1noborder_ongray js-email" type="text" name="email"
-                                           placeholder="Please enter your email" style="width: 210px; border: none;"/>
+                                           placeholder="Please enter your email" style="width: 170px; border: none;"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -601,9 +601,9 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                     </div>
                         <div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</div></div>
                     </div>
-                        <div class="smaller bottom pts clearfix pbm" style="width:300px;">
+                        <div class="smaller bottom pts clearfix pbm" style="width:290px;">
                             <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
-                            <div class="fl" style="width: 270px">Your email address will never be published or shared.</div>
+                            <div class="fl" style="width: 250px">Your email address will never be published or shared.</div>
                         </div>
                     </c:if>
                     </div>
