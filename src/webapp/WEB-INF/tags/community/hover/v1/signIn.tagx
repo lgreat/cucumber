@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="line clearfix ptl">
-                        <div style="width:320px;"><label for="spword" class="fl small_bold bottom">Choose a password</label>
+                        <div style="width:320px;"><label for="spword" class="fl small_bold bottom">Password</label>
                         <span class="fr"><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" class="smaller make-787878">Forgot your password?</a></span></div><br/>
                         <input type="password" id="spword" class="fl small bottom input_5" name="password"/>
 
