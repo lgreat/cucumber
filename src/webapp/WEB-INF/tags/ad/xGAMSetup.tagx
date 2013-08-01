@@ -289,8 +289,14 @@
 
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
-                googletag.pubads().enableSingleRequest();
             ]]>
+
+            <c:if test="${requestScope.context.gptSingleRequestMode}">
+                <![CDATA[
+                    googletag.pubads().enableSingleRequest();
+                ]]>
+            </c:if>
+
             <c:if test="${!requestScope.context.gptAsynchronousModeEnabled}">
                 <![CDATA[
                     googletag.pubads().enableSyncRendering();

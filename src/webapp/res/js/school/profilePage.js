@@ -188,7 +188,13 @@ GS.profile = GS.profile || (function() {
         } else if (initialTab.name === 'culture') {
 //            refreshableCultureAdSlotKeys.push('School_Profile_Page_Culture_CustomSponsor_630x40');
         }
-        refreshAdsForTab(currentTab.name);
+
+        // We can't just call refreshAdsForTab, since then non-delayed ads would get hit with two impressions
+        // on initial page load, any ads which have not been delayed have been displayed()ed and shown.
+        // but, there's logic that's needed to initialize the existing "handleTandem" logic, so that when Tandem
+        // call resolves/rejects, the handleTandem code knows which ads to refresh
+        initializeAdsForTab(currentTab.name);
+        //refreshAdsForTab(currentTab);
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             window.History.Adapter.bind(window, 'statechange', function() {
@@ -217,11 +223,12 @@ GS.profile = GS.profile || (function() {
     var hideAllAds = function(){
         var len = refreshableProfileAllAdSlotKeys.length;
         var needle = "School_Profile_Page_";
+        var needleLength = needle.length;
         var title = "";
         for( var i=0; i < len; i++){
             var title = refreshableProfileAllAdSlotKeys[i];
             if(title.indexOf(needle) >= 0){
-                $("#"+title.substring(20)).hide();
+                $("#"+title.substring(needleLength)).hide();
             }
             else{
                 $("#"+title).hide();
@@ -230,14 +237,15 @@ GS.profile = GS.profile || (function() {
         }
     }
 
-    var showReleventAds = function(adslots){
+    var showRelevantAdDivs = function(adslots){
         var len = adslots.length;
         var needle = "School_Profile_Page_";
+        var needleLength = needle.length;
         var title = "";
         for( var i=0; i < len; i++){
             var title = adslots[i];
             if(title.indexOf(needle) >= 0){
-                $("#"+title.substring(20)).show();
+                $("#"+title.substring(needleLength)).show();
             }
             else{
                 $("#"+title).show();
@@ -255,7 +263,6 @@ GS.profile = GS.profile || (function() {
 
         switch (tabName) {
             case "overview":{
-//                handleTandemBranding(refreshableTandemTileBranding, 'Branded_Tandem_Tile_150x30', '', '', tabName);
                 var layerArr = ['Branded_Tandem_Tile_150x30'];
                 handleTandemBranding(refreshableTandemTileBranding, layerArr, '', '', tabName);
                 refreshOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
@@ -284,6 +291,38 @@ GS.profile = GS.profile || (function() {
             }
             default:{
                 refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
+            }
+        }
+    };
+
+    var initializeAdsForTab = function (tabName) {
+        // on initial page load, any ads which have not been delayed have been displayed()ed and shown.
+        // but, there's logic that's needed to initialize the existing "handleTandemAd" logic in calendar.js, so that
+        // when Tandem call resolves/rejects, the handleTandem code knows which ads to refresh
+
+        switch (tabName) {
+            case "overview":{
+                var layerArr = ['Branded_Tandem_Tile_150x30'];
+                handleTandemBranding(refreshableTandemTileBranding, layerArr, '', '', tabName);
+                break;
+            }
+            case "culture":{
+                var layerArrCultureBranded = [
+                    'Footer_Branded_Tandem_728x90',
+                    'Header_Branded_Tandem_728x90',
+                    'AboveFold_Branded_Tandem_300x600',
+                    'BelowFold_Branded_Tandem_300x250'
+                ];
+                var layerArrCulture = [
+                    'Footer_728x90',
+                    'Header_728x90',
+                    'AboveFold_300x600',
+                    'BelowFold_300x250'
+                ];
+                handleTandemBranding(refreshableCultureBranding, layerArrCultureBranded, refreshableCultureNoBranding, layerArrCulture, tabName);
+                break;
+            }
+            default:{
             }
         }
     };
@@ -448,13 +487,37 @@ GS.profile = GS.profile || (function() {
         targeting - boolean to either target tab(true) or no tab target (false)
      */
     var refreshAdsOnTabGeneric = function(adslots, tabName, targeting) {
-        showReleventAds(adslots);
+        // patch for ads issue GS-14387. Should be combined with existing GS.ad.refreshAds call in xGAMSetup
+        var numberAdSlots = adslots.length;
+        var i, slot, slotName;
+        var slotsLeftToRefresh = [];
+
+        for (i = 0; i < numberAdSlots; i++) {
+            slotName = adslots[i];
+            slot = GS.ad.slots[slotName];
+            if(slot.GS_displayedYet === false) {
+                // need to display instead of refresh
+                GS.ad.displayAd(slotName, slot.GS_domId);
+            } else {
+                // track that we still need to refresh this slot
+                slotsLeftToRefresh.push(slotName);
+            }
+        }
+
+        // show all slots that were passed into this function, regardless of how we tell google to refresh/show them
+        showRelevantAdDivs(adslots);
         GS.ad.unhideGhostTextForAdSlots(adslots);
+
+        // if no ad slots are left to be refreshed, exit early
+        if (!slotsLeftToRefresh.length > 0) {
+            return;
+        }
+
         if(targeting){
-            GS.ad.setTargetingAndRefresh(adslots, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
+            GS.ad.setTargetingAndRefresh(slotsLeftToRefresh, 'template', GS.ad.targeting.pageLevel['template'].concat(tabName));
         }
         else{
-            GS.ad.refreshAds(adslots);
+            GS.ad.refreshAds(slotsLeftToRefresh);
         }
     };
 
@@ -464,12 +527,34 @@ GS.profile = GS.profile || (function() {
         return href;
     };
 
+
+    var getDelayedAds= function() {
+        var slots = [];
+        var tab = GS.uri.Uri.getQueryData().tab || "overview";
+        slots = slots.concat(refreshableTandemTileBranding);
+        slots = slots.concat(refreshableCultureBranding);
+
+        if (tab === "culture") {
+            slots = slots.concat(refreshableCultureNoBranding);
+        }
+
+        return slots;
+    };
+
+    var shouldDelayAd = function(slotName) {
+        var delayedAds = GS.profile.getDelayedAds();
+        var shouldDelay = ($.inArray(slotName, delayedAds) > -1);
+        return shouldDelay;
+    };
+
     return {
         init:init,
         refreshAdsOnTabGeneric:refreshAdsOnTabGeneric,
         refreshAdsForTab:refreshAdsForTab,
         getAlternateSitePath:getAlternateSitePath,
-        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange
+        refreshNonOverviewAdsWithoutTargetingChange:refreshNonOverviewAdsWithoutTargetingChange,
+        getDelayedAds:getDelayedAds,
+        shouldDelayAd:shouldDelayAd
     };
 }());
 
@@ -1306,3 +1391,52 @@ function enableReview(reviewId) {
             window.location.reload();
         });
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+// Code for GS-18347
+
+GS.ad = GS.ad || {};
+
+GS.ad.startConsoleLogging = function() {
+    var pos = 0;
+
+    (function log(){
+        var logItems = googletag.getEventLog().H;
+        for (; pos < logItems.length; pos++) {
+            console.log(logItems[pos].Xa);
+        }
+        setTimeout(log, 100);
+    })();
+};
+
+GS.ad.displayAd = function(slotName) {
+    if (slotName === undefined || slotName === null || slotName === '') {
+        return;
+    }
+
+    var googleSlot = GS.ad.slots[slotName];
+    var domId = googleSlot.GS_domId;
+
+    googletag.cmd.push(function() {
+        googletag.display(domId);
+        googleSlot.GS_displayedYet = true;
+    });
+};
+
+// called from within AdTagHandler
+// Profile page implementation of an ad's GPT display() step. Delay displaying ad if its visibility is conditional
+GS.ad.display = function(slotName, domId) {
+    if(GS.profile.shouldDelayAd(slotName)) {
+        // When existing code goes to refresh the ad, we must first check if it has already been displayed
+        GS.ad.slots[slotName].GS_displayedYet = false;
+        GS.ad.slots[slotName].GS_domId = domId;
+
+        // the "ad" class attribute is specified in AdTagHandler.java
+        $("#"+domId).closest('.ad').parent().hide();
+    } else {
+        googletag.cmd.push(function() {
+            googletag.display(domId);
+        });
+    }
+};

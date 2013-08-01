@@ -200,7 +200,12 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             }
 
             String divContainingAd = (disabledGptGhostTextHiding ? "gpt" + getId() : getAdId());
-            adCodeBuffer.append("googletag.display(\"").append(divContainingAd).append("\");");
+
+            if (isOnSchoolProfile(pageHelper)) {
+                adCodeBuffer.append("GS.ad.display(\""+ slotName + "\", \"" + divContainingAd + "\");");
+            } else {
+                adCodeBuffer.append("googletag.display(\"").append(divContainingAd).append("\");");
+            }
 
             if (isAsyncMode(sc)) {
                 adCodeBuffer.append("});");
@@ -317,5 +322,11 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
+    }
+
+    public boolean isOnSchoolProfile(PageHelper pageHelper) {
+
+        // the logic for setting this template value is in SchoolProfileController - just search for "template"
+        return pageHelper.hasAdKeywordWithValue("template","SchoolProf");
     }
 }
