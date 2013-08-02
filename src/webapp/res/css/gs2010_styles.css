@@ -6219,39 +6219,39 @@ a.ui-dialog-titlebar-close .ui-icon {
     clear: both;
 }
 
-#joinGS .error,
-.error {
-    font: 11px / 1.3 Arial, Helvetica, sans-serif;
-    color: #c03;
-    padding: 0 0 3px 15px;
-    background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;
-    display: none;
-}
+/*#joinGS .error,*/
+/*.error {*/
+    /*font: 11px / 1.3 Arial, Helvetica, sans-serif;*/
+    /*color: #c03;*/
+    /*padding: 0 0 3px 15px;*/
+    /*background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;*/
+    /*display: none;*/
+/*}*/
 
-#joinGS .messBox,
-.messBox {
-    border: 1px solid #c03;
-    background: #f4f4f4 url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 8px 8px no-repeat;
-    padding: 8px 8px 8px 24px;
-    margin-bottom: 9px;
-}
+/*#joinGS .messBox,*/
+/*.messBox {*/
+    /*border: 1px solid #c03;*/
+    /*background: #f4f4f4 url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 8px 8px no-repeat;*/
+    /*padding: 8px 8px 8px 24px;*/
+    /*margin-bottom: 9px;*/
+/*}*/
 
-#joinGS .valid,
-.valid {
-    color: #180;
-    background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
-}
+/*#joinGS .valid,*/
+/*.valid {*/
+    /*color: #180;*/
+    /*background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);*/
+/*}*/
 
-#joinGS .prefs,
-#joinGS .btns {
-    width: 548px;
-    padding: 0 0 20px 132px;
-    overflow: visible;
-}
+/*#joinGS .prefs,*/
+/*#joinGS .btns {*/
+    /*width: 548px;*/
+    /*padding: 0 0 20px 132px;*/
+    /*overflow: visible;*/
+/*}*/
 
-#joinGS #joinCity {
-    width: 120px;
-}
+/*#joinGS #joinCity {*/
+    /*width: 120px;*/
+/*}*/
 
 #joinGS #pickGrade {
     margin: 0;

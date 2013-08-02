@@ -26,7 +26,7 @@
                         </h5>
                     <div class="line">
                         <label for="semail" class="small_bold bottom">Email address</label><br/>
-                        <input type="text" id="semail" class="fl small bottom input_5 setemail" name="email"
+                        <input type="text" id="semail" class="fl small bottom input_5 setemail" tabindex="1" name="email"
                                onfocus="if(this.value=='[Enter email address]'){this.value='';}"
                                onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                         <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
@@ -35,18 +35,18 @@
                     </div>
                     <div class="line clearfix ptl">
                         <div style="width:320px;"><label for="spword" class="fl small_bold bottom">Password</label>
-                        <span class="fr"><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" class="smaller make-787878">Forgot your password?</a></span></div><br/>
-                        <input type="password" id="spword" class="fl small bottom input_5" name="password"/>
+                        <span class="fr"><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" tabindex="5" class="smaller make-787878">Forgot your password?</a></span></div><br/>
+                        <input type="password" id="spword" class="fl small bottom input_5" tabindex="2" name="password"/>
 
                         <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
                             <p class="error2"><!-- message --></p>
                         </div>
                     </div>
                         <div class="clearfix ptl">
-                            <button class="fl but but-rg but-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
+                            <button class="fl but but-rg but-1 signinBtn" type="submit" name="signinBtn" tabindex="3" id="signinBtn">Sign in</button>
                             <div class="pll pts fl smaller bottom">
                                 Not a member?
-                                <strong><a href="#" id="signInHover_launchJoin">Join GreatSchools</a></strong>.
+                                <strong><a href="#" id="signInHover_launchJoin"  tabindex="4">Join GreatSchools</a></strong>.
                             </div>
                         </div>
                         <input type="hidden" name="rememberMe" value="true"/>
