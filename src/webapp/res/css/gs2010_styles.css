@@ -2602,6 +2602,12 @@ div .gallery-thumbnail-selected:hover {
     float: right; /*margin-left: 10px;*/
 }
 
+.media .bd {
+    overflow: hidden;
+    *overflow: visible;
+    zoom: 1;
+}
+
 /* ------- media skins ------- */
 .media-1 {
     overflow: hidden;
