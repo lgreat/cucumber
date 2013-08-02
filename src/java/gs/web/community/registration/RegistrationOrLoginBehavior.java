@@ -12,6 +12,9 @@ public class RegistrationOrLoginBehavior {
 
     public School _school;
 
+    private boolean _sendVerificationEmail = true;
+    private boolean _sendConfirmationEmail = true;
+
     public boolean isFacebookRegistration() {
         return _fbSignedRequest != null;
     }
@@ -26,11 +29,11 @@ public class RegistrationOrLoginBehavior {
 
     // whether to send email verification email to the user
     public boolean sendVerificationEmail() {
-        return true;
+        return _sendVerificationEmail;
     }
 
     public boolean sendConfirmationEmail() {
-        return true;
+        return _sendConfirmationEmail;
     }
 
     public String getRedirectUrl() {
@@ -55,5 +58,13 @@ public class RegistrationOrLoginBehavior {
 
     public void setSchool(School school) {
         _school = school;
+    }
+
+    public void setSendVerificationEmail(boolean sendVerificationEmail) {
+        _sendVerificationEmail = sendVerificationEmail;
+    }
+
+    public void setSendConfirmationEmail(boolean sendConfirmationEmail) {
+        _sendConfirmationEmail = sendConfirmationEmail;
     }
 }
