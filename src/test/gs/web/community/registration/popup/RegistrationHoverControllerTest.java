@@ -5,9 +5,14 @@ import gs.data.geo.IGeoDao;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.web.BaseControllerTestCase;
+import gs.web.community.registration.RegistrationOrLoginBehavior;
+import gs.web.community.registration.UserRegistrationOrLoginService;
 import org.apache.commons.lang.StringUtils;
+
+import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -23,6 +28,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     private ITableDao _tableDao;
     private RegistrationHoverCommand _command;
     private BindException _errors;
+    private UserRegistrationOrLoginService _userRegistrationOrLoginService;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -41,13 +47,15 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
         _command = new RegistrationHoverCommand();
         _command.setEmail("RegistrationHoverControllerTest@greatschools.org");
-        _command.getUser().setId(123); // to fake the database save
+        //_command.getUser().setId(123); // to fake the database save
         _command.setPassword("foobar");
         _command.setConfirmPassword("foobar");
         _command.setNewsletter(false);
         _command.setJoinHoverType(RegistrationHoverCommand.JoinHoverType.LearningDifficultiesNewsletter);
         _controller.setRequireEmailValidation(false);
         _errors = new BindException(_command, "");
+        _userRegistrationOrLoginService = org.easymock.classextension.EasyMock.createStrictMock(UserRegistrationOrLoginService.class);
+        _controller.setUserRegistrationOrLoginService(_userRegistrationOrLoginService);
 
         getRequest().setRemoteAddr("127.0.0.1");
         getRequest().setServerName("dev.greatschools.org");
@@ -58,6 +66,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         replay(_geoDao);
         replay(_subscriptionDao);
         replay(_tableDao);
+        org.easymock.classextension.EasyMock.replay(_userRegistrationOrLoginService);
     }
 
     public void verifyMocks() {
@@ -65,6 +74,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         verify(_geoDao);
         verify(_subscriptionDao);
         verify(_tableDao);
+        org.easymock.classextension.EasyMock.verify(_userRegistrationOrLoginService);
     }
 
     public void resetMocks() {
@@ -72,22 +82,56 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         reset(_geoDao);
         reset(_subscriptionDao);
         reset(_tableDao);
+        org.easymock.classextension.EasyMock.reset(_userRegistrationOrLoginService);
     }
 
-    public void testOnBindAndValidate() throws Exception {
-        assertFalse(_errors.hasErrors());
+    public void testCalculateHoverToShow() {
         User user = new User();
-        user.setId(123);
-        user.setPlaintextPassword("foobar");
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
-        replayMocks();
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        verifyMocks();
-        assertTrue("Expect validation to occur", _errors.hasErrors());
+        user.setId(1);
+        String result;
+
+        _command.setJoinHoverType(RegistrationHoverCommand.JoinHoverType.SchoolReview);
+        result = _controller.calculateHoverToShow(user, true, _command);
+        assertEquals(
+            "Expect controller to set hover popup to custom school review hover, since join hover version was SchoolReview",
+            "validateEmailSchoolReview",
+            result
+        );
+
+        _command.setJoinHoverType(RegistrationHoverCommand.JoinHoverType.Auto);
+        user.setEmailVerified(false);
+        result = _controller.calculateHoverToShow(user, true, _command);
+        assertEquals(
+            "Expect controller to set hover popup to 'Subscription Email Validated' hover, since join hover was MSS " +
+                "join hover, user already existed, but the user's email wasnt verified or validated",
+            "subscriptionEmailValidated",
+            result
+        );
+
+        _command.setJoinHoverType(RegistrationHoverCommand.JoinHoverType.Auto);
+        user.setEmailVerified(true);
+        result = _controller.calculateHoverToShow(user, false, _command);
+        assertEquals(
+            "Expect controller to set hover popup to standard 'validateEmail' hover since brand new user was created",
+            "validateEmail",
+            result
+        );
+
+        // TODO: need more assertions
     }
+
 
     public void testOnSubmitNewUser() throws Exception {
-        setUpSubmitExpectations();
+        UserRegistrationOrLoginService.Summary summary = new UserRegistrationOrLoginService.Summary();
+
+        User user = new User();
+        user.setId(1);
+
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        expect(_userRegistrationOrLoginService.registerUser(eq(_command), isA(RegistrationOrLoginBehavior.class), isA(
+            BindingResult.class), eq(getRequest()))).andReturn(summary);
+
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -148,7 +192,19 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     public void testOnSubmitNewUserWithSubscriptions() throws Exception {
         _command.setNewsletter(true);
-        setUpSubmitExpectations();
+
+
+        UserRegistrationOrLoginService.Summary summary = new UserRegistrationOrLoginService.Summary();
+        User user = new User();
+        user.setId(1);
+        summary.setUser(user);
+
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        expect(_userRegistrationOrLoginService.registerUser(eq(_command), isA(RegistrationOrLoginBehavior.class), isA(
+            BindingResult.class), eq(getRequest()))).andReturn(summary);
+
+
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -167,13 +223,11 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     }
 
     private void setUpSubmitExpectations() {
+        UserRegistrationOrLoginService.Summary summary = new UserRegistrationOrLoginService.Summary();
         expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
-        _userDao.saveUser(isA(User.class)); // create new user
-        _userDao.updateUser(isA(User.class)); // set password
-        _userDao.updateUser(isA(User.class)); // update user profile
-        expect(_userDao.findUserFromId(123)).andReturn(_command.getUser()); // refresh session
-        _userDao.updateUser(isA(User.class)); // update user nth grader subscriptions
+        expect(_userRegistrationOrLoginService.registerUser(eq(_command), isA(RegistrationOrLoginBehavior.class), isA(
+            BindingResult.class), eq(getRequest()))).andReturn(summary);
     }
 
     public void testRedirect() throws Exception {
