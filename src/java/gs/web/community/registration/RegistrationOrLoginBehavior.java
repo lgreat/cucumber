@@ -1,6 +1,7 @@
 package gs.web.community.registration;
 
 
+import gs.data.community.WelcomeMessageStatus;
 import gs.data.school.School;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ public class RegistrationOrLoginBehavior {
 
     private boolean _sendVerificationEmail = true;
     private boolean _sendConfirmationEmail = true;
+    private WelcomeMessageStatus _welcomeMessageStatus;
 
     public boolean isFacebookRegistration() {
         return _fbSignedRequest != null;
@@ -30,6 +32,14 @@ public class RegistrationOrLoginBehavior {
     // whether to send email verification email to the user
     public boolean sendVerificationEmail() {
         return _sendVerificationEmail;
+    }
+
+    public WelcomeMessageStatus getWelcomeMessageStatus() {
+        return _welcomeMessageStatus;
+    }
+
+    public void setWelcomeMessageStatus(WelcomeMessageStatus welcomeMessageStatus) {
+        _welcomeMessageStatus = welcomeMessageStatus;
     }
 
     public boolean sendConfirmationEmail() {

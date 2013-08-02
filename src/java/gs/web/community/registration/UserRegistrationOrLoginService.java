@@ -367,6 +367,12 @@ public class UserRegistrationOrLoginService {
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
         }
 
+        //GS-14425 SS: I need to be able to have welcomeMessageStatus set DO_NOT_SEND here. Adding this now since
+        // it shouldnt affect anyone else's code
+        if (registrationOrLoginBehavior.getWelcomeMessageStatus() != null) {
+            user.setWelcomeMessageStatus(registrationOrLoginBehavior.getWelcomeMessageStatus());
+        }
+
         if (userCommand.getFacebookId() != null) {
             user.setFacebookId(userCommand.getFacebookId());
         }

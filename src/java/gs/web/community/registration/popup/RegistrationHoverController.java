@@ -107,12 +107,6 @@ public class RegistrationHoverController extends SimpleFormController implements
         UserRegistrationOrLoginService.Summary registrationSummary =
             _userRegistrationOrLoginService.registerUser(userCommand, registrationBehavior, errors, request);
 
-        // Users who get here from the MSS hover should have email validated with regex / library and
-        // set to true and welcome message set to NEVER_SEND
-        // User's "email verified" flag set true
-        // Users who get here from the MSS hover should not have omniture tracking
-        // Users who get here OTHER than from MSS hover should have omniture tracking when new user profile is created:
-        //   ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
 
         if (registrationSummary != null) {
             user = registrationSummary.getUser();
@@ -144,6 +138,10 @@ public class RegistrationHoverController extends SimpleFormController implements
                     emailRedirectUrl,
                     RegistrationHoverCommand.JoinHoverType.SchoolReview == userCommand.getJoinHoverType()
                 );
+            }
+
+            if (registrationSummary.wasUserRegistered()){
+                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
             }
 
             // Set "showHover" in our SitePrefCookie, so that the user will see a hover on next page load
@@ -180,8 +178,13 @@ public class RegistrationHoverController extends SimpleFormController implements
         behavior.setHow(userCommand.getHow());
 
         // This controller will handle sending confirmation and verification emails
-        behavior.setSendConfirmationEmail(false);
         behavior.setSendVerificationEmail(false);
+
+        if (userCommand.isMssJoin()) {
+            behavior.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+        } else {
+            behavior.setWelcomeMessageStatus(WelcomeMessageStatus.DO_NOT_SEND);
+        }
 
         return behavior;
     }
