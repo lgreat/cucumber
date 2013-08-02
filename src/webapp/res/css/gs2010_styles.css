@@ -3895,7 +3895,7 @@ div .gallery-thumbnail-selected:hover {
     position: absolute;
     top: 125px; /*left: 15px;*/
     float: left;
-    z-index: 50;
+    z-index: 0;
     background: none;
     line-height: normal;
 }
@@ -3951,7 +3951,7 @@ div .gallery-thumbnail-selected:hover {
     width: 598px;
     height: 14px;
     background: white url(/res/img/gradeByGrade/gbg-bg-slider-1.png) no-repeat left top;
-    z-index: 51;
+    z-index: 1;
 }
 
 #gbg-marker-p,

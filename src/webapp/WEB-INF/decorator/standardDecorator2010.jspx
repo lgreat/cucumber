@@ -80,7 +80,7 @@
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
           onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}"
           class="${requestScope.bodyClass}">
-    <div id="fullPageOverlay"><!-- do not collapse --></div>
+
     <c:if test="${requestScope.pageHelper.includeQualaroo}">
         <!-- Qualaroo for greatschools.org -->
         <!-- Paste this code right after the <body> tag on every page of your site. -->
@@ -93,23 +93,7 @@
         <cobrand:framebuster/>
 
 
-        <communityHover:subscriptionEmailValidated/>
-        <communityHover:validateEmail/>
-        <communityHover:validateEmailSchoolReview/>
-        <communityHover:validateEditEmail/>
-        <communityHover:emailNotValidated/>
-        <communityHover:emailValidated/>
-        <communityHover:editEmailValidated/>
-        <communityHover:validationLinkExpired/>
-        <communityHover:join/>
-        <communityHover:signIn/>
-        <communityHover:forgotPassword/>
-        <communityHover:schoolReviewThankYou/>
-        <communityHover:emailValidatedSchoolReview/>
-        <profile:principalConfirmHover/>
-        <profile:principalReviewSubmitted/>
-        <compare:compareSchoolsLimitReachedHover/>
-        <communityHover:espAccountVerified/>
+
 
         <div id="marginGS">
             <div class="site-gradient">
@@ -142,6 +126,26 @@
             ${deferredContent}
         </div>
     </div>
+
+    <div id="fullPageOverlay"><!-- do not collapse --></div>
+    <communityHover:subscriptionEmailValidated/>
+    <communityHover:validateEmail/>
+    <communityHover:validateEmailSchoolReview/>
+    <communityHover:validateEditEmail/>
+    <communityHover:emailNotValidated/>
+    <communityHover:emailValidated/>
+    <communityHover:editEmailValidated/>
+    <communityHover:validationLinkExpired/>
+    <communityHover:join/>
+    <communityHover:signIn/>
+    <communityHover:forgotPassword/>
+    <communityHover:schoolReviewThankYou/>
+    <communityHover:emailValidatedSchoolReview/>
+    <profile:principalConfirmHover/>
+    <profile:principalReviewSubmitted/>
+    <compare:compareSchoolsLimitReachedHover/>
+    <communityHover:espAccountVerified/>
+
 
     ${requestScope.pageHelper.bottomJavaScript}
     <mobile:desktopSiteSwitchJS/>
