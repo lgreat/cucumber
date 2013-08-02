@@ -205,15 +205,8 @@ GS.form.uspForm = (function ($) {
                     data.push({name:"mss", value:true});
                 }
 
-                $.when(
-                    saveForm(data)
-                ).done(function () {
-                        GSType.hover.modalUspRegistration.hide();
-                    })
-                    .fail(function () {
-                        GSType.hover.modalUspRegistration.hide();
-                        alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
-                    });
+                GSType.hover.modalUspRegistration.hide();
+                saveForm(data);
             }
         ).fail(
             function () {
@@ -245,29 +238,26 @@ GS.form.uspForm = (function ($) {
     };
 
     var saveForm = function (data) {
-        var dfd = $.Deferred();
 
         $.ajax({type:'POST',
                 async:true,
                 url:document.location,
                 data:data}
         ).fail(function () {
-                dfd.reject();
                 alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
             }).done(function (data) {
-                dfd.resolve();
                 if (data.redirect !== undefined && data.redirect !== '') {
                     window.location = data.redirect;
                 }
                 else if(data.hasExistingSavedResponses === 'true') {
-                    hideAllErrors();
                     if(data.formFields === undefined) {
                         return;
                     }
+                    var uspForm = $(USP_FORM_SELECTOR);
                     updateUspFormFields(data, uspForm);
+
                 }
             });
-        return dfd.promise();
     };
 
     var updateUspFormFields = function(data, uspForm) {
