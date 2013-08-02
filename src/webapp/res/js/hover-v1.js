@@ -1814,9 +1814,8 @@ GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, school
             redirect = elem.href;
         }
         var mslSuccessCallback = function(email, formId) {
-            mslHelper.addSchool(schoolState, schoolId, function() {}, function() {}, email);
             GSType.hover.signInHover.setRedirect(redirect);
-            jQuery('#' + formId).submit();
+            mslHelper.addSchool(schoolState, schoolId, function() {jQuery('#' + formId).submit();}, function() {jQuery('#' + formId).submit();}, email);
         };
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
