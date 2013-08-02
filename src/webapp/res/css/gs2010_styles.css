@@ -6193,11 +6193,11 @@ a.ui-dialog-titlebar-close .ui-icon {
 
 .contactPw label,
 #hover_forgotPasswordForm label {
-    float: left;
-    margin: 0 15px 0 0;
-    width: 117px;
-    display: inline;
-    clear: left;
+    /*float: left;*/
+    /*margin: 0 15px 0 0;*/
+    /*width: 117px;*/
+    /*display: inline;*/
+    /*clear: left;*/
 }
 
 .signin label {
@@ -6451,8 +6451,8 @@ div.hlpTxt  p {
 }
 
 button#hover_forgotPasswordSubmit {
-    margin-left: 132px;
-    display: inline;
+    /*margin-left: 132px;*/
+    /*display: inline;*/
 }
 
 #cancelPref {

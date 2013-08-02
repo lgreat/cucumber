@@ -29,9 +29,14 @@ General comments:
 .modal_1 .bottom  { margin-bottom: 0px; padding-bottom: 0px}
 .modal_1 label.checkbox-smaller, label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; display: inline; }
 
+label {font: bold 12px/18px Arial, Helvetica, sans-serif;}
 
 .modal_1 form input[type="text"],
 .modal_1 form input[type="password"]{width: 320px;padding: 3px;}
+.modal_1 form input.text-smaller { background-color:#fff;border:1px solid #cccccc;font: normal 11px/16px Arial, Helvetica, sans-serif;color:#2b2b2b; outline:0;
+    -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;}
 .modal_1 .dn { display: none; }
 
 .modal_1 .orText {
