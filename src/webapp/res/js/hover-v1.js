@@ -19,6 +19,11 @@ Function.prototype.gs_bind = function(obj) {
         return method.apply(obj, arguments);
     };
 };
+GS.log = GS.log || function() {
+    if (GS.uri.Uri.getQueryData().logging == true) {
+        console.log(arguments);
+    }
+};
 
 //HoverDialog requires the ID of the element to display as a hover dialog
 GSType.hover.HoverDialog = function(id,width) {
@@ -788,6 +793,7 @@ GSType.hover.JoinHover = function() {
 //        return false;
 //    });
     this.clickSubmitHandler = function() {
+        GS.log('entered clickSubmitHAndler');
         var params = jQuery('#joinGS').serialize();
         jQuery('.joinBtn').prop('disabled', true);
 
@@ -811,8 +817,14 @@ GSType.hover.JoinHover = function() {
         if(jQuery('#joinHoverType').val() === 'Auto') {
             mssHover = true;
         }
-        params += "&simpleMss=" + mssHover;
 
+        if (mssHover) {
+            params += "&simpleMss=" + mssHover;
+        } else {
+            params += "&simple=true";
+        }
+
+        GS.log('before if(MssHover)');
         if(mssHover) {
             jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, function(data) {
                 GS.joinHover_checkValidationResponse(data, true);
@@ -823,6 +835,7 @@ GSType.hover.JoinHover = function() {
                 GS.joinHover_checkValidationResponse(data, false);
             });
         }
+        GS.log('returning from clickSubmitHandler');
         return false;
     };
 };
@@ -1905,50 +1918,23 @@ GS.joinHover_checkValidationResponse = function(data, sendTracking) {
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
+    GS.log('in joinHover_passesValidationResponse', data);
     var errorIcon = '<span class="iconx16 i-16-alert"><!--not empty--></span> ';
-    var firstNameError = jQuery('#joinGS .joinHover_firstName .invalid');
     var emailError = jQuery('#joinGS .joinHover_email .invalid');
-    var usernameError = jQuery('#joinGS .joinHover_username .invalid');
-    var usernameValid = jQuery('#joinGS .joinHover_username .valid');
     var passwordError = jQuery('#joinGS .joinHover_password .invalid');
     var confirmPasswordError = jQuery('#joinGS .joinHover_confirmPassword .invalid');
-    // GS-11161
-    //var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
-    var locationError = jQuery('#joinGS #joinHover_chooseLocation');
 
-    firstNameError.hide();
     emailError.hide();
-    usernameError.hide();
-    usernameValid.hide();
     passwordError.hide();
     confirmPasswordError.hide();
-    // GS-11161
-    //termsError.hide();
-    locationError.hide();
 
     var objCount = 0;
     for (_obj in data) objCount++;
 
     if (objCount > 0) {
+        GS.log('joinHover_passesValidationResponse fail');
         jQuery('#joinGS #js_ProcessError').show("fast");
         jQuery('#joinGS #process_error').show("fast");
-        /*
-         // GS-11161
-         if (data.terms) {
-         termsError.html(data.terms).show();
-         }
-         */
-
-        if (data.state) {
-            locationError.html(errorIcon+data.state).show();
-        }
-        if (data.city) {
-            locationError.html(errorIcon+data.city).show();
-        }
-
-        if (data.firstName) {
-            firstNameError.html(errorIcon+data.firstName).show();
-        }
 
         if (data.email) {
             emailError.html(errorIcon+data.email).show();
@@ -1964,12 +1950,6 @@ GS.joinHover_passesValidationResponse = function(data) {
 
         if (data.confirmPassword) {
             confirmPasswordError.html(errorIcon+data.confirmPassword).show();
-        }
-
-        if (data.screenName) {
-            usernameError.html(errorIcon+data.screenName).show();
-        } else {
-            usernameValid.show();
         }
 
         return false;
