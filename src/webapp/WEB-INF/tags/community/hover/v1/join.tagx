@@ -13,7 +13,7 @@
                 <div class="inner">
                     <div class="hd">
                         <h1 class="tal js-smallSpacingTitle">Join GreatSchools</h1>
-                        <p class="tal mbn pbm">Create an account to submit your answers.</p>
+                        <p class="tal mbn pbm js-joinSubtitle">Create an account to submit your answers.</p>
                     </div>
                     <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
                         <div class="body pal">

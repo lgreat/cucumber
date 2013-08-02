@@ -304,19 +304,10 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover form#joinGS input#joinHoverType').val(type);
     };
     this.setTitle = function(title) {
-        jQuery('#joinHover div.js-smallSpacingTitle h2').html(title);
+        jQuery('#joinHover').find('.js-smallSpacingTitle').html(title);
     };
-    this.setSubTitle = function(subTitle, subTitleText) {
-        // GS-11161
-        /*
-         jQuery('#joinHover .introTxt h3').html(subTitle);
-         jQuery('#joinHover .introTxt p').html(subTitleText);
-         */
-        jQuery('#joinHover .introTxt span.title').html(subTitle);
-        if (subTitleText && subTitleText.charAt(0) != ',') {
-            subTitleText = " " + subTitleText;
-        }
-        jQuery('#joinHover .introTxt span.subtitle').html(subTitleText);
+    this.setSubTitle = function(subTitle) {
+        jQuery('#joinHover').find('.js-joinSubtitle').html(subTitle);
     };
     this.configAndShowEmailTipsMssLabel = function(includeWeeklyEmails, includeTips, includeMss)
     {
@@ -545,7 +536,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
         // GS-11161
-        GSType.hover.joinHover.setSubTitle("Get timely updates for " + GSType.hover.joinHover.schoolName,
+        GSType.hover.joinHover.setSubTitle("Get timely updates for " + GSType.hover.joinHover.schoolName +
             ", including performance data and recently posted user reviews.");
         // show nth / MSS
         // GS-11161
@@ -568,8 +559,7 @@ GSType.hover.JoinHover = function() {
             GSType.hover.joinHover.onSubmitCallback = onSubmitCallback;
         }
         GSType.hover.joinHover.setTitle("Almost done!");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            " to submit your review. Once you verify your email address, your review will be posted, provided it meets our guidelines.");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools to submit your review. Once you verify your email address, your review will be posted, provided it meets our guidelines.");
 
         // set label for weekly updates opt-in
 //        if (GSType.hover.joinHover.schoolName) {
@@ -590,8 +580,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Special Education newsletter");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to get the resources you need to support your child with a learning difficulty or attention problem");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools to get the resources you need to support your child with a learning difficulty or attention problem");
         // show nth / MSS
 //        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show LD newsletter
@@ -612,8 +601,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Back-to-School Tip of the Day");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to get Back-to-School tips delivered straight to your inbox!");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools to get Back-to-School tips delivered straight to your inbox!");
         // show nth / MSS
 //        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show BTS tip
@@ -635,9 +623,8 @@ GSType.hover.JoinHover = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Speak your mind");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to participate in the parent community and other discussions on our site");
+        GSType.hover.joinHover.setTitle("Join GreatSchools");
+        GSType.hover.joinHover.setSubTitle("Create an account to participate in the parent community and other discussions on our site");
         // show nth / MSS
 //        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
@@ -683,9 +670,8 @@ GSType.hover.JoinHover = function() {
         });
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Is your child on track?");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to get grade-by-grade tips and practical advice to help you guide your child to educational success.");
+        GSType.hover.joinHover.setTitle("Join GreatSchools");
+        GSType.hover.joinHover.setSubTitle("Sign in with Facebook or create a new account.");
         // show nth / MSS
 //        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
@@ -705,9 +691,8 @@ GSType.hover.JoinHover = function() {
         $('.js-facebook-login-join').show();
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Welcome to My School List");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to save one or more schools of interest to your personalized list.");
+        GSType.hover.joinHover.setTitle("Join GreatSchools");
+        GSType.hover.joinHover.setSubTitle("Create an account to save one or more schools to your personalized list.");
         // show nth / MSS
 //        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
@@ -728,7 +713,6 @@ GSType.hover.JoinHover = function() {
 //            });
 //    };
     this.validateEmail = function() {
-        console.log(jQuery('#joinGS #jemail').val());
         jQuery.getJSON(
             GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
             {email:jQuery('#joinGS #jemail').val(), field:'email', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
@@ -2233,7 +2217,6 @@ jQuery(function() {
     })
 
     jQuery('.js_ShowHideGrades').on("click", function( event) {
-        console.log("test");
         event.preventDefault();
         if(!jQuery('.js_ShowHideGrades').hasClass('disabled_field')){
             if(jQuery(".js_showGradeSelect").css("display") == "none"){
