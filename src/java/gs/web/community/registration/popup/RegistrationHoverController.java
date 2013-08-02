@@ -2,16 +2,19 @@ package gs.web.community.registration.popup;
 
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.state.State;
+import gs.data.util.table.ITableDao;
 import gs.web.community.registration.*;
 import gs.web.util.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.*;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +23,18 @@ import java.util.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
-public class RegistrationHoverController extends RegistrationController implements ReadWriteController {
+public class RegistrationHoverController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private boolean _requireEmailValidation = true;
     private ExactTargetAPI _exactTargetAPI;
+    private ITableDao _tableDao;
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
+    private String _errorView;
+    private IUserDao _userDao;
+    private EmailVerificationEmail _emailVerificationEmail;
+    private ISubscriptionDao _subscriptionDao;
+    private JavaMailSender _mailSender;
 
     public static final String BEAN_ID = "/community/registration/popup/registrationHover.page";
 
@@ -54,6 +63,12 @@ public class RegistrationHoverController extends RegistrationController implemen
     }
 
     @Override
+    protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
+        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) super.formBackingObject(httpServletRequest);
+        return userCommand;
+    }
+
+    @Override
     public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
         RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
         boolean isMssJoin = (RegistrationHoverCommand.JoinHoverType.Auto == userCommand.getJoinHoverType());
@@ -72,7 +87,7 @@ public class RegistrationHoverController extends RegistrationController implemen
                                  Object command,
                                  BindException errors) throws Exception {
         // Need to check if user's IP is blocked
-        if (isIPBlocked(request)) return new ModelAndView(getErrorView());
+        if (_userRegistrationOrLoginService.isIPBlocked(request)) return new ModelAndView(getErrorView());
 
         ModelAndView mAndV = new ModelAndView();
         RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
@@ -143,6 +158,23 @@ public class RegistrationHoverController extends RegistrationController implemen
         return mAndV;
     }
 
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl) {
+        sendValidationEmail(request, user, redirectUrl, false);
+    }
+
+    protected void sendValidationEmail(HttpServletRequest request, User user, String redirectUrl,
+                                       boolean schoolReviewFlow) {
+        try {
+            if (schoolReviewFlow) {
+                getEmailVerificationEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+            } else {
+                getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+            }
+        } catch (Exception e) {
+            _log.error("Error sending email message: " + e, e);
+        }
+    }
+
     protected RegistrationOrLoginBehavior createRegistrationBehavior(RegistrationHoverCommand userCommand) {
         RegistrationOrLoginBehavior behavior = new RegistrationOrLoginBehavior();
         behavior.setHow(userCommand.getHow());
@@ -197,7 +229,7 @@ public class RegistrationHoverController extends RegistrationController implemen
     }
 
     private void saveRegistrations(RegistrationHoverCommand userCommand, User user, OmnitureTracking ot) {
-        // TODO: I switched the ternary values since state was resulting null.
+        // TODO: I switched the ternary values since state was resulting to null.
         // TODO: Why was it not causing a problem before?
         State state = userCommand.getState() == null ? State.CA : userCommand.getState();
 
@@ -274,4 +306,55 @@ public class RegistrationHoverController extends RegistrationController implemen
         _userRegistrationOrLoginService = userRegistrationOrLoginService;
     }
 
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
+    }
+
+    public String getErrorView() {
+        return _errorView;
+    }
+
+    public void setErrorView(String errorView) {
+        _errorView = errorView;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
+    }
+
+    public ITableDao getTableDao() {
+        return _tableDao;
+    }
+
+    public UserRegistrationOrLoginService getUserRegistrationOrLoginService() {
+        return _userRegistrationOrLoginService;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
+    }
+
+    public JavaMailSender getMailSender() {
+        return _mailSender;
+    }
+
+    public void setMailSender(JavaMailSender mailSender) {
+        _mailSender = mailSender;
+    }
 }

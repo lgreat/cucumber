@@ -1,7 +1,6 @@
 package gs.web.community.registration.popup;
 
 import gs.data.community.*;
-import gs.data.geo.IGeoDao;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.web.BaseControllerTestCase;
@@ -23,7 +22,6 @@ import java.util.List;
 public class RegistrationHoverControllerTest extends BaseControllerTestCase {
     private RegistrationHoverController _controller;
     private IUserDao _userDao;
-    private IGeoDao _geoDao;
     private ISubscriptionDao _subscriptionDao;
     private ITableDao _tableDao;
     private RegistrationHoverCommand _command;
@@ -36,12 +34,10 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         _controller = new RegistrationHoverController();
 
         _userDao = createStrictMock(IUserDao.class);
-        _geoDao = createStrictMock(IGeoDao.class);
         _subscriptionDao = createStrictMock(ISubscriptionDao.class);
         _tableDao = createStrictMock(ITableDao.class);
 
         _controller.setUserDao(_userDao);
-        _controller.setGeoDao(_geoDao);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.setTableDao(_tableDao);
 
@@ -63,7 +59,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     public void replayMocks() {
         replay(_userDao);
-        replay(_geoDao);
         replay(_subscriptionDao);
         replay(_tableDao);
         org.easymock.classextension.EasyMock.replay(_userRegistrationOrLoginService);
@@ -71,7 +66,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     public void verifyMocks() {
         verify(_userDao);
-        verify(_geoDao);
         verify(_subscriptionDao);
         verify(_tableDao);
         org.easymock.classextension.EasyMock.verify(_userRegistrationOrLoginService);
@@ -79,7 +73,6 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     public void resetMocks() {
         reset(_userDao);
-        reset(_geoDao);
         reset(_subscriptionDao);
         reset(_tableDao);
         org.easymock.classextension.EasyMock.reset(_userRegistrationOrLoginService);
@@ -127,7 +120,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         User user = new User();
         user.setId(1);
 
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userRegistrationOrLoginService.isIPBlocked(_request)).andReturn(false);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         expect(_userRegistrationOrLoginService.registerUser(eq(_command), isA(RegistrationOrLoginBehavior.class), isA(
             BindingResult.class), eq(getRequest()))).andReturn(summary);
@@ -199,7 +192,8 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
         user.setId(1);
         summary.setUser(user);
 
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userRegistrationOrLoginService.isIPBlocked(_request)).andReturn(false);
+
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         expect(_userRegistrationOrLoginService.registerUser(eq(_command), isA(RegistrationOrLoginBehavior.class), isA(
             BindingResult.class), eq(getRequest()))).andReturn(summary);
@@ -214,7 +208,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     public void testOnSubmitBlockedIP() throws Exception {
         _controller.setErrorView("error");
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(createMock(ITableRow.class));
+        expect(_userRegistrationOrLoginService.isIPBlocked(_request)).andReturn(true);
         replayMocks();
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verifyMocks();
@@ -224,7 +218,7 @@ public class RegistrationHoverControllerTest extends BaseControllerTestCase {
 
     private void setUpSubmitExpectations() {
         UserRegistrationOrLoginService.Summary summary = new UserRegistrationOrLoginService.Summary();
-        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userRegistrationOrLoginService.isIPBlocked(_request)).andReturn(false);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         expect(_userRegistrationOrLoginService.registerUser(eq(_command), isA(RegistrationOrLoginBehavior.class), isA(
             BindingResult.class), eq(getRequest()))).andReturn(summary);
