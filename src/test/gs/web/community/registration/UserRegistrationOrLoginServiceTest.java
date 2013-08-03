@@ -421,7 +421,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest());
+        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest(), _userRegistrationCommand);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -453,7 +453,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest());
+        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest(), _userRegistrationCommand);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -484,7 +484,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest());
+        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest(), _userRegistrationCommand);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -516,7 +516,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest());
+        boolean result = _service.convertToFacebookAccountIfNeeded(user, getRequest(), _userRegistrationCommand);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -528,6 +528,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testLoginFacebookUser_existingFacebookUser() throws Exception {
+        BindingResult bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "userRegistrationCommand");
         RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
         registrationBehavior.setFbSignedRequest("bogus");
 
@@ -549,7 +550,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        _service.loginFacebookUser(_userLoginCommand, _request, _response);
+        _service.loginFacebookUser(validFacebookUserRegistrationCommand(), bindingResult, _request, _response);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -560,6 +561,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testLoginFacebookUser_existingRegularUser() throws Exception {
+        BindingResult bindingResult = new BeanPropertyBindingResult(_userRegistrationCommand, "userRegistrationCommand");
         RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
         registrationBehavior.setFbSignedRequest("bogus");
 
@@ -583,7 +585,7 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        _service.loginFacebookUser(_userLoginCommand, _request, _response);
+        _service.loginFacebookUser(validFacebookUserRegistrationCommand(), bindingResult, _request, _response);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -594,20 +596,22 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testLoginFacebookUser_wrongEmail() throws Exception {
+        UserRegistrationCommand userRegistrationCommand = validFacebookUserRegistrationCommand();
+        userRegistrationCommand.setEmail("someuser@somedomain.com");
+        BindingResult bindingResult = new BeanPropertyBindingResult(validFacebookUserRegistrationCommand(), "userRegistrationCommand");
         RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
         registrationBehavior.setFbSignedRequest("bogus");
 
         FacebookSession facebookSession = org.easymock.classextension.EasyMock.createMock(FacebookSession.class);
         getRequest().setAttribute(FacebookSession.REQUEST_ATTRIBUTE, facebookSession);
 
-        _userLoginCommand.setEmail("someuser@somedomain.com");
 
         expect(_userDao.findUserFromEmailIfExists("someuser@somedomain.com")).andReturn(null);
 
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        _service.loginFacebookUser(_userLoginCommand, _request, _response);
+        _service.loginFacebookUser(userRegistrationCommand, bindingResult, _request, _response);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
@@ -617,6 +621,8 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
 
     @Test
     public void testLoginFacebookUser_wrongFacebookId() throws Exception {
+        UserRegistrationCommand userRegistrationCommand = validFacebookUserRegistrationCommand();
+        BindingResult bindingResult = new BeanPropertyBindingResult(validFacebookUserRegistrationCommand(), "userRegistrationCommand");
         RegistrationOrLoginBehavior registrationBehavior = new RegistrationOrLoginBehavior();
         registrationBehavior.setFbSignedRequest("bogus");
 
@@ -638,11 +644,20 @@ public class UserRegistrationOrLoginServiceTest extends BaseControllerTestCase {
         replayAllMocks();
         org.easymock.classextension.EasyMock.replay(facebookSession);
 
-        _service.loginFacebookUser(_userLoginCommand, _request, _response);
+        _service.loginFacebookUser(validFacebookUserRegistrationCommand(), bindingResult, _request, _response);
 
         verifyAllMocks();
         org.easymock.classextension.EasyMock.verify(facebookSession);
 
         assertNull("Expect MEMID cookie to have NOT been set", _response.getCookie("MEMID"));
+    }
+
+    private UserRegistrationCommand validFacebookUserRegistrationCommand() {
+        UserRegistrationCommand userRegistrationCommand = new UserRegistrationCommand();
+        userRegistrationCommand.setTerms(true);
+        userRegistrationCommand.setHow("facebook");
+        userRegistrationCommand.setEmail("someuser@somedomain.com");
+        userRegistrationCommand.setFacebookId("12345");
+        return userRegistrationCommand;
     }
 }

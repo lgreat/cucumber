@@ -74,7 +74,7 @@ public class UserRegistrationOrLoginService {
         Summary summary;
 
         if (registrationOrLoginBehavior.isFacebookRegistration()) {
-            user = loginFacebookUser(userLoginCommand, request, response);
+            user = loginFacebookUser(userRegistrationCommand, bindingResult, request, response);
         }
 
         if (user != null) {
@@ -113,7 +113,8 @@ public class UserRegistrationOrLoginService {
         return null;
     }
 
-    public User loginFacebookUser(UserLoginCommand userLoginCommand,
+    public User loginFacebookUser(UserRegistrationCommand userRegistrationCommand,
+                                  BindingResult bindingResult,
                                   HttpServletRequest request,
                                   HttpServletResponse response) throws Exception{
 
@@ -122,13 +123,14 @@ public class UserRegistrationOrLoginService {
             return null;
         }
 
-        Set<ConstraintViolation<UserLoginCommand>> emailValidationErrors = _validatorFactory.validate(userLoginCommand, UserLoginCommand.ValidateJustEmail.class);
-        if (!emailValidationErrors.isEmpty()) {
+        _validatorFactory.validate(userRegistrationCommand, bindingResult);
+
+        if (bindingResult.hasErrors()) {
             _log.error("Validation Errors while logging in user.");
             return null;
         }
 
-        User user = getUserDao().findUserFromEmailIfExists(userLoginCommand.getEmail());
+        User user = getUserDao().findUserFromEmailIfExists(userRegistrationCommand.getEmail());
         if (user != null) {
             FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
 
@@ -148,7 +150,7 @@ public class UserRegistrationOrLoginService {
                 }
 
                 if (!user.isFacebookUser()) {
-                    boolean modified = convertToFacebookAccountIfNeeded(user, request);
+                    boolean modified = convertToFacebookAccountIfNeeded(user, request, userRegistrationCommand);
 
                     if (modified) {
                         _userDao.saveUser(user);
@@ -520,7 +522,7 @@ public class UserRegistrationOrLoginService {
         return false;
     }
 
-    public boolean convertToFacebookAccountIfNeeded(User user, HttpServletRequest request) {
+    public boolean convertToFacebookAccountIfNeeded(User user, HttpServletRequest request, UserRegistrationCommand userRegistrationCommand) {
         boolean userModified = false;
 
         if (user.getFacebookId() == null) {
@@ -546,6 +548,17 @@ public class UserRegistrationOrLoginService {
             user.setEmailVerified(true);
             userModified = true;
         }
+
+        if (userRegistrationCommand.getFirstName() != null) {
+            user.setFirstName(userRegistrationCommand.getFirstName());
+        }
+        if (userRegistrationCommand.getLastName() != null) {
+            user.setLastName(userRegistrationCommand.getLastName());
+        }
+        if (userRegistrationCommand.getGender() != null) {
+            user.setFirstName(userRegistrationCommand.getGender());
+        }
+        user.setUpdated(new Date());
 
         return userModified;
     }
