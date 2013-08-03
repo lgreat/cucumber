@@ -13,6 +13,8 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelperFactory;
+import gs.web.auth.FacebookHelper;
+import gs.web.auth.FacebookSession;
 import gs.web.community.IReportContentService;
 import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
 import gs.web.school.AbstractSchoolController;
@@ -115,6 +117,12 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                 loggedInUser = sessionContext.getUser();
             }
 
+            if (user.isFacebookUser()) {
+                FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
+                if (facebookSession != null && facebookSession.isOwnedBy(user)) {
+                    loggedInUser = user;
+                }
+            }
 
             if (loggedInUser != null && !loggedInUser.equals(user)) {
                 return errorJSON(response, "Logged in user must match owner of provided email.");
