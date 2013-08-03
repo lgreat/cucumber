@@ -560,7 +560,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                     <!---->
                     <div class="mod form">
                         <div class="inner">
-                    <div class="tac ptm"><gsml:signInWithFacebookButton size="32" id="parentReviewFormSubmit-facebook"/></div>
+                    <div class="tac ptm"><gsml:signInWithFacebookButton size="32"  cssClass="js-parentReviewLandingPageFormSubmit-facebook"/></div>
                     <div class="smaller bottom pts clearfix" style="width:290px;">
                         <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
                         <div class="fl" style="width: 250px">We will not display your name, photo or email address with your review.</div>

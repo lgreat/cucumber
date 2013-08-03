@@ -496,6 +496,7 @@ function GS_schoolReviewFormLandingPage(id) {
     var form = jQuery('#' + id);
 
     var submitButtonClass = "js-submitParentReview";
+    var facebookButtonClass = "js-parentReviewLandingPageFormSubmit-facebook";
     var emailFormClass = "js-email";
     var overallStarRatingsClass = "js-overallAsString";
     var reviewFormClass = "js-reviewContent";
@@ -503,6 +504,7 @@ function GS_schoolReviewFormLandingPage(id) {
     var posterSelectClass = "js-posterAsString";
 
     var submitButton = form.find('.' + submitButtonClass);
+    var facebookButton = form.find('.' + facebookButtonClass);
     var review = form.find('.' + reviewFormClass);
     var overallRating = form.find('.' + overallStarRatingsClass);
     var termsOfUse = form.find('.' + termsOfUseClass);
@@ -512,6 +514,16 @@ function GS_schoolReviewFormLandingPage(id) {
     submitButton.on("click", function(event){
         if(validateForm()){
             postReview(form);
+        }
+    });
+
+    facebookButton.on("click", function(event){
+        if(validateForm(true)){
+            GS.facebook.login().done(function(facebookData) {
+                postReview(form, true, {
+                    email: facebookData.email
+                });
+            });
         }
     });
 
@@ -530,12 +542,14 @@ function GS_schoolReviewFormLandingPage(id) {
         form.find('.' + reviewFormClass + '-error').hide();
     }
 
-    function validateForm(){
+    function validateForm(forFacebook){
         clearErrors();
         var allowPost = true;
-        if(!GS_isValidEmailAddress(email.val())){
-            allowPost = false;
-            form.find('.' + emailFormClass + '-error').show();
+        if(!forFacebook){
+            if(!GS_isValidEmailAddress(email.val())){
+                allowPost = false;
+                form.find('.' + emailFormClass + '-error').show();
+            }
         }
         if(overallRating.val() == "0"){
             allowPost = false;
@@ -557,9 +571,11 @@ function GS_schoolReviewFormLandingPage(id) {
         return allowPost;
     }
 
-    function postReview(form){
+
+    function postReview(form, forFacebook, overrides){
         var url = '/school/review/postReview.page';
-        var formData = form.serialize();
+        var formData = form.serializeArray();
+        GS.util.extendSerializedArray(formData, overrides);
 
         jQuery.ajax({
             type: 'POST',
@@ -568,13 +584,35 @@ function GS_schoolReviewFormLandingPage(id) {
             dataType: 'json'
         }).done(function(data) {
             trackReviewSubmitted();
-            $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
-                $('.js-pageThreeReviewLandingPage').fadeIn('fast');
-            });
+            if (forFacebook === true) {
+                setHoverCookie(data);
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    window.location.reload();
+                }
+            } else {
+                $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
+                    $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+                });
+            }
         }).error(function() {
             alert("Sorry, but an error occurred with your review submission. Please try again soon.");
         });
     }
 
+    // ajax controller returns data about what happened with review submission
+    // See if we need to show any hovers
+    function setHoverCookie(data) {
+        if (data.reviewPosted !== undefined) {
+            if (data.reviewPosted === "true") {
+                // cookie to show schoolReviewPostedThankYou hover
+                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPosted", 3);
+            } else {
+                // cookie to show schoolReviewNotPostedThankYou hover
+                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+            }
+        }
+    }
 
 }
