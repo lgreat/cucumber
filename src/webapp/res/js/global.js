@@ -643,4 +643,31 @@ GS.ad.jsLoadedDeferred = function() {
 
 };*/
 
+// Given a jquery serializedArray (usually form data), overwrite/insert new values given a simple key-value map
+// serializedArray has format: [{name: 'key1', value:'some value'}]
+// Your keyVals object has format {key2:'another value'}
+GS.util.extendSerializedArray = function(serializedArray, keyVals) {
+    if (serializedArray === undefined || keyVals === undefined) {
+        return;
+    }
 
+    var overwritten = [];
+    // For each item in the already-serialized array, check if a keyVal for it already exists
+    $.each(serializedArray, function() {
+        var name = this.name;
+        if (keyVals.hasOwnProperty(name)) {
+            this.value = keyVals[name];
+            overwritten.push(name);
+        }
+    });
+    // now find the items in serialized array that were not overwritten (the keyVals that need to be added). Add them
+    var key;
+    for (key in keyVals) {
+        if (keyVals.hasOwnProperty(key) && $.inArray(key, overwritten) === -1) {
+            serializedArray.push({
+                name:key,
+                value:keyVals[key]
+            });
+        }
+    }
+}
