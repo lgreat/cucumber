@@ -19,7 +19,7 @@
                 <form id="signin" action="/community/loginOrRegister.page" method="post">
                     <div class="body pal">
                         <div class="tac">
-                            <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-join"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                            <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-signin"><!-- do not collapse --></gsml:signInWithFacebookButton>
                         </div>
                         <h5 class="orText">
                             <span>OR</span>

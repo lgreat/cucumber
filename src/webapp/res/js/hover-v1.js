@@ -25,6 +25,9 @@ GS.log = GS.log || function() {
     }
 };
 
+GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR = '.js-facebook-login-join';
+GS.FACEBOOK_BUTTON_IN_SIGNIN_SELECTOR = '.js-facebook-login-signin';
+
 //HoverDialog requires the ID of the element to display as a hover dialog
 GSType.hover.HoverDialog = function(id,width) {
     this.hoverId = id;
@@ -276,7 +279,7 @@ GSType.hover.JoinHover = function() {
                 'promotions from GreatSchools and our carefully chosen partners.');
     };
     this.baseFields = function() {
-        $('.js-facebook-login-join').hide();
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).hide();
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
         // hide nth / MSS
@@ -660,7 +663,8 @@ GSType.hover.JoinHover = function() {
     // see GS-13450
     this.showJoinNth = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
-        jQuery('.js-facebook-login-join').click(function() {
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).off('click.joinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).on('click.joinHover', function() {
             ModalManager.hideModal({layerId:'joinHover'});
             GS.facebook.login().done(function(data) {
                 if (GSType.hover.joinHover.onSubmitCallback) {
@@ -678,17 +682,18 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configureOmniture('Weekly NL Join Hover', 'Hovers,Join,Weekly NL Join Hover');
 
         GSType.hover.joinHover.show();
-        $('.js-facebook-login-join').show();
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
     };
     this.showJoinMsl = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
-        jQuery('.js-facebook-login-join').click(function() {
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).off('click.joinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).on('click.joinHover', function() {
             ModalManager.hideModal({layerId:'joinHover'});
             GS.facebook.login().done(function(data) {
                 GSType.hover.joinHover.onFacebookSubmitCallback(data);
             });
         });
-        $('.js-facebook-login-join').show();
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Join GreatSchools");
@@ -702,7 +707,7 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinMsl;
         GSType.hover.joinHover.show();
-        $('.js-facebook-login-join').show();
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
     };
 //    this.validateFirstName = function() {
 //        jQuery.getJSON(
@@ -928,7 +933,8 @@ GSType.hover.SignInHover = function() {
         }
         jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
 
-        jQuery('.js-facebook-login-signin').click(function() {
+        jQuery(GS.FACEBOOK_BUTTON_IN_SIGNIN_SELECTOR).off('click.signinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_SIGNIN_SELECTOR).on('click.signinHover', function() {
             ModalManager.hideModal({layerId:'signInHover'});
             GS.facebook.login().done(function(data) {
                 if (GSType.hover.signInHover.onSubmitCallback) {
