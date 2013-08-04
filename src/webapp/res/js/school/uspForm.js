@@ -175,6 +175,7 @@ GS.form.uspForm = (function ($) {
                 pageTracking.send();
             }
             if (isUserSignedIn === true) {
+                $(SUBMIT_SELECTOR).prop('disabled',true);
                 data.push({name:"action", value:"userInSession"});
                 saveForm(data);
             } else {
@@ -351,7 +352,6 @@ GS.form.uspForm = (function ($) {
         $uspForm.on('click', SUBMIT_SELECTOR, function () {
             hideAllErrors();
             validateUspDataAndShowHover($uspForm);
-
             return false;
         });
 
@@ -362,6 +362,8 @@ GS.form.uspForm = (function ($) {
                 return value.substring(0, value.indexOf('__') + 2) + $this.val();
             });
         });
+
+        $(SUBMIT_SELECTOR).prop('disabled',false);
 
         //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
         //binding handlers to visible elements.
