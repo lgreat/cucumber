@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:comp="urn:jsptagdir:/WEB-INF/tags/community/hover/v1/components"
         >
 
@@ -51,6 +52,17 @@
                         <input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>
                         <input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>
                     </form>
+                    <div class="modalFooter pts">By joining GreatSchools, you agree to our
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Terms of Use"
+                                          href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>,
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Community Standards"
+                                          href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>, and
+                        <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                          title="GreatSchools Privacy Policy"
+                                          href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow>.
+                    </div>
                 </div>
             </div>
         </div>
