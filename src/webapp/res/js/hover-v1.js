@@ -631,11 +631,22 @@ GSType.hover.JoinHover = function() {
         // show nth / MSS
 //        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).off('click.joinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).on('click.joinHover', function() {
+            ModalManager.hideModal({layerId:'joinHover'});
+            GS.facebook.login().done(function(data) {
+                if (GSType.hover.joinHover.onSubmitCallback) {
+                    GSType.hover.joinHover.onSubmitCallback(data.email);
+                }
+            });
+        });
+
         GSType.hover.joinHover.setJoinHoverType("PostComment");
 
         GSType.hover.joinHover.configureOmniture('Community Join Hover', 'Hovers,Join,Community Join Hover');
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinPostComment;
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
         GSType.hover.joinHover.show();
     };
     this.showJoinTrackGrade = function() {
