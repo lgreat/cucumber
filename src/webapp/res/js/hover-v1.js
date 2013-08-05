@@ -415,7 +415,7 @@ GSType.hover.JoinHover = function() {
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
-        this.showHoverOnExit(GSType.hover.joinHover.showJoinAuto);
+        this.showHoverOnExit(GSType.hover.sendMeUpdates.showSendUpdates);
     };
     this.showNthHoverOnExit = function() {
         this.showHoverOnExit(GSType.hover.joinHover.showJoinTrackGradeAuto);
@@ -471,7 +471,7 @@ GSType.hover.JoinHover = function() {
     // just a newer version of showMssAutoHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
     this.showMssAutoHoverOnPageExit = function(schoolName, schoolId, schoolState, postInterruptCallback) {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
-        this.showInterruptHoverOnPageExit(GSType.hover.joinHover.showJoinAuto, postInterruptCallback);
+        this.showInterruptHoverOnPageExit(GSType.hover.sendMeUpdates.showSendUpdates, postInterruptCallback);
     };
     // just a newer version of showNthHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
     this.showNthHoverOnPageExit = function(postInterruptCallback) {
@@ -534,6 +534,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.hier1=hier1;
     };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
+        console.log("test");
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
@@ -552,7 +553,7 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.joinHover.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
 
-        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.sendMeUpdates.showSendUpdates;
         GSType.hover.joinHover.show();
     };
     this.showSchoolReviewJoin = function(onSubmitCallback) {
@@ -1770,16 +1771,18 @@ GS.showSchoolReviewHover = function(redirect) {
     return false;
 };
 
-GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
+GS.showSendMeUpdates = function(redirect, schoolName, schoolId, schoolState) {
     if (GS.isSignedIn()) {
         return true; // signed in users go straight to destination
     } else {
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.configureSchoolInfo(redirect, schoolName, schoolId, schoolState);
         GSType.hover.signInHover.setRedirect(redirect);
         if (GS.isMember()) {
-            GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinAuto);
+            console.log("isMember");
+            GSType.hover.signInHover.showHover('', redirect, GSType.hover.sendMeUpdates.showSendUpdates);
         } else {
-            GSType.hover.joinHover.showJoinAuto();
+            console.log("showSendUpdates");
+            GSType.hover.sendMeUpdates.showSendUpdates();
         }
     }
     return false;
@@ -2358,3 +2361,121 @@ GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
 
+
+GSType.hover.SendMeUpdates = function() {
+    this.configureOmniture = function(pageName, hier1) {
+        GSType.hover.sendMeUpdates.pageName=pageName;
+        GSType.hover.sendMeUpdates.hier1=hier1;
+    };
+    this.configureSchoolInfo = function(redirect, schoolName, schoolId, schoolState) {
+        if (redirect) {
+            jQuery('#js-sendMeUpdates .redirectUrl').val(redirect);
+        }
+        if (schoolName) {
+            GSType.hover.sendMeUpdates.schoolName = schoolName;
+        }
+        if (schoolId) {
+            jQuery('#js-sendMeUpdates .school_id').val(schoolId);
+        }
+        if (schoolState) {
+            jQuery('#js-sendMeUpdates .school_state').val(schoolState);
+        }
+    };
+    this.clickSubmitHandler = function() {
+        GS.log('entered clickSubmitHAndler');
+        var params = jQuery('#js-sMU').serialize();
+        jQuery('.js-signUp').prop('disabled', true);
+
+        var first = true;
+        var newsletters = [];
+        jQuery('#js_showGradeSelect [name="grades"]').each(function() {
+            if (jQuery(this).prop('checked')) {
+                newsletters.push(encodeURIComponent(jQuery(this).val()));
+            }
+        });
+
+        params += "&grades=" + newsletters.join(',');
+        var mssHover = true;
+        params += "&simpleMss=" + mssHover;
+
+        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, function(data) {
+            GSType.hover.sendMeUpdates.sendMeUpdates_checkValidationResponse(data, true);
+        });
+
+        GS.log('returning from clickSubmitHandler');
+        return false;
+    };
+    this.showSendUpdates = function(schoolName, schoolId, schoolState) {
+        jQuery('.js-signUp').on("click", GSType.hover.sendMeUpdates.clickSubmitHandler);
+        GSType.hover.sendMeUpdates.configureSchoolInfo(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.show();
+        GSType.hover.sendMeUpdates.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
+    };
+    this.sendMeUpdates_checkValidationResponse = function(data, sendTracking) {
+        if (GSType.hover.sendMeUpdates.sendMeUpdates_passesValidationResponse(data)) {
+            if (GSType.hover.sendMeUpdates.loadOnExitUrl) {
+                GSType.hover.sendMeUpdates.cancelLoadOnExit();
+            }
+
+            if(sendTracking) {
+                pageTracking.clear();
+                pageTracking.successEvents = "event5";
+                pageTracking.pageName = "MSS Hover";
+                pageTracking.send();
+            }
+            if (GSType.hover.joinHover.onSubmitCallback) {
+                GSType.hover.joinHover.onSubmitCallback(jQuery("#joinGS #jemail").val(), "joinGS");
+            } else {
+                jQuery('#joinGS').submit();
+                jQuery('#joinGS').submit(function() {
+                    return false; // prevent multiple submits
+                });
+                GSType.hover.joinHover.hide();
+            }
+        }
+        jQuery('.joinBtn').prop('disabled', false);
+    };
+
+    this.sendMeUpdates_passesValidationResponse = function(data) {
+        GS.log('in joinHover_passesValidationResponse', data);
+        var errorIcon = '<span class="iconx16 i-16-alert"><!--not empty--></span> ';
+        var emailError = jQuery('#joinGS .joinHover_email .invalid');
+        var passwordError = jQuery('#joinGS .joinHover_password .invalid');
+        var confirmPasswordError = jQuery('#joinGS .joinHover_confirmPassword .invalid');
+
+        emailError.hide();
+        passwordError.hide();
+        confirmPasswordError.hide();
+
+        var objCount = 0;
+        for (_obj in data) objCount++;
+
+        if (objCount > 0) {
+            GS.log('joinHover_passesValidationResponse fail');
+            jQuery('#joinGS #js_ProcessError').show("fast");
+            jQuery('#joinGS #process_error').show("fast");
+
+            if (data.email) {
+                emailError.html(errorIcon+data.email).show();
+                jQuery('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
+                    GSType.hover.joinHover.showSignin();
+                    return false;
+                });
+            }
+
+            if (data.password) {
+                passwordError.html(errorIcon+data.password).show();
+            }
+
+            if (data.confirmPassword) {
+                confirmPasswordError.html(errorIcon+data.confirmPassword).show();
+            }
+
+            return false;
+        } else {
+            return true;
+        }
+    };
+};
+GSType.hover.SendMeUpdates.prototype = new GSType.hover.HoverDialog('js-sendMeUpdates');
+GSType.hover.sendMeUpdates = new GSType.hover.SendMeUpdates();

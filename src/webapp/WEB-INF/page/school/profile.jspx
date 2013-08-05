@@ -322,7 +322,7 @@
                     <span class="media">
                         <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
                         <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}" styleClass="bd"
-                                                   onclick="return GS.showMssJoinHover(this.href, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');">Send me updates</link:newsletterManagement>
+                                                   onclick="return GS.showSendMeUpdates(this.href, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');">Send me updates</link:newsletterManagement>
                     </span>
                     </li>
                 </c:if>

@@ -145,6 +145,7 @@
     <profile:principalReviewSubmitted/>
     <compare:compareSchoolsLimitReachedHover/>
     <communityHover:espAccountVerified/>
+    <communityHover:sendMeUpdates/>
 
 
     ${requestScope.pageHelper.bottomJavaScript}

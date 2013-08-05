@@ -241,7 +241,7 @@
                                                    onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');"
                                                    styleClass="email toolsTxt">Send me updates about this school</link:newsletterManagement>-->
                         <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}"
-                                                   onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+                                                   onclick="return GS.showSendMeUpdates(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
                             <span class="sprite subscribe"><!-- do not collapse --></span> Send me updates about this school
                                                    </link:newsletterManagement>
                     </c:when>

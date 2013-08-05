@@ -117,6 +117,7 @@
     <communityHover:espAccountVerified/>
     <communityHover:schoolEspThankYou/>
     <communityHover:verifyYourEmailAddressUSP/>
+    <communityHover:sendMeUpdates/>
 
     <![CDATA[
     <!--[if IE 7]>

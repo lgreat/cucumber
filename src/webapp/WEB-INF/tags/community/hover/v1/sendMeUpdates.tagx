@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:comp="urn:jsptagdir:/WEB-INF/tags/community/hover/v1/components"
+        >
+
+    <div id="js-sendMeUpdates" class="dn">
+        <div class="mod modal_1 width_12" id="js-sendMeUpdates">
+            <div class="outer">
+                <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
+                <div class="inner">
+                    <div class="hoverTitle hd">
+                        <h1 class="js-smallSpacingTitle">Send me updates</h1>
+                        <p class="tal mbn pbm">Get timely updates for ${school.name}, including performance data and recently posted user reviews.</p>
+                    </div>
+                    <div class="messages pbm dn">
+                        <p class="error"><!-- message --></p>
+                    </div>
+                    <form id="js-sMU" action="/community/loginOrRegister.page" method="post">
+                        <div class="body pal">
+                            <div class="line">
+                                <label for="jemail" class="small_bold bottom">Email address</label><br/>
+                                <input type="text" id="jemail" class="fl small bottom input_5 setemail" name="email"
+                                       onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                                       onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                                <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
+                                    <p class="error"><!-- message --></p>
+                                </div>
+                            </div>
+                            <div class="line clearfix ptl">
+                                <div style="width:320px;"><label for="jcemail" class="fl small_bold bottom">Confirm email address</label>
+                                    <input type="text" id="jcemail" class="fl small bottom input_5" name="confirmEmail"/>
+                                </div>
+                                <div class="fl errors" style="margin-top: 5px; margin-left: 5px;">
+                                    <span class="valid sucess dn"><span class="iconx16 i-16-success "><!-- do not collapse --></span> </span>
+                                    <span class="invalid alert dn"><!-- not empty --></span>
+                                </div>
+                            </div>
+                            <div class="ptm">
+                                <comp:chooseGrades />
+                            </div>
+                            <div class="clearfix ptl">
+                                <button class="fl but but-rg but-1 js-signUp" type="submit" name="js-signUp" id="js-signUp">Sign up</button>
+                            </div>
+                            <input type="hidden" name="rememberMe" value="true"/>
+                            <input type="hidden" name="redirect" class="redirect_field" value=""/>
+                        </div>
+
+                        <input type="hidden" name="joinHoverType" id="joinHoverType" value="Auto"/>
+                        <input type="hidden" name="redirectUrl" class="redirect_field" value=""/>
+                        <input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>
+                        <input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>
