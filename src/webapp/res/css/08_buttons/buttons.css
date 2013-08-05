@@ -1200,6 +1200,11 @@ Extends button-1 by changing:
     background: #0094C9;  /*for non-css3 browsers     */
 }
 
+.but-1:disabled{
+    background: #CCCCCC;  /*for non-css3 browsers     */
+}
+
+
 .but-1-inactive{
     background: #66B5D1;  /*for non-css3 browsers*/
 }
@@ -1242,6 +1247,11 @@ Extends button-1 by changing:
     background: #F0F0F0; /* for non-css3 browsers */
     border: 1px solid #B8B8B8;
 }
+.but-2:disabled{
+    background: #CCCCCC;  /*for non-css3 browsers     */
+}
+
+
 /* IE7 bug: vertical centering */
 *+html button.but-2,
 *+html button.but-2-inactive {
@@ -1276,6 +1286,11 @@ Extends button-1 by changing:
     background: #F0F0F0; /* for non-css3 browsers */
     border: 1px solid #B8B8B8;
 }
+
+.but-3:disabled{
+    background: #CCCCCC;  /*for non-css3 browsers     */
+}
+
 /* IE7 bug: vertical centering */
 *+html button.but-3,
 *+html button.but-3-inactive {
