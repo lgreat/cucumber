@@ -2375,7 +2375,6 @@ GSType.hover.SendMeUpdates = function() {
     };
     this.configureSchoolInfo = function(redirect, schoolName, schoolId, schoolState) {
         redirect = redirect || window.location.href;
-        alert(redirect);
         if (redirect) {
             jQuery('#js-sendMeUpdates .redirect_field').val(redirect);
         }
