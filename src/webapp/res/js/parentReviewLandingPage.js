@@ -515,6 +515,7 @@ function GS_schoolReviewFormLandingPage(id) {
         submitButton.prop("disabled", true);
         if(validateForm()){
             postReview(form);
+            return false;
         }
         else{
             submitButton.prop("disabled", false);
