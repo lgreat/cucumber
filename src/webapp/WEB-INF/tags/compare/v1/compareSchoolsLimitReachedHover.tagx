@@ -19,7 +19,7 @@
                         <button class="but but-rg but-1 jq_compareSchoolsLimitReachedHover_continue mrm"
                                 type="button">Continue to compare
                         </button>
-                        <button class="but but-rg but-1 jq_compareSchoolsLimitReachedHover_edit"
+                        <button class="but but-rg but-2 jq_compareSchoolsLimitReachedHover_edit"
                                 type="button">Edit schools
                         </button>
                         <div class="jq_compareSchoolsLimitReachedHover_uncheckAll_div mtl">

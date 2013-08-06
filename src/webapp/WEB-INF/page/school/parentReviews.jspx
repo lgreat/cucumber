@@ -16,6 +16,7 @@
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:communityHoverV1="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
@@ -157,7 +158,7 @@
     </c:if>
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="overview">
-<communityHover:schoolReviewPosted schoolName="${school.name}"/>
+<communityHoverV1:schoolReviewPosted schoolName="${school.name}"/>
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
 <c:set var="adSlotPrefix" value="School_Profile_Page_Parent_Reviews"/>
 <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>

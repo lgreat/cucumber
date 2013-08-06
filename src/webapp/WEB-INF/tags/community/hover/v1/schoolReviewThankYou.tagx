@@ -11,7 +11,7 @@
     <!--<div id="schoolReviewThankYou" class="dialog_white" style="display:none;">-->
         <h2>Thank you for submitting a review</h2>
 
-        <p><strong>Your review has been posted to GreatSchools.</strong></p>
+        <p>Your review has been posted to GreatSchools.</p>
 
         <button class="but but-rg but-1 schoolReviewThankYou_hideHover js_closeHover" type="button">OK</button>
     </div></div></div></div></div>
