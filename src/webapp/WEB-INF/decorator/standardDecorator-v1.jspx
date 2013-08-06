@@ -128,47 +128,6 @@
     </script>
     <![endif]-->   ]]>
     <mobile:desktopSiteSwitchJS/>
-    <br /><br /><br /><br /><br /><br />
-    <a onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;">Join</a>
-    <br /><br />
-    <a onclick="GSType.hover.subscriptionEmailValidated.show(); return false;">subscriptionEmailValidated</a>
-    <br /><br />
-    <a onclick="GSType.hover.validateEmail.show(); return false;">validateEmail</a>
-    <br /><br />
-    <a onclick="GSType.hover.validateEmailSchoolReview.show(); return false;">validateEmailSchoolReview</a>
-    <br /><br />
-    <a onclick="GSType.hover.validateEditEmail.show(); return false;">validateEditEmail</a>
-    <br /><br />
-    <a onclick="GSType.hover.emailValidated.show(); return false;">emailValidated</a>
-    <br /><br />
-    <a onclick="GSType.hover.emailNotValidated.show(); return false;">emailNotValidated</a>
-    <br /><br />
-    <a onclick="GSType.hover.editEmailValidated.show(); return false;">editEmailValidated</a>
-    <br /><br />
-    <a onclick="GSType.hover.espPreApprovalEmail.show(); return false;">espPreApprovalEmail</a>
-    <br /><br />
-    <a onclick="GSType.hover.validateLinkExpired.show(); return false;">validateLinkExpired</a>
-    <br /><br />
-    <a onclick="GSType.hover.forgotPassword.show(); return false;">forgotPassword</a>
-    <br /><br />
-    <a onclick="GSType.hover.schoolReviewPostedThankYou.show(); return false;">schoolReviewThankYou</a>
-    <br /><br />
-    <a onclick="GSType.hover.schoolReviewPosted.show(); return false;">schoolReviewPosted</a>
-    <br /><br />
-    <a onclick="GSType.hover.emailValidatedSchoolReview.show(); return false;">emailValidatedSchoolReview</a>
-    <br /><br />
-    <a onclick="GSType.hover.principalConfirmation.show(); return false;">principalConfirmHover</a>
-    <br /><br />
-    <a onclick="GSType.hover.principalReviewSubmitted.show(); return false;">principalReviewSubmitted</a>
-    <br /><br />
-    <a onclick="GSType.hover.compareSchoolsLimitReached.show(); return false;">compareSchoolsLimitReachedHover</a>
-    <br /><br />
-    <a onclick="GSType.hover.espAccountVerified.show(); return false;">espAccountVerified</a>
-    <br /><br />
-        <a onclick="GSType.hover.schoolEspThankYou.show(); return false;">schoolEspThankYou</a>
-    <br /><br />
-        <a onclick="GSType.hover.verifyYourEmailAddressUSP.show(); return false;">verifyYourEmailAddressUSP</a>
-    <br /><br /><br />
     </body>
     </html>
 
