@@ -281,8 +281,10 @@ public class UserRegistrationOrLoginService {
                         setUsersPassword(user, userRegistrationCommand, registrationOrLoginBehavior, userExists);
                     }
 
-                    user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationOrLoginBehavior, user));
-                    user.getUserProfile().setUser(user);
+                    if (user.getUserProfile() == null) {
+                        user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationOrLoginBehavior, user));
+                        user.getUserProfile().setUser(user);
+                    }
 
                     getUserDao().updateUser(user);
                     if (registrationOrLoginBehavior.sendVerificationEmail()) {
