@@ -237,6 +237,7 @@ public class BaseEspResponseData implements IEspResponseData {
     }
 
     public EspResponse set(int i, EspResponse espResponse) {
+        clearCache();
         return _responses.set(i, espResponse);
     }
 
