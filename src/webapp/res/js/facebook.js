@@ -154,17 +154,12 @@ GS.facebook = GS.facebook || (function () {
 
                     status({
                         notConnected: function () {
-                            trackLoginClicked();
                             login().always(function() {
                                 loginDisabled = false;
                             });
                         }
                     });
                 }
-            });
-
-            $(loginSelector).on('click', function() {
-               trackLoginClicked();
             });
 
             // Call status() right away, and if user is logged in, resolve loginDeferred and statusOnLoadDeferred
@@ -327,6 +322,8 @@ GS.facebook = GS.facebook || (function () {
             scope: facebookPermissions,
             response_type: "token"
         });
+
+        trackLoginClicked();
 
         return loginAttemptDeferred;
     };
