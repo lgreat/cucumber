@@ -38,8 +38,9 @@
 
             if (noSearchTerms && noState) {
                 // show state laumcher hover
-                GSType.hover.miniStateLauncher.show();
-                returnVal = false;
+                <!--GSType.hover.miniStateLauncher.show();-->
+                $("#js-FASChooseState").show();
+               returnVal = false;
             } else if (!noSearchTerms && noState) {
                 // show javascript alert
                 alert("Please select a state.");
@@ -245,6 +246,14 @@
                                     onclick="s_objectID='splash_schools_go';">GO
                             </button>
                         </div>
+
+                        <div class="spacer_15">
+                            <div class="media formErrorText mtm" id="js-FASChooseState" style="display: none;">
+                                <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+                                <div class="bd">Please choose a state.</div>
+                            </div>
+                        </div>
+
                     </div>
                 </gsweb:form>
             </div>
