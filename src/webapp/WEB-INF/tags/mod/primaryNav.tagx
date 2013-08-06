@@ -49,8 +49,6 @@
                         <li class="lastone"><a href="/how-to-assess-a-school.topic?content=5068"
                                                id="PN_F_1-HowToAssessASchool"
                                                class="GS_CI9_">How to Assess a School</a>
-                            <!--<a href="/articles/?topics=197"
-                            id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a>-->
                         </li>
                     </ul>
                 </div>
@@ -58,9 +56,6 @@
             <div class="col_1">
                 <div class="col_content">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
-                        <!--<li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"-->
-                        <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
-                        <!--</li>-->
                         <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool"
                                class="S_CI9_">Defining Your Ideal School</a></li>
                         <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids"
@@ -73,21 +68,14 @@
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-20.9.jpg"
-                                              width="130" height="66"
-                                              alt="find a school hot topic"/>
+                    <div class="fl">
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTelementary.jpg" width="130" height="66" alt="find a school hot topic"/>
                     </div>
-                    <!-- GS-12882 -->
-                    <!--<p class="text3 allCaps">Hot Topic</p>-->
-
-                    <!--<p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"-->
-                    <!--id="PN_F_HT-ChoosingASchoolFromADistance"-->
-                    <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
-                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
+                    <div class="fl">
+                        <p class="small_bold make-2b2b2b">Hot Topic</p>
                         <p>
                             <a href="/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs"
-                                id="PN_P_HT-FindingTheRightElementarySchool"
-                                class="small GS_CI9_">Finding the right elementary school</a>
+                               id="PN_P_HT-FindingTheRightElementarySchool" class="small GS_CI9_">Finding the right elementary school</a>
                         </p>
                     </div>
                 </div>
@@ -147,18 +135,16 @@
             </div>
             <div class="col_2">
                 <div class="ft_content smaller bottom clearfix">
-                    <!-- for perl pages -->
-                    <!--<img class="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66" alt="preschool hot topic" />-->
-                    <!-- for java pages -->
-                    <div class="fl "><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_preschool.jpg"
-                                               width="130" height="66"
-                                               alt="preschool hot topic"/>
+                    <div class="fl ">
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTpreschool.jpg" width="130" height="66" alt="preschool hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
-                        <p><a href="/parenting/behavior-discipline/slideshows/4379-brain-preschool.gs"
-                              id="PN_P_HT-InsideYourPreschoolersBrain"
-                              class="small GS_CI9_">Inside your preschooler's brain</a></p></div>
+                        <p>
+                            <a href="/parenting/behavior-discipline/slideshows/4379-brain-preschool.gs" id="PN_P_HT-InsideYourPreschoolersBrain"
+                              class="small GS_CI9_">Inside your preschooler's brain</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,17 +209,17 @@
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <!-- for perl pages -->
-                    <!--<img class="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130" height="66" alt="elementary school hot topic"/>-->
-                    <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_elementary.jpg"
-                                              width="130"
-                                              height="66" alt="elementary school hot topic"/></div>
+                    <div class="fl">
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTlunch.jpg" width="130" height="66" alt="elementary school hot topic"/>
+                    </div>
 
                     <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
-
-                        <p><a href="/reading/7096-children-learning-to-read.gs"
-                              id="PN_E_HT-NeverSettleForShellCatchUp" class="small GS_CI9_">Never settle for, "she'll catch up"</a></p></div>
+                        <p>
+                            <a href="/parenting/health-nutrition/slideshows/5276-school-lunches-from-around-the-world.gs"
+                               id="PN_E_HT-BeyondPBJ26EasyLunchIdeasWithAGlobalTwist" class="small GS_CI9_">
+                               Beyond PB&amp;J: 26 easy lunch<br/>ideas with a global twist</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -285,18 +271,16 @@
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <!-- for perl pages -->
-                    <!--<img class="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130" height="66" alt="middle school hot topic"/>-->
-                    <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_middle.jpg"
-                                              width="130"
-                                              height="66" alt="middle school hot topic"/></div>
-
-                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
-
-                        <p><a href="/math/7559-algebra-middle-school-math-track.gs"
-                              id="PN_M_HT-BewareYourChildIsNowBeingTrackedInMath"
-                              class="small GS_CI9_">Beware: your child is now being<br/>tracked in math</a></p></div>
+                    <div class="fl">
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTmathtracking.jpg" width="130" height="66" alt="middle school hot topic"/>
+                    </div>
+                    <div class="fl">
+                        <p class="small_bold make-2b2b2b">Hot Topic</p>
+                        <p>
+                            <a href="/math/7559-algebra-middle-school-math-track.gs" id="PN_M_HT-BewareYourChildIsNowBeingTrackedInMath"
+                               class="small GS_CI9_">Beware: your child is now being<br/>tracked in math</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -350,69 +334,21 @@
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <!-- for perl pages -->
-                    <!--<img class="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66" alt="high school hot topic"/>-->
-                    <!-- for java pages -->
-                    <div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/hottopic_highschool.jpg"
-                                              width="130" height="66"
-                                              alt="high school hot topic"/></div>
-
-                    <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
-
-                        <p><a href="/back-to-school/slideshows/7567-back-to-school-learning-digital-devices.gs"
-                              id="PN_H_HT-9TechToolsForYourTeen" class="small GS_CI9_">9 tech tools for your teen</a>
-                        </p></div>
+                    <div class="fl">
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTtech.jpg" width="130" height="66" alt="high school hot topic"/>
+                    </div>
+                    <div class="fl">
+                        <p class="small_bold make-2b2b2b">Hot Topic</p>
+                        <p>
+                            <a href="/back-to-school/slideshows/7567-back-to-school-learning-digital-devices.gs"
+                               id="PN_H_HT-9TechToolsForYourTeen" class="small GS_CI9_">9 tech tools for your teen</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </td>
-
-<!--<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">-->
-    <!--<div class="dropdownReference">-->
-        <!--<link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>-->
-
-        <!--<div class="dropdown_6 text2 dropdown_align_right">-->
-            <!--<div class="col_1">-->
-                <!--<div class="col_content brdrt_dotted">-->
-                    <!--<ul class="none"> &lt;!&ndash; bullet type: disc/square/circle&ndash;&gt;-->
-                        <!--<li><a href="/college-prep.topic?content=1542" id="PN_C_1-PlanningForCollege"-->
-                               <!--class="GS_CI9_">Planning For College</a></li>-->
-                        <!--<li class="lastone"><a href="/test-prep/" id="PN_C_1-TestPrep" class="GS_CI9_">Test Prep</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col_1">-->
-                <!--<div class="col_content">-->
-                    <!--<ul class="none"> &lt;!&ndash; bullet type: disc/square/circle&ndash;&gt;-->
-                        <!--<li><a href="/articles/?topics=152" id="PN_C_2-ApplyingForCollege"-->
-                               <!--class="GS_CI9_">Applying for College</a></li>-->
-                        <!--<li class="lastone"><a href="/articles/?topics=167" id="PN_C_2-PayingForCollege"-->
-                                               <!--class="GS_CI9_">Paying for College</a></li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col_2">-->
-                <!--<div class="ft_content clearfix">-->
-                    <!--&lt;!&ndash; for perl pages &ndash;&gt;-->
-                    <!--&lt;!&ndash;<img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="college hot topic"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash; for java pages &ndash;&gt;-->
-                    <!--<div class="fl"><gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130"-->
-                                              <!--height="66"-->
-                                              <!--alt="college hot topic"/></div>-->
-
-                    <!--<div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>-->
-
-                        <!--<p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"-->
-                              <!--id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="small GS_CI9_">Easing college admissions<br/>anxiety</a>-->
-                        <!--</p></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</td>-->
-
 </tr>
 </tbody>
 </table>

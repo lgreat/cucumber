@@ -7,6 +7,7 @@ GS.facebook = GS.facebook || (function () {
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
     var loginSelector = ".js-facebook-login";
+    var fbLoginSearchResultsSelector = ".js-facebook-login-search-results";
     var logoutSelector = ".js-facebook-logout";
 
 
@@ -129,7 +130,7 @@ GS.facebook = GS.facebook || (function () {
             var loginDisabled = false;
 
             // we'll set up click handler for login buttons here
-            $(loginSelector).on('click', function () {
+            $(fbLoginSearchResultsSelector).on('click', function () {
                 if (!loginDisabled) {
                     if (typeof ModalManager !== "undefined") {
                         ModalManager.hideModal({
@@ -160,6 +161,10 @@ GS.facebook = GS.facebook || (function () {
                         }
                     });
                 }
+            });
+
+            $(loginSelector).on('click', function() {
+               trackLoginClicked();
             });
 
             // Call status() right away, and if user is logged in, resolve loginDeferred and statusOnLoadDeferred

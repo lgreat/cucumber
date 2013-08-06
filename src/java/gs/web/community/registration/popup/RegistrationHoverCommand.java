@@ -2,10 +2,10 @@ package gs.web.community.registration.popup;
 
 import gs.data.community.SubscriptionProduct;
 import gs.data.state.State;
-import gs.web.community.registration.UserCommand;
 import gs.web.community.registration.UserRegistrationCommand;
 import gs.web.util.validator.EmailValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +25,6 @@ public class RegistrationHoverCommand extends UserRegistrationCommand implements
         MSL,
         Facebook
     }
-    private boolean _mslOnly;
     private JoinHoverType _joinHoverType;
     private String _redirectUrl;
 
@@ -55,6 +54,28 @@ public class RegistrationHoverCommand extends UserRegistrationCommand implements
                 return "facebook";
         }
         return null;
+    }
+
+    public void setGrades(String[] gradeNewsletters) {
+
+        _log.info("gradeNewsletters=" + gradeNewsletters);
+        if (gradeNewsletters != null) {
+            List<RegistrationHoverCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<NthGraderSubscription>();
+
+            for (String grade : gradeNewsletters) {
+                _log.info("Adding " + grade + " to nthGraderSubscriptions");
+                nthGraderSubscriptions.add(new RegistrationHoverCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
+            }
+
+            setGradeNewsletters(nthGraderSubscriptions);
+        }
+    }
+
+    public void setCity(String city) {
+        if ("Loading...".equalsIgnoreCase(city)) {
+            city = null;
+        }
+        super.setCity(city);
     }
 
     public List<NthGraderSubscription> getGradeNewsletters() {
@@ -150,14 +171,7 @@ public class RegistrationHoverCommand extends UserRegistrationCommand implements
 
     public RegistrationHoverCommand() {
         super();
-    }
-
-    public boolean isMslOnly() {
-        return _mslOnly;
-    }
-
-    public void setMslOnly(boolean mslOnly) {
-        _mslOnly = mslOnly;
+        terms(true);// Users agree to terms of use just by submitting new join hover
     }
 
     public JoinHoverType getJoinHoverType() {
@@ -166,10 +180,7 @@ public class RegistrationHoverCommand extends UserRegistrationCommand implements
 
     public void setJoinHoverType(JoinHoverType joinHoverType) {
         _joinHoverType = joinHoverType;
-    }
-
-    public boolean isMssJoin() {
-        return RegistrationHoverCommand.JoinHoverType.Auto == getJoinHoverType();
+        setHow(joinTypeToHow());
     }
 
     public String getRedirectUrl() {

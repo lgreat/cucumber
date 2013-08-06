@@ -497,7 +497,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.postReview = function(email, callerFormId) {
-        jQuery('#parentReviewFormSubmit').prop('disabled',true);
+
         var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
         //When this is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email != undefined && email != '') {
@@ -561,6 +561,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.submitHandler = function() {
+        jQuery('#parentReviewFormSubmit').prop('disabled',true);
         if (this.formValid()) {
             if (GS.isSignedIn() || !this.email.isEmailTaken()) {
                 this.postReview();
@@ -577,6 +578,7 @@ GS.form.SchoolReviewForm = function(id) {
         } else {
             this.updateAllErrors();
         }
+        jQuery('#parentReviewFormSubmit').prop('disabled',false);
         return false;
     }.gs_bind(this);
 

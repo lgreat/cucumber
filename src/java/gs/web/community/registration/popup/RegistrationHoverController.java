@@ -2,155 +2,164 @@ package gs.web.community.registration.popup;
 
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.state.State;
-import gs.data.util.table.ITableDao;
 import gs.web.community.registration.*;
 import gs.web.util.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.validation.BindException;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.*;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-/**
- * @author Anthony Roy <mailto:aroy@greatschools.org>
- */
-public class RegistrationHoverController extends SimpleFormController implements ReadWriteController {
+@Controller
+@RequestMapping("/community/registration/popup")
+public class RegistrationHoverController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private boolean _requireEmailValidation = true;
     private ExactTargetAPI _exactTargetAPI;
-    private ITableDao _tableDao;
     private UserRegistrationOrLoginService _userRegistrationOrLoginService;
-    private String _errorView;
+    private String _errorView = "/community/registration/registrationSoapError";
+    private String _formView = "/community/registration/popup/registrationHover";
     private IUserDao _userDao;
     private EmailVerificationEmail _emailVerificationEmail;
     private ISubscriptionDao _subscriptionDao;
     private JavaMailSender _mailSender;
 
-    public static final String BEAN_ID = "/community/registration/popup/registrationHover.page";
-
-    public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
-        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
-
-        String[] gradeNewsletters = request.getParameterValues("grades");
-        _log.info("gradeNewsletters=" + gradeNewsletters);
-        if (gradeNewsletters != null) {
-            List<RegistrationHoverCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<RegistrationHoverCommand.NthGraderSubscription>();
-
-            for (String grade : gradeNewsletters) {
-                _log.info("Adding " + grade + " to nthGraderSubscriptions");
-                nthGraderSubscriptions.add(new RegistrationHoverCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
-            }
-
-            userCommand.setGradeNewsletters(nthGraderSubscriptions);
-        }
-
-        if (StringUtils.equals("Loading...", userCommand.getCity())) {
-            userCommand.setCity(null);
-        }
-
-        userCommand.setHow(userCommand.joinTypeToHow());
-        userCommand.setTerms(true); // Users agree to terms of use just by submitting new join hover
-    }
-
-    @Override
-    protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
-        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) super.formBackingObject(httpServletRequest);
-        return userCommand;
-    }
-
-    @Override
-    public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
-        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
-        boolean isMssJoin = (RegistrationHoverCommand.JoinHoverType.Auto == userCommand.getJoinHoverType());
-
-        /*if (isMssJoin) {
-            UserCommandValidator validator = new UserCommandValidator();
-            validator.validateEmailBasic(userCommand, errors);
-        } else {
-            super.onBindAndValidate(request, command, errors);
-        }*/
-        // TODO: Make sure UserRegistrationOrLoginService validates only email if isMssJoin, otherwise all
-    }
-
-    public ModelAndView onSubmit(HttpServletRequest request,
+    @RequestMapping(value = "/mssRegistrationHover.page", method = RequestMethod.POST)
+    public ModelAndView onMssSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
-                                 Object command,
-                                 BindException errors) throws Exception {
+                                 MssRegistrationHoverCommand registrationHoverCommand,
+                                 BindingResult errors) throws Exception {
         // Need to check if user's IP is blocked
         if (_userRegistrationOrLoginService.isIPBlocked(request)) return new ModelAndView(getErrorView());
 
         ModelAndView mAndV = new ModelAndView();
-        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
+        String hoverToShow;
 
-        // Registration needs to be tracked in omniture
+        // Subscriptions need to be tracked in omniture
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
 
-        // Look for existing user with provided email
-        // TODO: we could set userAlreadyExisted = registrationSummary.wasUserRegistered, except that the service
-        // sets that true if existing user has no password (email only user). Summary object could have additional
-        // Flags to indicate more details of what kind of user created
-        User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        boolean userAlreadyExisted = user != null;
+        // We need to know if a user exists, and if so whether their email is verified
+        User user = getUserDao().findUserFromEmailIfExists(registrationHoverCommand.getEmail());
 
-        RegistrationOrLoginBehavior registrationBehavior = createRegistrationBehavior(userCommand);
+        // Determine if we should send a confirmation email. In logic before r232, this could never be false
+        boolean shouldSendConfirmationEmail = shouldSendConfirmationEmailForMss(user, user != null);
+
+        // Get a basic RegistrationBehavior
+        RegistrationOrLoginBehavior registrationBehavior = createRegistrationBehavior(registrationHoverCommand);
+
+        // MSS accounts never get the standard welcome email
+        registrationBehavior.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+
+        if (shouldSendConfirmationEmail) {
+            // if we're confirming their subscription and not requiring verification, show them a confirmation hover too
+            hoverToShow = "subscriptionEmailValidated";
+        } else {
+            // if they don't get a confirmation email, then they get a verification email instead
+            registrationBehavior.setSendVerificationEmail(true);
+            registrationBehavior.setRedirectUrl(calculateRedirectUrlForValidationEmail(registrationHoverCommand, request));
+
+            // If we send a verification email, show them a hover telling them so
+            hoverToShow = "validateEmail";
+        }
 
         UserRegistrationOrLoginService.Summary registrationSummary =
-            _userRegistrationOrLoginService.registerUser(userCommand, registrationBehavior, errors, request);
-
+            _userRegistrationOrLoginService.registerUser(registrationHoverCommand, registrationBehavior, errors, request);
 
         if (registrationSummary != null) {
             user = registrationSummary.getUser();
 
             try {
-                saveRegistrations(userCommand, user, ot);
+                saveRegistrations(registrationHoverCommand, user, ot);
             } catch (Exception e) {
                 _log.error("Error in RegistrationHoverController", e);
                 mAndV.setViewName(getErrorView());
                 return mAndV;
             }
 
-            // determine whether to use email verification
-            boolean shouldSendConfirmationEmail = shouldSendConfirmationEmail(
-                user, userAlreadyExisted, userCommand
-            );
-
             if (shouldSendConfirmationEmail) {
-                sendConfirmationEmail(user, userCommand.getNewsletter(), userCommand.getPartnerNewsletter());
-            }
-
-            if (_requireEmailValidation && !shouldSendConfirmationEmail) {
-                // Determine redirect URL for validation email
-                String emailRedirectUrl = calculateRedirectUrlForValidationEmail(userCommand, request);
-
-                sendValidationEmail(
-                    request,
-                    user,
-                    emailRedirectUrl,
-                    RegistrationHoverCommand.JoinHoverType.SchoolReview == userCommand.getJoinHoverType()
+                // send MSS welcome email
+                sendEmailSubscriptionWelcomeEmail(
+                    user, registrationHoverCommand.getNewsletter(), registrationHoverCommand.getPartnerNewsletter()
                 );
             }
 
+            // Set "showHover" in our SitePrefCookie, so that the user will see a hover on next page load
+            SitePrefCookie cookie = new SitePrefCookie(request, response);
+            cookie.setProperty("showHover", hoverToShow);
+        }
+
+        String redirect = registrationHoverCommand.getRedirectUrl();
+        mAndV.setViewName("redirect:" + redirect);
+
+        return mAndV;
+    }
+
+    @RequestMapping(value = "/registrationHover.page", method = RequestMethod.POST)
+    public ModelAndView onSubmit(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 RegistrationHoverCommand registrationHoverController,
+                                 BindingResult errors) throws Exception {
+        // Need to check if user's IP is blocked
+        if (_userRegistrationOrLoginService.isIPBlocked(request)) return new ModelAndView(getErrorView());
+
+        User user;
+        ModelAndView mAndV = new ModelAndView();
+
+        // Registration and subscriptions need to be tracked in omniture
+        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+
+        // Get a basic RegistrationBehavior
+        RegistrationOrLoginBehavior registrationBehavior = createRegistrationBehavior(registrationHoverController);
+
+        // Don't send a welcome email now. For new users a welcome email will get sent when they verify their account
+        registrationBehavior.setWelcomeMessageStatus(WelcomeMessageStatus.DO_NOT_SEND);
+
+        UserRegistrationOrLoginService.Summary registrationSummary =
+            _userRegistrationOrLoginService.registerUser(registrationHoverController, registrationBehavior, errors, request);
+
+        if (registrationSummary != null) {
+            user = registrationSummary.getUser();
+
+            try {
+                saveRegistrations(registrationHoverController, user, ot);
+            } catch (Exception e) {
+                _log.error("Error in RegistrationHoverController", e);
+                mAndV.setViewName(getErrorView());
+                return mAndV;
+            }
+
+            // Determine redirect URL for validation email
+            String emailRedirectUrl = calculateRedirectUrlForValidationEmail(registrationHoverController, request);
+
+            sendValidationEmail(
+                request,
+                user,
+                emailRedirectUrl,
+                RegistrationHoverCommand.JoinHoverType.SchoolReview == registrationHoverController.getJoinHoverType()
+            );
+
+            // Omniture tracking of registration
             if (registrationSummary.wasUserRegistered()){
                 ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
             }
 
             // Set "showHover" in our SitePrefCookie, so that the user will see a hover on next page load
             SitePrefCookie cookie = new SitePrefCookie(request, response);
-            String hoverToShow = calculateHoverToShow(user, userAlreadyExisted, userCommand);
+            String hoverToShow = calculateHoverToShow(registrationHoverController);
             cookie.setProperty("showHover", hoverToShow);
         }
 
-        String redirect = userCommand.getRedirectUrl();
+        String redirect = registrationHoverController.getRedirectUrl();
         mAndV.setViewName("redirect:" + redirect);
 
         return mAndV;
@@ -180,12 +189,6 @@ public class RegistrationHoverController extends SimpleFormController implements
         // This controller will handle sending confirmation and verification emails
         behavior.setSendVerificationEmail(false);
 
-        if (userCommand.isMssJoin()) {
-            behavior.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-        } else {
-            behavior.setWelcomeMessageStatus(WelcomeMessageStatus.DO_NOT_SEND);
-        }
-
         return behavior;
     }
 
@@ -208,24 +211,20 @@ public class RegistrationHoverController extends SimpleFormController implements
         return emailRedirectUrl;
     }
 
-    protected boolean shouldSendConfirmationEmail(User user, boolean userAlreadyExisted, RegistrationHoverCommand userCommand) {
+    protected boolean shouldSendConfirmationEmailForMss(User user, boolean userAlreadyExisted) {
 
         // determine whether to use email verification
         boolean shouldSendConfirmationEmail = (
-            userCommand.isMssJoin()
-            &&
-            (!userAlreadyExisted || Boolean.TRUE.equals(user.getEmailVerified()) || user.isEmailValidated())
+            !userAlreadyExisted || Boolean.TRUE.equals(user.getEmailVerified()) || user.isEmailValidated()
         );
 
         return shouldSendConfirmationEmail;
     }
 
-    protected String calculateHoverToShow(User user, boolean userAlreadyExisted, RegistrationHoverCommand userCommand) {
+    protected String calculateHoverToShow(RegistrationHoverCommand userCommand) {
 
         if (RegistrationHoverCommand.JoinHoverType.SchoolReview.equals(userCommand.getJoinHoverType())) {
             return "validateEmailSchoolReview";
-        } else if (userCommand.isMssJoin() && !shouldSendConfirmationEmail(user, userAlreadyExisted, userCommand)) {
-            return "subscriptionEmailValidated";
         } else {
             return "validateEmail";
         }
@@ -283,15 +282,9 @@ public class RegistrationHoverController extends SimpleFormController implements
         subscriptions.add(sub);
     }
 
-    public boolean isRequireEmailValidation() {
-        return _requireEmailValidation;
-    }
-
-    public void setRequireEmailValidation(boolean requireEmailValidation) {
-        _requireEmailValidation = requireEmailValidation;
-    }
-
-    private void sendConfirmationEmail(User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription) {
+    private void sendEmailSubscriptionWelcomeEmail(User user,
+                                                   boolean addedParentAdvisorSubscription,
+                                                   boolean addedSponsorOptInSubscription) {
         Map<String, String> attributes = ExactTargetUtil.getEmailSubWelcomeAttributes(
                 ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription, false, true, addedSponsorOptInSubscription));
         _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
@@ -309,10 +302,6 @@ public class RegistrationHoverController extends SimpleFormController implements
         _userRegistrationOrLoginService = userRegistrationOrLoginService;
     }
 
-    public void setTableDao(ITableDao tableDao) {
-        _tableDao = tableDao;
-    }
-
     public String getErrorView() {
         return _errorView;
     }
@@ -323,10 +312,6 @@ public class RegistrationHoverController extends SimpleFormController implements
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    public ITableDao getTableDao() {
-        return _tableDao;
     }
 
     public UserRegistrationOrLoginService getUserRegistrationOrLoginService() {

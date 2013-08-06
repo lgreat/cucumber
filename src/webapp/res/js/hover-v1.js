@@ -414,7 +414,7 @@ GSType.hover.JoinHover = function() {
         return false;
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.configureSchoolInfo('', schoolName, schoolId, schoolState);
         this.showHoverOnExit(GSType.hover.sendMeUpdates.showSendUpdates);
     };
     this.showNthHoverOnExit = function() {
@@ -508,7 +508,13 @@ GSType.hover.JoinHover = function() {
                     $this.trigger('click');
                 });
 
-                showHoverFunction();
+                // deferreds will be used by modals that dont support the GSType.hover.joinHover.executeOnExit method above
+                var deferred = showHoverFunction();
+                if (deferred && deferred.hasOwnProperty('always')) {
+                    deferred.always(function() {
+                        $this.trigger('click');
+                    });
+                }
 
                 event.stopImmediatePropagation();
                 return false;
@@ -2368,8 +2374,9 @@ GSType.hover.SendMeUpdates = function() {
         GSType.hover.sendMeUpdates.hier1=hier1;
     };
     this.configureSchoolInfo = function(redirect, schoolName, schoolId, schoolState) {
+        redirect = redirect || window.location.href;
         if (redirect) {
-            jQuery('#js-sendMeUpdates .redirectUrl').val(redirect);
+            jQuery('#js-sendMeUpdates .redirect_field').val(redirect);
         }
         if (schoolName) {
             GSType.hover.sendMeUpdates.schoolName = schoolName;
@@ -2381,100 +2388,47 @@ GSType.hover.SendMeUpdates = function() {
             jQuery('#js-sendMeUpdates .school_state').val(schoolState);
         }
     };
+    this.validateEmail = function(emailAddress) {
+        var emailPattern = /^[a-zA-Z0-9._-]+[+a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(emailAddress);
+    };
     this.clickSubmitHandler = function() {
         GS.log('entered clickSubmitHAndler');
-        var params = jQuery('#js-sMU').serialize();
-        jQuery('.js-signUp').prop('disabled', true);
+        var emailField = $("#jemail").val();
+        var emailConfirmField = $("#jcemail").val();
+        GS.log('emailField:', emailField);
+        GS.log('emailConfirmField:', emailConfirmField);
+        $(".js-sMU-emailMalformed").addClass("dn");
+        $(".js-sMU-emailsDontMatch").addClass("dn");
+//        var params = jQuery('#js-sMU').serialize();
+        //validate
+        if(GSType.hover.sendMeUpdates.validateEmail(emailField) && (emailField == emailConfirmField)){
+            return true;
+        }
+        if(!GSType.hover.sendMeUpdates.validateEmail(emailField)){
+           // show email formed wrong
+            $(".js-sMU-emailMalformed").removeClass("dn");
+        }
+        if(emailField != emailConfirmField){
+            // show emails don't match
+            $(".js-sMU-emailsDontMatch").removeClass("dn");
 
-        var first = true;
-        var newsletters = [];
-        jQuery('#js_showGradeSelect [name="grades"]').each(function() {
-            if (jQuery(this).prop('checked')) {
-                newsletters.push(encodeURIComponent(jQuery(this).val()));
-            }
-        });
-
-        params += "&grades=" + newsletters.join(',');
-        var mssHover = true;
-        params += "&simpleMss=" + mssHover;
-
-        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, function(data) {
-            GSType.hover.sendMeUpdates.sendMeUpdates_checkValidationResponse(data, true);
-        });
-
-        GS.log('returning from clickSubmitHandler');
+        }
         return false;
     };
     this.showSendUpdates = function(schoolName, schoolId, schoolState) {
+        // the deferred is used by showInterruptHoverOnPageExit
+        var deferred = $.Deferred();
         jQuery('.js-signUp').on("click", GSType.hover.sendMeUpdates.clickSubmitHandler);
         GSType.hover.sendMeUpdates.configureSchoolInfo(schoolName, schoolId, schoolState);
+        var $sendMeUpdates = $('#js-sendMeUpdates');
+        $sendMeUpdates.unbind('dialogclose');
+        $sendMeUpdates.bind('dialogclose', function() {
+           deferred.resolve();
+        });
         GSType.hover.sendMeUpdates.show();
         GSType.hover.sendMeUpdates.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
-    };
-    this.sendMeUpdates_checkValidationResponse = function(data, sendTracking) {
-        if (GSType.hover.sendMeUpdates.sendMeUpdates_passesValidationResponse(data)) {
-            if (GSType.hover.sendMeUpdates.loadOnExitUrl) {
-                GSType.hover.sendMeUpdates.cancelLoadOnExit();
-            }
-
-            if(sendTracking) {
-                pageTracking.clear();
-                pageTracking.successEvents = "event5";
-                pageTracking.pageName = "MSS Hover";
-                pageTracking.send();
-            }
-            if (GSType.hover.joinHover.onSubmitCallback) {
-                GSType.hover.joinHover.onSubmitCallback(jQuery("#joinGS #jemail").val(), "joinGS");
-            } else {
-                jQuery('#joinGS').submit();
-                jQuery('#joinGS').submit(function() {
-                    return false; // prevent multiple submits
-                });
-                GSType.hover.joinHover.hide();
-            }
-        }
-        jQuery('.joinBtn').prop('disabled', false);
-    };
-
-    this.sendMeUpdates_passesValidationResponse = function(data) {
-        GS.log('in joinHover_passesValidationResponse', data);
-        var errorIcon = '<span class="iconx16 i-16-alert"><!--not empty--></span> ';
-        var emailError = jQuery('#joinGS .joinHover_email .invalid');
-        var passwordError = jQuery('#joinGS .joinHover_password .invalid');
-        var confirmPasswordError = jQuery('#joinGS .joinHover_confirmPassword .invalid');
-
-        emailError.hide();
-        passwordError.hide();
-        confirmPasswordError.hide();
-
-        var objCount = 0;
-        for (_obj in data) objCount++;
-
-        if (objCount > 0) {
-            GS.log('joinHover_passesValidationResponse fail');
-            jQuery('#joinGS #js_ProcessError').show("fast");
-            jQuery('#joinGS #process_error').show("fast");
-
-            if (data.email) {
-                emailError.html(errorIcon+data.email).show();
-                jQuery('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
-                    GSType.hover.joinHover.showSignin();
-                    return false;
-                });
-            }
-
-            if (data.password) {
-                passwordError.html(errorIcon+data.password).show();
-            }
-
-            if (data.confirmPassword) {
-                confirmPasswordError.html(errorIcon+data.confirmPassword).show();
-            }
-
-            return false;
-        } else {
-            return true;
-        }
+        return deferred;
     };
 };
 GSType.hover.SendMeUpdates.prototype = new GSType.hover.HoverDialog('js-sendMeUpdates');

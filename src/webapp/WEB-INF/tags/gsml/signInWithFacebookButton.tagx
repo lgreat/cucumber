@@ -10,7 +10,7 @@
 
     <c:choose>
         <c:when test="${size eq 32}">
-            <div id="${id}" class="but but-rg but-3 pan mbn ${cssClass}" style="">
+            <div id="${id}" class="but but-rg but-3 pan mbn js-facebook-login ${cssClass}" style="">
                 <span class="fl iconx32g i-32-facebook-t" style="border-right: 1px solid #5F7EBD;"><!-- do not collapse --></span>
                 <span class="fl phl pt1">Sign in with Facebook</span>
             </div>

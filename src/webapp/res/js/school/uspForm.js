@@ -23,6 +23,7 @@ GS.form.uspForm = (function ($) {
     var EMAIL_ERROR_SELECTOR = '.js_emailErr';
     var TERMS_OF_USE_ERROR_SELECTOR = '.js_termsErr';
     var EXISTING_ANSWERS_ERROR = '#js-existingAnswersError';
+    var SELECT_ONE_ERROR_SELECTOR = '.js-uspSelectNone';
 
     var CHECK_USER_STATE_URL = '/school/QandA/checkUserState.page';
 
@@ -251,6 +252,7 @@ GS.form.uspForm = (function ($) {
                     window.location = data.redirect;
                 }
                 else if(data.hasExistingSavedResponses === 'true') {
+                    hideAllErrors();
                     if(data.formFields === undefined) {
                         return;
                     }
@@ -309,6 +311,8 @@ GS.form.uspForm = (function ($) {
         $(EMAIL_ERROR_SELECTOR).hide();
         $(TERMS_OF_USE_ERROR_SELECTOR).hide();
         $(EXISTING_ANSWERS_ERROR).hide();
+        //Not sure why this is done differently.
+        $(SELECT_ONE_ERROR_SELECTOR).addClass("dn");
     };
 
     var doUspFormValidations = function (data) {
