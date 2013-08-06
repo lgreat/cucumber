@@ -41,7 +41,7 @@
                         Welcome, <link:userAccount styleClass="nav_group_heading">${requestScope.context.firstName}</link:userAccount>
                     </c:when>
                     <c:otherwise>
-                        <link:userAccount styleClass="nav_group_heading">My account</link:userAccount>
+                        <link:userAccount styleClass="nav_group_heading">My Account</link:userAccount>
                     </c:otherwise>
                 </c:choose>
             </li>
