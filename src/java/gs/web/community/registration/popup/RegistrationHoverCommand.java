@@ -122,7 +122,8 @@ public class RegistrationHoverCommand extends UserRegistrationCommand implements
     }
 
     public boolean getPartnerNewsletter() {
-        return _partnerNewsletter;
+        // We've merged newsletter and partner newsletter signups into one checkbox
+        return getNewsletter() || _partnerNewsletter;
     }
 
     public void setPartnerNewsletter(boolean partnerNewsletter) {
