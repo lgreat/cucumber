@@ -599,7 +599,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
 
                         <!--<div class="fr pbm plm js_emailPopOver" ><div class="mrm mtm"><span class="iconx16 i-16-lock">&lt;!&ndash;do not collapse&ndash;&gt;</span></div></div>-->
                     </div>
-                        <div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</div></div>
+                        <div class="tar fr"><button id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</button></div>
                     </div>
                         <div class="smaller bottom pts clearfix pbm" style="width:290px;">
                             <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>

@@ -512,8 +512,13 @@ function GS_schoolReviewFormLandingPage(id) {
     var posterString = form.find('.' + posterSelectClass);
 
     submitButton.on("click", function(event){
+        submitButton.prop("disabled", true);
         if(validateForm()){
             postReview(form);
+        }
+        else{
+            submitButton.prop("disabled", false);
+            return false;
         }
     });
 
