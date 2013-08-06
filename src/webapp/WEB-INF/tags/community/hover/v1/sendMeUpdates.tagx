@@ -21,7 +21,7 @@
                         <div class="body pal">
                             <div class="line">
                                 <label for="jemail" class="small_bold bottom">Email address</label><br/>
-                                <input type="text" id="jemail" class="fl small bottom input_5 setemail" name="email"
+                                <input type="text" style="height:20px;" id="jemail" class="fl small bottom input_5 setemail" name="email"
                                        onfocus="if(this.value=='[Enter email address]'){this.value='';}"
                                        onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                                 <div class="fl errors js-sMU-emailMalformed dn bottom" style="margin-top: 5px; margin-left: 5px;">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="line clearfix ptl">
                                 <div style="width:320px;"><label for="jcemail" class="fl small_bold bottom">Confirm email address</label>
-                                    <input type="text" id="jcemail" class="fl small bottom input_5" name="confirmEmail"/>
+                                    <input type="text" style="height:20px;" id="jcemail" class="fl small bottom input_5" name="confirmEmail"/>
                                 </div>
                                 <div class="fl errors js-sMU-emailsDontMatch dn  bottom" style="margin-top: 5px; margin-left: 5px;">
                                     <p class="error smaller bottom"><span class="iconx16 i-16-alert "><!-- do not collapse --></span> Emails do not match.</p>
