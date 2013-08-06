@@ -345,7 +345,7 @@ body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.d
 .db_replyContainer b.db_replyArrowTop{
 	position:absolute;
 	left:7px; top:18px;
-    z-index:20;
+    z-index:1;
 }
 
 /* Posting replies */
