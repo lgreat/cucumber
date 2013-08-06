@@ -1018,76 +1018,7 @@ fieldset label {
 
 /*BEGIN UPLOAD AVATAR HOVER*/
 
-        .hover{
-            color:#333;
-        }
-        .hover .title{
-            line-height:1.0;
-            margin:0;
-        }
-        .hover .closebtn, .dialogCancelButton{
-            display:block;
-            line-height:1.0;
-            margin:0;
-            cursor:pointer;
-        }
-        .dotted{
-            border:1px dotted #333;
-            width:610px;
-        }
-        .photoGuidelines {
-            float: right;
-        }
-        .fileInput {
-            position: relative;
-            text-align: right;
-            width: 100%;
-        }
-        .fileInput label {
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color:#333;
-        }
-        .fileInput .fakeFileInput {
-            width: 100%;
-        }
-        #fake_avatarFileInput {
-            position: absolute;
-            top: 0;
-            left: 34px;
-            z-index: 5;
-            width: 425px;
-        }
-        .fileInput .fakeFileInput div.filler {
-            padding: 7px;
-        }
-        #avatarFileInput {
-            position: absolute;
-            text-align: right;
-            -moz-opacity: 0;
-            filter: alpha(opacity: 0);
-            opacity: 0;
-            z-index: 2;
-            left: 34px;
-            top: 0;
-            width: 520px;
-        }
-        #fake_avatarFileBrowse {
-            position: absolute;
-            top: -1px;
-            left: 475px;
-            z-index: 1;
-            padding-bottom: 3px;
-        }
-        /*.error {*/
-            /*background: transparent url(/res/img/bullet/icon_warning_12x12.gif) no-repeat scroll 0 0;*/
-            /*color: #C03;*/
-            /*font-size: 11px;*/
-            /*font-style: italic;*/
-            /*padding-left: 15px;*/
-            /*margin-bottom: 5px;*/
-        /*}*/
+
 .valid {
 background-image:url("/res/img/discussion_boards/cbi_checkOk_gfx.gif");
 color:#118600;
