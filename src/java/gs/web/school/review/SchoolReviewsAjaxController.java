@@ -117,7 +117,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                 loggedInUser = sessionContext.getUser();
             }
 
-            if (user.isFacebookUser()) {
+            if (user != null && user.isFacebookUser()) {
                 FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
                 if (facebookSession != null && facebookSession.isOwnedBy(user)) {
                     loggedInUser = user;
