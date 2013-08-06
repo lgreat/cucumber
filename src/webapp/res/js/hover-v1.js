@@ -414,7 +414,7 @@ GSType.hover.JoinHover = function() {
         return false;
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.configureSchoolInfo('', schoolName, schoolId, schoolState);
         this.showHoverOnExit(GSType.hover.sendMeUpdates.showSendUpdates);
     };
     this.showNthHoverOnExit = function() {
@@ -508,7 +508,13 @@ GSType.hover.JoinHover = function() {
                     $this.trigger('click');
                 });
 
-                showHoverFunction();
+                // deferreds will be used by modals that dont support the GSType.hover.joinHover.executeOnExit method above
+                var deferred = showHoverFunction();
+                if (deferred && deferred.hasOwnProperty('always')) {
+                    deferred.always(function() {
+                        $this.trigger('click');
+                    });
+                }
 
                 event.stopImmediatePropagation();
                 return false;
@@ -2368,6 +2374,7 @@ GSType.hover.SendMeUpdates = function() {
         GSType.hover.sendMeUpdates.hier1=hier1;
     };
     this.configureSchoolInfo = function(redirect, schoolName, schoolId, schoolState) {
+        redirect = redirect || window.location.href;
         alert(redirect);
         if (redirect) {
             jQuery('#js-sendMeUpdates .redirect_field').val(redirect);
@@ -2411,10 +2418,18 @@ GSType.hover.SendMeUpdates = function() {
         return false;
     };
     this.showSendUpdates = function(schoolName, schoolId, schoolState) {
+        // the deferred is used by showInterruptHoverOnPageExit
+        var deferred = $.Deferred();
         jQuery('.js-signUp').on("click", GSType.hover.sendMeUpdates.clickSubmitHandler);
         GSType.hover.sendMeUpdates.configureSchoolInfo(schoolName, schoolId, schoolState);
+        var $sendMeUpdates = $('#js-sendMeUpdates');
+        $sendMeUpdates.unbind('dialogclose');
+        $sendMeUpdates.bind('dialogclose', function() {
+           deferred.resolve();
+        });
         GSType.hover.sendMeUpdates.show();
         GSType.hover.sendMeUpdates.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
+        return deferred;
     };
 };
 GSType.hover.SendMeUpdates.prototype = new GSType.hover.HoverDialog('js-sendMeUpdates');
