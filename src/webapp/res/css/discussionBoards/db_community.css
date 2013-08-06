@@ -1080,14 +1080,14 @@ fieldset label {
             z-index: 1;
             padding-bottom: 3px;
         }
-        .error {
-            background: transparent url(/res/img/bullet/icon_warning_12x12.gif) no-repeat scroll 0 0;
-            color: #C03;
-            font-size: 11px;
-            font-style: italic;
-            padding-left: 15px;
-            margin-bottom: 5px;
-        }
+        /*.error {*/
+            /*background: transparent url(/res/img/bullet/icon_warning_12x12.gif) no-repeat scroll 0 0;*/
+            /*color: #C03;*/
+            /*font-size: 11px;*/
+            /*font-style: italic;*/
+            /*padding-left: 15px;*/
+            /*margin-bottom: 5px;*/
+        /*}*/
 .valid {
 background-image:url("/res/img/discussion_boards/cbi_checkOk_gfx.gif");
 color:#118600;
