@@ -17,7 +17,7 @@
                     <div class="messages pbm dn">
                         <p class="error"><!-- message --></p>
                     </div>
-                    <form id="js-sMU" action="/community/registration/popup/registrationHover.page" method="post">
+                    <form id="js-sMU" action="/community/registration/popup/mssRegistrationHover.page" method="post">
                         <div class="body pal">
                             <div class="line">
                                 <label for="jemail" class="small_bold bottom">Email address</label><br/>

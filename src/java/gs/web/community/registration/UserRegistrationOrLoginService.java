@@ -277,7 +277,7 @@ public class UserRegistrationOrLoginService {
                         user.setFacebookId(userRegistrationCommand.getFacebookId());
                         String password = RandomStringUtils.randomAlphanumeric(14);
                         setUsersPassword(user, password, registrationOrLoginBehavior.requireEmailVerification(), userExists);
-                    } else {
+                    } else if (userRegistrationCommand.getPassword() != null) {
                         setUsersPassword(user, userRegistrationCommand, registrationOrLoginBehavior, userExists);
                     }
 
