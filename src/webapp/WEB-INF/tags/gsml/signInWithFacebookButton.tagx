@@ -8,15 +8,28 @@
     <jsp:directive.attribute name="onclick" required="false" description="value for element's onclick attribute"/>
     <jsp:directive.attribute name="size" required="false" description="Choose size: [32]"/>
 
-    <c:choose>
-        <c:when test="${size eq 32}">
-            <div id="${id}" class="but but-rg but-3 pan mbn js-facebook-login ${cssClass}" style="">
-                <span class="fl iconx32g i-32-facebook-t" style="border-right: 1px solid #5F7EBD;"><!-- do not collapse --></span>
-                <span class="fl phl pt1">Sign in with Facebook</span>
-            </div>
-        </c:when>
-        <c:otherwise>
+    <!--<c:choose>-->
+        <!--<c:when test="${size eq 32}">-->
+            <!--<div id="${id}" class="but but-rg but-3 pan mbn js-facebook-login ${cssClass}" style="">-->
+                <!--<span class="fl iconx32g i-32-facebook-t" style="border-right: 1px solid #5F7EBD;">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <!--<span class="fl phl pt1">Sign in with Facebook</span>-->
+            <!--</div>-->
+        <!--</c:when>-->
+        <!--<c:otherwise>-->
 
-        </c:otherwise>
+        <!--</c:otherwise>-->
+    <!--</c:choose>-->
+    <c:choose>
+    <c:when test="${buttonType eq 'post'}">
+        <div id="${id}" class="but but-rg but-1">
+            <div class="tac"><div class="but but-lg but-1 js-facebook-login ${cssClass}">Post</div></div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div id="${id}" class="but but-rg but-3 pan mbn js-facebook-login ${cssClass}" style="">
+            <span class="fl iconx32g i-32-facebook-t" style="border-right: 1px solid #5F7EBD;"><!-- do not collapse --></span>
+            <span class="fl phl pt1">Sign in with Facebook</span>
+        </div>
+    </c:otherwise>
     </c:choose>
 </jsp:root>

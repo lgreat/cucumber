@@ -305,12 +305,21 @@
 
 
 
+                <c:choose>
+                <c:when test="${requestInfo.signedInWithFacebook}">
+                    <gsml:signInWithFacebookButton size="32" buttonType="post" cssClass="js-parentReviewLandingPageFormSubmit-facebook"/>
+                    <div class="smaller bottom pts clearfix" style="width:290px;">
+                        <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
+                        <div class="fl" style="width: 250px">We will not display your name, photo or email address with your review.</div>
+                    </div>
+                </c:when>
+                <c:otherwise>
                 <div class="tac"><gsml:signInWithFacebookButton size="32" id="parentReviewFormSubmit-facebook"/></div>
                 <!--<div><a class="plm smaller bold js-submit-using-email" onclick="javascript:$('#js-submit-using-email').show()">Or submit using your email</a></div>-->
 
                 <div class="smaller bottom pts clearfix"><div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div><div class="fl">We will not display your name, photo or email address with your review.</div></div>
 
-                <c:if test="${not requestInfo.signedInWithFacebook}">
+                <!--<c:if test="${not requestInfo.signedInWithFacebook}">-->
                     <h5 class="orText">
                         <span>OR</span>
                     </h5>
@@ -363,8 +372,9 @@
 
 
                     </div>
-                </c:if>
-
+                <!--</c:if>-->
+                </c:otherwise>
+                </c:choose>
                 <div class="helperMessage smaller media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
                     <div class="bd dn">Indicates a required field</div>
