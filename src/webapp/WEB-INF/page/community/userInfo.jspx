@@ -287,7 +287,7 @@
                     <h4 class="subhead2">Manage my account</h4>
                     <ul class="text3-d61">
                         <c:choose>
-                            <c:when test="${pageUser.facebookUser}">
+                            <c:when test="${not empty pageUser.facebookId}">
                                 <li><a href="https://www.facebook.com" target="_blank">Change my email on Facebook</a></li>
                                 <li><a href="https://www.facebook.com" target="_blank">Change my password on Facebook</a></li>
                             </c:when>
