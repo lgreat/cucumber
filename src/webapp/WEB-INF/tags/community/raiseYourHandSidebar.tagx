@@ -185,6 +185,8 @@
         </div>
         <div class="bd">
 
+            <!-- SS: since we've implemented social signon, it's possible to be signed in without a page
+            refresh. I don't see any harm in always printint the recentAnswer template since it's display none -->
             <c:if test="${true || signedIn}">
 
                 <div id="recentAnswerTemplate" style="display: none;">
