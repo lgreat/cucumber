@@ -7,7 +7,7 @@
     <jsp:directive.attribute name="cssClass" required="false" description="an extra css class to add to element"/>
     <jsp:directive.attribute name="onclick" required="false" description="value for element's onclick attribute"/>
     <jsp:directive.attribute name="size" required="false" description="Choose size: [32]"/>
-    <jsp:directive.attribute name="buttonType" required="false" description="used to create a simple post button"/>
+    <jsp:directive.attribute name="fbButtonType" required="false" description="used to create a simple post button"/>
 
     <!--<c:choose>-->
         <!--<c:when test="${size eq 32}">-->
@@ -21,7 +21,7 @@
         <!--</c:otherwise>-->
     <!--</c:choose>-->
     <c:choose>
-    <c:when test="${buttonType eq 'post'}">
+    <c:when test="${fbButtonType eq 'post'}">
         <div id="${id}" class="but but-rg but-1">
             <div class="tac"><div class="but but-lg but-1 js-facebook-login ${cssClass}">Post</div></div>
         </div>

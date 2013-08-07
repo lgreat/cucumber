@@ -307,7 +307,7 @@
 
                 <c:choose>
                 <c:when test="${requestInfo.signedInWithFacebook}">
-                    <gsml:signInWithFacebookButton size="32" buttonType="post" cssClass="js-parentReviewLandingPageFormSubmit-facebook"/>
+                    <gsml:signInWithFacebookButton size="32" fbButtonType="post" cssClass="js-parentReviewLandingPageFormSubmit-facebook"/>
                     <div class="smaller bottom pts clearfix" style="width:290px;">
                         <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
                         <div class="fl" style="width: 250px">We will not display your name, photo or email address with your review.</div>
