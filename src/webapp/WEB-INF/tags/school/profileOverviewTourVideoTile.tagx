@@ -25,8 +25,9 @@
             <school:profileOverviewReviewsCTA/>
         </c:when>
         <c:otherwise>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'gsvid')}" scope="request"/>
-            <a class="tdn" href="${contentUrl}">
+            <c:set var="omnitureTileName" value="gsvid"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
+            <a class="tdn" href="${contentUrl}" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');">
                 <school:profileOverviewCell1 title="${t12s1}">
                     <div class="mam" style="height:149px">
                         <div class="shim-20"><!-- do not collapse --></div>

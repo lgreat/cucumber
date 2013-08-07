@@ -30,6 +30,11 @@ public class UserCommandHoverValidator extends UserCommandValidator implements I
             return; // other errors are irrelevant
         }
 
+        if (user != null && user.isFacebookUser()) {
+            errors.rejectValue("email", null, ERROR_FACEBOOK_USER);
+            return;
+        }
+
         validateUsername(command, user, errors);
         validateTerms(command, errors);
         validatePassword(command, errors);

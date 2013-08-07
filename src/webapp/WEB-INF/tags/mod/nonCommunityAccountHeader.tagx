@@ -39,11 +39,11 @@
             <li><link:schoolEspRegister styleClass="no_interrupt" school="${school}">School Officials</link:schoolEspRegister></li>
             <!--<li><link:aboutUs>About GreatSchools</link:aboutUs></li>-->
             <li><link:registration
-                    onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
-                    email="${requestScope.context.email}">Join Us</link:registration></li>
+                    onclick="$(function(){GSType.hover.joinHover.showJoinGlobalHeader();}); return false;"
+                    email="${requestScope.context.email}">Join</link:registration></li>
 
             <li class="last"><link:loginOrRegister email="${requestScope.context.email}"
-                                                   onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
+                                                   onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
                                                    redirect="${myUrl}">Sign In</link:loginOrRegister></li>
             <!--<li class="last"><link:loginOrRegister email="${requestScope.context.email}"-->
             <!--redirect="${myUrl}">Sign In</link:loginOrRegister></li>-->

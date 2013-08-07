@@ -77,7 +77,6 @@
         <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
         <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
 
-
         <k12:trafficDriverIncludes/>
 
     <!-- Allow interstitials for this page.
@@ -124,7 +123,7 @@
     <div id="js-search-body">
     
     <c:if test="${facebookFacepilesEnabled eq true}">
-        <pageHelper:includeFacebookInit/>
+        <pageHelper:turnOnFacebookInit/>
     </c:if>
     <div class="container_24 clearfix">
     
@@ -180,7 +179,7 @@
             <div class="standard_10-1">
                 <div class="inner tac">
                     <h2 class="make-ffffff">Which schools do<br/>your friends like?</h2>
-                    <div class="js-facebook-login FBSigninButton mha">
+                    <div class="js-facebook-login-search-results FBSigninButton mha">
                         <img src="/res/img/facebook/facebook_button.png" alt="Facebook signin" class="vam"/>
                         <span class="vam plm">Sign in with facebook</span>
                     </div>

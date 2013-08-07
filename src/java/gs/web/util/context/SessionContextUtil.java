@@ -10,8 +10,11 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.auth.FacebookHelper;
+import gs.web.auth.FacebookSession;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
+import gs.web.request.RequestAttributeHelper;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
@@ -262,6 +265,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         context.setNickname(cache.getNickname());
         context.setUserHash(cache.getUserHash());
         context.setScreenName(cache.getScreenName());
+        context.setFirstName(cache.getFirstName());
     }
 
     /**
@@ -684,6 +688,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     public SessionContext prepareSessionContext(
             HttpServletRequest request,
             HttpServletResponse response) {
+
+        FacebookSession facebookSession = FacebookHelper.getFacebookSession(request);
+
         /*
         The normal case is that things are persisted in individual cookies. We support
         the ability to add request-level attributes for testing and a few other
@@ -762,6 +769,9 @@ public class SessionContextUtil implements ApplicationContextAware {
             cache.setUserHash(hash);
             if (user.getUserProfile() != null) {
                 cache.setScreenName(user.getUserProfile().getScreenName());
+            }
+            if (user.getFirstName() != null) {
+                cache.setFirstName(user.getFirstName());
             }
             _sessionCacheCookieGenerator.addCookie(response, cache.getCookieRepresentation());
             if (StringUtils.isEmpty(_communityCookieGenerator.getCookieName())) {

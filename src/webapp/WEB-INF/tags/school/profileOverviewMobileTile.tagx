@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page">
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <a class="tdn" href="/about/mobile.page" onclick="if (s.tl) { s.tl(this, 'o', 'overview_mobileapp'); }">
+    <jsp:directive.attribute name="omnitureTileName" type="java.lang.String" required="false"/>
+    <c:set var="sprop9">
+        <c:choose>
+            <c:when test="${not empty omnitureTileName}">TILE-${omnitureTileName}</c:when>
+            <c:otherwise></c:otherwise>
+        </c:choose>
+    </c:set>
+    <a class="tdn" href="/about/mobile.page" onclick="clickCapture.capture('prop9', '${sprop9}');if (s.tl) { s.tl(this, 'o', 'overview_mobileapp'); }">
         <div class="mod standard_3-1">
             <div class="outer">
                 <div class="inner bg-mobileApp">

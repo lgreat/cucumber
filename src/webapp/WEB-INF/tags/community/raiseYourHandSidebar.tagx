@@ -31,7 +31,7 @@
         var ryhCharacterCountText = ' characters left.';
         jQuery('#ryhAnswerCount').html(ryhAnswerCharacterLimit + ' ' + ryhCharacterCountText);
 ]]>
-        <c:if test="${signedIn}">
+        <c:if test="${true || signedIn}">
 <![CDATA[
         // Counts down the number of characters remaining.
         function limitChars(textid, limit, divElement) {
@@ -54,56 +54,59 @@
             limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
         });
 
-        // and then after sending, reset the chars left and blank out the box
-        jQuery('#ryhSubmit').click(function() {
-
-            var body = jQuery('#ryhAnswer').val();
-            if (body == undefined || body === '' || body === 'Your answer...') {
-                alert("Please enter a reply. ");
+        jQuery('#ryhAnswer').click(function() {
+            if (!GS.isSignedIn()) {
+                GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
                 return false;
             }
-
-            if (body.length < 5) {
-                alert("Please enter at least 5 characters for your reply.");
-                return false;
-            }
-
-            jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/raiseYourHandSubmission.page', {discussionId: jQuery('#ryhDiscussionId').val(), body: jQuery('#ryhAnswer').val()},
-                    function(data) {
-                        if (data.status == 'ok') {
-                            var newRyhPost = jQuery('#recentAnswerTemplate').clone();
-                            var replyId = data.replyId;
-                            var body = data.body;
-                            newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
-                            newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', body));
-                            jQuery('.js-recentAnswers').prepend(newRyhPost.children());
-                            var numRecent = jQuery('.js-recentAnswers .js-ryh-reply').size();
-                            if (numRecent > ${ryhMaxNumReplies}) {
-                                jQuery('.js-recentAnswers .js-ryh-reply:last').remove();
-                                jQuery('.js-recentAnswers br.clearfloat:last').remove();
-                            }
-                            jQuery('#ryhAnswer').val('');
-                            limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
-                            jQuery('.ryh-recentAnswers').show();
-                        } else {
-                            alert('An error occurred. Please try again.');
-                        }
-                    }, "json");
             return true;
         });
+
+        // and then after sending, reset the chars left and blank out the box
+        jQuery('#ryhSubmit').click(function() {
+            if (true || GS.isSignedIn()) {
+
+                var body = jQuery('#ryhAnswer').val();
+                if (body == undefined || body === '' || body === 'Your answer...') {
+                    alert("Please enter a reply. ");
+                    return false;
+                }
+
+                if (body.length < 5) {
+                    alert("Please enter at least 5 characters for your reply.");
+                    return false;
+                }
+
+                jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/raiseYourHandSubmission.page', {discussionId: jQuery('#ryhDiscussionId').val(), body: jQuery('#ryhAnswer').val()},
+                        function(data) {
+                            if (data.status == 'ok') {
+                                var newRyhPost = jQuery('#recentAnswerTemplate').clone();
+                                var replyId = data.replyId;
+                                var body = data.body;
+                                newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
+                                newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', body));
+                                jQuery('.js-recentAnswers').prepend(newRyhPost.children());
+                                var numRecent = jQuery('.js-recentAnswers .js-ryh-reply').size();
+                                if (numRecent > ${ryhMaxNumReplies}) {
+                                    jQuery('.js-recentAnswers .js-ryh-reply:last').remove();
+                                    jQuery('.js-recentAnswers br.clearfloat:last').remove();
+                                }
+                                jQuery('#ryhAnswer').val('');
+                                limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
+                                jQuery('.ryh-recentAnswers').show();
+                            } else {
+                                alert('An error occurred. Please try again.');
+                            }
+                        }, "json");
+                return true;
+            } else {
+                GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
+            }
+        });
 ]]>
         </c:if>
 
-        <c:if test="${!signedIn}">
-<![CDATA[
-        jQuery('#ryhAnswer').click(function() {
-            GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
-        });
-        jQuery('#ryhSubmit').click(function() {
-            GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
-        });
-]]>
-        </c:if>
+
 <![CDATA[
     });
     //-->
@@ -182,7 +185,9 @@
         </div>
         <div class="bd">
 
-            <c:if test="${signedIn}">
+            <!-- SS: since we've implemented social signon, it's possible to be signed in without a page
+            refresh. I don't see any harm in always printint the recentAnswer template since it's display none -->
+            <c:if test="${true || signedIn}">
 
                 <div id="recentAnswerTemplate" style="display: none;">
                     <div class="media js-ryh-reply">

@@ -27,7 +27,7 @@
         <br/>
 
         <fieldset class="btns">
-            <button class="button-1" type="submit" name="continueToSurvey" id="continueToSurvey">Continue to survey</button>
+            <button class="but but-rg but-1" type="submit" name="continueToSurvey" id="continueToSurvey">Continue to survey</button>
                 <a href="javascript:void(0);" id="principalReviewSubmittedHover_cancel" class="js_closeHover mll">No thanks</a>
             </fieldset>
 

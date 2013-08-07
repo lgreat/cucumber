@@ -40,7 +40,7 @@
     <c:when test="${content eq 'default'}">
 
     <div id="js-tile-7-0">
-    <gslink:linkToTab tabName="demographics" customLink="overview_diversity" cssClass="tdn make-555555 js-trigger" dontPrintLink="${content ne 'default'}">
+    <gslink:linkToTab tabName="demographics" customLink="overview_diversity" cssClass="tdn make-555555 js-trigger" dontPrintLink="${content ne 'default'}" tileName="divers">
         <school:profileOverviewCell1 title="${t7dc}">
 
                     <!-- The ethnicity labels are in the diversityMap.key and the values are in the diversityMap.value variable.  Here is how to access them -->

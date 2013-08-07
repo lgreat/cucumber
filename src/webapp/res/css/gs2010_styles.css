@@ -618,21 +618,21 @@ h4.subhead2 a {
 
 /* **************** BLOCK STRUCTURES ***************** */
 /* ------------------- mod ------------------- */
-.mod {
-    margin: 0;
-}
+/*.mod {*/
+    /*margin: 0;*/
+/*}*/
 
-.mod .outer {
-}
+/*.mod .outer {*/
+/*}*/
 
-.mod .inner {
-}
+/*.mod .inner {*/
+/*}*/
 
-.bd, .ft, .hd {
-    overflow: hidden;
-    *overflow: visible;
-    zoom: 1;
-}
+/*.bd, .ft, .hd {*/
+    /*overflow: hidden;*/
+    /**overflow: visible;*/
+    /*zoom: 1;*/
+/*}*/
 
 /* **************** BLOCK SKINS ***************** */
 /* --------- standard (extends mod) ---------- */
@@ -1916,12 +1916,17 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 /* -------------- raiseYourHand -------------- */
-.raiseYourHand {
-    margin: 10px 0;
-}
-
 .raiseYourHand .bd {
     background-color: #ebebeb;
+    overflow: hidden;
+    *overflow: visible;
+    zoom: 1;
+}
+
+.raiseYourHand .ft, .hd{
+    overflow: hidden;
+    *overflow: visible;
+    zoom: 1;
 }
 
 /* ---------------- ryh-topic ---------------- */
@@ -2595,6 +2600,12 @@ div .gallery-thumbnail-selected:hover {
 
 .media .imgExt {
     float: right; /*margin-left: 10px;*/
+}
+
+.media .bd {
+    overflow: hidden;
+    *overflow: visible;
+    zoom: 1;
 }
 
 /* ------- media skins ------- */
@@ -3890,7 +3901,7 @@ div .gallery-thumbnail-selected:hover {
     position: absolute;
     top: 125px; /*left: 15px;*/
     float: left;
-    z-index: 50;
+    z-index: 0;
     background: none;
     line-height: normal;
 }
@@ -3946,7 +3957,7 @@ div .gallery-thumbnail-selected:hover {
     width: 598px;
     height: 14px;
     background: white url(/res/img/gradeByGrade/gbg-bg-slider-1.png) no-repeat left top;
-    z-index: 51;
+    z-index: 1;
 }
 
 #gbg-marker-p,
@@ -6182,11 +6193,11 @@ a.ui-dialog-titlebar-close .ui-icon {
 
 .contactPw label,
 #hover_forgotPasswordForm label {
-    float: left;
-    margin: 0 15px 0 0;
-    width: 117px;
-    display: inline;
-    clear: left;
+    /*float: left;*/
+    /*margin: 0 15px 0 0;*/
+    /*width: 117px;*/
+    /*display: inline;*/
+    /*clear: left;*/
 }
 
 .signin label {
@@ -6214,39 +6225,39 @@ a.ui-dialog-titlebar-close .ui-icon {
     clear: both;
 }
 
-#joinGS .error,
-.error {
-    font: 11px / 1.3 Arial, Helvetica, sans-serif;
-    color: #c03;
-    padding: 0 0 3px 15px;
-    background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;
-    display: none;
-}
+/*#joinGS .error,*/
+/*.error {*/
+    /*font: 11px / 1.3 Arial, Helvetica, sans-serif;*/
+    /*color: #c03;*/
+    /*padding: 0 0 3px 15px;*/
+    /*background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;*/
+    /*display: none;*/
+/*}*/
 
-#joinGS .messBox,
-.messBox {
-    border: 1px solid #c03;
-    background: #f4f4f4 url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 8px 8px no-repeat;
-    padding: 8px 8px 8px 24px;
-    margin-bottom: 9px;
-}
+/*#joinGS .messBox,*/
+/*.messBox {*/
+    /*border: 1px solid #c03;*/
+    /*background: #f4f4f4 url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 8px 8px no-repeat;*/
+    /*padding: 8px 8px 8px 24px;*/
+    /*margin-bottom: 9px;*/
+/*}*/
 
-#joinGS .valid,
-.valid {
-    color: #180;
-    background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
-}
+/*#joinGS .valid,*/
+/*.valid {*/
+    /*color: #180;*/
+    /*background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);*/
+/*}*/
 
-#joinGS .prefs,
-#joinGS .btns {
-    width: 548px;
-    padding: 0 0 20px 132px;
-    overflow: visible;
-}
+/*#joinGS .prefs,*/
+/*#joinGS .btns {*/
+    /*width: 548px;*/
+    /*padding: 0 0 20px 132px;*/
+    /*overflow: visible;*/
+/*}*/
 
-#joinGS #joinCity {
-    width: 120px;
-}
+/*#joinGS #joinCity {*/
+    /*width: 120px;*/
+/*}*/
 
 #joinGS #pickGrade {
     margin: 0;
@@ -6440,8 +6451,8 @@ div.hlpTxt  p {
 }
 
 button#hover_forgotPasswordSubmit {
-    margin-left: 132px;
-    display: inline;
+    /*margin-left: 132px;*/
+    /*display: inline;*/
 }
 
 #cancelPref {
@@ -6461,10 +6472,6 @@ button#hover_forgotPasswordSubmit {
 
 .dialog_white p {
     margin: 0 0 1em;
-}
-
-#joinHover_cancel {
-    margin-left: 5px;
 }
 
 .messages p {

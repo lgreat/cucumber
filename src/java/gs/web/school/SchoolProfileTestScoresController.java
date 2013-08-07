@@ -806,8 +806,9 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         if(testToGradesList == null){
             testToGradesList = new ArrayList<TestToGrades>();
         }
-        //API should always be displayed first.
-        testToGradesList.add(0, api);
+        //API should always be displayed Last GS-14453
+        testToGradesList.add(api) ;
+
     }
 
     void setTestDataSetDao(ITestDataSetDao testDataSetDao) {

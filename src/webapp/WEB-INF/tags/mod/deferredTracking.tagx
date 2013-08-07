@@ -22,7 +22,9 @@
     <jsp:directive.attribute name="DC_PCSB_Rating" required="false"/>
     <jsp:directive.attribute name="applyNowUrl" required="false"/>
     <jsp:directive.attribute name="tilesInPage" required="false"/>
+    <jsp:directive.attribute name="tabName" required="false" description="Tab name as setup in gsTab.tagx"/>
 
+    <![CDATA[
     <script type="text/javascript">
         GS.tracking.registerTrackingData("${not empty pageScope.key? pageScope.key : '_shared'}", {
             pageName : '${pageScope.pageName}',
@@ -50,7 +52,7 @@
                     var locationAnchor = '';
                     var prop9 = '';
 
-                    if (location.href &amp;&amp; location.href.indexOf('#from..') > -1) {
+                    if (location.href && location.href.indexOf('#from..') > -1) {
                         locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
                         prop9 = '${pageScope.pageName} ' + locationAnchor;
                     } else {
@@ -63,6 +65,11 @@
                 return props;
             })()
         });
+    ]]>
+    <c:if test="${not empty pageScope.key}">
+        GS.tabManager.setOmniturePageNameForTab('${pageScope.key}', '${pageScope.pageName}');
+    </c:if>
+    <![CDATA[
     </script>
-
+    ]]>
 </jsp:root>

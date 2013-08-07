@@ -24,14 +24,15 @@
         <gsml:javascript src="/res/js/jquery/plugins/timepicker/jquery.ptTimeSelect.js"/>
         <gsml:javascript src="/res/js/global.js"/>
         <gsml:javascript src="/res/js/topnavpromo.js"/>
-        <gsml:javascript src="/res/js/hover.js"/>
-        <!--<gsml:javascript src="/res/js/modal/modalManager.js"/>-->
+        <gsml:javascript src="/res/js/modal/modalManager.js"/>
+        <gsml:javascript src="/res/js/hover-v1.js"/>
         <gsml:javascript src="/res/js/topnav.js"/>
         <gsml:javascript src="/res/js/gs_jquery_extensions.js"/>
         <gsml:javascript src="/res/js/house_ads.js"/>
         <gsml:javascript src="/res/js/deferredcontent.js"/>
         <gsml:javascript src="/res/js/externalTracking.js"/>
         <gsml:javascript src="/res/js/trackIt.js"/>
+        <gsml:javascript src="/res/js/facebook.js"/>
     </gsml:combinedJavascript>
 
 </jsp:root>

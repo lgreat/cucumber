@@ -391,7 +391,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
 
     </div>
     <div class="container_24 clearfix pbm">
-        <form id="parentReviewFormLandingPage" method="post" action="#" onsubmit="return validateReview();">
+        <form id="parentReviewFormLandingPage" method="post" action="javascript:void(0)" onsubmit="return validateReview();">
             <input type="hidden" class="js-overallAsString" id="overallAsString" value="0" name="overallAsString"/>
             <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
             <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
@@ -448,32 +448,33 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                                        placeholder="Tell us about your school"><!-- do not collapse --></textarea>
                         </div>
                     </div>
-                </div>
-                <div class="fr">
-                    <div class="js-email-error dn form-alert pbs dn">
-                        <div class="media">
-                            <div class="img mrs">
-                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                    <div class="clearfix ptm">
+                        <div class="fl">
+                            <div class="js-parentReviewTerms-error form-alert pbs dn">
+                                <div class="media">
+                                    <div class="img mrs">
+                                        <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="js-msg smaller bottom error_msg">You must agree to the terms of use and guidelines.</div>
+                                </div>
                             </div>
-                            <div class="js-msg smaller bottom error_msg">You must enter a valid email address.</div>
+                            <div id="js-reviewLandingCheckboxTerms" class="clearfix">
+                                <div class="fl prm js-checkBoxSpriteOff"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
+                                <div class="fl prm js-checkBoxSpriteOn dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
+                                <div class="fl small bottom">I agree to the <link:termsOfUse
+                                        target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
+                                        target="_blank">School Review Guidelines</link:parentReviewGuidelines>.</div>
+                            </div>
+                            <div id="js-reviewLandingCheckboxEmail" class="clearfix">
+                                <div class="fl prm js-checkBoxSpriteOff dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
+                                <div class="fl prm js-checkBoxSpriteOn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
+                                <div class="fl small">Yes, send me monthly email updates about this school.</div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="fr" style="width:310px;">
 
-                    <div class="selectBox2 clearfix selectList mbl" style="margin-bottom: 5px;">
-                        <div class="mtm fl ">
-                            <c:choose>
-                                <c:when test="${not empty validUser.email}">
-                                    <input class="email text1noborder js-email" type="text" readonly="true" name="email"
-                                           placeholder="Email address" value="${validUser.email}" style="width: 260px; border: none;"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <input class="email text1noborder js-email" type="text" name="email"
-                                           placeholder="Please enter your email" style="width: 260px; border: none;"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <!--<div class="fr pbm plm js_emailPopOver" ><div class="mrm mtm"><span class="iconx16 i-16-lock">&lt;!&ndash;do not collapse&ndash;&gt;</span></div></div>-->
-                    </div>
                     <!--start-->
                     <div class="js-posterAsString-error dn form-alert pbs ptm dn">
                         <div class="media">
@@ -483,12 +484,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                             <div class="js-msg smaller bottom error_msg">Please select your role.</div>
                         </div>
                     </div>
-                    <div style="width: 312px; ">
-                         <p style="color: #787878;" class="small">
-                             <strong>Don&#39;t worry!</strong> We won&#39;t share your email with anyone. We use your
-                             email to confirm that your review is posted.
-                         </p>
-                    </div>
+
                     <div id="js-reviewLandingIAm" class="pr">
                         <div class="js-selectBox selectBox2 clearfix selectList">
                             <div class="js-selectBoxText mtm fl selectListFont">I am a ... </div>
@@ -506,11 +502,11 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                         </div>
                     </div>
                     <div class="ptm pbs"><!-- do not collapse --></div>
-                    <div class="hd pam dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0">
-                        <h4 class="bottom sourceSansPro-Semibold">Please rate these other areas</h4>
+                    <div class="hd pvm dn" id="js-reviewsLandingTitleRateAddl" style="padding-top: 0; padding-bottom: 0">
+                        <span class="small_bold bottom sourceSansPro-Semibold">Please rate these other areas</span>
                     </div>
-                    <div class="hd pam " id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;">
-                        <h4 class="bottom sourceSansPro-Semibold">Helpful reviews answer questions</h4>
+                    <div class="hd pvm" id="js-reviewsLandingTitleHelpful" style="padding-top: 0; padding-bottom: 0;">
+                        <span class="small_bold bottom sourceSansPro-Semibold">Helpful reviews answer questions</span>
                     </div>
                     <div class="mod standard_1-1">
                         <div class="inner">
@@ -556,34 +552,112 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="clearfix ptm">
-                <div class="fl">
-                    <div class="js-parentReviewTerms-error form-alert pbs dn">
-                        <div class="media">
-                            <div class="img mrs">
-                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
-                            </div>
-                            <div class="js-msg smaller bottom error_msg">You must agree to the terms of use and guidelines.</div>
-                        </div>
-                    </div>
-                    <div id="js-reviewLandingCheckboxTerms" class="clearfix">
-                        <div class="fl prm js-checkBoxSpriteOff"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
-                        <div class="fl prm js-checkBoxSpriteOn dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
-                        <div class="fl small bottom">I agree to the <link:termsOfUse
-                                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
-                                target="_blank">School Review Guidelines</link:parentReviewGuidelines>.</div>
-                    </div>
-                    <div id="js-reviewLandingCheckboxEmail" class="clearfix">
-                        <div class="fl prm js-checkBoxSpriteOff dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off"><!-- do not collapse --></span></div>
-                        <div class="fl prm js-checkBoxSpriteOn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on"><!-- do not collapse --></span></div>
-                        <div class="fl small">Yes, send me monthly email updates about this school.</div>
-                    </div>
-                </div>
 
-                <div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</div></div>
+                    <div class="ptm pbs"><span class="small_bold bottom sourceSansPro-Semibold">Please register to post your anonymous review</span></div>
+
+
+                    <c:choose>
+                        <c:when test="${requestInfo.signedInWithFacebook}">
+                            <gsml:signInWithFacebookButton size="32" buttonType="post" cssClass="js-parentReviewLandingPageFormSubmit-facebook"/>
+                            <div class="smaller bottom pts clearfix" style="width:290px;">
+                                <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
+                                <div class="fl" style="width: 250px">We will not display your name, photo or email address with your review.</div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <!--IN BOX-->
+                            <!---->
+                            <!---->
+                            <div class="mod form">
+                                <div class="inner">
+                                    <div class="tac ptm"><gsml:signInWithFacebookButton size="32"  cssClass="js-parentReviewLandingPageFormSubmit-facebook"/></div>
+                                    <div class="smaller bottom pts clearfix" style="width:290px;">
+                                        <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
+                                        <div class="fl" style="width: 250px">We will not display your name, photo or email address with your review.</div>
+                                    </div>
+
+                                    <h5 class="orText">
+                                        <span>OR</span>
+                                    </h5>
+                                    <div class="js-email-error dn form-alert pbs dn">
+                                        <div class="media">
+                                            <div class="img mrs">
+                                                <span class="iconx16 i-16-alert vam"><!-- do not collapse --></span>
+                                            </div>
+                                            <div class="js-msg smaller bottom error_msg">You must enter a valid email address.</div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="fl selectBox2 selectList_ongray mbl" style="margin-bottom: 5px;">
+                                            <div style="margin-top:8px">
+                                                <c:choose>
+                                                    <c:when test="${not empty validUser.email}">
+                                                        <input class="email text1noborder_ongray js-email" type="text" readonly="true" name="email"
+                                                               placeholder="Email address" value="${validUser.email}" style="width: 170px; border: none;"/>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <input class="email text1noborder_ongray js-email" type="text" name="email"
+                                                               placeholder="Please enter your email" style="width: 170px; border: none;"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+
+                                        </div>
+                                        <div class="tar fr">
+                                            <div id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</div>
+                                        </div>
+                                    </div>
+                                    <div class="smaller bottom pts clearfix pbm" style="width:290px;">
+                                        <div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px"><!-- do not collapse --></div>
+                                        <div class="fl" style="width: 250px">Your email address will never be published or shared.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--IN BOX END-->
+                        </c:otherwise>
+                    </c:choose>
+
+                        <!--<div class="fr pbm plm js_emailPopOver" ><div class="mrm mtm"><span class="iconx16 i-16-lock">&lt;!&ndash;do not collapse&ndash;&gt;</span></div></div>-->
+                    <!--</div>-->
+                        <!--<div class="tar fr"><button id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</button></div>-->
+                    <!--</div>-->
+                        <!--<div class="smaller bottom pts clearfix pbm" style="width:290px;">-->
+                            <!--<div class="iconx16 i-16-lock fl" style="margin:0px 5px 0px 0px">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                            <!--<div class="fl" style="width: 250px">Your email address will never be published or shared.</div>-->
+                        <!--</div>-->
+                    <!--</c:if>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--IN BOX END-->
+
+                </div>
             </div>
+            <!--<div class="clearfix ptm">-->
+                <!--<div class="fl">-->
+                    <!--<div class="js-parentReviewTerms-error form-alert pbs dn">-->
+                        <!--<div class="media">-->
+                            <!--<div class="img mrs">-->
+                                <!--<span class="iconx16 i-16-alert vam">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                            <!--</div>-->
+                            <!--<div class="js-msg smaller bottom error_msg">You must agree to the terms of use and guidelines.</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div id="js-reviewLandingCheckboxTerms" class="clearfix">-->
+                        <!--<div class="fl prm js-checkBoxSpriteOff"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off">&lt;!&ndash; do not collapse &ndash;&gt;</span></div>-->
+                        <!--<div class="fl prm js-checkBoxSpriteOn dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on">&lt;!&ndash; do not collapse &ndash;&gt;</span></div>-->
+                        <!--<div class="fl small bottom">I agree to the <link:termsOfUse-->
+                                <!--target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines-->
+                                <!--target="_blank">School Review Guidelines</link:parentReviewGuidelines>.</div>-->
+                    <!--</div>-->
+                    <!--<div id="js-reviewLandingCheckboxEmail" class="clearfix">-->
+                        <!--<div class="fl prm js-checkBoxSpriteOff dn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-off">&lt;!&ndash; do not collapse &ndash;&gt;</span></div>-->
+                        <!--<div class="fl prm js-checkBoxSpriteOn"><span class=".js-checkBoxSprite iconx16 i-16-checkbox-on">&lt;!&ndash; do not collapse &ndash;&gt;</span></div>-->
+                        <!--<div class="fl small">Yes, send me monthly email updates about this school.</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="tar fr"><div id="js-submitParentReview" class="js-submitParentReview but but-lg but-1">Post</div></div>-->
+            <!--</div>-->
         </form>
     </div>
 

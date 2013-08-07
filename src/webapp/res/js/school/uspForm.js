@@ -23,6 +23,7 @@ GS.form.uspForm = (function ($) {
     var EMAIL_ERROR_SELECTOR = '.js_emailErr';
     var TERMS_OF_USE_ERROR_SELECTOR = '.js_termsErr';
     var EXISTING_ANSWERS_ERROR = '#js-existingAnswersError';
+    var SELECT_ONE_ERROR_SELECTOR = '.js-uspSelectNone';
 
     var CHECK_USER_STATE_URL = '/school/QandA/checkUserState.page';
 
@@ -116,7 +117,10 @@ GS.form.uspForm = (function ($) {
     var handleEmailVerification = function () {
         var uspForm = $(USP_FORM_SELECTOR);
         var emailField = $(LOGIN_EMAIL_SELECTOR);
-        saveForm(uspForm, '', emailField.val());
+        var data = uspForm.serializeArray();
+        data.push({name:"email", value:emailField.val()});
+        data.push({name:"action",value:"sendVerificationEmail"});
+        saveForm(data);
     };
 
     var handleValidationResponse = function (fieldSelector, errorMsg, elem) {
@@ -172,7 +176,9 @@ GS.form.uspForm = (function ($) {
                 pageTracking.send();
             }
             if (isUserSignedIn === true) {
-                saveForm(uspForm);
+                $(SUBMIT_SELECTOR).prop('disabled',true);
+                data.push({name:"action", value:"userInSession"});
+                saveForm(data);
             } else {
                 GSType.hover.modalUspRegistration.show();
             }
@@ -190,15 +196,19 @@ GS.form.uspForm = (function ($) {
                 var password = uspRegistrationPasswordField.val();
                 var email = $.trim(uspRegistrationEmailField.val());
                 var terms = true; // must be true for above validation to pass
-                $.when(
-                    saveForm(uspForm, password, email, terms)
-                ).done(function () {
-                        GSType.hover.modalUspRegistration.hide();
-                    })
-                    .fail(function () {
-                        GSType.hover.modalUspRegistration.hide();
-                        alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
-                    });
+
+                var data = uspForm.serializeArray();
+                data.push({name:"email", value:email});
+                data.push({name:"password", value:password});
+                data.push({name:"terms", value:terms});
+                data.push({name:"action",value:"registration"});
+
+                if ($('.js-joinHover:visible').find('.js-mss .js-checkBoxSpriteOn:visible').length > 0) {
+                    data.push({name:"mss", value:true});
+                }
+
+                GSType.hover.modalUspRegistration.hide();
+                saveForm(data);
             }
         ).fail(
             function () {
@@ -215,7 +225,12 @@ GS.form.uspForm = (function ($) {
             function () {
                 var password = uspLoginPasswordField.val();
                 var email = $.trim(uspLoginEmailField.val());
-                saveForm(uspForm, password, email);
+                var data = uspForm.serializeArray();
+                data.push({name:"email", value:email});
+                data.push({name:"password", value:password});
+                data.push({name:"action", value:"login"});
+
+                saveForm(data);
             }
         ).fail(
             function () {
@@ -224,89 +239,80 @@ GS.form.uspForm = (function ($) {
         );
     };
 
-    var saveForm = function (uspForm, password, email, terms) {
-        var dfd = $.Deferred();
-
-        var data = uspForm.serializeArray();
-
-        if (password !== undefined && password !== '') {
-            data.push({name:"password", value:password});
-        }
-        if (email !== undefined && email !== '') {
-            data.push({name:"email", value:email});
-        }
-
-        if($('.js-joinHover:visible').find('.js-mss .js-checkBoxSpriteOn:visible').length > 0) {
-            data.push({name:"mss", value:true});
-        }
-
-        if (terms !== undefined && terms !== '') {
-            data.push({name:"terms", value:terms});
-        }
+    var saveForm = function (data) {
 
         $.ajax({type:'POST',
                 async:true,
                 url:document.location,
                 data:data}
         ).fail(function () {
-                dfd.reject();
                 alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
             }).done(function (data) {
-                dfd.resolve();
                 if (data.redirect !== undefined && data.redirect !== '') {
                     window.location = data.redirect;
                 }
                 else if(data.hasExistingSavedResponses === 'true') {
+                    hideAllErrors();
                     if(data.formFields === undefined) {
                         return;
                     }
-                    var formFields = data.formFields;
-                    var formElements = uspForm.find('select.js-chosenSelect');
-                    formElements.val('').trigger("liszt:updated");
-                    var user = data.user;
-                    if(user !== undefined) {
-                        GS.GlobalUI.updateUIForLogin(user.id, user.email, user.screenName, user.numberMSLItems);
-                    }
-                    var numFormFields = data.formFields.length;
-                    for(var i = 0; i < numFormFields; i++) {
-                        var formField = formFields[i];
-                        var formElement = uspForm.find('select[name=' + formField.fieldName + ']');
-                        var sectionResponses = formField.responses;
-                        var numSectionResponses = sectionResponses.length;
-                        for(var j = 0; j < numSectionResponses; j++) {
-                            var sectionResponse = sectionResponses[j];
-                            var responseKey = sectionResponse.key;
+                    var uspForm = $(USP_FORM_SELECTOR);
+                    updateUspFormFields(data, uspForm);
 
-                            var responseValues = sectionResponse.values;
-                            var numResponseValues = responseValues.length;
-                            for(var k = 0; k < numResponseValues; k++) {
-                                var responseValue = responseValues[k];
-                                var respValue = responseValue.responseValue;
-                                var isSelected = responseValue.isSelected;
-
-                                if(isSelected) {
-                                    console.log(responseKey + '__' + respValue);
-                                    formElement.find('option[value=' + responseKey + '__' +
-                                        respValue + ']').prop("selected", true);
-                                }
-                            }
-                        }
-                    }
-
-                    formElements.trigger("liszt:updated");
-                    GSType.hover.modalUspSignIn.hide();
-                    jQuery(EXISTING_ANSWERS_ERROR).show();
-                    window.scrollTo(0,0);
                 }
             });
-        return dfd.promise();
     };
+
+    var updateUspFormFields = function(data, uspForm) {
+        var formFields = data.formFields;
+        var formElements = uspForm.find('select.js-chosenSelect');
+        // first clear the chosen fields to remove any selected values
+        formElements.val('').trigger("liszt:updated");
+        var user = data.user;
+        if(user !== undefined) {
+            // if user data is able, update the global header to show that the user is signed in
+            GS.GlobalUI.updateUIForLogin(user.id, user.email, user.screenName, user.numberMSLItems);
+        }
+        var numFormFields = data.formFields.length;
+        for(var i = 0; i < numFormFields; i++) {
+            var formField = formFields[i];
+            // for each select element, check if the response value has isSelected is set to true then update the option's selected property
+            var formElement = uspForm.find('select[name=' + formField.fieldName + ']');
+            var sectionResponses = formField.responses;
+            var numSectionResponses = sectionResponses.length;
+            for(var j = 0; j < numSectionResponses; j++) {
+                var sectionResponse = sectionResponses[j];
+                var responseKey = sectionResponse.key;
+
+                var responseValues = sectionResponse.values;
+                var numResponseValues = responseValues.length;
+                for(var k = 0; k < numResponseValues; k++) {
+                    var responseValue = responseValues[k];
+                    var respValue = responseValue.responseValue;
+                    var isSelected = responseValue.isSelected;
+
+                    if(isSelected) {
+                        formElement.find('option[value=' + responseKey + '__' +
+                            respValue + ']').prop("selected", true);
+                    }
+                }
+            }
+        }
+
+        // once all the elements in the form have been updated with the previously saved responses, trigger chosen update to display the saved responses
+        formElements.trigger("liszt:updated");
+        GSType.hover.modalUspSignIn.hide();
+        jQuery(EXISTING_ANSWERS_ERROR).show();
+        window.scrollTo(0,0);
+    }
 
     var hideAllErrors = function () {
         $(PASSWORD_ERROR_SELECTOR).hide();
         $(EMAIL_ERROR_SELECTOR).hide();
         $(TERMS_OF_USE_ERROR_SELECTOR).hide();
         $(EXISTING_ANSWERS_ERROR).hide();
+        //Not sure why this is done differently.
+        $(SELECT_ONE_ERROR_SELECTOR).addClass("dn");
     };
 
     var doUspFormValidations = function (data) {
@@ -350,7 +356,6 @@ GS.form.uspForm = (function ($) {
         $uspForm.on('click', SUBMIT_SELECTOR, function () {
             hideAllErrors();
             validateUspDataAndShowHover($uspForm);
-
             return false;
         });
 
@@ -361,6 +366,8 @@ GS.form.uspForm = (function ($) {
                 return value.substring(0, value.indexOf('__') + 2) + $this.val();
             });
         });
+
+        $(SUBMIT_SELECTOR).prop('disabled',false);
 
         //The new way of doing modals puts duplicate Ids on the page.I dealt with it by
         //binding handlers to visible elements.
@@ -425,7 +432,6 @@ GS.form.uspForm = (function ($) {
             loginAndSaveData($uspForm, uspLoginPasswordField, uspLoginEmailField);
         });
 
-        //TODO forgot password
     };
 
     return {

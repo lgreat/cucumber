@@ -24,10 +24,10 @@ public class UserRegistrationCommand  {
     @NotNull(message="Please enter a valid email address.")
     private String email;
 
-    @Size(min=2, max=14, message="Password should be 6-14 characters.")
+    @Size(min=6, max=14, message="Password should be 6-14 characters.")
     private String password;
 
-    @Size(min=2, max=14, message="Password should be 6-14 characters.")
+    @Size(min=6, max=14, message="Password should be 6-14 characters.")
     private String confirmPassword;
 
     private State state;

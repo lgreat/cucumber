@@ -1,10 +1,12 @@
 package gs.web.search;
 
+import gs.data.geo.City;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.GsSolrSearcher;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.path.DirectoryStructureUrlFields;
 
@@ -29,7 +31,9 @@ public class SchoolSearchController2012Test extends BaseControllerTestCase {
         _controller.setGsSolrSearcher(_gsSolrSearcher);
 
         _command = new SchoolSearchCommand2012();
+        _request.setRequestURI("abc");
         _fields = new DirectoryStructureUrlFields(_request);
+
     }
 
     public void testRegressionIllegalEnumArgument_SchoolSizeAll() throws Exception{
@@ -55,4 +59,16 @@ public class SchoolSearchController2012Test extends BaseControllerTestCase {
         }
         verify(_gsSolrSearcher);
     }
+
+    /**
+     * Adding test case for default behaviour to false when no packard Parameters are set -GS-14110 -Shomi Arora 
+     */
+
+    public void testPackardFilterDefaultBehaviour() {
+       _commandWithFields = new SchoolSearchCommandWithFields(_command, _fields);
+       assertEquals(_controller.isPackardFilters(_command,_commandWithFields),false);
+
+    }
+
+
 }

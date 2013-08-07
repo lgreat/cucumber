@@ -35,6 +35,8 @@
     <context:component-scan base-package="gs.web.qrCode" />
     <context:component-scan base-package="gs.web.mediaUploader" />
     <context:component-scan base-package="gs.web.gallup" />
+    <context:component-scan base-package="gs.web.auth" />
+    <context:component-scan base-package="gs.web.community.registration.popup" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -1964,28 +1966,6 @@
         <property name="formView" value="/community/registration/popup/loginOrRegisterHover"/>
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.registration.popup.LoginHoverCommand"/>
-    </bean>
-
-    <bean name="/community/registration/popup/registrationHover.page"
-          class="gs.web.community.registration.popup.RegistrationHoverController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="userCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.popup.RegistrationHoverCommand"/>
-        <property name="formView" value="/community/registration/popup/registrationHover"/>
-        <property name="errorView" value="/community/registration/registrationSoapError"/>
-        <property name="requireEmailValidation" value="true"/>
-        <property name="validators">
-            <list>
-                <ref local="emailValidator"/>
-            </list>
-        </property>
-        <property name="mailSender">
-            <ref bean="mailSender"/>
-        </property>
-        <property name="tableDao">
-            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
-        </property>
     </bean>
 
     <bean name="/community/registration/popup/forgotPasswordHover.page"

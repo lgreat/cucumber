@@ -96,6 +96,7 @@ GS.review.Validator = function() {
  */
 GS.form.SchoolReviewForm = function(id) {
     this.submitButton = jQuery('#parentReviewFormSubmit');
+    this.facebookButton = jQuery('#parentReviewFormSubmit-facebook');
     var form = jQuery('#' + id);
     this.submitSuccessRedirect = window.location.href;
 
@@ -432,6 +433,15 @@ GS.form.SchoolReviewForm = function(id) {
                 this.review.isValid() && this.overallRating.isValid() && this.termsOfUse.isValid();
     }.gs_bind(this);
 
+    this.formValidForFacebook = function () {
+        return (
+            this.poster.isValid()
+            && this.review.isValid()
+            && this.overallRating.isValid()
+            && this.termsOfUse.isValid()
+        );
+    }.gs_bind(this);
+
     this.resetStars = function() {
         this.showStars(this.overallRating.getElement().val());
     }.gs_bind(this);
@@ -487,7 +497,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.postReview = function(email, callerFormId) {
-        jQuery('#parentReviewFormSubmit').prop('disabled',true);
+
         var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
         //When this is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email != undefined && email != '') {
@@ -551,6 +561,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.submitHandler = function() {
+        jQuery('#parentReviewFormSubmit').prop('disabled',true);
         if (this.formValid()) {
             if (GS.isSignedIn() || !this.email.isEmailTaken()) {
                 this.postReview();
@@ -564,6 +575,21 @@ GS.form.SchoolReviewForm = function(id) {
                         this.postReview
                 );
             }
+        } else {
+            this.updateAllErrors();
+        }
+        jQuery('#parentReviewFormSubmit').prop('disabled',false);
+        return false;
+    }.gs_bind(this);
+
+    this.facebookSubmitHandler = function() {
+        var that = this;
+        if (this.formValidForFacebook()) {
+            GS.facebook.login().done(function(data) {
+                that.postReview(data.email);
+            }).fail(function() {
+                alert("Facebook signin failed. Review not submitted.");
+            });
         } else {
             this.updateAllErrors();
         }
@@ -591,6 +617,7 @@ GS.form.SchoolReviewForm = function(id) {
     /////////// form setup - register event handlers /////////
     this.attachEventHandlers = function() {
         this.submitButton.click(this.submitHandler);
+        this.facebookButton.click(this.facebookSubmitHandler);
 
         this.overallRating.getElement().blur(this.overallRating.validateAndDisplayErrors);
         this.poster.getElement().change(this.onRoleChanged);

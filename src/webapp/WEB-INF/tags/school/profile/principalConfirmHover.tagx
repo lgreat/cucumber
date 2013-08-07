@@ -38,7 +38,7 @@
             <input type="hidden" id="hdnSchoolId" name="id"/>
             <input type="hidden" id="hdnSchoolState" name="state"/>
 
-            <div id="agreeError"><span class="iconx16 i-16-alert "><!-- do not collapse --></span> You must agree to continue</div>
+            <div id="agreeError"><span class="iconx16 i-16-alert"><!-- do not collapse --></span> You must agree to continue</div>
 
             <div class="spacer_10"><!-- do not collapse --></div>
 
@@ -50,13 +50,13 @@
             <div class="line ptm">
 
                 <div class="unit size3of6">
-                    <button class="button-1 mrl"
+                    <button class="but but-rg but-1 mrl"
                             type="button"
                             id="submitPrincipalConfirmation">Continue
                     </button>
                 </div>
                 <div class="mll unit size2of6 lastUnit">
-                    <button class="button-1 js_closeHover"
+                    <button class="but but-rg but-1 js_closeHover"
                             type="button"
                             >Cancel
                     </button>

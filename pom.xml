@@ -363,6 +363,8 @@
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
                                 <param>11_modal/jquery-ui-1.10.2.custom.css</param>
+                                <param>11_modal/modal.css</param>
+                                <param>11_modal/modalContentLayout.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>38_special/cms_content.css</param>
@@ -394,11 +396,13 @@
                                 <param>topnavpromo.js</param>
                                 <param>topnav.js</param>
                                 <param>gs_jquery_extensions.js</param>
-                                <param>hover.js</param>
+                                <param>modal/modalManager.js</param>
+                                <param>hover-v1.js</param>
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
                                 <param>trackIt.js</param>
+                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -491,7 +495,6 @@
                                 <param>search/schoolSearchResultsPage2012.js</param>
                                 <param>history.min.js</param>
                                 <param>compare/persistentCompare.js</param>
-                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.search.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -601,6 +604,7 @@
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
                                 <param>11_modal/modal.css</param>
+                                <param>11_modal/modalContentLayout.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>14_maps/maps.css</param>
@@ -634,6 +638,7 @@
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
+                                <param>facebook.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined-v1.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
@@ -1042,11 +1047,6 @@
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf-itext5</artifactId>
             <version>9.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.restfb</groupId>
-            <artifactId>restfb</artifactId>
-            <version>1.6.12</version>
         </dependency>
         <dependency>
             <groupId>com.google.oauth-client</groupId>

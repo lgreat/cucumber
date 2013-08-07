@@ -37,7 +37,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function () {
         }, 1000, function() {
             $(this).hide();
         });*/
-        $(".js-facebook-login").parent().parent().hide();
+        $(".js-facebook-login-search-results").parent().parent().hide();
     };
 
     var showFacebookLogoutModule = function() {

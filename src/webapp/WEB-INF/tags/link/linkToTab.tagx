@@ -10,7 +10,14 @@
     <jsp:directive.attribute name="anchor" required="false" type="java.lang.String" description="#Anchor to ID on page"/>
     <jsp:directive.attribute name="customLink" required="false" type="java.lang.String" description="Fire omniture custom link with this value"/>
     <jsp:directive.attribute name="cssClass" required="false" type="java.lang.String" />
+    <jsp:directive.attribute name="tileName" required="false" type="java.lang.String" description="Capture click event on the tile, prop9, value is the tile name."/>
 
+    <c:set var="sprop9">
+        <c:choose>
+            <c:when test="${not empty tileName}">TILE-${tileName}</c:when>
+            <c:otherwise></c:otherwise>
+        </c:choose>
+    </c:set>
     <jsp:directive.attribute name="dontPrintLink" required="false" type="java.lang.Boolean"
                              description="If true, this tagx does nothing besides passing through content. It's a way to make conditionally displaying the link easier on the caller (avoid tedious cchooses and csets)" />
 
@@ -44,7 +51,7 @@
             </c:choose>
 
             <a data-gs-show-tab="${tabName}" data-gs-tab-options="${anchor}"
-               onclick="${onclick}"
+               onclick="${onclick}GS.tracking.profile.setOmnitureProfileNavElementName('${sprop9}');"
                class="${cssClass}"
                href="${linkHref}">
                 <jsp:doBody/>

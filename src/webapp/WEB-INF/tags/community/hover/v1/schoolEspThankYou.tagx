@@ -11,7 +11,7 @@
         <h2>You're almost there!</h2>
         <p>Thank you for registering as a school leader. We just need to verify your email address. We've sent you an
             email - please click on the link in that message to get started editing your school's information!</p>
-        <button class="button-1 schoolEspThankYou_hideHover js_closeHover" type="button">OK - I'll go check my email</button>
+        <button class="but but-rg but-1 schoolEspThankYou_hideHover js_closeHover" type="button">OK - I'll go check my email</button>
     </div>
     </div>
     </div>

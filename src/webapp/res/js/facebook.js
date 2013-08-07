@@ -7,6 +7,7 @@ GS.facebook = GS.facebook || (function () {
     // JQuery selector for FB login button in the right rail on city browse (search result) pages for pilot cities.
     // It's a class selector so might have been introduced on other pages
     var loginSelector = ".js-facebook-login";
+    var fbLoginSearchResultsSelector = ".js-facebook-login-search-results";
     var logoutSelector = ".js-facebook-logout";
 
 
@@ -52,16 +53,16 @@ GS.facebook = GS.facebook || (function () {
         var html = '<a class="js-log-out" href="' + getSignOutLink(email, userId) + '">Sign Out</a>';
         return html;
     };
-    var getWelcomeHtml = function (screenName) {
-        var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + screenName + '</a></li>';
+    var getWelcomeHtml = function (firstName) {
+        var html = '<li>Welcome, <a class="nav_group_heading" href="/account/">' + firstName + '</a></li>';
         return html;
     };
     var getMySchoolListHtml = function (numberMSLItems) {
         var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
         return html;
     };
-    var updateUIForLogin = function (userId, email, screenName, numberMSLItems) {
-        $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(screenName));
+    var updateUIForLogin = function (userId, email, firstName, numberMSLItems) {
+        $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(firstName));
         $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
         $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
     };
@@ -103,7 +104,9 @@ GS.facebook = GS.facebook || (function () {
     };
 
     var trackGSAccountCreated = function() {
-        s.tl(true,'o', 'GS_FB_account_created');
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event80;";
+        omnitureEventNotifier.send();
     };
 
     var getLoginDeferred = function () {
@@ -127,15 +130,30 @@ GS.facebook = GS.facebook || (function () {
             var loginDisabled = false;
 
             // we'll set up click handler for login buttons here
-            $(loginSelector).on('click', function () {
+            $(fbLoginSearchResultsSelector).on('click', function () {
                 if (!loginDisabled) {
+                    if (typeof ModalManager !== "undefined") {
+                        ModalManager.hideModal({
+                            'layerId' : 'signInHover'
+                        });
+                        ModalManager.hideModal({
+                            'layerId' : 'joinHover'
+                        });
+                    } else {
+                        if (GSType.hover.signInHover.initialized) {
+                            GSType.hover.signInHover.hide();
+                        }
+                        if (GSType.hover.joinHover.initialized) {
+                            GSType.hover.joinHover.hide();
+                        }
+                    }
+
                     // even though we don't know if the user is logged in or not, disable login right away.
                     // if we were to put it inside the callback, there would be a delay before the login button is disabled
                     loginDisabled = true;
 
                     status({
                         notConnected: function () {
-                            trackLoginClicked();
                             login().always(function() {
                                 loginDisabled = false;
                             });
@@ -168,19 +186,92 @@ GS.facebook = GS.facebook || (function () {
             var $this = $(this);
             var href = $this.attr('href');
 
-            if (mightBeLoggedIn()) {
-                FB.logout(function (response) {
-                    window.location.href = href;
-                });
-                e.preventDefault();
-                return false;
-            }
+            FB.getLoginStatus(function(response){
+                if (response.status === "connected") {
+                    FB.logout(function (response) {
+                        logout();
+                    });
+                } else {
+                    logout();
+                }
+            });
+            e.preventDefault();
+            return false;
         });
         $(logoutSelector).click(function() {
-            FB.logout(function(response){
-                window.location.reload();
+            FB.getLoginStatus(function(response){
+                if (response.status === "connected") {
+                    FB.logout(function (response) {
+                        logout();
+                        window.location.reload();
+                    });
+                } else {
+                    logout();
+                    window.location.reload();
+                }
             });
         });
+    };
+
+
+    // When a user logs out, we may or may not need to redirect them away from the current page. If user is on a
+    // member-only page (like the Account page) then we redirect to home page.
+    var getLogoutRedirectUrl = function() {
+        var redirectUrl = "/index.page";
+
+        var currentUrl = window.location.href;
+
+        if (currentUrl.match("mySchoolList\\.page|resetPassword\\.page|changeEmail\\.page|accountInformation\\.page|interstitial\\.page") !== null) {
+            redirectUrl = "/index.page";
+        } else if (currentUrl.match("community\\.") !== null && currentUrl.match("dashboard|members.*profile|members.*awards|recommend\\-content") !== null) {
+            redirectUrl = "/index.page";
+        } else if (currentUrl.match("^http") === null) {
+            redirectUrl = "/index.page";
+        } else if (currentUrl.match("/account/$") !== null) {
+            redirectUrl = "/index.page";
+        } else {
+            redirectUrl = currentUrl;
+        }
+
+        return redirectUrl;
+    };
+
+    // Logs out of GS. Deletes the appropriate cookies and redirects if needed
+    var logout = function() {
+        var hostname = window.location.hostname;
+        var redirectUrl = getLogoutRedirectUrl();
+
+        deleteCookie("MEMBER"); // subscriber login
+        deleteCookie("MEMID", ".greatschools.org"); // MSL
+        deleteCookie("SESSION_CACHE"); //
+
+        var communityCookieName = "community_www";
+
+        // calculate correct community cookie
+        // TODO: do we need this? probably not since the existing logic isn't up-to-date
+        if (hostname.match("staging\\.|clone\\.|willow\\.|staging$|clone$|willow$")) {
+            communityCookieName = "community_staging";
+        } else if (hostname.match("dev\\.|dev$|clone\\.|clone$|localhost$|samson$|qa\\.|qa$|127\\.0\\.0\\.1")) {
+            communityCookieName = "community_dev";
+        } else {
+            communityCookieName = "community_www";
+        }
+
+        deleteCookie(communityCookieName, ".greatschools.org");
+
+        window.location.href = redirectUrl;
+    };
+
+    var deleteCookie = function(name, domain) {
+        var dayLength = 24 * 60 * 60 * 1000;
+        var date = new Date();
+        date.setTime(date.getTime() - dayLength);
+        var expires = "; expires=" + date.toGMTString();
+        if (domain) {
+            document.cookie = name + "=" + expires + "; domain=" + domain + "; path=/";
+        } else {
+            document.cookie = name + "=" + expires + "; path=/";
+        }
     };
 
     // should log user into FB and GS (backend creates GS account if none exists)
@@ -196,33 +287,43 @@ GS.facebook = GS.facebook || (function () {
         FB.login(function (response) {
             if (response.authResponse) {
                 FB.api('/me', function (data) {
-                    var obj = {
-                        email: data.email,
-                        firstName: data.first_name,
-                        lastName: data.last_name,
-                        how: "facebook",
-                        facebookId: data.id,
-                        terms: true,
-                        fbSignedRequest: response.authResponse.signedRequest
-                    };
-                    // Handle GS reg/login
-                    // Backed out from r226
-                    /*$.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
-                        if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
-                            if (regLoginResponse.GSAccountCreated) {
-                                trackGSAccountCreated();
+                    if (!data || data.error) {
+                        // problem occurred
+                        loginAttemptDeferred.reject();
+                    } else {
+                        var obj = {
+                            email: data.email,
+                            firstName: data.first_name,
+                            lastName: data.last_name,
+                            how: "facebook",
+                            facebookId: data.id,
+                            terms: true,
+                            fbSignedRequest: response.authResponse.signedRequest
+                        };
+                        // Handle GS reg/login
+                        // Backed out from r226
+                        $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
+                            if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
+                                if (regLoginResponse.GSAccountCreated === "true") {
+                                    trackGSAccountCreated();
+                                }
+                                updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.firstName, regLoginResponse.numberMSLItems);
                             }
-                            updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.screenName, regLoginResponse.numberMSLItems);
-                        }
-                    });*/
+                            loginAttemptDeferred.resolve(data);
+                        }).fail(function() {
+                            loginAttemptDeferred.reject();
+                        });
+                    }
                 });
-                loginAttemptDeferred.resolve();
             } else {
                 loginAttemptDeferred.reject();
             }
         }, {
-            scope: facebookPermissions
+            scope: facebookPermissions,
+            response_type: "token"
         });
+
+        trackLoginClicked();
 
         return loginAttemptDeferred;
     };
@@ -372,6 +473,8 @@ GS.facebook = GS.facebook || (function () {
         postToFeed: postToFeed,
         mightBeLoggedIn: mightBeLoggedIn,
         init: init,
-        updateUIForLogin: updateUIForLogin
+        updateUIForLogin: updateUIForLogin,
+        logout: logout,
+        deleteCookie: deleteCookie
     };
 })();

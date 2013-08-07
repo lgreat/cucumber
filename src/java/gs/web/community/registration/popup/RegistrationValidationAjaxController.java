@@ -44,6 +44,7 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
     public static final String CONFIRM_PASSWORD = "confirmPassword";
 
     public static final String SIMPLE_MSS = "simpleMss";
+    public static final String SIMPLE= "simple";
 
     public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         _userCommandValidator.setUserDao(_userDao);
@@ -53,7 +54,10 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
             handleOnblur(request, (UserCommand) command, errors);
         } else if ("true".equals(request.getParameter(SIMPLE_MSS))) {
             handleSimpleMssValidation(request, (UserCommand) command, errors);
+        } else if ("true".equals(request.getParameter(SIMPLE))) {
+            handleSimpleValidation(request, (UserCommand) command, errors);
         } else {
+            // SS: I believe this is only used by ESP registration now
             handleFullValidation(request, (UserCommand) command, errors);
         }
 
@@ -77,6 +81,7 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         return null;
     }
 
+    // SS: I believe this is only used by ESP registration now
     protected void handleFullValidation(HttpServletRequest request,UserCommand userCommand,
                                         BindException errors) throws IOException {
         String joinHoverType = request.getParameter("joinHoverType");
@@ -90,17 +95,33 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
         _userCommandValidator.validateFirstName(userCommand, errors);
         _userCommandValidator.validateUsername(userCommand, user, errors);
-        if (_userCommandValidator.validatePasswordFormat(userCommand.getPassword(), "password", errors)) {
+        if (_userCommandValidator.validatePasswordFormat(userCommand.getPassword(), PASSWORD, errors)) {
             _userCommandValidator.validatePasswordEquivalence
-                    (userCommand.getPassword(), userCommand.getConfirmPassword(), "confirmPassword", errors);
+            (userCommand.getPassword(), userCommand.getConfirmPassword(), CONFIRM_PASSWORD, errors);
         }
         _userCommandValidator.validateTerms(userCommand, errors);
+    }
 
-        // do not require city/state
-//        if ("ChooserTipSheet".equals(joinHoverType)) {
-//            userCommand.setChooserRegistration(true);
-//            _userCommandValidator.validateStateCity(userCommand, errors);
-//        }
+    /**
+     * Validates email and password. Created for new join hover made in Aug 2013
+     * @param request
+     * @param userCommand
+     * @param errors
+     * @throws IOException
+     */
+    protected void handleSimpleValidation(HttpServletRequest request,UserCommand userCommand,
+                                        BindException errors) throws IOException {
+        //start validation
+        // validate email format
+        EmailValidator emailValidator = new EmailValidator();
+        emailValidator.validate(userCommand, errors);
+        // validate email address
+        _userCommandValidator.validateEmail(userCommand,request,errors);
+
+        if (_userCommandValidator.validatePasswordFormat(userCommand.getPassword(), PASSWORD, errors)) {
+            _userCommandValidator.validatePasswordEquivalence
+            (userCommand.getPassword(), userCommand.getConfirmPassword(), CONFIRM_PASSWORD, errors);
+        }
     }
 
     protected void handleSimpleMssValidation(HttpServletRequest request,UserCommand userCommand,

@@ -27,40 +27,44 @@
     <div class="menuContainer-secondary">
         <div class="container_24">
             <ul id="gs-secondary"> <!-- bullet type: disc/square/circle-->
-                <li class="menuItem"><a href="/hot-topics.topic?content=4932" id="SN-HotTopics"
-                                        class="menuItemAnchorText GS_CI9_">Hot Topics
-                    <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span></a>
+                <li class="menuItem">
+                    <a href="/hot-topics.topic?content=4932" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">
+                        Hot Topics <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span>
+                    </a>
                     <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-                        <li class="subMenuItem"><a href="/back-to-school/" id="SN_HT-BackToSchool"
-                                                                           class="subMenuItemAnchorText GS_CI9_">Back to School</a></li>
-                        <li class="subMenuItem"><a href="/reading/7094-importance-of-reading-success.gs" id="SN_HT-TheRightWayToTeachReading"
-                                                   class="subMenuItemAnchorText GS_CI9_">The "right" way to teach reading</a></li>
-                        <li class="subMenuItem"><a
-                                href="/students/academic-skills/6833-why-boys-fail-in-school.gs"
-                                id="SN_HT-HowToCatchAFallingSon"
-                                class="subMenuItemAnchorText GS_CI9_">How to catch a falling son</a></li>
-                        <li class="subMenuItem"><a href="/parenting/learning-development/7087-gifted-and-talented-children.gs"
-                                                   id="SN_HT-IsYourChildGifted"
-                                                   class="subMenuItemAnchorText GS_CI9_">Is your child gifted?</a>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs" id="SN_HT-An11YearOldWwithTheIQOfEinstein"
+                               class="subMenuItemAnchorText GS_CI9_">An 11-year-old with the IQ of Einstein</a>
                         </li>
-                        <li class="subMenuItem"><a href="/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs"
-                                                   id="SN_HT-TheRightWayToTourASchool"
-                                                   class="subMenuItemAnchorText GS_CI9_">The right way to tour a school</a>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7539-parenting-tips-power-of-yet-carol-dweck-video.gs" id="SN_HT-OneWordThatllChangeYourParenting"
+                               class="subMenuItemAnchorText GS_CI9_">One word that'll change your parenting</a>
                         </li>
-                        <li class="subMenuItem"><a href="/find-a-school/school-visit/7056-choose-middle-school-video.gs"
-                                                   id="SN_HT-SecretsToChoosingAMiddleSchool"
-                                                   class="subMenuItemAnchorText GS_CI9_">Secrets to choosing a middle school</a>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7390-christine-carter-chores-for-kids-parenting-tips-video.gs"
+                               id="SN_HT-TheToughLoveApproachToChores" class="subMenuItemAnchorText GS_CI9_">
+                               The tough love approach to chores</a>
                         </li>
-                        <li class="subMenuItem"><a href="/school-choice/charter-schools/6974-what-is-charter-school-video.gs"
-                                                   id="SN_HT-WhatIsACharterSchoolAnyway"
-                                                   class="subMenuItemAnchorText GS_CI9_">What's a charter school, anyway?</a>
+                        <li class="subMenuItem">
+                            <a href="/greatschoolsblog/2013/07/sibling-rivalry.html" id="SN_HT-SiblingRivalryOrAbuse"
+                               class="subMenuItemAnchorText GS_CI9_">Sibling rivalry - or abuse?</a>
                         </li>
-                        <li class="subMenuItem"><a href="/school-choice/standardized-testing/7262-school-test-scores-video.gs"
-                                                   id="SN_HT-JudgingASchoolByItsTestScores"
-                                                   class="subMenuItemAnchorText GS_CI9_">Judging a school by its test scores</a>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7306-signs-symptoms-of-bipolar-in-children.gs" id="SN_HT-BipolarAt5"
+                               class="subMenuItemAnchorText GS_CI9_">Bipolar at 5?</a>
                         </li>
-                        <!--<li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System</a></li>-->
-                        <!--<li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report</a></li>-->
+                        <li class="subMenuItem">
+                            <a href="/school-choice/7282-melting-pot-diversity-at-schools.gs" id="SN_HT-WhenTheMeltingPotBoilsOver"
+                               class="subMenuItemAnchorText GS_CI9_">When the melting pot boils over</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7308-bipolar-girl-story-video.gs" id="SN_HT-RaisingSadie"
+                               class="subMenuItemAnchorText GS_CI9_">Raising Sadie</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/parenting/social-skills/7260-parent-cliques-school.gs" id="SN_HT-DoParentCliquesRuleYourSchool"
+                               class="subMenuItemAnchorText GS_CI9_">Do parent cliques rule your school?</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities"

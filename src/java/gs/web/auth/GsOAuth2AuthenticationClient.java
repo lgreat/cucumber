@@ -1,4 +1,4 @@
-package gs.web.authorization;
+package gs.web.auth;
 
 /*import org.apache.amber.oauth2.client.OAuthClient;
 import org.apache.amber.oauth2.client.URLConnectionClient;

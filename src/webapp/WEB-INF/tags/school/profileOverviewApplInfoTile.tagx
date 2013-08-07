@@ -103,7 +103,7 @@
     <!-- double wide tile -->
         <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'app2')}" scope="request"/>
         <div id="js-tile-11-0">
-        <gslink:linkToTab tabName="enrollment" cssClass="tdn make-555555 js-trigger" customLink="overview_application2x">
+        <gslink:linkToTab tabName="enrollment" cssClass="tdn make-555555 js-trigger" customLink="overview_application2x" tileName="app2">
         <school:profileOverviewCell1 title="${t11dc}">
 
                     <div class="line">
@@ -135,7 +135,7 @@
             <!-- single wide image -->
             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'app')}" scope="request"/>
             <div id="js-tile-11-1">
-            <gslink:linkToTab tabName="enrollment" cssClass="tdn make-555555 js-trigger" customLink="overview_application1x">
+            <gslink:linkToTab tabName="enrollment" cssClass="tdn make-555555 js-trigger" customLink="overview_application1x" tileName="app">
             <school:profileOverviewCell1 title="${t11dc}">
             ${admissionsAndVouchers}
             </school:profileOverviewCell1>

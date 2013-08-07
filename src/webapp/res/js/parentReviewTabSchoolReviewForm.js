@@ -9,12 +9,18 @@ jQuery(function() {
     GS.form.ParentReviewTabSchoolReviewForm.prototype = new GS.form.SchoolReviewForm("frmPRModule");
     GS.form.ParentReviewTabSchoolReviewForm.prototype.postReview = function(email, callerFormId) {
         var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
-        
+
+        var formData = this.serialize();
+
         //When this method is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email !== undefined && email !== '') {
+            // set the email element's value, in case the review doesnt submit correctly, the email field will be filled out
             this.email.getElement().val(email);
+
+            // write email directly into form data.
+            formData.email = email;
         }
-        var formData = this.serialize();
+
         var jqxhr = jQuery.ajax({
             url:url,
             data:formData,
@@ -67,7 +73,6 @@ jQuery(function() {
                 }
             }
         }).fail(function(data){
-                    console.log(data);
             alert("We're sorry, but we were not able to process your review submission. Please try again soon.");
         });
     }.gs_bind(GS.form.ParentReviewTabSchoolReviewForm.prototype);

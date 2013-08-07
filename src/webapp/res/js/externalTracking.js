@@ -121,23 +121,23 @@ GS.tracking.removeTabSpecificProps = function(currentTab, data) {
  * Based off of:
  * http://stackoverflow.com/questions/7692746/javascript-omniture-how-to-clear-all-properties-of-an-object-s-object
  */
-GS.tracking.clearSvariable = function() {
+GS.tracking.clearSvariable = function(sObject) {
     var maxPropsAndEvars = 75; // Omniture currently gives us a max of 75 props and evars
     var svarArr = ['pageName','channel','products','events','campaign','purchaseID','state','zip','server','linkName'];
     var i;
 
     i = maxPropsAndEvars;
     while (i--) {
-        s['prop'+i]='';
-        s['eVar'+i]='';
+        sObject['prop'+i]='';
+        sObject['eVar'+i]='';
         if(i <= 5) {
-            s['hier'+i]='';
+            sObject['hier'+i]='';
         }
     }
 
     i = svarArr.length;
     while (i--) {
-        s[svarArr[i]]='';
+        sObject[svarArr[i]]='';
     }
 };
 
@@ -150,9 +150,55 @@ GS.tracking.sendAndRestore= function(trackingObj) {
     var sBackup = {};
     $.extend(sBackup, s);
 
-    GS.tracking.clearSvariable();
+    GS.tracking.clearSvariable(s);
 
     s.t(trackingObj);
 
     s = sBackup;
 };
+
+/**
+ * send additional tracking data with some of the default props and evar set in s_code ignored, so they won't be duplicated -
+ * this is done by setting usePlugins to false.
+ * @param trackingObj
+ */
+GS.tracking.sendNewTrackingData= function(trackingObj) {
+
+    var sBackup = {};
+    $.extend(sBackup, s);
+
+    GS.tracking.clearSvariable(sBackup);
+    sBackup.usePlugins = false;
+    sBackup.t(trackingObj);
+};
+
+GS.tracking.profile = GS.tracking.profile || (function(){
+    var omnitureProfileNavElementName;
+
+    var setOmnitureProfileNavElementName = function(elementName) {
+        omnitureProfileNavElementName = elementName;
+    };
+
+    var getOmnitureProfileNavElementName = function() {
+        return omnitureProfileNavElementName;
+    }
+
+    return {
+        setOmnitureProfileNavElementName: setOmnitureProfileNavElementName,
+        getOmnitureProfileNavElementName: getOmnitureProfileNavElementName
+    };
+})();
+
+GS.tracking.data.updateProps = GS.tracking.data.updateProps || (function(){
+    var setProps = function(tabName, props) {
+        for (var key in props) {
+            if(props.hasOwnProperty(key)) {
+                GS.tracking.data[tabName].props[key] =  props[key];
+            }
+        }
+    };
+
+    return {
+        setProps: setProps
+    };
+})();

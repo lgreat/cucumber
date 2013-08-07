@@ -26,10 +26,12 @@
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
     <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0 rnd12">
-        <div class="inner rnd12">
+        <div class="outer">
+        <div class="inner rnd12 phm pbm pts">
             <div class="hd rnd-top-12">
+                <div class="fr"><span class="iconx24 i-24-gallery-close  js_closeHover" id="${prefix}-photo-gallery-close"><!-- do not collapse --></span></div>
                 <div id="${prefix}-photo-gallery-close" class="fltrt mtm mrm article-photo-gallery-close">
-                    <span class="iconx24 i-24-close"><!--Do not collapse--></span>
+                    <span class="pal"><!--Do not collapse--></span>
                 </div>
             </div>
             <div class="bd">
@@ -65,6 +67,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 

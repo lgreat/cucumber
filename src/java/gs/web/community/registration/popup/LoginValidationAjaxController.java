@@ -65,6 +65,8 @@ public class LoginValidationAjaxController extends AbstractCommandController {
             errors.put("noSuchUser",
                     "There is no account associated with that email address.");
             _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
+       } else if (user != null && user.isFacebookUser()) {
+           errors.put("facebookUser", "This email is linked to a Facebook account. Please log in using Facebook.");
         } else if (LoginValidatorHelper.userNotValidated(user, _requireEmailValidation)) {
             errors.put("userNotValidated","Your email address has not been validated");
             _log.info("Community login: user " + loginCommand.getEmail() + " has not validated their email.");

@@ -305,7 +305,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
     <div class="spacer_15"><!-- do not collapse --></div>
-    <link:newsletterManagement styleClass="email toolsTxt text3-06b" schoolId="${school.id}" schoolState="${school.databaseState}" onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+    <link:newsletterManagement styleClass="email toolsTxt text3-06b" schoolId="${school.id}" schoolState="${school.databaseState}" onclick="return GS.showSendMeUpdates(this.href, '${school.name}', '${school.id}', '${school.databaseState}');">
         <span class="sprite emailIt"><!-- do not collapse --></span> Get email updates about this school
     </link:newsletterManagement>
 </c:if>

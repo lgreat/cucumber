@@ -25,7 +25,7 @@
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
             <div id="js-tile-10-0">
-            <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555 js-trigger" tileName="prog">
                 <school:profileOverviewCell1 title="${t10dc}">
                     <div class="mvm mrm" style="height:149px">
                         <ul class="small bottom">
@@ -54,7 +54,7 @@
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
             <div id="js-tile-10-1">
-            <gslink:linkToTab tabName="culture" customLink="overview_parentinvolvement" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="culture" customLink="overview_parentinvolvement" cssClass="tdn make-555555 js-trigger" tileName="parent">
                 <school:profileOverviewCell1 title="${t10s1}">
                     <c:choose>
                         <c:when test="${not empty programsModel['substitute1None']}">
@@ -92,7 +92,7 @@
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
             <div id="js-tile-10-2">
-            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn make-555555 js-trigger" tileName="hilite">
                 <school:profileOverviewCell1 title="${t10s2}">
                     <div class="mvm mrm" style="height:149px">
                         <ul class="small bottom make-555555">

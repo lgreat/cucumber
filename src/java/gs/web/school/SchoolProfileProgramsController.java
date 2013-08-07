@@ -151,8 +151,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // The following drives creation of the display
         List<SchoolProfileDisplayBean> displayConfig = new ArrayList<SchoolProfileDisplayBean>();
         buildHighlightsDisplayStructure(displayConfig);
-        buildProgResDisplayStructure(displayConfig);
         buildExtrasDisplayStructure(displayConfig);
+        buildProgResDisplayStructure(displayConfig);
 
         // The following structure contains the key_value's to return from the database
         // this information is available in DISPLAY_CONFIG structure created above
@@ -186,13 +186,13 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                     List<EspResponse> responses = espResults.get(AF_PROGRAM_NAME_KEY_PREFIX + i);
                     EspResponse response = responses != null ? responses.get(0) : null;
                     String title = response != null && response.getValue() != null ? response.getValue() + " (after school program)" : AF_PROGRAM_TEMP_TITLE_PREFIX + i;
-                    displayConfig.addAll(buildAfterSchoolSummerPrograms(AF_PROGRAM_TYPE, "extracurriculars", title, afterSchoolKeysPrefix.keySet(), i));
+                    displayConfig.addAll(buildAfterSchoolSummerPrograms(AF_PROGRAM_TYPE, "programs_resources", title, afterSchoolKeysPrefix.keySet(), i));
                 }
                 for(int i = 1; i < 6; i++) {
                     List<EspResponse> responses = espResults.get(SUMMER_PROGRAM_NAME_KEY_PREFIX + i);
                     EspResponse response = responses != null ? responses.get(0) : null;
                     String title = response != null && response.getValue() != null ? response.getValue() + " (summer program)" : SUMMER_PROGRAM_TEMP_TITLE_PREFIX + i;
-                    displayConfig.addAll(buildAfterSchoolSummerPrograms(SUMMER_PROGRAM_TYPE, "extracurriculars", title, summerProgramKeysPrefix.keySet(), i));
+                    displayConfig.addAll(buildAfterSchoolSummerPrograms(SUMMER_PROGRAM_TYPE, "programs_resources", title, summerProgramKeysPrefix.keySet(), i));
                 }
 
                 // The following builds the display data based on the DB results and the display requirements.
@@ -1456,28 +1456,28 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean(displayConfig).setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
     }
 
-    public List<SchoolProfileDisplayBean> buildAfterSchoolSummerPrograms(String programType, String tabAbbrev, String title, Set<String> programKeys, int index) {
+    public List<SchoolProfileDisplayBean> buildAfterSchoolSummerPrograms(final String programType, final String tabAbbrev, final String title, final Set<String> programKeys, final int index) {
         /*
              * There are 5 after school and summer programs.
              * Program name is the title for the table, do not build row for that key. Name is currently unavailable,
              * set that to a temp value.
              */
-        List<SchoolProfileDisplayBean> displayConfig = new ArrayList<SchoolProfileDisplayBean>();
+        List<SchoolProfileDisplayBean> displayConfigAfterSummer = new ArrayList<SchoolProfileDisplayBean>();
         String sectionAbbr = programType + index;
 
         if(AF_PROGRAM_TYPE.equals(programType)) {
             for(String key : programKeys) {
                 String rowTitle = afterSchoolKeysPrefix.get(key);
-                displayConfig.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, sectionAbbr, title, rowTitle, key, index));
+                displayConfigAfterSummer.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, sectionAbbr, title, rowTitle, key, index));
             }
         }
         else if(SUMMER_PROGRAM_TYPE.equals(programType)) {
             for(String key : programKeys) {
                 String rowTitle = summerProgramKeysPrefix.get(key);
-                displayConfig.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, sectionAbbr, title, rowTitle, key, index));
+                displayConfigAfterSummer.addAll(buildAfterSchoolSummerProgramHelper(tabAbbrev, sectionAbbr, title, rowTitle, key, index));
             }
         }
-        return displayConfig;
+        return displayConfigAfterSummer;
     }
 
     public List<SchoolProfileDisplayBean> buildAfterSchoolSummerProgramHelper(String tabAbbrev, String sectionAbbr, String title, String rowTitle,

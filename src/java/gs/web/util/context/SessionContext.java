@@ -14,6 +14,7 @@ import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
+import gs.web.auth.FacebookSession;
 import gs.web.jsp.Util;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -68,6 +69,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private User _user;
     private String _userHash;
     private String _screenName;
+    private String _firstName;
     private Integer _memberId;
     private String _email;
     private String _nickname;
@@ -123,6 +125,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private Boolean _gptEnabledOverride = null;
     private Boolean _gptAsynchronousModeEnabledOverride = null;
     private Boolean _gptAsynchronousModeOnMobileEnabledOverride = null;
+    private FacebookSession _facebookSession = null;
     private boolean _gptSingleRequestMode = true;
 
     /**
@@ -640,6 +643,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         _screenName = screenName;
     }
 
+    public String getFirstName() {
+        return _firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        _firstName = firstName;
+    }
+
     public void setMssCount(int mssCount) {
         _mssCount = mssCount;
     }
@@ -802,6 +813,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setIosSafari(boolean iosSafari) {
         _iosSafari = iosSafari;
+    }
+
+    public FacebookSession getFacebookSession() {
+        return _facebookSession;
+    }
+
+    public void setFacebookSession(FacebookSession facebookSession) {
+        _facebookSession = facebookSession;
     }
 
     public boolean isGptSingleRequestMode() {

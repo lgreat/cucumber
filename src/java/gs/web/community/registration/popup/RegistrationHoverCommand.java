@@ -1,15 +1,19 @@
 package gs.web.community.registration.popup;
 
-import gs.web.community.registration.UserCommand;
+import gs.data.community.SubscriptionProduct;
+import gs.data.state.State;
+import gs.web.community.registration.UserRegistrationCommand;
 import gs.web.util.validator.EmailValidator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
-public class RegistrationHoverCommand extends UserCommand implements EmailValidator.IEmail{
+public class RegistrationHoverCommand extends UserRegistrationCommand implements EmailValidator.IEmail{
     public static enum JoinHoverType {
         Auto,
-        ChooserTipSheet,
         LearningDifficultiesNewsletter,
         PostComment,
         TrackGrade,
@@ -21,16 +25,13 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         MSL,
         Facebook
     }
-    private boolean _mslOnly;
-    private String _how;
     private JoinHoverType _joinHoverType;
+    private String _redirectUrl;
 
     public String joinTypeToHow() {
         switch (_joinHoverType) {
             case Auto:
                 return "hover_mss";
-            case ChooserTipSheet:
-                return "acq_chooserpack";
             case LearningDifficultiesNewsletter:
                 return "hover_ld";
             case PostComment:
@@ -55,24 +56,123 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
         return null;
     }
 
+    public void setGrades(String[] gradeNewsletters) {
+
+        _log.info("gradeNewsletters=" + gradeNewsletters);
+        if (gradeNewsletters != null) {
+            List<RegistrationHoverCommand.NthGraderSubscription> nthGraderSubscriptions = new ArrayList<NthGraderSubscription>();
+
+            for (String grade : gradeNewsletters) {
+                _log.info("Adding " + grade + " to nthGraderSubscriptions");
+                nthGraderSubscriptions.add(new RegistrationHoverCommand.NthGraderSubscription(true, SubscriptionProduct.getSubscriptionProduct(grade)));
+            }
+
+            setGradeNewsletters(nthGraderSubscriptions);
+        }
+    }
+
+    public void setCity(String city) {
+        if ("Loading...".equalsIgnoreCase(city)) {
+            city = null;
+        }
+        super.setCity(city);
+    }
+
+    public List<NthGraderSubscription> getGradeNewsletters() {
+        return _gradeNewsletters;
+    }
+
+    //////////////// Copied from UserCommand.java ////////////////////////////////////////
+    public void setGradeNewsletters(List<NthGraderSubscription> gradeNewsletters) {
+        _gradeNewsletters = gradeNewsletters;
+    }//following list is used by NthGraderHover for the grade by grade newsletters.
+    private List<NthGraderSubscription> _gradeNewsletters;
+
+    public static class NthGraderSubscription{
+
+        private boolean _checked;
+        private SubscriptionProduct _subProduct;
+
+        public NthGraderSubscription(boolean chk, SubscriptionProduct sub) {
+            _checked = chk;
+            _subProduct = sub;
+        }
+
+        public boolean getChecked() {
+            return _checked;
+        }
+
+        public void setChecked(boolean checked) {
+            _checked = checked;
+        }
+
+        public SubscriptionProduct getSubProduct() {
+            return _subProduct;
+        }
+    }
+
+    private boolean _newsletter = false;
+    private boolean _partnerNewsletter = false;
+    public boolean getNewsletter() {
+        return _newsletter;
+    }
+
+    public void setNewsletter(boolean newsletter) {
+        _newsletter = newsletter;
+    }
+
+    public boolean getPartnerNewsletter() {
+        // We've merged newsletter and partner newsletter signups into one checkbox
+        return getNewsletter() || _partnerNewsletter;
+    }
+
+    public void setPartnerNewsletter(boolean partnerNewsletter) {
+        _partnerNewsletter = partnerNewsletter;
+    }
+
+    private String _mystatSchoolName;
+    private int _mystatSchoolId;
+    private State _mystatSchoolState;
+    private boolean _mystat;
+
+    public boolean isMystat() {
+        return _mystat;
+    }
+
+    public void setMystat(boolean mystat) {
+        _mystat = mystat;
+    }
+
+    public String getMystatSchoolName() {
+        return _mystatSchoolName;
+    }
+
+    public void setMystatSchoolName(String mystatSchoolName) {
+        _mystatSchoolName = mystatSchoolName;
+    }
+
+    public int getMystatSchoolId() {
+        return _mystatSchoolId;
+    }
+
+    public void setMystatSchoolId(int mystatSchoolId) {
+        _mystatSchoolId = mystatSchoolId;
+    }
+
+    public State getMystatSchoolState() {
+        return _mystatSchoolState;
+    }
+
+    public void setMystatSchoolState(State mystatSchoolState) {
+        _mystatSchoolState = mystatSchoolState;
+    }
+
+
+    //////////////// End Copied from UserCommand.java /////////////////////////////////////
+
     public RegistrationHoverCommand() {
         super();
-    }
-
-    public boolean isMslOnly() {
-        return _mslOnly;
-    }
-
-    public void setMslOnly(boolean mslOnly) {
-        _mslOnly = mslOnly;
-    }
-
-    public String getHow() {
-        return _how;
-    }
-
-    public void setHow(String how) {
-        _how = how;
+        terms(true);// Users agree to terms of use just by submitting new join hover
     }
 
     public JoinHoverType getJoinHoverType() {
@@ -81,5 +181,14 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
 
     public void setJoinHoverType(JoinHoverType joinHoverType) {
         _joinHoverType = joinHoverType;
+        setHow(joinTypeToHow());
+    }
+
+    public String getRedirectUrl() {
+        return _redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        _redirectUrl = redirectUrl;
     }
 }

@@ -127,6 +127,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
         }
 
+        // WARNING: AdTagHandler checks the value of this template keyword when writing out JS calls on the page
         if (school.getIsNewGSRating()) {
             pageHelper.addAdKeywordMulti("template", "NewRating");
         } else if (school.getIsOldGSRating()) {

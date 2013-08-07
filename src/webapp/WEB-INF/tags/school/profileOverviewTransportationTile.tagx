@@ -24,9 +24,10 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'trans')}" scope="request"/>
+            <c:set var="omnitureTileName" value="trans"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
             <div id="js-tile-9-0">
-            <gslink:linkToTab tabName="programs-resources" anchor="Resources_table" customLink="overview_transportation" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="programs-resources" anchor="Resources_table" customLink="overview_transportation" cssClass="tdn make-555555 js-trigger" tileName="${omnitureTileName}">
                 <school:profileOverviewCell1 title="${t9dc}">
                     <div class="mam" style="height:150px;">
                     <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
@@ -64,7 +65,8 @@
         <c:when test="${content eq 'substitute1'}">
             <c:set var="classSize" value="${transportationModel['substitute1ClassSize']}" scope="page"/>
             <c:set var="studentsPerTeacher" value="${transportationModel['substitute1StudentsPerTeacher']}" scope="page"/>
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'strat')}" scope="request"/>
+            <c:set var="omnitureTileName" value="strat"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
             <c:choose>
                 <c:when test="${not empty classSize}">
                     <c:set var="t9s1">
@@ -74,7 +76,7 @@
                     </c:set>
 
                     <div id="js-tile-9-1-0">
-                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn make-555555 js-trigger"> <!-- TODO: should custom link be something else here? -->
+                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn make-555555 js-trigger" tileName="${omnitureTileName}"> <!-- TODO: should custom link be something else here? -->
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam" style="height:139px;">
                                 <div class="shim-50"><!-- do not collapse --></div>
@@ -102,7 +104,7 @@
                     </c:set>
 
                     <div id="js-tile-9-1-1">
-                    <gslink:linkToTab tabName="teachers" customLink="overview_stratio" cssClass="tdn make-555555 js-trigger">
+                    <gslink:linkToTab tabName="teachers" customLink="overview_stratio" cssClass="tdn make-555555 js-trigger" tileName="${omnitureTileName}">
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam" style="height:149px;">
                                 <div class="shim-20"><!-- do not collapse --></div>
@@ -126,8 +128,9 @@
             </c:choose>
         </c:when>
         <c:when test="${content eq 'substitute2'}">
-            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'mobile')}" scope="request"/>
-            <school:profileOverviewMobileTile/>
+            <c:set var="omnitureTileName" value="mobile"/>
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
+            <school:profileOverviewMobileTile omnitureTileName="${omnitureTileName}"/>
         </c:when>
     </c:choose>
 

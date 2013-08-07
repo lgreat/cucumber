@@ -19,6 +19,14 @@ Function.prototype.gs_bind = function(obj) {
         return method.apply(obj, arguments);
     };
 };
+GS.log = GS.log || function() {
+    if (GS.uri.Uri.getQueryData().logging == true) {
+        console.log(arguments);
+    }
+};
+
+GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR = '.js-facebook-login-join';
+GS.FACEBOOK_BUTTON_IN_SIGNIN_SELECTOR = '.js-facebook-login-signin';
 
 //HoverDialog requires the ID of the element to display as a hover dialog
 GSType.hover.HoverDialog = function(id,width) {
@@ -201,6 +209,7 @@ GSType.hover.JoinHover = function() {
     this.schoolName = null;
     this.loadOnExitUrl = null;
     this.onSubmitCallback = null;
+    this.onFacebookSubmitCallback = null;
 
     this.undoSimpleMssFields = function() {
         // show first name
@@ -270,6 +279,7 @@ GSType.hover.JoinHover = function() {
                 'promotions from GreatSchools and our carefully chosen partners.');
     };
     this.baseFields = function() {
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).hide();
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
         // hide nth / MSS
@@ -297,19 +307,10 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover form#joinGS input#joinHoverType').val(type);
     };
     this.setTitle = function(title) {
-        jQuery('#joinHover div.hoverTitle h2').html(title);
+        jQuery('#joinHover').find('.js-smallSpacingTitle').html(title);
     };
-    this.setSubTitle = function(subTitle, subTitleText) {
-        // GS-11161
-        /*
-         jQuery('#joinHover .introTxt h3').html(subTitle);
-         jQuery('#joinHover .introTxt p').html(subTitleText);
-         */
-        jQuery('#joinHover .introTxt span.title').html(subTitle);
-        if (subTitleText && subTitleText.charAt(0) != ',') {
-            subTitleText = " " + subTitleText;
-        }
-        jQuery('#joinHover .introTxt span.subtitle').html(subTitleText);
+    this.setSubTitle = function(subTitle) {
+        jQuery('#joinHover').find('.js-joinSubtitle').html(subTitle);
     };
     this.configAndShowEmailTipsMssLabel = function(includeWeeklyEmails, includeTips, includeMss)
     {
@@ -413,8 +414,8 @@ GSType.hover.JoinHover = function() {
         return false;
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
-        this.showHoverOnExit(GSType.hover.joinHover.showJoinAuto);
+        GSType.hover.sendMeUpdates.configureSchoolInfo('', schoolName, schoolId, schoolState);
+        this.showHoverOnExit(GSType.hover.sendMeUpdates.showSendUpdates);
     };
     this.showNthHoverOnExit = function() {
         this.showHoverOnExit(GSType.hover.joinHover.showJoinTrackGradeAuto);
@@ -470,7 +471,7 @@ GSType.hover.JoinHover = function() {
     // just a newer version of showMssAutoHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
     this.showMssAutoHoverOnPageExit = function(schoolName, schoolId, schoolState, postInterruptCallback) {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
-        this.showInterruptHoverOnPageExit(GSType.hover.joinHover.showJoinAuto, postInterruptCallback);
+        this.showInterruptHoverOnPageExit(GSType.hover.sendMeUpdates.showSendUpdates, postInterruptCallback);
     };
     // just a newer version of showNthHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
     this.showNthHoverOnPageExit = function(postInterruptCallback) {
@@ -507,7 +508,13 @@ GSType.hover.JoinHover = function() {
                     $this.trigger('click');
                 });
 
-                showHoverFunction();
+                // deferreds will be used by modals that dont support the GSType.hover.joinHover.executeOnExit method above
+                var deferred = showHoverFunction();
+                if (deferred && deferred.hasOwnProperty('always')) {
+                    deferred.always(function() {
+                        $this.trigger('click');
+                    });
+                }
 
                 event.stopImmediatePropagation();
                 return false;
@@ -533,25 +540,26 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.hier1=hier1;
     };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
+        console.log("test");
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
         // GS-11161
-        GSType.hover.joinHover.setSubTitle("Get timely updates for " + GSType.hover.joinHover.schoolName,
+        GSType.hover.joinHover.setSubTitle("Get timely updates for " + GSType.hover.joinHover.schoolName +
             ", including performance data and recently posted user reviews.");
         // show nth / MSS
         // GS-11161
         //GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabelNew();
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabelNew();
 
-        GSType.hover.joinHover.showSimpleMssFields();
+//        GSType.hover.joinHover.showSimpleMssFields();
 
         GSType.hover.joinHover.setJoinHoverType("Auto");
 
         GSType.hover.joinHover.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
 
-        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.sendMeUpdates.showSendUpdates;
         GSType.hover.joinHover.show();
     };
     this.showSchoolReviewJoin = function(onSubmitCallback) {
@@ -561,18 +569,16 @@ GSType.hover.JoinHover = function() {
             GSType.hover.joinHover.onSubmitCallback = onSubmitCallback;
         }
         GSType.hover.joinHover.setTitle("Almost done!");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            " to submit your review. Once you verify your email address, your review will be posted, provided it meets our guidelines.");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools to submit your review. Once you verify your email address, your review will be posted, provided it meets our guidelines.");
 
         // set label for weekly updates opt-in
-        if (GSType.hover.joinHover.schoolName) {
-            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
-        } else {
-            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
-        }
+//        if (GSType.hover.joinHover.schoolName) {
+//            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+//        } else {
+//            GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        }
 
         GSType.hover.joinHover.setJoinHoverType("SchoolReview");
-        jQuery('#joinHover_cancel').hide();
 
         GSType.hover.joinHover.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
 
@@ -584,10 +590,9 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Special Education newsletter");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to get the resources you need to support your child with a learning difficulty or attention problem");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools to get the resources you need to support your child with a learning difficulty or attention problem");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show LD newsletter
         jQuery('#joinHover .joinHover_ld').show();
 
@@ -606,10 +611,9 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Back-to-School Tip of the Day");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to get Back-to-School tips delivered straight to your inbox!");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools to get Back-to-School tips delivered straight to your inbox!");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
         // show BTS tip
         jQuery('#joinHover .joinHover_btstip').show();
         // hide partners
@@ -629,17 +633,27 @@ GSType.hover.JoinHover = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Speak your mind");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to participate in the parent community and other discussions on our site");
+        GSType.hover.joinHover.setTitle("Join GreatSchools");
+        GSType.hover.joinHover.setSubTitle("Create an account to participate in the parent community and other discussions on our site");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).off('click.joinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).on('click.joinHover', function() {
+            ModalManager.hideModal({layerId:'joinHover'});
+            GS.facebook.login().done(function(data) {
+                if (GSType.hover.joinHover.onSubmitCallback) {
+                    GSType.hover.joinHover.onSubmitCallback(data.email);
+                }
+            });
+        });
 
         GSType.hover.joinHover.setJoinHoverType("PostComment");
 
         GSType.hover.joinHover.configureOmniture('Community Join Hover', 'Hovers,Join,Community Join Hover');
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinPostComment;
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
         GSType.hover.joinHover.show();
     };
     this.showJoinTrackGrade = function() {
@@ -667,27 +681,43 @@ GSType.hover.JoinHover = function() {
     // see GS-13450
     this.showJoinNth = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).off('click.joinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).on('click.joinHover', function() {
+            ModalManager.hideModal({layerId:'joinHover'});
+            GS.facebook.login().done(function(data) {
+                if (GSType.hover.joinHover.onSubmitCallback) {
+                    GSType.hover.joinHover.onSubmitCallback(data.email);
+                }
+            });
+        });
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Is your child on track?");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to get grade-by-grade tips and practical advice to help you guide your child to educational success.");
+        GSType.hover.joinHover.setTitle("Join GreatSchools");
+        GSType.hover.joinHover.setSubTitle("Sign in with Facebook or create a new account.");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.configureOmniture('Weekly NL Join Hover', 'Hovers,Join,Weekly NL Join Hover');
 
         GSType.hover.joinHover.show();
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
     };
     this.showJoinMsl = function() {
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).off('click.joinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).on('click.joinHover', function() {
+            ModalManager.hideModal({layerId:'joinHover'});
+            GS.facebook.login().done(function(data) {
+                GSType.hover.joinHover.onFacebookSubmitCallback(data);
+            });
+        });
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Welcome to My School List");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-            "to save one or more schools of interest to your personalized list.");
+        GSType.hover.joinHover.setTitle("Join GreatSchools");
+        GSType.hover.joinHover.setSubTitle("Create an account to save one or more schools to your personalized list.");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+//        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
         GSType.hover.joinHover.setJoinHoverType("MSL");
 
@@ -695,15 +725,16 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinMsl;
         GSType.hover.joinHover.show();
+        $(GS.FACEBOOK_BUTTON_IN_JOIN_SELECTOR).show();
     };
-    this.validateFirstName = function() {
-        jQuery.getJSON(
-            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-            {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
-            function(data) {
-                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
-            });
-    };
+//    this.validateFirstName = function() {
+//        jQuery.getJSON(
+//            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+//            {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
+//            function(data) {
+//                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
+//            });
+//    };
     this.validateEmail = function() {
         jQuery.getJSON(
             GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
@@ -712,22 +743,22 @@ GSType.hover.JoinHover = function() {
                 GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
             });
     };
-    this.validateConfirmEmail = function() {
-        jQuery.getJSON(
-            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-            {email:jQuery('#joinGS #jemail').val(), confirmEmail:jQuery('#joinGS #jcemail').val(), field:'confirmEmail', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
-            function(data) {
-                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmEmail .errors', 'confirmEmail', data);
-            });
-    };
-    this.validateUsername = function() {
-        jQuery.getJSON(
-            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-            {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
-            function(data) {
-                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
-            });
-    };
+//    this.validateConfirmEmail = function() {
+//        jQuery.getJSON(
+//            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+//            {email:jQuery('#joinGS #jemail').val(), confirmEmail:jQuery('#joinGS #jcemail').val(), field:'confirmEmail', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
+//            function(data) {
+//                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmEmail .errors', 'confirmEmail', data);
+//            });
+//    };
+//    this.validateUsername = function() {
+//        jQuery.getJSON(
+//            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+//            {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
+//            function(data) {
+//                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
+//            });
+//    };
     this.validatePassword = function() {
         jQuery.getJSON(
             GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
@@ -769,14 +800,15 @@ GSType.hover.JoinHover = function() {
 //        return false;
 //    });
     this.clickSubmitHandler = function() {
+        GS.log('entered clickSubmitHAndler');
         var params = jQuery('#joinGS').serialize();
         jQuery('.joinBtn').prop('disabled', true);
 
 
         //if - Choose city - is selected, just remove this from the form, as if no city was given
-        if (jQuery('#joinCity').val() == '- Choose city -') {
-            params = params.replace(/&city=([^&]+)/, "");
-        }
+//        if (jQuery('#joinCity').val() == '- Choose city -') {
+//            params = params.replace(/&city=([^&]+)/, "");
+//        }
 
         var first = true;
         var newsletters = [];
@@ -792,8 +824,14 @@ GSType.hover.JoinHover = function() {
         if(jQuery('#joinHoverType').val() === 'Auto') {
             mssHover = true;
         }
-        params += "&simpleMss=" + mssHover;
 
+        if (mssHover) {
+            params += "&simpleMss=" + mssHover;
+        } else {
+            params += "&simple=true";
+        }
+
+        GS.log('before if(MssHover)');
         if(mssHover) {
             jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, function(data) {
                 GS.joinHover_checkValidationResponse(data, true);
@@ -804,6 +842,7 @@ GSType.hover.JoinHover = function() {
                 GS.joinHover_checkValidationResponse(data, false);
             });
         }
+        GS.log('returning from clickSubmitHandler');
         return false;
     };
 };
@@ -814,6 +853,7 @@ GSType.hover.SignInHover = function() {
     this.showJoinFunction = GSType.hover.joinHover.showJoinTrackGrade;
     this.loadOnExitUrl = null;
     this.onSubmitCallback = null;
+    this.onFacebookSubmitCallback = null;
     this.loadDialog = function() {
         this.pageName='Sign In Hover';
         this.hier1='Hovers,Sign In,Sign In Hover';
@@ -886,6 +926,8 @@ GSType.hover.SignInHover = function() {
             jQuery('#signInHover .errors .error').html(errorIcon + data.userDeactivated).show();
         } else if (data.passwordMismatch) {
             jQuery('#signInHover .errors .error2').html(errorIcon + data.passwordMismatch).show();
+        } else if (data.facebookUser) {
+            jQuery('#signInHover .errors .error2').html(errorIcon + data.facebookUser).show();
         } else {
             GSType.hover.signInHover.cancelLoadOnExit();
             if (GSType.hover.signInHover.onSubmitCallback) {
@@ -902,12 +944,24 @@ GSType.hover.SignInHover = function() {
         } else {
             GSType.hover.signInHover.onSubmitCallback = null;
         }
+//        $(".js-facebookSignInModule").removeClass("dn");
+        GSType.hover.signInHover.clearMessages();
         GSType.hover.signInHover.setEmail(email);
         GSType.hover.signInHover.setRedirect(redirect);
         if (showJoinFunction) {
             GSType.hover.signInHover.showJoinFunction = showJoinFunction;
         }
         jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
+
+        jQuery(GS.FACEBOOK_BUTTON_IN_SIGNIN_SELECTOR).off('click.signinHover');
+        jQuery(GS.FACEBOOK_BUTTON_IN_SIGNIN_SELECTOR).on('click.signinHover', function() {
+            ModalManager.hideModal({layerId:'signInHover'});
+            GS.facebook.login().done(function(data) {
+                if (GSType.hover.signInHover.onSubmitCallback) {
+                    GSType.hover.signInHover.onSubmitCallback(data.email);
+                }
+            });
+        });
 
         GSType.hover.signInHover.show();
         return false;
@@ -945,6 +999,105 @@ GSType.hover.ValidateEditEmail = function() {
     }
 };
 GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail',640);
+
+//PrintSchoolChooser Hover
+GSType.hover.PrintSchoolChooser = function() {
+    this.loadDialog = function() {
+    }
+    this.populateModal = function () {
+
+        var container = $('#js-pyoc');
+        container.empty();
+
+        $('#js-schoolListData .standard_1-1').each(function () {
+            var $this = $(this);
+            var stateID = $this.find('.compare_checkbox').val();
+            var output = [stateID.slice(0, 2), ',', stateID.slice(2)].join('');
+            var cityState = $this.find('.js-pyocCityState').html().split(' ',2);
+            var city = cityState[0];
+            var state = cityState[1];
+            var pyocSchoolData = '<div class="schoolSelectList pam clearfix">' +
+                '<span class="fl ttc"><span>' + $this.find('.js-pyocSchoolName').html() + '</span><br/>' +
+                '<span class="small">' + city +' '+ state + '. ' + $this.find('.js-pyocSchoolType').html() + ', '+ $this.find('.js-pyocGradeRange').html() + '</span>' +
+                '</span>' +
+                '<span class="fr">' +
+                '<input type="checkbox" checked="checked" value="' + output + '" class="js-stateId"/>' +
+                '</span>' +
+                '</div>';
+            container.append(pyocSchoolData);
+        });
+    };
+
+    this.getCheckCount = function (){
+        $('.js-pyocCountCheck, .js-stateId, #pyocDeselect').click(function() {
+            var pyocCounter = $('#js-pyoc').find('input.js-stateId:checked').length;
+            if(pyocCounter == 1){
+                $('.pyocCount').html(pyocCounter + ' school ');
+            }
+            else{
+                $('.pyocCount').html(pyocCounter + ' schools ');
+            }
+            var pageCount = (Math.ceil(pyocCounter/3));
+            if(pageCount == 1 ){
+                $('.pageCount').html('(' + pageCount + ' page)');
+            }
+            else{
+                $('.pageCount').html('(' + pageCount + ' pages)');
+            }
+        });
+    }
+    this.printSchoolList = function () {
+        $('.downloadPYOC').unbind('click').click(function() {
+            var state = [];
+            var schoolID = [];
+            var count = 0;
+            $('#js-pyoc input:checked').each(function () {
+                count++;
+                var selected = $(this).attr('value').split(",");
+                state.push(selected[0]);
+                schoolID.push(selected[1]);
+            });
+            if (count == 0) {
+                $('.js-showError').show();
+                return false;
+            }
+            else {
+                $('.js-showError').hide();
+            }
+
+            $('#selectedState').val(state.join(','));
+            $('#selectedId').val(schoolID.join(','));
+            if ($('#js-pyocChecklist input:checked')) {
+                $('#js-appendCheckList').val('yes');
+            }
+            else {
+                $('#js-appendCheckList').val('no');
+            }
+
+            if (s.tl) {
+                s.tl(true, 'o', 'MSL_download_printable');
+            }
+
+            $('#js-printSchoolChooserSubmit').submit();
+        });
+    }
+
+    this.deselectSchool = function () {
+        $('#pyocDeselect').click(function () {
+            $('#js-pyoc input').each(function () {
+                $(this).attr('checked', false);
+            });
+        });
+    }
+    this.showHover = function() {
+        this.populateModal();
+        this.printSchoolList();
+        this.deselectSchool();
+        this.getCheckCount();
+        GSType.hover.printSchoolChooser.show();
+    };
+};
+GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser',640);
 
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
@@ -1436,74 +1589,74 @@ GSType.hover.SchoolReviewPosted = function() {
 GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("schoolReviewPosted",640);
 
 //GS-13761
-GSType.hover.ClickToReviewYourSchool = function() {
-    this.loadDialog = function() {
-        jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
-            GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
-            if (!$.support.leadingWhitespace) {
-                //IE7 and 8 stuff
-                GSType.hover.clickToReviewYourSchool.hide();
-                function getPathFromUrl(url) {
-                    return url.split("?")[0];
-                }
-                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#schoolReviewSubmitForm";
-                window.location.href = linkToStr;
-            }
-        });
-    };
-    this.showHover = function() {
-        GSType.hover.clickToReviewYourSchool.show();
-    };
-    this.pageName = 'Review Your School Hover';
-    this.hier1 = 'Hovers,Crowdsourcing,Review Your School Hover';
-    this.executeOnExit = function(f) {
-        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).on('dialogclose', function() {
-            f();
-        });
-    };
-    this.cancelLoadOnExit = function() {
-        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).off('dialogclose');
-    };
-
-    this.showInterruptHoverOnPageExit = function(showHoverFunction) {
-        // automatically ignore any links with class no_interrupt
-        // assumes this is the first event executed when 'click' is triggered
-        $('a:not(.no_interrupt)').bindFirst('click', function(event) {
-            var $this = $(this);
-            var href = $this.attr('href');
-
-            if (!(href && href !== '' && href !== '#' && href !== (window.location.href+'#'))) {
-                return true;
-            } else if ($this.attr('target') || $this.attr('onclick')){
-                return true;
-            }
-
-            //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
-            //the same functionality as existing "mss auto hover on exit", but displays depending on number of reviews
-            //Therefore, use the same cookie and don't mess too much with existing code at this time. GS-13761
-            if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
-                // set cookie to avoid hover repeating
-                var threeMinuteDuration = getCookieExpiresDate(0,0,3);
-                createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
-                // cause whatever link triggered this event to be triggered by closing the hover
-                GSType.hover.clickToReviewYourSchool.executeOnExit(function() {
-                    var foo = $this.triggerHandler('click');
-                    if (foo) {
-                        window.location.href = href;
-                    }
-                });
-
-                showHoverFunction();
-
-                event.stopImmediatePropagation();
-                return false;
-            } else {
-                return true;
-            }
-        });
-    };
-};
-GSType.hover.ClickToReviewYourSchool.prototype = new GSType.hover.HoverDialog("clickToReviewYourSchoolHover",640);
+//GSType.hover.ClickToReviewYourSchool = function() {
+//    this.loadDialog = function() {
+//        jQuery('#js_clickToReviewYourSchoolHover_goToReviewForm').click(function() {
+//            GSType.hover.clickToReviewYourSchool.cancelLoadOnExit();
+//            if (!$.support.leadingWhitespace) {
+//                //IE7 and 8 stuff
+//                GSType.hover.clickToReviewYourSchool.hide();
+//                function getPathFromUrl(url) {
+//                    return url.split("?")[0];
+//                }
+//                var linkToStr = getPathFromUrl(window.location.href) + "?tab=reviews#schoolReviewSubmitForm";
+//                window.location.href = linkToStr;
+//            }
+//        });
+//    };
+//    this.showHover = function() {
+//        GSType.hover.clickToReviewYourSchool.show();
+//    };
+//    this.pageName = 'Review Your School Hover';
+//    this.hier1 = 'Hovers,Crowdsourcing,Review Your School Hover';
+//    this.executeOnExit = function(f) {
+//        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).on('dialogclose', function() {
+//            f();
+//        });
+//    };
+//    this.cancelLoadOnExit = function() {
+//        jQuery('#' + GSType.hover.clickToReviewYourSchool.hoverId).off('dialogclose');
+//    };
+//
+//    this.showInterruptHoverOnPageExit = function(showHoverFunction) {
+//        // automatically ignore any links with class no_interrupt
+//        // assumes this is the first event executed when 'click' is triggered
+//        $('a:not(.no_interrupt)').bindFirst('click', function(event) {
+//            var $this = $(this);
+//            var href = $this.attr('href');
+//
+//            if (!(href && href !== '' && href !== '#' && href !== (window.location.href+'#'))) {
+//                return true;
+//            } else if ($this.attr('target') || $this.attr('onclick')){
+//                return true;
+//            }
+//
+//            //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
+//            //the same functionality as existing "mss auto hover on exit", but displays depending on number of reviews
+//            //Therefore, use the same cookie and don't mess too much with existing code at this time. GS-13761
+//            if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
+//                // set cookie to avoid hover repeating
+//                var threeMinuteDuration = getCookieExpiresDate(0,0,3);
+//                createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
+//                // cause whatever link triggered this event to be triggered by closing the hover
+//                GSType.hover.clickToReviewYourSchool.executeOnExit(function() {
+//                    var foo = $this.triggerHandler('click');
+//                    if (foo) {
+//                        window.location.href = href;
+//                    }
+//                });
+//
+//                showHoverFunction();
+//
+//                event.stopImmediatePropagation();
+//                return false;
+//            } else {
+//                return true;
+//            }
+//        });
+//    };
+//};
+//GSType.hover.ClickToReviewYourSchool.prototype = new GSType.hover.HoverDialog("clickToReviewYourSchoolHover",640);
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
@@ -1515,6 +1668,7 @@ GSType.hover.validateEmailSchoolReview = new GSType.hover.ValidateEmailSchoolRev
 GSType.hover.joinHover = new GSType.hover.JoinHover();
 GSType.hover.signInHover = new GSType.hover.SignInHover();
 GSType.hover.validateEditEmail = new GSType.hover.ValidateEditEmail();
+GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
@@ -1538,7 +1692,7 @@ GSType.hover.reportContentHover = new GSType.hover.ReportContentHover();
 
 GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
-GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
+//GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
 
 GSType.hover.espProvisionalReminder = new GSType.hover.EspProvisionalReminder();
 
@@ -1563,9 +1717,8 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
     jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/forgotPassword.page', jQuery('#hover_forgotPasswordForm').serialize());
     var email = jQuery('#fpemail').val();
 
-    GSType.hover.signInHover.addMessage('An email has been sent to ' + email +
-        ' with instructions for selecting a new password.');
-    GSType.hover.forgotPassword.showSignin();
+    GSType.hover.forgotPassword.addMessage('An email has been sent to ' + email +
+        ' with instructions for selecting a new password. ' + '<a href="javascript:void(0)" onclick="GSType.hover.forgotPassword.hide();GSType.hover.signInHover.showHover(\'' + email + '\');return false;">Sign in</a>');
 };
 
 GS.isCookieSet = function(cookieName) {
@@ -1625,16 +1778,18 @@ GS.showSchoolReviewHover = function(redirect) {
     return false;
 };
 
-GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
+GS.showSendMeUpdates = function(redirect, schoolName, schoolId, schoolState) {
     if (GS.isSignedIn()) {
         return true; // signed in users go straight to destination
     } else {
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.configureSchoolInfo(redirect, schoolName, schoolId, schoolState);
         GSType.hover.signInHover.setRedirect(redirect);
         if (GS.isMember()) {
-            GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinAuto);
+            console.log("isMember");
+            GSType.hover.signInHover.showHover('', redirect, GSType.hover.sendMeUpdates.showSendUpdates);
         } else {
-            GSType.hover.joinHover.showJoinAuto();
+            console.log("showSendUpdates");
+            GSType.hover.sendMeUpdates.showSendUpdates();
         }
     }
     return false;
@@ -1670,12 +1825,14 @@ GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, school
             redirect = elem.href;
         }
         var mslSuccessCallback = function(email, formId) {
-            mslHelper.addSchool(schoolState, schoolId, function() {}, function() {}, email);
             GSType.hover.signInHover.setRedirect(redirect);
-            jQuery('#' + formId).submit();
+            mslHelper.addSchool(schoolState, schoolId, function() {jQuery('#' + formId).submit();}, function() {jQuery('#' + formId).submit();}, email);
         };
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
+        GSType.hover.joinHover.onFacebookSubmitCallback = function(data) {
+            mslHelper.addSchool(schoolState, schoolId, function() {}, function() {}, data.email);
+        };
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
         } else {
@@ -1718,6 +1875,13 @@ GS.showAddMslJoinHoverAllSchools = function(schoolIdList, schoolState) {
             window.setTimeout(function() {jQuery('#' + formId).submit()}, 100); // give MSL time to commit
         };
         GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
+        GSType.hover.joinHover.onFacebookSubmitCallback = function(data) {
+            var idsArr = schoolIdList.split(",");
+            var counter;
+            for (counter=0; counter < idsArr.length; counter++) {
+                mslHelper.addSchool(schoolState, idsArr[counter], function() {}, function() {}, data.email);
+            }
+        };
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
         } else {
@@ -1764,50 +1928,23 @@ GS.joinHover_checkValidationResponse = function(data, sendTracking) {
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
+    GS.log('in joinHover_passesValidationResponse', data);
     var errorIcon = '<span class="iconx16 i-16-alert"><!--not empty--></span> ';
-    var firstNameError = jQuery('#joinGS .joinHover_firstName .invalid');
     var emailError = jQuery('#joinGS .joinHover_email .invalid');
-    var usernameError = jQuery('#joinGS .joinHover_username .invalid');
-    var usernameValid = jQuery('#joinGS .joinHover_username .valid');
     var passwordError = jQuery('#joinGS .joinHover_password .invalid');
     var confirmPasswordError = jQuery('#joinGS .joinHover_confirmPassword .invalid');
-    // GS-11161
-    //var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
-    var locationError = jQuery('#joinGS #joinHover_chooseLocation');
 
-    firstNameError.hide();
     emailError.hide();
-    usernameError.hide();
-    usernameValid.hide();
     passwordError.hide();
     confirmPasswordError.hide();
-    // GS-11161
-    //termsError.hide();
-    locationError.hide();
 
     var objCount = 0;
     for (_obj in data) objCount++;
 
     if (objCount > 0) {
+        GS.log('joinHover_passesValidationResponse fail');
         jQuery('#joinGS #js_ProcessError').show("fast");
         jQuery('#joinGS #process_error').show("fast");
-        /*
-         // GS-11161
-         if (data.terms) {
-         termsError.html(data.terms).show();
-         }
-         */
-
-        if (data.state) {
-            locationError.html(errorIcon+data.state).show();
-        }
-        if (data.city) {
-            locationError.html(errorIcon+data.city).show();
-        }
-
-        if (data.firstName) {
-            firstNameError.html(errorIcon+data.firstName).show();
-        }
 
         if (data.email) {
             emailError.html(errorIcon+data.email).show();
@@ -1823,12 +1960,6 @@ GS.joinHover_passesValidationResponse = function(data) {
 
         if (data.confirmPassword) {
             confirmPasswordError.html(errorIcon+data.confirmPassword).show();
-        }
-
-        if (data.screenName) {
-            usernameError.html(errorIcon+data.screenName).show();
-        } else {
-            usernameValid.show();
         }
 
         return false;
@@ -1893,6 +2024,7 @@ jQuery(function() {
     GSType.hover.joinHover.loadDialog();
     GSType.hover.signInHover.loadDialog();
     GSType.hover.validateEditEmail.loadDialog();
+    GSType.hover.printSchoolChooser.loadDialog();
     GSType.hover.validateEmail.loadDialog();
     GSType.hover.validateEmailSchoolReview.loadDialog();
     GSType.hover.validateLinkExpired.loadDialog();
@@ -1914,7 +2046,7 @@ jQuery(function() {
     GSType.hover.reportContentHover.loadDialog();
     GSType.hover.miniStateLauncher.loadDialog();
     GSType.hover.schoolReviewPosted.loadDialog();
-    GSType.hover.clickToReviewYourSchool.loadDialog();
+//    GSType.hover.clickToReviewYourSchool.loadDialog();
 
     GSType.hover.espProvisionalReminder.loadDialog();
 
@@ -2017,10 +2149,10 @@ jQuery(function() {
 //        return false;
 //    });
 
-    jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
+//    jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
     jQuery('#joinHover #jemail').blur(GSType.hover.joinHover.validateEmail);
-    jQuery('#joinHover #jcemail').blur(GSType.hover.joinHover.validateConfirmEmail);
-    jQuery('#joinHover #uName').blur(GSType.hover.joinHover.validateUsername);
+//    jQuery('#joinHover #jcemail').blur(GSType.hover.joinHover.validateConfirmEmail);
+//    jQuery('#joinHover #uName').blur(GSType.hover.joinHover.validateUsername);
     jQuery('#joinHover #jpword').blur(GSType.hover.joinHover.validatePassword);
     jQuery('#joinHover #cpword').blur(GSType.hover.joinHover.validateConfirmPassword);
 //    jQuery('#joinHover .js_closeJoinHover').click(GSType.hover.joinHover.hide);
@@ -2100,28 +2232,28 @@ jQuery(function() {
         return false;
     });
      */
-    jQuery('.js_chooseEnableDisable').click(function( ) {
+    jQuery('.js_chooseEnableDisable').on("click",function( ) {
         if(jQuery(this).is(':checked')){
-            jQuery('#js_ShowHideGrades').removeClass('disabled_field');
+            jQuery('.js_ShowHideGrades').removeClass('disabled_field');
         }
         else{
-            jQuery("#js_showGradeSelect").hide('fast');
-            jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
-            jQuery('#js_ShowHideGrades').addClass('disabled_field');
+            jQuery(".js_showGradeSelect").hide('fast');
+            jQuery('.js_ShowHideGrades').html("Choose grades &#187;");
+            jQuery('.js_ShowHideGrades').addClass('disabled_field');
         }
     })
 
-    jQuery('#js_ShowHideGrades').click(function( event) {
+    jQuery('.js_ShowHideGrades').on("click", function( event) {
         event.preventDefault();
-        if(!jQuery('#js_ShowHideGrades').hasClass('disabled_field')){
-            if(jQuery("#js_showGradeSelect").css("display") == "none"){
+        if(!jQuery('.js_ShowHideGrades').hasClass('disabled_field')){
+            if(jQuery(".js_showGradeSelect").css("display") == "none"){
 
-                jQuery("#js_showGradeSelect").show('fast');
-                jQuery('#js_ShowHideGrades').html("&#171; Hide Grade Chooser");
+                jQuery(".js_showGradeSelect").show('fast');
+                jQuery('.js_ShowHideGrades').html("&#171; Hide Grade Chooser");
             }
             else{
-                jQuery("#js_showGradeSelect").hide('fast');
-                jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
+                jQuery(".js_showGradeSelect").hide('fast');
+                jQuery('.js_ShowHideGrades').html("Choose grades &#187;");
             }
         }
     });
@@ -2199,9 +2331,10 @@ jQuery(function() {
         GSType.hover.schoolReviewPosted.show();
     } else if (showHover == "espProvisionalReminder") {
         GSType.hover.espProvisionalReminder.show();
-    } else if (showHover == "clickToReviewYourSchool") {
-        GSType.hover.clickToReviewYourSchool.show();
     }
+// else if (showHover == "clickToReviewYourSchool") {
+//        GSType.hover.clickToReviewYourSchool.show();
+//    }
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
     //Omniture tracking for facebook share button on school review hovers.GS-12508
@@ -2216,16 +2349,6 @@ jQuery(function() {
     });
 
 });
-
-
-GSType.hover.PrintSchoolChooser = function() {
-    this.show = function() {
-        GSType.hover.printSchoolChooser.showModal();
-        return false;
-    };
-};
-GSType.hover.PrintSchoolChooser.prototype = new GSType.hover.HoverDialog('printSchoolChooser');
-GSType.hover.printSchoolChooser = new GSType.hover.PrintSchoolChooser();
 
 
 GSType.hover.ModalUspRegistration = function() {};
@@ -2245,3 +2368,69 @@ GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
 
+
+GSType.hover.SendMeUpdates = function() {
+    this.configureOmniture = function(pageName, hier1) {
+        GSType.hover.sendMeUpdates.pageName=pageName;
+        GSType.hover.sendMeUpdates.hier1=hier1;
+    };
+    this.configureSchoolInfo = function(redirect, schoolName, schoolId, schoolState) {
+        redirect = redirect || window.location.href;
+        if (redirect) {
+            jQuery('#js-sendMeUpdates .redirect_field').val(redirect);
+        }
+        if (schoolName) {
+            GSType.hover.sendMeUpdates.schoolName = schoolName;
+        }
+        if (schoolId) {
+            jQuery('#js-sendMeUpdates .school_id').val(schoolId);
+        }
+        if (schoolState) {
+            jQuery('#js-sendMeUpdates .school_state').val(schoolState);
+        }
+    };
+    this.validateEmail = function(emailAddress) {
+        var emailPattern = /^[a-zA-Z0-9._-]+[+a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(emailAddress);
+    };
+    this.clickSubmitHandler = function() {
+        GS.log('entered clickSubmitHAndler');
+        var emailField = $("#jemail").val();
+        var emailConfirmField = $("#jcemail").val();
+        GS.log('emailField:', emailField);
+        GS.log('emailConfirmField:', emailConfirmField);
+        $(".js-sMU-emailMalformed").addClass("dn");
+        $(".js-sMU-emailsDontMatch").addClass("dn");
+//        var params = jQuery('#js-sMU').serialize();
+        //validate
+        if(GSType.hover.sendMeUpdates.validateEmail(emailField) && (emailField == emailConfirmField)){
+            return true;
+        }
+        if(!GSType.hover.sendMeUpdates.validateEmail(emailField)){
+           // show email formed wrong
+            $(".js-sMU-emailMalformed").removeClass("dn");
+        }
+        if(emailField != emailConfirmField){
+            // show emails don't match
+            $(".js-sMU-emailsDontMatch").removeClass("dn");
+
+        }
+        return false;
+    };
+    this.showSendUpdates = function(schoolName, schoolId, schoolState) {
+        // the deferred is used by showInterruptHoverOnPageExit
+        var deferred = $.Deferred();
+        jQuery('.js-signUp').on("click", GSType.hover.sendMeUpdates.clickSubmitHandler);
+        GSType.hover.sendMeUpdates.configureSchoolInfo(schoolName, schoolId, schoolState);
+        var $sendMeUpdates = $('#js-sendMeUpdates');
+        $sendMeUpdates.unbind('dialogclose');
+        $sendMeUpdates.bind('dialogclose', function() {
+           deferred.resolve();
+        });
+        GSType.hover.sendMeUpdates.show();
+        GSType.hover.sendMeUpdates.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
+        return deferred;
+    };
+};
+GSType.hover.SendMeUpdates.prototype = new GSType.hover.HoverDialog('js-sendMeUpdates');
+GSType.hover.sendMeUpdates = new GSType.hover.SendMeUpdates();

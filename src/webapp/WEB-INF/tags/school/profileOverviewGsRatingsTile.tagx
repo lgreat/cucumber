@@ -27,7 +27,7 @@
             </c:set>
             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'gsrate')}" scope="request"/>
             <div id="js-tile-1-0">
-            <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger" tileName="gsrate">
                 <school:profileOverviewCell1 title="${t1dc}">
                     <div class="mhm">
                         <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
@@ -103,7 +103,7 @@
             </c:set>
             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'awards')}" scope="request"/>
             <div id="js-tile-1-1">
-            <gslink:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn make-555555 js-trigger" tileName="awards">
                 <school:profileOverviewCell1 title="${t1s1}">
                     <div class="mam" style="height:139px;">
                         <ul class="small plm mls">
@@ -125,7 +125,7 @@
             </c:set>
             <div id="js-tile-1-2">
             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'about')}" scope="request"/>
-            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_about" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_about" cssClass="tdn make-555555 js-trigger" tileName="about">
                 <school:profileOverviewCell1 title="${t1s2}">
                     <c:set var="actualCharMax" value="${fn:length(gsRatingsModel['autotext'])}"/>
                     <c:set var="SHOW_CHAR_MAX" value="${180}"/>

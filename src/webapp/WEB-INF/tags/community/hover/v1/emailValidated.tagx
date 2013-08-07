@@ -13,6 +13,6 @@
         <p><strong>Thanks for registering</strong>. Welcome to GreatSchools, the largest online community committed to
             improving educational outcomes through parental involvement.</p>
 
-        <button class="button-1 js_closeHover" type="button">Finish</button>
+        <button class="but but-rg but-1 js_closeHover" type="button">Finish</button>
     </div></div></div></div></div>
 </jsp:root>
