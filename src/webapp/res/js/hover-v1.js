@@ -1192,7 +1192,7 @@ GSType.hover.SchoolReviewThankYou = function() {
         jQuery('#schoolReviewThankYou h2').html(title);
     };
     this.setBody = function(body) {
-        jQuery('#schoolReviewThankYou p strong').html(body);
+        jQuery('#schoolReviewThankYou p').html(body);
     };
 };
 GSType.hover.SchoolReviewThankYou.prototype = new GSType.hover.HoverDialog("schoolReviewThankYou",640);
