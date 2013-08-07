@@ -302,11 +302,8 @@
                 </div>
                 <div class="ptl pbm"><span class="small_bold bottom 'SourceSansPro-Semibold'">Registration is required to post your anonymous review</span></div>
 
-
-
-
                 <c:choose>
-                <c:when test="${requestInfo.signedInWithFacebook}">
+                <c:when test="${not empty validUser.facebookId}">
                     <div class="tac">
                         <gsml:signInWithFacebookButton size="32" fbButtonType="post"  id="parentReviewFormSubmit-facebook"/>
                     </div>
