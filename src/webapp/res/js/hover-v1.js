@@ -1717,9 +1717,8 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
     jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/forgotPassword.page', jQuery('#hover_forgotPasswordForm').serialize());
     var email = jQuery('#fpemail').val();
 
-    GSType.hover.signInHover.addMessage('An email has been sent to ' + email +
-        ' with instructions for selecting a new password.');
-    GSType.hover.forgotPassword.showSignin();
+    GSType.hover.forgotPassword.addMessage('An email has been sent to ' + email +
+        ' with instructions for selecting a new password. ' + '<a href="javascript:void(0)" onclick="GSType.hover.forgotPassword.hide();GSType.hover.signInHover.showHover(\'' + email + '\');return false;">Sign in</a>');
 };
 
 GS.isCookieSet = function(cookieName) {
