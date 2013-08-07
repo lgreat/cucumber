@@ -21,7 +21,7 @@
         <!--</c:otherwise>-->
     <!--</c:choose>-->
     <c:choose>
-    <c:when test="${fbButtonType eq 'post'}">
+    <c:when test="${fbButtonType == 'post'}">
         <div id="${id}" class="but but-rg but-1">
             <div class="tac"><div class="but but-lg but-1 js-facebook-login ${cssClass}">Post</div></div>
         </div>
