@@ -557,7 +557,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
 
 
                     <c:choose>
-                        <c:when test="${requestInfo.signedInWithFacebook}">
+                        <c:when test="${not empty validUser.facebookId}">
                             <div class="tac ptm">
                                 <gsml:signInWithFacebookButton size="32" fbButtonType="post" cssClass="js-parentReviewLandingPageFormSubmit-facebook"/>
                             </div>
