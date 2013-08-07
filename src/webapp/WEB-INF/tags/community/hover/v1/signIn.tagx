@@ -18,12 +18,14 @@
                 </div>
                 <form id="signin" action="/community/loginOrRegister.page" method="post">
                     <div class="body pal">
-                        <div class="tac">
-                            <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-signin"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                        <div class="js-facebookSignInModule">
+                            <div class="tac">
+                                <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-signin"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                            </div>
+                            <h5 class="orText">
+                                <span>OR</span>
+                            </h5>
                         </div>
-                        <h5 class="orText">
-                            <span>OR</span>
-                        </h5>
                     <div class="line">
                         <label for="semail" class="small_bold bottom">Email address</label><br/>
                         <input type="text" id="semail" class="fl small bottom input_5 setemail" tabindex="1" name="email"

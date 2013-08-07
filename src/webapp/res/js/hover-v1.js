@@ -944,6 +944,8 @@ GSType.hover.SignInHover = function() {
         } else {
             GSType.hover.signInHover.onSubmitCallback = null;
         }
+//        $(".js-facebookSignInModule").removeClass("dn");
+        GSType.hover.signInHover.clearMessages();
         GSType.hover.signInHover.setEmail(email);
         GSType.hover.signInHover.setRedirect(redirect);
         if (showJoinFunction) {
