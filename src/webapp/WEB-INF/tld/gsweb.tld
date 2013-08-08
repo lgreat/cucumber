@@ -9,6 +9,12 @@
     <uri>gstaglib</uri>
 
     <function>
+        <name>convertToGoogleApiUrl</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String convertToGoogleApiUrl(java.lang.String)</function-signature>
+    </function>
+
+    <function>
         <name>generateGoogleAPISignature</name>
         <function-class>gs.data.util.DigestUtil</function-class>
         <function-signature>java.lang.String generateGoogleAPICryptographicSignature(java.lang.String)</function-signature>
