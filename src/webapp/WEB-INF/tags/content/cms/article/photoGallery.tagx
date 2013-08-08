@@ -24,11 +24,11 @@
     <!--<pageHelper:externalJavascript file="/res/js/content/cms/articlePhotoGallery.js"/>-->
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
-
-    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0 rnd12">
+    <div class="black_overlay-old" id="fade"><!-- do not collapse --></div>
+    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper-old slStylesV1-0 rnd12">
         <div class="inner rnd12">
-            <div class="hd rnd-top-12">
-                <div id="${prefix}-photo-gallery-close" class="fltrt mtm mrm article-photo-gallery-close">
+            <div class="hd rnd-top-12 clearfix">
+                <div id="${prefix}-photo-gallery-close" class="fr mtm mrm article-photo-gallery-close">
                     <span class="iconx24 i-24-close"><!--Do not collapse--></span>
                 </div>
             </div>

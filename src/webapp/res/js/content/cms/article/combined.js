@@ -253,9 +253,9 @@ GS.photoGallery.PhotoGallery.prototype.applyThumbnailClickHandlers = function() 
 
 GS.photoGallery.PhotoGallery.prototype.sendOmnitureTrackingInfo = function() {
     //requires /res/js/omnitureEventNotifier.js
-    omnitureEventNotifier.clear();
-    omnitureEventNotifier.successEvents = "event58;";
-    omnitureEventNotifier.send();
+//    omnitureEventNotifier.clear();
+//    omnitureEventNotifier.successEvents = "event58;";
+//    omnitureEventNotifier.send();
 };
 
 GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
