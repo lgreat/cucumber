@@ -3148,4 +3148,12 @@
         </property>
     </bean>
 
+
+    <bean name="/cityHub/cityHub.page" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          lazy-init="true">
+        <property name="viewName">
+            <value>/cityHub/cityHub</value>
+        </property>
+    </bean>
+
 </beans>
