@@ -635,7 +635,7 @@ General comments:
     background-color: #F1F1F1;
     -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <GS.util.isBrowserTouch1.6 */
     -moz-border-radius: 3px; /* FF1-3.6 */
-    bordeGS.util.isBrowserTouchr-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     margin-top: 20px; margin-bottom: 20px; width:390px; max-height: 200px; text-align: left; padding: 20px;
 }
 .containerGrayBox_sponsored ul{text-align:left; margin-bottom:0px;}
@@ -1157,6 +1157,88 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     margin-bottom: 0;
 }
 .prw { width:250px; list-style: inside;}
+
+
+/* ----------- photoGalleryWrapper old ----------- */
+.black_overlay-old {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity = 80);
+}
+
+.photoGalleryWrapper-old {
+    display: none;
+    position: absolute;
+    top: 110px;
+    left: 215px;
+    width: 530px;
+    z-index: 1002;
+    background-color: #FFFFFF;
+    border: 1px solid #8CDEED;
+    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.5);
+}
+
+.photoGalleryWrapper-old .inner {
+    background-color: #fff;
+}
+
+.photoGalleryWrapper-old .article-photo-gallery-close {
+    cursor: pointer;
+}
+
+.photoGalleryWrapper-old .photoGalleryViewer {
+    text-align: center;
+}
+
+.photoGalleryWrapper-old .galleryPhotoFullsize {
+    width: 390px;
+    margin: 0 auto;
+}
+
+.photoGalleryWrapper-old .galleryPhotoFullsize img {
+    display: block;
+    padding: 0;
+    margin: 0 0 5px;
+}
+
+.photoGalleryWrapper-old .galleryPhotoFullsize span {
+    clear: both;
+    display: block;
+    width: 100%;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.photoGalleryWrapper-old .photoGalleryControls {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.photoGalleryWrapper-old .article-photo-gallery-back {
+    position: absolute;
+    top: 176.5px;
+    left: 11px;
+    cursor: pointer;
+}
+
+.photoGalleryWrapper-old .article-photo-gallery-next {
+    position: absolute;
+    top: 176.5px;
+    left: 471px;
+    cursor: pointer;
+}
+
 
 
 /* ----------- photoGalleryWrapper ----------- */
