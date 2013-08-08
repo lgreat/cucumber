@@ -1136,4 +1136,9 @@ public class PageHelper {
     public void setGptSingleRequestMode(boolean value) {
         _sessionContext.setGptSingleRequestMode(value);
     }
+
+    public boolean isOnSchoolProfile() {
+        // the logic for setting this template value is in SchoolProfileController - just search for "template"
+        return hasAdKeywordWithValue("template","SchoolProf");
+    }
 }
