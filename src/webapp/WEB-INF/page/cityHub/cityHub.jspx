@@ -14,11 +14,9 @@
     <head>
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta content="The Page list all the Gallup Schools."
-              name="description"/>
         <title>City Hub Page</title>
         <!--<gsml:javascript src="/res/js/jquery.cycle2.js" />-->
-        <!-- Add as   decorator expects s var which is set for omniture tracking .No Onmiture tracking means adding the s var to prevent the JS Errors-->
+        <!-- Add as   decorator expects s var which is set for omniture tracking .No Onmiture yet  tracking means adding the s var to prevent the JS Errors-->
        <script type="text/javascript">
             var s="test"  ;
         </script>
@@ -26,7 +24,8 @@
 
     </head>
     <body>
-
+    <pageHelper:hideFooterAd/>
+    <pageHelper:hideLeaderboard/>
 
     <hub:searchSchool />
     <hub:chooseASchool />
