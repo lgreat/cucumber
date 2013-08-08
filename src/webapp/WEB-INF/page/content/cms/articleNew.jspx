@@ -31,7 +31,6 @@
 
 
     <gsml:javascript src="/res/js/content/cms/article/combined.js"/>
-    <gsml:javascript src="/res/js/omnitureEventNotifier.js"/>
     <!-- GS-11430 -->
     <c:if test="${showCompanionAd}">
         <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js">
