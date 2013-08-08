@@ -120,7 +120,6 @@ GS.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug) {
 };
 
 GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
-    jQuery('#' + this.id).show(); // make sure gallery is visible
     var id;
     //hide all other images
     for (var i = 0; i < this.multiSizeImageArray.length; i++) {
@@ -241,13 +240,11 @@ GS.photoGallery.PhotoGallery.prototype.getThumbnailClickHandler = function(self,
     return function() {
         self.showFullSizeImage(index);
         self.sendOmnitureTrackingInfo();
-    };
+    }
 };
 
 GS.photoGallery.PhotoGallery.prototype.applyThumbnailClickHandlers = function() {
-    var myContainer = jQuery('#js_photo_gallery_container');
-
-    //var myContainer = jQuery('#' + this.id);
+    var myContainer = jQuery('#' + this.id);
     for (var i = 0; i < this.multiSizeImageArray.length; i++) {
         var selector = '.' + this.thumbnailIdPrefix +'-'+ i;
         myContainer.on('click', selector, this.getThumbnailClickHandler(this, i));
