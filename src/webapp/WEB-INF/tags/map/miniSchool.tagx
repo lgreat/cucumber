@@ -19,7 +19,7 @@
 <jsp:directive.attribute name="clickUrl" required="true" type="java.lang.String" description="URL to link to when clicked."/>
 
 <pageHelper:externalJavascript
-        file="http://maps.google.com/maps/api/js?sensor=false"/>
+        file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;sensor=false&amp;signature=OXbNRPWooYBwVYP50cQjzvgBk1k="/>
 <pageHelper:addOnLoadHandler handler="doMiniMap_${school.id}()"/>
 
 <jsp:scriptlet>

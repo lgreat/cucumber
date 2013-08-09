@@ -17,7 +17,7 @@
                              description="Schools to map, as a list of gs.web.compare.ComparedSchoolBaseStruct"/>
 
     <pageHelper:externalJavascript
-            file="http://maps.google.com/maps/api/js?sensor=false"/>
+            file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;sensor=false&amp;signature=OXbNRPWooYBwVYP50cQjzvgBk1k="/>
 
     <!-- These functions are NOT globally scoped. DO NOT attempt to reference them elsewhere. -->
     <script type="text/javascript">
