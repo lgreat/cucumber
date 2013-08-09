@@ -94,6 +94,10 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
         modelMap.remove("userSubscriptionCommand");
         modelMap.remove("registrationBehavior");
 
+        if (summary.wasUserRegistered()) {
+            PageHelper.setMemberAuthorized(request, response, summary.getUser());
+        }
+
         ThreadLocalTransactionManager.commitOrRollback();
 
         return view;
