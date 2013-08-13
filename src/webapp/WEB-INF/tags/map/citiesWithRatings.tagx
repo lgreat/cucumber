@@ -20,7 +20,7 @@
 <jsp:directive.attribute name="lat" required="true" description="Latitude (center of map)"/>
 <jsp:directive.attribute name="scale" required="true" description="Scale of the map, in google terms"/>
 <jsp:directive.attribute name="cities" required="true" description="Cities to map" type="java.util.Collection"/> <!-- mapsv3 -->
-<pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
+<pageHelper:externalJavascript file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;libraries=geometry&amp;sensor=false&amp;signature=qeUgzsyTsk0gcv93MnxnJ_0SGTw="/>
 <script type="text/javascript">
 <![CDATA[
 

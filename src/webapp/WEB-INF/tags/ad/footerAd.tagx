@@ -7,7 +7,9 @@
     <c:if test="${requestScope.pageHelper.showingFooterAd}">
         <div class="ptl">
             <ad:Footer_728x90/>
-            <ad:Footer_Branded_Tandem_728x90/>
+            <c:if test="${profilePageCurrent =='true'}">
+                <ad:Footer_Branded_Tandem_728x90/>
+            </c:if>
         </div>
     </c:if>
 </jsp:root>

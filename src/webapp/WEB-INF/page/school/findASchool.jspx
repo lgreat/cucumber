@@ -18,7 +18,7 @@
           content="Find and compare schools across the country by searching near an address or by name. Search for public, private, and charter schools, preschools, elementary, middle, and high schools."/>
     <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
     <c:set var="omniturePageName" value="Find a School Home"/>
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
+    <pageHelper:externalJavascript file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;sensor=false&amp;signature=OXbNRPWooYBwVYP50cQjzvgBk1k="/>
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/findASchool.js"/>
     <jsp:scriptlet>

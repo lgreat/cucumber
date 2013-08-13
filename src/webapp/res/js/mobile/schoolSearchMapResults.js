@@ -14,7 +14,7 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
     };
 
     var initializeMap = function(points, optionalLat, optionalLon) {
-        require(['async!http://maps.googleapis.com/maps/api/js?sensor=false'], function() {
+        require(['async!http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&sensor=false&signature=OXbNRPWooYBwVYP50cQjzvgBk1k='], function() {
             $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
                 initializeMapImpl(points, optionalLat, optionalLon);
             });

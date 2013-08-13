@@ -21,7 +21,7 @@
     <jsp:directive.attribute name="gsRating" required="true" type="java.lang.Integer" description="The GreatSchools rating of the school the map is centered on." />
     <jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
 
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
+    <pageHelper:externalJavascript file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;sensor=false&amp;signature=OXbNRPWooYBwVYP50cQjzvgBk1k="/>
     <pageHelper:externalJavascript file="/res/js/map/schoolMap.js" />
 
     <c:set var="js">

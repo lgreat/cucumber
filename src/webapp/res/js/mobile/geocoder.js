@@ -1,4 +1,4 @@
-define(['async!http://maps.google.com/maps/api/js?sensor=false'], function() {
+define(['async!http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&sensor=false&signature=OXbNRPWooYBwVYP50cQjzvgBk1k='], function() {
     // also in customizeSchoolSearchWidget.js and findASchool.js
     // http://stackoverflow.com/questions/237104/javascript-array-containsobj
     Array.prototype.contains = function(obj) {

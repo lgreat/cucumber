@@ -8,6 +8,6 @@
                        description="Set up the necessary javascript for the mapping sub-system. Required for mapping to work on a page."/>
 
     <!-- mapsv3 -->
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
+    <pageHelper:externalJavascript file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;libraries=geometry&amp;sensor=false&amp;signature=qeUgzsyTsk0gcv93MnxnJ_0SGTw="/>
 
 </jsp:root>
