@@ -1,11 +1,16 @@
 package gs.web.jsp;
 
+import com.google.common.collect.Multimap;
 import gs.data.util.DigestUtil;
+import gs.web.util.UrlUtil;
 import junit.framework.TestCase;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -27,31 +32,19 @@ public class UtilTest extends TestCase {
     }
 
     public void testConvertToGoogleApiUrlSuccessWithNoPath (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com?client"));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithParams (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com/api?address=myhouse&sensor=false");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com/api?address=myhouse&client=" + DigestUtil.GOOGLE_CLIENT_ID + "&sensor=false"));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com/api?address=myhouse&sensor=false");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithNoParams (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com/api");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com/api?client"));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com/api");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithQuestionMark (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com/api?");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com/api?client=" + DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com/api?");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithAmpersand (){
@@ -59,10 +52,46 @@ public class UtilTest extends TestCase {
     }
 
     private void helperForGoogleApiTest(String urlToConvert) {
+        URL newTestUrl;
         String convertedUrl = Util.convertToGoogleApiUrl(urlToConvert);
+
 //        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com/api&?client"));
         assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
         assertTrue("Expect appended hash in " + convertedUrl, convertedUrl.contains("&signature"));
+
+        try {
+            newTestUrl  = new URL(convertedUrl);
+        } catch (MalformedURLException e) {
+            fail("Malformed URL");
+            return;
+        }
+        String newTestUrlQuery = newTestUrl.getQuery();
+        System.out.println("newTestUrlQuery..... " + newTestUrlQuery);
+
+        Multimap<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryStringPreserveAll(newTestUrlQuery);
+        System.out.println("mapNewTestUrlQuery..... " + mapNewTestUrlQuery);
+
+
+        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith(urlToConvert));
+
+        Collection<String> signatureList = mapNewTestUrlQuery.get("signature");
+
+
+        assertEquals("Expect only 1 param in Collection. ", 1, signatureList.size());
+        String signature= signatureList.iterator().next() + "=";
+        Collection<String> clientList = mapNewTestUrlQuery.get("client");
+        assertEquals("Expect only 1 param in Collection. ", 1, signatureList.size());
+        String client = clientList.iterator().next();
+        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains(client));
+
+        System.out.println("urlToConvert..... " + urlToConvert);
+        System.out.println("convertedUrl..... " + convertedUrl);
+        System.out.println("signature " + signature.length());
+
+//        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com"));
+//        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
+        assertEquals("Signature must equal 28 chars. ", 28, signature.length());
+
     }
 
     /** Useful to pre-compute static imports */
