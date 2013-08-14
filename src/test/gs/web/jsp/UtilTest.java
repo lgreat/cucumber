@@ -55,10 +55,6 @@ public class UtilTest extends TestCase {
         URL newTestUrl;
         String convertedUrl = Util.convertToGoogleApiUrl(urlToConvert);
 
-//        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com/api&?client"));
-        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + convertedUrl, convertedUrl.contains("&signature"));
-
         try {
             newTestUrl  = new URL(convertedUrl);
         } catch (MalformedURLException e) {
@@ -66,7 +62,7 @@ public class UtilTest extends TestCase {
             return;
         }
         String newTestUrlQuery = newTestUrl.getQuery();
-        System.out.println("newTestUrlQuery..... " + newTestUrlQuery);
+//        System.out.println("newTestUrlQuery..... " + newTestUrlQuery);
 
         Multimap<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryStringPreserveAll(newTestUrlQuery);
         System.out.println("mapNewTestUrlQuery..... " + mapNewTestUrlQuery);
@@ -75,22 +71,23 @@ public class UtilTest extends TestCase {
         assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith(urlToConvert));
 
         Collection<String> signatureList = mapNewTestUrlQuery.get("signature");
+        assertEquals("Expect only 1 signature param in Collection. ", 1, signatureList.size());
 
-
-        assertEquals("Expect only 1 param in Collection. ", 1, signatureList.size());
         String signature= signatureList.iterator().next() + "=";
+        assertEquals("Signature must equal 28 chars. ", 28, signature.length());
+
         Collection<String> clientList = mapNewTestUrlQuery.get("client");
-        assertEquals("Expect only 1 param in Collection. ", 1, signatureList.size());
+        assertEquals("Expect only 1 client param in Collection. ", 1, clientList.size());
         String client = clientList.iterator().next();
         assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains(client));
 
         System.out.println("urlToConvert..... " + urlToConvert);
         System.out.println("convertedUrl..... " + convertedUrl);
-        System.out.println("signature " + signature.length());
+//        System.out.println("signature " + signature.length());
 
 //        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com"));
 //        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertEquals("Signature must equal 28 chars. ", 28, signature.length());
+
 
     }
 

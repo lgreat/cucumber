@@ -610,21 +610,15 @@ public class Util {
             // on invalid URL, return original string
             return urlString;
         }
-
         // extract non domain portion of URL
         String pathAndQuery = parsedUrl.getPath();
         if (parsedUrl.getQuery() != null) {
             pathAndQuery += "?" + parsedUrl.getQuery();
-//            System.out.println("parsedUrl.getQuery()..... " + parsedUrl.getQuery());
-//            System.out.println("PATH AND QUERY 1..." + pathAndQuery);
         }
         // add in client parameter
         pathAndQuery = UrlUtil.putQueryParamIntoUrl(pathAndQuery, "client", DigestUtil.GOOGLE_CLIENT_ID, false);
-//        System.out.println("PATH AND QUERY After....." + pathAndQuery);
         // generate signature
         String signature = DigestUtil.generateGoogleAPICryptographicSignature(pathAndQuery);
-//        System.out.println("Signature ... " + signature);
-
 
         return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + pathAndQuery + "&signature=" + signature;
 
