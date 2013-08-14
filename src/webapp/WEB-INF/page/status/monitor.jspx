@@ -53,7 +53,6 @@
                     }
                 </style>
                 <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.9.1.min.js"></script>
-                <!--<script type="text/javascript" src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"></script>]]>-->
             </head>
 
             <body>
