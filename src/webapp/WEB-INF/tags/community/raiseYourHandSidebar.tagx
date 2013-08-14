@@ -15,6 +15,20 @@
 <jsp:directive.attribute name="redirectUrl" required="true" type="java.lang.String"/>
 <jsp:directive.attribute name="ryhMaxNumReplies" required="true" type="java.lang.Integer"/>
 
+<script type="text/javascript">
+    // You have to be signed in on page load in order to use Raise Your Hand, so reload or redirect the user
+    // after they sign in with Facebook
+    GS.facebook.getFirstLoginDeferred().done(function() {
+        // this works even if the hover that prompts the user to log in is the signInHover
+        var redirect = $('#joinHover .redirect_field').val();
+        if (redirect == "") {
+            window.location.reload();
+        } else {
+            window.location.href = redirect;
+        }
+    });
+</script>
+
 <c:if test="${not empty discussion}">
 
 <![CDATA[

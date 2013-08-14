@@ -27,8 +27,11 @@ GS.facebook = GS.facebook || (function () {
     var schoolPageDetailsQuery = "SELECT page_id, name, location, page_url FROM page WHERE (location.state != '' OR website != '') AND page_id IN (SELECT page_id FROM #friendsThatAreFansOfSchoolsQuery)";
 
 
-    // Resolved on first successful FB login; never rejected
+    // Resolved on first successful FB login and on every page load if FB status is signed in; never rejected
     var successfulLoginDeferred = $.Deferred();
+
+    // Resolved on first successful FB login; never rejected
+    var firstSuccessfulLoginDeferred = $.Deferred();
 
 
     // Resolved immediately on load only if user is already logged in, otherwise rejected
@@ -111,6 +114,9 @@ GS.facebook = GS.facebook || (function () {
 
     var getLoginDeferred = function () {
         return successfulLoginDeferred.promise();
+    };
+    var getFirstLoginDeferred = function() {
+        return firstSuccessfulLoginDeferred.promise();
     };
     var getStatusOnLoadDeferred = function () {
         return statusOnLoadDeferred.promise();
@@ -282,6 +288,7 @@ GS.facebook = GS.facebook || (function () {
         // any time a login call completes successfully, resolve the single loginDeferred for this module.
         var loginAttemptDeferred = $.Deferred().done(function() {
             successfulLoginDeferred.resolve();
+            firstSuccessfulLoginDeferred.resolve();
         });
 
         FB.login(function (response) {
@@ -469,6 +476,7 @@ GS.facebook = GS.facebook || (function () {
         getUserFriendsSchoolPageData: getUserFriendsSchoolPageData,
         createSchoolHash: createSchoolHash,
         getLoginDeferred: getLoginDeferred,
+        getFirstLoginDeferred: getFirstLoginDeferred,
         getStatusOnLoadDeferred: getStatusOnLoadDeferred,
         postToFeed: postToFeed,
         mightBeLoggedIn: mightBeLoggedIn,
