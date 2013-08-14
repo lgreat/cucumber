@@ -228,16 +228,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             return new ModelAndView(getNoResultsView(request, commandAndFields), model);
         }
 
-        //if by name search, check if the serach string is a exact osp city state match, and redirect to the city browse page
-        if(!schoolSearchCommand.isNearbySearch() && !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse()) {
-            String stateAbb = schoolSearchCommand.getState();
-            String city = schoolSearchCommand.getSearchString();
-            if(city != null && stateAbb !=null && SchoolHelper.isLocal(city, stateAbb)) {
-                LevelCode levelCode = (commandAndFields.getLevelCode() != null) ? commandAndFields.getLevelCode() : LevelCode.ALL_LEVELS;
-                Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.fromString(stateAbb), city, schoolTypes, levelCode);
-                return new ModelAndView(new RedirectView(builder.asSiteRelative(request)));
-            }
+        //if by name search, check if the search string is a exact osp city state match, and redirect to the city browse page
+        if (shouldRedirectFromByNameToCityBrowse(schoolSearchCommand, commandAndFields)) {
+            return new ModelAndView(getCityBrowseRedirectView(request, schoolSearchCommand, commandAndFields));
         }
         /**
          * Adding the logic for packard search GS-14110  -Shomi Arora .
@@ -305,6 +298,25 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         return modelAndView;
+    }
+
+    protected RedirectView getCityBrowseRedirectView(HttpServletRequest request, SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandAndFields) {
+        LevelCode levelCodeInCommandOrDefault = (commandAndFields.getLevelCode() != null) ? commandAndFields.getLevelCode() : LevelCode.ALL_LEVELS;
+        UrlBuilder cityBrowseUrl = new UrlBuilder
+                (UrlBuilder.SCHOOLS_IN_CITY, State.fromString(schoolSearchCommand.getState()),
+                schoolSearchCommand.getSearchString(), new HashSet<SchoolType>(), levelCodeInCommandOrDefault);
+        return new RedirectView(cityBrowseUrl.asSiteRelative(request));
+    }
+
+    protected boolean shouldRedirectFromByNameToCityBrowse(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandAndFields) {
+        if(!schoolSearchCommand.isNearbySearch() && !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse()) {
+            String stateAbb = schoolSearchCommand.getState();
+            String city = schoolSearchCommand.getSearchString();
+            if(city != null && stateAbb !=null && (SchoolHelper.isLocal(city, stateAbb) || SchoolHelper.isNewAdvanceSearch(city, stateAbb))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected String buildSeoTitle(SchoolSearchCommandWithFields commandAndFields) {

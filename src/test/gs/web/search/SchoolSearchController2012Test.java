@@ -70,5 +70,45 @@ public class SchoolSearchController2012Test extends BaseControllerTestCase {
 
     }
 
+    public void testShouldRedirectFromByNameToCityBrowse() {
+        // These cases SHOULD redirect
+        shouldRedirectFromByNameToCityBrowse("Milwaukee", State.WI);
+        shouldRedirectFromByNameToCityBrowse("Indianapolis", State.IN);
+        shouldRedirectFromByNameToCityBrowse("Speedway", State.IN);
+        shouldRedirectFromByNameToCityBrowse("Beech Grove", State.IN);
+        shouldRedirectFromByNameToCityBrowse("Washington", State.DC);
+        shouldRedirectFromByNameToCityBrowse("San Francisco", State.CA);
+        shouldRedirectFromByNameToCityBrowse("Oakland", State.CA);
+
+        // These cases should NOT redirect
+        shouldNotRedirectFromByNameToCityBrowse("Milwaukee", State.IN);
+        shouldNotRedirectFromByNameToCityBrowse("Washington", State.IN);
+        shouldNotRedirectFromByNameToCityBrowse("San Francisco", State.DC);
+        shouldNotRedirectFromByNameToCityBrowse("Oakland", State.WI);
+        shouldNotRedirectFromByNameToCityBrowse("Beech Grove", State.WI);
+        shouldNotRedirectFromByNameToCityBrowse("Speedway", State.DC);
+        shouldNotRedirectFromByNameToCityBrowse("Alameda", State.CA);
+        shouldNotRedirectFromByNameToCityBrowse("Los Angeles", State.CA);
+        shouldNotRedirectFromByNameToCityBrowse("Houston", State.TX);
+        shouldNotRedirectFromByNameToCityBrowse(null, State.TX);
+        shouldNotRedirectFromByNameToCityBrowse("Houston", null);
+        shouldNotRedirectFromByNameToCityBrowse(null, null);
+    }
+
+    private void shouldRedirectFromByNameToCityBrowse(String searchString, State state) {
+        _command.setSearchString(searchString);
+        _command.setState(state.getAbbreviation());
+        _commandWithFields = new SchoolSearchCommandWithFields(_command, _fields);
+        assertTrue("Expect \"" + searchString + "\" by name search in " + state + " to be redirected to city browse",
+                _controller.shouldRedirectFromByNameToCityBrowse(_command, _commandWithFields));
+    }
+
+    private void shouldNotRedirectFromByNameToCityBrowse(String searchString, State state) {
+        _command.setSearchString(searchString);
+        _command.setState(state == null? null : state.getAbbreviation());
+        _commandWithFields = new SchoolSearchCommandWithFields(_command, _fields);
+        assertFalse("Expect \"" + searchString + "\" by name search in " + state + " to be left alone",
+                _controller.shouldRedirectFromByNameToCityBrowse(_command, _commandWithFields));
+    }
 
 }
