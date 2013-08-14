@@ -15,7 +15,6 @@
     <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
     <gsml:javascript src="/res/js/lib/conditionizr.min.js"/>
     <gsml:javascript src="/res/js/jquery/jquery-1.9.1.min.js"/>
-    <!--<gsml:javascript src="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>-->
     <gsml:javascript src="/res/js/tabs.js"/>
     <gsml:javascript src="/res/js/jquery/jquery.autocomplete.js"/>
     <gsml:javascript src="/res/js/uri/uri.js"/>

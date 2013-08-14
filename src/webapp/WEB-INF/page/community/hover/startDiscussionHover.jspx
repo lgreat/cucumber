@@ -34,7 +34,6 @@
         }
     </style>
     <pageHelper:externalJavascript file="/res/js/jquery/jquery-1.9.1.min.js"/>
-    <!--<pageHelper:externalJavascript file="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>-->
 
     <pageHelper:externalJavascript file="/res/js/jquery/jquery-ui-1.10.2.custom.full.old.decorator.min.js"/>
     <![CDATA[
