@@ -58,6 +58,7 @@ function showSchoolDistrictFields(){
         $("#schoolDistrictFields").show();
         $("#schoolDistFieldsDisplayed").val("true");
     }else if($('input:radio[name=addEdit]:checked').val() == 'add'){
+        $("#addEditSchoolOrDistrictCommand_schoolId").val("");
         if($('input:radio[name=schoolType]:checked').val() == 'public'
                 && $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
             $("#schoolDistrictFields").show();
@@ -69,6 +70,7 @@ function showSchoolDistrictFields(){
             $("#schoolDistFieldsDisplayed").val("true");
         }else if($('input:radio[name=schoolType]:checked').val() == 'private'
                 && $("#addEditSchoolOrDistrictCommand_county").val() != ""){
+            $("#addEditSchoolOrDistrictCommand_districtId").val("");
             $("#schoolDistrictFields").show();
             $("#schoolDistFieldsDisplayed").val("true");
         }else{
@@ -448,6 +450,8 @@ function do_add_edit(state,clear){
     if(clear == "1"){
         clear_values();
     }
+
+
     $("#addEditSchoolOrDistrictCommand_state").val(state);
 
     $("#addEditSchoolOrDistrictCommand_state").change(function() {
