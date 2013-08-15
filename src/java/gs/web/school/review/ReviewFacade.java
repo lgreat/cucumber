@@ -77,6 +77,11 @@ public class ReviewFacade implements IParentReviewModel {
         return StringUtils.abbreviate(c, 90);
     }
 
+    public String getComments() {
+        return _review.getComments();
+
+    }
+
     public School getSchool() {
         return _school;
     }

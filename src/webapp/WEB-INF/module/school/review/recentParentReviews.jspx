@@ -51,6 +51,9 @@
             <tr>
                 <td colspan="2" class="${(loopStatus.last)?'':'dottedLineBottomBox'}">
                     <h5>Posted ${review.date}</h5>
+                    <!-- Revert SHomi -->
+                   TOTAL REVIEW COUNT :  ${review.totalReviews}
+                    FULL COMMENTS NOT TRUNCATED :  ${review.comments}
                 </td>
             </tr>
         </c:forEach>

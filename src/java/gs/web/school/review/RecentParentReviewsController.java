@@ -72,7 +72,7 @@ public class RecentParentReviewsController extends AbstractController {
         if (!StringUtils.isBlank(request.getParameter(PARAM_NO_FOLLOW))) {
             relValue = "nofollow";
         }
-
+         //Revert Shomi
         List <Integer> reviewIds = new ArrayList<Integer>();
         String city = request.getParameter(PARAM_CITY);
         if (city != null) {
@@ -88,8 +88,10 @@ public class RecentParentReviewsController extends AbstractController {
         List<ReviewFacade> reviews = new ArrayList<ReviewFacade>();
         for (Integer reviewId : reviewIds) {
             Review review = _reviewDao.getReview(reviewId);
+
             School school = review.getSchool();
-            reviews.add(new ReviewFacade(school, review));
+            Integer totalReviews= _reviewDao.countTotalPublishedReviews(school);
+            reviews.add(new ReviewFacade(school, review, totalReviews));
         }
 
         ModelAndView modelAndView = new ModelAndView("/school/review/recentParentReviews");
