@@ -31,6 +31,8 @@ public class SchoolSearchCommandWithFields {
 
     private boolean _hasAlreadyLookedForCityInSearchString;
 
+    private String _hubFromUrlParam;
+
     public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields) {
         _command = command;
         _fields = fields;
@@ -105,6 +107,19 @@ public class SchoolSearchCommandWithFields {
         return _fields != null
                 && StringUtils.isNotBlank(_fields.getCityName())
                 && StringUtils.isBlank(_fields.getDistrictName());
+    }
+
+    /**
+     * for by name search the "q" param is set, searchString on the command will be set to that value. Any search with
+     * that set and is not location search or city or district browse can be considered as by name search.
+     * @return
+     */
+    public boolean isByNameSearch() {
+        return _command.getSearchString() != null && !_command.isNearbySearch() && !isCityBrowse() && !isDistrictBrowse();
+    }
+
+    public boolean isCityHubSearch() {
+        return isByNameSearch() && _command.getHub() != null;
     }
 
     /**
@@ -186,6 +201,15 @@ public class SchoolSearchCommandWithFields {
             }
         }
         return _cityFromSearchString;
+    }
+
+    public String getHubFromUrlParam() {
+        if (_hubFromUrlParam == null) {
+            if (_command != null && _command.getHub() != null) {
+                _hubFromUrlParam = _command.getHub();
+            }
+        }
+        return _hubFromUrlParam;
     }
 
     public City getCity() {

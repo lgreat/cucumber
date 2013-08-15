@@ -17,6 +17,7 @@
         <title>City Hub Page</title>
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
         <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
+        <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
         <!-- Add as   decorator expects s var which is set for omniture tracking .No Onmiture yet  tracking means adding the s var to prevent the JS Errors-->
        <script type="text/javascript">
             var s="test"  ;
