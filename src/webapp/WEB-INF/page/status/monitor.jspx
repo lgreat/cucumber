@@ -52,7 +52,7 @@
                         color: #AA3333;
                     }
                 </style>
-                <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.9.1.min.js"></script>
+                <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.9.1.min.js"></script>]]>
             </head>
 
             <body>
