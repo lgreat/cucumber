@@ -1,6 +1,5 @@
 package gs.web.jsp;
 
-import com.google.common.collect.Multimap;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlUtil;
 import junit.framework.TestCase;
@@ -10,9 +9,13 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+
+
+import java.util.*;
+
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -64,31 +67,49 @@ public class UtilTest extends TestCase {
         String newTestUrlQuery = newTestUrl.getQuery();
 //        System.out.println("newTestUrlQuery..... " + newTestUrlQuery);
 
-        Multimap<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryStringPreserveAll(newTestUrlQuery);
+<<<<<<< Updated upstream
+
+        Map<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryString(newTestUrlQuery);
+//        may map of old url
+
+=======
+        Map<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryString(newTestUrlQuery);
+//        may map of old url
+>>>>>>> Stashed changes
         System.out.println("mapNewTestUrlQuery..... " + mapNewTestUrlQuery);
 
 
         assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith(urlToConvert));
+<<<<<<< Updated upstream
 
-        Collection<String> signatureList = mapNewTestUrlQuery.get("signature");
-        assertEquals("Expect only 1 signature param in Collection. ", 1, signatureList.size());
+=======
+>>>>>>> Stashed changes
+//        assertEquals("Old test url == new scheme(https),host(www.blah.org), path(/thing)", old, new);
 
-        String signature= signatureList.iterator().next() + "=";
+
+        String signature= mapNewTestUrlQuery.get("signature") + "=";
         assertEquals("Signature must equal 28 chars. ", 28, signature.length());
 
-        Collection<String> clientList = mapNewTestUrlQuery.get("client");
-        assertEquals("Expect only 1 client param in Collection. ", 1, clientList.size());
-        String client = clientList.iterator().next();
+        String client = mapNewTestUrlQuery.get("client");
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
         assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains(client));
 
         System.out.println("urlToConvert..... " + urlToConvert);
         System.out.println("convertedUrl..... " + convertedUrl);
 //        System.out.println("signature " + signature.length());
+<<<<<<< Updated upstream
+
 
 //        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com"));
 //        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
 
 
+
+=======
+>>>>>>> Stashed changes
     }
 
     /** Useful to pre-compute static imports */
