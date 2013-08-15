@@ -56,6 +56,7 @@ public class UtilTest extends TestCase {
 
     private void helperForGoogleApiTest(String urlToConvert) {
         URL newTestUrl;
+        URL oldTestUrl;
         String convertedUrl = Util.convertToGoogleApiUrl(urlToConvert);
 
         try {
@@ -67,49 +68,33 @@ public class UtilTest extends TestCase {
         String newTestUrlQuery = newTestUrl.getQuery();
 //        System.out.println("newTestUrlQuery..... " + newTestUrlQuery);
 
-<<<<<<< Updated upstream
-
         Map<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryString(newTestUrlQuery);
-//        may map of old url
-
-=======
-        Map<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryString(newTestUrlQuery);
-//        may map of old url
->>>>>>> Stashed changes
         System.out.println("mapNewTestUrlQuery..... " + mapNewTestUrlQuery);
-
-
-        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith(urlToConvert));
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-//        assertEquals("Old test url == new scheme(https),host(www.blah.org), path(/thing)", old, new);
-
 
         String signature= mapNewTestUrlQuery.get("signature") + "=";
         assertEquals("Signature must equal 28 chars. ", 28, signature.length());
 
         String client = mapNewTestUrlQuery.get("client");
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains(client));
 
-        System.out.println("urlToConvert..... " + urlToConvert);
-        System.out.println("convertedUrl..... " + convertedUrl);
-//        System.out.println("signature " + signature.length());
-<<<<<<< Updated upstream
+//        make map of old url
+        try {
+            oldTestUrl = new URL(urlToConvert);
+        } catch (MalformedURLException e) {
+            fail("Malformed old URL");
+            return;
+        }
+        String oldTestUrlQuery = oldTestUrl.getQuery();
+        Map<String, String> mapOldTestUrlQuery = UrlUtil.getParamsFromQueryString(oldTestUrlQuery);
+        System.out.println("mapOldTestUrlQuery....." + mapOldTestUrlQuery.get("address"));
 
-
-//        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com"));
-//        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
-
-
-
-=======
->>>>>>> Stashed changes
+        for (String key : mapOldTestUrlQuery.keySet()){
+//            System.out.println("new..." + mapOldTestUrlQuery.get(key));
+//            System.out.println("old..." + mapNewTestUrlQuery.get(key));
+            assertEquals("Expect original parameters present in", mapOldTestUrlQuery.get(key), mapNewTestUrlQuery.get(key));
+        }
+//        assertEquals("Old test url == new scheme(https),host(www.blah.org), path(/thing)", old, new);
+//        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith(urlToConvert));
     }
 
     /** Useful to pre-compute static imports */
