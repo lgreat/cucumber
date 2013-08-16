@@ -62,10 +62,10 @@ public class UtilTest extends TestCase {
         String signature= mapNewTestUrlQuery.get("signature") + "=";
         assertEquals("Signature must equal 28 chars. ", 28, signature.length());
         String client = mapNewTestUrlQuery.get("client");
-        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains(client));
+        assertEquals("Expect correct google client id", DigestUtil.GOOGLE_CLIENT_ID, client);
 
         Map<String, String> mapOldTestUrlQuery = helperConvertGoogleApiUrlToMap(urlToConvert);
-//        assertEquals("Old test url == new scheme(https),host(www.blah.org), path(/thing)", old, new);
+
         for (String key : mapOldTestUrlQuery.keySet()){
             assertEquals("Expect original parameters present in", mapOldTestUrlQuery.get(key), mapNewTestUrlQuery.get(key));
         }
@@ -82,8 +82,11 @@ public class UtilTest extends TestCase {
 
         String helperUrlTestQuery = helperUrlTest.getQuery();
         Map<String, String> mapHelperUrlTestQuery = UrlUtil.getParamsFromQueryString(helperUrlTestQuery);
+        mapHelperUrlTestQuery.put("__scheme", helperUrlTest.getProtocol());
+        mapHelperUrlTestQuery.put("__host", helperUrlTest.getHost());
+        mapHelperUrlTestQuery.put("__path", helperUrlTest.getPath());
 
-        return mapHelperUrlTestQuery;
+       return mapHelperUrlTestQuery;
     }
 
     /** Useful to pre-compute static imports */
