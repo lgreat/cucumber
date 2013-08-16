@@ -7,24 +7,23 @@
     <jsp:directive.attribute name="censusDataSet" type="gs.data.school.census.CensusDataSet" required="true"/>
 
     <div class="unit size62of100 lastUnit plm">
-        <c:if test="${censusDataSet.schoolData ne null and fn:length(censusDataSet.schoolData) gt 0}">
-            <c:forEach var="censusSchoolValue" items="${censusDataSet.schoolData}" end="0">
-                <div class="line">
-                    <div class="unit size20of100">
-                        <p class="small bottom">This school</p>
-                    </div>
-                    <div class="unit size4of100">&amp;nbsp;</div>
-                    <div class="unit size57of100">
-                        <div class="bar_container thin blue">
-                            <div style="width:${censusSchoolValue.valueFloat}%"><!-- not empty --></div>
-                        </div>
-                    </div>
-                    <div class="unit size3of100">&amp;nbsp;</div>
-                    <div class="unit size15of100 small lastUnit bottom">
-                        ${censusSchoolValue.valueInteger}%
+        <c:if test="${censusDataSet.schoolOverrideOrSchoolValue ne null}">
+            <c:set var="censusSchoolValue" value="${censusDataSet.schoolOverrideOrSchoolValue}"/>
+            <div class="line">
+                <div class="unit size20of100">
+                    <p class="small bottom">This school</p>
+                </div>
+                <div class="unit size4of100">&amp;nbsp;</div>
+                <div class="unit size57of100">
+                    <div class="bar_container thin blue">
+                        <div style="width:${censusSchoolValue.valueFloat}%"><!-- not empty --></div>
                     </div>
                 </div>
-            </c:forEach>
+                <div class="unit size3of100">&amp;nbsp;</div>
+                <div class="unit size15of100 small lastUnit bottom">
+                    ${censusSchoolValue.valueInteger}%
+                </div>
+            </div>
         </c:if>
         <c:if test="${censusDataSet.stateCensusValue ne null}">
             <div class="line">

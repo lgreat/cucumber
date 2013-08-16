@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,9 +47,21 @@ public class SchoolProfileCollegeReadinessController extends AbstractSchoolProfi
 
         if (dataTypeToDataSetMap.size() > 0) {
             modelMap.put("collegeReadinessData", dataTypeToDataSetMap);
+            modelMap.put("footnoteHelper", getCensusSourceHelper(dataTypeToDataSetMap.values()));
         }
 
         return VIEW;
+    }
+
+    protected SchoolProfileCensusSourceHelper getCensusSourceHelper(Collection<CensusDataSet> censusDataSets) {
+        if (censusDataSets == null || censusDataSets.size() == 0) {
+            return null;
+        }
+        SchoolProfileCensusSourceHelper sourceHelper = new SchoolProfileCensusSourceHelper();
+        for (CensusDataSet censusDataSet: censusDataSets) {
+            sourceHelper.recordSource(censusDataSet);
+        }
+        return sourceHelper;
     }
 
     protected boolean isDataTypeForCollegeReadiness(CensusDataType censusDataType) {
