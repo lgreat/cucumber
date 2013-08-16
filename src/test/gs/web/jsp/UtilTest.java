@@ -55,46 +55,35 @@ public class UtilTest extends TestCase {
     }
 
     private void helperForGoogleApiTest(String urlToConvert) {
-        URL newTestUrl;
-        URL oldTestUrl;
         String convertedUrl = Util.convertToGoogleApiUrl(urlToConvert);
 
-        try {
-            newTestUrl  = new URL(convertedUrl);
-        } catch (MalformedURLException e) {
-            fail("Malformed URL");
-            return;
-        }
-        String newTestUrlQuery = newTestUrl.getQuery();
-//        System.out.println("newTestUrlQuery..... " + newTestUrlQuery);
-
-        Map<String, String> mapNewTestUrlQuery = UrlUtil.getParamsFromQueryString(newTestUrlQuery);
-        System.out.println("mapNewTestUrlQuery..... " + mapNewTestUrlQuery);
+        Map<String, String> mapNewTestUrlQuery = helperConvertGoogleApiUrlToMap(convertedUrl);
 
         String signature= mapNewTestUrlQuery.get("signature") + "=";
         assertEquals("Signature must equal 28 chars. ", 28, signature.length());
-
         String client = mapNewTestUrlQuery.get("client");
         assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains(client));
 
-//        make map of old url
-        try {
-            oldTestUrl = new URL(urlToConvert);
-        } catch (MalformedURLException e) {
-            fail("Malformed old URL");
-            return;
-        }
-        String oldTestUrlQuery = oldTestUrl.getQuery();
-        Map<String, String> mapOldTestUrlQuery = UrlUtil.getParamsFromQueryString(oldTestUrlQuery);
-        System.out.println("mapOldTestUrlQuery....." + mapOldTestUrlQuery.get("address"));
-
+        Map<String, String> mapOldTestUrlQuery = helperConvertGoogleApiUrlToMap(urlToConvert);
+//        assertEquals("Old test url == new scheme(https),host(www.blah.org), path(/thing)", old, new);
         for (String key : mapOldTestUrlQuery.keySet()){
-//            System.out.println("new..." + mapOldTestUrlQuery.get(key));
-//            System.out.println("old..." + mapNewTestUrlQuery.get(key));
             assertEquals("Expect original parameters present in", mapOldTestUrlQuery.get(key), mapNewTestUrlQuery.get(key));
         }
-//        assertEquals("Old test url == new scheme(https),host(www.blah.org), path(/thing)", old, new);
-//        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith(urlToConvert));
+    }
+
+    private Map<String, String> helperConvertGoogleApiUrlToMap(String testUrl){
+        URL helperUrlTest;
+        try {
+            helperUrlTest = new URL(testUrl);
+        } catch (MalformedURLException e) {
+            fail("Malformed URL");
+            return null;
+        }
+
+        String helperUrlTestQuery = helperUrlTest.getQuery();
+        Map<String, String> mapHelperUrlTestQuery = UrlUtil.getParamsFromQueryString(helperUrlTestQuery);
+
+        return mapHelperUrlTestQuery;
     }
 
     /** Useful to pre-compute static imports */
