@@ -610,6 +610,7 @@ public class Util {
             // on invalid URL, return original string
             return urlString;
         }
+
         // extract non domain portion of URL
         String pathAndQuery = parsedUrl.getPath();
         if (parsedUrl.getQuery() != null) {
@@ -619,8 +620,7 @@ public class Util {
         pathAndQuery = UrlUtil.putQueryParamIntoUrl(pathAndQuery, "client", DigestUtil.GOOGLE_CLIENT_ID, false);
         // generate signature
         String signature = DigestUtil.generateGoogleAPICryptographicSignature(pathAndQuery);
-
+        // return full url
         return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + pathAndQuery + "&signature=" + signature;
-
     }
 }
