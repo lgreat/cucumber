@@ -309,7 +309,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     }
 
     protected boolean shouldRedirectFromByNameToCityBrowse(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandAndFields) {
-        if(!schoolSearchCommand.isNearbySearch() && !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse()) {
+        if(commandAndFields.isByNameSearch() && schoolSearchCommand.getHub() == null) {
             String stateAbb = schoolSearchCommand.getState();
             String city = schoolSearchCommand.getSearchString();
             if(city != null && stateAbb !=null && (SchoolHelper.isLocal(city, stateAbb) || SchoolHelper.isNewAdvanceSearch(city, stateAbb))) {
@@ -642,6 +642,12 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             q.filter(SchoolFields.SCHOOL_DISTRICT_ID, String.valueOf(district.getId()));
         } else if (city != null) {
             q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + city.getName().toLowerCase() + "\"");
+        }
+
+        String hub = commandAndFields.getHubFromUrlParam();
+        if(commandAndFields.isCityHubSearch() && hub != null) {
+            // TODO: set the query filter to be set on hub, not use city
+            q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + hub.toLowerCase() + "\"");
         }
 
         if (schoolSearchCommand.getMinCommunityRating() != null) {
