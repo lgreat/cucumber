@@ -2,6 +2,25 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    Recent Reviews
+          xmlns:link="urn:www.greatschools.org/taglib/link">
+
+    <jsp:directive.attribute name="reviews" required="true" type="java.util.List"   />
+
+    <c:forEach items="${reviews}" var="review">
+
+        <tr>
+            <td>
+                <h4><link:schoolProfileParentReview school="${review.school}" rel="${relvalue}"><c:out
+                        value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
+            </td>
+            <td>
+                STARS  "${review.stars}"   <br/>
+                Posted "${review.date}"     <br/>
+                TOTAL REVIEW COUNT :  "${review.totalReviews}" <br/>
+                FULL COMMENTS NOT TRUNCATED :  "${review.comments}"  <br/>
+            </td>
+
+        </tr>
+
+    </c:forEach>
 </jsp:root>
