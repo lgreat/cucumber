@@ -297,11 +297,13 @@
     <bean name="mobileControllerFamilyResolver" class="gs.web.DeviceSpecificControllerFamilyResolver" />
     <bean name="fruitcakeControllerFamilyResolver" class="gs.web.FruitcakeControllerFamilyResolver" />
     <bean name="mobileFruitcakeControllerFamilyResolver" class="gs.web.MobileFruitcakeControllerFamilyResolver" />
+    <bean name="cityHubControllerFamilyResolver" class="gs.web.CityHubControllerFamilyResolver" />
     <bean name="controllerFamilyFactory" class="gs.web.GenericControllerFamilyFactory" lazy-init="true">
         <property name="resolvers">
             <list>
                 <ref bean="mobileControllerFamilyResolver"/>
                 <ref bean="fruitcakeControllerFamilyResolver"/>
+                <ref bean="cityHubControllerFamilyResolver"/>
             </list>
         </property>
         <aop:scoped-proxy proxy-target-class="false"/>
