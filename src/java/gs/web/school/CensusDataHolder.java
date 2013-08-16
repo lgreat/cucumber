@@ -128,7 +128,7 @@ public class CensusDataHolder {
 
     public Map<Integer, CensusDataSet> retrieveDataSetsAndAllData() {
         loadSchoolDataIfNeeded();
-        loadSchoolDataIfNeeded();
+        loadDistrictDataIfNeeded();
         loadStateDataIfNeeded();
         return _allCensusDataSets;
     }
