@@ -14,7 +14,14 @@
             <h2>Breaking down the GreatSchools Rating</h2>
 
             <p>
-                GreatSchools Ratings are based on the most recent standardized test results for schools.
+                <c:choose>
+                    <c:when test="${ratingsCmd.ratingYear gt 0}">
+                        GreatSchools Ratings for this school are based on ${ratingsCmd.ratingYear-1}-${ratingsCmd.ratingYear} test results.
+                    </c:when>
+                    <c:otherwise>
+                        GreatSchools Ratings are based on the most recent standardized test results for schools.
+                    </c:otherwise>
+                </c:choose>
                 Use the breakdown ratings below to compare types of students at this school.
                 <a href="/find-a-school/defining-your-ideal/2423-ratings.gs">Learn more &amp;raquo;</a>
             </p>
