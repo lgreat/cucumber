@@ -2434,8 +2434,8 @@ GSType.hover.SendMeUpdates = function() {
         $sendMeUpdates.bind('dialogclose', function() {
            deferred.resolve();
         });
-        GSType.hover.sendMeUpdates.show();
         GSType.hover.sendMeUpdates.configureOmniture('MSS Join Hover', 'Hovers,Join,MSS Join Hover');
+        GSType.hover.sendMeUpdates.show();
         return deferred;
     };
 };
