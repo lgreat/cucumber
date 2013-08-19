@@ -451,6 +451,7 @@ GSType.hover.JoinHover = function() {
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
                         GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                        GSType.hover.sendMeUpdates.configureSchoolInfo(gRedirectAnchor.href);
                         showHoverFunction();
                         return false;
                     }
@@ -470,7 +471,7 @@ GSType.hover.JoinHover = function() {
 
     // just a newer version of showMssAutoHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
     this.showMssAutoHoverOnPageExit = function(schoolName, schoolId, schoolState, postInterruptCallback) {
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.configureSchoolInfo(undefined, schoolName, schoolId, schoolState);
         this.showInterruptHoverOnPageExit(GSType.hover.sendMeUpdates.showSendUpdates, postInterruptCallback);
     };
     // just a newer version of showNthHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
@@ -502,6 +503,7 @@ GSType.hover.JoinHover = function() {
                 window.destUrl = href;
                 GSType.hover.joinHover.loadOnExitUrl = href;
                 $('#joinHover .redirect_field').val(href);
+                GSType.hover.sendMeUpdates.configureSchoolInfo(href);
                 //alert(href);
 
                 GSType.hover.joinHover.executeOnExit(function() {
@@ -540,7 +542,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.hier1=hier1;
     };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
-        console.log("test");
+        GS.log("test");
         jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
@@ -1785,10 +1787,10 @@ GS.showSendMeUpdates = function(redirect, schoolName, schoolId, schoolState) {
         GSType.hover.sendMeUpdates.configureSchoolInfo(redirect, schoolName, schoolId, schoolState);
         GSType.hover.signInHover.setRedirect(redirect);
         if (GS.isMember()) {
-            console.log("isMember");
+            GS.log("isMember");
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.sendMeUpdates.showSendUpdates);
         } else {
-            console.log("showSendUpdates");
+            GS.log("showSendUpdates");
             GSType.hover.sendMeUpdates.showSendUpdates();
         }
     }
@@ -2375,9 +2377,14 @@ GSType.hover.SendMeUpdates = function() {
         GSType.hover.sendMeUpdates.hier1=hier1;
     };
     this.configureSchoolInfo = function(redirect, schoolName, schoolId, schoolState) {
-        redirect = redirect || window.location.href;
+        var redirectField = jQuery('#js-sendMeUpdates').find('.redirect_field');
+        // if the field hasn't been set, then default to the current location.
+        // if the field HAS been set, assume that is valid unless explicitly overridden.
+        if (redirectField.val() == '') {
+            redirect = redirect || window.location.href;
+        }
         if (redirect) {
-            jQuery('#js-sendMeUpdates .redirect_field').val(redirect);
+            redirectField.val(redirect);
         }
         if (schoolName) {
             GSType.hover.sendMeUpdates.schoolName = schoolName;
@@ -2421,7 +2428,7 @@ GSType.hover.SendMeUpdates = function() {
         // the deferred is used by showInterruptHoverOnPageExit
         var deferred = $.Deferred();
         jQuery('.js-signUp').on("click", GSType.hover.sendMeUpdates.clickSubmitHandler);
-        GSType.hover.sendMeUpdates.configureSchoolInfo(schoolName, schoolId, schoolState);
+        GSType.hover.sendMeUpdates.configureSchoolInfo(undefined, schoolName, schoolId, schoolState);
         var $sendMeUpdates = $('#js-sendMeUpdates');
         $sendMeUpdates.unbind('dialogclose');
         $sendMeUpdates.bind('dialogclose', function() {
