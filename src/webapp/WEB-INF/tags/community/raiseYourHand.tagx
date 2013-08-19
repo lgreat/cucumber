@@ -20,6 +20,20 @@
 <jsp:directive.attribute name="showFullReplies" required="true" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="showSponsor" required="true" type="java.lang.Boolean"/>
 
+<script type="text/javascript">
+    // You have to be signed in on page load in order to use Raise Your Hand, so reload or redirect the user
+    // after they sign in with Facebook
+    GS.facebook.getFirstLoginDeferred().done(function() {
+        // this works even if the hover that prompts the user to log in is the signInHover
+        var redirect = $('#joinHover .redirect_field').val();
+        if (redirect == "") {
+            window.location.reload();
+        } else {
+            window.location.href = redirect;
+        }
+    });
+</script>
+
 <c:if test="${not empty discussion}">
 
 <![CDATA[
@@ -297,9 +311,7 @@
     </c:otherwise>
 </c:choose>
 
-<!-- SS: since we've implemented social signon, it's possible to be signed in without a page
-refresh. I don't see any harm in always printint the recentAnswer template since it's display none -->
-<c:if test="${true || signedIn}">
+<c:if test="${signedIn}">
 
     <div id="recentAnswerTemplate" style="display: none;">
         <div class="ryh-reply">
@@ -653,9 +665,7 @@ refresh. I don't see any harm in always printint the recentAnswer template since
 <div class="spacer_15">
     <!-- do not collapse -->
 </div>
-<!-- SS: since we've implemented social signon, it's possible to be signed in without a page
-refresh. I don't see any harm in always printint the recentAnswer template since it's display none -->
-<c:if test="${true || signedIn}">
+<c:if test="${signedIn}">
 
     <div id="recentAnswerTemplate" style="display: none;">
         <div class="ryh-reply">

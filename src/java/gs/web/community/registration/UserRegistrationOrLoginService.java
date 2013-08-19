@@ -74,7 +74,7 @@ public class UserRegistrationOrLoginService {
         Summary summary;
 
         if (registrationOrLoginBehavior.isFacebookRegistration()) {
-            user = loginFacebookUser(userRegistrationCommand, bindingResult, request, response);
+            user = loginFacebookUser(userRegistrationCommand, registrationOrLoginBehavior, bindingResult, request, response);
         }
 
         if (user != null) {
@@ -114,6 +114,7 @@ public class UserRegistrationOrLoginService {
     }
 
     public User loginFacebookUser(UserRegistrationCommand userRegistrationCommand,
+                                  RegistrationOrLoginBehavior registrationOrLoginBehavior,
                                   BindingResult bindingResult,
                                   HttpServletRequest request,
                                   HttpServletResponse response) throws Exception{
@@ -150,7 +151,7 @@ public class UserRegistrationOrLoginService {
                 }
 
                 if (!user.isFacebookUser()) {
-                    boolean modified = convertToFacebookAccountIfNeeded(user, request, userRegistrationCommand);
+                    boolean modified = convertToFacebookAccountIfNeeded(user, request, userRegistrationCommand, registrationOrLoginBehavior);
 
                     if (modified) {
                         _userDao.saveUser(user);
@@ -524,7 +525,10 @@ public class UserRegistrationOrLoginService {
         return false;
     }
 
-    public boolean convertToFacebookAccountIfNeeded(User user, HttpServletRequest request, UserRegistrationCommand userRegistrationCommand) {
+    public boolean convertToFacebookAccountIfNeeded(User user,
+                                                    HttpServletRequest request,
+                                                    UserRegistrationCommand userRegistrationCommand,
+                                                    RegistrationOrLoginBehavior registrationOrLoginBehavior) throws Exception {
         boolean userModified = false;
 
         if (user.getFacebookId() == null) {
@@ -536,6 +540,16 @@ public class UserRegistrationOrLoginService {
                     userModified = true;
                 }
             }
+        }
+
+        if (user.getPasswordMd5() == null) {
+            String password = RandomStringUtils.randomAlphanumeric(14);
+            setUsersPassword(user, password, registrationOrLoginBehavior.requireEmailVerification(), true);
+        }
+
+        if (user.getUserProfile() == null) {
+            user.setUserProfile(createNewUserProfile(userRegistrationCommand, registrationOrLoginBehavior, user));
+            user.getUserProfile().setUser(user);
         }
 
         if (user.isEmailProvisional()) {
@@ -560,6 +574,8 @@ public class UserRegistrationOrLoginService {
         if (userRegistrationCommand.getGender() != null) {
             user.setFirstName(userRegistrationCommand.getGender());
         }
+
+
         user.setUpdated(new Date());
 
         return userModified;
