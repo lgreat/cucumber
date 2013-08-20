@@ -255,6 +255,47 @@ public class PageHelperSaTest extends TestCase {
                 "<script type=\"text/javascript\" src=\"/res/js/something2.js?v=8.3\"></script>", pageHelper.getBottomJavaScript());
     }
 
+    public void testCssCacheBusting_defaultToVersion() {
+        SessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        Properties versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        pageHelper.setVersionProperties(versionProperties);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        PageHelper.addExternalCss(_request, "/res/css/something.css", null);
+        assertEquals("Expect cache-busting param to default to version",
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/something.css?v=8.3\"></link>", pageHelper.getHeadElements());
+    }
+
+    public void testCssCacheBusting_usesSha1() {
+        SessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        Properties versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        versionProperties.setProperty("gsweb.sha","9bccd99518b40992460c62c5cc29f30fc081be30");
+        pageHelper.setVersionProperties(versionProperties);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        PageHelper.addExternalCss(_request, "/res/css/something.css", null);
+        assertEquals("Expect cache-busting param to use sha1 if present",
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/something.css?v=9bccd\"></link>", pageHelper.getHeadElements());
+    }
+
+    public void testCssCacheBusting_ignoresBadSha1() {
+        SessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        Properties versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        versionProperties.setProperty("gsweb.sha","null");
+        pageHelper.setVersionProperties(versionProperties);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        PageHelper.addExternalCss(_request, "/res/css/something.css", null);
+        assertEquals("Expect cache-busting param to default to version",
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/something.css?v=8.3\"></link>", pageHelper.getHeadElements());
+    }
+
     public void testJavascriptAndCssInclude() {
         SessionContext sessionContext = new MockSessionContext();
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
