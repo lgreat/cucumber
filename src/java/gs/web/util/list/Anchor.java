@@ -19,6 +19,7 @@ public class Anchor {
     private String _styleClass; // CSS class, or null
     private String _before; // text that is drawn before the link
     private String _after; // text that is drawn after the link
+    private Integer _count;
 
     /**
      * Constructor.
@@ -112,6 +113,14 @@ public class Anchor {
 
     public void setAfter(String after) {
         _after = after;
+    }
+
+    public Integer getCount() {
+        return _count;
+    }
+
+    public void setCount(final Integer count) {
+        _count = count;
     }
 
     public String asATag() {

@@ -13,6 +13,8 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.review.ReviewFacade;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,9 @@ public class CityHubController  extends AbstractController implements IDirectory
     private ControllerFamily _controllerFamily;
 
     @Autowired
+    private AnchorListModelFactory _anchorListModelFactory;
+
+    @Autowired
     private IReviewDao _reviewDao;
 
     @Override
@@ -65,10 +70,20 @@ public class CityHubController  extends AbstractController implements IDirectory
         /**
          * Hard Coding for DC and Washington State .As controller Structure completes and hub configuration  works this hardcoding should go away.
          */
+
         city="Washington" ;
         state=State.DC;
         /**
          * Hard coding for state and city end .
+         */
+
+        /**
+         *  School Review Link Functionality Start.
+         */
+        AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
+        modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
+        /**
+         *  School Review Link Functionality Start.
          */
 
 

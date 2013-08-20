@@ -124,6 +124,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Preschools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -133,6 +134,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -142,6 +144,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Middle Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -151,6 +154,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "High Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -164,6 +168,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Public Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -175,6 +180,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Private Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -186,6 +192,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Charter Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
