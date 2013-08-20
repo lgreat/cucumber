@@ -1,7 +1,8 @@
 package gs.web.geo;
 
-import gs.data.gallup.GallupSchools;
-import gs.data.gallup.GallupSchoolsDao;
+import gs.data.hubs.HubConfig;
+import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -18,16 +19,14 @@ import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -56,6 +55,10 @@ public class CityHubController  extends AbstractController implements IDirectory
 
     @Autowired
     private IReviewDao _reviewDao;
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
+    @Autowired
+    private IHubConfigDao _hubConfigDao;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -86,7 +89,12 @@ public class CityHubController  extends AbstractController implements IDirectory
          *  School Review Link Functionality Start.
          */
 
-
+        /**
+         * Get the important events
+         */
+        List<HubConfig> configList = getHubConfig(city, state);
+        ModelMap importantEventsMap = getFromConfigList(configList, "importantEvent");
+        modelAndView.addObject("importantEvents", importantEventsMap);
 
         /**
          * Adding the Review Module Functionality to the Controller Start
@@ -122,6 +130,43 @@ public class CityHubController  extends AbstractController implements IDirectory
         return reviews;
     }
 
+    public List<HubConfig> getHubConfig(String city, State state) {
+        Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
+//        Integer hubId = 1;
+
+        if(hubId == null) {
+            return new ArrayList<HubConfig>();
+        }
+
+        List<HubConfig> configList = _hubConfigDao.getAllConfigFromHubId(hubId);
+
+        return configList != null ? configList : new ArrayList<HubConfig>();
+    }
+
+    public ModelMap getFromConfigList(List<HubConfig> configList, String keyPrefix) {
+        ModelMap filteredConfig = new ModelMap();
+        if(configList == null || keyPrefix == null) {
+            return filteredConfig;
+        }
+
+        int numEvents = 0;
+        for(HubConfig hubConfig : configList) {
+            String key = hubConfig.getQuay();
+            if(hubConfig != null && key.startsWith(keyPrefix)) {
+                String eventNum = key.substring(key.indexOf("_") + 1, key.lastIndexOf("_"));
+                try {
+                    Integer count = Integer.parseInt(eventNum);
+                    numEvents = (count > numEvents) ? count : numEvents;
+                }
+                catch (NumberFormatException ex) {}
+                filteredConfig.put(key, hubConfig.getValue());
+            }
+        }
+
+        filteredConfig.put("count", numEvents);
+        return filteredConfig;
+    }
+
     // What does this do Revert Shomi
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
         if (fields == null) {
@@ -139,5 +184,13 @@ public class CityHubController  extends AbstractController implements IDirectory
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
         _controllerFamily = controllerFamily;
+    }
+
+    public void setHubCityMappingDao(IHubCityMappingDao _hubCityMappingDao) {
+        this._hubCityMappingDao = _hubCityMappingDao;
+    }
+
+    public void setHubConfigDao(IHubConfigDao _hubConfigDao) {
+        this._hubConfigDao = _hubConfigDao;
     }
 }
