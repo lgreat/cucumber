@@ -43,6 +43,6 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
 //                family = ControllerFamily.FRUITCAKE;
 //            }
 //        }
-        return ControllerFamily.CITY_LOCAL;
+        return ControllerFamily.CITY_DEFAULT;
     }
 }

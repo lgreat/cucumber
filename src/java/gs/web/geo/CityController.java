@@ -21,6 +21,8 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.zillow.ZillowRegionDao;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.content.cms.CmsHomepageController;
 import gs.web.request.RequestInfo;
 import gs.web.tracking.CookieBasedOmnitureTracking;
@@ -54,7 +56,7 @@ import java.util.regex.Pattern;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
-public class CityController extends AbstractController  implements IDirectoryStructureUrlController {
+public class CityController extends AbstractController  implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     public static final String PARAM_CITY = "city";
 
@@ -89,6 +91,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
     private AnchorListModelFactory _anchorListModelFactory;
     private ILocalBoardDao _localBoardDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    private ControllerFamily _controllerFamily;
 
     @Autowired
     private ZillowRegionDao _zillowDao;
@@ -384,5 +387,14 @@ public class CityController extends AbstractController  implements IDirectoryStr
      */
     public void setZillowDao(ZillowRegionDao zillowDao) {
         _zillowDao = zillowDao;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

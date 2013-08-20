@@ -1386,9 +1386,11 @@
         <property name="showAdTargeting" value="true"/>
     </bean>
 
-    <bean name="/city.page"
+    <bean name="cityDefaultController"
           class="gs.web.geo.CityController"
-          autowire="byName" lazy-init="true"/>
+          autowire="byName" lazy-init="true">
+    <property name="controllerFamily" value="CITY_DEFAULT"/>
+    </bean>
 
     <bean name="/city/"
           class="gs.web.geo.CityController"
@@ -2205,6 +2207,21 @@
         </property>
     </bean>
 
+    <!--<bean name="cityLocalController" class="gs.web.geo.CityHubController" lazy-init="true">-->
+        <!--<property name="controllerFamily" value="CITY_LOCAL"/>-->
+
+    <!--</bean>-->
+
+    <bean name="/city.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="cityDefaultController"/>
+                <!--<ref bean="cityLocalController"/>-->
+            </list>
+        </constructor-arg>
+    </bean>
+
+
     <bean name="/school/overview.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
@@ -2214,6 +2231,7 @@
             </list>
         </constructor-arg>
     </bean>
+
 
     <!-- FOR TESTING ONLY -->
     <bean name="desktopSchoolProfileController" class="gs.web.school.SchoolProfileController" lazy-init="true">
@@ -3149,6 +3167,8 @@
             <value>/geo/districtBoundary</value>
         </property>
     </bean>
+
+
 
 
 

@@ -6,6 +6,8 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.review.ReviewFacade;
@@ -39,12 +41,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/cityHub/cityHub.page")
-public class CityHubController  extends AbstractController implements IDirectoryStructureUrlController {
+public class CityHubController  extends AbstractController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
 
     private  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2 ;
     private  static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90 ;
     private  static final String PARAM_CITY = "city";
+    private ControllerFamily _controllerFamily;
 
     @Autowired
     private IReviewDao _reviewDao;
@@ -92,7 +95,7 @@ public class CityHubController  extends AbstractController implements IDirectory
      */
     private List<ReviewFacade> getReviewFacades(final State state, final String city) {
 
-        List<Integer> reviewIds  = _reviewDao.findRecentReviewsInCity(state, city, COUNT_OF_REVIEWS_TO_BE_DISPLAYED, MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED);
+        final  List<Integer> reviewIds  = _reviewDao.findRecentReviewsInCity(state, city, COUNT_OF_REVIEWS_TO_BE_DISPLAYED, MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED);
         List<ReviewFacade> reviews = new ArrayList<ReviewFacade>();
         for (Integer reviewId : reviewIds)
         {
@@ -112,5 +115,14 @@ public class CityHubController  extends AbstractController implements IDirectory
 
         return fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
 
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }
