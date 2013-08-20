@@ -75,21 +75,20 @@
         <!--main text-->
         <div class="grid_11 mod standard_1-1">
             <div class="inner">
-                <div class="hd">
-                    <h4>About Community</h4>
+                <div class="hd pas">
+                    <h4 class="bottom">About Community</h4>
                 </div>
-                <c:if test="${hasSummary}">
-                    <p class="default bottom">
-                        <k12:summary school="${k12School}"/>
-                    </p>
-                </c:if>
+                <!--<c:if test="${hasSummary}">-->
+                    <!--<p class="default bottom">-->
+                        <!--<k12:summary school="${k12School}"/>-->
+                    <!--</p>-->
+                <!--</c:if>-->
 
-                <k12:topCopy-v1 school="${k12School}"/>
-
+                <div class="pam">
+                <k12:topCopy school="${k12School}"/>
                 ${learnMoreHereButton}
 
-                <div class="clearfloat brdbtm_dotted-ccc mtl mbl"><!-- do not collapse --></div>
-
+                 </div>
                 <div class="shim-10 bottom"><!-- do not collapse --></div>
             </div>
         </div>
@@ -98,8 +97,8 @@
         <div class="grid_6 mod standard_1-1 mhm">
 
             <div class="inner">
-                <div class="hd bottom">
-                    <h4>Video</h4>
+                <div class="hd pas">
+                    <h4 class="bottom">Video</h4>
                 </div>
                 <div>
                     <ul>
@@ -270,24 +269,26 @@
                 </div>
             <!--</div>-->
 
-            <!--more videos module-->
+            <!--more virtual student module-->
             <div class="inner mtl">
-                <div class="hd">
-                    <h4>Even more vids</h4>
+                <div class="hd pas">
+                    <h5 class="bottom">Virtual Students in the Spotlight</h5>
                 </div>
-                <div>
-                    <p>text text text</p>
+                <!--<div class="media pas">-->
+                <!--</div>-->
+                <div class="bd pam bottom">
+                    <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
                 </div>
             </div>
         </div>
 
         <!--long ad banner-->
-        <div class="grid_16 mod standard_2-1">
+        <div class="grid_16 mod standard_2-2">
             <div class="inner">
-                <div class="fl mrl">
-                        <h4> Discover why K12 International is right for your child...</h4>
+                <div class="fl mrl pts">
+                        <h4 class="bottom"> Discover why K12 International is right for your child...</h4>
                 </div>
-                <div class="clearfix">
+                <div class="clearfix pll">
                     <c:set var="learnMoreHereButton">
                     <a href="${k12ClickThroughUrl}" class="but but-rg but-1 jq-k12ClickThrough">Learn More &amp;raquo;</a>
                     </c:set>
@@ -307,13 +308,24 @@
 
                     <div class="inner">
                         <c:if test="${hasBottomCopy}">
-                            <div class="hd">
-                                <h2 class="mbs">Parent Success Stories</h2>
+                            <div class="hd pas">
+                                <h3 class="bottom">Parent Success Stories</h3>
                             </div>
 
-                            <div class="shim-10 bottom"><!-- do not collapse --></div>
+                            <div class="pam">
+                                <h3>
+                                    We love k12!
+                                </h3>
 
-                            <k12:bottomCopy school="${k12School}"/>
+                                <p class="small bottom mvm">
+                                    by Elizabeth | April 24, 2013
+                                </p>
+
+                                <p class="small bottom">
+                                    Our son went to a brick and mortar school and wasn't able to thrive. They said he had problems focusing and felt he was behind. Our last straw was when his 2nd grade teacher said she "didn't know what to do with him anymore" and that she had "tried everything she could". Fast forward, we are now in our 2nd year at WAVA and we couldn't be happier! Our son has advanced one year in science and math, and loves to learn! I am amazed with the curriculum and I just don’t know if a brick and mortar school would be able to provide this type of education to my children. The depth that they are able to go into with each subject is so amazing. When we received our fall assessments last year we found out that my son was very advanced and was (in 3rd grade) reading at a high school level and was at a Jr High level in math. So instead of having a "problem child" in our brick and mortar school we now have an excited and thriving child at K12. Even though my very social 9 year old loves hanging out with his friends at brick and mortar school, he loves k12 and being able to learn even more. He has expressed to us that he doesn't ever want to do anything else! We have a soon to be 4 year old that cannot wait to start k12 as well. I do believe we are going to be a WAVA family for many years to come! We are very thankful to be able to have an opportunity to give our children such a high level of education!!
+                                </p>
+                            </div>
+
                         </c:if>
 
                         <div class="shim-10 bottom"><!-- do not collapse --></div>
@@ -323,16 +335,22 @@
 
             <!--about the curriculum module-->
             <div class="grid_10 inner">
-                <div class="hd">
-                <h4>About the curriculum</h4>
+                <div class="hd pas">
+                    <h4 class="bottom">About the curriculum</h4>
+                </div>
+                <div class="pam">
+                    <k12:bottomCopy school="${k12School}"/>
                 </div>
             </div>
+
             <div class="clearfix"></div>
 
             <!--want to learn more small ad-->
             <div class="grid_5 inner fr">
-                <div class="small_bold bottom">
+                <div class="small_bold bottom pal">
+                    <h5>
                     Want to learn more about K12 International?
+                    </h5>
                 </div>
                 <div class="">
                     <c:set var="learnMoreHereButton">
