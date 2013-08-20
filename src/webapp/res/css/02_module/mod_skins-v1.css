@@ -1495,8 +1495,18 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     padding: 40px;
 }
 
+.cityHubs_bg{
+    background: url('/res/img/cityHubs/greyBackground.png') no-repeat;
+    height: 400px;
+    width: 790px;
+    margin: auto;
+    /*padding: 40px;*/
+}
+
 .moduleHeight-560{height:560px;}
+.moduleHeight-773{height:773px;}
 .moduleHeight-1040{height:1040px;}
+.moduleTop-50{top:50px;}
 .moduleTop-125{top:125px;}
 .moduleTop-150{top:150px;}
 .moduleTop-250{top:250px;}

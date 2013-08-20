@@ -41,35 +41,35 @@
 
                 <div class="span2 mrl">
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/1partner.png" alt="find a school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                        <gsml:img src="/res/img/cityHubs/partner1.png" alt="find a school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div class="span2">
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/2partner.png" alt="preschool hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                        <gsml:img src="/res/img/cityHubs/partner2.png" alt="preschool hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div class="span2">
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/3partner.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner3.png" width="130" height="66"
                                   alt="elementary school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div class="span2">
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/4partner.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner4.png" width="130" height="66"
                                   alt="middle school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div class="span2">
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/5partner.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner5.png" width="130" height="66"
                                   alt="high school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div class="span2">
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/6partner.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner6.png" width="130" height="66"
                                   alt="middle school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>

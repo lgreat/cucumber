@@ -31,7 +31,18 @@
     </head>
     <body>
    <!-- Hiding the Ads on the City Hub Page -->
+   <div class="imageBgScale moduleHeight-773 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
+       <div class="img-container">
+           <img class="scaling" src="/res/img/cityHubs/1230x500_hero_DC.png" alt="Parents review"/>
+       </div>
 
+       <div class="content-centered moduleTop-50">
+
+           <div class="cityHubs_bg tal pr make-ffffff">
+            Find a school module
+           </div>
+       </div>
+   </div>
     <pageHelper:hideFooterAd/>
     <pageHelper:hideLeaderboard/>
 
