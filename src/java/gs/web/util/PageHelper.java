@@ -739,7 +739,14 @@ public class PageHelper {
                 if(src.contains("?")){
                     src = src.substring(0, src.indexOf('?'));
                 }
-                src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
+                String cacheBustingParam;
+                String sha1 = getVersionProperties().getProperty("gsweb.sha");
+                if (StringUtils.length(sha1) > 5) {
+                    cacheBustingParam = "?v=" + StringUtils.left(sha1, 5);
+                } else {
+                    cacheBustingParam = "?v=" + getVersionProperties().getProperty("gsweb.version");
+                }
+                src = src + cacheBustingParam;
             }
 
             if (!_javascriptFileSources.contains(src)){
