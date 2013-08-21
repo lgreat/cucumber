@@ -51,6 +51,8 @@
 
     <div class="container_24">
     <div id="k12AdPage">
+    <!--define state specific variables tagx-->
+        <k12:defineStateSpecificVariables school="${k12School}"/>
         <div class="grid_16 mod standard_1-1">
             <div class="line">
                 <div class="mtl">
@@ -89,7 +91,7 @@
                 <!--</c:if>-->
 
                 <div class="pam">
-                <k12:topCopy school="${k12School}"/>
+                <k12:topCopy/>
                 ${learnMoreHereButton}
 
                  </div>
@@ -376,7 +378,12 @@
                     <h4 class="bottom">About the curriculum</h4>
                 </div>
                 <div class="pam">
-                    <k12:bottomCopy school="${k12School}"/>
+                    <!--<k12:bottomCopy school="${k12School}"/>-->
+
+                        <c:forEach items="${bottomCopyList}" var="myBottomCopyListItem">
+                            <p class="small bottom">${myBottomCopyListItem}</p>
+                        </c:forEach>
+
                 </div>
             </div>
 

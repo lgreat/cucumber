@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag body-content="empty" description="TBD"/>
+    <jsp:directive.attribute name="var" required="true" description="Name of list variable to populate"/>
+    <jsp:directive.attribute name="mapToAdd" required="true" type="java.util.Map" description="Object to add to list"/>
+
+    <jsp:scriptlet> <![CDATA[
+        String varName = (String) jspContext.getAttribute("var");
+        System.out.println(mapToAdd.getClass().getName());
+
+        java.util.List<Object> k12Items = (List<Object>)request.getAttribute(varName);
+
+        if (k12Items == null) {
+            k12Items = new java.util.ArrayList<Object>();
+            request.setAttribute(varName, k12Items);
+        }
+
+        k12Items.add(mapToAdd);
+        ]]></jsp:scriptlet>
+</jsp:root>

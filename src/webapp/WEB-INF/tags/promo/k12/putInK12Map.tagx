@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag import="java.util.Map"/>
+    <jsp:directive.tag body-content="empty" description="TBD"/>
+    <jsp:directive.attribute name="var" required="true" description="Name of map variable to populate"/>
+    <jsp:directive.attribute name="key" required="true" description="Name of to put in map"/>
+
+    <c:set var="mapValue" scope="request"><jsp:doBody/></c:set>
+    <jsp:scriptlet> <![CDATA[
+        String mapValue = (String) request.getAttribute("mapValue");
+        String varName = (String) jspContext.getAttribute("var");
+        System.out.println(varName);
+
+        java.util.Map<String, String> k12Items = (java.util.Map<String, String>)request.getAttribute(varName);
+
+        if (k12Items == null) {
+            k12Items = new java.util.HashMap<String, String>();
+            request.setAttribute(varName, k12Items);
+        }
+
+        k12Items.put(key, mapValue);
+        ]]></jsp:scriptlet>
+</jsp:root>

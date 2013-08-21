@@ -7,6 +7,25 @@
     <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
 
     <c:choose>
+
+        <c:when test="${school eq 'AK'}">
+            <!--use unorder list-->
+            <c:set var="bottomBoilerplateFirstParagraph">
+                The Alaska Virtual Academy uses the individualized curriculum from K¹², which is based on decades of education research about how minds really work. With courses in four core subjects, it was designed to let K-8 kids find the learning style that works best for them.
+
+                <!--The curriculum is wrapped in rich, engaging content that turns minds on — the minds that usually wander when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.-->
+
+                <!--Because at AKVA, we believe that all children deserve to learn without limits.-->
+            </c:set>
+
+            <!--<k12:addToK12List var="">          -->
+            <!--</k12:addToK12List>-->
+
+            <p>${bottomBoilerplateFirstParagraph}</p>
+
+        </c:when>
+
+
         <c:when test="${school eq 'AZ'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-az.html"/>
         </c:when>
