@@ -680,7 +680,11 @@ $(document).ready(function(){
 
 });
 
+jQuery(document).ready(function() {
+    jQuery('#startTime').ptTimeSelect();
+    jQuery('#endTime').ptTimeSelect();
 
+});
 
 
 
