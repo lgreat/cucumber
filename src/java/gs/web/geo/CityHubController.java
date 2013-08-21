@@ -86,8 +86,8 @@ public class CityHubController  extends AbstractController implements IDirectory
         /**
          *  School Review Link Functionality Start.
          */
-//        AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
-//        modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
+          AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
+          modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
         /**
          *  School Review Link Functionality Start.
          */
