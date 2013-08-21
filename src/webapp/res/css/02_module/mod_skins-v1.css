@@ -1500,7 +1500,7 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     height: 400px;
     width: 790px;
     margin: auto;
-    /*padding: 40px;*/
+    padding: 20px;
 }
 
 .moduleHeight-560{height:560px;}

@@ -30,34 +30,26 @@
 
     </head>
     <body>
-   <!-- Hiding the Ads on the City Hub Page -->
-   <div class="imageBgScale moduleHeight-773 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
-       <div class="img-container">
-           <img class="scaling" src="/res/img/cityHubs/1230x500_hero_DC.png" alt="Parents review"/>
-       </div>
+        <!-- Hiding the Ads on the City Hub Page -->
+        <pageHelper:hideFooterAd/>
+        <pageHelper:hideLeaderboard/>
 
-       <div class="content-centered moduleTop-50">
+        <div class="imageBgScale moduleHeight-773 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
+            <div class="img-container">
+                <img class="scaling" src="/res/img/cityHubs/1230x500_hero_DC.png" alt="Parents review"/>
+            </div>
+            <div class="content-centered moduleTop-50">
+                <div class="cityHubs_bg tal">
+                    <hub:searchSchool/>
+                </div>
+            </div>
+        </div>
 
-           <div class="cityHubs_bg tal pr make-ffffff">
-            Find a school module
-           </div>
-       </div>
-   </div>
-    <pageHelper:hideFooterAd/>
-    <pageHelper:hideLeaderboard/>
-
-    <hub:searchSchool />
-    <hub:chooseASchool />
-    <hub:importantEvent />
-
-
-
-    <hub:recentReviews reviews="${reviews}" />
-
-
-    <hub:cityArticle />
-    <hub:communityPartner />
-
+        <hub:chooseASchool />
+        <hub:importantEvent />
+        <hub:recentReviews reviews="${reviews}" />
+        <hub:cityArticle />
+        <hub:communityPartner />
     </body>
     </html>
 </jsp:root>
