@@ -16,7 +16,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,10 +44,13 @@ import java.util.*;
 @RequestMapping("/cityHub/cityHub.page")
 public class CityHubController  extends AbstractController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
+    private static Logger _logger = Logger.getLogger(CityHubController.class);
 
     private  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2 ;
     private  static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90 ;
     private  static final String PARAM_CITY = "city";
+    private static final String IMPORTANT_EVENT = "importantEvent";
+
     private ControllerFamily _controllerFamily;
 
     @Autowired
@@ -83,8 +86,8 @@ public class CityHubController  extends AbstractController implements IDirectory
         /**
          *  School Review Link Functionality Start.
          */
-        AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
-        modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
+//        AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
+//        modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
         /**
          *  School Review Link Functionality Start.
          */
@@ -93,8 +96,8 @@ public class CityHubController  extends AbstractController implements IDirectory
          * Get the important events
          */
         List<HubConfig> configList = getHubConfig(city, state);
-        ModelMap importantEventsMap = getFromConfigList(configList, "importantEvent");
-        modelAndView.addObject("importantEvents", importantEventsMap);
+        ModelMap importantEventsMap = getFromConfigList(configList, IMPORTANT_EVENT);
+        modelAndView.addObject(IMPORTANT_EVENT, importantEventsMap);
 
         /**
          * Adding the Review Module Functionality to the Controller Start
@@ -132,7 +135,6 @@ public class CityHubController  extends AbstractController implements IDirectory
 
     public List<HubConfig> getHubConfig(String city, State state) {
         Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
-//        Integer hubId = 1;
 
         if(hubId == null) {
             return new ArrayList<HubConfig>();
@@ -153,13 +155,22 @@ public class CityHubController  extends AbstractController implements IDirectory
         for(HubConfig hubConfig : configList) {
             String key = hubConfig.getQuay();
             if(hubConfig != null && key.startsWith(keyPrefix)) {
+                /**
+                 * The key should always be in this format - [type_of_key]_[index]_[type_of_value]
+                 * an example for the type of key is "importantEvent"
+                 * [index] is a number. This should be sequential for each key type - for example there shouldn't be
+                 * "importantEvent_2" without "importantEvent_1"
+                 * type_of_value identifies what the value is, for importantEvent this could be description, url, date.
+                 */
                 String eventNum = key.substring(key.indexOf("_") + 1, key.lastIndexOf("_"));
+                filteredConfig.put(key, hubConfig.getValue());
                 try {
                     Integer count = Integer.parseInt(eventNum);
                     numEvents = (count > numEvents) ? count : numEvents;
                 }
-                catch (NumberFormatException ex) {}
-                filteredConfig.put(key, hubConfig.getValue());
+                catch (NumberFormatException ex) {
+                    _logger.error("CityHubController - unable to get index value from config key.", ex.getCause());
+                }
             }
         }
 

@@ -6,23 +6,30 @@
           xmlns:gsweb="gstaglib">
     <div class="container_24">
     Important Events
-    <c:set var="numEvents" value="${importantEvents.count}"/>
-    <c:forEach begin="1" end="${numEvents}" varStatus="status">
-        <c:set var="index" value="${status.count}"/>
-        <c:set var="descriptionKey">importantEvent_${index}_description</c:set>
-        <c:set var="urlKey">importantEvent_${index}_url</c:set>
-        <c:set var="dateKey">importantEvent_${index}_date</c:set>
+    <c:set var="numEvents" value="${importantEvent.count}"/>
+    <c:choose>
+        <c:when test="${not empty importantEvent and numEvents > 0}">
+            <c:forEach begin="1" end="${numEvents}" varStatus="status">
+                <c:set var="index" value="${status.count}"/>
+                <c:set var="descriptionKey">importantEvent_${index}_description</c:set>
+                <c:set var="urlKey">importantEvent_${index}_url</c:set>
+                <c:set var="dateKey">importantEvent_${index}_date</c:set>
 
-        <div>${importantEvents[descriptionKey]}</div>
-        <div>${importantEvents[dateKey]}</div>
-        <div>${importantEvents[urlKey]}</div>
+                <div>${importantEvent[descriptionKey]}</div>
+                <div>${importantEvent[dateKey]}</div>
+                <div>${importantEvent[urlKey]}</div>
 
-    </c:forEach>
+            </c:forEach>
+        </c:when>
+
+        <c:otherwise>
+            <div>No Upcoming Important Dates</div>
+        </c:otherwise>
+    </c:choose>
     <div class="success-block">
         <span>ANNOUNCMENT </span>
         <span class=".make-000000 small"> For the 2014-2015 school year, DC Public schools have a new system for applying to schools.</span>
         <a href="www.greatschools.org" target="_blank"> Find out details &gt;&gt;</a>
 
-    </div>
     </div>
 </jsp:root>
