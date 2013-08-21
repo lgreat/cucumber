@@ -27,10 +27,11 @@
         </c:otherwise>
     </c:choose>
     <div class="success-block">
-        <span>ANNOUNCMENT </span>
-        <span class=".make-000000 small"> For the 2014-2015 school year, DC Public schools have a new system for applying to schools.</span>
-        <a href="www.greatschools.org" target="_blank"> Find out details &gt;&gt;</a>
+        <span class="small">ANNOUNCMENT </span>
+        <span class="make-000000 small"> For the 2014-2015 school year, DC Public schools have a new system for applying to schools.</span>
+        <a href="http://www.greatschools.org" target="_blank" class="small"> Find out details &gt;&gt;</a>
 
     </div>
     </div>
+    <hr class="keyline1"/>
 </jsp:root>
