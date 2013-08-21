@@ -167,7 +167,7 @@ function hoistMe() {
     console.log(typeof bar); // "undefined"
 
     foo(); // "local foo"
-    bar(); // TypeError: undefined is not a function
+    //bar(); // TypeError: undefined is not a function
 
     // function declaration:
     // variable 'foo' and its implementation both get hoisted
@@ -201,4 +201,38 @@ function functionDeclaration() {
     alert('A function declaration. name=' + functionDeclaration.name);
 }
 
+/**
+ * Brackets tell idea the parameter is optional
+ * @param [redirect]
+ * @param [schoolName]
+ * @param [schoolId]
+ * @param [schoolState]
+ */
+function configureSchoolInfo_old(redirect, schoolName, schoolId, schoolState) {
+    if (redirect) {
+        // do something
+    }
+    if (schoolName) {
+        // do something
+    }
+    // etc.
+}
 
+/**
+ * @param options.redirect
+ * @param options.schoolName
+ * @param options.schoolId
+ * @param options.schoolState
+ */
+function configureSchoolInfo_new(options) {
+    if (typeof options.redirect !== 'undefined') {
+        console.log("redirect");
+    }
+    if (options.schoolName) {
+        console.log("schoolName");
+    }
+    // etc.
+}
+
+configureSchoolInfo_old();
+configureSchoolInfo_new({redirect: 'foo'});
