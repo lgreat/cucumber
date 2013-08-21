@@ -39,6 +39,10 @@
             });
         </script>
 
+
+        <!-- Magnific Popup core CSS file -->
+        <!--<link rel="stylesheet" href="magnific-popup/magnific-popup.css"></link>-->
+
     </head>
 
     <gsml:body adPageName="k12AdvertiserPage" pageLayout="nocol">
@@ -46,7 +50,7 @@
     <!-- TODO-11797 -->
 
     <div class="container_24">
-        <div id="k12AdPage">
+    <div id="k12AdPage">
         <div class="grid_16 mod standard_1-1">
             <div class="line">
                 <div class="mtl">
@@ -59,7 +63,7 @@
         </div>
 
         <!--k12 logo-->
-        <div class="grid_6 mll mtl">
+        <div id="logo" class="grid_6 mll mtl">
             <div class="bd small fl">
                 Sponsored<br/>by:
             </div>
@@ -68,15 +72,15 @@
                           alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
             </div>
             <div class="fl mbl">
-                <strong>Website: </strong> <a href="website">website addy </a>
+                <strong>Website: </strong> <a href="${k12ClickThroughUrl}">Display url here</a>
             </div>
         </div>
 
         <!--main text-->
-        <div class="grid_11 mod standard_1-1">
+        <div id="mainText" class="grid_11 mod standard_1-1">
             <div class="inner">
                 <div class="hd pas">
-                    <h4 class="bottom">About Community</h4>
+                    <h4 class="bottom">About ${schoolName}</h4>
                 </div>
                 <!--<c:if test="${hasSummary}">-->
                     <!--<p class="default bottom">-->
@@ -94,7 +98,7 @@
         </div>
 
         <!--video module-->
-        <div class="grid_6 mod standard_1-1 mhm">
+        <div id="videoMod" class="grid_6 mod standard_1-1 mhm">
 
             <div class="inner">
                 <div class="hd pas">
@@ -102,171 +106,202 @@
                 </div>
                 <div>
                     <ul>
-                        <li> Video </li>
-                        <li> Video </li>
-                        <li> Video </li>
+                        <li><a href="http://youtu.be/qh1jSmUPX-g">Video</a></li>
+                        <li><a href="http://www.youtube.com/watch?v=z3HeRtKxF0A">Video</a></li>
+                        <li><a href="http://youtu.be/q938QqKIpgA">Video</a></li>
                     </ul>
+                    <div  id="videoWAtcher">
+                        lalal
+                    </div>
                 </div>
             </div>
+
+
+        <!--&lt;!&ndash; jQuery 1.7.2+ or Zepto.js 1.0+ &ndash;&gt;-->
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+        <!--&lt;!&ndash; Magnific Popup core JS file &ndash;&gt;-->
+        <!--&lt;!&ndash;<script src="magnific-popup/jquery.magnific-popup.js"></script>&ndash;&gt;-->
+        <!--<script type="text/javascript" src="http://www.teaching-materials.org/common/youtube.js"></script>-->
+            <!--<script>-->
+                <!--var videoLinks = $("a");-->
+                <!--videoLinks.each(function() {-->
+                    <!--var videoLink = $(this);-->
+                    <!--var linkUrl = videoLink.attr('href');-->
+                    <!--var thumbnailUrl = youtube.generateThumbnailUrl(linkUrl);-->
+                    <!--var thumbnailImg = $("img");-->
+                    <!--thumbnailImg.attr('src', thumbnailUrl);-->
+                    <!--videoLink.append(thumbnailImg);-->
+
+                    <!--videoLink.on('click', function(e) {-->
+                        <!--e.preventDefault();-->
+                        <!--var videoEmbed = $("<iframe></iframe>>");-->
+                        <!--videoEmbed.attr('src', youtube.generateEmbedUrl(linkUrl));-->
+                        <!--videoEmbed.attr('width', 560);-->
+                        <!--videoEmbed.attr('height', 315);-->
+                        <!--var videoWatcher = $('#video-watcher');-->
+                        <!--videoWatcher.hide();-->
+                        <!--videoWatcher.html(videoEmbed);-->
+                        <!--videoWatcher.fadeIn();-->
+                    <!--});-->
+                <!--});-->
+
+            <!--</script>-->
         </div>
 
-        <div class="grid_6 mod standard_1-1">
+        <!--form module and virtual student-->
+        <div id="formMod" class="grid_6 mod standard_1-1">
 
             <!--form module-->
             <!--<div class="unit size1of5 lastUnit">-->
-
-                <div class="">
-                    <div class="">
-                            <form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded" action="http://app-o.marketo.com/index.php/leadCapture/save" >
-                                <fieldset>
-                                    <div class="field">
-                                        <label for="fname">First Name</label>
-                                        <input id="fname" class="require-content" name="FirstName" type="text" />
-                                        <div class="errors clear"></div>
-                                    </div>
-                                    <div class="field">
-                                        <label for="lname">Last Name</label>
-                                        <input id="lname" class="require-content" name="LastName" type="text" />
-                                        <div class="errors clear"></div>
-                                    </div>
-                                    <div class="field">
-                                        <label for="email">Email</label>
-                                        <input id="email" class="require-content valid-email" name="Email" type="text"/>
-                                        <div class="errors clear"></div>
-                                    </div>
-                                    <div class="field">
-                                        <label for="phone">Phone</label>
-                                        <input id="phone" class="require-content valid-phone-number" name="Phone" type="text"/>
-                                        <div class="errors clear"></div>
-                                    </div>
-                                    <div class="field floatleft" style="margin: 0 0 5px">
-                                        <label for="zip">Zip</label>
-                                        <input id="zip" class="require-content valid-zip" type="text"/>
-                                        <div class="errors clear"></div>
-                                    </div>
-                                    <div class="field">
-                                        <label for="state">State</label>
-                                        <select id='state' class="states-list" name="K12_State__c">
-                                            <option value="AK" > Alaska </option>
-                                            <option value="AL" > Alabama </option>
-                                            <option value="AR" > Arkansas </option>
-                                            <option value="AZ" > Arizona </option>
-                                            <option value="CA" selected=""> California </option>
-                                            <option value="CO" > Colorado </option>
-                                            <option value="CT" > Connecticut </option>
-                                            <option value="DC" > District of Columbia </option>
-                                            <option value="DE" > Delaware </option>
-                                            <option value="FL" > Florida </option>
-                                            <option value="GA" > Georgia </option>
-                                            <option value="HI" > Hawaii </option>
-                                            <option value="IA" > Iowa </option>
-                                            <option value="ID" > Idaho </option>
-                                            <option value="IL" > Illinois </option>
-                                            <option value="IN" > Indiana </option>
-                                            <option value="KS" > Kansas </option>
-                                            <option value="KY" > Kentucky </option>
-                                            <option value="LA" > Louisiana </option>
-                                            <option value="MA" > Massachusetts </option>
-                                            <option value="MD" > Maryland </option>
-                                            <option value="ME" > Maine </option>
-                                            <option value="MI" > Michigan </option>
-                                            <option value="MN" > Minnesota </option>
-                                            <option value="MO" > Missouri </option>
-                                            <option value="MS" > Mississippi </option>
-                                            <option value="MT" > Montana </option>
-                                            <option value="NC" > North Carolina </option>
-                                            <option value="ND" > North Dakota </option>
-                                            <option value="NE" > Nebraska </option>
-                                            <option value="NH" > New Hampshire </option>
-                                            <option value="NJ" > New Jersey </option>
-                                            <option value="NM" > New Mexico </option>
-                                            <option value="NV" > Nevada </option>
-                                            <option value="NY" > New York </option>
-                                            <option value="OH" > Ohio </option>
-                                            <option value="OK" > Oklahoma </option>
-                                            <option value="OR" > Oregon </option>
-                                            <option value="PA" > Pennsylvania </option>
-                                            <option value="RI" > Rhode Island </option>
-                                            <option value="SC" > South Carolina </option>
-                                            <option value="SD" > South Dakota </option>
-                                            <option value="TN" > Tennessee </option>
-                                            <option value="TX" > Texas </option>
-                                            <option value="UT" > Utah </option>
-                                            <option value="VA" > Virginia </option>
-                                            <option value="VT" > Vermont </option>
-                                            <option value="WA" > Washington </option>
-                                            <option value="WI" > Wisconsin </option>
-                                            <option value="WV" > West Virginia </option>
-                                            <option value="WY" > Wyoming </option>
-                                        </select>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="field">
-                                        <label for="grade">Grade</label>
-                                        <select class="grades-list require-content" id="grades" name="WhichGrades-Form">
-                                            <option value="">Choose Grade</option>
-                                            <option value="k-8"> K-8 </option>
-                                            <option value="9-12"> 9-12 </option>
-                                            <option value="K-12"> Both </option>
-                                        </select>
-                                        <div class="errors clear"></div>
-                                    </div>
-
-                                    <div class='msgdiv' style='text-align:center;'></div>
-                                    <div class="loader hidden"></div>
-                                    <a href='javascript:document.mktForm_1028.submit()' class='flexbutton button-blue-large submit-button iegradient' id='mktForm_1028-btn'><span class='leftside'></span>Learn More<span class='rightside'></span></a><noscript><input type='submit' name='submited' value='Learn More' /></noscript>
-                                    <!-- k12 hidden fields -->
-                                    <input class='mktFormHidden' name="K12_Country__c" id="K12_Country__c" type='hidden' value="UNITED STATES OF AMERICA" />
-                                    <input name="LeadSource" id="LeadSource" type='hidden' value="affiliate" />
-                                    <input name="Lead_Source_Last__c" type='hidden' value="affiliate" />
-                                    <input name="Lead_Source_Detail__c" id="Lead_Source_Detail__c" type='hidden' value="gr8t" />
-                                    <input name="Lead_Source_Detail_Last__c" type='hidden' value="gr8t" />
-                                    <input name="Target_Audience__c" id="Target_Audience__c" type='hidden' value="gen" />
-                                    <input name="Target_Grade__c" id="Target_Grade__c" type='hidden' value="k-12" />
-                                    <input name="UTM_Campaign__c" id="UTM_Campaign__c" type='hidden' value="" />
-                                    <input name="UTM_Medium__c" id="UTM_Medium__c" type='hidden' value="" />
-                                    <input name="UTM_Source__c" id="UTM_Source__c" type='hidden' value="" />
-                                    <input name="UTM_Content__c" id="UTM_Content__c" type='hidden' value="" />
-                                    <input name="UTM_Term__c" id="UTM_Term__c" type='hidden' value="" />
-                                    <input name="Adgroup__c" id="Adgroup__c" type='hidden' value="" />
-                                    <input name="Keyword_Match__c" id="Keyword_Match__c" type='hidden' value="" />
-                                    <input name="Message_Class__c" id="Message_Class__c" type='hidden' value="direct_response" />
-                                    <input name="Impression_ID__c" id="Impression_ID__c" type='hidden' value="gr8t_affl_CPA-519d2f6ef0" />
-                                    <input name="Vendor__c" id="Vendor__c" type='hidden' value="gr8t" />
-                                    <input name="Provider__c" id="Provider__c" type='hidden' value="other" />
-                                    <input name="Geo_Distro__c" id="Geo_Distro__c" type='hidden' value="footprint 1-2-3-4" />
-                                    <input name="Creative__c" id="Creative__c" type='hidden' value="" />
-                                    <input name="Message__c" id="Message__c" type='hidden' value="" />
-                                    <input name="CTA__c" id="CTA__c" type='hidden' value="" />
-                                    <input name="Placement__c" id="Placement__c" type='hidden' value="" />
-                                    <input name="Dimensions__c" id="Dimensions__c" type='hidden' value="" />
-                                    <input name="iFrame__c" id="iFrame__c" type='hidden' value="" />
-                                    <input name="LP_URL__c" id="LP_URL__c" type='hidden' value="" />
-                                    <input name="Vanity_URL__c" id="Vanity_URL__c" type='hidden' value="" />
-                                    <input name="Start_Date__c" id="Start_Date__c" type='hidden' value="" />
-                                    <input name="Promocode__c" id="Promocode__c" type='hidden' value="" />
-                                    <input name="Referrer__c" id="Referrer__c" type='hidden' value="" />
-                                    <input name="Referrer_Last__c" id="Referrer_Last__c" type='hidden' value="" />
-                                    <input type="hidden" name="_marketo_comments" value="" />
-                                    <input type="hidden" name="lpId" value="-1" />
-                                    <input type="hidden" name="subId" value="9" />
-                                    <input type="hidden" name="kw" value="" />
-                                    <input type="hidden" name="cr" value="" />
-                                    <input type="hidden" name="searchstr" value="" />
-                                    <input type="hidden" name="lpurl" value="" />
-                                    <input type="hidden" name="_mkt_disp" value="return" />
-                                    <input type="hidden" name="_mkt_trk" value="" />
-                                    <input name="Product_Interest__c" id="Product_Interest__c" type='hidden' value="va" />
-                                    <input name="Product_Type__c" id="Product_Type__c" type='hidden' value="gen" />
-                                    <input type="hidden" name="formid" value="1028" />
-                                    <!-- M1-Marketo Change: Use desired thank you page url for retURL and returnURL value -->
-                                    <input type="hidden" name="returnURL" value="" />
-                                    <input type="hidden" name="retURL" value="" />
-
-                                </fieldset>
-                            </form>
+             <form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded" action="http://app-o.marketo.com/index.php/leadCapture/save" >
+                <fieldset>
+                    <div class="field">
+                        <label for="fname">First Name</label>
+                        <input id="fname" class="require-content" name="FirstName" type="text" />
+                        <div class="errors clear"></div>
                     </div>
-                </div>
+                    <div class="field">
+                        <label for="lname">Last Name</label>
+                        <input id="lname" class="require-content" name="LastName" type="text" />
+                        <div class="errors clear"></div>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" class="require-content valid-email" name="Email" type="text"/>
+                        <div class="errors clear"></div>
+                    </div>
+                    <div class="field">
+                        <label for="phone">Phone</label>
+                        <input id="phone" class="require-content valid-phone-number" name="Phone" type="text"/>
+                        <div class="errors clear"></div>
+                    </div>
+                    <div class="field floatleft" style="margin: 0 0 5px">
+                        <label for="zip">Zip</label>
+                        <input id="zip" class="require-content valid-zip" type="text"/>
+                        <div class="errors clear"></div>
+                    </div>
+                    <div class="field">
+                        <label for="state">State</label>
+                        <select id='state' class="states-list" name="K12_State__c">
+                            <option value="AK" > Alaska </option>
+                            <option value="AL" > Alabama </option>
+                            <option value="AR" > Arkansas </option>
+                            <option value="AZ" > Arizona </option>
+                            <option value="CA" selected=""> California </option>
+                            <option value="CO" > Colorado </option>
+                            <option value="CT" > Connecticut </option>
+                            <option value="DC" > District of Columbia </option>
+                            <option value="DE" > Delaware </option>
+                            <option value="FL" > Florida </option>
+                            <option value="GA" > Georgia </option>
+                            <option value="HI" > Hawaii </option>
+                            <option value="IA" > Iowa </option>
+                            <option value="ID" > Idaho </option>
+                            <option value="IL" > Illinois </option>
+                            <option value="IN" > Indiana </option>
+                            <option value="KS" > Kansas </option>
+                            <option value="KY" > Kentucky </option>
+                            <option value="LA" > Louisiana </option>
+                            <option value="MA" > Massachusetts </option>
+                            <option value="MD" > Maryland </option>
+                            <option value="ME" > Maine </option>
+                            <option value="MI" > Michigan </option>
+                            <option value="MN" > Minnesota </option>
+                            <option value="MO" > Missouri </option>
+                            <option value="MS" > Mississippi </option>
+                            <option value="MT" > Montana </option>
+                            <option value="NC" > North Carolina </option>
+                            <option value="ND" > North Dakota </option>
+                            <option value="NE" > Nebraska </option>
+                            <option value="NH" > New Hampshire </option>
+                            <option value="NJ" > New Jersey </option>
+                            <option value="NM" > New Mexico </option>
+                            <option value="NV" > Nevada </option>
+                            <option value="NY" > New York </option>
+                            <option value="OH" > Ohio </option>
+                            <option value="OK" > Oklahoma </option>
+                            <option value="OR" > Oregon </option>
+                            <option value="PA" > Pennsylvania </option>
+                            <option value="RI" > Rhode Island </option>
+                            <option value="SC" > South Carolina </option>
+                            <option value="SD" > South Dakota </option>
+                            <option value="TN" > Tennessee </option>
+                            <option value="TX" > Texas </option>
+                            <option value="UT" > Utah </option>
+                            <option value="VA" > Virginia </option>
+                            <option value="VT" > Vermont </option>
+                            <option value="WA" > Washington </option>
+                            <option value="WI" > Wisconsin </option>
+                            <option value="WV" > West Virginia </option>
+                            <option value="WY" > Wyoming </option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="field">
+                        <label for="grade">Grade</label>
+                        <select class="grades-list require-content" id="grades" name="WhichGrades-Form">
+                            <option value="">Choose Grade</option>
+                            <option value="k-8"> K-8 </option>
+                            <option value="9-12"> 9-12 </option>
+                            <option value="K-12"> Both </option>
+                        </select>
+                        <div class="errors clear"></div>
+                    </div>
+
+                    <div class='msgdiv' style='text-align:center;'></div>
+                    <div class="loader hidden"></div>
+                    <a href='javascript:document.mktForm_1028.submit()' class='flexbutton button-blue-large submit-button iegradient' id='mktForm_1028-btn'><span class='leftside'></span>Learn More<span class='rightside'></span></a><noscript><input type='submit' name='submited' value='Learn More' /></noscript>
+                    <!-- k12 hidden fields -->
+                    <input class='mktFormHidden' name="K12_Country__c" id="K12_Country__c" type='hidden' value="UNITED STATES OF AMERICA" />
+                    <input name="LeadSource" id="LeadSource" type='hidden' value="affiliate" />
+                    <input name="Lead_Source_Last__c" type='hidden' value="affiliate" />
+                    <input name="Lead_Source_Detail__c" id="Lead_Source_Detail__c" type='hidden' value="gr8t" />
+                    <input name="Lead_Source_Detail_Last__c" type='hidden' value="gr8t" />
+                    <input name="Target_Audience__c" id="Target_Audience__c" type='hidden' value="gen" />
+                    <input name="Target_Grade__c" id="Target_Grade__c" type='hidden' value="k-12" />
+                    <input name="UTM_Campaign__c" id="UTM_Campaign__c" type='hidden' value="" />
+                    <input name="UTM_Medium__c" id="UTM_Medium__c" type='hidden' value="" />
+                    <input name="UTM_Source__c" id="UTM_Source__c" type='hidden' value="" />
+                    <input name="UTM_Content__c" id="UTM_Content__c" type='hidden' value="" />
+                    <input name="UTM_Term__c" id="UTM_Term__c" type='hidden' value="" />
+                    <input name="Adgroup__c" id="Adgroup__c" type='hidden' value="" />
+                    <input name="Keyword_Match__c" id="Keyword_Match__c" type='hidden' value="" />
+                    <input name="Message_Class__c" id="Message_Class__c" type='hidden' value="direct_response" />
+                    <input name="Impression_ID__c" id="Impression_ID__c" type='hidden' value="gr8t_affl_CPA-519d2f6ef0" />
+                    <input name="Vendor__c" id="Vendor__c" type='hidden' value="gr8t" />
+                    <input name="Provider__c" id="Provider__c" type='hidden' value="other" />
+                    <input name="Geo_Distro__c" id="Geo_Distro__c" type='hidden' value="footprint 1-2-3-4" />
+                    <input name="Creative__c" id="Creative__c" type='hidden' value="" />
+                    <input name="Message__c" id="Message__c" type='hidden' value="" />
+                    <input name="CTA__c" id="CTA__c" type='hidden' value="" />
+                    <input name="Placement__c" id="Placement__c" type='hidden' value="" />
+                    <input name="Dimensions__c" id="Dimensions__c" type='hidden' value="" />
+                    <input name="iFrame__c" id="iFrame__c" type='hidden' value="" />
+                    <input name="LP_URL__c" id="LP_URL__c" type='hidden' value="" />
+                    <input name="Vanity_URL__c" id="Vanity_URL__c" type='hidden' value="" />
+                    <input name="Start_Date__c" id="Start_Date__c" type='hidden' value="" />
+                    <input name="Promocode__c" id="Promocode__c" type='hidden' value="" />
+                    <input name="Referrer__c" id="Referrer__c" type='hidden' value="" />
+                    <input name="Referrer_Last__c" id="Referrer_Last__c" type='hidden' value="" />
+                    <input type="hidden" name="_marketo_comments" value="" />
+                    <input type="hidden" name="lpId" value="-1" />
+                    <input type="hidden" name="subId" value="9" />
+                    <input type="hidden" name="kw" value="" />
+                    <input type="hidden" name="cr" value="" />
+                    <input type="hidden" name="searchstr" value="" />
+                    <input type="hidden" name="lpurl" value="" />
+                    <input type="hidden" name="_mkt_disp" value="return" />
+                    <input type="hidden" name="_mkt_trk" value="" />
+                    <input name="Product_Interest__c" id="Product_Interest__c" type='hidden' value="va" />
+                    <input name="Product_Type__c" id="Product_Type__c" type='hidden' value="gen" />
+                    <input type="hidden" name="formid" value="1028" />
+                    <!-- M1-Marketo Change: Use desired thank you page url for retURL and returnURL value -->
+                    <input type="hidden" name="returnURL" value="" />
+                    <input type="hidden" name="retURL" value="" />
+
+                </fieldset>
+            </form>
+
             <!--</div>-->
 
             <!--more virtual student module-->
@@ -274,17 +309,19 @@
                 <div class="hd pas">
                     <h5 class="bottom">Virtual Students in the Spotlight</h5>
                 </div>
-                <!--<div class="media pas">-->
-                <!--</div>-->
+                <!--<div class="media pas"></div>-->
+
                 <div class="bd pam bottom">
                     <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
                 </div>
             </div>
         </div>
 
+        <!--<div class="clearfix"></div>-->
+
         <!--long ad banner-->
-        <div class="grid_16 mod standard_2-2">
-            <div class="inner">
+        <div class="grid_16 mod standard_2-2 ">
+            <div class="inner" style="background-color:#edff4d;">
                 <div class="fl mrl pts">
                         <h4 class="bottom"> Discover why K12 International is right for your child...</h4>
                 </div>

@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           >
+    <jsp:directive.tag import="java.util.ArrayList"/>
+    <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag body-content="empty" description="Used to insert top copy of K12 advertiser page for specific K12 school"/>
     <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
 
     <c:choose>
         <c:when test="${school eq 'AK'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ak.html"/>
+            <!--<jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ak.html"/>-->
+            <c:set var="topBoilerplate">
+                You know that your kids have something special inside them. We know it too. The Alaska Virtual Academy<sup>SM</sup> (AKVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping Alaska students in grades K-8 reach their true, personal potential.
+            </c:set>
+
+            <c:set var="k12ItemsHeader">
+                Why AKVA?
+            </c:set>
+
+            <c:set var="k12ItemsBoiler">
+                The Alaska Virtual Academy and K¹² give Alaska kids in grades K-8 the chance to learn at the pace and in ways that are right for them. AKVA offers:
+            </c:set>
+
+            <k12:addToK12List var="k12ItemsList">
+                Full-time, tuition-free online public school option
+            </k12:addToK12List>
+            <k12:addToK12List var="k12ItemsList">
+                Support from state-certified teachers
+            </k12:addToK12List>
+            <k12:addToK12List var="k12ItemsList">
+                An active, supportive school community
+            </k12:addToK12List>
+            <k12:addToK12List var="k12ItemsList">
+                A range of extracurricular activities
+            </k12:addToK12List>
+            <k12:addToK12List var="k12ItemsList">
+                The only statewide virtual public school program to offer the complete K¹² experience
+            </k12:addToK12List>
+            <k12:addToK12List var="k12ItemsList">
+                The flexibility of virtual schooling combined with public school support
+            </k12:addToK12List>
+
+            <c:set var="k12NewsHeader">
+            </c:set>
+
+           <!--k12NewsHeader-->
+            <k12:addToK12List var="k12NewsItems">
+                <!--news list-->
+            </k12:addToK12List>
+
+            <p class="small">${topBoilerplate}}</p>
+            <h4 class="small_bold bottom">${k12ItemsHeader}</h4>
+            <p class="small">${k12ItemsBoiler}</p>
+            <ul class="small">
+                <c:forEach items="${k12ItemsList}" var="myItem">
+                    <li>${myItem}</li>
+                </c:forEach>
+            </ul>
+
+            <h4 class="small_bold bottom">${k12NewsHeader}</h4>
+
+            <ul>
+                <c:forEach items="${k12NewsItems}" var="myNewsItem">
+                    <li class="small">${myNewsItem}</li>
+                </c:forEach>
+            </ul>
         </c:when>
         <c:when test="${school eq 'AR'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ar.html"/>
@@ -113,5 +171,6 @@
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-wy.html"/>
         </c:when>
     </c:choose>
+
 
 </jsp:root>
