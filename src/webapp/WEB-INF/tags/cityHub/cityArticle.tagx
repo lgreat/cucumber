@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:jsp="http://java.sun.com/JSP/Page">
 
-    City Article
+    <div class="container_24">
+        <div class="grid_1 suffix_2">
+            <img src="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" alt="City of DC"/>
+       </div>
+        <div class="grid_21">
+            <h5 class="sourceSansPro-Semibold mbm mtl">Navigating the System: Washington, DC</h5>
+            <p class="small">Looking for a school in the nations's capital? Here's where to start <a href="/find-a-school/3775-outsmarting-the-system-dc.gs" target="_blank">More &gt;&gt;</a>
+            </p>
+
+        </div>
+    </div>
+    <hr class="keyline1"/>
 
 </jsp:root>
 
