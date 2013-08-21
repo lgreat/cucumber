@@ -11,12 +11,6 @@
 
     <c:choose>
         <c:when test="${school eq 'AK'}">
-            <!--<jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ak.html"/>-->
-
-            <!--<c:set var="aboutIntro">-->
-                <!--About intro-->
-            <!--</c:set>-->
-
             <c:set var="aboutIntro">
             About intro
             </c:set>
@@ -36,55 +30,91 @@
             <k12:addToK12List var="whyList">
                 two
             </k12:addToK12List>
-
-
-
         </c:when>
         <c:when test="${school eq 'AR'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ar.html"/>
         </c:when>
         <c:when test="${school eq 'AZ'}">
+            <c:set var="hasLogo" value="${true}" scope="request"/>
             <c:set var="aboutIntro" scope="request">
-                About intro
+                You know that your kids have something special inside them. Arizona Virtual Academy (AZVA), Insight
+                Academy of Arizona (Insight), and K<sup>12</sup> ignite the minds of children like yours to bring
+                learning and possibility alive. Together, we are helping Arizona students in grades K-12 reach their
+                true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why Header
+                Why AZVA/Insight?
             </c:set>
             <c:set var="whyIntro" scope="request">
-                Why Intro
+                AZVA, Insight, and K<sup>12</sup> give Arizona kids in grades K-12 the chance to learn in the ways that are right for them. We offer:
             </c:set>
             <k12:addToK12List var="whyList">
-                one
+                The award-winning K<sup>12</sup> and Aventa Learning by K<sup>12</sup> curricula
             </k12:addToK12List>
             <k12:addToK12List var="whyList">
-                two
+                Full-time, tuition-free online public school options available for students of all skills and abilities
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                Support from highly qualified, state-certified teachers
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                Additional support programs from advisors, counselors, and social workers offering study and life skills*
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                An active, supportive school community
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                A range of extracurricular activities
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                A robust Advanced Learner Program
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                Expert programs and assistance in helping students fill in skill gaps and recover credits toward graduation*
+            </k12:addToK12List>
+            <k12:addToK12List var="whyList">
+                Students graduate with a high school diploma that meets all state requirements.
             </k12:addToK12List>
             <c:set var="whyCaption" scope="request">
-                Why Caption
+                AZVA/Insight is a program of PPEP &amp; Affiliates.
             </c:set>
             <c:set var="whyFootnote" scope="request">
-                Why Footnote
+                *Available for students enrolled in the Insight Academy of Arizona program.
             </c:set>
             <c:set var="newsHeader" scope="request">
-                news header
+                AZVA/Insight News
             </c:set>
-            <k12:putInK12Map var="newsItemOne" key="header">
-                First Diff text
+            <k12:putInK12Map var="newsItem1" key="header">
+                <a href="http://www.k12.com/azva/enroll" target="_blank">2012–2013 Enrollments Now Open</a>
             </k12:putInK12Map>
-            <k12:putInK12Map var="newsItemOne" key="body">
-                First More Diff text
+            <k12:putInK12Map var="newsItem1" key="body">
+                Find out how to make a change today!
             </k12:putInK12Map>
-
-            <k12:addK12VarToList var="newsList" mapToAdd="${newsItemOne}"/>
+            <k12:putInK12Map var="newsItem2" key="header">
+                <a href="http://azstarnet.com/news/local/education/article_03fc06f3-05ac-5105-9c41-901dac3cf466.html" target="_blank">SAZVA student Invited to Moscow for Ballet, Studying</a>
+            </k12:putInK12Map>
+            <k12:putInK12Map var="newsItem2" key="body">
+                Sofia Robbins will travel to Russia to learn the history and culture in Moscow, while pursuing her dream.
+            </k12:putInK12Map>
+            <k12:putInK12Map var="newsItem3" key="header">
+                <a href="http://www.k12.com/azva/how-it-works/blended-learning/ilearn-centers" target="_blank">K<sup>12</sup> at the Y i-Learn Centers</a>
+            </k12:putInK12Map>
+            <k12:putInK12Map var="newsItem3" key="body">
+                Looking for a blended online/onsite learning option for your child? K<sup>12</sup> at the Y is designed for you.
+            </k12:putInK12Map>
+            <k12:addK12VarToList var="newsList" mapToAdd="${newsItem1}"/>
+            <k12:addK12VarToList var="newsList" mapToAdd="${newsItem2}"/>
+            <k12:addK12VarToList var="newsList" mapToAdd="${newsItem3}"/>
 
             <k12:addToK12List var="bottomCopyList">
-                one
+                Arizona Virtual Academy/Insight Academy of Arizona uses the individualized K<sup>12</sup> and Aventa Learning by K<sup>12</sup> curricula from K<sup>12</sup> which is based on decades of education research about how minds really work. With courses in six core subjects, it was designed to let K-8 kids find the pace and learning style that work best for them, and to enable high school students to find their own path to post-high school success.
             </k12:addToK12List>
             <k12:addToK12List var="bottomCopyList">
-                two
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
             </k12:addToK12List>
-
-
+            <k12:addToK12List var="bottomCopyList">
+                Because we believe that all children deserve to learn without limits.
+            </k12:addToK12List>
         </c:when>
 
         <c:when test="${school eq 'CA'}">

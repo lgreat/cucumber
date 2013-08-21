@@ -18,11 +18,11 @@
     </ul>
 
     <c:if test="${!empty whyCaption}">
-        <p>${whyCaption}</p>
+        <p class="small mll"><em>${whyCaption}</em></p>
     </c:if>
 
     <c:if test="${!empty whyFootnote}">
-        <p>${whyFootnote}</p>
+        <p class="small mll"><em>${whyFootnote}</em></p>
     </c:if>
 
     <c:if test="${!empty newsHeader}">
@@ -30,12 +30,14 @@
     </c:if>
 
     <c:if test="${!empty newsList}">
-        <dl>
+        <ul class="bottom">
             <c:forEach items="${newsList}" var="myNewsItem">
-                <dt>${myNewsItem["header"]}</dt>
-                <dd>${myNewsItem["body"]}</dd>
+                <li>
+                <strong>${myNewsItem["header"]}</strong>
+                <br/>
+                ${myNewsItem["body"]}</li>
             </c:forEach>
-        </dl>
+        </ul>
     </c:if>
 
 

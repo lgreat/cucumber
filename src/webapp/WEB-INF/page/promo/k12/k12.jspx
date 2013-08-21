@@ -29,7 +29,7 @@
 
         <script type="text/javascript">
             jQuery(function() {
-                jQuery('#k12AdPage .jq-k12ClickThrough, #Header_728x90 .jq-k12ClickThrough, #AboveFold_300x250 .jq-k12ClickThrough, #Footer_728x90 .jq-k12ClickThrough').
+                jQuery('#k12AdPage .jq-k12ClickThrough').
                         unbind('click').click(function() {
                             if (s.tl) {
                                 s.tl(true, 'o', 'K12_ClickThrough_${k12School}');
@@ -47,20 +47,26 @@
 
     <gsml:body adPageName="k12AdvertiserPage" pageLayout="nocol">
 
-    <!-- TODO-11797 -->
+    <!--define state specific variables tagx-->
+    <k12:defineStateSpecificVariables school="${k12School}"/>
+    <c:set var="learnMoreHereButton">
+        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 jq-k12ClickThrough">Learn More &amp;raquo;</a>
+    </c:set>
 
     <div class="container_24">
     <div id="k12AdPage">
-    <!--define state specific variables tagx-->
-        <k12:defineStateSpecificVariables school="${k12School}"/>
         <div class="grid_16 mod standard_1-1">
             <div class="line">
                 <div class="mtl">
-                    <h1 class="">${schoolName}</h1>
+                    <h1 class=""><c:if test="${hasLogo}"><img src="/res/img/promo/k12/${schoolCode}.png" alt="${schoolName} logo" width="100" height="25"/></c:if>${schoolName}</h1>
                 </div>
             </div>
             <div>
-                Things go here
+                Online
+                |
+                K-12
+                |
+                Tuition-Free Online Public School
             </div>
         </div>
 
@@ -74,7 +80,7 @@
                           alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
             </div>
             <div class="fl mbl">
-                <strong>Website: </strong> <a href="${k12ClickThroughUrl}">Display url here</a>
+                <strong>Website: </strong> <a href="${k12ClickThroughUrl}">www.K12.com/${fn:toUpperCase(schoolCode)}</a>
             </div>
         </div>
 
@@ -84,16 +90,8 @@
                 <div class="hd pas">
                     <h4 class="bottom">About ${schoolName}</h4>
                 </div>
-                <!--<c:if test="${hasSummary}">-->
-                    <!--<p class="default bottom">-->
-                        <!--<k12:summary school="${k12School}"/>-->
-                    <!--</p>-->
-                <!--</c:if>-->
-
                 <div class="pam">
-                <k12:topCopy/>
-                ${learnMoreHereButton}
-
+                    <k12:topCopy/>
                  </div>
                 <div class="shim-10 bottom"><!-- do not collapse --></div>
             </div>
@@ -154,172 +152,19 @@
         <div id="formMod" class="grid_6 mod standard_1-1">
 
             <!--form module-->
-            <!--<div class="unit size1of5 lastUnit">-->
-             <form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded" action="http://app-o.marketo.com/index.php/leadCapture/save" >
-                <fieldset>
-                    <div class="field">
-                        <label for="fname">First Name</label>
-                        <input id="fname" class="require-content" name="FirstName" type="text" />
-                        <div class="errors clear"></div>
-                    </div>
-                    <div class="field">
-                        <label for="lname">Last Name</label>
-                        <input id="lname" class="require-content" name="LastName" type="text" />
-                        <div class="errors clear"></div>
-                    </div>
-                    <div class="field">
-                        <label for="email">Email</label>
-                        <input id="email" class="require-content valid-email" name="Email" type="text"/>
-                        <div class="errors clear"></div>
-                    </div>
-                    <div class="field">
-                        <label for="phone">Phone</label>
-                        <input id="phone" class="require-content valid-phone-number" name="Phone" type="text"/>
-                        <div class="errors clear"></div>
-                    </div>
-                    <div class="field floatleft" style="margin: 0 0 5px">
-                        <label for="zip">Zip</label>
-                        <input id="zip" class="require-content valid-zip" type="text"/>
-                        <div class="errors clear"></div>
-                    </div>
-                    <div class="field">
-                        <label for="state">State</label>
-                        <select id='state' class="states-list" name="K12_State__c">
-                            <option value="AK" > Alaska </option>
-                            <option value="AL" > Alabama </option>
-                            <option value="AR" > Arkansas </option>
-                            <option value="AZ" > Arizona </option>
-                            <option value="CA" selected=""> California </option>
-                            <option value="CO" > Colorado </option>
-                            <option value="CT" > Connecticut </option>
-                            <option value="DC" > District of Columbia </option>
-                            <option value="DE" > Delaware </option>
-                            <option value="FL" > Florida </option>
-                            <option value="GA" > Georgia </option>
-                            <option value="HI" > Hawaii </option>
-                            <option value="IA" > Iowa </option>
-                            <option value="ID" > Idaho </option>
-                            <option value="IL" > Illinois </option>
-                            <option value="IN" > Indiana </option>
-                            <option value="KS" > Kansas </option>
-                            <option value="KY" > Kentucky </option>
-                            <option value="LA" > Louisiana </option>
-                            <option value="MA" > Massachusetts </option>
-                            <option value="MD" > Maryland </option>
-                            <option value="ME" > Maine </option>
-                            <option value="MI" > Michigan </option>
-                            <option value="MN" > Minnesota </option>
-                            <option value="MO" > Missouri </option>
-                            <option value="MS" > Mississippi </option>
-                            <option value="MT" > Montana </option>
-                            <option value="NC" > North Carolina </option>
-                            <option value="ND" > North Dakota </option>
-                            <option value="NE" > Nebraska </option>
-                            <option value="NH" > New Hampshire </option>
-                            <option value="NJ" > New Jersey </option>
-                            <option value="NM" > New Mexico </option>
-                            <option value="NV" > Nevada </option>
-                            <option value="NY" > New York </option>
-                            <option value="OH" > Ohio </option>
-                            <option value="OK" > Oklahoma </option>
-                            <option value="OR" > Oregon </option>
-                            <option value="PA" > Pennsylvania </option>
-                            <option value="RI" > Rhode Island </option>
-                            <option value="SC" > South Carolina </option>
-                            <option value="SD" > South Dakota </option>
-                            <option value="TN" > Tennessee </option>
-                            <option value="TX" > Texas </option>
-                            <option value="UT" > Utah </option>
-                            <option value="VA" > Virginia </option>
-                            <option value="VT" > Vermont </option>
-                            <option value="WA" > Washington </option>
-                            <option value="WI" > Wisconsin </option>
-                            <option value="WV" > West Virginia </option>
-                            <option value="WY" > Wyoming </option>
-                        </select>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="field">
-                        <label for="grade">Grade</label>
-                        <select class="grades-list require-content" id="grades" name="WhichGrades-Form">
-                            <option value="">Choose Grade</option>
-                            <option value="k-8"> K-8 </option>
-                            <option value="9-12"> 9-12 </option>
-                            <option value="K-12"> Both </option>
-                        </select>
-                        <div class="errors clear"></div>
-                    </div>
-
-                    <div class='msgdiv' style='text-align:center;'></div>
-                    <div class="loader hidden"></div>
-                    <a href='javascript:document.mktForm_1028.submit()' class='flexbutton button-blue-large submit-button iegradient' id='mktForm_1028-btn'><span class='leftside'></span>Learn More<span class='rightside'></span></a><noscript><input type='submit' name='submited' value='Learn More' /></noscript>
-                    <!-- k12 hidden fields -->
-                    <input class='mktFormHidden' name="K12_Country__c" id="K12_Country__c" type='hidden' value="UNITED STATES OF AMERICA" />
-                    <input name="LeadSource" id="LeadSource" type='hidden' value="affiliate" />
-                    <input name="Lead_Source_Last__c" type='hidden' value="affiliate" />
-                    <input name="Lead_Source_Detail__c" id="Lead_Source_Detail__c" type='hidden' value="gr8t" />
-                    <input name="Lead_Source_Detail_Last__c" type='hidden' value="gr8t" />
-                    <input name="Target_Audience__c" id="Target_Audience__c" type='hidden' value="gen" />
-                    <input name="Target_Grade__c" id="Target_Grade__c" type='hidden' value="k-12" />
-                    <input name="UTM_Campaign__c" id="UTM_Campaign__c" type='hidden' value="" />
-                    <input name="UTM_Medium__c" id="UTM_Medium__c" type='hidden' value="" />
-                    <input name="UTM_Source__c" id="UTM_Source__c" type='hidden' value="" />
-                    <input name="UTM_Content__c" id="UTM_Content__c" type='hidden' value="" />
-                    <input name="UTM_Term__c" id="UTM_Term__c" type='hidden' value="" />
-                    <input name="Adgroup__c" id="Adgroup__c" type='hidden' value="" />
-                    <input name="Keyword_Match__c" id="Keyword_Match__c" type='hidden' value="" />
-                    <input name="Message_Class__c" id="Message_Class__c" type='hidden' value="direct_response" />
-                    <input name="Impression_ID__c" id="Impression_ID__c" type='hidden' value="gr8t_affl_CPA-519d2f6ef0" />
-                    <input name="Vendor__c" id="Vendor__c" type='hidden' value="gr8t" />
-                    <input name="Provider__c" id="Provider__c" type='hidden' value="other" />
-                    <input name="Geo_Distro__c" id="Geo_Distro__c" type='hidden' value="footprint 1-2-3-4" />
-                    <input name="Creative__c" id="Creative__c" type='hidden' value="" />
-                    <input name="Message__c" id="Message__c" type='hidden' value="" />
-                    <input name="CTA__c" id="CTA__c" type='hidden' value="" />
-                    <input name="Placement__c" id="Placement__c" type='hidden' value="" />
-                    <input name="Dimensions__c" id="Dimensions__c" type='hidden' value="" />
-                    <input name="iFrame__c" id="iFrame__c" type='hidden' value="" />
-                    <input name="LP_URL__c" id="LP_URL__c" type='hidden' value="" />
-                    <input name="Vanity_URL__c" id="Vanity_URL__c" type='hidden' value="" />
-                    <input name="Start_Date__c" id="Start_Date__c" type='hidden' value="" />
-                    <input name="Promocode__c" id="Promocode__c" type='hidden' value="" />
-                    <input name="Referrer__c" id="Referrer__c" type='hidden' value="" />
-                    <input name="Referrer_Last__c" id="Referrer_Last__c" type='hidden' value="" />
-                    <input type="hidden" name="_marketo_comments" value="" />
-                    <input type="hidden" name="lpId" value="-1" />
-                    <input type="hidden" name="subId" value="9" />
-                    <input type="hidden" name="kw" value="" />
-                    <input type="hidden" name="cr" value="" />
-                    <input type="hidden" name="searchstr" value="" />
-                    <input type="hidden" name="lpurl" value="" />
-                    <input type="hidden" name="_mkt_disp" value="return" />
-                    <input type="hidden" name="_mkt_trk" value="" />
-                    <input name="Product_Interest__c" id="Product_Interest__c" type='hidden' value="va" />
-                    <input name="Product_Type__c" id="Product_Type__c" type='hidden' value="gen" />
-                    <input type="hidden" name="formid" value="1028" />
-                    <!-- M1-Marketo Change: Use desired thank you page url for retURL and returnURL value -->
-                    <input type="hidden" name="returnURL" value="" />
-                    <input type="hidden" name="retURL" value="" />
-
-                </fieldset>
-            </form>
-
-            <!--</div>-->
+            <k12:formCode/>
 
             <!--more virtual student module-->
             <div class="inner mtl">
                 <div class="hd pas">
                     <h5 class="bottom">Virtual Students in the Spotlight</h5>
                 </div>
-                <!--<div class="media pas"></div>-->
 
                 <div class="bd pam bottom">
                     <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
                 </div>
             </div>
         </div>
-
-        <!--<div class="clearfix"></div>-->
 
         <!--long ad banner-->
         <div class="grid_16 mod standard_2-2 ">
@@ -328,10 +173,6 @@
                         <h4 class="bottom"> Discover why K12 International is right for your child...</h4>
                 </div>
                 <div class="clearfix pll">
-                    <c:set var="learnMoreHereButton">
-                    <a href="${k12ClickThroughUrl}" class="but but-rg but-1 jq-k12ClickThrough">Learn More &amp;raquo;</a>
-                    </c:set>
-
                     ${learnMoreHereButton}
                 </div>
 
@@ -353,6 +194,19 @@
 
                             <div class="pam">
                                 <h3>
+                                    Better Than Ever
+                                </h3>
+
+                                <p class="small bottom mvm">
+                                    by Victoria | May 8, 2013
+                                </p>
+
+                                <p class="small bottom">
+                                    Our family has been a K12 family for two school years. We first looked into K12 when our second daughter began to fall behind in school because of a speech impediment. She was in speech therapy and improving dramatically, but the other kids in her grade were reading and she couldn't catch up. She was frustrated and would cry when she couldn't read. It was intensely frustrating to see my daughter so upset, but being unable to help. Academically, aside from her reading difficulties, she was at grade level and holding her back was not an option we were willing to take. We enrolled both of our daughters as soon as possible. We were matched with Education Specialists who were awesome. Our daughter was placed in Mark12 and her reading improved 1,000% in just 6 months! She still doesn’t enjoy reading, but is constantly improving. Our son was enrolled in Kindergarten this past school year and he is already beginning to read. All three of our children are learning and growing by leaps and bounds every day thanks to K12.
+                                </p>
+                            </div>
+                            <div class="pam">
+                                <h3>
                                     We love k12!
                                 </h3>
 
@@ -364,7 +218,6 @@
                                     Our son went to a brick and mortar school and wasn't able to thrive. They said he had problems focusing and felt he was behind. Our last straw was when his 2nd grade teacher said she "didn't know what to do with him anymore" and that she had "tried everything she could". Fast forward, we are now in our 2nd year at WAVA and we couldn't be happier! Our son has advanced one year in science and math, and loves to learn! I am amazed with the curriculum and I just don’t know if a brick and mortar school would be able to provide this type of education to my children. The depth that they are able to go into with each subject is so amazing. When we received our fall assessments last year we found out that my son was very advanced and was (in 3rd grade) reading at a high school level and was at a Jr High level in math. So instead of having a "problem child" in our brick and mortar school we now have an excited and thriving child at K12. Even though my very social 9 year old loves hanging out with his friends at brick and mortar school, he loves k12 and being able to learn even more. He has expressed to us that he doesn't ever want to do anything else! We have a soon to be 4 year old that cannot wait to start k12 as well. I do believe we are going to be a WAVA family for many years to come! We are very thankful to be able to have an opportunity to give our children such a high level of education!!
                                 </p>
                             </div>
-
                         </c:if>
 
                         <div class="shim-10 bottom"><!-- do not collapse --></div>
@@ -378,16 +231,11 @@
                     <h4 class="bottom">About the curriculum</h4>
                 </div>
                 <div class="pam">
-                    <!--<k12:bottomCopy school="${k12School}"/>-->
-
-                        <c:forEach items="${bottomCopyList}" var="myBottomCopyListItem">
-                            <p class="small bottom">${myBottomCopyListItem}</p>
-                        </c:forEach>
-
+                    <c:forEach items="${bottomCopyList}" var="myBottomCopyListItem" varStatus="loopStatus">
+                        <p class="small ${loopStatus.last?'bottom':''}">${myBottomCopyListItem}</p>
+                    </c:forEach>
                 </div>
             </div>
-
-            <div class="clearfix"></div>
 
             <!--want to learn more small ad-->
             <div class="grid_5 inner fr">
@@ -397,10 +245,6 @@
                     </h5>
                 </div>
                 <div class="">
-                    <c:set var="learnMoreHereButton">
-                        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 jq-k12ClickThrough">Learn More &amp;raquo;</a>
-                    </c:set>
-
                     ${learnMoreHereButton}
                 </div>
 
@@ -409,6 +253,7 @@
 
     </div>
 </div>
+    <div class="clearfix"><!-- not empty --></div>
 
     <mod:tracking pageName="Online Education Landing Page"
                   hier1="Topic Centers,Online Education,Sponsored K12"
