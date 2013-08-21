@@ -240,6 +240,7 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
+        $("#entityName").html("School Name");
         $("#category").val("edit_school");
         $("#verificationNote").html("Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.");
         $("#webSiteLabel").html("School web site");
@@ -257,6 +258,7 @@ function do_radio_school_district(clear){
         $("#div_school_only_1").hide();
         $("input[name=addEdit][value=edit]").prop('checked', true);
         $("#detailsLabel").html("District Details");
+        $("#entityName").html("District Name");
         $("#lowerCounty").hide();
         $("#category").val("edit_district");
         $("#verificationNote").html("Please provide a website that will help us verify your role at the district, such as a homepage or faculty page.");
@@ -1032,7 +1034,7 @@ jQuery(document).ready(function() {
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Name <span class="required">*</span></div>
+    <div class="fieldLabel"><span id="entityName">Name</span> <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.name">
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="name"/>
