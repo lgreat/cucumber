@@ -101,14 +101,14 @@
         </div>
 
         <!--video module-->
-<<<<<<< HEAD
+
         <div class="grid_6 mod standard_1-1 mhm">
 
-            <!--id="youtubeVideoLightbox"-->
-=======
+
+
         <div class="grid_5">
         <div class="mod standard_1-1 mhm">
->>>>>>> fe3e0e5eff6cb847dba6681251fb150e551a7199
+
 
             <div class="inner">
                 <div class="hd pas">
@@ -216,12 +216,12 @@
             </div>
         </div>
 
-<<<<<<< HEAD
+
     </div>
 <!--</div>-->
-=======
+
 </div>
->>>>>>> fe3e0e5eff6cb847dba6681251fb150e551a7199
+
     <div class="clearfix"><!-- not empty --></div>
 
     <mod:tracking pageName="Online Education Landing Page"
