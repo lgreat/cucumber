@@ -35,8 +35,16 @@
             </div>
 
             <div class="schoolBreakdown">
+                <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>
                 <h3 class="make-ffffff bottom pbm">What kind of school are you looking for?</h3>
-                <gsml:list model="${schoolBreakdown}"/>
+                <c:forEach var="list" items="${schoolTypeList}">
+                    <a href="${list.hrefXml}" class="mrl">
+                        <button class="but-4 clearfix">
+                            <span class="fl">${list.contents}</span>
+                            <span class="fr plm" style="border-left: 1px solid #b8b8b8">${list.count}</span>
+                        </button>
+                    </a>
+                </c:forEach>
             </div>
         </div>
     </form>

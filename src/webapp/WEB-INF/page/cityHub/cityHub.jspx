@@ -34,11 +34,11 @@
         <pageHelper:hideFooterAd/>
         <pageHelper:hideLeaderboard/>
 
-        <div class="imageBgScale moduleHeight-773 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
+        <div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
             <div class="img-container">
                 <img class="scaling" src="/res/img/cityHubs/1230x500_hero_DC.png" alt="Parents review"/>
             </div>
-            <div class="content-centered moduleTop-50">
+            <div class="content-centered moduleTop-90">
                 <div class="cityHubs_bg tal">
                     <hub:searchSchool/>
                 </div>
