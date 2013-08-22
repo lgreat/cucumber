@@ -2372,7 +2372,7 @@ GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
 
-GSType.hover.YoutubeVideoLightbox = function() {
+GSType.hover.YoutubeVideoLightbox = function(evt) {
     this.showHover = function(url, width, height) {
         $(".js-youTubeVideoModal").attr("src", url);
         this.show();

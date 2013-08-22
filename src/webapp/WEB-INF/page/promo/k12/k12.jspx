@@ -102,45 +102,49 @@
 
         <!--video module-->
 
-        <div class="grid_6 mod standard_1-1 mhm">
+            <div class="grid_5">
+                <div class="mod standard_1-1 mhs">
 
-
-
-        <div class="grid_5">
-        <div class="mod standard_1-1 mhm">
-
-
-            <div class="inner">
-                <div class="hd pas">
-                    <h4 class="bottom">Video</h4>
-                </div>
-                    <ul>
-                        <li><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">open video 1</a></li>
-                        <li><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">open video 2</a></li>
-                        <li><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">open video 3</a></li>
-                    </ul>
+                    <div class="inner">
+                        <div class="hd pas">
+                            <h4 class="bottom">Video</h4>
+                        </div>
+                        <div class="mam">
+                            <ul style="padding-left: 0;">
+                                <li style="list-style-type: none;"><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
+                                    <img src="http://placekitten.com/160/130"/>Need copy from Kim, video 1</a></li>
+                                <li style="list-style-type: none;"><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
+                                    <img src="http://placekitten.com/160/130"/>Need copy from Kim, video 2</a></li>
+                                <li style="list-style-type: none;"><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">
+                                    <img src="http://placekitten.com/160/130"/>Need copy from Kim, video 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
+
         <!--form module and virtual student-->
-        <div class="grid_7 omega">
+        <div class="grid_7 omega fr">
             <div class="mod standard_1-1">
                 <k12:formCode/>
-
-                <!--more virtual student module-->
-                <div class="inner mtl">
+            </div>
+            <!--more virtual student module-->
+            <div class="mod standard_1-1">
+                <div class="inner mtl clearfix">
                     <div class="hd pas">
                         <h5 class="bottom">Virtual Students in the Spotlight</h5>
                     </div>
-
-                    <div class="bd pam bottom">
+                    <div class="media pam fl">
+                        <a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="http://placekitten.com/65/65"/></a>
+                    </div>
+                    <div class="bd pam">
                         <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="clearfix"><!-- not empty --></div>
         <!--long ad banner-->
         <div class="grid_16 alpha">
             <div class="mod standard_2-2 ">
@@ -157,7 +161,6 @@
         </div>
 
         <div class="grid_16 alpha">
-
             <!--parent success module-->
             <div class="mod standard_1-1">
 
@@ -180,7 +183,7 @@
                         </p>
                     </div>
 
-                    <div class="shim-10 bottom"><!-- do not collapse --></div>
+                    <!--<div class="shim-10 bottom">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                 </div>
             </div>
         </div>
@@ -203,24 +206,19 @@
         <!--want to learn more small ad-->
         <div class="grid_5 omega">
             <div class="mod standard_1-1">
-                <div class="inner">
-                    <div class="small_bold bottom pal">
-                        <h5>
+                <div class="inner clearfix">
+                    <div class="small_bold bottom phl ptl">
+                        <h5 class="bold bottom">
                             Want to learn more about ${schoolName}?
                         </h5>
                     </div>
-                    <div class="">
+                    <div class="mlm pal">
                         ${learnMoreHereButton}
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
-<!--</div>-->
-
-</div>
 
     <div class="clearfix"><!-- not empty --></div>
 

@@ -30,7 +30,7 @@
     </c:if>
 
     <c:if test="${!empty newsList}">
-        <ul class="bottom">
+        <ul class="small bottom">
             <c:forEach items="${newsList}" var="myNewsItem">
                 <li>
                 <strong>${myNewsItem["header"]}</strong>
