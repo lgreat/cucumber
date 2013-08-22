@@ -1,68 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
         >
     <jsp:directive.tag body-content="empty" description="Used to insert the K12 leadgen form"/>
 
-    <h3>For more information on this school</h3>
+    <h5 class="bottom"><strong>For more information on this school</strong></h5>
 
-    <p>Please provide your contact information so a representative from <strong>${schoolName}</strong> can contact you.</p>
+    <p class="small bottom mbm">Please provide your contact information so a representative from <strong>${requestScope.schoolName}</strong> can contact you.</p>
     <form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded"
           action="http://app-o.marketo.com/index.php/leadCapture/save">
         <fieldset>
-            <div class="field">
-                <label for="fname">First Name</label>
-                <input id="fname" class="require-content" name="FirstName" type="text"/>
-
-                <div class="errors clear"><!-- not empty --></div>
-            </div>
-            <div class="field">
-                <label for="lname">Last Name</label>
-                <input id="lname" class="require-content" name="LastName" type="text"/>
-
-                <div class="errors clear"><!-- not empty --></div>
-            </div>
-            <div class="field">
-                <label for="email">Email</label>
-                <input id="email" class="require-content valid-email" name="Email" type="text"/>
-
-                <div class="errors clear"><!-- not empty --></div>
-            </div>
-            <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" class="require-content valid-phone-number" name="Phone" type="text"/>
-
-                <div class="errors clear"><!-- not empty --></div>
-            </div>
-            <div class="field floatleft" style="margin: 0 0 5px">
-                <label for="zip">Zip</label>
-                <input id="zip" class="require-content valid-zip" type="text"/>
-
-                <div class="errors clear"><!-- not empty --></div>
-            </div>
-            <div class="field">
-                <label for="state">State</label>
+            <k12:formField label="First Name" id="fname">
+                <input id="fname" class="input_5 require-content" name="FirstName" type="text"/>
+            </k12:formField>
+            <k12:formField label="Last Name" id="lname">
+                <input id="lname" class="input_5 require-content" name="LastName" type="text"/>
+            </k12:formField>
+            <k12:formField label="Email" id="email">
+                <input id="email" class="input_5 require-content valid-email" name="Email" type="text"/>
+            </k12:formField>
+            <k12:formField label="Phone" id="phone">
+                <input id="phone" class="input_5 require-content valid-phone-number" name="Phone" type="text"/>
+            </k12:formField>
+            <k12:formField label="Zip" id="zip">
+                <input id="zip" class="input_5 require-content valid-zip" type="text"/>
+            </k12:formField>
+            <k12:formField label="State" id="state">
                 <gsweb:stateSelector styleId="state" styleClass="states-list" name="K12_State__c" state="${state}" usingLongNames="${true}"/>
-            </div>
-            <div class="clear"><!-- not empty --></div>
-            <div class="field">
-                <label for="grades">Grade</label>
+            </k12:formField>
+            <k12:formField label="Grade" id="grades">
                 <select class="grades-list require-content" id="grades" name="WhichGrades-Form">
                     <option value="">Choose Grade</option>
                     <option value="k-8"> K-8</option>
                     <option value="9-12"> 9-12</option>
                     <option value="K-12"> Both</option>
                 </select>
-
-                <div class="errors clear"><!-- not empty --></div>
-            </div>
+            </k12:formField>
 
             <div class='msgdiv' style='text-align:center;'><!-- not empty --></div>
             <div class="loader hidden"><!-- not empty --></div>
-            <a href='javascript:document.mktForm_1028.submit()'
+            <a href="javascript:$('#K12LeadForm').submit();"
                class='flexbutton button-blue-large submit-button iegradient' id='mktForm_1028-btn'><span
                     class='leftside'><!-- not empty --></span>Learn More<span class='rightside'><!-- not empty --></span></a>
             <noscript><input type='submit' name='submited' value='Learn More'/></noscript>
