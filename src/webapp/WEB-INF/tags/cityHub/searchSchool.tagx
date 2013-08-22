@@ -31,7 +31,7 @@
                 <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
                 <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
                 <button class="button-4 searchSubmit" type="submit">GO</button>
-                <a href="www.greatschools.org" class="vam small pll">Not in ${state.abbreviation}?</a>
+                <a href="http://www.greatschools.org"  target="_blank" class="vam small pll">Not in ${state.abbreviation}?</a>
             </div>
 
             <div class="schoolBreakdown">
