@@ -2372,7 +2372,12 @@ GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
 
-GSType.hover.YoutubeVideoLightbox = function() {};
+GSType.hover.YoutubeVideoLightbox = function() {
+    this.showHover = function(url, width, height) {
+        $(".js-youTubeVideoModal").attr("src", url);
+        this.show();
+    };
+};
 GSType.hover.YoutubeVideoLightbox.prototype = new GSType.hover.HoverDialog('js-youtubeVideoLightbox');
 GSType.hover.youtubeVideoLightbox = new GSType.hover.YoutubeVideoLightbox();
 
