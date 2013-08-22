@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <jsp:directive.tag import="java.util.ArrayList"/>
-    <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag body-content="empty" description="Used to insert top copy of K12 advertiser page for specific K12 school"/>
     <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
 
@@ -24,15 +22,14 @@
             <c:set var="whyIntro" scope="request">
                 Why Intro
             </c:set>
-            <k12:addToK12List var="whyList">
+            <util:addBodyToList listVariableName="whyList">
                 one
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 two
-            </k12:addToK12List>
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'AR'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ar.html"/>
         </c:when>
         <c:when test="${school eq 'AZ'}">
             <c:set var="hasLogo" value="${true}" scope="request"/>
@@ -48,33 +45,33 @@
             <c:set var="whyIntro" scope="request">
                 AZVA, Insight, and K<sup>12</sup> give Arizona kids in grades K-12 the chance to learn in the ways that are right for them. We offer:
             </c:set>
-            <k12:addToK12List var="whyList">
+            <util:addBodyToList listVariableName="whyList">
                 The award-winning K<sup>12</sup> and Aventa Learning by K<sup>12</sup> curricula
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 Full-time, tuition-free online public school options available for students of all skills and abilities
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 Support from highly qualified, state-certified teachers
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 Additional support programs from advisors, counselors, and social workers offering study and life skills*
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 An active, supportive school community
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 A range of extracurricular activities
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 A robust Advanced Learner Program
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 Expert programs and assistance in helping students fill in skill gaps and recover credits toward graduation*
-            </k12:addToK12List>
-            <k12:addToK12List var="whyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
                 Students graduate with a high school diploma that meets all state requirements.
-            </k12:addToK12List>
+            </util:addBodyToList>
             <c:set var="whyCaption" scope="request">
                 AZVA/Insight is a program of PPEP &amp; Affiliates.
             </c:set>
@@ -84,135 +81,105 @@
             <c:set var="newsHeader" scope="request">
                 AZVA/Insight News
             </c:set>
-            <k12:putInK12Map var="newsItem1" key="header">
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
                 <a href="http://www.k12.com/azva/enroll" target="_blank">2012–2013 Enrollments Now Open</a>
-            </k12:putInK12Map>
-            <k12:putInK12Map var="newsItem1" key="body">
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
                 Find out how to make a change today!
-            </k12:putInK12Map>
-            <k12:putInK12Map var="newsItem2" key="header">
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
                 <a href="http://azstarnet.com/news/local/education/article_03fc06f3-05ac-5105-9c41-901dac3cf466.html" target="_blank">SAZVA student Invited to Moscow for Ballet, Studying</a>
-            </k12:putInK12Map>
-            <k12:putInK12Map var="newsItem2" key="body">
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 Sofia Robbins will travel to Russia to learn the history and culture in Moscow, while pursuing her dream.
-            </k12:putInK12Map>
-            <k12:putInK12Map var="newsItem3" key="header">
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
                 <a href="http://www.k12.com/azva/how-it-works/blended-learning/ilearn-centers" target="_blank">K<sup>12</sup> at the Y i-Learn Centers</a>
-            </k12:putInK12Map>
-            <k12:putInK12Map var="newsItem3" key="body">
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
                 Looking for a blended online/onsite learning option for your child? K<sup>12</sup> at the Y is designed for you.
-            </k12:putInK12Map>
-            <k12:addK12VarToList var="newsList" mapToAdd="${newsItem1}"/>
-            <k12:addK12VarToList var="newsList" mapToAdd="${newsItem2}"/>
-            <k12:addK12VarToList var="newsList" mapToAdd="${newsItem3}"/>
+            </util:putBodyInMap>
+            <jsp:useBean id="aroyTest" class="java.util.ArrayList"/>
+            <jsp:useBean id="aroyTest2" class="java.util.HashMap"/>
+            <util:addMapToList listVariableName="newsList" map="${newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${newsItem3}"/>
 
-            <k12:addToK12List var="bottomCopyList">
+            <util:addBodyToList listVariableName="bottomCopyList">
                 Arizona Virtual Academy/Insight Academy of Arizona uses the individualized K<sup>12</sup> and Aventa Learning by K<sup>12</sup> curricula from K<sup>12</sup> which is based on decades of education research about how minds really work. With courses in six core subjects, it was designed to let K-8 kids find the pace and learning style that work best for them, and to enable high school students to find their own path to post-high school success.
-            </k12:addToK12List>
-            <k12:addToK12List var="bottomCopyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
                 The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
-            </k12:addToK12List>
-            <k12:addToK12List var="bottomCopyList">
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
                 Because we believe that all children deserve to learn without limits.
-            </k12:addToK12List>
+            </util:addBodyToList>
         </c:when>
-
         <c:when test="${school eq 'CA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ca.html"/>
         </c:when>
         <c:when test="${school eq 'CO'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-co.html"/>
         </c:when>
         <c:when test="${school eq 'DC'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-dc.html"/>
         </c:when>
         <c:when test="${school eq 'FL'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-fl.html"/>
         </c:when>
         <c:when test="${school eq 'GA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ga.html"/>
         </c:when>
         <c:when test="${school eq 'HI'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-hi.html"/>
         </c:when>
         <c:when test="${school eq 'IA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ia.html"/>
         </c:when>
         <c:when test="${school eq 'ID'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-id.html"/>
         </c:when>
         <c:when test="${school eq 'IL'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-il.html"/>
         </c:when>
         <c:when test="${school eq 'IN'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-in.html"/>
-        </c:when>
-        <c:when test="${school eq 'INT'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-int.html"/>
         </c:when>
         <c:when test="${school eq 'KS'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ks.html"/>
         </c:when>
         <c:when test="${school eq 'LA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-la.html"/>
         </c:when>
         <c:when test="${school eq 'MA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ma.html"/>
         </c:when>
         <c:when test="${school eq 'MI'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-mi.html"/>
         </c:when>
         <c:when test="${school eq 'MN'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-mn.html"/>
         </c:when>
         <c:when test="${school eq 'MO'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-mo.html"/>
         </c:when>
         <c:when test="${school eq 'NJ'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-nj.html"/>
         </c:when>
         <c:when test="${school eq 'NM'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-nm.html"/>
         </c:when>
         <c:when test="${school eq 'NV'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-nv.html"/>
         </c:when>
         <c:when test="${school eq 'OH'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-oh.html"/>
         </c:when>
         <c:when test="${school eq 'OK'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ok.html"/>
         </c:when>
         <c:when test="${school eq 'OR'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-or.html"/>
         </c:when>
         <c:when test="${school eq 'PA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-pa.html"/>
         </c:when>
         <c:when test="${school eq 'SC'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-sc.html"/>
         </c:when>
         <c:when test="${school eq 'TN'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-tn.html"/>
         </c:when>
         <c:when test="${school eq 'TX'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-tx.html"/>
         </c:when>
         <c:when test="${school eq 'UT'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ut.html"/>
         </c:when>
         <c:when test="${school eq 'VA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-va.html"/>
         </c:when>
         <c:when test="${school eq 'WA'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-wa.html"/>
         </c:when>
         <c:when test="${school eq 'WI'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-wi.html"/>
         </c:when>
         <c:when test="${school eq 'WY'}">
-            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-wy.html"/>
         </c:when>
+        <c:otherwise>
+            <!-- This case handles  INT and the states without state-specific schools -->
+        </c:otherwise>
     </c:choose>
 
 </jsp:root>

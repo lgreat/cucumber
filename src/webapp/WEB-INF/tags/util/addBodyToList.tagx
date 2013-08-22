@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag body-content="empty" description="TBD"/>
+    <jsp:directive.attribute name="listVariableName" required="true" description="Name of list variable to populate"/>
+
+    <c:set var="listItem" scope="page"><jsp:doBody/></c:set>
+    <jsp:scriptlet> <![CDATA[
+        java.util.List k12Items = (List)request.getAttribute(listVariableName);
+
+        if (k12Items == null) {
+            k12Items = new java.util.ArrayList<String>();
+            request.setAttribute(listVariableName, k12Items);
+        }
+
+        k12Items.add(jspContext.getAttribute("listItem"));
+        ]]></jsp:scriptlet>
+</jsp:root>
