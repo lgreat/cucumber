@@ -11,7 +11,9 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
+          xmlns:v1="urn:jsptagdir:/WEB-INF/tags/community/hover/v1">
+
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
 
@@ -40,8 +42,6 @@
         </script>
 
 
-        <!-- Magnific Popup core CSS file -->
-        <!--<link rel="stylesheet" href="magnific-popup/magnific-popup.css"></link>-->
 
     </head>
 
@@ -98,30 +98,35 @@
         </div>
 
         <!--video module-->
-        <div id="videoMod" class="grid_6 mod standard_1-1 mhm">
+        <div id="youtubeVideoLightbox" class="grid_6 mod standard_1-1 mhm">
 
             <div class="inner">
                 <div class="hd pas">
                     <h4 class="bottom">Video</h4>
                 </div>
+
                 <div>
-                    <ul>
+                   <ul>
                         <li><a href="http://youtu.be/qh1jSmUPX-g">Video</a></li>
                         <li><a href="http://www.youtube.com/watch?v=z3HeRtKxF0A">Video</a></li>
                         <li><a href="http://youtu.be/q938QqKIpgA">Video</a></li>
                     </ul>
-                    <div  id="videoWAtcher">
-                        lalal
-                    </div>
+
+                   <p>
+
+
+                    <a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.show(); return false;">open video</a>
+
+                   </p>
+                    <!--redirect="http://youtu.be/qh1jSmUPX-g"-->
+
+
                 </div>
             </div>
 
 
-        <!--&lt;!&ndash; jQuery 1.7.2+ or Zepto.js 1.0+ &ndash;&gt;-->
-        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-        <!--&lt;!&ndash; Magnific Popup core JS file &ndash;&gt;-->
-        <!--&lt;!&ndash;<script src="magnific-popup/jquery.magnific-popup.js"></script>&ndash;&gt;-->
-        <!--<script type="text/javascript" src="http://www.teaching-materials.org/common/youtube.js"></script>-->
+
+
             <!--<script>-->
                 <!--var videoLinks = $("a");-->
                 <!--videoLinks.each(function() {-->
