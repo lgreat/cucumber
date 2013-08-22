@@ -6,21 +6,26 @@
 
     <jsp:directive.attribute name="reviews" required="true" type="java.util.List"   />
 
-    <c:forEach items="${reviews}" var="review">
+    <div class="container_24 clearfix mbl pbl">
+        <h3 class="sourceSansPro-Semibold mbm mtl">Recent Reviews</h3>
+        <c:forEach items="${reviews}" var="review">
+            <div class="grid_22 suffix_2">
 
-        <tr>
-            <td>
-                <h4><link:schoolProfileParentReview school="${review.school}" rel="${relvalue}"><c:out
-                        value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
-            </td>
-            <td>
+
+
+
                 STARS  "${review.stars}"   <br/>
                 Posted "${review.date}"     <br/>
-                TOTAL REVIEW COUNT :  "${review.totalReviews}" <br/>
                 FULL COMMENTS NOT TRUNCATED :  "${review.comments}"  <br/>
-            </td>
 
-        </tr>
 
-    </c:forEach>
+                <h5 class="sourceSansPro-Semibold mbm mtl">${review.school}</h5>
+
+                <link:schoolProfileParentReview school="${review.school}" ><c:out
+                        value=" Read all ${review.totalReviews} reviews &gt;&gt;" escapeXml="true"/></link:schoolProfileParentReview>
+            </div>
+
+        </c:forEach>
+    </div>
+    <hr class="keyline1"/>>
 </jsp:root>
