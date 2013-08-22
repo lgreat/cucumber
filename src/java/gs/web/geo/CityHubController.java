@@ -26,6 +26,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -88,8 +90,8 @@ public class CityHubController  extends AbstractController implements IDirectory
         /**
          *  School Review Link Functionality Start.
          */
-          AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
-          modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
+//          AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
+//          modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
         /**
          *  School Review Link Functionality Start.
          */
@@ -166,10 +168,23 @@ public class CityHubController  extends AbstractController implements IDirectory
                  * type_of_value identifies what the value is, for importantEvent this could be description, url, date.
                  */
                 String eventNum = key.substring(key.indexOf("_") + 1, key.lastIndexOf("_"));
-                filteredConfig.put(key, hubConfig.getValue());
                 try {
+                    if(key.endsWith("_date")) {
+                        Date date = new SimpleDateFormat("MM-dd-yyyy").parse(hubConfig.getValue());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
+                        filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
+                        filteredConfig.put(key + "_month", calendar.get(Calendar.MONTH) + 1);
+                    }
+                    else {
+                        filteredConfig.put(key, hubConfig.getValue());
+                    }
                     Integer count = Integer.parseInt(eventNum);
                     numEvents = (count > numEvents) ? count : numEvents;
+                }
+                catch (ParseException ex) {
+                    _logger.error("CityHubController - unable to convert string to java date", ex.getCause());
                 }
                 catch (NumberFormatException ex) {
                     _logger.error("CityHubController - unable to get index value from config key.", ex.getCause());
