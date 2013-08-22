@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+<!-- For K12 led gen form -->
+    <jsp:directive.tag body-content="empty" description="Used to insert a field on the K12 form"/>
+    <jsp:directive.attribute name="label" required="true" description="Label"/>
+    <jsp:directive.attribute name="id" required="true" description="HTML id for label for attribute"/>
+
+    <div class="lal mbs clearfix">
+        <div class="alpha grid_2">
+            <label for="${id}">${label}</label>
+        </div>
+        <div class="grid_5 omega">
+            <jsp:doBody/>
+        </div>
+    </div>
+</jsp:root>
