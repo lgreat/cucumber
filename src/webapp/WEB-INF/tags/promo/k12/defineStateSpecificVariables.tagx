@@ -7,32 +7,54 @@
     <jsp:directive.tag body-content="empty" description="Used to insert top copy of K12 advertiser page for specific K12 school"/>
     <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
 
-    <c:choose>
-        <c:when test="${school eq 'AK'}">
-            <c:set var="aboutIntro">
-            About intro
-            </c:set>
+    <c:set var="tuitionText" value="Tuition-free online public school" scope="request"/> <!-- Defaults to this text. INT overrides -->
+    <c:set var="hasLogo" value="${true}" scope="request"/> <!-- Defaults to logo, need to opt-out -->
 
+    <!-- TEMPLATE
+
+            <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
-                About intro
+
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why Header
+
             </c:set>
             <c:set var="whyIntro" scope="request">
-                Why Intro
+
             </c:set>
             <util:addBodyToList listVariableName="whyList">
-                one
+
             </util:addBodyToList>
-            <util:addBodyToList listVariableName="whyList">
-                two
+            <c:set var="whyCaption" scope="request">
+
+            </c:set>
+            <c:set var="whyFootnote" scope="request">
+
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+
             </util:addBodyToList>
+
+            END TEMPLATE
+            -->
+    <c:choose>
+        <c:when test="${school eq 'AK'}">
         </c:when>
         <c:when test="${school eq 'AR'}">
         </c:when>
         <c:when test="${school eq 'AZ'}">
-            <c:set var="hasLogo" value="${true}" scope="request"/>
+            <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. Arizona Virtual Academy (AZVA), Insight
                 Academy of Arizona (Insight), and K<sup>12</sup> ignite the minds of children like yours to bring
@@ -101,9 +123,9 @@
             </util:putBodyInMap>
             <jsp:useBean id="aroyTest" class="java.util.ArrayList"/>
             <jsp:useBean id="aroyTest2" class="java.util.HashMap"/>
-            <util:addMapToList listVariableName="newsList" map="${newsItem1}"/>
-            <util:addMapToList listVariableName="newsList" map="${newsItem2}"/>
-            <util:addMapToList listVariableName="newsList" map="${newsItem3}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 Arizona Virtual Academy/Insight Academy of Arizona uses the individualized K<sup>12</sup> and Aventa Learning by K<sup>12</sup> curricula from K<sup>12</sup> which is based on decades of education research about how minds really work. With courses in six core subjects, it was designed to let K-8 kids find the pace and learning style that work best for them, and to enable high school students to find their own path to post-high school success.
@@ -179,6 +201,12 @@
         </c:when>
         <c:otherwise>
             <!-- This case handles  INT and the states without state-specific schools -->
+            <c:if test="${school ne 'INT'}">
+                <c:set var="hasLogo" value="${false}" scope="request"/> <!-- INT only has logo, others do not -->
+            </c:if>
+            <c:set var="tuitionText" value="Online private school" scope="request"/> <!-- Defaults to this text. INT overrides -->
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <!-- TODO: Set rest of variables -->
         </c:otherwise>
     </c:choose>
 
