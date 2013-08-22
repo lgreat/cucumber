@@ -1,13 +1,21 @@
 package gs.web.jsp;
 
 import gs.data.util.DigestUtil;
+import gs.web.util.UrlUtil;
 import junit.framework.TestCase;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
+
+import java.util.*;
+
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -27,31 +35,19 @@ public class UtilTest extends TestCase {
     }
 
     public void testConvertToGoogleApiUrlSuccessWithNoPath (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com?client"));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithParams (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com/api?address=myhouse&sensor=false");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com/api?address=myhouse&client=" + DigestUtil.GOOGLE_CLIENT_ID + "&sensor=false"));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com/api?address=myhouse&sensor=false");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithNoParams (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com/api");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com/api?client"));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com/api");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithQuestionMark (){
-        String rVal = Util.convertToGoogleApiUrl("https://maps.google.com/api?");
-        assertTrue("Expect original parameters present in " + rVal, rVal.startsWith("https://maps.google.com/api?client=" + DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended client ID in " + rVal, rVal.contains("client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + rVal, rVal.contains("&signature"));
+        helperForGoogleApiTest("https://maps.google.com/api?");
     }
 
     public void testConvertToGoogleApiUrlSuccessWithAmpersand (){
@@ -60,9 +56,37 @@ public class UtilTest extends TestCase {
 
     private void helperForGoogleApiTest(String urlToConvert) {
         String convertedUrl = Util.convertToGoogleApiUrl(urlToConvert);
-//        assertTrue("Expect original parameters present in " + convertedUrl, convertedUrl.startsWith("https://maps.google.com/api&?client"));
-        assertTrue("Expect appended client ID in " + convertedUrl, convertedUrl.contains("?client="+ DigestUtil.GOOGLE_CLIENT_ID));
-        assertTrue("Expect appended hash in " + convertedUrl, convertedUrl.contains("&signature"));
+
+        Map<String, String> mapNewTestUrlQuery = helperConvertGoogleApiUrlToMap(convertedUrl);
+
+        String signature= mapNewTestUrlQuery.get("signature") + "=";
+        assertEquals("Signature must equal 28 chars. ", 28, signature.length());
+        String client = mapNewTestUrlQuery.get("client");
+        assertEquals("Expect correct google client id", DigestUtil.GOOGLE_CLIENT_ID, client);
+
+        Map<String, String> mapOldTestUrlQuery = helperConvertGoogleApiUrlToMap(urlToConvert);
+
+        for (String key : mapOldTestUrlQuery.keySet()){
+            assertEquals("Expect original parameters present in", mapOldTestUrlQuery.get(key), mapNewTestUrlQuery.get(key));
+        }
+    }
+
+    private Map<String, String> helperConvertGoogleApiUrlToMap(String testUrl){
+        URL helperUrlTest;
+        try {
+            helperUrlTest = new URL(testUrl);
+        } catch (MalformedURLException e) {
+            fail("Malformed URL");
+            return null;
+        }
+
+        String helperUrlTestQuery = helperUrlTest.getQuery();
+        Map<String, String> mapHelperUrlTestQuery = UrlUtil.getParamsFromQueryString(helperUrlTestQuery);
+        mapHelperUrlTestQuery.put("__scheme", helperUrlTest.getProtocol());
+        mapHelperUrlTestQuery.put("__host", helperUrlTest.getHost());
+        mapHelperUrlTestQuery.put("__path", helperUrlTest.getPath());
+
+       return mapHelperUrlTestQuery;
     }
 
     /** Useful to pre-compute static imports */

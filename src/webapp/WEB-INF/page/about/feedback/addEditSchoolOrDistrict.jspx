@@ -58,6 +58,7 @@ function showSchoolDistrictFields(){
         $("#schoolDistrictFields").show();
         $("#schoolDistFieldsDisplayed").val("true");
     }else if($('input:radio[name=addEdit]:checked').val() == 'add'){
+        $("#addEditSchoolOrDistrictCommand_schoolId").val("");
         if($('input:radio[name=schoolType]:checked').val() == 'public'
                 && $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
             $("#schoolDistrictFields").show();
@@ -69,6 +70,7 @@ function showSchoolDistrictFields(){
             $("#schoolDistFieldsDisplayed").val("true");
         }else if($('input:radio[name=schoolType]:checked').val() == 'private'
                 && $("#addEditSchoolOrDistrictCommand_county").val() != ""){
+            $("#addEditSchoolOrDistrictCommand_districtId").val("");
             $("#schoolDistrictFields").show();
             $("#schoolDistFieldsDisplayed").val("true");
         }else{
@@ -238,6 +240,7 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
+        $("#entityName").html("School Name");
         $("#category").val("edit_school");
         $("#verificationNote").html("Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.");
         $("#webSiteLabel").html("School web site");
@@ -255,6 +258,7 @@ function do_radio_school_district(clear){
         $("#div_school_only_1").hide();
         $("input[name=addEdit][value=edit]").prop('checked', true);
         $("#detailsLabel").html("District Details");
+        $("#entityName").html("District Name");
         $("#lowerCounty").hide();
         $("#category").val("edit_district");
         $("#verificationNote").html("Please provide a website that will help us verify your role at the district, such as a homepage or faculty page.");
@@ -448,6 +452,8 @@ function do_add_edit(state,clear){
     if(clear == "1"){
         clear_values();
     }
+
+
     $("#addEditSchoolOrDistrictCommand_state").val(state);
 
     $("#addEditSchoolOrDistrictCommand_state").change(function() {
@@ -676,7 +682,11 @@ $(document).ready(function(){
 
 });
 
+jQuery(document).ready(function() {
+    jQuery('#startTime').ptTimeSelect();
+    jQuery('#endTime').ptTimeSelect();
 
+});
 
 
 
@@ -1024,7 +1034,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Name <span class="required">*</span></div>
+    <div class="fieldLabel"><span id="entityName">Name</span> <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.name">
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="name"/>

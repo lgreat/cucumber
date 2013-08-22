@@ -363,7 +363,7 @@
     <c:if test="${param.tab eq 'reviews'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="reviews-master" value="selected"/>
     </c:if>
-    <c:if test="${param.tab eq 'test-scores' or param.tab eq 'ratings'}">
+    <c:if test="${param.tab eq 'test-scores' or param.tab eq 'ratings' or param.tab eq 'college-readiness'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="test-scores-master" value="selected"/>
     </c:if>
     <c:if test="${param.tab eq 'demographics' or param.tab eq 'teachers'}">

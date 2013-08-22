@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.util.table.ITableDao;
 import gs.web.util.*;
@@ -92,6 +93,12 @@ public class SocialRegistrationAndLoginController implements ReadWriteAnnotation
         modelMap.remove("userRegistrationCommand");
         modelMap.remove("userSubscriptionCommand");
         modelMap.remove("registrationBehavior");
+
+        if (summary.wasUserRegistered()) {
+            PageHelper.setMemberAuthorized(request, response, summary.getUser());
+        }
+
+        ThreadLocalTransactionManager.commitOrRollback();
 
         return view;
     }

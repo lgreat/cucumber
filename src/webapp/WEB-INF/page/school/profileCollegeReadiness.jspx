@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:censusDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/censusDisplay"
+        >
+    <c:if test="${collegeReadinessData ne null and fn:length(collegeReadinessData) gt 0}">
+        <div>
+            <c:set var="enrollInCollegeAfterGraduation" value="${collegeReadinessData[178]}"/>
+            <c:set var="needRemediation" value="${collegeReadinessData[179]}"/>
+            <c:set var="avgFirstYearGpa" value="${collegeReadinessData[180]}"/>
+            <c:set var="avgUnitsCompleted" value="${collegeReadinessData[181]}"/>
+            <c:set var="enrolledInCollegeAndReturned" value="${collegeReadinessData[182]}"/>
+
+            <c:if test="${enrollInCollegeAfterGraduation ne null or needRemediation ne null}">
+                <div class="grid_16 alpha omega clearfix">
+                    <div class="mod standard_1-4">
+                        <div class="inner">
+                            <div class="bd clearfix mal">
+                                <h3>Starting College</h3>
+                                <p class="bottom">How many graduates from this school ...</p>
+                                <c:if test="${enrollInCollegeAfterGraduation ne null}">
+                                    <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
+                                            censusDataSet="${enrollInCollegeAfterGraduation}"/></c:set>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <hr class="keyline1"/>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <div class="unit size35of100 prm">
+                                        Enroll in college immediately after high school
+                                        graduation<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                    </div>
+                                    <censusDisplay:hgraphPercent censusDataSet="${enrollInCollegeAfterGraduation}"/>
+                                </c:if>
+                                <c:if test="${needRemediation ne null}">
+                                    <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
+                                            censusDataSet="${needRemediation}"/></c:set>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <hr class="keyline1"/>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <div class="unit size35of100 prm">
+                                        Need remediation, or help strengthening basic
+                                        skills<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                    </div>
+                                    <censusDisplay:hgraphPercent censusDataSet="${needRemediation}"/>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear mbm"><!-- not empty --></div>
+            </c:if>
+            <c:if test="${avgFirstYearGpa ne null or avgUnitsCompleted ne null}">
+                <div class="grid_16 alpha omega clearfix">
+                    <div class="mod standard_1-4">
+                        <div class="inner">
+                            <div class="bd clearfix mal">
+                                <h3>Freshman year</h3>
+                                <p class="bottom">How well prepared for college are these graduates?*</p>
+                                <c:if test="${avgFirstYearGpa ne null}">
+                                    <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
+                                            censusDataSet="${avgFirstYearGpa}"/></c:set>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <hr class="keyline1"/>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <div class="unit size35of100 prm">
+                                        Average first year GPA
+                                        (out of 4.0)<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                    </div>
+                                    <censusDisplay:hgraphNumber censusDataSet="${avgFirstYearGpa}" maxValue="4.0"
+                                                                maxDecimalsForDisplay="1"/>
+                                </c:if>
+                                <c:if test="${avgUnitsCompleted ne null}">
+                                    <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
+                                            censusDataSet="${avgUnitsCompleted}"/></c:set>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <hr class="keyline1"/>
+                                    <div class="clear mbl"><!-- not empty --></div>
+                                    <div class="unit size35of100 prm">
+                                        Average number of units completed in first
+                                        year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                    </div>
+                                    <censusDisplay:hgraphNumber censusDataSet="${avgUnitsCompleted}" maxValue="34"
+                                                                maxDecimalsForDisplay="0"/>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear mbm"><!-- not empty --></div>
+            </c:if>
+            <c:if test="${enrolledInCollegeAndReturned ne null and enrolledInCollegeAndReturned.schoolOverrideOrSchoolValue ne null}">
+                <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
+                        censusDataSet="${enrolledInCollegeAndReturned}"/></c:set>
+                <div class="grid_16 alpha omega clearfix">
+                    <div class="mod standard_1-4">
+                        <div class="inner">
+                            <div class="bd clearfix mal">
+                                <h3>Sticking with it</h3>
+                                <p class="bottom">How many students re-enroll the following year?*</p>
+                                <div class="clear mbl"><!-- not empty --></div>
+                                <hr class="keyline1"/>
+                                <div class="clear mbl"><!-- not empty --></div>
+                                <div class="unit size35of100 prm">
+                                    Enrolled in college and returned for a second
+                                    year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                </div>
+                                <censusDisplay:hgraphPercent censusDataSet="${enrolledInCollegeAndReturned}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear mbm"><!-- not empty --></div>
+            </c:if>
+
+            <div class="smaller pbm">
+                <c:forEach items="${footnoteHelper.censusSources}" var="source" varStatus="status">
+                    <c:if test="${fn:length(footnoteHelper.censusSources) gt 1}"><sup>${status.count}</sup></c:if>Source:
+                    ${source.obj1.source}<c:if test="${not empty source.obj2}">, ${source.obj2-1}-${source.obj2}</c:if><br/>
+                </c:forEach>
+                <c:if test="${avgFirstYearGpa ne null or avgUnitsCompleted ne null or (enrolledInCollegeAndReturned ne null and enrolledInCollegeAndReturned.schoolOverrideOrSchoolValue ne null)}">
+                    * Of those that went to ${school.databaseState.longName} public colleges
+                </c:if>
+            </div>
+
+            <mod:deferredTracking key="college-readiness" pageName="college readiness"
+                                  hier1="School,SchoolProfileSuite,College Readiness"/>
+        </div>
+    </c:if>
+</jsp:root>

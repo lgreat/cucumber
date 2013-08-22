@@ -544,14 +544,22 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
         return page;
     }
 
-    protected Set<Integer> getCensusDataTypeIdsForOverview() {
-        Set set = new HashSet<Integer>();
+    /**
+     * Set of census data type ids consumed by tabs other than the stats tab
+     */
+    protected Set<Integer> getCensusDataTypeIdsForOtherTabs() {
+        Set<Integer> set = new HashSet<Integer>();
         set.add(CensusDataType.HEAD_OFFICIAL_NAME.getId());
         set.add(CensusDataType.HEAD_OFFICIAL_EMAIL.getId());
         set.add(CensusDataType.STUDENTS_ENROLLMENT.getId());     // This value is needed at both the school and district levels
         set.add(CensusDataType.ADVANCED_PLACEMENT_EXAMS_OFFERED.getId());
         set.add(CensusDataType.STUDENTS_ENROLLMENT.getId());
         set.add(CensusDataType.STUDENTS_ETHNICITY.getId());
+        set.add(CensusDataType.PERCENT_ENROLLED_IN_COLLEGE_FOLLOWING_HIGH_SCHOOL.getId());
+        set.add(CensusDataType.PERCENT_NEEDING_REMEDIATION_FOR_COLLEGE.getId());
+        set.add(CensusDataType.AVERAGE_GPA_FIRST_YEAR_OF_COLLEGE.getId());
+        set.add(CensusDataType.AVERAGE_NUMBER_UNITS_COMPLETED_FIRST_YEAR_OF_COLLEGE.getId());
+        set.add(CensusDataType.PERCENT_ENROLLED_IN_COLLEGE_AND_RETURNED_FOR_SECOND_YEAR.getId());
         return set;
     }
 
