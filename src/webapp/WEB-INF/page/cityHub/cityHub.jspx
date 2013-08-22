@@ -8,7 +8,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
     <jsp:directive.page contentType="text/html"/>
-    <jsp:directive.page import="gs.web.school.review.ReviewFacade"/>
+
 
 
     <jsp:output doctype-root-element="html"
@@ -47,7 +47,7 @@
 
         <hub:chooseASchool/>
         <hub:importantEvent/>
-        <hub:recentReviews reviews="${reviews}"/>
+        <hub:recentReviews />
         <hub:cityArticle/>
         <hub:communityPartner/>
     </body>

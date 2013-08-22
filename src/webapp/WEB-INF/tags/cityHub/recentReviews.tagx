@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link">
 
-    <jsp:directive.attribute name="reviews" required="true" type="java.util.List"   />
+    <!--<jsp:directive.attribute name="reviews" required="true" type="java.util.List"   />-->
 
     <div class="container_24 clearfix mbl pbl">
         <h3 class="sourceSansPro-Semibold mbm mtl">Recent Reviews</h3>
