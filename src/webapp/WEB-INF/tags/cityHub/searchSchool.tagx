@@ -21,23 +21,22 @@
             <div style="font:bold 56px/60px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
                 text-shadow: 0 0 24px rgba(0,0,0,1)">Washington D.C.
             </div>
-            <div class="line">
-                <div class='unit searchBarFas size83of100 mrm clearfix pr' style='background: #fff; border: 1px solid #b8b8b8;'>
-                    <div class="fl">
-                        <input type="text" name="q"
-                               class="text-bigger"
-                               style="width: 400px; border: none;"
-                               id="js-findByNameBox"
-                               placeholder="School name"/>
-                        <input type="hidden" name="hub" id="jq-hub" value="Washington"/>
-                        <input type="hidden" name="state" id="jq-state" value="DC"/>
-                    </div>
-                </div>
-                <div class="unit size20of100 lastUnit">
-                    <button class="button-4 searchSubmit" type="submit">Search</button>
-                </div>
+            <div class="pas mtm mbl" style="background-color: #FFB843;
+                -webkit-border-radius: 3px;
+                   -moz-border-radius: 3px;
+                        border-radius: 3px;">
+                <input type="text" name="q"
+                       class="text text-bigger input_15"
+                       id="js-findByNameBox"
+                       placeholder="School name (e.g. 'Niles Elementary School')"/>
+                <input type="hidden" name="hub" id="jq-hub" value="Washington"/>
+                <input type="hidden" name="state" id="jq-state" value="DC"/>
+                <button class="button-4 searchSubmit" type="submit">GO</button>
+                <a href="www.greatschools.org" class="vam small pll">Not in DC?</a>
             </div>
+
             <div class="schoolBreakdown">
+                <h3 class="make-ffffff bottom pbm">What kind of school are you looking for?</h3>
                 <gsml:list model="${schoolBreakdown}"/>
             </div>
         </div>
