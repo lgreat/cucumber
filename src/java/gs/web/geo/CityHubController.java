@@ -97,7 +97,7 @@ public class CityHubController  extends AbstractController implements IDirectory
         /**
          * Get the important events
          */
-        List<HubConfig> configList = getHubConfig(city, state);
+        List<HubConfig> configList = getHubConfig(modelAndView, city, state);
         ModelMap importantEventsMap = getFromConfigList(configList, IMPORTANT_EVENT);
         modelAndView.addObject(IMPORTANT_EVENT, importantEventsMap);
 
@@ -135,13 +135,14 @@ public class CityHubController  extends AbstractController implements IDirectory
         return reviews;
     }
 
-    public List<HubConfig> getHubConfig(String city, State state) {
+    public List<HubConfig> getHubConfig(ModelAndView modelAndView, String city, State state) {
         Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
 
         if(hubId == null) {
             return new ArrayList<HubConfig>();
         }
 
+        modelAndView.addObject("hubId", hubId);
         List<HubConfig> configList = _hubConfigDao.getAllConfigFromHubId(hubId);
 
         return configList != null ? configList : new ArrayList<HubConfig>();

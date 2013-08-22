@@ -2,11 +2,6 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page">
 
-    <jsp:directive.attribute name="city" required="true" description="city name"
-                             type="java.lang.String"/>
-    <jsp:directive.attribute name="state" required="true" description="state object"
-                             type="gs.data.state.State"/>
-
     <div class="container_24">
         <div class="grid_1 suffix_2">
             <img src="/res/img/content/chooserRightRail/thumbnail${city}${state.capitalizeFirstLetterInEachWord}.jpg" alt="City of ${state.abbreviation}"/>

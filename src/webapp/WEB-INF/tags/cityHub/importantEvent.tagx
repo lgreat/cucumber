@@ -5,11 +5,6 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
 
-    <jsp:directive.attribute name="city" required="true" description="city name"
-                             type="java.lang.String"/>
-    <jsp:directive.attribute name="state" required="true" description="state object"
-                             type="gs.data.state.State"/>
-
     <div class="container_24">
     Important Events
     <c:set var="numEvents" value="${importantEvent.count}"/>

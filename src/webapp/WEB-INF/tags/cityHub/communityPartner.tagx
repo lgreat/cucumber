@@ -5,11 +5,6 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
-    <jsp:directive.attribute name="city" required="true" description="city name"
-                             type="java.lang.String"/>
-    <jsp:directive.attribute name="state" required="true" description="state object"
-                             type="gs.data.state.State"/>
-
     <style media="screen" type="text/css">
 
 

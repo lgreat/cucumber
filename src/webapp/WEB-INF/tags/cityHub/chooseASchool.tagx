@@ -2,10 +2,6 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
-    <jsp:directive.attribute name="city" required="true" description="city name"
-                             type="java.lang.String"/>
-    <jsp:directive.attribute name="state" required="true" description="state object"
-                             type="gs.data.state.State"/>
     
     <div class="container_24 clearfix mbl pbl">
         <div class="grid_10 suffix_2">
