@@ -31,10 +31,10 @@
 
         <script type="text/javascript">
             jQuery(function() {
-                jQuery('#k12AdPage .jq-k12ClickThrough').
+                jQuery('#k12AdPage .js-k12ClickThrough').
                         unbind('click').click(function() {
-                            if (s.tl) {
-                                s.tl(true, 'o', 'K12_ClickThrough_${k12School}');
+                            if (s &amp;&amp; s.tl) {
+                                s.tl(this, 'o', 'K12_ClickThrough_${k12School}');
                             }
                             return true;
                         });
@@ -50,7 +50,7 @@
     <!--define state specific variables tagx-->
     <k12:defineStateSpecificVariables school="${k12School}"/>
     <c:set var="learnMoreHereButton">
-        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 jq-k12ClickThrough">Learn More &amp;raquo;</a>
+        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
     </c:set>
 
     <div class="container_24">
@@ -80,7 +80,7 @@
                           alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
             </div>
             <div class="fl mbl">
-                <strong>Website: </strong> <a href="${k12ClickThroughUrl}">www.K12.com/${fn:toUpperCase(schoolCode)}</a>
+                <strong>Website: </strong> <a href="${k12ClickThroughUrl}" class="js-k12ClickThrough">www.K12.com/${fn:toUpperCase(schoolCode)}</a>
             </div>
         </div>
 
@@ -188,42 +188,26 @@
 
             <!--parent success module-->
             <div class="">
-               <!--<div class="shim-10 bottom mtm mbl">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                 <div class="mod standard_1-1">
 
                     <div class="inner">
-                        <c:if test="${hasBottomCopy}">
-                            <div class="hd pas">
-                                <h3 class="bottom">Parent Success Stories</h3>
-                            </div>
+                        <div class="hd pas">
+                            <h3 class="bottom">Parent Success Stories</h3>
+                        </div>
 
-                            <div class="pam">
-                                <h3>
-                                    Better Than Ever
-                                </h3>
+                        <div class="pam">
+                            <h3 class="bottom">
+                                Better Than Ever
+                            </h3>
 
-                                <p class="small bottom mvm">
-                                    by Victoria | May 8, 2013
-                                </p>
+                            <p class="small bottom mvm">
+                                <em>by Victoria | May 8, 2013</em>
+                            </p>
 
-                                <p class="small bottom">
-                                    Our family has been a K12 family for two school years. We first looked into K12 when our second daughter began to fall behind in school because of a speech impediment. She was in speech therapy and improving dramatically, but the other kids in her grade were reading and she couldn't catch up. She was frustrated and would cry when she couldn't read. It was intensely frustrating to see my daughter so upset, but being unable to help. Academically, aside from her reading difficulties, she was at grade level and holding her back was not an option we were willing to take. We enrolled both of our daughters as soon as possible. We were matched with Education Specialists who were awesome. Our daughter was placed in Mark12 and her reading improved 1,000% in just 6 months! She still doesn’t enjoy reading, but is constantly improving. Our son was enrolled in Kindergarten this past school year and he is already beginning to read. All three of our children are learning and growing by leaps and bounds every day thanks to K12.
-                                </p>
-                            </div>
-                            <div class="pam">
-                                <h3>
-                                    We love k12!
-                                </h3>
-
-                                <p class="small bottom mvm">
-                                    by Elizabeth | April 24, 2013
-                                </p>
-
-                                <p class="small bottom">
-                                    Our son went to a brick and mortar school and wasn't able to thrive. They said he had problems focusing and felt he was behind. Our last straw was when his 2nd grade teacher said she "didn't know what to do with him anymore" and that she had "tried everything she could". Fast forward, we are now in our 2nd year at WAVA and we couldn't be happier! Our son has advanced one year in science and math, and loves to learn! I am amazed with the curriculum and I just don’t know if a brick and mortar school would be able to provide this type of education to my children. The depth that they are able to go into with each subject is so amazing. When we received our fall assessments last year we found out that my son was very advanced and was (in 3rd grade) reading at a high school level and was at a Jr High level in math. So instead of having a "problem child" in our brick and mortar school we now have an excited and thriving child at K12. Even though my very social 9 year old loves hanging out with his friends at brick and mortar school, he loves k12 and being able to learn even more. He has expressed to us that he doesn't ever want to do anything else! We have a soon to be 4 year old that cannot wait to start k12 as well. I do believe we are going to be a WAVA family for many years to come! We are very thankful to be able to have an opportunity to give our children such a high level of education!!
-                                </p>
-                            </div>
-                        </c:if>
+                            <p class="small bottom">
+                                Our family has been a K12 family for two school years. We first looked into K12 when our second daughter began to fall behind in school because of a speech impediment. She was in speech therapy and improving dramatically, but the other kids in her grade were reading and she couldn't catch up. She was frustrated and would cry when she couldn't read. It was intensely frustrating to see my daughter so upset, but being unable to help. Academically, aside from her reading difficulties, she was at grade level and holding her back was not an option we were willing to take. We enrolled both of our daughters as soon as possible. We were matched with Education Specialists who were awesome. Our daughter was placed in Mark12 and her reading improved 1,000% in just 6 months! She still doesn’t enjoy reading, but is constantly improving. Our son was enrolled in Kindergarten this past school year and he is already beginning to read. All three of our children are learning and growing by leaps and bounds every day thanks to K12.
+                            </p>
+                        </div>
 
                         <div class="shim-10 bottom"><!-- do not collapse --></div>
                     </div>
@@ -246,7 +230,7 @@
             <div class="grid_5 inner fr">
                 <div class="small_bold bottom pal">
                     <h5>
-                    Want to learn more about K12 International?
+                    Want to learn more about ${schoolName}?
                     </h5>
                 </div>
                 <div class="">

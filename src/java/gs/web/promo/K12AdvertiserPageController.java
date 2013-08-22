@@ -1,5 +1,6 @@
 package gs.web.promo;
 
+import gs.data.state.State;
 import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
@@ -24,6 +25,7 @@ public class K12AdvertiserPageController {
     final public static String MODEL_HAS_SUMMARY = "hasSummary";
     final public static String MODEL_HAS_BOTTOM_COPY = "hasBottomCopy";
     final public static String MODEL_K12_CLICK_THROUGH_URL = "k12ClickThroughUrl";
+    final public static String MODEL_STATE = "state";
     final public static String OTHER_TRAFFIC_DRIVER = "ot";
 
     @RequestMapping(value = "/online-education.page", method = RequestMethod.GET)
@@ -37,8 +39,14 @@ public class K12AdvertiserPageController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(MODEL_K12_SCHOOL, schoolParam);
         model.put(MODEL_SCHOOL_NAME, K12AdvertiserPageHelper.getK12SchoolName(schoolParam));
-        model.put(MODEL_HAS_SUMMARY, K12AdvertiserPageHelper.hasSummary(schoolParam));
-        model.put(MODEL_HAS_BOTTOM_COPY, K12AdvertiserPageHelper.hasBottomCopy(schoolParam));
+        try {
+            State state = State.fromString(schoolParam);
+            if (state != null) {
+                model.put("state", state.getAbbreviationLowerCase());
+            }
+        } catch (IllegalArgumentException iae) {
+            // INT has no state
+        }
 
         String referrer = request.getHeader("referer");
         boolean hasReferrer = StringUtils.isNotBlank(referrer);
