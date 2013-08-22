@@ -60,11 +60,7 @@
                     <h1 class=""><c:if test="${hasLogo}"><img src="/res/img/promo/k12/${schoolCode}.png" alt="${schoolName} logo" width="100" height="25"/></c:if>${schoolName}</h1>
                 </div>
                 <div>
-                    Online
-                    |
-                    K-12
-                    |
-                    Tuition-Free Online Public School
+                    Online | ${gradesServed} | ${tuitionText}
                 </div>
             </div>
         </div>
