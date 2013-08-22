@@ -6,31 +6,45 @@
           xmlns:gsweb="gstaglib">
 
     <div class="container_24">
-    Important Events
-    <c:set var="numEvents" value="${importantEvent.count}"/>
-    <c:choose>
-        <c:when test="${not empty importantEvent and numEvents > 0}">
-            <c:forEach begin="1" end="${numEvents}" varStatus="status">
-                <c:set var="index" value="${status.count}"/>
-                <c:set var="descriptionKey">importantEvent_${index}_description</c:set>
-                <c:set var="urlKey">importantEvent_${index}_url</c:set>
-                <c:set var="dateKey">importantEvent_${index}_date</c:set>
+        <div class="grid_4 suffix_2">
+            <h3 class="sourceSansPro-Semibold mtl bottom">Important events</h3>
+            <a href="http://www.greatschools.org" target="_blank" class="small">See all</a><br/>
+        </div>
 
-                <div>${importantEvent[descriptionKey]}</div>
-                <div>${importantEvent[dateKey]}</div>
-                <div>${importantEvent[urlKey]}</div>
+        <c:set var="numEvents" value="${importantEvent.count}"/>
+        <c:choose>
+            <c:when test="${not empty importantEvent and numEvents > 0}">
+                <c:forEach begin="1" end="${numEvents}" varStatus="status">
+                    <c:set var="index" value="${status.count}"/>
+                    <c:set var="descriptionKey">importantEvent_${index}_description</c:set>
+                    <c:set var="urlKey">importantEvent_${index}_url</c:set>
+                    <c:set var="dayOfMonthKey">importantEvent_${index}_date_dayOfMonth</c:set>
+                    <c:set var="monthKey">importantEvent_${index}_date_month</c:set>
+                    <c:set var="yearKey">importantEvent_${index}_date_year</c:set>
 
-            </c:forEach>
-        </c:when>
+                    <div class="grid_2 mtl">
+                        <div>${importantEvent[monthKey]}</div>
+                        <div>${importantEvent[dayOfMonthKey]}</div>
+                    </div>
+                    <div class="grid_6 mtl">
+                        <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
+                        <a href="${importantEvent[urlKey]}" target="_blank" class="small">Find out more</a>
+                    </div>
 
-        <c:otherwise>
-            <div>No Upcoming Important Dates</div>
-        </c:otherwise>
-    </c:choose>
-    <div class="success-block">
+                </c:forEach>
+            </c:when>
+
+            <c:otherwise>
+                <div class="grid_8">
+                    <div>No Upcoming Important Dates</div>
+                </div>
+
+            </c:otherwise>
+        </c:choose>
+    <div class="success-block grid_24 mtm tac">
         <span class="small">ANNOUNCEMENT </span>
         <span class="make-000000 small"> For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.</span>
-        <a href="http://www.greatschools.org" target="_blank" class="small"> Find out details &gt;&gt;</a>
+        <a href="http://www.greatschools.org" target="_blank" class="small">Find out details</a>
 
     </div>
     </div>
