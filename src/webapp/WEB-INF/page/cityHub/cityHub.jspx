@@ -40,16 +40,16 @@
             </div>
             <div class="content-centered moduleTop-50">
                 <div class="cityHubs_bg tal">
-                    <hub:searchSchool/>
+                    <hub:searchSchool city="${city}" state="${state}"/>
                 </div>
             </div>
         </div>
 
-        <hub:chooseASchool />
-        <hub:importantEvent />
-        <hub:recentReviews reviews="${reviews}" />
-        <hub:cityArticle />
-        <hub:communityPartner />
+        <hub:chooseASchool city="${city}" state="${state}"/>
+        <hub:importantEvent city="${city}" state="${state}"/>
+        <hub:recentReviews reviews="${reviews}" city="${city}" state="${state}"/>
+        <hub:cityArticle city="${city}" state="${state}"/>
+        <hub:communityPartner city="${city}" state="${state}"/>
     </body>
     </html>
 </jsp:root>

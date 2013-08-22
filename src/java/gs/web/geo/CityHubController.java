@@ -78,7 +78,9 @@ public class CityHubController  extends AbstractController implements IDirectory
          */
 
         city="Washington" ;
+        modelAndView.addObject("city", city);
         state=State.DC;
+        modelAndView.addObject("state", state);
         /**
          * Hard coding for state and city end .
          */
