@@ -8,7 +8,7 @@ GS.search.searchBySchoolNameForm = GS.search.searchBySchoolNameForm || (function
 
     var init = function() {
         var $form = jQuery(FORM_SELECTOR);
-        $form.submit(function() {
+        $form.on('click', '#js-submit', function(){
             if(DEFAULT_SEARCH_FIELD_TEXT === $form.find(SEARCH_FIELD_SELECTOR).val()) {
                 return true;
             }
