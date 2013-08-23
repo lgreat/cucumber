@@ -39,7 +39,7 @@
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>
                 <h3 class="make-ffffff bottom pbm">What kind of school are you looking for?</h3>
                 <c:forEach var="list" items="${schoolTypeList}">
-                    <button class="but-4 clearfix" type="button" onclick="location.href='${list.hrefXml}'">
+                    <button class="but-4 clearfix" type="button" onclick="window.open('${list.hrefXml}')">
                         <span class="fl">${list.contents}</span>
                         <span class="fr plm" style="border-left: 1px solid #b8b8b8">${list.count}</span>
                     </button>

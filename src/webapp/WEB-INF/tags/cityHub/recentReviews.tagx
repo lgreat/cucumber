@@ -3,9 +3,6 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link">
-
-    <!--<jsp:directive.attribute name="reviews" required="true" type="java.util.List"   />-->
-
     <div class="container_24 clearfix mbl pbl">
         <h3 class="sourceSansPro-Semibold mbm mtl">Recent Reviews</h3>
         <c:forEach items="${reviews}" var="review">
@@ -19,7 +16,7 @@
                 FULL COMMENTS NOT TRUNCATED :  "${review.comments}"  <br/>
 
 
-                <h5 class="sourceSansPro-Semibold mbm mtl">${review.school}</h5>
+                <h5 class="sourceSansPro-Semibold mbm mtl">SCHOOL NAME ${review.schoolName}</h5>
 
                 <link:schoolProfileParentReview school="${review.school}" ><c:out
                         value=" Read all ${review.totalReviews} reviews &gt;&gt;" escapeXml="true"/></link:schoolProfileParentReview>
