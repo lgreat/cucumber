@@ -27,5 +27,5 @@
 
         </c:forEach>
     </div>
-    <hr class="keyline1"/>>
+    <hr class="keyline1"/>
 </jsp:root>
