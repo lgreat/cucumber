@@ -50,7 +50,7 @@
     <!--define state specific variables tagx-->
     <k12:defineStateSpecificVariables school="${k12School}"/>
     <c:set var="learnMoreHereButton">
-        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
+        <a href="${k12ClickThroughUrl}" target="_blank" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
     </c:set>
 
     <div class="container_24" id="k12AdPage">
@@ -76,7 +76,7 @@
                               alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
                 </div>
                 <div class="fl mbl">
-                    <strong>Website: </strong> <a href="${k12ClickThroughUrl}" class="js-k12ClickThrough">www.K12.com/${fn:toUpperCase(schoolCode)}</a>
+                    <strong>Website: </strong> <a href="${k12ClickThroughUrl}" target="_blank" class="js-k12ClickThrough">www.K12.com/${fn:toUpperCase(schoolCode)}</a>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
 
                     <div class="inner">
                         <div class="hd pas">
-                            <h4 class="bottom">Video</h4>
+                            <h4 class="bottom">Inside K12 Videos</h4>
                         </div>
                         <div class="mam">
                             <ul style="padding-left: 0;">
@@ -145,10 +145,10 @@
         <div class="grid_16 alpha">
             <div class="mod standard_2-2 ">
                 <div class="inner" style="background-color:#edff4d;">
-                    <div class="fl mrl pts">
-                        <h4 class="bottom"> Discover why K12 International is right for your child...</h4>
+                    <div class="fl pts">
+                        <h4 class="bottom mrl"> Discover why ${schoolName} is right for your child...</h4>
                     </div>
-                    <div class="clearfix pll">
+                    <div class="clearfix">
                         ${learnMoreHereButton}
                     </div>
 
