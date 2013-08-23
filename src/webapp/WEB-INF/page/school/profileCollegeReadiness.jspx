@@ -68,8 +68,14 @@
                                         Average first year GPA
                                         (out of 4.0)<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                     </div>
-                                    <censusDisplay:hgraphNumber censusDataSet="${avgFirstYearGpa}" maxValue="4.0"
-                                                                maxDecimalsForDisplay="1"/>
+                                    <c:if test="${avgFirstYearGpa.schoolOverrideOrSchoolValue ne null}">
+                                        <censusDisplay:number value="${avgFirstYearGpa.schoolOverrideOrSchoolValue.valueFloat}"
+                                                              caption="This school" maxDecimalsForDisplay="1"/>
+                                    </c:if>
+                                    <c:if test="${avgFirstYearGpa.stateCensusValue ne null}">
+                                        <censusDisplay:number value="${avgFirstYearGpa.stateCensusValue.valueFloat}"
+                                                              caption="State Avg" maxDecimalsForDisplay="1" last="${true}"/>
+                                    </c:if>
                                 </c:if>
                                 <c:if test="${avgUnitsCompleted ne null}">
                                     <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
@@ -81,8 +87,12 @@
                                         Average number of units completed in first
                                         year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                     </div>
-                                    <censusDisplay:hgraphNumber censusDataSet="${avgUnitsCompleted}" maxValue="34"
-                                                                maxDecimalsForDisplay="0"/>
+                                    <c:if test="${avgUnitsCompleted.schoolOverrideOrSchoolValue ne null}">
+                                        <censusDisplay:number value="${avgUnitsCompleted.schoolOverrideOrSchoolValue.valueFloat}"
+                                                              caption="This school" maxDecimalsForDisplay="0"/>
+                                        <censusDisplay:number value="30"
+                                                              caption="Recommended load" maxDecimalsForDisplay="0" last="${true}"/>
+                                    </c:if>
                                 </c:if>
                             </div>
                         </div>
@@ -98,13 +108,13 @@
                         <div class="inner">
                             <div class="bd clearfix mal">
                                 <h3>Sticking with it</h3>
-                                <p class="bottom">How many students re-enroll the following year?*</p>
+                                <p class="bottom">How many college-going students...*</p>
                                 <div class="clear mbl"><!-- not empty --></div>
                                 <hr class="keyline1"/>
                                 <div class="clear mbl"><!-- not empty --></div>
                                 <div class="unit size35of100 prm">
-                                    Enrolled in college and returned for a second
-                                    year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                    Re-enroll in college for a second
+                                    year?<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                 </div>
                                 <censusDisplay:hgraphPercent censusDataSet="${enrolledInCollegeAndReturned}"/>
                             </div>
@@ -114,7 +124,7 @@
                 <div class="clear mbm"><!-- not empty --></div>
             </c:if>
 
-            <div class="smaller pbm">
+            <div class="smaller pbm make-999999">
                 <c:forEach items="${footnoteHelper.censusSources}" var="source" varStatus="status">
                     <c:if test="${fn:length(footnoteHelper.censusSources) gt 1}"><sup>${status.count}</sup></c:if>Source:
                     ${source.obj1.source}<c:if test="${not empty source.obj2}">, ${source.obj2-1}-${source.obj2}</c:if><br/>
