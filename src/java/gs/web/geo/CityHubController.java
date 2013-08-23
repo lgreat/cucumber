@@ -90,8 +90,8 @@ public class CityHubController  extends AbstractController implements IDirectory
         /**
          *  School Review Link Functionality Start.
          */
-//          AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
-//          modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
+          AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
+          modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
         /**
          *  School Review Link Functionality Start.
          */
@@ -170,9 +170,7 @@ public class CityHubController  extends AbstractController implements IDirectory
                 String eventNum = key.substring(key.indexOf("_") + 1, key.lastIndexOf("_"));
                 try {
                     if(key.endsWith("_date")) {
-                        Date date = new SimpleDateFormat("MM-dd-yyyy").parse(hubConfig.getValue());
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(date);
+                        Calendar calendar = getDateFromString(hubConfig.getValue());
                         filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
                         filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
                         filteredConfig.put(key + "_month", calendar.get(Calendar.MONTH) + 1);
@@ -194,6 +192,12 @@ public class CityHubController  extends AbstractController implements IDirectory
 
         filteredConfig.put("count", numEvents);
         return filteredConfig;
+    }
+
+    public Calendar getDateFromString(String date) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(date));
+        return calendar;
     }
 
     // What does this do Revert Shomi
