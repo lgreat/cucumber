@@ -5,12 +5,6 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
-    <style media="screen" type="text/css">
-
-        .cycle-slideshow img{width:auto;height:auto;}
-
-
-    </style>
     <div class="container_24 clearfix">
         <div class="clearfix mvm">
             <div class="fl">
@@ -50,25 +44,25 @@
                 </div>
                 <div >
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/partner3.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner3.png"
                                   alt="Partner 3" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/partner4.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner4.png"
                                   alt="Partner 4" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/partner5.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner5.png"
                                   alt="Partner 5" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/partner6.png" width="130" height="66"
+                        <gsml:img src="/res/img/cityHubs/partner6.png"
                                   alt="Partner 6" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
