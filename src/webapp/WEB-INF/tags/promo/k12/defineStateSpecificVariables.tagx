@@ -50,8 +50,96 @@
             -->
     <c:choose>
         <c:when test="${school eq 'AK'}">
+            <c:set var="gradesServed" value="K-8" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. The Alaska Virtual Academy<sup>SM</sup> (AKVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping Alaska students in grades K-8 reach their true, personal potential.</c:set>
+            <c:set var="whyHeader" scope="request">
+                Why AKVA?
+            <c:set var="whyIntro" scope="request">
+                The Alaska Virtual Academy and K<sup>12</sup> give Alaska kids in grades K-8 the chance to learn at the pace and in ways that are right for them. AKVA offers:            </c:set>
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from state-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The flexibility of virtual schooling combined with public school support
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Alaska Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of education research about how minds really work. With courses in four core subjects, it was designed to let K-8 kids find the learning style that works best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on - the minds that usually wander when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at AKVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'AR'}">
+            <c:set var="gradesServed" value="K-8" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. The Arkansas Virtual Academy (ARVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping Arkansas students in grades K–8 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ARVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Arkansas Virtual Academy and K<sup>12</sup> give Arkansas kids in grades K-8 the chance to learn in ways that are right for them. ARVA offers:            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Arkansas-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system to qualifying families
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience
+            </util:addBodyToList>
+            <c:set var="newsHeader" scope="request">
+                ARVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="https://re21.ultipro.com/KIN1002/JobBoard/JobDetails.aspx?__ID=*47E53EF79ED21E20" target="_blank">Teacher Positions Available</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                ARVA is hiring general and special education teacher positions for the 2013/2014 school year (12-month agreement).
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/arva-Annual-Report-to-Parents-re-Student-Performance-052013.pdf" target="_blank">NORMES District Report Card 2012</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                View the district statistics survey for testing in 2012.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum was created by a team of experts at K<sup>12</sup>, using tried-and-true educational approaches for instruction. Our core courses-Language Arts/English, Math, Science, History, and Art-are combined into a rich, full-time schooling option. The lesson plans for each subject are integrated, so your child may be reading literature from the same time period as the art or history lesson she is studying. What begins as a story about a king who lost his wife may end up with an examination of the architecture and history of the Taj Mahal, built as a monument to a dead queen.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'AZ'}">
             <c:set var="gradesServed" value="K-12" scope="request"/>
@@ -121,8 +209,6 @@
             <util:putBodyInMap mapVariableName="newsItem3" key="body">
                 Looking for a blended online/onsite learning option for your child? K<sup>12</sup> at the Y is designed for you.
             </util:putBodyInMap>
-            <jsp:useBean id="aroyTest" class="java.util.ArrayList"/>
-            <jsp:useBean id="aroyTest2" class="java.util.HashMap"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
@@ -138,10 +224,210 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'CA'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. The California Virtual Academies and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping California students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why CAVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The California Virtual Academies and K<sup>12</sup> give California kids in grades K-12 the chance to learn at the pace and in ways that are right for them. CAVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Weekly classroom-based instructional programs in Math, English, and other activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Face-to-face meetings with California-credentialed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A program accredited by the Accrediting Commission for Schools of the Western Association of Schools and Colleges
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Subjects that are no longer offered in many programs: art, music, and world languages
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma from a WASC-accredited program that meets all state requirements.
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                CAVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/cava/logo" target="_blank">Introducing Our New Logo</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Notice something different about our logo? We've updated it to show our school spirit!
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/CAVA-at-Kern-Letter-122011.pdf" target="_blank">CAVA Responds to CCSA</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                CAVA at Kern's Governing Board responds in an open letter to the California Charter Schools Association's call for non-renewal. <a href="http://www.k12.com/sites/default/files/pdf/school-docs/CAVA-at-Kern-Letter-122011.pdf" target="_blank">Read more</a>.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                <a href="http://www.k12.com/cava/connect-to-a-parent" target="_blank">Connect with a CAVA Parent!</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                Get tips, advice, and more from someone who knows our program the best—a veteran CAVA parent. <a href="http://www.k12.com/cava/connect-to-a-parent" target="_blank">Have one of our seasoned CAVA parents contact you</a>!
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem4" key="header">
+                <a href="http://www.nbcbayarea.com/news/local-beat/Virtual_School_Now_a_Reality_Bay_Area.html" target="_blank">Video: Virtual Schools a Reality</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem4" key="body">
+                Learn what life is like for K<sup>12</sup> high school students from this tv news piece about a CAVA freshman. <a href="http://www.nbcbayarea.com/news/local-beat/Virtual_School_Now_a_Reality_Bay_Area.html" target="_blank">Watch now</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem4}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The California Virtual Academies use the individualized curriculum from K<sup>12</sup>, which is based on decades of education research about how minds really work. With courses in six core subjects, it was designed to let K-12 students find the pace and learning style that works best for them and to enable high school students to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'CO'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. The Colorado Virtual Academy (COVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping Colorado students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why COVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Colorado Virtual Academy and K<sup>12</sup> give Colorado kids in grades K-12 the chance to learn in the ways that are right for them. COVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Colorado-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma that meets all state requirements.
+            </util:addBodyToList>
+            <c:set var="whyCaption" scope="request">
+                COVA is a program of Adams 12 Five Star school district.
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+                COVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://denver.cbslocal.com/video/6874972-student-explains-online-public-school/" target="_blank">Student Explains Online Public School</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                COVA student Kelsey W. explains her experience with online schooling and how it allows her to explore personal goals in this segment from CBS Denver's morning show.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://thebusinesstimes.com/online-schools-offer-another-option" target="_blank">COVA Offers Another Option</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                As schools integrate technology into instruction, technology itself becomes an educational resource, says The Business Times.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Colorado Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of education research about how minds really work. With courses in six core subjects, it was designed to let K-8 kids find the learning style that works best for them, and to enable high school students to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on - the minds that usually wander when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at COVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'DC'}">
+            <c:set var="gradesServed" value="K-8" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. The Community Academy Public Charter School (CAPCS) Online of Washington DC and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping District students in grades K-8 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why CAPCS Online?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Community Academy Public Charter School (CAPCS) Online of Washington, D.C. and K<sup>12</sup> give DC kids in grades K-8 the chance to learn in the ways that are right for them. CAPCS Online offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from highly qualified, state-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Online lessons, plus books, materials, and loaner computer system
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A variety of instructional models to meet each student's unique learning style, including independent learning, teacher-supported courses, and teacher-led courses
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A program that met Adequate Yearly Progress goals in the 2008-2009 school year
+            </util:addBodyToList>
+            <c:set var="whyCaption" scope="request">
+                CAPCS Online is one of five campuses authorized by Community Academy Public Charter School.
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+                CAPCS News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/capcs/video/capcs-dc-united-story-time" target="_blank">Video: CAPCS Online Story Time with DC United</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                CAPCS Online invited a small group of students to attend a special story time with the MLS Soccer club based close by in the nation's capital.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Community Academy Public Charter School (CAPCS) Online of Washington DC uses the individualized curriculum from K<sup>12</sup>, which is based on decades of education research about how minds really work. With courses in six core subjects, it was designed to let kids find the pace and learning style that work best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'FL'}">
         </c:when>
