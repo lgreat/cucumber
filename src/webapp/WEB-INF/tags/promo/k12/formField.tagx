@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
 <!-- For K12 led gen form -->
-    <jsp:directive.tag body-content="empty" description="Used to insert a field on the K12 form"/>
+    <jsp:directive.tag body-content="scriptless" description="Used to insert a field on the K12 form"/>
     <jsp:directive.attribute name="label" required="true" description="Label"/>
     <jsp:directive.attribute name="id" required="true" description="HTML id for label for attribute"/>
 
