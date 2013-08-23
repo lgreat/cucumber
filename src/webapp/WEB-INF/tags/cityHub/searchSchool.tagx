@@ -30,8 +30,8 @@
                        placeholder="School name (e.g. 'Niles Elementary School')"/>
                 <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
                 <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
-                <div class="pa" style="top: 5px; right:88px;" type="submit">
-                    <span class="iconx48 i-48-search-city-hubs"><!-- do not collapse --></span>
+                <div class="pa" style="top: 5px; right:88px;">
+                    <span class="iconx48 i-48-search-city-hubs" id="js-submit"><!-- do not collapse --></span>
                 </div>
                 <a href="http://www.greatschools.org" class="vam small ptm phm fr">Not in ${state.abbreviation}?</a>
             </div>
