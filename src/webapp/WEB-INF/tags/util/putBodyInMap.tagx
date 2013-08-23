@@ -5,7 +5,7 @@
         >
     <jsp:directive.tag import="java.util.Map"/>
     <jsp:directive.tag import="java.util.HashMap"/>
-    <jsp:directive.tag body-content="empty" description="Puts body of tag into a map"/>
+    <jsp:directive.tag body-content="scriptless" description="Puts body of tag into a map"/>
     <jsp:directive.attribute name="mapVariableName" required="true" description="Name of map variable to populate"/>
     <jsp:directive.attribute name="key" required="true" type="java.lang.Object" description="Key to put in map"/>
 

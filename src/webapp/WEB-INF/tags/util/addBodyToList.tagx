@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.tag import="java.util.List"/>
-    <jsp:directive.tag body-content="empty" description="TBD"/>
+    <jsp:directive.tag body-content="scriptless" description="TBD"/>
     <jsp:directive.attribute name="listVariableName" required="true" description="Name of list variable to populate"/>
 
     <c:set var="listItem" scope="page"><jsp:doBody/></c:set>
