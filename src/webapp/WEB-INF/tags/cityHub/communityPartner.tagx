@@ -7,10 +7,8 @@
 
     <style media="screen" type="text/css">
 
-
-        .container{overflow:hidden;}
         .cycle-slideshow img{width:auto;height:auto;}
-        .cycle-slideshow .span2{float:none;}
+
 
     </style>
     <div class="container_24 clearfix">
@@ -40,44 +38,44 @@
                  data-cycle-next="#next"
                  data-cycle-prev="#prev">
 
-                <div class="span2 mrl">
+                <div>
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/partner1.png" alt="find a school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                        <gsml:img src="/res/img/cityHubs/partner1.png" alt="Partner 1" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
-                <div class="span2">
+                <div>
                     <a href="http://www.greatschools.org">
-                        <gsml:img src="/res/img/cityHubs/partner2.png" alt="preschool hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                        <gsml:img src="/res/img/cityHubs/partner2.png" alt="Partner 2" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
-                <div class="span2">
+                <div >
                     <a href="http://www.greatschools.org">
                         <gsml:img src="/res/img/cityHubs/partner3.png" width="130" height="66"
-                                  alt="elementary school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                                  alt="Partner 3" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
-                <div class="span2">
+                <div >
                     <a href="http://www.greatschools.org">
                         <gsml:img src="/res/img/cityHubs/partner4.png" width="130" height="66"
-                                  alt="middle school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                                  alt="Partner 4" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
-                <div class="span2">
+                <div >
                     <a href="http://www.greatschools.org">
                         <gsml:img src="/res/img/cityHubs/partner5.png" width="130" height="66"
-                                  alt="high school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                                  alt="Partner 5" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
-                <div class="span2">
+                <div >
                     <a href="http://www.greatschools.org">
                         <gsml:img src="/res/img/cityHubs/partner6.png" width="130" height="66"
-                                  alt="middle school hot topic" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                                  alt="Partner 6" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="fr mll" style="margin-top: 50px">
+        <div style="margin-top: 50px">
             <a href="#" id="next">
                 <span class="iconx32g i-32-carouselRight vam"><!-- do not collapse --></span>
             </a>
