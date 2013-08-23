@@ -175,7 +175,7 @@ select.stateSelect option {
 input.text {padding:5px 5px;}
 input.searchText {padding:5px 5px;}
 input.text-smaller {padding:2px;}
-input.text-bigger {padding: 5px;height: 26px;}
+input.text-bigger {padding: 6px 5px;height: 26px;}
 /*.ie7 .slFormsV1-0 input.text-bigger, .ie8 .slFormsV1-0 input.text-bigger {padding: 7px 5px 5px 5px;height: 23px;}*/
 textarea {padding:5px;resize:none;overflow:auto;}
 textarea.height-1{height:69px;}

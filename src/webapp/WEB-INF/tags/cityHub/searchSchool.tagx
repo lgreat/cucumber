@@ -20,30 +20,29 @@
             <div style="font:bold 56px/60px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
                 text-shadow: 0 0 24px rgba(0,0,0,1)">${city} ${state.abbreviation}
             </div>
-            <div class="pas mtm mbl" style="background-color: #FFB843;
+            <div class="pas mtm mbl pr" style="background-color: #FFB843;
                 -webkit-border-radius: 3px;
                    -moz-border-radius: 3px;
                         border-radius: 3px;">
                 <input type="text" name="q"
-                       class="text text-bigger input_15"
+                       class="text text-bigger input_16"
                        id="js-findByNameBox"
                        placeholder="School name (e.g. 'Niles Elementary School')"/>
                 <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
                 <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
-                <button class="button-4 searchSubmit" type="submit">GO</button>
-                <a href="http://www.greatschools.org"  target="_blank" class="vam small pll">Not in ${state.abbreviation}?</a>
+                <div class="pa" style="top: 5px; right:88px;" type="submit">
+                    <span class="iconx48 i-48-search-city-hubs"><!-- do not collapse --></span>
+                </div>
+                <a href="http://www.greatschools.org" class="vam small ptm phm fr">Not in ${state.abbreviation}?</a>
             </div>
-
             <div class="schoolBreakdown">
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>
                 <h3 class="make-ffffff bottom pbm">What kind of school are you looking for?</h3>
                 <c:forEach var="list" items="${schoolTypeList}">
-
-                        <button class="but-4 clearfix mrl" type="button" onclick="location.href='${list.hrefXml}'">
-                            <span class="fl">${list.contents}</span>
-                            <span class="fr plm" style="border-left: 1px solid #b8b8b8">${list.count}</span>
-                        </button>
-
+                    <button class="but-4 clearfix mrl" type="button" onclick="location.href='${list.hrefXml}'">
+                        <span class="fl">${list.contents}</span>
+                        <span class="fr plm" style="border-left: 1px solid #b8b8b8">${list.count}</span>
+                    </button>
                 </c:forEach>
             </div>
         </div>

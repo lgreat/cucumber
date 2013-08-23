@@ -34,7 +34,7 @@
         <pageHelper:hideFooterAd/>
         <pageHelper:hideLeaderboard/>
 
-        <div class="imageBgScale moduleHeight-560 js-pageOneReviewLandingPage reviewsLanding ${pageOneDisplay}">
+        <div class="imageBgScale moduleHeight-560">
             <div class="img-container">
                 <img class="scaling" src="/res/img/cityHubs/1230x500_hero_DC.png" alt="Parents review"/>
             </div>
