@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     
-    <div class="container_24 clearfix mbl pbl">
+    <div class="container_24 clearfix mvl pvl">
         <div class="grid_10 suffix_2">
 
 

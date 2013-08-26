@@ -5,9 +5,9 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
 
-    <div class="container_24">
-        <div class="grid_4 suffix_2">
-            <h3 class="sourceSansPro-Semibold mtl bottom">Important events</h3>
+    <div class="container_24 clearfix mtl pvl">
+        <div class="grid_5">
+            <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
             <a href="http://www.greatschools.org" target="_blank" class="small">See all</a><br/>
         </div>
 
@@ -22,31 +22,30 @@
                     <c:set var="monthKey">importantEvent_${index}_date_month</c:set>
                     <c:set var="yearKey">importantEvent_${index}_date_year</c:set>
 
-                    <div class="grid_2 mtl">
-                        <div>${importantEvent[monthKey]}</div>
-                        <div>${importantEvent[dayOfMonthKey]}</div>
+                    <div class="grid_2">
+                        <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
+                        <div class="tac mtl"><h3 class="bold">${importantEvent[dayOfMonthKey]}</h3></div>
+                        </span>
                     </div>
-                    <div class="grid_6 mtl">
+                    <div class="grid_7">
                         <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
                         <a href="${importantEvent[urlKey]}" target="_blank" class="small">Find out more</a>
                     </div>
-
                 </c:forEach>
             </c:when>
-
             <c:otherwise>
                 <div class="grid_8">
                     <div>No Upcoming Important Dates</div>
                 </div>
-
             </c:otherwise>
         </c:choose>
-    <div class="success-block grid_24 mtm tac">
-        <span class="small">ANNOUNCEMENT </span>
-        <span class="make-000000 small"> For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.</span>
-        <a href="http://www.greatschools.org" target="_blank" class="small">Find out details</a>
-
+        <div class="success-block grid_24 mtl tac">
+            <span class="small mrm">ANNOUNCEMENT</span>
+            <span class="make-000000 small">
+                For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.
+            </span>
+            <a href="http://www.greatschools.org" target="_blank" class="small mls">Find out details</a>
+        </div>
     </div>
-    </div>
-    <hr class="keyline1"/>
+    <hr class="keyline1 mvl"/>
 </jsp:root>
