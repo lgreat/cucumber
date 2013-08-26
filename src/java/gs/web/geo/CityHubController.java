@@ -50,8 +50,10 @@ public class CityHubController  extends AbstractController implements IDirectory
 
     private  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2 ;
     private  static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90 ;
+    public static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
     private  static final String PARAM_CITY = "city";
-    private static final String IMPORTANT_EVENT = "importantEvent";
+    public static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
+    public static final String DATE_FORMAT = "MM-dd-yyyy";
 
     private ControllerFamily _controllerFamily;
 
@@ -100,8 +102,9 @@ public class CityHubController  extends AbstractController implements IDirectory
          * Get the important events
          */
         List<HubConfig> configList = getHubConfig(modelAndView, city, state);
-        ModelMap importantEventsMap = getFromConfigList(configList, IMPORTANT_EVENT);
-        modelAndView.addObject(IMPORTANT_EVENT, importantEventsMap);
+        ModelMap importantEventsMap = getFilteredConfigMap(configList, IMPORTANT_EVENT_KEY_PREFIX);
+        importantEventsMap.put("maxImportantEventsToDisplay", MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
+        modelAndView.addObject(IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
         /**
          * Adding the Review Module Functionality to the Controller Start
@@ -150,13 +153,16 @@ public class CityHubController  extends AbstractController implements IDirectory
         return configList != null ? configList : new ArrayList<HubConfig>();
     }
 
-    public ModelMap getFromConfigList(List<HubConfig> configList, String keyPrefix) {
+    public ModelMap getFilteredConfigMap(List<HubConfig> configList, String keyPrefix) {
         ModelMap filteredConfig = new ModelMap();
+        List<String> configKeyPrefixListWithIndex = new ArrayList<String>();
+
         if(configList == null || keyPrefix == null) {
             return filteredConfig;
         }
 
-        int numEvents = 0;
+        boolean isImportantEventsModule = (IMPORTANT_EVENT_KEY_PREFIX.equals(keyPrefix)) ? true : false;
+
         for(HubConfig hubConfig : configList) {
             String key = hubConfig.getQuay();
             if(hubConfig != null && key.startsWith(keyPrefix)) {
@@ -167,37 +173,69 @@ public class CityHubController  extends AbstractController implements IDirectory
                  * "importantEvent_2" without "importantEvent_1"
                  * type_of_value identifies what the value is, for importantEvent this could be description, url, date.
                  */
-                String eventNum = key.substring(key.indexOf("_") + 1, key.lastIndexOf("_"));
-                try {
-                    if(key.endsWith("_date")) {
-                        Calendar calendar = getDateFromString(hubConfig.getValue());
+                String keyPrefixWithIndex = key.substring(0, key.lastIndexOf("_"));
+                /**
+                 * If the key is for date, convert the date in string to date object. This is done to sort the events
+                 * by date and also to get the day, month and year to apply the appropriate styles for the module.
+                 */
+                if(key.endsWith("_date")) {
+                    try {
+                        Calendar calendar = Calendar.getInstance();
+                        Date date = new SimpleDateFormat(DATE_FORMAT).parse(hubConfig.getValue());
+                        calendar.setTime(date);
                         filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
                         filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
                         filteredConfig.put(key + "_month", calendar.get(Calendar.MONTH) + 1);
+                        filteredConfig.put(key, date);
+
+                        if (isImportantEventsModule) {
+                            /**
+                             * Key prefix (with index) for an event must have a key for the date. Do not add a key that doesn't
+                             * have a date.
+                             */
+                            configKeyPrefixListWithIndex.add(keyPrefixWithIndex);
+                        }
                     }
-                    else {
-                        filteredConfig.put(key, hubConfig.getValue());
+                    catch (ParseException ex) {
+                        _logger.error("CityHubController - unable to convert string to java date", ex.getCause());
                     }
-                    Integer count = Integer.parseInt(eventNum);
-                    numEvents = (count > numEvents) ? count : numEvents;
                 }
-                catch (ParseException ex) {
-                    _logger.error("CityHubController - unable to convert string to java date", ex.getCause());
-                }
-                catch (NumberFormatException ex) {
-                    _logger.error("CityHubController - unable to get index value from config key.", ex.getCause());
+                else {
+                    filteredConfig.put(key, hubConfig.getValue());
                 }
             }
         }
 
-        filteredConfig.put("count", numEvents);
+        /**
+         * For the important events module, only the first two upcoming events are displayed. So the event key prefixes
+         * are sorted by date.
+         */
+        if(isImportantEventsModule) {
+            getConfigKeyPrefixesSortedByDate(configKeyPrefixListWithIndex, filteredConfig);
+        }
+        filteredConfig.put("configKeyPrefixListWithIndex", configKeyPrefixListWithIndex);
+
         return filteredConfig;
     }
 
-    public Calendar getDateFromString(String date) throws ParseException {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new SimpleDateFormat("MM-dd-yyyy").parse(date));
-        return calendar;
+    public void getConfigKeyPrefixesSortedByDate(List<String> configKeyPrefixListWithIndex, final ModelMap filteredConfigMap) {
+        if(configKeyPrefixListWithIndex == null || filteredConfigMap == null) {
+            return;
+        }
+
+        Collections.sort(configKeyPrefixListWithIndex, new Comparator<String>() {
+            public int compare(String keyPrefix1, String keyPrefix2) {
+                String dateKeyPrefix1 = keyPrefix1 + "_date";
+                String dateKeyPrefix2 = keyPrefix2 + "_date";
+
+                Object date1 = filteredConfigMap.get(dateKeyPrefix1);
+                Object date2 = filteredConfigMap.get(dateKeyPrefix2);
+                if(date1 instanceof Date && date2 instanceof Date) {
+                    return (((Date) date1).after((Date) date2) ? 1 : -1);
+                }
+                return 0;
+            }
+        });
     }
 
     // What does this do Revert Shomi

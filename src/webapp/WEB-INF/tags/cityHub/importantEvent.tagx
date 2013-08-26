@@ -11,16 +11,17 @@
             <a href="http://www.greatschools.org" target="_blank" class="small">See all</a><br/>
         </div>
 
-        <c:set var="numEvents" value="${importantEvent.count}"/>
+        <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}" property="java.util.List"/>
+        <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}" property="java.lang.Integer"/>
         <c:choose>
-            <c:when test="${not empty importantEvent and numEvents > 0}">
-                <c:forEach begin="1" end="${numEvents}" varStatus="status">
-                    <c:set var="index" value="${status.count}"/>
-                    <c:set var="descriptionKey">importantEvent_${index}_description</c:set>
-                    <c:set var="urlKey">importantEvent_${index}_url</c:set>
-                    <c:set var="dayOfMonthKey">importantEvent_${index}_date_dayOfMonth</c:set>
-                    <c:set var="monthKey">importantEvent_${index}_date_month</c:set>
-                    <c:set var="yearKey">importantEvent_${index}_date_year</c:set>
+            <c:when test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
+                <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
+                    <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}" property="java.lang.String"/>
+                    <c:set var="descriptionKey">${keyPrefix}_description</c:set>
+                    <c:set var="urlKey">${keyPrefix}_url</c:set>
+                    <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
+                    <c:set var="monthKey">${keyPrefix}_date_month</c:set>
+                    <c:set var="yearKey">${keyPrefix}_date_year</c:set>
 
                     <div class="grid_2">
                         <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
