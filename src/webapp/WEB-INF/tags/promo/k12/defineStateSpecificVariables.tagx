@@ -977,16 +977,405 @@
         <c:when test="${school eq 'TN'}">
         </c:when>
         <c:when test="${school eq 'TX'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. Texas Virtual Academy (TXVA),
+                a ResponsiveEd charter school in partnership with K<sup>12</sup>, ignites the minds of children like yours to bring
+                learning and innate possibility alive. Together, we are helping students across Texas in grades 3-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why TXVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                Texas Virtual Academy and K<sup>12</sup>, in partnership with ResponsiveEd, give students in grades 3-12 the chance to learn in the ways that are right for them. TXVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                <a href="http://www.k12.com/txva/who-we-are/accreditation#.UhuF5GTtgVw" target="_blank">Fully accredited by TEA and SACS</a>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Texas-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books and materials
+            </util:addBodyToList>
+            <c:set var="whyFootnote" scope="request">
+                TXVA is available to most students across Texas who qualify under the terms of participation for enrollment.
+                See the eligibility requirements and a detailed listing of the school districts we currently serve on our
+                <a href="http://www.k12.com/txva/enroll#.UhuGc2TtgVw" target="_blank">How to Enroll page.</a> In addition to exceptional programs for students, TXVA also offers parent training
+                and support provided by our group of engaged learning coaches, and through an ongoing speaker series provided by K<sup>12</sup>.
+
+            </c:set>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Utah Virtual Academy uses the flexible curriculum from K<sup>12</sup>, which is based on decades of education
+                research about how minds really work. With courses in six core subjects, the curriculum was designed to
+                let K-8 kids find the pace and learning style that work best for them and to enable high school students
+                to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when they're not challenged. The minds that get lost in the shuffle. The minds that need a little more, or a little less, time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at TXVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
+
         </c:when>
         <c:when test="${school eq 'UT'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. Utah Virtual Academy
+                and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
+                Together, we are helping Utah students in grades K–12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why UTVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                Utah Virtual Academy and K<sup>12</sup> give Utah kids in grades K-12 the chance to learn in the ways that are right for them. UTVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full- and part-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system (grades K-6)
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public charter school in the state to offer the complete K<sup>12</sup> experience
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A high school diploma that meets all state requirements.
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                UTVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <!--link goes to an empty news page-->
+                <a href="http://www.sltrib.com/sltrib/news/55149762-78/david-students-says-harms.html.csp?utm_source=hootsuite&amp;utm_medium=socialmedia" target="_blank">Online Learning Works for UTVA Student with Autism</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                With support from UTVA and mom, David, a 15-year-old with autism finally becomes engaged in learning.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.ecprogress.com/index.php?tier=1&amp;article_id=11153" target="_blank">UTVA Student Makes Finals of World's Largest Rodeo!</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                UTVA junior Teigan Adams finished third in barrel racing, earning her a spot at the National High School Rodeo Finals.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                <a href="http://www.ksl.com/?sid=12693412" target="_blank">Possibilities Growing for Utah Students at Virtual Academies</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                Learn how this online classroom is preparing students for a future in a digital age.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Utah Virtual Academy uses the flexible curriculum from K<sup>12</sup>, which is based on decades of education
+                research about how minds really work. With courses in six core subjects, the curriculum was designed to
+                let K–8 kids find the pace and learning style that work best for them and to enable high school students
+                to find their own path to post–high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually
+                wander when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at the Utah Virtual Academy, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
+
         </c:when>
         <c:when test="${school eq 'VA'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. The
+                Virginia Virtual Academy<sup>SM</sup> (VAVA), a public school program of King and Queen County Public Schools and
+                K12 ignite the minds of children like yours to bring learning and innate possibility alive. Together,
+                we are helping Virginia students in grades K–2 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why VAVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K–2 the chance to learn in the ways that are right for them. VAVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free* online public school option<sup>*</sup>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from state-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K–2
+            </util:addBodyToList>
+
+            <c:set var="whyFootnote" scope="request">
+                *Students who reside outside of King and Queen County Public School District may be subject to an annual out-of-district registration fee.
+            </c:set>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Virginia Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
+                education research about how minds really work. With courses in four core subjects, it was designed to
+                let K–5 kids find the learning style that works best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on—the minds that usually wander
+                when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at VAVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'WA'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. Washington Virtual Academies
+                (WAVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
+                Together, we are helping Washington students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why WAVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Washington Virtual Academies and K<sup>12</sup> give Washington kids the chance to learn in the ways that are right for them. WAVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time and part-time, tuition-free online public school options
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from state-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Ability for students to participate in their school district’s extracurricular athletics and, in some cases, other activities<sup>*</sup>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                WAVA High School graduates receive a public school diploma that meets all state and school district graduation requirements.
+            </util:addBodyToList>
+
+            <c:set var="whyCaption" scope="request">
+                WAVA is a program of Monroe Public Schools (grades 9-12), and Omak School District (grades K-12).
+            </c:set>
+            <c:set var="whyFootnote" scope="request">
+                *Please check with your local school district for any restrictions that may apply.
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+                WAVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/news/washington-virtual-academies-high-school-program-recognized-ospi-washington-achievement-award#.Uhf2rGTtgVw" target="_blank">
+                    Washington Virtual Academies High School Program Recognized by OSPI with Washington Achievement Award</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                The Office of Superintendent of Public Instruction (OSPI) and the State Board of Education
+                recognized Washington Virtual Academies High School Program (WAVA) with the Washington Achievement
+                Award, which honors the state's top-performing schools.
+                <a href="http://www.k12.com/news/washington-virtual-academies-high-school-program-recognized-ospi-washington-achievement-award#.Uhf24GTtgVw" target="blank">Read more.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Washington Virtual Academies use the flexible curriculum from K<sup>12</sup>, which is based on
+                decades of education research about how minds really work. With courses in six core subjects, it was
+                designed to let K-8 kids find the pace and learning style that work best for them and to enable high school
+                students to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at WAVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
+
         </c:when>
         <c:when test="${school eq 'WI'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know your kids have something special inside them. We know it, too. Wisconsin Virtual Academy (WIVA),
+                a charter school authorized by the McFarland School District, and K<sup>12</sup> ignite the minds of children like
+                yours to bring learning and possibility alive. Together, we are helping Wisconsin students in grades K–12
+                reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why WIVA?
+            </c:set>
+
+            <util:addBodyToList listVariableName="whyList">
+                The <strong>only school in Wisconsin</strong> offering the complete K<sup>12</sup> program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                <strong>Met Adequate Yearly Progress (AYP)</strong> for the 2010–2011 school year
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An <strong>individualized approach</strong> to learning
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A vibrant <strong>school community with face-to-face outings</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Highly engaged, <strong>Wisconsin-licensed teachers</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, hands-on activities and materials, and a <strong>school-issued laptop</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                <strong>High retention and parent satisfaction rates</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An ideal fit for <strong>accelerated learners</strong>
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                WIVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                Parent Praises Virtual Schools, Cites Benefits
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                The pressure of dating schoolmates and coping with bullying is off, and children are in full learning mode at WIVA.
+                <a href="http://www.wiscnews.com/wisconsindellsevents/news/local/education/article_2fa2a54c-010c-11e2-b896-0019bb2963f4.html" target="_blank">Read about it.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                Valedictorian Chose K<sup>12</sup> Online Learning
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                For Emily Boucher, Wisconsin Virtual Academy's 2012 valedictorian, online learning was her choice.
+                <a href="http://gettingsmart.com/2012/08/student-chooses-online-learning-succeed/" target="_blank">Read more.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Wisconsin Virtual Academy uses the engaging, challenging curriculum from K<sup>12</sup>, which is based on
+                decades of education research about how minds really work. The curriculum was designed to let K-8 kids
+                find the learning style that works best for them, and to enable high school students to find their own
+                paths to post-high school success.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'WY'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. Wyoming Virtual Academy (WYVA),
+                a public school program of Niobrara County School District #1, and K<sup>12</sup> ignite the minds of children like
+                yours to bring learning and innate possibility alive. Together, we are helping Wyoming students in grades
+                K–12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why WYVA?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Wyoming Virtual Academy and K<sup>12</sup> give Wyoming kids in grades K-12 the chance to learn in the ways that are right for them. WYVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Wyoming-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system
+            </util:addBodyToList>
+
+            <c:set var="whyCaption" scope="request">
+                WYVA is a statewide distance learning program offered by Niobrara County School District #1.
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+                WYVA News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.kgwn.tv/story/16540895/bullied-child-finds-home-classroom-safe" target="_blank">Bullied Child Finds Safety in Home Classroom</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Find out how one student went from being bullied and disliking school, to a safe home environment and enjoying school more than ever at Wyoming Virtual Academy (WYVA).
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.luskherald.com/v2_news_articles.php?heading=0&amp;page=72&amp;story_id=1973" target ="_blank">Virtual School Offers K-12 Distance Learning Option</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                Wyoming Virtual Academy (WYVA) is fast growing in enrollees, as students are finding that online learning is a good alternative to brick-and-mortar schools.
+                <a href="http://www.luskherald.com/v2_news_articles.php?heading=0&amp;page=72&amp;story_id=1973" target="_blank">Read more.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Wyoming Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
+                education research about how minds really work. With courses in four core subjects, it was designed to
+                let K-8 kids find the learning style that works best for them and to enable high school students to find
+                their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on - the minds that usually wander
+                when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at WYVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
+
         </c:when>
         <c:otherwise>
             <!-- This case handles  INT and the states without state-specific schools -->

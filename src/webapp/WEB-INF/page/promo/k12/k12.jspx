@@ -107,11 +107,11 @@
                         </div>
                         <div class="mam">
                             <ul style="padding-left: 0;">
-                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
+                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
                                     <img src="http://placekitten.com/160/130"/>You have a choice. Accredited Public Schools.</a></li>
-                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
+                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
                                     <img src="http://placekitten.com/160/130"/>K12 Success Stories</a></li>
-                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">
+                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">
                                     <img src="http://placekitten.com/160/130"/>Online Learning: A Terrific Alternative</a></li>
                             </ul>
                         </div>
@@ -131,7 +131,7 @@
                         <h5 class="bottom">Virtual Students in the Spotlight</h5>
                     </div>
                     <div class="media pam fl">
-                        <a href="javascript:void(0);" onclick="console.log('here something easy');GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="http://placekitten.com/65/65"/></a>
+                        <a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="http://placekitten.com/65/65"/></a>
                     </div>
                     <div class="bd pam">
                         <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
