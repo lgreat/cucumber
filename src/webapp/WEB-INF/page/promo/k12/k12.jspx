@@ -40,9 +40,6 @@
                         });
             });
         </script>
-
-
-
     </head>
 
     <gsml:body adPageName="k12AdvertiserPage" pageLayout="nocol">
@@ -120,7 +117,7 @@
             </div>
 
         <!--form module and virtual student-->
-        <div class="grid_7 omega fr">
+        <div class="grid_7 omega">
             <div class="mod standard_1-1">
                 <k12:formCode/>
             </div>

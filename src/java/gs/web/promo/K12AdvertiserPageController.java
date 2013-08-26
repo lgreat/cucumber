@@ -22,14 +22,12 @@ public class K12AdvertiserPageController {
     final public static String MODEL_K12_SCHOOL = "k12School";
     final public static String MODEL_SCHOOL_NAME = "schoolName";
     final public static String MODEL_SCHOOL_CODE = "schoolCode";
-    final public static String MODEL_HAS_SUMMARY = "hasSummary";
-    final public static String MODEL_HAS_BOTTOM_COPY = "hasBottomCopy";
     final public static String MODEL_K12_CLICK_THROUGH_URL = "k12ClickThroughUrl";
     final public static String MODEL_STATE = "state";
     final public static String OTHER_TRAFFIC_DRIVER = "ot";
 
     @RequestMapping(value = "/online-education.page", method = RequestMethod.GET)
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
         String trafficDriverParam = request.getParameter(PARAM_TRAFFIC_DRIVER);
         String schoolParam = request.getParameter(PARAM_SCHOOL);
         if (!K12AdvertiserPageHelper.isValidK12School(schoolParam)) {
@@ -42,7 +40,7 @@ public class K12AdvertiserPageController {
         try {
             State state = State.fromString(schoolParam);
             if (state != null) {
-                model.put("state", state.getAbbreviationLowerCase());
+                model.put(MODEL_STATE, state.getAbbreviationLowerCase());
             }
         } catch (IllegalArgumentException iae) {
             // INT has no state

@@ -15,4 +15,18 @@
             <jsp:doBody/>
         </div>
     </div>
+    <div style="display:none" class="${id}_error_required small error grid_7 alpha omega ptn">
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+            <div class="bd">${label} is required.</div>
+        </div>
+    </div>
+    <div style="display:none" class="${id}_error_format small error grid_7 alpha omega ptn">
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+            <div class="bd">${label} is not valid.</div>
+        </div>
+    </div>
 </jsp:root>

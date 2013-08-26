@@ -4,97 +4,211 @@
           xmlns:gsweb="gstaglib"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
         >
-    <jsp:directive.tag body-content="empty" description="Used to insert the K12 leadgen form"/>
+<jsp:directive.tag body-content="empty" description="Used to insert the K12 leadgen form"/>
 
-    <h5 class="bottom"><strong>For more information on this school</strong></h5>
+<h5 class="bottom"><strong>For more information on this school</strong></h5>
 
-    <p class="small bottom mbm">Please provide your contact information so a representative from <strong>${requestScope.schoolName}</strong> can contact you.</p>
-    <form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded"
-          action="http://app-o.marketo.com/index.php/leadCapture/save">
-        <fieldset>
-            <k12:formField label="First Name" id="fname">
-                <input id="fname" class="input_5 require-content" name="FirstName" type="text"/>
-            </k12:formField>
-            <k12:formField label="Last Name" id="lname">
-                <input id="lname" class="input_5 require-content" name="LastName" type="text"/>
-            </k12:formField>
-            <k12:formField label="Email" id="email">
-                <input id="email" class="input_5 require-content valid-email" name="Email" type="text"/>
-            </k12:formField>
-            <k12:formField label="Phone" id="phone">
-                <input id="phone" class="input_5 require-content valid-phone-number" name="Phone" type="text"/>
-            </k12:formField>
-            <k12:formField label="Zip" id="zip">
-                <input id="zip" class="input_5 require-content valid-zip" type="text"/>
-            </k12:formField>
-            <k12:formField label="State" id="state">
-                <gsweb:stateSelector styleId="state" styleClass="states-list" name="K12_State__c" state="${state}" usingLongNames="${true}"/>
-            </k12:formField>
-            <k12:formField label="Grade" id="grades">
-                <select class="grades-list require-content" id="grades" name="WhichGrades-Form">
-                    <option value="">Choose Grade</option>
-                    <option value="k-8"> K-8</option>
-                    <option value="9-12"> 9-12</option>
-                    <option value="K-12"> Both</option>
-                </select>
-            </k12:formField>
+<p class="small bottom mbm">Please provide your contact information so a representative from
+    <strong>${requestScope.schoolName}</strong> can contact you.</p>
 
-            <div class='msgdiv' style='text-align:center;'><!-- not empty --></div>
-            <div class="loader hidden"><!-- not empty --></div>
-            <a href="javascript:$('#K12LeadForm').submit();"
-               class='flexbutton button-blue-large submit-button iegradient' id='mktForm_1028-btn'><span
-                    class='leftside'><!-- not empty --></span>Learn More<span class='rightside'><!-- not empty --></span></a>
-            <noscript><input type='submit' name='submited' value='Learn More'/></noscript>
-            <!-- k12 hidden fields -->
-            <input class='mktFormHidden' name="K12_Country__c" id="K12_Country__c" type='hidden'
-                   value="UNITED STATES OF AMERICA"/>
-            <input name="LeadSource" id="LeadSource" type='hidden' value="affiliate"/>
-            <input name="Lead_Source_Last__c" type='hidden' value="affiliate"/>
-            <input name="Lead_Source_Detail__c" id="Lead_Source_Detail__c" type='hidden' value="gr8t"/>
-            <input name="Lead_Source_Detail_Last__c" type='hidden' value="gr8t"/>
-            <input name="Target_Audience__c" id="Target_Audience__c" type='hidden' value="gen"/>
-            <input name="Target_Grade__c" id="Target_Grade__c" type='hidden' value="k-12"/>
-            <input name="UTM_Campaign__c" id="UTM_Campaign__c" type='hidden' value=""/>
-            <input name="UTM_Medium__c" id="UTM_Medium__c" type='hidden' value=""/>
-            <input name="UTM_Source__c" id="UTM_Source__c" type='hidden' value=""/>
-            <input name="UTM_Content__c" id="UTM_Content__c" type='hidden' value=""/>
-            <input name="UTM_Term__c" id="UTM_Term__c" type='hidden' value=""/>
-            <input name="Adgroup__c" id="Adgroup__c" type='hidden' value=""/>
-            <input name="Keyword_Match__c" id="Keyword_Match__c" type='hidden' value=""/>
-            <input name="Message_Class__c" id="Message_Class__c" type='hidden' value="direct_response"/>
-            <input name="Impression_ID__c" id="Impression_ID__c" type='hidden' value="gr8t_affl_CPA-519d2f6ef0"/>
-            <input name="Vendor__c" id="Vendor__c" type='hidden' value="gr8t"/>
-            <input name="Provider__c" id="Provider__c" type='hidden' value="other"/>
-            <input name="Geo_Distro__c" id="Geo_Distro__c" type='hidden' value="footprint 1-2-3-4"/>
-            <input name="Creative__c" id="Creative__c" type='hidden' value=""/>
-            <input name="Message__c" id="Message__c" type='hidden' value=""/>
-            <input name="CTA__c" id="CTA__c" type='hidden' value=""/>
-            <input name="Placement__c" id="Placement__c" type='hidden' value=""/>
-            <input name="Dimensions__c" id="Dimensions__c" type='hidden' value=""/>
-            <input name="iFrame__c" id="iFrame__c" type='hidden' value=""/>
-            <input name="LP_URL__c" id="LP_URL__c" type='hidden' value=""/>
-            <input name="Vanity_URL__c" id="Vanity_URL__c" type='hidden' value=""/>
-            <input name="Start_Date__c" id="Start_Date__c" type='hidden' value=""/>
-            <input name="Promocode__c" id="Promocode__c" type='hidden' value=""/>
-            <input name="Referrer__c" id="Referrer__c" type='hidden' value=""/>
-            <input name="Referrer_Last__c" id="Referrer_Last__c" type='hidden' value=""/>
-            <input type="hidden" name="_marketo_comments" value=""/>
-            <input type="hidden" name="lpId" value="-1"/>
-            <input type="hidden" name="subId" value="9"/>
-            <input type="hidden" name="kw" value=""/>
-            <input type="hidden" name="cr" value=""/>
-            <input type="hidden" name="searchstr" value=""/>
-            <input type="hidden" name="lpurl" value=""/>
-            <input type="hidden" name="_mkt_disp" value="return"/>
-            <input type="hidden" name="_mkt_trk" value=""/>
-            <input name="Product_Interest__c" id="Product_Interest__c" type='hidden' value="va"/>
-            <input name="Product_Type__c" id="Product_Type__c" type='hidden' value="gen"/>
-            <input type="hidden" name="formid" value="1028"/>
-            <!-- M1-Marketo Change: Use desired thank you page url for retURL and returnURL value -->
-            <input type="hidden" name="returnURL" value=""/>
-            <input type="hidden" name="retURL" value=""/>
+<form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded"
+      action="http://app-o.marketo.com/index.php/leadCapture/save">
+    <fieldset>
+        <k12:formField label="First Name" id="k12_fname">
+            <input id="k12_fname" class="input_5" name="FirstName" type="text"/>
+        </k12:formField>
+        <k12:formField label="Last Name" id="k12_lname">
+            <input id="k12_lname" class="input_5" name="LastName" type="text"/>
+        </k12:formField>
+        <k12:formField label="Email" id="k12_email">
+            <input id="k12_email" class="input_5" name="Email" type="text"/>
+        </k12:formField>
+        <k12:formField label="Phone" id="k12_phone">
+            <input id="k12_phone" class="input_5" name="Phone" type="text"/>
+        </k12:formField>
+        <k12:formField label="Zip" id="k12_zip">
+            <input id="k12_zip" class="input_5" type="text"/>
+        </k12:formField>
+        <k12:formField label="State" id="k12_state">
+            <gsweb:stateSelector styleId="k12_state" styleClass="states-list" name="K12_State__c" state="${state}"
+                                 usingLongNames="${true}"/>
+        </k12:formField>
+        <k12:formField label="Grade" id="k12_grades">
+            <select class="grades-list" id="k12_grades" name="WhichGrades-Form">
+                <option value="">Choose Grade</option>
+                <option value="k-8"> K-8</option>
+                <option value="9-12"> 9-12</option>
+                <option value="K-12"> Both</option>
+            </select>
+        </k12:formField>
 
-        </fieldset>
-    </form>
+        <!--<a href="javascript:GS.form.K12.submit();"-->
+           <!--class='flexbutton button-blue-large submit-button iegradient' id='mktForm_1028-btn'><span-->
+                <!--class='leftside'>&lt;!&ndash; not empty &ndash;&gt;</span>Learn More<span-->
+                <!--class='rightside'>&lt;!&ndash; not empty &ndash;&gt;</span></a>-->
+        <!--<noscript><input type='submit' name='submited' value='Learn More'/></noscript>-->
+        <input class="button-1" type="submit" value="Learn More"/>
+        <!-- k12 hidden fields -->
+        <input class='mktFormHidden' name="K12_Country__c" id="K12_Country__c" type='hidden'
+               value="UNITED STATES OF AMERICA"/>
+        <input name="LeadSource" id="LeadSource" type='hidden' value="affiliate"/>
+        <input name="Lead_Source_Last__c" type='hidden' value="affiliate"/>
+        <input name="Lead_Source_Detail__c" id="Lead_Source_Detail__c" type='hidden' value="gr8t"/>
+        <input name="Lead_Source_Detail_Last__c" type='hidden' value="gr8t"/>
+        <input name="Target_Audience__c" id="Target_Audience__c" type='hidden' value="gen"/>
+        <input name="Target_Grade__c" id="Target_Grade__c" type='hidden' value="k-12"/>
+        <input name="UTM_Campaign__c" id="UTM_Campaign__c" type='hidden' value=""/>
+        <input name="UTM_Medium__c" id="UTM_Medium__c" type='hidden' value=""/>
+        <input name="UTM_Source__c" id="UTM_Source__c" type='hidden' value=""/>
+        <input name="UTM_Content__c" id="UTM_Content__c" type='hidden' value=""/>
+        <input name="UTM_Term__c" id="UTM_Term__c" type='hidden' value=""/>
+        <input name="Adgroup__c" id="Adgroup__c" type='hidden' value=""/>
+        <input name="Keyword_Match__c" id="Keyword_Match__c" type='hidden' value=""/>
+        <input name="Message_Class__c" id="Message_Class__c" type='hidden' value="direct_response"/>
+        <input name="Impression_ID__c" id="Impression_ID__c" type='hidden' value="gr8t_affl_CPA-519d2f6ef0"/>
+        <input name="Vendor__c" id="Vendor__c" type='hidden' value="gr8t"/>
+        <input name="Provider__c" id="Provider__c" type='hidden' value="other"/>
+        <input name="Geo_Distro__c" id="Geo_Distro__c" type='hidden' value="footprint 1-2-3-4"/>
+        <input name="Creative__c" id="Creative__c" type='hidden' value=""/>
+        <input name="Message__c" id="Message__c" type='hidden' value=""/>
+        <input name="CTA__c" id="CTA__c" type='hidden' value=""/>
+        <input name="Placement__c" id="Placement__c" type='hidden' value=""/>
+        <input name="Dimensions__c" id="Dimensions__c" type='hidden' value=""/>
+        <input name="iFrame__c" id="iFrame__c" type='hidden' value=""/>
+        <input name="LP_URL__c" id="LP_URL__c" type='hidden' value=""/>
+        <input name="Vanity_URL__c" id="Vanity_URL__c" type='hidden' value=""/>
+        <input name="Start_Date__c" id="Start_Date__c" type='hidden' value=""/>
+        <input name="Promocode__c" id="Promocode__c" type='hidden' value=""/>
+        <input name="Referrer__c" id="Referrer__c" type='hidden' value=""/>
+        <input name="Referrer_Last__c" id="Referrer_Last__c" type='hidden' value=""/>
+        <input type="hidden" name="_marketo_comments" value=""/>
+        <input type="hidden" name="lpId" value="-1"/>
+        <input type="hidden" name="subId" value="9"/>
+        <input type="hidden" name="kw" value=""/>
+        <input type="hidden" name="cr" value=""/>
+        <input type="hidden" name="searchstr" value=""/>
+        <input type="hidden" name="lpurl" value=""/>
+        <input type="hidden" name="_mkt_disp" value="return"/>
+        <input type="hidden" name="_mkt_trk" value=""/>
+        <input name="Product_Interest__c" id="Product_Interest__c" type='hidden' value="va"/>
+        <input name="Product_Type__c" id="Product_Type__c" type='hidden' value="gen"/>
+        <input type="hidden" name="formid" value="1028"/>
+        <!-- M1-Marketo Change: Use desired thank you page url for retURL and returnURL value -->
+        <input type="hidden" name="returnURL" value="${gsweb:getRequestURL(pageContext.request)}#formSuccess"/>
+        <input type="hidden" name="retURL" value="${gsweb:getRequestURL(pageContext.request)}#formSuccess"/>
+
+    </fieldset>
+</form>
+    <div id="k12LeadGenFormSuccess" class="success-block mtl" style="display:none;"><strong>Thank you</strong>, a representative from ${requestScope.schoolName} will contact you soon.</div>
+
+    <script type="text/javascript">
+        GS.form = GS.form || {};
+        GS.form.K12 = GS.form.K12 || {};
+        GS.validation = GS.validation || {};
+
+        $('#K12LeadForm').on('submit', function() {
+            var valid = GS.form.K12.isValidForm();
+            if (valid) {
+                if (s &amp;&amp; s.tl) {
+                    s.tl(this, 'o', 'K12_FormSubmit_${k12School}');
+                }
+            }
+            return valid;
+        });
+
+        GS.validation.validateRequired = function(fieldSelector, errorSelector) {
+            var isValid = true;
+            jQuery(errorSelector).hide();
+            jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
+            var formFields = jQuery(fieldSelector);
+            if (formFields.filter(':visible').size() == 0) {
+                return true; // only validate visible fields
+            }
+            if (formFields !== undefined &amp;&amp; formFields.size() > 0) {
+                var fieldType = formFields.attr('type');
+
+                if (fieldType === 'checkbox' || fieldType === 'radio') {
+                    // require at least one to be checked
+                    var numChecked = formFields.filter(':checked').size();
+                    if (numChecked == 0) {
+                        isValid = false;
+                    }
+                } else if (fieldType === 'text') {
+                    formFields.each(function() {
+                        var field = jQuery(this);
+                        var fieldVal = jQuery.trim(field.val());
+                        if (fieldVal === "" || field.valEqualsPlaceholder()) {
+                            isValid = false;
+                            return false;
+                        }
+                        return true;
+                    });
+                } else if (formFields.is('select')) {
+                    if (formFields.val() === '') {
+                        isValid = false;
+                    }
+                }
+                if (!isValid) {
+                    jQuery(errorSelector).show();
+                    jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
+                }
+            }
+            return isValid;
+        };
+
+        GS.validation.EMAIL_PATTERN = /^[_a-zA-Z0-9+-]+(\.[_a-zA-Z0-9+-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$/;
+        GS.validation.validateEmailFormat = function(email) {
+            return GS.validation.EMAIL_PATTERN.test(email);
+        };
+        GS.validation.validateEmail = function(fieldSelector, errorSelector, required) {
+            var isValid = true;
+            jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
+            jQuery(errorSelector).hide();
+            var formFields = jQuery(fieldSelector).filter(':visible');
+            if (formFields !== undefined &amp;&amp; formFields.size() > 0) {
+                var fieldType = formFields.attr('type');
+
+                if (fieldType == 'text') {
+                    formFields.each(function() {
+                        var fieldVal = jQuery.trim(jQuery(this).val());
+                        if (required === true) {
+                            isValid = fieldVal.length > 0 &amp;&amp; GS.validation.validateEmailFormat(fieldVal);
+                        } else {
+                            isValid = fieldVal.length === 0 || GS.validation.validateEmailFormat(fieldVal);
+                        }
+                    });
+                }
+
+                if (!isValid) {
+                    jQuery(errorSelector).show();
+                    jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
+                }
+            }
+            return isValid;
+        };
+
+        GS.form.K12.isValidForm = function() {
+            var validations = [];
+            validations.push(GS.validation.validateRequired('#k12_fname', '.k12_fname_error_required'));
+            validations.push(GS.validation.validateRequired('#k12_lname', '.k12_lname_error_required'));
+            validations.push(GS.validation.validateRequired('#k12_email', '.k12_email_error_required') &amp;&amp; GS.validation.validateEmail('#k12_email', '.k12_email_error_format'));
+            validations.push(GS.validation.validateRequired('#k12_phone', '.k12_phone_error_required'));
+            validations.push(GS.validation.validateRequired('#k12_zip', '.k12_zip_error_required'));
+            validations.push(GS.validation.validateRequired('#k12_grades', '.k12_grades_error_required'));
+
+            for (var arrayIndex in validations) {
+                if (validations[arrayIndex] === false) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        $(function() {
+            var currentHash = window.location.hash;
+            if (currentHash == 'formSuccess' || currentHash == '#formSuccess') {
+                $('#k12LeadGenFormSuccess').show();
+            }
+        });
+    </script>
 
 </jsp:root>
