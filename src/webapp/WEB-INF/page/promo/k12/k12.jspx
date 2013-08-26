@@ -84,7 +84,7 @@
         <!--main text-->
         <div class="grid_12 alpha">
             <div class="mod standard_1-1">
-                <div class="inner">
+                <div class="inner" style="min-height: 561px;">
                     <div class="hd pas">
                         <h4 class="bottom">About ${schoolName}</h4>
                     </div>
