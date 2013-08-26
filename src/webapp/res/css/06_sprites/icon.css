@@ -673,7 +673,7 @@ span:hover.i-32-carouselRight{
 
 .iconx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x48/130822-48x48.png);
+    background-image: url(/res/img/sprites/icon/x48/130823-48x48.png);
     width: 48px;
     height: 48px;
 }
@@ -741,6 +741,52 @@ span.i-48-gallery-next-default:hover{
 .i-48-search-city-hubs{
     background-position: -672px 0;
 }
+
+.i-48-calender-month-1{
+    background-position: -720px 0;
+}
+
+.i-48-calender-month-2{
+    background-position: -768px 0;
+}
+
+.i-48-calender-month-3{
+    background-position: -816px 0;
+}
+.i-48-calender-month-4{
+    background-position: -864px 0;
+}
+
+.i-48-calender-month-5{
+    background-position: -912px 0;
+}
+
+.i-48-calender-month-6{
+    background-position: -960px 0;
+}
+.i-48-calender-month-7{
+    background-position: -1008px 0;
+}
+
+.i-48-calender-month-8{
+    background-position: -1056px 0;
+}
+
+.i-48-calender-month-9{
+    background-position: -1104px 0;
+}
+.i-48-calender-month-10{
+    background-position: -1152px 0;
+}
+
+.i-48-calender-month-11{
+    background-position: -1200px 0;
+}
+
+.i-48-calender-month-12{
+    background-position: -1248px 0;
+}
+
 
 /* row 48 */
 .selected .i-48-sb {
