@@ -961,14 +961,355 @@
         <c:when test="${school eq 'MO'}">
         </c:when>
         <c:when test="${school eq 'NJ'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. New Jersey Virtual Academy
+                Charter School (NJVACS) and K<sup>12</sup> will ignite the minds of children like yours to bring learning and innate
+                possibility alive. Together, we’ll help New Jersey students in grades K-10 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                New Jersey Virtual Academy Charter School and K<sup>12</sup> give New Jersey students in grades K–10 the chance to learn in the ways that are right for them. NJVACS will offer:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A high-quality, tuition-free public education
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An individualized approach to learning
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from New Jersey-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Opportunities for face-to-face instruction for Newark students
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                NJVACS will adopt the appropriate content standards and assessments in all grades and the curriculum will
+                follow the guidance of the NJ DOE which has defined what its children need to know and be able to do in ten
+                content areas: mathematics, language arts literacy (including reading and writing), science, social studies,
+                visual and performing arts, comprehensive health and physical education, technology, foreign language, and career education and consumer, family and life skills.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                To meet these content standards and assessments, New Jersey Virtual Academy Charter School will use the
+                individualized curriculum from K<sup>12</sup>, which is based on decades of education research about how minds really
+                work. It was designed to let K-8 students find the pace and learning style that works best for them and
+                to enable high school students to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at NJVACS, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NM'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. New Mexico Virtual Academy
+                (NMVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
+                Together, we are helping New Mexico students in grades 6-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                New Mexico Virtual Academy and K<sup>12</sup> give New Mexico kids in grades 6-12 the chance to learn in the ways that are right for them. NMVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from New Mexico-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                World languages for grades 6-12
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Blended instruction at our Farmington Learning Center
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Unique ELL program available for non-native English speakers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                High school graduation with a diploma that meets all state requirements
+            </util:addBodyToList>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                NMVA Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of education
+                research about how minds really work. With courses in six core subjects, it was designed to let 6–8 kids
+                find the learning style that works best for them, and to enable high school students to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at NMVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NV'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. Nevada Virtual Academy and K<sup>12</sup> ignite the
+                minds of children like yours to bring learning and innate possibility alive. Together,
+                we are helping Nevada students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                Nevada Virtual Academy and K<sup>12</sup> give Nevada kids in grades K-12 the chance to learn at the pace and in the learning style that is right for them. NVVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from highly qualified, Nevada-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+               A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A diverse catalog of courses, including high quality high school courses that other districts are forced to eliminate due to funding
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Ability for students to participate in their school district's extracurricular athletics and activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma that meets all state requirements.
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://schoolsofthought.blogs.cnn.com/2013/01/31/jeb-bush-students-should-have-the-choice-of-digital-schools/" target="_blank">Jeb Bush: Students Should Have the Choice of Digital Schools</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Jeb Bush celebrates the rights of parents and children to choose high-performing virtual schools.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://schoolsofthought.blogs.cnn.com/2013/01/31/jeb-bush-students-should-have-the-choice-of-digital-schools/" target="_blank">2012–2013 Enrollment Now Open!</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                Find out how to make a change today!
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                <a href="http://www.k12.com/nvva/connect-to-a-parent#.UhundmTtgVw" target="_blank">Connect with an NVVA Parent!</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                Get tips, advice, and more from someone who knows our program the best—a veteran NVVA parent. <a href="http://www.k12.com/nvva/connect-to-a-parent#.Uhunk2TtgVw" target="_blank">Have one of our seasoned NVVA parents contact you!</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Nevada Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
+                education research about how minds really work. With courses in six core subjects, it was designed to
+                let kids find the pace and learning style that work best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'OH'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it too. Ohio Virtual Academy (OHVA)
+                and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
+                Together, we are helping students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Ohio Virtual Academy and K<sup>12</sup> give Ohio kids in grades K-12 the chance to learn in the ways that are right for them. OHVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Accreditation by AdvancED and NCA CASI
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Ohio-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Robust opportunities for the advanced learner
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                World languages for grades 3-12
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Academic enrichment opportunities like spelling and geography bees, science fairs
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma and are eligible for Ohio's Honors Diploma and/or Award of Merit.
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                OHVA College Profile
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                OHVA is proud of its record for students graduating and going on to attend college. <a href="http://www.k12.com/ohva/who-we-are/college-profile#.UhukqmTtgVw" target="_blank">Take a look at the facts!</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                OHVA Sets the Bar for Reading Achievement
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                OHVA's third graders outscored virtual third graders across the state with nearly 80 percent of students scoring proficient or above. <a href="" target="_blank">Get the details.</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                Alternative Education Is Making The Grade
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                After struggling in a traditional learning environment, one OHVA third grader tried virtual learning. Read about D.J. Ferguson's growing success.
+            <util:putBodyInMap mapVariableName="newsItem4" key="header">
+                <a href="http://www.k12.com/ohva/connect-to-a-parent#.Uhuk8GTtgVw" target="_blank">Connect with an OHVA Parent!</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem4" key="body">
+                Get tips, advice, and more from someone who knows our program the best—a veteran OHVA parent. Simply <a href="http://www.k12.com/ohva/connect-to-a-parent#.UhulGmTtgVw" target="_blank">click here</a> to have one of our seasoned OHVA parents contact you!
+            </util:putBodyInMap>
+
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem4}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Ohio Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
+                education research about how minds really work. With courses in six core subjects, it was designed to
+                let K-8 kids find the learning style that works best for them, and to enable high school students to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually
+                wander when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at OHVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'OK'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know your kids have something special inside of them. We know it, too. Oklahoma Virtual Charter
+                Academy (OVCA)—a public charter school authorized by Choctaw-Nicoma Park School District—and K<sup>12</sup> make
+                learning come alive for children just like yours. Oklahoma Virtual Charter Academy is a leader in online
+                learning, giving you and your family choice and flexibility in your child's education. Together, we're
+                helping Oklahoma students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Oklahoma Virtual Charter Academy and K<sup>12</sup> give Oklahoma kids in grades K-12 the chance to learn in the ways that are right for them. OVCA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public charter school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Oklahoma-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <c:set var="whyCaption" scope="request">
+                OVCA is a public charter school authorized by Choctaw-Nicoma Park School District.
+            </c:set>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.kjrh.com/dpp/news/local_news/oklahoma-virtual-charter-academys-first-graduating-class-turns-their-tassels-earns-their-diplomas" target="_blank">OVCA's First Graduating Class Turns Their Tassles</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                OVCA high school graduates accepted their diplomas on May 18.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Oklahoma Virtual Charter Academy uses the engaging, challenging curriculum from K<sup>12</sup>, which is based on
+                decades of education research about how minds really work. The curriculum was designed to let K-12 kids
+                find the learning style that works best for them
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on-the minds that usually wander
+                when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'OR'}">
         </c:when>
