@@ -951,27 +951,280 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'LA'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                Louisiana Virtual Charter Academy (LAVCA) is available to Louisiana students in grades K-12
+                through a partnership between K12 Inc. and Community School for Apprenticeship Learning Inc. (CSAL).
+                Founded in 1997, CSAL is a not-for-profit with a mission to provide students with real-world
+                experiences by giving them access to alternative forms of instruction. Since its inception, CSAL has
+                operated a small middle school and high school centered on individualized attention, integrated
+                project-based instruction, and motivating students to do their best. LAVCA is its third charter school.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The exceptional, <strong>effective K<sup>12</sup> curriculum</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A high-quality, <strong>tuition-free public education</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An individualized <strong>approach to learning</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An <strong>active school community</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                <strong>Highly qualified, Louisiana-certified teachers</strong>
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/lavca-news-testing-flyer-2013-021413.pdf" target="_blank">State Test Administrators Needed</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Louisiana Virtual Charter Academy needs certified teachers to administer Louisiana state mandated
+                testing in March and April 2013. <a href="http://www.k12.com/sites/default/files/pdf/school-docs/lavca-news-testing-flyer-2013-021413.pdf" target="_blank">Download the details.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Louisiana Virtual Charter Academy uses the individualized curriculum from K<sup>12</sup>, which is
+                based on decades of education research about how minds really work. With courses in six core
+                subjects, it was designed to let kids find the learning style that works best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on-the minds that usually
+                wander when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at LAVCA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'MA'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                Massachusetts Virtual Academy (MAVA) at Greenfield is a public virtual school of the Greenfield School
+                District, and the first diploma-granting virtual school in Massachusetts. We provide students
+                in grades K-10 from across the state access to a different type of education option—one that
+                addresses the unique needs of the student, regardless of what those may be.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+
+            <util:addBodyToList listVariableName="whyList">
+                The exceptional, effective K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An individualized approach to learning
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Massachusetts-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Parent involvement in their child's education
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An alternative for students in need of a different education option
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/mava-homepage-academic-report-2012-121412.pdf" target="_blank">Academic Report</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                View MAVA's Academic Report for SY2011-2012 <a href="http://www.k12.com/sites/default/files/pdf/school-docs/mava-homepage-academic-report-2012-121412.pdf" target="">here.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Massachusetts Virtual Academy (MAVA) at Greenfield uses the engaging, challenging curriculum from K<sup>12</sup>,
+                which is based on decades of education research about how minds really work. The curriculum was
+                designed to let K-8 kids find the learning style that works best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that engages and stimulates students. We take
+                care to assure that the pacing is correct for each student so no one becomes bored or left behind.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Our mission is each child's success.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'MI'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                Michigan Virtual Charter Academy (MVCA), an online charter school authorized by Grand Valley State
+                University, and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate
+                possibility alive. Together, we are helping Michigan students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The exceptional, <strong>effective K<sup>12</sup> curriculum</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A high quality, <strong>tuition-free public education</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An individualized <strong>approach to learning</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An <strong>active, school community</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                <strong>Highly qualified, Michigan-certified teachers</strong>
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-AER%20-08152012.pdf" target="_blank">MVCA Annual Education Report</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                View the <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-AER%20-08152012.pdf" target="_blank">Annual Education Report</a>
+                and the <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-AER-Head-Letter-08142012.pdf" target="_blank">
+                Letter from Head of School</a>, Stephanie Hargens.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-MEAP-analysis-KPH-021612.pdf" target="_blank">Student Performance Analysis</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                MVCA recently completed an analysis to determine how a change to a fully virtual setting has
+                impacted students’ performance on the MEAP exam.
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-MEAP-analysis-KPH-021612.pdf" target="_blank">View the full analysis.</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                <a href="http://www.myfoxdetroit.com/story/18447905/not-the-old-way-of-doing-home-schooling" target="_blank">Not the Old Way of Doing Home Schooling</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                Read how the Michigan Virtual Charter Academy is redefining traditional home schooling.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Michigan Virtual Charter Academy uses the individualized curriculum from K<sup>12</sup>, which is based on
+                decades of education research about how minds really work. With courses in four core subjects,
+                it was designed to let kids find the learning style that works best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on-the minds that usually wander
+                when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at MVCA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
+
         </c:when>
+        <!--<c:when test="${school eq 'MO'}">-->
+        <!--</c:when>-->
         <c:when test="${school eq 'MN'}">
-        </c:when>
-        <c:when test="${school eq 'MO'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. Minnesota Virtual Academy
+                (MNVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility
+                alive. Together, we are helping Minnesota students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                Minnesota Virtual Academy gives Minnesota kids in grades K-12 the chance to learn in the ways that are right for them. MNVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Minnesota-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Foreign languages available in grades 3-12
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                More than 130 high school courses including AP and electives
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma that meets all state requirements.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and loaner computer system
+            </util:addBodyToList>
+            <c:set var="whyCaption" scope="request">
+                MNVA is one of the first statewide online programs in Minnesota, with more than 75,000 courses
+                delivered since its inception, and a Minnesota Department of Education approved provider of
+                online education. Leading educational innovation in Minnesota, Houston Public Schools and K<sup>12</sup>
+                have been making online learning possible since 2002.
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="" target="_blank">Online Learning: A Growing Trend</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Many Minnesota families are finding online learning a good fit for a variety of reasons.
+                Meet a student who turned to Minnesota Virtual Academy where academics are at the forefront.
+                <a href="" target="_blank">Watch the video.</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.mnparent.com/index.php?&amp;story=16294&amp;page=88&amp;category=51" target="_blank">MNVA Praised for Advanced Learners Option</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                A mother shares the story of her bright child's opportunity to grow academically thanks to MNVA's flexible academic pace.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Minnesota Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades
+                of education research about how minds really work. With courses in six core subjects, the curriculum
+                was designed to let kids find the learning style that works best for them. The curriculum is wrapped
+                in rich, engaging content that turns minds on-the minds that usually wander when traditional classes
+                are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at MNVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NJ'}">
             <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. New Jersey Virtual Academy
                 Charter School (NJVACS) and K<sup>12</sup> will ignite the minds of children like yours to bring learning and innate
-                possibility alive. Together, we’ll help New Jersey students in grades K-10 reach their true, personal potential.
+                possibility alive. Together, we'll help New Jersey students in grades K-10 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
-                New Jersey Virtual Academy Charter School and K<sup>12</sup> give New Jersey students in grades K–10 the chance to learn in the ways that are right for them. NJVACS will offer:
+                New Jersey Virtual Academy Charter School and K<sup>12</sup> give New Jersey students in grades K-10 the chance to learn in the ways that are right for them. NJVACS will offer:
             </c:set>
             <util:addBodyToList listVariableName="whyList">
                 The award-winning K<sup>12</sup> curriculum
@@ -1067,7 +1320,7 @@
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 NMVA Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of education
-                research about how minds really work. With courses in six core subjects, it was designed to let 6–8 kids
+                research about how minds really work. With courses in six core subjects, it was designed to let 6-8 kids
                 find the learning style that works best for them, and to enable high school students to find their own path to post-high school success.
             </util:addBodyToList>
             <util:addBodyToList listVariableName="bottomCopyList">
@@ -1135,7 +1388,7 @@
                 Jeb Bush celebrates the rights of parents and children to choose high-performing virtual schools.
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="header">
-                <a href="http://schoolsofthought.blogs.cnn.com/2013/01/31/jeb-bush-students-should-have-the-choice-of-digital-schools/" target="_blank">2012–2013 Enrollment Now Open!</a>
+                <a href="http://schoolsofthought.blogs.cnn.com/2013/01/31/jeb-bush-students-should-have-the-choice-of-digital-schools/" target="_blank">2012-2013 Enrollment Now Open!</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 Find out how to make a change today!
@@ -1144,7 +1397,7 @@
                 <a href="http://www.k12.com/nvva/connect-to-a-parent#.UhundmTtgVw" target="_blank">Connect with an NVVA Parent!</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem3" key="body">
-                Get tips, advice, and more from someone who knows our program the best—a veteran NVVA parent. <a href="http://www.k12.com/nvva/connect-to-a-parent#.Uhunk2TtgVw" target="_blank">Have one of our seasoned NVVA parents contact you!</a>
+                Get tips, advice, and more from someone who knows our program the best-a veteran NVVA parent. <a href="http://www.k12.com/nvva/connect-to-a-parent#.Uhunk2TtgVw" target="_blank">Have one of our seasoned NVVA parents contact you!</a>
             </util:putBodyInMap>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
@@ -1231,7 +1484,7 @@
                 <a href="http://www.k12.com/ohva/connect-to-a-parent#.Uhuk8GTtgVw" target="_blank">Connect with an OHVA Parent!</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem4" key="body">
-                Get tips, advice, and more from someone who knows our program the best—a veteran OHVA parent. Simply <a href="http://www.k12.com/ohva/connect-to-a-parent#.UhulGmTtgVw" target="_blank">click here</a> to have one of our seasoned OHVA parents contact you!
+                Get tips, advice, and more from someone who knows our program the best-a veteran OHVA parent. Simply <a href="http://www.k12.com/ohva/connect-to-a-parent#.UhulGmTtgVw" target="_blank">click here</a> to have one of our seasoned OHVA parents contact you!
             </util:putBodyInMap>
 
             </util:putBodyInMap>
@@ -1257,7 +1510,7 @@
             <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know your kids have something special inside of them. We know it, too. Oklahoma Virtual Charter
-                Academy (OVCA)—a public charter school authorized by Choctaw-Nicoma Park School District—and K<sup>12</sup> make
+                Academy (OVCA)-a public charter school authorized by Choctaw-Nicoma Park School District-and K<sup>12</sup> make
                 learning come alive for children just like yours. Oklahoma Virtual Charter Academy is a leader in online
                 learning, giving you and your family choice and flexibility in your child's education. Together, we're
                 helping Oklahoma students in grades K-12 reach their true, personal potential.
@@ -1312,6 +1565,63 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'OR'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know your kids have something special in them. Oregon Virtual Academy (ORVA) and K<sup>12</sup> ignite
+                the minds of children like yours to bring learning and possibility alive. Together, we're helping
+                Oregon students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The Oregon Virtual Academy and K<sup>12</sup> give kids in grades K-12 across Oregon the chance to learn in the ways that are right for them. ORVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free, publicly -funded online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from Oregon-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <c:set var="whyCaption" scope="request">
+                ORVA is an online public charter school authorized by the North Bend School District.
+            </c:set>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/orva/enroll#.UhvRPmTtgVw" target="_blank">Enrollment for the 2013-2014 school year is now open</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Find out how to make a change today!
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The Oregon Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades
+                of education research about how minds really work. With courses in six core subjects, the K<sup>12</sup> curriculum
+                was designed to let kids find the pace and learning style that work best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at ORVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'PA'}">
             <c:set var="gradesServed" value="K-12" scope="request"/>
@@ -1319,7 +1629,7 @@
                 Traditional schooling works for many kids, but others need alternatives, for many different reasons.
                 With Agora Cyber Charter School and K<sup>12</sup>, you have a choice in how and where your kids learn-to be sure
                 that they're getting the education that's right for them. Together we are helping PA students in grades
-                K-12-regardless of where they live—reach their true, personal potential.
+                K-12-regardless of where they live-reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
@@ -1352,7 +1662,7 @@
                 Block scheduling for high school so students can focus on fewer courses
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                Ability for students to participate in their school district’s athletics and extracurricular activities
+                Ability for students to participate in their school district's athletics and extracurricular activities
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
                 Students graduate with a high school diploma that meets all state requirements.
@@ -1365,7 +1675,7 @@
                 Teacher Named National American Pioneer of Teaching
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem1" key="body">
-                Andrew Rinaldi, Agora’s music teacher, has been named the 2013 national winner of the coalition's annual American Pioneer of Teaching competition.
+                Andrew Rinaldi, Agora's music teacher, has been named the 2013 national winner of the coalition's annual American Pioneer of Teaching competition.
                 <a href=" " target="_blank">Read more.</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="header">
@@ -1422,7 +1732,7 @@
                 An active, supportive school community
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                Students may participate in their school district’s extra curricular athletics and activities
+                Students may participate in their school district's extra curricular athletics and activities
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
                 A robust Advanced Learner Program
@@ -1606,7 +1916,7 @@
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Utah Virtual Academy
                 and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
-                Together, we are helping Utah students in grades K–12 reach their true, personal potential.
+                Together, we are helping Utah students in grades K-12 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
@@ -1668,8 +1978,8 @@
             <util:addBodyToList listVariableName="bottomCopyList">
                 The Utah Virtual Academy uses the flexible curriculum from K<sup>12</sup>, which is based on decades of education
                 research about how minds really work. With courses in six core subjects, the curriculum was designed to
-                let K–8 kids find the pace and learning style that work best for them and to enable high school students
-                to find their own path to post–high school success.
+                let K-8 kids find the pace and learning style that work best for them and to enable high school students
+                to find their own path to post-high school success.
             </util:addBodyToList>
             <util:addBodyToList listVariableName="bottomCopyList">
                 The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually
@@ -1686,13 +1996,13 @@
                 You know that your kids have something special inside them. We know it too. The
                 Virginia Virtual Academy<sup>SM</sup> (VAVA), a public school program of King and Queen County Public Schools and
                 K12 ignite the minds of children like yours to bring learning and innate possibility alive. Together,
-                we are helping Virginia students in grades K–2 reach their true, personal potential.
+                we are helping Virginia students in grades K-2 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
-                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K–2 the chance to learn in the ways that are right for them. VAVA offers:
+                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K-2 the chance to learn in the ways that are right for them. VAVA offers:
             </c:set>
             <util:addBodyToList listVariableName="whyList">
                 The award-winning K<sup>12</sup> curriculum
@@ -1713,7 +2023,7 @@
                 A robust Advanced Learner Program
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K–2
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K-2
             </util:addBodyToList>
 
             <c:set var="whyFootnote" scope="request">
@@ -1723,10 +2033,10 @@
             <util:addBodyToList listVariableName="bottomCopyList">
                 The Virginia Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
                 education research about how minds really work. With courses in four core subjects, it was designed to
-                let K–5 kids find the learning style that works best for them.
+                let K-5 kids find the learning style that works best for them.
             </util:addBodyToList>
             <util:addBodyToList listVariableName="bottomCopyList">
-                The curriculum is wrapped in rich, engaging content that turns minds on—the minds that usually wander
+                The curriculum is wrapped in rich, engaging content that turns minds on-the minds that usually wander
                 when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
             </util:addBodyToList>
             <util:addBodyToList listVariableName="bottomCopyList">
@@ -1765,7 +2075,7 @@
                 A robust Advanced Learner Program
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                Ability for students to participate in their school district’s extracurricular athletics and, in some cases, other activities<sup>*</sup>
+                Ability for students to participate in their school district's extracurricular athletics and, in some cases, other activities<sup>*</sup>
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
                 WAVA High School graduates receive a public school diploma that meets all state and school district graduation requirements.
@@ -1811,7 +2121,7 @@
             <c:set var="aboutIntro" scope="request">
                 You know your kids have something special inside them. We know it, too. Wisconsin Virtual Academy (WIVA),
                 a charter school authorized by the McFarland School District, and K<sup>12</sup> ignite the minds of children like
-                yours to bring learning and possibility alive. Together, we are helping Wisconsin students in grades K–12
+                yours to bring learning and possibility alive. Together, we are helping Wisconsin students in grades K-12
                 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
@@ -1822,7 +2132,7 @@
                 The <strong>only school in Wisconsin</strong> offering the complete K<sup>12</sup> program
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                <strong>Met Adequate Yearly Progress (AYP)</strong> for the 2010–2011 school year
+                <strong>Met Adequate Yearly Progress (AYP)</strong> for the 2010-2011 school year
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
                 An <strong>individualized approach</strong> to learning
@@ -1876,7 +2186,7 @@
                 You know that your kids have something special inside them. We know it too. Wyoming Virtual Academy (WYVA),
                 a public school program of Niobrara County School District #1, and K<sup>12</sup> ignite the minds of children like
                 yours to bring learning and innate possibility alive. Together, we are helping Wyoming students in grades
-                K–12 reach their true, personal potential.
+                K-12 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
