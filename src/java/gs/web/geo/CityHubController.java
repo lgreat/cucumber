@@ -12,6 +12,7 @@ import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.review.ReviewFacade;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -199,6 +200,9 @@ public class CityHubController  extends AbstractController implements IDirectory
                     catch (ParseException ex) {
                         _logger.error("CityHubController - unable to convert string to java date", ex.getCause());
                     }
+                }
+                else if (key.endsWith("_url")) {
+                    filteredConfig.put(key, UrlUtil.formatUrl(hubConfig.getValue()));
                 }
                 else {
                     filteredConfig.put(key, hubConfig.getValue());
