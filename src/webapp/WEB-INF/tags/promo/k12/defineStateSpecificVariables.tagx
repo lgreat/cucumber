@@ -3,6 +3,8 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+
         >
     <jsp:directive.tag body-content="empty" description="Used to insert top copy of K12 advertiser page for specific K12 school"/>
     <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
@@ -971,10 +973,233 @@
         <c:when test="${school eq 'OR'}">
         </c:when>
         <c:when test="${school eq 'PA'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                Traditional schooling works for many kids, but others need alternatives, for many different reasons.
+                With Agora Cyber Charter School and K<sup>12</sup>, you have a choice in how and where your kids learn-to be sure
+                that they're getting the education that's right for them. Together we are helping PA students in grades
+                K-12-regardless of where they live—reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+               The award-winning <sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option for PA students statewide
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from highly qualified, state-certified teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A range of extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust <a href="http://www.k12.com/agora/teaching-accelerated-learners#.UhucPmTtgVw" target="_blank">Advanced Learner Program</a>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Weekly opportunities for face-to-face enrichment and remediation
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Books, materials, and a loaner computer system (laptops for middle and high school students)
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Block scheduling for high school so students can focus on fewer courses
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Ability for students to participate in their school district’s athletics and extracurricular activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma that meets all state requirements.
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                Teacher Named National American Pioneer of Teaching
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                Andrew Rinaldi, Agora’s music teacher, has been named the 2013 national winner of the coalition's annual American Pioneer of Teaching competition.
+                <a href=" " target="_blank">Read more.</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.metro.us/philadelphia/lifestyle/education/2012/11/14/starting-young-going-strong-in-cyber-charters/" target="_blank">Starting Young, Going Strong in Cyber Charters</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                Free and individualized online education is now available for students as young as kindergarten in cyber-charter schools like Agora.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                <a href="http://www.k12.com/agora/how-it-works/family-coaches" target="_blank">Family Coaches</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                At Agora, we pride ourselves on having a laser-sharp-focus on support for our families and students. <a href="http://www.k12.com/agora/how-it-works/family-coaches#.UhudwmTtgVw" target="_blank">
+                Learn more about the Family Coach role at Agora.</a>
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Agora Cyber Charter School uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
+                education research about how minds really work. With courses in six core subjects, it was designed to
+                let K-8 kids find the pace and learning style that works best for them and to enable high school students
+                to find their own path to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped with rich, engaging content that turns minds on. The minds that usually wander
+                when traditional classes are too slow. The minds that get lost in the shuffle. The minds that need a little more time.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'SC'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. South Carolina Virtual
+                Charter School (SCVCS) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate
+                possibility alive. Together, we are helping South Carolina students in grades K-12 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                The South Carolina Virtual Charter School and K<sup>12</sup> give South Carolina kids in grades K-12 the chance to learn in the ways that are right for them. SCVCS offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time, tuition-free online public school option
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Support from highly qualified, South Carolina-licensed teachers
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An active, supportive school community
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students may participate in their school district’s extra curricular athletics and activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A robust Advanced Learner Program
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students graduate with a high school diploma that meets all state requirements
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                World Language offered for grades 3-12
+            </util:addBodyToList>
+
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                Class of 2013 - Graduation Ceremony
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
+                The SCVCS 2013 Senior Class will graduate June 6, 2013, at 3:00 PM at The Brookland Health and Wellness Center located at 1050 Sunset Boulevard, West Columbia, SC 29169.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                Class of 2012
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/scvcs-2012-graduates-scholarships-colleges-052313.pdf" target="_blank">
+                    View information on our 2012 Senior Class scholarships and colleges/universities enrollment data</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+                SCVCS 10 Year Charter Renewal
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                The South Carolina Virtual Charter School has been granted a <strong>ten year renewal</strong> of their existing charter by the South Carolina Public Charter School District.
+            </util:putBodyInMap>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The South Carolina Virtual Charter School uses the individualized curriculum from K<sup>12</sup>, which is based on
+                decades of education research about how minds really work. With courses in six core subjects, the curriculum
+                was designed to let K-8 kids find the learning style that works best for them, and to enable high school students to find their own paths to post-high school success.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on-the minds that usually wander when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at SCVCS, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'TN'}">
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                You know that your kids have something special inside them. We know it, too. Tennessee Virtual Academy
+                and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together,
+                we are helping Tennessee students in grades K-8 reach their true, personal potential.
+            </c:set>
+            <c:set var="whyHeader" scope="request">
+                Why ${fn:toUpperCase(schoolCode)}?
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                Tennessee Virtual Academy and K<sup>12</sup> give students in grades K-8 the chance to learn in the ways that are right for them. TNVA offers:
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                The exceptional, <strong>effective K<sup>12</sup> curriculum</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                A high-quality, <strong>tuition-free public education</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An individualized <strong>approach to learning</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                An <strong>active, school community</strong>
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                <strong>Highly qualified, Tennessee-certified teachers</strong>
+            </util:addBodyToList>
+            <c:set var="whyCaption" scope="request">
+                TNVA is an online public school authorized by the Union County School District.
+            </c:set>
+            <c:set var="newsHeader" scope="request">
+                ${fn:toUpperCase(schoolCode)} News
+            </c:set>
+            <util:putBodyInMap mapVariableName="newsItem1" key="header">
+                <a href="http://www.k12.com/sites/default/files/pdf/school-docs/TNVA-Response-02-11-2013.PDF" target="_blank">NVA Response to NewsChannel 5 Report on Grading</a>
+            </util:putBodyInMap>
+            <!--<util:putBodyInMap mapVariableName="newsItem1" key="body">-->
+
+            <!--</util:putBodyInMap>-->
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
+                <a href="http://www.commercialappeal.com/news/2011/jul/17/interest-grows-in-virtual-schools/" target="_blank">Interest Grows in 'Virtual' Schools</a>
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+                Read stories of parents who embrace the learning approach of K<sup>12</sup> curriculum at TNVA after students struggle in the classroom.
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+               NVA Announced by Union County Public Schools
+            </util:putBodyInMap>
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+                First Tennessee online public school for K-8 students prepares for a positive academic year in August.
+            </util:putBodyInMap>
+
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
+            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Tennessee Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
+                education research about how minds really work. With courses in <strong>six core subjects</strong>, the curriculum was
+                designed to let kids find the learning style that works best for them.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The curriculum is wrapped in rich, engaging content that turns minds on-the minds that might wander when traditional classes are too slow, the minds that get lost in the shuffle, the minds that need a little more time.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Because at TNVA, we believe that all children deserve to learn without limits.
+            </util:addBodyToList>
+
         </c:when>
         <c:when test="${school eq 'TX'}">
             <c:set var="gradesServed" value="K-12" scope="request"/>
@@ -984,7 +1209,7 @@
                 learning and innate possibility alive. Together, we are helping students across Texas in grades 3-12 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why TXVA?
+                Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
                 Texas Virtual Academy and K<sup>12</sup>, in partnership with ResponsiveEd, give students in grades 3-12 the chance to learn in the ways that are right for them. TXVA offers:
@@ -1043,7 +1268,7 @@
                 Together, we are helping Utah students in grades K–12 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why UTVA?
+                Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
                 Utah Virtual Academy and K<sup>12</sup> give Utah kids in grades K-12 the chance to learn in the ways that are right for them. UTVA offers:
@@ -1074,7 +1299,7 @@
             </util:addBodyToList>
 
             <c:set var="newsHeader" scope="request">
-                UTVA News
+                ${fn:toUpperCase(schoolCode)} News
             </c:set>
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
                 <!--link goes to an empty news page-->
@@ -1123,7 +1348,7 @@
                 we are helping Virginia students in grades K–2 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why VAVA?
+                Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
                 The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K–2 the chance to learn in the ways that are right for them. VAVA offers:
@@ -1175,7 +1400,7 @@
                 Together, we are helping Washington students in grades K-12 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why WAVA?
+                Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
                 The Washington Virtual Academies and K<sup>12</sup> give Washington kids the chance to learn in the ways that are right for them. WAVA offers:
@@ -1212,7 +1437,7 @@
                 *Please check with your local school district for any restrictions that may apply.
             </c:set>
             <c:set var="newsHeader" scope="request">
-                WAVA News
+                ${fn:toUpperCase(schoolCode)} News
             </c:set>
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
                 <a href="http://www.k12.com/news/washington-virtual-academies-high-school-program-recognized-ospi-washington-achievement-award#.Uhf2rGTtgVw" target="_blank">
@@ -1249,7 +1474,7 @@
                 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why WIVA?
+                Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
 
             <util:addBodyToList listVariableName="whyList">
@@ -1278,7 +1503,7 @@
             </util:addBodyToList>
 
             <c:set var="newsHeader" scope="request">
-                WIVA News
+                ${fn:toUpperCase(schoolCode)} News
             </c:set>
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
                 Parent Praises Virtual Schools, Cites Benefits
@@ -1313,7 +1538,7 @@
                 K–12 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
-                Why WYVA?
+                Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
                 The Wyoming Virtual Academy and K<sup>12</sup> give Wyoming kids in grades K-12 the chance to learn in the ways that are right for them. WYVA offers:
@@ -1344,7 +1569,7 @@
                 WYVA is a statewide distance learning program offered by Niobrara County School District #1.
             </c:set>
             <c:set var="newsHeader" scope="request">
-                WYVA News
+                ${fn:toUpperCase(schoolCode)} News
             </c:set>
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
                 <a href="http://www.kgwn.tv/story/16540895/bullied-child-finds-home-classroom-safe" target="_blank">Bullied Child Finds Safety in Home Classroom</a>
