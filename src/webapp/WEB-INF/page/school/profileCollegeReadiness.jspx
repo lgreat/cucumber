@@ -19,15 +19,15 @@
                     <div class="mod standard_1-4">
                         <div class="inner">
                             <div class="bd clearfix mal">
-                                <h3>Starting College</h3>
-                                <p class="bottom">How many graduates from this school ...</p>
+                                <h3 class="bottom">Starting College</h3>
+                                <p class="small_bold bottom">How many graduates from this school ...</p>
                                 <c:if test="${enrollInCollegeAfterGraduation ne null}">
                                     <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
                                             censusDataSet="${enrollInCollegeAfterGraduation}"/></c:set>
                                     <div class="clear mbl"><!-- not empty --></div>
                                     <hr class="keyline1"/>
                                     <div class="clear mbl"><!-- not empty --></div>
-                                    <div class="unit size35of100 prm">
+                                    <div class="unit size35of100 prm small bottom">
                                         Enroll in college immediately after high school
                                         graduation<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                     </div>
@@ -39,7 +39,7 @@
                                     <div class="clear mbl"><!-- not empty --></div>
                                     <hr class="keyline1"/>
                                     <div class="clear mbl"><!-- not empty --></div>
-                                    <div class="unit size35of100 prm">
+                                    <div class="unit size35of100 prm small bottom">
                                         Need remediation, or help strengthening basic
                                         skills<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                     </div>
@@ -56,20 +56,26 @@
                     <div class="mod standard_1-4">
                         <div class="inner">
                             <div class="bd clearfix mal">
-                                <h3>Freshman year</h3>
-                                <p class="bottom">How well prepared for college are these graduates?*</p>
+                                <h3 class="bottom">Freshman year</h3>
+                                <p class="small_bold bottom">How well prepared for college are these graduates?*</p>
                                 <c:if test="${avgFirstYearGpa ne null}">
                                     <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
                                             censusDataSet="${avgFirstYearGpa}"/></c:set>
                                     <div class="clear mbl"><!-- not empty --></div>
                                     <hr class="keyline1"/>
                                     <div class="clear mbl"><!-- not empty --></div>
-                                    <div class="unit size35of100 prm">
+                                    <div class="unit size35of100 prm small bottom">
                                         Average first year GPA
                                         (out of 4.0)<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                     </div>
-                                    <censusDisplay:hgraphNumber censusDataSet="${avgFirstYearGpa}" maxValue="4.0"
-                                                                maxDecimalsForDisplay="1"/>
+                                    <c:if test="${avgFirstYearGpa.schoolOverrideOrSchoolValue ne null}">
+                                        <censusDisplay:number value="${avgFirstYearGpa.schoolOverrideOrSchoolValue.valueFloat}"
+                                                              caption="This school" maxDecimalsForDisplay="1"/>
+                                    </c:if>
+                                    <c:if test="${avgFirstYearGpa.stateCensusValue ne null}">
+                                        <censusDisplay:number value="${avgFirstYearGpa.stateCensusValue.valueFloat}"
+                                                              caption="State Avg" maxDecimalsForDisplay="1" last="${true}"/>
+                                    </c:if>
                                 </c:if>
                                 <c:if test="${avgUnitsCompleted ne null}">
                                     <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
@@ -77,12 +83,16 @@
                                     <div class="clear mbl"><!-- not empty --></div>
                                     <hr class="keyline1"/>
                                     <div class="clear mbl"><!-- not empty --></div>
-                                    <div class="unit size35of100 prm">
+                                    <div class="unit size35of100 prm small bottom">
                                         Average number of units completed in first
                                         year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
                                     </div>
-                                    <censusDisplay:hgraphNumber censusDataSet="${avgUnitsCompleted}" maxValue="34"
-                                                                maxDecimalsForDisplay="0"/>
+                                    <c:if test="${avgUnitsCompleted.schoolOverrideOrSchoolValue ne null}">
+                                        <censusDisplay:number value="${avgUnitsCompleted.schoolOverrideOrSchoolValue.valueFloat}"
+                                                              caption="This school" maxDecimalsForDisplay="0"/>
+                                        <censusDisplay:number value="30"
+                                                              caption="Recommended load" maxDecimalsForDisplay="0" last="${true}"/>
+                                    </c:if>
                                 </c:if>
                             </div>
                         </div>
@@ -97,14 +107,15 @@
                     <div class="mod standard_1-4">
                         <div class="inner">
                             <div class="bd clearfix mal">
-                                <h3>Sticking with it</h3>
-                                <p class="bottom">How many students re-enroll the following year?*</p>
+                                <h3 class="bottom">Sticking with it</h3>
+                                <p class="small_bold bottom">How many college-going students...*</p>
                                 <div class="clear mbl"><!-- not empty --></div>
                                 <hr class="keyline1"/>
                                 <div class="clear mbl"><!-- not empty --></div>
-                                <div class="unit size35of100 prm">
-                                    Enrolled in college and returned for a second
-                                    year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                <div class="unit size34of100 prl small bottom">
+                                        Re-enroll in college for a second
+                                        year?<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+
                                 </div>
                                 <censusDisplay:hgraphPercent censusDataSet="${enrolledInCollegeAndReturned}"/>
                             </div>
@@ -114,7 +125,7 @@
                 <div class="clear mbm"><!-- not empty --></div>
             </c:if>
 
-            <div class="smaller pbm">
+            <div class="smaller pbm make-999999">
                 <c:forEach items="${footnoteHelper.censusSources}" var="source" varStatus="status">
                     <c:if test="${fn:length(footnoteHelper.censusSources) gt 1}"><sup>${status.count}</sup></c:if>Source:
                     ${source.obj1.source}<c:if test="${not empty source.obj2}">, ${source.obj2-1}-${source.obj2}</c:if><br/>
@@ -124,8 +135,8 @@
                 </c:if>
             </div>
 
-            <mod:deferredTracking key="college-readiness" pageName="college readiness"
-                                  hier1="School,SchoolProfileSuite,College Readiness"/>
+            <mod:deferredTracking key="college-readiness" pageName="College Preparedness"
+                                  hier1="School,SchoolProfileSuite,College Preparedness"/>
         </div>
     </c:if>
 </jsp:root>

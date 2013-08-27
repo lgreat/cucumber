@@ -11,7 +11,7 @@
             <c:set var="censusSchoolValue" value="${censusDataSet.schoolOverrideOrSchoolValue}"/>
             <div class="line">
                 <div class="unit size20of100">
-                    <p class="small bottom">This school</p>
+                    <p class="small_bold bottom">This school</p>
                 </div>
                 <div class="unit size4of100">&amp;nbsp;</div>
                 <div class="unit size57of100">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="unit size3of100">&amp;nbsp;</div>
-                <div class="unit size15of100 small lastUnit bottom">
+                <div class="unit size15of100 small_bold lastUnit bottom">
                     ${censusSchoolValue.valueInteger}%
                 </div>
             </div>
@@ -28,16 +28,16 @@
         <c:if test="${censusDataSet.stateCensusValue ne null}">
             <div class="line">
                 <div class="unit size20of100">
-                    <p class="small bottom">State Avg</p>
+                    <p class="small_bold bottom make-787878">State Avg</p>
                 </div>
                 <div class="unit size4of100">&amp;nbsp;</div>
                 <div class="unit size57of100">
-                    <div class="bar_container thin blue">
+                    <div class="bar_container thin make-787878">
                         <div style="width:${censusDataSet.stateCensusValue.valueFloat}%"><!-- not empty --></div>
                     </div>
                 </div>
                 <div class="unit size3of100">&amp;nbsp;</div>
-                <div class="unit size15of100 small lastUnit bottom">
+                <div class="unit size15of100 small lastUnit small_bold bottom make-787878">
                     ${censusDataSet.stateCensusValue.valueInteger}%
                 </div>
             </div>

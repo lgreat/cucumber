@@ -2333,10 +2333,12 @@ jQuery(function() {
         GSType.hover.schoolReviewPosted.show();
     } else if (showHover == "espProvisionalReminder") {
         GSType.hover.espProvisionalReminder.show();
-    }
+    }else if (showHover == "YoutubeVideoLightbox") {
+        GSType.hover.YoutubeVideoLightbox.show();
 // else if (showHover == "clickToReviewYourSchool") {
 //        GSType.hover.clickToReviewYourSchool.show();
 //    }
+    }
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
     //Omniture tracking for facebook share button on school review hovers.GS-12508
@@ -2369,6 +2371,15 @@ GSType.hover.reviewLandingPageInformational = new GSType.hover.ReviewLandingPage
 GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
+
+GSType.hover.YoutubeVideoLightbox = function(evt) {
+    this.showHover = function(url, width, height) {
+        $(".js-youTubeVideoModal").attr("src", url);
+        this.show();
+    };
+};
+GSType.hover.YoutubeVideoLightbox.prototype = new GSType.hover.HoverDialog('js-youtubeVideoLightbox');
+GSType.hover.youtubeVideoLightbox = new GSType.hover.YoutubeVideoLightbox();
 
 
 GSType.hover.SendMeUpdates = function() {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        >
+    <jsp:directive.attribute name="value" type="java.lang.Float" required="true" description="Value to display"/>
+    <jsp:directive.attribute name="caption" type="java.lang.String" required="true" description="Caption for value"/>
+    <jsp:directive.attribute name="maxDecimalsForDisplay" type="java.lang.Integer" required="false"/>
+    <jsp:directive.attribute name="last" type="java.lang.Boolean" required="false" description="True if this is the last in the line"/>
+
+    <c:if test="${value ne null}">
+        <div class="unit size31of100 default bold mbn ${last?'lastUnit make-999999':'make-555555'} plm">
+            <c:set var="formattedCensusValue" value="${value}"/>
+            <c:if test="${not empty maxDecimalsForDisplay}">
+                <fmt:formatNumber var="formattedCensusValue"
+                                  value="${value}"
+                                  maxFractionDigits="${maxDecimalsForDisplay}"/>
+            </c:if>
+            <div class="line default bold tac">
+                <div style="font-size: 20px">${formattedCensusValue}</div>
+                <div>${caption}</div>
+            </div>
+        </div>
+    </c:if>
+</jsp:root>

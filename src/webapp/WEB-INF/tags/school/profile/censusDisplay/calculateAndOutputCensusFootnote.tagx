@@ -4,14 +4,12 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.tag import="gs.web.school.SchoolProfileCensusSourceHelper"/>
-    <jsp:directive.tag import="gs.data.school.census.CensusDataSet"/>
     <jsp:directive.attribute name="censusDataSet" type="gs.data.school.census.CensusDataSet" required="true"/>
 
     <jsp:scriptlet>
         SchoolProfileCensusSourceHelper censusSourceHelper = (SchoolProfileCensusSourceHelper) request.getAttribute("footnoteHelper");
-        CensusDataSet enrollInCollegeAfterGraduation = (CensusDataSet) jspContext.getAttribute("censusDataSet");
         if (censusSourceHelper != null) {
-            int myfootnote = censusSourceHelper.recordSource(enrollInCollegeAfterGraduation);
+            int myfootnote = censusSourceHelper.recordSource(censusDataSet);
             if (myfootnote > 0) {
                 jspContext.setAttribute("thisFootnote", myfootnote);
             } else {
