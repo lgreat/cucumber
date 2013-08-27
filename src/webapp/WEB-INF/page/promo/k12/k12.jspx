@@ -59,9 +59,11 @@
                 <div class="line mtl plm fl">
                     <h1>${schoolName}</h1>
                 </div>
+                <div class="clearfix"><!-- not empty --></div>
                 <div class="fl">
                     Online | ${gradesServed} | ${tuitionText}
                 </div>
+                <div class="clearfix"><!-- not empty --></div>
             </div>
         </div>
 
