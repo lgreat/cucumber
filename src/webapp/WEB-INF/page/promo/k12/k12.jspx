@@ -47,11 +47,11 @@
     <!--define state specific variables tagx-->
     <k12:defineStateSpecificVariables school="${k12School}"/>
     <c:set var="learnMoreHereButton">
-        <a href="${k12ClickThroughUrl}" target="_blank" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
+        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
     </c:set>
 
     <div class="container_24" id="k12AdPage">
-        <div class="grid_17 alpha">
+        <div class="grid_19 alpha">
             <div class="mod standard_1-1">
                 <div class="fl">
                     <c:if test="${hasLogo}"><img src="/res/img/promo/k12/${schoolCode}.jpg" alt="${schoolName} logo" width="68" height="68"/></c:if>
@@ -68,8 +68,8 @@
         </div>
 
         <!--k12 logo-->
-        <div class="grid_7 omega">
-            <div class="mtl">
+        <div class="grid_5 omega">
+            <div class="mtl pls">
                 <div class="bd small fl mtm mrm">
                     Sponsored by
                 </div>
@@ -78,13 +78,13 @@
                               alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
                 </div>
                 <div class="fl mbl">
-                    <strong>Website: </strong> <a href="${k12ClickThroughUrl}" target="_blank" class="js-k12ClickThrough">www.K12.com/${fn:toUpperCase(schoolCode)}</a>
+                    <a href="${k12ClickThroughUrl}" target="_blank" class="js-k12ClickThrough">http://www.K12.com/${fn:toUpperCase(schoolCode)}</a>
                 </div>
             </div>
         </div>
 
         <!--main text-->
-        <div class="grid_12 alpha">
+        <div class="grid_19 alpha">
             <div class="mod standard_1-1">
                 <div class="inner" style="min-height: 561px;">
                     <div class="hd pas">
@@ -122,49 +122,49 @@
             </div>
 
         <!--form module and virtual student-->
-        <div class="grid_7 omega">
-            <div class="mod standard_1-1">
-                <k12:formCode/>
-            </div>
-            <!--more virtual student module-->
-            <div class="mod standard_1-1">
-                <div class="inner mtl clearfix">
-                    <div class="hd pas">
-                        <h5 class="bottom">Virtual Students in the Spotlight</h5>
-                    </div>
-                    <div class="media pam fl">
-                        <a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="/res/img/promo/k12/virtualstudent-spotlight.jpg"/></a>
-                    </div>
-                    <div class="bd pam">
-                        <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--<div class="grid_7 omega">-->
+            <!--<div class="mod standard_1-1">-->
+                <!--<k12:formCode/>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;more virtual student module&ndash;&gt;-->
+            <!--<div class="mod standard_1-1">-->
+                <!--<div class="inner mtl clearfix">-->
+                    <!--<div class="hd pas">-->
+                        <!--<h5 class="bottom">Virtual Students in the Spotlight</h5>-->
+                    <!--</div>-->
+                    <!--<div class="media pam fl">-->
+                        <!--<a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="/res/img/promo/k12/virtualstudent-spotlight.jpg"/></a>-->
+                    <!--</div>-->
+                    <!--<div class="bd pam">-->
+                        <!--<p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="clearfix"><!-- not empty --></div>
+        <!--<div class="clearfix">&lt;!&ndash; not empty &ndash;&gt;</div>-->
         <!--long ad banner-->
-        <div class="grid_16 alpha">
+        <div class="grid_24 alpha omega">
             <div class="mod standard_2-2 ">
                 <div class="inner" style="background-color:#d7ed4a;">
-                    <div class="grid_12 alpha">
-                        <div class="pts">
+                    <!--<div class="grid_20 alpha">-->
+                        <div class="pts fl mrl">
                             <h4 class="bottom"> Discover why ${schoolName} is right for your child...</h4>
                         </div>
-                    </div>
-                    <div class="grid_2 omega" style="margin: auto 0;">
+                    <!--</div>-->
+                    <!--<div class="grid_2 omega" style="margin: auto 0;">-->
 
-                        <div>
+                        <div class="fl mll">
                             ${learnMoreHereButton}
                         </div>
 
-                    </div>
+                    <!--</div>-->
                     <div class="clearfix"><!-- not empty --></div>
                 </div>
             </div>
         </div>
 
-        <div class="grid_16 alpha">
+        <div class="grid_24 alpha omega">
             <!--parent success module-->
             <div class="mod standard_1-1">
 
@@ -192,7 +192,7 @@
             </div>
         </div>
         <!--about the curriculum module-->
-        <div class="grid_11 alpha">
+        <div class="grid_19 alpha">
             <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="hd pas">
