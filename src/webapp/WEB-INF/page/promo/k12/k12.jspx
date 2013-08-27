@@ -86,7 +86,7 @@
         <!--main text-->
         <div class="grid_19 alpha">
             <div class="mod standard_1-1">
-                <div class="inner" style="min-height: 561px;">
+                <div class="inner" style="min-height: 601px;">
                     <div class="hd pas">
                         <h4 class="bottom">About ${schoolName}</h4>
                     </div>
@@ -109,9 +109,9 @@
                         </div>
                         <div class="mam">
                             <ul style="padding-left: 0;">
-                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
+                                <li class="small" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
                                     <img src="/res/img/promo/k12/video-1.jpg"/>You have a choice. Accredited Public Schools.</a></li>
-                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
+                                <li class="small" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
                                     <img src="/res/img/promo/k12/video-2.jpg"/>K12 Success Stories</a></li>
                                 <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">
                                     <img src="/res/img/promo/k12/video-3.jpg"/>Online Learning: A Terrific Alternative</a></li>
