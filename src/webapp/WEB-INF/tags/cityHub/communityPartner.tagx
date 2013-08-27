@@ -11,7 +11,7 @@
             <h2>${state.abbreviation} Education community</h2>
             </div>
             <div class="fr small">
-            <a href="#">See the entire education community &gt;&gt;</a>
+            <a href="#">See the entire education community &amp;#187;</a>
             </div>
         </div>
         <div class="fl mrl" style="margin-top: 50px">
