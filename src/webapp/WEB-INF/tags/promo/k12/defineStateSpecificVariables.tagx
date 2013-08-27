@@ -1012,7 +1012,7 @@
             <c:set var="aboutIntro" scope="request">
                 Massachusetts Virtual Academy (MAVA) at Greenfield is a public virtual school of the Greenfield School
                 District, and the first diploma-granting virtual school in Massachusetts. We provide students
-                in grades K-10 from across the state access to a different type of education option—one that
+                in grades K-10 from across the state access to a different type of education option-one that
                 addresses the unique needs of the student, regardless of what those may be.
             </c:set>
             <c:set var="whyHeader" scope="request">
@@ -1104,7 +1104,7 @@
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 MVCA recently completed an analysis to determine how a change to a fully virtual setting has
-                impacted students’ performance on the MEAP exam.
+                impacted students' performance on the MEAP exam.
                 <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-MEAP-analysis-KPH-021612.pdf" target="_blank">View the full analysis.</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem3" key="header">
@@ -2262,7 +2262,7 @@
                 An accredited, online private school for grades K-12
             </c:set>
             <c:set var="whyIntro" scope="request">
-                An Individualized Journey—With a Team of Support
+                An Individualized Journey-With a Team of Support
             </c:set>
             <util:addBodyToList listVariableName="whyList">
                 Students earn a U.S. high school diploma while using award-winning K<sup>12</sup> curriculum
@@ -2298,7 +2298,7 @@
             <util:addBodyToList listVariableName="bottomCopyList">
                 Next, the curriculum team carefully crafts each course word by word, screen by screen, and lesson by
                 lesson. To address the widest variety of learning styles, plenty of offline resources are integrated
-                with the online lessons—including textbooks, CDs, videos, and hands-on materials like science equipment and art supplies.
+                with the online lessons-including textbooks, CDs, videos, and hands-on materials like science equipment and art supplies.
             </util:addBodyToList>
             <util:addBodyToList listVariableName="bottomCopyList">
                 Finally, our K<sup>12</sup> specialists conduct extensive usability testing to make sure students and parents
