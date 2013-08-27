@@ -1,4 +1,4 @@
-<p>You recently requested an email subscription to GreatSchools.  <strong>Only one more step</strong> &mdash; please verify your email by clicking on the link below:</p>
+<p>You recently requested a GreatSchools account.  <strong>Only one more step</strong> &mdash; please verify your email by clicking on the link below:</p>
 
 <p>$VERIFICATION_LINK</p>
 

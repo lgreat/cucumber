@@ -113,13 +113,6 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             $( this ).val( ui.item.label );
             GS.parentReviewLandingPage.chosenSchool = ui.item;
             GS.form.selectionMadeAutoComplete = true;
-        },
-        focus: function( event, ui ) {
-            if (ui.item !== undefined && ui.item.hasOwnProperty('label')) {
-                $( this ).val( ui.item.label );
-                GS.parentReviewLandingPage.chosenSchool = ui.item;
-                GS.form.selectionMadeAutoComplete = true;
-            }
         }
     });
 };

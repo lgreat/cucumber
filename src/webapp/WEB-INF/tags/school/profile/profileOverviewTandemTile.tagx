@@ -37,7 +37,9 @@
 
                     GS.tracking.data['overview'].props['prop56'] = 'cal';
                     GS.tracking.addTabSpecificProps('overview', 'prop56');
-                    GS.tracking.sendNewTrackingData({'prop56' : 'cal'});
+                    s.prop56='cal';
+                    s.tl(true,'o', 'calendar_tile_overlay');
+                    s.prop56=''; // this prevents the facebook custom link from carrying this event
                 }
             }).fail(function() {
                         // don't show tile
@@ -55,7 +57,9 @@
                         }
                         GS.tracking.data['overview'].props['prop56'] = tileName;
                         GS.tracking.addTabSpecificProps('overview', 'prop56');
-                        GS.tracking.sendNewTrackingData({'prop56' : tileName});
+                        s.prop56=tileName;
+                        s.tl(true,'o', 'no_calendar_tile_overlay');
+                        s.prop56=''; // this prevents the facebook custom link from carrying this event
                     });
 //            setTimeout(GS.school.calendar.getEventsAndUpdateListUI('181281002036'), 3000);
         });
