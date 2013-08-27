@@ -135,8 +135,8 @@
                 </c:if>
             </div>
 
-            <mod:deferredTracking key="college-readiness" pageName="college readiness"
-                                  hier1="School,SchoolProfileSuite,College Readiness"/>
+            <mod:deferredTracking key="college-readiness" pageName="College Preparedness"
+                                  hier1="School,SchoolProfileSuite,College Preparedness"/>
         </div>
     </c:if>
 </jsp:root>
