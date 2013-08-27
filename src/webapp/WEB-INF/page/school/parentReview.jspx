@@ -263,8 +263,8 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                        text-shadow: 0 1px 0 rgba(255,255,255,0.4)"/>
             </div>
 
-            <button tabindex="3" class="fr phm" style="cursor:pointer;padding:16px 15px 14px 15px;border:none; color:#666666;
-                border-left:1px solid #666666;font:bold 18px/18px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;
+            <button tabindex="3" class="fr phm" style="cursor:pointer;padding:16px 15px 17px 15px;border:none; color:#666666;
+                border-left:1px solid #666666;font:bold 18px/15px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;
                 text-shadow: 0 1px 0 rgba(255,255,255,0.4)" id="js_submitSelectSchool">
                 <strong>GO</strong>
             </button>
