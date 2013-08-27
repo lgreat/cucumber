@@ -5,7 +5,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
-    <div class="container_24 clearfix mvl pvl">
+    <div class="container_24 clearfix mvl ptl pbm">
         <h3 class="sourceSansPro-Semibold">Recent Reviews</h3>
         <div class="bg-F5F5F5 border-round pal clearfix">
             <c:forEach items="${reviews}" var="review" varStatus="count">

@@ -36,7 +36,7 @@
             </c:when>
             <c:otherwise>
                 <div class="grid_8">
-                    <div>No Upcoming Important Dates</div>
+                    <div class="small">No Upcoming Important Dates</div>
                 </div>
             </c:otherwise>
         </c:choose>
