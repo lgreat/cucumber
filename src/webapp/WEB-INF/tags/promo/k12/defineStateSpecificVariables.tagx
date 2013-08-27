@@ -248,7 +248,7 @@
                 Full-time, tuition-free online public school option
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                Weekly classroom-based instructional programs in Math, English, and other activities
+                <a href="http://www.k12.com/cava/community-events/community-day#.Uh0oomTtgVw" target="_blank">Weekly classroom-based instructional programs</a> in Math, English, and other activities
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
                 Face-to-face meetings with California-credentialed teachers
