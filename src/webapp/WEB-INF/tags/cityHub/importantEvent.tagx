@@ -8,7 +8,7 @@
     <div class="container_24 clearfix mtl pvl">
         <div class="grid_5">
             <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
-            <a href="http://www.greatschools.org" target="_blank" class="small">See all</a><br/>
+            <a href="http://www.greatschools.org" class="small">See all</a><br/>
         </div>
 
         <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}" property="java.util.List"/>
