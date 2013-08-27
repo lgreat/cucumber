@@ -5,8 +5,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
-    <div class="container_24 clearfix">
-        <div class="clearfix mvm">
+    <div class="container_24 clearfix mvl pvl">
+        <div class="clearfix">
             <div class="fl">
             <h2>${state.abbreviation} Education community</h2>
             </div>
