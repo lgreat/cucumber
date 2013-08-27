@@ -10,7 +10,7 @@
         <div class="grid_11">
             <div class="medium_bold bottom">Navigating the system: ${city}, ${state.abbreviation}</div>
             <p class="small bottom">Looking for a school in the nations's capital? Here's where to start.
-                <a href="/find-a-school/3775-outsmarting-the-system-${state.abbreviationLowerCase}.gs" target="_blank">More &amp;#187;</a>
+                <a href="/find-a-school/3775-outsmarting-the-system-${state.abbreviationLowerCase}.gs">More &amp;#187;</a>
             </p>
         </div>
     </div>
