@@ -33,6 +33,7 @@
         <!-- Hiding the Ads on the City Hub Page -->
         <pageHelper:hideFooterAd/>
         <pageHelper:hideLeaderboard/>
+        <pageHelper:hideBelowNavAds/>
 
         <div class="imageBgScale moduleHeight-560">
             <div class="img-container">
