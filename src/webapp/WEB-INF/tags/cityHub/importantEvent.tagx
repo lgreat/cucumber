@@ -6,42 +6,47 @@
           xmlns:gsweb="gstaglib">
 
     <div class="container_24 clearfix mtl pvl">
-        <div class="grid_5">
-            <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
-            <a href="http://www.greatschools.org" class="small">See all</a><br/>
-        </div>
+        <div class="line">
+            <div class="unit size28of100">
+                <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
+                <a href="http://www.greatschools.org" class="small">See all</a><br/>
+            </div>
 
-        <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}" property="java.util.List"/>
-        <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}" property="java.lang.Integer"/>
-        <c:choose>
-            <c:when test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
-                <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
-                    <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}" property="java.lang.String"/>
-                    <c:set var="descriptionKey">${keyPrefix}_description</c:set>
-                    <c:set var="urlKey">${keyPrefix}_url</c:set>
-                    <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
-                    <c:set var="monthKey">${keyPrefix}_date_month</c:set>
-                    <c:set var="yearKey">${keyPrefix}_date_year</c:set>
+            <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}"
+                   property="java.util.List"/>
+            <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}"
+                   property="java.lang.Integer"/>
+            <c:choose>
+                <c:when test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
+                    <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
+                        <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
+                               property="java.lang.String"/>
+                        <c:set var="descriptionKey">${keyPrefix}_description</c:set>
+                        <c:set var="urlKey">${keyPrefix}_url</c:set>
+                        <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
+                        <c:set var="monthKey">${keyPrefix}_date_month</c:set>
+                        <c:set var="yearKey">${keyPrefix}_date_year</c:set>
 
-                    <div class="grid_2">
+                        <div class="unit size7of100">
                         <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                         <div class="tac mtl"><h3 class="bold">${importantEvent[dayOfMonthKey]}</h3></div>
                         </span>
+                        </div>
+                        <div class="unit size27of100">
+                            <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
+                            <a href="${importantEvent[urlKey]}" class="small">Find out more</a>
+                        </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <div class="unit size20of100">
+                        <div class="small">No Upcoming Important Dates</div>
                     </div>
-                    <div class="grid_7">
-                        <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
-                        <a href="${importantEvent[urlKey]}"  class="small">Find out more</a>
-                    </div>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <div class="grid_8">
-                    <div class="small">No Upcoming Important Dates</div>
-                </div>
-            </c:otherwise>
-        </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div class="success-block grid_24 mtl tac">
-            <span class="small mrm">ANNOUNCEMENT</span>
+            <span class="small mrm bold">ANNOUNCEMENT</span>
             <span class="make-000000 small">
                 For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.
             </span>

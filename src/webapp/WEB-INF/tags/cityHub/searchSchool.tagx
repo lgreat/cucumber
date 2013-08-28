@@ -9,29 +9,24 @@
         <input type="hidden" name="search_type" value="1"/>
         <div class="">
             <div class="clearfix">
-                <div class="fl">
-                    <h3 class="make-ffffff fl" style="font:'SourceSansPro-Semibold'">Find a School in</h3>
+                <div class="fl pbm">
+                    <h3 class="SourceSansPro-Semibold-h3 make-ffffff fl bottom">Find a School in</h3>
                 </div>
                 <div class="fl pr">
                     <div class="pa"
-                         style="width: 606px;border-top: 1px solid #999999; top:13px; left:15px;"><!--do not colapse--></div>
+                         style="width: 586px;border-top: 1px solid #999999; top:11px; left:15px;"><!--do not colapse--></div>
                 </div>
             </div>
-            <div style="font:bold 56px/60px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
+            <div class="mbl" style="font:bold 56px/56px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
                 text-shadow: 0 0 24px rgba(0,0,0,1)">${city} ${state.abbreviation}
             </div>
-            <div class="pas mtm mbl pr" style="background-color: #FFB843;
-                -webkit-border-radius: 3px;
-                   -moz-border-radius: 3px;
-                        border-radius: 3px;">
-                <input type="text" name="q"
-                       class="text text-bigger input_16"
-                       id="js-findByNameBox"
+            <div class="pas mtm mbl pr border-round" style="background-color: #FFB843;">
+                <input type="text" name="q" class="text1 text-bigger input_16" id="js-findByNameBox"
                        placeholder="School name (e.g. 'Niles Elementary School')"/>
                 <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
                 <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
-                <div class="pa" style="top: 5px; right:88px;">
-                    <span class="iconx48 i-48-search-city-hubs" id="js-submit"><!-- do not collapse --></span>
+                <div class="pa" style="top: 5px; right:86px;">
+                    <span class="iconx48 i-48-search-city-hubs addMousePointer" id="js-submit"><!-- do not collapse --></span>
                 </div>
                 <a href="http://www.greatschools.org" class="vam small ptm phm fr">Not in ${state.abbreviation}?</a>
             </div>
