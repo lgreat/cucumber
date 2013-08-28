@@ -30,7 +30,7 @@
                     </div>
                     <div class="grid_7">
                         <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
-                        <a href="${importantEvent[urlKey]}" target="_blank" class="small">Find out more</a>
+                        <a href="${importantEvent[urlKey]}"  class="small">Find out more</a>
                     </div>
                 </c:forEach>
             </c:when>
