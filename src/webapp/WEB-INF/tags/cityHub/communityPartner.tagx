@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 50px">
+        <div class="fl" style="margin-top: 50px; margin-left: 25px;">
             <a href="#" id="next">
                 <span class="iconx32g i-32-carouselRight vam"><!-- do not collapse --></span>
             </a>
