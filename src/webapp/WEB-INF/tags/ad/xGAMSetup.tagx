@@ -75,7 +75,9 @@
 
             if (UrlUtil.isDevEnvironment(request.getServerName())) {
                 pageHelper.addAdKeyword("env", "dev");
-            } else {
+            } else if(UrlUtil.isAlphaEnvironment(request.getServerName())) {
+                pageHelper.addAdKeyword("env", "alpha");
+            }else {
                 pageHelper.addAdKeyword("env", "prod");
             }
 

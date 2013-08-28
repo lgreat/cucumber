@@ -781,6 +781,10 @@ public final class UrlUtil {
         return hostName.indexOf("rithmatic") != -1;
     }
 
+    public static boolean isAlphaEnvironment(String hostName) {
+        return hostName.indexOf("alpha.") != -1 ;
+    }
+
     public static String getApiHostname(String hostName) {
         if (isCloneServer(hostName)) {
             return "api.clone.greatschools.org";
