@@ -1,5 +1,6 @@
 package gs.web.promo;
 
+import gs.data.state.State;
 import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
@@ -20,13 +21,13 @@ public class K12AdvertiserPageController {
     final public static String PARAM_TRAFFIC_DRIVER = "t";
     final public static String MODEL_K12_SCHOOL = "k12School";
     final public static String MODEL_SCHOOL_NAME = "schoolName";
-    final public static String MODEL_HAS_SUMMARY = "hasSummary";
-    final public static String MODEL_HAS_BOTTOM_COPY = "hasBottomCopy";
+    final public static String MODEL_SCHOOL_CODE = "schoolCode";
     final public static String MODEL_K12_CLICK_THROUGH_URL = "k12ClickThroughUrl";
+    final public static String MODEL_STATE = "state";
     final public static String OTHER_TRAFFIC_DRIVER = "ot";
 
     @RequestMapping(value = "/online-education.page", method = RequestMethod.GET)
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
         String trafficDriverParam = request.getParameter(PARAM_TRAFFIC_DRIVER);
         String schoolParam = request.getParameter(PARAM_SCHOOL);
         if (!K12AdvertiserPageHelper.isValidK12School(schoolParam)) {
@@ -36,8 +37,14 @@ public class K12AdvertiserPageController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(MODEL_K12_SCHOOL, schoolParam);
         model.put(MODEL_SCHOOL_NAME, K12AdvertiserPageHelper.getK12SchoolName(schoolParam));
-        model.put(MODEL_HAS_SUMMARY, K12AdvertiserPageHelper.hasSummary(schoolParam));
-        model.put(MODEL_HAS_BOTTOM_COPY, K12AdvertiserPageHelper.hasBottomCopy(schoolParam));
+        try {
+            State state = State.fromString(schoolParam);
+            if (state != null) {
+                model.put(MODEL_STATE, state.getAbbreviationLowerCase());
+            }
+        } catch (IllegalArgumentException iae) {
+            // INT has no state
+        }
 
         String referrer = request.getHeader("referer");
         boolean hasReferrer = StringUtils.isNotBlank(referrer);
@@ -49,14 +56,16 @@ public class K12AdvertiserPageController {
             page = OTHER_TRAFFIC_DRIVER;
         }
         String clickthruSchoolParam = K12AdvertiserPageHelper.getClickthruSchoolParam(schoolParam);
+        model.put(MODEL_SCHOOL_CODE, clickthruSchoolParam);
 
         model.put(MODEL_K12_CLICK_THROUGH_URL, AdUtil.getK12ClickThroughUrl(clickthruSchoolParam, page));
 
         // needed so for header/footer/box ads
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
-            pageHelper.addAdKeyword("school_id", clickthruSchoolParam);
-            pageHelper.addAdKeyword("query", page);
+            pageHelper.setShowingLeaderboard(false);
+            pageHelper.setShowingBelowNavAds(false);
+            pageHelper.setShowingFooterAd(false);
         }
 
         return new ModelAndView(VIEW_NAME, model);

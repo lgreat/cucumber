@@ -363,7 +363,7 @@
     <c:if test="${param.tab eq 'reviews'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="reviews-master" value="selected"/>
     </c:if>
-    <c:if test="${param.tab eq 'test-scores' or param.tab eq 'ratings'}">
+    <c:if test="${param.tab eq 'test-scores' or param.tab eq 'ratings' or param.tab eq 'college-readiness'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="test-scores-master" value="selected"/>
     </c:if>
     <c:if test="${param.tab eq 'demographics' or param.tab eq 'teachers'}">
@@ -402,11 +402,9 @@
                     <div class="box-shadow-animation-1">
                         <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">
                             <div class="pr">
-                                <!-- Code preparing for GS-14354 -->
-                                <!--<c:set var="pathToSign" value="/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;client=gme-greatschools&amp;sensor=false"/>-->
-                                <!--<c:set var="googleApiSignature" value="${gsweb:generateGoogleAPISignature(pathToSign)}"/>-->
+                                <c:set var="pathToGoogleStaticMap" value="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;channel=desktop&amp;sensor=false"/>
                                 <img height="98" width="98" alt="Map thumbnail"
-                                 src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
+                                 src="${gsweb:convertToGoogleApiUrl(pathToGoogleStaticMap)}"/>
                                 <div style="position:absolute; top:73px; right:1px;z-index: 0;"><span class="iconx24 i-24-map-plus"><!-- do not collapse --></span></div>
                             </div>
                         </link:districtBoundaryTool>

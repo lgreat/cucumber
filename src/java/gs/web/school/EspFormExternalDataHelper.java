@@ -6,6 +6,7 @@ import gs.data.school.*;
 import gs.data.school.census.*;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.web.jsp.Util;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -743,8 +744,8 @@ public class EspFormExternalDataHelper {
                 String address = schoolAddress.getStreet() + "," + schoolAddress.getCity() + "," + schoolAddress.getState().getAbbreviation() + " " + schoolAddress.getZip();
                 try {
                     String geocodeUrl = "http://maps.googleapis.com/maps/api/geocode/json?address=" +
-                            URLEncoder.encode(address, "UTF-8") + "&sensor=false";
-                    URL url = new URL(geocodeUrl);
+                            URLEncoder.encode(address, "UTF-8") + "&channel=osp&sensor=false";
+                    URL url = new URL(Util.convertToGoogleApiUrl(geocodeUrl));
                     JSONObject result = _jsonDao.fetch(url, "UTF-8");
                     String status = result.getString("status");
                     if ("OK".equals(status)) {

@@ -12,6 +12,7 @@
                              description="Name of the school"/>
     <jsp:directive.attribute name="showTestScores" type="java.lang.Boolean" description="False to hide the test scores nav"/>
     <jsp:directive.attribute name="showRatingsDetails" type="java.lang.Boolean" description="False to hide the ratings details nav"/>
+    <jsp:directive.attribute name="showCollegeReadiness" type="java.lang.Boolean" description="False to hide the college readiness nav"/>
 
     <ul class="tabStyle-5">
         <c:if test="${empty showTestScores or showTestScores eq true}">
@@ -19,6 +20,9 @@
         </c:if>
         <c:if test="${empty showRatingsDetails or showRatingsDetails eq true}">
             <profile:gsTab tabName="ratings" title="School Ratings" tabText="Ratings details" cssClass="${requestScope.schoolProfileTabMap.ratings}" addDivider="${empty showTestScores or showTestScores eq true}" />
+        </c:if>
+        <c:if test="${empty showCollegeReadiness or showCollegeReadiness eq true}">
+            <profile:gsTab tabName="college-readiness" title="College preparedness" tabText="College preparedness" cssClass="${requestScope.schoolProfileTabMap['college-readiness']}" addDivider="${empty showTestScores or showTestScores eq true or empty showRatingsDetails or showRatingsDetails eq true}" />
         </c:if>
     </ul>
 </jsp:root>

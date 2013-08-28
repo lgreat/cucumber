@@ -16,7 +16,7 @@ s.trackInlineStats=true
 s.linkDownloadFileTypes="exe,zip,wav,mp3,mov,mpg,avi,wmv,pdf,doc,docx,xls,xlsx,ppt,pptx"
 s.linkInternalFilters="javascript:,greatschools.parentcenter.com,schools.net,greatschools.net,greatschools.org"
 s.linkLeaveQueryString=false
-s.linkTrackVars="None"
+s.linkTrackVars="prop53,prop56"
 s.linkTrackEvents="None"
 
 /* Plugin Config */

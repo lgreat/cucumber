@@ -191,9 +191,10 @@ Android seems to require the address to be blank for the same behavior -->
     </c:choose>
     <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
+    <c:set var="pathToGoogleStaticMap" value="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;channel=mobile&amp;sensor=false"/>
     <a href="http://maps.google.com/?q=${schoolAddressWithName}">
         <img height="160" width="320" alt="Loading Map..." id="schoolStaticMap"
-             data-src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>
+             data-src="${gsweb:convertToGoogleApiUrl(pathToGoogleStaticMap)}"/>
     </a>
 </div>
 

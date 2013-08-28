@@ -65,6 +65,7 @@ GS.ad.profile.tabNameForAdTargeting = {
     'reviews'            : 'reviews',
     'test-scores'        : 'testscores',
     'ratings'            : 'testscores',
+    'college-readiness'  : 'testscores',
     'demographics'       : 'studteach',
     'teachers'           : 'studteach',
     'programs-culture'   : 'progcult',
@@ -509,7 +510,9 @@ GS.profile = GS.profile || (function() {
 
         // show all slots that were passed into this function, regardless of how we tell google to refresh/show them
         showRelevantAdDivs(adslots);
-        GS.ad.unhideGhostTextForAdSlots(adslots);
+        if (GS.ad.unhideGhostTextForAdSlots) {
+            GS.ad.unhideGhostTextForAdSlots(adslots);
+        }
 
         // if no ad slots are left to be refreshed, exit early
         if (!slotsLeftToRefresh.length > 0) {

@@ -1,17 +1,98 @@
 package gs.web.jsp;
 
+import gs.data.util.DigestUtil;
+import gs.web.util.UrlUtil;
 import junit.framework.TestCase;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
+import java.util.*;
+
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public class UtilTest extends TestCase {
+
+    public void testConvertToGoogleApiUrlForNull (){
+        assertNull(Util.convertToGoogleApiUrl(null));
+    }
+
+    public void testConvertToGoogleApiUrlForEmptyString (){
+        assertEquals("Expect invalid URL to be returned unmodified.","", Util.convertToGoogleApiUrl(""));
+    }
+
+    public void testConvertToGoogleApiUrlForGarbageString (){
+        assertEquals("Expect invalid URL to be returned unmodified.","idapsifjhapsi", Util.convertToGoogleApiUrl("idapsifjhapsi"));
+    }
+
+    public void testConvertToGoogleApiUrlSuccessWithNoPath (){
+        helperForGoogleApiTest("https://maps.google.com");
+    }
+
+    public void testConvertToGoogleApiUrlSuccessWithParams (){
+        helperForGoogleApiTest("https://maps.google.com/api?address=myhouse&sensor=false");
+    }
+
+    public void testConvertToGoogleApiUrlSuccessWithNoParams (){
+        helperForGoogleApiTest("https://maps.google.com/api");
+    }
+
+    public void testConvertToGoogleApiUrlSuccessWithQuestionMark (){
+        helperForGoogleApiTest("https://maps.google.com/api?");
+    }
+
+    public void testConvertToGoogleApiUrlSuccessWithAmpersand (){
+        helperForGoogleApiTest("https://maps.google.com/api&");
+    }
+
+    private void helperForGoogleApiTest(String urlToConvert) {
+        String convertedUrl = Util.convertToGoogleApiUrl(urlToConvert);
+
+        Map<String, String> mapNewTestUrlQuery = helperConvertGoogleApiUrlToMap(convertedUrl);
+
+        String signature= mapNewTestUrlQuery.get("signature") + "=";
+        assertEquals("Signature must equal 28 chars. ", 28, signature.length());
+        String client = mapNewTestUrlQuery.get("client");
+        assertEquals("Expect correct google client id", DigestUtil.GOOGLE_CLIENT_ID, client);
+
+        Map<String, String> mapOldTestUrlQuery = helperConvertGoogleApiUrlToMap(urlToConvert);
+
+        for (String key : mapOldTestUrlQuery.keySet()){
+            assertEquals("Expect original parameters present in", mapOldTestUrlQuery.get(key), mapNewTestUrlQuery.get(key));
+        }
+    }
+
+    private Map<String, String> helperConvertGoogleApiUrlToMap(String testUrl){
+        URL helperUrlTest;
+        try {
+            helperUrlTest = new URL(testUrl);
+        } catch (MalformedURLException e) {
+            fail("Malformed URL");
+            return null;
+        }
+
+        String helperUrlTestQuery = helperUrlTest.getQuery();
+        Map<String, String> mapHelperUrlTestQuery = UrlUtil.getParamsFromQueryString(helperUrlTestQuery);
+        mapHelperUrlTestQuery.put("__scheme", helperUrlTest.getProtocol());
+        mapHelperUrlTestQuery.put("__host", helperUrlTest.getHost());
+        mapHelperUrlTestQuery.put("__path", helperUrlTest.getPath());
+
+       return mapHelperUrlTestQuery;
+    }
+
+    /** Useful to pre-compute static imports */
+    public void xtestConvertToGoogleApiUrl_realUrl() {
+        System.out.println(Util.convertToGoogleApiUrl("http://maps.googleapis.com/maps/api/js?sensor=false"));
+    }
 
     public void testRandomNumber () {
         int rand = Util.randomNumber(1);

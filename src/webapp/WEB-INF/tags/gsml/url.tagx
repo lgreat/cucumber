@@ -26,8 +26,13 @@
         if (sessionContext != null) {
             ApplicationContext ac = sessionContext.getApplicationContext();
             Properties versionProperties = (Properties) ac.getBean("versionProperties");
-            String releaseNumber = versionProperties.getProperty("gsweb.version");
-            request.setAttribute("RELEASE_NUMBER", releaseNumber);
+            String sha1 = versionProperties.getProperty("gsweb.sha");
+            if (StringUtils.length(sha1) > 5) {
+                request.setAttribute("RELEASE_NUMBER", StringUtils.left(sha1, 5));
+            } else {
+                String releaseNumber = versionProperties.getProperty("gsweb.version");
+                request.setAttribute("RELEASE_NUMBER", releaseNumber);
+            }
         }
         if (allowCdn == null) {
             allowCdn = false;

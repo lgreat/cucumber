@@ -28,7 +28,6 @@
         <![CDATA[<link rel="stylesheet" type="text/css" href="${spritecss}"></link>]]>
         <gsml:url var="jqueryFile" value="/res/js/jquery/jquery-1.9.1.min.js"/>
         <![CDATA[<script type="text/javascript" src="${jqueryFile}"></script>]]>
-        <!--<gsml:url var="jqueryjs_migrate" value="/res/js/jquery/jquery-migrate-1.1.1-warnings.js"/>-->
         <!--<![CDATA[<script type="text/javascript" src="${jqueryjs_migrate}"></script>]]>-->
         <gsml:url var="omnitureEventNotifier" value="/res/js/omnitureEventNotifier.js"/>
         <![CDATA[<script type="text/javascript" src="${omnitureEventNotifier}"></script>]]>

@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDescription;
 import gs.data.state.State;
 import gs.data.util.Pair;
@@ -41,6 +42,26 @@ public class SchoolProfileCensusSourceHelper implements Serializable {
         return _sourceKeyToIndexMap.get(key);
     }
 
+    public int recordSource(CensusDataSet dataSet) {
+        String key = getKey(dataSet);
+        if (key == null) {
+            return 0;
+        }
+        if (_sourceKeyToIndexMap.get(key) == null) {
+            _sourceKeyToIndexMap.put(key, _sourceKeyToIndexMap.size() + 1);
+            if (dataSet.getSchoolOverrideValue() != null) {
+                _sources.add(new Pair<CensusDescription, Integer>(MANUAL_OVERRIDE, null));
+            } else {
+                _sources.add(new Pair<CensusDescription, Integer>(getSourceFromCensusDataSet(dataSet), dataSet.getYear()));
+            }
+
+        }
+        if (_sources.size() < 2) {
+            return 0;
+        }
+        return _sourceKeyToIndexMap.get(key);
+    }
+
     public void clear() {
         _sourceKeyToIndexMap.clear();
         _sources.clear();
@@ -59,8 +80,28 @@ public class SchoolProfileCensusSourceHelper implements Serializable {
         }
     }
 
+    public static String getKey(CensusDataSet censusDataSet) {
+        if (censusDataSet.getSchoolOverrideValue() != null) {
+            return "Manually entered by school official";
+        }
+        else {
+            CensusDescription source = getSourceFromCensusDataSet(censusDataSet);
+            if (source == null) {
+                return null;
+            }
+            return source.getSource() + censusDataSet.getYear();
+        }
+    }
+
     public static CensusDescription getSourceFromRow(SchoolProfileStatsDisplayRow row) {
         Set<CensusDescription> sources = row.getCensusDescriptions();
+        if (sources != null && !sources.isEmpty()) {
+            return sources.iterator().next();
+        }
+        return null;
+    }
+    public static CensusDescription getSourceFromCensusDataSet(CensusDataSet censusDataSet) {
+        Set<CensusDescription> sources = censusDataSet.getCensusDescription();
         if (sources != null && !sources.isEmpty()) {
             return sources.iterator().next();
         }

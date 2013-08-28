@@ -58,6 +58,7 @@ function showSchoolDistrictFields(){
         $("#schoolDistrictFields").show();
         $("#schoolDistFieldsDisplayed").val("true");
     }else if($('input:radio[name=addEdit]:checked').val() == 'add'){
+        $("#addEditSchoolOrDistrictCommand_schoolId").val("");
         if($('input:radio[name=schoolType]:checked').val() == 'public'
                 && $("#addEditSchoolOrDistrictCommand_districtId").val() > 0){
             $("#schoolDistrictFields").show();
@@ -69,6 +70,7 @@ function showSchoolDistrictFields(){
             $("#schoolDistFieldsDisplayed").val("true");
         }else if($('input:radio[name=schoolType]:checked').val() == 'private'
                 && $("#addEditSchoolOrDistrictCommand_county").val() != ""){
+            $("#addEditSchoolOrDistrictCommand_districtId").val("");
             $("#schoolDistrictFields").show();
             $("#schoolDistFieldsDisplayed").val("true");
         }else{
@@ -92,11 +94,19 @@ function doPKOnly(){
     if(warngrades == ":PK:" || warngrades == ":PK:KG:") {
         $("#headOfficialSection").hide();
         $("#div_preschool_only").show();
-        $("#enrollmentLabel").html("Capacity <span class=\"required\">*</span>");
+        if($('input:radio[name=addEdit]:checked').val() == 'add'){
+            $("#enrollmentLabel").html("Capacity <span class=\"required\">*</span>");
+        }else{
+            $("#enrollmentLabel").html("Capacity");
+        }
     }else{
         $("#headOfficialSection").show();
         $("#div_preschool_only").hide();
-        $("#enrollmentLabel").html("Enrollment <span class=\"required\">*</span>");
+        if($('input:radio[name=addEdit]:checked').val() == 'add'){
+            $("#enrollmentLabel").html("Enrollment <span class=\"required\">*</span>");
+        }else{
+            $("#enrollmentLabel").html("Enrollment");
+        }
     }
 }
 
@@ -171,7 +181,7 @@ function doAddEditSections(clear){
             && $('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
         $("#isSchoolOpen").show();
         $("#openQuestion").html("Is this school closing? <span class=\"required\">*</span>");
-        $("#whenOpenQuestion").html("When will this school close?");
+        $("#whenOpenQuestion").html("When will this school close?" + " <span class=\"required\">*</span>");
         $("#div_choose_state").show();
         $("#div_school_type").hide();
         $("#school_list").show();
@@ -201,7 +211,7 @@ function doAddEditSections(clear){
         }
         $("#isSchoolOpen").show();
         $("#openQuestion").html("Is this school open yet? <span class=\"required\">*</span>");
-        $("#whenOpenQuestion").html("When will this school open?");
+        $("#whenOpenQuestion").html("When will this school open?" + " <span class=\"required\">*</span>");
         $("#div_school_type").show();
         $("#school_list").hide();
         $("#city_list").hide();
@@ -230,6 +240,7 @@ function do_radio_school_district(clear){
         $("#district_list").hide();
         $("#county_list").hide();
         $("#detailsLabel").html("School Details");
+        $("#entityName").html("School Name");
         $("#category").val("edit_school");
         $("#verificationNote").html("Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.");
         $("#webSiteLabel").html("School web site");
@@ -247,6 +258,7 @@ function do_radio_school_district(clear){
         $("#div_school_only_1").hide();
         $("input[name=addEdit][value=edit]").prop('checked', true);
         $("#detailsLabel").html("District Details");
+        $("#entityName").html("District Name");
         $("#lowerCounty").hide();
         $("#category").val("edit_district");
         $("#verificationNote").html("Please provide a website that will help us verify your role at the district, such as a homepage or faculty page.");
@@ -257,17 +269,25 @@ function do_radio_school_district(clear){
 
 
 function doSchoolType(schoolType){
-    $("input[name=schoolType][value=private]").removeAttr('checked');
-    $("input[name=schoolType][value=public]").removeAttr('checked');
-    $("input[name=schoolType][value=charter]").removeAttr('checked');
+    //removeAttr IS BAD! It makes it not work on some browsers!!!
+
+   // $("input[name=schoolType][value=private]").removeAttr('checked');
+   // $("input[name=schoolType][value=public]").removeAttr('checked');
+   // $("input[name=schoolType][value=charter]").removeAttr('checked');
+    $("input[name=schoolType][value=private]").prop('checked', false);
+    $("input[name=schoolType][value=public]").prop('checked', false);
+    $("input[name=schoolType][value=charter]").prop('checked', false);
     if(schoolType == "private"){
-        $("input[name=schoolType][value=private]").attr('checked', 'checked');
+        //$("input[name=schoolType][value=private]").attr('checked', 'checked');
+        $("input[name=schoolType][value=private]").prop('checked', true);
     }
     if(schoolType == "public"){
-        $("input[name=schoolType][value=public]").attr('checked', 'checked');
+        //$("input[name=schoolType][value=public]").attr('checked', 'checked');
+        $("input[name=schoolType][value=public]").prop('checked', true);
     }
     if(schoolType == "charter"){
-        $("input[name=schoolType][value=charter]").attr('checked', 'checked');
+        //$("input[name=schoolType][value=charter]").attr('checked', 'checked');
+        $("input[name=schoolType][value=charter]").prop('checked', true);
     }
     doSchoolTypeSections();
 }
@@ -413,7 +433,7 @@ function doWhenOpen(){
     if($('input:radio[name=addEdit]:checked').val() == 'edit'){
         $("#openQuestion").val("Is this school closing?");
         if($("#openSelect").val() == "Yes"){
-            $("#whenOpenQuestion").val("When will this school close?");
+            $("#whenOpenQuestion").val("When will this school close?" + " <span class=\"required\">*</span>");
             $("#whenOpen").show();
         }else{
             $("#whenOpen").hide();
@@ -421,7 +441,7 @@ function doWhenOpen(){
     }else if($('input:radio[name=addEdit]:checked').val() == 'add'){
         $("#openQuestion").val("Is this school open yet?");
         if($("#openSelect").val() == "No"){
-            $("#whenOpenQuestion").val("When will this school open?");
+            $("#whenOpenQuestion").val("When will this school open?" + " <span class=\"required\">*</span>");
             $("#whenOpen").show();
         }else{
             $("#whenOpen").hide();
@@ -432,6 +452,8 @@ function do_add_edit(state,clear){
     if(clear == "1"){
         clear_values();
     }
+
+
     $("#addEditSchoolOrDistrictCommand_state").val(state);
 
     $("#addEditSchoolOrDistrictCommand_state").change(function() {
@@ -660,7 +682,11 @@ $(document).ready(function(){
 
 });
 
+jQuery(document).ready(function() {
+    jQuery('#startTime').ptTimeSelect();
+    jQuery('#endTime').ptTimeSelect();
 
+});
 
 
 
@@ -967,7 +993,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field" id="whenOpen">
-    <div class="fieldLabel" id="whenOpenQuestion">When will this school open?</div>
+    <div class="fieldLabel" id="whenOpenQuestion">When will this school open? <span class="required">*</span></div>
     <div class="fieldInput">
         <form:select path="openSeason" id='openSeasonSelect'>
             <form:option value="" label="-Select Season-"/>
@@ -1008,7 +1034,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field">
-    <div class="fieldLabel">Name <span class="required">*</span></div>
+    <div class="fieldLabel"><span id="entityName">Name</span> <span class="required">*</span></div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.name">
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="name"/>
@@ -1088,7 +1114,7 @@ $(document).ready(function(){
 </div>
 
 <div class="field" id="enrollmentSection">
-    <div class="fieldLabel" id="enrollmentLabel">Enrollment <span class="required">*</span></div>
+    <div class="fieldLabel" id="enrollmentLabel">Enrollment</div>
     <div class="fieldInput">
         <spring:bind path="addEditSchoolOrDistrictCommand.enrollment"><!--  -->
             <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="enrollment"/>

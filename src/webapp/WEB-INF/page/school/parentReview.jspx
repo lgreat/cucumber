@@ -91,9 +91,6 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
     <!--<gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>-->
     <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.min.js"/>
 
-    <!--<gsml:url var="autocompletecss" value="/res/css/jquery/no-theme/jquery-ui-1.10.2.custom.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
-    <![CDATA[<link rel="stylesheet" href="${autocompletecss}" type="text/css" />]]>
-
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
     <script>
@@ -246,18 +243,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                 </c:otherwise>
             </c:choose>
         <div class="js-parentReviewLandingPageSearchBox searchBox pr rnd4"><!--do not colapse-->
-            <div class="fl" style="padding-top:13px;">
-                <input tabindex="1" type="text" placeholder="Find your school to begin"
-                       style="font-size:16px;width:350px;background:none;padding-left:20px;border:none;font-weight:bold;
-                       text-shadow: 0 1px 0 rgba(255,255,255,0.4)"/>
-            </div>
-
-            <button tabindex="3" class="fr phm" style="cursor:pointer;padding:16px 15px 14px 15px;border:none; color:#666666;
-                border-left:1px solid #666666;font:bold 18px/18px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;
-                text-shadow: 0 1px 0 rgba(255,255,255,0.4)" id="js_submitSelectSchool">
-                <strong>GO</strong>
-            </button>
-            <div class="fr ptm ">
+            <div class="fl ptm ">
                 <div id="js-reviewLandingState" class="pr pts">
                     <select  tabindex="2" name="stateSelectReviews" class="round_sb">
                         <gsweb:stateSelector useNoState="false"
@@ -268,9 +254,20 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                                              style=""
                                              styleId="stateSelector"
                                              justOptions = "true"/>
-                </select>
+                    </select>
                 </div>
             </div>
+            <div class="fl" style="padding-top:13px;">
+                <input tabindex="1" type="text" placeholder="Select your school to begin"
+                       style="font-size:16px;width:350px;background:none;padding-left:20px;border:none;font-weight:bold;
+                       text-shadow: 0 1px 0 rgba(255,255,255,0.4)"/>
+            </div>
+
+            <button tabindex="3" class="fr phm" style="cursor:pointer;padding:16px 15px 17px 15px;border:none; color:#666666;
+                border-left:1px solid #666666;font:bold 18px/15px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;
+                text-shadow: 0 1px 0 rgba(255,255,255,0.4)" id="js_submitSelectSchool">
+                <strong>GO</strong>
+            </button>
         </div>
         </form>
         <c:if test="${sweepstakes}">

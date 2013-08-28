@@ -1,5 +1,7 @@
 package gs.web.jsp;
 
+import gs.data.util.DigestUtil;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -14,6 +16,8 @@ import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 
 import javax.servlet.jsp.PageContext;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -592,5 +596,31 @@ public class Util {
         }
 
         return StringUtils.join(list, delimiter);
+    }
+
+    /**
+     * Takes a URL and adds our Google business api client id and adds the computed signature too. If there is
+     * any problem parsing the URL, this method returns the original string.
+     */
+    public static String convertToGoogleApiUrl(String urlString) {
+        URL parsedUrl;
+        try {
+            parsedUrl = new URL(urlString);
+        } catch (MalformedURLException e) {
+            // on invalid URL, return original string
+            return urlString;
+        }
+
+        // extract non domain portion of URL
+        String pathAndQuery = parsedUrl.getPath();
+        if (parsedUrl.getQuery() != null) {
+            pathAndQuery += "?" + parsedUrl.getQuery();
+        }
+        // add in client parameter
+        pathAndQuery = UrlUtil.putQueryParamIntoUrl(pathAndQuery, "client", DigestUtil.GOOGLE_CLIENT_ID, false);
+        // generate signature
+        String signature = DigestUtil.generateGoogleAPICryptographicSignature(pathAndQuery);
+        // return full url
+        return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + pathAndQuery + "&signature=" + signature;
     }
 }

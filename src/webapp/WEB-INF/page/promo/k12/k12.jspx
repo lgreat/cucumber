@@ -11,7 +11,9 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
+          xmlns:v1="urn:jsptagdir:/WEB-INF/tags/community/hover/v1">
+
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
 
@@ -25,97 +27,204 @@
         <pageHelper:addMetaProperty property="description" content="Online education for grades K-12, providing individualized learning customized to each child's needs with award winning curriculum that engages young minds."/>
         <pageHelper:addMetaProperty property="keywords" content="online education,online resources,K-12 educational online resources,virtual academies"/>
 
+        <meta name="decorator" content="standardDecorator-v1"/>
+
         <script type="text/javascript">
             jQuery(function() {
-                jQuery('#k12AdPage .jq-k12ClickThrough, #Header_728x90 .jq-k12ClickThrough, #AboveFold_300x250 .jq-k12ClickThrough, #Footer_728x90 .jq-k12ClickThrough').
+                jQuery('#k12AdPage .js-k12ClickThrough').
                         unbind('click').click(function() {
-                            if (s.tl) {
-                                s.tl(true, 'o', 'K12_ClickThrough_${k12School}');
+                            if (s &amp;&amp; s.tl) {
+                                s.tl(this, 'o', 'K12_ClickThrough_${k12School}');
                             }
                             return true;
                         });
             });
         </script>
-
     </head>
 
     <gsml:body adPageName="k12AdvertiserPage" pageLayout="nocol">
 
-    <!-- TODO-11797 -->
+    <!--define state specific variables tagx-->
+    <k12:defineStateSpecificVariables school="${k12School}"/>
+    <c:set var="learnMoreHereButton">
+        <a href="${k12ClickThroughUrl}" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
+    </c:set>
 
-    <!--<div class="container_24">-->
-        <div id="k12AdPage">
-        <div class="grid_16">
+    <div class="container_24" id="k12AdPage">
+        <div class="grid_19 alpha">
+            <div class="mod standard_1-1">
+                <div class="fl">
+                    <c:if test="${hasLogo}"><img src="/res/img/promo/k12/${schoolCode}.jpg" alt="${schoolName} logo" width="68" height="68"/></c:if>
+                </div>
+                <div class="line mtl plm fl">
+                    <h1>${schoolName}</h1>
+                </div>
+                <div class="clearfix"><!-- not empty --></div>
+                <div class="fl">
+                    Online | ${gradesServed} | ${tuitionText}
+                </div>
+                <div class="clearfix"><!-- not empty --></div>
+            </div>
+        </div>
 
-            <div class="mrm mtl phs">
+        <!--k12 logo-->
+        <div class="grid_5 omega">
+            <div class="mtl pls">
+                <div class="bd small fl mtm mrm">
+                    Sponsored by
+                </div>
+                <div class="imgExt mbl fl">
+                    <gsml:img src="/res/img/promo/k12/k12-sponsored-by-logo.png"
+                              alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
+                </div>
+                <div class="fl mbl">
+                    <a href="${k12ClickThroughUrl}" target="_blank" class="js-k12ClickThrough">http://www.K12.com/${fn:toUpperCase(schoolCode)}</a>
+                </div>
+            </div>
+        </div>
 
-                <div class="line mbm">
-                    <div class="unit size4of5 text2-777">SPONSORED:
-                        <h1 class="pts">${schoolName}</h1>
+        <!--main text-->
+        <div class="grid_19 alpha">
+            <div class="mod standard_1-1">
+                <div class="inner" style="min-height: 601px;">
+                    <div class="hd pas">
+                        <h4 class="bottom">About ${schoolName}</h4>
                     </div>
-                    <div class="unit size1of5 lastUnit">
-                        <div class="fltrt">
-                            <div class="media">
-                                <div class="imgExt mls">
-                                    <gsml:img src="/res/img/promo/k12/k12-sponsored-by-logo.png"
-                                              alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
-                                </div>
-                                <div class="bd text-align-rt smallText2-777 fl">
-                                    Sponsored<br/>by:
-                                </div>
-                            </div>
+                    <div class="pam">
+                        <k12:topCopy/>
+                    </div>
+                    <div class="shim-10 bottom"><!-- do not collapse --></div>
+                </div>
+            </div>
+        </div>
+
+        <!--video module-->
+
+            <div class="grid_5">
+                <div class="mod standard_1-1 mhs">
+
+                    <div class="inner">
+                        <div class="hd pas">
+                            <h4 class="bottom">Inside K12 Videos</h4>
+                        </div>
+                        <div class="mam">
+                            <ul style="padding-left: 0;">
+                                <li class="small" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
+                                    <img src="/res/img/promo/k12/video-1.jpg"/>You have a choice. Accredited Public Schools.</a></li>
+                                <li class="small" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
+                                    <img src="/res/img/promo/k12/video-2.jpg"/>K12 Success Stories</a></li>
+                                <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">
+                                    <img src="/res/img/promo/k12/video-3.jpg"/>Online Learning: A Terrific Alternative</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <c:set var="learnMoreHereButton">
-                    <a href="${k12ClickThroughUrl}" class="button-1 jq-k12ClickThrough">Learn More Here &amp;raquo;</a>
-                </c:set>
+        <!--form module and virtual student-->
+        <!--<div class="grid_7 omega">-->
+            <!--<div class="mod standard_1-1">-->
+                <!--<k12:formCode/>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;more virtual student module&ndash;&gt;-->
+            <!--<div class="mod standard_1-1">-->
+                <!--<div class="inner mtl clearfix">-->
+                    <!--<div class="hd pas">-->
+                        <!--<h5 class="bottom">Virtual Students in the Spotlight</h5>-->
+                    <!--</div>-->
+                    <!--<div class="media pam fl">-->
+                        <!--<a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="/res/img/promo/k12/virtualstudent-spotlight.jpg"/></a>-->
+                    <!--</div>-->
+                    <!--<div class="bd pam">-->
+                        <!--<p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-                ${learnMoreHereButton}
+        <!--<div class="clearfix">&lt;!&ndash; not empty &ndash;&gt;</div>-->
+        <!--long ad banner-->
+        <div class="grid_24 alpha omega">
+            <div class="mod standard_2-2 ">
+                <div class="inner" style="background-color:#d7ed4a;">
+                    <!--<div class="grid_20 alpha">-->
+                        <div class="pts fl mrl">
+                            <h4 class="bottom"> Discover why ${schoolName} is right for your child...</h4>
+                        </div>
+                    <!--</div>-->
+                    <!--<div class="grid_2 omega" style="margin: auto 0;">-->
 
-                <div class="spacer_10 brdbtm_dotted-ccc mtm mbl"><!-- do not collapse --></div>
+                        <div class="fl mll">
+                            ${learnMoreHereButton}
+                        </div>
 
-                <c:if test="${hasSummary}">
-                    <p class="text1">
-                        <k12:summary school="${k12School}"/>
-                    </p>
-                </c:if>
-
-                <k12:topCopy school="${k12School}"/>
-
-                <c:if test="${hasBottomCopy}">
-                    <div class="spacer_10 brdbtm_dotted-ccc mtm mbs"><!-- do not collapse --></div>
-
-                    <div class="spacer_10"><!-- do not collapse --></div>
-
-                    <h2 class="mbs">What parents are saying:</h2>
-
-                    <div class="spacer_10"><!-- do not collapse --></div>
-
-                    <k12:bottomCopy school="${k12School}"/>
-                </c:if>
-
-                <div class="spacer_10"><!-- do not collapse --></div>
-
-                ${learnMoreHereButton}
-
-                <div class="clearfloat brdbtm_dotted-ccc mtl mbl"><!-- do not collapse --></div>
-
-                <div class="spacer_10"><!-- do not collapse --></div>
-
+                    <!--</div>-->
+                    <div class="clearfix"><!-- not empty --></div>
+                </div>
             </div>
         </div>
-        <div class="grid_8">
 
-            <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="grid_24 alpha omega">
+            <!--parent success module-->
+            <div class="mod standard_1-1">
 
-            <div id="squareadvert">
-                <ad:AboveFold_300x250/>
+                <div class="inner">
+                    <div class="hd pas">
+                        <h3 class="bottom">Parent Success Stories</h3>
+                    </div>
+
+                    <div class="pam">
+                        <h3 class="bottom">
+                            Better Than Ever
+                        </h3>
+
+                        <p class="small bottom mvm">
+                            <em>by Victoria | May 8, 2013</em>
+                        </p>
+
+                        <p class="small bottom">
+                            Our family has been a K12 family for two school years. We first looked into K12 when our second daughter began to fall behind in school because of a speech impediment. She was in speech therapy and improving dramatically, but the other kids in her grade were reading and she couldn't catch up. She was frustrated and would cry when she couldn't read. It was intensely frustrating to see my daughter so upset, but being unable to help. Academically, aside from her reading difficulties, she was at grade level and holding her back was not an option we were willing to take. We enrolled both of our daughters as soon as possible. We were matched with Education Specialists who were awesome. Our daughter was placed in Mark12 and her reading improved 1,000% in just 6 months! She still doesn’t enjoy reading, but is constantly improving. Our son was enrolled in Kindergarten this past school year and he is already beginning to read. All three of our children are learning and growing by leaps and bounds every day thanks to K12.
+                        </p>
+                    </div>
+
+                    <!--<div class="shim-10 bottom">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                </div>
+            </div>
+        </div>
+        <!--about the curriculum module-->
+        <div class="grid_19 alpha">
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd pas">
+                        <h4 class="bottom">About the curriculum</h4>
+                    </div>
+                    <div class="pam">
+                        <c:forEach items="${bottomCopyList}" var="myBottomCopyListItem" varStatus="loopStatus">
+                            <p class="small ${loopStatus.last?'bottom':''}">${myBottomCopyListItem}</p>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--want to learn more small ad-->
+        <div class="grid_5 omega">
+            <div class="mod standard_1-1">
+                <div class="inner clearfix">
+                    <div class="small_bold bottom phl ptl">
+                        <h5 class="bold bottom">
+                            Want to learn more about ${schoolName}?
+                        </h5>
+                    </div>
+                    <div class="mlm pal">
+                        ${learnMoreHereButton}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!--</div>-->
+
+    <div class="clearfix"><!-- not empty --></div>
 
     <mod:tracking pageName="Online Education Landing Page"
                   hier1="Topic Centers,Online Education,Sponsored K12"

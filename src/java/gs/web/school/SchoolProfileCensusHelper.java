@@ -96,7 +96,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
 
     /**
      * @return map of CensusDataSet ID --> CensusDataSet.
-     * Returns censusDataSets for display on stats tab and overview tab of school profile
+     * Returns censusDataSets for display on stats tab and other tabs of school profile
      */
     protected Map<Integer, CensusDataSet> getCensusDataSets( HttpServletRequest request ) {
         // Make sure we have a school
@@ -112,10 +112,10 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
             CensusStateConfig censusStateConfig = getCensusStateConfig(request);
             // get the data type IDs for our census config
             Set<Integer> dataTypeIds = censusStateConfig.allDataTypeIds();
-            Set<Integer> dataTypeIdsForOverview = _schoolProfileDataHelper.getCensusDataTypeIdsForOverview();
+            Set<Integer> dataTypesForOtherTabs = _schoolProfileDataHelper.getCensusDataTypeIdsForOtherTabs();
             Set<Integer> allDataTypeIds = new HashSet<Integer>();
             allDataTypeIds.addAll(dataTypeIds);
-            allDataTypeIds.addAll(dataTypeIdsForOverview);
+            allDataTypeIds.addAll(dataTypesForOtherTabs);
             censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), allDataTypeIds, school);
             setSharedData(request, CENSUS_DATA_SETS, censusDataSetMap);
         }
@@ -144,7 +144,8 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
             // Only contains info about censusDataSets that were configured for display on census tables on stats page on school profile
             CensusStateConfig censusStateConfig = getCensusStateConfig(request);
 
-            Set<Integer> dataTypeIdsForOverview = _schoolProfileDataHelper.getCensusDataTypeIdsForOverview();
+            // Samson says this call may be necessary
+            _schoolProfileDataHelper.getCensusDataTypeIdsForOtherTabs();
 
             // Returns censusDataSets for display on stats tab and overview tab of school profile
             Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSets(request);
