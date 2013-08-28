@@ -16,7 +16,7 @@
                             <ratings:stars curSR="${review.stars}"/>
                             <span class="small mlm make-999999">Posted ${review.date}</span>
                         </div>
-                            <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 180)}</p>
+                            <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
 
                         </div>
                         <div class="down-pointer">
