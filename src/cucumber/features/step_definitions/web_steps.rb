@@ -81,8 +81,13 @@ When /^I click the radio button "([^\"]+)"$/ do |selector|
   page.choose selector
 end
 
-When /^I see "([^\"]*)"$/ do |text|
+When /^I see exactly "([^\"]*)"$/ do |text|
   page.should have_content(text)
+end
+
+When /^I see "([^\"]*)"$/ do |text|
+  # Case-insensitive match
+  page.text.should match(/#{Regexp.escape(text)}/i)
 end
 
 When /^I see "([^\"]*)", "([^\"]*)" and "([^\"]*)"/ do |field1, field2, field3|
