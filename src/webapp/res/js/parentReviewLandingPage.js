@@ -113,6 +113,11 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
             $( this ).val( ui.item.label );
             GS.parentReviewLandingPage.chosenSchool = ui.item;
             GS.form.selectionMadeAutoComplete = true;
+        },
+        focus: function(event, ui) {
+            // prevent propagation so the value focuses on is not entered in the field
+            // forcing user to actively select the school either via Enter or mouse click
+            return false;
         }
     });
 };
