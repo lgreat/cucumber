@@ -6,7 +6,7 @@
           xmlns:gsweb="gstaglib">
 
     <div class="container_24 clearfix mtl pvl">
-        <div class="line">
+        <div class="line grid_24">
             <div class="unit size28of100">
                 <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
                 <a href="http://www.greatschools.org" class="small">See all</a><br/>
@@ -45,13 +45,16 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <div class="success-block grid_24 mtl tac">
+
+        <c:if test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
+         <div class="success-block grid_24 mtl tac">
             <span class="small mrm bold">ANNOUNCEMENT</span>
             <span class="make-000000 small">
                 For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.
             </span>
             <a href="http://www.greatschools.org" target="_blank" class="small mls">Find out details</a>
         </div>
+        </c:if>
     </div>
     <hr class="keyline1 mvl"/>
 </jsp:root>
