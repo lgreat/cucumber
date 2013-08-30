@@ -7,6 +7,7 @@ import gs.data.state.State;
 import gs.web.util.UrlUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +22,7 @@ import java.util.*;
  * Time: 11:13 AM
  * To change this template use File | Settings | File Templates.
  */
+@Component
 public class CityHubHelper {
     private static Logger _logger = Logger.getLogger(CityHubHelper.class);
 
