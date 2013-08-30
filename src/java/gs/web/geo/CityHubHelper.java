@@ -43,7 +43,7 @@ public class CityHubHelper {
 
     public List<HubConfig> getHubConfig(final String city, final State state) {
         Integer hubId = getHubID(city, state);
-        return hubId != null ?  _hubConfigDao.getAllConfigFromHubId(hubId) : null;
+        return hubId != null ?  _hubConfigDao.getAllConfigFromHubId(hubId) : new ArrayList<HubConfig>();
     }
 
     public ModelMap getFilteredConfigMap(final List<HubConfig> configList, final String keyPrefix) {
