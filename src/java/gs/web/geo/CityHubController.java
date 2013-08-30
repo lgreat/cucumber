@@ -1,8 +1,6 @@
 package gs.web.geo;
 
 import gs.data.hubs.HubConfig;
-import gs.data.hubs.IHubCityMappingDao;
-import gs.data.hubs.IHubConfigDao;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -13,7 +11,6 @@ import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.review.ReviewFacade;
-import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -32,8 +29,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -58,7 +53,8 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
     public   static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
     private  static final String PARAM_CITY = "city";
     public   static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
-    public   static final String DATE_FORMAT = "MM-dd-yyyy";
+
+
 
     private ControllerFamily _controllerFamily;
 
@@ -67,10 +63,9 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
     @Autowired
     private IReviewDao _reviewDao;
+
     @Autowired
-    private IHubCityMappingDao _hubCityMappingDao;
-    @Autowired
-    private IHubConfigDao _hubConfigDao;
+    private CityHubHelper _cityHubHelper;
 
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
@@ -111,8 +106,10 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         /**
          * Get the important events
          */
-        List<HubConfig> configList = getHubConfig(modelAndView, city, state);
-        ModelMap importantEventsMap = getFilteredConfigMap(configList, IMPORTANT_EVENT_KEY_PREFIX);
+        List<HubConfig> configList = getCityHubHelper().getHubConfig(modelAndView, city, state);
+        ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList, IMPORTANT_EVENT_KEY_PREFIX);
+        List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
+        importantEventsMap.put(getCityHubHelper().CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
         importantEventsMap.put("maxImportantEventsToDisplay", MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
         modelAndView.addObject(IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
@@ -150,106 +147,6 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         return reviews;
     }
 
-    public List<HubConfig> getHubConfig(ModelAndView modelAndView,String city,State state) {
-        Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
-
-        if(hubId == null) {
-            return new ArrayList<HubConfig>();
-        }
-
-        modelAndView.addObject("hubId", hubId);
-        List<HubConfig> configList = _hubConfigDao.getAllConfigFromHubId(hubId);
-
-        return configList != null ? configList : new ArrayList<HubConfig>();
-    }
-
-    public ModelMap getFilteredConfigMap(List<HubConfig> configList, String keyPrefix) {
-        ModelMap filteredConfig = new ModelMap();
-        List<String> configKeyPrefixListWithIndex = new ArrayList<String>();
-
-        if(configList == null || keyPrefix == null) {
-            return filteredConfig;
-        }
-
-        boolean isImportantEventsModule = (IMPORTANT_EVENT_KEY_PREFIX.equals(keyPrefix)) ? true : false;
-
-        for(HubConfig hubConfig : configList) {
-            String key = hubConfig.getQuay();
-            if(hubConfig != null && key.startsWith(keyPrefix)) {
-                /**
-                 * The key should always be in this format - [type_of_key]_[index]_[type_of_value]
-                 * an example for the type of key is "importantEvent"
-                 * [index] is a number. This should be sequential for each key type - for example there shouldn't be
-                 * "importantEvent_2" without "importantEvent_1"
-                 * type_of_value identifies what the value is, for importantEvent this could be description, url, date.
-                 */
-                String keyPrefixWithIndex = key.substring(0, key.lastIndexOf("_"));
-                /**
-                 * If the key is for date, convert the date in string to date object. This is done to sort the events
-                 * by date and also to get the day, month and year to apply the appropriate styles for the module.
-                 */
-                if(key.endsWith("_date")) {
-                    try {
-                        Calendar calendar = Calendar.getInstance();
-                        Date date = new SimpleDateFormat(DATE_FORMAT).parse(hubConfig.getValue());
-                        calendar.setTime(date);
-                        filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
-                        filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
-                        filteredConfig.put(key + "_month", calendar.get(Calendar.MONTH) + 1);
-                        filteredConfig.put(key, date);
-
-                        if (isImportantEventsModule) {
-                            /**
-                             * Key prefix (with index) for an event must have a key for the date. Do not add a key that doesn't
-                             * have a date.
-                             */
-                            configKeyPrefixListWithIndex.add(keyPrefixWithIndex);
-                        }
-                    }
-                    catch (ParseException ex) {
-                        _logger.error("CityHubController - unable to convert string to java date", ex.getCause());
-                    }
-                }
-                else if (key.endsWith("_url")) {
-                    filteredConfig.put(key, UrlUtil.formatUrl(hubConfig.getValue()));
-                }
-                else {
-                    filteredConfig.put(key, hubConfig.getValue());
-                }
-            }
-        }
-
-        /**
-         * For the important events module, only the first two upcoming events are displayed. So the event key prefixes
-         * are sorted by date.
-         */
-        if(isImportantEventsModule) {
-            getConfigKeyPrefixesSortedByDate(configKeyPrefixListWithIndex, filteredConfig);
-        }
-        filteredConfig.put("configKeyPrefixListWithIndex", configKeyPrefixListWithIndex);
-
-        return filteredConfig;
-    }
-
-    public void getConfigKeyPrefixesSortedByDate(List<String> configKeyPrefixListWithIndex, final ModelMap filteredConfigMap) {
-        if(configKeyPrefixListWithIndex == null || filteredConfigMap == null) {
-            return;
-        }
-
-        Collections.sort(configKeyPrefixListWithIndex, new Comparator<String>() {
-            public int compare(String keyPrefix1, String keyPrefix2) {
-                String dateKeyPrefix1 = keyPrefix1 + "_date";
-                String dateKeyPrefix2 = keyPrefix2 + "_date";
-
-                Object date1 = filteredConfigMap.get(dateKeyPrefix1);
-                Object date2 = filteredConfigMap.get(dateKeyPrefix2);
-                if(date1 instanceof Date && date2 instanceof Date) {
-                    return (((Date) date1).after((Date) date2) ? 1 : -1);
-                }
-                return 0;
-            }
-        });
-    }
 
     // What does this do Revert Shomi
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
@@ -270,11 +167,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         _controllerFamily = controllerFamily;
     }
 
-    public void setHubCityMappingDao(IHubCityMappingDao _hubCityMappingDao) {
-        this._hubCityMappingDao = _hubCityMappingDao;
+    public CityHubHelper getCityHubHelper() {
+        return _cityHubHelper;
     }
 
-    public void setHubConfigDao(IHubConfigDao _hubConfigDao) {
-        this._hubConfigDao = _hubConfigDao;
+    public void setCityHubHelper(CityHubHelper _cityHubHelper) {
+        this._cityHubHelper = _cityHubHelper;
     }
 }
