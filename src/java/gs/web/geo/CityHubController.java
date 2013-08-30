@@ -16,6 +16,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,7 +91,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
             return new ModelAndView(redirectView);
         }
 
-        modelAndView.addObject("city", city);
+        modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", getCityHubHelper().getHubID(city, state));
 
