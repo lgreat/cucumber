@@ -3,6 +3,7 @@ URLS = {
   "Golda Meir School Profile Page" => "/wisconsin/milwaukee/1110-Golda-Meir-School/",
   "Alameda High School Profile Page" => "/california/alameda/1-Alameda-High-School/",
   "Sanders School Profile Page" => "/indiana/indianapolis/1917-Sanders-School/",
+  "Franklin Central High School Profile" => "/indiana/indianapolis/593-Franklin-Central-High-School/",
   "Bayside Montessori Association Profile Page" => "/california/alameda/preschools/Bayside-Montessori-Association/13358/",
   "Arlington Elementary School Profile Page" => "/florida/jacksonville/946-Arlington-Elementary-School/",
   "Find a School" => "/find-schools/",

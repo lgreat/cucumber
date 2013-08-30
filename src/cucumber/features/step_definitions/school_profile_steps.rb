@@ -1,8 +1,8 @@
-When /^I click on the (.+) tab$/ do |tab_name|
+When /^I click on the "([^\"]+)" tab$/ do |tab_name|
   page.find(:xpath, "//*/li[@data-gs-tab]/a[text() = '#{tab_name}']").click
 end
 
-When /^I am on the (.+) tab$/ do |tab_name|
+When /^I am on the "([^\"]+)" tab$/ do |tab_name|
   page.visit current_url + "?tab=#{tab_name.downcase}"
 end
 
@@ -45,3 +45,31 @@ When "I see new school profile tab navigation" do
   }
 end
 
+When /^I am on "([^\"]+)" page "([^\"]+)" tab$/ do |page_name, tab_name|
+  setup_selectors page_name
+  visit (URLS[page_name] + "?tab=" + tab_name)
+end
+
+When /^I am on the profile page for ([a-zA-Z\-]+)-(\d+) "([^\"]+)" tab$/ do |state, id, tab|
+  visit "/#{state}/city/#{id}-school/?tab=#{tab}"
+end
+
+When 'I see college preparedness data' do
+  steps %Q{
+    Then I see "College preparedness"
+      And I see "Enroll in college immediately after high school graduation"
+      And I see "Need remediation"
+      And I see "Average first year GPA"
+      And I see "Average number of units completed in first year"
+      And I see "Re-enroll in college for a second year"
+  }
+  end
+
+When 'I do not see college preparedness data' do
+  step 'I do not see "College preparedness"'
+  step 'I do not see "Enroll in college immediately after high school graduation"'
+  step 'I do not see "Need remediation"'
+  step 'I do not see "Average first year GPA"'
+  step 'I do not see "Average number of units completed in first year"'
+  step 'I do not see "Re-enroll in college for a second year"'
+end

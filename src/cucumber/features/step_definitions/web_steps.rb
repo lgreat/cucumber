@@ -81,13 +81,8 @@ When /^I click the radio button "([^\"]+)"$/ do |selector|
   page.choose selector
 end
 
-When /^I see exactly "([^\"]*)"$/ do |text|
-  page.should have_content(text)
-end
-
 When /^I see "([^\"]*)"$/ do |text|
-  # Case-insensitive match
-  page.text.should match(/#{Regexp.escape(text)}/i)
+  page.should have_content(text)
 end
 
 When /^I see "([^\"]*)", "([^\"]*)" and "([^\"]*)"/ do |field1, field2, field3|
@@ -138,4 +133,11 @@ end
 
 When 'I scroll halfway down the page' do
   page.execute_script 'window.scrollBy(0,document.body.scrollHeight/2)'
+end
+
+When "I close any hovers" do
+  closeLinkOnHoverIfPresent = page.first(:css, ".js_closeHover", :visible => true)
+  if closeLinkOnHoverIfPresent != nil
+    closeLinkOnHoverIfPresent.click
+  end
 end
