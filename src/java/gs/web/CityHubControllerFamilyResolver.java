@@ -8,9 +8,11 @@ package gs.web;
  * To change this template use File | Settings | File Templates.
  */
 
-import gs.data.school.School;
-import gs.data.school.SchoolHelper;
+
+import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.request.RequestAttributeHelper;
+import gs.data.state.State;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -26,23 +28,40 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
     @Autowired
     private RequestAttributeHelper _requestAttributeHelper;
 
+    private static final String WASHINGTON_HUB_CITY= "washington";
+
+    private static final State  WASHINGTON_HUB_STATE= State.DC;
+
     public ControllerFamily resolveControllerFamily() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        ControllerFamily family = null;
         /**
-         * This Code should change to add the logic for city pages .Possibly string match on URL. -To DO Shomi Revert
+         * By default the controller should be City Default Controller.
          */
-//        if (request == null) {
-//            throw new IllegalStateException("Request cannot be null.");
-//        }
-//
-//        School school = _requestAttributeHelper.getSchool(request);
-//        if (school != null) {
-//            // for school pages, delegate this logic to the SchoolHelper
-//            if (SchoolHelper.isSchoolForNewProfile(school)) {
-//                family = ControllerFamily.FRUITCAKE;
-//            }
-//        }
-        return ControllerFamily.CITY_DEFAULT;
+        ControllerFamily cityController= ControllerFamily.CITY_DEFAULT;
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+         /**
+         * This Code should change to add the logic for city pages .Possibly string match on URL. -To do Shomi Revert
+         */
+        if (request == null) {
+            throw new IllegalStateException("Request cannot be null.");
+        }
+
+        DirectoryStructureUrlFields fields = _requestAttributeHelper.getDirectoryStructureUrlFields(request);
+        final String cityName = fields.getCityName();
+        final State  state    = fields.getState();
+
+        if (shoulCityLocalControllerBeUsed(cityName, state)) {
+            cityController= ControllerFamily.CITY_LOCAL;
+        }
+
+        return cityController;
     }
+
+    private boolean shoulCityLocalControllerBeUsed(final String cityName, final State state)
+    {
+          boolean isLocal= false;
+          if (WASHINGTON_HUB_CITY.equals(cityName) && WASHINGTON_HUB_STATE.equals(state)){
+              isLocal= true;
+          }
+          return isLocal;
+      }
 }

@@ -7,6 +7,7 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -17,13 +18,17 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,17 +49,16 @@ import java.util.*;
  */
 
 @Controller
-@RequestMapping("/cityHub/cityHub.page")
-public class CityHubController  extends AbstractController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
+public class CityHubController   implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     private static Logger _logger = Logger.getLogger(CityHubController.class);
 
     private  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2 ;
     private  static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90 ;
-    public static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
+    public   static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
     private  static final String PARAM_CITY = "city";
-    public static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
-    public static final String DATE_FORMAT = "MM-dd-yyyy";
+    public   static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
+    public   static final String DATE_FORMAT = "MM-dd-yyyy";
 
     private ControllerFamily _controllerFamily;
 
@@ -68,27 +72,32 @@ public class CityHubController  extends AbstractController implements IDirectory
     @Autowired
     private IHubConfigDao _hubConfigDao;
 
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(method= RequestMethod.GET)
+    public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("/cityHub/cityHub");
 
 
-       SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-       State state = sessionContext.getState();
-       String city = request.getParameter(PARAM_CITY);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        final State state = sessionContext.getState();
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+        String city = StringUtils.defaultIfEmpty(request.getParameter(PARAM_CITY), fields.getCityName());
+        // Validate those inputs and give up if we can't build a reasonable page.
+        if (state == null) {
+            // no state name found on city page, so redirect to /
+            View redirectView = new RedirectView("/");
+            return new ModelAndView(redirectView);
+        }
 
-        /**
-         * Hard Coding for DC and Washington State .As controller Structure completes and hub configuration  works this hardcoding should go away.
-         */
+        if (StringUtils.isEmpty(city)) {
+            // no city name found, so redirect to /california or whichever state they did provide
+            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
+            return new ModelAndView(redirectView);
+        }
 
-        city="Washington" ;
         modelAndView.addObject("city", city);
-        state=State.DC;
         modelAndView.addObject("state", state);
-        /**
-         * Hard coding for state and city end .
-         */
+
 
         /**
          *  School Review Link Functionality Start.
@@ -141,7 +150,7 @@ public class CityHubController  extends AbstractController implements IDirectory
         return reviews;
     }
 
-    public List<HubConfig> getHubConfig(ModelAndView modelAndView, String city, State state) {
+    public List<HubConfig> getHubConfig(ModelAndView modelAndView,String city,State state) {
         Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
 
         if(hubId == null) {
