@@ -32,26 +32,26 @@ public class CityHubHelper {
     @Autowired
     private IHubConfigDao _hubConfigDao;
 
-    public List<HubConfig> getHubConfig(final ModelAndView modelAndView, final String city, final State state) {
+
+    public Integer getHubID(final String city, final State state)
+    {
         Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
-        modelAndView.addObject("hubId", hubId);
-
-        List<HubConfig> configList = new ArrayList<HubConfig>();
-        if(hubId != null) {
-            configList = _hubConfigDao.getAllConfigFromHubId(hubId);
-        }
-
-        return configList;
+        return  hubId;
     }
 
-    public ModelMap getFilteredConfigMap(List<HubConfig> configList, String keyPrefix) {
+    public List<HubConfig> getHubConfig(final String city, final State state) {
+        Integer hubId = getHubID(city, state);
+        return hubId != null ?  _hubConfigDao.getAllConfigFromHubId(hubId) : null;
+    }
+
+    public ModelMap getFilteredConfigMap(final List<HubConfig> configList, final String keyPrefix) {
         ModelMap filteredConfig = new ModelMap();
         List<String> configKeyPrefixListWithIndex = new ArrayList<String>();
 
-        if(configList != null && keyPrefix != null) {
-            for(HubConfig hubConfig : configList) {
+        if (configList != null && keyPrefix != null) {
+            for (HubConfig hubConfig : configList) {
                 String key = hubConfig.getQuay();
-                if(hubConfig != null && key.startsWith(keyPrefix)) {
+                if (hubConfig != null && key.startsWith(keyPrefix)) {
                     /**
                      * The key should always be in this format - [type_of_key]_[index]_[type_of_value]
                      * an example for the type of key is "importantEvent"
@@ -125,11 +125,11 @@ public class CityHubHelper {
         return configKeyPrefixList;
     }
 
-    public void setHubCityMappingDao(IHubCityMappingDao _hubCityMappingDao) {
+    public void setHubCityMappingDao(final IHubCityMappingDao _hubCityMappingDao) {
         this._hubCityMappingDao = _hubCityMappingDao;
     }
 
-    public void setHubConfigDao(IHubConfigDao _hubConfigDao) {
+    public void setHubConfigDao(final IHubConfigDao _hubConfigDao) {
         this._hubConfigDao = _hubConfigDao;
     }
 }

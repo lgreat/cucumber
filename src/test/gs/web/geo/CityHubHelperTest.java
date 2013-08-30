@@ -31,7 +31,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
     private CityHubHelper _cityHubHelper;
     private IHubConfigDao _hubConfigDao;
     private IHubCityMappingDao _hubCityMappingDao;
-    private ModelAndView _modelAndView;
+
 
     private static Map<String, String> _configKeyValues = new HashMap<String, String>(){{
         put("importantEvent_1_description", "Application deadline for DCPS");
@@ -54,7 +54,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         _cityHubHelper.setHubConfigDao(_hubConfigDao);
         _cityHubHelper.setHubCityMappingDao(_hubCityMappingDao);
 
-        _modelAndView = new ModelAndView("/cityHub/cityHub");
+      ;
     }
 
     private void replayAllMocks() {
@@ -79,7 +79,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         expect(_hubCityMappingDao.getHubIdFromCityAndState(city, state)).andReturn(hubId);
 
         replayAllMocks();
-        List<HubConfig> configList = _cityHubHelper.getHubConfig(_modelAndView, city, state);
+        List<HubConfig> configList = _cityHubHelper.getHubConfig(city, state);
         verifyAllMocks();
 
         assertEquals("Expect empty config to be returned for null hub id", 0, configList.size());
@@ -98,7 +98,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         expect(_hubConfigDao.getAllConfigFromHubId(hubId)).andReturn(sampleConfigList);
 
         replayAllMocks();
-        List<HubConfig> configList = _cityHubHelper.getHubConfig(_modelAndView, city, state);
+        List<HubConfig> configList = _cityHubHelper.getHubConfig(city, state);
         verifyAllMocks();
 
         assertEquals("Expected config list must be the same as the one returned by the controller.", sampleConfigList, configList);

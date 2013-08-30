@@ -92,6 +92,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
         modelAndView.addObject("city", city);
         modelAndView.addObject("state", state);
+        modelAndView.addObject("hubId", getCityHubHelper().getHubID(city, state));
 
 
         /**
@@ -106,7 +107,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         /**
          * Get the important events
          */
-        List<HubConfig> configList = getCityHubHelper().getHubConfig(modelAndView, city, state);
+        List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList, IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
         importantEventsMap.put(getCityHubHelper().CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
