@@ -5,11 +5,15 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
 
+    <c:set var="hasImportantEventsToDisplay" value="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}" property="java.lang.Boolean"/>
+
     <div class="container_24 clearfix mtl pvl">
         <div class="line grid_24">
             <div class="unit size28of100">
                 <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
-                <a href="http://www.greatschools.org" class="small">See all</a><br/>
+                <c:if test="${hasImportantEventsToDisplay}">
+                    <a href="http://www.greatschools.org" class="small">See all</a><br/>
+                </c:if>
             </div>
 
             <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}"
@@ -17,7 +21,7 @@
             <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}"
                    property="java.lang.Integer"/>
             <c:choose>
-                <c:when test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
+                <c:when test="${hasImportantEventsToDisplay}">
                     <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
                         <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
                                property="java.lang.String"/>
