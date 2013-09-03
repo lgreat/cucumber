@@ -11,5 +11,6 @@ When /GreatSchools affiliate codes are captured including the code from "([^\"]+
     link[:href].should include "affl=gr8t"
     link[:href].should include "page=ot"
     link[:href].should match(%r{#{codeParam}}i) #case-insensitive match
+    link[:href].should match(%r{k12\.com}i) #case-insensitive match
   }
 end
