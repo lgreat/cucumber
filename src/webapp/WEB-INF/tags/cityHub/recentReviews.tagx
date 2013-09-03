@@ -26,7 +26,14 @@
                     </div>
                     <div class="medium_bold mtl bottom">${review.schoolName}</div>
                     <link:schoolProfileParentReview school="${review.school}" styleClass="small">
-                        <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
+                        <c:choose>
+                             <c:when test="${review.totalReviews > 1 }">
+                                 <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value=" Read the review" escapeXml="true"/>
+                            </c:otherwise>
+                        </c:choose>
                     </link:schoolProfileParentReview>
                 </div>
                 <c:if test="${count.index eq 0}">
