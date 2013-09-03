@@ -39,7 +39,7 @@
                         </div>
                         <div class="unit size27of100">
                             <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
-                            <a href="${importantEvent[urlKey]}" class="small">Find out more</a>
+                            <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
                         </div>
                     </c:forEach>
                 </c:when>
