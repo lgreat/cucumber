@@ -2211,6 +2211,10 @@
         <property name="controllerFamily" value="CITY_LOCAL"/>
    </bean>
 
+    <bean name="/cityHub/choosePage.page"
+          class="gs.web.geo.CityHubChoosePageController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/city.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
