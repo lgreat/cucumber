@@ -177,6 +177,11 @@
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generatePageTitle(gs.data.geo.City)</function-signature>
     </function>
+    <function>
+        <name>cityPageTitleHub</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitle(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
 
     <function>
         <name>cityPageDescription</name>
@@ -184,10 +189,22 @@
         <function-signature>java.lang.String generateMetaDescription(gs.data.geo.City)</function-signature>
     </function>
 
+
+    <function>
+        <name>cityPageHubDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescription(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
+
     <function>
         <name>cityPageKeywords</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generateMetaKeywords(gs.data.geo.City)</function-signature>
+    </function>
+    <function>
+        <name>cityPageKeywordsHub</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywords(java.lang.String,gs.data.state.State)</function-signature>
     </function>
 
     <function>

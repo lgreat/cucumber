@@ -1,24 +1,20 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
-    <jsp:directive.page contentType="text/html"/>
-
-
-
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <c:set var="pageName" value="city home" scope="request"/>
+    <jsp:directive.page contentType="text/html"/>
     <head>
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>City Hub Page</title>
+        <meta name="description" content="${gsweb:cityPageHubDescription(city,state)}"/>
+        <meta name="keywords" content="${gsweb:cityPageKeywordsHub(city,state)}"/>
+        <title>${gsweb:cityPageTitleHub(city,state)}</title>
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
         <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
