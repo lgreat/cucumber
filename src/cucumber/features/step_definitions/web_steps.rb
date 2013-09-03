@@ -44,6 +44,15 @@ Given /^I am on "([^\"]+)" page$/ do |page_name|
   visit URLS[page_name]
 end
 
+When /^I am on "([^\"]+)" page with parameters:$/ do |page_name, table|
+  setup_selectors page_name
+  orig_url = URLS[page_name]
+  table.rows_hash.each do |field, value|
+    orig_url = add_parameter_to_string(orig_url, field, value)
+  end
+  visit orig_url
+end
+
 Then /^I stay on "([^\"]*)"$/ do |page_name|
   page.current_path.should eq URLS[page_name]
 end
@@ -66,7 +75,10 @@ When /^I click on "([^\"]+)"$/ do |scope|
 end
 
 When /^I type "([^\"]*)" into "([^\"]*)"$/ do |text, field|
-  fill_in field, :with => text
+  value_to_enter = text
+  timestamp = Time.new.to_time.to_i.to_s
+  value_to_enter.gsub! '[TIMESTAMP]', timestamp
+  fill_in field, :with => value_to_enter
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)"$/ do |label, selector|
@@ -110,8 +122,8 @@ When /^I see an alert with "(.*?)"$/ do |alert_expected|
   page.driver.browser.switch_to.alert.accept
 end
 
-When /^the "([^\"]+)" element is visible$/ do |my_selector|
-  find(:css, my_selector).should be_visible
+When /^"([^\"]+)" is visible$/ do |scope|
+  find(:css, selector_for(scope)).should be_visible
 end
 
 # http://bjeanes.com/2010/09/selector-free-cucumber-scenarios
@@ -140,4 +152,8 @@ When "I close any hovers" do
   if closeLinkOnHoverIfPresent != nil
     closeLinkOnHoverIfPresent.click
   end
+end
+
+def add_parameter_to_string(orig_url, field, value)
+  orig_url + (orig_url.index('?')?'&':'?') + "#{field}=#{value}"
 end

@@ -258,7 +258,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                 </div>
             </div>
             <div class="fl" style="padding-top:13px;">
-                <input tabindex="1" type="text" placeholder="Select your school to begin"
+                <input tabindex="1" type="text" placeholder="Select your school to begin" id="js-parentReviewLandingPageSchoolSelectInput"
                        style="font-size:16px;width:350px;background:none;padding-left:20px;border:none;font-weight:bold;
                        text-shadow: 0 1px 0 rgba(255,255,255,0.4)"/>
             </div>

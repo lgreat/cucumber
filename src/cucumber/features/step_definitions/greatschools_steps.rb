@@ -13,8 +13,13 @@ URLS = {
   'Search Alameda By Name' => '/search/search.page?q=Alameda&state=CA',
   'Search Oakland By Name' => '/search/search.page?q=Oakland&state=CA',
   'Akula Elitnaurvik School Programs Page' => '/alaska/kasigluk/12-Akula-Elitnaurvik-School/?tab=programs-resources',
-  'an article' => '/students/travel/635-flying-with-kids.gs'
+  'an article' => '/students/travel/635-flying-with-kids.gs',
+  'parent review landing' => '/school/parentReview.page',
 }
+
+if defined? Capybara && Capybara.app_host=~/localhost/
+  URLS['GS Home Page'] = "/index.page" # Get it to work on localhost
+end
 
 When /^I global search for "([^\"]*)" in ([a-zA-Z-][a-zA-Z-])$/ do |query, state|
   fill_in("qNew", :with => query)
