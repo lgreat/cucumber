@@ -37,7 +37,9 @@
                             var overviewTile = 'fbplug';
                             GS.tracking.data['overview'].props['prop53'] = overviewTile;
                             GS.tracking.addTabSpecificProps('overview', 'prop53');
-                            GS.tracking.sendNewTrackingData({'prop53' : overviewTile});
+                            s.prop53='fbplug';
+                            s.tl(true,'o', 'facebook_profile_plugin');
+                            s.prop53=''; // this prevents the tandem custom link from carrying this prop
                         }
                     }
                 );

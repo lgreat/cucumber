@@ -248,7 +248,7 @@
                 Full-time, tuition-free online public school option
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                Weekly classroom-based instructional programs in Math, English, and other activities
+                <a href="http://www.k12.com/cava/community-events/community-day#.Uh0oomTtgVw" target="_blank">Weekly classroom-based instructional programs</a> in Math, English, and other activities
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
                 Face-to-face meetings with California-credentialed teachers
@@ -1012,7 +1012,7 @@
             <c:set var="aboutIntro" scope="request">
                 Massachusetts Virtual Academy (MAVA) at Greenfield is a public virtual school of the Greenfield School
                 District, and the first diploma-granting virtual school in Massachusetts. We provide students
-                in grades K-10 from across the state access to a different type of education option—one that
+                in grades K-10 from across the state access to a different type of education option-one that
                 addresses the unique needs of the student, regardless of what those may be.
             </c:set>
             <c:set var="whyHeader" scope="request">
@@ -1104,7 +1104,7 @@
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 MVCA recently completed an analysis to determine how a change to a fully virtual setting has
-                impacted students’ performance on the MEAP exam.
+                impacted students' performance on the MEAP exam.
                 <a href="http://www.k12.com/sites/default/files/pdf/school-docs/MVCA-MEAP-analysis-KPH-021612.pdf" target="_blank">View the full analysis.</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem3" key="header">
@@ -1131,8 +1131,6 @@
             </util:addBodyToList>
 
         </c:when>
-        <!--<c:when test="${school eq 'MO'}">-->
-        <!--</c:when>-->
         <c:when test="${school eq 'MN'}">
             <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
@@ -1185,22 +1183,14 @@
             <c:set var="newsHeader" scope="request">
                 ${fn:toUpperCase(schoolCode)} News
             </c:set>
+
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
-                <a href="" target="_blank">Online Learning: A Growing Trend</a>
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem1" key="body">
-                Many Minnesota families are finding online learning a good fit for a variety of reasons.
-                Meet a student who turned to Minnesota Virtual Academy where academics are at the forefront.
-                <a href="" target="_blank">Watch the video.</a>
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem2" key="header">
                 <a href="http://www.mnparent.com/index.php?&amp;story=16294&amp;page=88&amp;category=51" target="_blank">MNVA Praised for Advanced Learners Option</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
                 A mother shares the story of her bright child's opportunity to grow academically thanks to MNVA's flexible academic pace.
             </util:putBodyInMap>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
-            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 The Minnesota Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades
@@ -1464,7 +1454,7 @@
                 ${fn:toUpperCase(schoolCode)} News
             </c:set>
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
-                OHVA College Profile
+               <a href="http://www.k12.com/ohva/who-we-are/college-profile#.Uh0JUmTtgVw" target="_blank"> OHVA College Profile</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem1" key="body">
                 OHVA is proud of its record for students graduating and going on to attend college. <a href="http://www.k12.com/ohva/who-we-are/college-profile#.UhukqmTtgVw" target="_blank">Take a look at the facts!</a>
@@ -1476,7 +1466,7 @@
                 OHVA's third graders outscored virtual third graders across the state with nearly 80 percent of students scoring proficient or above. <a href="" target="_blank">Get the details.</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem3" key="header">
-                Alternative Education Is Making The Grade
+                <a href="http://www.reviewtimes.com/Issues/2011/Sep/14/ar_news_091411_story2.asp?d=091411_story2,2011,Sep,14c=n" target="_blank">Alternative Education Is Making The Grade</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem3" key="body">
                 After struggling in a traditional learning environment, one OHVA third grader tried virtual learning. Read about D.J. Ferguson's growing success.
@@ -1671,29 +1661,23 @@
             <c:set var="newsHeader" scope="request">
                 ${fn:toUpperCase(schoolCode)} News
             </c:set>
+
+
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
-                Teacher Named National American Pioneer of Teaching
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem1" key="body">
-                Andrew Rinaldi, Agora's music teacher, has been named the 2013 national winner of the coalition's annual American Pioneer of Teaching competition.
-                <a href=" " target="_blank">Read more.</a>
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem2" key="header">
                 <a href="http://www.metro.us/philadelphia/lifestyle/education/2012/11/14/starting-young-going-strong-in-cyber-charters/" target="_blank">Starting Young, Going Strong in Cyber Charters</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem2" key="body">
+            <util:putBodyInMap mapVariableName="newsItem1" key="body">
                 Free and individualized online education is now available for students as young as kindergarten in cyber-charter schools like Agora.
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="header">
+            <util:putBodyInMap mapVariableName="newsItem2" key="header">
                 <a href="http://www.k12.com/agora/how-it-works/family-coaches" target="_blank">Family Coaches</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 At Agora, we pride ourselves on having a laser-sharp-focus on support for our families and students. <a href="http://www.k12.com/agora/how-it-works/family-coaches#.UhudwmTtgVw" target="_blank">
                 Learn more about the Family Coach role at Agora.</a>
             </util:putBodyInMap>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
-            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 Agora Cyber Charter School uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
@@ -1819,25 +1803,15 @@
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
                 <a href="http://www.k12.com/sites/default/files/pdf/school-docs/TNVA-Response-02-11-2013.PDF" target="_blank">NVA Response to NewsChannel 5 Report on Grading</a>
             </util:putBodyInMap>
-            <!--<util:putBodyInMap mapVariableName="newsItem1" key="body">-->
-
-            <!--</util:putBodyInMap>-->
             <util:putBodyInMap mapVariableName="newsItem2" key="header">
                 <a href="http://www.commercialappeal.com/news/2011/jul/17/interest-grows-in-virtual-schools/" target="_blank">Interest Grows in 'Virtual' Schools</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 Read stories of parents who embrace the learning approach of K<sup>12</sup> curriculum at TNVA after students struggle in the classroom.
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="header">
-               NVA Announced by Union County Public Schools
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="body">
-                First Tennessee online public school for K-8 students prepares for a positive academic year in August.
-            </util:putBodyInMap>
 
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
-            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 Tennessee Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
@@ -2157,7 +2131,7 @@
                 ${fn:toUpperCase(schoolCode)} News
             </c:set>
             <util:putBodyInMap mapVariableName="newsItem1" key="header">
-                Parent Praises Virtual Schools, Cites Benefits
+                <a href="http://www.wiscnews.com/wisconsindellsevents/news/local/education/article_2fa2a54c-010c-11e2-b896-0019bb2963f4.html" target="_blank">Parent Praises Virtual Schools, Cites Benefits</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem1" key="body">
                 The pressure of dating schoolmates and coping with bullying is off, and children are in full learning mode at WIVA.
@@ -2165,7 +2139,7 @@
             </util:putBodyInMap>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:putBodyInMap mapVariableName="newsItem2" key="header">
-                Valedictorian Chose K<sup>12</sup> Online Learning
+                <a href="http://gettingsmart.com/2012/08/student-chooses-online-learning-succeed/" target="_blank">Valedictorian Chose K<sup>12</sup> Online Learning</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 For Emily Boucher, Wisconsin Virtual Academy's 2012 valedictorian, online learning was her choice.
@@ -2260,6 +2234,83 @@
             </c:if>
             <c:set var="tuitionText" value="Online private school" scope="request"/> <!-- Defaults to this text. INT overrides -->
             <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="aboutIntro" scope="request">
+                K12 International Academy: (AL, CT, DE, KY, MD, ME, MO, MS, MT, NC, ND, NE, NH, NY, RI, SD, VT, WV):
+            </c:set>
+            <c:set var="aboutIntro2" scope="request">
+                At K<sup>12</sup> International Academy, we're all about potential. In fact, we surround students in our Lower,
+                Middle, and Upper schools with a team of committed teachers, counselors, and academic coaches to ensure
+                they reach their true potential. Parents and "Learning Coaches" are surrounded, too, with extensive support so they never feel alone.
+            </c:set>
+            <c:set var="aboutIntro3" scope="request">
+                We're also focused on the individual. With each student, we develop an Individualized Learning Plan,
+                a multi-year personalized learning strategy. And that team we mentioned-teachers, counselors, and
+                academic coaches? Well, they monitor that plan to make sure your student reaches all of his or her goals.
+            </c:set>
+            <c:set var="aboutIntro4" scope="request">
+                Along the way, we want to help rekindle the innate joy for learning that all students have, whether
+                through the engaging, award-winning curriculum and its hundreds of courses or the school's vital social community.
+            </c:set>
+            <c:set var="aboutIntro5" scope="request">
+                We're so gratified by what we hear from students and parents about the difference that K<sup>12</sup>
+                International Academy has made in their lives on the way toward exciting careers and prestigious colleges and universities around the globe.
+            </c:set>
+
+
+            <c:set var="whyHeader" scope="request">
+                An accredited, online private school for grades K-12
+            </c:set>
+            <c:set var="whyIntro" scope="request">
+                An Individualized Journey-With a Team of Support
+            </c:set>
+            <util:addBodyToList listVariableName="whyList">
+                Students earn a U.S. high school diploma while using award-winning K<sup>12</sup> curriculum
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Extensive, individualized academic and counseling support keep students on track
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Students socialize with others around the world through online clubs, field trips, and other activities
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Program flexibility allows students to explore their passions
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="whyList">
+                Full-time and part-time options are available
+            </util:addBodyToList>
+
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Recognized as the gold standard in K-12 online education, the award-winning K<sup>12</sup> curriculum is
+                created by some of the finest minds in education, including teachers, reading specialists, biologists,
+                mathematicians, and artists. Working with exceptional designers and writers, these experts make
+                learning come alive by combining decades of research from cognitive scientists about how the brain learns with rich, interactive content.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                This patented methodology for online learning incorporates state-of-the-art multimedia-everything
+                from engaging audio and video, colorful illustrations and animations, and insightful charts and graphs to dynamic activities, games, and demonstrations.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                The K<sup>12</sup> curriculum team designs and develops each course for online delivery from the outset,
+                thoroughly scoping out the learning objectives for each course and mapping out a strategy for how
+                best to accomplish them. This is unlike many other online curriculum providers, who just scan a textbook and call it an online course.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Next, the curriculum team carefully crafts each course word by word, screen by screen, and lesson by
+                lesson. To address the widest variety of learning styles, plenty of offline resources are integrated
+                with the online lessons-including textbooks, CDs, videos, and hands-on materials like science equipment and art supplies.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                Finally, our K<sup>12</sup> specialists conduct extensive usability testing to make sure students and parents
+                alike can easily navigate through the lessons and master the learning objectives. Online assessments
+                are built right into the curriculum, with all course content designed to either meet or exceed U.S.
+                national standards. And since the program is mastery-based, students won't move on until they've demonstrated a full understanding of the material.
+            </util:addBodyToList>
+            <util:addBodyToList listVariableName="bottomCopyList">
+                For more details, read about our <a href="http://www.icademy.com/academics/lower-school" target="_blank">Lower School</a>,
+                <a href="http://www.icademy.com/academics/middle-school" target="_blank">Middle School</a>,
+                and <a href="http://www.icademy.com/academics/high-school" target="_blank">Upper School</a> grade-specific curriculum.
+            </util:addBodyToList>
             <!-- TODO: Set rest of variables -->
         </c:otherwise>
     </c:choose>

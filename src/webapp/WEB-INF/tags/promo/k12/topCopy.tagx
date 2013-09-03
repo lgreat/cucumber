@@ -16,6 +16,15 @@
     <c:if test="${!empty aboutIntro2}">
         <p class="small">${aboutIntro2}</p>
     </c:if>
+    <c:if test="${!empty aboutIntro3}">
+        <p class="small">${aboutIntro3}</p>
+    </c:if>
+    <c:if test="${!empty aboutIntro4}">
+        <p class="small">${aboutIntro4}</p>
+    </c:if>
+    <c:if test="${!empty aboutIntr5}">
+        <p class="small">${aboutIntro5}</p>
+    </c:if>
     <h4 class="small_bold bottom">${whyHeader}</h4>
     <c:if test="${!empty whyIntro}"><p class="small">${whyIntro}</p></c:if>
     <ul class="small">
