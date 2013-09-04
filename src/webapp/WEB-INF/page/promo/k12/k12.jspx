@@ -50,7 +50,7 @@
         <a href="${k12ClickThroughUrl}" class="but but-rg but-1 js-k12ClickThrough">Learn More &amp;raquo;</a>
     </c:set>
 
-    <div class="container_24" id="k12AdPage">
+    <div class="container_24 mtm" id="k12AdPage">
         <div class="grid_19 alpha">
             <div class="mod standard_1-1">
                 <div class="fl">

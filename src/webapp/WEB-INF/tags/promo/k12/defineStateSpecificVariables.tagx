@@ -846,10 +846,10 @@
                 You know your kids have something special inside of them. We know it, too. Hoosier Academies, a public charter school authorized by Ball State University, makes learning fresh and exciting for children just like yours. Offering a blend of online learning and face-to-face instruction, Hoosier Academies gives you and your family choice and flexibility in your child's education. For the 2013-2014 school year, we will offer two statewide options for Indiana families:
             </c:set>
             <util:addBodyToList listVariableName="aboutIntroList">
-                Hoosier Academies Indianapolis (serving K-12; enrolling K-11)-a blended learning school
+                Hoosier Academies Indianapolis (serving K-12; enrolling K-11)&amp;mdash;a blended learning school
             </util:addBodyToList>
             <util:addBodyToList listVariableName="aboutIntroList">
-                Hoosier Academies Virtual School (serving K-12; enrolling K-10)-a fully online school
+                Hoosier Academies Virtual School (serving K-12; enrolling K-10)&amp;mdash;a fully online school
             </util:addBodyToList>
             <c:set var="aboutIntro2" scope="request">
                 Together, we're helping Indiana students reach their true and highest potential.
@@ -1460,20 +1460,14 @@
                 OHVA is proud of its record for students graduating and going on to attend college. <a href="http://www.k12.com/ohva/who-we-are/college-profile#.UhukqmTtgVw" target="_blank">Take a look at the facts!</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="header">
-                OHVA Sets the Bar for Reading Achievement
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem2" key="body">
-                OHVA's third graders outscored virtual third graders across the state with nearly 80 percent of students scoring proficient or above. <a href="" target="_blank">Get the details.</a>
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="header">
                 <a href="http://www.reviewtimes.com/Issues/2011/Sep/14/ar_news_091411_story2.asp?d=091411_story2,2011,Sep,14c=n" target="_blank">Alternative Education Is Making The Grade</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 After struggling in a traditional learning environment, one OHVA third grader tried virtual learning. Read about D.J. Ferguson's growing success.
-            <util:putBodyInMap mapVariableName="newsItem4" key="header">
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
                 <a href="http://www.k12.com/ohva/connect-to-a-parent#.Uhuk8GTtgVw" target="_blank">Connect with an OHVA Parent!</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem4" key="body">
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
                 Get tips, advice, and more from someone who knows our program the best-a veteran OHVA parent. Simply <a href="http://www.k12.com/ohva/connect-to-a-parent#.UhulGmTtgVw" target="_blank">click here</a> to have one of our seasoned OHVA parents contact you!
             </util:putBodyInMap>
 
@@ -1481,7 +1475,6 @@
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
-            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem4}"/>
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 The Ohio Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
