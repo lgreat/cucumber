@@ -153,17 +153,17 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print("teacher/student stats and more.");
                 out.println(closeParagraph());
 
-                out.print(openParagraph());
+//                out.print(openParagraph());
 
-                if (State.DC.equals(_state)) {
-                    out.print("<a href=\"http://data.greatschools.org/district_of_columbia/index.html\" class=\"noInterstitial\">" +
-                            "Read more about data updates in Washington DC</a>");                    
-                } else {
-                    out.print("<a href=\"http://data.greatschools.org/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\" class=\"noInterstitial\">" +
-                            "Read more about data updates in "+ _state.getLongName() +"</a>");
-                }
+//                if (State.DC.equals(_state)) {
+//                    out.print("<a href=\"http://data.greatschools.org/district_of_columbia/index.html\" class=\"noInterstitial\">" +
+//                            "Read more about data updates in Washington DC</a>");
+//                } else {
+//                    out.print("<a href=\"http://data.greatschools.org/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\" class=\"noInterstitial\">" +
+//                            "Read more about data updates in "+ _state.getLongName() +"</a>");
+//                }
 
-                out.println(closeParagraph());
+//                out.println(closeParagraph());
             } else {
                 out.print(openTitle());
                 out.print("About GreatSchools data".toUpperCase());
