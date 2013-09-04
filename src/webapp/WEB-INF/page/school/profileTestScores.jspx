@@ -77,8 +77,6 @@
                                                 <p class="quiet">${testToGrades.subgroupDescription}</p>
                                             </c:if>
                                             <c:set var="state" value="${school.physicalAddress.state}"/>
-                                            <p class="mtl small quiet"><a href="/content/stateStandards.page?state=${state}"
-                                               class="small">${stateStandardsLinkTitle}</a></p>
                                             <c:if test="${not empty testToGrades.source}">
                                                 <c:set var="testAboutAndSourceShow" value="true"/>
                                                 <p class="mtl small quiet">
