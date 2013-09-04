@@ -29,6 +29,14 @@ public class CityHubHelper {
     public static final String DATE_FORMAT = "MM-dd-yyyy";
     public static final String CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY =  "configKeyPrefixListWithIndex";
 
+
+    public static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90;
+
+    public  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2;
+    public   static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
+    public   static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
+
+
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
     @Autowired

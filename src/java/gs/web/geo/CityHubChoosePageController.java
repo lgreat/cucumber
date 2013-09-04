@@ -49,8 +49,11 @@ public class CityHubChoosePageController {
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("/cityHub/choosePage");
+        State state= State.DC;
+        String city= "washington";
 
-//
+
+        // Should be commented out once the Connical URL for Choose Page is in Place _Shomi Revert
 //        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 //        final State state = sessionContext.getState();
 //        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
@@ -67,16 +70,30 @@ public class CityHubChoosePageController {
 //            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
 //            return new ModelAndView(redirectView);
 //        }
-//
-//        modelAndView.addObject("city", WordUtils.capitalizeFully(city));
-//        modelAndView.addObject("state", state);
-//        modelAndView.addObject("hubId", getCityHubHelper().getHubID(city, state));
-//
+
+        modelAndView.addObject("city", WordUtils.capitalizeFully(city));
+        modelAndView.addObject("state", state);
+        modelAndView.addObject("hubId", getCityHubHelper().getHubID(city, state));
+
+        /**
+         * Get the important events
+         */
+        ModelMap importantEventsMap = getModelMap(state, city);
+        modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
 
         return modelAndView;
 
 
+    }
+
+    private ModelMap getModelMap(final State state, final String city) {
+        List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
+        ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
+        List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
+        importantEventsMap.put(getCityHubHelper().CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
+        importantEventsMap.put("maxImportantEventsToDisplay",  CityHubHelper.MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
+        return importantEventsMap;
     }
 
     public CityHubHelper getCityHubHelper() {

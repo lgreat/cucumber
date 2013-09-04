@@ -49,11 +49,9 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
     private static Logger _logger = Logger.getLogger(CityHubController.class);
 
-    private  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2 ;
-    private  static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90 ;
-    public   static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
+
     private  static final String PARAM_CITY = "city";
-    public   static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
+
 
 
 
@@ -109,11 +107,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
          * Get the important events
          */
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
-        ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList, IMPORTANT_EVENT_KEY_PREFIX);
+        ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
         importantEventsMap.put(getCityHubHelper().CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
-        importantEventsMap.put("maxImportantEventsToDisplay", MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
-        modelAndView.addObject(IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
+        importantEventsMap.put("maxImportantEventsToDisplay", CityHubHelper.MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
+        modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
         /**
          * Adding the Review Module Functionality to the Controller Start
@@ -137,7 +135,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
      */
     private List<ReviewFacade> getReviewFacades(final State state, final String city) {
 
-        final  List<Integer> reviewIds  = _reviewDao.findRecentReviewsInCity(state, city, COUNT_OF_REVIEWS_TO_BE_DISPLAYED, MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED);
+        final  List<Integer> reviewIds  = _reviewDao.findRecentReviewsInCity(state, city,  CityHubHelper.COUNT_OF_REVIEWS_TO_BE_DISPLAYED, CityHubHelper.MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED);
         List<ReviewFacade> reviews = new ArrayList<ReviewFacade>();
         for (Integer reviewId : reviewIds)
         {

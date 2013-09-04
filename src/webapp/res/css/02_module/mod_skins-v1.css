@@ -768,6 +768,9 @@ Used for the none and one cases in the compare module
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     border: 1px solid #dddddd;
 }
+.border-E6E6E6 {
+    border:1px solid #E6E6E6;
+}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------------ badge-x96 ------------------ */

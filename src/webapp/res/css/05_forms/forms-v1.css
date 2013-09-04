@@ -207,7 +207,7 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    font:font: normal 14px/20px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;
+    font:normal 14px/20px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;
 }
 .notice-block     { background: #FCEFE7; border-color: #F3CAAC; color: #dd6611; }
 .error-block, .alert-block { background: #FAE5EA; border-color: #EDA6B8; color: #cc0033; }
