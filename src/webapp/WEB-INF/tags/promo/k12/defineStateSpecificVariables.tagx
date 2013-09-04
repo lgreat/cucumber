@@ -623,7 +623,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'IA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-6" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. Iowa Virtual Academy (IAVA), an online program of Clayton Ridge Community School District, and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we help Iowa students in grades K-12 reach their true, personal potential.
             </c:set>
@@ -951,7 +951,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'LA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-11" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 Louisiana Virtual Charter Academy (LAVCA) is available to Louisiana students in grades K-12
                 through a partnership between K12 Inc. and Community School for Apprenticeship Learning Inc. (CSAL).
@@ -1008,7 +1008,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'MA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-8" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 Massachusetts Virtual Academy (MAVA) at Greenfield is a public virtual school of the Greenfield School
                 District, and the first diploma-granting virtual school in Massachusetts. We provide students
@@ -1204,7 +1204,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NJ'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-10" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. New Jersey Virtual Academy
                 Charter School (NJVACS) and K<sup>12</sup> will ignite the minds of children like yours to bring learning and innate
@@ -1259,7 +1259,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NM'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="6-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. New Mexico Virtual Academy
                 (NMVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
@@ -1555,7 +1555,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'OR'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-11" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know your kids have something special in them. Oregon Virtual Academy (ORVA) and K<sup>12</sup> ignite
                 the minds of children like yours to bring learning and possibility alive. Together, we're helping
@@ -1767,7 +1767,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'TN'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-8" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Tennessee Virtual Academy
                 and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together,
@@ -1827,7 +1827,7 @@
 
         </c:when>
         <c:when test="${school eq 'TX'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="3-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Texas Virtual Academy (TXVA),
                 a ResponsiveEd charter school in partnership with K<sup>12</sup>, ignites the minds of children like yours to bring
@@ -1965,7 +1965,7 @@
 
         </c:when>
         <c:when test="${school eq 'VA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-8" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. The
                 Virginia Virtual Academy<sup>SM</sup> (VAVA), a public school program of King and Queen County Public Schools and
