@@ -51,7 +51,7 @@
     </c:set>
 
     <div class="container_24 mtm" id="k12AdPage">
-        <div class="grid_19 alpha">
+        <div class="grid_17 alpha">
             <div class="mod standard_1-1">
                 <div class="fl">
                     <c:if test="${hasLogo}"><img src="/res/img/promo/k12/${schoolCode}.jpg" alt="${schoolName} logo" width="68" height="68"/></c:if>
@@ -68,14 +68,14 @@
         </div>
 
         <!--k12 logo-->
-        <div class="grid_5 omega">
-            <div class="mtl pls">
+        <div class="grid_7 omega">
+            <div class="mtl">
                 <div class="bd small fl mtm mrm">
                     Sponsored by
                 </div>
                 <div class="imgExt mbl fl">
                     <gsml:img src="/res/img/promo/k12/k12-sponsored-by-logo.png"
-                              alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
+                              alt="K12 logo" width="50" height="38"/>
                 </div>
                 <div class="fl mbl">
                     <a href="${k12ClickThroughUrl}" target="_blank" class="js-k12ClickThrough">http://www.K12.com/${fn:toUpperCase(schoolCode)}</a>
@@ -84,7 +84,7 @@
         </div>
 
         <!--main text-->
-        <div class="grid_19 alpha">
+        <div class="grid_12 alpha">
             <div class="mod standard_1-1">
                 <div class="inner" style="min-height: 601px;">
                     <div class="hd pas">
@@ -110,11 +110,11 @@
                         <div class="mam">
                             <ul style="padding-left: 0;">
                                 <li class="small" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/qh1jSmUPX-g'); return false;">
-                                    <img src="/res/img/promo/k12/video-1.jpg"/>You have a choice. Accredited Public Schools.</a></li>
+                                    <img src="/res/img/promo/k12/video-1.jpg" alt="Video thumbnail"/>You have a choice. Accredited Public Schools.</a></li>
                                 <li class="small" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/z3HeRtKxF0A'); return false;">
-                                    <img src="/res/img/promo/k12/video-2.jpg"/>K12 Success Stories</a></li>
+                                    <img src="/res/img/promo/k12/video-2.jpg" alt="Video thumbnail"/>K12 Success Stories</a></li>
                                 <li class="small bottom" style="list-style-type: none;"><a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/q938QqKIpgA'); return false;">
-                                    <img src="/res/img/promo/k12/video-3.jpg"/>Online Learning: A Terrific Alternative</a></li>
+                                    <img src="/res/img/promo/k12/video-3.jpg" alt="Video thumbnail"/>Online Learning: A Terrific Alternative</a></li>
                             </ul>
                         </div>
                     </div>
@@ -122,29 +122,29 @@
             </div>
 
         <!--form module and virtual student-->
-        <!--<div class="grid_7 omega">-->
-            <!--<div class="mod standard_1-1">-->
-                <!--<k12:formCode/>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;more virtual student module&ndash;&gt;-->
-            <!--<div class="mod standard_1-1">-->
-                <!--<div class="inner mtl clearfix">-->
-                    <!--<div class="hd pas">-->
-                        <!--<h5 class="bottom">Virtual Students in the Spotlight</h5>-->
-                    <!--</div>-->
-                    <!--<div class="media pam fl">-->
-                        <!--<a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="/res/img/promo/k12/virtualstudent-spotlight.jpg"/></a>-->
-                    <!--</div>-->
-                    <!--<div class="bd pam">-->
-                        <!--<p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="grid_7 omega">
+            <div class="mod standard_1-1">
+                <k12:formCode/>
+            </div>
+            <!--more virtual student module-->
+            <div class="mod standard_1-1">
+                <div class="inner mtl clearfix">
+                    <div class="hd pas">
+                        <h5 class="bottom">Virtual Students in the Spotlight</h5>
+                    </div>
+                    <div class="media pam fl">
+                        <a href="javascript:void(0);" onclick="GSType.hover.youtubeVideoLightbox.showHover('//www.youtube.com/embed/bQyEichbUlA'); return false;"><img src="/res/img/promo/k12/virtualstudent-spotlight.jpg" alt="Video thumbnail"/></a>
+                    </div>
+                    <div class="bd pam">
+                        <p class="small bottom">Author, professional race car driver and Ohio Virtual Academy student, Zach Veach, answers some questions about virtual learning and offers a little advice to his fellow teens.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!--<div class="clearfix">&lt;!&ndash; not empty &ndash;&gt;</div>-->
         <!--long ad banner-->
-        <div class="grid_24 alpha omega">
+        <div class="grid_17 alpha omega">
             <div class="mod standard_2-2 ">
                 <div class="inner" style="background-color:#d7ed4a;">
                     <!--<div class="grid_20 alpha">-->
@@ -164,7 +164,7 @@
             </div>
         </div>
 
-        <div class="grid_24 alpha omega">
+        <div class="grid_17 alpha omega">
             <!--parent success module-->
             <div class="mod standard_1-1">
 
@@ -192,7 +192,7 @@
             </div>
         </div>
         <!--about the curriculum module-->
-        <div class="grid_19 alpha">
+        <div class="grid_12 alpha">
             <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="hd pas">
