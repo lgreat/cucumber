@@ -52,6 +52,7 @@ public class OspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
     public static final String [] CMS_ARTICLE_IDS_FOR_DESCRIPTION = {"7279", "7006"};
     public static final String USP_FORM_VIEW = "/school/usp/uspForm";
+    public static final EspResponseSource [] OSP_RESPONSE_SOURCES = {EspResponseSource.osp,EspResponseSource.datateam};
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -289,7 +290,7 @@ public class OspFormController implements ReadWriteAnnotationController {
                 externalKeysToRemove.add(allProvisionalKeys);
             }
         }
-        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(OSP_RESPONSE_SOURCES));
         //Get all the active(non-provisional) responses for the form.
         List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
 
@@ -326,7 +327,7 @@ public class OspFormController implements ReadWriteAnnotationController {
     protected void putResponsesInModel(School school, ModelMap modelMap) {
         Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
 
-        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(OSP_RESPONSE_SOURCES));
         // fetch all responses to allow page to use ajax page switching if desired.
         List<EspResponse> responses = _espResponseDao.getResponses(school, responseSources);
 

@@ -272,7 +272,7 @@ public class OspFormControllerTest extends BaseControllerTestCase {
         responses.add(espResponse9);
         responses.add(espResponse10);
         responses.add(espResponse11);
-        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(OspFormController.OSP_RESPONSE_SOURCES));
 
         expect(_espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true)).andReturn(provisionalKeysList);
         expect(_espResponseDao.getResponses(school, user.getId(), true)).andReturn(provisionalResponses);
@@ -373,7 +373,7 @@ public class OspFormControllerTest extends BaseControllerTestCase {
         //List of active responses for the school.
         List<EspResponse> responses = new ArrayList<EspResponse>();
 
-        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(EspResponseSource.osp));
+        Set<EspResponseSource> responseSources = new HashSet<EspResponseSource>(Arrays.asList(OspFormController.OSP_RESPONSE_SOURCES));
 
         expect(_espResponseDao.getAllProvisionalResponseKeysByUserAndSchool(school, user.getId(), true)).andReturn(provisionalKeysList);
         expect(_espResponseDao.getResponses(school, user.getId(), true)).andReturn(provisionalResponses);
