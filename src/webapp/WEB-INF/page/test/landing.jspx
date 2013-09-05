@@ -352,19 +352,6 @@
                      src="http://www.greatschools.org/res/img/header/clear_pix.gif"/><br/>
                 ${datablurb}
 
-                <div class="updatesText">
-                    <c:choose>
-                        <c:when test="${stateAbbrev eq 'DC'}">
-                            <a href="http://data.greatschools.org/district_of_columbia/index.html">Read more about data updates in Washington DC</a>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="mungedState"
-                                   value="${fn:replace(fn:toLowerCase(stateOrDefault.longName), ' ', '_')}"/>
-                            <a href="http://data.greatschools.org/${mungedState}/index.html">Read more about data updates in ${stateOrDefault.longName}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-
             </td>
             <td valign="top"><img style="width: 30px;" alt=""
                                   src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
