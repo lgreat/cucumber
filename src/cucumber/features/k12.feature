@@ -18,14 +18,14 @@ Feature: K12 Advertising Lead Gen Page
     | CO    | Colorado Virtual Academy                       | K-12       | www.K12.com/COVA   |
     | DC    | Community Academy Public Charter School Online | K-8        | www.K12.com/CAPCS  |
     | FL    | Florida Virtual Academies                      | K-12       | www.K12.com/FLVA   |
-    | GA    | Georgia Cyber Academy                          | K-11       | www.K12.com/GCA    |
+    | GA    | Georgia Cyber Academy                          | K-12       | www.K12.com/GCA    |
     | HI    | Hawaii Technology Academy                      | K-12       | www.K12.com/HTA    |
     | IA    | Iowa Virtual Academy                           | K-6        | www.K12.com/IAVA   |
     | ID    | Idaho Virtual Academy                          | K-12       | www.K12.com/IDVA   |
     | IL    | Chicago Virtual Charter School                 | K-12       | www.K12.com/CVCS   |
     | IN    | Hoosier Academies                              | K-12       | www.K12.com/HA     |
     | KS    | Lawrence Virtual School                        | K-12       | www.K12.com/LVS    |
-    | LA    | Louisiana Virtual Charter Academy              | K-11       | www.K12.com/LAVCA  |
+    | LA    | Louisiana Virtual Charter Academy              | K-12       | www.K12.com/LAVCA  |
     | MA    | Massachusetts Virtual Academy                  | K-8        | www.K12.com/MAVA   |
     | MI    | Michigan Virtual Charter Academy               | K-12       | www.K12.com/MVCA   |
     | MN    | Minnesota Virtual Academy                      | K-12       | www.K12.com/MNVA   |
@@ -40,7 +40,7 @@ Feature: K12 Advertising Lead Gen Page
     | TN    | Tennessee Virtual Academy                      | K-8        | www.K12.com/TNVA   |
     | TX    | Texas Virtual Academy                          | 3-12       | www.K12.com/TXVA   |
     | UT    | Utah Virtual Academy                           | K-12       | www.K12.com/UTVA   |
-    | VA    | Virginia Virtual Academy                       | K-8        | www.K12.com/VAVA   |
+    | VA    | Virginia Virtual Academy                       | K-5        | www.K12.com/VAVA   |
     | WA    | Washington Virtual Academies                   | K-12       | www.K12.com/WAVA   |
     | WI    | Wisconsin Virtual Academy                      | K-12       | www.K12.com/WIVA   |
     | WY    | Wyoming Virtual Academy                        | K-12       | www.K12.com/WYVA   |

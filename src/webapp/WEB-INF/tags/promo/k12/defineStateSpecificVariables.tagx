@@ -486,7 +486,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'GA'}">
-            <c:set var="gradesServed" value="K-11" scope="request"/>
+            <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Georgia Cyber Academy (GCA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping Georgia students in grades K-12 reach their true, personal potential.
             </c:set>
@@ -951,7 +951,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'LA'}">
-            <c:set var="gradesServed" value="K-11" scope="request"/>
+            <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 Louisiana Virtual Charter Academy (LAVCA) is available to Louisiana students in grades K-12
                 through a partnership between K12 Inc. and Community School for Apprenticeship Learning Inc. (CSAL).
@@ -1958,7 +1958,7 @@
 
         </c:when>
         <c:when test="${school eq 'VA'}">
-            <c:set var="gradesServed" value="K-8" scope="request"/>
+            <c:set var="gradesServed" value="K-5" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. The
                 Virginia Virtual Academy<sup>SM</sup> (VAVA), a public school program of King and Queen County Public Schools and
@@ -1969,7 +1969,7 @@
                 Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
-                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K-2 the chance to learn in the ways that are right for them. VAVA offers:
+                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K-5 the chance to learn in the ways that are right for them. VAVA offers:
             </c:set>
             <util:addBodyToList listVariableName="whyList">
                 The award-winning K<sup>12</sup> curriculum
@@ -1990,7 +1990,7 @@
                 A robust Advanced Learner Program
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K-2
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K-5
             </util:addBodyToList>
 
             <c:set var="whyFootnote" scope="request">
