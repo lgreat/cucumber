@@ -30,9 +30,15 @@ Capybara.register_driver :mechanize_iphone do |app|
   driver
 end
 
-Capybara.app_host = "http://qa.greatschools.org"
-Capybara.default_driver = :mechanize
+Capybara.app_host = "http://localhost" # Do not edit this line! See below
+# Set the following environment variable to point cucumber at various hosts.
+# Please note the host should not end in a slash
+if ENV['APP_HOST'] != nil
+  Capybara.app_host = ENV['APP_HOST']
+end
+puts "Running tests against #{Capybara.app_host}"
 
+Capybara.default_driver = :mechanize
 
 # Added by Greg to try and get Sauce working.  Comment out if needed:
 if ENV['SAUCE_USERNAME'] != nil
@@ -47,13 +53,6 @@ if ENV['SAUCE_USERNAME'] != nil
   SAUCE_USERNAME = ENV['SAUCE_USERNAME'] || 'GreatSchools'
   SAUCE_ACCESS_KEY = ENV['SAUCE_ACCESS_KEY'] || 'cb157f01-1dfe-49e8-8bd4-df76f1ec169a'
   SAUCE_PORT = ENV['SAUCE_ONDEMAND_PORT'] || '4445'
-
-  if ENV['APP_HOST'] != nil
-    Capybara.app_host = ENV['APP_HOST']
-  end
-
-  puts "Running tests against #{Capybara.app_host}"
-  puts ""
 
   def sauce_build
     if ENV['REMOTE'] == 'true'
