@@ -1963,7 +1963,7 @@
                 You know that your kids have something special inside them. We know it too. The
                 Virginia Virtual Academy<sup>SM</sup> (VAVA), a public school program of King and Queen County Public Schools and
                 K12 ignite the minds of children like yours to bring learning and innate possibility alive. Together,
-                we are helping Virginia students in grades K-2 reach their true, personal potential.
+                we are helping Virginia students in grades K-5 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
