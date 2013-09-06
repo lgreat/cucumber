@@ -1,12 +1,13 @@
-#define_page_selectors "GS Home Page", {
-#   #'primary nav' => '#gs_primary',
-#   #'secondary nav' => '#gs-secondary',
-#
-#}
+define_page_selectors "GS Home Page", {
 
-When /^the menu type is "([^\"]+)"$/ do |menu|
-  should have_selector(menu)
-  #find(:css, menu).should be_visible
+
+}
+
+When /^I click on the "([^\"]+)" link in the menu type is "([^\"]+)"$/ do |link_name,menu|
+  element = find(:css, selector_for(menu))
+  element.should be_visible
+  element.should have_content(link_name)
+  element.click_link link_name
 end
 
 When /^the link id type is "([^\"]+)"$/ do |link_id|
