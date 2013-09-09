@@ -109,7 +109,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
-        importantEventsMap.put(getCityHubHelper().CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
+        importantEventsMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
         importantEventsMap.put("maxImportantEventsToDisplay", CityHubHelper.MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
@@ -148,13 +148,8 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
     }
 
 
-    // What does this do Revert Shomi
-    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
-        if (fields == null) {
-            return false;
-        }
-
-        return fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
+    public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
+        return fields== null ? false : fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
 
     }
 

@@ -34,6 +34,23 @@
     <pageHelper:hideBelowNavAds/>
 
     <hub:importantEvent hideAnnoucmentModule="true"/>
+    <c:forEach items="${stepsInfo}" var="stepInfo">
+    STEP NO : ${stepInfo.stepNo}<br/>
+    STEP HEADNG : ${stepInfo.stepHeading}<br/>
+    STEP IMAGE URL : ${stepInfo.imageURL} <br/>
+    STEP DESCRIPTION : ${stepInfo.stepDescription}  <br/>
+               <c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >
+                         LABEL ON FEATURE LINK  ${featureCount.index+1}          :    ${feature.label} <br/>
+                         URL   ON FEATURE LINK  ${featureCount.index+1}          :    ${feature.url} <br/>
+                         TYPE   ON FEATURE LINK ${featureCount.index+1}          :    ${feature.type} <br/>
+                         DESCRIPTION   ON FEATURE LINK  ${featureCount.index+1}  :    ${feature.description} <br/>
+
+
+               </c:forEach>
+        <br/>
+    </c:forEach>
+
+
 
 
     </body>
