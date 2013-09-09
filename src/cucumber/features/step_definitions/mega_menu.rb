@@ -1,5 +1,5 @@
 define_page_selectors "GS Home Page", {
-
+    'Find a School' => '#PN-FindASchool',
 
 }
 
@@ -10,10 +10,10 @@ When /^I click on the "([^\"]+)" link in the menu type is "([^\"]+)"$/ do |link_
   element.click_link link_name
 end
 
-When /^the link id type is "([^\"]+)"$/ do |link_id|
-  find(:css, link_id).should be_visible
+#work in progress
+When /^I mouseover the "([^\"]+)"$/ do |topic|
+  element = find(:css, selector_for(topic))
+  element.trigger(:mouseover)
+  sleep2
 end
 
-#When /^I see "([^\"]*)"$/ do |text|
-#  page.should have_content(text)
-#end

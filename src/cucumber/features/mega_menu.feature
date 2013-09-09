@@ -6,10 +6,9 @@ Feature: GreatSchools Mega Menu Tests
   Background:
     Given I am on "GS Home Page" page
 
-  Scenario Outline: I can navigate the navigational menu @cliu
+  Scenario Outline: I can navigate the navigational menu
     When I click on the "<link_name>" link in the menu type is "<menu>"
 #    And the title has "<heading_title> | GreatSchools"
-#    Then the link id type is "<link_id>"
       And I see "<link_href>" in the URL
 
 
@@ -28,7 +27,15 @@ Feature: GreatSchools Mega Menu Tests
     | Learning Difficulties   | secondary nav  | special-education.topic?content=1541 |
     | Health & Behavior       | secondary nav  | parenting.topic?content=1539 |
     | Raising a Reader        | secondary nav  | raising-a-reader.topic?content=7082 |
+
+#  @javascript
+#  Scenario Outline: I can navigate to the links in the drop down menu @cliu
+#    When I mouseover the "<topic>"
+#     And I click on the "<link_name>" link
+##      When I click on the "<link_name>" link in the menu type is "<menu>"
+#      Then I see "<link_href>" in the URL
 #
-#  Scenario: I can navigate to the links in the drop down menu
-#    When I ho
+#  Examples:
+#    | topic | link_name | link_href |
+#    | Find a School | Search for Schools | find-schools/ |
 
