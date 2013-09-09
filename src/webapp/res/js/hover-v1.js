@@ -2355,11 +2355,47 @@ jQuery(function() {
 });
 
 
-GSType.hover.ModalUspRegistration = function() {};
+GSType.hover.ModalUspRegistration = function() {
+    this.onSubmitCallback = null;
+    this.setOnSubmitCallback = function(callback) {
+        GSType.hover.modalUspRegistration.onSubmitCallback = callback;
+    };
+    this.showHover = function() {
+        var fbSignInButton = jQuery('.js-facebook-login-uspjoin');
+        fbSignInButton.off('click.joinHover');
+        fbSignInButton.on('click.joinHover', function() {
+            ModalManager.hideModal({layerId:'js-modalUspRegistration'});
+            GS.facebook.login().done(function() {
+                if (GSType.hover.modalUspRegistration.onSubmitCallback) {
+                    GSType.hover.modalUspRegistration.onSubmitCallback();
+                }
+            });
+        });
+        this.show();
+    }
+};
 GSType.hover.ModalUspRegistration.prototype = new GSType.hover.HoverDialog('js-modalUspRegistration');
 GSType.hover.modalUspRegistration = new GSType.hover.ModalUspRegistration();
 
-GSType.hover.ModalUspSignIn = function() {};
+GSType.hover.ModalUspSignIn = function() {
+    this.onSubmitCallback = null;
+    this.setOnSubmitCallback = function(callback) {
+        GSType.hover.modalUspSignIn.onSubmitCallback = callback;
+    };
+    this.showHover = function() {
+        var fbSignInButton = jQuery('.js-facebook-login-uspsignin');
+        fbSignInButton.off('click.signinHover');
+        fbSignInButton.on('click.signinHover', function() {
+            ModalManager.hideModal({layerId:'js-modalUspSignIn'});
+            GS.facebook.login().done(function() {
+                if (GSType.hover.modalUspSignIn.onSubmitCallback) {
+                    GSType.hover.modalUspSignIn.onSubmitCallback();
+                }
+            });
+        });
+        this.show();
+    }
+};
 GSType.hover.ModalUspSignIn.prototype = new GSType.hover.HoverDialog('js-modalUspSignIn');
 GSType.hover.modalUspSignIn = new GSType.hover.ModalUspSignIn();
 

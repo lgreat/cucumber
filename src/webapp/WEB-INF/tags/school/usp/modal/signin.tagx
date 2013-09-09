@@ -17,6 +17,15 @@
                     </div>
                     <form class="js_uspLoginForm" onsubmit="return false;">
                         <div class="body pal">
+                            <div class="js-facebookSignInModule">
+                                <div class="tac">
+                                    <gsml:signInWithFacebookButton size="32" cssClass="js-facebook-login-uspsignin"><!-- do not collapse --></gsml:signInWithFacebookButton>
+                                </div>
+                                <h5 class="orText">
+                                    <span>OR</span>
+                                </h5>
+                            </div>
+
                             <label class="small bottom">Email Address</label><br/>
                             <input name="email" type="text" class="text input_7 mts mbm js_loginEmail"/><br/>
                             <div class="invalid error js_emailErr" style="display: none;">
