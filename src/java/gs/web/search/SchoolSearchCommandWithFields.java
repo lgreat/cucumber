@@ -31,7 +31,7 @@ public class SchoolSearchCommandWithFields {
 
     private boolean _hasAlreadyLookedForCityInSearchString;
 
-    private String _hubFromUrlParam;
+    private String _collectionIdFromUrlParam;
 
     public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields) {
         _command = command;
@@ -119,7 +119,7 @@ public class SchoolSearchCommandWithFields {
     }
 
     public boolean isCityHubSearch() {
-        return isByNameSearch() && _command.getHub() != null;
+        return isByNameSearch() && _command.getCollectionId() != null;
     }
 
     /**
@@ -203,13 +203,13 @@ public class SchoolSearchCommandWithFields {
         return _cityFromSearchString;
     }
 
-    public String getHubFromUrlParam() {
-        if (_hubFromUrlParam == null) {
-            if (_command != null && _command.getHub() != null) {
-                _hubFromUrlParam = _command.getHub();
+    public String getCollectionIdFromUrlParam() {
+        if (_collectionIdFromUrlParam == null) {
+            if (_command != null && _command.getCollectionId() != null) {
+                _collectionIdFromUrlParam = _command.getCollectionId();
             }
         }
-        return _hubFromUrlParam;
+        return _collectionIdFromUrlParam;
     }
 
     public City getCity() {

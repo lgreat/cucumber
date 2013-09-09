@@ -309,7 +309,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     }
 
     protected boolean shouldRedirectFromByNameToCityBrowse(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandAndFields) {
-        if(commandAndFields.isByNameSearch() && schoolSearchCommand.getHub() == null) {
+        if(commandAndFields.isByNameSearch() && schoolSearchCommand.getCollectionId() == null) {
             String stateAbb = schoolSearchCommand.getState();
             String city = schoolSearchCommand.getSearchString();
             if(city != null && stateAbb !=null && (SchoolHelper.isLocal(city, stateAbb) || SchoolHelper.isNewAdvanceSearch(city, stateAbb))) {
@@ -644,10 +644,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + city.getName().toLowerCase() + "\"");
         }
 
-        String hub = commandAndFields.getHubFromUrlParam();
-        if(commandAndFields.isCityHubSearch() && hub != null) {
-            // TODO: set the query filter to be set on hub, not use city
-            q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + hub.toLowerCase() + "\"");
+        String collectionId = commandAndFields.getCollectionIdFromUrlParam();
+        if(commandAndFields.isCityHubSearch() && collectionId != null) {
+            q.filter(SchoolFields.SCHOOL_COLLECTION_ID, "\"" + collectionId + "\"");
         }
 
         if (schoolSearchCommand.getMinCommunityRating() != null) {
