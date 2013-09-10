@@ -18,33 +18,28 @@ public class AdditionalResourcesModel {
 
     private String   _columnHeading;
 
-    private String   _rowNo;
+    private String   _columnNo;
 
 
 
-    public AdditionalResourcesModel(final String label , final String url , final String type, final String description){
+
+
+    public AdditionalResourcesModel(final String label , final String url , final String type, final String columnNo, final String columnHeading){
         this._label= label;
         this._url= url;
         this._type= type;
-        this._description= description;
-
-    }
-
-    public AdditionalResourcesModel(final String label , final String url , final String type, final String description, final String columnHeading, final String rowNo){
-        this._label= label;
-        this._url= url;
-        this._type= type;
-        this._description= description;
         this._columnHeading= columnHeading;
-        this._rowNo= rowNo;
+        this._columnNo= columnNo;
 
     }
 
 
 
-    public AdditionalResourcesModel(final String label , final String url){
+    public AdditionalResourcesModel(final String label , final String url, final String type, final String columnNo){
         this._label= label;
         this._url= url;
+        this._type= type;
+        this._columnNo= columnNo;
 
 
     }
@@ -91,11 +86,11 @@ public class AdditionalResourcesModel {
         this._columnHeading = columnHeading;
     }
 
-    public String getRowNo() {
-        return _rowNo;
+    public String getColumnNo() {
+        return _columnNo;
     }
 
-    public void setRowNo(final String rowNo) {
-        this._rowNo = rowNo;
+    public void setColumnNo(final String columnNo) {
+        this._columnNo = columnNo;
     }
 }

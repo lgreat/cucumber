@@ -47,6 +47,17 @@
 
 
                </c:forEach>
+          <br/><br/>
+         <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources" varStatus="additionalResourcesCount" >
+            LABEL ON ADDITIONAL LINK  ${additionalResourcesCount.index+1}          :    ${additionalResources.label} <br/>
+            URL   ON ADDITIONAL LINK  ${additionalResourcesCount.index+1}          :    ${additionalResources.url} <br/>
+            TYPE  ON ADDITIONAL LINK ${additionalResourcesCount.index+1}           :    ${additionalResources.type} <br/>
+            COLUMN HEADING    ON ADDITIONAL LINK ${additionalResourcesCount.index+1}         :    ${additionalResources.columnHeading} <br/>
+            COLUMN NUMBER    ON ADDITIONAL LINK ${additionalResourcesCount.index+1}          :    ${additionalResources.columnNo} <br/>
+
+
+
+        </c:forEach>
         <br/>
     </c:forEach>
 

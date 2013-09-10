@@ -9,6 +9,7 @@ package gs.web.geo;
  */
 
 import gs.data.hubs.HubConfig;
+import gs.web.hub.AdditionalResourcesModel;
 import gs.web.hub.FeaturedResourcesModel;
 import gs.web.hub.StepModel;
 import gs.data.state.State;
@@ -111,11 +112,40 @@ public class CityHubChoosePageController {
                                        "http://www.greatschools.org/find-a-school/defining-your-ideal/32-imagining-your-ideal-school-set-your-priorities.gs",
                                         "Article");
         FeaturedResourcesModel feature2Step1= new FeaturedResourcesModel("Download our worksheet", "http://www.greatschools.org/pdf/choosing_imagine.pdf", "Article");
+
         featuredResourcesModelStep1.add(feature1Step1);
         featuredResourcesModelStep1.add(feature2Step1);
 
 
         step1.setFeaturedResourcesModel(featuredResourcesModelStep1);
+
+
+        ArrayList<AdditionalResourcesModel> additionalResourcesModelStep1 = new ArrayList<AdditionalResourcesModel>();
+
+        AdditionalResourcesModel additionalResources1Step1 =  new AdditionalResourcesModel("When should kids start kindergarten?", "http://www.greatschools.org/students/academic-skills/4165-redshirting-kindergarten.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources1Step2 =  new AdditionalResourcesModel("Switch schools or stay?", "http://www.greatschools.org/find-a-school/making-the-right-choice/4904-switch-or-stay-schools-early-in-year.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources1Step3 =  new AdditionalResourcesModel("The pros and cons of skipping a grade", "http://www.greatschools.org/students/4151-Skipping-a-grade-pros-and-cons.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources1Step4 =  new AdditionalResourcesModel("Preschool philosophies: what are they?", "http://www.greatschools.org/find-a-school/defining-your-ideal/1111-preschool-philosophies.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources1Step5 =  new AdditionalResourcesModel("A guide to second-language education ", "http://www.greatschools.org/school-choice/language-oriented-schools/7067-second-language-education-video.gs", "Video", "2");
+        AdditionalResourcesModel additionalResources1Step6 =  new AdditionalResourcesModel("Quick guide to special education ", "http://www.greatschools.org/school-choice/special-education/7006-quick-guide-special-education-video.gs", "Video", "2");
+        AdditionalResourcesModel additionalResources1Step7 =  new AdditionalResourcesModel("Special needs programs and schools: a primer", "http://www.greatschools.org/school-choice/special-education/6997-special-education-special-needs-learning-disabilities.gs", "Article", "3");
+        AdditionalResourcesModel additionalResources1Step8 =  new AdditionalResourcesModel("Moving? Tips to help your child with the transition", "http://www.greatschools.org/find-a-school/moving/173-help-your-child-with-the-transition.gs?page=all", "Article", "3");
+        AdditionalResourcesModel additionalResources1Step9 =  new AdditionalResourcesModel("Your child is gifted...now what?", "http://www.greatschools.org/parenting/learning-development/7088-gifted-and-talented-education-and-program.gs", "Article", "3");
+        AdditionalResourcesModel additionalResources1Step10 = new AdditionalResourcesModel("Searching for security", "http://www.greatschools.org/find-a-school/defining-your-ideal/1690-sizing-up-school-safety.gs", "Article", "3");
+
+
+        additionalResourcesModelStep1.add(additionalResources1Step1);
+        additionalResourcesModelStep1.add(additionalResources1Step2);
+        additionalResourcesModelStep1.add(additionalResources1Step3);
+        additionalResourcesModelStep1.add(additionalResources1Step4);
+        additionalResourcesModelStep1.add(additionalResources1Step5);
+        additionalResourcesModelStep1.add(additionalResources1Step6);
+        additionalResourcesModelStep1.add(additionalResources1Step7);
+        additionalResourcesModelStep1.add(additionalResources1Step8);
+        additionalResourcesModelStep1.add(additionalResources1Step9);
+        additionalResourcesModelStep1.add(additionalResources1Step10);
+
+        step1.setAdditionalResourcesModel(additionalResourcesModelStep1);
 
 
         stepsInfo.add(step1);
@@ -139,6 +169,40 @@ public class CityHubChoosePageController {
 
 
         step2.setFeaturedResourcesModel(featuredResourcesModelStep2);
+
+
+
+        ArrayList<AdditionalResourcesModel> additionalResourcesModelStep2 = new ArrayList<AdditionalResourcesModel>();
+
+        AdditionalResourcesModel additionalResources2Step1 =  new AdditionalResourcesModel("School choice: what are your options?", "http://www.greatschools.org/find-a-school/defining-your-ideal/1163-school-choice-your-options.gs", "Article", "1", "Overview of options");
+        AdditionalResourcesModel additionalResources2Step2 =  new AdditionalResourcesModel("Public vs. private vs. charter schools", "http://www.greatschools.org/school-choice/6987-public-private-charter-schools.gs", "Article", "1", "Overview of options");
+        AdditionalResourcesModel additionalResources2Step3 =  new AdditionalResourcesModel("Private vs. public", "http://www.greatschools.org/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs", "Article", "1", "Overview of options");
+        AdditionalResourcesModel additionalResources2Step4 =  new AdditionalResourcesModel("School choice terminology", "http://www.greatschools.org/find-a-school/2424-school-terminology.gs", "Article", "1", "Overview of options");
+        AdditionalResourcesModel additionalResources2Step5 =  new AdditionalResourcesModel("Public schools: fact and fiction", "http://www.greatschools.org/school-choice/public-schools/6979-public-school.gs", "Article", "2", "Public & public charter schools");
+        AdditionalResourcesModel additionalResources2Step6 =  new AdditionalResourcesModel("What’s a charter school anyway? ", "http://www.greatschools.org/school-choice/charter-schools/6974-what-is-charter-school-video.gs", "Video", "2", "Public & public charter schools");
+        AdditionalResourcesModel additionalResources2Step7 =  new AdditionalResourcesModel("The truth about charter schools", "http://www.greatschools.org/school-choice/charter-schools/6986-charter-schools.gs", "Article", "2", "Public & public charter schools");
+        AdditionalResourcesModel additionalResources2Step8 =  new AdditionalResourcesModel("7 essentials about charter schools", "http://www.greatschools.org/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs", "Article", "2", "Public & public charter schools");
+        AdditionalResourcesModel additionalResources2Step9 =  new AdditionalResourcesModel("Are charter schools better?", "http://www.greatschools.org/find-a-school/3706-charter-schools-better-than-traditional.gs", "Article", "2", "Public & public charter schools");
+        AdditionalResourcesModel additionalResources2Step10 = new AdditionalResourcesModel("A guide to private schools", "http://www.greatschools.org/school-choice/private-schools/7068-private-schools-video.gs", "Video", "3", "Private schools");
+        AdditionalResourcesModel additionalResources2Step11 = new AdditionalResourcesModel("Should I send my child to a private school?", "http://www.greatschools.org/school-choice/private-schools/6995-private-schools-parochial-schools.gs", "Article", "3", "Private schools");
+
+
+        additionalResourcesModelStep2.add(additionalResources2Step1);
+        additionalResourcesModelStep2.add(additionalResources2Step2);
+        additionalResourcesModelStep2.add(additionalResources2Step3);
+        additionalResourcesModelStep2.add(additionalResources2Step4);
+        additionalResourcesModelStep2.add(additionalResources2Step5);
+        additionalResourcesModelStep2.add(additionalResources2Step6);
+        additionalResourcesModelStep2.add(additionalResources2Step7);
+        additionalResourcesModelStep2.add(additionalResources2Step8);
+        additionalResourcesModelStep2.add(additionalResources2Step9);
+        additionalResourcesModelStep2.add(additionalResources2Step10);
+        additionalResourcesModelStep2.add(additionalResources2Step11);
+
+        step2.setAdditionalResourcesModel(additionalResourcesModelStep2);
+
+
+
         stepsInfo.add(step2);
 
 
@@ -165,6 +229,36 @@ public class CityHubChoosePageController {
 
 
         step3.setFeaturedResourcesModel(featuredResourcesModelStep3);
+
+        ArrayList<AdditionalResourcesModel> additionalResourcesModelStep3 = new ArrayList<AdditionalResourcesModel>();
+
+        AdditionalResourcesModel additionalResources3Step1 =  new AdditionalResourcesModel("Facts (and fiction) about school test scores", "http://www.greatschools.org/find-a-school/defining-your-ideal/1163-school-choice-your-options.gs", "Video", "1");
+        AdditionalResourcesModel additionalResources3Step2 =  new AdditionalResourcesModel("How important is cultural diversity at your school?", "http://www.greatschools.org/school-choice/6987-public-private-charter-schools.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources3Step3 =  new AdditionalResourcesModel("How important is class size?", "http://www.greatschools.org/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources3Step4 =  new AdditionalResourcesModel("How important is school size?", "http://www.greatschools.org/find-a-school/2424-school-terminology.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources3Step5 =  new AdditionalResourcesModel("The ABCs of picking a preschool", "http://www.greatschools.org/school-choice/public-schools/6979-public-school.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources3Step6 =  new AdditionalResourcesModel("Pitfalls of picking a preschool", "http://www.greatschools.org/school-choice/charter-schools/6974-what-is-charter-school-video.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources3Step7 =  new AdditionalResourcesModel("The truth about charter schools", "http://www.greatschools.org/school-choice/charter-schools/6986-charter-schools.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources3Step8 =  new AdditionalResourcesModel("7 essentials about charter schools", "http://www.greatschools.org/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources3Step9 =  new AdditionalResourcesModel("Are charter schools better?", "http://www.greatschools.org/find-a-school/3706-charter-schools-better-than-traditional.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources3Step10 = new AdditionalResourcesModel("A guide to private schools", "http://www.greatschools.org/school-choice/private-schools/7068-private-schools-video.gs", "Article", "3");
+        AdditionalResourcesModel additionalResources3Step11 = new AdditionalResourcesModel("Should I send my child to a private school?", "http://www.greatschools.org/school-choice/private-schools/6995-private-schools-parochial-schools.gs", "Article", "3");
+
+
+        additionalResourcesModelStep3.add(additionalResources3Step1);
+        additionalResourcesModelStep3.add(additionalResources3Step2);
+        additionalResourcesModelStep3.add(additionalResources3Step3);
+        additionalResourcesModelStep3.add(additionalResources3Step4);
+        additionalResourcesModelStep3.add(additionalResources3Step5);
+        additionalResourcesModelStep3.add(additionalResources3Step6);
+        additionalResourcesModelStep3.add(additionalResources3Step7);
+        additionalResourcesModelStep3.add(additionalResources3Step8);
+        additionalResourcesModelStep3.add(additionalResources3Step9);
+        additionalResourcesModelStep3.add(additionalResources3Step10);
+        additionalResourcesModelStep3.add(additionalResources3Step11);
+
+        step3.setAdditionalResourcesModel(additionalResourcesModelStep3);
+
 
         stepsInfo.add(step3);
 
@@ -218,7 +312,7 @@ public class CityHubChoosePageController {
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
-        importantEventsMap.put(getCityHubHelper().CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
+        importantEventsMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
         importantEventsMap.put("maxImportantEventsToDisplay",  CityHubHelper.MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
         return importantEventsMap;
     }
