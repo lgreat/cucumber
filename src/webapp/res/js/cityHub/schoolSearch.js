@@ -18,13 +18,13 @@ GS.search.searchBySchoolNameForm = GS.search.searchBySchoolNameForm || (function
 
     var submitForm = function($form) {
         var searchString = $form.find(SEARCH_FIELD_SELECTOR).val();
-        var hub = $form.find('#jq-hub').val();
+        var collectionId = $form.find('#jq-collectionId').val();
         var state = $form.find('#jq-state').val();
 
         var queryStringData = GS.uri.Uri.getQueryData();
 
         queryStringData.q = encodeURIComponent(searchString);
-        queryStringData.hub = encodeURIComponent(hub);
+        queryStringData.collectionId = encodeURIComponent(collectionId);
         queryStringData.state = state;
 
         window.location.href = window.location.protocol + '//' + window.location.host +

@@ -23,7 +23,7 @@
             <div class="pas mtm mbl pr border-round" style="background-color: #FFB843;">
                 <input type="text" name="q" class="text1 text-bigger input_16" id="js-findByNameBox"
                        placeholder="School name (e.g. 'Niles Elementary School')"/>
-                <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
+                <input type="hidden" name="collectionId" id="jq-collectionId" value="${collectionId}"/>
                 <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
                 <div class="pa" style="top: 5px; right:86px;">
                     <span class="iconx48 i-48-search-city-hubs addMousePointer" id="js-submit"><!-- do not collapse --></span>

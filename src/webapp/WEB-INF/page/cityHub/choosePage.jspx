@@ -32,7 +32,7 @@
     <pageHelper:hideFooterAd/>
     <pageHelper:hideLeaderboard/>
     <pageHelper:hideBelowNavAds/>
-
+    <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
     <c:forEach items="${stepsInfo}" var="stepInfo">
     STEP NO : ${stepInfo.stepNo}<br/>
@@ -60,7 +60,7 @@
         </c:forEach>
         <br/>
     </c:forEach>
-
+    <!--<hub:stepsChoosing/>-->
 
 
 
