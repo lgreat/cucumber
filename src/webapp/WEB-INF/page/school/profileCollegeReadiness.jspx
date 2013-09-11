@@ -56,7 +56,7 @@
                     <div class="mod standard_1-4">
                         <div class="inner">
                             <div class="bd clearfix mal">
-                                <h3 class="bottom">Freshman year</h3>
+                                <h3 class="bottom">First year</h3>
                                 <p class="small_bold bottom">How well prepared for college are these graduates?*</p>
                                 <c:if test="${avgFirstYearGpa ne null}">
                                     <c:set var="thisFootnote"><censusDisplay:calculateAndOutputCensusFootnote
@@ -74,7 +74,7 @@
                                     </c:if>
                                     <c:if test="${avgFirstYearGpa.stateCensusValue ne null}">
                                         <censusDisplay:number value="${avgFirstYearGpa.stateCensusValue.valueFloat}"
-                                                              caption="State Avg" maxDecimalsForDisplay="1" last="${true}"/>
+                                                              caption="State Average" maxDecimalsForDisplay="1" last="${true}"/>
                                     </c:if>
                                 </c:if>
                                 <c:if test="${avgUnitsCompleted ne null}">
@@ -113,8 +113,8 @@
                                 <hr class="keyline1"/>
                                 <div class="clear mbl"><!-- not empty --></div>
                                 <div class="unit size34of100 prl small bottom">
-                                        Re-enroll in college for a second
-                                        year?<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                        Enroll in college for a second
+                                        year<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
 
                                 </div>
                                 <censusDisplay:hgraphPercent censusDataSet="${enrolledInCollegeAndReturned}"/>

@@ -10,16 +10,16 @@
     <jsp:directive.attribute name="last" type="java.lang.Boolean" required="false" description="True if this is the last in the line"/>
 
     <c:if test="${value ne null}">
-        <div class="unit size31of100 default bold mbn ${last?'lastUnit make-999999':'make-555555'} plm">
+        <div class="unit size31of100 small_bold mbn ${last?'lastUnit make-999999':'make-555555'} plm">
             <c:set var="formattedCensusValue" value="${value}"/>
             <c:if test="${not empty maxDecimalsForDisplay}">
                 <fmt:formatNumber var="formattedCensusValue"
                                   value="${value}"
                                   maxFractionDigits="${maxDecimalsForDisplay}"/>
             </c:if>
-            <div class="line default bold tac">
-                <div style="font-size: 20px">${formattedCensusValue}</div>
-                <div>${caption}</div>
+            <div class="line small_bold tac">
+                <div class="small_bold top bottom">${formattedCensusValue}</div>
+                <div class="small_bold top bottom">${caption}</div>
             </div>
         </div>
     </c:if>
