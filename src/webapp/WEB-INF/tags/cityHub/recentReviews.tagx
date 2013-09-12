@@ -31,7 +31,7 @@
                                  <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
                             </c:when>
                             <c:otherwise>
-                                <c:out value=" Read the review" escapeXml="true"/>
+                                <c:out value="Read more" escapeXml="true"/>
                             </c:otherwise>
                         </c:choose>
                     </link:schoolProfileParentReview>
