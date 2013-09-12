@@ -1,6 +1,5 @@
 package gs.web.search;
 
-import gs.data.geo.City;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.GsSolrSearcher;
 import gs.data.search.SearchException;

@@ -3,14 +3,19 @@ package gs.web.geo;
 import gs.data.hubs.HubConfig;
 import gs.data.hubs.IHubCityMappingDao;
 import gs.data.hubs.IHubConfigDao;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.web.util.UrlUtil;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,6 +29,8 @@ import java.util.*;
  */
 @Component
 public class CityHubHelper {
+    public static final String BEAN_ID = "cityHubHelper";
+
     private static Logger _logger = Logger.getLogger(CityHubHelper.class);
 
     public static final String DATE_FORMAT = "MM-dd-yyyy";
@@ -32,15 +39,17 @@ public class CityHubHelper {
 
     public static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90;
 
-    public  static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2;
-    public   static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
-    public   static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
+    public static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2;
+    public static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
+    public static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
 
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
     @Autowired
     private IHubConfigDao _hubConfigDao;
+    @Autowired
+    private AnchorListModelFactory _anchorListModelFactory;
 
 
     public Integer getHubID(final String city, final State state)
@@ -135,11 +144,45 @@ public class CityHubHelper {
         return configKeyPrefixList;
     }
 
+    public AnchorListModel getCollectionBrowseLinks(final HttpServletRequest request, final Integer collectionId, final String city,
+                                                    final State state) {
+        AnchorListModel browseLinks = new AnchorListModel();
+
+        List<LevelCode> levelCodes = new ArrayList<LevelCode>(){{
+            add(LevelCode.PRESCHOOL);
+            add(LevelCode.ELEMENTARY);
+            add(LevelCode.MIDDLE);
+            add(LevelCode.HIGH);
+        }};
+
+        for(LevelCode filterLevelCode : levelCodes) {
+            Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, filterLevelCode, state, city);
+            if(anchor != null) {
+                browseLinks.add(anchor);
+            }
+        }
+
+        List<SchoolType> schoolTypes = SchoolType.sortOrder;
+
+        for(SchoolType filterSchoolType : schoolTypes) {
+            Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, filterSchoolType, state, city);
+            if(anchor != null) {
+                browseLinks.add(anchor);
+            }
+        }
+
+        return browseLinks;
+    }
+
     public void setHubCityMappingDao(final IHubCityMappingDao _hubCityMappingDao) {
         this._hubCityMappingDao = _hubCityMappingDao;
     }
 
     public void setHubConfigDao(final IHubConfigDao _hubConfigDao) {
         this._hubConfigDao = _hubConfigDao;
+    }
+
+    public void setAnchorListModelFactory(AnchorListModelFactory _anchorListModelFactory) {
+        this._anchorListModelFactory = _anchorListModelFactory;
     }
 }

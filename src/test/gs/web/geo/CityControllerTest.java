@@ -5,7 +5,6 @@
 
 package gs.web.geo;
 
-import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
@@ -58,6 +57,8 @@ public class CityControllerTest extends BaseControllerTestCase {
                 StateSpecificFooterHelper.class));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
+
+        _controller.setCityHubHelper((CityHubHelper) getApplicationContext().getBean(CityHubHelper.BEAN_ID));
     }
 
 

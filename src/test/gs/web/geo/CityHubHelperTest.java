@@ -4,19 +4,24 @@ import gs.data.hubs.HubCityMapping;
 import gs.data.hubs.HubConfig;
 import gs.data.hubs.IHubCityMappingDao;
 import gs.data.hubs.IHubConfigDao;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.log4j.Logger;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
+import org.easymock.classextension.EasyMock;
 import static gs.web.geo.CityHubHelper.*;
-import static gs.web.geo.CityHubController.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,7 +36,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
     private CityHubHelper _cityHubHelper;
     private IHubConfigDao _hubConfigDao;
     private IHubCityMappingDao _hubCityMappingDao;
-
+    private AnchorListModelFactory _anchorListModelFactory;
 
     private static Map<String, String> _configKeyValues = new HashMap<String, String>(){{
         put("importantEvent_1_description", "Application deadline for DCPS");
@@ -51,22 +56,23 @@ public class CityHubHelperTest extends BaseControllerTestCase {
 
         _hubConfigDao = createStrictMock(IHubConfigDao.class);
         _hubCityMappingDao = createStrictMock(IHubCityMappingDao.class);
+        _anchorListModelFactory = EasyMock.createStrictMock(AnchorListModelFactory.class);
+
         _cityHubHelper.setHubConfigDao(_hubConfigDao);
         _cityHubHelper.setHubCityMappingDao(_hubCityMappingDao);
-
-      ;
+        _cityHubHelper.setAnchorListModelFactory(_anchorListModelFactory);
     }
 
     private void replayAllMocks() {
-        replayMocks(_hubConfigDao, _hubCityMappingDao);
+        replayMocks(_hubConfigDao, _hubCityMappingDao, _anchorListModelFactory);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_hubConfigDao, _hubCityMappingDao);
+        verifyMocks(_hubConfigDao, _hubCityMappingDao, _anchorListModelFactory);
     }
 
     private void resetAllMocks() {
-        resetMocks(_hubConfigDao, _hubCityMappingDao);
+        resetMocks(_hubConfigDao, _hubCityMappingDao, _anchorListModelFactory);
     }
 
     public void testHubConfigNonExistingHub() throws Exception {
@@ -185,6 +191,93 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
 
         assertNull("Expect the event 4 date key to not exist because that should throw an exception", modelMap.get("importantEvent_4_date"));
+    }
+
+    public void testGetCollectionBrowseLinks() {
+        resetAllMocks();
+
+        Integer collectionId = null;
+        String city = "ashdjjka";
+        State state = State.DC;
+        GsMockHttpServletRequest request = getRequest();
+        List<SchoolType> schoolTypes = SchoolType.sortOrder;
+        List<LevelCode> levelCodes = new ArrayList<LevelCode>(){{
+            add(LevelCode.PRESCHOOL);
+            add(LevelCode.ELEMENTARY);
+            add(LevelCode.MIDDLE);
+            add(LevelCode.HIGH);
+        }};
+
+        // test to ignore null anchor objects in the list that will be added to the model map
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                isA(LevelCode.class), (State) anyObject(), (String) anyObject())).andReturn(null).times(4);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                isA(SchoolType.class), (State) anyObject(), (String) anyObject())).andReturn(null).times(3);
+
+        replayAllMocks();
+        AnchorListModel browseLinks = _cityHubHelper.getCollectionBrowseLinks(request, collectionId, city, state);
+        verifyAllMocks();
+
+        assertEquals("Expect the browse links list to be empty", 0, browseLinks.getResults().size());
+
+        // test to see whether all anchor objects have been added to the list in the correct order
+        resetAllMocks();
+
+        Anchor levelCodeAnchor1 = new Anchor("http://www.greatschools.org", "Preschool");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(0), state, city)).andReturn(levelCodeAnchor1);
+
+        Anchor levelCodeAnchor2 = new Anchor("http://www.greatschools.org", "Elementary");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(1), state, city)).andReturn(levelCodeAnchor2);
+
+        Anchor levelCodeAnchor3 = new Anchor("http://www.greatschools.org", "Middle");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(2), state, city)).andReturn(levelCodeAnchor3);
+
+        Anchor levelCodeAnchor4 = new Anchor("http://www.greatschools.org", "High");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(3), state, city)).andReturn(levelCodeAnchor4);
+
+        Anchor stAnchor1 = new Anchor("http://www.greatschools.org", "Public");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(0), state, city)).andReturn(stAnchor1);
+
+        Anchor stAnchor2 = new Anchor("http://www.greatschools.org", "Private");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(1), state, city)).andReturn(stAnchor2);
+
+        Anchor stAnchor3 = new Anchor("http://www.greatschools.org", "Charter");
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(2), state, city)).andReturn(stAnchor3);
+
+        replayAllMocks();
+        browseLinks = _cityHubHelper.getCollectionBrowseLinks(request, collectionId, city, state);
+        verifyAllMocks();
+
+        assertEquals("Expect the size of browse links list to be 7", 7, browseLinks.getResults().size());
+        assertEquals("Expect the 1st item to be preschool result", levelCodeAnchor1, browseLinks.getResults().get(0));
+        assertEquals("Expect the 2nd item to be elementary school result", levelCodeAnchor2, browseLinks.getResults().get(1));
+        assertEquals("Expect the 3rd item to be middle school result", levelCodeAnchor3, browseLinks.getResults().get(2));
+        assertEquals("Expect the 3rd item to be high school result", levelCodeAnchor4, browseLinks.getResults().get(3));
+        assertEquals("Expect the 4th item to be public school type result", stAnchor1, browseLinks.getResults().get(4));
+        assertEquals("Expect the 5th item to be private school type result", stAnchor2, browseLinks.getResults().get(5));
+        assertEquals("Expect the 6th item to be charter school type result", stAnchor3, browseLinks.getResults().get(6));
+
+        // test to ignore null anchor objects in the list that will be added to the model map
+        resetAllMocks();
+
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(0), state, city)).andReturn(levelCodeAnchor1);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(1), state, city)).andReturn(null);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(2), state, city)).andReturn(null);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(3), state, city)).andReturn(levelCodeAnchor4);
+
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(0), state, city)).andReturn(stAnchor1);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(1), state, city)).andReturn(stAnchor2);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(2), state, city)).andReturn(null);
+
+        replayAllMocks();
+        browseLinks = _cityHubHelper.getCollectionBrowseLinks(request, collectionId, city, state);
+        verifyAllMocks();
+
+        assertEquals("Expect the size of browse links list to be 4", 4, browseLinks.getResults().size());
+        assertEquals("Expect the 1st item to be preschool result", levelCodeAnchor1, browseLinks.getResults().get(0));
+        assertEquals("Expect the 2nd item to be high school result", levelCodeAnchor4, browseLinks.getResults().get(1));
+        assertEquals("Expect the 3rd item to be public school type result", stAnchor1, browseLinks.getResults().get(2));
+        assertEquals("Expect the 4th item to be private school type result", stAnchor2, browseLinks.getResults().get(3));
     }
 
     private List<HubConfig> getSampleHubConfigList(int hubId, String city, State state) {

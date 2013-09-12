@@ -37,6 +37,7 @@
     <context:component-scan base-package="gs.web.gallup" />
     <context:component-scan base-package="gs.web.auth" />
     <context:component-scan base-package="gs.web.community.registration.popup" />
+    <context:component-scan base-package="gs.web.util.list" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.

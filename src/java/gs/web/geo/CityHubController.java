@@ -13,8 +13,6 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.review.ReviewFacade;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.list.AnchorListModel;
-import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,9 +55,6 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
     private ControllerFamily _controllerFamily;
 
     @Autowired
-    private AnchorListModelFactory _anchorListModelFactory;
-
-    @Autowired
     private IReviewDao _reviewDao;
 
     @Autowired
@@ -91,14 +85,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
-        modelAndView.addObject("collectionId", getCityHubHelper().getHubID(city, state));
 
+        Integer collectionId = getCityHubHelper().getHubID(city, state);
+        modelAndView.addObject("collectionId", collectionId);
+        modelAndView.addObject("schoolBreakdown", getCityHubHelper().getCollectionBrowseLinks(request, collectionId, city, state));
 
-        /**
-         *  School Review Link Functionality Start.
-         */
-          AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, city, city, request);
-          modelAndView.addObject("schoolBreakdown", schoolBreakdownAnchorList);
         /**
          *  School Review Link Functionality Start.
          */

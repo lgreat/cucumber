@@ -23,7 +23,6 @@ import gs.data.community.local.LocalBoard;
 import gs.data.zillow.ZillowRegionDao;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
-import gs.web.content.cms.CmsHomepageController;
 import gs.web.request.RequestInfo;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
@@ -46,7 +45,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -95,6 +93,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
     @Autowired
     private ZillowRegionDao _zillowDao;
+    @Autowired
+    private CityHubHelper _cityHubHelper;
 
     public static final int MAX_SCHOOLS = 10;
 
@@ -208,16 +208,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
             model.put(MODEL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
         }
 
-        int schoolCount = _schoolDao.countSchools(state, null, null, city.getName());
-        model.put(MODEL_SCHOOL_COUNT, schoolCount);
-
-        if (schoolCount > 0) {
-            AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, cityNameParam, cityDisplayName, request);
-            model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
-
-            //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
-            //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
-        }
+        AnchorListModel schoolBreakdownAnchorList = getCityHubHelper().getCollectionBrowseLinks(request, null, city.getName(), state);
+        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
 
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
@@ -396,5 +388,13 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
         _controllerFamily = controllerFamily;
+    }
+
+    public CityHubHelper getCityHubHelper() {
+        return _cityHubHelper;
+    }
+
+    public void setCityHubHelper(CityHubHelper _cityHubHelper) {
+        this._cityHubHelper = _cityHubHelper;
     }
 }
