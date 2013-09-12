@@ -33,6 +33,7 @@
         </div>
         <div class="container_24 clearfix pvl">
             <div class="standard_1-1">
+                <c:if test="${not empty stepInfo.additionalResourcesModel}">
                 <div class="inner">
                     <div class="hd pas small bottom">
                         Additional Resourses
@@ -43,6 +44,7 @@
                         </c:forEach>
                     </div>
                 </div>
+                </c:if>
             </div>
             </div>
     </c:forEach>
