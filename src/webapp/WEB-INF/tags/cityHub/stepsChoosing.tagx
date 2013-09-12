@@ -17,15 +17,34 @@
                 <div class="small">${stepInfo.stepDescription}</div>
                 <div>
                     <h6 class="bold bottom">Featured resources</h6>
-                    <div class="small bottom"><a href="/find-a-school/defining-your-ideal/32-imagining-your-ideal-school-set-your-priorities.gs">Imagining your ideal school</a></div>
-                    <div class="small bottom"><a href="/pdf/choosing_imagine.pdf">Download our worksheet</a></div>
+                    <c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >
+                        <div class="small bottom">
+                            <a href="${feature.url}">${feature.label}</a>
+                            <c:if test="${feature.description}">
+                                ${feature.description}
+                            </c:if>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="grid_10">
                 <img src="${stepInfo.imageURL}" atl="step image"/>
             </div>
         </div>
-    <!--<hub:additionalResources/>-->
+        <div class="container_24 clearfix pvl">
+            <div class="standard_1-1">
+                <div class="inner">
+                    <div class="hd pas small bottom">
+                        Additional Resourses
+                    </div>
+                    <div class="bd pal">
+                        <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources" varStatus="additionalResourcesCount" >
+                            <a href="${additionalResources.url}" class="small">${additionalResources.label}</a> <br/>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+            </div>
     </c:forEach>
 
     <!--<c:forEach items="${stepsInfo}" var="stepInfo">-->
