@@ -33,6 +33,32 @@
     <pageHelper:hideLeaderboard/>
     <pageHelper:hideBelowNavAds/>
     <hub:searchChoosing/>
+    <c:forEach items="${stepsInfo}" var="stepInfo">
+    STEP NO : ${stepInfo.stepNo}<br/>
+    STEP HEADNG : ${stepInfo.stepHeading}<br/>
+    STEP IMAGE URL : ${stepInfo.imageURL} <br/>
+    STEP DESCRIPTION : ${stepInfo.stepDescription}  <br/>
+    <c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >
+        LABEL ON FEATURE LINK  ${featureCount.index+1}          :    ${feature.label} <br/>
+        URL   ON FEATURE LINK  ${featureCount.index+1}          :    ${feature.url} <br/>
+        TYPE   ON FEATURE LINK ${featureCount.index+1}          :    ${feature.type} <br/>
+        DESCRIPTION   ON FEATURE LINK  ${featureCount.index+1}  :    ${feature.description} <br/>
+
+
+    </c:forEach>
+    <br/><br/>
+    <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources" varStatus="additionalResourcesCount" >
+        LABEL ON ADDITIONAL LINK  ${additionalResourcesCount.index+1}          :    ${additionalResources.label} <br/>
+        URL   ON ADDITIONAL LINK  ${additionalResourcesCount.index+1}          :    ${additionalResources.url} <br/>
+        TYPE  ON ADDITIONAL LINK ${additionalResourcesCount.index+1}           :    ${additionalResources.type} <br/>
+        COLUMN HEADING    ON ADDITIONAL LINK ${additionalResourcesCount.index+1}         :    ${additionalResources.columnHeading} <br/>
+        COLUMN NUMBER    ON ADDITIONAL LINK ${additionalResourcesCount.index+1}          :    ${additionalResources.columnNo} <br/>
+
+
+
+    </c:forEach>
+    <br/>
+    </c:forEach>
     <hub:stepsOverview/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
 
