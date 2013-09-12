@@ -5,27 +5,29 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
     <div class="bg-005877 pvm">
-    <div class="container_24 clearfix">
-        <form name="searchBySchoolNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
-            <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
-            <input type="hidden" name="search_type" value="1"/>
-            <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
-            <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
-            <div class="prefix_3 grid_18 pr">
-                <div class="line">
-                    <div class="unit size35of100">
-                        <h4 class="make-ffffff bold bottom mtm">Find a school in ${city} ${state.abbreviation}</h4></div>
-                    <div class="unit size64of100">
-                        <input type="text" name="q" class="text1 text-bigger input_11 mlm" id="js-findByNameBox"
-                               placeholder="School name (e.g. 'Niles Elementary School')"/>
-                        <div class="pa" style="right: 26px;top: 8px;">
+        <div class="container_24 clearfix">
+            <form name="searchBySchoolNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
+                <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
+                <input type="hidden" name="search_type" value="1"/>
+                <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
+                <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
+                <div class="prefix_2 grid_19 pr">
+                    <div class="line">
+                        <div class="unit size33of100">
+                            <h4 class="make-ffffff bold bottom mtm">Find a school in ${city} ${state.abbreviation}</h4>
+                        </div>
+                        <div class="unit size64of100">
+                            <input type="text" name="q" class="text1 text-bigger input_10 mlm" id="js-findByNameBox"
+                                   placeholder="School name (e.g. 'Niles Elementary School')"/>
+                            <div class="pa" style="right: 105px;top: 8px;">
                             <span class="iconx24 i-24-search-lens addMousePointer"
                                   id="js-submit"><!-- do not collapse --></span>
+                            </div>
+                            <a href="http://www.greatschools.org" class="small make-ffffff mlm">Not in ${state.abbreviation}?</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     </div>
 </jsp:root>
