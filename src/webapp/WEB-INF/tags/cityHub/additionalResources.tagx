@@ -6,24 +6,15 @@
           xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub">
 
     <div class="container_24 clearfix pvl">
-        <div class="grid_14">
-            <div class="clearfix">
-                <span class="big fl">1</span>
-                <h1 class="fl">Think about your needs</h1>
+    <div class="standard_1-1">
+        <div class="inner">
+            <div class="hd">
+                Additional Resourses
             </div>
-            <div class="small">
-                Where your child goes to school affects not just your child but your whole family. As you begin
-                thinking about choosing a school, consider what matters most. What needs does your child have? What
-                needs does your family have? What is important to you when it comes to education?
-            </div>
-            <div>
-                <h6 class="bold bottom">Featured resources</h6>
-                <div class="small bottom"><a href="/find-a-school/defining-your-ideal/32-imagining-your-ideal-school-set-your-priorities.gs">Imagining your ideal school</a></div>
-                <div class="small bottom"><a href="/pdf/choosing_imagine.pdf">Download our worksheet</a></div>
+            <div class="bd">
+                links go here
             </div>
         </div>
-        <div class="grid_10">
-            <img src="/res/img/cityHubs/sample_image.png" atl="step image"/>
-        </div>
+    </div>
     </div>
 </jsp:root>

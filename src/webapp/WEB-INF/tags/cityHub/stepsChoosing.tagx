@@ -5,17 +5,16 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub">
 
+    <c:forEach items="${stepsInfo}" var="stepInfo">
         <div class="container_24 clearfix pvl">
             <div class="grid_14">
                 <div class="clearfix">
-                    <span class="big fl">1</span>
-                    <h1 class="fl">Think about your needs</h1>
+                    <div class="fl">
+                        <span class="iconx48 i-48-choosing-step-${stepInfo.stepNo}"><!--Do not collapse--></span>
+                    </div>
+                    <h1 class="fl mlm mtm">${stepInfo.stepHeading}</h1>
                 </div>
-                <div class="small">
-                    Where your child goes to school affects not just your child but your whole family. As you begin
-                    thinking about choosing a school, consider what matters most. What needs does your child have? What
-                    needs does your family have? What is important to you when it comes to education?
-                </div>
+                <div class="small">${stepInfo.stepDescription}</div>
                 <div>
                     <h6 class="bold bottom">Featured resources</h6>
                     <div class="small bottom"><a href="/find-a-school/defining-your-ideal/32-imagining-your-ideal-school-set-your-priorities.gs">Imagining your ideal school</a></div>
@@ -23,8 +22,36 @@
                 </div>
             </div>
             <div class="grid_10">
-                <img src="/res/img/cityHubs/sample_image.png" atl="step image"/>
+                <img src="${stepInfo.imageURL}" atl="step image"/>
             </div>
-            <hub:additionalResources/>
         </div>
+    <!--<hub:additionalResources/>-->
+    </c:forEach>
+
+    <!--<c:forEach items="${stepsInfo}" var="stepInfo">-->
+        <!--STEP NO : ${stepInfo.stepNo}<br/>-->
+        <!--STEP HEADNG : ${stepInfo.stepHeading}<br/>-->
+        <!--STEP IMAGE URL : ${stepInfo.imageURL} <br/>-->
+        <!--STEP DESCRIPTION : ${stepInfo.stepDescription}  <br/>-->
+                   <!--<c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >-->
+                             <!--LABEL ON FEATURE LINK  ${featureCount.index+1}          :    ${feature.label} <br/>-->
+                             <!--URL   ON FEATURE LINK  ${featureCount.index+1}          :    ${feature.url} <br/>-->
+                             <!--TYPE   ON FEATURE LINK ${featureCount.index+1}          :    ${feature.type} <br/>-->
+                             <!--DESCRIPTION   ON FEATURE LINK  ${featureCount.index+1}  :    ${feature.description} <br/>-->
+
+
+                   <!--</c:forEach>-->
+              <!--<br/><br/>-->
+             <!--<c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources" varStatus="additionalResourcesCount" >-->
+                <!--LABEL ON ADDITIONAL LINK  ${additionalResourcesCount.index+1}          :    ${additionalResources.label} <br/>-->
+                <!--URL   ON ADDITIONAL LINK  ${additionalResourcesCount.index+1}          :    ${additionalResources.url} <br/>-->
+                <!--TYPE  ON ADDITIONAL LINK ${additionalResourcesCount.index+1}           :    ${additionalResources.type} <br/>-->
+                <!--COLUMN HEADING    ON ADDITIONAL LINK ${additionalResourcesCount.index+1}         :    ${additionalResources.columnHeading} <br/>-->
+                <!--COLUMN NUMBER    ON ADDITIONAL LINK ${additionalResourcesCount.index+1}          :    ${additionalResources.columnNo} <br/>-->
+
+
+
+            <!--</c:forEach>-->
+            <!--<br/>-->
+        <!--</c:forEach>-->
 </jsp:root>
