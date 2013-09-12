@@ -11,7 +11,7 @@
             <input type="hidden" name="search_type" value="1"/>
             <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
             <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
-            <div class="prefix_4 grid_18 pr">
+            <div class="prefix_3 grid_18 pr">
                 <div class="line">
                     <div class="unit size35of100">
                         <h4 class="make-ffffff bold bottom mtm">Find a school in ${city} ${state.abbreviation}</h4></div>
