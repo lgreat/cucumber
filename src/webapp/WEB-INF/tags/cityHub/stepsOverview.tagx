@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub">
+
+    <div class="container_24 clearfix pvl">
+    <div class="prefix_8 grid_8 suffix_8 mbl">
+        <div class="line">
+            <div class="unit size40of100">5</div>
+            <div class="unit size60of100">
+            Simple steps<br/>
+            to choosing school in<br/>
+            ${city} ${state.abbreviation}
+            </div>
+        </div>
+    </div>
+    <div class="prefix_5 grid_14 suffix_5 clearfix">
+        <span class="iconx48 i-48-choosing-step-1 fl"><!--Do not collapse--></span>
+        <div class="border-FFB843 fl" style="width: 70px; margin-top: 24px;"><!--Do not collapse--></div>
+        <span class="iconx48 i-48-choosing-step-2 fl"><!--Do not collapse--></span>
+        <div class="border-FFB843 fl" style="width: 70px; margin-top: 24px;"><!--Do not collapse--></div>
+        <span class="iconx48 i-48-choosing-step-3 fl"><!--Do not collapse--></span>
+        <div class="border-FFB843 fl" style="width: 70px; margin-top: 24px;"><!--Do not collapse--></div>
+        <span class="iconx48 i-48-choosing-step-4 fl"><!--Do not collapse--></span>
+        <div class="border-FFB843 fl" style="width: 70px; margin-top: 24px;"><!--Do not collapse--></div>
+        <span class="iconx48 i-48-choosing-step-5 fl"><!--Do not collapse--></span><br/>
+    </div>
+    <div class="prefix_4 grid_16 suffix_4 clearfix">
+        <div class="line">
+            <div class="unit size4of100">&amp;nbsp;</div>
+            <div class="unit size13of100 tac">
+                <a href="#" class="small bold noUnderline make-666666 bottom">Think about your needs</a>
+            </div>
+            <div class="unit size6of100">&amp;nbsp;</div>
+            <div class="unit size13of100 tac">
+                <a href="#" class="small bold noUnderline make-666666 bottom">Understand your options</a>
+            </div>
+            <div class="unit size6of100">&amp;nbsp;</div>
+            <div class="unit size13of100 tac">
+                <a href="#" class="small bold noUnderline make-666666 bottom">Find schools that fit</a>
+            </div>
+            <div class="unit size6of100">&amp;nbsp;</div>
+            <div class="unit size13of100 tac">
+                <a href="#" class="small bold noUnderline make-666666 bottom">Visit schools you like</a>
+            </div>
+            <div class="unit size6of100">&amp;nbsp;</div>
+            <div class="unit size12of100 tac">
+                <a href="#" class="small bold noUnderline make-666666 bottom">Apply and enroll</a>
+            </div>
+        </div>
+    </div>
+    </div>
+</jsp:root>

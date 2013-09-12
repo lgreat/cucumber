@@ -680,7 +680,7 @@ span:hover.i-32-carouselRight{
 
 .iconx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x48/130823-48x48.png);
+    background-image: url(/res/img/sprites/icon/x48/130909-48x48.png);
     width: 48px;
     height: 48px;
 }
@@ -792,6 +792,26 @@ span.i-48-gallery-next-default:hover{
 
 .i-48-calender-month-12{
     background-position: -1248px 0;
+}
+
+.i-48-choosing-step-1{
+    background-position: -1296px 0;
+}
+
+.i-48-choosing-step-2{
+    background-position: -1344px 0;
+}
+
+.i-48-choosing-step-3{
+    background-position: -1392px 0;
+}
+
+.i-48-choosing-step-4{
+    background-position: -1440px 0;
+}
+
+.i-48-choosing-step-5{
+    background-position: -1488px 0;
 }
 
 
