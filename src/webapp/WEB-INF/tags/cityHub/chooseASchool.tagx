@@ -14,7 +14,7 @@
                               in-depth school profiles, details on the enrollment process in ${state.abbreviation}, and more.
              </p>
 
-            <a href="http://www.greatschools.org" target="_blank" class="small">Five steps to choosing a school &amp;#187;</a><br/>
+            <a href="/cityHub/choosePage.page" target="_blank" class="small">Five steps to choosing a school &amp;#187;</a><br/>
             <a href="http://www.greatschools.org" target="_blank" class="small">Who's who in the ${state.abbreviation} education community &amp;#187;</a><br/>
             <a href="http://www.greatschools.org" target="_blank" class="small">How enrollment works in ${state.abbreviation} &amp;#187;</a>
         </div>
