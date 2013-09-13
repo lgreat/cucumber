@@ -29,8 +29,6 @@ import java.util.*;
  */
 @Component
 public class CityHubHelper {
-    public static final String BEAN_ID = "cityHubHelper";
-
     private static Logger _logger = Logger.getLogger(CityHubHelper.class);
 
     public static final String DATE_FORMAT = "MM-dd-yyyy";

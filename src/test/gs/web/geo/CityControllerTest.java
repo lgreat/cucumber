@@ -24,11 +24,15 @@ import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.util.RedirectView301;
+import org.easymock.classextension.EasyMock;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
+
+import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.expect;
 
 /**
  * Tests CityController.
@@ -39,6 +43,7 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     private CityController _controller;
     private SessionContextUtil _sessionContextUtil;
+    private CityHubHelper _cityHubHelper;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -58,18 +63,24 @@ public class CityControllerTest extends BaseControllerTestCase {
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
 
-        _controller.setCityHubHelper((CityHubHelper) getApplicationContext().getBean(CityHubHelper.BEAN_ID));
+        _cityHubHelper = EasyMock.createStrictMock(CityHubHelper.class);
+        _controller.setCityHubHelper(_cityHubHelper);
     }
 
 
 
     public void testFindDistricts() throws Exception {
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");
         request.setParameter("city", "alameda");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
 
+        EasyMock.replay(_cityHubHelper);
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         Map model = mav.getModel();
 
@@ -95,12 +106,17 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testCapitalization() throws Exception {
         // Alison complained that "city=oakland" fails to capitalize as "Oakland".
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");
         request.setParameter("city", "alameda");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
 
+        EasyMock.replay(_cityHubHelper);
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         Map model = mav.getModel();
 
@@ -109,11 +125,16 @@ public class CityControllerTest extends BaseControllerTestCase {
 
 
     public void testOakland() throws Exception {
-
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "oakland");
         request.addParameter("state", "CA");
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
@@ -123,11 +144,16 @@ public class CityControllerTest extends BaseControllerTestCase {
     }
 
     public void testAlamedaHasSchools() throws Exception {
-
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "alameda");
         request.addParameter("state", "CA");
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
@@ -142,11 +168,16 @@ public class CityControllerTest extends BaseControllerTestCase {
 
 
     public void testSFIsAvalidCity() throws Exception {
-
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "san francisco");
         request.addParameter("state", "CA");
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
@@ -161,42 +192,66 @@ public class CityControllerTest extends BaseControllerTestCase {
     }
 
     public void testSearchEngineFriendlyUrlsWork() throws Exception {
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/alaska/anchorage");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
         ICity city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Anchorage", city.getName());
         assertEquals(State.AK, city.getState());
 
+        EasyMock.reset(_cityHubHelper);
         request.setRequestURI("/alaska/big-lake");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Big Lake", city.getName());
         assertEquals(State.AK, city.getState());
 
+        EasyMock.reset(_cityHubHelper);
         request.setRequestURI("/alaska/st.-marys");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("St. Marys", city.getName());
         assertEquals(State.AK, city.getState());
 
         // Make sure old one works
+        EasyMock.reset(_cityHubHelper);
         request.addParameter("city", "st. marys");
         request.addParameter("state", "AK");
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("St. Marys", city.getName());
@@ -206,31 +261,49 @@ public class CityControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
 
         // Make sure gs-web gets stripped off
+        EasyMock.reset(_cityHubHelper);
         request.setRequestURI("/gs-web/alaska/anchorage");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
          modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Anchorage", city.getName());
         assertEquals(State.AK, city.getState());
 
+        EasyMock.reset(_cityHubHelper);
         request.setRequestURI("/gs-web/alaska/big-lake");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("Big Lake", city.getName());
         assertEquals(State.AK, city.getState());
 
+        EasyMock.reset(_cityHubHelper);
         request.setRequestURI("/gs-web/alaska/st.-marys");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
         assertEquals("St. Marys", city.getName());
@@ -251,12 +324,17 @@ public class CityControllerTest extends BaseControllerTestCase {
     }
 
     public void xtestBuffaloNY() throws Exception {
-
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Buffalo");
         request.addParameter("state", "NY");
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
+
+        EasyMock.replay(_cityHubHelper);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNull(city);
@@ -270,13 +348,18 @@ public class CityControllerTest extends BaseControllerTestCase {
 
 
     public void testModelContainsProperCityCanonicalPath() throws Exception {
+        EasyMock.reset(_cityHubHelper);
         GsMockHttpServletRequest request = getRequest();
         request.addParameter(CityController.PARAM_CITY, "san francisco");
         request.addParameter("state", "CA");
 
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        expect(_cityHubHelper.getCollectionBrowseLinks((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
+                (String) anyObject(), (State) anyObject())).andReturn(new AnchorListModel());
 
+        EasyMock.replay(_cityHubHelper);
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+        EasyMock.verify(_cityHubHelper);
 
         String path = (String) modelAndView.getModel().get(CityController.PARAM_CITY_CANONICAL_PATH);
 

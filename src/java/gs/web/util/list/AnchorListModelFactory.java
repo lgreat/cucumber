@@ -551,7 +551,7 @@ public class AnchorListModelFactory {
         }
 
         try {
-            searchResultsPage = _gsSolrSearcher.search(q, SolrSchoolSearchResult.class, true);
+            searchResultsPage = _gsSolrSearcher.search(q, SolrSchoolSearchResult.class, false);
 
         } catch (SearchException e) {
             _log.error("Problem occured while getting schools or reviews: ", e);

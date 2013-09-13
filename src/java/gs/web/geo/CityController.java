@@ -208,18 +208,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
             model.put(MODEL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
         }
 
-        int schoolCount = _schoolDao.countSchools(state, null, null, city.getName());
-        model.put(MODEL_SCHOOL_COUNT, schoolCount);
-
-        if (schoolCount > 0) {
-            AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, cityNameParam, cityDisplayName, request);
-            model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
-
-            //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
-            //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
-        }
-//        AnchorListModel schoolBreakdownAnchorList = getCityHubHelper().getCollectionBrowseLinks(request, null, city.getName(), state);
-//        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
+        AnchorListModel schoolBreakdownAnchorList = getCityHubHelper().getCollectionBrowseLinks(request, null, city.getName(), state);
+        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
 
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
