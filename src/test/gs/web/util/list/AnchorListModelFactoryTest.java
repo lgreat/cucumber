@@ -240,7 +240,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         // test with city for solr query that returns empty result object, anchor object should be null.
         city = "asdfgh";
         EasyMock.reset(_gsSolrSearcher);
-        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(true))).
+        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(new SearchResultsPage<SolrSchoolSearchResult>(0, null));
         EasyMock.replay(_gsSolrSearcher);
         anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, schoolType, state, city);
@@ -248,7 +248,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertNull(anchor);
 
         EasyMock.reset(_gsSolrSearcher);
-        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(true))).
+        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(new SearchResultsPage<SolrSchoolSearchResult>(0, null));
         EasyMock.replay(_gsSolrSearcher);
         anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, levelCode, state, city);
@@ -283,7 +283,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         // test with all valid input, should give anchor object with href and content.
         city = "asdfgh";
         EasyMock.reset(_gsSolrSearcher);
-        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(true))).
+        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(searchResultsPage);
         EasyMock.replay(_gsSolrSearcher);
         anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, schoolType, state, city);
@@ -293,7 +293,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals("Expect public school to be returned", "Public Schools", anchor.getContents());
 
         EasyMock.reset(_gsSolrSearcher);
-        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(true))).
+        expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(searchResultsPage);
         EasyMock.replay(_gsSolrSearcher);
         anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, levelCode, state, city);
