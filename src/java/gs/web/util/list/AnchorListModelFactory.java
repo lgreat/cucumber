@@ -525,12 +525,12 @@ public class AnchorListModelFactory {
                 String path = getSiteRelativePath(request, state, collectionId, cityName, null, levelCode);
 
                 if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
-                    String anchorContent = null;
-                    if(levelCode.hasMultipleLevelCodes()) {}
-                    else {
-                        anchorContent = levelCode.getLowestLevel().getLongName();
-                    }
-                    anchor = new Anchor(path, WordUtils.capitalize(anchorContent) + " Schools");
+                    // content for preschools is just "Preschools", for other types that will be "Elementary Schools",
+                    // "Middle Schools", "High Schools"
+//                    if(levelCode.hasMultipleLevelCodes()) {}
+//                    else {}
+                    anchor = new Anchor(path, WordUtils.capitalize(levelCode.getLowestLevel().getLongName()) +
+                            (levelCode.equals(LevelCode.PRESCHOOL) ? "s" : " Schools"));
                     anchor.setCount(schoolSearchResult.getTotalResults());
                     anchor.setAfter(" (" + schoolSearchResult.getTotalResults() + ")");
                 }
