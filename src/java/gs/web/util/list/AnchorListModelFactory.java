@@ -497,6 +497,7 @@ public class AnchorListModelFactory {
                     add(schoolType);
                 }};
 
+                // implementing GS-13231 lucene changes
                 if((SchoolType.PUBLIC).equals(schoolType)) {
                     schoolTypes.add(SchoolType.CHARTER);
                 }
@@ -568,15 +569,14 @@ public class AnchorListModelFactory {
                                       String city, Set<SchoolType> schoolTypes, LevelCode levelCode) {
         String href = null;
         try {
-            UrlBuilder urlBuilder = null;
+            // TODO: url for collection id may not be same as city. multiple cities can exist in collection. this should work only for DC now.
             if(collectionId != null) {}
-            else {
-                urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city, schoolTypes, levelCode);
-            }
+            else {}
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city, schoolTypes, levelCode);
 
             href = urlBuilder.asSiteRelative(request);
         }
-        catch (Exception ex) {
+        catch (IllegalArgumentException ex) {
             _log.error("AnchorListModelFactory - unable to build city path", ex.getCause());
         }
         return href;
