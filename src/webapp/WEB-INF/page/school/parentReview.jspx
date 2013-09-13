@@ -20,6 +20,7 @@
 <jsp:scriptlet>
 request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName(request));
 </jsp:scriptlet>
+<c:set var="isTopical" value="${selectedTopic ne null}"/>
 <head>
     <c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
     <title>Write a school review | GreatSchools</title>
@@ -62,6 +63,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
         }
         var showHeaderDefault = false;
         var fromMobile = getParameterByName('fromMobile');
+        var gs_isTopical = ${isTopical?'true':'false'};
     </script> ]]>
     <c:set var="pageOneDisplay" value=""/>
     <c:set var="pageTwoDisplay" value="dn"/>
@@ -82,13 +84,10 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
     </jsp:scriptlet>
 
     ${requestScope.pageHelper.headElementsWithoutCss}
-    <!--<gsml:javascript src="/res/js/schoolReviewForm.js"/>-->
     <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
     <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
     <gsml:javascript src="/res/js/jquery.sb.min.js"/>
     <gsml:javascript src="/res/js/parentReviewLandingPage.js"/>
-    <!--<gsml:javascript src="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>-->
-    <!--<gsml:javascript src="/res/js/landingPage/reviewAnimation.js"/>-->
     <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.min.js"/>
 
     <![CDATA[
@@ -237,7 +236,9 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                 </c:when>
                 <c:otherwise>
                     <p style="font:bold 60px/68px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
-                    text-shadow: 0 0 24px rgba(0,0,0,1)">You know your school best!</p>
+                    text-shadow: 0 0 24px rgba(0,0,0,1)">
+                        You know <c:if test="${selectedTopic ne null}">${selectedTopic.name} at</c:if>
+                        your school best!</p>
                     <p style="font-family:'SourceSansPro-It',Arial,Helvetica,sans-serif;font-size:20px;color:#ffCE7A;
                     text-shadow: 0 0 20px rgba(0,0,0,.6)">Help others find their great school – rate and review yours now</p>
                 </c:otherwise>
@@ -408,6 +409,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
             <input type="hidden" name="state" id="schoolState" value="${school.stateAbbreviation}"/>
             <input type="hidden" name="isAddNewParentReview" value="true"/>
             <input type="hidden" name="fromReviewLandingPage" value="true"/>
+            <input type="hidden" name="topicId" value="${selectedTopic ne null ? selectedTopic.id : ''}"/>
 
             <c:if test="${morganStanley}">
                 <input type="hidden" name="how" value="morganstanley"/>
@@ -434,7 +436,9 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                     </div>
                     <div class="paper_bg">
                         <div style="padding: 10px 0px 10px 20px" class="clearfix">
-                            <div class="fl"><h4 class="bottom sourceSansPro-Semibold">Rate this school</h4></div>
+                            <div class="fl"><h4 class="bottom sourceSansPro-Semibold">
+                                Rate this school <c:if test="${selectedTopic ne null}">on ${selectedTopic.name}</c:if>
+                            </h4></div>
                             <div id="starRatingContainerReview" class="fl pan man mlm">
                                 <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                                 <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
@@ -445,8 +449,10 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                             </div>
                         </div>
                         <div>
+                            <c:set var="optionalTopicInsert" value=""/>
+                            <c:if test="${isTopical}"><c:set var="optionalTopicInsert" value="${selectedTopic.name} at "/></c:if>
                             <textarea id="js-reviewContent" name="comments" class="js-reviewContent review-text lined_paper default"
-                                       placeholder="Tell us about your school"><!-- do not collapse --></textarea>
+                                       placeholder="Tell us about ${optionalTopicInsert}your school"><!-- do not collapse --></textarea>
                         </div>
                     </div>
                     <div class="clearfix ptm">
@@ -538,9 +544,18 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                                 </div>
                                 <div id="js-reviewsLandingStarBox-Start">
                                     <ul class="listNoBullet small">
-                                        <li>What do you think others should know?</li>
-                                        <li>What do you like?</li>
-                                        <li>How could your school improve?</li>
+                                        <c:choose>
+                                            <c:when test="${isTopical and selectedTopic.id eq 1}">
+                                                <li>How does your school handle learning differences?</li>
+                                                <li>Is there specific dyslexia support?</li>
+                                                <li>Are there programs that support ADHD?</li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>What do you think others should know?</li>
+                                                <li>What do you like?</li>
+                                                <li>How could your school improve?</li>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </ul></div>
                                 <!--<div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>-->
                                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">

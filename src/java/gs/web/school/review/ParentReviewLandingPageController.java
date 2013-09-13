@@ -3,7 +3,8 @@ package gs.web.school.review;
 
 import gs.data.community.User;
 import gs.data.school.School;
-import gs.data.util.NameValuePair;
+import gs.data.school.review.IReviewTopicDao;
+import gs.data.school.review.ReviewTopic;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
@@ -29,6 +30,8 @@ public class ParentReviewLandingPageController extends AbstractController {
     private boolean _morganStanley = false;
     @Autowired
     RequestAttributeHelper _requestAttributeHelper;
+    @Autowired
+    private IReviewTopicDao _reviewTopicDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String,Object> model = new HashMap<String,Object>();
@@ -42,6 +45,26 @@ public class ParentReviewLandingPageController extends AbstractController {
         }
         School school = _requestAttributeHelper.getSchool(request);
         model.put("school", school);
+
+        List<ReviewTopic> topics = _reviewTopicDao.findAll();
+        model.put("topics", topics);
+        ReviewTopic selectedTopic = null;
+        Integer topicId = null;
+        if (request.getParameter("topicId") != null) {
+            try {
+                topicId = Integer.parseInt(request.getParameter("topicId"));
+            } catch (NumberFormatException nfe) {
+                // log?
+            }
+        }
+        if (topicId != null && topicId > 0) {
+            for (ReviewTopic topic: topics) {
+                if (topic.getId().intValue() == topicId) {
+                    selectedTopic = topic;
+                }
+            }
+        }
+        model.put("selectedTopic", selectedTopic);
 
         model.put(MODEL_MORGAN_STANLEY, isMorganStanley());
         return new ModelAndView(getViewName(), model);

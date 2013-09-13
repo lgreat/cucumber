@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,6 +69,18 @@ public class ReviewHelper {
     }
 
     /**
+     * Use ReviewCommand to set data on a TopicalSchoolReview
+     */
+    public void populateTopicalReviewFromCommand(TopicalSchoolReview review, ReviewCommand command) {
+        review.setRating(CategoryRating.getCategoryRating(command.getOverallAsString()));
+
+        review.setHow(command.getClient());
+        review.setWho(command.getPoster());
+        review.setComments(StringUtils.abbreviate(command.getComments(), 1200));
+        review.setIp(command.getIp());
+    }
+
+    /**
      * Instantiate and set data on a new Review. Does not save review
      * @param user
      * @param school
@@ -81,6 +94,24 @@ public class ReviewHelper {
         review.setSchool(school);
 
         populateReviewFromCommand(review, school, command);
+
+        return review;
+    }
+
+    /**
+     * Instantiate and set data on a new Review. Does not save review
+     * @param user
+     * @param school
+     * @param command
+     * @return
+     */
+    public TopicalSchoolReview createTopicalReview(final User user, final School school, final ReviewCommand command) {
+
+        TopicalSchoolReview review = new TopicalSchoolReview();
+        review.setUser(user);
+        review.setSchool(school);
+
+        populateTopicalReviewFromCommand(review, command);
 
         return review;
     }

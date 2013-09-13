@@ -88,6 +88,7 @@ public class ReportContentService extends SimpleFormController
                     }
                     break;
                 case schoolReview:
+                case topicalSchoolReview:
                     _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
                     // Per GS-10420, do not disable school reviews based on # of reports
                     break;
@@ -110,7 +111,9 @@ public class ReportContentService extends SimpleFormController
                     }
                     break;
             }
-            if (type != ReportedEntity.ReportedEntityType.schoolReview && type != ReportedEntity.ReportedEntityType.schoolMedia) {
+            if (type != ReportedEntity.ReportedEntityType.schoolReview
+                    && type != ReportedEntity.ReportedEntityType.schoolMedia
+                    && type != ReportedEntity.ReportedEntityType.topicalSchoolReview) {
                 // don't send emails for reporting school reviews
                 if (urlToContent != null) {
                     sendEmail(urlToContent, type, reporter, reportee, reason);

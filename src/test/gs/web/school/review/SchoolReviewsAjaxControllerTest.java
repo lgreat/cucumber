@@ -2,13 +2,11 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.json.JSONObject;
 import gs.data.school.IHeldSchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
-import gs.data.school.review.CategoryRating;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Poster;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.state.State;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
@@ -16,7 +14,9 @@ import gs.web.BaseControllerTestCase;
 import gs.web.SlowTest;
 import gs.web.community.IReportContentService;
 import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.easymock.IArgumentMatcher;
 import org.junit.experimental.categories.Category;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.*;
@@ -50,6 +50,9 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     private IHeldSchoolDao _heldSchoolDao;
     private EmailVerificationReviewOnlyEmail _emailVerificationEmail;
     ReviewHelper _reviewHelper;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
+    private IReviewTopicDao _reviewTopicDao;
+    private ReviewTopic _topic;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -91,6 +94,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _sender.setHost("mail.greatschools.org");
 
         _emailVerificationEmail = createStrictMock(EmailVerificationReviewOnlyEmail.class);
+        _topicalSchoolReviewDao = createStrictMock(ITopicalSchoolReviewDao.class);
+        _reviewTopicDao = createStrictMock(IReviewTopicDao.class);
 
         _controller.setEmailHelperFactory((EmailHelperFactory) getApplicationContext().getBean(EmailHelperFactory.BEAN_ID));
         _controller.getEmailHelperFactory().setMailSender(_sender);
@@ -102,9 +107,26 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setBannedIPDao(_bannedIPDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setEmailVerificationReviewOnlyEmail(_emailVerificationEmail);
+        _controller.setTopicalSchoolReviewDao(_topicalSchoolReviewDao);
+        _controller.setReviewTopicDao(_reviewTopicDao);
 
         _reviewHelper = new ReviewHelper();
         _controller.setReviewHelper(_reviewHelper);
+
+        _topic = new ReviewTopic();
+        _topic.setId(1L);
+    }
+
+    private void replayAllMocks() {
+        replayMocks(_exactTargetAPI, _reviewDao, _userDao, _subscriptionDao, _reportContentService,
+                _reportedEntityDao, _heldSchoolDao, _bannedIPDao, _alertWordDao, _emailVerificationEmail,
+                _topicalSchoolReviewDao, _reviewTopicDao);
+    }
+
+    private void verifyAllMocks() {
+        verifyMocks(_exactTargetAPI, _reviewDao, _userDao, _subscriptionDao, _reportContentService,
+                _reportedEntityDao, _heldSchoolDao, _bannedIPDao, _alertWordDao, _emailVerificationEmail,
+                _topicalSchoolReviewDao, _reviewTopicDao);
     }
 
     public void testSubmitExistingUserNoPasswordNoExistingReview() throws Exception {
@@ -844,4 +866,296 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
     }
 
+    public void testSubmitTopicalReviewNewUserParent() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("pp"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentMss() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        _command.setMssSub(true);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        List<Subscription> subs = new ArrayList<Subscription>(1);
+        Subscription sub = new Subscription(_user, SubscriptionProduct.MYSTAT, _school.getDatabaseState());
+        sub.setSchoolId(_school.getId());
+        subs.add(sub);
+        expect(_subscriptionDao.findMssSubscriptionsByUser(_user)).andReturn(new ArrayList<Subscription>());
+        _subscriptionDao.addNewsletterSubscriptions(eq(_user), eq(subs));
+        _subscriptionDao.saveSubscription(subRating);
+        expectLastCall().times(2); // TODO: This seems like a bug
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("pp"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentWarningWord() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe."))
+                .andReturn(getAlertWordsMap("warning", null));
+        expect(_reportContentService.getModerationEmail()).andReturn("aroy@greatschools.org");
+        _reportContentService.reportContent(isA(User.class), eq(_user), eq(_request),
+                eq(1), // id hard coded in custom matcher below
+                eq(ReportedEntity.ReportedEntityType.topicalSchoolReview),
+                eq(_controller.getReasonToReport(getAlertWordsMap("warning", null)).toString()));
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("pp"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentReallyBadWord() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe."))
+                .andReturn(getAlertWordsMap(null, "spiffy"));
+        expect(_reportContentService.getModerationEmail()).andReturn("aroy@greatschools.org");
+        _reportContentService.reportContent(isA(User.class), eq(_user), eq(_request),
+                eq(1), // id hard coded in custom matcher below
+                eq(ReportedEntity.ReportedEntityType.topicalSchoolReview),
+                eq(_controller.getReasonToReport(getAlertWordsMap(null, "spiffy")).toString()));
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("pd"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentOnIPBanList() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(true);
+        expect(_reportContentService.getModerationEmail()).andReturn("aroy@greatschools.org");
+        _reportContentService.reportContent(isA(User.class), eq(_user), eq(_request),
+                eq(1), // id hard coded in custom matcher below
+                eq(ReportedEntity.ReportedEntityType.topicalSchoolReview),
+                eq("IP 127.0.0.1 was on ban list at time of submission."));
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("pu"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentSchoolHeld() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe."))
+                .andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(true);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("ph"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserStudent() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.STUDENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("pu"));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewExistingUserParent() throws Exception {
+        _user.setPlaintextPassword("foobar");
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(_topic.getId());
+        _command.setPoster(Poster.PARENT);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        expect(_topicalSchoolReviewDao.find(_school.getDatabaseState(), _school.getId(), _user.getId(), _topic.getId())).andReturn(null);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+//        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+//        subRating.setSchoolId(_school.getId());
+//        _subscriptionDao.saveSubscription(subRating);
+        _topicalSchoolReviewDao.save(reviewWithStatusEq("p"));
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("true", output.get("reviewPosted"));
+    }
+
+    private Map<IAlertWordDao.alertWordTypes, Set<String>> getAlertWordsMap(String warningWord, String reallyBadWord) {
+        Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordTypesMap = new HashMap<IAlertWordDao.alertWordTypes, Set<String>>(2);
+        if (warningWord != null) {
+            Set<String> warningWords = new HashSet<String>();
+            warningWords.add(warningWord);
+            alertWordTypesMap.put(IAlertWordDao.alertWordTypes.WARNING, warningWords);
+        }
+        if (reallyBadWord != null) {
+            Set<String> reallyBadWords = new HashSet<String>();
+            reallyBadWords.add(reallyBadWord);
+            alertWordTypesMap.put(IAlertWordDao.alertWordTypes.REALLY_BAD, reallyBadWords);
+        }
+        return alertWordTypesMap;
+    }
+
+    private static TopicalSchoolReview reviewWithStatusEq(String status) {
+        reportMatcher(new TopicalSchoolReviewMatcher(status));
+        return null;
+    }
+
+    private static class TopicalSchoolReviewMatcher implements IArgumentMatcher {
+        private String _expectedStatus;
+        private String _actualStatus;
+        public TopicalSchoolReviewMatcher(String status) {
+            _expectedStatus = status;
+        }
+
+        public boolean matches(Object argument) {
+            if (!(argument instanceof TopicalSchoolReview)) {
+                return false;
+            }
+            TopicalSchoolReview actualReview = (TopicalSchoolReview) argument;
+            actualReview.setId(1L); // fake an id set
+            _actualStatus = actualReview.getStatus();
+            return StringUtils.equals(_expectedStatus, actualReview.getStatus());
+        }
+
+        public void appendTo(StringBuffer buffer) {
+            buffer.append("reviewWithStatusEq(");
+            buffer.append("expected TopicalSchoolReview with status \"").append(_expectedStatus).append("\"");
+            buffer.append(", instead got status \"").append(_actualStatus).append("\"");
+            buffer.append(")");
+        }
+    }
 }

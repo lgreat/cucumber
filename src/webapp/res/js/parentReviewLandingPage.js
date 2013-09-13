@@ -453,6 +453,11 @@ function GS_selectCallbackReviewsIAm(selectValue){
         $('#js-reviewsLandingStarBox-NoAdd').hide();
         $('#js-reviewsLandingStarBox-Student').hide();
     }
+    if (typeof window.gs_isTopical !== 'undefined' && window.gs_isTopical) {
+        hideAllLayers();
+        $('#js-reviewsLandingTitleHelpful').show();
+        $('#js-reviewsLandingStarBox-Start').show();
+    }
     $('#selectValueIAm').val(submitValue);
     $('#posterAsString').val(submitValue);
 }
