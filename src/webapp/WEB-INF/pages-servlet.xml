@@ -1103,6 +1103,20 @@
         <property name="leftNavSelectedItem" value=""/>
     </bean>
 
+    <bean name="/about/local.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="7631"/>
+        <property name="adSlotPrefix" value="AboutUs_Local"/>
+        <property name="omniturePageName" value="aboutUs_Local"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Local"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="local"/>
+    </bean>
+
     <!-- example CMS-driven page; copy XML block below and change bean name to URL path -->
     <bean name="/sample-cms-page.page"
           class="gs.web.content.cms.CmsPageController"
