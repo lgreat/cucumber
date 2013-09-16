@@ -5,13 +5,15 @@
 >
 
     <div class="container_24 clearfix pvl">
-    <div class="prefix_8 grid_8 suffix_8 mbl">
+    <div class="prefix_7 grid_10 suffix_8 mvl">
         <div class="line">
-            <div class="unit size40of100" style="font-size: 240px">5</div>
-            <div class="unit size60of100">
-            Simple steps<br/>
-            to choosing school in<br/>
-            ${city} ${state.abbreviation}
+            <div class="unit size31of100 make-ffb725" style="font-size: 240px; line-height: 180px; font-family: sourcesanspro-semibold">5</div>
+            <div class="unit size57of100 lastUnit mtl pll">
+                <h1 class="SourceSansPro-Semibold-h1 make-0578AA bottom">Simple steps</h1>
+                <h2 class="SourceSansPro-Semibold-h2 make-666666">
+                    to choosing school in<br/>
+                    ${city} ${state.abbreviation}
+                </h2>
             </div>
         </div>
     </div>
