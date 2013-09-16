@@ -76,6 +76,8 @@ public class CityHubChoosePageController {
         ModelMap importantEventsMap = getModelMap(state, city);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
+        Integer collectionId = getCityHubHelper().getHubID(city, state);
+        modelAndView.addObject("collectionId", collectionId);
 
         /**
          * Get Step Info  .

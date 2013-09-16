@@ -31,6 +31,13 @@ public class CityHubImportantDatesController {
     public String showPage(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
         String city = "Washington";
         State state = State.DC;
+
+        modelMap.put("city", city);
+        modelMap.put("state", state);
+
+        Integer collectionId = getCityHubHelper().getHubID(city, state);
+        modelMap.put("collectionId", collectionId);
+
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);

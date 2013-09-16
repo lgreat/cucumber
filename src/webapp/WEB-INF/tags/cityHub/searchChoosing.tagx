@@ -8,8 +8,8 @@
             <form name="searchBySchoolNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
                 <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                 <input type="hidden" name="search_type" value="1"/>
-                <input type="hidden" name="hub" id="jq-hub" value="${city}"/>
                 <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
+                <input type="hidden" name="collectionId" id="jq-collectionId" value="${collectionId}"/>
                 <div class="prefix_2 grid_19 pr">
                     <div class="line">
                         <div class="unit size33of100">
