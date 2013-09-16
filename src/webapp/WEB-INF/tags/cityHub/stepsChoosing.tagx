@@ -21,7 +21,7 @@
                             <a href="${feature.url}">${feature.label}</a>
                             <c:if test="${not empty feature.description}">
                                 <br/><br/>
-                                ${feature.description}<br/>
+                                ${feature.description}<br/><br/>
                             </c:if>
                         </div>
                     </c:forEach>
