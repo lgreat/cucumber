@@ -131,7 +131,7 @@
                     ${source.obj1.source}<c:if test="${not empty source.obj2}">, ${source.obj2-1}-${source.obj2}</c:if><br/>
                 </c:forEach>
                 <c:if test="${avgFirstYearGpa ne null or avgUnitsCompleted ne null or (enrolledInCollegeAndReturned ne null and enrolledInCollegeAndReturned.schoolOverrideOrSchoolValue ne null)}">
-                    * Of those that went to ${school.databaseState.longName} public colleges
+                    * Of those that went to ${school.databaseState.longName} public postsecondary institutions
                 </c:if>
             </div>
 
