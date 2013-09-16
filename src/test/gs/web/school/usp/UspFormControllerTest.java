@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.Address;
@@ -426,6 +427,48 @@ public class UspFormControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
 
         assertEquals(((MockHttpServletResponse) _response).getContentAsString(), "{\"redirect\":\"http://www.greatschools.org/school/QandA/thankYou.page?schoolId=1&state=CA\"}");
+    }
+
+    // Make sure facebook submit checks for previously saved responses.
+    public void testFormSubmitWithPrevSavedResponsesFacebook() throws Exception {
+        setUpFormSubmitVariables();
+        UserRegistrationOrLoginService.Summary summary = new UserRegistrationOrLoginService.Summary();
+        User user = new User();
+        user.setId(1);
+        user.setPlaintextPassword("qwerty");
+        summary.setUser(user);
+        summary.setWasUserLoggedIn(false);
+        School school = getSchool(_state, _schoolId);
+        //Set the user action to facebookUserInSession -- meaning user was logged in via Facebook during submit
+        getRequest().setParameter("action","facebookUserInSession");
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(_state, _schoolId)).andReturn(school);
+
+        Multimap<String, String> previousResponses = LinkedListMultimap.create();
+        previousResponses.put("boys_sports", "baseball");
+        expect(_userRegistrationOrLoginService.getUserFromSession(_request)).andReturn(summary);
+        expect(_uspHelper.getSavedResponses(user, school, _state, false)).andReturn(previousResponses);
+        expect(_espResponseDao.getAllActiveResponses(eq(school))).andReturn(
+                Arrays.asList(
+                        EspResponse.with()
+                                .school(school)
+                                .key("boys_sports")
+                                .source(EspResponseSource.usp)
+                                .value("baseball")
+                                .create()
+                ));
+        // just fudge these calls since I'm not exactly sure what they are doing and I don't really care
+        // (Something to do with pre-populating the form?)
+        // the important part is that this code path is triggered by the above preconditions
+        expect(_uspHelper.formFieldsBuilderHelper(isA(Multimap.class), eq(false))).andReturn(null);
+        expect(_uspHelper.jsonFormFieldsBuilderHelper(null, user, false)).andReturn(new JSONObject());
+        replayAllMocks();
+        _controller.onUspUserSubmitForm(_request, _response, _userRegistrationCommand, _userLoginCommand, _bindingResult,
+                _schoolId, _state);
+        verifyAllMocks();
+
+        assertEquals("{\"hasExistingSavedResponses\":\"true\"}", ((MockHttpServletResponse) _response).getContentAsString());
     }
 
     public School getSchool(State state, Integer schoolId) {

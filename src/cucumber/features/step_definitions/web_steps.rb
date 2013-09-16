@@ -7,7 +7,9 @@ DEFAULT_SELECTORS = {
     'All grade levels' => 'div#js-gradeLevels div[data-gs-dropdown-opener]',
     '5 miles' => 'div#js-radius div[data-gs-dropdown-opener]',
     'Any rating' => 'div#js-ratingsDropDown div[data-gs-dropdown-opener]',
-    'the search results filter by rating dialog' => '#js-ratingsDropDown'
+    'the search results filter by rating dialog' => '#js-ratingsDropDown',
+    'primary nav' => '#gs-primary',
+    'secondary nav' => '#gs-secondary',
 }
 PAGE_SELECTORS ||= {}
 CURRENT_SELECTORS ||= {}

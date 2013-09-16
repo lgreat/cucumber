@@ -6,7 +6,8 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-        >
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
+
 
     <jsp:directive.attribute name="adjustHeight" type="java.lang.Boolean" required="false"/>
     <jsp:directive.attribute name="omnitureTileName" type="java.lang.String" required="false"/>
@@ -15,18 +16,35 @@
 
     <link:uspForm school="${school}" styleClass="tdn" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');">
         <div class="mod standard_3-1">
+
             <div class="outer">
-                <div class="inner bg-uspPromo ie-moduleHeight-162">
-                    <div class="hd tac">
-                        <h4 class="bottom">Do you know this school?</h4>
-                    </div>
-                    <div class="bd tac" style="${moduleHeight}}">
-                        <div class="small mtm">
-                            Help other families<br/>learn more  &amp;raquo;
+
+                    <variant:a>
+                        <div class="inner bg-uspPromo ie-moduleHeight-162">
+                            <div class="hd tac">
+                                <h4 class="bottom">Do you know this school?</h4>
+                            </div>
+                            <div class="bd tac" style="${moduleHeight}}">
+                                <div class="small mtm">
+                                    Help other families<br/>learn more  &amp;raquo;
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </variant:a>
+                    <variant:b>
+                        <div class="inner">
+                            <img src="/res/img/usp/abc_test_tile_B.png"/>
+                        </div>
+                    </variant:b>
+                    <variant:c>
+                        <div class="inner">
+                            <img src="/res/img/usp/abc_test_tile_C.png"/>
+                        </div>
+                    </variant:c>
+
             </div>
+
+
         </div>
     </link:uspForm>
 

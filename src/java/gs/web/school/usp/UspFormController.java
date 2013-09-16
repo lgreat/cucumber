@@ -189,7 +189,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
 
         //If the user is being logged in via the sign in hover and already has responses, then do not save the new responses.
         //Show the user his old responses.
-        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(user, summary, school, false);
+        boolean doesUserAlreadyHaveResponses = checkIfUserHasExistingResponses(request, user, summary, school, false);
 
         if (doesUserAlreadyHaveResponses) {
             // We need the List of EspResponses all for ourselves
@@ -274,9 +274,13 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
      * Method to check if the user is being logged in via the sign in hover and already has responses.
      *
      */
-    public boolean checkIfUserHasExistingResponses(User user, UserRegistrationOrLoginService.Summary summary,
+    public boolean checkIfUserHasExistingResponses(HttpServletRequest request, User user, UserRegistrationOrLoginService.Summary summary,
                                                    School school, boolean isOspUser) {
-        if (user.isEmailValidated() && summary.wasUserLoggedIn()) {
+        String action = request.getParameter("action");
+        // Check for previously saved responses if the user was signed in during the submit
+        // this is true if the service signed the user in (summary.wasUserLoggedIn)
+        //   OR if Facebook signed the user in (FACEBOOK_USER_IN_SESSION)
+        if (user.isEmailValidated() && (summary.wasUserLoggedIn() || StringUtils.equals(LoginOrRegistrationActions.FACEBOOK_USER_IN_SESSION.getName(), action))) {
             Multimap<String, String> savedResponseKeyValues = _uspFormHelper.getSavedResponses(user, school, school.getDatabaseState(), isOspUser);
 
             return !savedResponseKeyValues.isEmpty();
@@ -378,7 +382,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
             String action = request.getParameter("action");
             UserRegistrationOrLoginService.Summary summary = null;
 
-            if (action.equals(LoginOrRegistrationActions.USER_IN_SESSION.getName())) {
+            if (action.equals(LoginOrRegistrationActions.USER_IN_SESSION.getName()) || action.equals(LoginOrRegistrationActions.FACEBOOK_USER_IN_SESSION.getName())) {
                 summary = _userRegistrationOrLoginService.getUserFromSession(request);
             } else if (action.equals(LoginOrRegistrationActions.LOGIN.getName())) {
                 summary = _userRegistrationOrLoginService.loginUser(userLoginCommand, request, response);
@@ -401,6 +405,7 @@ public class UspFormController implements ReadWriteAnnotationController, BeanFac
      */
     public enum LoginOrRegistrationActions {
         USER_IN_SESSION("userInSession"),
+        FACEBOOK_USER_IN_SESSION("facebookUserInSession"), // user was signed in via facebook during the submit
         LOGIN("login"),
         SEND_VERIFICATION_EMAIL("sendVerificationEmail"),
         REGISTRATION("registration");

@@ -11,8 +11,8 @@
 <p class="small bottom mbm">Please provide your contact information so a representative from
     <strong>${requestScope.schoolName}</strong> can contact you.</p>
 
-<form name='mktForm_1028' id='K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded"
-      action="http://app-o.marketo.com/index.php/leadCapture/save">
+<form name='mktForm_1028' id='js-K12LeadForm' method='POST' enctype="application/x-www-form-urlencoded"
+      action="http://app-o.marketo.com/index.php/leadCapture/save" onsubmit="return GS.k12FormSubmit();">
     <fieldset>
         <k12:formField label="First Name" id="k12_fname">
             <input id="k12_fname" class="input_5" name="FirstName" type="text"/>
@@ -47,7 +47,7 @@
                 <!--class='leftside'>&lt;!&ndash; not empty &ndash;&gt;</span>Learn More<span-->
                 <!--class='rightside'>&lt;!&ndash; not empty &ndash;&gt;</span></a>-->
         <!--<noscript><input type='submit' name='submited' value='Learn More'/></noscript>-->
-        <input class="button-1" type="submit" value="Learn More"/>
+        <input class="button-1" type="submit" value="Learn More" id="js-k12_leadgen_submit_button"/>
         <!-- k12 hidden fields -->
         <input class='mktFormHidden' name="K12_Country__c" id="K12_Country__c" type='hidden'
                value="UNITED STATES OF AMERICA"/>
@@ -94,27 +94,30 @@
         <input name="Product_Type__c" id="Product_Type__c" type='hidden' value="gen"/>
         <input type="hidden" name="formid" value="1028"/>
         <!-- M1-Marketo Change: Use desired thank you page url for retURL and returnURL value -->
-        <input type="hidden" name="returnURL" value="${gsweb:getRequestURL(pageContext.request)}#formSuccess"/>
-        <input type="hidden" name="retURL" value="${gsweb:getRequestURL(pageContext.request)}#formSuccess"/>
+        <input type="hidden" name="returnURL" value="${k12ClickThroughUrl}"/>
+        <input type="hidden" name="retURL" value="${k12ClickThroughUrl}"/>
 
     </fieldset>
 </form>
-    <div id="k12LeadGenFormSuccess" class="success-block mtl" style="display:none;"><strong>Thank you</strong>, a representative from ${requestScope.schoolName} will contact you soon.</div>
 
     <script type="text/javascript">
         GS.form = GS.form || {};
         GS.form.K12 = GS.form.K12 || {};
         GS.validation = GS.validation || {};
+        GS.k12FormSubmitOverride = false;
 
-        $('#K12LeadForm').on('submit', function() {
-            var valid = GS.form.K12.isValidForm();
-            if (valid) {
+        GS.k12FormSubmit = function() {
+            if (GS.k12FormSubmitOverride) {return true;}
+            var submitButton = document.getElementById('js-k12_leadgen_submit_button');
+            if (GS.form.K12.isValidForm()) {
                 if (s &amp;&amp; s.tl) {
-                    s.tl(this, 'o', 'K12_FormSubmit_${k12School}');
+                    s.tl(submitButton, 'o', 'K12_FormSubmit_${k12School}');
                 }
+                GS.k12FormSubmitOverride = true;
+                window.setTimeout("document.getElementById('js-K12LeadForm').submit();", 500);
             }
-            return valid;
-        });
+            return false;
+        };
 
         GS.validation.validateRequired = function(fieldSelector, errorSelector) {
             var isValid = true;
@@ -203,12 +206,6 @@
             }
             return true;
         };
-        $(function() {
-            var currentHash = window.location.hash;
-            if (currentHash == 'formSuccess' || currentHash == '#formSuccess') {
-                $('#k12LeadGenFormSuccess').show();
-            }
-        });
     </script>
 
 </jsp:root>

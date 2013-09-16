@@ -8,6 +8,13 @@ define_page_selectors 'parent review landing', {
     'Teacher quality' => '#starRatingContainerReviewTeacher',
     'Principal leadership' => '#starRatingContainerReviewPrincipal',
     'Parent involvement' => '#starRatingContainerReviewParent',
+    'monthly email updates box' => '#js-reviewLandingCheckboxEmail',
+    'message validation' => '.js-reviewContent-error',
+    'rating validation' =>  '.js-overallAsString-error',
+    'role validation' => '.js-posterAsString-error',
+    'terms validation' => '.js-parentReviewTerms-error',
+    'email validation' => '.js-email-error',
+
 }
 
 When /^I select my school to review: "([^\"]+)" in ([A-Z]{2})$/ do |school_name, state|
@@ -26,4 +33,18 @@ end
 When /^I select a[n]? "([^\"]+)" star rating$/ do |scope|
   star_container_selector = selector_for(scope)
   page.execute_script "$('#{star_container_selector}').trigger({type:'click', pageX:$('#{star_container_selector}').offset().left});"
+end
+
+When /^the monthly email updates box is by default already checked$/ do
+  my_selector = selector_for('monthly email updates box')
+  find(:css, my_selector +' .js-checkBoxSpriteOn').should be_visible
+  find(:css, my_selector + ' .js-checkBoxSpriteOff').should_not be_visible
+end
+
+When /^I see the following content:$/ do |table|
+  table.rows_hash.each do |pageElement, message|
+  element = find(:css, selector_for(pageElement))
+  element.should be_visible
+  element.should have_content(message)
+  end
 end

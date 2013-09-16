@@ -159,7 +159,7 @@ GS.form.uspForm = (function ($) {
         handleValidationResponse(errorClass, '', elem);
     };
 
-    var validateUspDataAndShowHover = function (uspForm) {
+    var validateUspDataAndShowHover = function (uspForm, isFromFacebook) {
         var data = uspForm.serializeArray();
         var isUserSignedIn = GS.isSignedIn();
         if (!isOspUser() && !doUspFormValidations(data)) {
@@ -177,10 +177,14 @@ GS.form.uspForm = (function ($) {
             }
             if (isUserSignedIn === true) {
                 $(SUBMIT_SELECTOR).prop('disabled',true);
-                data.push({name:"action", value:"userInSession"});
+                if (isFromFacebook === true) {
+                    data.push({name:"action", value:"facebookUserInSession"});
+                } else {
+                    data.push({name:"action", value:"userInSession"});
+                }
                 saveForm(data);
             } else {
-                GSType.hover.modalUspRegistration.show();
+                GSType.hover.modalUspRegistration.showHover();
             }
         }
     };
@@ -253,6 +257,7 @@ GS.form.uspForm = (function ($) {
                 }
                 else if(data.hasExistingSavedResponses === 'true') {
                     hideAllErrors();
+                    $(SUBMIT_SELECTOR).prop('disabled',false);
                     if(data.formFields === undefined) {
                         return;
                     }
@@ -358,6 +363,8 @@ GS.form.uspForm = (function ($) {
             validateUspDataAndShowHover($uspForm);
             return false;
         });
+        GSType.hover.modalUspSignIn.setOnSubmitCallback(validateUspDataAndShowHover.bind(this, $uspForm, true));
+        GSType.hover.modalUspRegistration.setOnSubmitCallback(validateUspDataAndShowHover.bind(this, $uspForm, true));
 
         // sets the value of hidden other field as [response_key]__[other_text_field_value]
         $('.js-otherText').on('change', function () {
@@ -386,7 +393,7 @@ GS.form.uspForm = (function ($) {
         $body.on('click', '.js_lnchUspSignin', function () {
             hideAllErrors();
             GSType.hover.modalUspRegistration.hide();
-            GSType.hover.modalUspSignIn.show();
+            GSType.hover.modalUspSignIn.showHover();
         });
 
         $body.on('click', '.js_modalUspSignIn_launchForgotPassword', function () {
@@ -399,13 +406,13 @@ GS.form.uspForm = (function ($) {
 
         $body.on('click', '.js_showSignIn', function() {
             GSType.hover.forgotPassword.hide();
-            GSType.hover.modalUspSignIn.show();
+            GSType.hover.modalUspSignIn.showHover();
         });
 
         $body.on('click', '.js_lnchUspRegistration', function () {
             hideAllErrors();
             GSType.hover.modalUspSignIn.hide();
-            GSType.hover.modalUspRegistration.show();
+            GSType.hover.modalUspRegistration.showHover();
 
             if(s) {
                 pageTracking.clear();

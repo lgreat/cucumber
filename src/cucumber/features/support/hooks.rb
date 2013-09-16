@@ -19,7 +19,7 @@ After('@mobile', '~@javascript') do
 end
 
 Before('@readwrite') do
-  if Capybara.app_host.index('www.greatschools.org') != nil
+  if Capybara.app_host.index('www.greatschools.org') != nil || Capybara.app_host.index('maddy.greatschools.org') != nil
     print "READWRITE TEST DETECTED WITH PRODUCTION HOSTNAME #{Capybara.app_host} -- ABORTING"
     Cucumber.wants_to_quit = true
   end
