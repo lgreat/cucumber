@@ -5,13 +5,14 @@
 >
 
     <c:forEach items="${stepsInfo}" var="stepInfo">
-        <a name="${stepInfo.stepNo}"></a><div class="container_24 clearfix pvl">
+
+       <div class="container_24 clearfix pvl">
             <div class="grid_14">
                 <div class="clearfix">
                     <div class="fl">
                        <span class="iconx48 i-48-choosing-step-${stepInfo.stepNo}"><!--Do not collapse--></span>
                     </div>
-                    <h1 class="fl mlm mtm">${stepInfo.stepHeading}</h1>
+                    <![CDATA[ <a name="${stepInfo.stepNo}"></a>  ]]><h1 class="fl mlm mtm">${stepInfo.stepHeading}</h1>
                 </div>
                 <div class="small">${stepInfo.stepDescription}</div>
                 <div>

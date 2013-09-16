@@ -37,19 +37,19 @@
                       <c:when test="${stepInfo.stepNo == 1}">
                           <div class="unit size4of100">&amp;nbsp;</div>
                           <div class="unit size13of100 tac">
-                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom">${stepInfo.stepHeading}</a>
+                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom"><div>${stepInfo.stepHeading}</div></a>
                           </div>
                       </c:when>
                       <c:when test="${stepInfo.stepNo == 5}">
                           <div class="unit size6of100">&amp;nbsp;</div>
                           <div class="unit size12of100 tac">
-                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom">${stepInfo.stepHeading}</a>
+                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom"><div>${stepInfo.stepHeading}</div></a>
                           </div>
                       </c:when>
                       <c:otherwise>
                           <div class="unit size6of100">&amp;nbsp;</div>
                           <div class="unit size13of100 tac">
-                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom">${stepInfo.stepHeading}</a>
+                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom"><div>${stepInfo.stepHeading}</div></a>
                           </div>
                       </c:otherwise>
                   </c:choose>
