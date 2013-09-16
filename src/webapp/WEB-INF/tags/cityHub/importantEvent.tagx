@@ -17,7 +17,7 @@
                 <div class="unit size28of100">
                     <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
                     <c:if test="${hasImportantEventsToDisplay}">
-                        <a href="http://www.greatschools.org" class="small">See all</a><br/>
+                        <a href="/cityHub/importantDates.page" class="small">See all</a><br/>
                     </c:if>
                 </div>
 
