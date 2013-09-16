@@ -37,7 +37,9 @@
     <hub:stepsOverview/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
     <hub:stepsChoosing/>
-
+    <mod:tracking pageName="${pageName}"
+                  locale="${city}"
+                  hier1="Home,city Choose Page,${city}-${state.abbreviation}"/>
     </body>
     </html>
 </jsp:root>
