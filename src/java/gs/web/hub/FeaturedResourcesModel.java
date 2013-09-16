@@ -23,7 +23,7 @@ public class FeaturedResourcesModel {
     private String   _type;
 
 
-    public FeaturedResourcesModel(final String label, final String url,  final String description, final String type){
+    public FeaturedResourcesModel(final String label, final String url,  final String type, final String description){
             this._label= label;
             this._url= url;
             this._type= type;

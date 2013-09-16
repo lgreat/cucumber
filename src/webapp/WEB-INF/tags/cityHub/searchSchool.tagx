@@ -2,7 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+>
 
     <form name="searchBySchoolNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
         <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
@@ -28,7 +28,7 @@
                 <div class="pa" style="top: 5px; right:86px;">
                     <span class="iconx48 i-48-search-city-hubs addMousePointer" id="js-submit"><!-- do not collapse --></span>
                 </div>
-                <a href="http://www.greatschools.org" class="vam small ptm phm fr">Not in ${state.abbreviation}?</a>
+                <a href="/" class="vam small ptm phm fr">Not in ${state.abbreviation}?</a>
             </div>
             <div class="schoolBreakdown">
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>

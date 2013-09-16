@@ -19,8 +19,9 @@
                     <c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >
                         <div class="small bottom">
                             <a href="${feature.url}">${feature.label}</a>
-                            <c:if test="${feature.description}">
-                                ${feature.description}
+                            <c:if test="${not empty feature.description}">
+                                <br/><br/>
+                                ${feature.description}<br/>
                             </c:if>
                         </div>
                     </c:forEach>

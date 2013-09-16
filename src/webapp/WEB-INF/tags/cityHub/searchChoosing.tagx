@@ -22,7 +22,7 @@
                             <span class="iconx24 i-24-search-lens addMousePointer"
                                   id="js-submit"><!-- do not collapse --></span>
                             </div>
-                            <a href="http://www.greatschools.org" class="small make-ffffff mlm">Not in ${state.abbreviation}?</a>
+                            <a href="/" class="small make-ffffff mlm">Not in ${state.abbreviation}?</a>
                         </div>
                     </div>
                 </div>
