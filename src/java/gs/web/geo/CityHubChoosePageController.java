@@ -100,7 +100,7 @@ public class CityHubChoosePageController {
 
         //Adding Step Model for Step 1 -Potential to be Templatized in Future
 
-        StepModel step1= new StepModel(1, "Think about your needs", "/res/img/cityHubs/choose_a_school.png",
+        StepModel step1= new StepModel(1, "Think about your needs", "/res/img/cityHubs/choosingStep1.png",
                                       "Where your child goes to school affects not just your child but your whole family." +
                                        " As you begin thinking about choosing a school, consider what matters most. " +
                                        "What needs does your child have? What needs does your family have? What is " +
@@ -152,7 +152,7 @@ public class CityHubChoosePageController {
 
 
         //Adding Step Model for Step 2 -Potential to be Templatized in Future
-        StepModel step2= new StepModel(2, "Understand your options", "/res/img/cityHubs/choose_a_school.png",
+        StepModel step2= new StepModel(2, "Understand your options", "/res/img/cityHubs/choosingStep2.png",
                      "There are a variety of schools to choose from &#150; public, public charter, and private." +
                      " To decide which school is best for your child, learn about the types of schools" +
                      " available and the differences between them.");
@@ -207,7 +207,7 @@ public class CityHubChoosePageController {
 
 
         //Adding Step Model for Step 3 -Potential to be Templatized in Future
-        StepModel step3= new StepModel(3 , "Find schools that fit", "/res/img/cityHubs/choose_a_school.png",
+        StepModel step3= new StepModel(3 , "Find schools that fit", "/res/img/cityHubs/choosingStep3.png",
                         "As you search for schools that fit your needs, look for information in three key areas &#150; academic " +
                         "performance, culture & climate, and programs offered.");
 
@@ -260,7 +260,7 @@ public class CityHubChoosePageController {
 
 
         //Adding Step Model for Step 4 -Potential to be Templatized in Future
-        StepModel step4= new StepModel(4, "Visit schools you like", "/res/img/cityHubs/choose_a_school.png",
+        StepModel step4= new StepModel(4, "Visit schools you like", "/res/img/cityHubs/choosingStep4.png",
                         "Now that you&#39;ve narrowed your choices, it&#39;s time to visit the schools you like. " +
                         "Visiting is the only way you can really tell whether you and your child will feel safe and" +
                         " comfortable at the school. You will also be able to see whether the teachers are enthusiastic " +
@@ -318,7 +318,7 @@ public class CityHubChoosePageController {
 
 
         //Adding Step Model for Step 5 -Potential to be Templatized in Future
-        StepModel step5= new StepModel(5 , "Apply and enroll", "/res/img/cityHubs/choose_a_school.png",
+        StepModel step5= new StepModel(5 , "Apply and enroll", "/res/img/cityHubs/choosingStep5.png",
                         "Once you&#39;ve picked and ranked your top choices it&#39;s time to find out the details of the enrollment " +
                         "process for each, and submit your applications. Your first choice may not always be available, " +
                         "so you will want to apply to at least two other schools that meet all or most of your needs.");
