@@ -214,7 +214,7 @@ public class CityHubChoosePageController {
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep3 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "http://www.greatschools.org/", "Local Page");
+        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "http://www.greatschools.org/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
         FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel("OSSE Report Cards", "http://www.greatschools.org/", "External Page");
         FeaturedResourcesModel feature3Step3= new FeaturedResourcesModel("PMF Rating", "http://www.dcpcsb.org/SearchSchools.aspx", "External Page");
         FeaturedResourcesModel feature4Step3= new FeaturedResourcesModel("DCPS scorecard", "http://profiles.dcps.dc.gov/", "External Page");
@@ -260,7 +260,7 @@ public class CityHubChoosePageController {
 
 
         //Adding Step Model for Step 4 -Potential to be Templatized in Future
-        StepModel step4= new StepModel(4, "Visit schools you like", "/res/img/cityHubs/choosingStep4.png",
+        StepModel step4= new StepModel(4 , "Visit schools you like", "/res/img/cityHubs/choosingStep4.png",
                         "Now that you&#39;ve narrowed your choices, it&#39;s time to visit the schools you like. " +
                         "Visiting is the only way you can really tell whether you and your child will feel safe and" +
                         " comfortable at the school. You will also be able to see whether the teachers are enthusiastic " +
