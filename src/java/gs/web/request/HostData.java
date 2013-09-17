@@ -34,6 +34,7 @@ public class HostData {
 
     public HostData(HttpServletRequest request) {
         _hostname = request.getServerName();
+        System.out.println("TEST TEST TEST HOST NAME "+ request.getServerName());
         _currentSubdomain = UrlUtil.findLowestSubdomain(request.getServerName());
         _requestURL = UrlUtil.getRequestURL(request);
 
