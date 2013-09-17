@@ -33,12 +33,12 @@
                     </variant:a>
                     <variant:b>
                         <div class="inner">
-                            <img src="/res/img/usp/abc_test_tile_B.png"/>
+                            <img src="/res/img/usp/abc_test_tile_B.png" alt="Share what you know about this school"/>
                         </div>
                     </variant:b>
                     <variant:c>
                         <div class="inner">
-                            <img src="/res/img/usp/abc_test_tile_C.png"/>
+                            <img src="/res/img/usp/abc_test_tile_C.png" alt="Share what you know about this school"/>
                         </div>
                     </variant:c>
 
