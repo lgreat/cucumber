@@ -12,12 +12,11 @@
     <div class="container_24 clearfix pal">
         <c:choose>
             <c:when test="${hasImportantEventsToDisplay}">
-                <div class="border-FFB843 pal">
-                    <div class="prefix_11 grid_4 suffix_11">
-                        <h1 class="SourceSansPro-Semibold ptm pbm">All events</h1>
-                    </div>
+                <div class="prefix_9 grid_6 suffix_9">
+                    <h1 class="SourceSansPro-Semibold-h1 pal">All events</h1>
+                </div>
+                <div class="border-FFB843 border-round grid_24 pal">
                     <c:forEach items="${configKeyPrefixListWithIndex}" var="configKeyPrefix" varStatus="i">
-                        <hr class="keyline1"/>
                         <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
                                property="java.lang.String"/>
                         <c:set var="descriptionKey">${keyPrefix}_description</c:set>
@@ -25,7 +24,7 @@
                         <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
                         <c:set var="monthKey">${keyPrefix}_date_month</c:set>
                         <c:set var="yearKey">${keyPrefix}_date_year</c:set>
-                        <div class="line mam">
+                        <div class="line mal">
                             <div class="unit size7of100">
                                 <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                                     <div class="tac mtl">
@@ -34,10 +33,13 @@
                                 </span>
                             </div>
                             <div class="unit size27of100 lastUnit">
-                                <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
+                                <span class="small_bold make-2b2b2b">${importantEvent[descriptionKey]}</span><br/>
                                 <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
                             </div>
                         </div>
+                        <c:if test="${not i.last}">
+                            <hr class="keyline1"/>
+                        </c:if>
                     </c:forEach>
                 </div>
             </c:when>
