@@ -19,6 +19,11 @@
     </head>
 
     <body>
+        <!-- Hiding the Ads on the City Hub Page -->
+        <pageHelper:hideFooterAd/>
+        <pageHelper:hideLeaderboard/>
+        <pageHelper:hideBelowNavAds/>
+
         <hub:searchChoosing/>
         <hub:seeAllEventDates/>
     </body>

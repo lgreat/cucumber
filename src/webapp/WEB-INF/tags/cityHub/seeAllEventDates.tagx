@@ -9,33 +9,37 @@
     <c:set var="hasImportantEventsToDisplay" value="${not empty configKeyPrefixListWithIndex}"
            property="java.lang.Boolean"/>
 
-    <div class="container_24 clearfix">
+    <div class="container_24 clearfix pal">
         <c:choose>
             <c:when test="${hasImportantEventsToDisplay}">
-                <h1 class="SourceSansPro-Semibold ptm pbm">All events</h1>
-                <c:forEach items="${configKeyPrefixListWithIndex}" var="configKeyPrefix" varStatus="i">
-                    <hr class="keyline1"/>
-                    <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
-                           property="java.lang.String"/>
-                    <c:set var="descriptionKey">${keyPrefix}_description</c:set>
-                    <c:set var="urlKey">${keyPrefix}_url</c:set>
-                    <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
-                    <c:set var="monthKey">${keyPrefix}_date_month</c:set>
-                    <c:set var="yearKey">${keyPrefix}_date_year</c:set>
-                    <div class="line mam">
-                        <div class="unit size7of100">
+                <div class="border-FFB843 pal">
+                    <div class="prefix_11 grid_4 suffix_11">
+                        <h1 class="SourceSansPro-Semibold ptm pbm">All events</h1>
+                    </div>
+                    <c:forEach items="${configKeyPrefixListWithIndex}" var="configKeyPrefix" varStatus="i">
+                        <hr class="keyline1"/>
+                        <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
+                               property="java.lang.String"/>
+                        <c:set var="descriptionKey">${keyPrefix}_description</c:set>
+                        <c:set var="urlKey">${keyPrefix}_url</c:set>
+                        <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
+                        <c:set var="monthKey">${keyPrefix}_date_month</c:set>
+                        <c:set var="yearKey">${keyPrefix}_date_year</c:set>
+                        <div class="line mam">
+                            <div class="unit size7of100">
                                 <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                                     <div class="tac mtl">
                                         <h3 class="bold">${importantEvent[dayOfMonthKey]}</h3>
                                     </div>
                                 </span>
+                            </div>
+                            <div class="unit size27of100 lastUnit">
+                                <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
+                                <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
+                            </div>
                         </div>
-                        <div class="unit size27of100 lastUnit">
-                            <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
-                            <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
-                        </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </div>
             </c:when>
         </c:choose>
     </div>
