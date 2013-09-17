@@ -34,16 +34,49 @@
         <div class="container_24 clearfix pvl">
             <div class="standard_1-1">
                 <c:if test="${not empty stepInfo.additionalResourcesModel}">
-                <div class="inner">
-                    <div class="hd pas small bottom">
-                        Additional Resourses
+                    <div class="inner">
+                        <div class="hd pam small bottom">
+                            <h4 class="SourceSansPro-Semibold-h4 make-666666 bottom">Additional Resourses</h4>
+                        </div>
+                        <div class="bd pal clearfix">
+                            <div class="grid_8">
+                                <ul>
+                                <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
+                                           varStatus="additionalResourcesCount">
+                                    <c:if test="${additionalResources.columnNo eq 1}">
+                                        <li>
+                                            <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
+                                        </li>
+                                    </c:if>
+                                </c:forEach>
+                                </ul>
+                            </div>
+                            <div class="grid_7">
+                                <ul>
+                                    <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
+                                               varStatus="additionalResourcesCount">
+                                        <c:if test="${additionalResources.columnNo eq 2}">
+                                            <li>
+                                                <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                            <div class="grid_8">
+                                <ul>
+                                    <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
+                                               varStatus="additionalResourcesCount">
+                                        <c:if test="${additionalResources.columnNo eq 3}">
+                                            <li>
+                                                <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bd pal">
-                        <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources" varStatus="additionalResourcesCount" >
-                            <a href="${additionalResources.url}" class="small">${additionalResources.label}</a> <br/>
-                        </c:forEach>
-                    </div>
-                </div>
                 </c:if>
             </div>
             </div>
