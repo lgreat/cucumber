@@ -7,9 +7,9 @@
     <div class="container_24 clearfix pvl">
     <div class="prefix_7 grid_10 suffix_8 mvl">
         <div class="line">
-            <div class="unit size31of100 make-ffb725" style="font-size: 240px; line-height: 180px; font-family: sourcesanspro-semibold">5</div>
+            <div class="unit size31of100 make-ffb725" style="font:bold 240px/180px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;" >5</div>
             <div class="unit size57of100 lastUnit mtl pll">
-                <h1 class="SourceSansPro-Semibold-h1 make-0578AA bottom">Simple steps</h1>
+                <h1 class="SourceSansPro-Semibold-h1 make-0578AA bottom">simple steps</h1>
                 <h2 class="SourceSansPro-Semibold-h2 make-666666">
                     to choosing school in<br/>
                     ${city} ${state.abbreviation}
@@ -39,19 +39,19 @@
                       <c:when test="${stepInfo.stepNo == 1}">
                           <div class="unit size4of100">&amp;nbsp;</div>
                           <div class="unit size13of100 tac">
-                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom"><div>${stepInfo.stepHeading}</div></a>
+                              <a href="#${stepInfo.stepNo}" class="small bold bottom"><div>${stepInfo.stepHeading}</div></a>
                           </div>
                       </c:when>
                       <c:when test="${stepInfo.stepNo == 5}">
                           <div class="unit size6of100">&amp;nbsp;</div>
                           <div class="unit size12of100 tac">
-                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom"><div>${stepInfo.stepHeading}</div></a>
+                              <a href="#${stepInfo.stepNo}" class="small bold bottom"><div>${stepInfo.stepHeading}</div></a>
                           </div>
                       </c:when>
                       <c:otherwise>
                           <div class="unit size6of100">&amp;nbsp;</div>
                           <div class="unit size13of100 tac">
-                              <a href="#${stepInfo.stepNo}" class="small bold noUnderline make-666666 bottom"><div>${stepInfo.stepHeading}</div></a>
+                              <a href="#${stepInfo.stepNo}" class="small bold bottom"><div>${stepInfo.stepHeading}</div></a>
                           </div>
                       </c:otherwise>
                   </c:choose>

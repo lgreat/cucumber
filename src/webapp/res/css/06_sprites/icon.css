@@ -680,7 +680,7 @@ span:hover.i-32-carouselRight{
 
 .iconx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x48/130909-48x48.png);
+    background-image: url(/res/img/sprites/icon/x48/130917-48x48.png);
     width: 48px;
     height: 48px;
 }
@@ -850,6 +850,26 @@ span.i-48-gallery-next-default:hover{
 
 span.i-48-search-city-hubs:hover{
     background-position: -672px -48px;
+}
+
+span.i-48-choosing-step-1:hover{
+    background-position: -1296px -48px;
+}
+
+span.i-48-choosing-step-2:hover{
+    background-position: -1344px -48px;
+}
+
+span.i-48-choosing-step-3:hover{
+    background-position: -1392px -48px;
+}
+
+span.i-48-choosing-step-4:hover{
+    background-position: -1440px -48px;
+}
+
+span.i-48-choosing-step-5:hover{
+    background-position: -1488px -48px;
 }
 
 /* row 96 */
