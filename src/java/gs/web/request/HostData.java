@@ -33,9 +33,9 @@ public class HostData {
     public static Subdomain[] CONTENT_SUBDOMAINS = {Subdomain.WWW, Subdomain.PK, Subdomain.MOBILE};
 
     public HostData(HttpServletRequest request) {
-//        _hostname = request.getServerName();
-        _hostname = request.getHeader("host") ;
-        System.out.println("TEST TEST TEST HOST NAME "+ _hostname);
+        _hostname = request.getServerName();
+//        _hostname = request.getHeader("host") ;
+        System.out.println("TEST TEST TEST HOST NAME "+  request.getHeader("host") );
         _currentSubdomain = UrlUtil.findLowestSubdomain(request.getServerName());
         _requestURL = UrlUtil.getRequestURL(request);
 
