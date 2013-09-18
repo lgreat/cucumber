@@ -32,6 +32,12 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
 
     private static final State  WASHINGTON_HUB_STATE= State.DC;
 
+    private static final String MILWAUKEE_HUB_CITY= "milwaukee";
+
+    private static final State  MILWAUKEE_HUB_STATE = State.WI;
+
+
+
     public ControllerFamily resolveControllerFamily() {
         /**
          * By default the controller should be City Default Controller.
@@ -56,12 +62,19 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
         return cityController;
     }
 
+
     private boolean shoulCityLocalControllerBeUsed(final String cityName, final State state)
     {
           boolean isLocal= false;
           if (WASHINGTON_HUB_CITY.equals(cityName) && WASHINGTON_HUB_STATE.equals(state)){
               isLocal= true;
           }
+        /**
+         * Added to test Milwaukee -Shome we removed -Revert Shomi
+         */
+          if (MILWAUKEE_HUB_CITY.equals(cityName) && MILWAUKEE_HUB_STATE.equals(state)){
+            isLocal= true;
+         }
           return isLocal;
       }
 }
