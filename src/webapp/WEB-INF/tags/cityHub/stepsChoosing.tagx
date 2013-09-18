@@ -38,7 +38,7 @@
                         <div class="hd pam small bottom">
                             <h4 class="SourceSansPro-Semibold-h4 make-666666 bottom">Additional Resources</h4>
                         </div>
-                        <div class="bd pal clearfix">
+                        <div class="bd pal clearfix bg-F7F7F7">
                             <div class="grid_8">
                                 <ul>
                                 <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
