@@ -106,6 +106,16 @@
                     </li>
                     <li>
                         <c:choose>
+                            <c:when test="${pageScope.selected eq 'local'}">
+                                <span class="text2">GreatSchools Local</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/about/local.page">GreatSchools Local</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li>
+                        <c:choose>
                             <c:when test="${pageScope.selected eq 'linkToUs'}">
                                 <span class="text2">Widgets &amp;amp; Tools</span>
                             </c:when>

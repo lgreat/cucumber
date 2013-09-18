@@ -258,7 +258,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                 </div>
             </div>
             <div class="fl" style="padding-top:13px;">
-                <input tabindex="1" type="text" placeholder="Select your school to begin"
+                <input tabindex="1" type="text" placeholder="Select your school to begin" id="js-parentReviewLandingPageSchoolSelectInput"
                        style="font-size:16px;width:350px;background:none;padding-left:20px;border:none;font-weight:bold;
                        text-shadow: 0 1px 0 rgba(255,255,255,0.4)"/>
             </div>
@@ -283,7 +283,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                             <div class="mvl">
                                 <strong>Get a FREE
                                     <span style="font-family: 'SourceSansPro-It',Arial,Helvetica,sans-serif;font-style:italic;">
-                                    Back-to-School Survival Guide</span> when you submit your review!
+                                    Raising A Successful Student Guide</span> when you submit your review!
                                 </strong>
                             </div>
                         </span>
@@ -297,6 +297,10 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                     <li class="mvl">Increase your school’s chances to win.
                         <span class="make-ffffff">
                             Every review over 3 gives your school another entry into the drawing – up to 10 entries each month!
+                            <div class="mvl">
+                                <strong>Congratulations to <a href="/maryland/linthicum/1369-St.-Philip-Neri-Elementary-School/" class="make-ffffff underline" target="_blank">St. Philip Neri Elementary School</a> in Linthicum, MD for winning the August sweepstakes!
+                                </strong>
+                            </div>
                         </span>
                     </li>
                 </ol>

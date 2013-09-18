@@ -91,16 +91,14 @@
     </div>
 </td>
 
-<td class="${(pw == tabs.BACK_TO_SCHOOL ? 'selected' : '')} menuItem home">
-    <div class="dropdownReference">
-        <a href="/back-to-school/" id="PN-BackToSchool" class="menuItemAnchorText GS_CI9_">
-            <variant:a>
-            <span class="iconx24 i-24-yellow-bus mrm vam"><!-- do not collapse --></span>
-            </variant:a>
-            Back to School
-        </a>
-    </div>
-</td>
+<!--GS-14634 -removed Back To School tab from the parent nav-->
+<!--<td class="${(pw == tabs.BACK_TO_SCHOOL ? 'selected' : '')} menuItem home">-->
+    <!--<div class="dropdownReference">-->
+        <!--<a href="/back-to-school/" id="PN-BackToSchool" class="menuItemAnchorText GS_CI9_">-->
+            <!--Back to School-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</td>-->
 
 <td class="${(pw == tabs.PRESCHOOL ? 'selected' : '')} menuItem">
     <div class="dropdownReference">

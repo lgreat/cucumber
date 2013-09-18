@@ -486,7 +486,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'GA'}">
-            <c:set var="gradesServed" value="K-11" scope="request"/>
+            <c:set var="gradesServed" value="K-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Georgia Cyber Academy (GCA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we are helping Georgia students in grades K-12 reach their true, personal potential.
             </c:set>
@@ -623,7 +623,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'IA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-6" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. Iowa Virtual Academy (IAVA), an online program of Clayton Ridge Community School District, and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together, we help Iowa students in grades K-12 reach their true, personal potential.
             </c:set>
@@ -846,10 +846,10 @@
                 You know your kids have something special inside of them. We know it, too. Hoosier Academies, a public charter school authorized by Ball State University, makes learning fresh and exciting for children just like yours. Offering a blend of online learning and face-to-face instruction, Hoosier Academies gives you and your family choice and flexibility in your child's education. For the 2013-2014 school year, we will offer two statewide options for Indiana families:
             </c:set>
             <util:addBodyToList listVariableName="aboutIntroList">
-                Hoosier Academies Indianapolis (serving K-12; enrolling K-11)-a blended learning school
+                Hoosier Academies Indianapolis (serving K-12; enrolling K-11)&amp;mdash;a blended learning school
             </util:addBodyToList>
             <util:addBodyToList listVariableName="aboutIntroList">
-                Hoosier Academies Virtual School (serving K-12; enrolling K-10)-a fully online school
+                Hoosier Academies Virtual School (serving K-12; enrolling K-10)&amp;mdash;a fully online school
             </util:addBodyToList>
             <c:set var="aboutIntro2" scope="request">
                 Together, we're helping Indiana students reach their true and highest potential.
@@ -1008,7 +1008,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'MA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-8" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 Massachusetts Virtual Academy (MAVA) at Greenfield is a public virtual school of the Greenfield School
                 District, and the first diploma-granting virtual school in Massachusetts. We provide students
@@ -1204,7 +1204,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NJ'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-10" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. New Jersey Virtual Academy
                 Charter School (NJVACS) and K<sup>12</sup> will ignite the minds of children like yours to bring learning and innate
@@ -1259,7 +1259,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'NM'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="6-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. New Mexico Virtual Academy
                 (NMVA) and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive.
@@ -1460,20 +1460,14 @@
                 OHVA is proud of its record for students graduating and going on to attend college. <a href="http://www.k12.com/ohva/who-we-are/college-profile#.UhukqmTtgVw" target="_blank">Take a look at the facts!</a>
             </util:putBodyInMap>
             <util:putBodyInMap mapVariableName="newsItem2" key="header">
-                OHVA Sets the Bar for Reading Achievement
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem2" key="body">
-                OHVA's third graders outscored virtual third graders across the state with nearly 80 percent of students scoring proficient or above. <a href="" target="_blank">Get the details.</a>
-            </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="header">
                 <a href="http://www.reviewtimes.com/Issues/2011/Sep/14/ar_news_091411_story2.asp?d=091411_story2,2011,Sep,14c=n" target="_blank">Alternative Education Is Making The Grade</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem3" key="body">
+            <util:putBodyInMap mapVariableName="newsItem2" key="body">
                 After struggling in a traditional learning environment, one OHVA third grader tried virtual learning. Read about D.J. Ferguson's growing success.
-            <util:putBodyInMap mapVariableName="newsItem4" key="header">
+            <util:putBodyInMap mapVariableName="newsItem3" key="header">
                 <a href="http://www.k12.com/ohva/connect-to-a-parent#.Uhuk8GTtgVw" target="_blank">Connect with an OHVA Parent!</a>
             </util:putBodyInMap>
-            <util:putBodyInMap mapVariableName="newsItem4" key="body">
+            <util:putBodyInMap mapVariableName="newsItem3" key="body">
                 Get tips, advice, and more from someone who knows our program the best-a veteran OHVA parent. Simply <a href="http://www.k12.com/ohva/connect-to-a-parent#.UhulGmTtgVw" target="_blank">click here</a> to have one of our seasoned OHVA parents contact you!
             </util:putBodyInMap>
 
@@ -1481,7 +1475,6 @@
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem1}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem2}"/>
             <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem3}"/>
-            <util:addMapToList listVariableName="newsList" map="${requestScope.newsItem4}"/>
 
             <util:addBodyToList listVariableName="bottomCopyList">
                 The Ohio Virtual Academy uses the individualized curriculum from K<sup>12</sup>, which is based on decades of
@@ -1555,7 +1548,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'OR'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-11" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know your kids have something special in them. Oregon Virtual Academy (ORVA) and K<sup>12</sup> ignite
                 the minds of children like yours to bring learning and possibility alive. Together, we're helping
@@ -1767,7 +1760,7 @@
             </util:addBodyToList>
         </c:when>
         <c:when test="${school eq 'TN'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-8" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Tennessee Virtual Academy
                 and K<sup>12</sup> ignite the minds of children like yours to bring learning and innate possibility alive. Together,
@@ -1827,7 +1820,7 @@
 
         </c:when>
         <c:when test="${school eq 'TX'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="3-12" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it, too. Texas Virtual Academy (TXVA),
                 a ResponsiveEd charter school in partnership with K<sup>12</sup>, ignites the minds of children like yours to bring
@@ -1965,18 +1958,18 @@
 
         </c:when>
         <c:when test="${school eq 'VA'}">
-            <c:set var="gradesServed" value="K-12" scope="request"/>
+            <c:set var="gradesServed" value="K-5" scope="request"/>
             <c:set var="aboutIntro" scope="request">
                 You know that your kids have something special inside them. We know it too. The
                 Virginia Virtual Academy<sup>SM</sup> (VAVA), a public school program of King and Queen County Public Schools and
                 K12 ignite the minds of children like yours to bring learning and innate possibility alive. Together,
-                we are helping Virginia students in grades K-2 reach their true, personal potential.
+                we are helping Virginia students in grades K-5 reach their true, personal potential.
             </c:set>
             <c:set var="whyHeader" scope="request">
                 Why ${fn:toUpperCase(schoolCode)}?
             </c:set>
             <c:set var="whyIntro" scope="request">
-                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K-2 the chance to learn in the ways that are right for them. VAVA offers:
+                The Virginia Virtual Academy and K<sup>12</sup> give Virginia kids in grades K-5 the chance to learn in the ways that are right for them. VAVA offers:
             </c:set>
             <util:addBodyToList listVariableName="whyList">
                 The award-winning K<sup>12</sup> curriculum
@@ -1997,7 +1990,7 @@
                 A robust Advanced Learner Program
             </util:addBodyToList>
             <util:addBodyToList listVariableName="whyList">
-                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K-2
+                The only statewide virtual public school program to offer the complete K<sup>12</sup> experience for students in grades K-5
             </util:addBodyToList>
 
             <c:set var="whyFootnote" scope="request">
