@@ -176,28 +176,35 @@ public class CityHubChoosePageController {
 
         ArrayList<AdditionalResourcesModel> additionalResourcesModelStep2 = new ArrayList<AdditionalResourcesModel>();
 
-        AdditionalResourcesModel additionalResources2Step1 =  new AdditionalResourcesModel("School choice: what are your options?", "/find-a-school/defining-your-ideal/1163-school-choice-your-options.gs", "Article", "1", "Overview of options");
-        AdditionalResourcesModel additionalResources2Step2 =  new AdditionalResourcesModel("Public vs. private vs. charter schools", "/school-choice/6987-public-private-charter-schools.gs", "Article", "1", "Overview of options");
-        AdditionalResourcesModel additionalResources2Step3 =  new AdditionalResourcesModel("Private vs. public", "/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs", "Article", "1", "Overview of options");
-        AdditionalResourcesModel additionalResources2Step4 =  new AdditionalResourcesModel("School choice terminology", "/find-a-school/2424-school-terminology.gs", "Article", "1", "Overview of options");
-        AdditionalResourcesModel additionalResources2Step5 =  new AdditionalResourcesModel("Public schools: fact and fiction", "/school-choice/public-schools/6979-public-school.gs", "Article", "2", "Public & public charter schools");
-        AdditionalResourcesModel additionalResources2Step6 =  new AdditionalResourcesModel("What&#39;s a charter school anyway? ", "/school-choice/charter-schools/6974-what-is-charter-school-video.gs", "Video", "2", "Public & public charter schools");
-        AdditionalResourcesModel additionalResources2Step7 =  new AdditionalResourcesModel("The truth about charter schools", "/school-choice/charter-schools/6986-charter-schools.gs", "Article", "2", "Public & public charter schools");
-        AdditionalResourcesModel additionalResources2Step8 =  new AdditionalResourcesModel("7 essentials about charter schools", "/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs", "Article", "2", "Public & public charter schools");
-        AdditionalResourcesModel additionalResources2Step9 =  new AdditionalResourcesModel("Are charter schools better?", "/find-a-school/3706-charter-schools-better-than-traditional.gs", "Article", "2", "Public & public charter schools");
-        AdditionalResourcesModel additionalResources2Step10 = new AdditionalResourcesModel("A guide to private schools", "/school-choice/private-schools/7068-private-schools-video.gs", "Video", "3", "Private schools");
-        AdditionalResourcesModel additionalResources2Step11 = new AdditionalResourcesModel("Should I send my child to a private school?", "/school-choice/private-schools/6995-private-schools-parochial-schools.gs", "Article", "3", "Private schools");
+        AdditionalResourcesModel additionalResources2Header1 =  new AdditionalResourcesModel(null, null, null, "1", "Overview of options");
+        AdditionalResourcesModel additionalResources2Step1 =  new AdditionalResourcesModel("School choice: what are your options?", "/find-a-school/defining-your-ideal/1163-school-choice-your-options.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources2Step2 =  new AdditionalResourcesModel("Public vs. private vs. charter schools", "/school-choice/6987-public-private-charter-schools.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources2Step3 =  new AdditionalResourcesModel("Private vs. public", "/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources2Step4 =  new AdditionalResourcesModel("School choice terminology", "/find-a-school/2424-school-terminology.gs", "Article", "1");
 
+        AdditionalResourcesModel additionalResources2Header2 =  new AdditionalResourcesModel(null, null, null, "2", "Public & public charter schools");
+        AdditionalResourcesModel additionalResources2Step5 =  new AdditionalResourcesModel("Public schools: fact and fiction", "/school-choice/public-schools/6979-public-school.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources2Step6 =  new AdditionalResourcesModel("What&#39;s a charter school anyway? ", "/school-choice/charter-schools/6974-what-is-charter-school-video.gs", "Video", "2");
+        AdditionalResourcesModel additionalResources2Step7 =  new AdditionalResourcesModel("The truth about charter schools", "/school-choice/charter-schools/6986-charter-schools.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources2Step8 =  new AdditionalResourcesModel("7 essentials about charter schools", "/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources2Step9 =  new AdditionalResourcesModel("Are charter schools better?", "/find-a-school/3706-charter-schools-better-than-traditional.gs", "Article", "2");
 
+        AdditionalResourcesModel additionalResources2Header3 =  new AdditionalResourcesModel(null, null, null, "3", "Private schools");
+        AdditionalResourcesModel additionalResources2Step10 = new AdditionalResourcesModel("A guide to private schools", "/school-choice/private-schools/7068-private-schools-video.gs", "Video", "3");
+        AdditionalResourcesModel additionalResources2Step11 = new AdditionalResourcesModel("Should I send my child to a private school?", "/school-choice/private-schools/6995-private-schools-parochial-schools.gs", "Article", "3");
+
+        additionalResourcesModelStep2.add(additionalResources2Header1);
         additionalResourcesModelStep2.add(additionalResources2Step1);
         additionalResourcesModelStep2.add(additionalResources2Step2);
         additionalResourcesModelStep2.add(additionalResources2Step3);
         additionalResourcesModelStep2.add(additionalResources2Step4);
+        additionalResourcesModelStep2.add(additionalResources2Header2);
         additionalResourcesModelStep2.add(additionalResources2Step5);
         additionalResourcesModelStep2.add(additionalResources2Step6);
         additionalResourcesModelStep2.add(additionalResources2Step7);
         additionalResourcesModelStep2.add(additionalResources2Step8);
         additionalResourcesModelStep2.add(additionalResources2Step9);
+        additionalResourcesModelStep2.add(additionalResources2Header3);
         additionalResourcesModelStep2.add(additionalResources2Step10);
         additionalResourcesModelStep2.add(additionalResources2Step11);
 
@@ -284,31 +291,42 @@ public class CityHubChoosePageController {
 
         ArrayList<AdditionalResourcesModel> additionalResourcesModelStep4 = new ArrayList<AdditionalResourcesModel>();
 
-        AdditionalResourcesModel additionalResources4Step1 =   new AdditionalResourcesModel("10 key questions for preschools", "/find-a-school/slideshows/3457-choosing-a-preschool.gs", "Article", "1", "Preschool resources");
-        AdditionalResourcesModel additionalResources4Step2 =   new AdditionalResourcesModel("Insider tricks for assessing preschools", "/find-a-school/defining-your-ideal/1627-insider-tricks-for-assessing-preschools.gs", "Article", "1", "Preschool resources");
-        AdditionalResourcesModel additionalResources4Step3 =   new AdditionalResourcesModel("Finding the right elementary school", "/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs", "Video", "1", "Elementary school resources");
-        AdditionalResourcesModel additionalResources4Step4 =   new AdditionalResourcesModel("10 key questions for elementary schools", "/find-a-school/slideshows/3469-choosing-an-elementary-school.gs", "Video", "1", "Elementary school resources");
-        AdditionalResourcesModel additionalResources4Step5 =   new AdditionalResourcesModel("Insider tricks for assessing elementary schools", "/find-a-school/defining-your-ideal/1628-insider-tricks-for-assessing-elementary-schools.gs", "Article", "1", "Elementary school resources");
+        AdditionalResourcesModel additionalResources4Header1 =   new AdditionalResourcesModel(null, null, null, "1", "Preschool resources");
+        AdditionalResourcesModel additionalResources4Step1 =   new AdditionalResourcesModel("10 key questions for preschools", "/find-a-school/slideshows/3457-choosing-a-preschool.gs", "Article", "1");
+        AdditionalResourcesModel additionalResources4Step2 =   new AdditionalResourcesModel("Insider tricks for assessing preschools", "/find-a-school/defining-your-ideal/1627-insider-tricks-for-assessing-preschools.gs", "Article", "1");
+
+        AdditionalResourcesModel additionalResources4Header2 =   new AdditionalResourcesModel(null, null, null, "1", "Elementary school resources");
+        AdditionalResourcesModel additionalResources4Step3 =   new AdditionalResourcesModel("Finding the right elementary school", "/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs", "Video", "1");
+        AdditionalResourcesModel additionalResources4Step4 =   new AdditionalResourcesModel("10 key questions for elementary schools", "/find-a-school/slideshows/3469-choosing-an-elementary-school.gs", "Video", "1");
+        AdditionalResourcesModel additionalResources4Step5 =   new AdditionalResourcesModel("Insider tricks for assessing elementary schools", "/find-a-school/defining-your-ideal/1628-insider-tricks-for-assessing-elementary-schools.gs", "Article", "1");
         AdditionalResourcesModel additionalResources4Step6 =   new AdditionalResourcesModel("Elementary school visit checklist", "/catalog/pdf/schq_visit_elem.pdf", "Article", "1", "Elementary school resources");
-        AdditionalResourcesModel additionalResources4Step7 =   new AdditionalResourcesModel("How to find the right middle school", "/find-a-school/school-visit/7056-choose-middle-school-video.gs", "Video", "1", "Elementary school resources");
-        AdditionalResourcesModel additionalResources4Step8 =   new AdditionalResourcesModel("10 key questions for middle schools", "/find-a-school/slideshows/3436-choosing-a-middle-school.gs", "Article", "2", "Middle school resources");
-        AdditionalResourcesModel additionalResources4Step9 =   new AdditionalResourcesModel("Insider tricks for assessing middle schools", "/find-a-school/defining-your-ideal/1629-insider-tricks-for-assessing-middle-schools.gs", "Article", "3");
-        AdditionalResourcesModel additionalResources4Step10 =  new AdditionalResourcesModel("Middle school visit checklist", "/catalog/pdf/schq_visit_middle.pdf", "Article", "3");
+
+        AdditionalResourcesModel additionalResources4Header3 =   new AdditionalResourcesModel(null, null, null, "2", "Middle school resources");
+        AdditionalResourcesModel additionalResources4Step7 =   new AdditionalResourcesModel("How to find the right middle school", "/find-a-school/school-visit/7056-choose-middle-school-video.gs", "Video", "2");
+        AdditionalResourcesModel additionalResources4Step8 =   new AdditionalResourcesModel("10 key questions for middle schools", "/find-a-school/slideshows/3436-choosing-a-middle-school.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources4Step9 =   new AdditionalResourcesModel("Insider tricks for assessing middle schools", "/find-a-school/defining-your-ideal/1629-insider-tricks-for-assessing-middle-schools.gs", "Article", "2");
+        AdditionalResourcesModel additionalResources4Step10 =  new AdditionalResourcesModel("Middle school visit checklist", "/catalog/pdf/schq_visit_middle.pdf", "Article", "2");
+
+        AdditionalResourcesModel additionalResources4Header4 =   new AdditionalResourcesModel(null, null, null, "3", "High school resources");
         AdditionalResourcesModel additionalResources4Step11 =  new AdditionalResourcesModel("How to choose the right high school", "/find-a-school/making-the-right-choice/7066-choose-high-school-video.gs", "Video", "3");
         AdditionalResourcesModel additionalResources4Step12 =  new AdditionalResourcesModel("10 key questions for high schools", "/find-a-school/slideshows/3446-choosing-a-high-school.gs", "Article", "3");
         AdditionalResourcesModel additionalResources4Step13 =  new AdditionalResourcesModel("Insider tricks for assessing high schools", "/find-a-school/defining-your-ideal/1630-insider-tricks-for-assessing-high-schools.gs", "Article", "3");
         AdditionalResourcesModel additionalResources4Step14 =  new AdditionalResourcesModel("High school visit checklist", "/catalog/pdf/schq_visit_high.pdf", "Article", "3");
 
+        additionalResourcesModelStep4.add(additionalResources4Header1);
         additionalResourcesModelStep4.add(additionalResources4Step1);
         additionalResourcesModelStep4.add(additionalResources4Step2);
+        additionalResourcesModelStep4.add(additionalResources4Header2);
         additionalResourcesModelStep4.add(additionalResources4Step3);
         additionalResourcesModelStep4.add(additionalResources4Step4);
         additionalResourcesModelStep4.add(additionalResources4Step5);
         additionalResourcesModelStep4.add(additionalResources4Step6);
+        additionalResourcesModelStep4.add(additionalResources4Header3);
         additionalResourcesModelStep4.add(additionalResources4Step7);
         additionalResourcesModelStep4.add(additionalResources4Step8);
         additionalResourcesModelStep4.add(additionalResources4Step9);
         additionalResourcesModelStep4.add(additionalResources4Step10);
+        additionalResourcesModelStep4.add(additionalResources4Header4);
         additionalResourcesModelStep4.add(additionalResources4Step11);
         additionalResourcesModelStep4.add(additionalResources4Step12);
         additionalResourcesModelStep4.add(additionalResources4Step13);
