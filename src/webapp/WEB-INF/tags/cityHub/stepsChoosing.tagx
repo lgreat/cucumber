@@ -18,7 +18,14 @@
                     <h6 class="bold bottom">Featured resources</h6>
                     <c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >
                         <div class="small bottom">
-                            <a href="${feature.url}">${feature.label}</a>
+                            <c:choose>
+                                <c:when test="${feature.type == 'External Page'}">
+                                    <a href="${feature.url}" target="_blank">${feature.label}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${feature.url}">${feature.label}</a>
+                                </c:otherwise>
+                            </c:choose>
                             <c:if test="${not empty feature.description}">
                                 <br/><br/>
                                 ${feature.description}<br/><br/>
