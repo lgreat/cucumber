@@ -241,6 +241,8 @@ public class CityHubChoosePageController {
 
         ArrayList<AdditionalResourcesModel> additionalResourcesModelStep3 = new ArrayList<AdditionalResourcesModel>();
 
+
+        AdditionalResourcesModel additionalResources3Header1 =   new AdditionalResourcesModel(null, null, null, "1", "Resources for evaluating schools.");
         AdditionalResourcesModel additionalResources3Step1 =  new AdditionalResourcesModel("Facts (and fiction) about school test scores", "/school-choice/standardized-testing/7262-school-test-scores-video.gs", "Video", "1");
         AdditionalResourcesModel additionalResources3Step2 =  new AdditionalResourcesModel("How important is cultural diversity at your school?", "/find-a-school/defining-your-ideal/284-cultural-diversity-at-school.gs", "Article", "1");
         AdditionalResourcesModel additionalResources3Step3 =  new AdditionalResourcesModel("How important is class size?", "/find-a-school/defining-your-ideal/174-class-size.gs", "Article", "1");
@@ -251,6 +253,7 @@ public class CityHubChoosePageController {
         AdditionalResourcesModel additionalResources3Step8 =  new AdditionalResourcesModel("Pitfalls of picking a middle school", "/find-a-school/3646-mistakes-choosing-middle-school.gs", "Article", "3");
         AdditionalResourcesModel additionalResources3Step9 =  new AdditionalResourcesModel("Pitfalls of picking a high school", "/find-a-school/3647-mistake-choosing-highschool.gs", "Article", "3");
 
+        additionalResourcesModelStep3.add(additionalResources3Header1);
         additionalResourcesModelStep3.add(additionalResources3Step1);
         additionalResourcesModelStep3.add(additionalResources3Step2);
         additionalResourcesModelStep3.add(additionalResources3Step3);
