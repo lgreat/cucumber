@@ -36,7 +36,7 @@
                 <c:if test="${not empty stepInfo.additionalResourcesModel}">
                     <div class="inner">
                         <div class="hd pam small bottom">
-                            <h4 class="SourceSansPro-Semibold-h4 make-666666 bottom">Additional Resourses</h4>
+                            <h4 class="SourceSansPro-Semibold-h4 make-666666 bottom">Additional Resources</h4>
                         </div>
                         <div class="bd pal clearfix">
                             <div class="grid_8">
@@ -46,6 +46,9 @@
                                     <c:if test="${additionalResources.columnNo eq 1}">
                                         <li>
                                             <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
+                                            <c:if test="${additionalResources.type == 'Video'}">
+                                                <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
+                                            </c:if>
                                         </li>
                                     </c:if>
                                 </c:forEach>
@@ -58,6 +61,9 @@
                                         <c:if test="${additionalResources.columnNo eq 2}">
                                             <li>
                                                 <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
+                                                <c:if test="${additionalResources.type == 'Video'}">
+                                                    <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
+                                                </c:if>
                                             </li>
                                         </c:if>
                                     </c:forEach>
@@ -70,6 +76,9 @@
                                         <c:if test="${additionalResources.columnNo eq 3}">
                                             <li>
                                                 <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
+                                                <c:if test="${additionalResources.type == 'Video'}">
+                                                    <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
+                                                </c:if>
                                             </li>
                                         </c:if>
                                     </c:forEach>
@@ -81,5 +90,4 @@
             </div>
             </div>
     </c:forEach>
-
 </jsp:root>

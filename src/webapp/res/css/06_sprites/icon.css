@@ -82,7 +82,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/130731-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/130917-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -292,7 +292,9 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 .i-16-dollar {
     background-position: -816px 0;
 }
-
+.i-16-video {
+    background-position: -832px 0;
+}
 
 /* row 16 */
 
