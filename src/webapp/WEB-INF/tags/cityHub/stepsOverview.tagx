@@ -11,7 +11,7 @@
             <div class="unit size57of100 lastUnit mtl pll">
                 <h1 class="SourceSansPro-Semibold-h1 make-0578AA bottom">simple steps</h1>
                 <h2 class="SourceSansPro-Semibold-h2 make-666666">
-                    to choosing school in<br/>
+                    to choosing a school in<br/>
                     ${city} ${state.abbreviation}
                 </h2>
             </div>

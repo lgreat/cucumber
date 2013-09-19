@@ -48,30 +48,46 @@
                         <div class="bd pal clearfix bg-F7F7F7">
                             <div class="grid_8">
                                 <ul>
-                                <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
-                                           varStatus="additionalResourcesCount">
-                                    <c:if test="${additionalResources.columnNo eq 1}">
-                                        <li>
-                                            <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
-                                            <c:if test="${additionalResources.type == 'Video'}">
-                                                <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
-                                            </c:if>
-                                        </li>
-                                    </c:if>
-                                </c:forEach>
+                                    <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
+                                               varStatus="additionalResourcesCount">
+                                        <c:if test="${additionalResources.columnNo eq 1 }">
+                                            <c:choose>
+                                                <c:when test="${not empty additionalResources.columnHeading }">
+                                                    <h5 class="SourceSansPro-Semibold-h5 bottom">${additionalResources.columnHeading}</h5>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li>
+                                                        <a href="${additionalResources.url}"
+                                                           class="small">${additionalResources.label}</a>
+                                                        <c:if test="${additionalResources.type == 'Video'}">
+                                                            <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
+                                                        </c:if>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:if>
+                                    </c:forEach>
                                 </ul>
                             </div>
                             <div class="grid_7">
                                 <ul>
                                     <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
                                                varStatus="additionalResourcesCount">
-                                        <c:if test="${additionalResources.columnNo eq 2}">
-                                            <li>
-                                                <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
-                                                <c:if test="${additionalResources.type == 'Video'}">
-                                                    <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
-                                                </c:if>
-                                            </li>
+                                        <c:if test="${additionalResources.columnNo eq 2 }">
+                                            <c:choose>
+                                                <c:when test="${not empty additionalResources.columnHeading }">
+                                                    <h5 class="SourceSansPro-Semibold-h5 bottom">${additionalResources.columnHeading}</h5>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li>
+                                                        <a href="${additionalResources.url}"
+                                                           class="small">${additionalResources.label}</a>
+                                                        <c:if test="${additionalResources.type == 'Video'}">
+                                                            <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
+                                                        </c:if>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -80,13 +96,21 @@
                                 <ul>
                                     <c:forEach items="${stepInfo.additionalResourcesModel}" var="additionalResources"
                                                varStatus="additionalResourcesCount">
-                                        <c:if test="${additionalResources.columnNo eq 3}">
-                                            <li>
-                                                <a href="${additionalResources.url}" class="small">${additionalResources.label}</a>
-                                                <c:if test="${additionalResources.type == 'Video'}">
-                                                    <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
-                                                </c:if>
-                                            </li>
+                                        <c:if test="${additionalResources.columnNo eq 3 }">
+                                            <c:choose>
+                                                <c:when test="${not empty additionalResources.columnHeading }">
+                                                    <h5 class="SourceSansPro-Semibold-h5 bottom">${additionalResources.columnHeading}</h5>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li>
+                                                        <a href="${additionalResources.url}"
+                                                           class="small">${additionalResources.label}</a>
+                                                        <c:if test="${additionalResources.type == 'Video'}">
+                                                            <span class="iconx16 i-16-video vam"><!--Do not collapse--></span>
+                                                        </c:if>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
