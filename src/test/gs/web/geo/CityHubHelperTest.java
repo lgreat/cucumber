@@ -39,15 +39,34 @@ public class CityHubHelperTest extends BaseControllerTestCase {
     private AnchorListModelFactory _anchorListModelFactory;
 
     private static Map<String, String> _configKeyValues = new HashMap<String, String>(){{
+        Calendar cal1 = Calendar.getInstance();
+        cal1.add(Calendar.DAY_OF_YEAR, 30);
+        cal1 = setTimeToStartOfDay(cal1);
         put("importantEvent_1_description", "Application deadline for DCPS");
-        put("importantEvent_1_date", "10-31-2013");
+        put("importantEvent_1_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal1.getTime()));
         put("importantEvent_1_url", "dcps.dc.gov");
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.add(Calendar.DAY_OF_YEAR, 10);
+        cal2 = setTimeToStartOfDay(cal2);
         put("importantEvent_2_description", "Application deadline for PCSB");
-        put("importantEvent_2_date", "10-16-2013");
+        put("importantEvent_2_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal2.getTime()));
         put("importantEvent_2_url", "https://www.pcsb.org?");
+
+        Calendar cal3 = Calendar.getInstance();
+        cal3.add(Calendar.DAY_OF_YEAR, 20);
+        cal3 = setTimeToStartOfDay(cal3);
         put("importantEvent_3_description", "Application deadline for PCSB");
-        put("importantEvent_3_date", "10-29-2013");
+        put("importantEvent_3_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal3.getTime()));
         put("importantEvent_3_url", "https://www.pcsb.org?");
+
+        // this should never be returned in the sorted config list. the date is set to 20 days back from current day.
+        Calendar cal5 = Calendar.getInstance();
+        cal5.add(Calendar.DAY_OF_YEAR, -20);
+        cal5 = setTimeToStartOfDay(cal5);
+        put("importantEvent_5_description", "Application deadline for PCSB");
+        put("importantEvent_5_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal5.getTime()));
+        put("importantEvent_5_url", "https://www.pcsb.org?");
     }};
 
     public void setUp() throws Exception {
@@ -110,7 +129,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         assertEquals("Expected config list must be the same as the one returned by the controller.", sampleConfigList, configList);
     }
 
-    public void testCOnfigKeyPrefixesSortedByDate() throws ParseException {
+    public void testConfigKeyPrefixesSortedByDate() throws ParseException {
         List<String> sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(null);
         assertTrue("Expected list sorted by date must be empty.", sortedKeys.isEmpty());
 
@@ -183,9 +202,12 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         assertEquals("Expect the list size to be 3, there are 3 important event keys with dates", 3, configKeyPrefixesWithIndex.size());
         assertEquals("Expected an url value to have http prefix appended if it already doesn't have.", "http://dcps.dc.gov",
                 (String) modelMap.get("importantEvent_1_url"));
-        assertEquals("Expect the date string to be converted to date object", new SimpleDateFormat(DATE_FORMAT).parse("10-29-2013"),
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, 20);
+        cal = setTimeToStartOfDay(cal);
+        assertEquals("Expect the date string to be converted to date object", cal.getTime(),
                 modelMap.get("importantEvent_3_date"));
-        assertEquals("Expect the month in a date is identified and set correctly", 10, modelMap.get("importantEvent_2_date_month"));
+        assertNull("Expect important event 5 to not be included in the sorted list", modelMap.get("importantEvent_5_date"));
 
         hubConfigs.add(setSampleHubConfig(hubId, hubCityMapping, "importantEvent_4_date", "invalid date format"));
         modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
@@ -307,5 +329,13 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         hubCityMapping.setCity(city);
         hubCityMapping.setState(state);
         return hubCityMapping;
+    }
+
+    public static Calendar setTimeToStartOfDay(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 }

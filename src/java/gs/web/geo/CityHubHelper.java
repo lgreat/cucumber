@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -85,6 +86,8 @@ public class CityHubHelper {
                         try {
                             Calendar calendar = Calendar.getInstance();
                             Date date = new SimpleDateFormat(DATE_FORMAT).parse(hubConfig.getValue());
+                            Date today = new Date();
+                            if(today.after(date)) continue;
                             calendar.setTime(date);
                             filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
                             filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
