@@ -34,6 +34,7 @@ When /^I apply the "([^\"]+)" (school type|grade level|distance|GS rating) filte
   if HOW_TO_APPLY_FILTER_MAP.has_key?(filter_type)
     steps %Q{
       When I click on "#{HOW_TO_APPLY_FILTER_MAP[filter_type][:filter_outer_label]}"
+      And I wait 1 seconds
       And I click the #{HOW_TO_APPLY_FILTER_MAP[filter_type][:filter_input_type]} "#{filter_label}"
     }
     if HOW_TO_APPLY_FILTER_MAP[filter_type][:extra_step]
