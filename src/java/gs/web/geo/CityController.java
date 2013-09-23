@@ -29,6 +29,7 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -210,6 +211,16 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
         AnchorListModel schoolBreakdownAnchorList = getCityHubHelper().getCollectionBrowseLinks(request, null, city.getName(), state);
         model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
+        List breakdownList = schoolBreakdownAnchorList.getResults();
+        int schoolCount = 0;
+        for(int i = 0; i < breakdownList.size(); i++) {
+            Anchor anchor = (Anchor) breakdownList.get(i);
+            // Public schools include public + charter
+            if("Public Schools".equals(anchor.getContents()) || "Private Schools".equals(anchor.getContents())) {
+                schoolCount += anchor.getCount();
+            }
+        }
+        model.put(MODEL_SCHOOL_COUNT, schoolCount);
 
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
