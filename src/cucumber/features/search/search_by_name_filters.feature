@@ -8,6 +8,7 @@ Feature: Test the filters on search by name
   Scenario Outline: I can filter by school type and grade level
     Given I am on "Search Alameda By Name" page
     When I apply the "<label>" <filter_type> filter
+    And I wait 3 seconds for the school to load
     Then I see "<label>" filter is applied
 
   Examples:
@@ -24,6 +25,7 @@ Feature: Test the filters on search by name
   Scenario Outline: I can filter by rating on a Packard by name search
     Given I am on "Search Oakland By Name" page
     When I apply the "<label>" <filter_type> filter
+    And I wait 3 seconds for the school to load
     Then I see "<label>" filter is applied
 
   Examples:

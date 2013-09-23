@@ -10,6 +10,7 @@ Feature: Test the filters on search by location
   @javascript
   Scenario Outline: I can filter by school type, grade level and distance
     When I apply the "<label>" <filter_type> filter
+    And I wait 3 seconds for the school to load
     Then I see "<label>" filter is applied
 
   Examples:
