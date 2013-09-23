@@ -31,7 +31,6 @@ When /^I see "([^\"]+)" filter is applied$/ do |filter_name|
 end
 
 When /^I apply the "([^\"]+)" (school type|grade level|distance|GS rating) filter$/ do |filter_label, filter_type|
-  sleep 3
   if HOW_TO_APPLY_FILTER_MAP.has_key?(filter_type)
     steps %Q{
       When I click on "#{HOW_TO_APPLY_FILTER_MAP[filter_type][:filter_outer_label]}"
