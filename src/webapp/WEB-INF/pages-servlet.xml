@@ -2226,6 +2226,10 @@
         <property name="controllerFamily" value="CITY_LOCAL"/>
    </bean>
 
+    <bean name="/cityHub/enrollmentInformation.page"
+          class="gs.web.geo.CityHubEnrollmentPageController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/cityHub/choosePage.page"
           class="gs.web.geo.CityHubChoosePageController"
           autowire="byName" lazy-init="true"/>

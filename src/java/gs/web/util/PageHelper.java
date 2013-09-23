@@ -222,6 +222,15 @@ public class PageHelper {
     private boolean _showingLeaderboard = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
+
+    public boolean isaddsHidden() {
+        return _hideAdds;
+    }
+
+    public void sethideAdds(boolean _hideAdds) {
+        this._hideAdds = _hideAdds;
+    }
+
     private boolean _showingBelowNavAds = true;
     private boolean _betaPage = false;
     private String _pageName = "";
@@ -233,6 +242,9 @@ public class PageHelper {
     private String _onload = "";
     private String _onunload = "";
     private boolean _showingNthGraderHover = false;
+
+
+    private boolean _hideAdds = false;
 
 
     private Set<String> _javascriptFileSources; // Unique set of files to include on page
@@ -608,7 +620,7 @@ public class PageHelper {
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return !_sessionContext.isAdvertisingOnline() ||
+        return   _hideAdds || !_sessionContext.isAdvertisingOnline() ||
                 (_sessionContext.getCobrand() != null &&
                  _sessionContext.getCobrand().matches("mcguire|framed|vreo|e-agent|homegain|envirian|connectingneighbors|test")
                 ) ||

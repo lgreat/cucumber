@@ -120,23 +120,19 @@
     <k12:trafficDriverIncludes/>
 
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
-    <!-- Hiding the Ads on the Profile Page for GS-14603 -->
-    <pageHelper:hideFooterAd/>
-    <pageHelper:hideLeaderboard/>
-    <pageHelper:hideBelowNavAds/>
-    <!--<ad:disableGptSingleRequestMode/>-->
-    <!--<ad:setSlotPrefix slotPrefix="School_Profile_Page"/>-->
-    <!--<ad:enableGptAsynchronousMode />-->
-    <!--<ad:setGptSlotLevelTargetingKeyAssignment adKeyword="template" jsLookupVariable="GS.ad.profile.tabNameForAdTargeting"/>-->
-    <!--<ad:disableGptGhostTextHiding position="Header_728x90"/>-->
-    <!--<ad:disableGptGhostTextHiding position="Footer_728x90"/>-->
-    <!--<ad:disableGptGhostTextHiding position="AboveFold_300x600"/>-->
-    <!--<ad:disableGptGhostTextHiding position="BelowFold_300x250"/>-->
-    <!--<ad:disableGptGhostTextHiding position="Header_Branded_Tandem_728x90"/>-->
-    <!--<ad:disableGptGhostTextHiding position="Footer_Branded_Tandem_728x90"/>-->
-    <!--<ad:disableGptGhostTextHiding position="AboveFold_Branded_Tandem_300x600"/>-->
-    <!--<ad:disableGptGhostTextHiding position="BelowFold_Branded_Tandem_300x250"/>-->
-    <!--<ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>-->
+    <ad:disableGptSingleRequestMode/>
+    <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
+    <ad:enableGptAsynchronousMode />
+    <ad:setGptSlotLevelTargetingKeyAssignment adKeyword="template" jsLookupVariable="GS.ad.profile.tabNameForAdTargeting"/>
+    <ad:disableGptGhostTextHiding position="Header_728x90"/>
+    <ad:disableGptGhostTextHiding position="Footer_728x90"/>
+    <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
+    <ad:disableGptGhostTextHiding position="BelowFold_300x250"/>
+    <ad:disableGptGhostTextHiding position="Header_Branded_Tandem_728x90"/>
+    <ad:disableGptGhostTextHiding position="Footer_Branded_Tandem_728x90"/>
+    <ad:disableGptGhostTextHiding position="AboveFold_Branded_Tandem_300x600"/>
+    <ad:disableGptGhostTextHiding position="BelowFold_Branded_Tandem_300x250"/>
+    <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 
 
@@ -473,8 +469,8 @@
     </div>
 
     <div class="">
-        <!--<ad:AboveFold_300x600 />-->
-        <!--<ad:AboveFold_Branded_Tandem_300x600 />-->
+        <ad:AboveFold_300x600 />
+        <ad:AboveFold_Branded_Tandem_300x600 />
 
         <promo:emailSignUp-v1 userIsAlreadySignedUp="false" />
 
@@ -483,7 +479,7 @@
 
 
         <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
-        <!--<ad:adTag position="Community_Ad_300x50"/>-->
+        <ad:adTag position="Community_Ad_300x50"/>
 
         <c:if test="${not empty school and not empty school.physicalAddress and not empty school.physicalAddress.city and
         ((fn:toLowerCase(school.physicalAddress.city) eq 'indianapolis') or (fn:toLowerCase(school.physicalAddress.city) eq 'washington')
@@ -491,8 +487,8 @@
             <school:profileChooser city="${school.physicalAddress.city}" state="${school.physicalAddress.state}"/>
         </c:if>
 
-        <!--<ad:BelowFold_300x250/>-->
-        <!--<ad:BelowFold_Branded_Tandem_300x250 />-->
+        <ad:BelowFold_300x250/>
+        <ad:BelowFold_Branded_Tandem_300x250 />
 
         <c:set var="isDcNclbSchool" value="${school.physicalAddress.state eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and school.levelCode ne 'p'}"/>
         <c:if test="${isDcNclbSchool and requestScope.context.showDcNclbModules}">
@@ -506,7 +502,7 @@
                     />
         </c:if>
 
-        <!--<ad:BelowFold_Top_300x125/>-->
+        <ad:BelowFold_Top_300x125/>
 
     </div>
 </div>

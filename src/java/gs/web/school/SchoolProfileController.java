@@ -41,6 +41,9 @@ public class SchoolProfileController extends AbstractSchoolController implements
         Map<String, Object> model = new HashMap<String, Object>();
 
         School school = _requestAttributeHelper.getSchool(request);
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        // Hide Ads based on City Hub to do - Shomi
+        pageHelper.sethideAdds(true);
         school.getMetadataValue("gs_rating"); // force lazy initialization
         model.put("school", school);
 
@@ -121,8 +124,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // since e.g. profileTestScores.jspx doesn't have direct access to the request params of original/parent request
         model.put("debug", request.getParameter("gs_debug"));
 
-        // Google Ad Manager ad keywords
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
 
         if (pageHelper != null) {
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page

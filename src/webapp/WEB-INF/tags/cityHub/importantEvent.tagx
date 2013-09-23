@@ -5,7 +5,7 @@
 >
     <jsp:directive.attribute name="hideAnnoucmentModule" required="false" type="java.lang.Boolean"/>
 
-    <div class="mtl">
+
         <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}"
                property="java.util.List"/>
         <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}"
@@ -63,6 +63,6 @@
             <a href="http://www.greatschools.org" target="_blank" class="small mls">Find out details</a>
         </div>
         </c:if>
-    </div>
+
     <hr class="keyline1 mvl"/>
 </jsp:root>

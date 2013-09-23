@@ -50,6 +50,17 @@ public class CityHubHelper {
     private AnchorListModelFactory _anchorListModelFactory;
 
 
+
+    public ModelMap getImportantModuleMap(final State state, final String city) {
+        List<HubConfig> configList = getHubConfig(city, state);
+        ModelMap importantEventsMap = getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
+        List<String> configKeyPrefixesSortedByDate = getConfigKeyPrefixesSortedByDate(importantEventsMap);
+        importantEventsMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
+        importantEventsMap.put("maxImportantEventsToDisplay",  CityHubHelper.MAX_IMPORTANT_EVENTS_TO_DISPLAYED);
+        return importantEventsMap;
+    }
+
+
     public Integer getHubID(final String city, final State state)
     {
         Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
