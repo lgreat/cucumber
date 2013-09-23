@@ -1,4 +1,4 @@
-Feature: Test the filters on search by name @cliu2
+Feature: Test the filters on search by name
   As a parent
   I want to be able to filter search results
   So that I can quickly find a set of schools I am interested in
