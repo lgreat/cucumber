@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/cityHub/educationCommunity.page")
-public class CityHubEducationCommunity {
+public class CityHubEducationCommunityController {
     public static final String EDUCATION_COMMUNITY_VIEW = "/cityHub/educationCommunity";
 
     @Autowired
