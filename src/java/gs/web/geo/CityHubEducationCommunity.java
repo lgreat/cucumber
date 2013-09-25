@@ -36,7 +36,7 @@ public class CityHubEducationCommunity {
         Integer collectionId = getCityHubHelper().getHubID(city, state);
         modelMap.put("collectionId", collectionId);
 
-        modelMap.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(state, city));
+        modelMap.put(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(state, city));
 
         return EDUCATION_COMMUNITY_VIEW;
     }
