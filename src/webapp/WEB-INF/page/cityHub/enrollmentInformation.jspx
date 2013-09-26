@@ -29,6 +29,9 @@
 
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
+    <hub:enrollmentHeader/>
+    <hub:enrollmentInfo/>
+
     <mod:tracking pageName="${pageName}"
                   locale="${city}"
                   hier1="Home,city Enrollment Page,${city}-${state.abbreviation}"/>
