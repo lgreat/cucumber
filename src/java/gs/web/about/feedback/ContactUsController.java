@@ -37,7 +37,7 @@ public class ContactUsController extends SimpleFormController {
 
     protected static final String DATA_EMAIL = "datahelp@greatschools.org";
     protected static final String NEWSLETTERS_EMAIL = "gsnewsletters@gmail.com";
-    protected static final String ADVERTISING_EMAIL = "swami@greatschools.org";
+    protected static final String ADVERTISING_EMAIL = "advertising@greatschools.org";
     protected static final String LICENSING_EMAIL = "bizdev@greatschools.org";
     private JavaMailSender _mailSender;
     private IGeoDao _geoDao;
