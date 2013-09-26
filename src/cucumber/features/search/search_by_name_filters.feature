@@ -7,7 +7,6 @@ Feature: Test the filters on search by name
   @javascript
   Scenario Outline: I can filter by school type and grade level
     Given I am on "Search Alameda By Name" page
-    And I wait 2 seconds
     When I apply the "<label>" <filter_type> filter
     Then I see "<label>" filter is applied
 
@@ -24,7 +23,6 @@ Feature: Test the filters on search by name
   @javascript
   Scenario Outline: I can filter by rating on a Packard by name search
     Given I am on "Search Oakland By Name" page
-    And I wait 2 seconds
     When I apply the "<label>" <filter_type> filter
     Then I see "<label>" filter is applied
 
