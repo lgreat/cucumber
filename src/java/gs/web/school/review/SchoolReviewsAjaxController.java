@@ -622,9 +622,9 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         buff.append("[");
         List<String> messages = Arrays.asList(errors);
 
-        for (Iterator iter = messages.iterator(); iter.hasNext();) {
-            ObjectError error = (ObjectError) iter.next();
-            buff.append("\"").append(error.getDefaultMessage()).append("\"");
+        for (Iterator<String> iter = messages.iterator(); iter.hasNext();) {
+            String error = iter.next();
+            buff.append("\"").append(error).append("\"");
             if (iter.hasNext()) {
                 buff.append(",");
             }

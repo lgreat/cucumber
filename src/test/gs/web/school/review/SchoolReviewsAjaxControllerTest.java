@@ -415,10 +415,18 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_reportedEntityDao);
     }
 
-    public void testErrorJson() throws Exception {
+    public void testErrorJsonErrorsObject() throws Exception {
         _errors.reject("bad", "this is a bad");
         _errors.reject("bad", "this is really bad");
         _controller.errorJSON(getResponse(), _errors);
+
+        assertEquals("text/x-json", getResponse().getContentType());
+        //{"status":true,"errors":["this is a bad","this is really bad"]}
+        assertEquals("{\"status\":false,\"reviewPosted\":false,\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
+    }
+
+    public void testErrorJsonStringArray() throws Exception {
+        _controller.errorJSON(getResponse(), "this is a bad", "this is really bad");
 
         assertEquals("text/x-json", getResponse().getContentType());
         //{"status":true,"errors":["this is a bad","this is really bad"]}
