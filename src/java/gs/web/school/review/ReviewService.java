@@ -2,7 +2,9 @@ package gs.web.school.review;
 
 import gs.data.community.User;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.ITopicalSchoolReviewDao;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 public class ReviewService {
 
     IReviewDao _reviewDao;
+    ITopicalSchoolReviewDao _topicalSchoolReviewDao;
 
     public static enum ReviewUpgradeStatus {
         REVIEW_UPGRADED_NOT_PUBLISHED,
@@ -58,7 +61,7 @@ public class ReviewService {
      * Helper method that upgrades any provisional reviews for user to the associated non-provisional
      * status (e.g. pd --> d). Also builds a ReviewUpgradeSummary to encapsulate upgraded reviews and upgrade status
      *
-     * @param user
+     * @param user user to upgrade reviews for
      * @return ReviewUpgradeSummary which contains and describes upgraded reviews
      */
     public ReviewUpgradeSummary upgradeProvisionalReviewsAndSummarize(User user) {
@@ -71,7 +74,7 @@ public class ReviewService {
     /**
      * Upgrades any provisional reviews for user to the associated non-provisional status (e.g. pd --> d)
      *
-     * @param user
+     * @param user user to upgrade reviews for
      * @return List of upgraded reviews
      */
     public List<Review> upgradeProvisionalReviews(User user) {
@@ -81,8 +84,8 @@ public class ReviewService {
 
         List<Review> userReviews = getReviewDao().findUserReviews(user);
         List<Review> upgradedReviews = new ArrayList<Review>();
+        List<TopicalSchoolReview> topicalReviews = getTopicalSchoolReviewDao().findByMemberId(user.getId());
 
-        Review anUpgradedReview = null;
         for (Review review : userReviews) {
             String status = review.getStatus();
             if (StringUtils.length(status) > 1 && StringUtils.startsWith(status, "p")) {
@@ -90,6 +93,14 @@ public class ReviewService {
                 review.setProcessDate(new Date());
                 _reviewDao.saveReview(review);
                 upgradedReviews.add(review);
+            }
+        }
+        for (TopicalSchoolReview review: topicalReviews) {
+            String status = review.getStatus();
+            if (StringUtils.length(status) > 1 && StringUtils.startsWith(status, "p")) {
+                review.setStatus(StringUtils.substring(status, 1));
+                review.setProcessDate(new Date());
+                _topicalSchoolReviewDao.save(review);
             }
         }
 
@@ -143,5 +154,13 @@ public class ReviewService {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ITopicalSchoolReviewDao getTopicalSchoolReviewDao() {
+        return _topicalSchoolReviewDao;
+    }
+
+    public void setTopicalSchoolReviewDao(ITopicalSchoolReviewDao topicalSchoolReviewDao) {
+        _topicalSchoolReviewDao = topicalSchoolReviewDao;
     }
 }
