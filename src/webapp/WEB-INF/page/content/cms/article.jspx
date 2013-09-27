@@ -52,8 +52,6 @@
     </c:otherwise>
 </c:choose>
 
-<pageHelper:includeQualarooJS/>
-
 <head>
     <c:choose>
         <c:when test="${feature.contentKey.type eq 'ArticleSlideshow'}">

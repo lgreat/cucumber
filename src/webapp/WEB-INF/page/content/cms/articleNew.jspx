@@ -20,6 +20,7 @@
 
 <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
 <c:set var="omniturePageName" value="article"/>
+<pageHelper:includeQualarooJS/>
 
 <head>
     <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}"
