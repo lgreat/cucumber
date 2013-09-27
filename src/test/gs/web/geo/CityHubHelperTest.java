@@ -39,34 +39,66 @@ public class CityHubHelperTest extends BaseControllerTestCase {
     private AnchorListModelFactory _anchorListModelFactory;
 
     private static Map<String, String> _configKeyValues = new HashMap<String, String>(){{
+        String importantKeyPrefix = CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX;
+        String keyEnrollmentDatesKeyPrefix = CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX;
+
         Calendar cal1 = Calendar.getInstance();
         cal1.add(Calendar.DAY_OF_YEAR, 30);
         cal1 = setTimeToStartOfDay(cal1);
-        put("importantEvent_1_description", "Application deadline for DCPS");
-        put("importantEvent_1_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal1.getTime()));
-        put("importantEvent_1_url", "dcps.dc.gov");
+        put(importantKeyPrefix + "_1_description", "Application deadline for DCPS");
+        put(importantKeyPrefix + "_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal1.getTime()));
+        put(importantKeyPrefix + "_1_url", "dcps.dc.gov");
 
         Calendar cal2 = Calendar.getInstance();
         cal2.add(Calendar.DAY_OF_YEAR, 10);
         cal2 = setTimeToStartOfDay(cal2);
-        put("importantEvent_2_description", "Application deadline for PCSB");
-        put("importantEvent_2_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal2.getTime()));
-        put("importantEvent_2_url", "https://www.pcsb.org?");
+        put(importantKeyPrefix + "_2_description", "Application deadline for PCSB");
+        put(importantKeyPrefix + "_2_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal2.getTime()));
+        put(importantKeyPrefix + "_2_url", "https://www.pcsb.org?");
 
         Calendar cal3 = Calendar.getInstance();
         cal3.add(Calendar.DAY_OF_YEAR, 20);
         cal3 = setTimeToStartOfDay(cal3);
-        put("importantEvent_3_description", "Application deadline for PCSB");
-        put("importantEvent_3_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal3.getTime()));
-        put("importantEvent_3_url", "https://www.pcsb.org?");
+        put(importantKeyPrefix + "_3_description", "Application deadline for PCSB");
+        put(importantKeyPrefix + "_3_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal3.getTime()));
+        put(importantKeyPrefix + "_3_url", "https://www.pcsb.org?");
 
         // this should never be returned in the sorted config list. the date is set to 20 days back from current day.
         Calendar cal5 = Calendar.getInstance();
         cal5.add(Calendar.DAY_OF_YEAR, -20);
         cal5 = setTimeToStartOfDay(cal5);
-        put("importantEvent_5_description", "Application deadline for PCSB");
-        put("importantEvent_5_date", (new SimpleDateFormat(CityHubHelper.DATE_FORMAT)).format(cal5.getTime()));
-        put("importantEvent_5_url", "https://www.pcsb.org?");
+        put(importantKeyPrefix + "_5_description", "Application deadline for PCSB");
+        put(importantKeyPrefix + "_5_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal5.getTime()));
+        put(importantKeyPrefix + "_5_url", "https://www.pcsb.org?");
+
+        Calendar cal4 = Calendar.getInstance();
+        cal4.add(Calendar.DAY_OF_YEAR, 15);
+        cal4 = setTimeToStartOfDay(cal4);
+        put(keyEnrollmentDatesKeyPrefix + "_public_elementary_1_description", "Application deadline for Public elementary schools");
+        put(keyEnrollmentDatesKeyPrefix + "_public_elementary_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal4.getTime()));
+
+        Calendar cal6 = Calendar.getInstance();
+        cal6 = setTimeToStartOfDay(cal6);
+        put(keyEnrollmentDatesKeyPrefix + "_private_high_1_description", "Application deadline for Private high schools");
+        put(keyEnrollmentDatesKeyPrefix + "_private_high_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal6.getTime()));
+
+        Calendar cal7 = Calendar.getInstance();
+        cal7.add(Calendar.DAY_OF_YEAR, -49);
+        cal7 = setTimeToStartOfDay(cal7);
+        put(keyEnrollmentDatesKeyPrefix + "_private_middle_1_description", "Application process for Private middle schools begins");
+        put(keyEnrollmentDatesKeyPrefix + "_private_middle_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal7.getTime()));
+
+        Calendar cal8 = Calendar.getInstance();
+        cal8.add(Calendar.DAY_OF_YEAR, 79);
+        cal8 = setTimeToStartOfDay(cal8);
+        put(keyEnrollmentDatesKeyPrefix + "_private_middle_2_description", "Application deadline for Private middle schools begins");
+        put(keyEnrollmentDatesKeyPrefix + "_private_middle_2_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal8.getTime()));
+
+        Calendar cal9 = Calendar.getInstance();
+        cal9.add(Calendar.DAY_OF_YEAR, -1);
+        cal9 = setTimeToStartOfDay(cal9);
+        put(keyEnrollmentDatesKeyPrefix + "_public_charter_preschool_1_description", "Application deadline for charter preschools");
+        put(keyEnrollmentDatesKeyPrefix + "_public_charter_preschool_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal9.getTime()));
     }};
 
     public void setUp() throws Exception {
@@ -143,30 +175,65 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
         assertTrue("Expected list should be empty.", sortedKeys.isEmpty());
 
+        String keyPrefix = CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX;
         List<String> configDateKeyPrefixListWithIndex = new ArrayList<String>(){{
-            add("importantEvent_1");
-            add("importantEvent_2");
-            add("importantEvent_3");
+            String keyPrefix = CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX;
+            add(keyPrefix + "_1");
+            add(keyPrefix + "_2");
+            add(keyPrefix + "_3");
         }};
         modelMap.put(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configDateKeyPrefixListWithIndex);
         sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
         assertEquals("The list should not be sorted because no date key with any of the prefixes exists in the map.", configDateKeyPrefixListWithIndex, sortedKeys);
 
         try{
-            modelMap.put("importantEvent_1_date", new SimpleDateFormat(DATE_FORMAT).parse(_configKeyValues.get("importantEvent_1_date")));
-            modelMap.put("importantEvent_2_date", new SimpleDateFormat(DATE_FORMAT).parse(_configKeyValues.get("importantEvent_2_date")));
-            modelMap.put("importantEvent_3_date", new SimpleDateFormat(DATE_FORMAT).parse(_configKeyValues.get("importantEvent_3_date")));
+            modelMap.put(keyPrefix + "_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_1_date")));
+            modelMap.put(keyPrefix + "_2_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_2_date")));
+            modelMap.put(keyPrefix + "_3_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_3_date")));
         }
         catch (ParseException ex) {
             _logger.error("CityHubHelperTest - error while trying to convert string to java date object", ex.getCause());
         }
-        modelMap.put("importantEvent_4_date", null);
+        modelMap.put(keyPrefix + "_4_date", null);
 
         sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
 
-        assertEquals("importantEvent_2 should be first", "importantEvent_2", sortedKeys.get(0));
-        assertEquals("importantEvent_3 should be second", "importantEvent_3", sortedKeys.get(1));
-        assertEquals("importantEvent_1 should be the last", "importantEvent_1", sortedKeys.get(2));
+        assertEquals(keyPrefix + "_2 should be first", "importantEvent_2", sortedKeys.get(0));
+        assertEquals(keyPrefix + "_3 should be second", "importantEvent_3", sortedKeys.get(1));
+        assertEquals(keyPrefix + "_1 should be the last", "importantEvent_1", sortedKeys.get(2));
+
+        keyPrefix = CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX;
+        configDateKeyPrefixListWithIndex = new ArrayList<String>(){{
+            String keyPrefix = CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX;
+            add(keyPrefix + "_public_elementary_1");
+            add(keyPrefix + "_private_high_1");
+            add(keyPrefix + "_private_middle_1");
+            add(keyPrefix + "_private_middle_2");
+            add(keyPrefix + "_public_charter_preschool_1");
+        }};
+        modelMap.put(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configDateKeyPrefixListWithIndex);
+        sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
+        assertEquals("The list should not be sorted because no date key with any of the prefixes exists in the map.", configDateKeyPrefixListWithIndex, sortedKeys);
+
+        try{
+            modelMap.put(keyPrefix + "_public_elementary_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_public_elementary_1_date")));
+            modelMap.put(keyPrefix + "_private_high_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_private_high_1_date")));
+            modelMap.put(keyPrefix + "_private_middle_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_private_middle_1_date")));
+            modelMap.put(keyPrefix + "_private_middle_2_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_private_middle_2_date")));
+            modelMap.put(keyPrefix + "_public_charter_preschool_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_public_charter_preschool_1_date")));
+        }
+        catch (ParseException ex) {
+            _logger.error("CityHubHelperTest - error while trying to convert string to java date object", ex.getCause());
+        }
+        modelMap.put(keyPrefix + "_public_charter_preschool_4_date", null);
+
+        sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
+
+        assertEquals(keyPrefix + "_private_middle_1 should be first", keyPrefix +  "_private_middle_1", sortedKeys.get(0));
+        assertEquals(keyPrefix + "_public_charter_preschool_1 should be second", keyPrefix + "_public_charter_preschool_1", sortedKeys.get(1));
+        assertEquals(keyPrefix + "_private_high_1 should be third", keyPrefix + "_private_high_1", sortedKeys.get(2));
+        assertEquals(keyPrefix + "_public_elementary_1 should be fourth", keyPrefix + "_public_elementary_1", sortedKeys.get(3));
+        assertEquals(keyPrefix + "_private_middle_2 should be the last", keyPrefix + "_private_middle_2", sortedKeys.get(4));
     }
 
     public void testGetFilteredConfigMap() throws Exception {
@@ -201,18 +268,38 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         List<String> configKeyPrefixesWithIndex = (List<String>) modelMap.get(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY);
         assertEquals("Expect the list size to be 3, there are 3 important event keys with dates", 3, configKeyPrefixesWithIndex.size());
         assertEquals("Expected an url value to have http prefix appended if it already doesn't have.", "http://dcps.dc.gov",
-                (String) modelMap.get("importantEvent_1_url"));
+                (String) modelMap.get(keyPrefix + "_1_url"));
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, 20);
         cal = setTimeToStartOfDay(cal);
-        assertEquals("Expect the date string to be converted to date object", cal.getTime(),
-                modelMap.get("importantEvent_3_date"));
-        assertNull("Expect important event 5 to not be included in the sorted list", modelMap.get("importantEvent_5_date"));
+        assertEquals("Expect the month to be set correct (Calendar.MONTH is 0 based, so add 1 to that)", cal.get(Calendar.MONTH) + 1,
+                modelMap.get(keyPrefix + "_3_date_month"));
+        assertEquals("Expect the month to be set correct", cal.get(Calendar.DAY_OF_MONTH),
+                modelMap.get(keyPrefix + "_3_date_dayOfMonth"));
+        assertEquals("Expect the month to be set correct", cal.get(Calendar.YEAR),
+                modelMap.get(keyPrefix + "_3_date_year"));
+        assertNull("Expect important event 5 to not be included in the sorted list", modelMap.get(keyPrefix + "_5_date"));
 
         hubConfigs.add(setSampleHubConfig(hubId, hubCityMapping, "importantEvent_4_date", "invalid date format"));
         modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
 
-        assertNull("Expect the event 4 date key to not exist because that should throw an exception", modelMap.get("importantEvent_4_date"));
+        assertNull("Expect the event 4 date key to not exist because that should throw an exception", modelMap.get(keyPrefix + "_4_date"));
+
+        keyPrefix = CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX;
+        hubConfigs = getSampleHubConfigList(hubId, city, state);
+        modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
+
+        configKeyPrefixesWithIndex = (List<String>) modelMap.get(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY);
+        assertEquals("Expect the list size to be 2, there are 2 key enrollment dates keys", 2, configKeyPrefixesWithIndex.size());
+        assertEquals("Expected an url value to have http prefix appended if it already doesn't have.", "Application deadline for Public elementary schools",
+                (String) modelMap.get(keyPrefix + "_public_elementary_1_description"));
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, 79);
+        cal = setTimeToStartOfDay(cal);
+        assertEquals("Expect the date to be correct", new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMMdyyyy).format(cal.getTime()),
+                modelMap.get(keyPrefix + "_private_middle_2_date"));
+        assertNull("Expect public charter preschool 1 to not be included in the sorted list", modelMap.get(keyPrefix +
+                "_public_charter_preschool_1_date"));
     }
 
     public void testGetCollectionBrowseLinks() {

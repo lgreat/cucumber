@@ -72,10 +72,11 @@ public class CityHubChoosePageController {
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
 
+        List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         /**
          * Get the important events
          */
-        ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(state, city);
+        ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(configList);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
 

@@ -1,5 +1,6 @@
 package gs.web.geo;
 
+import gs.data.hubs.HubConfig;
 import gs.data.state.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,7 +38,8 @@ public class CityHubEducationCommunityController {
         Integer collectionId = getCityHubHelper().getHubID(city, state);
         modelMap.put("collectionId", collectionId);
 
-        modelMap.put(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(state, city));
+        List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
+        modelMap.put(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(configList));
 
         return EDUCATION_COMMUNITY_VIEW;
     }

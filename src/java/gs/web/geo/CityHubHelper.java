@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -32,16 +31,16 @@ import java.util.*;
 public class CityHubHelper {
     private static Logger _logger = Logger.getLogger(CityHubHelper.class);
 
-    public static final String DATE_FORMAT = "MM-dd-yyyy";
+    public static final String DATE_PATTERN_MMddyyyy = "MM-dd-yyyy";
+    public static final String DATE_PATTERN_MMMdyyyy = "MMM d, yyyy";
     public static final String CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY =  "configKeyPrefixListWithIndex";
-
 
     public static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90;
 
     public static int COUNT_OF_REVIEWS_TO_BE_DISPLAYED = 2;
     public static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
     public static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
-
+    public static final String KEY_ENROLLMENT_DATES_KEY_PREFIX = "keyEnrollmentDates";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
@@ -51,9 +50,11 @@ public class CityHubHelper {
     private AnchorListModelFactory _anchorListModelFactory;
 
 
+    public List<HubConfig> getConfigListFromCollectionId(final Integer hubId) {
+        return hubId != null ?  _hubConfigDao.getAllConfigFromHubId(hubId) : new ArrayList<HubConfig>();
+    }
 
-    public ModelMap getImportantModuleMap(final State state, final String city) {
-        List<HubConfig> configList = getHubConfig(city, state);
+    public ModelMap getImportantModuleMap(List<HubConfig> configList) {
         ModelMap importantEventsMap = getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getConfigKeyPrefixesSortedByDate(importantEventsMap);
         importantEventsMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
@@ -61,6 +62,12 @@ public class CityHubHelper {
         return importantEventsMap;
     }
 
+    public ModelMap getKeyEnrollmentDates(List<HubConfig> configList) {
+        ModelMap keyEnrollmentDatesMap = getFilteredConfigMap(configList,  CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX);
+        List<String> configKeyPrefixesSortedByDate = getConfigKeyPrefixesSortedByDate(keyEnrollmentDatesMap);
+        keyEnrollmentDatesMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
+        return keyEnrollmentDatesMap;
+    }
 
     public Integer getHubID(final String city, final State state)
     {
@@ -96,14 +103,14 @@ public class CityHubHelper {
                     if(key.endsWith("_date")) {
                         try {
                             Calendar calendar = Calendar.getInstance();
-                            Date date = new SimpleDateFormat(DATE_FORMAT).parse(hubConfig.getValue());
+                            Date date = new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(hubConfig.getValue());
                             Date today = new Date();
                             if(today.after(date)) continue;
                             calendar.setTime(date);
                             filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
                             filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
                             filteredConfig.put(key + "_month", calendar.get(Calendar.MONTH) + 1);
-                            filteredConfig.put(key, date);
+                            filteredConfig.put(key, new SimpleDateFormat(DATE_PATTERN_MMMdyyyy).format(date));
 
                             configKeyPrefixListWithIndex.add(keyPrefixWithIndex);
                         }
