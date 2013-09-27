@@ -76,7 +76,7 @@
                 <script type="text/javascript" src="/res/js/util/excanvas.js"></script>
             <![endif]-->
         ]]>
-    </c:if>includeQua
+    </c:if>
     <gsml:combinedJavascript src="/res/js/school-profile.min.js">
         <!-- files to includes on dev workstations... must also exist in gsweb's pom.xml -->
         <gsml:javascript src="/res/js/json2.js"/>
