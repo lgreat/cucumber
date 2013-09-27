@@ -52,6 +52,8 @@
     PageHelper.setPageName(request, "spp_overview");
 </jsp:scriptlet>
 
+<pageHelper:includeQualarooJS/>
+
 <head>
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
@@ -74,7 +76,7 @@
                 <script type="text/javascript" src="/res/js/util/excanvas.js"></script>
             <![endif]-->
         ]]>
-    </c:if>
+    </c:if>includeQua
     <gsml:combinedJavascript src="/res/js/school-profile.min.js">
         <!-- files to includes on dev workstations... must also exist in gsweb's pom.xml -->
         <gsml:javascript src="/res/js/json2.js"/>
