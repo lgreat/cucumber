@@ -163,7 +163,7 @@ public class CityHubChoosePageController {
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep2 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("DC education system", "/", "Local Page");
+        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("DC education system", "/cityHub/educationCommunity.page", "Local Page");
 
         FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel("DC enrollment information", "/", "Local Page");
 

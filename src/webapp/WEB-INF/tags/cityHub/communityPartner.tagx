@@ -9,7 +9,7 @@
             <h2>${state.abbreviation} Education community</h2>
             </div>
             <div class="fr small">
-            <a href="#">See the entire education community &amp;#187;</a>
+            <a href="/cityHub/educationCommunity.page">See the entire education community &amp;#187;</a>
             </div>
         </div>
         <div class="prefix_2 grid_21 suffix_2 clearfix">
@@ -33,35 +33,35 @@
                  data-cycle-prev="#prev">
 
                 <div>
-                    <a href="http://www.greatschools.org">
+                    <a href="/cityHub/educationCommunity.page">
                         <gsml:img src="/res/img/cityHubs/partner1.png" alt="Partner 1" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div>
-                    <a href="http://www.greatschools.org">
+                    <a href="/cityHub/educationCommunity.page">
                         <gsml:img src="/res/img/cityHubs/partner2.png" alt="Partner 2" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
-                    <a href="http://www.greatschools.org">
+                    <a href="/cityHub/educationCommunity.page">
                         <gsml:img src="/res/img/cityHubs/partner3.png"
                                   alt="Partner 3" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
-                    <a href="http://www.greatschools.org">
+                    <a href="/cityHub/educationCommunity.page">
                         <gsml:img src="/res/img/cityHubs/partner4.png"
                                   alt="Partner 4" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
-                    <a href="http://www.greatschools.org">
+                    <a href="/cityHub/educationCommunity.page">
                         <gsml:img src="/res/img/cityHubs/partner5.png"
                                   alt="Partner 5" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
                 </div>
                 <div >
-                    <a href="http://www.greatschools.org">
+                    <a href="/cityHub/educationCommunity.page">
                         <gsml:img src="/res/img/cityHubs/partner6.png"
                                   alt="Partner 6" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
                     </a>
