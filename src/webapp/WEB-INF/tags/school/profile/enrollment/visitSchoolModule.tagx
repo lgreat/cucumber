@@ -41,7 +41,7 @@
                                 <c:if test="${fn:contains(school.levelCode, 'e')}">
                                     <a href="/school-choice/school-choice/7055-choose-elementary-school-video.gs">
                                         <div class="tac smaller">
-                                            <gsml:img src="/res/img/content/video/schoolTourThumb-e.png" alt="Touring a school video thumbnail"/><br />
+                                            <gsml:img src="/res/img/content/video/schoolTourThumb-e.jpg" alt="Touring a school video thumbnail"/><br />
                                             What to look for in an<br/>elementary school
                                         </div>
                                     </a>
@@ -51,7 +51,7 @@
                                 <c:if test="${fn:contains(school.levelCode, 'm')}">
                                     <a href="/school-choice/school-choice/7056-choose-middle-school-video.gs">
                                         <div class="tac smaller">
-                                            <gsml:img src="/res/img/content/video/schoolTourThumb-m.png" alt="Touring a school video thumbnail"/><br />
+                                            <gsml:img src="/res/img/content/video/schoolTourThumb-m.jpg" alt="Touring a school video thumbnail"/><br />
                                             What to look for in a<br/>middle school
                                         </div>
                                     </a>
@@ -61,7 +61,7 @@
                                 <c:if test="${fn:contains(school.levelCode, 'h')}">
                                     <a href="/school-choice/school-choice/7066-choose-high-school-video.gs">
                                         <div class="tac smaller">
-                                            <gsml:img src="/res/img/content/video/schoolTourThumb-h.png" alt="Touring a school video thumbnail"/><br />
+                                            <gsml:img src="/res/img/content/video/schoolTourThumb-h.jpg" alt="Touring a school video thumbnail"/><br />
                                             What to look for in a<br/>high school
                                         </div>
                                     </a>

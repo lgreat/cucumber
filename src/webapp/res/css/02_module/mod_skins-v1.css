@@ -689,7 +689,7 @@ Used for the none and one cases in the compare module
 /* ------------- module backgrounds -------------- */
 
 .bg-addPhotos { background: url("/res/img/module/background/addPhotos.png") no-repeat right bottom; }
-.bg-districtMap { background: url("/res/img/module/background/districtMap.png") no-repeat right bottom; }
+.bg-districtMap { background: url("/res/img/module/background/districtMap.gif") no-repeat right bottom; }
 .bg-writeReviews { background: url("/res/img/module/background/reviews.png") no-repeat right 0; }
 .bg-mobileApp { background: url("/res/img/module/background/mobile.png") no-repeat right bottom; }
 .bg-checklist { background: url("/res/img/module/background/checklist.png") no-repeat right bottom;}
