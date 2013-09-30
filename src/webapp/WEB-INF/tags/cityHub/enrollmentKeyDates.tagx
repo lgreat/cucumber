@@ -2,8 +2,50 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
 >
+    <jsp:directive.attribute name="schoolType" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="gradeLevel" required="true" type="java.lang.String"/>
 
-    <div>Enrollment Key dates</div>
+    <c:set var="configKeyPrefix">keyEnrollmentDates_${schoolType}_${gradeLevel}_</c:set>
+    <c:set var="configKeyPrefixesList" value="${keyEnrollmentDates.configKeyPrefixesMap[configKeyPrefix]}"
+           property="java.util.List"/>
+    <c:set var="hasKeyEnrollmentDatesToDisplay" value="${not empty configKeyPrefixesList}" property="java.lang.Boolean"/>
+
+    <c:choose>
+        <c:when test="${hasKeyEnrollmentDatesToDisplay}">
+            <div class="mod standard_1-1 ">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom bg-005877">
+                            <span class="make-ffffff">Key dates</span>
+                        </h4>
+                    </div>
+                    <div class="bd">
+                        <table border="0">
+                            <tbody>
+                            <c:forEach items="${configKeyPrefixesList}" var="keyPrefix">
+                                <c:set var="descriptionKey">${keyPrefix}_description</c:set>
+                                <c:set var="keyDate">${keyPrefix}_date_MMMdyyyy</c:set>
+                                <tr>
+                                    <td>${keyEnrollmentDates[keyDate]}</td>
+                                    <td>${keyEnrollmentDates[descriptionKey]}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="unit size20of100">
+                <div class="small">No Upcoming Key Dates</div>
+            </div>
+        </c:otherwise>
+    </c:choose>
+    <hub:enrollmentTips/>
+
 
 </jsp:root>
