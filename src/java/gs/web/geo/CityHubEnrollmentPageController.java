@@ -11,7 +11,6 @@ package gs.web.geo;
 
 import gs.data.hubs.HubConfig;
 import gs.data.state.State;
-import gs.web.hub.StepModel;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -77,7 +76,7 @@ public class CityHubEnrollmentPageController {
         ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(configList);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
-        ModelMap keyEnrollmentDatesMap = getCityHubHelper().getKeyEnrollmentDates(configList);
+        ModelMap keyEnrollmentDatesMap = getCityHubHelper().getKeyEnrollmentDatesMap(configList);
         modelAndView.addObject(CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX, keyEnrollmentDatesMap);
 
         return modelAndView;
