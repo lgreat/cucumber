@@ -2622,6 +2622,7 @@
                 <ref bean="/school/overview.page"/>
                 <ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>
+                <ref bean="/cityHub/choosePage.page"/>
                 <ref bean="/school/research.page"/>
             </list>
         </property>

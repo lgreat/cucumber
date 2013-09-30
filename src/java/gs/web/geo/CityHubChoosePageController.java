@@ -13,6 +13,8 @@ import gs.web.hub.AdditionalResourcesModel;
 import gs.web.hub.FeaturedResourcesModel;
 import gs.web.hub.StepModel;
 import gs.data.state.State;
+import gs.web.path.DirectoryStructureUrlFields;
+import gs.web.path.IDirectoryStructureUrlController;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,13 +34,20 @@ import java.util.List;
  * @author sarora@greatschools.org Shomi Arora.
  */
 
+
+
 @Controller
-public class CityHubChoosePageController {
+public class CityHubChoosePageController  implements IDirectoryStructureUrlController {
 
 
     private  static final String PARAM_CITY = "city";
+
+
+
     @Autowired
     private CityHubHelper _cityHubHelper;
+
+
 
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
@@ -65,8 +74,9 @@ public class CityHubChoosePageController {
 //            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
 //            return new ModelAndView(redirectView);
 //        }
-        final Integer collectionId = getCityHubHelper().getHubID(city, state);
 
+
+        final Integer collectionId = getCityHubHelper().getHubID(city, state);
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);
@@ -360,7 +370,11 @@ public class CityHubChoosePageController {
     }
 
 
-   
+    public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
+        return fields== null ? false : fields.hasState() && fields.hasCityName() && fields.hasChoosePage()  && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
+
+    }
+
 
     public CityHubHelper getCityHubHelper() {
         return _cityHubHelper;

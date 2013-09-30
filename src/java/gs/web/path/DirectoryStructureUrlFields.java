@@ -46,6 +46,8 @@ public class DirectoryStructureUrlFields {
     private String _schoolName = null;
     private String _schoolID = null; 
     private boolean _hasSchoolsLabel = false;
+
+    private boolean _isChoosePage= false;
     private ExtraResourceIdentifier _eri;
 
     public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
@@ -88,6 +90,7 @@ public class DirectoryStructureUrlFields {
         _schoolName = null;
         _schoolID = null; 
         _hasSchoolsLabel = false;
+        _isChoosePage=false;
         _eri = null;
     }
     
@@ -110,6 +113,10 @@ public class DirectoryStructureUrlFields {
             // or /california/san-francisco/San-Francisco-Unified-School-District/
             // or /california/alameda/1-Alameda-High-School/
             _cityName = pathComponents[2];
+            if (pathComponents[3].equalsIgnoreCase("choosePage")) {
+                _isChoosePage= true;
+            }   else {
+
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
             Matcher schoolNameMatcher = SCHOOL_NAME_OVERVIEW_PATTERN.matcher(pathComponents[3]);
@@ -127,7 +134,8 @@ public class DirectoryStructureUrlFields {
                     _districtName = pathComponents[3];
                 }
             }
-        } else if (pathComponents.length == 5) {
+            }
+        } else if (pathComponents.length == 5 ) {
             // /california/sonoma/public-charter/schools/ or
             // /california/san-francisco/San-Francisco-Unified-School-District/schools/ or
             // /california/alameda/1-Alameda-High-School/{eri}
@@ -322,6 +330,10 @@ public class DirectoryStructureUrlFields {
         return _hasSchoolsLabel;
     }
 
+    public boolean hasChoosePage() {
+        return _isChoosePage;
+    }
+
     public String getSchoolID() {
         return _schoolID;
     }
@@ -336,7 +348,7 @@ public class DirectoryStructureUrlFields {
 
     @Override
     public String toString() {
-        return "hasState: " + hasState() + ", hasCityName: " + hasCityName() + ", hasSchoolTypes: " + hasSchoolTypes() +
+        return "hasState: " + hasState() + ", hasCityName: " + hasCityName() + ", hasChoosePage " + hasChoosePage() + ", hasSchoolTypes: " + hasSchoolTypes() +
                 ", hasLevelCode: " + hasLevelCode() + ", hasSchoolsLabel: " + hasSchoolsLabel() + ", hasSchoolName: " + hasSchoolName() +
                 ", hasSchoolID: " + hasSchoolID() + ", schoolName: " + getSchoolName() + ", schoolID: " + getSchoolID() +
                 ", cityName: " + getCityName() + (hasState()?", state: " + getState().getAbbreviation():"") +
