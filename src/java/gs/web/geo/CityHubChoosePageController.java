@@ -82,10 +82,11 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
 
+        List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         /**
          * Get the important events
          */
-        ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(state, city);
+        ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(configList);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
 
@@ -172,7 +173,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep2 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("DC education system", "/", "Local Page");
+        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("DC education system", "/cityHub/educationCommunity.page", "Local Page");
 
         FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel("DC enrollment information", "/", "Local Page");
 

@@ -9,6 +9,7 @@ package gs.web.geo;
  */
 
 
+import gs.data.hubs.HubConfig;
 import gs.data.state.State;
 import gs.web.hub.StepModel;
 import org.apache.commons.lang.WordUtils;
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 /**
  * Controller for the City Hub Enrollment  Pages.
@@ -67,24 +70,17 @@ public class CityHubEnrollmentPageController {
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
 
+        List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         /**
          * Get the important events
          */
-        /**
-         * Get the important events
-         */
-        ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(state, city);
+        ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(configList);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
-
-
-
-
+        ModelMap keyEnrollmentDatesMap = getCityHubHelper().getKeyEnrollmentDates(configList);
+        modelAndView.addObject(CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX, keyEnrollmentDatesMap);
 
         return modelAndView;
-
-
-
     }
 
     public CityHubHelper getCityHubHelper() {
