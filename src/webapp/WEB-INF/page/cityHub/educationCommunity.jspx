@@ -22,7 +22,7 @@
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
     </head>
     <body>
-    <!-- Hiding the Ads on the City Hub Enrollment Page -->
+    <!-- Hiding the Ads on the City Hub Eductaion Page -->
     <pageHelper:hideFooterAd/>
     <pageHelper:hideLeaderboard/>
     <pageHelper:hideBelowNavAds/>
@@ -35,9 +35,9 @@
         </div>
         <hub:educationPartner/>
     </div>
-    <mod:tracking pageName="${pageName}"
+    <mod:tracking pageName="Education Community"
                   locale="${city}"
-                  hier1="Home,city Enrollment Page,${city}-${state.abbreviation}"/>
+                  hier1="Home,city Education Community Page,${city}-${state.abbreviation}"/>
     </body>
     </html>
 </jsp:root>

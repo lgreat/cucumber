@@ -2,55 +2,29 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
+
         >
 
     <div class="container_24 clearfix mbl">
-        <div class="clearfix mbl">
-            <div class="grid_5">
-                <img alt="Partner Logo" src="/res/img/cityHubs/logo_placeholder_01.png"/>
-            </div>
-            <div class="grid_19">
-                <h3 class="SourceSansPro-Semibold-h3 bottom">Office of the State Superintendent of Education (OSSE)</h3>
 
-                <p class="small bottom">As the State Education Agency (SEA) for DC, the OSSE sets statewide policies, provides resources and support,
-                    and exercises accountability for ALL public education in DC, by monitoring the local education agencies (LEA).
-                    In addition, since many public charter schools are established as an LEA, OSSE often monitors public charter schools
-                    directly. As part of the support they provide, the OSSE runs all transportation for special education students.</p>
-                <a href="http://www.learndc.org/schoolprofiles/search"
-                   class="small">Learn more about state report cards</a><br/>
-                <a href="http://osse.dc.gov/service/specialized-education"
-                   class="small">OSSE - Special Education</a><br/>
+        <c:forEach items="${partnersInfo}" var="partnerInfo">
+            <div class="clearfix mbl">
+                <div class="grid_5">
+                    <img alt="Partner Logo" src="${partnerInfo.logoLocation}"/>
+                </div>
+                <div class="grid_19">
+                    <h3 class="SourceSansPro-Semibold-h3 bottom">${partnerInfo.heading}</h3>
+                   <p class="small bottom">${partnerInfo.description}</p>
+                    <c:forEach items="${partnerInfo.links}" var="link">
+                    <a href="${link.hrefXml}"
+                       class="small" target="_blank">${link.contents}</a><br/>
+                    </c:forEach>
+                </div>
             </div>
-        </div>
-        <div class="clearfix mbl">
-            <div class="grid_5">
-                <img alt="Partner Logo" src="/res/img/cityHubs/logo_placeholder_02.png"/>
-            </div>
-            <div class="grid_19">
-                <h3 class="SourceSansPro-Semibold-h3 bottom">District of Columbia Public Schools (DCPS)</h3>
 
-                <p class="small bottom">DCPS is the traditional public school system in the district. It operates schools serving students at all grade levels.</p>
-                <a href="http://dcps.dc.gov/portal/site/DCPS/" class="small">Visit website</a><br/>
-                <a href="http://www.dc.gov/DCPS/In+the+Classroom/Special+Education"
-                   class="small">DCPS - Special Education</a><br/>
-            </div>
-        </div>
-        <div class="clearfix mbl">
-            <div class="grid_5">
-                <img alt="Partner Logo" src="/res/img/cityHubs/logo_placeholder_03.png"/>
-            </div>
-            <div class="grid_19">
-                <h3 class="SourceSansPro-Semibold-h3 bottom">District of Columbia Public Charter School Board (PCSB)</h3>
 
-                <p class="small bottom">PCSB is an independent seven-member board with the sole authority to open new charter schools in the
-                    District of Columbia. PCSB currently oversees 60 public charter schools on 108 campuses serving nearly
-                    35,000 students living in all eight Wards of the city. PCSB evaluates DC public charter schools for
-                    academic results, compliance with applicable local and federal laws and financial health, holding them
-                    accountable for results. PCSB can close charter schools for financial reasons and also for failing to meet
-                    the goals established in the charter agreement between PCSB and the school.</p>
-                <a href="http://www.dcpcsb.org/" class="small">Visit website</a><br/>
-            </div>
-        </div>
+        </c:forEach>
+
+
     </div>
 </jsp:root>
