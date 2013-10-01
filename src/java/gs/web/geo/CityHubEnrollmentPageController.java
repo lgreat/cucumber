@@ -114,7 +114,7 @@ public class CityHubEnrollmentPageController {
         enrollmentInfo1.setTipsInfoModel(tips1);
 
 
-        enrollmentInfo1.setKeyDatesModel(keyDates1);
+
 
         EnrollmentModel enrollmentInfo2= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.CHARTER , "Public Charter School", "blahh blahh Public Charter School", new Anchor("www.greatschools.org", "Browse DC Public Charter PreSchools" , 22 ));
         // Tips
