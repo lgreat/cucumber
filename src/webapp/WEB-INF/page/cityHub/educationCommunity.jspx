@@ -31,7 +31,7 @@
     <hub:importantEvent hideAnnoucmentModule="true"/>
     <div class="container_24 clearfix">
         <div class="tac mtl pvl">
-            <h2 class="SourceSansPro-Semibold-h2">${state} Education Resources</h2>
+            <h1 class="SourceSansPro-Semibold-h1">${state} Education Community</h1>
         </div>
         <hub:educationPartner/>
     </div>
