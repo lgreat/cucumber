@@ -10,8 +10,13 @@ package gs.web.geo;
 
 
 import gs.data.hubs.HubConfig;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
-import gs.web.hub.StepModel;
+import gs.web.hub.EnrollmentModel;
+import gs.web.hub.KeyDateModel;
+import gs.web.hub.MoreInformationModel;
+import gs.web.util.list.Anchor;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -25,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,17 +76,111 @@ public class CityHubEnrollmentPageController {
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
 
-        List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
+        final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         /**
          * Get the important events
          */
         ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(configList);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
-
+        /**
+         * Key Enrollment module
+         */
         ModelMap keyEnrollmentDatesMap = getCityHubHelper().getKeyEnrollmentDates(configList);
         modelAndView.addObject(CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX, keyEnrollmentDatesMap);
 
+
+        /**
+         * Get Enrollment Model Info  .
+         */
+        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade();
+        modelAndView.addObject("enrollmentsInfo", enrollmentInfo);
+
         return modelAndView;
+    }
+
+
+
+    /**
+     * Get Step facade for the UX .
+     * @return stepsInfo List of StepInfo passed to model.
+     */
+    private List<EnrollmentModel> getEnrollmentFacade() {
+        List<EnrollmentModel> enrollmentInfo = new ArrayList<EnrollmentModel>();
+
+        EnrollmentModel enrollmentInfo1= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PUBLIC , "Public schools(neighborhood or district)", "blahh blahh ", new Anchor("www.greatschools.org", "Browse DC Public PreSchools" , 12 ));
+        // Tips
+        ArrayList<String> tips1= new ArrayList<String>();
+        tips1.add("tip1enrollmentInfo1");
+        tips1.add("tip2enrollmentInfo1");
+        enrollmentInfo1.setTipsInfoModel(tips1);
+
+        // Key Date
+
+        ArrayList<KeyDateModel> keyDates1= new ArrayList<KeyDateModel>();
+
+        KeyDateModel keyDate1= new KeyDateModel("Nov 1 , 2013", "Enrollment Begins Public schools");
+        KeyDateModel keyDate2= new KeyDateModel("Nov 1 , 2013", "Enrollment Ends Public schools");
+
+        keyDates1.add(keyDate1);
+        keyDates1.add(keyDate2);
+
+        enrollmentInfo1.setKeyDatesModel(keyDates1);
+
+        EnrollmentModel enrollmentInfo2= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.CHARTER , "Public Charter School", "blahh blahh Public Charter School", new Anchor("www.greatschools.org", "Browse DC Public Charter PreSchools" , 22 ));
+        // Tips
+        ArrayList<String> tips2= new ArrayList<String>();
+        tips2.add("tip1enrollmentInfo2");
+        tips2.add("tip2enrollmentInfo2");
+        enrollmentInfo2.setTipsInfoModel(tips2);
+
+
+        // Key Date
+
+        ArrayList<KeyDateModel> keyDates2= new ArrayList<KeyDateModel>();
+
+        KeyDateModel keyDate3= new KeyDateModel("Nov 1 , 2013", "Enrollment Begins Public  Charter schools");
+        KeyDateModel keyDate4= new KeyDateModel("Nov 1 , 2013", "Enrollment Ends Public  Charter schools");
+
+        keyDates2.add(keyDate3);
+        keyDates2.add(keyDate4);
+
+        enrollmentInfo2.setKeyDatesModel(keyDates2);
+
+
+        // More Info
+
+        MoreInformationModel  moreinfo2= new MoreInformationModel("3333 14th Street NW<br/> Suite 210</br> Washington D.C 20010</br><b>Phone :</b><br/>(202) 328-2660</br><b>Fax :</b>(202) 442-5026</br>");
+        enrollmentInfo2.setMoreInfo(moreinfo2);
+
+
+        EnrollmentModel enrollmentInfo3= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PRIVATE , "Private School", "blahh blahh Private School", new Anchor("www.greatschools.org", "Browse DC Private Charter PreSchools" , 32 ));
+        // Tips
+
+        ArrayList<String> tips3= new ArrayList<String>();
+        tips3.add("tip1enrollmentInfo3");
+        tips3.add("tip2enrollmentInfo3");
+        enrollmentInfo3.setTipsInfoModel(tips3);
+
+        // Key Date
+
+        ArrayList<KeyDateModel> keyDates3= new ArrayList<KeyDateModel>();
+
+        KeyDateModel keyDate5= new KeyDateModel("Nov 1 , 2013", "Enrollment Begins Private  Charter schools");
+        KeyDateModel keyDate6= new KeyDateModel("Nov 1 , 2013", "Enrollment Ends Private  Charter schools");
+
+        keyDates3.add(keyDate5);
+        keyDates3.add(keyDate6);
+
+        enrollmentInfo3.setKeyDatesModel(keyDates3);
+
+
+
+        enrollmentInfo.add(enrollmentInfo1);
+        enrollmentInfo.add(enrollmentInfo2);
+        enrollmentInfo.add(enrollmentInfo3);
+
+        return   enrollmentInfo;
+
     }
 
     public CityHubHelper getCityHubHelper() {

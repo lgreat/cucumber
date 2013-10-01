@@ -90,9 +90,6 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         modelAndView.addObject("collectionId", collectionId);
         modelAndView.addObject("schoolBreakdown", getCityHubHelper().getCollectionBrowseLinks(request, collectionId, city, state));
 
-        /**
-         *  School Review Link Functionality Start.
-         */
 
         /**
          * Get the important events

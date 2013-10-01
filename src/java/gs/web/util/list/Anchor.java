@@ -34,6 +34,14 @@ public class Anchor {
         _image = null;
     }
 
+    public Anchor(final String href, final String contents, final Integer count) {
+        _href = href;
+        _contents = contents;
+        _styleClass = null;
+        _image = null;
+        _count= count;
+    }
+
     /**
      * Constructor.
      *

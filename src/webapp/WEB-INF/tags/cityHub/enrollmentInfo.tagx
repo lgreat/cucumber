@@ -10,5 +10,17 @@
         <hub:enrollmentKeyDates/>
         <hub:enrollmentTips/>
     </div>
+    <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
+        TAB NAME : ${enrollmentInfo.tabName} <br/>
+        BROWSE LINK STRUCTURE
+        LINK  ${enrollmentInfo.browseLink.hrefXml}  ,  HEADING  ${enrollmentInfo.browseLink.contents} , COUNT  ${enrollmentInfo.browseLink.count} <br/>
+        <c:forEach items="${enrollmentInfo.tipsInfoModel}" var="tip" >
+            TIP TEXT "${tip}"<br/>
+        </c:forEach>
+
+        <c:forEach items="${enrollmentInfo.keyDatesModel}" var="keyDate" >
+            Key Date : "${keyDate.date}" , Key Description : "${keyDate.description}"
+        </c:forEach>
+     </c:forEach>
 
 </jsp:root>
