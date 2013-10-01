@@ -38,8 +38,8 @@ public class CityHubEducationCommunityController {
         Integer collectionId = getCityHubHelper().getHubID(city, state);
         modelMap.put("collectionId", collectionId);
 
-        List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
-        modelMap.put(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(configList));
+        List<HubConfig> hubConfigs = getCityHubHelper().getConfigListFromCollectionId(collectionId);
+        modelMap.put(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(hubConfigs));
 
         return EDUCATION_COMMUNITY_VIEW;
     }
