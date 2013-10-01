@@ -71,19 +71,7 @@ public class CityHubEducationCommunityController {
         ArrayList<EduCommunityModel> partnersInfo = new ArrayList<EduCommunityModel>();
 
 
-        StringBuffer logoLocationPartner2 = new StringBuffer(baseLogoLocation).append(collectionId).append(logoNameBase).append("02").append(".png");
-        final String descriptionPartner2 = "DCPS is the traditional public school system in the district. It operates schools serving students at all grade levels.";
 
-        ArrayList<Anchor> linksPartner2 = new ArrayList<Anchor>();
-        Anchor link1Partner2 = new Anchor("http://dcps.dc.gov/portal/site/DCPS/", "Visit website");
-        Anchor link2Partner2 = new Anchor("http://www.dc.gov/DCPS/In+the+Classroom/Special+Education", "DCPS - Special Education");
-        linksPartner2.add(link1Partner2);
-        linksPartner2.add(link2Partner2);
-
-
-        EduCommunityModel partnerInfo2 = new EduCommunityModel("District of Columbia Public Schools (DCPS)", descriptionPartner2, logoLocationPartner2.toString(), linksPartner2);
-
-        partnersInfo.add(partnerInfo2);
 
         StringBuffer logoLocationPartner3 = new StringBuffer(baseLogoLocation).append(collectionId).append(logoNameBase).append("03").append(".png");
         final String descriptionPartner3 =  "PCSB is an independent seven-member board with the sole authority to open new charter schools in the\n" +
@@ -102,6 +90,20 @@ public class CityHubEducationCommunityController {
 
 
         partnersInfo.add(partnerInfo3);
+
+        StringBuffer logoLocationPartner2 = new StringBuffer(baseLogoLocation).append(collectionId).append(logoNameBase).append("02").append(".png");
+        final String descriptionPartner2 = "DCPS is the traditional public school system in the district. It operates schools serving students at all grade levels.";
+
+        ArrayList<Anchor> linksPartner2 = new ArrayList<Anchor>();
+        Anchor link1Partner2 = new Anchor("http://dcps.dc.gov/portal/site/DCPS/", "Visit website");
+        Anchor link2Partner2 = new Anchor("http://www.dc.gov/DCPS/In+the+Classroom/Special+Education", "DCPS - Special Education");
+        linksPartner2.add(link1Partner2);
+        linksPartner2.add(link2Partner2);
+
+
+        EduCommunityModel partnerInfo2 = new EduCommunityModel("District of Columbia Public Schools (DCPS)", descriptionPartner2, logoLocationPartner2.toString(), linksPartner2);
+
+        partnersInfo.add(partnerInfo2);
 
         StringBuffer logoLocationPartner1 = new StringBuffer(baseLogoLocation).append(collectionId).append(logoNameBase).append("01").append(".png");
         final String descriptionPartner1 = "As the State Education Agency (SEA) for DC, the OSSE sets statewide policies, provides resources and support,\n" +
