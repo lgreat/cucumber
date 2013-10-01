@@ -670,4 +670,4 @@ GS.util.extendSerializedArray = function(serializedArray, keyVals) {
             });
         }
     }
-}
+};

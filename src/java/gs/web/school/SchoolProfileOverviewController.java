@@ -551,17 +551,17 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             String caption;
             if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
                 videoId = VIDEO_MIDDLE;
-                thumbnailUrl = "/res/img/content/video/schoolTourThumb-m.png";
+                thumbnailUrl = "/res/img/content/video/schoolTourThumb-m.jpg";
                 caption = "What to look for in a<br/>middle school";
                 levelName="middle";
             } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
                 videoId = VIDEO_HIGH;
-                thumbnailUrl = "/res/img/content/video/schoolTourThumb-h.png";
+                thumbnailUrl = "/res/img/content/video/schoolTourThumb-h.jpg";
                 caption = "What to look for in a<br/>high school";
                 levelName="high";
             } else { // fallback on elementary. This captures the case where the lowest level is really preschool
                 videoId = VIDEO_ELEMENTARY;
-                thumbnailUrl = "/res/img/content/video/schoolTourThumb-e.png";
+                thumbnailUrl = "/res/img/content/video/schoolTourThumb-e.jpg";
                 caption = "What to look for in an<br/>elementary school";
                 levelName="elementary";
             }

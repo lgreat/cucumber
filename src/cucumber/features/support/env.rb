@@ -36,7 +36,9 @@ Capybara.app_host = "http://localhost" # Do not edit this line! See below
 if ENV['APP_HOST'] != nil
   Capybara.app_host = ENV['APP_HOST']
 end
+puts ""
 puts "Running tests against #{Capybara.app_host}"
+puts ""
 
 Capybara.default_driver = :mechanize
 
@@ -44,8 +46,9 @@ Capybara.default_driver = :mechanize
 if ENV['SAUCE_USERNAME'] != nil
 
   my_driver = (ENV['BROWSER'] && ENV['BROWSER'].to_sym) || :selenium
-  puts ""
   puts "my_driver:  #{my_driver}"
+  puts ""
+  puts ""
 
   Capybara.default_driver = :mechanize
   Capybara.javascript_driver = my_driver
