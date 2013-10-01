@@ -354,8 +354,18 @@ ul.disc li  { list-style-type: disc }
 
 .addMousePointer{cursor: pointer;}
 
-.year-15.blocktext {
+.year-15.block_text {
     margin-left: auto;
     margin-right: auto;
     width: 35em;
+}
+
+.year-15.block_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.year-15.beige {
+    background-color: #f4f2e7;
 }

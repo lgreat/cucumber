@@ -19,31 +19,80 @@
     </head>
     <body>
         <div class="container_24 clearfix">
+            <!--hero image-->
             <div>
                 <gsml:img src="/res/img/promo/15Years/img_Hero.png" width="970" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryHero"/>
             </div>
 
-            <div style="text-align: center;">
+            <div class="mbl">
                 <!--title-->
-                <div class="mtl big bold make-000000 mbm">
-                    15 Years of sharing ideas
+                <div style="text-align: center;">
+                    <div class="mtl big bold make-000000 mbm">
+                        15 Years of sharing ideas
+                    </div>
+                    <div class="big bold make-000000">
+                        about GreatSchools
+                    </div>
                 </div>
-                <div class="big bold make-000000">
-                    about GreatSchools
+
+                <!--some copy-->
+                <div class="year-15 block_text" style="text-align: center;">
+                    <div class="mbl">
+                        When GreatSchools was launched in 1998, we had 1,300 unique visitors. This year,
+                        we’ll have more than 44 million. There are many reasons for our success, but the
+                        biggest reason is people like you.
+                    </div>
+                    <div class="mbl">
+                        Parents, teachers and others who use GreatSchools don’t just come here to get
+                        information. You come here to share insights and ideas about your schools – where
+                        they are today, and where you hope they’ll go. More than one million school reviews by
+                        people like you are one of the most valuable parts of GreatSchools.
+                    </div>
+                    <div class="mbl">
+                        <strong>We hope you&#39;ll help celebrate 15 years of GreatSchools by sharing even more.</strong>
+                        Write a review of your school, and encourage your neighbors to write one. Introduce a
+                        new parent to GreatSchools. Tell a story about how GreatSchools helped you learn
+                        from &#8212; and share with &#8212; parents and others in your community.
+                    </div>
                 </div>
             </div>
+            <!--Twitter, Facebook and Pinterest sharing-->
+            <div class="ptl" style="text-align: center;">
+                    <!--text box probably needs to be a bg-->
+                    <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
 
-            <!--some copy-->
-            <div class="year-15 blocktext">
-                <div class="mbl">
-                Cupcake ipsum dolor sit amet tootsie roll. Sweet cookie cheesecake chocolate bar. Marshmallow sweet sugar plum halvah cotton candy tart. Icing gummies chupa chups tiramisu jelly beans caramels macaroon powder lollipop.
+                    <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryTwitter"/></a>
+
+                    <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryPinterest"/></a>
+            </div>
+
+            <!--beige area-->
+            <div class="year-15 beige media clearfix" id="beige_15Years">
+
+                <div>
+                    <div class="img" style="margin-left: 100px; margin-top: 75px;">
+                        <gsml:img src="/res/img/promo/15Years/img_ElBrown.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
+                    </div>
+                    <div class="bd year-15 block_text" style="margin-left: 400px; margin-top: 85px;">
+                       <p style="font: normal 25px/21px Arial, Helvetica, sans-serif; line-height: 1.3em;">
+                           "Great Schools was extremely helpful – it helps you narrow your search down to two or
+                           three schools – then you can choose the best of the three. When they have to move, a
+                           lot of military families lead with the school. Making the right school choice is really
+                           important to most military families. In our case, we found the school we wanted, and
+                           then looked for a house."
+                       </p>
+                    </div>
                 </div>
-                <div class="mbl">
-                    Apple pie caramels halvah chocolate cake. Muffin pastry danish unerdwear.com carrot cake tart. Lemon drops icing candy canes dessert liquorice bonbon gummies apple pie.
+
+                <div>
+                    <div class="img" style="margin-left: 600px; margin-top: 75px;">
+                        <gsml:img src="/res/img/promo/15Years/img_ReginaWilliams.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
+                    </div>
+                    <div class="bd year-15 block_text" style="margin-left: 200px; margin-top: 85px;">
+                        <p style="font: normal 25px/21px Arial, Helvetica, sans-serif; line-height: 1.3em;">Pie sweet roll marshmallow muffin apple pie I love brownie sesame snaps I love. Brownie chocolate bar I love cheesecake lollipop apple pie. Cheesecake sweet roll tootsie roll cookie. Cookie I love dragée marshmallow jujubes ice cream powder.</p>
+                    </div>
                 </div>
-                <div class="mbl">
-                    Tart liquorice cheesecake gummies bonbon muffin danish sugar plum unerdwear.com. Pie caramels candy canes sweet jelly-o pastry chocolate bar liquorice. Dessert powder powder wafer candy canes cookie.
-                </div>
+
             </div>
         </div>
     <!--UUDDLRLRBA-->
