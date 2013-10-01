@@ -14,6 +14,7 @@ public class MoreInformationModel {
 
     private String _address;
 
+
     private ArrayList<Anchor> _link;
 
     public MoreInformationModel(final String address){
@@ -32,4 +33,23 @@ public class MoreInformationModel {
         _link= link;
 
     }
+
+    public String getAddress() {
+        return _address;
+    }
+
+    public void setAddress(final String address) {
+        this._address = address;
+    }
+
+    public ArrayList<Anchor> getLink() {
+        return _link;
+    }
+
+    public void setLink(final ArrayList<Anchor> link) {
+        this._link = link;
+    }
+
+
+
 }

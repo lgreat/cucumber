@@ -114,6 +114,10 @@ public class CityHubEnrollmentPageController {
         enrollmentInfo1.setTipsInfoModel(tips1);
 
 
+        // More Info
+
+        MoreInformationModel  moreinfo1= new MoreInformationModel("3333 14th Street NW<br/> Suite 410</br> Washington D.C 20010</br><b>Phone :</b><br/>(202) 328-2660</br><b>Fax :</b>(202) 442-5026</br>");
+        enrollmentInfo1.setMoreInfo(moreinfo1);
 
 
         EnrollmentModel enrollmentInfo2= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.CHARTER , "Public Charter School", "blahh blahh Public Charter School", new Anchor("www.greatschools.org", "Browse DC Public Charter PreSchools" , 22 ));
@@ -128,8 +132,14 @@ public class CityHubEnrollmentPageController {
 
 
         // More Info
+       ArrayList<Anchor>  links= new ArrayList<Anchor>();
+       Anchor link = new Anchor("www.greatschools.org", "PLease Contact us 1");
+       Anchor link1 = new Anchor("www.greatschools.org", "PLease Contact us 1");
+       links.add(link);
+       links.add(link1);
 
-        MoreInformationModel  moreinfo2= new MoreInformationModel("3333 14th Street NW<br/> Suite 210</br> Washington D.C 20010</br><b>Phone :</b><br/>(202) 328-2660</br><b>Fax :</b>(202) 442-5026</br>");
+
+        MoreInformationModel  moreinfo2= new MoreInformationModel(links);
         enrollmentInfo2.setMoreInfo(moreinfo2);
 
 
@@ -141,7 +151,8 @@ public class CityHubEnrollmentPageController {
         tips3.add("tip2enrollmentInfo3");
         enrollmentInfo3.setTipsInfoModel(tips3);
 
-
+        MoreInformationModel  moreinfo3= new MoreInformationModel("3312 14th Street DC<br/> Suite 210</br> Washington D.C 20010</br><b>Phone :</b><br/>(202) 328-2660</br><b>Fax :</b>(202) 442-5026</br>");
+        enrollmentInfo3.setMoreInfo(moreinfo3);
 
 
 
