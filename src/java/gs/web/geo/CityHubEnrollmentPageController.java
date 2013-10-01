@@ -85,7 +85,7 @@ public class CityHubEnrollmentPageController {
         /**
          * Key Enrollment module
          */
-        ModelMap keyEnrollmentDatesMap = getCityHubHelper().getKeyEnrollmentDates(configList);
+        ModelMap keyEnrollmentDatesMap = getCityHubHelper().getKeyEnrollmentDatesMap(configList);
         modelAndView.addObject(CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX, keyEnrollmentDatesMap);
 
 
