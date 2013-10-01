@@ -2,14 +2,10 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
           xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
 >
 
-    <div class="container_24 clearfix">
-        <hub:enrollmentKeyDates schoolType="public" gradeLevel="preschool"/>
-        <hub:enrollmentKeyDates schoolType="private" gradeLevel="preschool"/>
-        <hub:enrollmentKeyDates schoolType="charter" gradeLevel="preschool"/>
-    </div>
     <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
         TAB NAME : ${enrollmentInfo.tabName} <br/>
         BROWSE LINK STRUCTURE
@@ -17,10 +13,8 @@
         <c:forEach items="${enrollmentInfo.tipsInfoModel}" var="tip" >
             TIP TEXT "${tip}"<br/>
         </c:forEach>
-
-        <c:forEach items="${enrollmentInfo.keyDatesModel}" var="keyDate" >
-            Key Date : "${keyDate.date}" , Key Description : "${keyDate.description}"
-        </c:forEach>
+         <hub:enrollmentKeyDates schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}" gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+                                     
      </c:forEach>
 
 </jsp:root>

@@ -35,7 +35,7 @@ public class EnrollmentModel {
 
     private Anchor  _browseLink;
 
-    private ArrayList<KeyDateModel> _keyDatesModel;
+
 
     private MoreInformationModel _moreInfo;
 
@@ -95,15 +95,6 @@ public class EnrollmentModel {
     }
 
 
-
-
-    public ArrayList<KeyDateModel> getKeyDatesModel() {
-        return _keyDatesModel;
-    }
-
-    public void setKeyDatesModel(ArrayList<KeyDateModel> keyDatesModel) {
-        this._keyDatesModel = keyDatesModel;
-    }
 
     public ArrayList<String> getTipsInfoModel() {
         return _tipsInfoModel;

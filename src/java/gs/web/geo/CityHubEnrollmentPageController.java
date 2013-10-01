@@ -14,7 +14,6 @@ import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.web.hub.EnrollmentModel;
-import gs.web.hub.KeyDateModel;
 import gs.web.hub.MoreInformationModel;
 import gs.web.util.list.Anchor;
 import org.apache.commons.lang.WordUtils;
@@ -114,15 +113,6 @@ public class CityHubEnrollmentPageController {
         tips1.add("tip2enrollmentInfo1");
         enrollmentInfo1.setTipsInfoModel(tips1);
 
-        // Key Date
-
-        ArrayList<KeyDateModel> keyDates1= new ArrayList<KeyDateModel>();
-
-        KeyDateModel keyDate1= new KeyDateModel("Nov 1 , 2013", "Enrollment Begins Public schools");
-        KeyDateModel keyDate2= new KeyDateModel("Nov 1 , 2013", "Enrollment Ends Public schools");
-
-        keyDates1.add(keyDate1);
-        keyDates1.add(keyDate2);
 
         enrollmentInfo1.setKeyDatesModel(keyDates1);
 
@@ -134,17 +124,7 @@ public class CityHubEnrollmentPageController {
         enrollmentInfo2.setTipsInfoModel(tips2);
 
 
-        // Key Date
 
-        ArrayList<KeyDateModel> keyDates2= new ArrayList<KeyDateModel>();
-
-        KeyDateModel keyDate3= new KeyDateModel("Nov 1 , 2013", "Enrollment Begins Public  Charter schools");
-        KeyDateModel keyDate4= new KeyDateModel("Nov 1 , 2013", "Enrollment Ends Public  Charter schools");
-
-        keyDates2.add(keyDate3);
-        keyDates2.add(keyDate4);
-
-        enrollmentInfo2.setKeyDatesModel(keyDates2);
 
 
         // More Info
@@ -161,17 +141,7 @@ public class CityHubEnrollmentPageController {
         tips3.add("tip2enrollmentInfo3");
         enrollmentInfo3.setTipsInfoModel(tips3);
 
-        // Key Date
 
-        ArrayList<KeyDateModel> keyDates3= new ArrayList<KeyDateModel>();
-
-        KeyDateModel keyDate5= new KeyDateModel("Nov 1 , 2013", "Enrollment Begins Private  Charter schools");
-        KeyDateModel keyDate6= new KeyDateModel("Nov 1 , 2013", "Enrollment Ends Private  Charter schools");
-
-        keyDates3.add(keyDate5);
-        keyDates3.add(keyDate6);
-
-        enrollmentInfo3.setKeyDatesModel(keyDates3);
 
 
 
