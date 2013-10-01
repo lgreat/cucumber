@@ -29,6 +29,12 @@
 
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
+    <div class="container_24 clearfix">
+        <div class="tac mtl pvl">
+            <h6 class="SourceSansPro-Semibold-h6">Education Rescources</h6>
+        </div>
+        <hub:educationPartner/>
+    </div>
     <mod:tracking pageName="${pageName}"
                   locale="${city}"
                   hier1="Home,city Enrollment Page,${city}-${state.abbreviation}"/>
