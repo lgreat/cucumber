@@ -97,8 +97,8 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         Calendar cal9 = Calendar.getInstance();
         cal9.add(Calendar.DAY_OF_YEAR, -1);
         cal9 = setTimeToStartOfDay(cal9);
-        put(keyEnrollmentDatesKeyPrefix + "_public_charter_preschool_1_description", "Application deadline for charter preschools");
-        put(keyEnrollmentDatesKeyPrefix + "_public_charter_preschool_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal9.getTime()));
+        put(keyEnrollmentDatesKeyPrefix + "_charter_preschool_1_description", "Application deadline for charter preschools");
+        put(keyEnrollmentDatesKeyPrefix + "_charter_preschool_1_date", (new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMddyyyy)).format(cal9.getTime()));
     }};
 
     public void setUp() throws Exception {
@@ -209,7 +209,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
             add(keyPrefix + "_private_high_1");
             add(keyPrefix + "_private_middle_1");
             add(keyPrefix + "_private_middle_2");
-            add(keyPrefix + "_public_charter_preschool_1");
+            add(keyPrefix + "_charter_preschool_1");
         }};
         modelMap.put(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configDateKeyPrefixListWithIndex);
         sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
@@ -220,17 +220,17 @@ public class CityHubHelperTest extends BaseControllerTestCase {
             modelMap.put(keyPrefix + "_private_high_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_private_high_1_date")));
             modelMap.put(keyPrefix + "_private_middle_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_private_middle_1_date")));
             modelMap.put(keyPrefix + "_private_middle_2_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_private_middle_2_date")));
-            modelMap.put(keyPrefix + "_public_charter_preschool_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_public_charter_preschool_1_date")));
+            modelMap.put(keyPrefix + "_charter_preschool_1_date", new SimpleDateFormat(DATE_PATTERN_MMddyyyy).parse(_configKeyValues.get(keyPrefix + "_charter_preschool_1_date")));
         }
         catch (ParseException ex) {
             _logger.error("CityHubHelperTest - error while trying to convert string to java date object", ex.getCause());
         }
-        modelMap.put(keyPrefix + "_public_charter_preschool_4_date", null);
+        modelMap.put(keyPrefix + "_charter_preschool_4_date", null);
 
         sortedKeys = _cityHubHelper.getConfigKeyPrefixesSortedByDate(modelMap);
 
         assertEquals(keyPrefix + "_private_middle_1 should be first", keyPrefix +  "_private_middle_1", sortedKeys.get(0));
-        assertEquals(keyPrefix + "_public_charter_preschool_1 should be second", keyPrefix + "_public_charter_preschool_1", sortedKeys.get(1));
+        assertEquals(keyPrefix + "_charter_preschool_1 should be second", keyPrefix + "_charter_preschool_1", sortedKeys.get(1));
         assertEquals(keyPrefix + "_private_high_1 should be third", keyPrefix + "_private_high_1", sortedKeys.get(2));
         assertEquals(keyPrefix + "_public_elementary_1 should be fourth", keyPrefix + "_public_elementary_1", sortedKeys.get(3));
         assertEquals(keyPrefix + "_private_middle_2 should be the last", keyPrefix + "_private_middle_2", sortedKeys.get(4));
@@ -297,9 +297,9 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         cal.add(Calendar.DAY_OF_YEAR, 79);
         cal = setTimeToStartOfDay(cal);
         assertEquals("Expect the date to be correct", new SimpleDateFormat(CityHubHelper.DATE_PATTERN_MMMdyyyy).format(cal.getTime()),
-                modelMap.get(keyPrefix + "_private_middle_2_date"));
+                modelMap.get(keyPrefix + "_private_middle_2_date_MMMdyyyy"));
         assertNull("Expect public charter preschool 1 to not be included in the sorted list", modelMap.get(keyPrefix +
-                "_public_charter_preschool_1_date"));
+                "_charter_preschool_1_date"));
     }
 
     public void testGetCollectionBrowseLinks() {
@@ -389,7 +389,40 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         assertEquals("Expect the 4th item to be private school type result", stAnchor2, browseLinks.getResults().get(3));
     }
 
-    private List<HubConfig> getSampleHubConfigList(int hubId, String city, State state) {
+    public void testGetSortedKeyPrefixWithLevelCodeAndSchoolTypeMap() {
+        Map<String, List<String>> sortedConfigKeyPrefixesMap =
+                _cityHubHelper.getSortedKeyPrefixWithLevelCodeAndSchoolTypeMap(null, null);
+        assertEquals("Expect the map to be an empty object", true, sortedConfigKeyPrefixesMap.isEmpty());
+
+        String keyPrefix = KEY_ENROLLMENT_DATES_KEY_PREFIX;
+        sortedConfigKeyPrefixesMap = _cityHubHelper.getSortedKeyPrefixWithLevelCodeAndSchoolTypeMap(keyPrefix,
+                new ArrayList<String>());
+        assertEquals("Expect the map to have 12 keys (all 12 possible school type and level code key combination - " +
+                "4 level codes and 3 school types", 12, sortedConfigKeyPrefixesMap.size());
+        assertNull("Expect any key value in the map to be null", sortedConfigKeyPrefixesMap.get(keyPrefix + "_public_elementary_"));
+
+        sortedConfigKeyPrefixesMap = _cityHubHelper.getSortedKeyPrefixWithLevelCodeAndSchoolTypeMap(KEY_ENROLLMENT_DATES_KEY_PREFIX,
+                getSampleSortedKeyEnrollmentDatePrefixes());
+        assertEquals("Expect the map to have 12 keys (all 12 possible school type and level code key combination - " +
+                "4 level codes and 3 school types", 12, sortedConfigKeyPrefixesMap.size());
+        assertNull("Expect the value for charter_elementary to be null", sortedConfigKeyPrefixesMap.get(keyPrefix +
+                "_charter_elementary_"));
+        assertEquals("Expect the value for charter_elementary to have 2 key prefixes with index", 2,
+                sortedConfigKeyPrefixesMap.get(keyPrefix + "_private_middle_").size());
+        assertEquals("Expect the sorted order in sample list to be maintained after filtering. keyEnrollmentDates_public_elementary_2" +
+                " should be first", keyPrefix + "_public_elementary_2", sortedConfigKeyPrefixesMap.get(keyPrefix +
+                "_public_elementary_").get(0));
+        assertEquals("Expect the sorted order in sample list to be maintained after filtering. keyEnrollmentDates_public_elementary_3" +
+                " should be second", keyPrefix + "_public_elementary_3", sortedConfigKeyPrefixesMap.get(keyPrefix +
+                "_public_elementary_").get(1));
+        assertEquals("Expect the sorted order in sample list to be maintained after filtering. keyEnrollmentDates_public_elementary_1" +
+                " should be second", keyPrefix + "_public_elementary_1", sortedConfigKeyPrefixesMap.get(keyPrefix +
+                "_public_elementary_").get(2));
+        assertEquals("Expect the value for charter_elementary to have 1 key prefixes with index", 1,
+                sortedConfigKeyPrefixesMap.get(keyPrefix + "_charter_middle_").size());
+    }
+
+    private List<HubConfig> getSampleHubConfigList(final Integer hubId, final String city, final State state) {
         List<HubConfig> sampleConfigList = new ArrayList<HubConfig>();
         HubCityMapping hubCityMapping = getSampleHubCityMapping(1, hubId, city, state.getAbbreviation());
 
@@ -400,7 +433,8 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         return sampleConfigList;
     }
 
-    private HubConfig setSampleHubConfig(Integer id, HubCityMapping hubCityMapping, String key, String value) {
+    private HubConfig setSampleHubConfig(final Integer id, final HubCityMapping hubCityMapping, final String key,
+                                         final String value) {
         HubConfig hubConfig = new HubConfig();
         hubConfig.setId(id);
         hubConfig.setHubCityMapping(hubCityMapping);
@@ -409,7 +443,8 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         return hubConfig;
     }
 
-    private HubCityMapping getSampleHubCityMapping(Integer id, Integer hubId, String city, String state) {
+    private HubCityMapping getSampleHubCityMapping(final Integer id, final Integer hubId, final String city,
+                                                   final String state) {
         HubCityMapping hubCityMapping = new HubCityMapping();
         hubCityMapping.setId(id);
         hubCityMapping.setHubId(hubId);
@@ -424,5 +459,22 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
+    }
+
+    public List<String> getSampleSortedKeyEnrollmentDatePrefixes() {
+        return new ArrayList<String>(){{
+            String keyPrefix = KEY_ENROLLMENT_DATES_KEY_PREFIX;
+            add(keyPrefix + "_public_preschool_1");
+            add(keyPrefix + "_charter_middle_1");
+            add(keyPrefix + "_public_elementary_2");
+            add(keyPrefix + "_private_high_1");
+            add(keyPrefix + "_public_preschool_2");
+            add(keyPrefix + "_public_elementary_3");
+            add(keyPrefix + "_private_middle_1");
+            add(keyPrefix + "_private_middle_2");
+            add(keyPrefix + "_charter_preschool_1");
+            add(keyPrefix + "_public_elementary_1");
+            add(keyPrefix + "_charter_high_3");
+        }};
     }
 }

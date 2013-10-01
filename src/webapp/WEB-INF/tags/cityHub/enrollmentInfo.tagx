@@ -6,9 +6,9 @@
 >
 
     <div class="container_24 clearfix">
-        Enrollment Info
-        <hub:enrollmentKeyDates/>
-        <hub:enrollmentTips/>
+        <hub:enrollmentKeyDates schoolType="public" gradeLevel="preschool"/>
+        <hub:enrollmentKeyDates schoolType="private" gradeLevel="preschool"/>
+        <hub:enrollmentKeyDates schoolType="charter" gradeLevel="preschool"/>
     </div>
     <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
         TAB NAME : ${enrollmentInfo.tabName} <br/>

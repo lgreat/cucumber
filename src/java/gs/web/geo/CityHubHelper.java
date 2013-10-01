@@ -34,6 +34,7 @@ public class CityHubHelper {
     public static final String DATE_PATTERN_MMddyyyy = "MM-dd-yyyy";
     public static final String DATE_PATTERN_MMMdyyyy = "MMM d, yyyy";
     public static final String CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY =  "configKeyPrefixListWithIndex";
+    public static final String CONFIG_KEY_PREFIXES_MAP_MODEL_KEY =  "configKeyPrefixesMap";
 
     public static int MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED = 90;
 
@@ -62,10 +63,13 @@ public class CityHubHelper {
         return importantEventsMap;
     }
 
-    public ModelMap getKeyEnrollmentDates(List<HubConfig> configList) {
+    public ModelMap getKeyEnrollmentDatesMap(final List<HubConfig> configList) {
         ModelMap keyEnrollmentDatesMap = getFilteredConfigMap(configList,  CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getConfigKeyPrefixesSortedByDate(keyEnrollmentDatesMap);
-        keyEnrollmentDatesMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
+
+        Map<String, List<String>> sortedConfigKeyPrefixesMap = getSortedKeyPrefixWithLevelCodeAndSchoolTypeMap(KEY_ENROLLMENT_DATES_KEY_PREFIX, configKeyPrefixesSortedByDate);
+
+        keyEnrollmentDatesMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_MAP_MODEL_KEY, sortedConfigKeyPrefixesMap);
         return keyEnrollmentDatesMap;
     }
 
@@ -110,7 +114,9 @@ public class CityHubHelper {
                             filteredConfig.put(key + "_year", calendar.get(Calendar.YEAR));
                             filteredConfig.put(key + "_dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
                             filteredConfig.put(key + "_month", calendar.get(Calendar.MONTH) + 1);
-                            filteredConfig.put(key, new SimpleDateFormat(DATE_PATTERN_MMMdyyyy).format(date));
+                            // the date added to map here is used later to sort the keys
+                            filteredConfig.put(key, date);
+                            filteredConfig.put(key + "_MMMdyyyy", new SimpleDateFormat(DATE_PATTERN_MMMdyyyy).format(date));
 
                             configKeyPrefixListWithIndex.add(keyPrefixWithIndex);
                         }
@@ -191,6 +197,49 @@ public class CityHubHelper {
         }
 
         return browseLinks;
+    }
+
+    public Map<String, List<String>> getSortedKeyPrefixWithLevelCodeAndSchoolTypeMap(final String keyPrefix, final List<String> configKeyPrefixesSortedByDate) {
+        Map<String, List<String>> sortedConfigKeyPrefixesMap = new HashMap<String, List<String>>();
+
+        if(keyPrefix != null && configKeyPrefixesSortedByDate != null) {
+            List<LevelCode> levelCodes = new ArrayList<LevelCode>(){{
+                add(LevelCode.PRESCHOOL);
+                add(LevelCode.ELEMENTARY);
+                add(LevelCode.MIDDLE);
+                add(LevelCode.HIGH);
+            }};
+
+            List<SchoolType> schoolTypes = SchoolType.sortOrder;
+
+            for(SchoolType filterSchoolType : schoolTypes) {
+                for(LevelCode levelCode : levelCodes) {
+                    String key = keyPrefix + "_" + filterSchoolType.getSchoolTypeName().toLowerCase()
+                            + "_" + levelCode.getLowestLevel().getLongName().toLowerCase() + "_";
+                    sortedConfigKeyPrefixesMap.put(key, null);
+                }
+            }
+
+            Set<String> keys = sortedConfigKeyPrefixesMap.keySet();
+            for(String configKeyPrefix : configKeyPrefixesSortedByDate) {
+                for(String key : keys) {
+                    if(configKeyPrefix.startsWith(key)) {
+                        List<String> configKeyPrefixes = sortedConfigKeyPrefixesMap.get(key);
+                        if(configKeyPrefixes == null) {
+                            configKeyPrefixes = new ArrayList<String>();
+                            configKeyPrefixes.add(configKeyPrefix);
+                            sortedConfigKeyPrefixesMap.put(key, configKeyPrefixes);
+                        }
+                        else {
+                            configKeyPrefixes.add(configKeyPrefix);
+                            sortedConfigKeyPrefixesMap.put(key, configKeyPrefixes);
+                        }
+                    }
+                }
+            }
+        }
+
+        return sortedConfigKeyPrefixesMap;
     }
 
     public void setHubCityMappingDao(final IHubCityMappingDao _hubCityMappingDao) {
