@@ -52,6 +52,25 @@ public class EnrollmentModel {
 
     }
 
+    public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType , final String  description, final Anchor browseLinkInfo) {
+        _tabName = tabName;
+        _levelCode= levelCode;
+        _schoolType= schoolType;
+        _description= description;
+        _browseLink= browseLinkInfo;
+
+    }
+
+    public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType , final String  description) {
+        _tabName = tabName;
+        _levelCode= levelCode;
+        _schoolType= schoolType;
+        _schoolTypeDescription= description;
+
+
+    }
+
+
 
 
     public String getTabName() {

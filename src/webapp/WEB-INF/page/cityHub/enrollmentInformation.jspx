@@ -32,7 +32,7 @@
     <hub:enrollmentHeader/>
     <hub:enrollmentInfo/>
 
-    <mod:tracking pageName="${pageName}"
+    <mod:tracking pageName="City Enrollment Page"
                   locale="${city}"
                   hier1="Home,city Enrollment Page,${city}-${state.abbreviation}"/>
     </body>

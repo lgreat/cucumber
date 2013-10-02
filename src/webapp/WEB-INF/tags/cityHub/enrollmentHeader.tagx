@@ -10,6 +10,6 @@
             <h1 class="SourceSansPro-Semibold-h1 bottom">Enrollment Information</h1>
             <div class="make-999999">Enrollement sub text Enrollement sub text Enrollement sub text Enrollement sub text</div>
         </div>
-        <hub:enrollmentTabs/>
+        <!--<hub:enrollmentTabs/>-->
     </div>
 </jsp:root>

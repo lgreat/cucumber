@@ -45,7 +45,7 @@
             </div>
         </c:otherwise>
     </c:choose>
-    <hub:enrollmentTips/>
+    <!--<hub:enrollmentTips/>-->
 
 
 </jsp:root>

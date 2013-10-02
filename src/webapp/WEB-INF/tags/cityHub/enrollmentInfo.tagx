@@ -8,10 +8,12 @@
 
     <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
         TAB NAME : ${enrollmentInfo.tabName} <br/>
-        BROWSE LINK STRUCTURE
-        LINK  ${enrollmentInfo.browseLink.hrefXml}  ,  HEADING  ${enrollmentInfo.browseLink.contents} , COUNT  ${enrollmentInfo.browseLink.count} <br/>
+        HEADING: ${enrollmentInfo.schoolTypeDescription} <br/>
+        DESCRIPTION: ${enrollmentInfo.description} <br/> <br/>
+
+        BROWSE LINK STRUCTURE  ${enrollmentInfo.browseLink.hrefXml}  ,  HEADING  ${enrollmentInfo.browseLink.contents} , COUNT  ${enrollmentInfo.browseLink.count} <br/> <br/>
         <c:forEach items="${enrollmentInfo.tipsInfoModel}" var="tip" >
-            TIP TEXT "${tip}"<br/>
+            TIP TEXT "${tip}"<br/><br/>
         </c:forEach>
         <c:if test="${not empty enrollmentInfo.moreInfo.address}">
             MORE INFO  ADDRESS ${enrollmentInfo.moreInfo.address}<br/>
@@ -19,7 +21,7 @@
 
         <c:if test="${not empty enrollmentInfo.moreInfo.link}">
             <c:forEach items="${enrollmentInfo.moreInfo.link}" var="link">
-                MORE INFO  LINK<a href="${link.hrefXml}"
+                MORE INFO  LINK  <a href="${link.hrefXml}"
                    >${link.contents}</a><br/>
 
             </c:forEach>
