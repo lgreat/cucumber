@@ -24,7 +24,7 @@
                 <gsml:img src="/res/img/promo/15Years/img_Hero.png" width="970" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryHero"/>
             </div>
 
-            <div class="mbl">
+            <div class="">
                 <!--title-->
                 <div class="tac">
                     <div class="mtl big bold make-000000 mbm">
@@ -57,49 +57,58 @@
                 </div>
             </div>
             <!--Twitter, Facebook and Pinterest sharing-->
+            <div>
+                <div class="year-15-bubble" style="position:relative;top:55px; margin-top:-20px;">
 
-            <div class="year-15-bubble">
-                <div>
-                    Share your story!
+                    <div class="ptl tac">
+                        <h1 class="ptm make-06b"> Share your story! </h1>
+                            <!--text box probably needs to be a bg-->
+                            <a href="http://placekitten.com/300/300" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
+
+                            <a href="http://placekitten.com/300/300" class="mhl"><gsml:img src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryTwitter"/></a>
+
+                            <a href="http://placekitten.com/300/300" class="mll"><gsml:img src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryPinterest"/></a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="ptl tac">
-                    <!--text box probably needs to be a bg-->
-                    <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
-
-                    <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryTwitter"/></a>
-
-                    <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryPinterest"/></a>
             </div>
 
             <!--beige area-->
             <div class="year-15 beige media clearfix" id="beige_15Years">
-
                 <div>
-                    <div class="img" style="margin-left: 100px; margin-top: 35px;">
-                        <gsml:img src="/res/img/promo/15Years/img_ElBrown.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
-                    </div>
-                    <div class="bd year-15 block_text" style="margin-left: 400px; margin-top: 85px;">
-                       <p style="font: lighter 20px/16px Arial, Helvetica, sans-serif; line-height: 1.3em;">
-                           "Great Schools was extremely helpful – it helps you narrow your search down to two or
-                           three schools – then you can choose the best of the three. When they have to move, a
-                           lot of military families lead with the school. Making the right school choice is really
-                           important to most military families. In our case, we found the school we wanted, and
-                           then looked for a house."
-                       </p>
+                    <div style="position:relative; margin-top:100px;">
+                        <!--<div class="" style="margin-left: 100px;">-->
+                            <gsml:img styleClass="fl" style="margin-left: 100px;" src="/res/img/promo/15Years/img_ElBrown.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        <!--</div>-->
+                        <!--<div class="bd ptl year-15" >-->
+                            <p class="tar mrl" style="font: lighter 18px/14px Arial, Helvetica, sans-serif; line-height: 1.5em; width:500px">
+                                "Great Schools was extremely helpful – it helps you narrow your search down to two or
+                                three schools – then you can choose the best of the three. When they have to move, a
+                                lot of military families lead with the school. Making the right school choice is really
+                                important to most military families. In our case, we found the school we wanted, and
+                                then looked for a house."
+                            </p>
+                        <!--</div>-->
+                            <p class="fr mtl mrl default bold" style="margin-left: 0; width:500px;"> - El Brown, Military parent</p>
                     </div>
                 </div>
+                <div class="clearfix"><!-- not empty --></div>
 
-                <div>
-                    <div class="img" style="margin-left: 600px; margin-top: 45px;">
-                        <gsml:img src="/res/img/promo/15Years/img_ReginaWilliams.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
+                <!--<div class="lalala">-->
+                    <div style="margin-top:50px;">
+                        <!--<div class="img" style="margin-left: 600px;">-->
+                        <gsml:img styleClass="fr mrl" src="/res/img/promo/15Years/img_ReginaWilliams.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        <!--</div>-->
+                        <!--<div class="ptl year-15 block_text">-->
+                            <p class="bottom fl" style="font: lighter 18px/14px Arial, Helvetica, sans-serif; line-height: 1.5em; width:500px; margin-left:100px;">
+                                “GreatSchools is a one-stop shop packed with services parents can access for FREE
+                                and information all families need to know when selecting a new school. The best part is
+                                the staff are always available to help, just a click or a phone call away.”</p>
+                        <!--</div>-->
+                        <!--<div class="mtl" style="margin-left: 9px;">-->
+                            <p class="default bold fl" style="width:500px; margin-left:100px;"> – Regina Williams, Milwaukee parent</p>
+                        <!--</div>-->
                     </div>
-                    <div class="bd year-15 block_text" style="margin-left: 200px; margin-top: 85px;">
-                        <p style="font: lighter 20px/16px Arial, Helvetica, sans-serif; line-height: 1.3em;">Pie sweet roll marshmallow muffin apple pie I love brownie sesame snaps I love. Brownie chocolate bar I love cheesecake lollipop apple pie. Cheesecake sweet roll tootsie roll cookie. Cookie I love dragée marshmallow jujubes ice cream powder.</p>
-                    </div>
-                </div>
-
+                <!--</div>-->
             </div>
         </div>
     <!--UUDDLRLRBA-->

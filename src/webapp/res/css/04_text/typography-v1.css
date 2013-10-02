@@ -355,7 +355,13 @@ ul.disc li  { list-style-type: disc }
 .addMousePointer{cursor: pointer;}
 
 /*-------15 year--------- */
-.year-15-bubble { background: url("/res/img/promo/15Years/img_SpeechBubble.png") no-repeat; background-position: 100px 100px;}
+.year-15-bubble {
+    background-image: url("/res/img/promo/15Years/img_SpeechBubble.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    /*width: 435px;*/
+    height: 199px;
+}
 
 .year-15.block_text {
     margin-left: auto;
