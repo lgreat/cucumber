@@ -319,9 +319,9 @@ public class CityHubHelperTest extends BaseControllerTestCase {
 
         // test to ignore null anchor objects in the list that will be added to the model map
         expect(_anchorListModelFactory.createBrowseLinksWithFilter((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
-                isA(LevelCode.class), (State) anyObject(), (String) anyObject())).andReturn(null).times(4);
+                (LevelCode[]) anyObject(), (State) anyObject(), (String) anyObject(), (String) anyObject())).andReturn(null).times(4);
         expect(_anchorListModelFactory.createBrowseLinksWithFilter((GsMockHttpServletRequest) anyObject(), (Integer) anyObject(),
-                isA(SchoolType.class), (State) anyObject(), (String) anyObject())).andReturn(null).times(3);
+                (SchoolType[]) anyObject(), (State) anyObject(), (String) anyObject(), (String) anyObject())).andReturn(null).times(3);
 
         replayAllMocks();
         AnchorListModel browseLinks = _cityHubHelper.getCollectionBrowseLinks(request, collectionId, city, state);
@@ -332,26 +332,40 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         // test to see whether all anchor objects have been added to the list in the correct order
         resetAllMocks();
 
-        Anchor levelCodeAnchor1 = new Anchor("http://www.greatschools.org", "Preschool");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(0), state, city)).andReturn(levelCodeAnchor1);
+        String anchorContent = "Preschools";
+        Anchor levelCodeAnchor1 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(0)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(levelCodeAnchor1);
 
-        Anchor levelCodeAnchor2 = new Anchor("http://www.greatschools.org", "Elementary");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(1), state, city)).andReturn(levelCodeAnchor2);
+        anchorContent = "Elementary Schools";
+        Anchor levelCodeAnchor2 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(1)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(levelCodeAnchor2);
 
-        Anchor levelCodeAnchor3 = new Anchor("http://www.greatschools.org", "Middle");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(2), state, city)).andReturn(levelCodeAnchor3);
+        anchorContent = "Middle Schools";
+        Anchor levelCodeAnchor3 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(2)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(levelCodeAnchor3);
 
-        Anchor levelCodeAnchor4 = new Anchor("http://www.greatschools.org", "High");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(3), state, city)).andReturn(levelCodeAnchor4);
+        anchorContent = "High Schools";
+        Anchor levelCodeAnchor4 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(3)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(levelCodeAnchor4);
 
-        Anchor stAnchor1 = new Anchor("http://www.greatschools.org", "Public");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(0), state, city)).andReturn(stAnchor1);
+        anchorContent = "Public Schools";
+        Anchor stAnchor1 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{schoolTypes.get(0), schoolTypes.get(2)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(stAnchor1);
 
-        Anchor stAnchor2 = new Anchor("http://www.greatschools.org", "Private");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(1), state, city)).andReturn(stAnchor2);
+        anchorContent = "Private Schools";
+        Anchor stAnchor2 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{schoolTypes.get(1)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(stAnchor2);
 
-        Anchor stAnchor3 = new Anchor("http://www.greatschools.org", "Charter");
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(2), state, city)).andReturn(stAnchor3);
+        anchorContent = "Charter Schools";
+        Anchor stAnchor3 = new Anchor("http://www.greatschools.org", anchorContent);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{schoolTypes.get(2)}),
+                eq(state), eq(city), eq(anchorContent))).andReturn(stAnchor3);
 
         replayAllMocks();
         browseLinks = _cityHubHelper.getCollectionBrowseLinks(request, collectionId, city, state);
@@ -369,14 +383,21 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         // test to ignore null anchor objects in the list that will be added to the model map
         resetAllMocks();
 
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(0), state, city)).andReturn(levelCodeAnchor1);
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(1), state, city)).andReturn(null);
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(2), state, city)).andReturn(null);
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, levelCodes.get(3), state, city)).andReturn(levelCodeAnchor4);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(0)}),
+                eq(state), eq(city), eq(levelCodeAnchor1.getContents()))).andReturn(levelCodeAnchor1);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(1)}),
+                eq(state), eq(city), eq(levelCodeAnchor2.getContents()))).andReturn(null);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(2)}),
+                eq(state), eq(city), eq(levelCodeAnchor3.getContents()))).andReturn(null);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{levelCodes.get(3)}),
+                eq(state), eq(city), eq(levelCodeAnchor4.getContents()))).andReturn(levelCodeAnchor4);
 
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(0), state, city)).andReturn(stAnchor1);
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(1), state, city)).andReturn(stAnchor2);
-        expect(_anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, schoolTypes.get(2), state, city)).andReturn(null);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{schoolTypes.get(0), schoolTypes.get(2)}),
+                eq(state), eq(city), eq(stAnchor1.getContents()))).andReturn(stAnchor1);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{schoolTypes.get(1)}),
+                eq(state), eq(city), eq(stAnchor2.getContents()))).andReturn(stAnchor2);
+        expect(_anchorListModelFactory.createBrowseLinksWithFilter(eq(request), eq(collectionId), aryEq(new Object[]{schoolTypes.get(2)}),
+                eq(state), eq(city), eq(stAnchor3.getContents()))).andReturn(null);
 
         replayAllMocks();
         browseLinks = _cityHubHelper.getCollectionBrowseLinks(request, collectionId, city, state);

@@ -27,7 +27,12 @@
             </c:forEach>
         </c:if>
 
-         <hub:enrollmentKeyDates schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}" gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+         <hub:enrollmentKeyDates schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}"
+                                 gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+        <button class="but-4 clearfix" style="width: auto" type="button" onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
+            <span class="fl">${enrollmentInfo.browseLink.contents}</span>
+            <span class="fr plm" style="border-left: 1px solid #b8b8b8">${enrollmentInfo.browseLink.count}</span>
+        </button>
                                      
      </c:forEach>
 
