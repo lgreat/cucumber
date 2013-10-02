@@ -8,8 +8,6 @@
 
     <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
         TAB NAME : ${enrollmentInfo.tabName} <br/>
-        BROWSE LINK STRUCTURE
-        LINK  ${enrollmentInfo.browseLink.hrefXml}  ,  HEADING  ${enrollmentInfo.browseLink.contents} , COUNT  ${enrollmentInfo.browseLink.count} <br/>
         <c:forEach items="${enrollmentInfo.tipsInfoModel}" var="tip" >
             TIP TEXT "${tip}"<br/>
         </c:forEach>
@@ -25,7 +23,12 @@
             </c:forEach>
         </c:if>
 
-         <hub:enrollmentKeyDates schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}" gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+         <hub:enrollmentKeyDates schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}"
+                                 gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+        <button class="but-4 clearfix" style="width: auto" type="button" onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
+            <span class="fl">${enrollmentInfo.browseLink.contents}</span>
+            <span class="fr plm" style="border-left: 1px solid #b8b8b8">${enrollmentInfo.browseLink.count}</span>
+        </button>
                                      
      </c:forEach>
 

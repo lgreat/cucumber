@@ -16,6 +16,7 @@ import gs.data.state.State;
 import gs.web.hub.EnrollmentModel;
 import gs.web.hub.MoreInformationModel;
 import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -42,6 +43,8 @@ public class CityHubEnrollmentPageController {
     private  static final String PARAM_CITY = "city";
     @Autowired
     private CityHubHelper _cityHubHelper;
+    @Autowired
+    private AnchorListModelFactory _anchorListModelFactory;
 
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
@@ -91,7 +94,7 @@ public class CityHubEnrollmentPageController {
         /**
          * Get Enrollment Model Info  .
          */
-        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade();
+        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade(request, collectionId, state, city);
         modelAndView.addObject("enrollmentsInfo", enrollmentInfo);
 
         return modelAndView;
@@ -103,10 +106,15 @@ public class CityHubEnrollmentPageController {
      * Get Step facade for the UX .
      * @return stepsInfo List of StepInfo passed to model.
      */
-    private List<EnrollmentModel> getEnrollmentFacade() {
+    private List<EnrollmentModel> getEnrollmentFacade(HttpServletRequest request, Integer collectionId, State state,
+                                                      String city) {
         List<EnrollmentModel> enrollmentInfo = new ArrayList<EnrollmentModel>();
 
-        EnrollmentModel enrollmentInfo1= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PUBLIC , "Public schools(neighborhood or district)", "blahh blahh ", new Anchor("www.greatschools.org", "Browse DC Public PreSchools" , 12 ));
+        Object[] solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.PUBLIC, SchoolType.CHARTER};
+        Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, solrQueryFilter, state,
+                city, "Browse DC public schools");
+        EnrollmentModel enrollmentInfo1= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PUBLIC ,
+                "Public schools(neighborhood or district)", "blahh blahh ", anchor);
         // Tips
         ArrayList<String> tips1= new ArrayList<String>();
         tips1.add("tip1enrollmentInfo1");
@@ -119,17 +127,16 @@ public class CityHubEnrollmentPageController {
         MoreInformationModel  moreinfo1= new MoreInformationModel("3333 14th Street NW<br/> Suite 410</br> Washington D.C 20010</br><b>Phone :</b><br/>(202) 328-2660</br><b>Fax :</b>(202) 442-5026</br>");
         enrollmentInfo1.setMoreInfo(moreinfo1);
 
-
-        EnrollmentModel enrollmentInfo2= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.CHARTER , "Public Charter School", "blahh blahh Public Charter School", new Anchor("www.greatschools.org", "Browse DC Public Charter PreSchools" , 22 ));
+        solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.CHARTER};
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, solrQueryFilter, state, city,
+                "Browse DC public charter schools");
+        EnrollmentModel enrollmentInfo2= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.CHARTER ,
+                "Public Charter School", "blahh blahh Public Charter School", anchor);
         // Tips
         ArrayList<String> tips2= new ArrayList<String>();
         tips2.add("tip1enrollmentInfo2");
         tips2.add("tip2enrollmentInfo2");
         enrollmentInfo2.setTipsInfoModel(tips2);
-
-
-
-
 
         // More Info
        ArrayList<Anchor>  links= new ArrayList<Anchor>();
@@ -142,8 +149,11 @@ public class CityHubEnrollmentPageController {
         MoreInformationModel  moreinfo2= new MoreInformationModel(links);
         enrollmentInfo2.setMoreInfo(moreinfo2);
 
-
-        EnrollmentModel enrollmentInfo3= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PRIVATE , "Private School", "blahh blahh Private School", new Anchor("www.greatschools.org", "Browse DC Private Charter PreSchools" , 32 ));
+        solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.PRIVATE};
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, solrQueryFilter, state, city,
+                "Browse DC private schools");
+        EnrollmentModel enrollmentInfo3= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PRIVATE ,
+                "Private School", "blahh blahh Private School", anchor);
         // Tips
 
         ArrayList<String> tips3= new ArrayList<String>();
@@ -172,4 +182,7 @@ public class CityHubEnrollmentPageController {
         this._cityHubHelper = _cityHubHelper;
     }
 
+    public void setAnchorListModelFactory(AnchorListModelFactory _anchorListModelFactory) {
+        this._anchorListModelFactory = _anchorListModelFactory;
+    }
 }

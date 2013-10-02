@@ -483,57 +483,50 @@ public class AnchorListModelFactory {
         return anchorListModel;
     }
 
-    public Anchor createBrowseLinksWithFilter(final HttpServletRequest request, final Integer collectionId, final Object filter,
-                                            final State state, final String cityName) {
+    public Anchor createBrowseLinksWithFilter(final HttpServletRequest request, final Integer collectionId, final Object[] filters,
+                                            final State state, final String cityName, final String anchorContent) {
         Anchor anchor = null;
 
         if(state != null && (collectionId != null || cityName != null)) {
+            String path;
+            Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+            LevelCode levelCode = null;
             GsSolrQuery q = createGsSolrQuery();
             q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
 
-            if(filter instanceof SchoolType) {
-                final SchoolType schoolType = (SchoolType) filter;
-                Set<SchoolType> schoolTypes = new HashSet<SchoolType>(){{
-                    add(schoolType);
-                }};
-
-                // implementing GS-13231 lucene changes
-                if((SchoolType.PUBLIC).equals(schoolType)) {
-                    schoolTypes.add(SchoolType.CHARTER);
+            if(filters != null) {
+                for(Object filter : filters) {
+                    if(filter instanceof SchoolType) {
+                        SchoolType schoolType = (SchoolType) filter;
+                        schoolTypes.add(schoolType);
+                    }
+                    else if(filter instanceof LevelCode) {
+                        levelCode = (LevelCode) filter;
+                    }
                 }
+            }
 
+            if(!schoolTypes.isEmpty()) {
                 String[] filterSchoolTypes = new String[schoolTypes.size()];
                 SchoolType[] st = schoolTypes.toArray(new SchoolType[0]);
                 for(int i = 0; i < schoolTypes.size(); i++) {
                     filterSchoolTypes[i] = st[i].getSchoolTypeName();
                 }
                 q.filter(SchoolFields.SCHOOL_TYPE, filterSchoolTypes);
-                SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName);
-
-                String path = getSiteRelativePath(request, state, collectionId, cityName, schoolTypes, null);
-                if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
-                    anchor = new Anchor(path, WordUtils.capitalize(schoolType.getSchoolTypeName()) + " Schools");
-                    anchor.setCount(schoolSearchResult.getTotalResults());
-                    anchor.setAfter(" (" + schoolSearchResult.getTotalResults() + ")");
-                }
             }
-            else if(filter instanceof LevelCode) {
-                final LevelCode levelCode = (LevelCode) filter;
+
+            if(levelCode != null) {
                 String[] filterLevelCode = levelCode.getCommaSeparatedString().split(",");
                 q.filter(SchoolFields.GRADE_LEVEL, filterLevelCode);
-                SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName);
-                String path = getSiteRelativePath(request, state, collectionId, cityName, null, levelCode);
+            }
 
-                if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
-                    // content for preschools is just "Preschools", for other types that will be "Elementary Schools",
-                    // "Middle Schools", "High Schools"
-//                    if(levelCode.hasMultipleLevelCodes()) {}
-//                    else {}
-                    anchor = new Anchor(path, WordUtils.capitalize(levelCode.getLowestLevel().getLongName()) +
-                            (levelCode.equals(LevelCode.PRESCHOOL) ? "s" : " Schools"));
-                    anchor.setCount(schoolSearchResult.getTotalResults());
-                    anchor.setAfter(" (" + schoolSearchResult.getTotalResults() + ")");
-                }
+            SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName);
+
+            path = getSiteRelativePath(request, state, collectionId, cityName, schoolTypes, levelCode);
+            if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
+                anchor = new Anchor(path, anchorContent);
+                anchor.setCount(schoolSearchResult.getTotalResults());
+                anchor.setAfter(" (" + schoolSearchResult.getTotalResults() + ")");
             }
         }
 

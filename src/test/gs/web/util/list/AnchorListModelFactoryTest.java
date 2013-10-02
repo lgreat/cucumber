@@ -23,6 +23,7 @@ import static org.easymock.EasyMock.*;
 import static org.easymock.classextension.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.replay;
 
+import org.apache.commons.lang.WordUtils;
 import org.apache.lucene.search.Hits;
 import org.easymock.classextension.EasyMock;
 
@@ -212,28 +213,38 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         Integer collectionId = null;
         State state = null;
         String city = null;
+        String schoolTypeFilterAnchorContent = null;
+        String levelCodeFilterAnchorContent = null;
+        Object[] filter = null;
 
         // test with null state, query should not throw exception TODO: add fail
-        Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, null, state, city);
+        Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, filter,
+                state, city, null);
         assertNull(anchor);
 
         // test with null filter, solr query should not be run
         state = State.DC;
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, null, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, filter, state,
+                city, null);
         assertNull(anchor);
 
         //test with null city for school types and level codes
         EasyMock.reset(_gsSolrSearcher);
         SchoolType schoolType = SchoolType.PUBLIC;
+        Object[] publicSchoolsFilter = {schoolType, SchoolType.CHARTER};
+        schoolTypeFilterAnchorContent = WordUtils.capitalize(schoolType.getSchoolTypeName()) + " Schools";
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, schoolType, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, publicSchoolsFilter,
+                state, city, schoolTypeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNull(anchor);
 
         EasyMock.reset(_gsSolrSearcher);
         LevelCode levelCode = LevelCode.ELEMENTARY;
+        levelCodeFilterAnchorContent = WordUtils.capitalize(levelCode.getLowestLevel().getLongName()) + " Schools";
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, levelCode, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, new Object[]{levelCode},
+                state, city, levelCodeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNull(anchor);
 
@@ -243,7 +254,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(new SearchResultsPage<SolrSchoolSearchResult>(0, null));
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, schoolType, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, publicSchoolsFilter,
+                state, city, schoolTypeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNull(anchor);
 
@@ -251,7 +263,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(new SearchResultsPage<SolrSchoolSearchResult>(0, null));
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, levelCode, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, new Object[]{levelCode},
+                state, city, levelCodeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNull(anchor);
 
@@ -270,13 +283,15 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         }});
         EasyMock.reset(_gsSolrSearcher);
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, schoolType, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, publicSchoolsFilter,
+                state, city, schoolTypeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNull(anchor);
 
         EasyMock.reset(_gsSolrSearcher);
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, levelCode, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, new Object[]{levelCode},
+                state, city, levelCodeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNull(anchor);
 
@@ -286,7 +301,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(searchResultsPage);
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, schoolType, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, publicSchoolsFilter,
+                state, city, schoolTypeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNotNull(anchor);
         assertEquals("Expect one school to be returned", new Integer(1), anchor.getCount());
@@ -296,7 +312,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         expect(_gsSolrSearcher.search(isA(GsSolrQuery.class), eq(SolrSchoolSearchResult.class), eq(false))).
                 andReturn(searchResultsPage);
         EasyMock.replay(_gsSolrSearcher);
-        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, levelCode, state, city);
+        anchor = _anchorListModelFactory.createBrowseLinksWithFilter(_request, collectionId, new Object[]{levelCode},
+                state, city, levelCodeFilterAnchorContent);
         EasyMock.verify(_gsSolrSearcher);
         assertNotNull(anchor);assertEquals("Expect one school to be returned", new Integer(1), anchor.getCount());
         assertEquals("Expect elementary school to be returned", "Elementary Schools", anchor.getContents());

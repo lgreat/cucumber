@@ -10,6 +10,7 @@ import gs.web.util.UrlUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -181,7 +182,15 @@ public class CityHubHelper {
         }};
 
         for(LevelCode filterLevelCode : levelCodes) {
-            Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, filterLevelCode, state, city);
+            Object[] filter = {filterLevelCode};
+            // content for preschools is just "Preschools", for other types that will be "Elementary Schools",
+            // "Middle Schools", "High Schools"
+//            if(filterLevelCode.hasMultipleLevelCodes()) {}
+//            else {}
+            String anchorContent = WordUtils.capitalize(filterLevelCode.getLowestLevel().getLongName()) +
+                    (filterLevelCode.equals(LevelCode.PRESCHOOL) ? "s" : " Schools");
+            Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, filter, state,
+                    city, anchorContent);
             if(anchor != null) {
                 browseLinks.add(anchor);
             }
@@ -190,7 +199,14 @@ public class CityHubHelper {
         List<SchoolType> schoolTypes = SchoolType.sortOrder;
 
         for(SchoolType filterSchoolType : schoolTypes) {
-            Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, filterSchoolType, state, city);
+            Object[] filter = {filterSchoolType};
+            // implementing GS-13231 lucene changes
+            if((SchoolType.PUBLIC).equals(filterSchoolType)) {
+                filter = new Object[]{SchoolType.PUBLIC, SchoolType.CHARTER};
+            }
+            String anchorContent = WordUtils.capitalize(filterSchoolType.getSchoolTypeName()) + " Schools";
+            Anchor anchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, filter, state,
+                    city, anchorContent);
             if(anchor != null) {
                 browseLinks.add(anchor);
             }
