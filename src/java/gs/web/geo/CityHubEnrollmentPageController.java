@@ -523,6 +523,8 @@ public class CityHubEnrollmentPageController {
         enrollmentInfo.add(privateElementarySchool);
         enrollmentInfo.add(publicMiddleSchool);
         enrollmentInfo.add(privateMiddleSchool);
+        enrollmentInfo.add(publicHighSchool);
+        enrollmentInfo.add(privateHighSchool);
 
         return   enrollmentInfo;
 
