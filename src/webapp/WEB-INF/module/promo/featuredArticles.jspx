@@ -9,7 +9,11 @@
             <c:out value="${heading}" escapeXml="true"/>
         </h3>
     </c:if>
+    <!-- try this as an alternative to fix a Tomcat7 error with using c:out with article.abstract -->
+    <jsp:scriptlet>
+        pageContext.setAttribute("escapedAbstract", org.apache.commons.lang.StringEscapeUtils.escapeXml(((gs.data.content.Article)request.getAttribute("article")).getAbstract()));
+    </jsp:scriptlet>
     <h4><gsweb:articlelink article="${article}" featured="true" flaggedIfNew="true"/></h4>
-    <p><c:out value="${article.abstract}&#160;&#160;" escapeXml="true"/>
+    <p>${escapedAbstract}&#160;&#160;
     <gsweb:articlelink article="${article}" featured="true" flaggedIfNew="false">More...</gsweb:articlelink></p>
 </jsp:root>

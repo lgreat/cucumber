@@ -36,7 +36,9 @@ Capybara.app_host = "http://localhost" # Do not edit this line! See below
 if ENV['APP_HOST'] != nil
   Capybara.app_host = ENV['APP_HOST']
 end
+puts ""
 puts "Running tests against #{Capybara.app_host}"
+puts ""
 
 Capybara.default_driver = :mechanize
 
@@ -44,8 +46,9 @@ Capybara.default_driver = :mechanize
 if ENV['SAUCE_USERNAME'] != nil
 
   my_driver = (ENV['BROWSER'] && ENV['BROWSER'].to_sym) || :selenium
-  puts ""
   puts "my_driver:  #{my_driver}"
+  puts ""
+  puts ""
 
   Capybara.default_driver = :mechanize
   Capybara.javascript_driver = my_driver
@@ -88,9 +91,27 @@ if ENV['SAUCE_USERNAME'] != nil
        :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.internet_explorer(caps))
   end
 
+  # Windows 7, IE10
+  Capybara.register_driver :sauce_ie10_win7 do |app|
+    caps = base_opts.merge({:platform => 'Windows 7', :version => '10'})
+    Capybara::Selenium::Driver.new(app,
+       :browser => :remote,
+       :url => SAUCE_CONNECT_URL,
+       :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.internet_explorer(caps))
+  end
+
   # Windows 7, Firefox 22
   Capybara.register_driver :sauce_firefox22_win7 do |app|
     caps = base_opts.merge({:platform => 'Windows 7', :version => '22'})
+    Capybara::Selenium::Driver.new(app,
+       :browser => :remote,
+       :url => SAUCE_CONNECT_URL,
+       :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.firefox(caps))
+  end
+
+  # Windows 7, Firefox 23
+  Capybara.register_driver :sauce_firefox23_win7 do |app|
+    caps = base_opts.merge({:platform => 'Windows 7', :version => '23'})
     Capybara::Selenium::Driver.new(app,
        :browser => :remote,
        :url => SAUCE_CONNECT_URL,

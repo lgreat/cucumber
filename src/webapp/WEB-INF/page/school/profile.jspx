@@ -52,6 +52,8 @@
     PageHelper.setPageName(request, "spp_overview");
 </jsp:scriptlet>
 
+<pageHelper:includeQualarooJS/>
+
 <head>
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
