@@ -8,7 +8,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <c:set var="pageName" value="city home" scope="request"/>
+    <c:set var="pageName" value="Important Dates" scope="request"/>
     <jsp:directive.page contentType="text/html"/>
 
     <head>
@@ -19,7 +19,7 @@
     </head>
 
     <body>
-        <!-- Hiding the Ads on the City Hub Page -->
+        <!-- Hiding the Ads on the Important Dates Page -->
         <pageHelper:hideFooterAd/>
         <pageHelper:hideLeaderboard/>
         <pageHelper:hideBelowNavAds/>
