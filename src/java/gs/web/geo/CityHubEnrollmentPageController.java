@@ -314,8 +314,10 @@ public class CityHubEnrollmentPageController {
 
 
         //Browse Link
-        Anchor browseLinkPublicMiddleSchool= new Anchor("www.greatschools.org", "Browse DC Public Middle Schools" ,44 ) ;
-        publicMiddleSchool.setBrowseLink(browseLinkPublicMiddleSchool);
+        solrQueryFilter = new Object[]{LevelCode.MIDDLE, SchoolType.PUBLIC, SchoolType.CHARTER};
+        Anchor publicMiddleBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC public middle schools");
+        publicMiddleSchool.setBrowseLink(publicMiddleBrowseLink);
 
 
         // Description Text
@@ -366,8 +368,10 @@ public class CityHubEnrollmentPageController {
 
 
         //Browse Link
-        Anchor browseLinkPrivateMiddleSchool= new Anchor("www.greatschools.org", "Browse DC Private Middle Schools" ,41 ) ;
-        privateMiddleSchool.setBrowseLink(browseLinkPrivateMiddleSchool);
+        solrQueryFilter = new Object[]{LevelCode.MIDDLE, SchoolType.PRIVATE};
+        Anchor privateMiddleBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC private middle schools");
+        privateMiddleSchool.setBrowseLink(privateMiddleBrowseLink);
 
 
         // Description Text
@@ -422,8 +426,10 @@ public class CityHubEnrollmentPageController {
 
 
         //Browse Link
-        Anchor browseLinkPublicHighSchool= new Anchor("www.greatschools.org", "Browse DC Public High Schools" ,22 ) ;
-        publicHighSchool.setBrowseLink(browseLinkPublicHighSchool);
+        solrQueryFilter = new Object[]{LevelCode.HIGH, SchoolType.PUBLIC, SchoolType.CHARTER};
+        Anchor publicHighBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC public high schools");
+        publicHighSchool.setBrowseLink(publicHighBrowseLink);
 
 
         // Description Text
@@ -479,8 +485,10 @@ public class CityHubEnrollmentPageController {
 
 
         //Browse Link
-        Anchor browseLinkPrivateHighSchool= new Anchor("www.greatschools.org", "Browse DC Private Middle Schools" ,41 ) ;
-        privateHighSchool.setBrowseLink(browseLinkPrivateHighSchool);
+        solrQueryFilter = new Object[]{LevelCode.HIGH, SchoolType.PRIVATE};
+        Anchor privateHighBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC private high schools");
+        privateHighSchool.setBrowseLink(privateHighBrowseLink);
 
 
         // Description Text
