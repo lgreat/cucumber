@@ -455,6 +455,17 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                                        placeholder="Tell us about ${optionalTopicInsert}your school"><!-- do not collapse --></textarea>
                         </div>
                     </div>
+                    <c:if test="${isTopical}">
+                        <div class="clearfix ptm">
+                            This also relates to:
+                            <c:forEach items="${selectedTopic.tags}" var="tag">
+                                <span class="${tag.main?'readonly':''}">
+                                    <gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${tag.main}" disabled="${tag.main}"/>
+                                    <label for="tag_${tag.id}">${tag.name}</label>
+                                </span>
+                            </c:forEach>
+                        </div>
+                    </c:if>
                     <div class="clearfix ptm">
                         <div class="fl">
                             <div class="js-parentReviewTerms-error form-alert pbs dn">
@@ -544,18 +555,19 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                                 </div>
                                 <div id="js-reviewsLandingStarBox-Start">
                                     <ul class="listNoBullet small">
-                                        <c:choose>
-                                            <c:when test="${isTopical and selectedTopic.id eq 1}">
-                                                <li>How does your school handle learning differences?</li>
-                                                <li>Is there specific dyslexia support?</li>
-                                                <li>Are there programs that support ADHD?</li>
-                                            </c:when>
-                                            <c:otherwise>
+                                        <!--<c:choose>-->
+                                            <!-- This is an example -->
+                                            <!--<c:when test="${isTopical and selectedTopic.id eq 1}">-->
+                                                <!--<li>How does your school handle learning differences?</li>-->
+                                                <!--<li>Is there specific dyslexia support?</li>-->
+                                                <!--<li>Are there programs that support ADHD?</li>-->
+                                            <!--</c:when>-->
+                                            <!--<c:otherwise>-->
                                                 <li>What do you think others should know?</li>
                                                 <li>What do you like?</li>
                                                 <li>How could your school improve?</li>
-                                            </c:otherwise>
-                                        </c:choose>
+                                            <!--</c:otherwise>-->
+                                        <!--</c:choose>-->
                                     </ul></div>
                                 <!--<div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>-->
                                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">

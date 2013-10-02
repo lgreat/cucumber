@@ -115,6 +115,12 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         _topic = new ReviewTopic();
         _topic.setId(1L);
+        ReviewTag tag = new ReviewTag();
+        tag.setId(1L);
+        tag.setMain(true);
+        tag.setName("1");
+        tag.setActive(true);
+        _topic.getTags().add(tag);
     }
 
     private void replayAllMocks() {
@@ -892,7 +898,79 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
         subRating.setSchoolId(_school.getId());
         _subscriptionDao.saveSubscription(subRating);
-        _topicalSchoolReviewDao.save(reviewWithStatusEq("pp"));
+
+        _topicalSchoolReviewDao.save(reviewWithStatusAndTagsEq("pp", Arrays.asList("1")));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentWithTags() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        _command.setTagIds(new Long[] {2L, 4L});
+        ReviewTag tag2 = new ReviewTag();
+        tag2.setId(2L);
+        tag2.setName("2");
+        tag2.setActive(true);
+        ReviewTag tag4 = new ReviewTag();
+        tag4.setId(4L);
+        tag4.setName("4");
+        tag4.setActive(true);
+        _topic.getTags().add(tag2);
+        _topic.getTags().add(tag4);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+
+        _topicalSchoolReviewDao.save(reviewWithStatusAndTagsEq("pp", Arrays.asList("1", "2", "4")));
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewNewUserParentWithTagNotInTopic() throws Exception {
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(1L);
+        _command.setPoster(Poster.PARENT);
+        _command.setTagIds(new Long[] {2L, 4L});
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser((User) anyObject());
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+
+        expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
+        expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        subRating.setSchoolId(_school.getId());
+        _subscriptionDao.saveSubscription(subRating);
+
+        // review should only be tagged with tags in the topic
+        _topicalSchoolReviewDao.save(reviewWithStatusAndTagsEq("pp", Arrays.asList("1")));
         _emailVerificationEmail.sendSchoolReviewVerificationEmail(_request, _user, "http://www.greatschools.org/school/parentReviews.page?id=6397&state=CA");
 
         replayAllMocks();
@@ -1142,11 +1220,22 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         return null;
     }
 
+    private static TopicalSchoolReview reviewWithStatusAndTagsEq(String status, List<String> tagNames) {
+        reportMatcher(new TopicalSchoolReviewMatcher(status, tagNames));
+        return null;
+    }
+
     private static class TopicalSchoolReviewMatcher implements IArgumentMatcher {
         private String _expectedStatus;
-        private String _actualStatus;
+        private List<String> _expectedTagNames;
+        private String _rejectReason;
         public TopicalSchoolReviewMatcher(String status) {
             _expectedStatus = status;
+        }
+
+        public TopicalSchoolReviewMatcher(String status, List<String> tagNames) {
+            _expectedStatus = status;
+            _expectedTagNames = tagNames;
         }
 
         public boolean matches(Object argument) {
@@ -1155,14 +1244,37 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
             }
             TopicalSchoolReview actualReview = (TopicalSchoolReview) argument;
             actualReview.setId(1L); // fake an id set
-            _actualStatus = actualReview.getStatus();
-            return StringUtils.equals(_expectedStatus, actualReview.getStatus());
+            if (_expectedTagNames != null && _expectedTagNames.size() > 0) {
+                String tagNotFound = null;
+                boolean allMatch = true;
+                for (String tagName: _expectedTagNames) {
+                    boolean found = false;
+                    for (ReviewTag tag: actualReview.getTags()) {
+                        if (tag.getName().equals(tagName)) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        allMatch = false;
+                        tagNotFound = tagName;
+                        break;
+                    }
+                }
+                if (!allMatch) {
+                    _rejectReason = "Not tagged with \"" + tagNotFound + "\"";
+                    return false;
+                }
+            }
+            if (!StringUtils.equals(_expectedStatus, actualReview.getStatus())) {
+                _rejectReason = "expected status \"" + _expectedStatus + "\", found status \"" + actualReview.getStatus() + "\"";
+                return false;
+            }
+            return true;
         }
 
         public void appendTo(StringBuffer buffer) {
-            buffer.append("reviewWithStatusEq(");
-            buffer.append("expected TopicalSchoolReview with status \"").append(_expectedStatus).append("\"");
-            buffer.append(", instead got status \"").append(_actualStatus).append("\"");
+            buffer.append("TopicalSchoolReview(");
+            buffer.append(_rejectReason);
             buffer.append(")");
         }
     }

@@ -4,6 +4,7 @@ package gs.web.school.review;
 import gs.data.community.User;
 import gs.data.school.School;
 import gs.data.school.review.IReviewTopicDao;
+import gs.data.school.review.ReviewTag;
 import gs.data.school.review.ReviewTopic;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.util.PageHelper;
@@ -48,7 +49,6 @@ public class ParentReviewLandingPageController extends AbstractController {
 
         List<ReviewTopic> topics = _reviewTopicDao.findAll();
         model.put("topics", topics);
-        ReviewTopic selectedTopic = null;
         Integer topicId = null;
         if (request.getParameter("topicId") != null) {
             try {
@@ -60,11 +60,22 @@ public class ParentReviewLandingPageController extends AbstractController {
         if (topicId != null && topicId > 0) {
             for (ReviewTopic topic: topics) {
                 if (topic.getId().intValue() == topicId) {
-                    selectedTopic = topic;
+                    model.put("selectedTopic", topic);
+                    Collections.sort(topic.getTags(), new Comparator<ReviewTag>() {
+                        public int compare(ReviewTag tag1, ReviewTag tag2) {
+                            if (tag1.isMain()) {
+                                return -1;
+                            } else if (tag2.isMain()) {
+                                return 1;
+                            } else {
+                                return tag1.getName().compareTo(tag2.getName());
+                            }
+                        }
+                    });
+                    break;
                 }
             }
         }
-        model.put("selectedTopic", selectedTopic);
 
         model.put(MODEL_MORGAN_STANLEY, isMorganStanley());
         return new ModelAndView(getViewName(), model);

@@ -21,6 +21,7 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -152,6 +153,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         Map<Object, Object> responseValues = new HashMap<Object, Object>();
         TopicalSchoolReview review;
         ReviewTopic topic = _reviewTopicDao.find(reviewCommand.getTopicId());
+        topic.getTags(); // force loading of tags, otherwise will be loaded lazily below which could be after the session is closed
         if (topic == null) {
             errorJSON(response, "Invalid topic id");
             return;
@@ -172,6 +174,18 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
         review.setTopic(topic);
+        review.getTags().clear();
+        if (topic.getMainTag() != null) {
+            review.getTags().add(topic.getMainTag());
+        }
+        if (reviewCommand.getTagIds() != null && reviewCommand.getTagIds().length > 0) {
+            for (ReviewTag tag: topic.getTags()) {
+                // the main tag is added by default
+                if (!tag.isMain() && ArrayUtils.contains(reviewCommand.getTagIds(), tag.getId())) {
+                    review.getTags().add(tag);
+                }
+            }
+        }
 
         Long existingReviewId = review.getId();
         Poster poster = reviewCommand.getPoster();
