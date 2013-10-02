@@ -16,6 +16,7 @@ import gs.data.state.State;
 import gs.web.hub.EnrollmentModel;
 import gs.web.hub.MoreInformationModel;
 import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -42,6 +43,8 @@ public class CityHubEnrollmentPageController {
     private  static final String PARAM_CITY = "city";
     @Autowired
     private CityHubHelper _cityHubHelper;
+    @Autowired
+    private AnchorListModelFactory _anchorListModelFactory;
 
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
@@ -91,7 +94,7 @@ public class CityHubEnrollmentPageController {
         /**
          * Get Enrollment Model Info  .
          */
-        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade();
+        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade(request, collectionId, state, city);
         modelAndView.addObject("enrollmentsInfo", enrollmentInfo);
 
         return modelAndView;
@@ -103,16 +106,21 @@ public class CityHubEnrollmentPageController {
      * Get Step facade for the UX .
      * @return stepsInfo List of StepInfo passed to model.
      */
-    private List<EnrollmentModel> getEnrollmentFacade() {
+    private List<EnrollmentModel> getEnrollmentFacade(HttpServletRequest request, Integer collectionId, State state,
+                                                      String city) {
         List<EnrollmentModel> enrollmentInfo = new ArrayList<EnrollmentModel>();
 
         /**
          * Public Preschool Data Start
          */
-        EnrollmentModel publicPreschools= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PUBLIC , "Public schools(neighborhood or district)");
+        Object[] solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.PUBLIC, SchoolType.CHARTER};
+
+        Anchor publicPreschoolsAnchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, solrQueryFilter, state,
+                city, "Browse DC public preschools");
+        EnrollmentModel publicPreschools= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PUBLIC ,
+                "Public schools(neighborhood or district)");
        //Browse Link
-        Anchor browseLinkPublicPreschools= new Anchor("www.greatschools.org", "Browse DC Public PreSchools" ,12 ) ;
-        publicPreschools.setBrowseLink(browseLinkPublicPreschools);
+        publicPreschools.setBrowseLink(publicPreschoolsAnchor);
        // Description Text
         publicPreschools.setDescription("Since preschool (starting at age 3) and pre-kindergarten (starting at age 4) attendance is not mandatory, students are not automatically assigned a school. " +
                                         "To enroll your child, you must apply through a lottery.<br/><br/>" +
@@ -152,8 +160,10 @@ public class CityHubEnrollmentPageController {
 
         EnrollmentModel privatePreschools= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PRIVATE , "Private Schools");
         //Browse Link
-        Anchor browseLinkPrivatePreschools= new Anchor("www.greatschools.org", "Browse DC Public PreSchools" ,12 ) ;
-        privatePreschools.setBrowseLink(browseLinkPrivatePreschools);
+        solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.PRIVATE};
+        Anchor privatePreschoolsBrowseLinks = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC private preschools");
+        privatePreschools.setBrowseLink(privatePreschoolsBrowseLinks);
 
         // Description Text
         privatePreschools.setDescription("There are many options for private early childhood programs as well as pre-schools that feed into private " +
@@ -189,8 +199,10 @@ public class CityHubEnrollmentPageController {
 
 
         //Browse Link
-        Anchor browseLinkPublicElementarySchool= new Anchor("www.greatschools.org", "Browse DC Public Elementary Schools" ,12 ) ;
-        publicElementarySchool.setBrowseLink(browseLinkPublicElementarySchool);
+        solrQueryFilter = new Object[]{LevelCode.ELEMENTARY, SchoolType.PUBLIC, SchoolType.CHARTER};
+        Anchor publicElementaryBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC public elementary schools");
+        publicElementarySchool.setBrowseLink(publicElementaryBrowseLink);
 
 
         // Description Text
@@ -236,12 +248,14 @@ public class CityHubEnrollmentPageController {
         /**
          * Private Elementary School Data Start
          */
-        EnrollmentModel privateElementarySchool= new EnrollmentModel("Elementary schools", LevelCode.ELEMENTARY, SchoolType.PRIVATE , "Private Schools");
+        EnrollmentModel privateElementarySchool= new EnrollmentModel("Elementary schools", LevelCode.ELEMENTARY, SchoolType.PRIVATE , "Public schools(neighborhood or district)");
 
 
         //Browse Link
-        Anchor browseLinkPrivateElementarySchool= new Anchor("www.greatschools.org", "Browse DC Public Elementary Schools" ,41 ) ;
-        privateElementarySchool.setBrowseLink(browseLinkPrivateElementarySchool);
+        solrQueryFilter = new Object[]{LevelCode.ELEMENTARY, SchoolType.PRIVATE};
+        Anchor privateElementaryBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
+                solrQueryFilter, state, city, "Browse DC private elementary schools");
+        privateElementarySchool.setBrowseLink(privateElementaryBrowseLink);
 
 
         // Description Text
@@ -538,4 +552,7 @@ public class CityHubEnrollmentPageController {
         this._cityHubHelper = _cityHubHelper;
     }
 
+    public void setAnchorListModelFactory(AnchorListModelFactory _anchorListModelFactory) {
+        this._anchorListModelFactory = _anchorListModelFactory;
+    }
 }
