@@ -15,10 +15,10 @@
 
     <c:choose>
         <c:when test="${hasKeyEnrollmentDatesToDisplay}">
-            <div class="mod standard_1-1 ">
+            <div class="mod standard_1-5">
                 <div class="inner">
                     <div class="hd">
-                        <h4 class="pvm plm bottom bg-005877">
+                        <h4 class="pvm plm bottom">
                             <span class="make-ffffff">Key dates</span>
                         </h4>
                     </div>

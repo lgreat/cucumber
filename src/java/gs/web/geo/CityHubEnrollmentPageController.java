@@ -208,11 +208,11 @@ public class CityHubEnrollmentPageController {
         // Description Text
         publicElementarySchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
                                         "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
-                                        "different school, there is the “out of boundary” process.<br/><br/>" +
+                                        "different school, there is the 'out of boundary' process.<br/><br/>" +
                                         "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
                                         "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
                                         "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
-                                        "DC “out of boundary” public schools and DC charter schools have a new lottery system for applying to schools " +
+                                        "DC 'out of boundary' public schools and DC charter schools have a new lottery system for applying to schools " +
                                         "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
                                         "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
                                         " GreatSchools Official School Profile or contact the school directly.");
@@ -284,7 +284,7 @@ public class CityHubEnrollmentPageController {
         Anchor linkPrivateElementarySchool2 = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools");
         Anchor linkPrivateElementarySchool3 = new Anchor("http://www.independenteducation.org/", "Learn about Independent Private Schools ");
         Anchor linkPrivateElementarySchool4 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
-        Anchor linkPrivateElementarySchool5 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education schools’ admission details");
+        Anchor linkPrivateElementarySchool5 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school's admission details");
         Anchor linkPrivateElementarySchool6 = new Anchor("http://www.latinostudentfund.org/", "Latino Student Fund");
         Anchor linkPrivateElementarySchool7 = new Anchor("http://blackstudentfund.org/wordpress/", "Black Student Fund");
         Anchor linkPrivateElementarySchool8 = new Anchor("http://www.dcscholarships.org/ ", "Opportunity Scholarship Program ");
