@@ -236,7 +236,7 @@ public class CityHubEnrollmentPageController {
         /**
          * Private Elementary School Data Start
          */
-        EnrollmentModel privateElementarySchool= new EnrollmentModel("Elementary schools", LevelCode.ELEMENTARY, SchoolType.PRIVATE , "Public schools(neighborhood or district)");
+        EnrollmentModel privateElementarySchool= new EnrollmentModel("Elementary schools", LevelCode.ELEMENTARY, SchoolType.PRIVATE , "Private Schools");
 
 
         //Browse Link
@@ -293,6 +293,227 @@ public class CityHubEnrollmentPageController {
          * Private Elementary School Data End
          */
 
+         /**
+         * Public Middle  School Data Start
+         */
+         EnrollmentModel publicMiddleSchool= new EnrollmentModel("Middle schools", LevelCode.MIDDLE, SchoolType.PUBLIC , "Public schools(neighborhood or district)");
+
+
+        //Browse Link
+        Anchor browseLinkPublicMiddleSchool= new Anchor("www.greatschools.org", "Browse DC Public Middle Schools" ,44 ) ;
+        publicMiddleSchool.setBrowseLink(browseLinkPublicMiddleSchool);
+
+
+        // Description Text
+        publicMiddleSchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
+                "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
+                "different school, there is the “out of boundary” process.<br/><br/>" +
+                "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
+                "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
+                "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
+                "DC “out of boundary” public schools and DC charter schools have a new lottery system for applying to schools " +
+                "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
+                "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
+                " GreatSchools Official School Profile or contact the school directly.");
+
+        // Tips
+        ArrayList<String> tipsForPublicMiddleSchool= new ArrayList<String>();
+
+        tipsForPublicMiddleSchool.add("Waitlists for high performing schools vary for each grade level. The demand for high performing schools is often higher for the entry-level grades, " +
+                "so there might be a greater chance of getting into a school of your choice at odd years if you are flexible.");
+
+        tipsForPublicMiddleSchool.add("Most schools have three or four open houses, usually one in the fall and two or three in the spring before enrollment begins." +
+                                          "Open Houses are your best opportunity to get a feel for the school culture and to " +
+                                          "ask other parents questions about the school. ");
+        tipsForPublicMiddleSchool.add("DCPS and most private elementary schools run until the sixth grade. Some public charter middle schools start in the fifth grade " +
+                                          "and often offer more seats in the fifth grade so you will want to weigh those " +
+                                         "factors in your consideration.");
+        tipsForPublicMiddleSchool.add("Every elementary school feeds into a middle school, which in turn feeds into a high school. These are called destination schools." +
+                                         " Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your choice.");
+
+        publicMiddleSchool.setTipsInfoModel(tipsForPublicMiddleSchool);
+
+
+        // More Info
+
+        ArrayList<Anchor>  moreInfoLinksPublicMiddleSchool= new ArrayList<Anchor>();
+        Anchor linkPublicMiddleSchool = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Find+Your+Assigned+Schools", "Find your assigned school");
+        moreInfoLinksPublicMiddleSchool.add(linkPublicMiddleSchool);
+        MoreInformationModel  infoPublicMiddleSchool= new MoreInformationModel(moreInfoLinksPublicMiddleSchool);
+        publicMiddleSchool.setMoreInfo(infoPublicMiddleSchool);
+        /**
+         * Public Middle School Data End
+         */
+
+        /**
+         * Private Middle School Data Start
+         */
+        EnrollmentModel privateMiddleSchool= new EnrollmentModel("Middle schools", LevelCode.MIDDLE, SchoolType.PRIVATE , "Private Schools");
+
+
+        //Browse Link
+        Anchor browseLinkPrivateMiddleSchool= new Anchor("www.greatschools.org", "Browse DC Private Middle Schools" ,41 ) ;
+        privateMiddleSchool.setBrowseLink(browseLinkPrivateMiddleSchool);
+
+
+        // Description Text
+        privateMiddleSchool.setDescription("Private schools are non-public schools that charge tuition for attendance. Many have school-based aid and/or accept the " +
+                "opportunity scholarships or other outside forms of financial aid. Some private schools have religious affiliations. Students " +
+                "who want to attend private schools must apply, and there may be required entrance exams and application fees.Private school application deadlines vary " +
+                "by school. You should visit the school directly or check out the GreatSchools official school profile for more information.");
+
+        // Tips
+        ArrayList<String> tipsForPrivateMiddleSchool= new ArrayList<String>();
+        tipsForPrivateMiddleSchool.add("If you are an Opportunity Scholarship Program (OSP) applicant to a private school, " +
+                                        "many schools may waive or defer application fees. Make sure that you mention that you are an OSP applicant in your interview and essay.");
+        tipsForPrivateMiddleSchool.add("Many private schools accept common recommendation forms if your child is applying to more than one school.");
+        privateMiddleSchool.setTipsInfoModel(tipsForPrivateMiddleSchool);
+
+
+        // More Info
+
+        ArrayList<Anchor>  moreInfoLinksPrivateMiddleSchool= new ArrayList<Anchor>();
+        Anchor linkPrivateMiddleSchool1 = new Anchor("http://site.adw.org/catholic-schools", "Find Archdiocese schools");
+        Anchor linkPrivateMiddleSchool2 = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools");
+        Anchor linkPrivateMiddleSchool3 = new Anchor("http://www.independenteducation.org/", "Learn about Independent Private Schools ");
+        Anchor linkPrivateMiddleSchool4 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
+        Anchor linkPrivateMiddleSchool5 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school&#180;s admission details");
+        Anchor linkPrivateMiddleSchool6 = new Anchor("http://www.latinostudentfund.org/", "Latino Student Fund");
+        Anchor linkPrivateMiddleSchool7 = new Anchor("http://blackstudentfund.org/wordpress/", "Black Student Fund");
+        Anchor linkPrivateMiddleSchool8 = new Anchor("http://www.dcscholarships.org/ ", "Opportunity Scholarship Program ");
+
+
+
+
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool1);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool2);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool3);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool4);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool5);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool6);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool7);
+        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool8);
+
+        MoreInformationModel  infoPrivateMiddleSchool= new MoreInformationModel(moreInfoLinksPrivateMiddleSchool);
+        privateMiddleSchool.setMoreInfo(infoPrivateMiddleSchool);
+        /**
+         * Private Middle School Data End
+         */
+
+
+        /**
+         * Public High  School Data Start
+         */
+        EnrollmentModel publicHighSchool= new EnrollmentModel("High schools", LevelCode.HIGH, SchoolType.PUBLIC , "Public schools(neighborhood or district)");
+
+
+        //Browse Link
+        Anchor browseLinkPublicHighSchool= new Anchor("www.greatschools.org", "Browse DC Public High Schools" ,22 ) ;
+        publicHighSchool.setBrowseLink(browseLinkPublicHighSchool);
+
+
+        // Description Text
+        publicHighSchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
+                "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
+                "different school, there is the “out of boundary” process.<br/><br/>" +
+                "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
+                "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
+                "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
+                "DC “out of boundary” public schools and DC charter schools have a new lottery system for applying to schools " +
+                "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
+                "There are some DCPS specialized citywide high schools that have different application dates.<br/><br/>" +
+
+                "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
+                " GreatSchools Official School Profile or contact the school directly.");
+
+        // Tips
+        ArrayList<String> tipsForPublicHighSchool= new ArrayList<String>();
+
+        tipsForPublicHighSchool.add("DCPS has six specialized citywide high schools with specific admissions requirements and selection criteria.  9th and 10th " +
+                                    "grade applicants must submit online applications. The deadline is usually in December.");
+        tipsForPublicHighSchool.add("Waitlists for high performing schools vary for each grade level. The demand for high performing schools is often higher for the entry-level grades, " +
+                "so there might be a greater chance of getting into a school of your choice at odd years if you are flexible.");
+
+        tipsForPublicHighSchool.add("Most schools have three or four open houses, usually one in the fall and two or three in the spring before enrollment begins." +
+                "Open Houses are your best opportunity to get a feel for the school culture and to " +
+                "ask other parents questions about the school.");
+        tipsForPublicHighSchool.add("Some public charter schools require home visits as part of the enrollment process.");
+        tipsForPublicMiddleSchool.add("Every elementary school feeds into a middle school, which in turn feeds into a high school. These are called destination schools." +
+                " Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your choice.");
+
+        publicHighSchool.setTipsInfoModel(tipsForPublicMiddleSchool);
+
+
+        // More Info
+
+        ArrayList<Anchor>  moreInfoLinksPublicHighSchool= new ArrayList<Anchor>();
+        Anchor linkPublicHighSchool1 = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Find+Your+Assigned+Schools", "Find your assigned school");
+        Anchor linkPublicHighSchool2 = new Anchor("http://www.dcps.dc.gov/DCPS/highschoolapp", "Learn more about specialized high schools");
+
+        moreInfoLinksPublicHighSchool.add(linkPublicHighSchool1);
+        moreInfoLinksPublicHighSchool.add(linkPublicHighSchool2);
+        MoreInformationModel  infoPublicHighSchool= new MoreInformationModel(moreInfoLinksPublicHighSchool);
+        publicHighSchool.setMoreInfo(infoPublicHighSchool);
+        /**
+         * Public High School Data End
+         */
+
+        /**
+         * Private High School Data Start
+         */
+        EnrollmentModel privateHighSchool= new EnrollmentModel("High schools", LevelCode.HIGH, SchoolType.PRIVATE , "Private Schools");
+
+
+        //Browse Link
+        Anchor browseLinkPrivateHighSchool= new Anchor("www.greatschools.org", "Browse DC Private Middle Schools" ,41 ) ;
+        privateHighSchool.setBrowseLink(browseLinkPrivateHighSchool);
+
+
+        // Description Text
+        privateHighSchool.setDescription("Private schools are non-public schools that charge tuition for attendance. Many have school-based aid and/or accept the " +
+                "opportunity scholarships or other outside forms of financial aid. Some private schools have religious affiliations. Students " +
+                "who want to attend private schools must apply, and there may be required entrance exams and application fees.Private school application deadlines vary " +
+                "by school. You should visit the school directly or check out the GreatSchools official school profile for more information.<br/><br/>" +
+                "Many private high schools offer merit based scholarships for academics, fine arts, sports, and more. Make sure you ask about these options when you visit. ");
+
+        // Tips
+        ArrayList<String> tipsForPrivateHighSchool= new ArrayList<String>();
+        tipsForPrivateHighSchool.add("If you are an Opportunity Scholarship Program (OSP) applicant to a private school, " +
+                                     "many schools may waive or defer application fees. Make sure that you mention that you are an OSP applicant in your interview and essay.");
+        tipsForPrivateHighSchool.add("Some private schools accept common recommendation forms if your child is applying to more than one school. Others have their own required documentation. " +
+                                     "The application process differs for each school. Make sure you start the process early and register for entrance exams");
+        privateHighSchool.setTipsInfoModel(tipsForPrivateHighSchool);
+
+
+        // More Info
+
+        ArrayList<Anchor>  moreInfoLinksPrivateHighSchool= new ArrayList<Anchor>();
+        Anchor linkPrivateHighSchool1 = new Anchor("http://site.adw.org/catholic-schools", "Find Archdiocese schools");
+        Anchor linkPrivateHighSchool2 = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools");
+        Anchor linkPrivateHighSchool3 = new Anchor("http://site.adw.org/HS-Open-Houses", "Archdiocese open house schedule");
+        Anchor linkPrivateHighSchool4 = new Anchor("http://site.adw.org/hspt-registration-link", "Register for Archdiocese HS placement tests ");
+        Anchor linkPrivateHighSchool5 = new Anchor("https://www.independenteducation.org/", "Learn about Independent Private Schools ");
+        Anchor linkPrivateHighSchool6 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
+        Anchor linkPrivateHighSchool7 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school&#180;s admission details");
+        Anchor linkPrivateHighSchool8 = new Anchor("http://www.dcscholarships.org/ ", "Latino Student Fund");
+
+
+
+
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool1);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool2);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool3);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool4);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool5);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool6);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool7);
+        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool8);
+
+        MoreInformationModel  infoPrivateHighSchool= new MoreInformationModel(moreInfoLinksPrivateHighSchool);
+        privateHighSchool.setMoreInfo(infoPrivateHighSchool);
+        /**
+         * Private High School Data End
+         */
 
 
 
@@ -300,6 +521,8 @@ public class CityHubEnrollmentPageController {
         enrollmentInfo.add(privatePreschools);
         enrollmentInfo.add(publicElementarySchool);
         enrollmentInfo.add(privateElementarySchool);
+        enrollmentInfo.add(publicMiddleSchool);
+        enrollmentInfo.add(privateMiddleSchool);
 
         return   enrollmentInfo;
 

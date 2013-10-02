@@ -21,7 +21,7 @@
 
         <c:if test="${not empty enrollmentInfo.moreInfo.link}">
             <c:forEach items="${enrollmentInfo.moreInfo.link}" var="link">
-                MORE INFO  LINK  <a href="${link.hrefXml}"
+                MORE INFO  LINK  <a href="${link.hrefXml}" target="_blank"
                    >${link.contents}</a><br/>
 
             </c:forEach>
