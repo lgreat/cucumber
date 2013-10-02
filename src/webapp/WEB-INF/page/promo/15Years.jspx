@@ -26,7 +26,7 @@
 
             <div class="mbl">
                 <!--title-->
-                <div style="text-align: center;">
+                <div class="tac">
                     <div class="mtl big bold make-000000 mbm">
                         15 Years of sharing ideas
                     </div>
@@ -36,7 +36,7 @@
                 </div>
 
                 <!--some copy-->
-                <div class="year-15 block_text" style="text-align: center;">
+                <div class="year-15 block_text tac">
                     <div class="mbl">
                         When GreatSchools was launched in 1998, we had 1,300 unique visitors. This year,
                         we’ll have more than 44 million. There are many reasons for our success, but the
@@ -57,7 +57,14 @@
                 </div>
             </div>
             <!--Twitter, Facebook and Pinterest sharing-->
-            <div class="ptl" style="text-align: center;">
+
+            <div class="year-15-bubble">
+                <div>
+                    Share your story!
+                </div>
+            </div>
+
+            <div class="ptl tac">
                     <!--text box probably needs to be a bg-->
                     <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
 
@@ -70,11 +77,11 @@
             <div class="year-15 beige media clearfix" id="beige_15Years">
 
                 <div>
-                    <div class="img" style="margin-left: 100px; margin-top: 75px;">
+                    <div class="img" style="margin-left: 100px; margin-top: 35px;">
                         <gsml:img src="/res/img/promo/15Years/img_ElBrown.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
                     </div>
                     <div class="bd year-15 block_text" style="margin-left: 400px; margin-top: 85px;">
-                       <p style="font: normal 25px/21px Arial, Helvetica, sans-serif; line-height: 1.3em;">
+                       <p style="font: lighter 20px/16px Arial, Helvetica, sans-serif; line-height: 1.3em;">
                            "Great Schools was extremely helpful – it helps you narrow your search down to two or
                            three schools – then you can choose the best of the three. When they have to move, a
                            lot of military families lead with the school. Making the right school choice is really
@@ -85,11 +92,11 @@
                 </div>
 
                 <div>
-                    <div class="img" style="margin-left: 600px; margin-top: 75px;">
+                    <div class="img" style="margin-left: 600px; margin-top: 45px;">
                         <gsml:img src="/res/img/promo/15Years/img_ReginaWilliams.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
                     </div>
                     <div class="bd year-15 block_text" style="margin-left: 200px; margin-top: 85px;">
-                        <p style="font: normal 25px/21px Arial, Helvetica, sans-serif; line-height: 1.3em;">Pie sweet roll marshmallow muffin apple pie I love brownie sesame snaps I love. Brownie chocolate bar I love cheesecake lollipop apple pie. Cheesecake sweet roll tootsie roll cookie. Cookie I love dragée marshmallow jujubes ice cream powder.</p>
+                        <p style="font: lighter 20px/16px Arial, Helvetica, sans-serif; line-height: 1.3em;">Pie sweet roll marshmallow muffin apple pie I love brownie sesame snaps I love. Brownie chocolate bar I love cheesecake lollipop apple pie. Cheesecake sweet roll tootsie roll cookie. Cookie I love dragée marshmallow jujubes ice cream powder.</p>
                     </div>
                 </div>
 
