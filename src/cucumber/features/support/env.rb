@@ -109,9 +109,9 @@ if ENV['SAUCE_USERNAME'] != nil
        :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.firefox(caps))
   end
 
-  # Windows 7, Firefox 24
-  Capybara.register_driver :sauce_firefox24_win7 do |app|
-    caps = base_opts.merge({:platform => 'Windows 7', :version => '24'})
+  # Windows 7, Firefox 23
+  Capybara.register_driver :sauce_firefox23_win7 do |app|
+    caps = base_opts.merge({:platform => 'Windows 7', :version => '23'})
     Capybara::Selenium::Driver.new(app,
        :browser => :remote,
        :url => SAUCE_CONNECT_URL,
