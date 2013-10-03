@@ -59,7 +59,11 @@
                     <li>
                         Review on ${isTopical?review.topic.name:'overall'}: ${review.rating.name} (out of 5) "${review.comments}", by user ${review.memberId}.
                         <fmt:formatDate value="${review.created}" var="reviewPosted" pattern="MMMM d, yyyy"/>
-                        Posted on ${reviewPosted}
+                        Posted on ${reviewPosted}.
+                        <c:if test="${not empty review.tags}">
+                            Tags:
+                            <c:forEach items="${review.tags}" var="tag" varStatus="loopStatus">${tag.name}${(not loopStatus.last)?', ':''}</c:forEach>
+                        </c:if>
                     </li>
                 </c:forEach>
             </ul>

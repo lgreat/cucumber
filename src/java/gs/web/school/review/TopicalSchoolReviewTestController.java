@@ -89,6 +89,7 @@ public class TopicalSchoolReviewTestController {
         private ReviewTopic _topic;
         private CategoryRating _rating;
         private Integer _memberId;
+        private List<ReviewTag> _tags = new ArrayList<ReviewTag>();
 
         public ReviewDisplay(Review review) {
             _comments = review.getComments();
@@ -105,6 +106,7 @@ public class TopicalSchoolReviewTestController {
             _topic = review.getTopic();
             _rating = review.getRating();
             _memberId = review.getMemberId();
+            _tags = review.getTags();
         }
 
         public String getComments() {
@@ -129,6 +131,10 @@ public class TopicalSchoolReviewTestController {
 
         public Integer getMemberId() {
             return _memberId;
+        }
+
+        public List<ReviewTag> getTags() {
+            return _tags;
         }
 
         public int compareTo(Object o) {
