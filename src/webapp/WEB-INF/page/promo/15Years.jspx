@@ -64,11 +64,11 @@
                     <div class="ptl tac">
                         <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular;"> Share your story! </h1>
                             <!--text box probably needs to be a bg-->
-                            <a href="http://placekitten.com/300/300" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
+                            <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
 
-                            <a href="http://placekitten.com/300/300" class="mhl"><gsml:img src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryTwitter"/></a>
+                            <a href="" class="mhl"><gsml:img src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryTwitter"/></a>
 
-                            <a href="http://placekitten.com/300/300" class="mll"><gsml:img src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryPinterest"/></a>
+                            <a href="" class="mll"><gsml:img src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryPinterest"/></a>
                     </div>
                 </div>
             </div>
