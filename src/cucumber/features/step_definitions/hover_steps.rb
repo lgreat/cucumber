@@ -75,7 +75,7 @@ end
 Then /^the Validate Email hover is visible$/ do
   page.should have_content("Please verify your email address")
   steps %Q{
-    Then the "#valEmail" element is visible
+    Then I see the Validate your email hover
   }
 end
 
