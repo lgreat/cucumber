@@ -28,10 +28,10 @@
                 <!--title-->
                 <div class="tac">
                     <div class="mtl big bold make-000000 mbm">
-                        15 Years of sharing ideas
+                        Thanks for sharing your
                     </div>
                     <div class="big bold make-000000">
-                        about GreatSchools
+                        ideas about GreatSchools!
                     </div>
                 </div>
 
@@ -75,43 +75,161 @@
             <!--beige area-->
             <div class="year-15 beige media clearfix" id="beige_15Years">
                 <div>
-                    <div style="position:relative; margin-top:100px;">
-                        <!--<div class="" style="margin-left: 100px;">-->
-                            <gsml:img styleClass="fl" style="margin-left: 100px;" src="/res/img/promo/15Years/img_ElBrown.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
-                        <!--</div>-->
-                        <!--<div class="bd ptl year-15" >-->
-                            <p class="tar mrl" style="font: lighter 18px/14px Arial, Helvetica, sans-serif; line-height: 1.5em; width:500px">
-                                "Great Schools was extremely helpful – it helps you narrow your search down to two or
+                    <div class="clearfix" style="margin-top:100px;">
+                        <div class="alpha prefix_3 grid_9 omega">
+                            <gsml:img styleClass="fl mrl prl"
+                                      src="/res/img/promo/15Years/img_ElBrown.png"
+                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        </div>
+                        <div class="grid_9 suffix_3">
+                            <p class="tal mrl"
+                               style="font: lighter 17px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                                "Great Schools was extremely helpful - it helps you narrow your search down to two or
                                 three schools – then you can choose the best of the three. When they have to move, a
                                 lot of military families lead with the school. Making the right school choice is really
                                 important to most military families. In our case, we found the school we wanted, and
                                 then looked for a house."
                             </p>
-                        <!--</div>-->
-                            <p class="fr mtl mrl default bold" style="margin-left: 0; width:500px;"> - El Brown, Military parent</p>
+                            <p class="fr mtl mrl default bold" style="margin-left: 0px"> &#8212; El Brown, Military parent</p>
+                        </div>
                     </div>
-                </div>
-                <div class="clearfix"><!-- not empty --></div>
 
-                <!--<div class="lalala">-->
-                    <div style="margin-top:50px;">
-                        <!--<div class="img" style="margin-left: 600px;">-->
-                        <gsml:img styleClass="fr mrl" src="/res/img/promo/15Years/img_ReginaWilliams.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
-                        <!--</div>-->
-                        <!--<div class="ptl year-15 block_text">-->
-                            <p class="bottom fl" style="font: lighter 18px/14px Arial, Helvetica, sans-serif; line-height: 1.5em; width:500px; margin-left:100px;">
-                                “GreatSchools is a one-stop shop packed with services parents can access for FREE
-                                and information all families need to know when selecting a new school. The best part is
-                                the staff are always available to help, just a click or a phone call away.”</p>
-                        <!--</div>-->
-                        <!--<div class="mtl" style="margin-left: 9px;">-->
-                            <p class="default bold fl" style="width:500px; margin-left:100px;"> – Regina Williams, Milwaukee parent</p>
-                        <!--</div>-->
+                    <div class="clearfix" style="margin-top:100px;">
+                        <div class="fr alpha grid_9 suffix_3 omega">
+                            <gsml:img styleClass=""
+                                      src="/res/img/promo/15Years/img_ReginaWilliams.png"
+                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        </div>
+                        <div class="fl alpha prefix_3 grid_9 omega">
+                            <p class="tal mrl"
+                               style="font: lighter 17px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                                “GreatSchools is a one-stop shop packed with services parents can access for FREE and
+                                information all families need to know when selecting a new school. The best part is the
+                                staff are always available to help, just a click or a phone call away.”
+                            </p>
+
+                            <p class="mtl mrl default bold"
+                               style="margin-left: 0px"> &#8212; Regina Williams, Milwaukee parent
+                            </p>
+                        </div>
                     </div>
-                <!--</div>-->
+
+                    <div>
+                        check out this line
+                    </div>
+
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 75px">
+                        <p class="" style="font: lighter 17px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                            "I felt like there was meat to this program. It&#39;s a program that is offering parents skills to
+                            teach their kids. It has research behind the program and things that schoolteachers do
+                            use. This program teaches tried and trusted skill sets to parents."
+                        </p>
+
+                        <p class="pvl" style="font: bold 17px/14px Arial, Helvetica, sans-serif;">
+                            &#8212; Teacher, Laurel Elementary School
+                        </p>
+                    </div>
+
+                    <div>
+                        check out this line
+                    </div>
+
+                    <div class="clearfix" style="margin-top:100px;">
+                        <div class="alpha prefix_3 grid_9 omega">
+                            <gsml:img styleClass="fl mrl prl" style=""
+                                      src="/res/img/promo/15Years/img_AmandaRipley.png"
+                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        </div>
+                        <div class="grid_9 suffix_3">
+                            <p class="tal mrl" style="font: lighter 18px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                                "I am a longtime reader and fan of GreatSchools, a rare voice of sanity in the
+                                cacophony of American education."
+                            </p>
+                            <p class="fr mtl mrl small bold bottom" style="margin-left: 0;"> &#8212; Amanda Ripley, author of</p>
+                            <a href="http://articles.washingtonpost.com/2013-09-20/news/42267359_1_u-s-foreign-exchange-students-pisa-high-school-class">
+                                <p class="fr make-06b mrl small bold bottom" style="margin-left: 0;">
+                                    <em>The Smartest Kids in the World:</em></p>
+                                <p class="fr make-06b mrl small bold bottom" style="margin-left: 0;">
+                                    <em>And How They Got That Way</em>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="clearfix" style="margin-top:100px;">
+                        <div class="fr alpha grid_9 suffix_3 omega">
+                            <gsml:img styleClass=""
+                                      src="/res/img/promo/15Years/img_DarrellFinch.png"
+                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        </div>
+                        <div class="fl alpha prefix_3 grid_9 omega">
+                            <p class="tal mrl"
+                               style="font: lighter 17px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                                "The School Chooser is an amazing tool for helping students and families succeed."
+                            </p>
+
+                            <p class="mtl mrl default bold"
+                               style="margin-left: 0px"> &#8212; Darrell Finch, The Housing Authority of the City of Milwaukee
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        check out this line
+                    </div>
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px">
+                        <p class="bottom" style="font: lighter 20px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                            “After my mom gave me the article, ‘Why Are Boys Not Reading That Much?’ I learned
+                            that scientists, tech geeks, and engineers have to have a good reading foundation in
+                            order to perform their best. You can’t do well in math and science without having
+                            exceptional reading and writing skills. Overall, you have motivated me to read more,
+                            because I want to be an engineer. Thank you for writing this article.”
+                        </p>
+
+                        <p class="pvl small_bold bottom" style="font: bold 17px/14px Arial, Helvetica, sans-serif;">
+                            &#8212; Antony
+                        </p>
+                    </div>
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px">
+                        <p class="bottom" style="font: lighter 20px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                            “As my 5-year-old daughter begins to prepare for her 2nd year at Yu Ying, I just wanted
+                            to send a quick note of thanks for your GreatSchools parent coaching when we were
+                            trying to decide on schools. She is doing extremely well at Yu Ying and her Chinese is
+                            impressive even to native speakers. More importantly for us though, she is a caring
+                            sister, has a strong sense of community and loves to read. The school is a great fit for
+                            her personality and for her strong interest in other cultures and languages.”
+                        </p>
+
+                        <p class="pvl small_bold bottom" style="font: bold 17px/14px Arial, Helvetica, sans-serif;">
+                            &#8212; Mrs. Rollins, Washington, D.C. parent
+                        </p>
+                    </div>
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px">
+                        <p class="bottom" style="font: lighter 20px/14px Arial, Helvetica, sans-serif; line-height: 1.5em;">
+                            “Thanks SO MUCH for all of the work you do to provide easily accessible feedback to
+                            residents about the districts they live in – it really helps the schools have to stay
+                            accountable to their local communities. And by doing so, you may have played a huge
+                            role in helping the kids in my neighborhood get an education at a school rated 9 instead
+                            of a school rated 1. You all should be proud of the service you provide!”
+                        </p>
+
+                        <p class="pvl small_bold bottom" style="font: bold 17px/14px Arial, Helvetica, sans-serif;">
+                            &#8212; Seattle area user
+                        </p>
+                    </div>
+
+                    <div class="mbl">
+                        check out this line
+                    </div>
+
+                </div>
             </div>
         </div>
-    <!--UUDDLRLRBA-->
+    <!--UUDDLRLRBAStartSelect-->
     </body>
     </html>
 </jsp:root>
