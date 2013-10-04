@@ -21,23 +21,23 @@
     <body>
         <div class="container_24 pbl clearfix">
             <!--hero image-->
-            <div class="mtl ptl">
-                <gsml:img src="/res/img/promo/15Years/img_Hero.png" width="970" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryHero"/>
+            <div class="mtl pvll">
+                <gsml:img src="/res/img/promo/15Years/img_hero.png" width="970" height="360" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryHero"/>
             </div>
 
             <div class="">
                 <!--title-->
-                <div class="tac">
-                    <div class="mtl ptl big make-2b2b2b mbm" style="font-family: SourceSansPro-Semibold;">
+                <div class="pbl mbl tac">
+                    <div class="mtl ptl big make-2b2b2b mbm" style="font-family: SourceSansPro-Semibold, Helvetica;">
                         Thanks for sharing your
                     </div>
-                    <div class="big make-2b2b2b" style="font-family: SourceSansPro-Semibold;">
+                    <div class="big make-2b2b2b" style="font-family: SourceSansPro-Semibold, Helvetica;">
                         ideas about GreatSchools!
                     </div>
                 </div>
 
                 <!--some copy-->
-                <div class="year-15 block_text tac" style="font-family: SourceSansPro-Regular;">
+                <div class="year-15 block_text tac" style="font: 16px/12px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em;">
                     <div class="mbl">
                         When GreatSchools was launched in 1998, we had 1,300 unique visitors. This year,
                         we’ll have more than 44 million. There are many reasons for our success, but the
@@ -62,7 +62,7 @@
                 <div class="year-15-bubble" style="position:relative;top:55px; margin-top:-20px;">
 
                     <div class="ptl tac">
-                        <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular;"> Share your story! </h1>
+                        <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular, Helvetica;"> Share your story! </h1>
                             <!--text box probably needs to be a bg-->
                             <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
 
