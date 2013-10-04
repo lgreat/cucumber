@@ -443,6 +443,45 @@ public class CityHubHelperTest extends BaseControllerTestCase {
                 sortedConfigKeyPrefixesMap.get(keyPrefix + "_charter_middle_").size());
     }
 
+    public void testGetCollectionNicknameFromConfigList() {
+        String collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(null, null);
+
+        assertNull("Expect null to be retunred for null objects passed", collectionNickname);
+
+        Integer hubId = 1;
+        String city = "Washington";
+        State state = State.DC;
+        List<HubConfig> configList = getSampleHubConfigList(hubId, city, state);
+
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, hubId);
+
+        assertNull("Expect collection nickname to be null", collectionNickname);
+
+        HubCityMapping hubCityMapping = getSampleHubCityMapping(1, hubId, city, state.getAbbreviation());
+        configList.add(setSampleHubConfig(1, hubCityMapping, _cityHubHelper.COLLECTION_NICKNAME_KEY, "DC"));
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, hubId);
+
+        assertEquals("Expect collection nickname for DC hub to be DC", "DC", collectionNickname);
+
+        Integer anotherHubId = 2;
+        String anotherCity = "Detroit";
+        State anotherState = State.MI;
+        configList.addAll(getSampleHubConfigList(anotherHubId, anotherCity, anotherState));
+        HubCityMapping anotherHubCityMapping = getSampleHubCityMapping(2, anotherHubId, anotherCity, anotherState.getAbbreviation());
+        configList.add(setSampleHubConfig(2, anotherHubCityMapping, _cityHubHelper.COLLECTION_NICKNAME_KEY, "Detroit"));
+
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, anotherHubId);
+
+        assertEquals("Expect collection nickname for Detroit hub to be Detroit (Passing in list with mix of configs from 2" +
+                " different hubs", "Detroit", collectionNickname);
+
+
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, hubId);
+
+        assertEquals("Expect collection nickname for DC hub to be DC (Passing in list with mix of configs from 2" +
+                " different hubs", "DC", collectionNickname);
+    }
+
     private List<HubConfig> getSampleHubConfigList(final Integer hubId, final String city, final State state) {
         List<HubConfig> sampleConfigList = new ArrayList<HubConfig>();
         HubCityMapping hubCityMapping = getSampleHubCityMapping(1, hubId, city, state.getAbbreviation());
