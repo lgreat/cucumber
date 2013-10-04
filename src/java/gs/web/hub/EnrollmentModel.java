@@ -70,6 +70,12 @@ public class EnrollmentModel {
 
     }
 
+    public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType ) {
+        _tabName = tabName;
+        _levelCode= levelCode;
+        _schoolType= schoolType;
+      }
+
 
 
 

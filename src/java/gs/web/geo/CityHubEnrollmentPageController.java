@@ -40,7 +40,11 @@ import java.util.List;
 @Controller
 public class CityHubEnrollmentPageController {
 
+    public static final String PRESCHOOLS_TAB_NAME = "Preschools";
+    public static final String HIGH_SCHOOLS_TAB_NAME = "High schools";
     private  static final String PARAM_CITY = "city";
+    public static final String ELEMENTARY_SCHOOLS_TAB_NAME = "Elementary schools";
+    public static final String MIDDLE_SCHOOLS_TAB_NAME = "Middle schools";
     @Autowired
     private CityHubHelper _cityHubHelper;
     @Autowired
@@ -118,9 +122,8 @@ public class CityHubEnrollmentPageController {
         Object[] solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.PUBLIC, SchoolType.CHARTER};
 
         Anchor publicPreschoolsAnchor = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId, solrQueryFilter, state,
-                city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PUBLIC.getSchoolTypeName(), "Preschools"));
-        EnrollmentModel publicPreschools= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PUBLIC ,
-                "Public schools(neighborhood or district)");
+                city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PUBLIC.getSchoolTypeName(), PRESCHOOLS_TAB_NAME));
+        EnrollmentModel publicPreschools= new EnrollmentModel(PRESCHOOLS_TAB_NAME, LevelCode.PRESCHOOL, SchoolType.PUBLIC);
        //Browse Link
         publicPreschools.setBrowseLink(publicPreschoolsAnchor);
        // Description Text
@@ -160,11 +163,11 @@ public class CityHubEnrollmentPageController {
          * Private   Preschool Data Start
          */
 
-        EnrollmentModel privatePreschools= new EnrollmentModel("Preschools", LevelCode.PRESCHOOL, SchoolType.PRIVATE , "Private Schools");
+        EnrollmentModel privatePreschools= new EnrollmentModel(PRESCHOOLS_TAB_NAME, LevelCode.PRESCHOOL, SchoolType.PRIVATE);
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.PRESCHOOL, SchoolType.PRIVATE};
         Anchor privatePreschoolsBrowseLinks = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
-                solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PRIVATE.getSchoolTypeName(), "Preschools"));
+                solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PRIVATE.getSchoolTypeName(), PRESCHOOLS_TAB_NAME));
         privatePreschools.setBrowseLink(privatePreschoolsBrowseLinks);
 
         // Description Text
@@ -197,14 +200,14 @@ public class CityHubEnrollmentPageController {
         /**
          * Public Elementary School Data Start
          */
-        EnrollmentModel publicElementarySchool= new EnrollmentModel("Elementary schools", LevelCode.ELEMENTARY, SchoolType.PUBLIC , "Public schools(neighborhood or district)");
+        EnrollmentModel publicElementarySchool= new EnrollmentModel(ELEMENTARY_SCHOOLS_TAB_NAME, LevelCode.ELEMENTARY, SchoolType.PUBLIC);
 
 
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.ELEMENTARY, SchoolType.PUBLIC, SchoolType.CHARTER};
         Anchor publicElementaryBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
                 solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PUBLIC.getSchoolTypeName(),
-                "Elementary schools"));
+                ELEMENTARY_SCHOOLS_TAB_NAME));
         publicElementarySchool.setBrowseLink(publicElementaryBrowseLink);
 
 
@@ -251,14 +254,14 @@ public class CityHubEnrollmentPageController {
         /**
          * Private Elementary School Data Start
          */
-        EnrollmentModel privateElementarySchool= new EnrollmentModel("Elementary schools", LevelCode.ELEMENTARY, SchoolType.PRIVATE , "Public schools(neighborhood or district)");
+        EnrollmentModel privateElementarySchool= new EnrollmentModel(ELEMENTARY_SCHOOLS_TAB_NAME, LevelCode.ELEMENTARY, SchoolType.PRIVATE);
 
 
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.ELEMENTARY, SchoolType.PRIVATE};
         Anchor privateElementaryBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
                 solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PRIVATE.getSchoolTypeName(),
-                "Elementary schools"));
+                ELEMENTARY_SCHOOLS_TAB_NAME));
         privateElementarySchool.setBrowseLink(privateElementaryBrowseLink);
 
 
@@ -314,14 +317,14 @@ public class CityHubEnrollmentPageController {
          /**
          * Public Middle  School Data Start
          */
-         EnrollmentModel publicMiddleSchool= new EnrollmentModel("Middle schools", LevelCode.MIDDLE, SchoolType.PUBLIC , "Public schools(neighborhood or district)");
+         EnrollmentModel publicMiddleSchool= new EnrollmentModel(MIDDLE_SCHOOLS_TAB_NAME, LevelCode.MIDDLE, SchoolType.PUBLIC);
 
 
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.MIDDLE, SchoolType.PUBLIC, SchoolType.CHARTER};
         Anchor publicMiddleBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
                 solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PUBLIC.getSchoolTypeName(),
-                "Middle schools"));
+                MIDDLE_SCHOOLS_TAB_NAME));
         publicMiddleSchool.setBrowseLink(publicMiddleBrowseLink);
 
 
@@ -369,14 +372,14 @@ public class CityHubEnrollmentPageController {
         /**
          * Private Middle School Data Start
          */
-        EnrollmentModel privateMiddleSchool= new EnrollmentModel("Middle schools", LevelCode.MIDDLE, SchoolType.PRIVATE , "Private Schools");
+        EnrollmentModel privateMiddleSchool= new EnrollmentModel(MIDDLE_SCHOOLS_TAB_NAME, LevelCode.MIDDLE, SchoolType.PRIVATE);
 
 
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.MIDDLE, SchoolType.PRIVATE};
         Anchor privateMiddleBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
                 solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PRIVATE.getSchoolTypeName(),
-                "Middle schools"));
+                MIDDLE_SCHOOLS_TAB_NAME));
         privateMiddleSchool.setBrowseLink(privateMiddleBrowseLink);
 
 
@@ -428,14 +431,14 @@ public class CityHubEnrollmentPageController {
         /**
          * Public High  School Data Start
          */
-        EnrollmentModel publicHighSchool= new EnrollmentModel("High schools", LevelCode.HIGH, SchoolType.PUBLIC , "Public schools(neighborhood or district)");
+        EnrollmentModel publicHighSchool= new EnrollmentModel(HIGH_SCHOOLS_TAB_NAME, LevelCode.HIGH, SchoolType.PUBLIC);
 
 
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.HIGH, SchoolType.PUBLIC, SchoolType.CHARTER};
         Anchor publicHighBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
                 solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PUBLIC.getSchoolTypeName(),
-                "High schools"));
+                HIGH_SCHOOLS_TAB_NAME));
         publicHighSchool.setBrowseLink(publicHighBrowseLink);
 
 
@@ -488,14 +491,14 @@ public class CityHubEnrollmentPageController {
         /**
          * Private High School Data Start
          */
-        EnrollmentModel privateHighSchool= new EnrollmentModel("High schools", LevelCode.HIGH, SchoolType.PRIVATE , "Private Schools");
+        EnrollmentModel privateHighSchool= new EnrollmentModel(HIGH_SCHOOLS_TAB_NAME, LevelCode.HIGH, SchoolType.PRIVATE);
 
 
         //Browse Link
         solrQueryFilter = new Object[]{LevelCode.HIGH, SchoolType.PRIVATE};
         Anchor privateHighBrowseLink = _anchorListModelFactory.createBrowseLinksWithFilter(request, collectionId,
                 solrQueryFilter, state, city, getBrowseLinkAnchorText(collectionNickname, SchoolType.PRIVATE.getSchoolTypeName(),
-                "High schools"));
+                HIGH_SCHOOLS_TAB_NAME));
         privateHighSchool.setBrowseLink(privateHighBrowseLink);
 
 
