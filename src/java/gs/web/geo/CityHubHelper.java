@@ -43,6 +43,7 @@ public class CityHubHelper {
     public static int MAX_IMPORTANT_EVENTS_TO_DISPLAYED = 2;
     public static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
     public static final String KEY_ENROLLMENT_DATES_KEY_PREFIX = "keyEnrollmentDates";
+    public static final String COLLECTION_NICKNAME_KEY = "collection_nickname";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
@@ -256,6 +257,21 @@ public class CityHubHelper {
         }
 
         return sortedConfigKeyPrefixesMap;
+    }
+
+    public String getCollectionNicknameFromConfigList(List<HubConfig> configList, Integer collectionId) {
+        String nickname = null;
+
+        if(configList != null && collectionId != null) {
+            for(HubConfig config : configList) {
+                if(COLLECTION_NICKNAME_KEY.equals(config.getQuay()) && config.getHubCityMapping() != null &&
+                        collectionId.equals(config.getHubCityMapping().getHubId())) {
+                    nickname = config.getValue();
+                }
+            }
+        }
+
+        return nickname;
     }
 
     public void setHubCityMappingDao(final IHubCityMappingDao _hubCityMappingDao) {
