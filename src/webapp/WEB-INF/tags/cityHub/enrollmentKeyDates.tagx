@@ -18,18 +18,18 @@
             <div class="mod standard_1-5">
                 <div class="inner">
                     <div class="hd">
-                        <h4 class="pvm plm bottom">
+                        <h5 class="pvs plm bottom">
                             <span class="make-ffffff">Key dates</span>
-                        </h4>
+                        </h5>
                     </div>
                     <div class="bd">
-                        <table border="0">
+                        <table class="tableType1" border="0" style="-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
                             <tbody>
                             <c:forEach items="${configKeyPrefixesList}" var="keyPrefix">
                                 <c:set var="descriptionKey">${keyPrefix}_description</c:set>
                                 <c:set var="keyDate">${keyPrefix}_date_MMMdyyyy</c:set>
                                 <tr>
-                                    <td>${keyEnrollmentDates[keyDate]}</td>
+                                    <td width="100px;" class="bold">${keyEnrollmentDates[keyDate]}</td>
                                     <td>${keyEnrollmentDates[descriptionKey]}</td>
                                 </tr>
                             </c:forEach>
@@ -45,7 +45,4 @@
             </div>
         </c:otherwise>
     </c:choose>
-    <!--<hub:enrollmentTips/>-->
-
-
 </jsp:root>

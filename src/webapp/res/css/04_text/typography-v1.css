@@ -186,7 +186,7 @@ tbody tr.odd td,
 
 tbody tr.even td,
 .tableType1 tbody tr.even td {
-    background-color: #f5f5f5;
+    background-color: #F8F8F8;
 }
 
 tbody tr:nth-child(odd) td,
@@ -196,7 +196,7 @@ tbody tr:nth-child(odd) td,
 
 tbody tr:nth-child(even) td,
 .tableType1 tbody tr:nth-child(even) td{
-    background-color: #f5f5f5;
+    background-color: #F8F8F8;
 }
 
 /*
@@ -205,24 +205,12 @@ tbody tr:nth-child(even) td,
    of other elements.
 */
 
-table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 16px; width:100%; color: #2b2b2b;
-    /*margin-bottom: 4px; */
-    /*border:1px solid #cccccc; border-collapse: collapse;*/
-    /*-webkit-border-radius: 4px;*/
-    /*-moz-border-radius: 4px;*/
-    /*border-radius: 4px;*/
+table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 18px; width:100%; color: #555555;
 }
 th, .tableType1 th          { font-weight: bold; color:#787878; text-align:left; }
 th, thead th, .tableType1 th, .tableType1 thead th    {
-    background-color: #F6F6F6; /* for non-css3 browsers */
+    background-color: #f8f8f8; /* for non-css3 browsers */
     border-bottom: #DDDDDD 1px solid;
-    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#777777)); *//* Saf4+, Chrome */
-    /*background-image: -webkit-linear-gradient(top, #999999, #777777); *//* Chrome 10+, Saf5.1+, iOS 5+ */
-    /*background-image:    -moz-linear-gradient(top, #999999, #777777); *//* FF3.6 */
-    /*background-image:     -ms-linear-gradient(top, #999999, #777777); *//* IE10 */
-    /*background-image:      -o-linear-gradient(top, #999999, #777777); *//* Opera 11.10+ */
-    /*background-image:         linear-gradient(top, #999999, #777777); *//* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#999999', EndColorStr='#777777'); *//* IE6-IE9 */
 }
 tr.subhead th, .tableType1 tr.subhead th          { font-weight: normal; color:#2b2b2b; text-align:left; }
 tr.subhead th, thead tr.subhead th, .tableType1 tr.subhead th, .tableType1 thead tr.subhead th    {
@@ -235,7 +223,7 @@ tr.subhead th, thead tr.subhead th, .tableType1 tr.subhead th, .tableType1 thead
     background-image:         linear-gradient(top, #dddddd, #cccccc); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6-IE9 */
 }
-th, .tableType1 th      { padding: 3px 10px 3px 10px; vertical-align: top; word-wrap: break-word;}
+th, .tableType1 th      { padding: 5px 10px 5px 10px; vertical-align: top; word-wrap: break-word;}
 td, .tableType1 td       { padding: 10px; vertical-align: top; word-wrap: break-word;}
 tfoot, .tableType1 tfoot       { font-style: italic; }
 caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
