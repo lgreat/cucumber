@@ -32,6 +32,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Controller for the City Hub Enrollment  Pages.
@@ -40,11 +41,17 @@ import java.util.List;
 @Controller
 public class CityHubEnrollmentPageController {
 
-    public static final String PRESCHOOLS_TAB_NAME = "Preschools";
-    public static final String HIGH_SCHOOLS_TAB_NAME = "High schools";
-    private  static final String PARAM_CITY = "city";
-    public static final String ELEMENTARY_SCHOOLS_TAB_NAME = "Elementary schools";
-    public static final String MIDDLE_SCHOOLS_TAB_NAME = "Middle schools";
+    private static final String PRESCHOOLS_TAB_NAME = "Preschools";
+    private static final String ELEMENTARY_SCHOOLS_TAB_NAME = "Elementary schools";
+    private static final String MIDDLE_SCHOOLS_TAB_NAME = "Middle schools";
+    private static final String HIGH_SCHOOLS_TAB_NAME = "High schools";
+    private static final List<String> tabs = ImmutableList.of(PRESCHOOLS_TAB_NAME, ELEMENTARY_SCHOOLS_TAB_NAME, MIDDLE_SCHOOLS_TAB_NAME, HIGH_SCHOOLS_TAB_NAME);
+
+    private static final String PARAM_CITY = "city";
+
+
+
+
     @Autowired
     private CityHubHelper _cityHubHelper;
     @Autowired
@@ -91,6 +98,7 @@ public class CityHubEnrollmentPageController {
         modelAndView.addObject("collectionId", collectionId);
         modelAndView.addObject("underHeadindText", underHeadindText);
         modelAndView.addObject("defaultTab", PRESCHOOLS_TAB_NAME);
+        modelAndView.addObject("tabs", tabs);
 
         final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         /**

@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
 
 >
 
     <div class="tab-control-container">
         <p>Tab controls:</p>
-        <div data-gs-tab-control="Preschools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
-            Preschools
-        </div>
-        <div data-gs-tab-control="High schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
-            High schools
-        </div>
-        <div data-gs-tab-control="Elementary schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
-            Elementary schools
-        </div>
-        <div data-gs-tab-control="Middle schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
-            Middle schools
-        </div>
-    </div>
+        <c:forEach items="${tabs}" var="tab">
+
+            <c:choose>
+            <c:when test="${defaultTab == tab}">
+                <div class="active-tab-control" data-gs-tab-control="${tab}" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
+                    ${tab}
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div  data-gs-tab-control="${tab}" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
+                    ${tab}
+                </div>
+
+            </c:otherwise>
+            </c:choose>
+
+        </c:forEach>
+   </div>
 
 
 </jsp:root>
