@@ -10,7 +10,7 @@
         <div class="container_24 clearfix mvl">
             <div class="">${enrollmentInfo.tabName}</div>
             <div class="alpha grid_12">
-                <h3 class="SourceSansPro-Semibold-h3">${enrollmentInfo.schoolTypeDescription}</h3>
+                <h3 class="SourceSansPro-Semibold-h3">${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}</h3>
                 <p>${enrollmentInfo.description}</p>
                 <h5 class="SourceSansPro-Semibold-h5">For more information:</h5>
                 <c:if test="${not empty enrollmentInfo.moreInfo.address}">

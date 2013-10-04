@@ -517,7 +517,7 @@ public class CityHubEnrollmentPageController {
         Anchor linkPrivateHighSchool5 = new Anchor("https://www.independenteducation.org/", "Learn about Independent Private Schools ");
         Anchor linkPrivateHighSchool6 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
         Anchor linkPrivateHighSchool7 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school&#180;s admission details");
-        Anchor linkPrivateHighSchool8 = new Anchor("http://www.dcscholarships.org/ ", "Latino Student Fund");
+        Anchor linkPrivateHighSchool8 = new Anchor("http://www.latinostudentfund.org/ ", "Latino Student Fund");
 
 
 
