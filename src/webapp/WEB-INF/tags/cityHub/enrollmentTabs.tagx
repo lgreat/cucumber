@@ -8,7 +8,6 @@
     <div class="tab-control-container">
         <p>Tab controls:</p>
         <c:forEach items="${tabs}" var="tab">
-
             <c:choose>
             <c:when test="${defaultTab == tab}">
                 <div class="active-tab-control" data-gs-tab-control="${tab}" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
@@ -19,10 +18,8 @@
                 <div  data-gs-tab-control="${tab}" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
                     ${tab}
                 </div>
-
             </c:otherwise>
             </c:choose>
-
         </c:forEach>
    </div>
 
