@@ -22,6 +22,8 @@
         <title>City Enrollment Page</title>
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
         <gsml:javascript src="/res/js/cityHub/genericTabs.js"/>
+        <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
+        <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
         <style>.active-tab-control {
             border:1px solid yellow;
         }
@@ -36,6 +38,11 @@
         }
 
         </style>
+        <script>$('#tips1').cycle();$('#tips2').cycle();
+                $('#tips3').cycle();$('#tips4').cycle();
+                $('#tips5').cycle();$('#tips6').cycle();
+                $('#tips7').cycle();$('#tips8').cycle();
+                $('#tips9').cycle();$('#artifact_slide').cycle();$('#artifact_slide1').cycle();$('#artifact_slide3').cycle()</script>
 
     </head>
     <body>
@@ -43,6 +50,83 @@
     <pageHelper:hideFooterAd/>
     <pageHelper:hideLeaderboard/>
     <pageHelper:hideBelowNavAds/>
+
+
+    <!-- Carasole 1 -->
+
+    <div class="fl mrl" style="margin-top: 50px">
+        <a href="#" id="prev1">
+            <span class="iconx32g i-32-carouselLeft"><!-- do not collapse --></span>
+        </a>
+    </div>
+    <div id="artifact_slide" class="artifact_slide"
+         data-cycle-fx="scrollHorz"
+         data-cycle-slides="> div"
+         data-cycle-timeout="0"
+         data-cycle-easing="linear"
+         data-cycle-next="#next1"
+         data-cycle-prev="#prev1">
+
+        <div>
+            <gsml:img src="/res/img/cityHubs/partner1.png" alt="Partner 1" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+
+        </div>
+        <div>
+            <gsml:img src="/res/img/cityHubs/partner2.png" alt="Partner 2" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+
+        </div>
+        <div >
+            <gsml:img src="/res/img/cityHubs/partner3.png"
+                      alt="Partner 3" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+
+        </div>
+
+    </div>
+
+
+    <div class="fl" style="margin-top: 50px; margin-left: 25px;">
+        <a href="#" id="next1">
+            <span class="iconx32g i-32-carouselRight vam"><!-- do not collapse --></span>
+        </a>
+    </div>
+
+
+
+
+    <div class="fl mrl" style="margin-top: 50px">
+        <a href="#" id="prev2">
+            <span class="iconx32g i-32-carouselLeft"><!-- do not collapse --></span>
+        </a>
+    </div>
+
+    <!-- Carasole 2 -->
+
+    <div id="artifact_slide1" class="artifact_slide1"
+         data-cycle-fx="scrollHorz"
+         data-cycle-slides="> div"
+         data-cycle-timeout="0"
+         data-cycle-easing="linear"
+         data-cycle-next="#next2"
+         data-cycle-prev="#prev2">
+
+        <div >
+           123   Hello I am testing
+
+        </div>
+        <div >
+            456 Hello I am testing</div>
+        <div >
+            678  Hello I am testing
+        </div>
+    </div>
+
+
+    <div class="fl" style="margin-top: 50px; margin-left: 25px;">
+        <a href="#" id="next2">
+            <span class="iconx32g i-32-carouselRight vam"><!-- do not collapse --></span>
+        </a>
+    </div>
+
 
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
