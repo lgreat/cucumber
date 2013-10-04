@@ -76,11 +76,20 @@ public class CityHubEnrollmentPageController {
 //            return new ModelAndView(redirectView);
 //        }
         final Integer collectionId = getCityHubHelper().getHubID(city, state);
+        /**
+         * The under heading Text will be templatized for every city in Data Base -Shomi
+         */
+
+        final String  underHeadindText= "In DC, parents can choose to send their kids to either a public or private school.<br/><br/>" +
+                                        "Public schools include both district and charter schools and are free to any resident of DC. " +
+                                        "Over 80,000 students are enrolled in the public system, with approximately 50% attending district and 50% attending charter schools." +
+                                        "<br/><br/>Private schools include independent private schools, faith-based schools, and nonpublic schools that are certified as a special education facility.";
 
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
+        modelAndView.addObject("underHeadindText", underHeadindText);
 
         final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         /**

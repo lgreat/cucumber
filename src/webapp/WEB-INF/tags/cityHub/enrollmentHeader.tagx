@@ -8,7 +8,7 @@
     <div class="container_24 clearfix">
         <div class="tac mtl">
             <h1 class="SourceSansPro-Semibold-h1 bottom">Enrollment Information</h1>
-            <div class="make-999999">Enrollement sub text Enrollement sub text Enrollement sub text Enrollement sub text</div>
+            <div class="make-999999">${underHeadindText}</div>
         </div>
         <!--<hub:enrollmentTabs/>-->
     </div>
