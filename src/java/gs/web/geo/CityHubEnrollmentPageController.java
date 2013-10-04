@@ -90,6 +90,7 @@ public class CityHubEnrollmentPageController {
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
         modelAndView.addObject("underHeadindText", underHeadindText);
+        modelAndView.addObject("defaultTab", PRESCHOOLS_TAB_NAME);
 
         final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         /**
