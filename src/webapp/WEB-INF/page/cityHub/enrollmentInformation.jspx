@@ -28,6 +28,13 @@
         .inactive-tab-control {
             border:1px solid gray;
         }
+        .active-tab-content {
+            display:block;
+        }
+        .inactive-tab-content {
+            display:none;
+        }
+
 </style>
 
     </head>
