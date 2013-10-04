@@ -6,7 +6,7 @@
 >
 
     <div class="container_24 clearfix">
-        <div class="tac mtl">
+        <div class="tac mtl ptl">
             <h1 class="SourceSansPro-Semibold-h1 bottom">Enrollment Information</h1>
             <div class="make-999999">${underHeadindText}</div>
         </div>
