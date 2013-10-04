@@ -7,7 +7,7 @@
 >
 
     <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
-        <div class="container_24 clearfix mvl">
+        <div class="container_24 clearfix mvl" data-gs-tab-content="${enrollmentInfo.tabName}" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-content" data-gs-tab-inactive="inactive-tab-content">
             <div class="">${enrollmentInfo.tabName}</div>
             <div class="alpha grid_12">
                 <h3 class="SourceSansPro-Semibold-h3">${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}</h3>

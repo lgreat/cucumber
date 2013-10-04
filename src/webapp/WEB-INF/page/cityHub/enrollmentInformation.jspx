@@ -21,6 +21,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>City Enrollment Page</title>
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
+        <gsml:javascript src="/res/js/cityHub/genericTabs.js"/>
+        <style>.active-tab-control {
+            border:1px solid yellow;
+        }
+        .inactive-tab-control {
+            border:1px solid gray;
+        }
+
+        .active-tab-content {
+            display:block;
+        }
+        .inactive-tab-content {
+            display:none;
+        }</style>
+
     </head>
     <body>
     <!-- Hiding the Ads on the City Hub Enrollment Page -->
@@ -28,9 +43,44 @@
     <pageHelper:hideLeaderboard/>
     <pageHelper:hideBelowNavAds/>
 
+
+
+
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
     <hub:enrollmentHeader/>
+    <div class="tab-control-container">
+        <p>Tab controls:</p>
+        <div data-gs-tab-control="Preschools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
+            Preschools
+        </div>
+        <div data-gs-tab-control="High schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
+            High schools
+        </div>
+        <div data-gs-tab-control="Elementary schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
+            Elementary schools
+        </div>
+        <div data-gs-tab-control="Middle schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
+            Middle schools
+        </div>
+    </div>
+    <hr/>
+
+    <div class="tab-content-container">
+        <p>Content for tabs:</p>
+        <div data-gs-tab-content="Preschools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-content"  data-gs-tab-inactive="inactive-tab-content">
+            Content for the  tab  1
+        </div>
+        <div data-gs-tab-content="High schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-content"  data-gs-tab-inactive="inactive-tab-content">
+            Content for the  tab  2
+        </div>
+        <div data-gs-tab-content="Elementary schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-content" data-gs-tab-inactive="inactive-tab-content">
+            Content for the  tab  3
+        </div>
+        <div data-gs-tab-content="Middle schools" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-content" data-gs-tab-inactive="inactive-tab-content">
+            Content for the  tab 4
+        </div>
+    </div>
     <hub:enrollmentInfo/>
 
     <mod:tracking pageName="${pageName}"
