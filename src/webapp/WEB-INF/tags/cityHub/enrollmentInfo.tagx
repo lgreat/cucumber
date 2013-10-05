@@ -30,16 +30,9 @@
                             <hub:enrollmentKeyDates
                                     schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}"
                                     gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
-                            <c:forEach items="${enrollmentInfo.tipsInfoModel}" var="tip">
-                                <div class="mod standard_2-1 mtl">
-                                    <div class="inner">
-                                        <div class="pal tac">
-                                            <h6 class="SourceSansPro-Semibold-h6">Did you know?</h6>
-                                            <span class="small">${tip}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                            <c:if test="${not empty enrollmentInfo.tipsInfoModel}">
+                                <hub:enrollmentTips tips="${enrollmentInfo.tipsInfoModel}" index="${status.count}"/>
+                            </c:if>
                             <button class="but-4 clearfix" style="width: auto;" type="button"
                                     onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
                                 <span class="fl">${enrollmentInfo.browseLink.contents}</span>
@@ -70,16 +63,9 @@
                             <hub:enrollmentKeyDates
                                     schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}"
                                     gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
-                            <c:forEach items="${enrollmentInfo.tipsInfoModel}" var="tip">
-                                <div class="mod standard_2-1 mtl">
-                                    <div class="inner">
-                                        <div class="pal tac">
-                                            <h6 class="SourceSansPro-Semibold-h6">Did you know?</h6>
-                                            <span class="small">${tip}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                            <c:if test="${not empty enrollmentInfo.tipsInfoModel}">
+                                <hub:enrollmentTips tips="${enrollmentInfo.tipsInfoModel}" index="${status.count}"/>
+                            </c:if>
                             <button class="but-4 clearfix" type="button" style="width: auto;"
                                     onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
                                 <span class="fl">${enrollmentInfo.browseLink.contents}</span>
