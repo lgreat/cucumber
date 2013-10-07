@@ -34,13 +34,13 @@
              <div class="mod standard_2-1 mtl">
                      <div class="inner js-carousel line">
                          <div class="fl mrl" style="margin-top: 50px">
-                             <a href="#!" class="prev">Prev</a>
+                             <a href="#!" class="js-prev">Prev</a>
                          </div>
             <div class="pal tac">
                              <h6 class="SourceSansPro-Semibold-h6">Did you know?</h6>
                         <span class="small">
                             <div class="cycle-slideshow"
-                                 data-cycle-fx="scrollHorz"
+                                 data-cycle-fx="fadeOut"
                                  data-cycle-slides="> div"
                                  data-cycle-timeout="10"
                                  data-index="${index}"
@@ -57,7 +57,7 @@
                          </div>
 
                          <div class="fl" style="margin-top: 50px; margin-left: 25px;">
-                             <a href="#!" class="next">Next</a>
+                             <a href="#!" class="js-next">Next</a>
                          </div>
                      </div>
                  </div>

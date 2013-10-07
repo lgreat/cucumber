@@ -19,17 +19,17 @@ GS.customCarouselControl.cycle2Carousel = GS.customCarouselControl.cycle2Carouse
                  $this.cycle('pause');
 
                  $this.cycle({
-                     prev: $this.next('.prev'),
-                     next: $this.next('.next')
+                     prev: $this.next('.js-prev'),
+                     next: $this.next('.js-next')
                  });
              });
 
-             $this.on('click', '.prev', function(e){
+             $this.on('click', '.js-prev', function(e){
                  var index = getCarouselIndex(e);
                  slideshows.eq(index).cycle('prev');
              });
 
-             $this.on('click', '.next', function(e){
+             $this.on('click', '.js-next', function(e){
                  var index = getCarouselIndex(e);
                  slideshows.eq(index).cycle('next');
              });
