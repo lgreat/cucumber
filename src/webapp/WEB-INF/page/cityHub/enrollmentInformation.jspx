@@ -44,6 +44,9 @@
                 $('#tips7').cycle();$('#tips8').cycle();
                 $('#tips9').cycle();$('#artifact_slide').cycle();$('#artifact_slide1').cycle();$('#artifact_slide3').cycle()</script>
 
+        <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
+        <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
+        <gsml:javascript src="/res/js/util/customCarouselControl.js"/>
     </head>
     <body>
     <!-- Hiding the Ads on the City Hub Enrollment Page -->

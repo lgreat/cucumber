@@ -3,8 +3,42 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
+    <jsp:directive.attribute name="tips" required="true" type="java.util.ArrayList"/>
+    <jsp:directive.attribute name="index" required="true" type="java.lang.Integer"/>
 
-    <div>Enrollment Tips</div>
+    <div class="carousel">
 
+            <div class="mod standard_2-1 mtl">
+                <div class="inner js-carousel line">
+                    <div class="fl mrl" style="margin-top: 50px">
+                        <a href="#!" class="prev">Prev</a>
+                    </div>
 
+                    <div class="pal tac">
+                        <h6 class="SourceSansPro-Semibold-h6">Did you know?</h6>
+                        <span class="small">
+                            <div class="cycle-slideshow"
+                                 data-cycle-fx="fadeOut"
+                                 data-cycle-slides="> div"
+                                 data-allow-wrap="true"
+                                 data-index="${index}"
+                                    >
+
+                                <c:forEach items="${tips}" var="tip">
+                                    <c:if test="${not empty tip}">
+                                        <div>${tip}</div>
+                                    </c:if>
+                                </c:forEach>
+
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="fl" style="margin-top: 50px; margin-left: 25px;">
+                        <a href="#!" class="next">Next</a>
+                    </div>
+                </div>
+            </div>
+
+    </div>
 </jsp:root>
