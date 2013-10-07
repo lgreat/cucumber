@@ -3,7 +3,9 @@ package gs.web.admin;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.ITopicalSchoolReviewDao;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,6 +35,8 @@ public class SchoolReviewListController extends AbstractController {
     private String _viewName;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
+    private boolean _isTopical = false;
     private static final int REPORTED_REVIEWS_PAGE_SIZE = 75;
     private static final int UNPROCESSED_REVIEWS_PAGE_SIZE = 75;
     private static final String PARAM_PAGE = "p";
@@ -49,10 +53,18 @@ public class SchoolReviewListController extends AbstractController {
         }
 
         if (request.getParameter(REQUEST_SHOW_UNPROCESSED) != null) {
-            List<SchoolReviewListBean> unprocessedReviews = getUnprocessedReviews(page);
+            List<SchoolReviewListBean> unprocessedReviews;
+            int totalUnprocessed;
+            if (_isTopical) {
+                unprocessedReviews = getUnprocessedTopicalReviews(page);
+                totalUnprocessed = _topicalSchoolReviewDao.countUnprocessedReviews();
+            } else {
+                unprocessedReviews = getUnprocessedReviews(page);
+                totalUnprocessed = _reviewDao.countUnprocessedReviews();
+            }
             model.put(MODEL_SHOW_UNPROCESSED, true);
             model.put(MODEL_UNPROCESSED_REVIEW_LIST, unprocessedReviews);
-            model.put(MODEL_TOTAL_UNPROCESSED, _reviewDao.countUnprocessedReviews());
+            model.put(MODEL_TOTAL_UNPROCESSED, totalUnprocessed);
             model.put(MODEL_PAGE_SIZE, UNPROCESSED_REVIEWS_PAGE_SIZE);
         } else {
             List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews(page);
@@ -80,6 +92,24 @@ public class SchoolReviewListController extends AbstractController {
             rval.add(bean);
         }
         
+        return rval;
+    }
+
+    protected List<SchoolReviewListBean> getUnprocessedTopicalReviews(int page) {
+        int offset = 0;
+        if (page > 1) {
+            offset = (page-1) * UNPROCESSED_REVIEWS_PAGE_SIZE;
+        }
+        List<TopicalSchoolReview> unprocessedReviews = _topicalSchoolReviewDao.findUnprocessedReviews(UNPROCESSED_REVIEWS_PAGE_SIZE, offset);
+
+        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(unprocessedReviews.size());
+        for (TopicalSchoolReview r: unprocessedReviews) {
+            SchoolReviewListBean bean = new SchoolReviewListBean(r);
+            bean.setNumReports(_reportedEntityDao.getNumberActiveReports
+                    (ReportedEntity.ReportedEntityType.topicalSchoolReview, r.getId()));
+            rval.add(bean);
+        }
+
         return rval;
     }
 
@@ -132,6 +162,22 @@ public class SchoolReviewListController extends AbstractController {
         _reportedEntityDao = reportedEntityDao;
     }
 
+    public ITopicalSchoolReviewDao getTopicalSchoolReviewDao() {
+        return _topicalSchoolReviewDao;
+    }
+
+    public void setTopicalSchoolReviewDao(ITopicalSchoolReviewDao topicalSchoolReviewDao) {
+        _topicalSchoolReviewDao = topicalSchoolReviewDao;
+    }
+
+    public boolean isTopical() {
+        return _isTopical;
+    }
+
+    public void setTopical(boolean topical) {
+        _isTopical = topical;
+    }
+
     public static final class SchoolReviewListBean {
         private Review _review;
         private int _numReports;
@@ -139,6 +185,10 @@ public class SchoolReviewListController extends AbstractController {
 
         public SchoolReviewListBean(Review review) {
             _review = review;
+        }
+
+        public SchoolReviewListBean(TopicalSchoolReview review) {
+            // TODO: fill in bean
         }
 
         public Review getReview() {

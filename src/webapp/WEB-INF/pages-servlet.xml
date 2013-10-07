@@ -2938,6 +2938,13 @@
         <property name="viewName" value="/admin/schoolReview/schoolReviewList"/>
     </bean>
 
+    <bean name="/admin/schoolReview/topicalList.page"
+          class="gs.web.admin.SchoolReviewListController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/admin/schoolReview/topicalSchoolReviewList"/>
+        <property name="topical" value="true"/>
+    </bean>
+
     <bean name="/admin/schoolReview/edit.page"
           class="gs.web.admin.SchoolReviewEditController"
           autowire="byName" lazy-init="true">
