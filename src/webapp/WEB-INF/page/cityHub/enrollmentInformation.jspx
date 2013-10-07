@@ -38,12 +38,6 @@
         }
 
         </style>
-        <script>$('#tips0').cycle();$('#tips1').cycle();$('#tips2').cycle();
-                $('#tips3').cycle();$('#tips4').cycle();
-                $('#tips5').cycle();$('#tips6').cycle();
-                $('#tips7').cycle();$('#tips8').cycle();
-                $('#tips9').cycle();$('#artifact_slide').cycle();$('#artifact_slide1').cycle();$('#artifact_slide3').cycle()</script>
-
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
         <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
         <gsml:javascript src="/res/js/util/customCarouselControl.js"/>

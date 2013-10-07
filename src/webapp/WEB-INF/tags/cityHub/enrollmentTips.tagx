@@ -18,9 +18,10 @@
                         <h6 class="SourceSansPro-Semibold-h6">Did you know?</h6>
                         <span class="small">
                             <div class="cycle-slideshow"
-                                 data-cycle-fx="fadeOut"
+                                 data-cycle-fx="scrollHorz"
                                  data-cycle-slides="> div"
-                                 data-allow-wrap="true"
+                                 data-cycle-timeout="0"
+                                 data-cycle-easing="linear"
                                  data-index="${index}"
                                     >
 
