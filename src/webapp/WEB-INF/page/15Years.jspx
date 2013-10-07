@@ -16,13 +16,20 @@
         <pageHelper:hideFooterAd/>
         <pageHelper:hideLeaderboard/>
         <pageHelper:hideBelowNavAds/>
+
+        <meta property="og:title" content="15 Years of GreatSchools" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="/15Years.page" />
+        <meta property="og:image" content="/res/img/promo/15Years/img_Hero.png" />
+        <meta property="og:description" content="15 Years of GreatSchools" />
+
         <title>15 Years of GreatSchools</title>
     </head>
     <body>
         <div class="container_24 pbl clearfix">
             <!--hero image-->
             <div class="mtl pvll">
-                <gsml:img src="/res/img/promo/15Years/img_hero.png" width="970" height="360" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryHero"/>
+                <gsml:img src="/res/img/promo/15Years/img_Hero.png" width="970" height="360" alt="GreatSchools staff says thanks!" id="15thAnniversaryHero"/>
             </div>
 
             <div class="">
@@ -59,16 +66,32 @@
             </div>
             <!--Twitter, Facebook and Pinterest sharing-->
             <div>
-                <div class="year-15-bubble" style="position:relative;top:55px; margin-top:-20px;">
+                <div class="year-15-bubble" style="position:relative;top:68px; margin-top:-20px;">
 
                     <div class="ptl tac">
                         <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular, Helvetica;"> Share your story! </h1>
-                            <!--text box probably needs to be a bg-->
-                            <a href="" class="mrl"><gsml:img src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryFacebook"/></a>
+                        <!--text box probably needs to be a bg-->
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.greatschools.org/" target="_blank">
+                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Facebook" id="15thAnniversaryFacebook"/></a>
 
-                            <a href="" class="mhl"><gsml:img src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryTwitter"/></a>
+                        <a href="http://twitter.com/share?text=%20%2315YearsofGreatSchools" target="_blank"
+                           onclick="return !window.open(this.href, 'share', 'menubar=no','width=100,height=100')">
+                        <!--<a href="https://twitter.com/share" class="year-15-twitter" data-url="/promo/15Years.page" data-text="This is TBD" data-count="none" data-hashtags="15YearsofGreatSchools" target="_blank">-->
+                        <gsml:img styleClass="mhl"  src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Twitter" id="15thAnniversaryTwitter"/></a>
 
-                            <a href="" class="mll"><gsml:img src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Involved Parents. Successful Kids" id="15thAnniversaryPinterest"/></a>
+                    <!--<script type="text/javascript">-->
+                        <!--$('.socialLinkTwitter').click(function (e) {-->
+                            <!--e.preventDefault();-->
+                            <!--var sTwitterShare = $(this).attr('href');-->
+                            <!--window.open(sTwitterShare,'Share','width=550,height=450');-->
+                        <!--});-->
+                    <!--</script>-->
+                        <!--</a>-->
+                        <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
+
+                        <!--need to change placekitten to GS image-->
+                        <a href="//www.pinterest.com/pin/create/button/?/15Years.page&amp;media=http://www.greatschools.org/res/img/promo/15Years/img_Hero.png&amp;description=15YearsofGreatSchools" data-pin-do="buttonPin" data-pin-config="none" target="_blank">
+                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Pinterest" id="15thAnniversaryPinterest"/></a>
                     </div>
                 </div>
             </div>
@@ -80,7 +103,7 @@
                         <div class="alpha prefix_3 grid_9 omega">
                             <gsml:img styleClass="fl mrl prl"
                                       src="/res/img/promo/15Years/img_ElBrown.png"
-                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                                      alt="GreatSchools: El Brown and family"/>
                         </div>
                         <div class="grid_10 suffix_2">
                             <p class="tal mrl"
@@ -99,7 +122,7 @@
                         <div class="fr alpha grid_9 suffix_2 omega">
                             <gsml:img styleClass="mll pll"
                                       src="/res/img/promo/15Years/img_ReginaWilliams.png"
-                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                                      alt="Regina Williams and family"/>
                         </div>
                         <div class="fl alpha prefix_3 grid_10 omega">
                             <p class="tal mrl"
@@ -140,7 +163,7 @@
                         <div class="alpha prefix_3 grid_10 omega" style="margin-top: 50px;">
                             <gsml:img styleClass="fl mrl prl" style=""
                                       src="/res/img/promo/15Years/img_AmandaRipley.png"
-                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                                      alt="Author Amanda Ripley"/>
                         </div>
                         <div class="grid_9 suffix_2">
                             <p class="tal" style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em; margin-top: 50px;">
@@ -162,7 +185,7 @@
                         <div class="fr alpha grid_9 suffix_2 omega">
                             <gsml:img styleClass="mll pll"
                                       src="/res/img/promo/15Years/img_DarrellFinch.png"
-                                      alt="GreatSchools: Involved Parents. Successful Kids"/>
+                                      alt="Darrell Finch and Milwaukee students"/>
                         </div>
                         <div class="fl alpha prefix_3 grid_10 omega">
                             <p class="tal mrl"
@@ -228,7 +251,7 @@
         </div>
     <!--UUDDLRLRBAStartSelect-->
     <mod:tracking pageName="15th Anniversary Splash"
-                  hier1="TBD "
+                  hier1="Marketing "
             />
     </body>
     </html>

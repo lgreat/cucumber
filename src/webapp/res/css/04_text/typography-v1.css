@@ -362,8 +362,17 @@ hr.year-15-line {background:#e6e3d7;color:#e6e3d7;clear:both;float:none;width:10
     background-repeat: no-repeat;
     background-position: center;
     /*width: 435px;*/
-    height: 190px;
+    height: 200px;
 }
+
+/*.year-15-twitter {*/
+    /*display: block;*/
+    /*background-image: url("/res/img/promo/15Years/img_Twitter.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+    /*width: 435px;*/
+    /*height: 200px;*/
+/*}*/
 
 .year-15.block_text {
     margin-left: auto;

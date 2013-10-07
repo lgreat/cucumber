@@ -3145,10 +3145,10 @@
         </property>
     </bean>
 
-    <bean name="/promo/15Years.page"
+    <bean name="/15Years.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
-            <value>/promo/15Years</value>
+            <value>/15Years</value>
         </property>
     </bean>
 
