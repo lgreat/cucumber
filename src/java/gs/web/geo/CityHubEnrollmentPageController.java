@@ -371,7 +371,7 @@ public class CityHubEnrollmentPageController {
                                           "and often offer more seats in the fifth grade so you will want to weigh those " +
                                          "factors in your consideration.");
         tipsForPublicMiddleSchool.add("Every elementary school feeds into a middle school, which in turn feeds into a high school. These are called destination schools." +
-                                         " Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your choice.");
+                " Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your choice.");
 
         publicMiddleSchool.setTipsInfoModel(tipsForPublicMiddleSchool);
 
@@ -486,10 +486,8 @@ public class CityHubEnrollmentPageController {
                 "Open Houses are your best opportunity to get a feel for the school culture and to " +
                 "ask other parents questions about the school.");
         tipsForPublicHighSchool.add("Some public charter schools require home visits as part of the enrollment process.");
-        tipsForPublicMiddleSchool.add("Every elementary school feeds into a middle school, which in turn feeds into a high school. These are called destination schools." +
-                " Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your choice.");
 
-        publicHighSchool.setTipsInfoModel(tipsForPublicMiddleSchool);
+        publicHighSchool.setTipsInfoModel(tipsForPublicHighSchool);
 
 
         // More Info
