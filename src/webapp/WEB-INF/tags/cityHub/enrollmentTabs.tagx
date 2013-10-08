@@ -5,32 +5,36 @@
           xmlns:gsweb="gstaglib"
 
 >
-
-    <div class="tab-control-container">
-        <p>Tab controls:</p>
-        <c:forEach items="${tabs}" var="tab">
-            <c:choose>
-            <c:when test="${(defaultTab == tab and empty param.tab) or param.tab == tab}">
-                <div class="active-tab-control" data-gs-tab-control="${tab}" data-gs-tab-group="groupOne"
-                     data-gs-tab-active="active-tab-control" data-gs-tab-inactive="inactive-tab-control">
-                    <a id="js-${tab}"
-                       href="${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}">
-                       ${tab}
-                    </a>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div  data-gs-tab-control="${tab}" data-gs-tab-group="groupOne" data-gs-tab-active="active-tab-control"
-                      data-gs-tab-inactive="inactive-tab-control">
-                    <a id="js-${tab}"
-                       href="${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tab)}">
-                       ${tab}
-                    </a>
-                </div>
-            </c:otherwise>
-            </c:choose>
-        </c:forEach>
-   </div>
-
-
+    <div class="container_24 clearfix mtl">
+        <div class="prefix_5 grid_15">
+            <div class="tab-control-container">
+                <p>Tab controls:</p>
+                <c:forEach items="${tabs}" var="tab">
+                    <c:choose>
+                        <c:when test="${(defaultTab == tab and empty param.tab) or param.tab == tab}">
+                            <a id="js-${tab}"
+                               href="${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}">
+                                <div class="active-tab-control tabStyle-9 selected" data-gs-tab-control="${tab}"
+                                     data-gs-tab-group="groupOne"
+                                     data-gs-tab-active="active-tab-control"
+                                     data-gs-tab-inactive="inactive-tab-control">
+                                    ${tab}
+                                </div>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a id="js-${tab}"
+                               href="${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tab)}">
+                                <div data-gs-tab-control="${tab}" class="tabStyle-9" data-gs-tab-group="groupOne"
+                                     data-gs-tab-active="active-tab-control"
+                                     data-gs-tab-inactive="inactive-tab-control">
+                                    ${tab}
+                                </div>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
 </jsp:root>

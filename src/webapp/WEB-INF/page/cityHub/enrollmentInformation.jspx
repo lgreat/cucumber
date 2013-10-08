@@ -24,19 +24,13 @@
         <gsml:javascript src="/res/js/cityHub/genericTabs.js"/>
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
         <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
-        <style>.active-tab-control {
-            border:1px solid yellow;
-        }
-        .inactive-tab-control {
-            border:1px solid gray;
-        }
+        <style>
         .active-tab-content {
             display:block;
         }
         .inactive-tab-content {
             display:none;
         }
-
         </style>
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
         <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
