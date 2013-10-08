@@ -8,7 +8,6 @@
     <div class="container_24 clearfix mtl">
         <div class="prefix_5 grid_15">
             <div class="tab-control-container">
-                <p>Tab controls:</p>
                 <c:forEach items="${tabs}" var="tab">
                     <c:choose>
                         <c:when test="${(defaultTab == tab and empty param.tab) or param.tab == tab}">

@@ -25,15 +25,6 @@
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
         <gsml:javascript src="/res/js/jquery.cycle2.carousel.min.js" />
         <gsml:javascript src="/res/js/util/customCarouselControl.js"/>
-        <style>
-        .active-tab-content {
-            display:block;
-        }
-        .inactive-tab-content {
-            display:none;
-        }
-        </style>
-
     </head>
     <body>
     <!-- Hiding the Ads on the City Hub Enrollment Page -->

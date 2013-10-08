@@ -36,9 +36,10 @@ GS.genericTabHandler = (function($){
         $controls.filter(selectorForTabGroup(tabGroup)).each(function() {
             var thisTabName = $(this).data('gs-tab-control');
             if (thisTabName !== tabName) {
-                styleTabInactive($(this));
+                $(this).removeClass("selected")
             } else {
-                styleTabActive($(this));
+                $(this).addClass("selected")
+
                 updateHistoryEntryWithCurrentTab($(this));
             }
         });
@@ -46,28 +47,15 @@ GS.genericTabHandler = (function($){
         $contents.filter(selectorForTabGroup(tabGroup)).each(function() {
             var thisTabName = $(this).data('gs-tab-content');
             if (thisTabName !== tabName) {
-                styleTabInactive($(this));
+                $(this).addClass("dn");
+                $(this).removeClass("db");
             } else {
-                styleTabActive($(this));
+                $(this).addClass("db");
+                $(this).removeClass("dn");
             }
         });
     };
-
-    var styleTabActive = function($tab) {
-        var activeClass = $tab.data(activeTabDataAttribute);
-        var inactiveClass = $tab.data(inactiveTabDataAttribute);
-        $tab.addClass(activeClass);
-        $tab.removeClass(inactiveClass);
-    };
-
-    var styleTabInactive = function($tab) {
-        var activeClass = $tab.data(activeTabDataAttribute);
-        var inactiveClass = $tab.data(inactiveTabDataAttribute);
-        $tab.addClass(inactiveClass);
-        $tab.removeClass(activeClass);
-    };
-
-    var updateHistoryEntryWithCurrentTab = function($currentTab) {
+   var updateHistoryEntryWithCurrentTab = function($currentTab) {
         var isPreschoolsTab = ($currentTab.data('gs-tab-control') === 'Preschools');
         if (isHistoryAPIAvailable) {
             var queryString = window.location.search;
