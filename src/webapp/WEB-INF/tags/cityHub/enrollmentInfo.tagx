@@ -19,7 +19,7 @@
                                 ${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}
                             </h3>
                             <p>${enrollmentInfo.description}</p>
-                            <h5 class="SourceSansPro-Semibold-h5">For more information:</h5>
+                            <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
                             <c:if test="${not empty enrollmentInfo.moreInfo.address}">
                                 ${enrollmentInfo.moreInfo.address}<br/>
                             </c:if>
