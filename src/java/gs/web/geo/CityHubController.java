@@ -43,14 +43,8 @@ import java.util.*;
 
 @Controller
 public class CityHubController   implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
-
     private static Logger _logger = Logger.getLogger(CityHubController.class);
-
-
     private  static final String PARAM_CITY = "city";
-
-
-
 
     private ControllerFamily _controllerFamily;
 
@@ -62,10 +56,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-
         ModelAndView modelAndView = new ModelAndView("/cityHub/cityHub");
-
-
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         final State state = sessionContext.getState();
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
@@ -104,26 +95,24 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         /**
          * Adding the Review Module Functionality to the Controller Start
          */
-        List<ReviewFacade> reviews = getReviewFacades(state, city);
+        List<ReviewFacade> reviews = getReviewFacades(state, collectionId);
         modelAndView.addObject("reviews", reviews);
         /**
          * Adding the Review Module Functionality to the Controller End
          */
 
         return modelAndView;
-
-
 }
 
     /**
      * Get review facade for the UX from
      * @param state   not Null State .All Nullability checks should be done at the start of the controller.
-     * @param city    not Null City  .All Nullability checks should be done at the start of the controller.
+     * @param collectionId    not Null Collection id  .All Nullability checks should be done at the start of the controller.
      * @return
      */
-    private List<ReviewFacade> getReviewFacades(final State state, final String city) {
+    private List<ReviewFacade> getReviewFacades(final State state, final Integer collectionId) {
 
-        final  List<Integer> reviewIds  = _reviewDao.findRecentReviewsInCity(state, city,  CityHubHelper.COUNT_OF_REVIEWS_TO_BE_DISPLAYED, CityHubHelper.MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED);
+        final  List<Integer> reviewIds  = _reviewDao.findRecentReviewsInHub(state, collectionId, CityHubHelper.COUNT_OF_REVIEWS_TO_BE_DISPLAYED, CityHubHelper.MAX_NO_OF_DAYS_BACK_REVIEWS_PUBLISHED);
         List<ReviewFacade> reviews = new ArrayList<ReviewFacade>();
         for (Integer reviewId : reviewIds)
         {
