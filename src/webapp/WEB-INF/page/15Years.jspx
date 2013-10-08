@@ -19,8 +19,8 @@
 
         <meta property="og:title" content="15 years of GreatSchools" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="http://www.greatschools.org/15Years.page" />
-        <meta property="og:image" content="IMAGEURL" />
+        <meta property="og:url" content="http://dev.greatschools.org/15Years.page" />
+        <meta property="og:image" content="http://dev.greatschools.org/res/img/promo/15Years/GS15.png" />
         <meta property="og:description" content="Tell a story about how GreatSchools helped you learn from — and share with — parents and others in your community." />
 
 
@@ -73,17 +73,17 @@
                         <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular, Helvetica;"> Share your story! </h1>
 
                         <!--facebook-->
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.greatschools.org/" target="_blank">
-                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Facebook" id="15thAnniversaryFacebook"/></a>
+                        <a href="#" onclick=" window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436'); returnfalse;">
+                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: FacebookShare" id="15thAnniversaryFacebook"/></a>
 
                         <!--twitter-->
                         <a href="http://twitter.com/share?text=.@GreatSchools helped me _____ %20%2315YearsofGreatSchools"
                            target="_blank" onclick="return !window.open(this.href, 'share', 'menubar=no','width=100,height=100')">
-                        <gsml:img styleClass="mhl"  src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Twitter" id="15thAnniversaryTwitter"/></a>
+                        <gsml:img styleClass="mhl"  src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: TwitterShare" id="15thAnniversaryTwitter"/></a>
 
                         <!--pinterest-->
                         <a href="//www.pinterest.com/pin/create/button/?url=http://www.greatschools.org/15Years.page&amp;media=http://www.greatschools.org/res/img/promo/15Years/GS15.png&amp;description=Tell a story about how GreatSchools helped you learn from — and share with — parents and others in your community." data-pin-do="buttonPin" data-pin-config="none" target="_blank">
-                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Pinterest" id="15thAnniversaryPinterest"/></a>
+                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: PinterestShare" id="15thAnniversaryPinterest"/></a>
                     </div>
                 </div>
             </div>
