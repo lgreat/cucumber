@@ -1,0 +1,250 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta name="decorator" content="standardDecorator-v1"/>
+        <pageHelper:addCss-v1/>
+        <pageHelper:hideFooterAd/>
+        <pageHelper:hideLeaderboard/>
+        <pageHelper:hideBelowNavAds/>
+
+        <meta property="og:title" content="15 years of GreatSchools" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="http://www.greatschools.org/15Years.page" />
+        <meta property="og:image" content="IMAGEURL" />
+        <meta property="og:description" content="Tell a story about how GreatSchools helped you learn from — and share with — parents and others in your community." />
+
+
+        <title>15 Years of GreatSchools</title>
+    </head>
+    <body>
+        <div class="container_24 pbl clearfix">
+            <!--hero image-->
+            <div class="mtl pvll">
+                <gsml:img src="/res/img/promo/15Years/img_Hero.png" width="970" height="360" alt="GreatSchools staff says thanks!" id="15thAnniversaryHero"/>
+            </div>
+
+            <div class="">
+                <!--title-->
+                <div class="pbl mbl tac">
+                    <div class="mtl ptl big make-2b2b2b mbm" style="font-family: SourceSansPro-Semibold, Helvetica;">
+                        Thanks for sharing your
+                    </div>
+                    <div class="big make-2b2b2b" style="font-family: SourceSansPro-Semibold, Helvetica;">
+                        ideas about GreatSchools!
+                    </div>
+                </div>
+
+                <!--some copy-->
+                <div class="year-15 block_text tac" style="font: 16px/12px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em;">
+                    <div class="mbl">
+                        When GreatSchools was launched in 1998, we had 1,300 unique visitors. This year,
+                        we’ll have more than 44 million. There are many reasons for our success, but the
+                        biggest reason is people like you.
+                    </div>
+                    <div class="mbl">
+                        Parents, teachers and others who use GreatSchools don’t just come here to get
+                        information. You come here to share insights and ideas about your schools – where
+                        they are today, and where you hope they’ll go. More than one million school reviews by
+                        people like you are one of the most valuable parts of GreatSchools.
+                    </div>
+                    <div class="mbl">
+                        <strong>We hope you&#39;ll help celebrate 15 years of GreatSchools by sharing even more.</strong>
+                        <a href="http://www.greatschools.org/school/parentReview.page" target="_blank"> Write a review of your school</a>, and encourage your neighbors to write one. Introduce a
+                        new parent to GreatSchools. Tell a story about how GreatSchools helped you learn
+                        from – and share with – parents and others in your community.
+                    </div>
+                </div>
+            </div>
+            <!--Twitter, Facebook and Pinterest sharing-->
+            <div>
+                <div class="year-15-bubble" style="position:relative;top:68px; margin-top:-20px;">
+
+                    <div class="ptl tac">
+                        <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular, Helvetica;"> Share your story! </h1>
+
+                        <!--facebook-->
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.greatschools.org/" target="_blank">
+                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Facebook" id="15thAnniversaryFacebook"/></a>
+
+                        <!--twitter-->
+                        <a href="http://twitter.com/share?text=.@GreatSchools helped me _____ %20%2315YearsofGreatSchools"
+                           target="_blank" onclick="return !window.open(this.href, 'share', 'menubar=no','width=100,height=100')">
+                        <gsml:img styleClass="mhl"  src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Twitter" id="15thAnniversaryTwitter"/></a>
+
+                        <!--pinterest-->
+                        <a href="//www.pinterest.com/pin/create/button/?url=http://www.greatschools.org/15Years.page&amp;media=http://www.greatschools.org/res/img/promo/15Years/GS15.png&amp;description=Tell a story about how GreatSchools helped you learn from — and share with — parents and others in your community." data-pin-do="buttonPin" data-pin-config="none" target="_blank">
+                        <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Pinterest" id="15thAnniversaryPinterest"/></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--beige area-->
+            <div class="year-15 beige media clearfix mbl" id="beige_15Years">
+                <div>
+                    <div class="clearfix" style="margin-top:100px;">
+                        <div class="alpha prefix_3 grid_9 omega">
+                            <gsml:img styleClass="fl mrl prl"
+                                      src="/res/img/promo/15Years/img_ElBrown.png"
+                                      alt="GreatSchools: El Brown and family"/>
+                        </div>
+                        <div class="grid_10 suffix_2">
+                            <p class="tal mrl"
+                               style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em;">
+                                "Great Schools was extremely helpful – it helps you narrow your search down to two or
+                                three schools – then you can choose the best of the three. When they have to move, a
+                                lot of military families lead with the school. Making the right school choice is really
+                                important to most military families. In our case, we found the school we wanted, and
+                                then looked for a house."
+                            </p>
+                            <p class="fr mtl mrl" style="font: 17px/14px SourceSansPro-SemiBold, Helvetica, sans-serif; margin-left: 0px"> &#8212; El Brown, Military parent</p>
+                        </div>
+                    </div>
+
+                    <div class="clearfix" style="margin-top:100px; margin-bottom:75px;">
+                        <div class="fr alpha grid_9 suffix_2 omega">
+                            <gsml:img styleClass="mll pll"
+                                      src="/res/img/promo/15Years/img_ReginaWilliams.png"
+                                      alt="Regina Williams and family"/>
+                        </div>
+                        <div class="fl alpha prefix_3 grid_10 omega">
+                            <p class="tal mrl"
+                               style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em;">
+                                “GreatSchools is a one-stop shop packed with services parents can access for FREE and
+                                information all families need to know when selecting a new school. The best part is the
+                                staff are always available to help, just a click or a phone call away.”
+                            </p>
+
+                            <p class="mtl mrl"
+                               style="font: 17px/14px SourceSansPro-SemiBold, Helvetica, sans-serif; margin-left: 0px;"> &#8212; Regina Williams, Milwaukee parent
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="prefix_3 grid_18 suffix_3">
+                        <hr class="year-15-line"/>
+                    </div>
+
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px; margin-bottom:50px;">
+                        <p class="" style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em;">
+                            "I felt like there was meat to this program. It&#39;s a program that is offering parents skills to
+                            teach their kids. It has research behind the program and things that schoolteachers do
+                            use. This program teaches tried and trusted skill sets to parents."
+                        </p>
+
+                        <p class="bottom" style="font: 17px/14px SourceSansPro-SemiBold, Helvetica, sans-serif; margin-left: 0px;">
+                            &#8212; Teacher, Laurel Elementary School
+                        </p>
+                    </div>
+
+                    <div class="prefix_3 grid_18 suffix_3">
+                        <hr class="year-15-line"/>
+                    </div>
+
+                    <div class="clearfix">
+                        <div class="alpha prefix_3 grid_10 omega" style="margin-top: 50px;">
+                            <gsml:img styleClass="fl mrl prl" style=""
+                                      src="/res/img/promo/15Years/img_AmandaRipley.png"
+                                      alt="Author Amanda Ripley"/>
+                        </div>
+                        <div class="grid_9 suffix_2">
+                            <p class="tal" style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em; margin-top: 50px;">
+                                "I am a longtime reader and fan of GreatSchools, a rare voice of sanity in the
+                                cacophony of American education."
+                            </p>
+                            <p class="fr mtl bottom" style="font: 17px/14px SourceSansPro-SemiBold, Helvetica, sans-serif; line-height: 1.5em; margin-left: 0px;"> &#8212; Amanda Ripley, author of</p>
+                            <a href="http://articles.washingtonpost.com/2013-09-20/news/42267359_1_u-s-foreign-exchange-students-pisa-high-school-class">
+                                <p class="fr make-06b bottom" style="font-family: SourceSansPro-Regular; margin-right: 0;">
+                                    <em>The Smartest Kids in the World:</em></p>
+                                <p class="fr mrl make-06b bottom" style="font-family: SourceSansPro-Regular; margin-left: 0;">
+                                    <em>And How They Got That Way</em>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="clearfix" style="margin-top:100px; margin-bottom:50px;">
+                        <div class="fr alpha grid_9 suffix_2 omega">
+                            <gsml:img styleClass="mll pll"
+                                      src="/res/img/promo/15Years/img_DarrellFinch.png"
+                                      alt="Darrell Finch and Milwaukee students"/>
+                        </div>
+                        <div class="fl alpha prefix_3 grid_10 omega">
+                            <p class="tal mrl"
+                               style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em; margin-left: 0px;">
+                                "The School Chooser is an amazing tool for helping students and families succeed."
+                            </p>
+
+                            <p class="mtl mrl"
+                               style="font: 17px/14px SourceSansPro-SemiBold, Helvetica, sans-serif; line-height: 1.5em; margin-left: 0px"> &#8212; Darrell Finch, The Housing Authority of the City of Milwaukee
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="prefix_3 grid_18 suffix_3">
+                        <hr class="year-15-line"/>
+                    </div>
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px">
+                        <p class="bottom" style="font: 20px/16px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em; margin-left: 0px;">
+                            “After my mom gave me the article, ‘Why Are Boys Not Reading That Much?’ I learned
+                            that scientists, tech geeks, and engineers have to have a good reading foundation in
+                            order to perform their best. You can’t do well in math and science without having
+                            exceptional reading and writing skills. Overall, you have motivated me to read more,
+                            because I want to be an engineer. Thank you for writing this article.”
+                        </p>
+
+                        <p class="pvl small_bold bottom" style="font: 20px/16px SourceSansPro-SemiBold, Helvetica, sans-serif; line-height: 1.5em;">
+                            &#8212; Antony
+                        </p>
+                    </div>
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px">
+                        <p class="bottom" style="font: 20px/16px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em; margin-left: 0px;">
+                            “As my 5-year-old daughter begins to prepare for her 2nd year at Yu Ying, I just wanted
+                            to send a quick note of thanks for your GreatSchools parent coaching when we were
+                            trying to decide on schools. She is doing extremely well at Yu Ying and her Chinese is
+                            impressive even to native speakers. More importantly for us though, she is a caring
+                            sister, has a strong sense of community and loves to read. The school is a great fit for
+                            her personality and for her strong interest in other cultures and languages.”
+                        </p>
+
+                        <p class="pvl small_bold bottom" style="font: 20px/16px SourceSansPro-SemiBold, Helvetica, sans-serif; line-height: 1.5em;">
+                            &#8212; Mrs. Rollins, Washington, D.C. parent
+                        </p>
+                    </div>
+
+                    <div class="prefix_6 grid_12 suffix_6 tac clearfix" style="margin-top: 50px">
+                        <p class="bottom" style="font: 20px/16px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em; margin-left: 0px;">
+                            “Thanks SO MUCH for all of the work you do to provide easily accessible feedback to
+                            residents about the districts they live in – it really helps the schools have to stay
+                            accountable to their local communities. And by doing so, you may have played a huge
+                            role in helping the kids in my neighborhood get an education at a school rated 9 instead
+                            of a school rated 1. You all should be proud of the service you provide!”
+                        </p>
+
+                        <p class="pvl small_bold bottom" style="font: 20px/16px SourceSansPro-SemiBold, Helvetica, sans-serif; line-height: 1.5em;">
+                            &#8212; Seattle area user
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <!--UUDDLRLRBAStartSelect-->
+    <mod:tracking pageName="15th Anniversary Splash"
+                  hier1="Marketing "
+            />
+    </body>
+    </html>
+</jsp:root>

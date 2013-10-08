@@ -3152,6 +3152,13 @@
         </property>
     </bean>
 
+    <bean name="/15Years.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/15Years</value>
+        </property>
+    </bean>
+
 
     <!-- START demo pages for house ads and other widgets to be served from ad slots -->
     <bean name="/demo/gpt/integratedAd-1.page"
