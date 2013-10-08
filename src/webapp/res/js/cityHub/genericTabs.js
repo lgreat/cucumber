@@ -3,9 +3,6 @@ GS.genericTabHandler = (function($){
     var allControlsSelector = '[data-gs-tab-control]';
     var allContentsSelector = '[data-gs-tab-content]';
     var $tabs = {};
-
-    var activeTabDataAttribute = 'gs-tab-active';
-    var inactiveTabDataAttribute = 'gs-tab-inactive';
     var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
 
     // for all controls on the page, attach the right JS handler
