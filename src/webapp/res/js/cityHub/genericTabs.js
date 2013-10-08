@@ -2,24 +2,28 @@ var GS = GS || {};
 GS.genericTabHandler = (function($){
     var allControlsSelector = '[data-gs-tab-control]';
     var allContentsSelector = '[data-gs-tab-content]';
+    var $tabs = {};
 
     var activeTabDataAttribute = 'gs-tab-active';
     var inactiveTabDataAttribute = 'gs-tab-inactive';
+    var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
 
     // for all controls on the page, attach the right JS handler
     var init = function(controlContainer, contentContainer) {
-        $controlContainer = $(controlContainer);
-        $contentContainer = $(contentContainer);
+        var $controlContainer = $(controlContainer);
+        var $contentContainer = $(contentContainer);
 
         var $allControls = $controlContainer.find(allControlsSelector);
         var $allContents = $contentContainer.find(allContentsSelector);
 
         $allControls.each(function() {
             var $control = $(this);
+            $tabs[$control.data('gs-tab-control')] = {name: $control};
             $control.on('click', function() {
                 var tabGroup = $control.data('gs-tab-group');
                 var tabName = $(this).data('gs-tab-control');
                 switchToTab($allControls, $allContents, tabGroup, tabName);
+                return false;
             });
         });
     };
@@ -35,6 +39,7 @@ GS.genericTabHandler = (function($){
                 styleTabInactive($(this));
             } else {
                 styleTabActive($(this));
+                updateHistoryEntryWithCurrentTab($(this));
             }
         });
 
@@ -49,17 +54,39 @@ GS.genericTabHandler = (function($){
     };
 
     var styleTabActive = function($tab) {
-        activeClass = $tab.data(activeTabDataAttribute);
-        inactiveClass = $tab.data(inactiveTabDataAttribute);
+        var activeClass = $tab.data(activeTabDataAttribute);
+        var inactiveClass = $tab.data(inactiveTabDataAttribute);
         $tab.addClass(activeClass);
         $tab.removeClass(inactiveClass);
     };
 
     var styleTabInactive = function($tab) {
-        activeClass = $tab.data(activeTabDataAttribute);
-        inactiveClass = $tab.data(inactiveTabDataAttribute);
+        var activeClass = $tab.data(activeTabDataAttribute);
+        var inactiveClass = $tab.data(inactiveTabDataAttribute);
         $tab.addClass(inactiveClass);
         $tab.removeClass(activeClass);
+    };
+
+    var updateHistoryEntryWithCurrentTab = function($currentTab) {
+        var isPreschoolsTab = ($currentTab.data('gs-tab-control') === 'Preschools');
+        if (isHistoryAPIAvailable) {
+            var queryString = window.location.search;
+            if (isPreschoolsTab) {
+                queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", $currentTab.data('gs-tab-control'), true);
+            }
+            else {
+                queryString = GS.uri.Uri.removeFromQueryString(queryString, "tab");
+            }
+            var state = {tabName : $tabs[$currentTab.data('gs-tab-control')]};
+            window.History.pushState(state, null, queryString);
+        }
+        else {
+            var anchorVal = '';
+            if(!isPreschoolsTab) {
+                anchorVal = "/" + $currentTab.data('gs-tab-control');
+            }
+            window.location.hash = "!" + anchorVal;
+        }
     };
 
 

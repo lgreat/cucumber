@@ -11,7 +11,7 @@
     <div class="tab-content-container">
         <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
             <c:choose>
-                <c:when test="${defaultTab == enrollmentInfo.tabName}">
+                <c:when test="${(defaultTab == enrollmentInfo.tabName and empty param.tab) or param.tab == enrollmentInfo.tabName}">
                     <div class="container_24 clearfix mvl" data-gs-tab-content="${enrollmentInfo.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
                         <div class="alpha grid_12 suffix_1">
