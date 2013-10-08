@@ -20,7 +20,10 @@ GS.genericTabHandler = (function($){
                 var tabGroup = $control.data('gs-tab-group');
                 var tabName = $(this).data('gs-tab-control');
                 switchToTab($allControls, $allContents, tabGroup, tabName);
-                return false;
+                if(isHistoryAPIAvailable) {
+                    return false;
+                }
+                return true;
             });
         });
     };
@@ -65,13 +68,13 @@ GS.genericTabHandler = (function($){
             var state = {tabName : $tabs[$currentTab.data('gs-tab-control')]};
             window.History.pushState(state, null, queryString);
         }
-        else {
-            var anchorVal = '';
-            if(!isPreschoolsTab) {
-                anchorVal = "/" + $currentTab.data('gs-tab-control');
-            }
-            window.location.hash = "!" + anchorVal;
-        }
+//        else {
+//            var anchorVal = '';
+//            if(!isPreschoolsTab) {
+//                anchorVal = "/" + $currentTab.data('gs-tab-control');
+//            }
+//            window.location.hash = "!" + anchorVal;
+//        }
     };
 
 
