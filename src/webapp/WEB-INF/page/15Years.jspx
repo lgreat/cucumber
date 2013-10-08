@@ -59,9 +59,9 @@
                     </div>
                     <div class="mbl">
                         <strong>We hope you&#39;ll help celebrate 15 years of GreatSchools by sharing even more.</strong>
-                        Write a review of your school, and encourage your neighbors to write one. Introduce a
+                        <a href="http://www.greatschools.org/school/parentReview.page" target="_blank"> Write a review of your school</a>, and encourage your neighbors to write one. Introduce a
                         new parent to GreatSchools. Tell a story about how GreatSchools helped you learn
-                        from &#8212; and share with &#8212; parents and others in your community.
+                        from – and share with – parents and others in your community.
                     </div>
                 </div>
             </div>
@@ -77,12 +77,12 @@
                         <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: Facebook" id="15thAnniversaryFacebook"/></a>
 
                         <!--twitter-->
-                        <a href="http://twitter.com/share?text=Tell a story about how GreatSchools helped you learn from—and share with—parents and others in your community. %20%2315YearsofGreatSchools"
-                           onclick="return !window.open(this.href, 'share', 'menubar=no','width=100,height=100')">
+                        <a href="http://twitter.com/share?text=.@GreatSchools helped me _____ %20%2315YearsofGreatSchools"
+                           target="_blank" onclick="return !window.open(this.href, 'share', 'menubar=no','width=100,height=100')">
                         <gsml:img styleClass="mhl"  src="/res/img/promo/15Years/img_Twitter.png" alt="GreatSchools: Twitter" id="15thAnniversaryTwitter"/></a>
 
                         <!--pinterest-->
-                        <a href="//www.pinterest.com/pin/create/button/?url=http://www.greatschools.org/15Years.page&amp;media=http://dev.greatschools.org/res/img/promo/15Years/GS15.png&amp;description=Tell a story about how GreatSchools helped you learn from — and share with — parents and others in your community." data-pin-do="buttonPin" data-pin-config="none" target="_blank">
+                        <a href="//www.pinterest.com/pin/create/button/?url=http://www.greatschools.org/15Years.page&amp;media=http://www.greatschools.org/res/img/promo/15Years/GS15.png&amp;description=Tell a story about how GreatSchools helped you learn from — and share with — parents and others in your community." data-pin-do="buttonPin" data-pin-config="none" target="_blank">
                         <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Pinterest.png" alt="GreatSchools: Pinterest" id="15thAnniversaryPinterest"/></a>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <div class="grid_10 suffix_2">
                             <p class="tal mrl"
                                style="font: 17px/14px SourceSansPro-Regular, Helvetica, sans-serif; line-height: 1.5em;">
-                                "Great Schools was extremely helpful - it helps you narrow your search down to two or
+                                "Great Schools was extremely helpful – it helps you narrow your search down to two or
                                 three schools – then you can choose the best of the three. When they have to move, a
                                 lot of military families lead with the school. Making the right school choice is really
                                 important to most military families. In our case, we found the school we wanted, and
