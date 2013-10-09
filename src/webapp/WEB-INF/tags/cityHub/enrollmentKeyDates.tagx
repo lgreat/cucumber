@@ -18,7 +18,7 @@
             <div class="mod standard_1-5">
                 <div class="inner">
                     <div class="hd">
-                        <h5 class="pvs plm bottom">
+                        <h5 class="SourceSansPro-Semibold-h5 pvs plm bottom">
                             <span class="make-ffffff">Key dates</span>
                         </h5>
                     </div>
@@ -40,8 +40,23 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div class="unit size20of100">
-                <div class="small">No Upcoming Key Dates</div>
+            <div class="mod standard_1-5">
+                <div class="inner">
+                    <div class="hd">
+                        <h5 class="SourceSansPro-Semibold-h5 pvs plm bottom">
+                            <span class="make-ffffff">Key dates</span>
+                        </h5>
+                    </div>
+                    <div class="bd">
+                        <table class="tableType1" border="0" style="-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
+                            <tbody>
+                            <tr>
+                                <td>Enrollment processes and deadlines vary by school. Contact schools directly for more information</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </c:otherwise>
     </c:choose>
