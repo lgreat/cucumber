@@ -91,31 +91,30 @@
                         <th>IP Address</th>
                     </tr>
                     <c:forEach items="${requestScope.flaggedReviews}" var="reviewBean">
-                        <c:set var="review" value="${reviewBean.review}"/>
                         <tr>
-                            <td>${review.user.userProfile.screenName} (${review.user.email})</td>
-                            <td>${review.who}</td>
-                            <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
+                            <td>${reviewBean.screenName} (${reviewBean.email})</td>
+                            <td>${reviewBean.who}</td>
+                            <fmt:formatDate value="${reviewBean.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                             <td>
-                                <a href="/admin/schoolReview/edit.page?id=${review.id}&amp;amp;from=fr">${reviewPosted}</a>
+                                <a href="/admin/schoolReview/edit.page?id=${reviewBean.reviewId}&amp;amp;from=fr">${reviewPosted}</a>
                             </td>
-                            <td>${review.school.name} (${review.school.databaseState})</td>
+                            <td>${reviewBean.schoolName} (${reviewBean.schoolState})</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${review.status eq 'u'}">Unprocessed</c:when>
-                                    <c:when test="${review.status eq 'p'}">Public/live</c:when>
-                                    <c:when test="${review.status eq 'a'}">Ratings only public/live</c:when>
-                                    <c:when test="${review.status eq 'd' or review.status eq 'r'}">Disabled</c:when>
-                                    <c:when test="${review.status eq 'h'}">Held</c:when>
-                                    <c:otherwise>${review.status}</c:otherwise>
+                                    <c:when test="${reviewBean.status eq 'u'}">Unprocessed</c:when>
+                                    <c:when test="${reviewBean.status eq 'p'}">Public/live</c:when>
+                                    <c:when test="${reviewBean.status eq 'a'}">Ratings only public/live</c:when>
+                                    <c:when test="${reviewBean.status eq 'd' or reviewBean.status eq 'r'}">Disabled</c:when>
+                                    <c:when test="${reviewBean.status eq 'h'}">Held</c:when>
+                                    <c:otherwise>${reviewBean.status}</c:otherwise>
                                 </c:choose>
                             </td>
-                            <td>${review.how}</td>
+                            <td>${reviewBean.how}</td>
                             <fmt:formatDate value="${reviewBean.report.dateCreated}" var="reportedCreated"
                                             pattern="MMMM d, yyyy h:mma"/>
                             <td>${reportedCreated}</td>
                             <td>${reviewBean.numReports}</td>
-                            <td>${review.ip}</td>
+                            <td>${reviewBean.ip}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -167,27 +166,26 @@
                         <th>IP</th>
                     </tr>
                     <c:forEach items="${requestScope.unprocessedReviews}" var="reviewBean">
-                        <c:set var="review" value="${reviewBean.review}"/>
                         <tr>
-                            <td>${review.user.userProfile.screenName} (${review.user.email})</td>
-                            <td>${review.who}</td>
-                            <fmt:formatDate value="${review.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
+                            <td>${reviewBean.screenName} (${reviewBean.email})</td>
+                            <td>${reviewBean.who}</td>
+                            <fmt:formatDate value="${reviewBean.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                             <td>
-                                <a href="/admin/schoolReview/edit.page?id=${review.id}&amp;amp;from=ur">${reviewPosted}</a>
+                                <a href="/admin/schoolReview/topicalEdit.page?id=${reviewBean.reviewId}&amp;amp;from=ur">${reviewPosted}</a>
                             </td>
-                            <td>${review.school.name} (${review.school.databaseState})</td>
+                            <td>${reviewBean.schoolName} (${reviewBean.schoolState})</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${review.status eq 'u'}">Unprocessed</c:when>
-                                    <c:when test="${review.status eq 'p'}">Public/live</c:when>
-                                    <c:when test="${review.status eq 'd'}">Disabled</c:when>
-                                    <c:when test="${review.status eq 'h'}">Held</c:when>
-                                    <c:otherwise>${review.status}</c:otherwise>
+                                    <c:when test="${reviewBean.status eq 'u'}">Unprocessed</c:when>
+                                    <c:when test="${reviewBean.status eq 'p'}">Public/live</c:when>
+                                    <c:when test="${reviewBean.status eq 'd'}">Disabled</c:when>
+                                    <c:when test="${reviewBean.status eq 'h'}">Held</c:when>
+                                    <c:otherwise>${reviewBean.status}</c:otherwise>
                                 </c:choose>
                             </td>
-                            <td>${review.how}</td>
+                            <td>${reviewBean.how}</td>
                             <td>${reviewBean.numReports}</td>
-                            <td>${review.ip}</td>
+                            <td>${reviewBean.ip}</td>
                         </tr>
                     </c:forEach>
                 </table>

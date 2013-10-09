@@ -6,6 +6,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.ITopicalSchoolReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.TopicalSchoolReview;
+import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,10 +15,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -67,10 +65,18 @@ public class SchoolReviewListController extends AbstractController {
             model.put(MODEL_TOTAL_UNPROCESSED, totalUnprocessed);
             model.put(MODEL_PAGE_SIZE, UNPROCESSED_REVIEWS_PAGE_SIZE);
         } else {
-            List<SchoolReviewListBean> flaggedReviews = getFlaggedReviews(page);
+            List<SchoolReviewListBean> flaggedReviews;
+            int totalFlagged;
+            if (_isTopical) {
+                flaggedReviews = getFlaggedTopicalReviews(page);
+                totalFlagged = _reportedEntityDao.countFlaggedTopicalSchoolReviews();
+            } else {
+                flaggedReviews = getFlaggedReviews(page);
+                totalFlagged =  _reportedEntityDao.countFlaggedSchoolReviews();
+            }
             model.put(MODEL_SHOW_FLAGGED, true);
             model.put(MODEL_FLAGGED_REVIEW_LIST, flaggedReviews);
-            model.put(MODEL_TOTAL_FLAGGED, _reportedEntityDao.countFlaggedSchoolReviews());
+            model.put(MODEL_TOTAL_FLAGGED, totalFlagged);
             model.put(MODEL_PAGE_SIZE, REPORTED_REVIEWS_PAGE_SIZE);
         }
 
@@ -138,6 +144,31 @@ public class SchoolReviewListController extends AbstractController {
         return rval;
     }
 
+    protected List<SchoolReviewListBean> getFlaggedTopicalReviews(int page) {
+        int offset = 0;
+        if (page > 1) {
+            offset = (page-1) * REPORTED_REVIEWS_PAGE_SIZE;
+        }
+        List<Integer> reportedReviewIds = _reportedEntityDao.getTopicalSchoolReviewIdsThatHaveReports(
+                REPORTED_REVIEWS_PAGE_SIZE, offset);
+        List<SchoolReviewListBean> rval = new ArrayList<SchoolReviewListBean>(REPORTED_REVIEWS_PAGE_SIZE);
+
+        // asynchronous?
+        // group queries?
+        for (Integer reviewId: reportedReviewIds) {
+            try {
+                SchoolReviewListBean bean = new SchoolReviewListBean(_topicalSchoolReviewDao.get(reviewId.longValue()));
+                bean.setNumReports((_reportedEntityDao.getNumberTimesReported
+                        (ReportedEntity.ReportedEntityType.topicalSchoolReview, reviewId)));
+                bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.topicalSchoolReview, reviewId));
+                rval.add(bean);
+            } catch (Exception e) {
+                _log.error("Error finding review and related data for report: " + e, e);
+            }
+        }
+        return rval;
+    }
+
     public String getViewName() {
         return _viewName;
     }
@@ -179,20 +210,57 @@ public class SchoolReviewListController extends AbstractController {
     }
 
     public static final class SchoolReviewListBean {
-        private Review _review;
         private int _numReports;
         private ReportedEntity _report;
+        private String _screenName;
+        private String _email;
+        private String _who;
+        private Date _posted;
+        private Long _reviewId;
+        private String _schoolName;
+        private State _schoolState;
+        private String _status;
+        private String _how;
+        private String _ip;
+        private String _topic;
 
         public SchoolReviewListBean(Review review) {
-            _review = review;
+            if (review.getUser() != null) {
+                _email = review.getUser().getEmail();
+                if (review.getUser().getUserProfile() != null) {
+                    _screenName = review.getUser().getUserProfile().getScreenName();
+                }
+            }
+            _who = review.getWho();
+            _posted = review.getPosted();
+            _reviewId = review.getId().longValue();
+            if (review.getSchool() != null) {
+                _schoolName = review.getSchool().getName();
+                _schoolState = review.getSchool().getDatabaseState();
+            }
+            _status = review.getStatus();
+            _how = review.getHow();
+            _ip = review.getIp();
         }
 
         public SchoolReviewListBean(TopicalSchoolReview review) {
-            // TODO: fill in bean
-        }
-
-        public Review getReview() {
-            return _review;
+            if (review.getUser() != null) {
+                _email = review.getUser().getEmail();
+                if (review.getUser().getUserProfile() != null) {
+                    _screenName = review.getUser().getUserProfile().getScreenName();
+                }
+            }
+            _who = review.getWho().getName();
+            _posted = review.getCreated();
+            _reviewId = review.getId();
+            if (review.getSchool() != null) {
+                _schoolName = review.getSchool().getName();
+                _schoolState = review.getSchool().getDatabaseState();
+            }
+            _status = review.getStatus();
+            _how = review.getHow();
+            _ip = review.getIp();
+            _topic = review.getTopic().getName();
         }
 
         public int getNumReports() {
@@ -209,6 +277,50 @@ public class SchoolReviewListController extends AbstractController {
 
         public void setReport(ReportedEntity report) {
             _report = report;
+        }
+
+        public String getScreenName() {
+            return _screenName;
+        }
+
+        public String getEmail() {
+            return _email;
+        }
+
+        public String getWho() {
+            return _who;
+        }
+
+        public Date getPosted() {
+            return _posted;
+        }
+
+        public Long getReviewId() {
+            return _reviewId;
+        }
+
+        public String getSchoolName() {
+            return _schoolName;
+        }
+
+        public State getSchoolState() {
+            return _schoolState;
+        }
+
+        public String getStatus() {
+            return _status;
+        }
+
+        public String getHow() {
+            return _how;
+        }
+
+        public String getIp() {
+            return _ip;
+        }
+
+        public String getTopic() {
+            return _topic;
         }
     }
 }
