@@ -2,7 +2,7 @@ var GS = GS || {};
 GS.genericTabHandler = (function($){
     var allControlsSelector = '[data-gs-tab-control]';
     var allContentsSelector = '[data-gs-tab-content]';
-    var $tabs = {};
+    var tabs = {};
     var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
 
     // for all controls on the page, attach the right JS handler
@@ -15,10 +15,12 @@ GS.genericTabHandler = (function($){
 
         $allControls.each(function() {
             var $control = $(this);
-            $tabs[$control.data('gs-tab-control')] = {name: $control};
+            var tabGroup = $control.data('gs-tab-group');
+            var tabName = $control.data('gs-tab-control');
+            tabs[tabName] = {tab: $control, tabGroup: tabGroup};
+
+            // handle nav when tab is clicked
             $control.on('click', function() {
-                var tabGroup = $control.data('gs-tab-group');
-                var tabName = $(this).data('gs-tab-control');
                 switchToTab($allControls, $allContents, tabGroup, tabName);
                 if(isHistoryAPIAvailable) {
                     return false;
@@ -26,6 +28,28 @@ GS.genericTabHandler = (function($){
                 return true;
             });
         });
+
+        // when browser back button is clicked, the statuschange is used to handle navigation
+        if(isHistoryAPIAvailable) {
+            window.History.Adapter.bind(window, 'statechange', function() {
+                var state = History.getState();
+                if (state && state.url) {
+                    var tab = 'Preschools';
+                    if (state.url.indexOf('?') > -1) {
+                        var queryString = state.url.substr(state.url.indexOf('?') + 1);
+                        if (queryString.indexOf('#') > -1) {
+                            queryString = queryString.substr(0, queryString.indexOf('#'));
+                        }
+                        tab = GS.uri.Uri.getFromQueryString('tab', queryString) || tab;
+                    }
+                    if (tab && tabs[tab]) {
+                        switchToTab($allControls, $allContents, tabs[tab].tabGroup, tab);
+                    }
+                }
+            });
+        }
+
+        return this;
     };
 
     var selectorForTabGroup = function(tabGroup) {
@@ -40,7 +64,7 @@ GS.genericTabHandler = (function($){
             } else {
                 $(this).addClass("selected")
 
-                updateHistoryEntryWithCurrentTab($(this));
+                updateHistoryEntryWithCurrentTab(tabName);
             }
         });
 
@@ -55,26 +79,19 @@ GS.genericTabHandler = (function($){
             }
         });
     };
-   var updateHistoryEntryWithCurrentTab = function($currentTab) {
-        var isPreschoolsTab = ($currentTab.data('gs-tab-control') === 'Preschools');
+
+    var updateHistoryEntryWithCurrentTab = function(currentTabName) {
+        var isPreschoolsTab = (currentTabName === 'Preschools');
         if (isHistoryAPIAvailable) {
             var queryString = window.location.search;
             if (isPreschoolsTab) {
                 queryString = GS.uri.Uri.removeFromQueryString(queryString, "tab");
             }
             else {
-                queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", $currentTab.data('gs-tab-control'), true);
+                queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", currentTabName, true);
             }
-            var state = {tabName : $tabs[$currentTab.data('gs-tab-control')]};
-            window.History.pushState(state, '', queryString);
+            window.History.pushState(null, document.title, queryString);
         }
-//        else {
-//            var anchorVal = '';
-//            if(!isPreschoolsTab) {
-//                anchorVal = "/" + $currentTab.data('gs-tab-control');
-//            }
-//            window.location.hash = "!" + anchorVal;
-//        }
     };
 
 

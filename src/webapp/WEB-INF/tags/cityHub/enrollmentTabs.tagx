@@ -22,8 +22,17 @@
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a id="js-${tab}"
-                               href="${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tab)}">
+                            <c:set var="href">
+                                <c:choose>
+                                    <c:when test="${defaultTab == tab}">
+                                        ${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tab)}
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:set>
+                            <a id="js-${tab}" href="${href}">
                                 <div data-gs-tab-control="${tab}" class="tabStyle-9" data-gs-tab-group="groupOne"
                                      data-gs-tab-active="active-tab-control"
                                      data-gs-tab-inactive="inactive-tab-control">
