@@ -2,7 +2,9 @@ DEFAULT_SELECTORS = {
     'Sign In hover' => '#signInHover',
     'MSL Join hover' => '#joinHover',
     'MSS hover' => '#js-sendMeUpdates',
-    'Newsletter hover$' => '#hover_nlSubscription',
+    'Newsletter hover' => '#hover_nlSubscription',
+    'Subscription Confirmed hover' => '#subscriptionEmailValidated',
+    'Validate your email hover' => '#valEmail',
     'All school types' => 'div#js-schoolTypes div[data-gs-dropdown-opener]',
     'All grade levels' => 'div#js-gradeLevels div[data-gs-dropdown-opener]',
     '5 miles' => 'div#js-radius div[data-gs-dropdown-opener]',
@@ -23,22 +25,17 @@ def setup_selectors(page_name)
 end
 
 def selector_for(scope) # http://bjeanes.com/2010/09/selector-free-cucumber-scenarios
-  case scope
-    when /Newsletter hover$/
-      '#hover_nlSubscription'
-    else
-      if CURRENT_SELECTORS[scope]
-        return CURRENT_SELECTORS[scope]
-      end
+    if CURRENT_SELECTORS[scope]
+      return CURRENT_SELECTORS[scope]
+    end
 
-      CURRENT_SELECTORS.each do |key, val|
-        if scope.match /#{key}/i
-          return val
-        end
+    CURRENT_SELECTORS.each do |key, val|
+      if scope.match /^#{key}$/i
+        return val
       end
+    end
 
-      raise "Can't find mapping from \"#{scope}\" to a selector.\n" + "Now, go and add a mapping in #{__FILE__}"
-  end
+    raise "Can't find mapping from \"#{scope}\" to a selector.\n" + "Now, go and add a mapping in #{__FILE__}"
 end
 
 Given /^I am on "([^\"]+)" page$/ do |page_name|

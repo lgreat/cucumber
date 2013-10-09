@@ -60,7 +60,7 @@
                     <h1>${schoolName}</h1>
                 </div>
                 <div class="clearfix"><!-- not empty --></div>
-                <div class="fl">
+                <div class="fl mbl">
                     Online | ${gradesServed} | ${tuitionText}
                 </div>
                 <div class="clearfix"><!-- not empty --></div>
@@ -73,7 +73,7 @@
                 <div class="bd small fl mtm mrm">
                     Sponsored by
                 </div>
-                <div class="imgExt mbl fl">
+                <div class="imgExt mbm fl">
                     <gsml:img src="/res/img/promo/k12/k12-sponsored-by-logo.png"
                               alt="K12 logo" width="50" height="38"/>
                 </div>
@@ -82,6 +82,16 @@
                 </div>
             </div>
         </div>
+        <div class="clearfix"><!-- do not collapse --></div>
+
+        <!--advertorial line-->
+        <div class="mbs">
+            <hr class="keyline1"></hr>
+            <div class="fr small make-999999">
+                Advertorial
+            </div>
+        </div>
+        <div class="clearfix"><!-- do not collapse --></div>
 
         <!--main text-->
         <div class="grid_12 alpha">

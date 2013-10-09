@@ -689,18 +689,18 @@ Used for the none and one cases in the compare module
 /* ------------- module backgrounds -------------- */
 
 .bg-addPhotos { background: url("/res/img/module/background/addPhotos.png") no-repeat right bottom; }
-.bg-districtMap { background: url("/res/img/module/background/districtMap.png") no-repeat right bottom; }
+.bg-districtMap { background: url("/res/img/module/background/districtMap.gif") no-repeat right bottom; }
 .bg-writeReviews { background: url("/res/img/module/background/reviews.png") no-repeat right 0; }
 .bg-mobileApp { background: url("/res/img/module/background/mobile.png") no-repeat right bottom; }
 .bg-checklist { background: url("/res/img/module/background/checklist.png") no-repeat right bottom;}
-.bg-principal { background: url("/res/img/school/enrollment/principal.png") no-repeat;}
+.bg-principal { background: url("/res/img/school/enrollment/principal.jpg") no-repeat;}
 .bg-nearbySchool { background: url("/res/img/module/background/nearbySchools.png") no-repeat right bottom;}
 .bg-chooserBook { background: url("/res/img/module/background/chooserBook.png") no-repeat right bottom;}
 .bg-uspPromo { background: url("/res/img/usp/kids_tile_178x90.png") no-repeat right bottom;}
 .bg-uspPromo-lg { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat; background-position: 374px 23px;}
 .bg-uspPromo-lg-left { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat left bottom;}
 .bg-uspGetStarted { background: url("/res/img/usp/mother_Daughter_267x189.png") no-repeat right bottom;}
-.bg-nlSubscription { background: url(/res/img/nlHover/newsletter-210x260.png) no-repeat right bottom;}
+.bg-nlSubscription { background: url(/res/img/nlHover/newsletter-210x260-new.png) no-repeat right bottom;}
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds colors-------------- */
 

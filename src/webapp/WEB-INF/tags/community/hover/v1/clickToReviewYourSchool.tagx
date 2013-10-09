@@ -8,22 +8,12 @@
                              description="Name of the school to put in the body of the message."
                              required="true"/>
 
-    <!-- A version is default -->
     <c:set var="hoverTitle">
         Help other families find<br/>their great school.
     </c:set>
     <c:set var="hoverBody">
         What do you wish others knew about<br/>${schoolName}? Write a review now.
     </c:set>
-    <variant:b>
-        <!-- B version -->
-        <c:set var="hoverTitle">
-            You know ${schoolName} best!
-        </c:set>
-        <c:set var="hoverBody">
-            Parents, students and teachers know what makes their<br/>school great. Help other families find their great school by<br/>writing about <em>yours</em> now.
-        </c:set>
-    </variant:b>
 
     <div id="clickToReviewYourSchoolHover" class="dn">
         <div class="mod modal_4 width_11" id="clickToReviewYourSchoolHover">
