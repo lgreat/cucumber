@@ -60,13 +60,13 @@ GS.genericTabHandler = (function($){
         if (isHistoryAPIAvailable) {
             var queryString = window.location.search;
             if (isPreschoolsTab) {
-                queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", $currentTab.data('gs-tab-control'), true);
-            }
-            else {
                 queryString = GS.uri.Uri.removeFromQueryString(queryString, "tab");
             }
+            else {
+                queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", $currentTab.data('gs-tab-control'), true);
+            }
             var state = {tabName : $tabs[$currentTab.data('gs-tab-control')]};
-            window.History.pushState(state, null, queryString);
+            window.History.pushState(state, '', queryString);
         }
 //        else {
 //            var anchorVal = '';
