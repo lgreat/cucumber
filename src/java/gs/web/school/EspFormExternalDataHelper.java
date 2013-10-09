@@ -910,7 +910,7 @@ public class EspFormExternalDataHelper {
         }
     }
 
-    protected static class EspCensusDataTypeConfiguration {
+    public static class EspCensusDataTypeConfiguration {
         private Integer _id;
         private String _name;
         private String _genericName;
