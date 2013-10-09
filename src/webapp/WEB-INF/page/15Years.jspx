@@ -73,7 +73,7 @@
                         <h1 class="ptm make-06b" style="font-family: SourceSansPro-Regular, Helvetica;"> Share your story! </h1>
 
                         <!--facebook-->
-                        <a href="#" onclick=" window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436'); returnfalse;">
+                        <a onclick=" window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436'); returnfalse;">
                         <gsml:img styleClass="mhl" src="/res/img/promo/15Years/img_Facebook.png" alt="GreatSchools: FacebookShare" id="15thAnniversaryFacebook"/></a>
 
                         <!--twitter-->
