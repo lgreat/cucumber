@@ -23,8 +23,8 @@
                         </h5>
                     </div>
                     <div class="bd">
-                        <table class="tableType1" border="0" style="-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
-                            <tbody>
+                        <table class="tableType1" border="0">
+                            <tbody class="striped">
                             <c:forEach items="${configKeyPrefixesList}" var="keyPrefix">
                                 <c:set var="descriptionKey">${keyPrefix}_description</c:set>
                                 <c:set var="keyDate">${keyPrefix}_date_MMMdyyyy</c:set>
@@ -48,13 +48,7 @@
                         </h5>
                     </div>
                     <div class="bd">
-                        <table class="tableType1" border="0" style="-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
-                            <tbody>
-                            <tr>
-                                <td>Enrollment processes and deadlines vary by school. Contact schools directly for more information</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <p class="pal small bottom">Enrollment processes and deadlines vary by school. Contact schools directly for more information</p>
                     </div>
                 </div>
             </div>
