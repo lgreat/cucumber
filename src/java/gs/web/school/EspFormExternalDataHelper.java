@@ -892,7 +892,7 @@ public class EspFormExternalDataHelper {
     }
 
 
-    protected static class EspCensusBreakdownConfiguration {
+    public static class EspCensusBreakdownConfiguration {
         private Integer _id;
         private String _name;
 
