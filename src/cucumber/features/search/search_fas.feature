@@ -9,7 +9,7 @@ Feature: Find a school page tests
   @javascript
   Scenario: Search Find a School By Location
     When I do a by location search for Washington DC
-    Then I see "Schools near Washington, D.C."
+    Then I see "Schools near Washington, DC"
     And the title has "GreatSchools.org Search"
 
   @javascript

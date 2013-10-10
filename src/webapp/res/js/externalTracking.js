@@ -33,6 +33,8 @@ var pageTracking = {
     }
 };
 
+var omnitureEventNotifier = omnitureEventNotifier || pageTracking;
+
 var GS = GS || {};
 GS.tracking = GS.tracking || {};
 GS.tracking.data = GS.tracking.data || {};

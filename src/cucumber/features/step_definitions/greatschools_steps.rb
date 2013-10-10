@@ -71,7 +71,6 @@ Then /^I submit my "(.*?)" and confirmation email and Sign up$/ do |o_email|
   within selector_for 'MSS hover' do
     click_button 'Sign up'
   end
-  sleep 3
 end
 
 Then(/^I submit my "(.*?)" and Reset password$/) do |fpemail|
@@ -83,18 +82,7 @@ end
 Then "the MSS Email Validation hover is visible" do
   page.should have_content("Your subscription has been confirmed")
   steps %Q{
-    Then the "#subscriptionEmailValidated" element is visible
-  }
-end
-
-Then /^I click on Sign Up button$/ do
-  page.find(:css, "html body.www div.container_24 div#marginGS div.page-shadow div#contentGS.clearfix div.grid_8 div.mod div.inner div.bd div.section1 form.jq-emailSignUpForm div.line div.unit button.button-1").click
-end
-
-When "I see the Join Hover" do
-  page.should have_content("Already a member?")
-  steps %Q{
-    Then the "#joinHover" element is visible
+    Then I see the Subscription Confirmed hover
   }
 end
 

@@ -117,7 +117,7 @@
                                                     >Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
-                                            <span class="pa" style="top:8px; left:57px;">
+                                            <span class="pa" style="top:8px; left:59px;">
                                                 <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
                                             </span>
                                     </div>
@@ -135,7 +135,7 @@
                                                              styleClass="stateSelect"
                                                              style=""
                                                              styleId="stateSelector"/>
-                                        <span class="pa" style="left:367px; top:7px;">
+                                        <span class="pa" style="left:367px; top:8px;">
                                             <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
                                         </span>
                                     </div>
@@ -161,7 +161,7 @@
                                                     >Articles &amp;amp; Worksheets
                                             </option>
                                         </select>
-                                            <span class="pa" style="left: 127px; top:8px;">
+                                            <span class="pa" style="left: 130px; top:8px;">
                                                 <span class="iconx16 i-16-sort-list-arrow-down"><!-- do not collapse --></span>
                                             </span>
                                     </div>

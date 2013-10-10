@@ -11,14 +11,10 @@
         >
 
     <pageHelper:externalJavascript file="/res/js/compareModule.js"/>
-    <variant:a>
-        <pageHelper:externalCss file="/res/css/school/compareFooter.css"/>
-    </variant:a>
-    <variant:b>
-        <pageHelper:externalCss file="/res/css/school/compareFooter_b.css"/>
-    </variant:b>
+    <pageHelper:externalCss file="/res/css/school/compareFooter.css"/>
+
     
-<div id="editorialBar">
+    <div id="editorialBar">
     <div class="compareCitiesNear compareVertical">
         <gsweb:form id="compareVertical" action="/cities.page" method="get">
             <input type="hidden" name="includeState" value="${param['includeState']}"/>
@@ -45,57 +41,18 @@
         </gsweb:form>
     </div>
 
-    <variant:a>
-        <div class="editorialMoving">
-            <link:movingWithKids>
-                <gsml:img src="/res/img/content/movingWithKids/movingWithText.jpg"
-                          alt="Moving? View our tips to help your child with the transition"/>
-            </link:movingWithKids>
-        </div>
-        <div class="editorialChoosing">
-            <link:schoolChoiceCenter>
-                <gsml:img src="/res/img/content/schoolChoiceTips/sctWithText.jpg"
-                          alt="Choosing a school? Check out our school choice tips"/>
-            </link:schoolChoiceCenter>
-        </div>
-    </variant:a>
-    <variant:b>
-        <div class="editorialMoving">
-            <link:movingWithKids>
-                <gsml:img src="/res/img/moving_image.jpg"
-                          alt="Moving? View our tips to help your child with the transition"/>
-            </link:movingWithKids>
-            <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
-            <ul>
-                <gsweb:articlelink articleId="826" wrappingElement="li">
-                    Choosing a Mover
-                </gsweb:articlelink>
-                <gsweb:articlelink articleId="455" wrappingElement="li">
-                    Making a Smooth Transition
-                </gsweb:articlelink>
-                <gsweb:articlelink articleId="60" wrappingElement="li">
-                    Adjusting to a New School
-                </gsweb:articlelink>
-            </ul>
-        </div>
-        <div class="editorialChoosing">
-            <link:schoolChoiceCenter>
-                <gsml:img src="/res/img/choosing_image.jpg"
-                          alt="Choosing a school? Check out our school choice tips"/>
-            </link:schoolChoiceCenter>
-            <gsml:img src="/res/img/choosingschool.gif" alt="Choosing a school?" styleClass="word"/>
-            <ul>
-                <gsweb:articlelink articleId="87" wrappingElement="li">
-                    Imagining Your Ideal School
-                </gsweb:articlelink>
-                <gsweb:articlelink articleId="197" wrappingElement="li">
-                    Private vs. Public
-                </gsweb:articlelink>
-                <gsweb:articlelink articleId="48" wrappingElement="li">
-                    Tips for Your School Visit
-                </gsweb:articlelink>
-            </ul>
-        </div>
-    </variant:b>
+
+    <div class="editorialMoving">
+        <link:movingWithKids>
+            <gsml:img src="/res/img/content/movingWithKids/movingWithText.jpg"
+                      alt="Moving? View our tips to help your child with the transition"/>
+        </link:movingWithKids>
+    </div>
+    <div class="editorialChoosing">
+        <link:schoolChoiceCenter>
+            <gsml:img src="/res/img/content/schoolChoiceTips/sctWithText.jpg"
+                      alt="Choosing a school? Check out our school choice tips"/>
+        </link:schoolChoiceCenter>
+    </div>
 </div>
 </jsp:root>
