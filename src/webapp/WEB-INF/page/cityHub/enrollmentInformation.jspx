@@ -16,6 +16,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <c:set var="pageName" value="Enrollment Page" scope="request"/>
     <head>
+        <!--<meta name="decorator" content="standardDecorator-hubs"/>-->
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>City Enrollment Page</title>

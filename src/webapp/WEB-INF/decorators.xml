@@ -55,6 +55,9 @@
 
     <decorator name="standardDecorator-v1" page="standardDecorator-v1.jspx">
     </decorator>
+
+    <decorator name="standardDecorator-hubs" page="standardDecorator-hubs.jspx">
+    </decorator>
     <decorator name="minimalDecoratorWithAdsAndJs" page="minimalDecoratorWithAdsAndJs.jspx">
     </decorator>
 
