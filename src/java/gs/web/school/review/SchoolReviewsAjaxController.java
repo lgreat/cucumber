@@ -243,7 +243,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
 
         if (reviewPosted) {
-            // TODO: sendReviewPostedEmail(request, review);
+            sendReviewPostedEmail(request, review);
         } else if (reviewProvisional) {
             responseValues.put("showHover", "validateEmailSchoolReview");
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
@@ -577,6 +577,21 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
         urlBuilder.addParameter("lr", "true");
         reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
+        reviewLink.append("\">your review</a>");
+        emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+
+        getExactTargetAPI().sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
+    }
+
+    private void sendReviewPostedEmail(HttpServletRequest request, TopicalSchoolReview review) {
+        Map<String,String> emailAttributes = new HashMap<String,String>();
+        emailAttributes.put("schoolName", review.getSchool().getName());
+        emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
+
+        StringBuilder reviewLink = new StringBuilder("<a href=\"");
+        UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        urlBuilder.addParameter("lr", "true");
+//        reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
         reviewLink.append("\">your review</a>");
         emailAttributes.put("HTML__reviewLink", reviewLink.toString());
 
