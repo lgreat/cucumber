@@ -175,7 +175,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("DC education system", "/cityHub/educationCommunity.page", "Local Page");
 
-        FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel("DC enrollment information", "/", "Local Page");
+        FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel("DC enrollment information", "/cityHub/enrollmentInformation.page", "Local Page");
 
 
         featuredResourcesModelStep2.add(feature1Step2);
@@ -235,7 +235,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep3 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
+        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "/washington-dc/washington/schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
         FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel("OSSE Report Cards", "/", "External Page");
         FeaturedResourcesModel feature3Step3= new FeaturedResourcesModel("PMF Rating", "http://www.dcpcsb.org/SearchSchools.aspx", "External Page");
         FeaturedResourcesModel feature4Step3= new FeaturedResourcesModel("DCPS scorecard", "http://profiles.dcps.dc.gov/", "External Page");
@@ -358,8 +358,8 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep5 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel("DC Enrollment Info", "/", "Local Page");
-        FeaturedResourcesModel feature2Step5= new FeaturedResourcesModel("DC Common Application", "/", "Local Page");
+        FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel("DC Enrollment Info", "/cityHub/enrollmentInformation.page", "Local Page");
+        FeaturedResourcesModel feature2Step5= new FeaturedResourcesModel("DC Common Application", "www.myschooldc.org", "External Page");
 
         featuredResourcesModelStep5.add(feature1Step5);
         featuredResourcesModelStep5.add(feature2Step5);

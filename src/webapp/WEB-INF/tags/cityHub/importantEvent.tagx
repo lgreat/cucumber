@@ -15,7 +15,7 @@
         <div class=" bg-F5F5F5 border-E6E6E6 pvl">
             <div class="line container_24 clearfix">
                 <div class="unit size28of100">
-                    <h3 class="sourceSansPro-Semibold bottom">Important events</h3>
+                    <h3 class="sourceSansPro-Semibold bottom">Upcoming events</h3>
                     <c:if test="${hasImportantEventsToDisplay}">
                         <a href="/cityHub/importantDates.page" class="small">See all</a><br/>
                     </c:if>
@@ -60,7 +60,7 @@
             <span class="make-000000 small">
                 For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.
             </span>
-            <a href="http://www.greatschools.org" target="_blank" class="small mls">Find out details</a>
+            <a href="/cityHub/enrollmentInformation.page" class="small mls">Find out details</a>
         </div>
         </c:if>
 
