@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.IHubCityMappingDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -28,6 +29,7 @@ public class SchoolSearchCommandWithFields {
     private City _cityFromSearchString;
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
+    private IHubCityMappingDao _hubMappingDao;
 
     private boolean _hasAlreadyLookedForCityInSearchString;
 
@@ -120,6 +122,28 @@ public class SchoolSearchCommandWithFields {
 
     public boolean isCityHubSearch() {
         return isByNameSearch() && _command.getCollectionId() != null;
+    }
+
+    public boolean isHubsLocalSearch() {
+        boolean isHubsLocalSearch = false;
+
+        if(isCityHubSearch()) {
+            isHubsLocalSearch = true;
+        }
+        else {
+            if(isCityBrowse()) {
+                String city = _fields.getCityName();
+                State state = _fields.getState();
+                isHubsLocalSearch = ((getHubMappingDao().getHubIdFromCityAndState(city, state)) != null ? true : false);
+            }
+            else if(isNearbySearchByLocation()) {
+                String city = _command.getCity();
+                String state = _command.getState();
+                isHubsLocalSearch = ((getHubMappingDao().getHubIdFromCityAndState(city, State.fromString(state))) != null ?
+                        true : false);
+            }
+        }
+        return isHubsLocalSearch;
     }
 
     /**
@@ -361,5 +385,13 @@ public class SchoolSearchCommandWithFields {
 
     public Map getNearbySearchInfo() {
         return _nearbySearchInfo;
+    }
+
+    public IHubCityMappingDao getHubMappingDao() {
+        return _hubMappingDao;
+    }
+
+    public void setHubCityMappingDao(IHubCityMappingDao _hubMappingDao) {
+        this._hubMappingDao = _hubMappingDao;
     }
 }

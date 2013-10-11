@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.IHubCityMappingDao;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.pagination.DefaultPaginationConfig;
@@ -51,7 +52,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.view.RedirectView;
-import com.google.common.annotations.VisibleForTesting;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,6 +83,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     @Autowired
     private ZillowRegionDao _zillowDao;
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
 
     private String _noResultsViewName;
     private String _noResultsAjaxViewName;
@@ -131,6 +133,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final int MAX_PAGE_SIZE = 100;
 
     protected static final String VIEW_NOT_FOUND = "/status/error404.page";
+    public static final String MODEL_IS_HUBS_LOCAL_SEARCH = "isHubsLocalSearch";
 
     public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
 
@@ -261,6 +264,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_IS_AJAX_REQUEST, schoolSearchCommand.isAjaxRequest());
         boolean isSearch = !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse();
         model.put(MODEL_IS_SEARCH, isSearch);
+
+        model.put(MODEL_IS_HUBS_LOCAL_SEARCH, commandAndFields.isHubsLocalSearch());
 
         // City Browse Specific: Include facebook "facepile" functionality if on pilot city
         // Added here for now, so that we can force facepiles to be included with a url param, even on non-city-browse
@@ -1071,6 +1076,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
         commandAndFields.setDistrictDao(_districtDao);
         commandAndFields.setGeoDao(_geoDao);
+        commandAndFields.setHubCityMappingDao(_hubCityMappingDao);
         return commandAndFields;
     }
 
