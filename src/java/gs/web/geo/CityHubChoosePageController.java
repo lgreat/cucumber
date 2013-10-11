@@ -359,7 +359,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep5 = new ArrayList<FeaturedResourcesModel>();
 
         FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel("DC Enrollment Info", "/cityHub/enrollmentInformation.page", "Local Page");
-        FeaturedResourcesModel feature2Step5= new FeaturedResourcesModel("DC Common Application", "www.myschooldc.org", "External Page");
+        FeaturedResourcesModel feature2Step5= new FeaturedResourcesModel("DC Common Application", "http://www.myschooldc.org", "External Page");
 
         featuredResourcesModelStep5.add(feature1Step5);
         featuredResourcesModelStep5.add(feature2Step5);
