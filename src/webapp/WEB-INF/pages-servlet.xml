@@ -2938,7 +2938,7 @@
         <property name="viewName" value="/admin/schoolReview/schoolReviewList"/>
     </bean>
 
-    <bean name="/admin/schoolReview/topicalList.page"
+    <bean name="/admin/topicalSchoolReview/list.page"
           class="gs.web.admin.SchoolReviewListController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/admin/schoolReview/topicalSchoolReviewList"/>
@@ -2952,6 +2952,15 @@
         <property name="successView" value="redirect:/admin/schoolReview/list.page"/>
         <property name="commandName" value="command"/>
         <property name="commandClass" value="gs.web.admin.SchoolReviewEditCommand"/>
+    </bean>
+
+    <bean name="/admin/topicalSchoolReview/edit.page"
+          class="gs.web.admin.TopicalSchoolReviewEditController"
+          autowire="byName" lazy-init="true">
+        <property name="formView" value="/admin/schoolReview/topicalSchoolReviewEdit"/>
+        <property name="successView" value="redirect:/admin/topicalSchoolReview/list.page"/>
+        <property name="commandName" value="command"/>
+        <property name="commandClass" value="gs.web.admin.TopicalSchoolReviewEditCommand"/>
     </bean>
 
     <bean name="/admin/schoolReview/holdList.page"

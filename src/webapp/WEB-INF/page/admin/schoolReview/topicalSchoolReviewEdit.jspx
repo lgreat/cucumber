@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:hideLeaderboard/>
+<pageHelper:hideFooterAd/>
+<head>
+    <![CDATA[<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>]]>
+    <title>School Review Edit | GreatSchools</title>
+    <style type="text/css">
+        .editForm label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .editForm textarea {
+            color: black;
+        }
+
+        .reportedEntity td, .reportedEntity th {
+            padding: 2px;
+            border: 1px solid #666;
+        }
+    </style>
+    <script type="text/javascript">
+        s = {};
+        jQuery(document).ready(function(){
+            jQuery('a.block-ip').click(function(){
+                var _content = jQuery(this).html()
+                _ip = jQuery(this).attr('id');
+
+                if ( _content == 'block' ){
+                    jQuery(this).html('blocking...')
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: '/admin/schoolReview/bannedIp/add.page',
+                        data: {ip: _ip},
+                        async: false
+                    });
+                    jQuery(this).html('Blocked. Manage list');
+                    jQuery(this).attr('href', '/admin/schoolReview/bannedIp/list.page');
+                }
+
+                if ( _content == 'Blocked. Manage list' ) {
+                    return true;
+                }
+                return false;
+            })
+        });
+    </script>
+</head>
+<gsml:body pageLayout="nocol" adPageName="schoolReviewEdit">
+<p>
+    Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
+    <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a> |
+    <a href="/admin/topicalSchoolReview/list.page">Flagged topical reviews</a> |
+    <a href="/admin/topicalSchoolReview/list.page?showUnprocessed=true">Unprocessed topical reviews</a> |
+    <a href="/admin/schoolReview/bannedIp/list.page">Banned IP Addresses</a>
+</p>
+<br/>
+<c:if test="${not empty requestScope.command.review}">
+    <h2>Review details</h2>
+    <c:set var="review" value="${requestScope.command.review}"/>
+
+    <form action="/admin/topicalSchoolReview/edit.page" method="post" class="editForm">
+        <input type="hidden" name="id" value="${review.id}"/>
+        <input type="hidden" name="from" value="${requestScope.command.from}"/>
+        <label>Sender:</label>
+            <span class="value">
+                <c:choose>
+                    <c:when test="${review.user.userProfile ne null}">
+                        <link:userProfile user="${review.user}">${review.user.userProfile.screenName}</link:userProfile>
+                    </c:when>
+                    <c:otherwise>
+                        <em>Not registered</em>
+                    </c:otherwise>
+                </c:choose>
+                (${review.who.name})</span>
+        <br/>
+        <label>Sender name:</label><span class="value">${review.user.firstName} ${review.user.lastName}</span>
+        <br/>
+        <label>Sender email:</label><span class="value">${review.user.email}</span>
+        <br/>
+        <c:if test="${not empty review.ip}">
+            <label>Sender ip:</label><span class="value">${review.ip} (<a href="#" class="block-ip" id="${review.ip}">block</a>)</span><br/>
+        </c:if>
+        <label>School:</label>
+            <span class="value"><link:schoolProfileParentReview
+                    school="${review.school}">${review.school.name}</link:schoolProfileParentReview>
+                (${review.school.databaseState} ${review.school.type.name})</span>
+        <br/>
+        <label>Topic:</label>
+        <span class="value">${review.topic.name}</span>
+        <br/>
+        <label>Tags:</label>
+        <span class="value"><c:forEach items="${review.tags}" var="tag" varStatus="loopStatus">${tag.name}${(not loopStatus.last)?', ':''}</c:forEach></span>
+        <br/>
+        <fmt:formatDate value="${review.posted}" var="reviewPosted"
+                        pattern="MMMM d, yyyy"/>
+        <label>Posted:</label><span class="value">${reviewPosted}</span>
+        <br/>
+        <label>Status:</label>
+            <span class="value">${review.status}
+                <c:choose>
+                    <c:when test="${review.status eq 'u'}">(unprocessed)</c:when>
+                    <c:when test="${review.status eq 'p'}">(public/live)</c:when>
+                    <c:when test="${review.status eq 'a'}">(ratings only public/live)</c:when>
+                    <c:when test="${review.status eq 'd' or review.status eq 'r'}">(disabled)</c:when>
+                    <c:when test="${review.status eq 'h'}">Held</c:when>
+                </c:choose>
+            </span>
+        <br/>
+        <c:if test="${not empty review.how}">
+            <label>How:</label>
+            <span class="value">${review.how}</span>
+            <br/>
+        </c:if>
+        <br/>
+        <label>Reports:</label>
+        <c:choose>
+            <c:when test="${empty requestScope.command.reports}">
+                <span class="value">None</span>
+            </c:when>
+            <c:otherwise>
+                <input type="hidden" id="reportId" name="reportId" value=""/>
+                <table class="reportedEntity">
+                    <tr>
+                        <th>Date Reported</th>
+                        <th>Reason</th>
+                        <th>Reporter</th>
+                        <th>State</th>
+                    </tr>
+                    <c:forEach items="${requestScope.command.reports}" var="report">
+                        <tr>
+                            <fmt:formatDate value="${report.dateCreated}" var="reportCreated"
+                                            pattern="MMMM d, yyyy h:mma"/>
+                            <td>${reportCreated}</td>
+                            <td>${report.reason}</td>
+                            <td><c:choose>
+                                <c:when test="${report.reporterId eq -1}">Auto-filter</c:when>
+                                <c:when test="${command.reportToUserMap ne null and command.reportToUserMap[report.id] ne null}">
+                                    <link:userProfile user="${command.reportToUserMap[report.id]}">${command.reportToUserMap[report.id].userProfile.screenName}</link:userProfile>
+                                </c:when>
+                                <c:otherwise>${report.reporterId}</c:otherwise></c:choose></td>
+                            <td><c:choose>
+                                <c:when test="${report.active}">Open</c:when>
+                                <c:otherwise>Resolved</c:otherwise></c:choose></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:otherwise>
+        </c:choose>
+        <br/>
+        <br/>
+        <label>Rating:</label><span class="value">${review.rating.name}</span>
+        <br/>
+        <br/>
+        <label for="commentsInput">Review:</label><br/>
+        <textarea id="commentsInput" rows="10" cols="75"
+                  name="comments" disabled="disabled"><!-- do not collapse -->${review.comments}</textarea>
+        <br/>
+        <br/>
+        <label for="notesInput">Moderator comments:</label><br/>
+        <textarea id="notesInput" rows="5" cols="75"
+                  name="note">${review.note}</textarea>
+        <input id="notesEdit" type="submit" name="formCancel" value="Edit"
+               onclick="return false;" style="display:none;"/>
+        <input id="notesSave" type="submit" name="submitNote" value="Save Comments"/>
+        <c:choose>
+            <c:when test="${not empty review.note}">
+                <script type="text/javascript">
+                    jQuery('#notesEdit').show();
+                    jQuery('#notesSave').hide();
+                    jQuery('#notesInput').prop('disabled', true);
+                    jQuery('#notesEdit').click(function() {
+                        jQuery('#notesEdit').hide();
+                        jQuery('#notesSave').show();
+                        jQuery('#notesInput').prop('disabled', false);
+                        jQuery('#notesInput').focus();
+                    });
+                </script>
+            </c:when>
+            <c:otherwise>
+                <script type="text/javascript">
+                    jQuery('#notesEdit').hide();
+                </script>
+            </c:otherwise>
+        </c:choose>
+        <br/>
+        <br/>
+        <c:choose>
+            <c:when test="${review.status eq 'u'}">
+                <!--
+                For pre-moderated reviews, the options to Publish/Reject
+                -->
+                <p>This review is currently <strong>unprocessed</strong>.</p>
+                <input type="submit" name="enableReview" value="Publish Review"/>
+                &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                <input type="submit" name="disableReview" value="Reject Review"/>
+                <br/>
+                <br/>
+            </c:when>
+            <c:when test="${review.status eq 'h'}">
+                <!--
+                For held reviews, the options to Publish/Reject
+                -->
+                <p>This review is currently <strong>held</strong>.</p>
+                <input type="submit" name="enableReview" value="Publish Review"/>
+                &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                <input type="submit" name="disableReview" value="Reject Review"/>
+                <br/>
+                <br/>
+            </c:when>
+            <c:when test="${review.status eq 'p'}">
+                <p>This review is currently <strong>live</strong>.</p>
+                <input type="submit" name="disableReview" value="Disable Review"/>
+                <br/>
+                <br/>
+            </c:when>
+            <c:otherwise>
+                <p>This review is currently <strong>disabled</strong>.</p>
+                <input type="submit" name="enableReview" value="Enable Review"/>
+                <br/>
+                <br/>
+            </c:otherwise>
+        </c:choose>
+        <c:if test="${not empty requestScope.command.reports}">
+            <c:set var="reportWord" value="Report"/>
+            <c:if test="${fn:length(requestScope.command.reports) gt 1}">
+                <c:set var="reportWord" value="Reports"/>
+            </c:if>
+            <input type="submit" name="resolveReports" value="Resolve ${reportWord}"/>
+            <br/>
+            <br/>
+        </c:if>
+        <br/>
+    </form>
+</c:if>
+<c:if test="${empty requestScope.command.review}">
+    <p>Can't find review to edit!</p>
+</c:if>
+<p>
+    Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
+    <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a> |
+    <a href="/admin/topicalSchoolReview/list.page">Flagged topical reviews</a> |
+    <a href="/admin/topicalSchoolReview/list.page?showUnprocessed=true">Unprocessed topical reviews</a> |
+    <a href="/admin/schoolReview/bannedIp/list.page">Banned IP Addresses</a>
+</p>
+<br/><br/>
+<mod:tracking pageName="Topical School Review Details Admin"
+              hier1="Admin"/>
+</gsml:body>
+</html>
+</jsp:root>
