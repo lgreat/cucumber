@@ -451,6 +451,8 @@ public final class UrlUtil {
     }
 
     public static final String[] COBRAND_IGNORE_URL_PREFIXES = {
+        "alpha",
+        "alpha-demo",
         "secure",
         "res1",
         "res2",
