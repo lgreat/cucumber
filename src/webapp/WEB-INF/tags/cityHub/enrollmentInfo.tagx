@@ -12,7 +12,7 @@
         <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
             <c:choose>
                 <c:when test="${(defaultTab == enrollmentInfo.tabName and empty param.tab) or param.tab == enrollmentInfo.tabName}">
-                    <div class="container_24 clearfix mvl" data-gs-tab-content="${enrollmentInfo.tabName}"
+                    <div class="container_24 clearfix mvl ptl" data-gs-tab-content="${enrollmentInfo.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
                         <div class="alpha grid_12 suffix_1">
                             <h3 class="SourceSansPro-Semibold-h3">
@@ -45,7 +45,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="container_24 clearfix mvl dn" data-gs-tab-content="${enrollmentInfo.tabName}"
+                    <div class="container_24 clearfix mvl dn ptl" data-gs-tab-content="${enrollmentInfo.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
                         <div class="alpha grid_12 suffix_1">
                             <h3 class="SourceSansPro-Semibold-h3">
