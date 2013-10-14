@@ -14,7 +14,7 @@
                 <c:when test="${(defaultTab == enrollmentInfo.tabName and empty param.tab) or param.tab == enrollmentInfo.tabName}">
                     <div class="container_24 clearfix mvl ptl" data-gs-tab-content="${enrollmentInfo.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
-                        <div class="alpha grid_12 suffix_1">
+                        <div class="alpha grid_12 suffix_1 mbl pbl">
                             <h3 class="SourceSansPro-Semibold-h3">
                                 ${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}
                             </h3>
@@ -42,12 +42,13 @@
                                 <span class="fr plm mlm" style="border-left: 1px solid #b8b8b8">${enrollmentInfo.browseLink.count}</span>
                             </button>
                         </div>
+                        <hr class="keyline1 mvl"/>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="container_24 clearfix mvl dn ptl" data-gs-tab-content="${enrollmentInfo.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
-                        <div class="alpha grid_12 suffix_1">
+                        <div class="alpha grid_12 suffix_1 mbl pbl">
                             <h3 class="SourceSansPro-Semibold-h3">
                                 ${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}
                             </h3>
@@ -75,6 +76,7 @@
                                 <span class="fr plm mlm" style="border-left: 1px solid #b8b8b8">${enrollmentInfo.browseLink.count}</span>
                             </button>
                         </div>
+                        <hr class="keyline1 mvl"/>
                     </div>
                 </c:otherwise>
             </c:choose>
