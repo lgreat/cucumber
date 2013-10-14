@@ -53,7 +53,7 @@
                 </c:choose>
             </div>
             <!-- TODO: remove the text below -->
-            <p>show ads: ${showAds}</p>
+            <!--<p>show ads: ${showAds}</p>-->
         </div>
 
         <c:if test="${hasImportantEventsToDisplay and !hideAnnoucmentModule}">
