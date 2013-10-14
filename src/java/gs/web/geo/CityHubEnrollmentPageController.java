@@ -349,11 +349,11 @@ public class CityHubEnrollmentPageController {
         // Description Text
         publicMiddleSchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
                 "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
-                "different school, there is the “out of boundary” process.<br/><br/>" +
+                "different school, there is the 'out of boundary' process.<br/><br/>" +
                 "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
                 "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
                 "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
-                "DC “out of boundary” public schools and DC charter schools have a new lottery system for applying to schools " +
+                "DC 'out of boundary' public schools and DC charter schools have a new lottery system for applying to schools " +
                 "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
                 "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
                 " GreatSchools Official School Profile or contact the school directly.");
@@ -463,11 +463,11 @@ public class CityHubEnrollmentPageController {
         // Description Text
         publicHighSchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
                 "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
-                "different school, there is the “out of boundary” process.<br/><br/>" +
+                "different school, there is the 'out of boundary' process.<br/><br/>" +
                 "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
                 "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
                 "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
-                "DC “out of boundary” public schools and DC charter schools have a new lottery system for applying to schools " +
+                "DC 'out of boundary' public schools and DC charter schools have a new lottery system for applying to schools " +
                 "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
                 "There are some DCPS specialized citywide high schools that have different application dates.<br/><br/>" +
 
