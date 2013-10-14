@@ -755,6 +755,7 @@ public final class UrlUtil {
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("cmsqa") != -1 ||
                 hostName.indexOf("qa") != -1 ||
+                hostName.indexOf("alpha") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches(".*carbonfive.com") ||
