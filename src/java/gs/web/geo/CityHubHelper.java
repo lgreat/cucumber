@@ -44,6 +44,7 @@ public class CityHubHelper {
     public static final String IMPORTANT_EVENT_KEY_PREFIX = "importantEvent";
     public static final String KEY_ENROLLMENT_DATES_KEY_PREFIX = "keyEnrollmentDates";
     public static final String COLLECTION_NICKNAME_KEY = "collection_nickname";
+    public static final String SHOW_ADS_KEY = "showAds";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
@@ -272,6 +273,20 @@ public class CityHubHelper {
         }
 
         return nickname;
+    }
+
+    public boolean showAds(List<HubConfig> configList, Integer collectionId) {
+        boolean showAds = false;
+
+        if(configList != null && collectionId != null) {
+            for(HubConfig config : configList) {
+                if(SHOW_ADS_KEY.equals(config.getQuay()) && "true".equals(config.getValue())) {
+                    showAds = true;
+                }
+            }
+        }
+
+        return showAds;
     }
 
     public void setHubCityMappingDao(final IHubCityMappingDao _hubCityMappingDao) {

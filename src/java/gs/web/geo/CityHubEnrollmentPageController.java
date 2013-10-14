@@ -119,6 +119,8 @@ public class CityHubEnrollmentPageController {
         List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade(request, configList, collectionId, state, city);
         modelAndView.addObject("enrollmentsInfo", enrollmentInfo);
 
+        modelAndView.addObject("showAds", getCityHubHelper().showAds(configList, collectionId));
+
         return modelAndView;
     }
 
