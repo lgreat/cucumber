@@ -21,7 +21,6 @@ import org.springframework.context.ApplicationContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -223,12 +222,12 @@ public class PageHelper {
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
 
-    public boolean isaddsHidden() {
-        return _hideAdds;
+    public boolean isAdsHidden() {
+        return _hideAds;
     }
 
-    public void sethideAdds(boolean _hideAdds) {
-        this._hideAdds = _hideAdds;
+    public void setHideAds(boolean _hideAds) {
+        this._hideAds = _hideAds;
     }
 
     private boolean _showingBelowNavAds = true;
@@ -244,7 +243,7 @@ public class PageHelper {
     private boolean _showingNthGraderHover = false;
 
 
-    private boolean _hideAdds = false;
+    private boolean _hideAds = false;
 
 
     private Set<String> _javascriptFileSources; // Unique set of files to include on page
@@ -620,7 +619,7 @@ public class PageHelper {
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return   _hideAdds || !_sessionContext.isAdvertisingOnline() ||
+        return   _hideAds || !_sessionContext.isAdvertisingOnline() ||
                 (_sessionContext.getCobrand() != null &&
                  _sessionContext.getCobrand().matches("mcguire|framed|vreo|e-agent|homegain|envirian|connectingneighbors|test")
                 ) ||
