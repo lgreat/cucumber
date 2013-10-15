@@ -133,8 +133,6 @@
     
     <div class="grid_16 mtl clearfix">
         <div class="fl">
-            <!-- TODO: GS-14889 remove this text -->
-            <!--<span>Is local hub search: ${isHubsLocalSearch}</span>-->
             <search:schoolResultsFor_text/>
         </div>
         <div class="fr mtm">

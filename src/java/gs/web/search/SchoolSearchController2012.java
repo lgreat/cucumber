@@ -267,6 +267,11 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         model.put(MODEL_IS_HUBS_LOCAL_SEARCH, commandAndFields.isHubsLocalSearch());
 
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if(pageHelper != null) {
+            pageHelper.setHideAds(commandAndFields.isHubsLocalSearch());
+        }
+
         // City Browse Specific: Include facebook "facepile" functionality if on pilot city
         // Added here for now, so that we can force facepiles to be included with a url param, even on non-city-browse
         // search results pages
