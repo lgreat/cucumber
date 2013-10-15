@@ -583,9 +583,12 @@ public class CityHubEnrollmentPageController {
 
     public String getBrowseLinkAnchorText(final String collectionNickname, final String schoolType, final String tabName) {
         StringBuilder anchorText = null;
-            anchorText = new StringBuilder("Browse ");
-            anchorText.append(collectionNickname != null ? collectionNickname : " " + " ");
-            anchorText.append(schoolType != null ? schoolType.toLowerCase(): " " + " ");
+            anchorText = new StringBuilder("Browse");
+            anchorText.append(" ");
+            anchorText.append(collectionNickname != null ? collectionNickname : "");
+            anchorText.append(" ");
+            anchorText.append(schoolType != null ? schoolType.toLowerCase(): "");
+            anchorText.append(" ");
             anchorText.append(tabName.toLowerCase());
             return anchorText.toString();
     }
