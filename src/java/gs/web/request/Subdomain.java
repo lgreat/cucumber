@@ -13,6 +13,8 @@ public enum Subdomain {
     DEV("dev"),
     DEV_PREVIEW("dev-preview"),
     MOBILE("m"),
+    ALPHA("alpha"),
+    ALPHA_DEMO("alpha-demo"),
     ;
 
     private String _value;
