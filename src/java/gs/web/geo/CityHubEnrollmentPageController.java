@@ -581,19 +581,13 @@ public class CityHubEnrollmentPageController {
 
     }
 
-    public String getBrowseLinkAnchorText(String collectionNickname, String schoolType, String tabName) {
+    public String getBrowseLinkAnchorText(final String collectionNickname, final String schoolType, final String tabName) {
         StringBuilder anchorText = null;
-
-        if(collectionNickname != null && !"".equals(collectionNickname.trim())
-                && schoolType != null && !"".equals(schoolType.trim())
-                && tabName != null && !"".equals(tabName.trim())) {
             anchorText = new StringBuilder("Browse ");
-            anchorText.append(collectionNickname + " ");
-            anchorText.append(schoolType.toLowerCase() + " ");
+            anchorText.append(collectionNickname != null ? collectionNickname : " " + " ");
+            anchorText.append(schoolType != null ? schoolType.toLowerCase(): " " + " ");
             anchorText.append(tabName.toLowerCase());
-        }
-
-        return anchorText != null ? anchorText.toString() : null;
+            return anchorText.toString();
     }
 
     public CityHubHelper getCityHubHelper() {
