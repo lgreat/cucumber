@@ -31,7 +31,7 @@
             </c:choose>
         </c:forEach>
     </div>
-    <div class="prefix_4 grid_16 suffix_4 clearfix">
+    <div class="prefix_4 grid_16 suffix_4 clearfix mts">
         <div class="line">
 
             <c:forEach items="${stepsInfo}" var="stepInfo">

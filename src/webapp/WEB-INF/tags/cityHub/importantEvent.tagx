@@ -15,7 +15,7 @@
         <div class=" bg-F5F5F5 border-E6E6E6 pvl">
             <div class="line container_24 clearfix">
                 <div class="unit size28of100">
-                    <h3 class="sourceSansPro-Semibold bottom">Upcoming events</h3>
+                    <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
                     <c:if test="${hasImportantEventsToDisplay}">
                         <a href="/cityHub/importantDates.page" class="small">See all</a><br/>
                     </c:if>
@@ -35,7 +35,7 @@
                             <div class="unit size7of100">
                                 <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                                     <div class="tac mtl">
-                                        <h3 class="bold">${importantEvent[dayOfMonthKey]}</h3>
+                                        <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
                                     </div>
                                 </span>
                             </div>
@@ -65,6 +65,4 @@
             <a href="/cityHub/enrollmentInformation.page" class="small mls">Find out details</a>
         </div>
         </c:if>
-
-    <hr class="keyline1 mvl"/>
 </jsp:root>

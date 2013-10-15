@@ -8,16 +8,16 @@
     <div class="container_24 clearfix mbl">
 
         <c:forEach items="${partnersInfo}" var="partnerInfo">
-            <div class="clearfix mbl">
+            <hr class="keyline1"/>
+            <div class="clearfix mvl">
                 <div class="grid_5">
                     <img alt="Partner Logo" src="${partnerInfo.logoLocation}"/>
                 </div>
                 <div class="grid_19">
                     <h3 class="SourceSansPro-Semibold-h3 bottom">${partnerInfo.heading}</h3>
-                   <p class="small bottom">${partnerInfo.description}</p>
+                   <p>${partnerInfo.description}</p>
                     <c:forEach items="${partnerInfo.links}" var="link">
-                    <a href="${link.hrefXml}"
-                       class="small" target="_blank">${link.contents}</a><br/>
+                    <a href="${link.hrefXml}" target="_blank">${link.contents}</a><br/>
                     </c:forEach>
                 </div>
             </div>
