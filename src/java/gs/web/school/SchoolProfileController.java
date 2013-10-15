@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
+import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.Review;
@@ -18,6 +19,7 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,8 @@ public class SchoolProfileController extends AbstractSchoolController implements
     private SchoolProfileDataHelper _schoolProfileDataHelper;
     private SchoolProfileHelper _schoolProfileHelper;
     public static final String SCHOOL_CALENDAR_ENABLED = "schoolCalendarEnabled";
+    @Autowired
+    private ISchoolDao _schoolDao;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -42,8 +46,6 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         School school = _requestAttributeHelper.getSchool(request);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        // Hide Ads based on City Hub to do - Shomi
-        pageHelper.sethideAdds(true);
         school.getMetadataValue("gs_rating"); // force lazy initialization
         model.put("school", school);
 
@@ -129,6 +131,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         if (pageHelper != null) {
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
+            pageHelper.setHideAds(_schoolDao.isSchoolInCollection(school.getDatabaseState(), school.getId()));
         }
 
         if (school.getIsNewGSRating()) {
@@ -178,5 +181,13 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
     public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
         _schoolProfileHelper = schoolProfileHelper;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }
