@@ -5,7 +5,7 @@
 >
 
     <c:forEach items="${stepsInfo}" var="stepInfo">
-        <![CDATA[ <a name="${stepInfo.stepNo}"></a>  ]]>  <div class="container_24 clearfix pvl">
+        <![CDATA[ <a name="${stepInfo.stepNo}"></a>  ]]>  <div class="container_24 clearfix pvl mtl">
           <div class="grid_12">
                 <div class="clearfix">
                     <div class="fl">
@@ -13,11 +13,11 @@
                     </div>
                   <h2 class="SourceSansPro-Semibold-h2 fl mlm mtm">${stepInfo.stepHeading}</h2>
                 </div>
-                <div class="small">${stepInfo.stepDescription}</div>
+                <p>${stepInfo.stepDescription}</p>
                 <div>
-                    <h6 class="bold bottom">Featured resources</h6>
+                    <h4 class="SourceSansPro-Semibold-h4 bottom pbs">Featured resources</h4>
                     <c:forEach items="${stepInfo.featuredResourcesModel}" var="feature" varStatus="featureCount" >
-                        <div class="small bottom">
+                        <div class="">
                             <c:choose>
                                 <c:when test="${feature.type == 'External Page'}">
                                     <a href="${feature.url}" target="_blank">${feature.label}</a>
@@ -38,7 +38,7 @@
                 <img src="${stepInfo.imageURL}" atl="step image"/>
             </div>
         </div>
-        <div class="container_24 clearfix pvl">
+        <div class="container_24 clearfix ptl">
             <div class="standard_1-1">
                 <c:if test="${not empty stepInfo.additionalResourcesModel}">
                     <div class="inner">

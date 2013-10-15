@@ -14,7 +14,7 @@
                 <div class="prefix_2 grid_19 pr">
                     <div class="line">
                         <div class="unit size33of100">
-                            <h4 class="make-ffffff bold bottom mtm">Find a school in ${city} ${state.abbreviation}</h4>
+                            <h4 class="SourceSansPro-Semibold-h4 make-ffffff bottom mtm">Find a school in ${city} ${state.abbreviation}</h4>
                         </div>
                         <div class="unit size64of100">
                             <gsml:input type="text" styleId="js-findByNameBox" styleClass="text1 text-bigger input_10 mlm"
