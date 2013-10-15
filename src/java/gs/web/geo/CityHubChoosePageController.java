@@ -53,8 +53,8 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("/cityHub/choosePage");
-        State state= State.DC;
-        String city= "washington";
+        State state= State.MI;
+        String city= "detroit";
 
 
         // Should be commented out once the Connical URL for Choose Page is in Place _Shomi Revert
@@ -235,7 +235,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep3 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "/washington-dc/washington/schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
+        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "/michigan/detroit/schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
         FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel("OSSE Report Cards", "/", "External Page");
         FeaturedResourcesModel feature3Step3= new FeaturedResourcesModel("PMF Rating", "http://www.dcpcsb.org/SearchSchools.aspx", "External Page");
         FeaturedResourcesModel feature4Step3= new FeaturedResourcesModel("DCPS scorecard", "http://profiles.dcps.dc.gov/", "External Page");

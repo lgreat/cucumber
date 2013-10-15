@@ -29,8 +29,8 @@ public class CityHubImportantDatesController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showPage(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-        String city = "Washington";
-        State state = State.DC;
+        State state= State.MI;
+        String city= "detroit";
 
         modelMap.put("city", city);
         modelMap.put("state", state);

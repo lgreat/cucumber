@@ -61,8 +61,8 @@ public class CityHubEnrollmentPageController {
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("/cityHub/enrollmentInformation");
-        State state= State.DC;
-        String city= "washington";
+        State state= State.MI;
+        String city= "detroit";
 
 
         // Should be commented out once the Connical URL for Choose Page is in Place _Shomi Revert

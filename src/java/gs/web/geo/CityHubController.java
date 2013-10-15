@@ -95,8 +95,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         /**
          * Adding the Review Module Functionality to the Controller Start
          */
+        if (collectionId != null)  {
         List<ReviewFacade> reviews = getReviewFacades(state, collectionId);
         modelAndView.addObject("reviews", reviews);
+
+        }
         /**
          * Adding the Review Module Functionality to the Controller End
          */
