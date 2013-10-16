@@ -97,12 +97,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         ReviewCommand reviewCommand = (ReviewCommand) command;
         reviewCommand.setIp(getIPFromRequest(request));
-        if (reviewCommand.getTopicId() != null) {
-            _log.error("Topic submission!");
-            //return errorJSON(response, errors);
-        } else if (reviewCommand.getTopicId() == null) {
-            _log.error("Non-topic submission!");
-        }
 
         SitePrefCookie cookie = new SitePrefCookie(request, response);
         String verifiedEmailHash = cookie.getProperty("emailVerified");
@@ -136,7 +130,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             userAuthorizedWithPassword = loggedInUser != null;
         }
         if (reviewCommand.getTopicId() != null) {
-            _log.error("Topic submission!");
             doTopicalReview(request, response, reviewCommand, school, user, emailVerifiedRecently, userAuthorizedWithPassword);
         } else if (reviewCommand.getTopicId() == null) {
             _log.error("Non-topic submission!");
@@ -152,9 +145,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         boolean newUser = false;
         Map<Object, Object> responseValues = new HashMap<Object, Object>();
         TopicalSchoolReview review;
-        ReviewTopic topic = _reviewTopicDao.find(reviewCommand.getTopicId());
-        topic.getTags(); // force loading of tags, otherwise will be loaded lazily below which could be after the session is closed
-        if (topic == null) {
+        if (_reviewTopicDao.find(reviewCommand.getTopicId()) == null) {
             errorJSON(response, "Invalid topic id");
             return;
         }
@@ -173,6 +164,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                 review = getReviewHelper().createTopicalReview(user, school, reviewCommand);
             }
         }
+        ReviewTopic topic = _reviewTopicDao.find(reviewCommand.getTopicId());
         review.setTopic(topic);
         review.getTags().clear();
         if (topic.getMainTag() != null) {
