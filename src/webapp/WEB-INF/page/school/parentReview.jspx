@@ -461,7 +461,7 @@ request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName
                             <c:forEach items="${selectedTopic.tags}" var="tag">
                                 <span class="${tag.main?'readonly':''}">
                                     <gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${tag.main}" disabled="${tag.main}"/>
-                                    <label for="tag_${tag.id}">${tag.name}</label>
+                                    <label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
                                 </span>
                             </c:forEach>
                         </div>
