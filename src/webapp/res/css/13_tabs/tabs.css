@@ -534,20 +534,24 @@
     outline: 0; /* Background Gradients */
     white-space: nowrap;
     /* Border Radius */
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    /*-moz-border-radius: 3px;*/
+    /*-webkit-border-radius: 3px;*/
+    /*border-radius: 3px;*/
     padding: 0 24px;
     font: bold 1em/2.75em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
     background: #FFFFFF; /* for non-css3 browsers */
-    color: #0083b2;
+    /*color: #0083b2;*/
     border: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.tabStyle-9.selected {
+.tabStyle-9 a{
+    color: #0083b2;
+}
+
+.tabStyle-9.selected a{
     width: auto;
     overflow: visible; /* for button width bug in IE */
     text-decoration: none;
@@ -558,9 +562,9 @@
     outline: 0; /* Background Gradients */
     white-space: nowrap;
     /* Border Radius */
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
     padding: 0 24px;
     font: bold 1em/2.75em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
     background: #0083b2; /* for non-css3 browsers */
