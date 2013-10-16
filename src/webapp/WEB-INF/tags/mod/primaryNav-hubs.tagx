@@ -92,6 +92,10 @@
                             </div>
                         </div>
                     </td>
+                    <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
+                    <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
+                        <c:set var="myUrl" value=""/>
+                    </c:if>
                     <td class="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} menuItem">
                         <div class="dropdownReference">
                             <link:loginOrRegister email="${requestScope.context.email}"
