@@ -131,9 +131,9 @@ public class CityHubHelperTest extends BaseControllerTestCase {
 
         String city = "qwerty";
         State state = State.DC;
-        Integer hubId = null;
+        Integer collectionId = null;
 
-        expect(_hubCityMappingDao.getHubIdFromCityAndState(city, state)).andReturn(hubId);
+        expect(_hubCityMappingDao.getCollectionIdFromCityAndState(city, state)).andReturn(collectionId);
 
         replayAllMocks();
         List<HubConfig> configList = _cityHubHelper.getHubConfig(city, state);
@@ -147,12 +147,12 @@ public class CityHubHelperTest extends BaseControllerTestCase {
 
         String city = "Washington";
         State state = State.DC;
-        Integer hubId = 1;
+        Integer collectionId = 1;
 
-        List<HubConfig> sampleConfigList = getSampleHubConfigList(hubId, city, state);
+        List<HubConfig> sampleConfigList = getSampleHubConfigList(collectionId, city, state);
 
-        expect(_hubCityMappingDao.getHubIdFromCityAndState(city, state)).andReturn(hubId);
-        expect(_hubConfigDao.getAllConfigFromHubId(hubId)).andReturn(sampleConfigList);
+        expect(_hubCityMappingDao.getCollectionIdFromCityAndState(city, state)).andReturn(collectionId);
+        expect(_hubConfigDao.getAllConfigFromCollectionId(collectionId)).andReturn(sampleConfigList);
 
         replayAllMocks();
         List<HubConfig> configList = _cityHubHelper.getHubConfig(city, state);
@@ -244,11 +244,11 @@ public class CityHubHelperTest extends BaseControllerTestCase {
 
         assertEquals("Congig key prefixes with index list must be empty", 0, ((List<String>) modelMap.get(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY)).size());
 
-        Integer hubId = 1;
+        Integer collectionId = 1;
         String city = "Washington";
         State state = State.DC;
 
-        final HubCityMapping hubCityMapping = getSampleHubCityMapping(1, hubId, city, state.getAbbreviation());
+        final HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
         hubConfigs = new ArrayList<HubConfig>(){{
             add(setSampleHubConfig(1, hubCityMapping, "key1", "value1"));
             add(setSampleHubConfig(1, hubCityMapping, "key2", "value2"));
@@ -262,7 +262,7 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         assertEquals("Config key prefixes with index list must be empty. None of the keys in the list passed have " +
                 "important event key prefix", 0, ((List<String>) modelMap.get(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY)).size());
 
-        hubConfigs = getSampleHubConfigList(hubId, city, state);
+        hubConfigs = getSampleHubConfigList(collectionId, city, state);
         modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
 
         List<String> configKeyPrefixesWithIndex = (List<String>) modelMap.get(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY);
@@ -280,13 +280,13 @@ public class CityHubHelperTest extends BaseControllerTestCase {
                 modelMap.get(keyPrefix + "_3_date_year"));
         assertNull("Expect important event 5 to not be included in the sorted list", modelMap.get(keyPrefix + "_5_date"));
 
-        hubConfigs.add(setSampleHubConfig(hubId, hubCityMapping, "importantEvent_4_date", "invalid date format"));
+        hubConfigs.add(setSampleHubConfig(collectionId, hubCityMapping, "importantEvent_4_date", "invalid date format"));
         modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
 
         assertNull("Expect the event 4 date key to not exist because that should throw an exception", modelMap.get(keyPrefix + "_4_date"));
 
         keyPrefix = CityHubHelper.KEY_ENROLLMENT_DATES_KEY_PREFIX;
-        hubConfigs = getSampleHubConfigList(hubId, city, state);
+        hubConfigs = getSampleHubConfigList(collectionId, city, state);
         modelMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, keyPrefix);
 
         configKeyPrefixesWithIndex = (List<String>) modelMap.get(CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY);
@@ -448,43 +448,43 @@ public class CityHubHelperTest extends BaseControllerTestCase {
 
         assertNull("Expect null to be retunred for null objects passed", collectionNickname);
 
-        Integer hubId = 1;
+        Integer collectionId = 1;
         String city = "Washington";
         State state = State.DC;
-        List<HubConfig> configList = getSampleHubConfigList(hubId, city, state);
+        List<HubConfig> configList = getSampleHubConfigList(collectionId, city, state);
 
-        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, hubId);
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, collectionId);
 
         assertNull("Expect collection nickname to be null", collectionNickname);
 
-        HubCityMapping hubCityMapping = getSampleHubCityMapping(1, hubId, city, state.getAbbreviation());
+        HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
         configList.add(setSampleHubConfig(1, hubCityMapping, _cityHubHelper.COLLECTION_NICKNAME_KEY, "DC"));
-        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, hubId);
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, collectionId);
 
         assertEquals("Expect collection nickname for DC hub to be DC", "DC", collectionNickname);
 
-        Integer anotherHubId = 2;
+        Integer anotherCollectionId = 2;
         String anotherCity = "Detroit";
         State anotherState = State.MI;
-        configList.addAll(getSampleHubConfigList(anotherHubId, anotherCity, anotherState));
-        HubCityMapping anotherHubCityMapping = getSampleHubCityMapping(2, anotherHubId, anotherCity, anotherState.getAbbreviation());
+        configList.addAll(getSampleHubConfigList(anotherCollectionId, anotherCity, anotherState));
+        HubCityMapping anotherHubCityMapping = getSampleHubCityMapping(2, anotherCollectionId, anotherCity, anotherState.getAbbreviation());
         configList.add(setSampleHubConfig(2, anotherHubCityMapping, _cityHubHelper.COLLECTION_NICKNAME_KEY, "Detroit"));
 
-        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, anotherHubId);
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, anotherCollectionId);
 
         assertEquals("Expect collection nickname for Detroit hub to be Detroit (Passing in list with mix of configs from 2" +
                 " different hubs", "Detroit", collectionNickname);
 
 
-        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, hubId);
+        collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, collectionId);
 
         assertEquals("Expect collection nickname for DC hub to be DC (Passing in list with mix of configs from 2" +
                 " different hubs", "DC", collectionNickname);
     }
 
-    private List<HubConfig> getSampleHubConfigList(final Integer hubId, final String city, final State state) {
+    private List<HubConfig> getSampleHubConfigList(final Integer collectionId, final String city, final State state) {
         List<HubConfig> sampleConfigList = new ArrayList<HubConfig>();
-        HubCityMapping hubCityMapping = getSampleHubCityMapping(1, hubId, city, state.getAbbreviation());
+        HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
 
         for(String key : _configKeyValues.keySet()) {
             sampleConfigList.add(setSampleHubConfig(1, hubCityMapping, key, _configKeyValues.get(key)));
@@ -503,11 +503,11 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         return hubConfig;
     }
 
-    private HubCityMapping getSampleHubCityMapping(final Integer id, final Integer hubId, final String city,
+    private HubCityMapping getSampleHubCityMapping(final Integer id, final Integer collectionId, final String city,
                                                    final String state) {
         HubCityMapping hubCityMapping = new HubCityMapping();
         hubCityMapping.setId(id);
-        hubCityMapping.setHubId(hubId);
+        hubCityMapping.setCollectionId(collectionId);
         hubCityMapping.setCity(city);
         hubCityMapping.setState(state);
         return hubCityMapping;

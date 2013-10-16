@@ -3,7 +3,6 @@ package gs.web.geo;
 import gs.data.hubs.HubConfig;
 import gs.data.state.State;
 import gs.web.hub.EduCommunityModel;
-import gs.web.hub.StepModel;
 import gs.web.util.list.Anchor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +38,7 @@ public class CityHubEducationCommunityController {
         modelMap.put("city", city);
         modelMap.put("state", state);
 
-        Integer collectionId = getCityHubHelper().getHubID(city, state);
+        Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelMap.put("collectionId", collectionId);
 
         List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);

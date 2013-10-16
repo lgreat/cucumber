@@ -35,7 +35,7 @@ public class CityHubImportantDatesController {
         modelMap.put("city", city);
         modelMap.put("state", state);
 
-        Integer collectionId = getCityHubHelper().getHubID(city, state);
+        Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelMap.put("collectionId", collectionId);
 
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);

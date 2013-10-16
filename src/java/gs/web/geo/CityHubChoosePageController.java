@@ -76,7 +76,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 //        }
 
 
-        final Integer collectionId = getCityHubHelper().getHubID(city, state);
+        final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);

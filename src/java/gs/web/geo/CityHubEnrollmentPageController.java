@@ -82,7 +82,7 @@ public class CityHubEnrollmentPageController {
 //            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
 //            return new ModelAndView(redirectView);
 //        }
-        final Integer collectionId = getCityHubHelper().getHubID(city, state);
+        final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         /**
          * The under heading Text will be templatized for every city in Data Base -Shomi
          */

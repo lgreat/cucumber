@@ -54,8 +54,8 @@ public class CityHubHelper {
     private AnchorListModelFactory _anchorListModelFactory;
 
 
-    public List<HubConfig> getConfigListFromCollectionId(final Integer hubId) {
-        return hubId != null ?  _hubConfigDao.getAllConfigFromHubId(hubId) : new ArrayList<HubConfig>();
+    public List<HubConfig> getConfigListFromCollectionId(final Integer collectionId) {
+        return collectionId != null ?  _hubConfigDao.getAllConfigFromCollectionId(collectionId) : new ArrayList<HubConfig>();
     }
 
     public ModelMap getImportantModuleMap(List<HubConfig> configList) {
@@ -76,15 +76,15 @@ public class CityHubHelper {
         return keyEnrollmentDatesMap;
     }
 
-    public Integer getHubID(final String city, final State state)
+    public Integer getCollectionId(final String city, final State state)
     {
-        Integer hubId = _hubCityMappingDao.getHubIdFromCityAndState(city, state);
-        return  hubId;
+        Integer collectionId = _hubCityMappingDao.getCollectionIdFromCityAndState(city, state);
+        return  collectionId;
     }
 
     public List<HubConfig> getHubConfig(final String city, final State state) {
-        Integer hubId = getHubID(city, state);
-        return hubId != null ?  _hubConfigDao.getAllConfigFromHubId(hubId) : new ArrayList<HubConfig>();
+        Integer collectionId = getCollectionId(city, state);
+        return collectionId != null ?  _hubConfigDao.getAllConfigFromCollectionId(collectionId) : new ArrayList<HubConfig>();
     }
 
     public ModelMap getFilteredConfigMap(final List<HubConfig> configList, final String keyPrefix) {
@@ -266,7 +266,7 @@ public class CityHubHelper {
         if(configList != null && collectionId != null) {
             for(HubConfig config : configList) {
                 if(COLLECTION_NICKNAME_KEY.equals(config.getQuay()) && config.getHubCityMapping() != null &&
-                        collectionId.equals(config.getHubCityMapping().getHubId())) {
+                        collectionId.equals(config.getHubCityMapping().getCollectionId())) {
                     nickname = config.getValue();
                 }
             }

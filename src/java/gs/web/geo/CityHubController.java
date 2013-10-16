@@ -77,7 +77,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
 
-        Integer collectionId = getCityHubHelper().getHubID(city, state);
+        Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("collectionId", collectionId);
         modelAndView.addObject("schoolBreakdown", getCityHubHelper().getCollectionBrowseLinks(request, collectionId, city, state));
 

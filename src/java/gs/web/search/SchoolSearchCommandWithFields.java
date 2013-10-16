@@ -134,12 +134,12 @@ public class SchoolSearchCommandWithFields {
             if(isCityBrowse()) {
                 String city = _fields.getCityName();
                 State state = _fields.getState();
-                isHubsLocalSearch = ((getHubMappingDao().getHubIdFromCityAndState(city, state)) != null ? true : false);
+                isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, state)) != null ? true : false);
             }
             else if(isNearbySearchByLocation()) {
                 String city = _command.getCity();
                 String state = _command.getState();
-                isHubsLocalSearch = ((getHubMappingDao().getHubIdFromCityAndState(city, State.fromString(state))) != null ?
+                isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, State.fromString(state))) != null ?
                         true : false);
             }
         }
