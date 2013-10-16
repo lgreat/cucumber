@@ -28,6 +28,11 @@
             <table id="gs-primary">
                 <tbody>
                 <tr>
+                    <td class="menuItem">
+                        <gsml:a href="/">
+                            <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
+                        </gsml:a>
+                    </td>
                     <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
                         <div class="dropdownReference">
                             <link:findASchool id="PN-FindASchool"

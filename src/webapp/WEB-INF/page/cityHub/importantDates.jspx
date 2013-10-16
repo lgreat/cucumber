@@ -12,7 +12,8 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Important dates</title>
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
