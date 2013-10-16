@@ -93,8 +93,8 @@ public class CityHubHelper {
 
         if (configList != null && keyPrefix != null) {
             for (HubConfig hubConfig : configList) {
-                String key = hubConfig.getQuay();
-                if (hubConfig != null && key.startsWith(keyPrefix)) {
+                String key = hubConfig != null ? hubConfig.getQuay() : null;
+                if (key != null && key.startsWith(keyPrefix)) {
                     /**
                      * The key should always be in this format - [type_of_key]_[index]_[type_of_value]
                      * an example for the type of key is "importantEvent"
