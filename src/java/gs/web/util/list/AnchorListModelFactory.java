@@ -562,11 +562,10 @@ public class AnchorListModelFactory {
                                       String city, Set<SchoolType> schoolTypes, LevelCode levelCode) {
         String href = null;
         try {
-            // TODO: url for collection id may not be same as city. multiple cities can exist in collection. this should work only for DC now.
-            if(collectionId != null) {}
-            else {}
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city, schoolTypes, levelCode);
-
+            if(collectionId != null) {
+                urlBuilder.addParameter("collectionId", collectionId.toString());
+            }
             href = urlBuilder.asSiteRelative(request);
         }
         catch (IllegalArgumentException ex) {

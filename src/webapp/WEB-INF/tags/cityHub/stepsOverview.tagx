@@ -9,7 +9,7 @@
         <div class="line">
             <div class="unit size28of100 make-ffb725" style="font:bold 240px/191px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;" >5</div>
             <div class="unit size57of100 lastUnit mtl pll">
-                <h1 class="SourceSansPro-Semibold-h1 make-0578AA bottom">simple steps</h1>
+                <h1 class="SourceSansPro-Semibold-h1-med make-0578AA bottom mtm">simple steps</h1>
                 <h2 class="SourceSansPro-Semibold-h2 make-666666 bottom">
                     to choosing a school in<br/>
                     ${city} ${state.abbreviation}
