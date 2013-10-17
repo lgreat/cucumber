@@ -151,8 +151,8 @@ public class CityHubEnrollmentPageController {
                                         "To enroll your child, you must apply through a lottery.<br/><br/>" +
                                         "Your child must meet legal requirements for age eligibility in order to enroll at DCPS:<br/>" +
                                         "<ul>" +
-                                        "<li>Preschool: Your child must turn 3 years of age on or before September 30 to be eligible for preschool.</li>" +
-                                        "<li>Pre-kindergarten: Your child must turn 4 years of age on or before September 30 to be eligible for pre-kindergarten.</li>" +
+                                        "<li><span class='bold'>Preschool:</span> Your child must turn 3 years of age on or before September 30 to be eligible for preschool.</li>" +
+                                        "<li><span class='bold'>Pre-kindergarten:</span> Your child must turn 4 years of age on or before September 30 to be eligible for pre-kindergarten.</li>" +
                                         "</ul><br/><br/>" +
                                         "DCPS does not make exceptions for children born after September 30 due to the popularity of the programs and a limited number of seats." +
                                         " Each child&#180;s date of birth is verified upon enrollment into school.");
