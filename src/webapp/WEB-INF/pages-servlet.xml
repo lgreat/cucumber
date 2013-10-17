@@ -2226,7 +2226,7 @@
         <property name="controllerFamily" value="CITY_LOCAL"/>
    </bean>
 
-    <bean name="/cityHub/enrollmentInformation.page"
+    <bean name="/cityHub/enrollment.page"
           class="gs.web.geo.CityHubEnrollmentPageController"
           autowire="byName" lazy-init="true"/>
 
@@ -2623,6 +2623,7 @@
                 <ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>
                 <ref bean="/cityHub/choosing-schools.page"/>
+                <ref bean="/cityHub/enrollment.page"/>
                 <ref bean="/school/research.page"/>
             </list>
         </property>

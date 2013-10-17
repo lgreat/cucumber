@@ -13,8 +13,13 @@ import gs.data.hubs.HubConfig;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.hub.EnrollmentModel;
 import gs.web.hub.MoreInformationModel;
+import gs.web.path.DirectoryStructureUrlFields;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.WordUtils;
@@ -33,13 +38,15 @@ import org.springframework.stereotype.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.common.collect.ImmutableList;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Controller for the City Hub Enrollment  Pages.
  * @author sarora@greatschools.org Shomi Arora.
  */
 @Controller
-public class CityHubEnrollmentPageController {
+public class CityHubEnrollmentPageController   implements IDirectoryStructureUrlController{
 
     private static final String PRESCHOOLS_TAB_NAME = "Preschools";
     private static final String ELEMENTARY_SCHOOLS_TAB_NAME = "Elementary schools";
@@ -60,34 +67,30 @@ public class CityHubEnrollmentPageController {
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("/cityHub/enrollmentInformation");
-        State state= State.MI;
-        String city= "detroit";
+        ModelAndView modelAndView = new ModelAndView("/cityHub/enrollment");
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+        final String city =  fields !=  null ? fields.getCityName() : null;
+        final State  state =  fields !=  null ? fields.getState() : null;
+        // Validate those inputs and give up if we can't build a reasonable page.
+        if (state == null) {
+            // no state name found on city page, so redirect to /
+            View redirectView = new RedirectView("/");
+            return new ModelAndView(redirectView);
+        }
 
+        if (city == null) {
+            // no city name found, so redirect to /california or whichever state they did provide
+            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
+            return new ModelAndView(redirectView);
+        }
 
-        // Should be commented out once the Connical URL for Choose Page is in Place _Shomi Revert
-//        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-//        final State state = sessionContext.getState();
-//        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-//        String city = StringUtils.defaultIfEmpty(request.getParameter(PARAM_CITY), fields.getCityName());
-//        // Validate those inputs and give up if we can't build a reasonable page.
-//        if (state == null) {
-//            // no state name found on city page, so redirect to /
-//            View redirectView = new RedirectView("/");
-//            return new ModelAndView(redirectView);
-//        }
-//
-//        if (StringUtils.isEmpty(city)) {
-//            // no city name found, so redirect to /california or whichever state they did provide
-//            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
-//            return new ModelAndView(redirectView);
-//        }
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         /**
          * The under heading Text will be templatized for every city in Data Base -Shomi
          */
 
-        final String  underHeadindText= "In DC, parents can choose to send their kids to either a public or private school.<br/><br/>" +
+        final String  underHeadingText= "In DC, parents can choose to send their kids to either a public or private school.<br/><br/>" +
                                         "Public schools include both district and charter schools and are free to any resident of DC. " +
                                         "Over 80,000 students are enrolled in the public system, with approximately 50% attending district and 50% attending charter schools." +
                                         "<br/><br/>Private schools include independent private schools, faith-based schools, and nonpublic schools that are certified as a special education facility.";
@@ -96,7 +99,7 @@ public class CityHubEnrollmentPageController {
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
-        modelAndView.addObject("underHeadindText", underHeadindText);
+        modelAndView.addObject("underHeadindText", underHeadingText);
         modelAndView.addObject("defaultTab", PRESCHOOLS_TAB_NAME);
         modelAndView.addObject("tabs", tabs);
 
@@ -591,6 +594,12 @@ public class CityHubEnrollmentPageController {
             anchorText.append(" ");
             anchorText.append(tabName.toLowerCase());
             return anchorText.toString();
+    }
+
+
+    public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
+        return fields == null ? false : fields.hasState() && fields.hasCityName() && fields.hasEnrollmentPage()  && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
+
     }
 
     public CityHubHelper getCityHubHelper() {

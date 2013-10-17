@@ -25,6 +25,9 @@ public class DirectoryStructureUrlFields {
 
     public static final String CHOOSING_SCHOOLS_PAGE = "choosing-schools";
 
+
+    public static final String ENROLLMENT_SCHOOLS_PAGE = "enrollment";
+
     /**
      * Identifier providing additional information for identifying a single url
      * resource wrt the {@link DirectoryStructureUrlFields} approach.
@@ -50,6 +53,10 @@ public class DirectoryStructureUrlFields {
     private boolean _hasSchoolsLabel = false;
 
     private boolean _isChoosePage= false;
+
+    private boolean _isEnrollmentPage= false;
+
+
     private ExtraResourceIdentifier _eri;
 
     public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
@@ -117,7 +124,12 @@ public class DirectoryStructureUrlFields {
             _cityName = pathComponents[2];
             if (pathComponents[3].equalsIgnoreCase(CHOOSING_SCHOOLS_PAGE)) {
                 _isChoosePage= true;
-            }   else {
+            } else if (pathComponents[3].equalsIgnoreCase(ENROLLMENT_SCHOOLS_PAGE))
+            {
+                _isEnrollmentPage= true;
+            }
+            else
+            {
 
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
@@ -334,6 +346,11 @@ public class DirectoryStructureUrlFields {
 
     public boolean hasChoosePage() {
         return _isChoosePage;
+    }
+
+
+    public boolean hasEnrollmentPage() {
+        return _isEnrollmentPage;
     }
 
     public String getSchoolID() {

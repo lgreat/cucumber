@@ -129,7 +129,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
 
     public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
-        return fields== null ? false : fields.hasState() && fields.hasCityName() && !fields.hasChoosePage() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
+        return fields== null ? false : fields.hasState() && fields.hasCityName() && !fields.hasChoosePage() && !fields.hasEnrollmentPage() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
 
     }
 
