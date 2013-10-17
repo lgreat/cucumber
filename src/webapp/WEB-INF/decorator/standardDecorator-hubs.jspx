@@ -52,18 +52,9 @@
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
           onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}">
 
-
-
-
-
     <div class="site-gradient">
-
-            <mod:primaryNav-hubs/>
-
-
+        <mod:primaryNav-hubs/>
     </div>
-
-
 
     <decorator:body/>
 
@@ -75,7 +66,6 @@
     <ad:hideGhostText/>
 
     ${requestScope.pageHelper.bottomJavaScript}
-
 
     <div id="fullPageOverlay"><!-- do not collapse --></div>
     <cobrand:framebuster-v1/>

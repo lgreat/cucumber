@@ -33,26 +33,23 @@
                             <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
                         </gsml:a>
                     </td>
+                    <td class="menuItem">
+                        <div class="menuItemAnchorText">Washington</div>
+                    </td>
                     <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
                         <div class="dropdownReference">
                             <link:findASchool id="PN-FindASchool"
                                               styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
-
-
                         </div>
                     </td>
-
-
                     <td class="${(pw == tabs.REVIEW_YOUR_SCHOOL ? 'selected' : '')} menuItem home">
                         <div class="dropdownReference">
                             <a href="/school/parentReview.page" id="PN-ReviewYourSchool" class="menuItemAnchorText GS_CI9_">Review Your School</a>
                         </div>
                     </td>
-                    <td class="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} menuItem">
+                    <td class="${(pw == tabs.CONTENT ? 'selected' : '')} menuItem">
                         <div class="dropdownReference">
-                            <link:elementary-school id="PN-ElementarySchool"
-                                                    styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
-
+                            <link:elementary-school id="PN-Content" styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
                             <div class="dropdown_3 text2">
                                 <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
                                     <li class="subMenuItem">
@@ -96,76 +93,12 @@
                     <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
                         <c:set var="myUrl" value=""/>
                     </c:if>
-                    <td class="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} menuItem">
+                    <td class="${(pw == tabs.SIGN_IN ? 'selected' : '')} menuItem lastNavUnit">
                         <div class="dropdownReference">
                             <link:loginOrRegister email="${requestScope.context.email}"
+                                                  styleClass="menuItemAnchorText"
                                                   onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
-
-
-                        </div>
-                    </td>
-                    <td class="${(pw == tabs.HIGH_SCHOOL ? 'selected' : '')} menuItem lastNavUnit">
-                        <div class="dropdownReference">
-                            <link:high-school id="PN-HighSchool" styleClass="menuItemAnchorText drop GS_CI9_">High School</link:high-school>
-
-                            <div class="dropdown_5 text2 dropdown_align_right">
-                                <div class="col_1">
-                                    <div class="col_content brdrt_dotted">
-                                        <ul class="none"> <!-- bullet type: disc/square/circle-->
-                                            <li><a href="/articles/?grades=206&amp;topics=209" id="PN_H_1-Math" class="GS_CI9_">Math</a>
-                                            </li>
-                                            <li><a href="/articles/?grades=206&amp;topics=211" id="PN_H_1-Reading"
-                                                   class="GS_CI9_">Reading</a>
-                                            </li>
-                                            <li><a href="/articles/?grades=206&amp;topics=216" id="PN_H_1-Writing"
-                                                   class="GS_CI9_">Writing</a>
-                                            </li>
-                                            <li><a href="/articles/?grades=206&amp;topics=212" id="PN_H_1-Science"
-                                                   class="GS_CI9_">Science</a>
-                                            </li>
-                                            <li><a href="/articles/?grades=206&amp;topics=213" id="PN_H_1-SocialStudies"
-                                                   class="GS_CI9_">Social Studies</a></li>
-                                            <li class="lastone"><a href="/articles/?grades=206&amp;topics=159" id="PN_H_1-Books"
-                                                                   class="GS_CI9_">Books</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col_1">
-                                    <div class="col_content">
-                                        <ul class="none"> <!-- bullet type: disc/square/circle-->
-                                            <li><a href="/articles/?topics=372&amp;grades=206" id="PN_H_2-Graduation"
-                                                   class="GS_CI9_">Graduation</a></li>
-                                            <li><a href="/college/" id="PN_H_2-CollegePrep/" class="GS_CI9_">College Prep</a>
-                                            </li>
-                                            <li><a href="/bullying.topic?content=4350" id="PN_H_2-Bullying"
-                                                   class="GS_CI9_">Bullying</a>
-                                            </li>
-                                            <li><a href="/improvement.topic?content=1543" id="PN_H_2-ImproveYourSchool"
-                                                   class="GS_CI9_">Improve Your School</a></li>
-                                            <li><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community"
-                                                   class="GS_CI9_">Community</a></li>
-                                            <li class="lastone"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880"
-                                                                   id="PN_H_2-SexDrugsAndYourTeen"
-                                                                   class="GS_CI9_">Sex, Drugs &amp;amp; Your Teen</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col_2">
-                                    <div class="ft_content clearfix">
-                                        <div class="fl">
-                                            <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTtech.jpg" width="130" height="66" alt="high school hot topic"/>
-                                        </div>
-                                        <div class="fl">
-                                            <p class="small_bold make-2b2b2b">Hot Topic</p>
-                                            <p>
-                                                <a href="/back-to-school/slideshows/7567-back-to-school-learning-digital-devices.gs"
-                                                   id="PN_H_HT-9TechToolsForYourTeen" class="small GS_CI9_">9 tech tools for your teen</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </td>
                 </tr>
