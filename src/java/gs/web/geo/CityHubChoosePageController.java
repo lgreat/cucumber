@@ -15,13 +15,19 @@ import gs.web.hub.StepModel;
 import gs.data.state.State;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.data.url.DirectoryStructureUrlFactory;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,28 +58,23 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
-        ModelAndView modelAndView = new ModelAndView("/cityHub/choosePage");
-        State state= State.MI;
-        String city= "detroit";
+        ModelAndView modelAndView = new ModelAndView("/cityHub/choosing-schools");
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+        final String city =  fields !=  null ? fields.getCityName() : null;
+        final State  state =  fields !=  null ? fields.getState() : null;
+        // Validate those inputs and give up if we can't build a reasonable page.
+        if (state == null) {
+            // no state name found on city page, so redirect to /
+            View redirectView = new RedirectView("/");
+            return new ModelAndView(redirectView);
+        }
 
-
-        // Should be commented out once the Connical URL for Choose Page is in Place _Shomi Revert
-//        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-//        final State state = sessionContext.getState();
-//        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-//        String city = StringUtils.defaultIfEmpty(request.getParameter(PARAM_CITY), fields.getCityName());
-//        // Validate those inputs and give up if we can't build a reasonable page.
-//        if (state == null) {
-//            // no state name found on city page, so redirect to /
-//            View redirectView = new RedirectView("/");
-//            return new ModelAndView(redirectView);
-//        }
-//
-//        if (StringUtils.isEmpty(city)) {
-//            // no city name found, so redirect to /california or whichever state they did provide
-//            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
-//            return new ModelAndView(redirectView);
-//        }
+        if (city == null) {
+            // no city name found, so redirect to /california or whichever state they did provide
+            View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
+            return new ModelAndView(redirectView);
+        }
 
 
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
@@ -372,7 +373,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
 
     public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
-        return fields== null ? false : fields.hasState() && fields.hasCityName() && fields.hasChoosePage()  && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
+        return fields == null ? false : fields.hasState() && fields.hasCityName() && fields.hasChoosePage()  && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
 
     }
 

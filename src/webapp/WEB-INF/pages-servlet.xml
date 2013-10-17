@@ -2230,7 +2230,7 @@
           class="gs.web.geo.CityHubEnrollmentPageController"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="/cityHub/choosePage.page"
+    <bean name="/cityHub/choosing-schools.page"
           class="gs.web.geo.CityHubChoosePageController"
           autowire="byName" lazy-init="true"/>
 
@@ -2622,7 +2622,7 @@
                 <ref bean="/school/overview.page"/>
                 <ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>
-                <ref bean="/cityHub/choosePage.page"/>
+                <ref bean="/cityHub/choosing-schools.page"/>
                 <ref bean="/school/research.page"/>
             </list>
         </property>

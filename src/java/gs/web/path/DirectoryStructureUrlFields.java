@@ -22,7 +22,9 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:yfan@greatschools.org">Young Fan</a>
  */
 public class DirectoryStructureUrlFields {
-    
+
+    public static final String CHOOSING_SCHOOLS_PAGE = "choosing-schools";
+
     /**
      * Identifier providing additional information for identifying a single url
      * resource wrt the {@link DirectoryStructureUrlFields} approach.
@@ -113,7 +115,7 @@ public class DirectoryStructureUrlFields {
             // or /california/san-francisco/San-Francisco-Unified-School-District/
             // or /california/alameda/1-Alameda-High-School/
             _cityName = pathComponents[2];
-            if (pathComponents[3].equalsIgnoreCase("choosePage")) {
+            if (pathComponents[3].equalsIgnoreCase(CHOOSING_SCHOOLS_PAGE)) {
                 _isChoosePage= true;
             }   else {
 
