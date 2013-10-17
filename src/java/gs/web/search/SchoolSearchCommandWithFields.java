@@ -34,6 +34,7 @@ public class SchoolSearchCommandWithFields {
     private boolean _hasAlreadyLookedForCityInSearchString;
     private boolean _hasAlreadyCheckedForIsHubLocalSearch;
     private boolean _isHubsLocalSearch;
+    private String _collectionId;
     private String _collectionIdFromUrlParam;
 
     public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields) {
@@ -132,18 +133,22 @@ public class SchoolSearchCommandWithFields {
         else {
             if(isCityHubSearchSchoolByName()) {
                 _isHubsLocalSearch = true;
+                _collectionId = _command.getCollectionId();
             }
             else {
                 if(isCityBrowse()) {
                     String city = _fields.getCityName();
                     State state = _fields.getState();
-                    _isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, state)) != null ? true : false);
+                    Integer collectionId = getHubMappingDao().getCollectionIdFromCityAndState(city, state);
+                    _isHubsLocalSearch = (collectionId != null ? true : false);
+                    if(collectionId != null) _collectionId = collectionId.toString();
                 }
                 else if(isNearbySearchByLocation()) {
                     String city = _command.getCity();
                     String state = _command.getState();
-                    _isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, State.fromString(state))) != null ?
-                            true : false);
+                    Integer collectionId = getHubMappingDao().getCollectionIdFromCityAndState(city, State.fromString(state));
+                    _isHubsLocalSearch = (collectionId != null ? true : false);
+                    if(collectionId != null) _collectionId = collectionId.toString();
                 }
             }
         }
@@ -395,6 +400,10 @@ public class SchoolSearchCommandWithFields {
 
     public boolean getHasAlreadyCheckedForIsHubLocalSearch() {
         return _hasAlreadyCheckedForIsHubLocalSearch;
+    }
+
+    public String getCollectionId() {
+        return _collectionId;
     }
 
     public IHubCityMappingDao getHubMappingDao() {

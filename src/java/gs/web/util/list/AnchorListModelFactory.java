@@ -27,6 +27,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
@@ -522,7 +523,7 @@ public class AnchorListModelFactory {
 
             SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName);
 
-            path = getSiteRelativePath(request, state, collectionId, cityName, schoolTypes, levelCode);
+            path = getSiteRelativePath(request, state, cityName, schoolTypes, levelCode);
             if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
                 anchor = new Anchor(path, anchorContent);
                 anchor.setCount(schoolSearchResult.getTotalResults());
@@ -558,18 +559,17 @@ public class AnchorListModelFactory {
         return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
     }
 
-    public String getSiteRelativePath(HttpServletRequest request, State state, Integer collectionId,
-                                      String city, Set<SchoolType> schoolTypes, LevelCode levelCode) {
+    public String getSiteRelativePath(HttpServletRequest request, State state, String city, Set<SchoolType> schoolTypes,
+                                      LevelCode levelCode) {
         String href = null;
         try {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city, schoolTypes, levelCode);
-            if(collectionId != null) {
-                urlBuilder.addParameter("collectionId", collectionId.toString());
-            }
             href = urlBuilder.asSiteRelative(request);
         }
         catch (IllegalArgumentException ex) {
-            _log.error("AnchorListModelFactory - unable to build city path", ex.getCause());
+            _log.error("AnchorListModelFactory - unable to build city path for " + city + ", " + state + " with" +
+                     schoolTypes != null && schoolTypes.size() > 0 ? " school types (" + StringUtils.join(schoolTypes, ",") + ")" : "" +
+                     levelCode != null ? " and level codes " + levelCode.getCommaSeparatedString() : "", ex.getCause());
         }
         return href;
     }
