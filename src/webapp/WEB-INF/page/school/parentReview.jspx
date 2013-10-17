@@ -509,21 +509,57 @@
     </c:choose>
 
     <c:if test="${isTopical}">
-        <div class="fr ptm tar small make-06b">
-            <a href="javascript:void(0)">
-                <img class="iconx16 i-16-cross"/>
-                Add a tag, need JS
+        <script>
+            $(document).ready(function(){
+                $("#availableTopicTags").hide();
+                $("#showSelectedTopicTags").click(function(){
+                    $("#availableTopicTags").toggle();
+                return false;
+                });
+            });
+        </script>
+
+        <div class="fl ptm small_bold">
+            Answers to this question relate to:
+            <!--<c:forEach items="${selectedTopic.tags}" var="tag">-->
+            <!--<span class="${tag.main?'readonly':''}">-->
+            <!--<gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${tag.main}" disabled="${tag.main}"/>-->
+            <!--<label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>-->
+            <!--</span>-->
+            <!--</c:forEach>-->
+        </div>
+
+        <div class="fr ptm small make-06b">
+            <a href="#">
+               <p class="fl iconx16 i-16-cross"/>
+               <p id="showSelectedTopicTags" class="fl small mls">Add a tag</p>
             </a>
         </div>
-        <div class="clearfix ptm small_bold">
-            Answers to this question relate to:
-            <c:forEach items="${selectedTopic.tags}" var="tag">
+
+        <!--<div class="">-->
+            <div class="fl clearfix small make-06b bottom">
+                <c:forEach items="${selectedTopic.tags}" var="tag">
+                    <c:choose>
+                        <c:when test="${tag.main}">
+                            <div class="">
                                 <span class="${tag.main?'readonly':''}">
                                     <gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${tag.main}" disabled="${tag.main}"/>
                                     <label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
                                 </span>
-            </c:forEach>
-        </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="">
+                                <span id="availableTopicTags">
+                                    <gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}"/>
+                                    <label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
+                                </span>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        <!--</div>-->
     </c:if>
     <div class="clearfix ptm">
         <div class="fl">
