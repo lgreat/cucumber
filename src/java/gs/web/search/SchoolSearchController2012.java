@@ -645,17 +645,16 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         // handle logic that used to be taken care of with old "FieldConstraints"
-        // Filter on school's district ID or city name
+        // Filter on school's district ID or city name or collection id
         District district = commandAndFields.getDistrict();
         City city = commandAndFields.getCity();
+        String collectionId = commandAndFields.getCollectionIdFromUrlParam();
+        boolean useCollectionIdAsSolrFilter = (commandAndFields.isHubsLocalSearch() && collectionId != null);
         if (district != null) {
             q.filter(SchoolFields.SCHOOL_DISTRICT_ID, String.valueOf(district.getId()));
-        } else if (city != null) {
+        } else if (city != null && !useCollectionIdAsSolrFilter) {
             q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + city.getName().toLowerCase() + "\"");
-        }
-
-        String collectionId = commandAndFields.getCollectionIdFromUrlParam();
-        if(commandAndFields.isCityHubSearch() && collectionId != null) {
+        } else if(useCollectionIdAsSolrFilter) {
             q.filter(SchoolFields.SCHOOL_COLLECTION_ID, "\"" + collectionId + "\"");
         }
 

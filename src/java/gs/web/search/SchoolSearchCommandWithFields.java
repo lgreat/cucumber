@@ -32,7 +32,8 @@ public class SchoolSearchCommandWithFields {
     private IHubCityMappingDao _hubMappingDao;
 
     private boolean _hasAlreadyLookedForCityInSearchString;
-
+    private boolean _hasAlreadyCheckedForIsHubLocalSearch;
+    private boolean _isHubsLocalSearch;
     private String _collectionIdFromUrlParam;
 
     public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields) {
@@ -120,30 +121,35 @@ public class SchoolSearchCommandWithFields {
         return _command.getSearchString() != null && !_command.isNearbySearch() && !isCityBrowse() && !isDistrictBrowse();
     }
 
-    public boolean isCityHubSearch() {
+    public boolean isCityHubSearchSchoolByName() {
         return isByNameSearch() && _command.getCollectionId() != null;
     }
 
     public boolean isHubsLocalSearch() {
-        boolean isHubsLocalSearch = false;
-
-        if(isCityHubSearch()) {
-            isHubsLocalSearch = true;
+        if(_hasAlreadyCheckedForIsHubLocalSearch) {
+            return _isHubsLocalSearch;
         }
         else {
-            if(isCityBrowse()) {
-                String city = _fields.getCityName();
-                State state = _fields.getState();
-                isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, state)) != null ? true : false);
+            if(isCityHubSearchSchoolByName()) {
+                _isHubsLocalSearch = true;
             }
-            else if(isNearbySearchByLocation()) {
-                String city = _command.getCity();
-                String state = _command.getState();
-                isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, State.fromString(state))) != null ?
-                        true : false);
+            else {
+                if(isCityBrowse()) {
+                    String city = _fields.getCityName();
+                    State state = _fields.getState();
+                    _isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, state)) != null ? true : false);
+                }
+                else if(isNearbySearchByLocation()) {
+                    String city = _command.getCity();
+                    String state = _command.getState();
+                    _isHubsLocalSearch = ((getHubMappingDao().getCollectionIdFromCityAndState(city, State.fromString(state))) != null ?
+                            true : false);
+                }
             }
         }
-        return isHubsLocalSearch;
+
+        _hasAlreadyCheckedForIsHubLocalSearch = true;
+         return _isHubsLocalSearch;
     }
 
     /**
@@ -385,6 +391,10 @@ public class SchoolSearchCommandWithFields {
 
     public Map getNearbySearchInfo() {
         return _nearbySearchInfo;
+    }
+
+    public boolean getHasAlreadyCheckedForIsHubLocalSearch() {
+        return _hasAlreadyCheckedForIsHubLocalSearch;
     }
 
     public IHubCityMappingDao getHubMappingDao() {
