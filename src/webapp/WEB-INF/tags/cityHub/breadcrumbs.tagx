@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="pageName" required="true" type="java.lang.String"/>
 
     <div class="container_24 clearfix">
-        <ul class="none smaller bottom mvs">
+        <ul class="none small bottom mvs">
             <li class="di"><link:cityHubHome state="${state}" city="${city}">${city}</link:cityHubHome> &amp;gt; </li>
             <![CDATA[<li class="di" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
                 ${pageName}
