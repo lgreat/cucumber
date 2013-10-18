@@ -265,11 +265,12 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         boolean isSearch = !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse();
         model.put(MODEL_IS_SEARCH, isSearch);
 
-        model.put(MODEL_IS_HUBS_LOCAL_SEARCH, commandAndFields.isHubsLocalSearch());
+        boolean isHubsLocalSearch = commandAndFields.isHubsLocalSearch();
+        model.put(MODEL_IS_HUBS_LOCAL_SEARCH, isHubsLocalSearch);
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if(pageHelper != null) {
-            pageHelper.setHideAds(commandAndFields.isHubsLocalSearch());
+        if(pageHelper != null && isHubsLocalSearch) {
+            pageHelper.setHideAds(true);
         }
 
         // City Browse Specific: Include facebook "facepile" functionality if on pilot city
