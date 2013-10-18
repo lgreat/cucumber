@@ -28,6 +28,7 @@
     <pageHelper:hideBelowNavAds/>
 
     <hub:searchChoosing/>
+    <hub:breadcrumbs city="${city}" state="${state}" pageName="Choosing a School"/>
     <hub:stepsOverview/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
     <hub:stepsChoosing/>
