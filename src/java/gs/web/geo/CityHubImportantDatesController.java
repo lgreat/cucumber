@@ -7,6 +7,7 @@ import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -55,7 +56,7 @@ public class CityHubImportantDatesController  implements IDirectoryStructureUrlC
             return new ModelAndView(redirectView);
         }
 
-        modelAndView.addObject("city", city);
+        modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
 
         Integer collectionId = getCityHubHelper().getCollectionId(city, state);

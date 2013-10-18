@@ -25,6 +25,7 @@
         <pageHelper:hideBelowNavAds/>
 
         <hub:searchChoosing/>
+        <hub:breadcrumbs city="${city}" state="${state}" pageName="Events"/>
         <hub:seeAllEventDates/>
 
         <mod:tracking pageName="${pageName}"
