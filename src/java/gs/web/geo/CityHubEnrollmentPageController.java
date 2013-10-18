@@ -124,6 +124,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
         modelAndView.addObject("showAds", getCityHubHelper().showAds(configList, collectionId));
 
+        modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
+                getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
+
         return modelAndView;
     }
 

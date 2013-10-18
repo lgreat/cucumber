@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="mbl" style="font:bold 56px/56px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
-                text-shadow: 0 0 24px rgba(0,0,0,1)">${city} ${state.abbreviation}
+                text-shadow: 0 0 24px rgba(0,0,0,1)">${collectionNickname}
             </div>
             <div class="pas mtm mbl pr border-round" style="background-color: #FFB843;">
                 <input type="text" name="q" class="text1 text-bigger input_16" id="js-findByNameBox"
@@ -28,7 +28,7 @@
                 <div class="pa" style="top: 5px; right:86px;">
                     <span class="iconx48 i-48-search-city-hubs addMousePointer" id="js-submit"><!-- do not collapse --></span>
                 </div>
-                <a href="/" class="vam small ptm phm fr">Not in ${state.abbreviation}?</a>
+                <a href="/" class="vam small ptm phm fr">Not in ${collectionNickname}?</a>
             </div>
             <div class="schoolBreakdown">
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>

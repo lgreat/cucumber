@@ -104,6 +104,9 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
          * Adding the Review Module Functionality to the Controller End
          */
 
+        modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
+                getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
+
         return modelAndView;
 }
 

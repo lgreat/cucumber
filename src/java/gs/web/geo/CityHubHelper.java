@@ -45,6 +45,7 @@ public class CityHubHelper {
     public static final String KEY_ENROLLMENT_DATES_KEY_PREFIX = "keyEnrollmentDates";
     public static final String COLLECTION_NICKNAME_KEY = "collection_nickname";
     public static final String SHOW_ADS_KEY = "showAds";
+    public static final String COLLECTION_NICKNAME_MODEL_KEY = "collectionNickname";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;

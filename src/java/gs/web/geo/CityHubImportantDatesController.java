@@ -67,6 +67,10 @@ public class CityHubImportantDatesController  implements IDirectoryStructureUrlC
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
         importantEventsMap.put(CityHubHelper.CONFIG_KEY_PREFIXES_WITH_INDEX_MODEL_KEY, configKeyPrefixesSortedByDate);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
+
+        modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
+                getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
+
         return modelAndView;
     }
 

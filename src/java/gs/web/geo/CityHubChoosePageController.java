@@ -98,7 +98,8 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         List<StepModel> stepsInfo = getStepFacades();
         modelAndView.addObject("stepsInfo", stepsInfo);
 
-
+        modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
+                getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
 
         return modelAndView;
 
