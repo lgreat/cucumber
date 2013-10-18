@@ -476,7 +476,7 @@
                     </div>
                 </div>
                 <div>
-                    <textarea class=" small make-787878 lined_paper">Tell us about your school.</textarea>
+                    <textarea id="js-reviewContent" name="comments" class=" js-reviewContent review-text small make-787878 lined_paper" placeholder="Tell us about your school."><!-- do not collapse --></textarea>
                 </div>
             </div>
 
@@ -499,10 +499,8 @@
                     </div>
                 </div>
                 <div>
-                    <c:set var="optionalTopicInsert" value=""/>
-                    <c:if test="${isTopical}"><c:set var="optionalTopicInsert" value="${selectedTopic.name} at "/></c:if>
                     <textarea id="js-reviewContent" name="comments" class="js-reviewContent review-text lined_paper default"
-                              placeholder="Tell us about ${optionalTopicInsert}your school"><!-- do not collapse --></textarea>
+                              placeholder="Tell us about your school"><!-- do not collapse --></textarea>
                 </div>
             </div>
         </c:otherwise>
@@ -513,21 +511,26 @@
             $(document).ready(function(){
                 $(".js-allAvailableTopicTags").hide();
                 $(".js-availableTopicTagsButton").hide();
-                $(".js-addTopicTags").click(function(){
-                    $(".js-addTopicTags").toggle();
+                $("#js-addTopicTags").click(function(){
+                    $(this).toggle();
                     $(".js-allAvailableTopicTags").toggle("1000, function()");
                 return false;
                 });
-//                $(".js-availableTopicTags .test").onclick(function(){
-//                    $("test_display").show();
-//                });
-                $(".js-availableTopicTagsText.test_2").click(function(){
-                    $(".js-availableTopicTagsButton").show();
-                    $(".js-availableTopicTagsText.test_2").hide();
+
+                $(".js-availableTopicTagsText").click(function(){
+                    var tagId = $(this).attr("id");
+                    tagId = tagId.substring("js-tag-text-".length);
+                    $("#js-tag-button-"+ tagId ).show();
+                    $(this).hide();
+                return false;
                 });
+
                 $(".js-availableTopicTagsButton").click(function(){
-                    $(".js-availableTopicTagsText.test_2").show();
-                    $(".js-availableTopicTagsButton").hide();
+                    var tagId = $(this).attr("id");
+                    tagId = tagId.substring("js-tag-button-".length);
+                    $("#js-tag-text-"+ tagId ).show();
+                    $(this).hide();
+                 return false;
                 });
 
             });
@@ -543,7 +546,7 @@
                 <!--</c:forEach>-->
             </div>
 
-            <div class="js-addTopicTags fr ptm small make-06b bottom">
+            <div class="fr ptm small make-06b bottom" id="js-addTopicTags">
                 <a href="#">
                    <p class="fl iconx16 i-16-cross"/>
                    <p class="fl small mls">Add a tag</p>
@@ -554,46 +557,39 @@
             <div class="clearfix"><!-- do not collapse --></div>
 
             <!--<div class="">-->
-                <div class="">
-                    <!--<div>-->
-                    <!--tag links-->
-                        <div class="js-allAvailableTopicTags mvm">
-                            <c:forEach items="${selectedTopic.tags}" var="tag">
-                                <c:if test="${!tag.main}">
-                                    <span class="js-availableTopicTagsText test_${tag.id}">
-                                        <a name="tagIds" styleId="tag_${tag.id}" value="${tag.id}">
-                                            <label class="small make-06b bottom" for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
-                                        </a>
-                                    </span>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                        <!--default  -->
-                        <div class="js-defaultTopicTag but but-lg but-2">
-                            <c:forEach items="${selectedTopic.tags}" var="tag">
-                                <c:if test="${tag.main}">
-                                    <span class="readonly">
-                                        <a name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${true}" disabled="${true}">
-                                            <label class="small make-555555 bottom" for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
-                                        </a>
-                                    </span>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                    <!--button tag-->
-                        <div class="js-availableTopicTagsButton but but-lg but-2 mlm">
-                            <c:forEach items="${selectedTopic.tags}" var="tag">
-                                <c:if test="${!tag.main}">
-                                    <span class="test_${tag.id}">
-                                        <a name="tagIds" styleId="tag_${tag.id}" value="${tag.id}">
-                                            <label class="small make-555555 bottom" for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
-                                        </a>
-                                    </span>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                    <!--</div>-->
+            <div class="">
+                <!--tag links-->
+                <div class="js-allAvailableTopicTags mvm">
+                    <c:forEach items="${selectedTopic.tags}" var="tag">
+                        <c:if test="${!tag.main}">
+                            <a href="#" class="js-availableTopicTagsText small make-06b bottom" id="js-tag-text-${tag.id}" title="${tag.description}">
+                                ${tag.name}
+                            </a>
+                        </c:if>
+                    </c:forEach>
                 </div>
+                <!--default  -->
+                <div class="js-defaultTopicTag but but-lg but-2">
+                    <c:forEach items="${selectedTopic.tags}" var="tag">
+                        <c:if test="${tag.main}">
+                            <span class="readonly">
+                                <a id="js-default-tag-${tag.id}">
+                                    <span class="small make-555555 bottom" title="${tag.description}">${tag.name}</span>
+                                </a>
+                            </span>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            <!--button tag-->
+                <c:forEach items="${selectedTopic.tags}" var="tag">
+                    <c:if test="${!tag.main}">
+                        <div class="js-availableTopicTagsButton but but-lg but-2 mlm" id="js-tag-button-${tag.id}">
+                            <span class="small make-555555 bottom" title="${tag.description}">${tag.name}</span>
+                            <span class="iconx16 i-16-close"></span>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
             <!--</div>-->
         </div>
     </c:if>
