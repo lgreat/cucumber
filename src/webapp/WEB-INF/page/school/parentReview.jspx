@@ -456,7 +456,7 @@
             <div class="clearfix mbl">
                 <div class="alpha">
                     <h4 class="bottom sourceSansPro-Semibold">
-                        The cake is a lie <c:if test="${selectedTopic ne null}">on ${selectedTopic.name}</c:if>
+                        How are the services for <c:if test="${selectedTopic ne null}"> ${selectedTopic.name} at this school?</c:if>
                     </h4>
                 </div>
                 <div id="starRatingContainerReview" class="alpha mts pts">
@@ -512,8 +512,9 @@
         <script>
             $(document).ready(function(){
                 $(".js-allAvailableTopicTags").hide();
+                $(".js-availableTopicTagsButton").hide();
                 $(".js-addTopicTags").click(function(){
-//                    $(".js-addTopicTags").toggle();
+                    $(".js-addTopicTags").toggle();
                     $(".js-allAvailableTopicTags").toggle("1000, function()");
                 return false;
                 });
@@ -532,7 +533,7 @@
             });
         </script>
         <div class="clearfix">
-            <div class="fl ptm small_bold">
+            <div class="fl ptm small_bold mbm">
                 Answers to this question relate to:
                 <!--<c:forEach items="${selectedTopic.tags}" var="tag">-->
                 <!--<span class="${tag.main?'readonly':''}">-->
@@ -542,7 +543,7 @@
                 <!--</c:forEach>-->
             </div>
 
-            <div class="js-addTopicTags fr ptm small make-06b">
+            <div class="js-addTopicTags fr ptm small make-06b bottom">
                 <a href="#">
                    <p class="fl iconx16 i-16-cross"/>
                    <p class="fl small mls">Add a tag</p>
@@ -550,44 +551,50 @@
                 </a>
             </div>
 
-            <div class="clearfix">
-                <div class="small make-06b bottom">
-                    <div>
-                        <div class="js-allAvailableTopicTags">
-                        <c:forEach items="${selectedTopic.tags}" var="tag">
-                            <c:if test="${!tag.main}">
-                                <span class="js-availableTopicTagsText test_${tag.id}">
-                                    <gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}"/>
-                                    <label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
-                                </span>
-                                <!--<script>-->
-                                    <!--$(document).ready(function(){-->
-                                      <!--$(".js-availableTopicTags").click(function(){-->
-                                            <!--$(".js-chosenTopicTags").toggle();-->
-                                           <!--return false;-->
-                                       <!--});-->
-                                <!--</script>-->
-                            </c:if>
-                        </c:forEach>
-                        </div>
-                        <!--default  -->
-                        <div class="js-defaultTopicTag">
+            <div class="clearfix"><!-- do not collapse --></div>
+
+            <!--<div class="">-->
+                <div class="">
+                    <!--<div>-->
+                    <!--tag links-->
+                        <div class="js-allAvailableTopicTags mvm">
                             <c:forEach items="${selectedTopic.tags}" var="tag">
-                                <c:if test="${tag.main}">
-                                    <span class="readonly">
-                                        <gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${true}" disabled="${true}"/>
-                                        <label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
+                                <c:if test="${!tag.main}">
+                                    <span class="js-availableTopicTagsText test_${tag.id}">
+                                        <a name="tagIds" styleId="tag_${tag.id}" value="${tag.id}">
+                                            <label class="small make-06b bottom" for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
+                                        </a>
                                     </span>
                                 </c:if>
                             </c:forEach>
-
-                            <div class="js-availableTopicTagsButton" style="display:none;">Hello ${tag.name}</div>
-
                         </div>
-
-                    </div>
+                        <!--default  -->
+                        <div class="js-defaultTopicTag but but-lg but-2">
+                            <c:forEach items="${selectedTopic.tags}" var="tag">
+                                <c:if test="${tag.main}">
+                                    <span class="readonly">
+                                        <a name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${true}" disabled="${true}">
+                                            <label class="small make-555555 bottom" for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
+                                        </a>
+                                    </span>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    <!--button tag-->
+                        <div class="js-availableTopicTagsButton but but-lg but-2 mlm">
+                            <c:forEach items="${selectedTopic.tags}" var="tag">
+                                <c:if test="${!tag.main}">
+                                    <span class="test_${tag.id}">
+                                        <a name="tagIds" styleId="tag_${tag.id}" value="${tag.id}">
+                                            <label class="small make-555555 bottom" for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>
+                                        </a>
+                                    </span>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    <!--</div>-->
                 </div>
-            </div>
+            <!--</div>-->
         </div>
     </c:if>
     <div class="clearfix ptm">
