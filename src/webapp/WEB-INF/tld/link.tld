@@ -4803,4 +4803,27 @@
             <description>JavaScript onclick attribute</description>
         </attribute>
     </tag>
+    <tag>
+        <name>cityHubHome</name>
+        <tag-class>gs.web.jsp.link.CityHubHomeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>City Hub Home</display-name>
+        <description>
+            <![CDATA[Hub home page]]>
+        </description>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>state</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>city name</description>
+        </attribute>
+    </tag>
 </taglib>

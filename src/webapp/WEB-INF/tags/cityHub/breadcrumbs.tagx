@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <jsp:directive.attribute name="city" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="state" required="true" type="gs.data.state.State"/>
+    <jsp:directive.attribute name="pageName" required="true" type="java.lang.String"/>
+
+    <div class="container_24 clearfix">
+        <ul class="none smaller bottom mvs">
+            <li class="di"><link:cityHubHome state="${state}" city="${city}">${city}</link:cityHubHome> &amp;gt; </li>
+            <![CDATA[<li class="di" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
+                ${pageName}
+            <![CDATA[</li>]]>
+        </ul>
+    </div>
+</jsp:root>
