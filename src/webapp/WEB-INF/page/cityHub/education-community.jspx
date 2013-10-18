@@ -30,6 +30,7 @@
 
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
+    <hub:breadcrumbs city="${city}" state="${state}" pageName="Education Community"/>
     <div class="container_24 clearfix">
         <div class="tac mtl pvl">
             <h1 class="SourceSansPro-Semibold-h1">${state} Education Community</h1>

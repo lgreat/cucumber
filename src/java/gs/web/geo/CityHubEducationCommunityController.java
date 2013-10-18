@@ -9,9 +9,9 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
+import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,7 +56,7 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
             View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
             return new ModelAndView(redirectView);
         }
-        modelAndView.addObject("city", city);
+        modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
 
         Integer collectionId = getCityHubHelper().getCollectionId(city, state);
