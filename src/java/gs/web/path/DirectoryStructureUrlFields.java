@@ -30,7 +30,7 @@ public class DirectoryStructureUrlFields {
 
     public static final String EDUCATION_COMMUNITY_SCHOOLS_PAGE = "education-community";
 
-
+    public static final String EVENTS_SCHOOLS_PAGE = "events";
 
     /**
      * Identifier providing additional information for identifying a single url
@@ -63,6 +63,8 @@ public class DirectoryStructureUrlFields {
 
     private boolean _isEducationCommunityPage= false;
 
+
+    private boolean _isEventsPage= false;
 
     private ExtraResourceIdentifier _eri;
 
@@ -109,6 +111,7 @@ public class DirectoryStructureUrlFields {
         _isChoosePage= false;
         _isEnrollmentPage= false;
         _isEducationCommunityPage= false;
+        _isEventsPage= false;
         _eri = null;
     }
     
@@ -139,6 +142,9 @@ public class DirectoryStructureUrlFields {
             } else if (pathComponents[3].equalsIgnoreCase(EDUCATION_COMMUNITY_SCHOOLS_PAGE))
             {
                 _isEducationCommunityPage= true;
+            } else if (pathComponents[3].equalsIgnoreCase(EVENTS_SCHOOLS_PAGE))
+            {
+                _isEventsPage= true;
             }
             else
             {
@@ -367,6 +373,10 @@ public class DirectoryStructureUrlFields {
 
     public boolean hasEducationCommunityPage() {
         return _isEducationCommunityPage;
+    }
+
+    public boolean hasEventsPage() {
+        return _isEventsPage;
     }
 
 
