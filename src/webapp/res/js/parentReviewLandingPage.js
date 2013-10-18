@@ -585,6 +585,16 @@ function GS_schoolReviewFormLandingPage(id) {
         var formData = form.serializeArray();
         GS.util.extendSerializedArray(formData, overrides);
 
+//        topical review tags
+       $(".js-availableTopicTagsButton:visible").each(function(){
+           var visibleTagId =  $(this).attr("id");
+           visibleTagId = visibleTagId.substring("js-tag-button-".length);
+           formData.push({
+               name:'tagIds',
+               value:visibleTagId
+           });
+       });
+
         jQuery.ajax({
             type: 'POST',
             url: url,
