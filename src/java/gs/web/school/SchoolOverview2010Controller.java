@@ -28,6 +28,7 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -58,6 +59,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private IReportedEntityDao _reportedEntityDao;
 
     private IEspResponseDao _espResponseDao;
+    @Autowired
+    private ISchoolDao _schoolDao;
 
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
@@ -91,6 +94,10 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         if (StringUtils.isNumeric(schoolIdStr)) {
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
+
+            if(pageHelper != null) {
+                pageHelper.setHideAds(_schoolDao.isSchoolInCollection(school.getDatabaseState(), school.getId()));
+            }
 
             // GS-10484
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
@@ -414,5 +421,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
         _controllerFamily = controllerFamily;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

@@ -533,10 +533,10 @@
     cursor: pointer;
     outline: 0; /* Background Gradients */
     white-space: nowrap;
-    /* Border Radius */
-    /*-moz-border-radius: 3px;*/
-    /*-webkit-border-radius: 3px;*/
-    /*border-radius: 3px;*/
+     /*Border Radius */
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
     padding: 0 24px;
     font: bold 1em/2.75em SourceSansPro-Semibold, Arial, Helvetica, sans-serif;
     background: #FFFFFF; /* for non-css3 browsers */
@@ -545,6 +545,10 @@
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.tabStyle-9:hover{
+    background-color: #E6E6E6;
 }
 
 .tabStyle-9.selected {
@@ -569,8 +573,4 @@
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-}
-
-.tabStyle-9.selected:hover{
-    color: #E6E6E6;
 }

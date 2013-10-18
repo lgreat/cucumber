@@ -493,7 +493,6 @@ public class AnchorListModelFactory {
             Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
             LevelCode levelCode = null;
             GsSolrQuery q = createGsSolrQuery();
-            q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
 
             if(filters != null) {
                 for(Object filter : filters) {
@@ -521,7 +520,7 @@ public class AnchorListModelFactory {
                 q.filter(SchoolFields.GRADE_LEVEL, filterLevelCode);
             }
 
-            SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName);
+            SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName, state);
 
             path = getSiteRelativePath(request, state, cityName, schoolTypes, levelCode);
             if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
@@ -535,21 +534,25 @@ public class AnchorListModelFactory {
     }
 
 
-    public SearchResultsPage<SolrSchoolSearchResult> searchForSchools(GsSolrQuery q, Integer collectionId, String cityName) {
+    public SearchResultsPage<SolrSchoolSearchResult> searchForSchools(GsSolrQuery q, Integer collectionId, String cityName,
+                                                                      State state) {
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
 
         if(collectionId != null) {
             q.filter(SchoolFields.SCHOOL_COLLECTION_ID, "\"" + collectionId + "\"");
         }
-        else {
+        else if(cityName != null && state != null) {
             q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + cityName.toLowerCase() + "\"");
+            q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
         }
 
         try {
             searchResultsPage = _gsSolrSearcher.search(q, SolrSchoolSearchResult.class, false);
-
         } catch (SearchException e) {
-            _log.error("Problem occured while getting schools or reviews: ", e);
+            String msg = "unknown query filter";
+            if(collectionId != null) msg = "collection id " + collectionId;
+            else if(cityName != null && state != null) msg = "city " + cityName + " in state " + state.getAbbreviation();
+            _log.error("AnchorListModelFactory - Problem getting schools for " + msg, e);
         }
 
         return searchResultsPage;
