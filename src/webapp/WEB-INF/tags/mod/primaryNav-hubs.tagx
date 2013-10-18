@@ -24,86 +24,99 @@
     <c:set var="pw" value="${requestScope.context.pathway}"/>
 
     <div class="menuContainer-primary">
-        <div class="container_24">
-            <table id="gs-primary">
-                <tbody>
-                <tr>
-                    <td class="menuItem">
-                        <gsml:a href="/">
-                            <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png" alt="GreatSchools: Involved Parents. Successful Kids"/>
-                        </gsml:a>
-                    </td>
-                    <td class="menuItem">
-                        <div class="menuItemAnchorText">Washington</div>
-                    </td>
-                    <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
-                        <div class="dropdownReference">
-                            <link:findASchool id="PN-FindASchool"
-                                              styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
-                        </div>
-                    </td>
-                    <td class="${(pw == tabs.REVIEW_YOUR_SCHOOL ? 'selected' : '')} menuItem home">
-                        <div class="dropdownReference">
-                            <a href="/school/parentReview.page" id="PN-ReviewYourSchool" class="menuItemAnchorText GS_CI9_">Review Your School</a>
-                        </div>
-                    </td>
-                    <td class="${(pw == tabs.CONTENT ? 'selected' : '')} menuItem">
-                        <div class="dropdownReference">
-                            <link:elementary-school id="PN-Content" styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
-                            <div class="dropdown_3 text2">
-                                <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-                                    <li class="subMenuItem">
-                                        <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs" id="SN_HT-An11YearOldWwithTheIQOfEinstein"
-                                           class="subMenuItemAnchorText GS_CI9_">An 11-year-old with the IQ of Einstein</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="/parenting-dilemmas/7539-parenting-tips-power-of-yet-carol-dweck-video.gs" id="SN_HT-OneWordThatllChangeYourParenting"
-                                           class="subMenuItemAnchorText GS_CI9_">One word that'll change your parenting</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="/parenting-dilemmas/7390-christine-carter-chores-for-kids-parenting-tips-video.gs"
-                                           id="SN_HT-TheToughLoveApproachToChores" class="subMenuItemAnchorText GS_CI9_">
-                                            The tough love approach to chores</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="http://blogs.greatschools.org/greatschoolsblog/2013/07/sibling-rivalry.html" id="SN_HT-SiblingRivalryOrAbuse"
-                                           class="subMenuItemAnchorText GS_CI9_">Sibling rivalry - or abuse?</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="/parenting-dilemmas/7306-signs-symptoms-of-bipolar-in-children.gs" id="SN_HT-BipolarAt5"
-                                           class="subMenuItemAnchorText GS_CI9_">Bipolar at 5?</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="/school-choice/7282-melting-pot-diversity-at-schools.gs" id="SN_HT-WhenTheMeltingPotBoilsOver"
-                                           class="subMenuItemAnchorText GS_CI9_">When the melting pot boils over</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="/parenting-dilemmas/7308-bipolar-girl-story-video.gs" id="SN_HT-RaisingSadie"
-                                           class="subMenuItemAnchorText GS_CI9_">Raising Sadie</a>
-                                    </li>
-                                    <li class="subMenuItem">
-                                        <a href="/parenting/social-skills/7260-parent-cliques-school.gs" id="SN_HT-DoParentCliquesRuleYourSchool"
-                                           class="subMenuItemAnchorText GS_CI9_">Do parent cliques rule your school?</a>
-                                    </li>
-                                </ul>
+        <div class="container_24 clearfix">
+            <div class="grid_5">
+                <gsml:a href="/">
+                    <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png"
+                              alt="GreatSchools: Involved Parents. Successful Kids"/>
+                </gsml:a>
+            </div>
+            <div class="grid_17">
+                <table id="gs-primary">
+                    <tbody>
+                    <tr>
+                        <td class="menuItem">
+                            <div class="menuItemAnchorText">Washington</div>
+                        </td>
+                        <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
+                            <div class="dropdownReference">
+                                <link:findASchool id="PN-FindASchool"
+                                                  styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
                             </div>
-                        </div>
-                    </td>
-                    <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
-                    <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
-                        <c:set var="myUrl" value=""/>
-                    </c:if>
-                    <td class="${(pw == tabs.SIGN_IN ? 'selected' : '')} menuItem lastNavUnit">
-                        <div class="dropdownReference">
-                            <link:loginOrRegister email="${requestScope.context.email}"
-                                                  styleClass="menuItemAnchorText"
-                                                  onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
-                                                  redirect="${myUrl}">Sign In</link:loginOrRegister>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                        <td class="${(pw == tabs.REVIEW_YOUR_SCHOOL ? 'selected' : '')} menuItem home">
+                            <div class="dropdownReference">
+                                <a href="/school/parentReview.page" id="PN-ReviewYourSchool"
+                                   class="menuItemAnchorText GS_CI9_">Review Your School</a>
+                            </div>
+                        </td>
+                        <td class="${(pw == tabs.CONTENT ? 'selected' : '')} menuItem">
+                            <div class="dropdownReference">
+                                <link:elementary-school id="PN-Content"
+                                                        styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
+
+                                <div class="dropdown_3 text2">
+                                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                                        <li class="subMenuItem">
+                                            <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs"
+                                               id="SN_HT-An11YearOldWwithTheIQOfEinstein"
+                                               class="subMenuItemAnchorText GS_CI9_">An 11-year-old with the IQ of Einstein</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="/parenting-dilemmas/7539-parenting-tips-power-of-yet-carol-dweck-video.gs"
+                                               id="SN_HT-OneWordThatllChangeYourParenting"
+                                               class="subMenuItemAnchorText GS_CI9_">One word that'll change your parenting</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="/parenting-dilemmas/7390-christine-carter-chores-for-kids-parenting-tips-video.gs"
+                                               id="SN_HT-TheToughLoveApproachToChores"
+                                               class="subMenuItemAnchorText GS_CI9_">
+                                                The tough love approach to chores</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="http://blogs.greatschools.org/greatschoolsblog/2013/07/sibling-rivalry.html"
+                                               id="SN_HT-SiblingRivalryOrAbuse"
+                                               class="subMenuItemAnchorText GS_CI9_">Sibling rivalry - or abuse?</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="/parenting-dilemmas/7306-signs-symptoms-of-bipolar-in-children.gs"
+                                               id="SN_HT-BipolarAt5"
+                                               class="subMenuItemAnchorText GS_CI9_">Bipolar at 5?</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="/school-choice/7282-melting-pot-diversity-at-schools.gs"
+                                               id="SN_HT-WhenTheMeltingPotBoilsOver"
+                                               class="subMenuItemAnchorText GS_CI9_">When the melting pot boils over</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="/parenting-dilemmas/7308-bipolar-girl-story-video.gs"
+                                               id="SN_HT-RaisingSadie"
+                                               class="subMenuItemAnchorText GS_CI9_">Raising Sadie</a>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <a href="/parenting/social-skills/7260-parent-cliques-school.gs"
+                                               id="SN_HT-DoParentCliquesRuleYourSchool"
+                                               class="subMenuItemAnchorText GS_CI9_">Do parent cliques rule your school?</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="grid_2">
+                <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
+                <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
+                    <c:set var="myUrl" value=""/>
+                </c:if>
+                <link:loginOrRegister email="${requestScope.context.email}"
+                                      styleClass="menuItemAnchorText"
+                                      onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',
+                                  document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
+                                      redirect="${myUrl}">Sign In</link:loginOrRegister>
+            </div>
         </div>
     </div>
 
