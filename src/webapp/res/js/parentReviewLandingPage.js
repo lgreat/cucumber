@@ -633,4 +633,30 @@ function GS_schoolReviewFormLandingPage(id) {
         }
     }
 
+//    topical reviews tags GS-14925
+        $(".js-allAvailableTopicTags").hide();
+        $(".js-availableTopicTagsButton").hide();
+        $("#js-addTopicTags").click(function(){
+            $(this).toggle();
+            $(".js-allAvailableTopicTags").toggle("1000, function()");
+            return false;
+        });
+
+    $(".js-availableTopicTagsText").click(function(){
+            var tagId = $(this).attr("id");
+            tagId = tagId.substring("js-tag-text-".length);
+            $("#js-tag-button-"+ tagId ).show();
+            $(this).hide();
+            return false;
+        });
+
+    $(".js-availableTopicTagsButton").click(function(){
+            var tagId = $(this).attr("id");
+            tagId = tagId.substring("js-tag-button-".length);
+            $("#js-tag-text-"+ tagId ).show();
+            $(this).hide();
+        });
+
+    //                fix the url!!!
+
 }

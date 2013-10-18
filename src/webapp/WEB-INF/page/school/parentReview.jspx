@@ -398,7 +398,8 @@
 <c:if test="${isTopical}">
     <div class="clearfix small">
         <div class="tar">
-            <a href="javascript:void(0)" id="notSpecialEdReview">I don't want to write a Special Education review >>, need JS</a>
+            <a href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'topicId')}" id="notSpecialEdReview">I don't want to write a Special Education review >>, need JS</a>
+            <!--onclick add in the state and school id-->
         </div>
                 <span class="small_bold">
                     Share your perspective with other families:
@@ -490,7 +491,7 @@
                         Rate this school
                     </h4></div>
                     <div id="starRatingContainerReview" class="fl pan man mlm">
-                        <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                       <div class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                         <div class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                     </div>
                     <div class="fr pan man mrm clearfix">
@@ -507,34 +508,7 @@
     </c:choose>
 
     <c:if test="${isTopical}">
-        <script>
-            $(document).ready(function(){
-                $(".js-allAvailableTopicTags").hide();
-                $(".js-availableTopicTagsButton").hide();
-                $("#js-addTopicTags").click(function(){
-                    $(this).toggle();
-                    $(".js-allAvailableTopicTags").toggle("1000, function()");
-                return false;
-                });
 
-                $(".js-availableTopicTagsText").click(function(){
-                    var tagId = $(this).attr("id");
-                    tagId = tagId.substring("js-tag-text-".length);
-                    $("#js-tag-button-"+ tagId ).show();
-                    $(this).hide();
-                return false;
-                });
-
-                $(".js-availableTopicTagsButton").click(function(){
-                    var tagId = $(this).attr("id");
-                    tagId = tagId.substring("js-tag-button-".length);
-                    $("#js-tag-text-"+ tagId ).show();
-                    $(this).hide();
-                 return false;
-                });
-
-            });
-        </script>
         <div class="clearfix">
             <div class="fl ptm small_bold mbm">
                 Answers to this question relate to:
