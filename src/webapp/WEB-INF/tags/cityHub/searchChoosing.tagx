@@ -17,12 +17,12 @@
                             <h4 class="SourceSansPro-Semibold-h4 make-ffffff bottom mtm">Find a school in ${collectionNickname}</h4>
                         </div>
                         <div class="unit size64of100">
-                            <gsml:input type="text" styleId="js-findByNameBox" styleClass="text1 text-bigger input_10 mlm"
+                            <gsml:input type="text" styleId="js-findByNameBox" styleClass="text1 text-bigger input_8 mlm"
                                         name="q" value="School name (e.g. Niles Elementary School)"
                                         onfocus="GS_textSwitch(this, '', 'School name (e.g. Niles Elementary School)');"
                                         onblur="GS_textSwitch(this, 'School name (e.g. Niles Elementary School)', '');"
                                         placeholder="School name (e.g. Niles Elementary School)"/>
-                            <div class="pa" style="right: 105px;top: 8px;">
+                            <div class="pa" style="right: 185px;top: 8px;">
                             <span class="iconx24 i-24-search-lens addMousePointer"
                                   id="js-submit"><!-- do not collapse --></span>
                             </div>
