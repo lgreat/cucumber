@@ -496,6 +496,8 @@ GS.profile = GS.profile || (function() {
         var i, slot, slotName;
         var slotsLeftToRefresh = [];
 
+        if(GS.ad.slots === undefined) return;
+
         for (i = 0; i < numberAdSlots; i++) {
             slotName = adslots[i];
             slot = GS.ad.slots[slotName];
