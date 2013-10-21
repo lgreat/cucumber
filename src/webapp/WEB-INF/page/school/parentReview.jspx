@@ -234,10 +234,18 @@
                 <p style="font:bold 24px/26px 'SourceSansPro-It',Arial,Helvetica,sans-serif;font-style:italic;color:#ffCE7A;
                         text-shadow: 0 0 20px rgba(0,0,0,.6)">Write a review to help your school win</p>
             </c:when>
+            <c:when test="${isTopical}">
+                <p style="font:bold 60px/68px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
+                    text-shadow: 0 0 24px rgba(0,0,0,1)">
+                    How well does this school<br>
+                    support children with learning &amp; attention issues?</br></p>
+                <p style="font-family:'SourceSansPro-It',Arial,Helvetica,sans-serif;font-size:20px;color:#ffCE7A;
+                    text-shadow: 0 0 20px rgba(0,0,0,.6)">Share your perspective - rate and review your school now</p>
+            </c:when>
             <c:otherwise>
                 <p style="font:bold 60px/68px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
                     text-shadow: 0 0 24px rgba(0,0,0,1)">
-                    You know <c:if test="${selectedTopic ne null}">${selectedTopic.name} at</c:if>
+                    You know
                     your school best!</p>
                 <p style="font-family:'SourceSansPro-It',Arial,Helvetica,sans-serif;font-size:20px;color:#ffCE7A;
                     text-shadow: 0 0 20px rgba(0,0,0,.6)">Help others find their great school – rate and review yours now</p>
@@ -661,7 +669,7 @@
                 <div id="js-reviewsLandingStarBox-Start">
                     <ul class="listNoBullet small mbm">
                         <c:choose>
-                        <!-- This is an example -->
+                         <!--This is an example -->
                         <c:when test="${isTopical and selectedTopic.id eq 1}">
                         <li>Does your school embrace children with individual learning needs?</li>
                         <li>What resources are available for kids with learning and attention issues?</li>
