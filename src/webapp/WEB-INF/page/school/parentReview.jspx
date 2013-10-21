@@ -536,7 +536,7 @@
 
             <div class="clearfix"><!-- do not collapse --></div>
 
-            <!--<div class="">-->
+
             <div class="">
                 <!--tag links-->
                 <div class="js-allAvailableTopicTags mvm">
@@ -570,7 +570,6 @@
                     </c:if>
                 </c:forEach>
             </div>
-            <!--</div>-->
         </div>
     </c:if>
     <div class="clearfix ptm">
