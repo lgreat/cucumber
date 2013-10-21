@@ -140,12 +140,6 @@ GS.profile = GS.profile || (function() {
         'Custom_Welcome_Ad'
     ];
 
-//    var isAdFreeProfile = function() {
-//        var adSlots = [];
-//        adSlots.push().apply(adSlots, refreshableProfileAllAdSlotKeys.concat(refreshableNonOverviewAdSlotKeys)
-//            .concat(refreshableCultureAdSlotKeys).concat(refreshableCultureBranding.concat(refreshableCultureNoBranding)))
-//    }
-
     var init = function() {
         //window.History.debug.enable = true;
         // Bind to StateChange Event
@@ -297,7 +291,7 @@ GS.profile = GS.profile || (function() {
                 break;
             }
             default:{
-//                refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
+                refreshNonOverviewAds(GS.ad.profile.tabNameForAdTargeting[tabName]);
             }
         }
     };
