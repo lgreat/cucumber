@@ -90,8 +90,6 @@
     <gsml:javascript src="/res/js/parentReviewLandingPage.js"/>
     <gsml:javascript src="/res/js/jquery/jquery-ui-1.10.2.custom.min.js"/>
 
-    <link rel="stylesheet" href="/res/js/chosen/chosen.css" />
-
     <![CDATA[
     <script src="http://j.maxmind.com/js/geoip.js" charset="ISO-8859-1" type="text/javascript" ></script>
     <script>
@@ -457,7 +455,7 @@
             <div class="clearfix mbl">
                 <div class="alpha">
                     <h4 class="bottom sourceSansPro-Semibold">
-                        How are the services for <c:if test="${selectedTopic ne null}"> ${selectedTopic.name} at this school?</c:if>
+                        How well does your school support children with learning &amp; attention issues?
                     </h4>
                 </div>
                 <div id="starRatingContainerReview" class="alpha mts pts">
@@ -477,7 +475,7 @@
                     </div>
                 </div>
                 <div>
-                    <textarea id="js-reviewContent" name="comments" class=" js-reviewContent review-text small make-787878 lined_paper" placeholder="Tell us about your school."><!-- do not collapse --></textarea>
+                    <textarea id="js-reviewContent" name="comments" class=" js-reviewContent review-text small make-787878 lined_paper" placeholder="Tell us how well your school supports children with learning &amp; attention issues."><!-- do not collapse --></textarea>
                 </div>
             </div>
 
@@ -511,7 +509,7 @@
 
         <div class="clearfix">
             <div class="fl ptm small_bold mbm">
-                Answers to this question relate to:
+                Your review relates to:
                 <!--<c:forEach items="${selectedTopic.tags}" var="tag">-->
                 <!--<span class="${tag.main?'readonly':''}">-->
                 <!--<gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${tag.main}" disabled="${tag.main}"/>-->
@@ -523,7 +521,7 @@
             <div class="fr ptm small make-06b bottom" id="js-addTopicTags">
                 <a href="#">
                    <p class="fl iconx16 i-16-cross"/>
-                   <p class="fl small mls">Add a tag</p>
+                   <p class="fl small mls">Add a category</p>
 
                 </a>
             </div>
@@ -536,7 +534,7 @@
                 <div class="js-allAvailableTopicTags mvm">
                     <c:forEach items="${selectedTopic.tags}" var="tag">
                         <c:if test="${!tag.main}">
-                            <a href="#" class="js-availableTopicTagsText small make-06b bottom" id="js-tag-text-${tag.id}" title="${tag.description}">
+                            <a href="#" class="js-availableTopicTagsText small make-06b mrm bottom" id="js-tag-text-${tag.id}" title="${tag.description}">
                                 ${tag.name}
                             </a>
                         </c:if>
@@ -636,7 +634,7 @@
     <div class="mod standard_1-1">
         <div class="inner">
 
-            <div class="bd pam" style="height:75px;">
+            <div class="bd pam">
                 <div id="js-reviewsLandingStarBox-Parent" class="dn">
                     <div class="clearfix pas" style="padding-top: 0;">
                         <div class="fl"><p class="bottom regular small">Teacher quality</p></div>
@@ -661,20 +659,20 @@
                     </div>
                 </div>
                 <div id="js-reviewsLandingStarBox-Start">
-                    <ul class="listNoBullet small">
-                        <!--<c:choose>-->
+                    <ul class="listNoBullet small mbm">
+                        <c:choose>
                         <!-- This is an example -->
-                        <!--<c:when test="${isTopical and selectedTopic.id eq 1}">-->
-                        <!--<li>How does your school handle learning differences?</li>-->
-                        <!--<li>Is there specific dyslexia support?</li>-->
-                        <!--<li>Are there programs that support ADHD?</li>-->
-                        <!--</c:when>-->
-                        <!--<c:otherwise>-->
+                        <c:when test="${isTopical and selectedTopic.id eq 1}">
+                        <li>Does your school embrace children with individual learning needs?</li>
+                        <li>What resources are available for kids with learning and attention issues?</li>
+                        <li>How could your school improve? </li>
+                        </c:when>
+                        <c:otherwise>
                         <li>What do you think others should know?</li>
                         <li>What do you like?</li>
                         <li>How could your school improve?</li>
-                        <!--</c:otherwise>-->
-                        <!--</c:choose>-->
+                        </c:otherwise>
+                        </c:choose>
                     </ul></div>
                 <!--<div id="js-reviewsLandingStarBox-NoAdd" class="dn" style="width: 270px;"><br />Thank you for selecting. There are no additional areas to rate at this time.</div>-->
                 <div id="js-reviewsLandingStarBox-Student" class="dn"><br /><div class="clearfix pas">
