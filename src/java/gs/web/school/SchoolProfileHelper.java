@@ -5,6 +5,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -127,6 +128,10 @@ public class SchoolProfileHelper {
     }
 
     protected static Date getSchoolLastModified(School school, Review latestNonPrincipalReview) {
+        return getSchoolLastModified(school, latestNonPrincipalReview, null);
+    }
+
+    protected static Date getSchoolLastModified(School school, Review latestNonPrincipalReview, TopicalSchoolReview latestTopicalReview) {
         // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
         // see similar logic in ParentReviewController.java, SchoolOverview2010Controller.java
         Date lastModifiedDate = school.getModified();
@@ -136,6 +141,14 @@ public class SchoolProfileHelper {
                     (mostRecentPublishedNonPrincipalReview != null &&
                             lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
                 lastModifiedDate = mostRecentPublishedNonPrincipalReview;
+            }
+        }
+        if (latestTopicalReview != null) {
+            Date mostRecentPublishedNonPrincipalTopicalReview = latestTopicalReview.getPosted();
+            if (lastModifiedDate == null ||
+                    (mostRecentPublishedNonPrincipalTopicalReview != null &&
+                            lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalTopicalReview) < 0)) {
+                lastModifiedDate = mostRecentPublishedNonPrincipalTopicalReview;
             }
         }
         return lastModifiedDate;

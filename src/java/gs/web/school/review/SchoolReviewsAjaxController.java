@@ -179,7 +179,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
 
-        Long existingReviewId = review.getId();
+        Integer existingReviewId = review.getId();
         Poster poster = reviewCommand.getPoster();
 
         StringBuilder reasonToReportReview;
@@ -258,7 +258,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
 
         if (reasonToReportReview != null) {
-            getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId().intValue(), ReportedEntity.ReportedEntityType.topicalSchoolReview, reasonToReportReview.toString());
+            getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.topicalSchoolReview, reasonToReportReview.toString());
         }
 
         //trigger the success events

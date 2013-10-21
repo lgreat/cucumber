@@ -3,10 +3,7 @@ package gs.web.school;
 import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Poster;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.security.Role;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.util.PageHelper;
@@ -31,12 +28,13 @@ import java.util.*;
 @RequestMapping("/school/profileReviews.page")
 public class SchoolProfileReviewsController extends AbstractSchoolProfileController {
 
-    private static final int MAX_NUMBER_OF_REVIEWS_PER_PAGE = 20;
+    static final int MAX_NUMBER_OF_REVIEWS_PER_PAGE = 20;
 
     private ParentReviewHelper _parentReviewHelper;
     private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     @RequestMapping(method= RequestMethod.GET)
@@ -60,38 +58,52 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
         if (null != school) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
+            // determine if user has an mss subscription to this school
+            // also determine if user is a moderator
             boolean includeInactive = _parentReviewHelper.handleMssUser(school, sessionContext, request, model);
+            // Determine filtering by poster
             Set<Poster> reviewsBy = _parentReviewHelper.handleGetReviewsBy(reviewsByParam);
             Map<Poster,Integer> numReviewsBy;
 
             ParentReviewHelper.ParentReviewCommand cmd = new ParentReviewHelper.ParentReviewCommand();
 
+            // note this object contains both the ratings and the # of reviews
+            // At this time, ratings is not calculated using topical reviews
+            // But # of reviews SHOULD. Therefore, I will need to edit the # of reviews somewhere
             Ratings ratings = _schoolProfileDataHelper.getCommunityRatings(request);
             cmd.setRatings(ratings);
 
-            List<Review> reviews;
+            List<Review> overallReviews;
+            List<TopicalSchoolReview> topicalReviews;
+            List<ISchoolReview> allReviews;
             Long numberOfNonPrincipalReviews;
             if (!includeInactive) {
-                reviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
+                overallReviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
+                topicalReviews = _topicalSchoolReviewDao.findBySchoolId(school.getDatabaseState(), school.getId(), reviewsBy);
                 numReviewsBy = _reviewDao.getNumPublishedReviewsBySchool(school, reviewsBy);
                 numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school, reviewsBy);
             } else {
-                reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school, reviewsBy);
+                overallReviews = _reviewDao.getPublishedDisabledReviewsBySchool(school, reviewsBy);
+                topicalReviews = _topicalSchoolReviewDao.findBySchoolId(school.getDatabaseState(), school.getId(), reviewsBy, true);
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
                 numberOfNonPrincipalReviews = _reviewDao.countPublishedDisabledNonPrincipalReviewsBySchool(school, reviewsBy);
             }
+            allReviews = _parentReviewHelper.interleaveReviews(overallReviews, topicalReviews);
+            _parentReviewHelper.updateCounts(numReviewsBy, topicalReviews);
+            // topical reviews cannot contain principal reviews
+            numberOfNonPrincipalReviews += topicalReviews.size();
 
-
-            _parentReviewHelper.handleLastModifiedDateInModel(model, school, reviewsBy, reviews);
-            _parentReviewHelper.handleSortReviews(sortBy, reviews);
+            _parentReviewHelper.handleLastModifiedDateInModel(model, school, reviewsBy, overallReviews, topicalReviews);
+            _parentReviewHelper.handleSortAllReviews(sortBy, allReviews);
 
             cmd.setSortBy(sortBy);
             cmd.setSchool(school);
-            cmd.setReviews(reviews);
+            cmd.setReviews(overallReviews); // TODO: What is this??
             cmd.setTotalReviews(numberOfNonPrincipalReviews.intValue());
             cmd.setCurrentDate(new Date());
 
-            _parentReviewHelper.handleReviewReports(reviews, model, request);
+            _parentReviewHelper.handleReviewReports(overallReviews, model, request);
+            _parentReviewHelper.handleTopicalReviewReports(topicalReviews, model, request);
             model.put("loginRedirectUrl", _parentReviewHelper.getLoginRedirectUrl(school, model, request));
             _parentReviewHelper.handleNumberOfReviewsCount(numReviewsBy, model);
             _parentReviewHelper.handleGetReviewsByCsv(reviewsBy, model);
@@ -107,13 +119,13 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
             _parentReviewHelper.handleCombinedSubcategoryRatings(model, school, ratings);
 
             page = _parentReviewHelper.findCurrentPage(request);
-            int fromIndex = _parentReviewHelper.findFromIndex(page, MAX_NUMBER_OF_REVIEWS_PER_PAGE, reviews);
-            int toIndex = _parentReviewHelper.findToIndex(page, fromIndex, MAX_NUMBER_OF_REVIEWS_PER_PAGE, reviews);
+            int fromIndex = _parentReviewHelper.findFromIndex(page, MAX_NUMBER_OF_REVIEWS_PER_PAGE, allReviews);
+            int toIndex = _parentReviewHelper.findToIndex(page, fromIndex, MAX_NUMBER_OF_REVIEWS_PER_PAGE, allReviews);
 
             // page param is invalid number -- too high or too low, so redirect to first page and preserve any request params
-            List<Review> reviewsToShow = new ArrayList<Review>();
-            if (reviews.size()==0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(ParentReviewHelper.PARAM_VIEW_ALL))){
-                reviewsToShow = reviews;
+            List<ISchoolReview> reviewsToShow = new ArrayList<ISchoolReview>();
+            if (allReviews.size()==0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(ParentReviewHelper.PARAM_VIEW_ALL))){
+                reviewsToShow = allReviews;
             }
             else {
                 if (fromIndex == 1 && toIndex == 1) {
@@ -125,7 +137,8 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
                     }
                     response.sendRedirect(request.getRequestURI() + (queryString !=null ? "?" + queryString : ""));
                 } else {
-                    reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
+                    // Done
+                    reviewsToShow = _parentReviewHelper.handlePagination(request, allReviews, page, fromIndex, toIndex);
                 }
 
             }
@@ -200,4 +213,11 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
         _schoolProfileDataHelper = schoolProfileDataHelper;
     }
 
+    public ITopicalSchoolReviewDao getTopicalSchoolReviewDao() {
+        return _topicalSchoolReviewDao;
+    }
+
+    public void setTopicalSchoolReviewDao(ITopicalSchoolReviewDao topicalSchoolReviewDao) {
+        _topicalSchoolReviewDao = topicalSchoolReviewDao;
+    }
 }

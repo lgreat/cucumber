@@ -1243,7 +1243,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
                 return false;
             }
             TopicalSchoolReview actualReview = (TopicalSchoolReview) argument;
-            actualReview.setId(1L); // fake an id set
+            actualReview.setId(1); // fake an id set
             if (_expectedTagNames != null && _expectedTagNames.size() > 0) {
                 String tagNotFound = null;
                 boolean allMatch = true;

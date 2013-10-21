@@ -102,7 +102,7 @@ public class TopicalSchoolReviewTestController {
         public ReviewDisplay(TopicalSchoolReview review) {
             _comments = review.getComments();
             _created = review.getCreated();
-            _who = (review.getWho() != null)?review.getWho().getName():null;
+            _who = review.getWho();
             _topic = review.getTopic();
             _rating = review.getRating();
             _memberId = review.getMemberId();

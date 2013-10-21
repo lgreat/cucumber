@@ -10,6 +10,7 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
@@ -152,7 +153,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         if (reviews.size() > 0) {
             latestNonPrincipalReview = reviews.get(0);
         }
-        return SchoolProfileHelper.getSchoolLastModified(school, latestNonPrincipalReview);
+        List<TopicalSchoolReview> topicalReviews = _schoolProfileDataHelper.getNonPrincipalTopicalReviews(request, 1);
+        TopicalSchoolReview latestNonPrincipalTopicalReview = null;
+        if (topicalReviews.size() > 0) {
+            latestNonPrincipalTopicalReview = topicalReviews.get(0);
+        }
+        return SchoolProfileHelper.getSchoolLastModified(school, latestNonPrincipalReview, latestNonPrincipalTopicalReview);
     }
 
     private void handleEspPage(Map<String, Object> model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData ) {

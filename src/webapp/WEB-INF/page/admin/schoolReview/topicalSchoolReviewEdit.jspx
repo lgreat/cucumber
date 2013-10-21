@@ -87,7 +87,7 @@
                         <em>Not registered</em>
                     </c:otherwise>
                 </c:choose>
-                (${review.who.name})</span>
+                (${review.who})</span>
         <br/>
         <label>Sender name:</label><span class="value">${review.user.firstName} ${review.user.lastName}</span>
         <br/>

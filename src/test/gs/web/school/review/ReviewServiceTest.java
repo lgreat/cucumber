@@ -153,7 +153,7 @@ public class ReviewServiceTest extends BaseTestCase {
 
     private TopicalSchoolReview createTopicalReview(User user, String status, Integer id) {
         TopicalSchoolReview rval = new TopicalSchoolReview();
-        rval.setId(id.longValue());
+        rval.setId(id);
         rval.setStatus(status);
         rval.setUser(user);
         return rval;
@@ -167,12 +167,12 @@ public class ReviewServiceTest extends BaseTestCase {
     private static class TopicalSchoolReviewMatcher implements IArgumentMatcher {
         private String _expectedStatus;
         private String _actualStatus;
-        private Long _expectedId;
-        private Long _actualId;
+        private Integer _expectedId;
+        private Integer _actualId;
 
         public TopicalSchoolReviewMatcher(String status, Integer id) {
             _expectedStatus = status;
-            _expectedId = id.longValue();
+            _expectedId = id;
         }
 
         public boolean matches(Object argument) {

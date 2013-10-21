@@ -157,7 +157,7 @@ public class SchoolReviewListController extends AbstractController {
         // group queries?
         for (Integer reviewId: reportedReviewIds) {
             try {
-                SchoolReviewListBean bean = new SchoolReviewListBean(_topicalSchoolReviewDao.get(reviewId.longValue()));
+                SchoolReviewListBean bean = new SchoolReviewListBean(_topicalSchoolReviewDao.get(reviewId));
                 bean.setNumReports((_reportedEntityDao.getNumberTimesReported
                         (ReportedEntity.ReportedEntityType.topicalSchoolReview, reviewId)));
                 bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.topicalSchoolReview, reviewId));
@@ -216,7 +216,7 @@ public class SchoolReviewListController extends AbstractController {
         private String _email;
         private String _who;
         private Date _posted;
-        private Long _reviewId;
+        private Integer _reviewId;
         private String _schoolName;
         private State _schoolState;
         private String _status;
@@ -233,7 +233,7 @@ public class SchoolReviewListController extends AbstractController {
             }
             _who = review.getWho();
             _posted = review.getPosted();
-            _reviewId = review.getId().longValue();
+            _reviewId = review.getId();
             if (review.getSchool() != null) {
                 _schoolName = review.getSchool().getName();
                 _schoolState = review.getSchool().getDatabaseState();
@@ -250,7 +250,7 @@ public class SchoolReviewListController extends AbstractController {
                     _screenName = review.getUser().getUserProfile().getScreenName();
                 }
             }
-            _who = review.getWho().getName();
+            _who = review.getWho();
             _posted = review.getCreated();
             _reviewId = review.getId();
             if (review.getSchool() != null) {
@@ -295,7 +295,7 @@ public class SchoolReviewListController extends AbstractController {
             return _posted;
         }
 
-        public Long getReviewId() {
+        public Integer getReviewId() {
             return _reviewId;
         }
 

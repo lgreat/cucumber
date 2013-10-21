@@ -40,7 +40,7 @@ public class TopicalSchoolReviewEditController extends SimpleFormController impl
         Object commandObj = super.formBackingObject(request);
         TopicalSchoolReviewEditCommand command = (TopicalSchoolReviewEditCommand) commandObj;
         try {
-            TopicalSchoolReview review = _topicalSchoolReviewDao.get(Long.parseLong(request.getParameter("id")));
+            TopicalSchoolReview review = _topicalSchoolReviewDao.get(Integer.parseInt(request.getParameter("id")));
             command.setReview(review);
             command.setReports(_reportedEntityDao.getReports(ReportedEntity.ReportedEntityType.topicalSchoolReview, review.getId()));
             if (command.getReports() != null && command.getReports().size() > 0) {
@@ -92,7 +92,7 @@ public class TopicalSchoolReviewEditController extends SimpleFormController impl
             return new ModelAndView(editPage);
         } else if (request.getParameter("enableReview") != null) {
             if (StringUtils.equals("u", review.getStatus())) {
-                if (Poster.STUDENT == review.getWho() || Poster.PRINCIPAL == review.getWho()) {
+                if (Poster.STUDENT == review.getPoster() || Poster.PRINCIPAL == review.getPoster()) {
                     Map<String,String> emailAttributes = new HashMap<String,String>();
                     review.setSchoolDao(_schoolDao);
                     review.setUserDao(_userDao);

@@ -71,7 +71,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
 
     public void testDisableReview() throws Exception {
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("p");
         _command.setReview(review);
         assertNull("Expect process date to be null on new review", review.getProcessDate());
@@ -92,7 +92,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
         _command.setNote("Note");
 
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("d");
         _command.setReview(review);
         assertNull("Expect note to be null on new review", review.getNote());
@@ -110,7 +110,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
         getRequest().setParameter("formCancel", "true");
 
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("d");
         _command.setReview(review);
         _command.setFrom("flagged");
@@ -125,7 +125,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
         getRequest().setParameter("resolveReports", "true");
 
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("d");
         _command.setReview(review);
 
@@ -143,7 +143,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
         getRequest().setParameter("enableReview", "true");
 
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("d");
         _command.setReview(review);
         assertNull("Expect process date to be null on new review", review.getProcessDate());
@@ -160,7 +160,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
         getRequest().setParameter("enableReview", "true");
 
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("u");
         review.setWho(Poster.STUDENT);
         review.setSchool(getSchool());
@@ -180,7 +180,7 @@ public class TopicalSchoolReviewEditControllerTest extends BaseControllerTestCas
         getRequest().setParameter("enableReview", "true");
 
         TopicalSchoolReview review = new TopicalSchoolReview();
-        review.setId(1L);
+        review.setId(1);
         review.setStatus("h");
         review.setSchool(getSchool());
         _command.setReview(review);

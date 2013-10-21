@@ -380,6 +380,9 @@
                                 <c:if test="${school.levelCode eq 'p'}">
                                     <c:set var="curStarRating" value="${review.POverall.name}"/>
                                 </c:if>
+                                <c:if test="${review.topic ne null}">
+                                    <c:set var="curStarRating" value="decline"/>
+                                </c:if>
                                 <c:if test="${curStarRating ne 'decline'}">
                                     <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
                                     <!--title="${curStarRating} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
@@ -407,9 +410,19 @@
                             <div class="clearFloat"><!-- --></div>
                         </div>
 
+                        <c:set var="reportContentType" value="${review.topic eq null?'schoolReview':'topicalSchoolReview'}"/>
                         <div class="unit size2of5 lastUnit fr">
+                            <c:set var="hasUserReportedReview" value="${false}"/>
                             <c:choose>
-                                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                                <c:when test="${review.topic eq null}">
+                                    <c:set var="hasUserReportedReview" value="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="hasUserReportedReview" value="${requestScope.topicalReviewReports ne null and requestScope.topicalReviewReports[review.id] eq true}"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${hasUserReportedReview}">
                                     <!-- if the user is a moderator thay can report it again -->
                                     <c:choose>
                                         <c:when test="${moderator eq true}">
@@ -417,7 +430,7 @@
                                                 <div class="bd">
                                                     <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
                                                     <div class="dib vat"><a class="reportContent small no_interrupt" href="${loginRedirectUrl}"
-                                                                            id="report_schoolReview_${review.id}">Report it again</a></div>
+                                                                            id="report_${reportContentType}_${review.id}">Report it again</a></div>
                                                 </div>
                                             </div>
                                         </c:when>
@@ -432,7 +445,7 @@
                                         <div class="bd">
                                             <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
                                             <div class="dib vat"><a class="reportContent small no_interrupt" href="${loginRedirectUrl}"
-                                                                    id="report_schoolReview_${review.id}">Report it</a></div>
+                                                                    id="report_${reportContentType}_${review.id}">Report it</a></div>
                                         </div>
                                     </div>
                                 </c:otherwise>

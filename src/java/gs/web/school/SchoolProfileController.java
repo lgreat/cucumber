@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -92,11 +93,10 @@ public class SchoolProfileController extends AbstractSchoolController implements
         }
 
         List<Review> nonPrincipalReviews = _schoolProfileDataHelper.getNonPrincipalReviews(request);
-        if (nonPrincipalReviews != null) {
-            model.put("numberReviews", nonPrincipalReviews.size());
-        } else {
-            model.put("numberReviews", 0);
-        }
+        List<TopicalSchoolReview> nonPrincipalTopicalReviews = _schoolProfileDataHelper.getNonPrincipalTopicalReviews(request);
+        int numNormalReviews = (nonPrincipalReviews == null)?0:nonPrincipalReviews.size();
+        int numTopicalReviews = (nonPrincipalTopicalReviews == null)?0:nonPrincipalTopicalReviews.size();
+        model.put("numberReviews", numNormalReviews + numTopicalReviews);
         Integer currentPage = _schoolProfileDataHelper.getReviewsCurrentPage( request );
         Integer totalPages = _schoolProfileDataHelper.getReviewsTotalPages( request );
 
