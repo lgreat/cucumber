@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
     <jsp:directive.attribute name="hideAnnoucmentModule" required="false" type="java.lang.Boolean"/>
@@ -17,7 +18,7 @@
                 <div class="unit size28of100">
                     <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
                     <c:if test="${hasImportantEventsToDisplay}">
-                        <a href="events" class="small">See all</a><br/>
+                        <a href="/${fn:toLowerCase(state.longName)}/${fn:toLowerCase(city)}/events" class="small">See all</a><br/>
                     </c:if>
                 </div>
 
