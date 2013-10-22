@@ -553,9 +553,9 @@
                     <c:forEach items="${selectedTopic.tags}" var="tag">
                         <c:if test="${tag.main}">
                             <span class="readonly">
-                                <a id="js-default-tag-${tag.id}">
+                                <div id="js-default-tag-${tag.id}">
                                     <span class="small make-555555 bottom" title="${tag.description}">${tag.name}</span>
-                                </a>
+                                </div>
                             </span>
                         </c:if>
                     </c:forEach>
@@ -564,9 +564,11 @@
                 <c:forEach items="${selectedTopic.tags}" var="tag">
                     <c:if test="${!tag.main}">
                         <div class="js-availableTopicTagsButton but but-lg but-2 mlm" id="js-tag-button-${tag.id}">
-                            <span class="small make-555555 bottom" title="${tag.description}">${tag.name}</span>
-                            <span class="iconx16 i-16-close"></span>
+                            <!--<div class="clearfix">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                            <span class="small make-555555 mrl" title="${tag.description}">${tag.name}</span>
+                            <div class="iconx16 i-16-close" style="margin-left: 0px; margin-top: 10px; position: absolute;"><!-- do not collapse --></div>
                         </div>
+
                     </c:if>
                 </c:forEach>
             </div>
