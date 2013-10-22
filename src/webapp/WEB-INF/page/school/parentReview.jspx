@@ -518,12 +518,6 @@
         <div class="clearfix">
             <div class="fl ptm small_bold mbm">
                 Your review relates to:
-                <!--<c:forEach items="${selectedTopic.tags}" var="tag">-->
-                <!--<span class="${tag.main?'readonly':''}">-->
-                <!--<gsml:checkbox name="tagIds" styleId="tag_${tag.id}" value="${tag.id}" checked="${tag.main}" disabled="${tag.main}"/>-->
-                <!--<label for="tag_${tag.id}" title="${tag.description}">${tag.name}</label>-->
-                <!--</span>-->
-                <!--</c:forEach>-->
             </div>
 
             <div class="fr ptm small make-06b bottom" id="js-addTopicTags">
@@ -564,7 +558,6 @@
                 <c:forEach items="${selectedTopic.tags}" var="tag">
                     <c:if test="${!tag.main}">
                         <div class="js-availableTopicTagsButton but but-lg but-2 mlm" id="js-tag-button-${tag.id}">
-                            <!--<div class="clearfix">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                             <span class="small make-555555 mrl" title="${tag.description}">${tag.name}</span>
                             <div class="iconx16 i-16-close" style="margin-left: 0px; margin-top: 10px; position: absolute;"><!-- do not collapse --></div>
                         </div>
