@@ -26,6 +26,17 @@
         <pageHelper:hideLeaderboard/>
         <pageHelper:hideBelowNavAds/>
 
+        <c:if test="${param.noSchoolAlert eq 1}">
+
+            <div class="noSchoolAlert" style="background: #f9eccd; padding: 1px;text-align: center">
+                <br/>
+             <p>
+                    <img src="/res/img/bullet/exclaim2.gif" alt="Exclamation mark" style="position: relative; top: 3px;"/>
+                    Oops! The school you were looking for may no longer exist. Find more schools below.
+                </p>
+            </div>
+        </c:if>
+
         <div class="imageBgScale moduleHeight-500">
             <div class="img-container">
                 <img class="scaling" src="/res/img/cityHubs/${collectionId}-${state.abbreviation}_hero.png" alt="City Image"/>
