@@ -91,7 +91,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     </style>
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <c:if test="${school.levelCode == 'p'}">
-        <c:if test="${requestScope.context.interstitialEnabled}">
+        <c:if test="${requestScope.context.interstitialEnabled and not isInAdFreeHub}">
             <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
             <pageHelper:addOnLoadHandler handler="doInterstitial('pkSchool')"/>
         </c:if>
