@@ -137,6 +137,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     protected static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final String MODEL_IS_HUBS_LOCAL_SEARCH = "isHubsLocalSearch";
+    public static final String MODEL_IS_AD_FREE_HUB = "isAdFreeHub";
 
     public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
 
@@ -270,9 +271,11 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         boolean isHubsLocalSearch = commandAndFields.isHubsLocalSearch();
         model.put(MODEL_IS_HUBS_LOCAL_SEARCH, isHubsLocalSearch);
+        boolean isAdFreeHub = commandAndFields.isHubAdsFree();
+        model.put(MODEL_IS_AD_FREE_HUB, (isHubsLocalSearch && isAdFreeHub));
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if(pageHelper != null && isHubsLocalSearch && commandAndFields.isHubAdsFree()) {
+        if(pageHelper != null && isHubsLocalSearch && isAdFreeHub) {
             pageHelper.setHideAds(true);
         }
 
