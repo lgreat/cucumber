@@ -136,25 +136,28 @@ public class SchoolSearchCommandWithFields {
                 _collectionId = _command.getCollectionId();
             }
             else {
+                Integer collectionId = null;
                 if(isCityBrowse()) {
                     String city = _fields.getCityName();
                     State state = _fields.getState();
-                    Integer collectionId = getHubMappingDao().getCollectionIdFromCityAndState(city, state);
-                    _isHubsLocalSearch = (collectionId != null ? true : false);
-                    if(collectionId != null) _collectionId = collectionId.toString();
+                    collectionId = getCollectionId(city, state);
                 }
                 else if(isNearbySearchByLocation()) {
                     String city = _command.getCity();
-                    String state = _command.getState();
-                    Integer collectionId = getHubMappingDao().getCollectionIdFromCityAndState(city, State.fromString(state));
-                    _isHubsLocalSearch = (collectionId != null ? true : false);
-                    if(collectionId != null) _collectionId = collectionId.toString();
+                    State state = State.fromString(_command.getState());
+                    collectionId = getCollectionId(city, state);
                 }
+                _isHubsLocalSearch = (collectionId != null ? true : false);
+                if(collectionId != null) _collectionId = collectionId.toString();
             }
         }
 
         _hasAlreadyCheckedForIsHubLocalSearch = true;
          return _isHubsLocalSearch;
+    }
+
+    public Integer getCollectionId(String city, State state) {
+        return getHubMappingDao().getCollectionIdFromCityAndState(city, state);
     }
 
     /**
