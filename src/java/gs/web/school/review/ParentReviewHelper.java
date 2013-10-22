@@ -67,28 +67,28 @@ public class ParentReviewHelper {
     //Compare on who, then overall rating descending, then date posted descending
     public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
             Review.createCompositeComparator(
-                    Collections.reverseOrder(SchoolReviewAdapter.POSTED_BY_PRINCIPAL_COMPARATOR),
-                    Collections.reverseOrder(SchoolReviewAdapter.OVERALL_RATING_COMPARATOR),
-                    Collections.reverseOrder(SchoolReviewAdapter.DATE_POSTED_COMPARATOR));
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Collections.reverseOrder(ISchoolReview.GENERIC_OVERALL_RATING_COMPARATOR),
+                    Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
 
     //Compare on who, then overall rating ascending, then date posted descending
     public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_OVERALL_RATING_ASC_DATE_DESC =
             Review.createCompositeComparator(
-                    Collections.reverseOrder(SchoolReviewAdapter.POSTED_BY_PRINCIPAL_COMPARATOR),
-                    SchoolReviewAdapter.OVERALL_RATING_COMPARATOR,
-                    Collections.reverseOrder(SchoolReviewAdapter.DATE_POSTED_COMPARATOR));
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    ISchoolReview.GENERIC_OVERALL_RATING_COMPARATOR,
+                    Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
 
     //Compare on who, then date posted descending
     public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_DATE_DESC =
             Review.createCompositeComparator(
-                    Collections.reverseOrder(SchoolReviewAdapter.POSTED_BY_PRINCIPAL_COMPARATOR),
-                    Collections.reverseOrder(SchoolReviewAdapter.DATE_POSTED_COMPARATOR));
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
 
     //compare on who, then date posted ascending
     public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_DATE_ASC =
             Review.createCompositeComparator(
-                    Collections.reverseOrder(SchoolReviewAdapter.POSTED_BY_PRINCIPAL_COMPARATOR),
-                    SchoolReviewAdapter.DATE_POSTED_COMPARATOR);
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR);
 
 
     /**
@@ -469,10 +469,10 @@ public class ParentReviewHelper {
     public List<ISchoolReview> interleaveReviews(List<Review> reviews, List<TopicalSchoolReview> topicalReviews) {
         List<ISchoolReview> interleavedReviews = new ArrayList<ISchoolReview>(reviews.size() + topicalReviews.size());
         for (Review review: reviews) {
-            interleavedReviews.add(new SchoolReviewAdapter(review));
+            interleavedReviews.add(review);
         }
         for (TopicalSchoolReview topicalSchoolReview: topicalReviews) {
-            interleavedReviews.add(new SchoolReviewAdapter(topicalSchoolReview));
+            interleavedReviews.add(topicalSchoolReview);
         }
         return interleavedReviews;
     }
