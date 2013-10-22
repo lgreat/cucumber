@@ -74,7 +74,7 @@
     <!-- Allow interstitials for this page.
    Note the property in the db must still be enabled for an interstitial to appear
    GS-3852 -->
-    <c:if test="${requestScope.context.interstitialEnabled and not isHubsLocalSearch}">
+    <c:if test="${requestScope.context.interstitialEnabled and not isAdFreeHub}">
         <gsml:javascript src="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
     </c:if>
