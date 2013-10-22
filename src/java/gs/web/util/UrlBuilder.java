@@ -19,6 +19,7 @@ import gs.data.util.Address;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
 import gs.data.community.User;
+import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.DirectoryStructureUrlFields.ExtraResourceIdentifier;
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
@@ -368,6 +369,17 @@ public class UrlBuilder {
      */
     public static final VPage USP_FORM = new VPage("vpage:uspForm");
     public static final VPage USP_FORM_THANKYOU = new VPage("vpage:uspFormThankYou");
+
+    /**
+     * City Hub Pages
+     */
+
+    public static final VPage CHOOSING_SCHOOLS_PAGE = new VPage(DirectoryStructureUrlFields.CHOOSING_SCHOOLS_PAGE);
+    public static final VPage EDUCATION_COMMUNITY_SCHOOLS_PAGE = new VPage(DirectoryStructureUrlFields.EDUCATION_COMMUNITY_SCHOOLS_PAGE);
+    public static final VPage ENROLLMENT_SCHOOLS_PAGE = new VPage(DirectoryStructureUrlFields.ENROLLMENT_SCHOOLS_PAGE);
+    public static final VPage EVENTS_SCHOOLS_PAGE = new VPage(DirectoryStructureUrlFields.EVENTS_SCHOOLS_PAGE);
+
+
 
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
@@ -1428,7 +1440,19 @@ public class UrlBuilder {
             _perlPage = false;
             // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
             _path = DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0);
-        } else if (WEBBY_AWARD_THANKS.equals(page)) {
+        } else if (CHOOSING_SCHOOLS_PAGE.equals(page)){
+            _path=  DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0)+ DirectoryStructureUrlFields.CHOOSING_SCHOOLS_PAGE;
+
+        } else if (EDUCATION_COMMUNITY_SCHOOLS_PAGE.equals(page)){
+            _path=  DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0)+ DirectoryStructureUrlFields.EDUCATION_COMMUNITY_SCHOOLS_PAGE;
+
+        } else if (ENROLLMENT_SCHOOLS_PAGE.equals(page)){
+            _path=  DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0)+ DirectoryStructureUrlFields.ENROLLMENT_SCHOOLS_PAGE;
+
+        } else if (EVENTS_SCHOOLS_PAGE.equals(page)){
+            _path=  DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, param0)+ DirectoryStructureUrlFields.EVENTS_SCHOOLS_PAGE;
+
+        }else if (WEBBY_AWARD_THANKS.equals(page)) {
             _perlPage = false;
             _path = "/promo/webbyAwardWinner.page";
         } else if (CITIES.equals(page)) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     
     <div class="container_24 clearfix mvl pvl">
@@ -13,10 +14,10 @@
              <p class="small">We're here to help you explore your options and find the right school for your child with
                               in-depth school profiles, details on the enrollment process in ${state.abbreviation}, and more.
              </p>
+             <link:cityHubChooseSchoolsPage state="${state}" city="${city}" styleClass="small">Five steps to choosing a school &amp;#187;</link:cityHubChooseSchoolsPage><br/>
+             <link:cityHubEduCommunityPage state="${state}" city="${city}"  styleClass="small">Who's who in the ${state.abbreviation} education community &amp;#187;</link:cityHubEduCommunityPage><br/>
+             <link:cityHubEnrollmentPage state="${state}" city="${city}"    styleClass="small">How enrollment works in ${state.abbreviation} &amp;#187;</link:cityHubEnrollmentPage>
 
-            <a href="choosing-schools" class="small">Five steps to choosing a school &amp;#187;</a><br/>
-            <a href="education-community" class="small">Who's who in the ${state.abbreviation} education community &amp;#187;</a><br/>
-            <a href="enrollment"  class="small">How enrollment works in ${state.abbreviation} &amp;#187;</a>
         </div>
         <div class="grid_12">
             <img src="/res/img/cityHubs/choose_a_school.png" alt="Choose a School"/>

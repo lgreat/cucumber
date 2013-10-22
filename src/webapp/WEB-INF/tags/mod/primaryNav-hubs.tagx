@@ -14,10 +14,7 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
-                             description="True if topnav is loaded via community iframe"/>
-
-    <jsp:scriptlet>
+      <jsp:scriptlet>
         request.setAttribute("tabs", PageHelper.pageIds);
     </jsp:scriptlet>
 
@@ -32,11 +29,39 @@
                 </gsml:a>
             </div>
             <div class="grid_17">
+
                 <table id="gs-primary">
                     <tbody>
                     <tr>
+
                         <td class="menuItem">
-                            <div class="menuItemAnchorText">Washington</div>
+                            <div class="dropdownReference">
+                                ${city},${state}
+                                <div class="dropdown_3 text2">
+                                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                                        <li class="subMenuItem">
+                                            <link:cityHubHome state="${state}" city="${city}">${city} Home</link:cityHubHome>
+                                        </li>
+
+                                        <li class="subMenuItem">
+                                            <link:cityHubChooseSchoolsPage state="${state}" city="${city}">Choosing a school</link:cityHubChooseSchoolsPage>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <link:cityHubEduCommunityPage state="${state}" city="${city}">Education Community</link:cityHubEduCommunityPage>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <link:cityHubEnrollmentPage state="${state}" city="${city}">Enrollment Information</link:cityHubEnrollmentPage>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <link:cityHubEventsPage state="${state}" city="${city}">Events</link:cityHubEventsPage>
+                                        </li>
+                                        <li class="subMenuItem">
+                                            <link:home>Not in ${city} ? </link:home>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
                         </td>
                         <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
                             <div class="dropdownReference">
