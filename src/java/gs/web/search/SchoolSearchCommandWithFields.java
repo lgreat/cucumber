@@ -172,7 +172,7 @@ public class SchoolSearchCommandWithFields {
         Integer collectionId = _collectionId != null ? new Integer(_collectionId) : null;
         HubConfig hubConfig = getHubConfigDao().getConfigFromCollectionIdAndKey(collectionId, CityHubHelper.SHOW_ADS_KEY);
 
-        return  (hubConfig != null && "true".equals(hubConfig.getValue()));
+        return  (hubConfig != null && "false".equals(hubConfig.getValue()));
     }
 
     /**
