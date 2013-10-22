@@ -6,6 +6,7 @@ import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
 import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.pagination.DefaultPaginationConfig;
@@ -85,6 +86,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     private ZillowRegionDao _zillowDao;
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
+    @Autowired
+    private IHubConfigDao _hubConfigDao;
 
     private String _noResultsViewName;
     private String _noResultsAjaxViewName;
@@ -269,7 +272,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_IS_HUBS_LOCAL_SEARCH, isHubsLocalSearch);
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if(pageHelper != null && isHubsLocalSearch) {
+        if(pageHelper != null && isHubsLocalSearch && commandAndFields.isHubAdsFree()) {
             pageHelper.setHideAds(true);
         }
 
@@ -1081,6 +1084,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         commandAndFields.setDistrictDao(_districtDao);
         commandAndFields.setGeoDao(_geoDao);
         commandAndFields.setHubCityMappingDao(_hubCityMappingDao);
+        commandAndFields.setHubConfigDao(_hubConfigDao);
         return commandAndFields;
     }
 

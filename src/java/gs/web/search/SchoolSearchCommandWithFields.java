@@ -2,12 +2,15 @@ package gs.web.search;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubConfig;
 import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.FieldSort;
 import gs.data.state.State;
+import gs.web.geo.CityHubHelper;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +33,7 @@ public class SchoolSearchCommandWithFields {
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
     private IHubCityMappingDao _hubMappingDao;
+    private IHubConfigDao _hubConfigDao;
 
     private boolean _hasAlreadyLookedForCityInSearchString;
     private boolean _hasAlreadyCheckedForIsHubLocalSearch;
@@ -158,6 +162,17 @@ public class SchoolSearchCommandWithFields {
 
     public Integer getCollectionId(String city, State state) {
         return getHubMappingDao().getCollectionIdFromCityAndState(city, state);
+    }
+
+    /**
+     * Should be called only after checking for isLocalHubSearch
+     * @return
+     */
+    public boolean isHubAdsFree() {
+        Integer collectionId = _collectionId != null ? new Integer(_collectionId) : null;
+        HubConfig hubConfig = getHubConfigDao().getConfigFromCollectionIdAndKey(collectionId, CityHubHelper.SHOW_ADS_KEY);
+
+        return  (hubConfig != null && "true".equals(hubConfig.getValue()));
     }
 
     /**
@@ -415,5 +430,13 @@ public class SchoolSearchCommandWithFields {
 
     public void setHubCityMappingDao(IHubCityMappingDao _hubMappingDao) {
         this._hubMappingDao = _hubMappingDao;
+    }
+
+    public IHubConfigDao getHubConfigDao() {
+        return _hubConfigDao;
+    }
+
+    public void setHubConfigDao(IHubConfigDao _hubConfigDao) {
+        this._hubConfigDao = _hubConfigDao;
     }
 }
