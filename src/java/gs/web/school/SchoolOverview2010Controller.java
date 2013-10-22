@@ -54,6 +54,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private ISurveyDao _surveyDao;
     private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
+    private SchoolProfileHelper _schoolProfileHelper;
     private IGeoDao _geoDao;
     private ISchoolMediaDao _schoolMediaDao;
     private IReportedEntityDao _reportedEntityDao;
@@ -96,7 +97,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             model.put("school", school);
 
             if(pageHelper != null) {
-                pageHelper.setHideAds(_schoolDao.isSchoolInCollection(school.getDatabaseState(), school.getId()));
+                pageHelper.setHideAds(_schoolProfileHelper.isHubAdFree(school));
             }
 
             // GS-10484
@@ -429,5 +430,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public SchoolProfileHelper getSchoolProfileHelper() {
+        return _schoolProfileHelper;
+    }
+
+    public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
+        _schoolProfileHelper = schoolProfileHelper;
     }
 }
