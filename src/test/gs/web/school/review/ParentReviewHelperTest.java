@@ -1,9 +1,7 @@
 package gs.web.school.review;
 
 import gs.data.school.School;
-import gs.data.school.review.Poster;
-import gs.data.school.review.Review;
-import gs.data.school.review.TopicalSchoolReview;
+import gs.data.school.review.*;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 
@@ -271,6 +269,74 @@ public class ParentReviewHelperTest extends BaseTestCase {
         assertNotNull(model.get("lastModifiedDate"));
         assertEquals("Expect last modified date to come from overall review when more recent than school and topical review",
                 daysAgo_1, model.get("lastModifiedDate"));
+    }
+
+    public void testHandleSortAllReviewsRatingDescending() {
+        List<ISchoolReview> reviewsToSort = new ArrayList<ISchoolReview>();
+
+        reviewsToSort.add(getReview(1, CategoryRating.RATING_5, 0));
+        reviewsToSort.add(getTopicalReview(2, CategoryRating.RATING_4, 1));
+        reviewsToSort.add(getReview(3, CategoryRating.RATING_3, 2));
+        reviewsToSort.add(getTopicalReview(4, CategoryRating.RATING_2, 3));
+        reviewsToSort.add(getReview(5, CategoryRating.RATING_1, 4));
+        reviewsToSort.add(getReview(6, CategoryRating.DECLINE_TO_STATE, 5));
+        reviewsToSort.add(getTopicalReview(7, CategoryRating.DECLINE_TO_STATE, 6));
+
+        _parentReviewHelper.handleSortAllReviews("rd", reviewsToSort);
+
+        // first by rating desc, then by date. Ignore rating on topical reviews
+        assertEquals(1, reviewsToSort.get(0).getId().intValue());
+        assertEquals(3, reviewsToSort.get(1).getId().intValue());
+        assertEquals(5, reviewsToSort.get(2).getId().intValue());
+        assertEquals(2, reviewsToSort.get(3).getId().intValue());
+        assertEquals(4, reviewsToSort.get(4).getId().intValue());
+        assertEquals(6, reviewsToSort.get(5).getId().intValue());
+        assertEquals(7, reviewsToSort.get(6).getId().intValue());
+    }
+
+    public void testHandleSortAllReviewsRatingAscending() {
+        List<ISchoolReview> reviewsToSort = new ArrayList<ISchoolReview>();
+
+        reviewsToSort.add(getReview(1, CategoryRating.RATING_5, 0));
+        reviewsToSort.add(getTopicalReview(2, CategoryRating.RATING_4, 1));
+        reviewsToSort.add(getReview(3, CategoryRating.RATING_3, 2));
+        reviewsToSort.add(getTopicalReview(4, CategoryRating.RATING_2, 3));
+        reviewsToSort.add(getReview(5, CategoryRating.RATING_1, 4));
+        reviewsToSort.add(getReview(6, CategoryRating.DECLINE_TO_STATE, 5));
+        reviewsToSort.add(getTopicalReview(7, CategoryRating.DECLINE_TO_STATE, 6));
+
+        _parentReviewHelper.handleSortAllReviews("ra", reviewsToSort);
+
+        // first by rating asc, then by date. Ignore rating on topical reviews
+        assertEquals(2, reviewsToSort.get(0).getId().intValue());
+        assertEquals(4, reviewsToSort.get(1).getId().intValue());
+        assertEquals(6, reviewsToSort.get(2).getId().intValue());
+        assertEquals(7, reviewsToSort.get(3).getId().intValue());
+        assertEquals(5, reviewsToSort.get(4).getId().intValue());
+        assertEquals(3, reviewsToSort.get(5).getId().intValue());
+        assertEquals(1, reviewsToSort.get(6).getId().intValue());
+    }
+
+    public ISchoolReview getTopicalReview(int id, CategoryRating rating, int daysAgo) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -daysAgo);
+        TopicalSchoolReview review = new TopicalSchoolReview();
+        review.setId(id);
+        review.setRating(rating);
+        review.setCreated(cal.getTime());
+        review.setWho(Poster.PARENT);
+        return review;
+    }
+
+    public ISchoolReview getReview(int id, CategoryRating rating, int daysAgo) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -daysAgo);
+        Review review = new Review();
+        review.setId(id);
+        review.setQuality(rating);
+        review.setPosted(cal.getTime());
+        review.setPoster(Poster.PARENT);
+        return review;
     }
 
     private Date getDateXDaysAgo(int x) {
