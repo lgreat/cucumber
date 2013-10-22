@@ -17,7 +17,6 @@ import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
-import gs.web.content.cms.CmsHomepageController;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
@@ -31,10 +30,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -96,8 +93,10 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
 
+            boolean isSchoolInAdFreeHub = _schoolProfileHelper.isSchoolInAdFreeHub(school);
+            model.put("isInAdFreeHub", isSchoolInAdFreeHub);
             if(pageHelper != null) {
-                pageHelper.setHideAds(_schoolProfileHelper.isHubAdFree(school));
+                pageHelper.setHideAds(isSchoolInAdFreeHub);
             }
 
             // GS-10484

@@ -131,7 +131,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         if (pageHelper != null) {
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
-            pageHelper.setHideAds(_schoolProfileHelper.isHubAdFree(school));
+            pageHelper.setHideAds(_schoolProfileHelper.isSchoolInAdFreeHub(school));
         }
 
         if (school.getIsNewGSRating()) {

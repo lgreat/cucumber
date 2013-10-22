@@ -55,11 +55,11 @@ public class SchoolProfileHelper {
 
     }
 
-    public boolean isHubAdFree(School school) {
+    public boolean isSchoolInAdFreeHub(School school) {
         Integer collectionId = null;
         try {
             String collectionIdAsString = school.getMetadataValue(School.METADATA_COLLECTION_ID_KEY);
-           if(collectionIdAsString != null) collectionId = new Integer(collectionIdAsString);
+            if(collectionIdAsString != null) collectionId = new Integer(collectionIdAsString);
         }
         catch (NumberFormatException ex) {
             _log.error("School Profile Helper - unable to convert the collection id meta value in string to integer " +
