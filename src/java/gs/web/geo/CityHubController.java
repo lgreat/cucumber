@@ -100,6 +100,10 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         modelAndView.addObject("reviews", reviews);
 
         }
+
+        modelAndView.addObject(CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY,
+                getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.HUB_HOME_KEY_PREFIX));
+
         /**
          * Adding the Review Module Functionality to the Controller End
          */

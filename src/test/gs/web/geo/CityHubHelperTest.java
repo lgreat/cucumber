@@ -12,6 +12,9 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.ui.ModelMap;
 
@@ -302,6 +305,129 @@ public class CityHubHelperTest extends BaseControllerTestCase {
                 "_charter_preschool_1_date"));
     }
 
+    public void testConvertJSONStringToMap_nullHubConfig() {
+        Map jsonMap = _cityHubHelper.convertJSONStringToMap(null);
+        assertTrue("CityHubHelperTest - testConvertJSONStringToMap_nullHubConfig." +
+                " Expect map to be empty for a null hub config object", jsonMap.isEmpty());
+    }
+
+    public void testConvertJSONStringToMap_invalidJSONFormat() {
+        Integer collectionId = 1;
+        String city = "Washington";
+        State state = State.DC;
+        String jsonString = "";
+        final HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
+
+        HubConfig hubConfig = setSampleHubConfig(1, hubCityMapping, "key1", null);
+        Map jsonMap = _cityHubHelper.convertJSONStringToMap(hubConfig);
+        assertTrue("CityHubHelperTest - testConvertJSONStringToMap_invalidJSONFormat." +
+                "Expect map to be empty for a null hub config value", jsonMap.isEmpty());
+
+        hubConfig = setSampleHubConfig(1, hubCityMapping, "key1", jsonString);
+        try {
+            jsonMap = _cityHubHelper.convertJSONStringToMap(hubConfig);
+            fail("CityHubHelperTest - testConvertJSONStringToMap_invalidJSONFormat. Should never reached here, exception should " +
+                    "have been thrown for invalid json string format - empty string.");
+        }
+        catch (JSONException ex) {}
+        assertTrue("Expect map to be empty for a empty hub config value", jsonMap.isEmpty());
+
+        jsonString = "{'key1' : 'value1', 'key2'}";
+        hubConfig = setSampleHubConfig(1, hubCityMapping, "key1", jsonString);
+        try {
+            jsonMap = _cityHubHelper.convertJSONStringToMap(hubConfig);
+            fail("CityHubHelperTest - testConvertJSONStringToMap_invalidJSONFormat. Should never reached here, exception should " +
+                    "have been thrown for invalid json string format - " + jsonString);
+        }
+        catch (JSONException ex) {}
+        assertTrue("Expect map to be empty for a invalid json hub config value - " + jsonString, jsonMap.isEmpty());
+
+        jsonString = "{'key1' : 'value1', 'key2' : 'Foo\'s'}";
+        hubConfig = setSampleHubConfig(1, hubCityMapping, "key1", jsonString);
+        try {
+            jsonMap = _cityHubHelper.convertJSONStringToMap(hubConfig);
+            fail("CityHubHelperTest - testConvertJSONStringToMap_invalidJSONFormat. Should never reached here, exception should " +
+                    "have been thrown for invalid json string format - " + jsonString + ". JSON string quote not escaped correctly" +
+                    ". Needs additional backslash.");
+        }
+        catch (JSONException ex) {}
+        assertTrue("Expect map to be empty for a invalid json hub config value - " + jsonString + ". JSON string quote " +
+                "not escaped correctly. Needs additional backslash.", jsonMap.isEmpty());
+    }
+
+    public void testConvertJSONStringToMap_validJSONFormat() {
+        Integer collectionId = 1;
+        String city = "Washington";
+        State state = State.DC;
+        String jsonString = getValidSampleJSONString();
+        Map jsonMap = null;
+        final HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
+
+        HubConfig hubConfig = setSampleHubConfig(1, hubCityMapping, "key1", jsonString);
+        try {
+            jsonMap = _cityHubHelper.convertJSONStringToMap(hubConfig);
+        }
+        catch (JSONException ex) {
+            fail("CityHubHelperTest - testConvertJSONStringToMap_validJSONFormat. Should never reached here, exception should " +
+                    "not be thrown for valid json string format - " + jsonString + ".");
+        }
+        assertFalse("CityHubHelperTest - testConvertJSONStringToMap_validJSONFormat." +
+                "Expect map not to be empty for a valid json hub config value", jsonMap.isEmpty());
+        assertEquals("Finding a great school in Detroit", jsonMap.get("heading"));
+        assertEquals("Who\'s who in the Detroit education community &#187;",
+                ((JSONObject)((JSONArray) jsonMap.get("link")).get(1)).get("name"));
+    }
+
+    public void testGetFilteredConfigMap_validJson() {
+        Integer collectionId = 1;
+        String city = "Washington";
+        State state = State.DC;
+        String jsonString = getValidSampleJSONString();
+        ModelMap filteredConfigMap;
+        final HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
+
+        final HubConfig hubConfig = setSampleHubConfig(1, hubCityMapping, CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY, jsonString);
+        hubConfig.setNote("JSON string");
+        List<HubConfig> hubConfigs = new ArrayList<HubConfig>() {{
+            add(hubConfig);
+            add(setSampleHubConfig(1, hubCityMapping, "key1", "value1"));
+            add(setSampleHubConfig(1, hubCityMapping, "key2", "value2"));
+            add(setSampleHubConfig(1, hubCityMapping, "key3", "value3"));
+        }};
+
+        filteredConfigMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY);
+
+        assertFalse("CityHubHelperTest - testGetFilteredConfigMap_validJson." +
+                "Expect map not to be empty for a valid json hub config value", filteredConfigMap.isEmpty());
+        assertEquals("We\'re here to help you explore your options and find the right school for your child with " +
+                "in-depth school profiles, details on the enrollment process in Detroit, and more.", filteredConfigMap.get("content"));
+        assertEquals("enrollment",
+                ((JSONObject)((JSONArray) filteredConfigMap.get("link")).get(2)).get("path"));
+    }
+
+    public void testGetFilteredConfigMap_invalidJson() {
+        Integer collectionId = 1;
+        String city = "Washington";
+        State state = State.DC;
+        String jsonString = "{'key1' : 'value1', 'key2' : 'Foo\'s'}";
+        ModelMap filteredConfigMap;
+        final HubCityMapping hubCityMapping = getSampleHubCityMapping(1, collectionId, city, state.getAbbreviation());
+
+        final HubConfig hubConfig = setSampleHubConfig(1, hubCityMapping, CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY, jsonString);
+        hubConfig.setNote("JSON string");
+        List<HubConfig> hubConfigs = new ArrayList<HubConfig>() {{
+            add(hubConfig);
+            add(setSampleHubConfig(1, hubCityMapping, "key1", "value1"));
+            add(setSampleHubConfig(1, hubCityMapping, "key2", "value2"));
+            add(setSampleHubConfig(1, hubCityMapping, "key3", "value3"));
+        }};
+
+        filteredConfigMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY);
+
+        assertNull("Expect no key/value to be copied from invalid json", filteredConfigMap.get("key1"));
+        assertNull("Expect no key/value to be copied from invalid json", filteredConfigMap.get("key2"));
+    }
+
     public void testGetCollectionBrowseLinks() {
         resetAllMocks();
 
@@ -536,5 +662,29 @@ public class CityHubHelperTest extends BaseControllerTestCase {
             add(keyPrefix + "_public_elementary_1");
             add(keyPrefix + "_charter_high_3");
         }};
+    }
+
+    public String getValidSampleJSONString() {
+        return "{\n" +
+                "    heading:'Finding a great school in Detroit',\n" +
+                "    content:'We\\'re here to help you explore your options and find the right school for your child with in-depth school profiles, details on the enrollment process in Detroit, and more.',\n" +
+                "    link:[\n" +
+                "        {\n" +
+                "            name:'Five steps to choosing a school &#187;',\n" +
+                "            path:'choosing-schools',\n" +
+                "            newwindow: ''\n" +
+                "        },\n" +
+                "        {\n" +
+                "            name:'Who\\'s who in the Detroit education community &#187;',\n" +
+                "            path:'education-community',\n" +
+                "            newwindow:''\n" +
+                "        },\n" +
+                "        {\n" +
+                "            name:'How enrollment works in Detroit &#187;',\n" +
+                "            path:'enrollment',\n" +
+                "            newwindow:''\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
     }
 }

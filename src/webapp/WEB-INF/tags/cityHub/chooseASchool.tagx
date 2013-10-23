@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     
     <div class="container_24 clearfix mvl pvl">
         <div class="grid_10 suffix_2">
 
 
-            <h3 class="sourceSansPro-Semibold mbm mtl">Finding a great school in ${state.abbreviation}</h3>
+            <h3 class="sourceSansPro-Semibold mbm mtl">${chooseSchool.heading}</h3>
 
 
-             <p class="small">We're here to help you explore your options and find the right school for your child with
-                              in-depth school profiles, details on the enrollment process in ${state.abbreviation}, and more.
-             </p>
-             <link:cityHubChooseSchoolsPage state="${state}" city="${city}" styleClass="small">Five steps to choosing a school &amp;#187;</link:cityHubChooseSchoolsPage><br/>
-             <link:cityHubEduCommunityPage state="${state}" city="${city}"  styleClass="small">Who's who in the ${state.abbreviation} education community &amp;#187;</link:cityHubEduCommunityPage><br/>
-             <link:cityHubEnrollmentPage state="${state}" city="${city}"    styleClass="small">How enrollment works in ${state.abbreviation} &amp;#187;</link:cityHubEnrollmentPage>
-
+             <p class="small">${chooseSchool.content}</p>
+            <c:forEach items="${chooseSchool.link}" var="link" varStatus="status">
+                <a href="${link.path}" class="small">${link.name}</a>
+                <c:if test="${not status.last}">
+                    <br/>
+                </c:if>
+            </c:forEach>
         </div>
         <div class="grid_12">
             <img src="/res/img/cityHubs/choose_a_school.png" alt="Choose a School"/>
