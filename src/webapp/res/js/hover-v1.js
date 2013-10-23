@@ -1536,7 +1536,7 @@ GSType.hover.ReportContentHover = function() {
             var contentTypeNormalized = params.type;
             if (contentTypeNormalized == 'discussion') {
                 contentTypeNormalized = 'conversation';
-            } else if (contentTypeNormalized == 'schoolReview') {
+            } else if (contentTypeNormalized == 'schoolReview' || contentTypeNormalized == 'topicalSchoolReview') {
                 contentTypeNormalized = 'review';
             } else if (contentTypeNormalized == 'schoolMedia') {
                 contentTypeNormalized = 'photo';
