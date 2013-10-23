@@ -88,6 +88,7 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
                 numberOfNonPrincipalReviews = _reviewDao.countPublishedDisabledNonPrincipalReviewsBySchool(school, reviewsBy);
             }
+            ratings.setNumberOfReviews(ratings.getNumberOfReviews() + topicalReviews.size());
             allReviews = _parentReviewHelper.interleaveReviews(overallReviews, topicalReviews);
             _parentReviewHelper.updateCounts(numReviewsBy, topicalReviews);
             // topical reviews cannot contain principal reviews
@@ -98,7 +99,7 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
 
             cmd.setSortBy(sortBy);
             cmd.setSchool(school);
-            cmd.setReviews(overallReviews); // TODO: What is this??
+            cmd.setReviews(allReviews); // used to pull the principal review
             cmd.setTotalReviews(numberOfNonPrincipalReviews.intValue());
             cmd.setCurrentDate(new Date());
 

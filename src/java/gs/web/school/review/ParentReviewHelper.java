@@ -620,7 +620,7 @@ public class ParentReviewHelper {
 
     public static class ParentReviewCommand {
         private School _school;
-        private List<Review> _reviews;
+        private List<ISchoolReview> _reviews;
         private Date _currentDate;
         private int _totalReviews = 0;
         private String _sortBy;
@@ -634,11 +634,11 @@ public class ParentReviewHelper {
             _school = school;
         }
 
-        public List<Review> getReviews() {
+        public List<ISchoolReview> getReviews() {
             return _reviews;
         }
 
-        public void setReviews(List<Review> reviews) {
+        public void setReviews(List<ISchoolReview> reviews) {
             _reviews = reviews;
         }
 

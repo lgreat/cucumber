@@ -55,6 +55,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     private final static String REVIEWS = "reviews";
 //    private final static String INTERLEAVED_REVIEWS = "interleavedReviews";
     private final static String TOPICAL_REVIEWS = "topicalReviews";
+    private final static String ALL_REVIEWS = "allReviews";
     private final static String REVIEWS_COUNT = "reviewsCount";
     private final static String REVIEWS_PAGE_PARAM = "page";
     private final static Integer REVIEWS_PER_PAGE = SchoolProfileReviewsController.MAX_NUMBER_OF_REVIEWS_PER_PAGE;
@@ -460,6 +461,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     protected void getSharedDataForNonPrincipalReviewsAndTopicalReviews(HttpServletRequest request, School school) {
         String reviewsKey = REVIEWS;
         String topicalReviewsKey = TOPICAL_REVIEWS;
+        String allReviewsKey = ALL_REVIEWS;
         String countKey = REVIEWS_COUNT;
 
         List<Review> reviews = (List<Review>) getSharedData( request, reviewsKey );
@@ -470,9 +472,36 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
 
             topicalSchoolReviews = _topicalSchoolReviewDao.findBySchoolId(school.getDatabaseState(), school.getId());
             setSharedData(request, topicalReviewsKey, topicalSchoolReviews);
-
             setSharedData(request, countKey, topicalSchoolReviews.size() + reviews.size());
+
+            List<ISchoolReview> allReviews = new ArrayList<ISchoolReview>(reviews.size() + topicalSchoolReviews.size());
+            for (Review review: reviews) {
+                allReviews.add(review);
+            }
+            for (TopicalSchoolReview topicalReview: topicalSchoolReviews) {
+                allReviews.add(topicalReview);
+            }
+            Collections.sort(allReviews, ParentReviewHelper.INTERLEAVED_PRINCIPAL_DATE_DESC);
+            setSharedData(request, allReviewsKey, allReviews);
         }
+    }
+
+    protected List<ISchoolReview> getAllNonPrincipalReviews(HttpServletRequest request) {
+        School school = _requestAttributeHelper.getSchool( request );
+        if ( school == null ) {
+            throw new IllegalArgumentException("The request must already contain a school object");
+        }
+        getSharedDataForNonPrincipalReviewsAndTopicalReviews(request, school);
+        return (List<ISchoolReview>)getSharedData(request, ALL_REVIEWS);
+    }
+
+    protected List<ISchoolReview> getAllNonPrincipalReviews(HttpServletRequest request, int countRequested) {
+        List<ISchoolReview> reviews = getAllNonPrincipalReviews(request);
+        // If the number stored request the number requested just return them
+        if( reviews.size() > countRequested ) {
+            return reviews.subList(0, countRequested);
+        }
+        return  reviews;    // Return what we have
     }
 
     protected List<Review> getNonPrincipalReviews(HttpServletRequest request) {

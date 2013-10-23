@@ -7,6 +7,7 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.review.ISchoolReview;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -20,7 +21,6 @@ import org.junit.experimental.categories.Category;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
@@ -1734,7 +1734,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, -7);
         _school.setModified(cal.getTime());
-        expect(_schoolProfileDataHelper.getNonPrincipalReviews(_request, 1)).andReturn(new ArrayList<Review>());
+        expect(_schoolProfileDataHelper.getAllNonPrincipalReviews(_request, 1)).andReturn(new ArrayList<ISchoolReview>());
         replay(_schoolProfileDataHelper);
         Date rval = _schoolProfileOverviewController.getLastModifiedDateForSchool(_request, _school);
         verify(_schoolProfileDataHelper);
@@ -1745,9 +1745,9 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         reset(_schoolProfileDataHelper);
         Review review = new Review();
         review.setPosted(new Date());
-        List<Review> reviews = new ArrayList<Review>(1);
+        List<ISchoolReview> reviews = new ArrayList<ISchoolReview>(1);
         reviews.add(review);
-        expect(_schoolProfileDataHelper.getNonPrincipalReviews(_request, 1)).andReturn(reviews);
+        expect(_schoolProfileDataHelper.getAllNonPrincipalReviews(_request, 1)).andReturn(reviews);
         replay(_schoolProfileDataHelper);
         rval = _schoolProfileOverviewController.getLastModifiedDateForSchool(_request, _school);
         verify(_schoolProfileDataHelper);
@@ -1759,7 +1759,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Calendar cal2 = Calendar.getInstance();
         cal2.add(Calendar.DAY_OF_YEAR, -14);
         review.setPosted(cal2.getTime());
-        expect(_schoolProfileDataHelper.getNonPrincipalReviews(_request, 1)).andReturn(reviews);
+        expect(_schoolProfileDataHelper.getAllNonPrincipalReviews(_request, 1)).andReturn(reviews);
         replay(_schoolProfileDataHelper);
         rval = _schoolProfileOverviewController.getLastModifiedDateForSchool(_request, _school);
         verify(_schoolProfileDataHelper);
