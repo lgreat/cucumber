@@ -63,9 +63,8 @@ public class ReviewHelper {
         review.setAllowContact(command.isAllowContact());
         review.setIp(command.getIp());
 
-        if (StringUtils.isNotEmpty(command.getFirstName()) || StringUtils.isNotEmpty(command.getLastName())) {
-            review.setAllowName(true);
-        }
+        // Per latest email thread (Erik, Max, Heather, Jenn, Tajalli, Anthony) and our privacy policy never allow name
+        review.setAllowName(false);
     }
 
     /**

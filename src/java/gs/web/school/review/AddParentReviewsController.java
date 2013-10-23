@@ -340,9 +340,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
         review.setOriginal(command.getComments());
         review.setAllowContact(command.isAllowContact());
 
-        if (StringUtils.isNotEmpty(command.getFirstName()) || StringUtils.isNotEmpty(command.getLastName())) {
-            review.setAllowName(true);
-        }
+        // Per latest email thread (Erik, Max, Heather, Jenn, Tajalli, Anthony) and our privacy policy never allow name
+        review.setAllowName(false);
 
         review.setStatus("u");
 

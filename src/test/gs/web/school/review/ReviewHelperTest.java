@@ -91,7 +91,7 @@ public class ReviewHelperTest extends TestCase {
 
         assertEquals(_command.getPoster(), r.getPoster());
         assertEquals(_command.isAllowContact(), r.isAllowContact());
-        assertTrue(r.isAllowName());
+        assertFalse("allowName should always be false per our privacy policy", r.isAllowName());
     }
 
     public void testCreateReview2() throws Exception {
@@ -207,7 +207,7 @@ public class ReviewHelperTest extends TestCase {
         assertEquals("Poster should have been set on review", Poster.PARENT, review.getPoster());
         assertEquals("Comments should have been set on review", command.getComments(), review.getComments());
         assertEquals("Original Comments should have been set on review", command.getComments(), review.getOriginal());
-        assertTrue("Allow contact should have been set to true.", review.isAllowName());
+        assertFalse("allowName should always be false per our privacy policy", review.isAllowName());
     }
 
 
