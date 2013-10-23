@@ -13,7 +13,14 @@
 
              <p class="small">${chooseSchool.content}</p>
             <c:forEach items="${chooseSchool.link}" var="link" varStatus="status">
-                <a href="${link.path}" class="small">${link.name}</a>
+                <c:choose>
+                    <c:when test="${link.newWindow eq 'true'}">
+                        <a href="${link.path}" class="small" target="_blank">${link.name}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${link.path}" class="small">${link.name}</a>
+                    </c:otherwise>
+                </c:choose>
                 <c:if test="${not status.last}">
                     <br/>
                 </c:if>
