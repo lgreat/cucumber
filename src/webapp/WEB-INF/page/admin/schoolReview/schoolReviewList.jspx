@@ -175,7 +175,7 @@
                             <td>${reviewBean.who}</td>
                             <fmt:formatDate value="${reviewBean.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                             <td>
-                                <a href="/admin/schoolReview/topicalEdit.page?id=${reviewBean.reviewId}&amp;amp;from=ur">${reviewPosted}</a>
+                                <a href="/admin/schoolReview/edit.page?id=${reviewBean.reviewId}&amp;amp;from=ur">${reviewPosted}</a>
                             </td>
                             <td>${reviewBean.schoolName} (${reviewBean.schoolState})</td>
                             <td>
