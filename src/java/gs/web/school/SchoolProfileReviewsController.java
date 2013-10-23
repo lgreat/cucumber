@@ -88,7 +88,7 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
                 numberOfNonPrincipalReviews = _reviewDao.countPublishedDisabledNonPrincipalReviewsBySchool(school, reviewsBy);
             }
-            ratings.setNumberOfReviews(ratings.getNumberOfReviews() + topicalReviews.size());
+            ratings.setNumberOfReviews((long)(overallReviews.size() + topicalReviews.size()));
             allReviews = _parentReviewHelper.interleaveReviews(overallReviews, topicalReviews);
             _parentReviewHelper.updateCounts(numReviewsBy, topicalReviews);
             // topical reviews cannot contain principal reviews
