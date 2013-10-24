@@ -37,7 +37,7 @@
         <!-- 10 --> <gsml:css href="/res/css/06_sprites/ratings.css"/>
         <!-- 11 --> <gsml:css href="/res/css/06_sprites/ui.css"/>
         <!-- 13 --> <gsml:css href="/res/css/07_navigation/topSearch-v1.css"/>
-        <!-- 14 --> <gsml:css href="/res/css/07_navigation/primary-hub.css"/>
+        <!-- 14 --> <gsml:css href="/res/css/07_navigation/primary-hubs.css"/>
         <!-- 15 --> <gsml:css href="/res/css/07_navigation/primary.css"/>
         <!-- 16 --> <gsml:css href="/res/css/07_navigation/secondary-v1.css"/>
         <!-- 17 --> <gsml:css href="/res/css/07_navigation/osp.css"/>
