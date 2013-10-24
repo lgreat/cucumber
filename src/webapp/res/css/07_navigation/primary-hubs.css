@@ -63,7 +63,7 @@ General comments:
 
 #hub-primary .menuItem .menuItemAnchorText {
     color: #CCE5ED;
-    font: normal 16px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+    font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
     display: block;
     outline: 0 none;
     text-decoration: none;
@@ -84,7 +84,7 @@ General comments:
 #hub-primary .dropdownReference{
     position:relative;
     display: block;
-    margin-top: 20px;
+    margin-top: 22px;
     /*border-left:1px solid #177BA2;*/
     /*border-right: 1px solid #3196C6;*/
 }
