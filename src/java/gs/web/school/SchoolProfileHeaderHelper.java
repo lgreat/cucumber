@@ -128,6 +128,15 @@ public class SchoolProfileHeaderHelper {
                     model.put("k12AffiliateUrl", k12AffiliateUrl);
                 }
                 logDuration(System.currentTimeMillis() - startTime, "Handling K12 affiliate URL");
+
+                boolean isSchoolInAdFreeHub = _schoolProfileHelper.isSchoolInAdFreeHub(school);
+                model.put("isInAdFreeHub", isSchoolInAdFreeHub);
+
+                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                if(pageHelper != null) {
+                    pageHelper.setHideAds(isSchoolInAdFreeHub);
+                }
+
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);

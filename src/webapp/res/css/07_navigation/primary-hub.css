@@ -1,0 +1,206 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Primary Navigation - Mega Menus
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* Menu Container */
+
+.menuContainer-primary{
+    margin: 0 auto;
+    background-color: #248CB8; /* for non-css3 browsers */
+    border-bottom: 3px solid #FFB943;
+    border-top: 1px solid #3D9CC6;
+}
+
+#hub-primary {
+    z-index: 4;
+    position: relative;
+    list-style: none;
+    width: 100%;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    table-layout: auto;
+    /* Borders */
+    border:none;
+    /*border-left:1px solid #3196C6;*/
+    /*border-right: 1px solid #177BA2;*/
+
+}
+
+/* Primary Menu Items */
+
+#hub-primary .menuItem {
+    padding: 0;
+    margin: 0;
+    border: 0 none;
+    background-color: #007EAA;
+    zoom:1;
+}
+
+#hub-primary .menuItem:hover {
+    background-color: #007299;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
+}
+
+/*#hub-primary .drop:hover {*/
+    /*background-color: white;*/
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');*/
+/*}*/
+
+#hub-primary .menuItem .menuItemAnchorText {
+    color: #CCE5ED;
+    font: normal 16px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+    display: block;
+    outline: 0 none;
+    text-decoration: none;
+    white-space: nowrap;
+    width:100%;
+    position: relative;
+    text-align: center;
+}
+
+#hub-primary .menuItem:hover .menuItemAnchorText {
+    color: #FFFFFF;
+    text-shadow: none;
+    background-color: #007299;
+}
+
+/* Primary Drop Down Containers */
+
+#hub-primary .dropdownReference{
+    position:relative;
+    display: block;
+    margin-top: 20px;
+    /*border-left:1px solid #177BA2;*/
+    /*border-right: 1px solid #3196C6;*/
+}
+
+
+#hub-primary .dropdown_1,
+#hub-primary .dropdown_2,
+#hub-primary .dropdown_3,
+#hub-primary .dropdown_4,
+#hub-primary .dropdown_5,
+#hub-primary .dropdown_6 {
+    margin: 0 auto 1px;
+    position: absolute;
+    left: -999em; /* Hides the drop down */
+    text-align: left;
+    padding: 0;
+    border: 1px solid #B8B8B8;
+    border-top: none;
+
+    /* Background */
+    background: white;
+}
+
+#hub-primary .dropdown_1 {
+    width: 455px;
+}
+
+#hub-primary .dropdown_2,
+#hub-primary .dropdown_3,
+#hub-primary .dropdown_4,
+#hub-primary .dropdown_5,
+#hub-primary .dropdown_6 {
+    width: 358px;
+}
+
+#hub-primary .menuItem:hover .dropdown_1,
+#hub-primary .menuItem:hover .dropdown_2,
+#hub-primary .menuItem:hover .dropdown_3,
+#hub-primary .menuItem:hover .dropdown_4,
+#hub-primary .menuItem:hover .dropdown_5,
+#hub-primary .menuItem:hover .dropdown_6 {
+    left: -1px;
+    top: auto;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+#hub-primary .menuItem:hover .dropdown_align_right {
+    left: auto;
+    right: -1px;
+    top: auto;
+}
+
+/* Columns */
+
+.col_1,
+.col_2 {
+    display: inline;
+    float: left;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    zoom:1;
+    outline:0 none;
+    border: 0 none;
+}
+
+.col_1 {
+    width: 50%;
+    *width:49%;
+}
+
+.col_2 {
+    width: 100%;
+}
+
+/* Primary Menu Content Stylings */
+
+#hub-primary .col_content {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+#hub-primary .col_content li {
+    margin-bottom: 10px;
+}
+
+#hub-primary .col_content li.lastone {
+    margin-bottom: auto;
+}
+
+#hub-primary .dropdown_1 .ft_content{
+    width: 415px;
+}
+
+#hub-primary .dropdown_2 .ft_content,
+#hub-primary .dropdown_3 .ft_content,
+#hub-primary .dropdown_4 .ft_content,
+#hub-primary .dropdown_5 .ft_content,
+#hub-primary .dropdown_6 .ft_content{
+    width: 318px;
+}
+
+#hub-primary .ft_content {
+    padding: 20px;
+    background-color: #F1F1F1;
+    outline:0 none;
+    border:0 none;
+    border-top: 1px solid #F1F1F1;
+}
+
+#hub-primary .ft_content p {
+    margin-bottom: 5px;
+}
+
+#hub-primary .ft_content img {
+    margin-right: 10px;
+}
+#hub-primary .small { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+#hub-primary .small_bold { font: bold   12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
