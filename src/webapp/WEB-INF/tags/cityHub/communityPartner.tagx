@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
 
     <div class="container_24 clearfix mvl pvl">
         <div class="clearfix">
@@ -9,7 +11,7 @@
             <h2>${state.abbreviation} Education community</h2>
             </div>
             <div class="fr small">
-            <a href="/cityHub/educationCommunity.page">See the entire education community &amp;#187;</a>
+            <link:cityHubEduCommunityPage state="${state}" city="${city}">See the entire education community &amp;#187;</link:cityHubEduCommunityPage>
             </div>
         </div>
         <div class="prefix_2 grid_21 suffix_2 clearfix">
@@ -33,38 +35,38 @@
                  data-cycle-prev="#prev">
 
                 <div>
-                    <a href="/cityHub/educationCommunity.page">
-                        <gsml:img src="/res/img/cityHubs/partner1.png" alt="Partner 1" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
-                    </a>
+                    <link:cityHubEduCommunityPage state="${state}" city="${city}">
+                    <gsml:img src="/res/img/cityHubs/partner1.png" alt="Partner 1" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
+                    </link:cityHubEduCommunityPage>
                 </div>
                 <div>
-                    <a href="/cityHub/educationCommunity.page">
+                    <link:cityHubEduCommunityPage state="${state}" city="${city}">
                         <gsml:img src="/res/img/cityHubs/partner2.png" alt="Partner 2" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
-                    </a>
+                     </link:cityHubEduCommunityPage>
                 </div>
                 <div >
-                    <a href="/cityHub/educationCommunity.page">
+                    <link:cityHubEduCommunityPage state="${state}" city="${city}">
                         <gsml:img src="/res/img/cityHubs/partner3.png"
                                   alt="Partner 3" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
-                    </a>
+                    </link:cityHubEduCommunityPage>
                 </div>
                 <div >
-                    <a href="/cityHub/educationCommunity.page">
+                    <link:cityHubEduCommunityPage state="${state}" city="${city}">
                         <gsml:img src="/res/img/cityHubs/partner4.png"
                                   alt="Partner 4" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
-                    </a>
+                    </link:cityHubEduCommunityPage>
                 </div>
                 <div >
-                    <a href="/cityHub/educationCommunity.page">
+                    <link:cityHubEduCommunityPage state="${state}" city="${city}">
                         <gsml:img src="/res/img/cityHubs/partner5.png"
                                   alt="Partner 5" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
-                    </a>
+                    </link:cityHubEduCommunityPage>
                 </div>
                 <div >
-                    <a href="/cityHub/educationCommunity.page">
+                    <link:cityHubEduCommunityPage state="${state}" city="${city}">
                         <gsml:img src="/res/img/cityHubs/partner6.png"
                                   alt="Partner 6" styleClass="mrm"  style="border-right: 1px solid #cccccc"/>
-                    </a>
+                    </link:cityHubEduCommunityPage>
                 </div>
             </div>
         </div>
