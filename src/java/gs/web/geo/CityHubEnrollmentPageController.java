@@ -18,6 +18,7 @@ import gs.web.hub.EnrollmentModel;
 import gs.web.hub.MoreInformationModel;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
@@ -83,6 +84,11 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
             // no city name found, so redirect to /california or whichever state they did provide
             View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
             return new ModelAndView(redirectView);
+        }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
         }
 
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);

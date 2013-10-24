@@ -19,10 +19,6 @@
     </head>
 
     <body>
-        <!-- Hiding the Ads on the Important Dates Page -->
-        <pageHelper:hideFooterAd/>
-        <pageHelper:hideLeaderboard/>
-        <pageHelper:hideBelowNavAds/>
 
         <hub:searchChoosing/>
         <hub:breadcrumbs city="${city}" state="${state}" pageName="Events"/>

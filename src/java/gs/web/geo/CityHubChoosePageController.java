@@ -16,6 +16,7 @@ import gs.data.state.State;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.WordUtils;
@@ -76,7 +77,10 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
             return new ModelAndView(redirectView);
         }
 
-
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);

@@ -28,10 +28,6 @@
         <gsml:javascript src="/res/js/util/customCarouselControl.js"/>
     </head>
     <body>
-    <!-- Hiding the Ads on the City Hub Enrollment Page -->
-    <pageHelper:hideFooterAd/>
-    <pageHelper:hideLeaderboard/>
-    <pageHelper:hideBelowNavAds/>
 
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>

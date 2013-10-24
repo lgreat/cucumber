@@ -6,6 +6,7 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.hub.EduCommunityModel;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
@@ -56,6 +57,11 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
             View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
             return new ModelAndView(redirectView);
         }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
 
@@ -82,7 +88,7 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
         return _cityHubHelper;
     }
 
-    public void setCityHubHelper(CityHubHelper _cityHubHelper) {
+    public void setCityHubHelper(final CityHubHelper _cityHubHelper) {
         this._cityHubHelper = _cityHubHelper;
     }
 

@@ -5,6 +5,7 @@ import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.WordUtils;
@@ -54,6 +55,11 @@ public class CityHubImportantDatesController  implements IDirectoryStructureUrlC
             // no city name found, so redirect to /california or whichever state they did provide
             View redirectView = new RedirectView(DirectoryStructureUrlFactory.createNewStateBrowseURIRoot(state));
             return new ModelAndView(redirectView);
+        }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
         }
 
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));

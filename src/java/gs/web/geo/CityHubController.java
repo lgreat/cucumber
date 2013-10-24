@@ -11,6 +11,7 @@ import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.review.ReviewFacade;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -74,6 +75,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
             return new ModelAndView(redirectView);
         }
 
+       PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
+
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
 
@@ -82,9 +88,13 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         modelAndView.addObject("schoolBreakdown", getCityHubHelper().getCollectionBrowseLinks(request, collectionId, city, state));
 
 
-        /**
-         * Get the important events
-         */
+
+        if (collectionId != null)  {
+
+
+            /**
+             * Get the important events
+             */
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);
         List<String> configKeyPrefixesSortedByDate = getCityHubHelper().getConfigKeyPrefixesSortedByDate(importantEventsMap);
@@ -95,22 +105,20 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         /**
          * Adding the Review Module Functionality to the Controller Start
          */
-        if (collectionId != null)  {
+
         List<ReviewFacade> reviews = getReviewFacades(state, collectionId);
         modelAndView.addObject("reviews", reviews);
 
-        }
+
 
         modelAndView.addObject(CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY,
                 getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.HUB_HOME_KEY_PREFIX));
 
-        /**
-         * Adding the Review Module Functionality to the Controller End
-         */
+
 
         modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
                 getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
-
+        }
         return modelAndView;
 }
 

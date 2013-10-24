@@ -23,10 +23,7 @@
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
     </head>
     <body>
-    <!-- Hiding the Ads on the City Hub Eductaion Page -->
-    <pageHelper:hideFooterAd/>
-    <pageHelper:hideLeaderboard/>
-    <pageHelper:hideBelowNavAds/>
+
 
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
