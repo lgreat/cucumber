@@ -51,14 +51,11 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private ISurveyDao _surveyDao;
     private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
-    private SchoolProfileHelper _schoolProfileHelper;
     private IGeoDao _geoDao;
     private ISchoolMediaDao _schoolMediaDao;
     private IReportedEntityDao _reportedEntityDao;
 
     private IEspResponseDao _espResponseDao;
-    @Autowired
-    private ISchoolDao _schoolDao;
 
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
@@ -92,12 +89,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         if (StringUtils.isNumeric(schoolIdStr)) {
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
-
-            boolean isSchoolInAdFreeHub = _schoolProfileHelper.isSchoolInAdFreeHub(school);
-            model.put("isInAdFreeHub", isSchoolInAdFreeHub);
-            if(pageHelper != null) {
-                pageHelper.setHideAds(isSchoolInAdFreeHub);
-            }
 
             // GS-10484
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
@@ -421,21 +412,5 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
         _controllerFamily = controllerFamily;
-    }
-
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
-    }
-
-    public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
-    }
-
-    public SchoolProfileHelper getSchoolProfileHelper() {
-        return _schoolProfileHelper;
-    }
-
-    public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
-        _schoolProfileHelper = schoolProfileHelper;
     }
 }
