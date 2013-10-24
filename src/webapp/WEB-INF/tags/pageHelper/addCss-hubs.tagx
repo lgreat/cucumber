@@ -21,7 +21,7 @@
         4) <= 285kb per file
         -->
     <gsml:combinedCss
-            href="/res/css/gs_styles-v1.combined.min.css"
+            href="/res/css/gs_styles-hubs.combined.min.css"
             IE7href="/res/css/gs_styles_IE7-v1.combined.min.css"
             IE8href="/res/css/gs_styles_IE8-v1.combined.min.css">
 
