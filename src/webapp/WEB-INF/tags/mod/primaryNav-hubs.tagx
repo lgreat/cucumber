@@ -34,7 +34,7 @@
                     <tr>
                         <td class="menuItem">
                             <div class="menuItem dropdownReference">
-                                <div class="menuItemAnchorText">${city},${state}</div>
+                                <div class="menuItemAnchorText">${city}, ${state}</div>
                                 <div class="dropdown_3 text2">
                                     <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
@@ -66,19 +66,19 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
+                        <td class="menuItem">
                             <div class="dropdownReference">
                                 <link:findASchool id="PN-FindASchool"
                                                   styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
                             </div>
                         </td>
-                        <td class="${(pw == tabs.REVIEW_YOUR_SCHOOL ? 'selected' : '')} menuItem home">
+                        <td class="menuItem">
                             <div class="dropdownReference">
                                 <a href="/school/parentReview.page" id="PN-ReviewYourSchool"
                                    class="menuItemAnchorText GS_CI9_">Review Your School</a>
                             </div>
                         </td>
-                        <td class="${(pw == tabs.CONTENT ? 'selected' : '')} menuItem">
+                        <td class="menuItem">
                             <div class="dropdownReference">
                                 <link:elementary-school id="PN-Content"
                                                         styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
@@ -139,24 +139,15 @@
                                             <link:loginOrRegister email="${requestScope.context.email}"
                                                                   styleClass="menuItemAnchorText"
                                                                   onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',
-                                                document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
+                                                                  document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
                                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
-                                        <jsp:scriptlet>
-                                            request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                                        </jsp:scriptlet>
                                         <div id="utilLinks">
                                             <div class="menuItemAnchorText">My Account</div>
                                             <div class="dropdown_3 text2">
                                                 <ul class="dropdown dropdown_1">
-                                                    <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty
-                                                    requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
-                                                        <li style="display:none;" id="js_header_view_mobile_site">
-                                                            <a href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a>
-                                                        </li>
-                                                    </c:if>
                                                     <li>
                                                         <c:choose>
                                                             <c:when test="${not empty requestScope.context.firstName}">
@@ -168,11 +159,12 @@
                                                         </c:choose>
                                                     </li>
                                                     <li>
-                                                        <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
-                                                    </li>
-                                                    <li>
                                                         <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
                                                     </li>
+                                                    <li>
+                                                        <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                                                    </li>
+
                                                 </ul>
                                             </div>
                                         </div>
