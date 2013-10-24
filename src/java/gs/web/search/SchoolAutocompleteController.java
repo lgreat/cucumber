@@ -1,21 +1,13 @@
 package gs.web.search;
 
-import gs.data.geo.City;
 import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
-import gs.data.school.School;
-import gs.data.school.district.District;
 import gs.data.search.*;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.fields.*;
-import gs.data.search.filters.SchoolFilters;
 import gs.data.search.services.SchoolSearchServiceSolrImpl;
-import gs.data.state.State;
-import gs.web.pagination.RequestedPage;
 import gs.web.util.HttpCacheInterceptor;
-import gs.web.util.UrlBuilder;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/search/schoolAutocomplete.page")
@@ -58,7 +47,8 @@ public class SchoolAutocompleteController {
             List<String> suggestions = new ArrayList<String>();
             if (!StringUtils.isBlank(state) && !StringUtils.isBlank(searchString)) {
                 if (schoolCity != null && schoolCity) {
-                    List<SolrSchoolSearchResult> solrResults = searchForSchools(state, searchString);
+                    boolean excludePreschools = StringUtils.equals("true", request.getParameter("excludePreschools"));
+                    List<SolrSchoolSearchResult> solrResults = searchForSchools(state, searchString, excludePreschools);
                     JSONObject json = getSchoolDetailsJson(solrResults, request, response);
                     json.write(response.getWriter());
                     response.getWriter().flush();
@@ -143,7 +133,7 @@ public class SchoolAutocompleteController {
         response.getWriter().flush();
     }*/
 
-    protected List<SolrSchoolSearchResult> searchForSchools(String state, String searchString) {
+    protected List<SolrSchoolSearchResult> searchForSchools(String state, String searchString, boolean excludePreschools) {
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
 
         searchString = StringUtils.lowerCase(searchString);
@@ -156,6 +146,10 @@ public class SchoolAutocompleteController {
 
         if (state != null) {
             q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.toLowerCase());
+        }
+
+        if (excludePreschools) {
+            q.filter(SchoolFields.GRADE_LEVEL, Arrays.asList("e", "m", "h"));
         }
 
         q.addBeginsWithQuery(AutosuggestFields.SCHOOLDISTRICT_AUTOSUGGEST, searchString);

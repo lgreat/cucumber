@@ -93,6 +93,8 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                     return true;
                 }
             }
+            var excludePreschools = (typeof window.gs_isTopical !== 'undefined' && window.gs_isTopical);
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -100,7 +102,8 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                 data: {
                     q: term,
                     state: state,
-                    schoolCity: true
+                    schoolCity: true,
+                    excludePreschools: excludePreschools
                 },
                 success: function (data) {
                     cacheNewTerm(termState, data.schools);
