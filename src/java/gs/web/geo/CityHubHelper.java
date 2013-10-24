@@ -10,6 +10,9 @@ import gs.web.util.UrlUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,8 @@ public class CityHubHelper {
     public static final String COLLECTION_NICKNAME_KEY = "collection_nickname";
     public static final String SHOW_ADS_KEY = "showAds";
     public static final String COLLECTION_NICKNAME_MODEL_KEY = "collectionNickname";
+    public static final String HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY = "chooseSchool";
+    public static final String HUB_HOME_KEY_PREFIX = "hubHome";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
@@ -96,6 +101,18 @@ public class CityHubHelper {
             for (HubConfig hubConfig : configList) {
                 String key = hubConfig != null ? hubConfig.getQuay() : null;
                 if (key != null && key.startsWith(keyPrefix)) {
+                    String note = hubConfig.getNote();
+                    if(note != null && note.toLowerCase().startsWith("json string")) {
+                        try {
+                            filteredConfig.addAllAttributes(convertJSONStringToMap(hubConfig));
+                        }
+                        catch (JSONException ex) {
+                            _logger.error("CityHubHelper - unable to convert string value " + hubConfig.getValue() +
+                                    " of the hub config key " + hubConfig.getQuay() + " to JSON object. Please check if " +
+                                    "the value is a well defined json in the hub_config table.\n", ex.fillInStackTrace());
+                        }
+                        continue;
+                    }
                     /**
                      * The key should always be in this format - [type_of_key]_[index]_[type_of_value]
                      * an example for the type of key is "importantEvent"
@@ -288,6 +305,14 @@ public class CityHubHelper {
         }
 
         return showAds;
+    }
+
+    public Map convertJSONStringToMap(HubConfig hubConfig) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        if(hubConfig != null && hubConfig.getValue() != null) {
+            jsonObject = (JSONObject) JSONSerializer.toJSON(hubConfig.getValue());
+        }
+        return jsonObject;
     }
 
     public void setHubCityMappingDao(final IHubCityMappingDao _hubCityMappingDao) {
