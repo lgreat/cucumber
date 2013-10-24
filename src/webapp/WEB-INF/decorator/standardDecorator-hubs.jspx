@@ -5,7 +5,6 @@
         xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -13,9 +12,7 @@
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
         xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
         xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare/v1"
-        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
-        xmlns:link="urn:www.greatschools.org/taglib/link"
         xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
 
@@ -31,7 +28,7 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title><decorator:title
                 default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
-        <pageHelper:addCss-v1/>
+        <pageHelper:addCss-hubs/>
 
         <pageHelper:addJavaScript-v1
                 uncompressedScripts="${param.uncompressedScripts}"

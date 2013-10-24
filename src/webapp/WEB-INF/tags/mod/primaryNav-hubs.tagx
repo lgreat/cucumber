@@ -20,40 +20,43 @@
 
     <c:set var="pw" value="${requestScope.context.pathway}"/>
 
-    <div class="menuContainer-primary">
+    <div class="">
         <div class="container_24 clearfix">
             <div class="grid_5">
-                <gsml:a href="/">
-                    <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png"
+                <gsml:a href="/" styleClass="mtl">
+                    <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png" styleClass="mtm"
                               alt="GreatSchools: Involved Parents. Successful Kids"/>
                 </gsml:a>
             </div>
             <div class="grid_17">
-
-                <table id="gs-primary">
+                <table id="hub-primary">
                     <tbody>
                     <tr>
-
                         <td class="menuItem">
-                            <div class="dropdownReference">
-                                ${city},${state}
+                            <div class="menuItem dropdownReference">
+                                <div class="menuItemAnchorText">${city},${state}</div>
                                 <div class="dropdown_3 text2">
                                     <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <link:cityHubHome state="${state}" city="${city}">${city} Home</link:cityHubHome>
+                                            <link:cityHubHome state="${state}"
+                                                              city="${city}">${city} Home</link:cityHubHome>
                                         </li>
 
                                         <li class="subMenuItem">
-                                            <link:cityHubChooseSchoolsPage state="${state}" city="${city}">Choosing a school</link:cityHubChooseSchoolsPage>
+                                            <link:cityHubChooseSchoolsPage state="${state}"
+                                                                           city="${city}">Choosing a school</link:cityHubChooseSchoolsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEduCommunityPage state="${state}" city="${city}">Education Community</link:cityHubEduCommunityPage>
+                                            <link:cityHubEduCommunityPage state="${state}"
+                                                                          city="${city}">Education Community</link:cityHubEduCommunityPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEnrollmentPage state="${state}" city="${city}">Enrollment Information</link:cityHubEnrollmentPage>
+                                            <link:cityHubEnrollmentPage state="${state}"
+                                                                        city="${city}">Enrollment Information</link:cityHubEnrollmentPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEventsPage state="${state}" city="${city}">Events</link:cityHubEventsPage>
+                                            <link:cityHubEventsPage state="${state}"
+                                                                    city="${city}">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
                                             <link:home>Not in ${city} ? </link:home>
@@ -127,67 +130,61 @@
                                 </div>
                             </div>
                         </td>
+                        <td class="menuItem">
+                            <div class="dropdownReference">
+                                <c:choose>
+                                    <!-- Not logged in case -->
+                                    <c:when test="${empty requestScope.context.memberId}">
+                                        <div id="utilLinks">
+                                            <link:loginOrRegister email="${requestScope.context.email}"
+                                                                  styleClass="menuItemAnchorText"
+                                                                  onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',
+                                                document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
+                                                                  redirect="${myUrl}">Sign In</link:loginOrRegister>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <jsp:scriptlet>
+                                            request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                                        </jsp:scriptlet>
+                                        <div id="utilLinks">
+                                            <div class="menuItemAnchorText">My Account</div>
+                                            <div class="dropdown_3 text2">
+                                                <ul class="dropdown dropdown_1">
+                                                    <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty
+                                                    requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
+                                                        <li style="display:none;" id="js_header_view_mobile_site">
+                                                            <a href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a>
+                                                        </li>
+                                                    </c:if>
+                                                    <li>
+                                                        <c:choose>
+                                                            <c:when test="${not empty requestScope.context.firstName}">
+                                                                Welcome, <link:userAccount>${requestScope.context.firstName}</link:userAccount>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <link:userAccount>My Account</link:userAccount>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </li>
+                                                    <li>
+                                                        <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                                                    </li>
+                                                    <li>
+                                                        <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <!--<div class="grid_2" >-->
-                <!--${requestScope.context.firstName}-->
-                <!--<gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>-->
-                <!--<c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>-->
-                    <!--<c:set var="myUrl" value=""/>-->
-                <!--</c:if>-->
-                <!--<link:loginOrRegister email="${requestScope.context.email}"-->
-                                      <!--styleClass="menuItemAnchorText"-->
-                                      <!--onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',-->
-                                  <!--document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"-->
-                                      <!--redirect="${myUrl}">Sign In</link:loginOrRegister>-->
-            <!--</div>-->
-            <div >
-                <div class="pbs">
-                    <c:choose>
-                        <!-- Not logged in case -->
-                        <c:when test="${empty requestScope.context.memberId}">
-                            <ul id="utilLinks">
-                                        <li class="last"><link:loginOrRegister email="${requestScope.context.email}"
-                                                                       onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
-                                                                       redirect="${myUrl}">Sign In</link:loginOrRegister></li>
-
-                            </ul>
-                        </c:when>
-                        <c:otherwise>
-                            <jsp:scriptlet>
-                                request.setAttribute("communityAuth",
-                                        Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                            </jsp:scriptlet>
-                            <ul id="utilLinks">
-                                <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
-                                    <li style="display:none;" id="js_header_view_mobile_site"><a
-                                            href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
-                                </c:if>
-                                <li>
-                                    <c:choose>
-                                        <c:when test="${not empty requestScope.context.firstName}">
-                                            Welcome, <link:userAccount styleClass="nav_group_heading">${requestScope.context.firstName}</link:userAccount>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <link:userAccount styleClass="nav_group_heading">My Account</link:userAccount>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li>
-                                    <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
-                                </li>
-
-                                <li class="last">
-                                    <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
-                                 </li>
-                            </ul>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-               </div>
-            </div>
+        </div>
     </div>
 
 </jsp:root>
