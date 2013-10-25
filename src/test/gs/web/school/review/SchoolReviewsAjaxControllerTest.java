@@ -2,6 +2,7 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.json.JSONArray;
 import gs.data.json.JSONObject;
 import gs.data.school.IHeldSchoolDao;
 import gs.data.school.LevelCode;
@@ -428,7 +429,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         assertEquals("text/x-json", getResponse().getContentType());
         //{"status":true,"errors":["this is a bad","this is really bad"]}
-        assertEquals("{\"status\":false,\"reviewPosted\":false,\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
+        assertEquals("{\"status\":false,\"reviewPosted\":\"false\",\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
     }
 
     public void testErrorJsonStringArray() throws Exception {
@@ -436,7 +437,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         assertEquals("text/x-json", getResponse().getContentType());
         //{"status":true,"errors":["this is a bad","this is really bad"]}
-        assertEquals("{\"status\":false,\"reviewPosted\":false,\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
+        assertEquals("{\"status\":false,\"reviewPosted\":\"false\",\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
     }
 
     public void testSuccessJson() throws Exception {
@@ -886,7 +887,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -926,7 +927,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         tag4.setActive(true);
         _topic.getTags().add(tag2);
         _topic.getTags().add(tag4);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -956,7 +957,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
         _command.setTagIds(new Long[] {2L, 4L});
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -987,7 +988,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
         _command.setMssSub(true);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -1022,7 +1023,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -1056,7 +1057,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -1090,7 +1091,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -1122,7 +1123,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(1L);
         _command.setPoster(Poster.PARENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -1151,7 +1152,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(1L);
         _command.setPoster(Poster.STUDENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         _userDao.saveUser((User) anyObject());
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -1180,13 +1181,15 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
         _command.setTopicId(_topic.getId());
         _command.setPoster(Poster.PARENT);
-        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic).times(2);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         expect(_topicalSchoolReviewDao.find(_school.getDatabaseState(), _school.getId(), _user.getId(), _topic.getId())).andReturn(null);
 
         expect(_bannedIPDao.isIPBanned("127.0.0.1", 365)).andReturn(false);
         expect(_alertWordDao.getAlertWords("safe safe safe safe safe safe safe safe safe safe.")).andReturn(new HashMap<IAlertWordDao.alertWordTypes, Set<String>>());
         expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+
+        _exactTargetAPI.sendTriggeredEmail(eq("review_posted_trigger"), eq(_user), isA(Map.class));
 
 //        Subscription subRating = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
 //        subRating.setSchoolId(_school.getId());
@@ -1198,6 +1201,68 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
         JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
         assertEquals("true", output.get("reviewPosted"));
+    }
+
+    public void testSubmitTopicalReviewForPreschool() throws Exception {
+        _user.setPlaintextPassword("foobar");
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(_topic.getId());
+        _command.setPoster(Poster.PARENT);
+        _school.setLevelCode(LevelCode.PRESCHOOL);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+        assertNotNull(output.get("errors"));
+        JSONArray errors = (JSONArray) output.get("errors");
+        assertEquals(SchoolReviewsAjaxController.ERROR_PRESCHOOLS_NOT_ALLOWED_TOPICAL_REVIEW, errors.get(0));
+    }
+
+    public void testSubmitTopicalReviewForInvalidTopic() throws Exception {
+        _user.setPlaintextPassword("foobar");
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(_topic.getId());
+        _command.setPoster(Poster.PARENT);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(null);
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+        assertNotNull(output.get("errors"));
+        JSONArray errors = (JSONArray) output.get("errors");
+        assertEquals(SchoolReviewsAjaxController.ERROR_INVALID_TOPIC, errors.get(0));
+    }
+
+    public void testSubmitTopicalReviewForDuplicateReview() throws Exception {
+        _user.setPlaintextPassword("foobar");
+        _controller.setUserDao(_userDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe.");
+        _command.setTopicId(_topic.getId());
+        _command.setPoster(Poster.PARENT);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        expect(_reviewTopicDao.find(_topic.getId())).andReturn(_topic);
+        expect(_topicalSchoolReviewDao.find(_school.getDatabaseState(), _school.getId(), _user.getId(), _topic.getId())).andReturn(new TopicalSchoolReview());
+
+        replayAllMocks();
+        _controller.handle(_request, _response, _command, _errors);
+        verifyAllMocks();
+        JSONObject output = new JSONObject(_response.getContentAsString(), "UTF-8");
+        assertEquals("false", output.get("reviewPosted"));
+        assertNotNull(output.get("errors"));
+        JSONArray errors = (JSONArray) output.get("errors");
+        assertEquals(SchoolReviewsAjaxController.ERROR_CANNOT_OVERWRITE_TOPICAL_REVIEW, errors.get(0));
     }
 
     private Map<IAlertWordDao.alertWordTypes, Set<String>> getAlertWordsMap(String warningWord, String reallyBadWord) {

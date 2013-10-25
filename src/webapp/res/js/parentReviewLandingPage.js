@@ -604,6 +604,25 @@ function GS_schoolReviewFormLandingPage(id) {
             data: formData,
             dataType: 'json'
         }).done(function(data) {
+                if (data.errors) {
+                    var handled = false;
+                    jQuery.each(data.errors, function(index, value) {
+                        if (value === 'Invalid topic id') {
+                            alert("Sorry, but an error occurred with your review submission. Please try again soon.");
+                            handled = true;
+                        } else if (value === 'Preschools not allowed') {
+                            alert("Sorry, but an error occurred with your review submission. Please try again soon.");
+                            handled = true;
+                        } else if (value === 'Cannot overwrite review') {
+                            alert("You've already submitted a review for this school.");
+                            handled = true;
+                        }
+                        return !handled;
+                    });
+                    if (handled) {
+                        return;
+                    }
+                }
             trackReviewSubmitted();
             if (forFacebook === true) {
                 setHoverCookie(data);

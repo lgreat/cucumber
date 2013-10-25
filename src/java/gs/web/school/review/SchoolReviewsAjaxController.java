@@ -54,36 +54,27 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     protected final static Log _log = LogFactory.getLog(SchoolReviewsAjaxController.class);
 
+    public static final String ERROR_PRESCHOOLS_NOT_ALLOWED_TOPICAL_REVIEW="Preschools not allowed";
+    public static final String ERROR_INVALID_TOPIC="Invalid topic id";
+    public static final String ERROR_CANNOT_OVERWRITE_TOPICAL_REVIEW="Cannot overwrite review";
+
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
     private ISubscriptionDao _subscriptionDao;
     private String _viewName;
     private IReportedEntityDao _reportedEntityDao;
-
     private IReportContentService _reportContentService;
-
     private ExactTargetAPI _exactTargetAPI;
-
     private ISchoolDao _schoolDao;
-
     private IAlertWordDao _alertWordDao;
-
     private IHeldSchoolDao _heldSchoolDao;
-
     private IBannedIPDao _bannedIPDao;
-
     private EmailHelperFactory _emailHelperFactory;
-
     private Boolean _jsonPage = Boolean.FALSE;
-
     private Boolean _xmlPage = Boolean.FALSE;
-
     private ReviewHelper _reviewHelper;
-
     private EmailVerificationReviewOnlyEmail _emailVerificationReviewOnlyEmail;
-
     private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
-
     private IReviewTopicDao _reviewTopicDao;
 
     public ModelAndView handle(HttpServletRequest request,
@@ -146,7 +137,11 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         Map<Object, Object> responseValues = new HashMap<Object, Object>();
         TopicalSchoolReview review;
         if (_reviewTopicDao.find(reviewCommand.getTopicId()) == null) {
-            errorJSON(response, "Invalid topic id");
+            errorJSON(response, ERROR_INVALID_TOPIC);
+            return;
+        }
+        if (school.isPreschoolOnly()) {
+            errorJSON(response, ERROR_PRESCHOOLS_NOT_ALLOWED_TOPICAL_REVIEW);
             return;
         }
         //The user submitting the review might not exist yet.
@@ -158,7 +153,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             // look for existing review
             review = getTopicalSchoolReviewDao().find(school.getDatabaseState(), school.getId(), user.getId(), reviewCommand.getTopicId());
             if (review != null) {
-                errorJSON(response, "Cannot overwrite review");
+                errorJSON(response, ERROR_CANNOT_OVERWRITE_TOPICAL_REVIEW);
                 return;
             } else {
                 review = getReviewHelper().createTopicalReview(user, school, reviewCommand);
@@ -619,7 +614,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
-        buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
+        buff.append("{\"status\":false,\"reviewPosted\":\"false\",\"errors\":");
         buff.append("[");
         List messages = errors.getAllErrors();
 
@@ -639,7 +634,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     protected ModelAndView errorJSON(HttpServletResponse response, String... errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
-        buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
+        buff.append("{\"status\":false,\"reviewPosted\":\"false\",\"errors\":");
         buff.append("[");
         List<String> messages = Arrays.asList(errors);
 
