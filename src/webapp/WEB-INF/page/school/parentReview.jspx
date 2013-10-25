@@ -404,7 +404,7 @@
 <c:if test="${isTopical}">
     <div class="clearfix small">
         <div class="tar">
-            <a href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'topicId')}" id="notSpecialEdReview">I don't want to write a Special Education review >>, need JS</a>
+            <a href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'topicId')}" id="js-notTopicalReview">I don't want to write a Special Education review >></a>
             <!--onclick add in the state and school id-->
         </div>
                 <span class="small_bold">

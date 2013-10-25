@@ -656,29 +656,52 @@ function GS_schoolReviewFormLandingPage(id) {
     }
 
 //    topical reviews tags GS-14925
-        $(".js-allAvailableTopicTags").hide();
-        $(".js-availableTopicTagsButton").hide();
-        $("#js-addTopicTags").click(function(){
-            $(this).toggle();
-            $(".js-allAvailableTopicTags").toggle("1000, function()");
-            return false;
-        });
+    $(".js-allAvailableTopicTags").hide();
+    $(".js-availableTopicTagsButton").hide();
+    $("#js-addTopicTags").click(function () {
+        $(this).toggle();
+        $(".js-allAvailableTopicTags").toggle("1000, function()");
+        return false;
+    });
 
-    $(".js-availableTopicTagsText").click(function(){
-            var tagId = $(this).attr("id");
-            tagId = tagId.substring("js-tag-text-".length);
-            $("#js-tag-button-"+ tagId ).show();
-            $(this).hide();
-            return false;
-        });
+    $(".js-availableTopicTagsText").click(function() {
+        var tagId = $(this).attr("id");
+        tagId = tagId.substring("js-tag-text-".length);
+        $("#js-tag-button-" + tagId).show();
+        $(this).hide();
+        return false;
+    });
 
-    $(".js-availableTopicTagsButton").click(function(){
-            var tagId = $(this).attr("id");
-            tagId = tagId.substring("js-tag-button-".length);
-            $("#js-tag-text-"+ tagId ).show();
-            $(this).hide();
-        });
+    $(".js-availableTopicTagsButton").click(function() {
+        var tagId = $(this).attr("id");
+        tagId = tagId.substring("js-tag-button-".length);
+        $("#js-tag-text-" + tagId).show();
+        $(this).hide();
+    });
 
-    //                fix the url!!!
+    /** @return String */
+    var addSchoolRemoveTopicFromUrl = function(url) {
+        var indexOfQuery = url.indexOf('?');
+        if (indexOfQuery > -1 && url.length > indexOfQuery) {
+            var query = url.substring(indexOfQuery+1);
+            query = GS.uri.Uri.removeFromQueryString(query, 'topicId');
+            if (GS.parentReviewLandingPage.chosenSchool != null) {
+                var schoolId = GS.parentReviewLandingPage.chosenSchool.id;
+                var schoolState = GS.parentReviewLandingPage.chosenSchool.state;
+                if (schoolId && schoolState) {
+                    query = GS.uri.Uri.putIntoQueryString(query, 'schoolId', schoolId, true);
+                    query = GS.uri.Uri.putIntoQueryString(query, 'state', schoolState, true);
+                    return query;
+                }
+            }
+            return query;
+        }
+        return url;
+    };
+
+    $('#js-notTopicalReview').on('click', function() {
+        $(this).attr('href', addSchoolRemoveTopicFromUrl(document.location.toString()));
+        return true;
+    });
 
 }
