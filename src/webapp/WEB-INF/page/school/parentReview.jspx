@@ -237,7 +237,7 @@
             <c:when test="${isTopical}">
                 <p style="font:bold 60px/68px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
                     text-shadow: 0 0 24px rgba(0,0,0,1)">
-                    How well does this school<br>
+                    How well does your school<br>
                     support children with learning &amp; attention issues?</br></p>
                 <p style="font-family:'SourceSansPro-It',Arial,Helvetica,sans-serif;font-size:24px;color:#ffCE7A;
                     text-shadow: 0 0 20px rgba(0,0,0,.6)">Share your perspective - rate and review your school now</p>
@@ -482,7 +482,9 @@
                     </div>
                 </div>
                 <div>
-                    <textarea id="js-reviewContent" name="comments" class=" js-reviewContent review-text small make-787878 lined_paper" placeholder="Tell us how well your school supports children with learning &amp; attention issues, such as children with dyslexia and ADHD."><!-- do not collapse --></textarea>
+                    <textarea id="js-reviewContent" name="comments"
+                              class="js-reviewContent review-text small make-787878 lined_paper"
+                              placeholder="Tell us how well your school supports children with learning &amp; attention issues (e.g., dyslexia, ADHD)"><!-- do not collapse --></textarea>
                 </div>
             </div>
 
