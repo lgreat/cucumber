@@ -117,6 +117,11 @@
                 <property name="cookieName" value="MEMID"/>
             </bean>
         </property>
+        <property name="isOspMemberCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="IS_OSP_MEMBER"/>
+            </bean>
+        </property>
         <property name="communityCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
             </bean>

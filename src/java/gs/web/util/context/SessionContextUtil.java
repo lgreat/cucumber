@@ -8,13 +8,13 @@ package gs.web.util.context;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.geo.City;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.auth.FacebookHelper;
 import gs.web.auth.FacebookSession;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
-import gs.web.request.RequestAttributeHelper;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
@@ -122,6 +122,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _kindercareLeadGenCookieGenerator;
     private CookieGenerator _care2PromoCookieGenerator;
     private CookieGenerator _searchResultsCookieGenerator;
+    private CookieGenerator _isOspMemberCookieGenerator;
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.org";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
@@ -530,6 +531,14 @@ public class SessionContextUtil implements ApplicationContextAware {
         _searchResultsCookieGenerator = searchResultsCookieGenerator;
     }
 
+    public CookieGenerator getIsOspMemberCookieGenerator() {
+        return _isOspMemberCookieGenerator;
+    }
+
+    public void setIsOspMemberCookieGenerator(CookieGenerator ospMemberCookieGenerator) {
+        _isOspMemberCookieGenerator = ospMemberCookieGenerator;
+    }
+
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
      *
@@ -765,6 +774,12 @@ public class SessionContextUtil implements ApplicationContextAware {
     public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash, boolean rememberMe) {
         if (user != null) {
             setUserIsMember(request, response);
+            if(user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
+                if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                    _isOspMemberCookieGenerator.setCookieDomain(".greatschools.org");
+                }
+                _isOspMemberCookieGenerator.addCookie(response, "y");
+            }
             ClientSideSessionCache cache = new ClientSideSessionCache(user);
             cache.setUserHash(hash);
             if (user.getUserProfile() != null) {
