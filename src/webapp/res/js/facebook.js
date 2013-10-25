@@ -250,7 +250,7 @@ GS.facebook = GS.facebook || (function () {
         deleteCookie("MEMBER"); // subscriber login
         deleteCookie("MEMID", ".greatschools.org"); // MSL
         deleteCookie("SESSION_CACHE"); //
-        deleteCookie("IS_OSP_MEMBER");
+        deleteCookie("IS_OSP_MEMBER",".greatschools.org");
 
         var communityCookieName = "community_www";
 
