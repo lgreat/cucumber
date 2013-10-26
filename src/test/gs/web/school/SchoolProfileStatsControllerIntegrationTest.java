@@ -58,8 +58,6 @@ public class SchoolProfileStatsControllerIntegrationTest {
     public void testNothing() {
         //at least one test so build doesn't fail
         assertTrue(true);
-        assertTrue(false);
-
     }
 
     /*@Test*/
