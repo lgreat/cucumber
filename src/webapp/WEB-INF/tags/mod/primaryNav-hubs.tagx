@@ -29,38 +29,38 @@
                               alt="GreatSchools: Involved Parents. Successful Kids"/>
                 </gsml:a>
             </div>
-            <div class="grid_17">
+            <div class="prefix_2 grid_17">
                 <table id="hub-primary">
                     <tbody>
                     <tr>
                         <td class="menuItem">
                             <div class="menuItem dropdownReference">
                                 <div class="menuItemAnchorText">${city}, ${state}</div>
-                                <div class="dropdown_3 text2">
-                                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                                <div class="dropdown_1">
+                                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <link:cityHubHome state="${state}"
+                                            <link:cityHubHome state="${state}" styleClass="subMenuItemAnchorText"
                                                               city="${city}">${city} Home</link:cityHubHome>
                                         </li>
 
                                         <li class="subMenuItem">
-                                            <link:cityHubChooseSchoolsPage state="${state}"
+                                            <link:cityHubChooseSchoolsPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                            city="${city}">Choosing a school</link:cityHubChooseSchoolsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEduCommunityPage state="${state}"
+                                            <link:cityHubEduCommunityPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                           city="${city}">Education Community</link:cityHubEduCommunityPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEnrollmentPage state="${state}"
+                                            <link:cityHubEnrollmentPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                         city="${city}">Enrollment Information</link:cityHubEnrollmentPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEventsPage state="${state}"
+                                            <link:cityHubEventsPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                     city="${city}">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:home>Not in ${city} ? </link:home>
+                                            <link:home styleClass="subMenuItemAnchorText">Not in ${city} ? </link:home>
                                         </li>
 
                                     </ul>
@@ -81,51 +81,25 @@
                         </td>
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <link:elementary-school id="PN-Content"
-                                                        styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
-
-                                <div class="dropdown_3 text2">
-                                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                                <link:elementary-school id="PN-Content" styleClass="menuItemAnchorText drop GS_CI9_">Resources</link:elementary-school>
+                                <div class="dropdown_2">
+                                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs"
-                                               id="SN_HT-An11YearOldWwithTheIQOfEinstein"
-                                               class="subMenuItemAnchorText GS_CI9_">An 11-year-old with the IQ of Einstein</a>
+                                            <a href="/worksheets-activities.topic?content=4313" id=""
+                                               class="subMenuItemAnchorText GS_CI9_">Worksheets &amp; Activities</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7539-parenting-tips-power-of-yet-carol-dweck-video.gs"
-                                               id="SN_HT-OneWordThatllChangeYourParenting"
-                                               class="subMenuItemAnchorText GS_CI9_">One word that'll change your parenting</a>
+                                            <a href="/parenting-dilemmas.topic?content=4321" id=""
+                                               class="subMenuItemAnchorText GS_CI9_">Parenting Dilemmas</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7390-christine-carter-chores-for-kids-parenting-tips-video.gs"
-                                               id="SN_HT-TheToughLoveApproachToChores"
+                                            <a href="/special-education.topic?content=1541" id=""
                                                class="subMenuItemAnchorText GS_CI9_">
-                                                The tough love approach to chores</a>
+                                                Learning Difficulties</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="http://blogs.greatschools.org/greatschoolsblog/2013/07/sibling-rivalry.html"
-                                               id="SN_HT-SiblingRivalryOrAbuse"
-                                               class="subMenuItemAnchorText GS_CI9_">Sibling rivalry - or abuse?</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7306-signs-symptoms-of-bipolar-in-children.gs"
-                                               id="SN_HT-BipolarAt5"
-                                               class="subMenuItemAnchorText GS_CI9_">Bipolar at 5?</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/school-choice/7282-melting-pot-diversity-at-schools.gs"
-                                               id="SN_HT-WhenTheMeltingPotBoilsOver"
-                                               class="subMenuItemAnchorText GS_CI9_">When the melting pot boils over</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7308-bipolar-girl-story-video.gs"
-                                               id="SN_HT-RaisingSadie"
-                                               class="subMenuItemAnchorText GS_CI9_">Raising Sadie</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/parenting/social-skills/7260-parent-cliques-school.gs"
-                                               id="SN_HT-DoParentCliquesRuleYourSchool"
-                                               class="subMenuItemAnchorText GS_CI9_">Do parent cliques rule your school?</a>
+                                            <a href=" /parenting.topic?content=1539" id=""
+                                               class="subMenuItemAnchorText GS_CI9_">Health &amp; Behavior</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -134,8 +108,6 @@
                         <td class="menuItem">
                             <div class="dropdownReference">
                                 <c:choose>
-
-
                                     <!-- Not logged in case -->
                                     <c:when test="${empty requestScope.context.memberId}">
                                         <div id="utilLinks">
@@ -147,11 +119,10 @@
                                         </div>
                                     </c:when>
                                     <c:otherwise>
-
                                         <div id="utilLinks">
                                             <div class="menuItemAnchorText">My Account</div>
-                                            <div class="dropdown_3 text2">
-                                                <ul class="dropdown dropdown_1">
+                                            <div class="dropdown_3">
+                                                <ul class="none">
                                                     <li>
                                                           <jsp:scriptlet>
                                                                     request.setAttribute("isOSP", CookieUtil.hasCookie(request, "IS_OSP_MEMBER"));
@@ -159,7 +130,7 @@
                                                         <c:choose>
 
                                                             <c:when test="${not empty requestScope.context.firstName}">
-                                                                Welcome, <link:userAccount>${requestScope.context.firstName}</link:userAccount>
+                                                                <div class="subMenuItemAnchorText">Welcome, <link:userAccount>${requestScope.context.firstName}</link:userAccount></div>
                                                             </c:when>
                                                             <c:otherwise>
 
@@ -168,18 +139,16 @@
                                                         </c:choose>
                                                     </li>
                                                     <li>
-                                                        <link:mySchoolList>My School List (${requestScope.context.mslCount}) </link:mySchoolList>
+                                                        <link:mySchoolList styleClass="subMenuItemAnchorText">My School List (${requestScope.context.mslCount}) </link:mySchoolList>
                                                     </li>
                                                     <c:if test="${isOSP}">
-                                                        <li >
-                                                            <link:schoolEspDashboard>Edit school profile</link:schoolEspDashboard>
+                                                        <li>
+                                                            <link:schoolEspDashboard styleClass="subMenuItemAnchorText">Edit school profile</link:schoolEspDashboard>
                                                         </li>
                                                     </c:if>
                                                     <li>
-                                                        <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                                                        <gsml:a styleClass="js-log-out subMenuItemAnchorText" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
                                                     </li>
-
-
                                                 </ul>
                                             </div>
                                         </div>

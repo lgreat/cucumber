@@ -4623,6 +4623,13 @@
             <![CDATA[ESP Form page]]>
         </description>
         <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
             <name>school</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -4811,6 +4818,13 @@
         <description>
             <![CDATA[Hub home page]]>
         </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML class attribute</description>
+        </attribute>
         <attribute>
             <name>state</name>
             <required>true</required>
