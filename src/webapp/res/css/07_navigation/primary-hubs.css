@@ -125,6 +125,18 @@ General comments:
     font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
 }
 
+#hub-primary .dropdown_1 .subMenuItemNoHover,
+#hub-primary .dropdown_2 .subMenuItemNoHover,
+#hub-primary .dropdown_3 .subMenuItemNoHover {
+    display: block;
+    padding: 10px 15px 10px 15px;
+    margin: 0;
+    border: none;
+    text-align: left;
+    color:#CCE5ED;
+    font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+}
+
 #hub-primary .dropdown_1 .subMenuItem:hover,
 #hub-primary .dropdown_2 .subMenuItem:hover,
 #hub-primary .dropdown_3 .subMenuItem:hover {

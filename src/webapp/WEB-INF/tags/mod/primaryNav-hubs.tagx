@@ -123,14 +123,14 @@
                                             </div>
                                             <div class="dropdown_3 dropdown_align_right">
                                                 <ul class="none">
-                                                    <li class="subMenuItem">
+                                                    <li class="subMenuItemNoHover">
                                                           <jsp:scriptlet>
                                                                     request.setAttribute("isOSP", CookieUtil.hasCookie(request, "IS_OSP_MEMBER"));
                                                         </jsp:scriptlet>
                                                         <c:choose>
 
                                                             <c:when test="${not empty requestScope.context.firstName}">
-                                                                <div class="subMenuItemAnchorText">Welcome, <link:userAccount styleClass="subMenuItemAnchorText">${requestScope.context.firstName}</link:userAccount></div>
+                                                                <div >Welcome, ${requestScope.context.firstName}</div>
                                                             </c:when>
                                                             <c:otherwise>
 
@@ -138,14 +138,18 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </li>
-                                                    <li class="subMenuItem">
-                                                        <link:mySchoolList styleClass="subMenuItemAnchorText">My School List (${requestScope.context.mslCount}) </link:mySchoolList>
-                                                    </li>
                                                     <c:if test="${isOSP}">
                                                         <li class="subMenuItem">
                                                             <link:schoolEspDashboard styleClass="subMenuItemAnchorText">Edit school profile</link:schoolEspDashboard>
                                                         </li>
                                                     </c:if>
+                                                    <li class="subMenuItem">
+                                                        <link:mySchoolList styleClass="subMenuItemAnchorText">My School List (${requestScope.context.mslCount}) </link:mySchoolList>
+                                                    </li>
+                                                    <li class="subMenuItem">
+                                                        <link:userAccount styleClass="subMenuItemAnchorText">Account Settings</link:userAccount>
+                                                    </li>
+
                                                     <li class="subMenuItem">
                                                         <gsml:a styleClass="js-log-out subMenuItemAnchorText" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
                                                     </li>
