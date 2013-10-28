@@ -42,9 +42,6 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
          */
         ControllerFamily cityController= ControllerFamily.CITY_DEFAULT;
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-         /**
-         * This Code should change to add the logic for city pages .Possibly string match on URL. -To do Shomi Revert
-         */
         if (request == null) {
             throw new IllegalStateException("Request cannot be null.");
         }
