@@ -29,13 +29,16 @@
                               alt="GreatSchools: Involved Parents. Successful Kids"/>
                 </gsml:a>
             </div>
-            <div class="prefix_2 grid_17">
+            <div class="prefix_3 grid_16">
                 <table id="hub-primary">
                     <tbody>
                     <tr>
                         <td class="menuItem">
                             <div class="menuItem dropdownReference">
-                                <div class="menuItemAnchorText">${city}, ${state}</div>
+                                <div class="menuItemAnchorText">
+                                    ${city}, ${state}
+                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam"><!--Do not collapse--></span>
+                                </div>
                                 <div class="dropdown_1">
                                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
@@ -70,36 +73,32 @@
                         <td class="menuItem">
                             <div class="dropdownReference">
                                 <link:findASchool id="PN-FindASchool"
-                                                  styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
+                                                  styleClass="menuItemAnchorText">Find a School</link:findASchool>
                             </div>
                         </td>
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <a href="/school/parentReview.page" id="PN-ReviewYourSchool"
-                                   class="menuItemAnchorText GS_CI9_">Review Your School</a>
+                                <a href="/school/parentReview.page" id="PN-ReviewYourSchool" class="menuItemAnchorText">Review Your School</a>
                             </div>
                         </td>
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <link:elementary-school id="PN-Content" styleClass="menuItemAnchorText drop GS_CI9_">Resources</link:elementary-school>
+                                <div class="menuItemAnchorText">Resources
+                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam"><!--Do not collapse--></span>
+                                </div>
                                 <div class="dropdown_2">
-                                    <ul class="none"> <!-- bullet type: disc/square/circle-->
+                                    <ul class="none">
                                         <li class="subMenuItem">
-                                            <a href="/worksheets-activities.topic?content=4313" id=""
-                                               class="subMenuItemAnchorText GS_CI9_">Worksheets &amp; Activities</a>
+                                            <a href="/worksheets-activities.topic?content=4313" class="subMenuItemAnchorText">Worksheets &amp; Activities</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas.topic?content=4321" id=""
-                                               class="subMenuItemAnchorText GS_CI9_">Parenting Dilemmas</a>
+                                            <a href="/parenting-dilemmas.topic?content=4321" class="subMenuItemAnchorText">Parenting Dilemmas</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/special-education.topic?content=1541" id=""
-                                               class="subMenuItemAnchorText GS_CI9_">
-                                                Learning Difficulties</a>
+                                            <a href="/special-education.topic?content=1541" class="subMenuItemAnchorText">Learning Difficulties</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href=" /parenting.topic?content=1539" id=""
-                                               class="subMenuItemAnchorText GS_CI9_">Health &amp; Behavior</a>
+                                            <a href="/parenting.topic?content=1539" class="subMenuItemAnchorText">Health &amp; Behavior</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -120,10 +119,12 @@
                                     </c:when>
                                     <c:otherwise>
                                         <div id="utilLinks">
-                                            <div class="menuItemAnchorText">My Account</div>
+                                            <div class="menuItemAnchorText">My Account
+                                                <span class="iconx16 i-16-yellow-dropdown-arrow vam"><!--Do not collapse--></span>
+                                            </div>
                                             <div class="dropdown_3">
                                                 <ul class="none">
-                                                    <li>
+                                                    <li class="subMenuItem">
                                                           <jsp:scriptlet>
                                                                     request.setAttribute("isOSP", CookieUtil.hasCookie(request, "IS_OSP_MEMBER"));
                                                         </jsp:scriptlet>
@@ -138,15 +139,15 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </li>
-                                                    <li>
+                                                    <li class="subMenuItem">
                                                         <link:mySchoolList styleClass="subMenuItemAnchorText">My School List (${requestScope.context.mslCount}) </link:mySchoolList>
                                                     </li>
                                                     <c:if test="${isOSP}">
-                                                        <li>
+                                                        <li class="subMenuItem">
                                                             <link:schoolEspDashboard styleClass="subMenuItemAnchorText">Edit school profile</link:schoolEspDashboard>
                                                         </li>
                                                     </c:if>
-                                                    <li>
+                                                    <li class="subMenuItem">
                                                         <gsml:a styleClass="js-log-out subMenuItemAnchorText" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
                                                     </li>
                                                 </ul>
