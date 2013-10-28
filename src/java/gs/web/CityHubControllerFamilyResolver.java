@@ -35,19 +35,6 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
     @Autowired
     private CityHubHelper _cityHubHelper;
 
-    private static final String WASHINGTON_HUB_CITY= "washington";
-
-    private static final State  WASHINGTON_HUB_STATE= State.DC;
-
-    private static final String MILWAUKEE_HUB_CITY= "milwaukee";
-
-    private static final State  MILWAUKEE_HUB_STATE = State.WI;
-
-    private static final String DETROIT_HUB_CITY= "detroit";
-
-    private static final State  DETROIT_HUB_STATE = State.MI;
-
-
 
     public ControllerFamily resolveControllerFamily() {
         /**
