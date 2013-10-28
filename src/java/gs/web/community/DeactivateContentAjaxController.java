@@ -2,7 +2,9 @@ package gs.web.community;
 
 import gs.data.school.ISchoolMediaDao;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.ITopicalSchoolReviewDao;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -32,6 +34,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private SolrService _solrService;
     private IReviewDao _reviewDao;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
     private ISchoolMediaDao _schoolMediaDao;
 
     @Override
@@ -104,6 +107,15 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                 }
                 review.setProcessDate(new Date());
                 _reviewDao.saveReview(review);
+            } else if (command.getContentType() == DeactivateContentCommand.ContentType.topicalSchoolReview) {
+                TopicalSchoolReview review = _topicalSchoolReviewDao.get((int) command.getContentId());
+                if (command.isReactivate()) {
+                    review.setStatus("p");
+                } else {
+                    review.setStatus("d");
+                }
+                review.setProcessDate(new Date());
+                _topicalSchoolReviewDao.save(review);
             } else if (command.getContentType() == DeactivateContentCommand.ContentType.schoolMedia) {
                 _schoolMediaDao.disableById((int) command.getContentId());
 
@@ -158,6 +170,14 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ITopicalSchoolReviewDao getTopicalSchoolReviewDao() {
+        return _topicalSchoolReviewDao;
+    }
+
+    public void setTopicalSchoolReviewDao(ITopicalSchoolReviewDao topicalSchoolReviewDao) {
+        _topicalSchoolReviewDao = topicalSchoolReviewDao;
     }
 
     public ISchoolMediaDao getSchoolMediaDao() {

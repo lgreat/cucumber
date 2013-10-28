@@ -5,7 +5,7 @@ package gs.web.community;
  */
 public class DeactivateContentCommand {
     private long _contentId;
-    public enum ContentType {reply, discussion, schoolReview, schoolMedia}
+    public enum ContentType {reply, discussion, schoolReview, topicalSchoolReview, schoolMedia}
     private ContentType _contentType;
     private boolean _reactivate;
 

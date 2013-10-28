@@ -47,6 +47,8 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private boolean _allowContact;
     private Boolean _mssSub ;
     private String _ip;
+    private Long _topicId;
+    private Long[] _tagIds;
 
     public String getEmail() {
         return _email;
@@ -446,5 +448,21 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setFromReviewLandingPage(boolean fromReviewLandingPage) {
         _fromReviewLandingPage = fromReviewLandingPage;
+    }
+
+    public Long getTopicId() {
+        return _topicId;
+    }
+
+    public void setTopicId(Long topicId) {
+        _topicId = topicId;
+    }
+
+    public Long[] getTagIds() {
+        return _tagIds;
+    }
+
+    public void setTagIds(Long[] tagIds) {
+        _tagIds = tagIds;
     }
 }

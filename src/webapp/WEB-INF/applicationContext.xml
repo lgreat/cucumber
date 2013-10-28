@@ -221,6 +221,7 @@
     
     <bean id="reviewService" class="gs.web.school.review.ReviewService">
         <property name="reviewDao" ref="reviewDao"/>
+        <property name="topicalSchoolReviewDao" ref="topicalSchoolReviewDao"/>
     </bean>
     
     <bean id="ratingHelper" class="gs.web.school.RatingHelper">

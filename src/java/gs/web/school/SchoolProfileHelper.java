@@ -8,6 +8,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.Review;
 import gs.web.geo.CityHubHelper;
+import gs.data.school.review.ISchoolReview;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -147,7 +148,7 @@ public class SchoolProfileHelper {
         model.put("schoolOverviewUrl", urlBuilder.asFullUrl(request));
     }
 
-    protected static Date getSchoolLastModified(School school, Review latestNonPrincipalReview) {
+    protected static Date getSchoolLastModified(School school, ISchoolReview latestNonPrincipalReview) {
         // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
         // see similar logic in ParentReviewController.java, SchoolOverview2010Controller.java
         Date lastModifiedDate = school.getModified();

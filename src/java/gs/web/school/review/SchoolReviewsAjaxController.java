@@ -7,9 +7,7 @@ import gs.data.json.JSONObject;
 import gs.data.school.IHeldSchoolDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Poster;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.state.State;
 import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelperFactory;
@@ -23,6 +21,7 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,11 +33,13 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import static gs.data.util.XMLUtil.*;
@@ -53,33 +54,28 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     protected final static Log _log = LogFactory.getLog(SchoolReviewsAjaxController.class);
 
+    public static final String ERROR_PRESCHOOLS_NOT_ALLOWED_TOPICAL_REVIEW="Preschools not allowed";
+    public static final String ERROR_INVALID_TOPIC="Invalid topic id";
+    public static final String ERROR_CANNOT_OVERWRITE_TOPICAL_REVIEW="Cannot overwrite review";
+
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
     private ISubscriptionDao _subscriptionDao;
     private String _viewName;
     private IReportedEntityDao _reportedEntityDao;
-
     private IReportContentService _reportContentService;
-
     private ExactTargetAPI _exactTargetAPI;
-
     private ISchoolDao _schoolDao;
-
     private IAlertWordDao _alertWordDao;
-
     private IHeldSchoolDao _heldSchoolDao;
-
     private IBannedIPDao _bannedIPDao;
-
     private EmailHelperFactory _emailHelperFactory;
-
     private Boolean _jsonPage = Boolean.FALSE;
-
     private Boolean _xmlPage = Boolean.FALSE;
-
     private ReviewHelper _reviewHelper;
-
     private EmailVerificationReviewOnlyEmail _emailVerificationReviewOnlyEmail;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
+    private IReviewTopicDao _reviewTopicDao;
 
     public ModelAndView handle(HttpServletRequest request,
                                HttpServletResponse response,
@@ -90,23 +86,17 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             return errorJSON(response, errors);
         }
 
-        Map<Object, Object> responseValues = new HashMap<Object, Object>();
-
         ReviewCommand reviewCommand = (ReviewCommand) command;
         reviewCommand.setIp(getIPFromRequest(request));
 
         SitePrefCookie cookie = new SitePrefCookie(request, response);
         String verifiedEmailHash = cookie.getProperty("emailVerified");
         String thisEmailHash = UrlUtil.urlEncode(DigestUtil.hashString(reviewCommand.getEmail()));
-        _log.debug("Hashed email " + reviewCommand.getEmail() + " to hash " + thisEmailHash);
         boolean emailVerifiedRecently = thisEmailHash.equals(verifiedEmailHash);
 
         School school = getSchool(request);
-
         User user = getUserDao().findUserFromEmailIfExists(reviewCommand.getEmail());
-        boolean isNewUser = false;
 
-        //boolean userAuthorizedWithPassword = PageHelper.isMemberAuthorized(request);
         //TODO: Use interceptor to ensure that full user account with password cannot get here unless logged in.
         boolean userAuthorizedWithPassword = user!=null && !user.isPasswordEmpty() && !user.isEmailProvisional();
 
@@ -130,8 +120,188 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
             userAuthorizedWithPassword = loggedInUser != null;
         }
+        if (reviewCommand.getTopicId() != null) {
+            doTopicalReview(request, response, reviewCommand, school, user, emailVerifiedRecently, userAuthorizedWithPassword);
+        } else if (reviewCommand.getTopicId() == null) {
+            _log.error("Non-topic submission!");
+            doOverallReview(request, response, reviewCommand, emailVerifiedRecently, school, user, userAuthorizedWithPassword);
+        }
 
+        return null;
+    }
+
+    protected void doTopicalReview(HttpServletRequest request, HttpServletResponse response, ReviewCommand reviewCommand,
+                                   School school, User user, boolean emailVerifiedRecently, boolean userAuthorizedWithPassword)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
+        boolean newUser = false;
+        Map<Object, Object> responseValues = new HashMap<Object, Object>();
+        TopicalSchoolReview review;
+        if (_reviewTopicDao.find(reviewCommand.getTopicId()) == null) {
+            errorJSON(response, ERROR_INVALID_TOPIC);
+            return;
+        }
+        if (school.isPreschoolOnly()) {
+            errorJSON(response, ERROR_PRESCHOOLS_NOT_ALLOWED_TOPICAL_REVIEW);
+            return;
+        }
+        //The user submitting the review might not exist yet.
+        if (user == null) {
+            newUser = true;
+            user = createUserForReview(reviewCommand, school);
+            review = getReviewHelper().createTopicalReview(user, school, reviewCommand);
+        } else {
+            // look for existing review
+            review = getTopicalSchoolReviewDao().find(school.getDatabaseState(), school.getId(), user.getId(), reviewCommand.getTopicId());
+            if (review != null) {
+                errorJSON(response, ERROR_CANNOT_OVERWRITE_TOPICAL_REVIEW);
+                return;
+            } else {
+                review = getReviewHelper().createTopicalReview(user, school, reviewCommand);
+            }
+        }
+        ReviewTopic topic = _reviewTopicDao.find(reviewCommand.getTopicId());
+        review.setTopic(topic);
+        review.getTags().clear();
+        if (topic.getMainTag() != null) {
+            review.getTags().add(topic.getMainTag());
+        }
+        if (reviewCommand.getTagIds() != null && reviewCommand.getTagIds().length > 0) {
+            for (ReviewTag tag: topic.getTags()) {
+                // the main tag is added by default
+                if (!tag.isMain() && ArrayUtils.contains(reviewCommand.getTagIds(), tag.getId())) {
+                    review.getTags().add(tag);
+                }
+            }
+        }
+
+        Integer existingReviewId = review.getId();
+        Poster poster = reviewCommand.getPoster();
+
+        StringBuilder reasonToReportReview;
+
+        boolean reviewHasReallyBadWords = false; // needed to determine status below
+        boolean userIpOnBanList = isIPBlocked(request); // needed to determine status below
+        if (userIpOnBanList) {
+            reasonToReportReview = new StringBuilder("IP " + getIPFromRequest(request) + " was on ban list at time of submission.");
+        } else {
+            Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = getAlertWordDao().getAlertWords(review.getComments());
+            reviewHasReallyBadWords = alertWordMap.get(IAlertWordDao.alertWordTypes.REALLY_BAD) != null
+                    && alertWordMap.get(IAlertWordDao.alertWordTypes.REALLY_BAD).size() > 0;
+            reasonToReportReview = getReasonToReport(alertWordMap);
+        }
+
+        boolean reviewProvisional = (newUser || (!userAuthorizedWithPassword && !emailVerifiedRecently));
+
+
+        if (checkHoldList(school)) {
+            review.setStatus("h");
+        } else if (userIpOnBanList || Poster.STUDENT.equals(poster)) {
+            review.setStatus("u");
+        } else if (reviewHasReallyBadWords) {
+            review.setStatus("d");
+        } else {
+            review.setStatus("p");
+        }
+        if (reviewProvisional) {
+            // mark status as provisional
+            review.setStatus("p" + review.getStatus());
+        } else {
+            //if review posted automatically, set the process date now
+            review.setProcessDate((Calendar.getInstance()).getTime());
+        }
+
+        boolean reviewPosted = StringUtils.equals("p", review.getStatus());
+
+        //save the review
+        try {
+            getTopicalSchoolReviewDao().save(review);
+        } catch (DataIntegrityViolationException dive) {
+            _log.warn("Ignoring duplicate topical review attempt: " + review.getMemberId() + "-" +
+                    school.getStateAbbreviation() + "-" + school.getId() + "-" + reviewCommand.getTopicId());
+            ThreadLocalTransactionManager.setRollbackOnly();
+            return;
+        }
+        ThreadLocalTransactionManager.commitOrRollback();
+
+        if (reviewCommand.isMssSub() != null && reviewCommand.isMssSub()) {
+            addMssSubForSchool(user, school);
+        }else if(reviewCommand.isMssSub() != null && !reviewCommand.isMssSub()){
+            removeMssSubForSchool(user,school);
+        }
+
+        if (reviewPosted) {
+            sendReviewPostedEmail(request, review);
+        } else if (reviewProvisional) {
+            responseValues.put("showHover", "validateEmailSchoolReview");
+            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            String redirectUrl = urlBuilder.asFullUrl(request);
+            if (reviewCommand.isFromReviewLandingPage()) {
+                Map<String,String> otherParams = new HashMap<String,String>();
+                otherParams.put("upgradeProvisional", "true");
+                getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl, otherParams);
+            } else {
+                getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
+            }
+        }
+
+        // Before any reports are created, we should check something:
+        // if this review existed before (if the user is overwriting an existing review)
+        // then we need to delete any reports on it
+        // otherwise the auto filter will fail, and anyway they could be totally irrelevant
+        if (existingReviewId != null) {
+            _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.topicalSchoolReview, existingReviewId);
+        }
+
+        if (reasonToReportReview != null) {
+            getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.topicalSchoolReview, reasonToReportReview.toString());
+        }
+
+        //trigger the success events
+        if (StringUtils.isNotBlank(reviewCommand.getComments())) {
+            responseValues.put("reviewEvent", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
+        }
+        UrlBuilder urlBuilder;
+        if (school.isSchoolForNewProfile()) {
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            urlBuilder.addParameter("tab", AbstractSchoolController.NewProfileTabs.reviews.getParameterValue());
+        } else {
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        }
+        responseValues.put("reviewPosted", String.valueOf(reviewPosted));
+        responseValues.put("userId", user.getId().toString());
+        responseValues.put("redirectUrl", urlBuilder.asFullUrl(request));
+
+        successJSON(response, responseValues);
+    }
+
+    protected StringBuilder getReasonToReport(Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap) {
+        StringBuilder reasonToReportReview = null;
+        Set<String> alertWords = alertWordMap.get(IAlertWordDao.alertWordTypes.WARNING);
+        boolean reviewHasAlertWords = alertWords != null && alertWords.size() > 0;
+        Set<String> reallyBadWords = alertWordMap.get(IAlertWordDao.alertWordTypes.REALLY_BAD);
+        boolean reviewHasReallyBadWords = reallyBadWords != null && reallyBadWords.size() > 0;
+        if (reviewHasReallyBadWords || reviewHasAlertWords) {
+            reasonToReportReview = new StringBuilder("Review contained ");
+            if (reviewHasAlertWords) {
+                reasonToReportReview.append("warning words (").append(StringUtils.join(alertWords, ",")).append(")");
+            }
+            if (reviewHasReallyBadWords) {
+                if (reviewHasAlertWords) {
+                    reasonToReportReview.append(" and ");
+                }
+                reasonToReportReview.append("really bad words (").append(StringUtils.join(reallyBadWords, ",")).append(")");
+            }
+        }
+        return reasonToReportReview;
+    }
+
+    protected void doOverallReview(HttpServletRequest request, HttpServletResponse response, ReviewCommand reviewCommand,
+                                   boolean emailVerifiedRecently, School school, User user, boolean userAuthorizedWithPassword)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
         Review review;
+        Map<Object, Object> responseValues = new HashMap<Object, Object>();
+        boolean isNewUser = false;
+
         //The user submitting the review might not exist yet.
         if (user == null) {
             isNewUser = true;
@@ -239,7 +409,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             _log.warn("Ignoring duplicate review attempt: " + review.getMemberId() + "-" +
                               review.getSchool().getStateAbbreviation() + "-" + review.getSchool().getId());
             ThreadLocalTransactionManager.setRollbackOnly();
-            return null;
+            return;
         }
         ThreadLocalTransactionManager.commitOrRollback();
         // Before any reports are created, we should check something:
@@ -255,7 +425,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
 
         boolean reviewPosted = !(reviewProvisional || reviewHasReallyBadWords || schoolOnHoldList || userIpOnBanList || Poster.STUDENT.equals(reviewCommand.getPoster()));
-        
+
         if (reviewPosted) {
             sendReviewPostedEmail(request, review);
         }
@@ -296,11 +466,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         responseValues.put("redirectUrl", urlBuilder.asFullUrl(request));
 
         successJSON(response, responseValues);
-
-        
-        return null;
     }
-    
+
     protected String getIPFromRequest(HttpServletRequest request) {
         String requestIP = (String) request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
         if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
@@ -403,6 +570,21 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         getExactTargetAPI().sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
     }
 
+    private void sendReviewPostedEmail(HttpServletRequest request, TopicalSchoolReview review) {
+        Map<String,String> emailAttributes = new HashMap<String,String>();
+        emailAttributes.put("schoolName", review.getSchool().getName());
+        emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
+
+        StringBuilder reviewLink = new StringBuilder("<a href=\"");
+        UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        urlBuilder.addParameter("lr", "true");
+//        reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
+        reviewLink.append("\">your review</a>");
+        emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+
+        getExactTargetAPI().sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
+    }
+
     protected boolean checkHoldList(School school, Review review) {
         boolean onHoldList = false;
         try {
@@ -420,9 +602,19 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         return onHoldList;
     }
 
+    protected boolean checkHoldList(School school) {
+        boolean onHoldList = false;
+        try {
+            return _heldSchoolDao.isSchoolOnHoldList(school);
+        } catch (Exception e) {
+            _log.warn("Error checking hold list: " + e, e);
+        }
+        return onHoldList;
+    }
+
     protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
-        buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
+        buff.append("{\"status\":false,\"reviewPosted\":\"false\",\"errors\":");
         buff.append("[");
         List messages = errors.getAllErrors();
 
@@ -442,13 +634,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     protected ModelAndView errorJSON(HttpServletResponse response, String... errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
-        buff.append("{\"status\":false,\"reviewPosted\":false,\"errors\":");
+        buff.append("{\"status\":false,\"reviewPosted\":\"false\",\"errors\":");
         buff.append("[");
         List<String> messages = Arrays.asList(errors);
 
-        for (Iterator iter = messages.iterator(); iter.hasNext();) {
-            ObjectError error = (ObjectError) iter.next();
-            buff.append("\"").append(error.getDefaultMessage()).append("\"");
+        for (Iterator<String> iter = messages.iterator(); iter.hasNext();) {
+            String error = iter.next();
+            buff.append("\"").append(error).append("\"");
             if (iter.hasNext()) {
                 buff.append(",");
             }
@@ -634,5 +826,21 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setBannedIPDao(IBannedIPDao bannedIPDao) {
         _bannedIPDao = bannedIPDao;
+    }
+
+    public ITopicalSchoolReviewDao getTopicalSchoolReviewDao() {
+        return _topicalSchoolReviewDao;
+    }
+
+    public void setTopicalSchoolReviewDao(ITopicalSchoolReviewDao topicalSchoolReviewDao) {
+        _topicalSchoolReviewDao = topicalSchoolReviewDao;
+    }
+
+    public IReviewTopicDao getReviewTopicDao() {
+        return _reviewTopicDao;
+    }
+
+    public void setReviewTopicDao(IReviewTopicDao reviewTopicDao) {
+        _reviewTopicDao = reviewTopicDao;
     }
 }

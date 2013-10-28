@@ -206,15 +206,9 @@
                 </p>
 
                 <c:set var="postedByDisplay" value=""/>
-                <c:choose>
-                    <c:when test="${review.allowName and not empty(review.user)}">
-                        <c:set var="postedByDisplay"
-                               value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
-                    </c:when>
-                    <c:when test="${review.who ne ''}">
-                        <c:set var="postedByDisplay" value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
-                    </c:when>
-                </c:choose>
+                <c:if test="${review.who ne ''}">
+                    <c:set var="postedByDisplay" value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                </c:if>
 
                 <!-- post content -->
                 <p class="text3">

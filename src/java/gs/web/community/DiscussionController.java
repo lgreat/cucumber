@@ -137,7 +137,7 @@ public class DiscussionController extends AbstractController {
             int pageSize = getPageSize(request, discussion.isRaiseYourHand());
             DiscussionReplySort sort = getReplySort(request, response, discussion.isRaiseYourHand());
             model.put(MODEL_PAGE_SIZE, pageSize);
-            model.put(MODEL_SORT, sort);
+            model.put(MODEL_SORT, sort.toString());
             int page = getPageNumber(request, discussion, pageSize, sort, includeInactive);
             model.put(MODEL_PAGE, page);
 

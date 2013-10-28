@@ -9,7 +9,9 @@ import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
+import gs.data.school.review.ISchoolReview;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
@@ -147,8 +149,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     protected Date getLastModifiedDateForSchool(HttpServletRequest request, School school) {
-        List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 1);
-        Review latestNonPrincipalReview = null;
+        List<ISchoolReview> reviews = _schoolProfileDataHelper.getAllNonPrincipalReviews(request, 1);
+        ISchoolReview latestNonPrincipalReview = null;
         if (reviews.size() > 0) {
             latestNonPrincipalReview = reviews.get(0);
         }
@@ -214,11 +216,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map<String, Object> getReviewsEspTile(HttpServletRequest request, School school) {
         Map<String, Object> reviewsModel = new HashMap<String, Object>(2);
-        List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 5);
+        List<ISchoolReview> reviews = _schoolProfileDataHelper.getAllNonPrincipalReviews(request, 5);
         if( reviews!=null && reviews.size() > 0 ) {
             reviewsModel.put( "reviews", reviews );
             reviewsModel.put( "content", "reviews" );
-            reviewsModel.put( REVIEWS_TOTAL_KEY, _schoolProfileDataHelper.getNonPrincipalReviews(request).size());
+            reviewsModel.put( REVIEWS_TOTAL_KEY, _schoolProfileDataHelper.getAllNonPrincipalReviews(request).size());
         }
         else {
             reviewsModel.put( "content", "reviewsCTA" );

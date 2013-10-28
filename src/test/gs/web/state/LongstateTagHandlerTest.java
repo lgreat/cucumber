@@ -38,10 +38,6 @@ public class LongstateTagHandlerTest extends TestCase {
         assertEquals("XAlaskaX", output);
     }
 
-    public void testFailure() {
-        assertTrue(false);
-    }
-
     public class LongstateTagHandlerTestCase extends LongstateTagHandler {
 
         private JspContext _jspContext;

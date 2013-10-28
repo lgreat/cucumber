@@ -6,7 +6,6 @@ import gs.data.school.review.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.school.AbstractSchoolController;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
 import org.springframework.web.servlet.ModelAndView;
@@ -133,7 +132,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         assertEquals("Alameda High School", school.getName());
         assertNotNull(cmd.getRatings());
 
-        List<Review> reviews = cmd.getReviews();
+        List<ISchoolReview> reviews = cmd.getReviews();
         assertNotNull(reviews);
         assertEquals(6, reviews.size());
         assertEquals(new Integer(6), reviews.get(0).getId());
@@ -158,7 +157,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         ParentReviewHelper.ParentReviewCommand cmd =
                 (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
 
-        List<Review> reviews = cmd.getReviews();
+        List<ISchoolReview> reviews = cmd.getReviews();
         assertNotNull(reviews);
         assertEquals(6, reviews.size());
         assertEquals(new Integer(6), reviews.get(0).getId());
@@ -184,7 +183,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         ParentReviewHelper.ParentReviewCommand cmd =
                 (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
 
-        List<Review> reviews = cmd.getReviews();
+        List<ISchoolReview> reviews = cmd.getReviews();
         assertNotNull(reviews);
         assertEquals(6, reviews.size());
 
@@ -211,7 +210,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         ParentReviewHelper.ParentReviewCommand cmd =
                 (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
 
-        List<Review> reviews = cmd.getReviews();
+        List<ISchoolReview> reviews = cmd.getReviews();
         assertNotNull(reviews);
         assertEquals(6, reviews.size());
         assertEquals(new Integer(6), reviews.get(0).getId());
