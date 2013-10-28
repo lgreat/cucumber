@@ -37,7 +37,7 @@
                             <div class="menuItem dropdownReference">
                                 <div class="menuItemAnchorText">
                                     ${city}, ${state}
-                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam"><!--Do not collapse--></span>
+                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
                                 </div>
                                 <div class="dropdown_1">
                                     <ul class="none"> <!-- bullet type: disc/square/circle-->
@@ -63,7 +63,7 @@
                                                                     city="${city}">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:home styleClass="subMenuItemAnchorText">Not in ${city} ? </link:home>
+                                            <link:home styleClass="subMenuItemAnchorText">Not in ${city}?</link:home>
                                         </li>
 
                                     </ul>
@@ -72,8 +72,7 @@
                         </td>
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <link:findASchool id="PN-FindASchool"
-                                                  styleClass="menuItemAnchorText">Find a School</link:findASchool>
+                                <link:findASchool id="PN-FindASchool" styleClass="menuItemAnchorText">Find a School</link:findASchool>
                             </div>
                         </td>
                         <td class="menuItem">
@@ -84,7 +83,7 @@
                         <td class="menuItem">
                             <div class="dropdownReference">
                                 <div class="menuItemAnchorText">Resources
-                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam"><!--Do not collapse--></span>
+                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
                                 </div>
                                 <div class="dropdown_2">
                                     <ul class="none">
@@ -111,7 +110,7 @@
                                     <c:when test="${empty requestScope.context.memberId}">
                                         <div id="utilLinks">
                                             <link:loginOrRegister email="${requestScope.context.email}"
-                                                                  styleClass="menuItemAnchorText"
+                                                                  styleClass="menuItemAnchorText last"
                                                                   onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',
                                                                   document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
                                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
@@ -120,9 +119,9 @@
                                     <c:otherwise>
                                         <div id="utilLinks">
                                             <div class="menuItemAnchorText">My Account
-                                                <span class="iconx16 i-16-yellow-dropdown-arrow vam"><!--Do not collapse--></span>
+                                                <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
                                             </div>
-                                            <div class="dropdown_3">
+                                            <div class="dropdown_3 dropdown_align_right">
                                                 <ul class="none">
                                                     <li class="subMenuItem">
                                                           <jsp:scriptlet>
@@ -131,7 +130,7 @@
                                                         <c:choose>
 
                                                             <c:when test="${not empty requestScope.context.firstName}">
-                                                                <div class="subMenuItemAnchorText">Welcome, <link:userAccount>${requestScope.context.firstName}</link:userAccount></div>
+                                                                <div class="subMenuItemAnchorText">Welcome, <link:userAccount styleClass="subMenuItemAnchorText">${requestScope.context.firstName}</link:userAccount></div>
                                                             </c:when>
                                                             <c:otherwise>
 
