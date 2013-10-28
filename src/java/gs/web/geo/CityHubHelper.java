@@ -50,6 +50,7 @@ public class CityHubHelper {
     public static final String SHOW_ADS_KEY = "showAds";
     public static final String COLLECTION_NICKNAME_MODEL_KEY = "collectionNickname";
     public static final String HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY = "chooseSchool";
+    public static final String HUB_CITY_ARTICLE_MODEL_KEY = "cityArticle";
     public static final String HUB_HOME_KEY_PREFIX = "hubHome";
 
     @Autowired

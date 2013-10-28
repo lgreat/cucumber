@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page">
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
 
     <div class="container_24 clearfix pbl">
         <div class="grid_2 prefix_7">
             <img src="/res/img/content/chooserRightRail/thumbnail${city}${state.capitalizeFirstLetterInEachWord}.jpg"
-                 alt="City of ${state.abbreviation}" width="60"/>
+                 alt="City of ${city}" width="60"/>
        </div>
         <div class="grid_11">
-            <div class="medium_bold bottom">Navigating the system: ${city}, ${state.abbreviation}</div>
-            <p class="small bottom">Looking for a school in the nations's capital? Here's where to start.
-                <a href="/find-a-school/3775-outsmarting-the-system-${state.abbreviationLowerCase}.gs">More &amp;#187;</a>
-            </p>
+            <div class="medium_bold bottom">
+
+                <c:choose>
+                    <c:when test="${not empty cityArticle and not empty cityArticle.heading }">
+
+                        <c:choose>
+                            <c:when test="${cityArticle.link.newWindow eq 'true'}">
+                                <a href="${cityArticle.link.path}" class="small" target="_blank">${cityArticle.heading}</a>
+                                <p class="small bottom">${cityArticle.content}</p>
+                  </c:when>
+                            <c:otherwise>
+                                <a href="${cityArticle.link.path}" class="small">${cityArticle.heading}</a>
+                            </c:otherwise>
+                        </c:choose>
+                     </c:when>
+                    <c:otherwise>
+                      <h3 class="sourceSansPro-Semibold mbm mtl">No Data Found</h3>
+                    </c:otherwise>
+
+                </c:choose>
+          </div>
+
         </div>
     </div>
     <hr class="keyline1"/>
