@@ -872,15 +872,15 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 model.put( "icon", "bus" );
                 model.put( "transMsg", "Busses/vans provided for students" );
             }
-            else if( checkEspResponseListForValue(transp, new String[]{UspFormHelper.TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE}) ) {
-                // New option per GS-14979 - Display bus icon & static message
-                model.put( "icon", "bus" );
-                model.put( "transMsg", "Accessible via public transportation" );
-            }
             else if( checkEspResponseListForValue(transp, new String[]{"shared_bus"}) ) {
                 // Option g from spec - Display handicapped icon & static message
                 model.put( "icon", "bus" );
                 model.put( "transMsg", "Busses/vans shared with other schools" );
+            }
+            else if( checkEspResponseListForValue(transp, new String[]{UspFormHelper.TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE}) ) {
+                // New option per GS-14979 - Display bus icon & static message
+                model.put( "icon", "bus" );
+                model.put( "transMsg", "Accessible via public transportation" );
             }
             else if( transpNoneOrBlank && isNotEmpty(transpOther) ) {
                 // Option h from spec - Display walking person icon & static message
