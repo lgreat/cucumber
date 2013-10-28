@@ -17,31 +17,10 @@
     <link:uspForm school="${school}" styleClass="tdn" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');">
         <div class="mod standard_3-1">
 
-            <div class="outer">
-
-                    <variant:a>
-                        <div class="inner bg-uspPromo ie-moduleHeight-162">
-                            <div class="hd tac">
-                                <h4 class="bottom">Do you know this school?</h4>
-                            </div>
-                            <div class="bd tac" style="${moduleHeight}}">
-                                <div class="small mtm">
-                                    Help other families<br/>learn more  &amp;raquo;
-                                </div>
-                            </div>
-                        </div>
-                    </variant:a>
-                    <variant:b>
-                        <div class="inner">
-                            <img src="/res/img/usp/abc_test_tile_B.png" alt="Share what you know about this school"/>
-                        </div>
-                    </variant:b>
-                    <variant:c>
-                        <div class="inner">
-                            <img src="/res/img/usp/abc_test_tile_C.png" alt="Share what you know about this school"/>
-                        </div>
-                    </variant:c>
-
+            <div class="outer" style="padding-bottom: 4px; padding-top: 4px; padding-left: 4px; padding-right: 4px;">
+                <div class="inner">
+                    <img src="/res/img/usp/abc_test_tile_B.png" alt="Share what you know about this school"/>
+                </div>
             </div>
 
 
