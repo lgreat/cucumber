@@ -863,6 +863,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         _memberIdCookieGenerator.removeCookie(response);
         _sessionCacheCookieGenerator.removeCookie(response);
         _memberCookieGenerator.removeCookie(response);
+        _isOspMemberCookieGenerator.removeCookie(response);
         // Before a user logs into community, the name of the community cookie is blank. Thus, we
         // do this check in order to avoid a NPE.
         if (!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {
