@@ -283,6 +283,7 @@ public class UspFormHelper {
     public static final String TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE = "shared_bus";
     public static final String TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE = "special_ed_only";
     public static final String TRANSPORTATION_PASSES_RESPONSE_VALUE = "passes";
+    public static final String TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE = "accessible_via_public_transportation";
 
     /**
      * Response key and values for parent involvement
@@ -485,6 +486,7 @@ public class UspFormHelper {
                     addKeyValueToSection(TRANSPORTATION_RESPONSE_KEY, new String[]{
                             TRANSPORTATION_BUSSES_RESPONSE_VALUE, TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE,
                             TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE, TRANSPORTATION_PASSES_RESPONSE_VALUE,
+                            TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE,
                             NONE_RESPONSE_VALUE
                     });
                 } else if (TRANSPORTATION_PARAM.equals(sectionFieldName) && TRANSPORTATION_OTHER_RESPONSE_KEY.equals(responseKey)) {
@@ -723,6 +725,7 @@ public class UspFormHelper {
         put(TRANSPORTATION_RESPONSE_KEY + DOUBLE_UNDERSCORE_SEPARATOR + TRANSPORTATION_SHARED_BUS_RESPONSE_VALUE, "Buses / vans shared with other schools");
         put(TRANSPORTATION_RESPONSE_KEY + DOUBLE_UNDERSCORE_SEPARATOR + TRANSPORTATION_SPEC_ED_ONLY_RESPONSE_VALUE, "Transportation provided for special education students");
         put(TRANSPORTATION_RESPONSE_KEY + DOUBLE_UNDERSCORE_SEPARATOR + TRANSPORTATION_PASSES_RESPONSE_VALUE, "Passes / tokens provided for public transportation");
+        put(TRANSPORTATION_RESPONSE_KEY + DOUBLE_UNDERSCORE_SEPARATOR + TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE, "Accesssible via public transportation");
 
         /**
          * Parent involvement
