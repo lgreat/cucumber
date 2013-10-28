@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
 
         >
 
@@ -11,7 +12,7 @@
             <hr class="keyline1"/>
             <div class="clearfix mvl">
                 <div class="grid_5">
-                    <img alt="Partner Logo" src="${partnerInfo.logoLocation}"/>
+                    <gsml:img alt="Partner Logo" src="${partnerInfo.logoLocation}"/>
                 </div>
                 <div class="grid_19">
                     <h3 class="SourceSansPro-Semibold-h3 bottom">${partnerInfo.heading}</h3>
