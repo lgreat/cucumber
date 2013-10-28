@@ -133,8 +133,7 @@
                                                                 <div >Welcome, ${requestScope.context.firstName}</div>
                                                             </c:when>
                                                             <c:otherwise>
-
-                                                                <link:userAccount>My Account</link:userAccount>
+                                                                 My Account
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </li>
