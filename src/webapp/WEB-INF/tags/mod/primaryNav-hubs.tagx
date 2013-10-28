@@ -81,51 +81,25 @@
                         </td>
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <link:elementary-school id="PN-Content"
-                                                        styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
-
+                                <link:elementary-school id="PN-Content" styleClass="menuItemAnchorText drop GS_CI9_">Resources</link:elementary-school>
                                 <div class="dropdown_2">
                                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs"
-                                               id="SN_HT-An11YearOldWwithTheIQOfEinstein"
-                                               class="subMenuItemAnchorText GS_CI9_">An 11-year-old with the IQ of Einstein</a>
+                                            <a href="/worksheets-activities.topic?content=4313" id=""
+                                               class="subMenuItemAnchorText GS_CI9_">Worksheets &amp; Activities</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7539-parenting-tips-power-of-yet-carol-dweck-video.gs"
-                                               id="SN_HT-OneWordThatllChangeYourParenting"
-                                               class="subMenuItemAnchorText GS_CI9_">One word that'll change your parenting</a>
+                                            <a href="/parenting-dilemmas.topic?content=4321" id=""
+                                               class="subMenuItemAnchorText GS_CI9_">Parenting Dilemmas</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7390-christine-carter-chores-for-kids-parenting-tips-video.gs"
-                                               id="SN_HT-TheToughLoveApproachToChores"
+                                            <a href="/special-education.topic?content=1541" id=""
                                                class="subMenuItemAnchorText GS_CI9_">
-                                                The tough love approach to chores</a>
+                                                Learning Difficulties</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="http://blogs.greatschools.org/greatschoolsblog/2013/07/sibling-rivalry.html"
-                                               id="SN_HT-SiblingRivalryOrAbuse"
-                                               class="subMenuItemAnchorText GS_CI9_">Sibling rivalry - or abuse?</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7306-signs-symptoms-of-bipolar-in-children.gs"
-                                               id="SN_HT-BipolarAt5"
-                                               class="subMenuItemAnchorText GS_CI9_">Bipolar at 5?</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/school-choice/7282-melting-pot-diversity-at-schools.gs"
-                                               id="SN_HT-WhenTheMeltingPotBoilsOver"
-                                               class="subMenuItemAnchorText GS_CI9_">When the melting pot boils over</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas/7308-bipolar-girl-story-video.gs"
-                                               id="SN_HT-RaisingSadie"
-                                               class="subMenuItemAnchorText GS_CI9_">Raising Sadie</a>
-                                        </li>
-                                        <li class="subMenuItem">
-                                            <a href="/parenting/social-skills/7260-parent-cliques-school.gs"
-                                               id="SN_HT-DoParentCliquesRuleYourSchool"
-                                               class="subMenuItemAnchorText GS_CI9_">Do parent cliques rule your school?</a>
+                                            <a href=" /parenting.topic?content=1539" id=""
+                                               class="subMenuItemAnchorText GS_CI9_">Health &amp; Behavior</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -134,8 +108,6 @@
                         <td class="menuItem">
                             <div class="dropdownReference">
                                 <c:choose>
-
-
                                     <!-- Not logged in case -->
                                     <c:when test="${empty requestScope.context.memberId}">
                                         <div id="utilLinks">
@@ -147,7 +119,6 @@
                                         </div>
                                     </c:when>
                                     <c:otherwise>
-
                                         <div id="utilLinks">
                                             <div class="menuItemAnchorText">My Account</div>
                                             <div class="dropdown_3">
@@ -178,8 +149,6 @@
                                                     <li>
                                                         <gsml:a styleClass="js-log-out subMenuItemAnchorText" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
                                                     </li>
-
-
                                                 </ul>
                                             </div>
                                         </div>
