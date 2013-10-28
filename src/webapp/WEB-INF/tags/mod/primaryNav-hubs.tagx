@@ -29,38 +29,38 @@
                               alt="GreatSchools: Involved Parents. Successful Kids"/>
                 </gsml:a>
             </div>
-            <div class="grid_17">
+            <div class="prefix_2 grid_17">
                 <table id="hub-primary">
                     <tbody>
                     <tr>
                         <td class="menuItem">
                             <div class="menuItem dropdownReference">
                                 <div class="menuItemAnchorText">${city}, ${state}</div>
-                                <div class="dropdown_3 text2">
-                                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                                <div class="dropdown_1">
+                                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <link:cityHubHome state="${state}"
+                                            <link:cityHubHome state="${state}" styleClass="subMenuItemAnchorText"
                                                               city="${city}">${city} Home</link:cityHubHome>
                                         </li>
 
                                         <li class="subMenuItem">
-                                            <link:cityHubChooseSchoolsPage state="${state}"
+                                            <link:cityHubChooseSchoolsPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                            city="${city}">Choosing a school</link:cityHubChooseSchoolsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEduCommunityPage state="${state}"
+                                            <link:cityHubEduCommunityPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                           city="${city}">Education Community</link:cityHubEduCommunityPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEnrollmentPage state="${state}"
+                                            <link:cityHubEnrollmentPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                         city="${city}">Enrollment Information</link:cityHubEnrollmentPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEventsPage state="${state}"
+                                            <link:cityHubEventsPage state="${state}" styleClass="subMenuItemAnchorText"
                                                                     city="${city}">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:home>Not in ${city} ? </link:home>
+                                            <link:home styleClass="subMenuItemAnchorText">Not in ${city} ? </link:home>
                                         </li>
 
                                     </ul>
@@ -84,8 +84,8 @@
                                 <link:elementary-school id="PN-Content"
                                                         styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
 
-                                <div class="dropdown_3 text2">
-                                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                                <div class="dropdown_2">
+                                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
                                             <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs"
                                                id="SN_HT-An11YearOldWwithTheIQOfEinstein"
@@ -150,8 +150,8 @@
 
                                         <div id="utilLinks">
                                             <div class="menuItemAnchorText">My Account</div>
-                                            <div class="dropdown_3 text2">
-                                                <ul class="dropdown dropdown_1">
+                                            <div class="dropdown_3">
+                                                <ul class="none">
                                                     <li>
                                                           <jsp:scriptlet>
                                                                     request.setAttribute("isOSP", CookieUtil.hasCookie(request, "IS_OSP_MEMBER"));
@@ -159,7 +159,7 @@
                                                         <c:choose>
 
                                                             <c:when test="${not empty requestScope.context.firstName}">
-                                                                Welcome, <link:userAccount>${requestScope.context.firstName}</link:userAccount>
+                                                                <div class="subMenuItemAnchorText">Welcome, <link:userAccount>${requestScope.context.firstName}</link:userAccount></div>
                                                             </c:when>
                                                             <c:otherwise>
 
@@ -168,15 +168,15 @@
                                                         </c:choose>
                                                     </li>
                                                     <li>
-                                                        <link:mySchoolList>My School List (${requestScope.context.mslCount}) </link:mySchoolList>
+                                                        <link:mySchoolList styleClass="subMenuItemAnchorText">My School List (${requestScope.context.mslCount}) </link:mySchoolList>
                                                     </li>
                                                     <c:if test="${isOSP}">
-                                                        <li >
-                                                            <link:schoolEspDashboard>Edit school profile</link:schoolEspDashboard>
+                                                        <li>
+                                                            <link:schoolEspDashboard styleClass="subMenuItemAnchorText">Edit school profile</link:schoolEspDashboard>
                                                         </li>
                                                     </c:if>
                                                     <li>
-                                                        <gsml:a styleClass="js-log-out" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                                                        <gsml:a styleClass="js-log-out subMenuItemAnchorText" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
                                                     </li>
 
 
