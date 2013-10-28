@@ -9,6 +9,9 @@ package gs.web;
  */
 
 
+import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
+import gs.web.geo.CityHubHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.request.RequestAttributeHelper;
 import gs.data.state.State;
@@ -27,6 +30,10 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
 
     @Autowired
     private RequestAttributeHelper _requestAttributeHelper;
+
+
+    @Autowired
+    private CityHubHelper _cityHubHelper;
 
     private static final String WASHINGTON_HUB_CITY= "washington";
 
@@ -69,14 +76,6 @@ public class CityHubControllerFamilyResolver  implements IControllerFamilyResolv
 
     private boolean shoulCityLocalControllerBeUsed(final String cityName, final State state)
     {
-          boolean isLocal= false;
-          if (DETROIT_HUB_CITY.equals(cityName) && DETROIT_HUB_STATE.equals(state)){
-              isLocal= true;
-          }
-
-          if (MILWAUKEE_HUB_CITY.equals(cityName) && MILWAUKEE_HUB_STATE.equals(state)){
-            isLocal= true;
-         }
-          return isLocal;
-      }
+          return  true ? _cityHubHelper.getCollectionId(cityName, state) != null : false;
+    }
 }
