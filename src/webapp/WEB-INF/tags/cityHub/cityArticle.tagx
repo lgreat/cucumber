@@ -6,14 +6,16 @@
 >
 
     <div class="container_24 clearfix pbl">
-
+        <div class="grid_2 prefix_7">
+            <c:if test="${not empty cityArticle and not empty cityArticle.heading }">
+            <gsml:img src="/res/img/cityHubs/${collectionId}_CityArticle.png" alt="City of ${city}" width="60"/>
+            </c:if>
+        </div>
         <div class="grid_11">
             <div class="medium_bold bottom">
                 <c:choose>
                     <c:when test="${not empty cityArticle and not empty cityArticle.heading }">
-                        <div class="grid_2 prefix_7">
-                            <gsml:img src="/res/img/cityHubs/${collectionId}_CityArticle.png" alt="City of ${city}" width="60"/>
-                        </div>
+
                         <c:choose>
                             <c:when test="${cityArticle.link.newwindow eq 'true'}">
                                 <a href="${cityArticle.link.path}" class="small" target="_blank">${cityArticle.heading}</a>
