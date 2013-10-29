@@ -9,7 +9,7 @@
 
     <c:if test="${fn:length(reviews) gt 0}">
     <div class="container_24 clearfix mvl ptl pbm">
-        <h3 class="sourceSansPro-Semibold">Recent Reviews</h3>
+        <h3 class="SourceSansPro-Semibold-h3">Recent Reviews</h3>
         <div class="bg-F5F5F5 border-round pal clearfix">
             <c:forEach items="${reviews}" var="review" varStatus="count">
                 <div class="grid_11">

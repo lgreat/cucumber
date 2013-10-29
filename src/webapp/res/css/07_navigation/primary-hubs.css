@@ -2,9 +2,9 @@
 /* CSS Document */
 
 /*
-Theme Name: Primary Navigation - Mega Menus
+Theme Name: Navigation for hubs
 Description: Specific styles for the GreatSchools website
-Author: Randall Cox
+Author: Priyanshi Deshwal
 Version: 1.0
 .
 General comments:
@@ -48,11 +48,6 @@ General comments:
 
 #hub-primary .menuItem:hover {
     background-color: #007299;
-    -webkit-transition: all 0.1s ease-in; /* Saf3.2+, Chrome */
-    -moz-transition: all 0.1s ease-in; /* FF4+ */
-    -ms-transition: all 0.1s ease-in; /* IE10 */
-    -o-transition: all 0.1s ease-in; /* Opera 10.5+ */
-    transition: all 0.1s ease-in;
 }
 
 #hub-primary .menuItem .menuItemAnchorText {
@@ -142,11 +137,6 @@ General comments:
     background-color: #007EAA;
     color:#FFFFFF;
     cursor: pointer;
-    -webkit-transition: all 0.1s ease-in; /* Saf3.2+, Chrome */
-    -moz-transition: all 0.1s ease-in; /* FF4+ */
-    -ms-transition: all 0.1s ease-in; /* IE10 */
-    -o-transition: all 0.1s ease-in; /* Opera 10.5+ */
-    transition: all 0.1s ease-in;
 }
 
 #hub-primary .dropdown_1 .subMenuItemAnchorText,

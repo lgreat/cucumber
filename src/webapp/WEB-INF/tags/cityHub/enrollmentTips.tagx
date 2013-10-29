@@ -17,7 +17,7 @@
                     <h6 class="SourceSansPro-Semibold-h6 mtm">Did you know?</h6>
                     <c:choose>
                         <c:when  test="${fn:length(tips) lt 2}">
-                            <div class="small bottom mhl">
+                            <div class="mhl">
                                 <c:forEach items="${tips}" var="tip">
                                     <c:if test="${not empty tip}">
                                         <div>${tip}</div>
@@ -32,7 +32,7 @@
                                     <span class="iconx32g i-32-carouselLeft"><!--Do not collapse--></span>
                                 </a>
                                     </div>
-                                <div class="unit size80of100 small bottom">
+                                <div class="unit size80of100">
                                     <div class="cycle-slideshow"
                                          data-cycle-fx="fadeOut"
                                          data-cycle-slides="> div"
