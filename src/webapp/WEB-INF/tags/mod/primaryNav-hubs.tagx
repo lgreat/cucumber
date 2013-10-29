@@ -3,26 +3,18 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gsweb="gstaglib"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:search="http://java.sun.com/jsp/jstl/core" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
+>
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag body-content="empty"/>
       <jsp:scriptlet>
         request.setAttribute("tabs", PageHelper.pageIds);
     </jsp:scriptlet>
-
-    <c:set var="pw" value="${requestScope.context.pathway}"/>
-
     <div class="">
+
         <div class="container_24 clearfix">
+
             <div class="grid_5">
                 <gsml:a href="/" styleClass="mtl">
                     <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png" styleClass="mtm"
@@ -106,7 +98,6 @@
                         <td class="menuItem">
                             <div class="dropdownReference">
                                 <c:choose>
-                                    <!-- Not logged in case -->
                                     <c:when test="${empty requestScope.context.memberId}">
                                         <div id="utilLinks">
                                             <link:loginOrRegister email="${requestScope.context.email}"

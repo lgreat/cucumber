@@ -48,7 +48,7 @@
 
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
           onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}">
-
+    <pageHelper:addFacebookInit/>
     <div class="site-gradient">
         <mod:primaryNav-hubs/>
     </div>
