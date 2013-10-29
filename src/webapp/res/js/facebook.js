@@ -286,13 +286,17 @@ GS.facebook = GS.facebook || (function () {
     // resolves deferreds and updates login flags
     var login = function () {
 
+
+
         // any time a login call completes successfully, resolve the single loginDeferred for this module.
         var loginAttemptDeferred = $.Deferred().done(function() {
+
             successfulLoginDeferred.resolve();
             firstSuccessfulLoginDeferred.resolve();
         });
-
+        ;
         FB.login(function (response) {
+
             if (response.authResponse) {
                 FB.api('/me', function (data) {
                     if (!data || data.error) {
@@ -312,10 +316,12 @@ GS.facebook = GS.facebook || (function () {
                         // Backed out from r226
                         $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                             if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
+                                location.reload();
                                 if (regLoginResponse.GSAccountCreated === "true") {
                                     trackGSAccountCreated();
                                 }
                                 updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.firstName, regLoginResponse.numberMSLItems);
+
                             }
                             loginAttemptDeferred.resolve(data);
                         }).fail(function() {
@@ -332,6 +338,7 @@ GS.facebook = GS.facebook || (function () {
         });
 
         trackLoginClicked();
+
 
         return loginAttemptDeferred;
     };

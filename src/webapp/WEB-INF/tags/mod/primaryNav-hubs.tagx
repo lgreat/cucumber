@@ -98,7 +98,7 @@
                             <div class="dropdownReference">
                                 <c:choose>
                                     <c:when test="${empty requestScope.context.memberId}">
-                                        <div id="utilLinks">
+                                        <div id="utilLinksUnsignedIn">
                                             <link:loginOrRegister email="${requestScope.context.email}"
                                                                   styleClass="menuItemAnchorText last"
                                                                   onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',
