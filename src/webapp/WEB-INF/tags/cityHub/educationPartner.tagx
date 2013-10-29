@@ -7,7 +7,6 @@
         >
 
     <div class="container_24 clearfix mbl">
-
         <c:forEach items="${partnersInfo}" var="partnerInfo">
             <hr class="keyline1"/>
             <div class="clearfix mvl">
@@ -22,10 +21,6 @@
                     </c:forEach>
                 </div>
             </div>
-
-
         </c:forEach>
-
-
     </div>
 </jsp:root>

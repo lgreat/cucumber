@@ -10,7 +10,7 @@
     <c:set var="pageName" value="city home" scope="request"/>
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="${gsweb:cityPageHubDescription(city,state)}"/>
         <meta name="keywords" content="${gsweb:cityPageKeywordsHub(city,state)}"/>
@@ -22,16 +22,14 @@
     <body>
 
         <c:if test="${param.noSchoolAlert eq 1}">
-
             <div class="noSchoolAlert" style="background: #f9eccd; padding: 1px;text-align: center">
                 <br/>
-             <p>
-                 <gsml:img src="/res/img/bullet/exclaim2.gif" alt="Exclamation mark" style="position: relative; top: 3px;"/>
+                <p>
+                    <gsml:img src="/res/img/bullet/exclaim2.gif" alt="Exclamation mark" style="position: relative; top: 3px;"/>
                     Oops! The school you were looking for may no longer exist. Find more schools below.
                 </p>
             </div>
         </c:if>
-
         <div class="imageBgScale moduleHeight-500">
             <div class="img-container">
                 <gsml:img styleClass="scaling" src="/res/img/cityHubs/${collectionId}-${state.abbreviation}_hero.png" alt="City Image"/>
@@ -42,7 +40,6 @@
                 </div>
             </div>
         </div>
-
         <hub:chooseASchool/>
         <hub:importantEvent/>
         <hub:recentReviews />

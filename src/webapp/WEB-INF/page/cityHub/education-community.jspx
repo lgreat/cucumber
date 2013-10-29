@@ -8,23 +8,19 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
     <jsp:directive.page contentType="text/html"/>
-
-
-
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <c:set var="pageName" value="Education Community" scope="request"/>
     <head>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Education Community</title>
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
     </head>
+
     <body>
-
-
     <hub:searchChoosing/>
     <hub:importantEvent hideAnnoucmentModule="true"/>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Education Community"/>
@@ -38,5 +34,6 @@
                   locale="${city}"
                   hier1="Home,city Education Community Page,${city}-${state.abbreviation}"/>
     </body>
+
     </html>
 </jsp:root>

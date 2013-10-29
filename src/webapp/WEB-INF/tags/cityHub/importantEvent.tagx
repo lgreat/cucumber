@@ -21,7 +21,6 @@
                         <link:cityHubEventsPage state="${state}" city="${city}" styleClass="small">See all</link:cityHubEventsPage>
                     </c:if>
                 </div>
-
                 <c:choose>
                     <c:when test="${hasImportantEventsToDisplay}">
                         <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
@@ -32,7 +31,6 @@
                             <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
                             <c:set var="monthKey">${keyPrefix}_date_month</c:set>
                             <c:set var="yearKey">${keyPrefix}_date_year</c:set>
-
                             <div class="unit size7of100">
                                 <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                                     <div class="tac mtl">
@@ -56,7 +54,6 @@
             <!-- TODO: remove the text below -->
             <!--<p>show ads: ${showAds}</p>-->
         </div>
-
         <c:if test="${hasImportantEventsToDisplay and !hideAnnoucmentModule}">
          <div class="success-block container_24 clearfix mtl tac">
             <span class="small mrm bold">ANNOUNCEMENT</span>

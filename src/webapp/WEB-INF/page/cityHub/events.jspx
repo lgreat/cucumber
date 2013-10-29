@@ -9,9 +9,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <c:set var="pageName" value="Important Dates" scope="request"/>
     <jsp:directive.page contentType="text/html"/>
-
     <head>
-        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
         <meta name="decorator" content="standardDecorator-hubs"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Important dates</title>
@@ -19,15 +17,11 @@
     </head>
 
     <body>
-
         <hub:searchChoosing/>
         <hub:breadcrumbs city="${city}" state="${state}" pageName="Events"/>
         <hub:seeAllEventDates/>
-
         <mod:tracking pageName="${pageName}"
                       locale="${city}"/>
     </body>
-
-
     </html>
 </jsp:root>

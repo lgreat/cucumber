@@ -7,31 +7,28 @@
 
     <div class="container_24 clearfix pbl">
         <div class="grid_2 prefix_7">
-            <gsml:img src="/res/img/cityHubs/${collectionId}_CityArticle.png"  alt="City of ${city}" width="60"/>
-     </div>
+            <gsml:img src="/res/img/cityHubs/${collectionId}_CityArticle.png" alt="City of ${city}" width="60"/>
+        </div>
         <div class="grid_11">
             <div class="medium_bold bottom">
-
                 <c:choose>
                     <c:when test="${not empty cityArticle and not empty cityArticle.heading }">
                         <c:choose>
                             <c:when test="${cityArticle.link.newwindow eq 'true'}">
                                 <a href="${cityArticle.link.path}" class="small" target="_blank">${cityArticle.heading}</a>
                                 <p class="small bottom">${cityArticle.content}</p>
-                  </c:when>
+                            </c:when>
                             <c:otherwise>
                                 <a href="${cityArticle.link.path}" class="small">${cityArticle.heading}</a>
                                 <p class="small bottom">${cityArticle.content}</p>
                             </c:otherwise>
                         </c:choose>
-                     </c:when>
+                    </c:when>
                     <c:otherwise>
-                      <h3 class="sourceSansPro-Semibold mbm mtl">No Data Found</h3>
+                        <h3 class="sourceSansPro-Semibold mbm mtl">No Data Found</h3>
                     </c:otherwise>
-
                 </c:choose>
-          </div>
-
+            </div>
         </div>
     </div>
     <hr class="keyline1"/>
