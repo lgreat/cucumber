@@ -96,12 +96,11 @@ General comments:
     background: #007299;
 }
 
-#hub-primary .dropdown_1 {
-    width: 170px;
+#hub-primary .dropdown_1,
+#hub-primary .dropdown_2{
+    width: 173px;
 }
-#hub-primary .dropdown_2 {
-    width: 166px;
-}
+
 #hub-primary .dropdown_3 {
     width: 143px;
 }
