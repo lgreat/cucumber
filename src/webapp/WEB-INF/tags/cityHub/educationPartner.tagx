@@ -9,7 +9,7 @@
     <div class="container_24 clearfix mbl">
         <c:forEach items="${partnersInfo}" var="partnerInfo">
             <hr class="keyline1"/>
-            <div class="clearfix mvl">
+            <div class="clearfix mvl pvl">
                 <div class="grid_5">
                     <gsml:img alt="Partner Logo" src="${partnerInfo.logoLocation}"/>
                 </div>
