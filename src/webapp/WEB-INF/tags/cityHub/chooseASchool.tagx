@@ -11,8 +11,6 @@
             <c:choose>
              <c:when test="${not empty chooseSchool and  fn:length(chooseSchool) gt 0 and not empty chooseSchool.heading }">
                  <h3 class="sourceSansPro-Semibold mbm mtl">${chooseSchool.heading}</h3>
-
-
                  <p class="small">${chooseSchool.content}</p>
                  <c:forEach items="${chooseSchool.link}" var="link" varStatus="status">
                      <c:choose>
@@ -32,12 +30,9 @@
                  <h3 class="sourceSansPro-Semibold mbm mtl">No Data Found</h3>
              </c:otherwise>
            </c:choose>
-
-
         </div>
         <div class="grid_12">
             <gsml:img src="/res/img/cityHubs/choose_a_school.png" alt="Choose a School"/>
-
         </div>
     </div>
 </jsp:root>
