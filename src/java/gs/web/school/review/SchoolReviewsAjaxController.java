@@ -578,7 +578,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         StringBuilder reviewLink = new StringBuilder("<a href=\"");
         UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
         urlBuilder.addParameter("lr", "true");
-//        reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
+        reviewLink.append(urlBuilder.asFullUrl(request)).append("#tps").append(review.getId());
         reviewLink.append("\">your review</a>");
         emailAttributes.put("HTML__reviewLink", reviewLink.toString());
 

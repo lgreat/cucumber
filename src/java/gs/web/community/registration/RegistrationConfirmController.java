@@ -2,27 +2,19 @@ package gs.web.community.registration;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
-import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Review;
+import gs.data.school.review.ISchoolReview;
 import gs.data.security.Role;
-import gs.data.state.State;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
 import gs.web.school.EspRegistrationConfirmationService;
-import gs.web.school.EspRegistrationHelper;
 import gs.web.school.review.ReviewService;
-import gs.web.school.usp.EspStatus;
-import gs.web.school.usp.EspStatusManager;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
@@ -398,30 +390,54 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         return new ModelAndView("redirect:" + UrlUtil.addParameter(redirect, "email=" + email));
     }
 
-    private void sendReviewPostedWelcomeEmail(HttpServletRequest request, Review anUpgradedReview) {
+    private void sendReviewPostedWelcomeEmail(HttpServletRequest request, ISchoolReview anUpgradedReview) {
         Map<String,String> emailAttributes = new HashMap<String,String>();
         emailAttributes.put("schoolName", anUpgradedReview.getSchool().getName());
         emailAttributes.put("HTML__review", "<p>" + anUpgradedReview.getComments() + "</p>");
 
-        StringBuffer reviewLink = new StringBuffer("<a href=\"");
-        UrlBuilder urlBuilder = new UrlBuilder(anUpgradedReview.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        StringBuilder reviewLink = new StringBuilder("<a href=\"");
+        UrlBuilder urlBuilder;
+        if (anUpgradedReview.getSchool().isSchoolForNewProfile()) {
+            urlBuilder = new UrlBuilder(anUpgradedReview.getSchool(), UrlBuilder.SCHOOL_PROFILE);
+            urlBuilder.addParameter("tab", "reviews");
+        } else {
+            urlBuilder = new UrlBuilder(anUpgradedReview.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        }
         urlBuilder.addParameter("lr", "true");
-        reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(anUpgradedReview.getId());
+        reviewLink.append(urlBuilder.asFullUrl(request));
+        if (anUpgradedReview.getTopic() != null) {
+            reviewLink.append("#tps");
+        } else {
+            reviewLink.append("#ps");
+        }
+        reviewLink.append(anUpgradedReview.getId());
         reviewLink.append("\">your review</a>");
 
         emailAttributes.put("HTML__reviewLink", reviewLink.toString());
         _exactTargetAPI.sendTriggeredEmail("review_posted_plus_welcome_trigger",anUpgradedReview.getUser(), emailAttributes);
     }
 
-    private void sendReviewPostedEmail(HttpServletRequest request, Review anUpgradedReview) {
+    private void sendReviewPostedEmail(HttpServletRequest request, ISchoolReview anUpgradedReview) {
         Map<String,String> emailAttributes = new HashMap<String,String>();
         emailAttributes.put("schoolName", anUpgradedReview.getSchool().getName());
         emailAttributes.put("HTML__review", "<p>" + anUpgradedReview.getComments() + "</p>");
 
-        StringBuffer reviewLink = new StringBuffer("<a href=\"");
-        UrlBuilder urlBuilder = new UrlBuilder(anUpgradedReview.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        StringBuilder reviewLink = new StringBuilder("<a href=\"");
+        UrlBuilder urlBuilder;
+        if (anUpgradedReview.getSchool().isSchoolForNewProfile()) {
+            urlBuilder = new UrlBuilder(anUpgradedReview.getSchool(), UrlBuilder.SCHOOL_PROFILE);
+            urlBuilder.addParameter("tab", "reviews");
+        } else {
+            urlBuilder = new UrlBuilder(anUpgradedReview.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        }
         urlBuilder.addParameter("lr", "true");
-        reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(anUpgradedReview.getId());
+        reviewLink.append(urlBuilder.asFullUrl(request));
+        if (anUpgradedReview.getTopic() != null) {
+            reviewLink.append("#tps");
+        } else {
+            reviewLink.append("#ps");
+        }
+        reviewLink.append(anUpgradedReview.getId());
         reviewLink.append("\">your review</a>");
 
         emailAttributes.put("HTML__reviewLink", reviewLink.toString());
