@@ -120,7 +120,7 @@
                                                                 <div >Welcome, ${requestScope.context.firstName}</div>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                 My Account
+                                                                Welcome
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </li>
