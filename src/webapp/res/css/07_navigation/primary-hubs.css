@@ -32,11 +32,7 @@ General comments:
     margin: 0;
     padding: 0;
     table-layout: auto;
-    /* Borders */
     border:none;
-    /*border-left:1px solid #3196C6;*/
-    /*border-right: 1px solid #177BA2;*/
-
 }
 
 /* Primary Menu Items */
@@ -47,6 +43,7 @@ General comments:
     border: 0 none;
     background-color: #007EAA;
     zoom:1;
+    cursor: pointer;
 }
 
 #hub-primary .menuItem:hover {
@@ -83,7 +80,6 @@ General comments:
     margin-top: 22px;
 }
 
-
 #hub-primary .dropdown_1,
 #hub-primary .dropdown_2,
 #hub-primary .dropdown_3 {
@@ -107,8 +103,7 @@ General comments:
 
 #hub-primary .menuItem:hover .dropdown_1,
 #hub-primary .menuItem:hover .dropdown_2,
-#hub-primary .menuItem:hover .dropdown_2
-{
+#hub-primary .menuItem:hover .dropdown_2 {
     left: -1px;
     top: auto;
 }
@@ -141,7 +136,7 @@ General comments:
 #hub-primary .dropdown_2 .subMenuItem:hover,
 #hub-primary .dropdown_3 .subMenuItem:hover {
     background-color: #007EAA;
-    color:#ffffff;
+    color:#FFFFFF;
     cursor: pointer;
 }
 
@@ -155,7 +150,6 @@ General comments:
 #hub-primary .dropdown_1 .subMenuItemAnchorText:hover,
 #hub-primary .dropdown_2 .subMenuItemAnchorText:hover,
 #hub-primary .dropdown_2 .subMenuItemAnchorText:hover {
-    color:#FFFFFF;
     text-decoration: none;
 }
 
