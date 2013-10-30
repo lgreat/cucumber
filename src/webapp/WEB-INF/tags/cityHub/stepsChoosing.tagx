@@ -122,5 +122,8 @@
                 </c:if>
             </div>
             </div>
+        <div class="container_24 mtm clearfix">
+            <a href="#">Back to top</a>
+        </div>
     </c:forEach>
 </jsp:root>
