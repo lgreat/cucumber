@@ -13,7 +13,7 @@ Scenario: Sign up with valid data
   When I click on the "Join" link
   And I fill in:
 #  | fName | Swathi |
-  | jemail | skrishna+[TIMESTAMP]@greatschools.org |
+  | jemail | devnull+[TIMESTAMP]@greatschools.org |
 #  | uName  | Cucu[TIMESTAMP] |
   | jpword | abc123 |
   | cpword | abc123 |

@@ -15,6 +15,7 @@ URLS = {
   'Akula Elitnaurvik School Programs Page' => '/alaska/kasigluk/12-Akula-Elitnaurvik-School/?tab=programs-resources',
   'an article' => '/students/travel/635-flying-with-kids.gs',
   'parent review landing' => '/school/parentReview.page',
+  'learning issues landing' => '/school/parentReview.page?topicId=1',
 }
 
 if defined? Capybara && Capybara.app_host=~/localhost/

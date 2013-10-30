@@ -11,6 +11,13 @@ Feature: Parent Review Landing Page (The Scoop)
     Then I see "Northern Lights ABC"
       And I see "2424 East Dowling Rd"
 
+  @javascript
+  Scenario: I can select a preschool to topically review
+    Given I am on "parent review landing" page
+      And I select my school to review: "Tots University" in CA
+    Then I see "Tots University"
+      And I see "PK"
+
   @javascript @readwrite
   Scenario: I can submit a review
     Given I am on "parent review landing" page with parameters:
@@ -24,7 +31,7 @@ Feature: Parent Review Landing Page (The Scoop)
       And I select a "Teacher quality" star rating
       And I select a "Principal leadership" star rating
       And I select a "Parent involvement" star rating
-      And I type "cliu+[TIMESTAMP]@greatschools.org" into "email"
+      And I type "devnull+[TIMESTAMP]@greatschools.org" into "email"
       And I click on "the post button"
       And I wait 3 seconds for the success page to load
     Then "the success page" is visible
