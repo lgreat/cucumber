@@ -117,6 +117,7 @@ General comments:
     text-align: left;
     color:#CCE5ED;
     font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+    cursor: auto;
 }
 
 #hub-primary .dropdown_1 .subMenuItem .subMenuItemAnchorText,
