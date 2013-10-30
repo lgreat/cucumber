@@ -8,7 +8,7 @@
 >
 
 
-    <div class="tab-content-container">
+    <div class="tab-content-container pbl">
         <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
             <c:choose>
                 <c:when test="${(defaultTab == enrollmentInfo.tabName and empty param.tab) or param.tab == enrollmentInfo.tabName}">

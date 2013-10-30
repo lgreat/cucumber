@@ -11,7 +11,7 @@
             <c:when test="${not empty partnerCarousel and not empty partnerCarousel.heading }">
                 <div class="clearfix">
                     <div class="fl">
-                        <h2>${partnerCarousel.heading}</h2>
+                        <h2 class="SourceSansPro-Semibold-h2">${partnerCarousel.heading}</h2>
                     </div>
                     <div class="fr small">
                         <link:cityHubEduCommunityPage state="${state}" city="${city}">See the entire education community &amp;#187;</link:cityHubEduCommunityPage>
@@ -60,7 +60,7 @@
 
             </c:when>
             <c:otherwise>
-                <h3 class="sourceSansPro-Semibold mbm mtl">No Data Found - Key ${keyTemplateName}_partnerCarousel</h3>
+                <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_partnerCarousel</h3>
             </c:otherwise>
 
 

@@ -31,7 +31,7 @@
             </div>
             <div class="schoolBreakdown">
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>
-                <h3 class="make-ffffff bottom pbm">What kind of school are you looking for?</h3>
+                <h3 class="SourceSansPro-Semibold-h3 make-ffffff bottom pbm">What kind of school are you looking for?</h3>
                 <c:forEach var="list" items="${schoolTypeList}">
                     <button class="but-4 clearfix" type="button" onclick="location.href='${list.hrefXml}'">
                         <span class="fl">${list.contents}</span>

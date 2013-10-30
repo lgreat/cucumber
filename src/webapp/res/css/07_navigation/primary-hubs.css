@@ -2,9 +2,9 @@
 /* CSS Document */
 
 /*
-Theme Name: Primary Navigation - Mega Menus
+Theme Name: Navigation for hubs
 Description: Specific styles for the GreatSchools website
-Author: Randall Cox
+Author: Priyanshi Deshwal
 Version: 1.0
 .
 General comments:
@@ -48,11 +48,6 @@ General comments:
 
 #hub-primary .menuItem:hover {
     background-color: #007299;
-    -webkit-transition: all 0.1s ease-in; /* Saf3.2+, Chrome */
-    -moz-transition: all 0.1s ease-in; /* FF4+ */
-    -ms-transition: all 0.1s ease-in; /* IE10 */
-    -o-transition: all 0.1s ease-in; /* Opera 10.5+ */
-    transition: all 0.1s ease-in;
 }
 
 #hub-primary .menuItem .menuItemAnchorText {
@@ -112,18 +107,6 @@ General comments:
     top: auto;
 }
 
-#hub-primary .dropdown_1 .subMenuItem,
-#hub-primary .dropdown_2 .subMenuItem,
-#hub-primary .dropdown_3 .subMenuItem {
-    display: block;
-    padding: 10px 15px 10px 15px;
-    margin: 0;
-    border: none;
-    text-align: left;
-    color:#CCE5ED;
-    font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
-}
-
 #hub-primary .dropdown_1 .subMenuItemNoHover,
 #hub-primary .dropdown_2 .subMenuItemNoHover,
 #hub-primary .dropdown_3 .subMenuItemNoHover {
@@ -134,31 +117,29 @@ General comments:
     text-align: left;
     color:#CCE5ED;
     font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+    cursor: auto;
 }
 
-#hub-primary .dropdown_1 .subMenuItem:hover,
-#hub-primary .dropdown_2 .subMenuItem:hover,
-#hub-primary .dropdown_3 .subMenuItem:hover {
-    background-color: #007EAA;
-    color:#FFFFFF;
-    cursor: pointer;
-    -webkit-transition: all 0.1s ease-in; /* Saf3.2+, Chrome */
-    -moz-transition: all 0.1s ease-in; /* FF4+ */
-    -ms-transition: all 0.1s ease-in; /* IE10 */
-    -o-transition: all 0.1s ease-in; /* Opera 10.5+ */
-    transition: all 0.1s ease-in;
-}
-
-#hub-primary .dropdown_1 .subMenuItemAnchorText,
-#hub-primary .dropdown_2 .subMenuItemAnchorText,
-#hub-primary .dropdown_3 .subMenuItemAnchorText {
+#hub-primary .dropdown_1 .subMenuItem .subMenuItemAnchorText,
+#hub-primary .dropdown_2 .subMenuItem .subMenuItemAnchorText,
+#hub-primary .dropdown_3 .subMenuItem .subMenuItemAnchorText {
     color:#CCE5ED;
     text-decoration: none;
+    display: block;
+    padding: 10px 15px 10px 15px;
+    margin: 0;
+    border: none;
+    text-align: left;
+    color: #CCE5ED;
+    font: normal 14px/125% 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
 }
 
-#hub-primary .dropdown_1 .subMenuItemAnchorText:hover,
-#hub-primary .dropdown_2 .subMenuItemAnchorText:hover,
-#hub-primary .dropdown_2 .subMenuItemAnchorText:hover {
+#hub-primary .dropdown_1 .subMenuItem .subMenuItemAnchorText:hover,
+#hub-primary .dropdown_2 .subMenuItem .subMenuItemAnchorText:hover,
+#hub-primary .dropdown_2 .subMenuItem .subMenuItemAnchorText:hover {
+    background-color: #007EAA;
+    color: #FFFFFF;
+    cursor: pointer;
     text-decoration: none;
 }
 

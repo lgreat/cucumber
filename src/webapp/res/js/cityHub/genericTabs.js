@@ -17,7 +17,7 @@ GS.genericTabHandler = (function($){
             var $control = $(this);
             var tabGroup = $control.data('gs-tab-group');
             var tabName = $control.data('gs-tab-control');
-            tabs[tabName] = {tab: $control, tabGroup: tabGroup};
+            tabs[tabName] = {tabControl: $control, tabGroup: tabGroup};
 
             // handle nav when tab is clicked
             $control.on('click', function() {
@@ -49,6 +49,14 @@ GS.genericTabHandler = (function($){
             });
         }
 
+        for(var t in tabs) {
+            if(tabs.hasOwnProperty(t)) {
+                if(tabs[t].tabControl.hasClass('selected')) {
+                    updateHistoryEntryWithCurrentTab(t);
+                }
+            }
+        }
+
         return this;
     };
 
@@ -60,11 +68,12 @@ GS.genericTabHandler = (function($){
         $controls.filter(selectorForTabGroup(tabGroup)).each(function() {
             var thisTabName = $(this).data('gs-tab-control');
             if (thisTabName !== tabName) {
-                $(this).removeClass("selected")
+                $(this).removeClass("selected");
             } else {
-                $(this).addClass("selected")
-
-                updateHistoryEntryWithCurrentTab(tabName);
+                $(this).addClass("selected");
+                var url = '?';
+                if(tabName !== 'Preschools') url += 'tab=' + tabName;
+                window.History.pushState(null, null, url);
             }
         });
 
@@ -81,8 +90,8 @@ GS.genericTabHandler = (function($){
     };
 
     var updateHistoryEntryWithCurrentTab = function(currentTabName) {
-        var isPreschoolsTab = (currentTabName === 'Preschools');
         if (isHistoryAPIAvailable) {
+            var isPreschoolsTab = (currentTabName === 'Preschools');
             var queryString = window.location.search;
             if (isPreschoolsTab) {
                 queryString = GS.uri.Uri.removeFromQueryString(queryString, "tab");
@@ -90,7 +99,7 @@ GS.genericTabHandler = (function($){
             else {
                 queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", currentTabName, true);
             }
-            window.History.pushState(null, document.title, queryString);
+            window.History.replaceState(null, null, queryString);
         }
     };
 

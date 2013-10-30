@@ -10,15 +10,15 @@
         <div class="grid_10 suffix_2">
             <c:choose>
              <c:when test="${not empty chooseSchool and  fn:length(chooseSchool) gt 0 and not empty chooseSchool.heading }">
-                 <h3 class="sourceSansPro-Semibold mbm mtl">${chooseSchool.heading}</h3>
-                 <p class="small">${chooseSchool.content}</p>
+                 <h3 class="SourceSansPro-Semibold-h3 mbm mtl">${chooseSchool.heading}</h3>
+                 <p>${chooseSchool.content}</p>
                  <c:forEach items="${chooseSchool.link}" var="link" varStatus="status">
                      <c:choose>
                          <c:when test="${link.newWindow eq 'true'}">
-                             <a href="${link.path}" class="small" target="_blank">${link.name}</a>
+                             <a href="${link.path}" target="_blank">${link.name}</a>
                          </c:when>
                          <c:otherwise>
-                             <a href="${link.path}" class="small">${link.name}</a>
+                             <a href="${link.path}">${link.name}</a>
                          </c:otherwise>
                      </c:choose>
                      <c:if test="${not status.last}">
@@ -27,7 +27,7 @@
                  </c:forEach>
              </c:when>
              <c:otherwise>
-                 <h3 class="sourceSansPro-Semibold mbm mtl">No Data Found - Key ${keyTemplateName}_chooseSchool</h3>
+                 <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_chooseSchool</h3>
              </c:otherwise>
            </c:choose>
         </div>
