@@ -398,11 +398,14 @@ public class CityHubHelperTest extends BaseControllerTestCase {
         filteredConfigMap = _cityHubHelper.getFilteredConfigMap(hubConfigs, CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY);
 
         assertFalse("CityHubHelperTest - testGetFilteredConfigMap_validJson." +
-                "Expect map not to be empty for a valid json hub config value", filteredConfigMap.isEmpty());
+                "Expect map not to be empty for valid hub config json value key", filteredConfigMap.isEmpty());
+        assertNotNull("CityHubHelperTest - testGetFilteredConfigMap_validJson." +
+                "Expect map not null for valid hub config json value key", filteredConfigMap.get(CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY));
+        JSONObject chooseASchoolMap = (JSONObject) filteredConfigMap.get(CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY);
         assertEquals("We\'re here to help you explore your options and find the right school for your child with " +
-                "in-depth school profiles, details on the enrollment process in Detroit, and more.", filteredConfigMap.get("content"));
+                "in-depth school profiles, details on the enrollment process in Detroit, and more.", chooseASchoolMap.get("content"));
         assertEquals("enrollment",
-                ((JSONObject)((JSONArray) filteredConfigMap.get("link")).get(2)).get("path"));
+                ((JSONObject)((JSONArray) chooseASchoolMap.get("link")).get(2)).get("path"));
     }
 
     public void testGetFilteredConfigMap_invalidJson() {
