@@ -371,7 +371,8 @@
 
                 <div class="spacer_15"><!-- do not collapse --></div>
                 <div class="review">
-                    <![CDATA[ <a name="ps${review.id}"></a> ]]>
+                    <c:set var="anchorPrefix" value="${review.topic ne null?'tps':'ps'}"/>
+                    <![CDATA[ <a name="${anchorPrefix}${review.id}"></a> ]]>
 
                     <div class="line">
                         <div class="unit size3of5 fl">
@@ -379,6 +380,9 @@
                                 <c:set var="curStarRating" value="${review.quality.name}"/>
                                 <c:if test="${school.levelCode eq 'p'}">
                                     <c:set var="curStarRating" value="${review.POverall.name}"/>
+                                </c:if>
+                                <c:if test="${review.topic ne null}">
+                                    <c:set var="curStarRating" value="decline"/>
                                 </c:if>
                                 <c:if test="${curStarRating ne 'decline'}">
                                     <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
@@ -394,11 +398,11 @@
                                             <c:when test="${review.status eq 'd'}">
                                                 (deleted)
                                                 | <a href="javascript:void(0);" class="enableLink link"
-                                                     onclick="enableReview(${review.id}); return false;">Enable</a>
+                                                     onclick="enableReview(${review.id}, ${review.topic ne null?'true':'false'}); return false;">Enable</a>
                                             </c:when>
                                             <c:when test="${review.status eq 'p'}">
                                                 | <a href="javascript:void(0);" class="disableLink link"
-                                                     onclick="disableReview(${review.id}); return false;">Disable</a>
+                                                     onclick="disableReview(${review.id}, ${review.topic ne null?'true':'false'}); return false;">Disable</a>
                                             </c:when>
                                         </c:choose>
                                     </gsml:ifUserCanDeleteContent>
@@ -407,9 +411,19 @@
                             <div class="clearFloat"><!-- --></div>
                         </div>
 
+                        <c:set var="reportContentType" value="${review.topic eq null?'schoolReview':'topicalSchoolReview'}"/>
                         <div class="unit size2of5 lastUnit fr">
+                            <c:set var="hasUserReportedReview" value="${false}"/>
                             <c:choose>
-                                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                                <c:when test="${review.topic eq null}">
+                                    <c:set var="hasUserReportedReview" value="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="hasUserReportedReview" value="${requestScope.topicalReviewReports ne null and requestScope.topicalReviewReports[review.id] eq true}"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${hasUserReportedReview}">
                                     <!-- if the user is a moderator thay can report it again -->
                                     <c:choose>
                                         <c:when test="${moderator eq true}">
@@ -417,7 +431,7 @@
                                                 <div class="bd">
                                                     <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
                                                     <div class="dib vat"><a class="reportContent small no_interrupt" href="${loginRedirectUrl}"
-                                                                            id="report_schoolReview_${review.id}">Report it again</a></div>
+                                                                            id="report_${reportContentType}_${review.id}">Report it again</a></div>
                                                 </div>
                                             </div>
                                         </c:when>
@@ -432,7 +446,7 @@
                                         <div class="bd">
                                             <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
                                             <div class="dib vat"><a class="reportContent small no_interrupt" href="${loginRedirectUrl}"
-                                                                    id="report_schoolReview_${review.id}">Report it</a></div>
+                                                                    id="report_${reportContentType}_${review.id}">Report it</a></div>
                                         </div>
                                     </div>
                                 </c:otherwise>
@@ -442,16 +456,10 @@
                     </div>
 
                     <c:set var="postedByDisplay" value=""/>
-                    <c:choose>
-                        <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
-                            <c:set var="postedByDisplay"
-                                   value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
-                        </c:when>
-                        <c:when test="${review.who ne ''}">
-                            <c:set var="postedByDisplay"
-                                   value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
-                        </c:when>
-                    </c:choose>
+                    <c:if test="${review.who ne ''}">
+                        <c:set var="postedByDisplay"
+                               value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                    </c:if>
 
                     <p class="text3">
                         <c:set var="escapedComments"><c:out value="${review.comments}"

@@ -1398,7 +1398,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         displayConfig.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School-run shuttle from nearby metro and bus stops",
                 "transportation_shuttle", new String[]{"yes"} ));
         getLastDisplayBean(displayConfig).addSupportInfo("transportation_shuttle_other");
-        displayConfig.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Transportation provided for students by the school / district",
+        displayConfig.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Transportation options",
                 "transportation"));
         getLastDisplayBean(displayConfig).addKey("transportation_other");
         displayConfig.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School facilities",

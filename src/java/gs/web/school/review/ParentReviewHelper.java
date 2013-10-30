@@ -64,6 +64,32 @@ public class ParentReviewHelper {
                     Collections.reverseOrder(Review.POSTED_BY_PRINCIPAL_COMPARATOR),
                     Review.DATE_POSTED_COMPARATOR);
 
+    //Compare on who, then overall rating descending, then date posted descending
+    public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Collections.reverseOrder(ISchoolReview.GENERIC_OVERALL_RATING_COMPARATOR),
+                    Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
+
+    //Compare on who, then overall rating ascending, then date posted descending
+    public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_OVERALL_RATING_ASC_DATE_DESC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    ISchoolReview.GENERIC_OVERALL_RATING_COMPARATOR,
+                    Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
+
+    //Compare on who, then date posted descending
+    public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_DATE_DESC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
+
+    //compare on who, then date posted ascending
+    public static final Comparator<ISchoolReview> INTERLEAVED_PRINCIPAL_DATE_ASC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(ISchoolReview.GENERIC_POSTED_BY_PRINCIPAL_COMPARATOR),
+                    ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR);
+
 
     /**
      * Handle preschool redirect if necessary by returning
@@ -207,6 +233,21 @@ public class ParentReviewHelper {
         return paramSortBy;
     }
 
+    public String handleSortAllReviews(String paramSortBy, List<ISchoolReview> reviews){
+        if ("da".equals(paramSortBy)) {
+            Collections.sort(reviews, ParentReviewHelper.INTERLEAVED_PRINCIPAL_DATE_ASC);
+        } else if ("rd".equals(paramSortBy)) {
+            Collections.sort(reviews, ParentReviewHelper.INTERLEAVED_PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC);
+        } else if ("ra".equals(paramSortBy)) {
+            Collections.sort(reviews, ParentReviewHelper.INTERLEAVED_PRINCIPAL_OVERALL_RATING_ASC_DATE_DESC);
+        } else {
+            Collections.sort(reviews, ParentReviewHelper.INTERLEAVED_PRINCIPAL_DATE_DESC);
+            //is user passes in junk, set this as default
+            paramSortBy = "dd";
+        }
+        return paramSortBy;
+    }
+
     public void handleReviewReports(List<Review> reviews, Map model, HttpServletRequest request) {
         User user = (User) model.get("validUser");
         if(user != null && PageHelper.isMemberAuthorized(request)){
@@ -218,6 +259,21 @@ public class ParentReviewHelper {
                                     (user, ReportedEntity.ReportedEntityType.schoolReview, review.getId()));
                 }
                 model.put("reviewReports", reports);
+            }
+        }
+    }
+
+    public void handleTopicalReviewReports(List<TopicalSchoolReview> topicalReviews, Map model, HttpServletRequest request) {
+        User user = (User) model.get("validUser");
+        if(user != null && PageHelper.isMemberAuthorized(request)){
+            if (topicalReviews != null ) {
+                Map<Integer, Boolean> reports = new HashMap<Integer, Boolean>(topicalReviews.size());
+                for (TopicalSchoolReview topicalReview: topicalReviews) {
+                    reports.put(topicalReview.getId(),
+                            _reportedEntityDao.hasUserReportedEntity
+                                    (user, ReportedEntity.ReportedEntityType.topicalSchoolReview, topicalReview.getId()));
+                }
+                model.put("topicalReviewReports", reports);
             }
         }
     }
@@ -287,6 +343,19 @@ public class ParentReviewHelper {
         }
     }
 
+    /**
+     * Update numReviewsBy with counts of topical reviews by Poster
+     */
+    public void updateCounts(Map<Poster, Integer> numReviewsBy, List<TopicalSchoolReview> topicalReviews) {
+        for (TopicalSchoolReview topicalReview: topicalReviews) {
+            Integer count = numReviewsBy.get(topicalReview.getPoster());
+            if (count == null) {
+                count = 0;
+            }
+            numReviewsBy.put(topicalReview.getPoster(), count+1);
+        }
+    }
+
     public void handleNumberOfReviewsCount(Map<Poster, Integer> numReviewsBy, Map model) {
         if (numReviewsBy != null) {
             model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
@@ -348,6 +417,10 @@ public class ParentReviewHelper {
      * @param reviews list of reviews
      */
     public void handleLastModifiedDateInModel(Map<String, Object> model, School school, Set<Poster> reviewsBy, List<Review> reviews) {
+        handleLastModifiedDateInModel(model, school, reviewsBy, reviews, null);
+    }
+
+    public void handleLastModifiedDateInModel(Map<String, Object> model, School school, Set<Poster> reviewsBy, List<Review> reviews, List<TopicalSchoolReview> topicalReviews) {
         Date lastModifiedDate = school.getModified();
         int numReviews = reviews.size();
         // ignore most recently posted review if no reviews or if we're filtering what kind of reviewer we're including reviews by
@@ -375,9 +448,33 @@ public class ParentReviewHelper {
             }
         }
 
+        // Again, ignore reviews if they have been filtered
+        if (reviewsBy.isEmpty() && topicalReviews != null && topicalReviews.size() > 0) {
+            for (TopicalSchoolReview topicalReview: topicalReviews) {
+                if (!StringUtils.equalsIgnoreCase("principal", topicalReview.getPoster().getName())
+                        && Review.ReviewStatus.PUBLISHED.getStatusCode().equals(topicalReview.getStatus())) {
+                    Date posted = topicalReview.getPosted();
+                    if (lastModifiedDate == null || (posted != null && posted.after(lastModifiedDate))) {
+                        lastModifiedDate = posted;
+                    }
+                }
+            }
+        }
+
         if (lastModifiedDate != null) {
             model.put("lastModifiedDate", lastModifiedDate);
         }
+    }
+
+    public List<ISchoolReview> interleaveReviews(List<Review> reviews, List<TopicalSchoolReview> topicalReviews) {
+        List<ISchoolReview> interleavedReviews = new ArrayList<ISchoolReview>(reviews.size() + topicalReviews.size());
+        for (Review review: reviews) {
+            interleavedReviews.add(review);
+        }
+        for (TopicalSchoolReview topicalSchoolReview: topicalReviews) {
+            interleavedReviews.add(topicalSchoolReview);
+        }
+        return interleavedReviews;
     }
 
     public void handleSubcategoryRatings(Map<String, Object> model, School school, Ratings ratings) {
@@ -451,7 +548,7 @@ public class ParentReviewHelper {
         return findFromIndex(page, MAX_REVIEWS_PER_PAGE, reviews);
     }
 
-    public int findFromIndex(int page, int max, List<Review> reviews){
+    public <T extends ISchoolReview> int findFromIndex(int page, int max, List<T> reviews){
         int fromIndex = (page - 1) * max;
         if ( reviews!=null && reviews.size()>0 ) {
             if ("principal".equals(reviews.get(0).getWho())) {
@@ -461,20 +558,20 @@ public class ParentReviewHelper {
         return fromIndex;
     }
 
-    public int findToIndex(int page, int fromIndex, List<Review> reviews){
+    public int findToIndex(int page, int fromIndex, List reviews){
         return findToIndex(page,  fromIndex, MAX_REVIEWS_PER_PAGE, reviews);
     }
 
 
-    public int findToIndex(int page, int fromIndex, int max, List<Review> reviews) {
+    public int findToIndex(int page, int fromIndex, int max, List reviews) {
         int toIndex = fromIndex + max;
         toIndex = Math.min(toIndex, reviews.size());
         return toIndex;
     }
 
 
-    public List<Review> handlePagination(HttpServletRequest request, List<Review> reviews, int page, int fromIndex, int toIndex) {
-        List<Review> reviewsToShow = new ArrayList<Review>();
+    public <T> List<T> handlePagination(HttpServletRequest request, List<T> reviews, int page, int fromIndex, int toIndex) {
+        List<T> reviewsToShow = new ArrayList<T>();
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
@@ -523,7 +620,7 @@ public class ParentReviewHelper {
 
     public static class ParentReviewCommand {
         private School _school;
-        private List<Review> _reviews;
+        private List<ISchoolReview> _reviews;
         private Date _currentDate;
         private int _totalReviews = 0;
         private String _sortBy;
@@ -537,11 +634,11 @@ public class ParentReviewHelper {
             _school = school;
         }
 
-        public List<Review> getReviews() {
+        public List<ISchoolReview> getReviews() {
             return _reviews;
         }
 
-        public void setReviews(List<Review> reviews) {
+        public void setReviews(List<ISchoolReview> reviews) {
             _reviews = reviews;
         }
 

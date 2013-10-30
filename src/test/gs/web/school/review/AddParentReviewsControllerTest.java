@@ -227,7 +227,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         assertEquals(_command.getPoster(), r.getPoster());
         assertEquals(_command.isAllowContact(), r.isAllowContact());
-        assertTrue(r.isAllowName());
+        assertFalse("Expect allowName to always be false per our privacy policy", r.isAllowName());
     }
 
     public void testErrorJson() throws Exception {

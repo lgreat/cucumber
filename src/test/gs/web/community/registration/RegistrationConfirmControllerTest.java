@@ -4,13 +4,13 @@ import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.ISchoolReview;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
 import gs.web.school.EspRegistrationConfirmationService;
-import gs.web.school.EspRegistrationHelper;
 import gs.web.school.review.ReviewService;
 import gs.web.util.SitePrefCookie;
 import org.easymock.IArgumentMatcher;
@@ -150,7 +150,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         review2.setStatus("u");
         review2.setSchool(school);
 
-        List<Review> updatedReviews = new ArrayList<Review>();
+        List<ISchoolReview> updatedReviews = new ArrayList<ISchoolReview>();
         updatedReviews.add(review1);
         updatedReviews.add(review2);
 
@@ -444,7 +444,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         review.setStatus("p");
         review.setSchool(school);
         review.setUser(user);
-        List<Review> reviews = new ArrayList<Review>();
+        List<ISchoolReview> reviews = new ArrayList<ISchoolReview>();
         reviews.add(review);
 
         EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
@@ -483,7 +483,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         review.setStatus("pp");
         review.setSchool(school);
         review.setUser(user);
-        List<Review> reviews = new ArrayList<Review>();
+        List<ISchoolReview> reviews = new ArrayList<ISchoolReview>();
         reviews.add(review);
 
         EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();

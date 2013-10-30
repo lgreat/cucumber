@@ -3,6 +3,7 @@ package gs.web.community.registration;
 
 import gs.data.community.WelcomeMessageStatus;
 import gs.data.school.School;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +24,7 @@ public class RegistrationOrLoginBehavior {
 
     // whether the user needs to verify email, and hence have a provisional password.
     public boolean requireEmailVerification() {
-        if (isFacebookRegistration()) {
+        if (isFacebookRegistration() || StringUtils.equals("hover_mss", _how)) {
             return false;
         }
         return true;

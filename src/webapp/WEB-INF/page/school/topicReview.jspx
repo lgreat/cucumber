@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          version="2.0" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <head>
+        <title>Test topic reviews</title>
+        <gsml:javascript src="/res/js/schoolReviewForm.js"/>
+        <gsml:javascript src="/res/js/parentReviewTabSchoolReviewForm.js"/>
+        <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
+        <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+        <script type="text/javascript">
+            $(function () {
+                $(".js-reviewTopic").on("change", function () {
+                    var topicId = $(this).val();
+                    var queryString = decodeURIComponent(window.location.search);
+                    if (topicId != "-1") {
+                        queryString = GS.uri.Uri.putIntoQueryString(queryString, "topicId", topicId);
+                    } else {
+                        queryString = GS.uri.Uri.removeFromQueryString(queryString, "topicId");
+                    }
+                    window.location.href = queryString;
+                });
+            });
+        </script>
+    </head>
+
+    <gsml:body adPageName="topicReviewTest" pageLayout="slStylesV1-0 nocol">
+        <h1>Reviews for ${school.name}</h1>
+        <!-- Topic list -->
+        <c:if test="${not empty topics}">
+            <label for="js-reviewTopic">Filter by topic:</label>
+            <select name="topic" id="js-reviewTopic" class="js-reviewTopic">
+                <gsml:selectOption value="-1">All</gsml:selectOption>
+                <gsml:selectOption value="0" selected="${param.topicId eq 0}">Overall</gsml:selectOption>
+                <c:forEach var="topic" items="${topics}">
+                    <gsml:selectOption value="${topic.id}"
+                                       selected="${param.topicId eq topic.id}">${topic.name}</gsml:selectOption>
+                </c:forEach>
+            </select>
+        </c:if>
+        <!--review list -->
+        <c:if test="${not empty reviews}">
+            <p><c:choose><c:when test="${not empty selectedTopic}">${selectedTopic.name}</c:when><c:when
+                    test="${param.topicId eq 0}">Overall</c:when><c:otherwise>All</c:otherwise></c:choose> Reviews:</p>
+            <ul>
+                <c:forEach items="${reviews}" var="review">
+                    <c:set var="isTopical" value="${not empty review.topic}"/>
+                    <li>
+                        Review on ${isTopical?review.topic.name:'overall'}: ${review.rating.name} (out of 5) "${review.comments}", by user ${review.memberId}.
+                        <fmt:formatDate value="${review.created}" var="reviewPosted" pattern="MMMM d, yyyy"/>
+                        Posted on ${reviewPosted}.
+                        <c:if test="${not empty review.tags}">
+                            Tags:
+                            <c:forEach items="${review.tags}" var="tag" varStatus="loopStatus">${tag.name}${(not loopStatus.last)?', ':''}</c:forEach>
+                        </c:if>
+                    </li>
+                </c:forEach>
+            </ul>
+        </c:if>
+        <mod:tracking pageName="topicalSchoolReviewsTest" hier1="Aroy,Test"/>
+    </gsml:body>
+    </html>
+</jsp:root>

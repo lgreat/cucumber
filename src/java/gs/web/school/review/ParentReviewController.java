@@ -121,7 +121,7 @@ public class ParentReviewController extends AbstractController implements IContr
             Long numberOfNonPrincipalReviews = _parentReviewHelper.handleNumberOfNonPrincipalReviews(school, reviewsBy, includeInactive);
             cmd.setSortBy(paramSortBy);
             cmd.setSchool(school);
-            cmd.setReviews(reviews);
+            cmd.setReviews((List)reviews);
             cmd.setTotalReviews(numberOfNonPrincipalReviews.intValue());
             cmd.setCurrentDate(new Date());
 

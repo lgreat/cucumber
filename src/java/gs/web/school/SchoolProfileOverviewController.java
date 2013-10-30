@@ -9,7 +9,9 @@ import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
+import gs.data.school.review.ISchoolReview;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
@@ -21,6 +23,7 @@ import gs.web.content.cms.CmsContentLinkResolver;
 import gs.web.i18n.LanguageToggleHelper;
 import gs.web.school.usp.EspResponseData;
 import gs.web.school.usp.EspStatusManager;
+import gs.web.school.usp.UspFormHelper;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
@@ -147,8 +150,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     protected Date getLastModifiedDateForSchool(HttpServletRequest request, School school) {
-        List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 1);
-        Review latestNonPrincipalReview = null;
+        List<ISchoolReview> reviews = _schoolProfileDataHelper.getAllNonPrincipalReviews(request, 1);
+        ISchoolReview latestNonPrincipalReview = null;
         if (reviews.size() > 0) {
             latestNonPrincipalReview = reviews.get(0);
         }
@@ -214,11 +217,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map<String, Object> getReviewsEspTile(HttpServletRequest request, School school) {
         Map<String, Object> reviewsModel = new HashMap<String, Object>(2);
-        List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 5);
+        List<ISchoolReview> reviews = _schoolProfileDataHelper.getAllNonPrincipalReviews(request, 5);
         if( reviews!=null && reviews.size() > 0 ) {
             reviewsModel.put( "reviews", reviews );
             reviewsModel.put( "content", "reviews" );
-            reviewsModel.put( REVIEWS_TOTAL_KEY, _schoolProfileDataHelper.getNonPrincipalReviews(request).size());
+            reviewsModel.put( REVIEWS_TOTAL_KEY, _schoolProfileDataHelper.getAllNonPrincipalReviews(request).size());
         }
         else {
             reviewsModel.put( "content", "reviewsCTA" );
@@ -873,6 +876,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // Option g from spec - Display handicapped icon & static message
                 model.put( "icon", "bus" );
                 model.put( "transMsg", "Busses/vans shared with other schools" );
+            }
+            else if( checkEspResponseListForValue(transp, new String[]{UspFormHelper.TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE}) ) {
+                // New option per GS-14979 - Display bus icon & static message
+                model.put( "icon", "bus" );
+                model.put( "transMsg", "Accessible via public transportation" );
             }
             else if( transpNoneOrBlank && isNotEmpty(transpOther) ) {
                 // Option h from spec - Display walking person icon & static message

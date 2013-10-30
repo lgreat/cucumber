@@ -1381,18 +1381,20 @@ GS.drawGraphContainer = function (options) {
 };
 
 // School review moderation
-function disableReview(reviewId) {
+function disableReview(reviewId, isTopic) {
+    var contentType = isTopic?'topicalSchoolReview':'schoolReview';
     jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/deactivateContent.page', {
         contentId:reviewId,
-        contentType:'schoolReview'}).done(function() {
+        contentType:contentType}).done(function() {
             window.location.reload();
         });
 }
 
-function enableReview(reviewId) {
+function enableReview(reviewId, isTopic) {
+    var contentType = isTopic?'topicalSchoolReview':'schoolReview';
     jQuery.post(GS.uri.Uri.getBaseHostname () + '/community/deactivateContent.page', {
         contentId:reviewId,
-        contentType:'schoolReview',
+        contentType:contentType,
         reactivate:true}).done(function() {
             window.location.reload();
         });

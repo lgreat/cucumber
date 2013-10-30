@@ -93,6 +93,8 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                     return true;
                 }
             }
+            var excludePreschools = (typeof window.gs_isTopical !== 'undefined' && window.gs_isTopical);
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -100,7 +102,8 @@ GS.parentReviewLandingPage.attachAutocomplete = function () {
                 data: {
                     q: term,
                     state: state,
-                    schoolCity: true
+                    schoolCity: true,
+                    excludePreschools: excludePreschools
                 },
                 success: function (data) {
                     cacheNewTerm(termState, data.schools);
@@ -453,6 +456,11 @@ function GS_selectCallbackReviewsIAm(selectValue){
         $('#js-reviewsLandingStarBox-NoAdd').hide();
         $('#js-reviewsLandingStarBox-Student').hide();
     }
+    if (typeof window.gs_isTopical !== 'undefined' && window.gs_isTopical) {
+        hideAllLayers();
+        $('#js-reviewsLandingTitleHelpful').show();
+        $('#js-reviewsLandingStarBox-Start').show();
+    }
     $('#selectValueIAm').val(submitValue);
     $('#posterAsString').val(submitValue);
 }
@@ -580,12 +588,41 @@ function GS_schoolReviewFormLandingPage(id) {
         var formData = form.serializeArray();
         GS.util.extendSerializedArray(formData, overrides);
 
+//        topical review tags
+       $(".js-availableTopicTagsButton:visible").each(function(){
+           var visibleTagId =  $(this).attr("id");
+           visibleTagId = visibleTagId.substring("js-tag-button-".length);
+           formData.push({
+               name:'tagIds',
+               value:visibleTagId
+           });
+       });
+
         jQuery.ajax({
             type: 'POST',
             url: url,
             data: formData,
             dataType: 'json'
         }).done(function(data) {
+                if (data.errors) {
+                    var handled = false;
+                    jQuery.each(data.errors, function(index, value) {
+                        if (value === 'Invalid topic id') {
+                            alert("Sorry, but an error occurred with your review submission. Please try again soon.");
+                            handled = true;
+                        } else if (value === 'Preschools not allowed') {
+                            alert("Sorry, but an error occurred with your review submission. Please try again soon.");
+                            handled = true;
+                        } else if (value === 'Cannot overwrite review') {
+                            alert("You've already submitted a review for this school.");
+                            handled = true;
+                        }
+                        return !handled;
+                    });
+                    if (handled) {
+                        return;
+                    }
+                }
             trackReviewSubmitted();
             if (forFacebook === true) {
                 setHoverCookie(data);
@@ -617,5 +654,57 @@ function GS_schoolReviewFormLandingPage(id) {
             }
         }
     }
+
+//    topical reviews tags GS-14925
+    $(".js-allAvailableTopicTags").hide();
+    $(".js-availableTopicTagsButton").hide();
+    $("#js-addTopicTags").click(function () {
+        $(this).toggle();
+        $(".js-allAvailableTopicTags").toggle("1000, function()");
+        return false;
+    });
+
+    $(".js-availableTopicTagsText").click(function() {
+        var tagId = $(this).attr("id");
+        tagId = tagId.substring("js-tag-text-".length);
+        $("#js-tag-button-" + tagId).show();
+        $(this).hide();
+        return false;
+    });
+
+    $(".js-availableTopicTagsButton").click(function() {
+        var tagId = $(this).attr("id");
+        tagId = tagId.substring("js-tag-button-".length);
+        var tagTextElem = $("#js-tag-text-" + tagId);
+        tagTextElem.show();
+        $(this).hide();
+        // Force Chrome to repaint the element. See http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
+        $('<style></style>').appendTo(tagTextElem).remove();
+    });
+
+    /** @return String */
+    var addSchoolRemoveTopicFromUrl = function(url) {
+        var indexOfQuery = url.indexOf('?');
+        if (indexOfQuery > -1 && url.length > indexOfQuery) {
+            var query = url.substring(indexOfQuery+1);
+            query = GS.uri.Uri.removeFromQueryString(query, 'topicId');
+            if (GS.parentReviewLandingPage.chosenSchool != null) {
+                var schoolId = GS.parentReviewLandingPage.chosenSchool.id;
+                var schoolState = GS.parentReviewLandingPage.chosenSchool.state;
+                if (schoolId && schoolState) {
+                    query = GS.uri.Uri.putIntoQueryString(query, 'schoolId', schoolId, true);
+                    query = GS.uri.Uri.putIntoQueryString(query, 'state', schoolState, true);
+                    return query;
+                }
+            }
+            return query;
+        }
+        return url;
+    };
+
+    $('#js-notTopicalReview').on('click', function() {
+        $(this).attr('href', addSchoolRemoveTopicFromUrl(document.location.toString()));
+        return true;
+    });
 
 }

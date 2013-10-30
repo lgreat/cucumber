@@ -18,7 +18,7 @@
     <pageHelper:hideFooterAd/>
     <head>
         <![CDATA[<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>]]>
-    <title>School Review List | GreatSchools</title>
+    <title>Topical School Review List | GreatSchools</title>
         <style type="text/css">
             .reviewTable td, .reviewTable th {
                 padding: 2px;
@@ -49,11 +49,11 @@
 
         <c:if test="${not empty requestScope.showFlagged}">
             <div id="flaggedReviews">
-                <h2>Flagged reviews</h2>
+                <h2>Flagged topical reviews</h2>
 
-                <p>To see unprocessed reviews, <a href="?showUnprocessed=true">click here</a>.</p>
-                <p>To see flagged topical reviews, <a href="/admin/topicalSchoolReview/list.page">click here</a>.</p>
-                <p>To see unprocessed topical reviews, <a href="/admin/topicalSchoolReview/list.page?showUnprocessed=true">click here</a>.</p>
+                <p>To see unprocessed topical reviews, <a href="?showUnprocessed=true">click here</a>.</p>
+                <p>To see flagged reviews, <a href="/admin/schoolReview/list.page">click here</a>.</p>
+                <p>To see unprocessed reviews, <a href="/admin/schoolReview/list.page?showUnprocessed=true">click here</a>.</p>
                 <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
                 <p>To see banned ip addresses, <a href="/admin/schoolReview/bannedIp/list.page">click here</a>.</p>
                 <p>To see flagged photos, <a href="/admin/schoolMedia/list.page">click here</a>.</p>
@@ -91,6 +91,7 @@
                         <th>Date of Oldest Report</th>
                         <th># of Reports</th>
                         <th>IP Address</th>
+                        <th>Topic</th>
                     </tr>
                     <c:forEach items="${requestScope.flaggedReviews}" var="reviewBean">
                         <tr>
@@ -98,7 +99,7 @@
                             <td>${reviewBean.who}</td>
                             <fmt:formatDate value="${reviewBean.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                             <td>
-                                <a href="/admin/schoolReview/edit.page?id=${reviewBean.reviewId}&amp;amp;from=fr">${reviewPosted}</a>
+                                <a href="/admin/topicalSchoolReview/edit.page?id=${reviewBean.reviewId}&amp;amp;from=fr">${reviewPosted}</a>
                             </td>
                             <td>${reviewBean.schoolName} (${reviewBean.schoolState})</td>
                             <td>
@@ -117,6 +118,7 @@
                             <td>${reportedCreated}</td>
                             <td>${reviewBean.numReports}</td>
                             <td>${reviewBean.ip}</td>
+                            <td>${reviewBean.topic}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -127,11 +129,11 @@
         </c:if>
         <c:if test="${not empty requestScope.showUnprocessed}">
             <div id="unprocessedReviews">
-                <h2>Unprocessed reviews</h2>
+                <h2>Unprocessed topical reviews</h2>
 
-                <p>To see flagged reviews, <a href="?showFlagged=true">click here</a>.</p>
-                <p>To see flagged topical reviews, <a href="/admin/topicalSchoolReview/list.page">click here</a>.</p>
-                <p>To see unprocessed topical reviews, <a href="/admin/topicalSchoolReview/list.page?showUnprocessed=true">click here</a>.</p>
+                <p>To see flagged topical reviews, <a href="?showFlagged=true">click here</a>.</p>
+                <p>To see flagged reviews, <a href="/admin/schoolReview/list.page">click here</a>.</p>
+                <p>To see unprocessed reviews, <a href="/admin/schoolReview/list.page?showUnprocessed=true">click here</a>.</p>
                 <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
                 <p>To see banned ip addresses, <a href="/admin/schoolReview/bannedIp/list.page">click here</a>.</p>
                 <p>To see flagged photos, <a href="/admin/schoolMedia/list.page">click here</a>.</p>
@@ -166,6 +168,7 @@
                         <th>School</th>
                         <th>Status</th>
                         <th>How</th>
+                        <th>Topic</th>
                         <th># of Reports</th>
                         <th>IP</th>
                     </tr>
@@ -175,7 +178,7 @@
                             <td>${reviewBean.who}</td>
                             <fmt:formatDate value="${reviewBean.posted}" var="reviewPosted" pattern="MMMM d, yyyy"/>
                             <td>
-                                <a href="/admin/schoolReview/edit.page?id=${reviewBean.reviewId}&amp;amp;from=ur">${reviewPosted}</a>
+                                <a href="/admin/topicalSchoolReview/edit.page?id=${reviewBean.reviewId}&amp;amp;from=ur">${reviewPosted}</a>
                             </td>
                             <td>${reviewBean.schoolName} (${reviewBean.schoolState})</td>
                             <td>
@@ -188,6 +191,7 @@
                                 </c:choose>
                             </td>
                             <td>${reviewBean.how}</td>
+                            <td>${reviewBean.topic}</td>
                             <td>${reviewBean.numReports}</td>
                             <td>${reviewBean.ip}</td>
                         </tr>
@@ -198,7 +202,7 @@
                 </c:if>
             </div>
         </c:if>
-        <mod:tracking pageName="School Review List Admin"
+        <mod:tracking pageName="Topical School Review List Admin"
                       hier1="Admin"/>
     </gsml:body>
     </html>

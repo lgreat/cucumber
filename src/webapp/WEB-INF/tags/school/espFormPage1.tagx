@@ -299,6 +299,7 @@
             <school:espCheckboxWithLabel key="transportation" value="passes" label="Passes/tokens for public transportation "/>
             <school:espCheckboxWithLabel key="transportation" value="busses" label="Busses/vans for our students only"/>
             <school:espCheckboxWithLabel key="transportation" value="shared_bus" label="School shares bus/van with other schools"/>
+            <school:espCheckboxWithLabel key="transportation" value="accessible_via_public_transportation" label="Accessible via public transportation"/>
             <school:espCheckboxWithLabel key="transportation" value="special_ed_only" label="Transportation provided for special education students only"/>
             <school:espCheckboxWithLabel key="transportation" value="other" label="Other"
                                          styleClass="js_otherField_form_transportation_other" nobr="true">

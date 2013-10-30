@@ -6,9 +6,7 @@ import gs.data.community.User;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -25,9 +23,6 @@ import org.springframework.beans.factory.BeanFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-//import static org.easymock.EasyMock.createStrictMock;
-//import static org.easymock.EasyMock.createStrictMock;
-//import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
@@ -43,6 +38,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
     private ISchoolMediaDao _schoolMediaDao;
 //    private ICensusInfo _censusInfo;
     private IReviewDao _reviewDao;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
     private IReportedEntityDao _reportedEntityDao;
     private RequestAttributeHelper _requestAttributeHelper;
     private IGeoDao _geoDao;
@@ -62,6 +58,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         _schoolMediaDao = createStrictMock(ISchoolMediaDao.class);
 //        _censusInfo = createStrictMock( ICensusInfo.class );
         _reviewDao = createStrictMock(IReviewDao.class);
+        _topicalSchoolReviewDao = createStrictMock(ITopicalSchoolReviewDao.class);
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
         _requestAttributeHelper = createStrictMock( RequestAttributeHelper.class );
         _geoDao = createStrictMock( IGeoDao.class );
@@ -69,8 +66,9 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
 
         _schoolProfileDataHelper = new SchoolProfileDataHelper();
         _schoolProfileDataHelper.setEspResponseDao( _espResponseDao );
-        _schoolProfileDataHelper.setSchoolMediaDao( _schoolMediaDao );
-        _schoolProfileDataHelper.setReviewDao( _reviewDao );
+        _schoolProfileDataHelper.setSchoolMediaDao(_schoolMediaDao);
+        _schoolProfileDataHelper.setReviewDao(_reviewDao);
+        _schoolProfileDataHelper.setTopicalSchoolReviewDao(_topicalSchoolReviewDao);
         _schoolProfileDataHelper.setReportedEntityDao( _reportedEntityDao );
         _schoolProfileDataHelper.setRequestAttributeHelper( _requestAttributeHelper );
         _schoolProfileDataHelper.setGeoDao( _geoDao );
@@ -270,7 +268,10 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
 
         expect( _reviewDao.findPublishedNonPrincipalReviewsBySchool( _school ) ).andReturn( reviews3 );
         expect( _reviewDao.findPublishedNonPrincipalReviewsBySchool( _school ) ).andReturn( reviews5 );
+        expect(_topicalSchoolReviewDao.findBySchoolId(_school.getDatabaseState(), _school.getId())).andReturn(new ArrayList<TopicalSchoolReview>());
+        expect(_topicalSchoolReviewDao.findBySchoolId(_school.getDatabaseState(), _school.getId())).andReturn(new ArrayList<TopicalSchoolReview>());
         replay(_reviewDao);
+        replay(_topicalSchoolReviewDao);
 
         // Since there are no reviews stored in the request these should be added
         List<Review> results3 = _schoolProfileDataHelper.getNonPrincipalReviews( servletReq, 3 );

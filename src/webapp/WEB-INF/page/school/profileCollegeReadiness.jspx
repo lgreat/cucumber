@@ -41,7 +41,7 @@
                                     <div class="clear mbl"><!-- not empty --></div>
                                     <div class="unit size35of100 prm small bottom">
                                         Need remediation, or help strengthening basic
-                                        skills<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if>
+                                        skills<c:if test="${not empty thisFootnote}"><sup>${thisFootnote}</sup></c:if><sup>*</sup>
                                     </div>
                                     <censusDisplay:hgraphPercent censusDataSet="${needRemediation}"/>
                                 </c:if>

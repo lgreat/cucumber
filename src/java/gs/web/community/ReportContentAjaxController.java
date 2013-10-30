@@ -1,7 +1,9 @@
 package gs.web.community;
 
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.ITopicalSchoolReviewDao;
 import gs.data.school.review.Review;
+import gs.data.school.review.TopicalSchoolReview;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
@@ -29,6 +31,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
     private IUserDao _userDao;
     private IUserContentDao _userContentDao;
     private IReviewDao _reviewDao;
+    private ITopicalSchoolReviewDao _topicalSchoolReviewDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -75,6 +78,15 @@ public class ReportContentAjaxController extends SimpleFormController implements
                 authorId = review.getUser().getId();
             }
             checkForReporteeUserProfile = false;
+        } else if (command.getType() == ReportedEntity.ReportedEntityType.topicalSchoolReview) {
+            TopicalSchoolReview topicalReview = _topicalSchoolReviewDao.get(command.getContentId());
+            if (topicalReview == null) {
+                return null;
+            }
+            if (topicalReview.getUser() != null) {
+                authorId = topicalReview.getUser().getId();
+            }
+            checkForReporteeUserProfile = false;
         } else if (command.getType() == ReportedEntity.ReportedEntityType.schoolMedia) {
         } else {
             _log.warn("Unknown report content type: " + command.getType());
@@ -88,13 +100,15 @@ public class ReportContentAjaxController extends SimpleFormController implements
                 // reportee stays null
             }
         } else if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview &&
-                command.getType() != ReportedEntity.ReportedEntityType.schoolMedia) {
+                command.getType() != ReportedEntity.ReportedEntityType.schoolMedia &&
+                command.getType() != ReportedEntity.ReportedEntityType.topicalSchoolReview) {
             _log.warn("Could not determine reportee's member id for content: '" + command.getContentId() + "'");
             return null;
         }
 
         if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview
                 && command.getType() != ReportedEntity.ReportedEntityType.schoolMedia
+                && command.getType() != ReportedEntity.ReportedEntityType.topicalSchoolReview
                 && (reportee == null
                     || (checkForReporteeUserProfile && reportee.getUserProfile() == null))) {
             _log.warn("Reported content created by a user that doesn't exist.  member_id = '" + authorId + "'");
@@ -143,5 +157,13 @@ public class ReportContentAjaxController extends SimpleFormController implements
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ITopicalSchoolReviewDao getTopicalSchoolReviewDao() {
+        return _topicalSchoolReviewDao;
+    }
+
+    public void setTopicalSchoolReviewDao(ITopicalSchoolReviewDao topicalSchoolReviewDao) {
+        _topicalSchoolReviewDao = topicalSchoolReviewDao;
     }
 }

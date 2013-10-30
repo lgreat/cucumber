@@ -1536,7 +1536,7 @@ GSType.hover.ReportContentHover = function() {
             var contentTypeNormalized = params.type;
             if (contentTypeNormalized == 'discussion') {
                 contentTypeNormalized = 'conversation';
-            } else if (contentTypeNormalized == 'schoolReview') {
+            } else if (contentTypeNormalized == 'schoolReview' || contentTypeNormalized == 'topicalSchoolReview') {
                 contentTypeNormalized = 'review';
             } else if (contentTypeNormalized == 'schoolMedia') {
                 contentTypeNormalized = 'photo';
@@ -2067,7 +2067,7 @@ jQuery(function() {
         var contentTypeNormalized = contentType;
         if (contentTypeNormalized == 'discussion') {
             contentTypeNormalized = 'conversation';
-        } else if (contentTypeNormalized == 'schoolReview') {
+        } else if (contentTypeNormalized == 'schoolReview' || contentTypeNormalized == 'topicalSchoolReview') {
             contentTypeNormalized = 'review';
         } else if (contentTypeNormalized == 'schoolMedia') {
             contentTypeNormalized = 'photo';
@@ -2085,13 +2085,15 @@ jQuery(function() {
                 initForContentType(linkId, 'discussion');
             } else if (linkId.indexOf('member') > -1) {
                 initForContentType(linkId, 'member');
+            } else if (linkId.indexOf('topicalSchoolReview') > -1) {
+                initForContentType(linkId, 'topicalSchoolReview');
             } else if (linkId.indexOf('schoolReview') > -1) {
                 initForContentType(linkId, 'schoolReview');
             } else if (linkId.indexOf('schoolMedia') > -1) {
                 initForContentType(linkId, 'schoolMedia');
             }
 
-            if (linkId.indexOf('schoolReview') > -1) {
+            if (linkId.indexOf('schoolReview') > -1 || linkId.indexOf('topicalSchoolReview') > -1) {
                 jQuery('.communityGuidelines').hide();
                 jQuery('.schoolReviewGuidelines').show();
             } else {
@@ -2100,7 +2102,7 @@ jQuery(function() {
             }
 
             GSType.hover.reportContentHover.show(linkId);
-        };
+        }
         return false;
     });
 
