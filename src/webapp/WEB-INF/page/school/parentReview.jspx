@@ -545,7 +545,7 @@
                 <!--default  -->
                 <c:forEach items="${selectedTopic.tags}" var="tag">
                     <c:if test="${tag.main}">
-                        <div id="js-default-tag-${tag.id}" class="but but-lg but-2 readonly mbs" title="${tag.description}">
+                        <div id="js-default-tag-${tag.id}" class="but but-lg but-2 readonly mrm mbs" title="${tag.description}">
                             <span class="small make-555555 bottom">${tag.name}</span>
                         </div>
                     </c:if>
@@ -553,7 +553,7 @@
             <!--button tag-->
                 <c:forEach items="${selectedTopic.tags}" var="tag">
                     <c:if test="${!tag.main}">
-                        <div class="js-availableTopicTagsButton but but-lg but-2 mlm mbs pr" id="js-tag-button-${tag.id}" title="${tag.description}">
+                        <div class="js-availableTopicTagsButton but but-lg but-2 mrm mbs pr" id="js-tag-button-${tag.id}" title="${tag.description}">
                             <span class="small make-555555 bottom prl">${tag.name}</span>
                             <div class="iconx16 i-16-close pa mln mtm"><!-- do not collapse --></div>
                         </div>
