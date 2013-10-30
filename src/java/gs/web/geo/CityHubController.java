@@ -109,17 +109,19 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         List<ReviewFacade> reviews = getReviewFacades(state, collectionId);
         modelAndView.addObject("reviews", reviews);
 
+            ModelMap hubHomeModelMap = getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.HUB_HOME_KEY_PREFIX);
 
+            modelAndView.addObject(CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY,
+                hubHomeModelMap.get(CityHubHelper.HUB_HOME_KEY_PREFIX+ "_" + CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY));
 
-        modelAndView.addObject(CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY,
-                getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.HUB_HOME_KEY_PREFIX+ "_" + CityHubHelper.HUB_HOME_CHOOSE_SCHOOL_MODEL_KEY));
+            modelAndView.addObject(CityHubHelper.HUB_HOME_ANNOUNCEMENT_MODEL_KEY,
+                hubHomeModelMap.get(CityHubHelper.HUB_HOME_KEY_PREFIX + "_" + CityHubHelper.HUB_HOME_ANNOUNCEMENT_MODEL_KEY));
 
+            modelAndView.addObject(CityHubHelper.HUB_CITY_ARTICLE_MODEL_KEY,
+                    hubHomeModelMap.get(CityHubHelper.HUB_HOME_KEY_PREFIX+ "_" + CityHubHelper.HUB_CITY_ARTICLE_MODEL_KEY));
 
-        modelAndView.addObject(CityHubHelper.HUB_CITY_ARTICLE_MODEL_KEY,
-                    getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.HUB_HOME_KEY_PREFIX+ "_" + CityHubHelper.HUB_CITY_ARTICLE_MODEL_KEY));
-
-        modelAndView.addObject(CityHubHelper.HUB_PARTNER_CAROUSEL_MODEL_KEY,
-                    getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.HUB_HOME_KEY_PREFIX+ "_" + CityHubHelper.HUB_PARTNER_CAROUSEL_MODEL_KEY));
+            modelAndView.addObject(CityHubHelper.HUB_PARTNER_CAROUSEL_MODEL_KEY,
+                    hubHomeModelMap.get(CityHubHelper.HUB_HOME_KEY_PREFIX+ "_" + CityHubHelper.HUB_PARTNER_CAROUSEL_MODEL_KEY));
 
             modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
                 getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));

@@ -58,9 +58,9 @@
          <div class="success-block container_24 clearfix mtl tac">
             <span class="small mrm bold">ANNOUNCEMENT</span>
             <span class="make-000000 small">
-                For the 2014-2015 school year, ${state.abbreviation} public schools have a new system for applying to schools.
+                ${announcement.content}
             </span>
-            <a href="/cityHub/enrollmentInformation.page" class="small mls">Find out details</a>
+            <a href="${announcement.link.path}" class="small mls">${announcement.link.name}</a>
         </div>
         </c:if>
 </jsp:root>

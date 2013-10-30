@@ -53,6 +53,7 @@ public class CityHubHelper {
     public static final String HUB_CITY_ARTICLE_MODEL_KEY = "cityArticle";
     public static final String HUB_PARTNER_CAROUSEL_MODEL_KEY = "partnerCarousel";
     public static final String HUB_HOME_KEY_PREFIX = "hubHome";
+    public static final String HUB_HOME_ANNOUNCEMENT_MODEL_KEY = "announcement";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
@@ -106,7 +107,7 @@ public class CityHubHelper {
                     String note = hubConfig.getNote();
                     if(note != null && note.toLowerCase().startsWith("json string")) {
                         try {
-                            filteredConfig.addAllAttributes(convertJSONStringToMap(hubConfig));
+                            filteredConfig.put(key, convertJSONStringToMap(hubConfig));
                         }
                         catch (JSONException ex) {
                             _logger.error("CityHubHelper - unable to convert string value " + hubConfig.getValue() +
