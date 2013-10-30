@@ -1,15 +1,12 @@
 package gs.web.school.review;
 
 import gs.data.community.User;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.ITopicalSchoolReviewDao;
-import gs.data.school.review.Review;
-import gs.data.school.review.TopicalSchoolReview;
+import gs.data.school.review.*;
 import gs.web.BaseTestCase;
-import org.apache.commons.lang.StringUtils;
-import org.easymock.IArgumentMatcher;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.easymock.EasyMock.*;
@@ -64,12 +61,30 @@ public class ReviewServiceTest extends BaseTestCase {
 
         replay(_reviewDao);
 
-        expect(_topicalSchoolReviewDao.findByMemberId(user.getId())).andReturn(new ArrayList<TopicalSchoolReview>());
+        TopicalSchoolReview topicalReview1 = createTopicalReview(user, "pu", 1);
+        TopicalSchoolReview topicalReview2 = createTopicalReview(user, "pd", 3);
+        TopicalSchoolReview topicalReview3 = createTopicalReview(user, "pp", 3);
+        TopicalSchoolReview topicalReview4 = createTopicalReview(user, "u", 4);
+        TopicalSchoolReview topicalReview5 = createTopicalReview(user, "p", 5);
+        TopicalSchoolReview topicalReview6 = createTopicalReview(user, "d", 6);
+
+        List<TopicalSchoolReview> topicalReviews = new ArrayList<TopicalSchoolReview>(6);
+        topicalReviews.add(topicalReview1);
+        topicalReviews.add(topicalReview2);
+        topicalReviews.add(topicalReview3);
+        topicalReviews.add(topicalReview4);
+        topicalReviews.add(topicalReview5);
+        topicalReviews.add(topicalReview6);
+        expect(_topicalSchoolReviewDao.findByMemberId(user.getId())).andReturn(topicalReviews);
+        _topicalSchoolReviewDao.save(topicalReview1);
+        _topicalSchoolReviewDao.save(topicalReview2);
+        _topicalSchoolReviewDao.save(topicalReview3);
         replay(_topicalSchoolReviewDao);
 
         assertNull("Test review process date should be null", review1.getProcessDate());
+        assertNull("Test review process date should be null", topicalReview1.getProcessDate());
 
-        List<Review> upgradedReviews = _reviewService.upgradeProvisionalReviews(user);
+        List<ISchoolReview> upgradedReviews = _reviewService.upgradeProvisionalReviews(user);
         
         verify(_reviewDao);
         verify(_topicalSchoolReviewDao);
@@ -81,10 +96,21 @@ public class ReviewServiceTest extends BaseTestCase {
         assertEquals("Review status should not have changed.", "u", review4.getStatus());
         assertEquals("Review status should not have changed.", "p", review5.getStatus());
 
+        assertNotNull("Test review process date should have been set", topicalReview1.getProcessDate());
+        assertEquals("Review status should have been upgraded.", "u", topicalReview1.getStatus());
+        assertEquals("Review status should have been upgraded.", "d", topicalReview2.getStatus());
+        assertEquals("Review status should have been upgraded.", "p", topicalReview3.getStatus());
+        assertEquals("Review status should not have changed.", "u", topicalReview4.getStatus());
+        assertEquals("Review status should not have changed.", "p", topicalReview5.getStatus());
+        assertEquals("Review status should not have changed.", "d", topicalReview6.getStatus());
+
         assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review1));
         assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review2));
         assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review3));
-        assertTrue(upgradedReviews.size() == 3);
+        assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(topicalReview1));
+        assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(topicalReview2));
+        assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(topicalReview3));
+        assertEquals("Expect 6 upgraded reviews", 6, upgradedReviews.size());
     }
 
     public void testUpgradeProvisionalReviewsWithHeldStatus() throws Exception {
@@ -121,34 +147,160 @@ public class ReviewServiceTest extends BaseTestCase {
         verify(_topicalSchoolReviewDao);
     }
 
-    public void testUpgradeProvisionalTopicalReviews() {
+    public void testSummaryGetFirstPublishedReview_regularReview() {
         User user = new User();
         user.setId(99999);
 
-        expect(_reviewDao.findUserReviews(user)).andReturn(new ArrayList<Review>());
-        List<TopicalSchoolReview> topicalReviews = new ArrayList<TopicalSchoolReview>();
-        // test all the various statuses
-        topicalReviews.add(createTopicalReview(user, "pp", 1));
-        topicalReviews.add(createTopicalReview(user, "pd", 2));
-        topicalReviews.add(createTopicalReview(user, "ph", 3));
-        topicalReviews.add(createTopicalReview(user, "pu", 4));
-        topicalReviews.add(createTopicalReview(user, "p", 5));
-        topicalReviews.add(createTopicalReview(user, "d", 6));
-        topicalReviews.add(createTopicalReview(user, "h", 7));
-        topicalReviews.add(createTopicalReview(user, "u", 8));
+        Review review1 = new Review();
+        review1.setStatus("pu");
+        review1.setUser(user);
+        review1.setPosted(getDateXDaysAgo(1));
 
-        expect(_topicalSchoolReviewDao.findByMemberId(user.getId())).andReturn(topicalReviews);
-        // expect only the provisional ones to be modified to their non-provisional versions and saved
-        _topicalSchoolReviewDao.save(reviewWithStatusAndIdEq("p", 1));
-        _topicalSchoolReviewDao.save(reviewWithStatusAndIdEq("d", 2));
-        _topicalSchoolReviewDao.save(reviewWithStatusAndIdEq("h", 3));
-        _topicalSchoolReviewDao.save(reviewWithStatusAndIdEq("u", 4));
+        Review review2 = new Review();
+        review2.setStatus("pd");
+        review2.setUser(user);
+        review2.setPosted(getDateXDaysAgo(1));
+
+        Review review3 = new Review();
+        review3.setStatus("pp");
+        review3.setUser(user);
+        review3.setPosted(getDateXDaysAgo(2));
+
+        Review review4 = new Review();
+        review4.setStatus("u");
+        review4.setUser(user);
+        review4.setPosted(getDateXDaysAgo(1));
+
+        Review review5 = new Review();
+        review5.setStatus("p");
+        review5.setUser(user);
+        review5.setPosted(getDateXDaysAgo(1));
+
+        List<Review> reviews = new ArrayList<Review>();
+        reviews.add(review1);
+        reviews.add(review2);
+        reviews.add(review3);
+        reviews.add(review4);
+        reviews.add(review5);
+
+        expect(_reviewDao.findUserReviews(user)).andReturn(reviews);
+        _reviewDao.saveReview(isA(Review.class));
+        _reviewDao.saveReview(isA(Review.class));
+        _reviewDao.saveReview(isA(Review.class));
 
         replay(_reviewDao);
+
+        TopicalSchoolReview topicalReview1 = createTopicalReview(user, "pu", 1, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview2 = createTopicalReview(user, "pd", 3, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview3 = createTopicalReview(user, "pp", 3, getDateXDaysAgo(3));
+        TopicalSchoolReview topicalReview4 = createTopicalReview(user, "u", 4, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview5 = createTopicalReview(user, "p", 5, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview6 = createTopicalReview(user, "d", 6, getDateXDaysAgo(1));
+
+        List<TopicalSchoolReview> topicalReviews = new ArrayList<TopicalSchoolReview>(6);
+        topicalReviews.add(topicalReview1);
+        topicalReviews.add(topicalReview2);
+        topicalReviews.add(topicalReview3);
+        topicalReviews.add(topicalReview4);
+        topicalReviews.add(topicalReview5);
+        topicalReviews.add(topicalReview6);
+        expect(_topicalSchoolReviewDao.findByMemberId(user.getId())).andReturn(topicalReviews);
+        _topicalSchoolReviewDao.save(topicalReview1);
+        _topicalSchoolReviewDao.save(topicalReview2);
+        _topicalSchoolReviewDao.save(topicalReview3);
         replay(_topicalSchoolReviewDao);
-        _reviewService.upgradeProvisionalReviewsAndSummarize(user);
+
+        ReviewService.ReviewUpgradeSummary summary = _reviewService.upgradeProvisionalReviewsAndSummarize(user);
         verify(_reviewDao);
         verify(_topicalSchoolReviewDao);
+
+        assertNotNull(summary);
+        assertNotNull(summary.getUpgradedReviews());
+        assertEquals(6, summary.getUpgradedReviews().size());
+        assertEquals(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED, summary.getStatus());
+        assertNotNull(summary.getFirstPublishedReview());
+        assertSame(review3, summary.getFirstPublishedReview());
+    }
+
+    public void testSummaryGetFirstPublishedReview_topicalReview() {
+        User user = new User();
+        user.setId(99999);
+
+        Review review1 = new Review();
+        review1.setStatus("pu");
+        review1.setUser(user);
+        review1.setPosted(getDateXDaysAgo(1));
+
+        Review review2 = new Review();
+        review2.setStatus("pd");
+        review2.setUser(user);
+        review2.setPosted(getDateXDaysAgo(1));
+
+        Review review3 = new Review();
+        review3.setStatus("pp");
+        review3.setUser(user);
+        review3.setPosted(getDateXDaysAgo(3));
+
+        Review review4 = new Review();
+        review4.setStatus("u");
+        review4.setUser(user);
+        review4.setPosted(getDateXDaysAgo(1));
+
+        Review review5 = new Review();
+        review5.setStatus("p");
+        review5.setUser(user);
+        review5.setPosted(getDateXDaysAgo(1));
+
+        List<Review> reviews = new ArrayList<Review>();
+        reviews.add(review1);
+        reviews.add(review2);
+        reviews.add(review3);
+        reviews.add(review4);
+        reviews.add(review5);
+
+        expect(_reviewDao.findUserReviews(user)).andReturn(reviews);
+        _reviewDao.saveReview(isA(Review.class));
+        _reviewDao.saveReview(isA(Review.class));
+        _reviewDao.saveReview(isA(Review.class));
+
+        replay(_reviewDao);
+
+        TopicalSchoolReview topicalReview1 = createTopicalReview(user, "pu", 1, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview2 = createTopicalReview(user, "pd", 3, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview3 = createTopicalReview(user, "pp", 3, getDateXDaysAgo(2));
+        TopicalSchoolReview topicalReview4 = createTopicalReview(user, "u", 4, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview5 = createTopicalReview(user, "p", 5, getDateXDaysAgo(1));
+        TopicalSchoolReview topicalReview6 = createTopicalReview(user, "d", 6, getDateXDaysAgo(1));
+
+        List<TopicalSchoolReview> topicalReviews = new ArrayList<TopicalSchoolReview>(6);
+        topicalReviews.add(topicalReview1);
+        topicalReviews.add(topicalReview2);
+        topicalReviews.add(topicalReview3);
+        topicalReviews.add(topicalReview4);
+        topicalReviews.add(topicalReview5);
+        topicalReviews.add(topicalReview6);
+        expect(_topicalSchoolReviewDao.findByMemberId(user.getId())).andReturn(topicalReviews);
+        _topicalSchoolReviewDao.save(topicalReview1);
+        _topicalSchoolReviewDao.save(topicalReview2);
+        _topicalSchoolReviewDao.save(topicalReview3);
+        replay(_topicalSchoolReviewDao);
+
+        ReviewService.ReviewUpgradeSummary summary = _reviewService.upgradeProvisionalReviewsAndSummarize(user);
+        verify(_reviewDao);
+        verify(_topicalSchoolReviewDao);
+
+        assertNotNull(summary);
+        assertNotNull(summary.getUpgradedReviews());
+        assertEquals(6, summary.getUpgradedReviews().size());
+        assertEquals(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED, summary.getStatus());
+        assertNotNull(summary.getFirstPublishedReview());
+        assertSame(topicalReview3, summary.getFirstPublishedReview());
+    }
+
+    private static Date getDateXDaysAgo(int x) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -x);
+        return cal.getTime();
     }
 
     private TopicalSchoolReview createTopicalReview(User user, String status, Integer id) {
@@ -159,38 +311,13 @@ public class ReviewServiceTest extends BaseTestCase {
         return rval;
     }
 
-    private static TopicalSchoolReview reviewWithStatusAndIdEq(String status, Integer id) {
-        reportMatcher(new TopicalSchoolReviewMatcher(status, id));
-        return null;
+    private TopicalSchoolReview createTopicalReview(User user, String status, Integer id, Date posted) {
+        TopicalSchoolReview rval = new TopicalSchoolReview();
+        rval.setId(id);
+        rval.setStatus(status);
+        rval.setUser(user);
+        rval.setCreated(posted);
+        return rval;
     }
 
-    private static class TopicalSchoolReviewMatcher implements IArgumentMatcher {
-        private String _expectedStatus;
-        private String _actualStatus;
-        private Integer _expectedId;
-        private Integer _actualId;
-
-        public TopicalSchoolReviewMatcher(String status, Integer id) {
-            _expectedStatus = status;
-            _expectedId = id;
-        }
-
-        public boolean matches(Object argument) {
-            if (!(argument instanceof TopicalSchoolReview)) {
-                return false;
-            }
-            TopicalSchoolReview actualReview = (TopicalSchoolReview) argument;
-            _actualStatus = actualReview.getStatus();
-            _actualId = actualReview.getId();
-            return StringUtils.equals(_expectedStatus, actualReview.getStatus()) && _expectedId.equals(actualReview.getId());
-        }
-
-        public void appendTo(StringBuffer buffer) {
-            buffer.append("reviewWithStatusEq(");
-            buffer.append("expected TopicalSchoolReview with status \"").append(_expectedStatus).append("\" ");
-            buffer.append("and id ").append(_expectedId).append(", ");
-            buffer.append("instead got status \"").append(_actualStatus).append("\" and id ").append(_actualId);
-            buffer.append(")");
-        }
-    }
 }

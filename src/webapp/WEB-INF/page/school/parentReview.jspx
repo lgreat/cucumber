@@ -484,7 +484,7 @@
                 <div>
                     <textarea id="js-reviewContent" name="comments"
                               class="js-reviewContent review-text small make-787878 lined_paper"
-                              placeholder="Tell us how well your school supports children with learning &amp; attention issues (e.g., dyslexia, ADHD)"><!-- do not collapse --></textarea>
+                              placeholder="Tell us how your school supports children with learning and attention issues (e.g., diagnosed or undiagnosed struggles with reading, writing, math, attention, etc.)"><!-- do not collapse --></textarea>
                 </div>
             </div>
 
@@ -518,7 +518,7 @@
 
         <div class="clearfix" style="width:620px;">
             <div class="fl ptm small_bold mbm">
-                Your review relates to:
+                This review relates to the following issues:
             </div>
 
             <div class="fr ptm small make-06b bottom" id="js-addTopicTags">
@@ -531,9 +531,9 @@
             <div class="clearfix"><!-- do not collapse --></div>
 
 
-            <div class="">
+            <div>
                 <!--tag links-->
-                <div class="js-allAvailableTopicTags mts mbm">
+                <div class="js-allAvailableTopicTags mts mbl">
                     <c:forEach items="${selectedTopic.tags}" var="tag">
                         <c:if test="${!tag.main}">
                             <a href="#" class="js-availableTopicTagsText small make-06b mrm bottom" id="js-tag-text-${tag.id}" title="${tag.description}">

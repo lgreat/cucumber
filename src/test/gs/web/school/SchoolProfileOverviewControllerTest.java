@@ -16,6 +16,7 @@ import gs.data.util.ListUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.SlowTest;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.school.usp.UspFormHelper;
 import gs.web.search.CmsFeatureSearchService;
 import org.junit.experimental.categories.Category;
 import org.springframework.ui.ModelMap;
@@ -547,7 +548,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals( "testSchoolTourVideoA: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoA: school level wrong", "e", resultsModel.get("schoolLevel") );
         String contentUrl = (((String)resultsModel.get("contentUrl")));
-        assertTrue( "testSchoolTourVideoA: videoId wrong", contentUrl.indexOf(cmsVideoContentId)>=0);
+        assertTrue("testSchoolTourVideoA: videoId wrong", contentUrl.indexOf(cmsVideoContentId) >= 0);
         System.out.println("testSchoolTourVideoA successful");
     }
 
@@ -610,7 +611,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertFalse( "testSpecEd1: Substitute content expected", resultsModel.get("content").equals("default") );
+        assertFalse("testSpecEd1: Substitute content expected", resultsModel.get("content").equals("default"));
         System.out.println("testSpecEd1 successful");
     }
 
@@ -639,7 +640,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "special_ed_programs_exists", "yes" ) );  // This should trigger default display
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile(_request, _school, espData);
 
         assertEquals("testSpecEdB: default content expected", "yes", resultsModel.get("SpecEdPgmsProvided"));
         assertEquals( "testSpecEdB: wrong option", "b", resultsModel.get("SpecEdPgmsOptSelected") );
@@ -941,8 +942,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
         String sentence = (String) resultsModel.get("teachersStaff");
-        assertTrue( "testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
-        assertTrue( "testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Staff includes")==0 );
+        assertTrue("testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Art teacher") > 0);
+        assertTrue("testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Staff includes") == 0);
         System.out.println("testSpecEdSubstitute1A successful");
     }
 
@@ -973,7 +974,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         String adminName = "Ben Jones";
-        Map resultsModel = runSpecialEdEspTileWithCensusMockController( _request, _school, espData, adminName );
+        Map resultsModel = runSpecialEdEspTileWithCensusMockController(_request, _school, espData, adminName);
         String sentence = (String) resultsModel.get("teachersStaff");
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf(adminName)==0 );
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Staff includes")==-1 );
@@ -1023,14 +1024,13 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation_shuttle", "yes" ) );
-        l.add( createEspResponse( "transportation_shuttle_other", "a, b, c" ) );
+        l.add(createEspResponse("transportation_shuttle_other", "a, b, c"));
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        assertEquals( "testTransportationDefaultA: icon wrong", "metro", resultsModel.get( "icon") );
+        assertEquals("testTransportationDefaultA: icon wrong", "metro", resultsModel.get("icon"));
         assertEquals( "testTransportationDefaultA: shuttleStops wrong", "A, b, c", resultsModel.get( "shuttleStops") );
-        System.out.println( "testTransportationDefaultA successful" );
     }
 
     // Test option b
@@ -1044,7 +1044,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultB: icon wrong", "metro", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultB: shuttleStops wrong", "Shuttles provided to local Metro stops", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultB successful" );
     }
 
     // Test option c
@@ -1059,7 +1058,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultC: icon wrong", "walking", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultC: shuttleStops wrong", "No transportation available", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultC successful" );
     }
 
     // Test option d
@@ -1073,7 +1071,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultD: icon wrong", "passes", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultD: message wrong", "Passes/tokens provided for public transportation", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultD successful" );
     }
 
     // Test option e
@@ -1087,7 +1084,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultE: icon wrong", "handicapped", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultE: message wrong", "Transportation provided for special education students", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultE successful" );
     }
 
     // Test option f
@@ -1101,7 +1097,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultF: icon wrong", "bus", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultF: message wrong", "Busses/vans provided for students", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultF successful" );
     }
 
     // Test option g
@@ -1115,7 +1110,19 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultG: icon wrong", "bus", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultG: message wrong", "Busses/vans shared with other schools", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultG successful" );
+    }
+
+    // Test option g
+    public void testTransportationDefault_AccessibleViaPublicTransit() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "transportation", UspFormHelper.TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
+
+        assertEquals( "icon wrong", "bus", resultsModel.get( "icon") );
+        assertEquals( "message wrong", "Accessible via public transportation", resultsModel.get( "transMsg") );
     }
 
     // Test option h
@@ -1130,7 +1137,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultH: icon wrong", "walking", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultH: message wrong", "Other transportation available", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultH successful" );
     }
 
     // Test option i
@@ -1144,7 +1150,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         assertEquals( "testTransportationDefaultI: icon wrong", "walking", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultI: message wrong", "No transportation provided", resultsModel.get( "transMsg") );
-        System.out.println( "testTransportationDefaultI successful" );
     }
 
 

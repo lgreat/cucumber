@@ -170,10 +170,14 @@ public class UrlUtilSaTest extends TestCase {
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1b.greatschools.org"));
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1c.greatschools.org"));
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1d.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1e.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app1f.greatschools.org"));
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2a.greatschools.org"));
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2b.greatschools.org"));
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2c.greatschools.org"));
         assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2d.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2e.greatschools.org"));
+        assertNull("App servers are not cobrands", _urlUtil.cobrandFromUrl("app2f.greatschools.org"));
 
         assertNull("editorial.dev should not be treated as a cobrand", _urlUtil.cobrandFromUrl("editorial.dev.greatschools.org"));
 

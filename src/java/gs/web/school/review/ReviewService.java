@@ -1,13 +1,11 @@
 package gs.web.school.review;
 
 import gs.data.community.User;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.ITopicalSchoolReviewDao;
-import gs.data.school.review.Review;
-import gs.data.school.review.TopicalSchoolReview;
+import gs.data.school.review.*;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,20 +21,20 @@ public class ReviewService {
     }
 
     public static class ReviewUpgradeSummary {
-        private List<Review> _upgradedReviews;
+        private List<ISchoolReview> _upgradedReviews;
         private ReviewUpgradeStatus _status;
-        private Review _firstPublishedReview;
+        private ISchoolReview _firstPublishedReview;
 
         public ReviewUpgradeSummary() {
             _status  = ReviewUpgradeStatus.NO_REVIEW_UPGRADED;
-            _upgradedReviews = new ArrayList<Review>();
+            _upgradedReviews = new ArrayList<ISchoolReview>();
         }
 
-        public List<Review> getUpgradedReviews() {
+        public List<ISchoolReview> getUpgradedReviews() {
             return _upgradedReviews;
         }
 
-        public void setUpgradedReviews(List<Review> upgradedReviews) {
+        public void setUpgradedReviews(List<ISchoolReview> upgradedReviews) {
             _upgradedReviews = upgradedReviews;
         }
 
@@ -48,11 +46,11 @@ public class ReviewService {
             _status = status;
         }
 
-        public Review getFirstPublishedReview() {
+        public ISchoolReview getFirstPublishedReview() {
             return _firstPublishedReview;
         }
 
-        public void setFirstPublishedReview(Review firstPublishedReview) {
+        public void setFirstPublishedReview(ISchoolReview firstPublishedReview) {
             _firstPublishedReview = firstPublishedReview;
         }
     }
@@ -66,7 +64,7 @@ public class ReviewService {
      */
     public ReviewUpgradeSummary upgradeProvisionalReviewsAndSummarize(User user) {
 
-        List<Review> upgradedReviews = upgradeProvisionalReviews(user);
+        List<ISchoolReview> upgradedReviews = upgradeProvisionalReviews(user);
 
         return createReviewUpgradeSummary(upgradedReviews);
     }
@@ -77,13 +75,13 @@ public class ReviewService {
      * @param user user to upgrade reviews for
      * @return List of upgraded reviews
      */
-    public List<Review> upgradeProvisionalReviews(User user) {
+    public List<ISchoolReview> upgradeProvisionalReviews(User user) {
         if (user == null) {
             throw new IllegalArgumentException("Cannot upgrade reviews for null user.");
         }
 
         List<Review> userReviews = getReviewDao().findUserReviews(user);
-        List<Review> upgradedReviews = new ArrayList<Review>();
+        List<ISchoolReview> upgradedReviews = new ArrayList<ISchoolReview>();
         List<TopicalSchoolReview> topicalReviews = getTopicalSchoolReviewDao().findByMemberId(user.getId());
 
         for (Review review : userReviews) {
@@ -101,13 +99,16 @@ public class ReviewService {
                 review.setStatus(StringUtils.substring(status, 1));
                 review.setProcessDate(new Date());
                 _topicalSchoolReviewDao.save(review);
+                upgradedReviews.add(review);
             }
         }
+
+        Collections.sort(upgradedReviews, Collections.reverseOrder(ISchoolReview.GENERIC_DATE_POSTED_COMPARATOR));
 
         return upgradedReviews;
     }
 
-    protected ReviewUpgradeSummary createReviewUpgradeSummary(List<Review> upgradedReviews) {
+    protected ReviewUpgradeSummary createReviewUpgradeSummary(List<ISchoolReview> upgradedReviews) {
         if (upgradedReviews == null) {
             throw new IllegalArgumentException("Cannot examine null upgraded reviews list");
         }
@@ -117,7 +118,7 @@ public class ReviewService {
 
         if (upgradedReviews.size() > 0) {
             summary.setUpgradedReviews(upgradedReviews);
-            List<Review> publishedReviews = findPublishedReviews(upgradedReviews);
+            List<ISchoolReview> publishedReviews = findPublishedReviews(upgradedReviews);
 
             if (publishedReviews.size() > 0) {
                 summary.setFirstPublishedReview(publishedReviews.get(0));
@@ -134,13 +135,14 @@ public class ReviewService {
         return summary;
     }
     
-    public List<Review> findPublishedReviews(List<Review> upgradedReviews) {
+    public List<ISchoolReview> findPublishedReviews(List<ISchoolReview> upgradedReviews) {
         if (upgradedReviews == null) throw new IllegalArgumentException("Cannot iterate null upgradedReviews list");
 
-        List<Review> publishedReviews = new ArrayList<Review>();
+        List<ISchoolReview> publishedReviews = new ArrayList<ISchoolReview>();
 
-        for (Review review : upgradedReviews) {
-            if (Review.ReviewStatus.PUBLISHED.equals(review.getStatusAsEnum())) {
+        for (ISchoolReview review : upgradedReviews) {
+            if (StringUtils.equals(Review.ReviewStatus.PUBLISHED.getStatusCode(), review.getStatus())) {
+                System.out.println("Adding " + review.getClass().getName() + ":" + review.getId() + ":" + review.getPosted());
                 publishedReviews.add(review);
             }
         }

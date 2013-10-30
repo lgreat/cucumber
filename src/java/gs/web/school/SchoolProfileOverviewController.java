@@ -23,6 +23,7 @@ import gs.web.content.cms.CmsContentLinkResolver;
 import gs.web.i18n.LanguageToggleHelper;
 import gs.web.school.usp.EspResponseData;
 import gs.web.school.usp.EspStatusManager;
+import gs.web.school.usp.UspFormHelper;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
@@ -875,6 +876,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // Option g from spec - Display handicapped icon & static message
                 model.put( "icon", "bus" );
                 model.put( "transMsg", "Busses/vans shared with other schools" );
+            }
+            else if( checkEspResponseListForValue(transp, new String[]{UspFormHelper.TRANSPORTATION_ACCESSIBLE_VIA_PUBLIC_TRANSPORTATION_VALUE}) ) {
+                // New option per GS-14979 - Display bus icon & static message
+                model.put( "icon", "bus" );
+                model.put( "transMsg", "Accessible via public transportation" );
             }
             else if( transpNoneOrBlank && isNotEmpty(transpOther) ) {
                 // Option h from spec - Display walking person icon & static message

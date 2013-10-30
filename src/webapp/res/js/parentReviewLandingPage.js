@@ -675,8 +675,11 @@ function GS_schoolReviewFormLandingPage(id) {
     $(".js-availableTopicTagsButton").click(function() {
         var tagId = $(this).attr("id");
         tagId = tagId.substring("js-tag-button-".length);
-        $("#js-tag-text-" + tagId).show();
+        var tagTextElem = $("#js-tag-text-" + tagId);
+        tagTextElem.show();
         $(this).hide();
+        // Force Chrome to repaint the element. See http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
+        $('<style></style>').appendTo(tagTextElem).remove();
     });
 
     /** @return String */

@@ -5,7 +5,7 @@ Feature: OSP Registration
     Given I am on "GS Home Page" page
     And I click on the "School Officials" link
     And I fill in:
-    | email | skrishna+[TIMESTAMP]@greatschools.org |
+    | email | devnull+[TIMESTAMP]@greatschools.org |
     | screenName | user[TIMESTAMP] |
     | password  | abc123 |
     | confirmPassword | abc123 |
@@ -14,8 +14,8 @@ Feature: OSP Registration
     | city | Jacksonville |
     | schoolId | Arlington Elementary School |
     And I fill in:
-    | firstName | Swathi |
-    | lastName | Krishna |
+    | firstName | Cucumber |
+    | lastName | Tester |
     And I pick:
     | jobTitle | Teacher |
     When I click the button "Continue"

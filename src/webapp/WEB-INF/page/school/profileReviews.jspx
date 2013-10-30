@@ -371,7 +371,8 @@
 
                 <div class="spacer_15"><!-- do not collapse --></div>
                 <div class="review">
-                    <![CDATA[ <a name="ps${review.id}"></a> ]]>
+                    <c:set var="anchorPrefix" value="${review.topic ne null?'tps':'ps'}"/>
+                    <![CDATA[ <a name="${anchorPrefix}${review.id}"></a> ]]>
 
                     <div class="line">
                         <div class="unit size3of5 fl">
