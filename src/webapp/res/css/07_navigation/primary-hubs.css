@@ -136,7 +136,7 @@ General comments:
 
 #hub-primary .dropdown_1 .subMenuItem .subMenuItemAnchorText:hover,
 #hub-primary .dropdown_2 .subMenuItem .subMenuItemAnchorText:hover,
-#hub-primary .dropdown_2 .subMenuItem .subMenuItemAnchorText:hover {
+#hub-primary .dropdown_3 .subMenuItem .subMenuItemAnchorText:hover {
     background-color: #007EAA;
     color: #FFFFFF;
     cursor: pointer;
