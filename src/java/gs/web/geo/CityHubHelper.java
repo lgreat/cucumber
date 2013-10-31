@@ -55,6 +55,11 @@ public class CityHubHelper {
     public static final String HUB_HOME_KEY_PREFIX = "hubHome";
     public static final String HUB_HOME_ANNOUNCEMENT_MODEL_KEY = "announcement";
 
+    public static final String ENROLLMENT_PAGE_KEY_PREFIX = "enrollmentPage";
+    public static final String ENROLLMENT_PAGE_SUBHEADING_MODEL_KEY = "subHeading";
+
+    public static final String CONTENT_JSON_OBJECT_KEY = "content";
+
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
     @Autowired

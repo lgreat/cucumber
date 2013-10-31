@@ -23,6 +23,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModelFactory;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -92,24 +93,33 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         }
 
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
+        final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
+
+        final ModelMap enrollmentPageModelMap = getCityHubHelper().getFilteredConfigMap(configList,
+                CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX);
         /**
          * The under heading Text will be templatized for every city in Data Base -Shomi
          */
 
-        final String  underHeadingText= "In DC, parents can choose to send their kids to either a public or private school.<br/><br/>" +
-                                        "Public schools include both district and charter schools and are free to any resident of DC. " +
-                                        "Over 80,000 students are enrolled in the public system, with approximately 50% attending district and 50% attending charter schools." +
-                                        "<br/><br/>Private schools include independent private schools, faith-based schools, and nonpublic schools that are certified as a special education facility.";
+        String subHeadingModelKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX + "_" +
+                CityHubHelper.ENROLLMENT_PAGE_SUBHEADING_MODEL_KEY;
+        JSONObject subHeading = (JSONObject) enrollmentPageModelMap.get(subHeadingModelKey);
+
+        String subHeadingText;
+        if(subHeading != null && subHeading.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY)) {
+            subHeadingText = (String) subHeading.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+        } else {
+            subHeadingText = "No Data Found - " + subHeadingModelKey;
+        }
 
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
-        modelAndView.addObject("underHeadindText", underHeadingText);
+        modelAndView.addObject("subHeadingText", subHeadingText);
         modelAndView.addObject("defaultTab", PRESCHOOLS_TAB_NAME);
         modelAndView.addObject("tabs", tabs);
 
-        final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         /**
          * Get the important events
          */
