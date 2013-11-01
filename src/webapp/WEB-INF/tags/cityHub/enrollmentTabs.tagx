@@ -6,7 +6,7 @@
 
 >
     <div class="container_24 clearfix mtl">
-        <div class="prefix_5 grid_16">
+        <div class="prefix_5 grid_17">
             <div class="tab-control-container">
                 <c:forEach items="${tabs}" var="tab">
                     <c:choose>
