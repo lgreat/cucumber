@@ -26,7 +26,8 @@
     <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}"
                    primaryCategoryName="${feature.primaryKategory.name}"/>
 
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+    <meta name="decorator" content="standardDecorator-hubs"/>
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 

@@ -11,7 +11,8 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <pageHelper:addCss-v1/>
         <title>GreatSchools Header</title>
     </head>

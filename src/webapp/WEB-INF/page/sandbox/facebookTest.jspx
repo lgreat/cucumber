@@ -12,7 +12,8 @@
            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <title>Test Hover - GreatSchools</title>
 
         <pageHelper:externalJavascript file="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;sensor=false&amp;signature=OXbNRPWooYBwVYP50cQjzvgBk1k="/>

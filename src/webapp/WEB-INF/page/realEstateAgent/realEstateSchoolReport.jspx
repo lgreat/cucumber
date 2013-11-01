@@ -10,7 +10,8 @@
 
     <head>
         <title>Real Estate School Report | GreatSchools</title>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <link href="/res/css/15_pdf/realEstate.css" rel="stylesheet" type="text/css" />
         <!--<link href="/res/css/06_sprites/icon.css" rel="stylesheet" type="text/css" />-->
     </head>

@@ -55,7 +55,8 @@
 <pageHelper:includeQualarooJS/>
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+    <meta name="decorator" content="standardDecorator-hubs"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
     <c:choose>

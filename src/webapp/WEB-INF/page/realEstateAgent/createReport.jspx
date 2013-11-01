@@ -12,7 +12,8 @@
 
     <head>
         <title>Create Your Neighborhood School Guide | GreatSchools</title>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+        <meta name="decorator" content="standardDecorator-hubs"/>
         <meta name="robots" content="noindex"/>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;libraries=geometry&amp;sensor=false&amp;signature=qeUgzsyTsk0gcv93MnxnJ_0SGTw="><!-- not empty --></script>
         <gsml:javascript src="/res/js/plupload-new/moxie.min.js" />

@@ -17,7 +17,8 @@
 
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+    <meta name="decorator" content="standardDecorator-hubs"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content="The Page list all the Gallup Schools."
           name="description"/>

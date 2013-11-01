@@ -27,7 +27,8 @@
         <pageHelper:addMetaProperty property="description" content="Online education for grades K-12, providing individualized learning customized to each child's needs with award winning curriculum that engages young minds."/>
         <pageHelper:addMetaProperty property="keywords" content="online education,online resources,K-12 educational online resources,virtual academies"/>
 
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+        <meta name="decorator" content="standardDecorator-hubs"/>
 
         <script type="text/javascript">
             jQuery(function() {

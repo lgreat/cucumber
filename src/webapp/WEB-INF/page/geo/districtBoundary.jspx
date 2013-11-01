@@ -13,7 +13,8 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
+    <meta name="decorator" content="standardDecorator-hubs"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content=" Enter zip code or address to see school and district boundary lines on our interactive map."
           name="description"/>
