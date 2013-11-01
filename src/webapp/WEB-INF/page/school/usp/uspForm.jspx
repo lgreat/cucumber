@@ -19,8 +19,7 @@
     <pageHelper:hideFooterAd/>
     <pageHelper:hideBelowNavAds/>
     <head>
-        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
-        <meta name="decorator" content="standardDecorator-hubs"/>
+        <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <c:choose>
             <c:when test="${isSchoolAdmin}">

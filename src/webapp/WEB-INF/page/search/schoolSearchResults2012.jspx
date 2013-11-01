@@ -27,8 +27,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
-    <meta name="decorator" content="standardDecorator-hubs"/>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <c:if test="${not empty title}">
         <title>${title}</title>
     </c:if>

@@ -23,8 +23,7 @@
         <c:if test="${not empty page.metaKeywords}">
             <meta name="keywords" content="${page.metaKeywords}"/>
         </c:if>
-	<!--<meta name="decorator" content="standardDecorator-v1"/>-->
-    <meta name="decorator" content="standardDecorator-hubs"/>
+	<meta name="decorator" content="standardDecorator-v1"/>
     </head>
 
     <gsml:body adPageName="cmsPage" pageLayout="slStylesV1-0 nocol">

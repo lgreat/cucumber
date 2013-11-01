@@ -22,8 +22,7 @@
 <head>
     <article:slideshowTitle articleSlideshow="${articleSlideshow}"/>
 
-    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
-    <meta name="decorator" content="standardDecorator-hubs"/>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
     <gsml:javascript src="/res/js/content/cms/article/combined.js"/>

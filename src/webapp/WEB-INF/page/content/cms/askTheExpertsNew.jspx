@@ -20,8 +20,7 @@
     <head>
         <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}" primaryCategoryName="${feature.primaryKategory.name}"/>
 
-        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
-        <meta name="decorator" content="standardDecorator-hubs"/>
+        <meta name="decorator" content="standardDecorator-v1"/>
         <meta name="description"
               content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
         <meta name="keywords" content="${feature.metaKeywords}"/>

@@ -37,8 +37,7 @@
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
 
-    <!--<meta name="decorator" content="standardDecorator-v1" />-->
-    <meta name="decorator" content="standardDecorator-hubs"/>
+    <meta name="decorator" content="standardDecorator-v1" />
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 

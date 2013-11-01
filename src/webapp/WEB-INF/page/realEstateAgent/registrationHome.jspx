@@ -13,8 +13,7 @@
 
 
     <head>
-        <!--<meta name="decorator" content="standardDecorator-v1"/>-->
-        <meta name="decorator" content="standardDecorator-hubs"/>
+        <meta name="decorator" content="standardDecorator-v1"/>
         <meta name="description" content="GreatSchools Radar makes it easy for real estate pros to create customized 
         neighborhood school guides for their home listings"/>
         <meta name="keywords" content="school reports, school guides, real estate schools, school reports for real

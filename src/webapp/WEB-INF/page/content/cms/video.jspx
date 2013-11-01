@@ -74,8 +74,7 @@
     </c:if>
     <k12:trafficDriverIncludes/>
 
-    <!--<meta name="decorator" content="standardDecorator-v1"/>-->
-    <meta name="decorator" content="standardDecorator-hubs"/>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
 </head>
 <body>
