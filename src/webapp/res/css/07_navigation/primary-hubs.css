@@ -14,15 +14,6 @@ General comments:
 
 */
 
-/* Menu Container */
-
-.menuContainer-primary{
-    margin: 0 auto;
-    background-color: #248CB8; /* for non-css3 browsers */
-    border-bottom: 3px solid #FFB943;
-    border-top: 1px solid #3D9CC6;
-}
-
 #hub-primary {
     z-index: 4;
     position: relative;
@@ -33,6 +24,7 @@ General comments:
     padding: 0;
     table-layout: auto;
     border:none;
+    background-color: #007EAA;
 }
 
 /* Primary Menu Items */
@@ -60,9 +52,7 @@ General comments:
     width:100%;
     position: relative;
     text-align: center;
-}
-#hub-primary .menuItem .menuItemAnchorText.last {
-    color: #FFB725;
+    padding: 20px 0;
 }
 
 #hub-primary .menuItem:hover .menuItemAnchorText {
@@ -70,6 +60,11 @@ General comments:
     text-shadow: none;
     background-color: #007299;
 }
+
+#hub-primary .menuItem .menuItemAnchorText.last {
+    color: #FFB725;
+}
+
 #hub-primary .menuItem:hover .menuItemAnchorText.last {
     color: #FFC668;
 }
@@ -77,13 +72,12 @@ General comments:
 #hub-primary .dropdownReference{
     position:relative;
     display: block;
-    margin-top: 22px;
 }
 
 #hub-primary .dropdown_1,
 #hub-primary .dropdown_2,
 #hub-primary .dropdown_3 {
-    margin: 20px auto 1px;
+    margin: 0px auto 1px;
     position: absolute;
     left: -999em; /* Hides the drop down */
     text-align: left;
