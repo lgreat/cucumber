@@ -59,6 +59,7 @@ public class CityHubHelper {
     public static final String ENROLLMENT_PAGE_SUBHEADING_MODEL_KEY = "subHeading";
 
     public static final String CONTENT_JSON_OBJECT_KEY = "content";
+    public static final String HEADER_JSON_OBJECT_KEY = "header";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;

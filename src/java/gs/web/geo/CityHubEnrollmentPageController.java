@@ -135,7 +135,7 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         /**
          * Get Enrollment Model Info  .
          */
-        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade(request, configList, collectionId, state, city);
+        List<EnrollmentModel> enrollmentInfo = getEnrollmentFacade(request, configList, enrollmentPageModelMap, collectionId, state, city);
         modelAndView.addObject("enrollmentsInfo", enrollmentInfo);
 
         modelAndView.addObject("showAds", getCityHubHelper().showAds(configList, collectionId));
@@ -153,11 +153,12 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
      * @return stepsInfo List of StepInfo passed to model.
      */
     private List<EnrollmentModel> getEnrollmentFacade(HttpServletRequest request, List<HubConfig> configList,
-                                                      Integer collectionId, State state, String city) {
+                                                      ModelMap enrollmentPageModelMap, Integer collectionId, State state,
+                                                      String city) {
         List<EnrollmentModel> enrollmentInfo = new ArrayList<EnrollmentModel>();
 
         String collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, collectionId);
-
+        String description;
         /**
          * Public Preschool Data Start
          */
@@ -169,15 +170,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
        //Browse Link
         publicPreschools.setBrowseLink(publicPreschoolsAnchor);
        // Description Text
-        publicPreschools.setDescription("Since preschool (starting at age 3) and pre-kindergarten (starting at age 4) attendance is not mandatory, students are not automatically assigned a school. " +
-                                        "To enroll your child, you must apply through a lottery.<br/><br/>" +
-                                        "Your child must meet legal requirements for age eligibility in order to enroll at DCPS:<br/>" +
-                                        "<ul>" +
-                                        "<li><span class='bold'>Preschool:</span> Your child must turn 3 years of age on or before September 30 to be eligible for preschool.</li>" +
-                                        "<li><span class='bold'>Pre-kindergarten:</span> Your child must turn 4 years of age on or before September 30 to be eligible for pre-kindergarten.</li>" +
-                                        "</ul><br/><br/>" +
-                                        "DCPS does not make exceptions for children born after September 30 due to the popularity of the programs and a limited number of seats." +
-                                        " Each child&#180;s date of birth is verified upon enrollment into school.");
+        String descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + publicPreschools.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + publicPreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject publicPreschoolDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(publicPreschoolDescription != null &&
+                publicPreschoolDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                publicPreschoolDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) publicPreschoolDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            publicPreschools.setHeader((String) publicPreschoolDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        publicPreschools.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPublicPreschools= new ArrayList<String>();
@@ -213,10 +219,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         privatePreschools.setBrowseLink(privatePreschoolsBrowseLinks);
 
         // Description Text
-        privatePreschools.setDescription("There are many options for private early childhood programs as well as pre-schools that feed into private " +
-                                            "schools. Private school application deadlines vary by school. You should visit the school directly or check out the GreatSchools official " +
-                                            "school profile for more information. \n" +
-                                            "During Catholic Schools Week, most Catholic schools hold open houses for prospective students and families. \n");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + privatePreschools.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + privatePreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject privatePreschoolDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(privatePreschoolDescription != null &&
+                privatePreschoolDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                privatePreschoolDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) privatePreschoolDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            privatePreschools.setHeader((String) privatePreschoolDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        privatePreschools.setDescription(description);
 
        // More Info
        ArrayList<Anchor>  moreInfoLinksPrivatePreschools= new ArrayList<Anchor>();
@@ -254,16 +270,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        publicElementarySchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
-                                        "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
-                                        "different school, there is the 'out of boundary' process.<br/><br/>" +
-                                        "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
-                                        "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
-                                        "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
-                                        "DC 'out of boundary' public schools and DC charter schools have a new lottery system for applying to schools " +
-                                        "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
-                                        "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
-                                        " GreatSchools Official School Profile or contact the school directly.");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + publicElementarySchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + publicElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject publicElementaryDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(publicElementaryDescription != null &&
+                publicElementaryDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                publicElementaryDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) publicElementaryDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            publicElementarySchool.setHeader((String) publicElementaryDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        publicElementarySchool.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPublicElementarySchool= new ArrayList<String>();
@@ -308,15 +328,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        privateElementarySchool.setDescription("Private schools are non-public schools that charge tuition for attendance. Many have school-based aid and/or accept the " +
-                                                "opportunity scholarships or other outside forms of financial aid. Some private schools have religious affiliations. Students " +
-                                                "who want to attend private schools must apply, and there may be required entrance exams and application fees. <br/><br/>" +
-                                                "The archdiocese has a separate application process for tuition assistance. This application is usually due in December and is based " +
-                                                "on household income and financial need.<br/><br/>" +
-                                                "Most require independent testing for entrance. Check their websites or make sure you ask about testing centers and dates. Most schools " +
-                                                "will offer you an approved list of examiners.<br/><br/>" +
-                                                "Most private schools are PK-8 or PK-12 so you should take that into consideration when shopping around. Private school application " +
-                                                "deadlines vary by school. You should visit the school directly or check out the GreatSchools official school profile for more information.");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + privateElementarySchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + privateElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject privateElementaryDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(privateElementaryDescription != null &&
+                privateElementaryDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                privateElementaryDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) privateElementaryDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            privateElementarySchool.setHeader((String) privateElementaryDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        privateElementarySchool.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPrivateElementarySchool= new ArrayList<String>();
@@ -371,16 +396,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        publicMiddleSchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
-                "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
-                "different school, there is the 'out of boundary' process.<br/><br/>" +
-                "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
-                "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
-                "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
-                "DC 'out of boundary' public schools and DC charter schools have a new lottery system for applying to schools " +
-                "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
-                "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
-                " GreatSchools Official School Profile or contact the school directly.");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + publicMiddleSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + publicMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject publicMiddleDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(publicMiddleDescription != null &&
+                publicMiddleDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                publicMiddleDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) publicMiddleDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            publicMiddleSchool.setHeader((String) publicMiddleDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        publicMiddleSchool.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPublicMiddleSchool= new ArrayList<String>();
@@ -426,10 +455,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        privateMiddleSchool.setDescription("Private schools are non-public schools that charge tuition for attendance. Many have school-based aid and/or accept the " +
-                "opportunity scholarships or other outside forms of financial aid. Some private schools have religious affiliations. Students " +
-                "who want to attend private schools must apply, and there may be required entrance exams and application fees.Private school application deadlines vary " +
-                "by school. You should visit the school directly or check out the GreatSchools official school profile for more information.");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + privateMiddleSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + privateMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject privateMiddleDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(privateMiddleDescription != null &&
+                privateMiddleDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                privateMiddleDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) privateMiddleDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            privateMiddleSchool.setHeader((String) privateMiddleDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        privateMiddleSchool.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPrivateMiddleSchool= new ArrayList<String>();
@@ -485,18 +524,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        publicHighSchool.setDescription("Starting in kindergarten, every child is assigned to and is guaranteed a spot in a neighborhood school " +
-                "based on your home address. Public schools are free to every child that is a DC resident. To apply to a " +
-                "different school, there is the 'out of boundary' process.<br/><br/>" +
-                "There are no required applications to attend your assigned neighborhood DCPS school. You must complete the " +
-                "enrollment process by contacting the school directly. Proof of residence is required.<br/><br/>" +
-                "Students entering kindergarten in DCPS must be age 5 by September 30.<br/><br/>" +
-                "DC 'out of boundary' public schools and DC charter schools have a new lottery system for applying to schools " +
-                "for the 2014-2015 school year, called My School DC. The first round of applications will be available on Dec. 16, 2013.<br/><br/>" +
-                "There are some DCPS specialized citywide high schools that have different application dates.<br/><br/>" +
-
-                "If you are interested in applying to a charter school that is not participating in the My School DC lottery, visit the" +
-                " GreatSchools Official School Profile or contact the school directly.");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + publicHighSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + publicHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject publicHighDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(publicHighDescription != null &&
+                publicHighDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                publicHighDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) publicHighDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            publicHighSchool.setHeader((String) publicHighDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        publicHighSchool.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPublicHighSchool= new ArrayList<String>();
@@ -543,11 +584,20 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        privateHighSchool.setDescription("Private schools are non-public schools that charge tuition for attendance. Many have school-based aid and/or accept the " +
-                "opportunity scholarships or other outside forms of financial aid. Some private schools have religious affiliations. Students " +
-                "who want to attend private schools must apply, and there may be required entrance exams and application fees.Private school application deadlines vary " +
-                "by school. You should visit the school directly or check out the GreatSchools official school profile for more information.<br/><br/>" +
-                "Many private high schools offer merit based scholarships for academics, fine arts, sports, and more. Make sure you ask about these options when you visit. ");
+        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+                + "_" + privateHighSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
+                + privateHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
+                + "description";
+        JSONObject privateHighDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        if(privateHighDescription != null &&
+                privateHighDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                privateHighDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) privateHighDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            privateHighSchool.setHeader((String) privateHighDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = "No Data Found - " + descriptionKey;
+        }
+        privateHighSchool.setDescription(description);
 
         // Tips
         ArrayList<String> tipsForPrivateHighSchool= new ArrayList<String>();

@@ -35,12 +35,9 @@ public class EnrollmentModel {
 
     private Anchor  _browseLink;
 
-
+    private String _header;
 
     private MoreInformationModel _moreInfo;
-
-
-
 
     public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType , final String  schoolTypeDescription, final String  description,final Anchor browseLinkInfo) {
         _tabName = tabName;
@@ -49,7 +46,6 @@ public class EnrollmentModel {
         _schoolTypeDescription= schoolTypeDescription;
         _description= description;
         _browseLink= browseLinkInfo;
-
     }
 
     public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType , final String  description, final Anchor browseLinkInfo) {
@@ -58,7 +54,6 @@ public class EnrollmentModel {
         _schoolType= schoolType;
         _description= description;
         _browseLink= browseLinkInfo;
-
     }
 
     public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType , final String  description) {
@@ -66,8 +61,6 @@ public class EnrollmentModel {
         _levelCode= levelCode;
         _schoolType= schoolType;
         _schoolTypeDescription= description;
-
-
     }
 
     public EnrollmentModel(final String  tabName, final LevelCode levelCode, final SchoolType schoolType ) {
@@ -75,9 +68,6 @@ public class EnrollmentModel {
         _levelCode= levelCode;
         _schoolType= schoolType;
       }
-
-
-
 
     public String getTabName() {
         return _tabName;
@@ -119,8 +109,6 @@ public class EnrollmentModel {
         this._description = description;
     }
 
-
-
     public ArrayList<String> getTipsInfoModel() {
         return _tipsInfoModel;
     }
@@ -145,4 +133,11 @@ public class EnrollmentModel {
         this._browseLink = browseLink;
     }
 
+    public String getHeader() {
+        return _header;
+    }
+
+    public void setHeader(String header) {
+        _header = header;
+    }
 }

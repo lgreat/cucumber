@@ -16,7 +16,7 @@
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
                         <div class="alpha grid_12 suffix_1 mbl pbl">
                             <h3 class="SourceSansPro-Semibold-h3">
-                                ${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}
+                                ${enrollmentInfo.header}
                             </h3>
                             <p>${enrollmentInfo.description}</p>
                             <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
@@ -52,7 +52,7 @@
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
                         <div class="alpha grid_12 suffix_1 mbl pbl">
                             <h3 class="SourceSansPro-Semibold-h3">
-                                ${gsweb:capitalize(enrollmentInfo.schoolType.schoolTypeName)} ${enrollmentInfo.tabName}
+                                ${enrollmentInfo.header}
                             </h3>
                             <p>${enrollmentInfo.description}</p>
                             <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
