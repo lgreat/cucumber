@@ -39,7 +39,7 @@
                 <gsml:img src="${stepInfo.imageURL}" alt="step image"/>
             </div>
         </div>
-        <div class="container_24 clearfix ptl">
+        <div class="container_24 clearfix mtl">
             <div class="standard_1-1">
                 <c:if test="${not empty stepInfo.additionalResourcesModel}">
                     <div class="inner">
@@ -122,8 +122,10 @@
                 </c:if>
             </div>
             </div>
-        <div class="container_24 mtm clearfix">
-            <a href="#">Back to top</a>
+        <div class="container_24 mtm mbl clearfix">
+            <div class="fr">
+                <a href="#">Back to top</a>
+            </div>
         </div>
     </c:forEach>
 </jsp:root>
