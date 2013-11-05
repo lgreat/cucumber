@@ -62,7 +62,7 @@ Feature: GreatSchools Mobile Home Page Search Tests
     Then the title has "Search Results"
       And I do not see "McKinley Elementary School"
 
-  @javascript @aroy
+  @javascript
   Scenario: Search for a school by name on mobile
     When I click on "By name tab"
       And I type "Lowell High School" into "q"
@@ -70,3 +70,16 @@ Feature: GreatSchools Mobile Home Page Search Tests
       And I click the button "Search"
     Then the title has "Search Results"
       And I see "Lowell High School"
+
+  @javascript
+  Scenario: Cannot search by location without a search string mobile
+    When I click the button "Search"
+    Then I see "Please enter an address"
+
+  @javascript
+  Scenario: Cannot search by name without a search string and state mobile
+    When I click on "By name tab"
+      And I click the button "Search"
+    Then I see "Please enter a school name"
+      And I see "Please select a state"
+
