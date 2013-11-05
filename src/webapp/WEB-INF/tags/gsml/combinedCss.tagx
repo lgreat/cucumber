@@ -37,11 +37,11 @@
             <link rel="stylesheet" href="${csshref}" type="text/css" />
             <c:if test="${not empty IE7href}">
                 <gsml:url var="cssIE7href" value="${IE7href}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
-                <![CDATA[[if IE 7]><link rel="stylesheet" href="${cssIE7href}" type="text/css" /><![endif]]]>
+                <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${cssIE7href}" type="text/css" /><![endif]-->]]>
             </c:if>
             <c:if test="${not empty IE8href}">
                 <gsml:url var="cssIE8href" value="${IE8href}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
-                <![CDATA[[if IE 8]><link rel="stylesheet" href="${cssIE8href}" type="text/css" /><![endif]]]>
+                <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${cssIE8href}" type="text/css" /><![endif]-->]]>
             </c:if>
         </c:otherwise>
     </c:choose>
