@@ -120,7 +120,7 @@
                                         </div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div id="utilLinks">
+                                        <div id="utilLinks_test">
                                             <div class="menuItemAnchorText">   <c:choose>
 
                                                 <c:when test="${not empty requestScope.context.firstName}">
