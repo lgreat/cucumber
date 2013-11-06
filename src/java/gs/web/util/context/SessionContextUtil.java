@@ -125,6 +125,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _isOspMemberCookieGenerator;
     private CookieGenerator _hubCityCookieGenerator;
     private CookieGenerator _hubStateCookieGenerator;
+    private CookieGenerator _isHubUserCookieGenerator;
+
+
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.org";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
@@ -556,6 +559,21 @@ public class SessionContextUtil implements ApplicationContextAware {
     public void setHubCityCookieGenerator(CookieGenerator hubCityCookieGenerator) {
         this._hubCityCookieGenerator = hubCityCookieGenerator;
     }
+    public CookieGenerator getIsHubUserCookieGenerator() {
+        return _isHubUserCookieGenerator;
+    }
+
+    public void setIsHubUserCookieGenerator(CookieGenerator isHubUserCookieGenerator) {
+        this._isHubUserCookieGenerator = isHubUserCookieGenerator;
+    }
+
+    public void clearIsHubUserCookie(HttpServletResponse response) {
+        _isHubUserCookieGenerator.removeCookie(response);
+    }
+
+    public void setIsHubUserCookie(HttpServletResponse response) {
+        _isHubUserCookieGenerator.addCookie(response, "y");
+    }
 
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
@@ -882,6 +900,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         _sessionCacheCookieGenerator.removeCookie(response);
         _memberCookieGenerator.removeCookie(response);
         _isOspMemberCookieGenerator.removeCookie(response);
+
         // Before a user logs into community, the name of the community cookie is blank. Thus, we
         // do this check in order to avoid a NPE.
         if (!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {

@@ -81,6 +81,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
             pageHelper.setHideAds(true);
             pageHelper.clearHubCookiesForNavBar(request, response);
             pageHelper.setHubCookiesForNavBar(request, response, state.getAbbreviation(), WordUtils.capitalizeFully(city));
+            pageHelper.setHubUserCookie(request, response);
         }
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));

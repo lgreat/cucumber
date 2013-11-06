@@ -987,6 +987,19 @@ public class PageHelper {
         util.clearHubStateCookie(response);
     }
 
+    public static void setHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.setIsHubUserCookie(response);
+
+    }
+    public static void clearHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.clearIsHubUserCookie(response);
+
+    }
+
     public static void setHasSearchedCookie(HttpServletRequest request, HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         context.setHasSearched(true);

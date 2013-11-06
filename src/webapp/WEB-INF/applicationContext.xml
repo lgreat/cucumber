@@ -183,6 +183,11 @@
                 <property name="cookieName" value="hubState"/>
             </bean>
         </property>
+        <property name="isHubUserCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="ishubUser"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"

@@ -90,6 +90,7 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
             pageHelper.setHideAds(true);
             pageHelper.clearHubCookiesForNavBar(request, response);
             pageHelper.setHubCookiesForNavBar(request, response, state.getAbbreviation(), WordUtils.capitalizeFully(city));
+            pageHelper.setHubUserCookie(request, response);
 
         }
 

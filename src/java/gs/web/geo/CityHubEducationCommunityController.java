@@ -62,6 +62,7 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
             pageHelper.setHideAds(true);
             pageHelper.clearHubCookiesForNavBar(request, response);
             pageHelper.setHubCookiesForNavBar(request, response, state.getAbbreviation(), WordUtils.capitalizeFully(city));
+            pageHelper.setHubUserCookie(request, response);
         }
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
