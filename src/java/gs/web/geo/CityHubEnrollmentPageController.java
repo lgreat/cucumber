@@ -160,7 +160,6 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
         String collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, collectionId);
         String keyPrefix;
-        String description;
         /**
          * Public Preschool Data Start
          */
@@ -175,17 +174,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicPreschools.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + publicPreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        String descriptionKey = keyPrefix  + "_description";
-        JSONObject publicPreschoolDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicPreschoolDescription != null &&
-                publicPreschoolDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicPreschoolDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicPreschoolDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicPreschools.setHeader((String) publicPreschoolDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicPreschools.setDescription(description);
+        String descriptionKey = keyPrefix  + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        JSONObject jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicPreschools, jsonDescription, descriptionKey);
 
         // Tips
         String tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -222,17 +213,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privatePreschools.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + privatePreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject privatePreschoolDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privatePreschoolDescription != null &&
-                privatePreschoolDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privatePreschoolDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privatePreschoolDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privatePreschools.setHeader((String) privatePreschoolDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privatePreschools.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privatePreschools, jsonDescription, descriptionKey);
 
        // More Info
        ArrayList<Anchor>  moreInfoLinksPrivatePreschools= new ArrayList<Anchor>();
@@ -278,17 +261,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicElementarySchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + publicElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject publicElementaryDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicElementaryDescription != null &&
-                publicElementaryDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicElementaryDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicElementaryDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicElementarySchool.setHeader((String) publicElementaryDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicElementarySchool.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicElementarySchool, jsonDescription, descriptionKey);
 
         // Tips
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -324,17 +299,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privateElementarySchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + privateElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject privateElementaryDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privateElementaryDescription != null &&
-                privateElementaryDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privateElementaryDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privateElementaryDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privateElementarySchool.setHeader((String) privateElementaryDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privateElementarySchool.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privateElementarySchool, jsonDescription, descriptionKey);
 
         // Tips
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -389,17 +356,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicMiddleSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + publicMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject publicMiddleDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicMiddleDescription != null &&
-                publicMiddleDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicMiddleDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicMiddleDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicMiddleSchool.setHeader((String) publicMiddleDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicMiddleSchool.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicMiddleSchool, jsonDescription, descriptionKey);
 
         // Tips
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -435,17 +394,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privateMiddleSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + privateMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject privateMiddleDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privateMiddleDescription != null &&
-                privateMiddleDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privateMiddleDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privateMiddleDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privateMiddleSchool.setHeader((String) privateMiddleDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privateMiddleSchool.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privateMiddleSchool, jsonDescription, descriptionKey);
 
         // Tips
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -501,17 +452,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicHighSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + publicHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject publicHighDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicHighDescription != null &&
-                publicHighDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicHighDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicHighDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicHighSchool.setHeader((String) publicHighDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicHighSchool.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicHighSchool, jsonDescription, descriptionKey);
 
         // Tips
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -550,17 +493,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privateHighSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
                 + privateHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
-        descriptionKey = keyPrefix + "_description";
-        JSONObject privateHighDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privateHighDescription != null &&
-                privateHighDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privateHighDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privateHighDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privateHighSchool.setHeader((String) privateHighDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privateHighSchool.setDescription(description);
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privateHighSchool, jsonDescription, descriptionKey);
 
         // Tips
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
@@ -622,6 +557,19 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
             anchorText.append(" ");
             anchorText.append(tabName.toLowerCase());
             return anchorText.toString();
+    }
+
+    public void setDescriptionFromJsonObject(EnrollmentModel enrollmentModel, JSONObject jsonDescription,
+                                             String descriptionKey) {
+        String description;
+        if(jsonDescription != null && jsonDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                jsonDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) jsonDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            enrollmentModel.setHeader((String) jsonDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = CityHubHelper.NO_DATA_FOUND_PREFIX + descriptionKey;
+        }
+        enrollmentModel.setDescription(description);
     }
 
     public ArrayList<String> getTipsFromObject(Object tipsObject, String tipsKey) {
