@@ -102,9 +102,10 @@
                 </c:if>
                 <cobrand:header/>
                 <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                    <mod:header/>
-                    <mod:primaryNav/>
-                    <mod:secondaryNav/>
+                    <!--<mod:header/>-->
+                    <!--<mod:primaryNav/>-->
+                    <!--<mod:secondaryNav/>-->
+                    <mod:primaryNav-hubs/>
                 </c:if>
             </div>
             <pageHelper:addFacebookInit/>

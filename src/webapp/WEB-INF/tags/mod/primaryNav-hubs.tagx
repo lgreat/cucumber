@@ -134,7 +134,7 @@
                                             </c:choose>
 
                                             </div>
-                                            <div class="dropdown_2">
+                                            <div class="dropdown_3 dropdown_align_right">
                                                 <ul class="none">
                                                     <c:if test="${isOSP}">
                                                         <li class="subMenuItem">
