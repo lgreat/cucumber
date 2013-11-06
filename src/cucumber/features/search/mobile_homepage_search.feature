@@ -63,6 +63,22 @@ Feature: GreatSchools Mobile Home Page Search Tests
       And I do not see "McKinley Elementary School"
 
   @javascript
+  Scenario: Search for a preschool on mobile
+    When I type "1550 Eddy Street, San Francisco CA 94115" into "searchString"
+      And I select "Preschool" from "gradeLevels"
+      And I click the button "Search"
+    Then the title has "Search Results"
+      And I see "Montessori School of the Bay Area"
+
+  @javascript
+  Scenario: Search for preschools on mobile does not return elementary schools
+    When I type "1025 14th Street, San Francisco CA 94114" into "searchString"
+      And I select "Preschool" from "gradeLevels"
+      And I click the button "Search"
+    Then the title has "Search Results"
+      And I do not see "McKinley Elementary School"
+
+  @javascript
   Scenario: Search for a school by name on mobile
     When I click on "By name tab"
       And I type "Lowell High School" into "q"
