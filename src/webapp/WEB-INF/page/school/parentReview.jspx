@@ -24,7 +24,7 @@
 <head>
     <c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
     <title>Write a school review | GreatSchools</title>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <meta name="decorator" content="standardDecorator-hubs"/>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description" content="Write a review for your child's school today and you can help other parents make a
      more informed choice about which school is right for their family."/>

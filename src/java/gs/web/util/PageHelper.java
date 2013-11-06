@@ -973,6 +973,20 @@ public class PageHelper {
         util.changePathway(context, response, (String) pageIds.get(pathway));
     }
 
+    public static void setHubCookiesForNavBar(HttpServletRequest request, HttpServletResponse response, String state,String city) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.setHubStateCookie(response, state);
+        util.setHubCityCookie(response, city);
+    }
+
+    public static void clearHubCookiesForNavBar(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.clearHubCityCookie(response);
+        util.clearHubStateCookie(response);
+    }
+
     public static void setHasSearchedCookie(HttpServletRequest request, HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         context.setHasSearched(true);

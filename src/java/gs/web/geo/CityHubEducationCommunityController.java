@@ -41,7 +41,6 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView(EDUCATION_COMMUNITY_VIEW);
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
         final String city =  fields !=  null ? fields.getCityName() : null;
         final State  state =  fields !=  null ? fields.getState() : null;
@@ -61,6 +60,8 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
             pageHelper.setHideAds(true);
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, state.getAbbreviation(), WordUtils.capitalizeFully(city));
         }
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);

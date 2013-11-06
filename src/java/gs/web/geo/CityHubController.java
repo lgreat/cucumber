@@ -58,10 +58,9 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/cityHub/cityHub");
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        final State state = sessionContext.getState();
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-        String city = StringUtils.defaultIfEmpty(request.getParameter(PARAM_CITY), fields.getCityName());
+        final String city =  fields !=  null ? fields.getCityName() : null;
+        final State  state =  fields !=  null ? fields.getState() : null;
         // Validate those inputs and give up if we can't build a reasonable page.
         if (state == null) {
             // no state name found on city page, so redirect to /
@@ -78,7 +77,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
             pageHelper.setHideAds(true);
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, state.getAbbreviation(), WordUtils.capitalizeFully(city));
+
         }
+
 
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);

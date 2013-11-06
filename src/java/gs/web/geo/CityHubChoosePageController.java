@@ -60,7 +60,6 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         ModelAndView modelAndView = new ModelAndView("/cityHub/choosing-schools");
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
         final String city =  fields !=  null ? fields.getCityName() : null;
         final State  state =  fields !=  null ? fields.getState() : null;
@@ -80,6 +79,8 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
             pageHelper.setHideAds(true);
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, state.getAbbreviation(), WordUtils.capitalizeFully(city));
         }
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));

@@ -123,6 +123,8 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _care2PromoCookieGenerator;
     private CookieGenerator _searchResultsCookieGenerator;
     private CookieGenerator _isOspMemberCookieGenerator;
+    private CookieGenerator _hubCityCookieGenerator;
+    private CookieGenerator _hubStateCookieGenerator;
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.org";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
@@ -539,6 +541,22 @@ public class SessionContextUtil implements ApplicationContextAware {
         _isOspMemberCookieGenerator = ospMemberCookieGenerator;
     }
 
+    public CookieGenerator getHubStateCookieGenerator() {
+        return _hubStateCookieGenerator;
+    }
+
+    public void setHubStateCookieGenerator(CookieGenerator hubStateCookieGenerator) {
+        this._hubStateCookieGenerator = hubStateCookieGenerator;
+    }
+
+    public CookieGenerator getHubCityCookieGenerator() {
+        return _hubCityCookieGenerator;
+    }
+
+    public void setHubCityCookieGenerator(CookieGenerator hubCityCookieGenerator) {
+        this._hubCityCookieGenerator = hubCityCookieGenerator;
+    }
+
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
      *
@@ -869,6 +887,22 @@ public class SessionContextUtil implements ApplicationContextAware {
         if (!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {
             _communityCookieGenerator.removeCookie(response);
         }
+    }
+
+    public void clearHubCityCookie(HttpServletResponse response) {
+        _hubCityCookieGenerator.removeCookie(response);
+    }
+
+    public void setHubCityCookie(HttpServletResponse response, String cookieValue) {
+        _hubCityCookieGenerator.addCookie(response, cookieValue);
+    }
+
+    public void clearHubStateCookie(HttpServletResponse response) {
+        _hubStateCookieGenerator.removeCookie(response);
+    }
+
+    public void setHubStateCookie(HttpServletResponse response, String cookieValue) {
+        _hubStateCookieGenerator.addCookie(response, cookieValue);
     }
 
     public Pattern getLongStateUriPattern() {

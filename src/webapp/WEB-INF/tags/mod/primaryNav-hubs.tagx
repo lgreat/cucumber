@@ -6,9 +6,18 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
 >
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
+
     <jsp:directive.tag body-content="empty"/>
     <jsp:scriptlet>
+//        gs.web.util.PageHelper pageHelper = (gs.web.util.PageHelper) request.getAttribute(gs.web.util.PageHelper.REQUEST_ATTRIBUTE_NAME);
+//        pageHelper.clearHubCookiesForNavBar(request, response);
+
+
         request.setAttribute("isOSP", CookieUtil.hasCookie(request, "IS_OSP_MEMBER"));
+        request.setAttribute("hubStateObject", gs.data.state.State.fromString( CookieUtil.getCookieValue(request,"hubState")) );
+        request.setAttribute("hubCity",  CookieUtil.getCookieValue(request,"hubCity"));
+
+
     </jsp:scriptlet>
     <div class="">
 
@@ -24,43 +33,45 @@
                 <table id="hub-primary">
                     <tbody>
                     <tr>
+                         <c:if test="${not empty hubCity and not empty hubStateObject}">
                         <td class="menuItem">
                             <div class="menuItem dropdownReference">
                                 <div class="menuItemAnchorText">
-                                    ${city}, ${state}
+                                    ${hubCity}, ${hubStateObject.abbreviation}
                                     <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
                                 </div>
                                 <div class="dropdown_1">
                                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <link:cityHubHome state="${state}" styleClass="subMenuItemAnchorText"
-                                                              city="${city}">${city} Home</link:cityHubHome>
+                                            <link:cityHubHome state="${hubStateObject}" styleClass="subMenuItemAnchorText"
+                                                              city="${hubCity}">${hubCity} Home</link:cityHubHome>
                                         </li>
 
                                         <li class="subMenuItem">
-                                            <link:cityHubChooseSchoolsPage state="${state}" styleClass="subMenuItemAnchorText"
-                                                                           city="${city}">Choosing a school</link:cityHubChooseSchoolsPage>
+                                            <link:cityHubChooseSchoolsPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
+                                                                           city="${hubCity}">Choosing a school</link:cityHubChooseSchoolsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEduCommunityPage state="${state}" styleClass="subMenuItemAnchorText"
-                                                                          city="${city}">Education Community</link:cityHubEduCommunityPage>
+                                            <link:cityHubEduCommunityPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
+                                                                          city="${hubCity}">Education Community</link:cityHubEduCommunityPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEnrollmentPage state="${state}" styleClass="subMenuItemAnchorText"
-                                                                        city="${city}">Enrollment Information</link:cityHubEnrollmentPage>
+                                            <link:cityHubEnrollmentPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
+                                                                        city="${hubCity}">Enrollment Information</link:cityHubEnrollmentPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEventsPage state="${state}" styleClass="subMenuItemAnchorText"
-                                                                    city="${city}">Events</link:cityHubEventsPage>
+                                            <link:cityHubEventsPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
+                                                                    city="${hubCity}">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:home styleClass="subMenuItemAnchorText">Not in ${city}?</link:home>
+                                            <link:home styleClass="subMenuItemAnchorText">Not in ${hubCity}?</link:home>
                                         </li>
 
                                     </ul>
                                 </div>
                             </div>
                         </td>
+                       </c:if >
                         <td class="menuItem">
                             <div class="dropdownReference">
                                 <link:findASchool id="PN-FindASchool" styleClass="menuItemAnchorText">Find a School</link:findASchool>

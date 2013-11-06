@@ -173,6 +173,16 @@
                 <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>
+        <property name="hubCityCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="hubCity"/>
+            </bean>
+        </property>
+        <property name="hubStateCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="hubState"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"
