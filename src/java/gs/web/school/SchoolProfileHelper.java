@@ -57,6 +57,13 @@ public class SchoolProfileHelper {
     }
 
     public boolean isSchoolInAdFreeHub(School school) {
+        Integer collectionId = getCollectionIdForSchool(school);
+
+        HubConfig hubConfig = getHubConfigDao().getConfigFromCollectionIdAndKey(collectionId, CityHubHelper.SHOW_ADS_KEY);
+        return  (hubConfig != null && "false".equals(hubConfig.getValue()));
+    }
+
+    public Integer getCollectionIdForSchool(School school) {
         Integer collectionId = null;
         try {
             String collectionIdAsString = school.getMetadataValue(School.METADATA_COLLECTION_ID_KEY);
@@ -67,9 +74,7 @@ public class SchoolProfileHelper {
                     "for the school id " + school.getId() + " in state " + school.getDatabaseState().getAbbreviation()
                     + "\n", ex.fillInStackTrace());
         }
-
-        HubConfig hubConfig = getHubConfigDao().getConfigFromCollectionIdAndKey(collectionId, CityHubHelper.SHOW_ADS_KEY);
-        return  (hubConfig != null && "false".equals(hubConfig.getValue()));
+        return collectionId;
     }
 
     // ===================== helper methods ===================================
