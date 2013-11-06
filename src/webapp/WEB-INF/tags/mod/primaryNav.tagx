@@ -42,6 +42,10 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <li ><a href="/find-a-school/7659-what-average-greatschools-ratings-mean.gs"
+                                id="PN_F_1-TheMurkyMiddle"
+                                class="GS_CI9_">The Murky Middle: What An Average School Rating Means</a>
+                        </li>
                         <li><link:findASchool id="PN_F_1-SearchForSchools"
                                               styleClass="GS_CI9_">Search for Schools</link:findASchool></li>
                         <li><a href="/school-choice-AtoZ.topic?content=6989"
@@ -108,20 +112,25 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <li><a href="/parenting/teaching-values/158-teaching-children-to-give.gs" id="PN_P_1-TeachingChildrenToGive"
+                               class="GS_CI9_">Teaching Children To Give </a></li>
                         <li><a href="/preschool-reading-readiness.topic?content=4980" id="PN_P_1-ReadingReadiness"
                                class="GS_CI9_">Reading Readiness</a></li>
                         <li><a href="/articles/?grades=198&amp;topics=209" id="PN_P_1-MathReadiness"
                                class="GS_CI9_">Math Readiness</a></li>
-                        <li><a href="/worksheets/preschool/" id="PN_P_1-Worksheets"
+                        <li class="lastone"><a href="/worksheets/preschool/" id="PN_P_1-Worksheets"
                                class="GS_CI9_">Worksheets</a></li>
-                        <li class="lastone"><a href="/articles/?topics=156&amp;grades=198" id="PN_P_1-Activities"
-                                               class="GS_CI9_">Activities</a></li>
+                        <!--<li class="lastone"><a href="/articles/?topics=156&amp;grades=198" id="PN_P_1-Activities"-->
+                                               <!--class="GS_CI9_">Activities</a></li>-->
                     </ul>
                 </div>
             </div>
             <div class="col_1">
                 <div class="col_content">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <!--moved Activites to second column for spacing-->
+                        <li><a href="/articles/?topics=156&amp;grades=198" id="PN_P_2-Activities"
+                                               class="GS_CI9_">Activities</a></li>
                         <li><a href="/articles/?topics=159&amp;grades=198" id="PN_P_2-Books" class="GS_CI9_">Books</a>
                         </li>
                         <li><a href="/articles/?topics=371&amp;grades=198" id="PN_P_2-Games" class="GS_CI9_">Games</a>
@@ -157,6 +166,8 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <li><a href="/holidays/gifts/373-best-holiday-learning-gifts.gs" id="PN_E_1-HolidayGiftsToLearnWith"
+                               class="GS_CI9_">Holiday Gifts To Learn With</a></li>
                         <li><a href="/kindergarten.topic?content=2659" id="PN_E_1-Kindergarten"
                                class="GS_CI9_">Kindergarten</a></li>
                         <li><a href="/first-grade.topic?content=2660" id="PN_E_1-FirstGrade"
@@ -232,6 +243,9 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <li><a href="/holidays/gifts/slideshows/1799-last-minute-holiday-gifts.gs" id="PN_M_1-7LastMinuteGiftsForKids"
+                               class="GS_CI9_">7 Last-Minute Gifts For Kids</a>
+                        </li>
                         <li><a href="/middle-school-math.topic?content=5062" id="PN_M_1-Math" class="GS_CI9_">Math</a>
                         </li>
                         <li><a href="/articles/?grades=205&amp;topics=211" id="PN_M_1-Reading"
@@ -243,16 +257,19 @@
                         <li><a href="/articles/?grades=205&amp;topics=212" id="PN_M_1-Science"
                                class="GS_CI9_">Science</a>
                         </li>
-                        <li><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
+                        <li  class="lastone"><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
                                class="GS_CI9_">Social Studies</a></li>
-                        <li class="lastone"><a href="/Tween-Troubles.topic?content=4885" id="PN_M_1-TweenTroubles"
-                                               class="GS_CI9_">Tween Troubles</a></li>
+                        <!--<li class="lastone"><a href="/Tween-Troubles.topic?content=4885" id="PN_M_1-TweenTroubles"-->
+                                               <!--class="GS_CI9_">Tween Troubles</a></li>-->
                     </ul>
                 </div>
             </div>
             <div class="col_1">
                 <div class="col_content">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <!--moved Tween Troubles to second column for spacing-->
+                        <li><a href="/Tween-Troubles.topic?content=4885" id="PN_M_2-TweenTroubles"
+                                               class="GS_CI9_">Tween Troubles</a></li>
                         <li><a href="/articles/?grades=205&amp;topics=156" id="PN_M_2-Activities"
                                class="GS_CI9_">Activities</a></li>
                         <li><a href="/articles/?grades=205&amp;topics=159" id="PN_M_2-Books" class="GS_CI9_">Books</a>
@@ -292,6 +309,9 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
+                        <li><a href="/holidays/602-five-tips-for-a-healthy-holiday.gs" id="PN_H_1-FiveTipsForAHealthyHoliday"
+                               class="GS_CI9_">Five Tips For A Healthy Holiday</a>
+                        </li>
                         <li><a href="/articles/?grades=206&amp;topics=209" id="PN_H_1-Math" class="GS_CI9_">Math</a>
                         </li>
                         <li><a href="/articles/?grades=206&amp;topics=211" id="PN_H_1-Reading"

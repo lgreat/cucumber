@@ -31,41 +31,45 @@
                 <a href="/hot-topics.topic?content=4932" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">
                     Hot Topics <span class="iconx16 i-16-sort-list-arrow-down vam"><!-- do not collapse --></span>
                 </a>
-                <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-                    <li class="subMenuItem">
-                        <a href="/parenting-dilemmas/7562-profoundly-gifted-child-story.gs" id="SN_HT-An11YearOldWwithTheIQOfEinstein"
-                           class="subMenuItemAnchorText GS_CI9_">An 11-year-old with the IQ of Einstein</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="/parenting-dilemmas/7539-parenting-tips-power-of-yet-carol-dweck-video.gs" id="SN_HT-OneWordThatllChangeYourParenting"
-                           class="subMenuItemAnchorText GS_CI9_">One word that'll change your parenting</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="/parenting-dilemmas/7390-christine-carter-chores-for-kids-parenting-tips-video.gs"
-                           id="SN_HT-TheToughLoveApproachToChores" class="subMenuItemAnchorText GS_CI9_">
-                            The tough love approach to chores</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="http://blogs.greatschools.org/greatschoolsblog/2013/07/sibling-rivalry.html" id="SN_HT-SiblingRivalryOrAbuse"
-                           class="subMenuItemAnchorText GS_CI9_">Sibling rivalry - or abuse?</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="/parenting-dilemmas/7306-signs-symptoms-of-bipolar-in-children.gs" id="SN_HT-BipolarAt5"
-                           class="subMenuItemAnchorText GS_CI9_">Bipolar at 5?</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="/school-choice/7282-melting-pot-diversity-at-schools.gs" id="SN_HT-WhenTheMeltingPotBoilsOver"
-                           class="subMenuItemAnchorText GS_CI9_">When the melting pot boils over</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="/parenting-dilemmas/7308-bipolar-girl-story-video.gs" id="SN_HT-RaisingSadie"
-                           class="subMenuItemAnchorText GS_CI9_">Raising Sadie</a>
-                    </li>
-                    <li class="subMenuItem">
-                        <a href="/parenting/social-skills/7260-parent-cliques-school.gs" id="SN_HT-DoParentCliquesRuleYourSchool"
-                           class="subMenuItemAnchorText GS_CI9_">Do parent cliques rule your school?</a>
-                    </li>
-                </ul>
+                    <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
+                        <li class="subMenuItem">
+                            <a href="/improvement/standards-and-testing/7688-greatschools-view-on-common-core-state-standards.gs " id="SN_HT-WhatGSThinksOfCommonCore"
+                               class="subMenuItemAnchorText GS_CI9_">What GS thinks of Common Core</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/students/7692-math-anxiety-why-are-kids-afraid-of-math.gs" id="SN_HT-MathPhobia"
+                               class="subMenuItemAnchorText GS_CI9_">Math phobia</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/school-choice/7624-amanda-ripley-how-to-spot-world-class-education.gs" id="SN_HT-HowToSpotAWorldClassEducation"
+                               class="subMenuItemAnchorText GS_CI9_">How to spot a world-class education</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7677-unpopular-boy-accidentally-on-purpose.gs" id="SN_HT-UnpopularInElementarySchool"
+                               class="subMenuItemAnchorText GS_CI9_">Unpopular…in elementary school?</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7668-school-refusal-anxiety-disorders-personal-stories.gs" id="SN_HT-SchoolRefusalWhenKidsSayNoToSchool"
+                               class="subMenuItemAnchorText GS_CI9_">School refusal: when kids say no to school</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/parenting/teaching-values/1741-raising-a-grateful-child.gs " id="SN_HT-TheGratefulChild"
+                               class="subMenuItemAnchorText GS_CI9_">The grateful child</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/parenting-dilemmas/7613-anorexia-stories-teenager.gs" id="SN_HT-HallOfMirrors"
+                               class="subMenuItemAnchorText GS_CI9_">Hall of mirrors: my daughter’s battle with anorexia</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/holidays/gifts/104-last-minute-teacher-gifts.gs" id="SN_HT-LastMinuteTeacherGifts"
+                               class="subMenuItemAnchorText GS_CI9_">Last-minute teacher gifts</a>
+                        </li>
+                        <li class="subMenuItem">
+                            <a href="/holidays/gifts/486-teacher-gifts-with-the-homemade-touch.gs" id="SN_HT-TeacherGiftsWithTheHomemadeTouch"
+                               class="subMenuItemAnchorText GS_CI9_">Teacher gifts with the homemade touch</a>
+                        </li>
+                    </ul>
+
             </li>
             <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities"
                                     class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities
