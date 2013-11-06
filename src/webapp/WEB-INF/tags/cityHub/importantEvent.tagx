@@ -62,7 +62,16 @@
                      <span class="make-000000 small">
                         ${announcement.content}
                      </span>
-                     <a href="${announcement.link.path}" class="small mls">${announcement.link.name}</a>
+                     <c:choose>
+                         <c:when test="${announcement.link.newWindow eq 'true'}">
+                             <c:set var="targetWindow" value="_blank"/>
+                         </c:when>
+                         <c:otherwise>
+                             <c:set var="targetWindow" value="_self"/>
+                         </c:otherwise>
+                     </c:choose>
+                     <a href="${announcement.link.path}" class="small mls"
+                        target="${targetWindow}">${announcement.link.name}</a>
                  </c:when>
 
                  <c:otherwise>
