@@ -28,14 +28,3 @@ Feature: GreatSchools Mega Menu Tests
     | Health & Behavior       | secondary nav  | parenting.topic?content=1539 |
     | Raising a Reader        | secondary nav  | raising-a-reader.topic?content=7082 |
 
-#  @javascript
-#  Scenario Outline: I can navigate to the links in the drop down menu @cliu
-#    When I mouseover the "<topic>"
-#     And I click on the "<link_name>" link
-##      When I click on the "<link_name>" link in the menu type is "<menu>"
-#      Then I see "<link_href>" in the URL
-#
-#  Examples:
-#    | topic | link_name | link_href |
-#    | Find a School | Search for Schools | find-schools/ |
-
