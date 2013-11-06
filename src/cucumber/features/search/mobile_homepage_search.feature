@@ -99,3 +99,9 @@ Feature: GreatSchools Mobile Home Page Search Tests
     Then I see "Please enter a school name"
       And I see "Please select a state"
 
+  @javascript
+  Scenario: Able to view full site
+    When I click on the "View full site" link
+    Then I see "Find a School"
+
+
