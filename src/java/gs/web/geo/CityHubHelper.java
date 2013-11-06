@@ -60,6 +60,10 @@ public class CityHubHelper {
 
     public static final String CONTENT_JSON_OBJECT_KEY = "content";
     public static final String HEADER_JSON_OBJECT_KEY = "header";
+    public static final String TIPS_CONFIG_KEY_SUFFIX = "tips";
+    public static final String DESCRIPTION_CONFIG_KEY_SUFFIX = "description";
+
+    public static final String NO_DATA_FOUND_PREFIX = "No Data Found - ";
 
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;

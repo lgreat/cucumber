@@ -19,10 +19,9 @@ import gs.web.hub.MoreInformationModel;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModelFactory;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,7 +159,7 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         List<EnrollmentModel> enrollmentInfo = new ArrayList<EnrollmentModel>();
 
         String collectionNickname = _cityHubHelper.getCollectionNicknameFromConfigList(configList, collectionId);
-        String description;
+        String keyPrefix;
         /**
          * Public Preschool Data Start
          */
@@ -172,28 +171,18 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
        //Browse Link
         publicPreschools.setBrowseLink(publicPreschoolsAnchor);
        // Description Text
-        String descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicPreschools.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + publicPreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject publicPreschoolDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicPreschoolDescription != null &&
-                publicPreschoolDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicPreschoolDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicPreschoolDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicPreschools.setHeader((String) publicPreschoolDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicPreschools.setDescription(description);
+                + publicPreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        String descriptionKey = keyPrefix  + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        JSONObject jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicPreschools, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPublicPreschools= new ArrayList<String>();
-        tipsForPublicPreschools.add("DCPS has about 6,000 seats for 3 year-old (pre-school) and 4 year-old (pre-kindergarten) students. " +
-                                    "Preference is given to in-boundary students, students who have a sibling at the school, or students " +
-                                    "who live in proximity of the school.");
+        String tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        Object tipsObject = enrollmentPageModelMap.get(tipsKey);
 
-        publicPreschools.setTipsInfoModel(tipsForPublicPreschools);
+        publicPreschools.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
 
         // More Info
@@ -221,20 +210,12 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         privatePreschools.setBrowseLink(privatePreschoolsBrowseLinks);
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privatePreschools.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + privatePreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject privatePreschoolDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privatePreschoolDescription != null &&
-                privatePreschoolDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privatePreschoolDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privatePreschoolDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privatePreschools.setHeader((String) privatePreschoolDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privatePreschools.setDescription(description);
+                + privatePreschools.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privatePreschools, jsonDescription, descriptionKey);
 
        // More Info
        ArrayList<Anchor>  moreInfoLinksPrivatePreschools= new ArrayList<Anchor>();
@@ -251,6 +232,11 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         moreInfoLinksPrivatePreschools.add(link5PrivatePreschools);
         final MoreInformationModel  moreInfoPrivatePreschools= new MoreInformationModel(moreInfoLinksPrivatePreschools);
         privatePreschools.setMoreInfo(moreInfoPrivatePreschools);
+
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+
+        privatePreschools.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         /**
          * Private   Preschool Data End
@@ -272,37 +258,17 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicElementarySchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + publicElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject publicElementaryDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicElementaryDescription != null &&
-                publicElementaryDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicElementaryDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicElementaryDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicElementarySchool.setHeader((String) publicElementaryDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicElementarySchool.setDescription(description);
+                + publicElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicElementarySchool, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPublicElementarySchool= new ArrayList<String>();
-        tipsForPublicElementarySchool.add("Every elementary school feeds into a middle school, which in turn feeds into a high school. These are called destination schools. " +
-                                          "Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of " +
-                                          "that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your " +
-                                          "choice.");
-        tipsForPublicElementarySchool.add("Waitlists for high performing schools vary for each grade level. The demand for high performing schools is often higher for the entry-level grades, " +
-                                          "so there might be a greater chance of getting into a school of your choice at odd years if you are flexible.");
-
-        tipsForPublicElementarySchool.add("Many schools have open houses throughout the year. Open Houses are your best opportunity to get a feel for the school culture and to ask other parents questions about the school." +
-                                           "Some public charter schools also require home visits as part of the enrollment process.");
-        tipsForPublicElementarySchool.add("Most DCPS elementary schools run through fifth grade. There are several DCPS education campuses that include elementary and middle grades in one school.  Some public charter middle schools start in the " +
-                                          "fifth grade and often offer more seats in the fifth grade so you will want to weigh those factors in your consideration. ");
-
-        publicElementarySchool.setTipsInfoModel(tipsForPublicElementarySchool);
-
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+        publicElementarySchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
 
@@ -330,28 +296,17 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privateElementarySchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + privateElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject privateElementaryDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privateElementaryDescription != null &&
-                privateElementaryDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privateElementaryDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privateElementaryDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privateElementarySchool.setHeader((String) privateElementaryDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privateElementarySchool.setDescription(description);
+                + privateElementarySchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privateElementarySchool, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPrivateElementarySchool= new ArrayList<String>();
-        tipsForPrivateElementarySchool.add("If you are applying for financial aid or you are an Opportunity Scholarship Program (OSP) applicant to a private school, many schools may waive or defer application fees. " +
-                                           "Make sure that you mention that in your interview and essay.");
-        tipsForPrivateElementarySchool.add("Many private schools accept common recommendation forms if your child is applying to more than one school.");
-        privateElementarySchool.setTipsInfoModel(tipsForPrivateElementarySchool);
-
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+        privateElementarySchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
 
@@ -398,38 +353,17 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicMiddleSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + publicMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject publicMiddleDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicMiddleDescription != null &&
-                publicMiddleDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicMiddleDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicMiddleDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicMiddleSchool.setHeader((String) publicMiddleDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicMiddleSchool.setDescription(description);
+                + publicMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicMiddleSchool, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPublicMiddleSchool= new ArrayList<String>();
-
-        tipsForPublicMiddleSchool.add("Waitlists for high performing schools vary for each grade level. The demand for high performing schools is often higher for the entry-level grades, " +
-                "so there might be a greater chance of getting into a school of your choice at odd years if you are flexible.");
-
-        tipsForPublicMiddleSchool.add("Most schools have three or four open houses, usually one in the fall and two or three in the spring before enrollment begins." +
-                                          "Open Houses are your best opportunity to get a feel for the school culture and to " +
-                                          "ask other parents questions about the school. ");
-        tipsForPublicMiddleSchool.add("DCPS and most private elementary schools run until the sixth grade. Some public charter middle schools start in the fifth grade " +
-                                          "and often offer more seats in the fifth grade so you will want to weigh those " +
-                                         "factors in your consideration.");
-        tipsForPublicMiddleSchool.add("Every elementary school feeds into a middle school, which in turn feeds into a high school. These are called destination schools." +
-                " Even if your child attends an elementary school as an out-of-boundary student, he still has the right to attend the destination schools of that school. So you might want to give higher priority to out-of-boundary schools that feed into the destination school of your choice.");
-
-        publicMiddleSchool.setTipsInfoModel(tipsForPublicMiddleSchool);
-
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+        publicMiddleSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
 
@@ -457,28 +391,17 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privateMiddleSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + privateMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject privateMiddleDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privateMiddleDescription != null &&
-                privateMiddleDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privateMiddleDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privateMiddleDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privateMiddleSchool.setHeader((String) privateMiddleDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privateMiddleSchool.setDescription(description);
+                + privateMiddleSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privateMiddleSchool, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPrivateMiddleSchool= new ArrayList<String>();
-        tipsForPrivateMiddleSchool.add("If you are an Opportunity Scholarship Program (OSP) applicant to a private school, " +
-                                        "many schools may waive or defer application fees. Make sure that you mention that you are an OSP applicant in your interview and essay.");
-        tipsForPrivateMiddleSchool.add("Many private schools accept common recommendation forms if your child is applying to more than one school.");
-        privateMiddleSchool.setTipsInfoModel(tipsForPrivateMiddleSchool);
-
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+        privateMiddleSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
 
@@ -526,36 +449,17 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + publicHighSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + publicHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject publicHighDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(publicHighDescription != null &&
-                publicHighDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                publicHighDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) publicHighDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            publicHighSchool.setHeader((String) publicHighDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        publicHighSchool.setDescription(description);
+                + publicHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(publicHighSchool, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPublicHighSchool= new ArrayList<String>();
-
-        tipsForPublicHighSchool.add("DCPS has six specialized citywide high schools with specific admissions requirements and selection criteria.  9th and 10th " +
-                                    "grade applicants must submit online applications. The deadline is usually in December.");
-        tipsForPublicHighSchool.add("Waitlists for high performing schools vary for each grade level. The demand for high performing schools is often higher for the entry-level grades, " +
-                "so there might be a greater chance of getting into a school of your choice at odd years if you are flexible.");
-
-        tipsForPublicHighSchool.add("Most schools have three or four open houses, usually one in the fall and two or three in the spring before enrollment begins." +
-                "Open Houses are your best opportunity to get a feel for the school culture and to " +
-                "ask other parents questions about the school.");
-        tipsForPublicHighSchool.add("Some public charter schools require home visits as part of the enrollment process.");
-
-        publicHighSchool.setTipsInfoModel(tipsForPublicHighSchool);
-
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+        publicHighSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
 
@@ -586,29 +490,17 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
 
         // Description Text
-        descriptionKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
+        keyPrefix = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX
                 + "_" + privateHighSchool.getSchoolType().getSchoolTypeName().toLowerCase() + "_"
-                + privateHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase() + "_"
-                + "description";
-        JSONObject privateHighDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
-        if(privateHighDescription != null &&
-                privateHighDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
-                privateHighDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
-            description = (String) privateHighDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
-            privateHighSchool.setHeader((String) privateHighDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
-        } else {
-            description = "No Data Found - " + descriptionKey;
-        }
-        privateHighSchool.setDescription(description);
+                + privateHighSchool.getLevelCode().getLowestLevel().getLongName().toLowerCase();
+        descriptionKey = keyPrefix + "_" + CityHubHelper.DESCRIPTION_CONFIG_KEY_SUFFIX;
+        jsonDescription = (JSONObject) enrollmentPageModelMap.get(descriptionKey);
+        setDescriptionFromJsonObject(privateHighSchool, jsonDescription, descriptionKey);
 
         // Tips
-        ArrayList<String> tipsForPrivateHighSchool= new ArrayList<String>();
-        tipsForPrivateHighSchool.add("If you are an Opportunity Scholarship Program (OSP) applicant to a private school, " +
-                                     "many schools may waive or defer application fees. Make sure that you mention that you are an OSP applicant in your interview and essay.");
-        tipsForPrivateHighSchool.add("Some private schools accept common recommendation forms if your child is applying to more than one school. Others have their own required documentation. " +
-                                     "The application process differs for each school. Make sure you start the process early and register for entrance exams");
-        privateHighSchool.setTipsInfoModel(tipsForPrivateHighSchool);
-
+        tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
+        tipsObject = enrollmentPageModelMap.get(tipsKey);
+        privateHighSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
 
@@ -665,6 +557,43 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
             anchorText.append(" ");
             anchorText.append(tabName.toLowerCase());
             return anchorText.toString();
+    }
+
+    public void setDescriptionFromJsonObject(EnrollmentModel enrollmentModel, JSONObject jsonDescription,
+                                             String descriptionKey) {
+        String description;
+        if(jsonDescription != null && jsonDescription.has(CityHubHelper.CONTENT_JSON_OBJECT_KEY) &&
+                jsonDescription.has(CityHubHelper.HEADER_JSON_OBJECT_KEY)) {
+            description = (String) jsonDescription.get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            enrollmentModel.setHeader((String) jsonDescription.get(CityHubHelper.HEADER_JSON_OBJECT_KEY));
+        } else {
+            description = CityHubHelper.NO_DATA_FOUND_PREFIX + descriptionKey;
+        }
+        enrollmentModel.setDescription(description);
+    }
+
+    public ArrayList<String> getTipsFromObject(Object tipsObject, String tipsKey) {
+        ArrayList<String> tips= new ArrayList<String>();
+        if(tipsObject != null && tipsObject instanceof JSONObject &&
+                ((JSONObject) tipsObject).has(CityHubHelper.CONTENT_JSON_OBJECT_KEY)) {
+            Object jsonTips = ((JSONObject) tipsObject).get(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+            if (jsonTips != null && jsonTips instanceof JSONArray && !((JSONArray)jsonTips).isEmpty()) {
+                JSONArray tipsArr = (JSONArray)jsonTips;
+                for(int i = 0; i < tipsArr.size(); i++) {
+                    String tip = tipsArr.getString(i);
+                    tips.add(tip);
+                }
+            }
+            else {
+                String tip = ((JSONObject) tipsObject).getString(CityHubHelper.CONTENT_JSON_OBJECT_KEY);
+                tips.add(tip);
+            }
+        }
+        else {
+            tips.add(CityHubHelper.NO_DATA_FOUND_PREFIX + tipsKey);
+        }
+
+        return tips;
     }
 
 
