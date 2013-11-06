@@ -121,22 +121,21 @@
                                     </c:when>
                                     <c:otherwise>
                                         <div id="utilLinks">
-                                            <div class="menuItemAnchorText">My Account
-                                                <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
-                                            </div>
-                                            <div class="dropdown_3 dropdown_align_right">
-                                                <ul class="none">
-                                                    <li class="subMenuItemNoHover">
-                                                        <c:choose>
+                                            <div class="menuItemAnchorText">   <c:choose>
 
-                                                            <c:when test="${not empty requestScope.context.firstName}">
-                                                                <div >Welcome, ${requestScope.context.firstName}</div>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                Welcome
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </li>
+                                                <c:when test="${not empty requestScope.context.firstName}">
+                                                   Welcome, ${requestScope.context.firstName}
+                                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    My Account
+                                                    <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                            </div>
+                                            <div class="dropdown_2">
+                                                <ul class="none">
                                                     <c:if test="${isOSP}">
                                                         <li class="subMenuItem">
                                                             <link:schoolEspDashboard styleClass="subMenuItemAnchorText">Edit school profile</link:schoolEspDashboard>
