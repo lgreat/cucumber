@@ -250,6 +250,8 @@
     </gsweb:cache>
 </div>
 
+<content:homePageNLSubscriptionHover/>
+<content:homePageNLSubscriptionThankYouHover/>
 
 <mod:tracking pageName="splash" hier1="Home,Splash"/>
 </gsml:body>
