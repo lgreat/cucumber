@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
 >
 
     <div class="container_24 clearfix pbl">
@@ -33,6 +34,7 @@
                 </c:choose>
             </div>
         </div>
+        <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
     </div>
     <hr class="keyline1"/>
 

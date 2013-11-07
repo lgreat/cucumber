@@ -6,6 +6,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.zillow.ZillowRegionDao;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -53,6 +54,9 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
     private IReviewDao _reviewDao;
 
     @Autowired
+    private ZillowRegionDao _zillowDao;
+
+    @Autowired
     private CityHubHelper _cityHubHelper;
 
     @RequestMapping(method= RequestMethod.GET)
@@ -94,6 +98,11 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
 
 
         if (collectionId != null)  {
+
+        final Integer zillowRegionId= _zillowDao.findRegionId(city, state.getAbbreviation());
+        final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(city, " ", "-") + "-" + state.getAbbreviation()) ;
+        modelAndView.addObject("formattedUrl", formattedURLForZillowIntegration);
+        modelAndView.addObject("regionID", zillowRegionId);
 
 
             /**
