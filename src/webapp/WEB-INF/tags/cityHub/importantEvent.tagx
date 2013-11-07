@@ -61,7 +61,7 @@
                  <c:when test="${not empty announcement}">
                      <span class="small mrm bold">ANNOUNCEMENT</span>
                      <span class="make-000000 small">
-                        ${announcement.content} ${announcement.link.path}
+                        ${announcement.content}
                      </span>
                      <c:choose>
                          <c:when test="${announcement.link.newWindow eq 'true'}">
