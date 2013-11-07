@@ -50,12 +50,20 @@
 </c:choose>
 <jsp:scriptlet>
     PageHelper.setPageName(request, "spp_overview");
+    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
 </jsp:scriptlet>
 
 <pageHelper:includeQualarooJS/>
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <c:choose>
+        <c:when test="${isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
     <c:choose>

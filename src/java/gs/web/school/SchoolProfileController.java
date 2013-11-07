@@ -7,8 +7,10 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.Review;
 import gs.data.school.review.TopicalSchoolReview;
+import gs.data.state.State;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
+import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
 import gs.web.util.AdUtil;
@@ -18,6 +20,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,10 @@ public class SchoolProfileController extends AbstractSchoolController implements
         Map<String, Object> model = new HashMap<String, Object>();
 
         School school = _requestAttributeHelper.getSchool(request);
+
+
+
+
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         school.getMetadataValue("gs_rating"); // force lazy initialization
         model.put("school", school);
@@ -130,8 +137,19 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         if (pageHelper != null) {
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page
+            pageHelper.clearHubUserCookie(request, response);
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
             pageHelper.setHideAds(_schoolProfileHelper.isSchoolInAdFreeHub(school));
+            if (_schoolProfileHelper.getCollectionIdForSchool(school) != null)  {
+            //Ask To Shomi same for search
+//            DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+//            final String hubcity =  fields !=  null ? WordUtils.capitalizeFully(fields.getCityName()) : null;
+//            final State hubstate =  fields !=  null ? fields.getState() : null;
+//            pageHelper.clearHubCookiesForNavBar(request, response);
+//            pageHelper.setHubCookiesForNavBar(request, response, hubstate.getAbbreviation(), hubcity);
+              pageHelper.setHubUserCookie(request, response);
+
+            }
         }
 
         if (school.getIsNewGSRating()) {

@@ -133,8 +133,19 @@ public class SchoolProfileHeaderHelper {
                 model.put("isInAdFreeHub", isSchoolInAdFreeHub);
 
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-                if(pageHelper != null) {
+                if (pageHelper != null) {
+                    pageHelper.clearHubUserCookie(request, response);
                     pageHelper.setHideAds(isSchoolInAdFreeHub);
+                    if (_schoolProfileHelper.getCollectionIdForSchool(school) != null)  {
+                        //Ask To Shomi same for search
+//            DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+//            final String hubcity =  fields !=  null ? WordUtils.capitalizeFully(fields.getCityName()) : null;
+//            final State hubstate =  fields !=  null ? fields.getState() : null;
+//            pageHelper.clearHubCookiesForNavBar(request, response);
+//            pageHelper.setHubCookiesForNavBar(request, response, hubstate.getAbbreviation(), hubcity);
+                        pageHelper.setHubUserCookie(request, response);
+
+                    }
                 }
 
             }

@@ -275,7 +275,19 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_IS_AD_FREE_HUB, (isHubsLocalSearch && isAdFreeHub));
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if(pageHelper != null && isHubsLocalSearch && isAdFreeHub) {
+        if (pageHelper != null){
+            pageHelper.clearHubUserCookie(request, response);
+        }
+        if (pageHelper != null && isHubsLocalSearch){
+            //Ask To Shomi same for search
+//            DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+//            final String hubcity =  fields !=  null ? WordUtils.capitalizeFully(fields.getCityName()) : null;
+//            final State hubstate =  fields !=  null ? fields.getState() : null;
+//            pageHelper.clearHubCookiesForNavBar(request, response);
+//            pageHelper.setHubCookiesForNavBar(request, response, hubstate.getAbbreviation(), hubcity);
+             pageHelper.setHubUserCookie(request, response);
+       }
+        if (pageHelper != null && isHubsLocalSearch && isAdFreeHub) {
             pageHelper.setHideAds(true);
         }
 

@@ -227,6 +227,10 @@ public class SessionContextUtil implements ApplicationContextAware {
                     String message = thisCookie.getValue();
                     context.setTempMsg(message);
                 }
+//                else if (StringUtils.equals(_isHubUserCookieGenerator.getCookieName(), thisCookie.getName())) {
+//                    String value = thisCookie.getValue();
+//                    context.setIsHubUser("y".equals(value) ? true : false);
+//                }
                 // If new state cookie is not set, check for old state cookie and use that value if present
                 if (cookiedState == null && oldCookiedState != null) {
                     context.setState(oldCookiedState);

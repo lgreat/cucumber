@@ -11,6 +11,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 
+
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -19,12 +20,22 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:scriptlet>
     request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName(request));
+    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
 </jsp:scriptlet>
 <c:set var="isTopical" value="${selectedTopic ne null}"/>
 <head>
     <c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
     <title>Write a school review | GreatSchools</title>
-    <meta name="decorator" content="standardDecorator-hubs"/>
+    <c:choose>
+       <c:when test="${isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
+
+
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description" content="Write a review for your child's school today and you can help other parents make a
      more informed choice about which school is right for their family."/>
