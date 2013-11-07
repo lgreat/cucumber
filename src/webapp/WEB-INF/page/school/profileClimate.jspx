@@ -10,12 +10,19 @@
     <c:if test="${climateData ne null and fn:length(climateData) gt 0}">
         <div>
             <h2>About the learning environment</h2>
-            <p>NYC Department of Education asked parents, teachers and students about the learning environment at this school across 4 categories.</p>
+            <p><!-- not empty -->
+                <c:choose>
+                    <c:when test="${state eq 'CA'}">The Los Angeles Unified School District asked, parents, students and employees about their school's learning environment across various content areas.</c:when>
+                    <c:when test="${state eq 'NY'}">The NYC Department of Education asked parents, teachers and students about their school's learning environment across four categories.</c:when>
+                </c:choose>
+            </p>
             <div class="clear mbl"><!-- not empty --></div>
             <hr class="keyline1"/>
             <div class="clear mbl"><!-- not empty --></div>
             <div class="ptl">
-                <a href="#TBD" class="fr">Learn more about the NYDOE survey &amp;raquo;</a>
+                <c:choose>
+                    <c:when test="${state eq 'NY'}"><a href="#TBD" class="fr">Learn more about the NYDOE survey &amp;raquo;</a></c:when>
+                </c:choose>
                 <h2>This school provides ...</h2>
             </div>
             <censusDisplay:parentStudentTeacherBox totalDS="${climateData[210]}" parentDS="${climateData[193]}"
@@ -34,6 +41,25 @@
                                                    studentDS="${climateData[202]}" teacherDS="${climateData[208]}"
                                                    intro="High academic expectations" whatsThisUrl="#TBD"/>
 
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[214]}" parentDS="${climateData[219]}"
+                                                   studentDS="${climateData[224]}"
+                                                   intro="High academic expectations for all students" whatsThisUrl="#TBD"/>
+
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[216]}"
+                                                   studentDS="${climateData[226]}" teacherDS="${climateData[231]}"
+                                                   intro="Healthy, respectful relationships" whatsThisUrl="#TBD"/>
+
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[217]}" parentDS="${climateData[222]}"
+                                                   studentDS="${climateData[227]}" teacherDS="${climateData[232]}"
+                                                   intro="A safe, clean and orderly environment" whatsThisUrl="#TBD"/>
+
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[215]}" parentDS="${climateData[220]}"
+                                                   teacherDS="${climateData[230]}"
+                                                   intro="Strong family engagement" whatsThisUrl="#TBD"/>
+
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[218]}" teacherDS="${climateData[233]}"
+                                                   intro="Teacher support and collaboration opportunities" whatsThisUrl="#TBD"/>
+
             <div class="clear mbl"><!-- not empty --></div>
             <hr class="keyline1"/>
             <div class="clear mbl"><!-- not empty --></div>
@@ -49,24 +75,38 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Parents</td>
-                    <td>${climateData[192].schoolOverrideOrSchoolValue.valueInteger}</td>
-                    <fmt:formatNumber value="${climateData[197].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                    <td>${roundedValue}%</td>
-                </tr>
-                <tr>
-                    <td>Students</td>
-                    <td>${climateData[198].schoolOverrideOrSchoolValue.valueInteger}</td>
-                    <fmt:formatNumber value="${climateData[203].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                    <td>${roundedValue}%</td>
-                </tr>
-                <tr>
-                    <td>Employees</td>
-                    <td>${climateData[204].schoolOverrideOrSchoolValue.valueInteger}</td>
-                    <fmt:formatNumber value="${climateData[209].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                    <td>${roundedValue}%</td>
-                </tr>
+                <c:if test="${climateData[192] ne null}">
+                    <tr>
+                        <td>Parents</td>
+                        <td>${climateData[192].schoolOverrideOrSchoolValue.valueInteger}</td>
+                        <fmt:formatNumber value="${climateData[197].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
+                        <td>${roundedValue}%</td>
+                    </tr>
+                </c:if>
+                <c:if test="${climateData[198] ne null}">
+                    <tr>
+                        <td>Students</td>
+                        <td>${climateData[198].schoolOverrideOrSchoolValue.valueInteger}</td>
+                        <fmt:formatNumber value="${climateData[203].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
+                        <td>${roundedValue}%</td>
+                    </tr>
+                </c:if>
+                <c:if test="${climateData[204] ne null}">
+                    <tr>
+                        <td>Teachers</td>
+                        <td>${climateData[204].schoolOverrideOrSchoolValue.valueInteger}</td>
+                        <fmt:formatNumber value="${climateData[209].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
+                        <td>${roundedValue}%</td>
+                    </tr>
+                </c:if>
+                <c:if test="${climateData[234] ne null}">
+                    <tr>
+                        <td>Employees</td>
+                        <td>${climateData[234].schoolOverrideOrSchoolValue.valueInteger}</td>
+                        <fmt:formatNumber value="${climateData[235].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
+                        <td>${roundedValue}%</td>
+                    </tr>
+                </c:if>
                 </tbody>
             </table>
 
