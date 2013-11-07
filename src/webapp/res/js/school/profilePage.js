@@ -69,6 +69,7 @@ GS.ad.profile.tabNameForAdTargeting = {
     'demographics'       : 'studteach',
     'teachers'           : 'studteach',
     'programs-culture'   : 'progcult',
+    'climate'            : 'progcult',
     'culture'            : 'progcult',
     'programs-resources' : 'progcult',
     'extracurriculars'   : 'progcult',
