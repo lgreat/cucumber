@@ -5,6 +5,8 @@ import gs.data.community.local.LocalBoard;
 import gs.data.content.cms.CmsConstants;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubCityMapping;
+import gs.data.hubs.IHubCityMappingDao;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
@@ -48,6 +50,11 @@ public class SchoolProfileHeaderHelper {
     private IEspResponseDao _espResponseDao;
     @Autowired
     private SchoolProfileHelper _schoolProfileHelper;
+
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
+
+
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -134,16 +141,15 @@ public class SchoolProfileHeaderHelper {
 
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
                 if (pageHelper != null) {
-                    pageHelper.clearHubUserCookie(request, response);
+
+                    final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
+                    final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
+//                    pageHelper.clearHubUserCookie(request, response);
                     pageHelper.setHideAds(isSchoolInAdFreeHub);
-                    if (_schoolProfileHelper.getCollectionIdForSchool(school) != null)  {
-                        //Ask To Shomi same for search
-//            DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-//            final String hubcity =  fields !=  null ? WordUtils.capitalizeFully(fields.getCityName()) : null;
-//            final State hubstate =  fields !=  null ? fields.getState() : null;
-//            pageHelper.clearHubCookiesForNavBar(request, response);
-//            pageHelper.setHubCookiesForNavBar(request, response, hubstate.getAbbreviation(), hubcity);
-                        pageHelper.setHubUserCookie(request, response);
+                        if (collectionID != null && hubInfo != null)  {
+                            pageHelper.clearHubCookiesForNavBar(request, response);
+                            pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+                            pageHelper.setHubUserCookie(request, response);
 
                     }
                 }

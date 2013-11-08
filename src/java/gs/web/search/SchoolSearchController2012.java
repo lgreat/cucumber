@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubCityMapping;
 import gs.data.hubs.IHubCityMappingDao;
 import gs.data.hubs.IHubConfigDao;
 import gs.data.json.JSONException;
@@ -275,16 +276,20 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_IS_AD_FREE_HUB, (isHubsLocalSearch && isAdFreeHub));
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if (pageHelper != null){
-            pageHelper.clearHubUserCookie(request, response);
-        }
+//        if (pageHelper != null){
+//            pageHelper.clearHubUserCookie(request, response);
+//
+//        }
         if (pageHelper != null && isHubsLocalSearch){
-            //Ask To Shomi same for search
-//            DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-//            final String hubcity =  fields !=  null ? WordUtils.capitalizeFully(fields.getCityName()) : null;
-//            final State hubstate =  fields !=  null ? fields.getState() : null;
-//            pageHelper.clearHubCookiesForNavBar(request, response);
-//            pageHelper.setHubCookiesForNavBar(request, response, hubstate.getAbbreviation(), hubcity);
+
+            final String collectionID= commandAndFields.getCollectionId();
+            if (collectionID != null) {
+            final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(Integer.parseInt(collectionID));
+            if (hubInfo != null){
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+            }
+        }
              pageHelper.setHubUserCookie(request, response);
        }
         if (pageHelper != null && isHubsLocalSearch && isAdFreeHub) {

@@ -100,7 +100,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         if (collectionId != null)  {
 
         final Integer zillowRegionId= _zillowDao.findRegionId(city, state.getAbbreviation());
-        final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(city, " ", "-") + "-" + state.getAbbreviation()) ;
+        final String formattedURLForZillowIntegration= StringUtils.lowerCase(StringUtils.replace(city, " ", "-") + "-" + state.getAbbreviation());
         modelAndView.addObject("formattedUrl", formattedURLForZillowIntegration);
         modelAndView.addObject("regionID", zillowRegionId);
 
@@ -116,7 +116,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
         /**
-         * Adding the Review Module Functionality to the Controller Start
+         * Adding the Review Module Functionality to the Controller
          */
 
         List<ReviewFacade> reviews = getReviewFacades(state, collectionId);

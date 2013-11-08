@@ -2,6 +2,8 @@ package gs.web.school;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
+import gs.data.hubs.HubCityMapping;
+import gs.data.hubs.IHubCityMappingDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -43,6 +45,9 @@ public class SchoolProfileController extends AbstractSchoolController implements
     public static final String SCHOOL_CALENDAR_ENABLED = "schoolCalendarEnabled";
     @Autowired
     private ISchoolDao _schoolDao;
+
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -136,18 +141,17 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
 
         if (pageHelper != null) {
+
+            final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
+            final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page
-            pageHelper.clearHubUserCookie(request, response);
+//            pageHelper.clearHubUserCookie(request, response);
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
             pageHelper.setHideAds(_schoolProfileHelper.isSchoolInAdFreeHub(school));
-            if (_schoolProfileHelper.getCollectionIdForSchool(school) != null)  {
-            //Ask To Shomi same for search
-//            DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-//            final String hubcity =  fields !=  null ? WordUtils.capitalizeFully(fields.getCityName()) : null;
-//            final State hubstate =  fields !=  null ? fields.getState() : null;
-//            pageHelper.clearHubCookiesForNavBar(request, response);
-//            pageHelper.setHubCookiesForNavBar(request, response, hubstate.getAbbreviation(), hubcity);
-              pageHelper.setHubUserCookie(request, response);
+            if (collectionID != null && hubInfo != null)  {
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+            pageHelper.setHubUserCookie(request, response);
 
             }
         }
