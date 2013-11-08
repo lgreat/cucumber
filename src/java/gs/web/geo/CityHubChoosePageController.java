@@ -96,16 +96,17 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         ModelMap importantEventsMap = getCityHubHelper().getImportantModuleMap(configList);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, importantEventsMap);
 
+        final String collectionNickname = getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId);
 
 
         /**
          * Get Step Info  .
          */
-        List<StepModel> stepsInfo = getStepFacades();
+        List<StepModel> stepsInfo = getStepFacades(collectionNickname);
         modelAndView.addObject("stepsInfo", stepsInfo);
 
         modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
-                getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
+                collectionNickname);
 
         return modelAndView;
 
@@ -114,9 +115,10 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
     /**
      * Get Step facade for the UX .
+     * @param  collectionNickName collectionNickName.
      * @return stepsInfo List of StepInfo passed to model.
      */
-    private List<StepModel> getStepFacades() {
+    private List<StepModel> getStepFacades(final String collectionNickName) {
 
         List<StepModel> stepsInfo = new ArrayList<StepModel>();
 
