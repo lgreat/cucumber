@@ -14,7 +14,7 @@
                     <h1 class="SourceSansPro-Semibold-h1-med make-0578AA bottom mtm">simple steps</h1>
                     <h2 class="SourceSansPro-Semibold-h2 make-666666 bottom">
                         to choosing a school in<br/>
-                        ${city} ${state.abbreviation}
+                        ${collectionNickname}
                     </h2>
                 </div>
             </div>
