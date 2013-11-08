@@ -22,8 +22,8 @@
 
     </jsp:scriptlet>
 
-    <gsml:javascript src="/res/js/hogan.js"/>
     <c:if test="${empty hubCity and empty hubStateObject}">
+        <gsml:javascript src="/res/js/hogan.js"/>
         <script>
             jQuery(function(){
                 var states = {'AL' : 'Alabama', 'AK' : 'Alaska', 'AZ' : 'Arizona', 'AR' : 'Arkansas', 'CA' : 'California',
@@ -84,7 +84,9 @@
                 <table id="hub-primary">
                     <tbody>
                     <tr>
-                        <td id = "js-hubLinks" class="menuItem"><!-- NOT EMPTY --></td>
+                        <td id = "js-hubLinks" class="menuItem">
+                            <!-- NOT EMPTY - used by hogan templating engine to render template html with id js-hubLinksMenuTemplate -->
+                        </td>
                         <c:if test="${not empty hubCity and not empty hubStateObject}">
                         <td class="menuItem js-hubLinksMenu">
                             <div class="menuItem dropdownReference">
