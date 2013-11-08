@@ -20,6 +20,9 @@
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+</jsp:scriptlet>
 
 
 <!-- TODO: set different ad slot prefix? -->
@@ -74,7 +77,14 @@
     </c:if>
     <k12:trafficDriverIncludes/>
 
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <c:choose>
+        <c:when test="${isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
     <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
 </head>
 <body>

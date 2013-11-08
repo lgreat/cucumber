@@ -36,6 +36,7 @@
 
     <jsp:scriptlet>
         request.setAttribute("tabs", PageHelper.pageIds);
+        request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
     </jsp:scriptlet>
     <c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
 
@@ -102,10 +103,20 @@
                 </c:if>
                 <cobrand:header/>
                 <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                    <!--<mod:header/>-->
-                    <!--<mod:primaryNav/>-->
-                    <!--<mod:secondaryNav/>-->
-                    <mod:primaryNav-hubs/>
+                   <c:choose>
+                       <c:when test="${isHubUser}">
+                           <mod:primaryNav-hubs/>
+                       </c:when>
+                       <c:otherwise>
+                           <mod:header/>
+                           <mod:primaryNav/>
+                           <mod:secondaryNav/>
+                       </c:otherwise>
+
+                   </c:choose>
+
+
+
                 </c:if>
             </div>
             <pageHelper:addFacebookInit/>

@@ -25,9 +25,20 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+     request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+</jsp:scriptlet>
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <c:choose>
+        <c:when test="${isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
+
     <c:if test="${not empty title}">
         <title>${title}</title>
     </c:if>
@@ -232,7 +243,7 @@
                   findASchoolByAddress="${omnitureAddressSearch}"
                   findASchoolByName="${omnitureNameSearch}"
                   locale="${omnitureLocale}"
-            />
+     />
     </div>
 
 </gsml:body>

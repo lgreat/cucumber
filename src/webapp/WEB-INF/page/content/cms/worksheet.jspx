@@ -17,6 +17,9 @@
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+</jsp:scriptlet>
 
 <pageHelper:addFacebookWorksheetMetaTags deck="${feature.summary}" title="${feature.title}"
                                         permalink="${feature.permaLink}"/>
@@ -37,7 +40,14 @@
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
 
-    <meta name="decorator" content="standardDecorator-v1" />
+    <c:choose>
+        <c:when test="${isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
