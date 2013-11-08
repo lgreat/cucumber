@@ -4,80 +4,127 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
->
+        >
     <jsp:directive.attribute name="hideAnnoucmentModule" required="false" type="java.lang.Boolean"/>
 
 
-        <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}"
-               property="java.util.List"/>
-        <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}"
-               property="java.lang.Integer"/>
-        <c:set var="hasImportantEventsToDisplay" value="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}" property="java.lang.Boolean"/>
+    <c:set var="configKeyPrefixListWithIndex" value="${importantEvent.configKeyPrefixListWithIndex}"
+           property="java.util.List"/>
+    <c:set var="maxImportantEventsToDisplay" value="${importantEvent.maxImportantEventsToDisplay}"
+           property="java.lang.Integer"/>
+    <c:set var="hasImportantEventsToDisplay"
+           value="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}"
+           property="java.lang.Boolean"/>
 
-        <div class=" bg-F5F5F5 border-E6E6E6 pvl">
-            <div class="line container_24 clearfix">
-                <div class="unit size28of100">
-                    <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
-                    <c:if test="${hasImportantEventsToDisplay}">
-                        <link:cityHubEventsPage state="${state}" city="${city}" styleClass="small">See all</link:cityHubEventsPage>
-                    </c:if>
+    <c:choose>
+        <c:when test="${hasImportantEventsToDisplay and !hideAnnoucmentModule}">
+            <div class="container_24 clearfix">
+                <hr class="keyline1"/>
+                <hr class="keyline1"/>
+                <div class="line ptl">
+                    <div class="unit size28of100">
+                        <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
+                        <c:if test="${hasImportantEventsToDisplay}">
+                            <link:cityHubEventsPage state="${state}" city="${city}" styleClass="small">See all</link:cityHubEventsPage>
+                        </c:if>
+                    </div>
+                    <c:choose>
+                        <c:when test="${hasImportantEventsToDisplay}">
+                            <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
+                                <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
+                                       property="java.lang.String"/>
+                                <c:set var="descriptionKey">${keyPrefix}_description</c:set>
+                                <c:set var="urlKey">${keyPrefix}_url</c:set>
+                                <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
+                                <c:set var="monthKey">${keyPrefix}_date_month</c:set>
+                                <c:set var="yearKey">${keyPrefix}_date_year</c:set>
+                                <div class="unit size7of100">
+                                    <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
+                                        <div class="tac mtl">
+                                            <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="unit size27of100">
+                                    <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
+                                    <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="unit size20of100">
+                                <div class="small">No Upcoming Important Dates</div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
+                <!-- TODO: remove the text below -->
+                <!--<p>show ads: ${showAds}</p>-->
+            </div>
+            <div class="success-block container_24 clearfix mtl tac">
                 <c:choose>
-                    <c:when test="${hasImportantEventsToDisplay}">
-                        <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
-                            <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}"
-                                   property="java.lang.String"/>
-                            <c:set var="descriptionKey">${keyPrefix}_description</c:set>
-                            <c:set var="urlKey">${keyPrefix}_url</c:set>
-                            <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
-                            <c:set var="monthKey">${keyPrefix}_date_month</c:set>
-                            <c:set var="yearKey">${keyPrefix}_date_year</c:set>
-                            <div class="unit size7of100">
-                                <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
-                                    <div class="tac mtl">
-                                        <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
-                                    </div>
-                                </span>
-                            </div>
-                            <div class="unit size27of100">
-                                <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
-                                <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
-                            </div>
-                        </c:forEach>
+                    <c:when test="${not empty announcement}">
+                        <span class="small mrm bold">ANNOUNCEMENT</span>
+                             <span class="make-000000 small">
+                                ${announcement.content}
+                             </span>
+                        <c:choose>
+                            <c:when test="${announcement.link.newWindow eq 'true'}">
+                                <a href="${gsweb:formatUrl(announcement.link.path)}" class="small mls"
+                                   target="_blank">${announcement.link.name}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${announcement.link.path}" class="small mls">${announcement.link.name}</a>
+                            </c:otherwise>
+                        </c:choose>
                     </c:when>
                     <c:otherwise>
-                        <div class="unit size20of100">
-                            <div class="small">No Upcoming Important Dates</div>
-                        </div>
+                        <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_announcement</h3>
                     </c:otherwise>
                 </c:choose>
             </div>
-            <!-- TODO: remove the text below -->
-            <!--<p>show ads: ${showAds}</p>-->
-        </div>
-        <c:if test="${hasImportantEventsToDisplay and !hideAnnoucmentModule}">
-         <div class="success-block container_24 clearfix mtl tac">
-             <c:choose>
-                 <c:when test="${not empty announcement}">
-                     <span class="small mrm bold">ANNOUNCEMENT</span>
-                     <span class="make-000000 small">
-                        ${announcement.content}
-                     </span>
-                     <c:choose>
-                         <c:when test="${announcement.link.newWindow eq 'true'}">
-                             <a href="${gsweb:formatUrl(announcement.link.path)}" class="small mls"
-                                target="_blank">${announcement.link.name}</a>
-                         </c:when>
-                         <c:otherwise>
-                             <a href="${announcement.link.path}" class="small mls">${announcement.link.name}</a>
-                         </c:otherwise>
-                     </c:choose>
-                 </c:when>
-
-                 <c:otherwise>
-                     <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_announcement</h3>
-                 </c:otherwise>
-             </c:choose>
-        </div>
-        </c:if>
+        </c:when>
+        <c:otherwise>
+            <div class=" bg-F5F5F5 border-E6E6E6 pvl">
+                <div class="line container_24 clearfix">
+                    <div class="unit size28of100">
+                        <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
+                        <c:if test="${hasImportantEventsToDisplay}">
+                            <link:cityHubEventsPage state="${state}" city="${city}" styleClass="small">See all</link:cityHubEventsPage>
+                        </c:if>
+                    </div>
+                    <c:choose>
+                        <c:when test="${hasImportantEventsToDisplay}">
+                            <c:forEach begin="0" end="${maxImportantEventsToDisplay - 1}" varStatus="i">
+                                <c:set var="keyPrefix" value="${configKeyPrefixListWithIndex[i.index]}" property="java.lang.String"/>
+                                <c:set var="descriptionKey">${keyPrefix}_description</c:set>
+                                <c:set var="urlKey">${keyPrefix}_url</c:set>
+                                <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
+                                <c:set var="monthKey">${keyPrefix}_date_month</c:set>
+                                <c:set var="yearKey">${keyPrefix}_date_year</c:set>
+                                <div class="unit size7of100">
+                                    <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
+                                        <div class="tac mtl">
+                                            <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="unit size27of100">
+                                    <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
+                                    <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="unit size20of100">
+                                <div class="small">No Upcoming Important Dates</div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <!-- TODO: remove the text below -->
+                <!--<p>show ads: ${showAds}</p>-->
+            </div>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>
