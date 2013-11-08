@@ -983,6 +983,12 @@ public class PageHelper {
     public static void clearHubCookiesForNavBar(HttpServletRequest request, HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie : cookies) {
+            if("hubCity".equals(cookie.getName()) || "hubState".equals(cookie.getName())) {
+                cookie.setValue(null);
+            }
+        }
         util.clearHubCityCookie(response);
         util.clearHubStateCookie(response);
     }
