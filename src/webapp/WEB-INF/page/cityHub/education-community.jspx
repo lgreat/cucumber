@@ -22,7 +22,7 @@
 
     <body>
     <hub:searchChoosing/>
-    <hub:importantEvent hideAnnoucmentModule="true"/>
+    <hub:upcomingEvent hideAnnoucmentModule="true"/>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Education Community"/>
     <div class="container_24 clearfix">
         <div class="tac mtl pvl">

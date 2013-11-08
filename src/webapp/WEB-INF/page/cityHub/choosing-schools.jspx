@@ -22,7 +22,7 @@
     <hub:searchChoosing/>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Choosing a School"/>
     <hub:stepsOverview/>
-    <hub:importantEvent hideAnnoucmentModule="true"/>
+    <hub:upcomingEvent hideAnnoucmentModule="true"/>
     <hub:stepsChoosing/>
     <mod:tracking pageName="${pageName}"
                   locale="${city}"

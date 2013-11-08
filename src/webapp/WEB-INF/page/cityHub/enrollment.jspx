@@ -26,7 +26,7 @@
 
     <body>
     <hub:searchChoosing/>
-    <hub:importantEvent hideAnnoucmentModule="true"/>
+    <hub:upcomingEvent hideAnnoucmentModule="true"/>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Enrollment Information"/>
     <hub:enrollmentHeader/>
     <hub:enrollmentTabs/>

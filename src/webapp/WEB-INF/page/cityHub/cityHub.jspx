@@ -42,7 +42,7 @@
             </div>
         </div>
         <hub:chooseASchool/>
-        <hub:importantEvent/>
+        <hub:upcomingEvent/>
         <hub:recentReviews />
         <hub:cityArticle/>
         <hub:communityPartner/>
