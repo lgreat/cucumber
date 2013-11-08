@@ -183,9 +183,9 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep2 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("DC education system", "/cityHub/educationCommunity.page", "Local Page");
+        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel(collectionNickName+ " education system", "../education-community", "Local Page");
 
-        FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel("DC enrollment information", "/cityHub/enrollmentInformation.page", "Local Page");
+        FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel(collectionNickName+ " enrollment information", "../enrollment", "Local Page");
 
 
         featuredResourcesModelStep2.add(feature1Step2);
@@ -245,7 +245,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep3 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "/michigan/detroit/schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
+        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "../schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
         FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel("OSSE Report Cards", "/", "External Page");
         FeaturedResourcesModel feature3Step3= new FeaturedResourcesModel("PMF Rating", "http://www.dcpcsb.org/SearchSchools.aspx", "External Page");
         FeaturedResourcesModel feature4Step3= new FeaturedResourcesModel("DCPS scorecard", "http://profiles.dcps.dc.gov/", "External Page");
@@ -368,7 +368,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep5 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel("DC Enrollment Info", "/cityHub/enrollmentInformation.page", "Local Page");
+        FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel(collectionNickName+ " Enrollment Info", "../enrollment", "Local Page");
         FeaturedResourcesModel feature2Step5= new FeaturedResourcesModel("DC Common Application", "http://www.myschooldc.org", "External Page");
 
         featuredResourcesModelStep5.add(feature1Step5);
@@ -391,7 +391,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         return _cityHubHelper;
     }
 
-    public void setCityHubHelper(final CityHubHelper _cityHubHelper) {
-        this._cityHubHelper = _cityHubHelper;
+    public void setCityHubHelper(final CityHubHelper cityHubHelper) {
+        this._cityHubHelper = cityHubHelper;
     }
 }
