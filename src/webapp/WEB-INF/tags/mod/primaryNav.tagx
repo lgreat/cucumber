@@ -69,7 +69,7 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTelementary.jpg" width="130" height="66" alt="find a school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTfindaschool.gif" width="130" height="66" alt="find a school hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
@@ -134,7 +134,7 @@
             <div class="col_2">
                 <div class="ft_content smaller bottom clearfix">
                     <div class="fl ">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTpreschool.jpg" width="130" height="66" alt="preschool hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTpreschool.gif" width="130" height="66" alt="preschool hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
@@ -210,7 +210,7 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTlunch.jpg" width="130" height="66" alt="elementary school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTelementary.gif" width="130" height="66" alt="elementary school hot topic"/>
                     </div>
 
                     <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
@@ -272,7 +272,7 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTmathtracking.jpg" width="130" height="66" alt="middle school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTmiddleschool.gif" width="130" height="66" alt="middle school hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
@@ -335,7 +335,7 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTtech.jpg" width="130" height="66" alt="high school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HThighschool.gif" width="130" height="66" alt="high school hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
