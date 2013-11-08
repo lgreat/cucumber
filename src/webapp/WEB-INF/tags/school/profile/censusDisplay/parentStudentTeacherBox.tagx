@@ -6,11 +6,9 @@
           xmlns:censusDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/censusDisplay"
         >
     <jsp:directive.attribute name="totalDS" type="gs.data.school.census.CensusDataSet" required="true"/>
-    <jsp:directive.attribute name="parentDS" type="gs.data.school.census.CensusDataSet" required="false"/>
-    <jsp:directive.attribute name="studentDS" type="gs.data.school.census.CensusDataSet" required="false"/>
-    <jsp:directive.attribute name="teacherDS" type="gs.data.school.census.CensusDataSet" required="false"/>
+    <jsp:directive.attribute name="breakdowns" type="java.util.List" required="false"/>
     <jsp:directive.attribute name="intro" type="java.lang.String" required="true"/>
-    <jsp:directive.attribute name="whatsThisUrl" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="description" type="java.lang.String" required="false"/>
 
     <c:if test="${totalDS ne null}">
         <c:set var="isPercentDataType" value="${totalDS.dataType.valueType.name eq 'pct'?true:false}"/>
@@ -19,63 +17,35 @@
             <div class="mod standard_1-4">
                 <div class="inner">
                     <div class="bd clearfix mal">
-                        <div>
+                        <div class="mbl">
                             <span class="prl strong">${intro}</span>
-                            <a href="${whatsThisUrl}" class="small">What's this?</a>
+                            <c:if test="${not empty description}"><a href="#" class="small js-climate-whats-this" data-id="${totalDS.dataType.id}">What's this?</a></c:if>
                         </div>
+                        <c:if test="${not empty description}"><div class="dn mvl js-climate-description-for-${totalDS.dataType.id}">${description}</div></c:if>
                         <div class="mbl">
                             <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${totalDS.schoolOverrideOrSchoolValue.valueFloat}"/>
                             This school ${roundedValue}${optionalPercent}
                             <c:if test="${not empty totalDS.districtData}">
-                                <c:forEach items="${totalDS.districtData}" var="districtAverage"
-                                           end="1">
+                                <c:forEach items="${totalDS.districtData}" var="districtAverage" end="1">
                                     <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${districtAverage.valueFloat}"/>
                                     District average ${roundedValue}${optionalPercent}
                                 </c:forEach>
                             </c:if>
                         </div>
-                        <c:if test="${parentDS ne null}">
+                        <c:forEach items="${breakdowns}" var="breakdown">
                             <div class="mbm">
                                 <c:choose>
                                     <c:when test="${isPercentDataType}">
-                                        <censusDisplay:hgraphPercentLeft censusDataSet="${parentDS}"
-                                                                         schoolLabel="Parents say"/>
+                                        <censusDisplay:hgraphPercentLeft censusDataSet="${breakdown.dataSet}"
+                                                                         schoolLabel="${breakdown.respondentType.label} say"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <censusDisplay:hgraphNumber censusDataSet="${parentDS}"
-                                                                    schoolLabel="Parents say"/>
+                                        <censusDisplay:hgraphNumber censusDataSet="${breakdown.dataSet}"
+                                                                    schoolLabel="${breakdown.respondentType.label} say"/>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                        </c:if>
-                        <c:if test="${studentDS ne null}">
-                            <div class="mbm">
-                                <c:choose>
-                                    <c:when test="${isPercentDataType}">
-                                        <censusDisplay:hgraphPercentLeft censusDataSet="${studentDS}"
-                                                                         schoolLabel="Students say"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <censusDisplay:hgraphNumber censusDataSet="${studentDS}"
-                                                                    schoolLabel="Students say"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </c:if>
-                        <c:if test="${teacherDS ne null}">
-                            <div class="mbm">
-                                <c:choose>
-                                    <c:when test="${isPercentDataType}">
-                                        <censusDisplay:hgraphPercentLeft censusDataSet="${teacherDS}"
-                                                                         schoolLabel="Employees say"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <censusDisplay:hgraphNumber censusDataSet="${teacherDS}"
-                                                                    schoolLabel="Teachers say"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </c:if>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

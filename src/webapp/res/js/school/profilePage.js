@@ -764,6 +764,14 @@ jQuery(document).ready(function() {
         // Trigger the test change event.
         testsMenu.change();
     }
+
+    $('.js-climate-whats-this').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        $('.js-climate-description-for-' + id).show('slow');
+        $this.hide();
+        return false;
+    });
 });
 
 var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";

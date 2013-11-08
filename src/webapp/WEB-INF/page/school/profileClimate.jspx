@@ -25,90 +25,62 @@
                 </c:choose>
                 <h2>This school provides ...</h2>
             </div>
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[210]}" parentDS="${climateData[193]}"
-                                                   studentDS="${climateData[199]}" teacherDS="${climateData[205]}"
-                                                   intro="A safe and respectful environment" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[210].total}" breakdowns="${climateData[210].breakdowns}"
+                                                   intro="A safe and respectful environment" description="Hey look this works"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[211]}" parentDS="${climateData[194]}"
-                                                   studentDS="${climateData[200]}" teacherDS="${climateData[206]}"
-                                                   intro="Clear, useful communication" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[211].total}" breakdowns="${climateData[211].breakdowns}"
+                                                   intro="Clear, useful communication"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[212]}" parentDS="${climateData[195]}"
-                                                   studentDS="${climateData[201]}" teacherDS="${climateData[207]}"
-                                                   intro="Strong parent, teacher and student partnership" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[212].total}" breakdowns="${climateData[212].breakdowns}"
+                                                   intro="Strong parent, teacher and student partnership"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[213]}" parentDS="${climateData[196]}"
-                                                   studentDS="${climateData[202]}" teacherDS="${climateData[208]}"
-                                                   intro="High academic expectations" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[213].total}" breakdowns="${climateData[213].breakdowns}"
+                                                   intro="High academic expectations"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[214]}" parentDS="${climateData[219]}"
-                                                   studentDS="${climateData[224]}"
-                                                   intro="High academic expectations for all students" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[214].total}" breakdowns="${climateData[214].breakdowns}"
+                                                   intro="High academic expectations for all students" description="Hey look this works"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[216]}"
-                                                   studentDS="${climateData[226]}" teacherDS="${climateData[231]}"
-                                                   intro="Healthy, respectful relationships" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[216].total}" breakdowns="${climateData[216].breakdowns}"
+                                                   intro="Healthy, respectful relationships"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[217]}" parentDS="${climateData[222]}"
-                                                   studentDS="${climateData[227]}" teacherDS="${climateData[232]}"
-                                                   intro="A safe, clean and orderly environment" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[217].total}" breakdowns="${climateData[217].breakdowns}"
+                                                   intro="A safe, clean and orderly environment"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[215]}" parentDS="${climateData[220]}"
-                                                   teacherDS="${climateData[230]}"
-                                                   intro="Strong family engagement" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[215].total}" breakdowns="${climateData[215].breakdowns}"
+                                                   intro="Strong family engagement"/>
 
-            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[218]}" teacherDS="${climateData[233]}"
-                                                   intro="Teacher support and collaboration opportunities" whatsThisUrl="#TBD"/>
+            <censusDisplay:parentStudentTeacherBox totalDS="${climateData[218].total}" breakdowns="${climateData[218].breakdowns}"
+                                                   intro="Teacher support and collaboration opportunities"/>
 
             <div class="clear mbl"><!-- not empty --></div>
             <hr class="keyline1"/>
             <div class="clear mbl"><!-- not empty --></div>
 
-            <h2>Based on surveys from:</h2>
+            <c:if test="${not empty climateResponseCounts}">
 
-            <table>
-                <thead>
-                <tr>
-                    <th>&amp;nbsp;</th>
-                    <th>Participants</th>
-                    <th>% response rate</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:if test="${climateData[192] ne null}">
+                <h2>Based on surveys from:</h2>
+
+                <table>
+                    <thead>
                     <tr>
-                        <td>Parents</td>
-                        <td>${climateData[192].schoolOverrideOrSchoolValue.valueInteger}</td>
-                        <fmt:formatNumber value="${climateData[197].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                        <td>${roundedValue}%</td>
+                        <th>&amp;nbsp;</th>
+                        <th>Participants</th>
+                        <th>% response rate</th>
                     </tr>
-                </c:if>
-                <c:if test="${climateData[198] ne null}">
-                    <tr>
-                        <td>Students</td>
-                        <td>${climateData[198].schoolOverrideOrSchoolValue.valueInteger}</td>
-                        <fmt:formatNumber value="${climateData[203].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                        <td>${roundedValue}%</td>
-                    </tr>
-                </c:if>
-                <c:if test="${climateData[204] ne null}">
-                    <tr>
-                        <td>Teachers</td>
-                        <td>${climateData[204].schoolOverrideOrSchoolValue.valueInteger}</td>
-                        <fmt:formatNumber value="${climateData[209].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                        <td>${roundedValue}%</td>
-                    </tr>
-                </c:if>
-                <c:if test="${climateData[234] ne null}">
-                    <tr>
-                        <td>Employees</td>
-                        <td>${climateData[234].schoolOverrideOrSchoolValue.valueInteger}</td>
-                        <fmt:formatNumber value="${climateData[235].schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
-                        <td>${roundedValue}%</td>
-                    </tr>
-                </c:if>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${climateResponseCounts}" var="responseCount">
+                        <tr>
+                            <td>${responseCount.respondentType.label}</td>
+                            <td>${responseCount.numberOfResponses.schoolOverrideOrSchoolValue.valueInteger}</td>
+                            <fmt:formatNumber value="${responseCount.responseRate.schoolOverrideOrSchoolValue.valueFloat}" maxFractionDigits="0" var="roundedValue"/>
+                            <td>${roundedValue}%</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+
 
             <div class="clear mbl"><!-- not empty --></div>
 
