@@ -21,6 +21,55 @@
 
 
     </jsp:scriptlet>
+
+    <gsml:javascript src="/res/js/hogan.js"/>
+    <c:if test="${empty hubCity and empty hubStateObject}">
+        <script>
+            jQuery(function(){
+                var states = {'AL' : 'Alabama', 'AK' : 'Alaska', 'AZ' : 'Arizona', 'AR' : 'Arkansas', 'CA' : 'California',
+                    'CO' : 'Colorado', 'CT' : 'Connecticut', 'DE' : 'Delaware', 'FL' : 'Florida', 'GA' : 'Georgia',
+                    'HI' : 'Hawaii', 'ID' : 'Idaho', 'IL' : 'Illinois', 'IN' : 'Indiana', 'IA' : 'Iowa', 'KS' : 'Kansas',
+                    'KY' : 'Kentucky', 'LA' : 'Louisiana', 'ME' : 'Maine', 'MD' : 'Maryland', 'MA' : 'Massachusetts',
+                    'MI': 'Michigan', 'MN' : 'Minnesota', 'MS' : 'Mississippi', 'MO' : 'Missouri', 'MT' : 'Montana',
+                    'NE' : 'Nebraska', 'NV' : 'Nevada', 'NH' : 'New Hampshire', 'NJ' : 'New Jersey', 'NM' : 'New Mexico',
+                    'NY' : 'New York', 'NC' : 'North Carolina', 'ND' : 'North Dakota', 'OH' : 'Ohio', 'OK' : 'Oklahoma',
+                    'OR' : 'Oregon', 'PA' : 'Pennsylvania', 'RI' : 'Rhode Island', 'SC' : 'South Carolina', 'SD' : 'South Dakota',
+                    'TN' : 'Tennessee', 'TX' : 'Texas', 'UT' : 'Utah', 'VT' : 'Vermont', 'VA' : 'Virginia', 'WA' : 'Washington',
+                    'WV' : 'West Virginia', 'WI' : 'Wisconsin', 'WY' : 'Wyoming', 'DC' : 'Washington DC'};
+                var template = null;
+                var city = null;
+                var stateAbb = null;
+                if(typeof Hogan != 'undefined') {
+                    template = Hogan.compile($('#js-hubLinksMenuTemplate').html());
+                }
+                var cookies = document.cookie.split(';');
+                var numCookies = cookies.length;
+                for(var i = 0; i &lt; numCookies; i++) {
+                    var cookie = cookies[i].trim().split('=');
+                    var name = cookie[0];
+                    var value = cookie[1];
+                    if(name === 'hubState') {
+                        stateAbb = value;
+                    }
+                    else if(name === 'hubCity') {
+                        city = value;
+                    }
+                }
+                if(template !== null &amp;&amp; city !== null &amp;&amp; stateAbb !== null) {
+                    var menuHtml = template.render({
+                        hubCity: city,
+                        hubCityLowerCase: city.toLowerCase(),
+                        hubStateAbb: stateAbb,
+                        hubState: states[stateAbb].toLowerCase()
+                    });
+
+                    var $hubLinksMenu = $('#js-hubLinks');
+                    $hubLinksMenu.append(menuHtml);
+                }
+            });
+        </script>
+    </c:if>
+
     <div class="">
 
         <div class="container_24 clearfix">
@@ -35,8 +84,9 @@
                 <table id="hub-primary">
                     <tbody>
                     <tr>
-                         <c:if test="${not empty hubCity and not empty hubStateObject}">
-                        <td class="menuItem">
+                        <td id = "js-hubLinks" class="menuItem"><!-- NOT EMPTY --></td>
+                        <c:if test="${not empty hubCity and not empty hubStateObject}">
+                        <td class="menuItem js-hubLinksMenu">
                             <div class="menuItem dropdownReference">
                                 <div class="menuItemAnchorText">
                                     ${hubCity}, ${hubStateObject.abbreviation}
@@ -161,6 +211,39 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <div id = "js-hubLinksMenuTemplate" style="display: none">
+        <div class="menuItem dropdownReference">
+            <div class="menuItemAnchorText">
+                {{hubCity}}, {{hubStateAbb}}
+                <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
+            </div>
+            <div class="dropdown_1">
+                <ul class="none"> <!-- bullet type: disc/square/circle-->
+                    <li class="subMenuItem">
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}" class="subMenuItemAnchorText">{{hubCity}} Home</a>
+                    </li>
+
+                    <li class="subMenuItem">
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/choosing-schools" class="subMenuItemAnchorText">Choosing a School</a>
+                    </li>
+                    <li class="subMenuItem">
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/education-community" class="subMenuItemAnchorText">Education Community</a>
+                    </li>
+                    <li class="subMenuItem">
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/enrollment" class="subMenuItemAnchorText">Enrollment Information</a>
+                    </li>
+                    <li class="subMenuItem">
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/events" class="subMenuItemAnchorText">Events</a>
+                    </li>
+                    <li class="subMenuItem">
+                        <a href="/" class="subMenuItemAnchorText">Not in {{hubCity}}</a>
+                    </li>
+
+                </ul>
             </div>
         </div>
     </div>
