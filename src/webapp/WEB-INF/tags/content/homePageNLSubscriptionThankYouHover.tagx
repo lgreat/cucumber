@@ -17,9 +17,9 @@
 
                         <!--<p ><div id="thankYouMsg"></div></p>-->
                     </div>
-                    <!--dont know behaviour of the ok button yet-->
+
                     <button class="but but-rg but-1" type="submit" name="nlSubSubmit" id="hover_nlSubscriptionSubmit">
-                        OK
+                        Close
                     </button>
                 </div>
             </div>
