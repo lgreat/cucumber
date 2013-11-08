@@ -772,6 +772,13 @@ jQuery(document).ready(function() {
         $this.hide();
         return false;
     });
+    $('.js-climate-got-it').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        $('.js-climate-description-for-' + id).hide('slow');
+        $('.js-climate-whats-this[data-id=' + id + ']').show('slow');
+        return false;
+    });
 });
 
 var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";

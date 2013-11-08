@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.School;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
+import gs.data.state.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -101,6 +102,20 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         }
     };
 
+    public static Map<CensusDataType, Integer> TOTAL_DATA_TYPE_ORDER_MAP = new HashMap<CensusDataType, Integer>() {
+        {
+            put(CensusDataType.CLIMATE_SAFETY_RESPECT_SCORE_TOTAL, 10);
+            put(CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL, 20);
+            put(CensusDataType.CLIMATE_ENGAGEMENT_SCORE_TOTAL, 30);
+            put(CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL, 40);
+            put(CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_PERCENT_AGREE_TOTAL, 50);
+            put(CensusDataType.CLIMATE_RESPECT_RELATIONSHIPS_PERCENT_AGREE_TOTAL, 60);
+            put(CensusDataType.CLIMATE_SAFETY_CLEANLINESS_PERCENT_AGREE_TOTAL, 70);
+            put(CensusDataType.CLIMATE_FAMILY_ENGAGEMENT_PERCENT_AGREE_TOTAL, 80);
+            put(CensusDataType.CLIMATE_TEACHER_COLLABORATION_SUPPORT_PERCENT_AGREE_TOTAL, 90);
+        }
+    };
+
     /** Another view of which breakdown data types belong to which total data types */
     public static Map<CensusDataType, CensusDataType> BREAKDOWN_TO_TOTAL_MAP = new HashMap<CensusDataType, CensusDataType>() {
         {
@@ -121,8 +136,12 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
 
         // make the census data holder load school, district, and state data onto the census data sets
         Map<Integer, CensusDataSet> censusDataSetMap = censusDataHolder.retrieveDataSetsAndAllData();
+        // fetch the copy
+        DataDescription dataDescription = getDataDescription(school.getDatabaseState());
 
-        Map<Long, ClimateCategory> dataTypeToBeanMap = new HashMap<Long, ClimateCategory>(); // needs to be Long for jstl to index into it
+        // this maps the "total" data types to a display bean
+        // the map is easier to deal with right now. Later we convert to a sorted list for the view.
+        Map<CensusDataType, ClimateCategory> dataTypeToBeanMap = new HashMap<CensusDataType, ClimateCategory>();
 
         // first pass for total data types and response rates
         Map<CensusDataType, List<CensusDataSet>> totalDataTypeToBreakdownDataSets = new HashMap<CensusDataType, List<CensusDataSet>>();
@@ -133,7 +152,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
                     && (censusDataSet.getSchoolOverrideOrSchoolValue() != null)) {
                 if (TOTAL_TO_BREAKDOWN_MAP.get(censusDataSet.getDataType()) != null) {
                     // this is a total data type
-                    dataTypeToBeanMap.put(censusDataSet.getDataType().getId().longValue(), new ClimateCategory(censusDataSet));
+                    dataTypeToBeanMap.put(censusDataSet.getDataType(), new ClimateCategory(censusDataSet, dataDescription.get("climate_datatype_" + censusDataSet.getDataType().getId() + "_title"), dataDescription.get("climate_datatype_" + censusDataSet.getDataType().getId() + "_description")));
                 } else if (BREAKDOWN_TO_TOTAL_MAP.get(censusDataSet.getDataType()) != null) {
                     // this is a breakdown data type
                     addToMapOfLists(totalDataTypeToBreakdownDataSets, BREAKDOWN_TO_TOTAL_MAP.get(censusDataSet.getDataType()), censusDataSet);
@@ -145,9 +164,9 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         // now process the breakdown data types
         for (CensusDataType totalDT: totalDataTypeToBreakdownDataSets.keySet()) {
             for (CensusDataSet breakdownDS: totalDataTypeToBreakdownDataSets.get(totalDT)) {
-                if (dataTypeToBeanMap.get(totalDT.getId().longValue()) != null && BREAKDOWN_TO_RESPONDENT_TYPE.get(breakdownDS.getDataType()) != null) {
-                    dataTypeToBeanMap.get(totalDT.getId().longValue()).addBreakdown(breakdownDS, BREAKDOWN_TO_RESPONDENT_TYPE.get(breakdownDS.getDataType()));
-                } else if (dataTypeToBeanMap.get(totalDT.getId().longValue()) == null) {
+                if (dataTypeToBeanMap.get(totalDT) != null && BREAKDOWN_TO_RESPONDENT_TYPE.get(breakdownDS.getDataType()) != null) {
+                    dataTypeToBeanMap.get(totalDT).addBreakdown(breakdownDS, BREAKDOWN_TO_RESPONDENT_TYPE.get(breakdownDS.getDataType()));
+                } else if (dataTypeToBeanMap.get(totalDT) == null) {
                     // If you're reading this, there is possibly a data problem. This school has a breakdown (e.g. "Parents say")
                     // without a "total" value
                     _log.error("Found breakdown climate data set without a \"total\" category to add it to: " + breakdownDS);
@@ -165,7 +184,13 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         }
 
         if (dataTypeToBeanMap.size() > 0) {
-            modelMap.put("climateData", dataTypeToBeanMap);
+            // Now sort the view beans
+            List<ClimateCategory> beanList = new ArrayList<ClimateCategory>(dataTypeToBeanMap.size());
+            for (CensusDataType dataType: dataTypeToBeanMap.keySet()) {
+                beanList.add(dataTypeToBeanMap.get(dataType));
+            }
+            Collections.sort(beanList);
+            modelMap.put("climateData", beanList);
 
             // now process the response rates
             List<ClimateResponseCount> responseCounts = new ArrayList<ClimateResponseCount>();
@@ -180,6 +205,8 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
             Collections.sort(responseCounts);
 
             modelMap.put("climateResponseCounts", responseCounts);
+
+            modelMap.put("dataDescriptions", dataDescription.getDescriptions());
         }
 
         return VIEW;
@@ -215,13 +242,17 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
      * Represents a climate survey response category. Contains the schools total rating, plus any breakdowns
      * e.g. by parent, student, teacher, employee. Will also contain district/state values if present.
      */
-    public static class ClimateCategory {
+    public static class ClimateCategory implements Comparable<ClimateCategory> {
         private CensusDataSet _total;
         private List<ClimateCategoryBreakdown> _breakdowns;
+        private String _title;
+        private String _description;
 
-        public ClimateCategory(CensusDataSet totalDS) {
+        public ClimateCategory(CensusDataSet totalDS, String title, String description) {
             _total = totalDS;
             _breakdowns = new ArrayList<ClimateCategoryBreakdown>();
+            _title = title;
+            _description = description;
         }
 
         protected void addBreakdown(CensusDataSet breakdownDataSet, ClimateRespondentType respondentType) {
@@ -234,6 +265,26 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
 
         public List<ClimateCategoryBreakdown> getBreakdowns() {
             return _breakdowns;
+        }
+
+        public String getTitle() {
+            return _title;
+        }
+
+        public String getDescription() {
+            return _description;
+        }
+
+        public int compareTo(ClimateCategory o) {
+            Integer myOrder = TOTAL_DATA_TYPE_ORDER_MAP.get(_total.getDataType());
+            if (myOrder == null) {
+                myOrder = _total.getDataType().getId();
+            }
+            Integer hisOrder = TOTAL_DATA_TYPE_ORDER_MAP.get(o.getTotal().getDataType());
+            if (hisOrder == null) {
+                hisOrder = o.getTotal().getDataType().getId();
+            }
+            return myOrder.compareTo(hisOrder);
         }
     }
 
@@ -329,5 +380,55 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
                         censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_TEACHER) ||
                         censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_SCHOOL_EMPLOYEE) ||
                         censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_SCHOOL_EMPLOYEE));
+    }
+
+    public DataDescription getDataDescription(State state) {
+        Map<String, String> descriptions = new HashMap<String, String>();
+        if (state == State.CA) {
+            descriptions.put("climate_about_learning_environment", "The Los Angeles Unified School District asked, parents, students and employees about their school's learning environment across various content areas.");
+        } else if (state == State.NY) {
+            descriptions.put("climate_about_learning_environment", "The NYC Department of Education asked parents, teachers and students about their school's learning environment across four categories.");
+        }
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_title", "High academic expectations for all students");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_description", "This score measures how well parents, students and teachers feel that the school develops rigorous and meaningful academic goals that encourage students to do their best.");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL.getId() + "_title", "Clear, useful communication about educational goals");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL.getId() + "_description", "This score measures whether parents, students and teachers feel that the school provides information about the school's educational goals and offers appropriate feedback on each student's learning outcomes.");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ENGAGEMENT_SCORE_TOTAL.getId() + "_title", "Strong parent, teacher and student engagement");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ENGAGEMENT_SCORE_TOTAL.getId() + "_description", "This score measures how engaged parents, students and teachers feel they are in an active and vibrant partnership to promote student learning.");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_RESPECT_SCORE_TOTAL.getId() + "_title", "A safe and respectful environment");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_RESPECT_SCORE_TOTAL.getId() + "_description", "This score measures whether parents, students and teachers feel that the school creates a physically and emotionally secure environment in which everyone can focus on student learning.");
+
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_PERCENT_AGREE_TOTAL.getId() + "_title", "High academic expectations for all students");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents and students that agree to strongly agree that this school sets high academic expectations for its students and expects them to be college-bound. This score is based on the average of the following LAUSD survey Content Areas: School Future Expectations (Parents), School Quality (Parents), Future Plans (Parents), Opportunities For Learning (Students), Future Plans (Students).");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_FAMILY_ENGAGEMENT_PERCENT_AGREE_TOTAL.getId() + "_title", "Strong family engagement");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_FAMILY_ENGAGEMENT_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents and employees that agree to strongly agree that this school engages parents and communicates with families to promote student learning. This score is based on the average of the following LAUSD survey Content Areas: Evaluation (Employees), Opportunities for Involvement (Employees), Professional Development (Employees), Resource Allocation (Employees), Teacher Collaboration and Data Use (Employees).");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_RESPECT_RELATIONSHIPS_PERCENT_AGREE_TOTAL.getId() + "_title", "Healthy, respectful relationships");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_RESPECT_RELATIONSHIPS_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of  students and employees that agree to strongly agree that this school has a positive learning environment and cultivates an atmosphere of respect. This score is based on the average of the following LAUSD survey Content Areas: School Support, Commitment and Collaboration (Employees), Satisfaction (Students), School Support (Students).");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_CLEANLINESS_PERCENT_AGREE_TOTAL.getId() + "_title", "A safe, clean and orderly environment");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_CLEANLINESS_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents, students and employees that agree to strongly agree that this school has a well-kept facility and a safe environment conducive to learning. This score is based on the average of the following LAUSD survey Content Areas: School Cleanliness (Employees), School Safety (Employees), Safety (Parents), School Cleanliness (Students), School Safety (Students).");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_TEACHER_COLLABORATION_SUPPORT_PERCENT_AGREE_TOTAL.getId() + "_title", "Teacher support and collaboration opportunities");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_TEACHER_COLLABORATION_SUPPORT_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of employees that agree to strongly agree that this school ensures that teachers work well together, learn from one another, have opportunities for professional development and feel supported by the administration.");
+
+        return new DataDescription(descriptions);
+    }
+
+    public static class DataDescription {
+        private Map<String, String> _descriptions;
+
+        public DataDescription(Map<String, String> descriptions) {
+            if (descriptions != null) {
+                _descriptions = descriptions;
+            } else {
+                _descriptions = new HashMap<String, String>();
+            }
+        }
+
+        public String get(String key) {
+            return _descriptions.get(key);
+        }
+
+        public Map<String, String> getDescriptions() {
+            return _descriptions;
+        }
     }
 }

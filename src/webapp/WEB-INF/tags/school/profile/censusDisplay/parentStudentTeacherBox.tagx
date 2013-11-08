@@ -21,7 +21,13 @@
                             <span class="prl strong">${intro}</span>
                             <c:if test="${not empty description}"><a href="#" class="small js-climate-whats-this" data-id="${totalDS.dataType.id}">What's this?</a></c:if>
                         </div>
-                        <c:if test="${not empty description}"><div class="dn mvl js-climate-description-for-${totalDS.dataType.id}">${description}</div></c:if>
+                        <c:if test="${not empty description}">
+                            <div class="dn mvl js-climate-description-for-${totalDS.dataType.id}">
+                                <p class="mbs">${description}</p>
+                                <a href="#" data-id="${totalDS.dataType.id}" class="fr js-climate-got-it">Got it!</a>
+                                <div class="clearfix"><!-- not empty --></div>
+                            </div>
+                        </c:if>
                         <div class="mbl">
                             <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${totalDS.schoolOverrideOrSchoolValue.valueFloat}"/>
                             This school ${roundedValue}${optionalPercent}
