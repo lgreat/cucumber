@@ -8,6 +8,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
+    <jsp:directive.page import="gs.web.util.CookieUtil"/>
     <html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -15,7 +16,7 @@
 
     <jsp:directive.page contentType="text/html"/>
     <jsp:scriptlet>
-        request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
     </jsp:scriptlet>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -27,7 +28,7 @@
             <meta name="keywords" content="${page.metaKeywords}"/>
         </c:if>
         <c:choose>
-            <c:when test="${isHubUser}">
+            <c:when test="${not empty isHubUser}">
                 <meta name="decorator" content="standardDecorator-hubs"/>
             </c:when>
             <c:otherwise>

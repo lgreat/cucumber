@@ -6,13 +6,25 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
           version="2.0">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 
-    <html>
+<html>
+    <jsp:scriptlet>
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+    </jsp:scriptlet>
     <jsp:directive.page contentType="text/html"/>
 
     <head>
         <title>Create Your Neighborhood School Guide | GreatSchools</title>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <c:choose>
+            <c:when test="${not empty isHubUser}">
+                <meta name="decorator" content="standardDecorator-hubs"/>
+            </c:when>
+            <c:otherwise>
+                <meta name="decorator" content="standardDecorator-v1"/>
+            </c:otherwise>
+        </c:choose>
+
         <meta name="robots" content="noindex"/>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?client=gme-greatschoolsinc&amp;libraries=geometry&amp;sensor=false&amp;signature=qeUgzsyTsk0gcv93MnxnJ_0SGTw="><!-- not empty --></script>
         <gsml:javascript src="/res/js/plupload-new/moxie.min.js" />

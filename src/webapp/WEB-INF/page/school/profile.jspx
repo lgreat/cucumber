@@ -20,6 +20,7 @@
         >
 <jsp:directive.page import="gs.data.school.School"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 
 
@@ -50,14 +51,14 @@
 </c:choose>
 <jsp:scriptlet>
     PageHelper.setPageName(request, "spp_overview");
-    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
 </jsp:scriptlet>
 
 <pageHelper:includeQualarooJS/>
 
 <head>
     <c:choose>
-        <c:when test="${isHubUser}">
+        <c:when test="${not empty isHubUser or  not empty isHubUserSet}">
             <meta name="decorator" content="standardDecorator-hubs"/>
         </c:when>
         <c:otherwise>

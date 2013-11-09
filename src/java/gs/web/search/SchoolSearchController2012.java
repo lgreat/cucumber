@@ -291,6 +291,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             }
         }
              pageHelper.setHubUserCookie(request, response);
+             model.put("isHubUserSet", "y");
        }
         if (pageHelper != null && isHubsLocalSearch && isAdFreeHub) {
             pageHelper.setHideAds(true);

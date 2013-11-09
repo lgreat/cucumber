@@ -12,7 +12,7 @@
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
     <jsp:scriptlet>
-        request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
     </jsp:scriptlet>
 
     <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}" imageUrl="${feature.imageUrl}"/>
@@ -24,7 +24,7 @@
         <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}" primaryCategoryName="${feature.primaryKategory.name}"/>
 
         <c:choose>
-            <c:when test="${isHubUser}">
+            <c:when test="${not empty isHubUser}">
                 <meta name="decorator" content="standardDecorator-hubs"/>
             </c:when>
             <c:otherwise>

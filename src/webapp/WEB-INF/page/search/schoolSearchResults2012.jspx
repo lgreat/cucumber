@@ -19,6 +19,7 @@
           xmlns:pagination="pagination"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -26,12 +27,12 @@
 
 <jsp:directive.page contentType="text/html"/>
 <jsp:scriptlet>
-     request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
 </jsp:scriptlet>
 
 <head>
     <c:choose>
-        <c:when test="${isHubUser}">
+        <c:when test="${not empty isHubUser or  not empty isHubUserSet}">
             <meta name="decorator" content="standardDecorator-hubs"/>
         </c:when>
         <c:otherwise>

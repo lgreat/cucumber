@@ -10,6 +10,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 
 
 <html lang="en">
@@ -20,14 +21,14 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:scriptlet>
     request.setAttribute("env", gs.web.util.context.SessionContextUtil.getServerName(request));
-    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
 </jsp:scriptlet>
 <c:set var="isTopical" value="${selectedTopic ne null}"/>
 <head>
     <c:set var="sweepstakes" value="${requestScope.context.sweepStakesEnabled}" scope="request" />
     <title>Write a school review | GreatSchools</title>
     <c:choose>
-       <c:when test="${isHubUser}">
+       <c:when test="${not empty isHubUser}">
             <meta name="decorator" content="standardDecorator-hubs"/>
         </c:when>
         <c:otherwise>

@@ -18,10 +18,11 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 <jsp:scriptlet>
-    request.setAttribute("isHubUser", gs.web.util.CookieUtil.hasCookie(request, "ishubUser"));
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
 </jsp:scriptlet>
 
 
@@ -78,7 +79,7 @@
     <k12:trafficDriverIncludes/>
 
     <c:choose>
-        <c:when test="${isHubUser}">
+        <c:when test="${not empty isHubUser}">
             <meta name="decorator" content="standardDecorator-hubs"/>
         </c:when>
         <c:otherwise>
