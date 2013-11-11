@@ -5,6 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           version="2.0">
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <c:set var="pageName" value="city home" scope="request"/>
@@ -44,7 +45,13 @@
         <hub:chooseASchool/>
         <hub:upcomingEvent/>
         <hub:recentReviews />
-        <hub:cityArticle/>
+        <div class="container_24 clearfix">
+            <div class="grid_14"><hub:cityArticle/></div>
+            <div class="grid_10">
+                <h3 class="SourceSansPro-Semibold-h3">Near by homes for sale</h3>
+                <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
+            </div>
+        </div>
         <hub:communityPartner/>
         <mod:tracking pageName="${pageName}"
                       locale="${city}"
