@@ -388,6 +388,8 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
             descriptions.put("climate_about_learning_environment", "The Los Angeles Unified School District asked, parents, students and employees about their school's learning environment across various content areas.");
         } else if (state == State.NY) {
             descriptions.put("climate_about_learning_environment", "The NYC Department of Education asked parents, teachers and students about their school's learning environment across four categories.");
+            descriptions.put("climate_learn_more_url", "#");
+            descriptions.put("climate_learn_more_text", "Learn more about the NYDOE survey");
         }
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_title", "High academic expectations for all students");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_description", "This score measures how well parents, students and teachers feel that the school develops rigorous and meaningful academic goals that encourage students to do their best.");

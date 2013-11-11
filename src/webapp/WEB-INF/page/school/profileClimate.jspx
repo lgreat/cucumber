@@ -9,20 +9,15 @@
         >
     <c:if test="${climateData ne null and fn:length(climateData) gt 0}">
         <div>
-            <h2>About the learning environment</h2>
-            <p>
-                <c:choose>
-                    <c:when test="${not empty dataDescriptions['climate_about_learning_environment']}">${dataDescriptions['climate_about_learning_environment']}</c:when>
-                    <c:otherwise><!-- not empty --></c:otherwise>
-                </c:choose>
-            </p>
-            <div class="clear mbl"><!-- not empty --></div>
-            <hr class="keyline1"/>
-            <div class="clear mbl"><!-- not empty --></div>
+            <c:if test="${not empty dataDescriptions['climate_about_learning_environment'] or not empty dataDescriptions['climate_learn_more_url']}">
+                <p class="containerOrangeBox pal">
+                    ${dataDescriptions['climate_about_learning_environment']}
+                    <c:if test="${not empty dataDescriptions['climate_learn_more_url']}">
+                        <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
+                    </c:if>
+                </p>
+            </c:if>
             <div class="ptl">
-                <c:choose>
-                    <c:when test="${state eq 'NY'}"><a href="#TBD" class="fr">Learn more about the NYDOE survey &amp;raquo;</a></c:when>
-                </c:choose>
                 <h2>This school provides ...</h2>
             </div>
             <c:forEach items="${climateData}" var="climateBean">

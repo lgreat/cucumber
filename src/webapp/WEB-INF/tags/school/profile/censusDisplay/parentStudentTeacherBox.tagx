@@ -16,9 +16,9 @@
         <div class="grid_16 alpha omega clearfix">
             <div class="mod standard_1-4">
                 <div class="inner">
-                    <div class="bd clearfix mal">
+                    <div class="bd clearfix mhl mtl">
                         <div class="mbl">
-                            <span class="prl strong">${intro}</span>
+                            <span class="prl bold">${intro}</span>
                             <c:if test="${not empty description}"><a href="#" class="small js-climate-whats-this" data-id="${totalDS.dataType.id}">What's this?</a></c:if>
                         </div>
                         <c:if test="${not empty description}">
@@ -28,26 +28,44 @@
                                 <div class="clearfix"><!-- not empty --></div>
                             </div>
                         </c:if>
-                        <div class="mbl">
+                        <div class="mbm">
                             <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${totalDS.schoolOverrideOrSchoolValue.valueFloat}"/>
-                            This school ${roundedValue}${optionalPercent}
+                            <div class="unit size25of100">&amp;nbsp;</div>
+                            <div class="unit size25of100">
+                                <div class="containerGrayBox2 pal small">
+                                    This school<br/>
+                                    <span class="larger bold">${roundedValue}${optionalPercent}</span>
+                                    <c:if test="${not isPercentDataType}"><br/>out of 10</c:if>
+                                </div>
+                            </div>
                             <c:if test="${not empty totalDS.districtData}">
-                                <c:forEach items="${totalDS.districtData}" var="districtAverage" end="1">
-                                    <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${districtAverage.valueFloat}"/>
-                                    District average ${roundedValue}${optionalPercent}
-                                </c:forEach>
+                                <div class="unit size5of100">&amp;nbsp;</div>
+                                <div class="unit size25of100">
+                                    <div class="containerGrayBox2 pal small">
+                                        <c:forEach items="${totalDS.districtData}" var="districtAverage" end="1">
+                                            <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${districtAverage.valueFloat}"/>
+                                            District average<br/>
+                                            <span class="larger bold">${roundedValue}${optionalPercent}</span>
+                                            <c:if test="${not isPercentDataType}"><br/>out of 10</c:if>
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </c:if>
+                            <div class="unit lastUnit size20of100">&amp;nbsp;</div>
+                            <div class="clearfix"><!-- not empty --></div>
                         </div>
                         <c:forEach items="${breakdowns}" var="breakdown">
-                            <div class="mbm">
+                            <hr class="keyline1"/>
+                            <div class="clear mbm"><!-- not empty --></div>
+                            <div class="mbm pls">
                                 <c:choose>
                                     <c:when test="${isPercentDataType}">
                                         <censusDisplay:hgraphPercentLeft censusDataSet="${breakdown.dataSet}"
-                                                                         schoolLabel="${breakdown.respondentType.label} say"/>
+                                                                         label="${breakdown.respondentType.label}"/>
                                     </c:when>
                                     <c:otherwise>
                                         <censusDisplay:hgraphNumber censusDataSet="${breakdown.dataSet}"
-                                                                    schoolLabel="${breakdown.respondentType.label} say"/>
+                                                                    label="${breakdown.respondentType.label}"/>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
