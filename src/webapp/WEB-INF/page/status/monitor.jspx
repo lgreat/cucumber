@@ -124,6 +124,10 @@
                     <td class="statuserror"></td>
                 </tr>
                 <tr>
+                    <td class="statustitle">Optimizely URL</td>
+                    <td class="statusvalue-2" colspan="2">${not empty optimizely_url ? optimizely_url : 'NONE'}</td>
+                </tr>
+                <tr>
                     <td class="statustitle">Session test view count</td>
                     <td class="statusvalue">${hitcount}</td>
                     <td class="statuserror"></td>
