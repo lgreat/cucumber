@@ -103,10 +103,12 @@
                     <ad:x22 position="Header_728x90"/>
                 </c:if>
                 <cobrand:header/>
-
                 <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
                    <c:choose>
-                       <c:when test="${not empty isHubUser}">
+                       <c:when test="${pageName =='Overview' and not empty isHubUser or not empty isHubUserSet}">
+                           <mod:primaryNav-hubs/>
+                       </c:when>
+                       <c:when test="${pageName != 'Overview' and not empty isHubUser}">
                            <mod:primaryNav-hubs/>
                        </c:when>
                        <c:otherwise>

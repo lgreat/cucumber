@@ -150,6 +150,7 @@ public class SchoolProfileHeaderHelper {
                             pageHelper.clearHubCookiesForNavBar(request, response);
                             pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
                             pageHelper.setHubUserCookie(request, response);
+                            model.put("isHubUserSet", "y");
 
                     }
                 }

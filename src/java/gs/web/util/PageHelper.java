@@ -980,13 +980,15 @@ public class PageHelper {
         util.setHubCityCookie(response, city);
     }
 
-    public static void clearHubCookiesForNavBar(HttpServletRequest request, HttpServletResponse response) {
+    public static void clearHubCookiesForNavBar(final HttpServletRequest request, final HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie : cookies) {
-            if("hubCity".equals(cookie.getName()) || "hubState".equals(cookie.getName())) {
-                cookie.setValue(null);
+        if (cookies != null) {
+            for( Cookie cookie : cookies) {
+                if( "hubCity".equals(cookie.getName()) || "hubState".equals(cookie.getName())) {
+                    cookie.setValue(null);
+                }
             }
         }
         util.clearHubCityCookie(response);
