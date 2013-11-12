@@ -917,16 +917,22 @@ public class SessionContextUtil implements ApplicationContextAware {
         _hubCityCookieGenerator.removeCookie(response);
     }
 
-    public void setHubCityCookie(HttpServletResponse response, String cookieValue) {
+    public void setHubCityCookie(final HttpServletResponse response, final HttpServletRequest request , final String cookieValue) {
         _hubCityCookieGenerator.addCookie(response, cookieValue);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            _hubCityCookieGenerator.setCookieDomain(".greatschools.org");
+        }
     }
 
     public void clearHubStateCookie(HttpServletResponse response) {
         _hubStateCookieGenerator.removeCookie(response);
     }
 
-    public void setHubStateCookie(HttpServletResponse response, String cookieValue) {
+    public void setHubStateCookie(final HttpServletResponse response, final HttpServletRequest request , final String cookieValue) {
         _hubStateCookieGenerator.addCookie(response, cookieValue);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            _hubStateCookieGenerator.setCookieDomain(".greatschools.org");
+        }
     }
 
     public Pattern getLongStateUriPattern() {

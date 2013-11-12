@@ -976,8 +976,8 @@ public class PageHelper {
     public static void setHubCookiesForNavBar(HttpServletRequest request, HttpServletResponse response, String state,String city) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.setHubStateCookie(response, state);
-        util.setHubCityCookie(response, city);
+        util.setHubStateCookie(response, request, state);
+        util.setHubCityCookie(response, request, city);
     }
 
     public static void clearHubCookiesForNavBar(final HttpServletRequest request, final HttpServletResponse response) {
@@ -998,7 +998,7 @@ public class PageHelper {
     public static void setHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.setIsHubUserCookie(response,request);
+        util.setIsHubUserCookie(response, request);
 
     }
     public static void clearHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
