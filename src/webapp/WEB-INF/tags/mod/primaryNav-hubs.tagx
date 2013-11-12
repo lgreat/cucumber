@@ -118,7 +118,8 @@
                                                                     city="${hubCity}">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:home styleClass="subMenuItemAnchorText">Not in ${hubCity}?</link:home>
+                                            <a href="/" class="subMenuItemAnchorText"
+                                               onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in ${hubCity}?</a>
                                         </li>
 
                                     </ul>
@@ -242,7 +243,8 @@
                         <a href="/{{hubState}}/{{hubCityLowerCase}}/events" class="subMenuItemAnchorText">Events</a>
                     </li>
                     <li class="subMenuItem">
-                        <a href="/" class="subMenuItemAnchorText">Not in {{hubCity}}</a>
+                        <a href="/" class="subMenuItemAnchorText"
+                           onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in {{hubCity}}</a>
                     </li>
 
                 </ul>
