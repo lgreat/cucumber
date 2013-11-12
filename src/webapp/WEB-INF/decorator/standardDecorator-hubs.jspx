@@ -50,6 +50,9 @@
           onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}">
     <pageHelper:addFacebookInit/>
     <div class="site-gradient">
+        <c:if test="${requestScope.pageHelper.showingLeaderboard}">
+            <ad:x22 position="Header_728x90"/>
+         </c:if>
         <mod:primaryNav-hubs/>
     </div>
 
