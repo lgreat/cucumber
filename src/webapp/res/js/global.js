@@ -674,7 +674,6 @@ GS.util.extendSerializedArray = function(serializedArray, keyVals) {
 
 GS.hubs = GS.hubs || {};
 GS.hubs.clearLocalUserCookies = function() {
-    alert("clear cookies");
     // http://www.quirksmode.org/js/cookies.html
     var date = new Date();
     date.setTime(date.getTime()+(-2*24*60*60*1000));
