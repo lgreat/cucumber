@@ -151,6 +151,11 @@ public class SchoolSearchCommandWithFields {
                     State state = State.fromString(_command.getState());
                     collectionId = getCollectionId(city, state);
                 }
+                else if(isDistrictBrowse()) {
+                    String city = _fields.getCityName();
+                    State state = _fields.getState();
+                    collectionId = getCollectionId(city, state);
+                }
                 _isHubsLocalSearch = (collectionId != null ? true : false);
                 if(collectionId != null) _collectionId = collectionId.toString();
             }
