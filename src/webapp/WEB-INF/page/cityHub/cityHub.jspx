@@ -6,6 +6,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           version="2.0">
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <c:set var="pageName" value="city home" scope="request"/>
@@ -45,6 +46,12 @@
         <hub:chooseASchool/>
         <hub:upcomingEvent/>
         <hub:recentReviews />
+
+        <c:if test="${empty requestScope.context.memberId}">
+            <div class="container_24 clearfix">
+              <button onclick="$(function(){GSType.hover.joinHover.showJoinGlobalHeader();}); return false;">Join </button>
+            </div>
+        </c:if>
         <div class="container_24 clearfix">
             <div class="grid_14"><hub:cityArticle/></div>
             <div class="grid_10">
