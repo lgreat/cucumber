@@ -125,10 +125,10 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         //Adding Step Model for Step 1 -Potential to be Templatized in Future
 
         StepModel step1= new StepModel(1, "Think about your needs", "/res/img/cityHubs/choosingStep1.png",
-                                      "Where your child goes to school affects not just your child but your whole family." +
-                                       " As you begin thinking about choosing a school, consider what matters most. " +
-                                       "What needs does your child have? What needs does your family have? What is " +
-                                       "important to you when it comes to education?");
+                                          "As you think about choosing a school, consider what matters most to your family. " +
+                                          "What do you value the highest when it comes to your child’s education? " +
+                                          "How does your choice of school impact your family or your finances? " +
+                                          "We’re here to help you take the first step.");
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep1 = new ArrayList<FeaturedResourcesModel>();
 
@@ -177,9 +177,9 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         //Adding Step Model for Step 2 -Potential to be Templatized in Future
         StepModel step2= new StepModel(2, "Understand your options", "/res/img/cityHubs/choosingStep2.png",
-                     "There are a variety of schools to choose from &#150; public, public charter, and private." +
-                     " To decide which school is best for your child, learn about the types of schools" +
-                     " available and the differences between them.");
+                                          "In " + collectionNickName + ", there are a variety of schools to choose from – public, public charter, and " +
+                                          "private. When deciding between schools, learn what makes each type of school different, " +
+                                          "and how that fits with your overall needs and goals.");
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep2 = new ArrayList<FeaturedResourcesModel>();
 
@@ -239,13 +239,13 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         //Adding Step Model for Step 3 -Potential to be Templatized in Future
         StepModel step3= new StepModel(3 , "Find schools that fit", "/res/img/cityHubs/choosingStep3.png",
-                        "As you search for schools that fit your needs, look for information in three key areas &#150; academic " +
-                        "performance, culture & climate, and programs offered.");
+                        "As you search for schools that fit your family, look for information in three key areas – " +
+                        "academic performance, extracurricular programs, and school culture and community. ");
 
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep3 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "../schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should weight this with state ratings provided by OSSE, and local ratings from DCPS and PCSB");
+        FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "../schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should consider GreatSchools ratings along with local and state ratings.");
         FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel("OSSE Report Cards", "/", "External Page");
         FeaturedResourcesModel feature3Step3= new FeaturedResourcesModel("PMF Rating", "http://www.dcpcsb.org/SearchSchools.aspx", "External Page");
         FeaturedResourcesModel feature4Step3= new FeaturedResourcesModel("DCPS scorecard", "http://profiles.dcps.dc.gov/", "External Page");
@@ -293,10 +293,9 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         //Adding Step Model for Step 4 -Potential to be Templatized in Future
         StepModel step4= new StepModel(4 , "Visit schools you like", "/res/img/cityHubs/choosingStep4.png",
-                        "Now that you&#39;ve narrowed your choices, it&#39;s time to visit the schools you like. " +
-                        "Visiting is the only way you can really tell whether you and your child will feel safe and" +
-                        " comfortable at the school. You will also be able to see whether the teachers are enthusiastic " +
-                         "and the students are engaged in learning.");
+                        "Take time to visit the schools at the top of your list. Visiting is the best way to tell whether " +
+                        "you and your child feel welcomed and comfortable at each school. You also have a chance to observe " +
+                        "teachers in action, and see whether students are actively engaged in learning.");
 
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep4 = new ArrayList<FeaturedResourcesModel>();
@@ -360,11 +359,13 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         stepsInfo.add(step4);
 
 
-        //Adding Step Model for Step 5 -Potential to be Templatized in Future
+        //Adding Step Model for Step 5 -Potential to be Templatized in Future          you&#39;ve
         StepModel step5= new StepModel(5 , "Apply and enroll", "/res/img/cityHubs/choosingStep5.png",
-                        "Once you&#39;ve picked and ranked your top choices it&#39;s time to find out the details of the enrollment " +
-                        "process for each, and submit your applications. Your first choice may not always be available, " +
-                        "so you will want to apply to at least two other schools that meet all or most of your needs.");
+                        "Once you’ve made your choices, find out the details of the enrollment process for each school " +
+                        "and give yourself enough time to complete and submit your applications. You may need to gather " +
+                        "important documents like a birth certificate or proof of residency.  Also, your first choice " +
+                        "school may not be available, so you will want to apply to at least two other schools that meet " +
+                        "all or most of your needs.");
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep5 = new ArrayList<FeaturedResourcesModel>();
 
