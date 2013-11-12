@@ -12,36 +12,67 @@
         <h3 class="SourceSansPro-Semibold-h3">Recent Reviews</h3>
         <div class="bg-F5F5F5 border-round pal clearfix">
             <c:forEach items="${reviews}" var="review" varStatus="count">
-                <div class="grid_11">
-                    <div class="standard_5-2">
-                        <div class="bd">
-                        <div class="mbm">
-                            <ratings:stars curSR="${review.stars}"/>
-                            <span class="small mlm make-999999">Posted ${review.date}</span>
-                        </div>
-                            <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
+                <c:choose>
+                    <c:when test="${count.index eq 0}">
+                        <div class="alpha grid_12">
+                            <div class="standard_5-2">
+                                <div class="bd">
+                                    <div class="mbm">
+                                        <ratings:stars curSR="${review.stars}"/>
+                                        <span class="small mlm make-999999">Posted ${review.date}</span>
+                                    </div>
+                                    <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
 
+                                </div>
+                                <div class="down-pointer">
+                                    <div class="border-edge"><!-- not empty --></div>
+                                    <div class="border-bd"><!-- not empty --></div>
+                                </div>
+                            </div>
+                            <div class="medium_bold mtl bottom">${review.schoolName}</div>
+                            <link:schoolProfileParentReview school="${review.school}" styleClass="small">
+                                <c:choose>
+                                    <c:when test="${review.totalReviews > 1 }">
+                                        <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:out value="Read more" escapeXml="true"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
                         </div>
-                        <div class="down-pointer">
-                            <div class="border-edge"><!-- not empty --></div>
-                            <div class="border-bd"><!-- not empty --></div>
+                     </c:when>
+                    <c:otherwise>
+                        <div class="grid_12 omega">
+                            <div class="standard_5-2">
+                                <div class="bd">
+                                    <div class="mbm">
+                                        <ratings:stars curSR="${review.stars}"/>
+                                        <span class="small mlm make-999999">Posted ${review.date}</span>
+                                    </div>
+                                    <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
+
+                                </div>
+                                <div class="down-pointer">
+                                    <div class="border-edge"><!-- not empty --></div>
+                                    <div class="border-bd"><!-- not empty --></div>
+                                </div>
+                            </div>
+                            <div class="medium_bold mtl bottom">${review.schoolName}</div>
+                            <link:schoolProfileParentReview school="${review.school}" styleClass="small">
+                                <c:choose>
+                                    <c:when test="${review.totalReviews > 1 }">
+                                        <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:out value="Read more" escapeXml="true"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
                         </div>
-                    </div>
-                    <div class="medium_bold mtl bottom">${review.schoolName}</div>
-                    <link:schoolProfileParentReview school="${review.school}" styleClass="small">
-                        <c:choose>
-                             <c:when test="${review.totalReviews > 1 }">
-                                 <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:out value="Read more" escapeXml="true"/>
-                            </c:otherwise>
-                        </c:choose>
-                    </link:schoolProfileParentReview>
-                </div>
-                <c:if test="${count.index eq 0}">
-                   <div class="grid_1">&amp;nbsp;</div>
-                </c:if>
+                    </c:otherwise>
+                 </c:choose>
+
             </c:forEach>
         </div>
     </div>
