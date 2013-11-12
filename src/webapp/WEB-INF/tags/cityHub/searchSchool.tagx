@@ -27,7 +27,7 @@
                 <div class="pa" style="top: 5px; right:130px;">
                     <span class="iconx48 i-48-search-city-hubs addMousePointer" id="js-submit"><!-- do not collapse --></span>
                 </div>
-                <a href="/" class="vam small ptm phm fr">Not in ${collectionNickname}?</a>
+                <a href="/" class="vam small ptm phm fr" onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in ${collectionNickname}?</a>
             </div>
             <div class="schoolBreakdown">
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>
