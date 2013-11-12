@@ -671,3 +671,16 @@ GS.util.extendSerializedArray = function(serializedArray, keyVals) {
         }
     }
 };
+
+GS.hubs = GS.hubs || {};
+GS.hubs.clearLocalUserCookies = function() {
+    alert("clear cookies");
+    // http://www.quirksmode.org/js/cookies.html
+    var date = new Date();
+    date.setTime(date.getTime()+(-2*24*60*60*1000));
+    var expires = "; expires=" + date.toGMTString();
+    var localUserCookieNames = ["hubCity", "hubState", "ishubUser"];
+    for(var i = 0; i < localUserCookieNames.length; i++) {
+        document.cookie = localUserCookieNames[i] + "=" + expires + "; path=/";
+    }
+};
