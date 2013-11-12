@@ -998,7 +998,7 @@ public class PageHelper {
     public static void setHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.setIsHubUserCookie(response);
+        util.setIsHubUserCookie(response,request);
 
     }
     public static void clearHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
