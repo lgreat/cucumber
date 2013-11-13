@@ -9,10 +9,6 @@
 
     <jsp:directive.tag body-content="empty"/>
     <jsp:scriptlet>
-//        gs.web.util.PageHelper pageHelper = (gs.web.util.PageHelper) request.getAttribute(gs.web.util.PageHelper.REQUEST_ATTRIBUTE_NAME);
-//        pageHelper.clearHubCookiesForNavBar(request, response);
-
-
         request.setAttribute("isOSP", CookieUtil.hasCookie(request, "IS_OSP_MEMBER"));
         if (CookieUtil.getCookieValue(request,"hubState")!=null)  {
         request.setAttribute("hubStateObject", gs.data.state.State.fromString( CookieUtil.getCookieValue(request,"hubState")) );
@@ -167,9 +163,9 @@
                                         <div id="utilLinksUnsignedIn">
                                             <link:loginOrRegister email="${requestScope.context.email}"
                                                                   styleClass="menuItemAnchorText last"
-                                                                  onclick="$(function(){GSType.hover.signInHover.showHover('${requestScope.context.email}',
-                                                                  document.location.href, GSType.hover.joinHover.showJoinGlobalHeader);}); return false;"
+                                                                  onclick="{GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader)};return false;"
                                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
+
                                         </div>
                                     </c:when>
                                     <c:otherwise>
