@@ -3,22 +3,26 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 
-    <div id="hover_nlSubscriptionThankYou" class="dn">
-        <div id="hover_nlSubscriptionThankYou" class="nlHover mod modal_1 width_16">
-            <div class="outer bg-nlSubscription moduleHeight-225">
+    <pageHelper:externalCss file="/res/css/02_module/mod_skins-v1.css"/>
+
+    <div id="js-hover_nlHomePageSubscriptionThankYou" class="dn">
+        <div id="js-hover_nlHomePageSubscriptionThankYou" class="mod modal_1 width_16">
+            <div class="outer bg-homePageSubscription" style="height:250px">
                 <div class="fr">
                     <span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span>
                 </div>
                 <div class="inner" style="width: 56%; margin-top:40px;">
-                    <div class="nlContent" id="thankYouMsg">
-                        <h2>Please check your email for access to your free guides.</h2>
-
-                        <!--<p ><div id="thankYouMsg"></div></p>-->
+                    <div class="thankYouMsg" id="thankYouMsg">
+                        <h2>Thank You</h2>
+                        <div class="default">
+                            Please check your email for access to your free guides.
+                        </div>
                     </div>
 
-                    <button class="but but-rg but-1" type="submit" name="nlSubSubmit" id="hover_nlSubscriptionSubmit">
+                    <button class="js_closeHover mtl but but-lg but-1" type="submit" name="nlHomePageSubClose" id="js-nlHompePageSubCloseBut">
                         Close
                     </button>
                 </div>

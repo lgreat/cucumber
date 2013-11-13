@@ -44,6 +44,7 @@ GSType.hover.HoverDialog = function(id,width) {
             this.dialogByWidth();
             this.initialized = true;
         }
+        console.log("layerId:" + this.hoverId);
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
@@ -1336,7 +1337,9 @@ GSType.hover.NlSubscription = function() {
     this.loadDialog = function() {
     };
     this.showHover = function () {
+        console.log("123");
         subCookie.createAllHoverCookie('showNLHoverOnArticles',1,1);
+        console.log("345");
         $j('#nlSubEmail_error').hide();
         $j('#nlSubEmail_error_alreadySub').hide();
         GSType.hover.nlSubscription.show();
@@ -1394,6 +1397,74 @@ GSType.hover.NlSubscriptionThankYou = function() {
     };
 }
 GSType.hover.NlSubscriptionThankYou.prototype = new GSType.hover.HoverDialog("hover_nlSubscriptionThankYou",540);
+
+GSType.hover.HomePageNLSubscription = function() {
+    this.loadDialog = function() {
+        this.pageName = "Email for Download Join Hover";
+        this.hier1= "Hovers: Join"
+
+    };
+    console.log("hover js very top cookie");
+    this.showHover = function () {
+        console.log("top cookie");
+        subCookie.createAllHoverCookie('showNLHoverOnHomePage',1,30);
+        jQuery('.nlHomePageSubEmail_error').hide();
+        jQuery('.nlHomePageSubEmail_error_alreadySub').hide();
+        GSType.hover.homePageNLSubscription.show();
+        jQuery('#nlHomePageSubEmail').blur();
+        jQuery('#js-removeHomePageSubscriptionFromPage').remove();
+    };
+    this.validateEmail = function() {
+        var isEmailValid = false;
+        jQuery.ajax({
+            type: 'POST',
+            url: GS.uri.Uri.getBaseHostname() + '/util/isValidEmail.page',
+//            data: postData,
+            data: {email:jQuery('#js-hover_nlHomePageSubscription:visible .nlHomePageSubEmail').val()},
+            dataType: 'text',
+            async: false,
+            success: function(data) {
+                isEmailValid = data == 'true' ? true : false;
+            }
+        });
+        return isEmailValid;
+    };
+
+    this.subscribeUser = function() {
+        jQuery.ajax({
+            type: 'POST',
+            url: GS.uri.Uri.getBaseHostname() + '/content/cms/nlSubscription.page',
+            data: {email:jQuery('#js-hover_nlHomePageSubscription:visible .nlHomePageSubEmail').val(),
+                   nlSignUpFromHomePage:true,
+                   ajaxRequest:true},
+            dataType: 'json',
+            async: false,
+            success: function(data) {
+                if (data.userAlreadySubscribed === true) {
+                    jQuery('.nlHomePageSubEmail_error_alreadySub').show();
+                } else {
+                    GSType.hover.homePageNLSubscription.hide();
+                    s.linkTrackVars = "events";
+                    s.linkTrackEvents = "event83";
+                    pageTracking.clear();
+                    pageTracking.successEvents = 'event83';
+                    pageTracking.send();
+                    GSType.hover.homePageNLSubscriptionThankYou.show();
+                }
+            }
+        });
+    };
+} ;
+GSType.hover.HomePageNLSubscription.prototype = new GSType.hover.HoverDialog("js-hover_nlHomePageSubscription", 540);
+
+GSType.hover.HomePageNLSubscriptionThankYou = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function () {
+        GSType.hover.homePageNLSubscriptionThankYou.show();
+    };
+}
+GSType.hover.HomePageNLSubscriptionThankYou.prototype = new GSType.hover.HoverDialog("js-hover_nlHomePageSubscriptionThankYou",540);
 
 GSType.hover.InterruptSurvey = function() {
     var surveyUrl = '';
@@ -1685,6 +1756,7 @@ GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
 GSType.hover.nlSubscription = new GSType.hover.NlSubscription();
 GSType.hover.nlSubscriptionThankYou = new GSType.hover.NlSubscriptionThankYou();
 
+
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
 
@@ -1697,6 +1769,10 @@ GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
 //GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
 
 GSType.hover.espProvisionalReminder = new GSType.hover.EspProvisionalReminder();
+//cow cow cow
+//creates a new hover instance
+GSType.hover.homePageNLSubscription = new GSType.hover.HomePageNLSubscription();
+GSType.hover.homePageNLSubscriptionThankYou = new GSType.hover.HomePageNLSubscriptionThankYou();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -2043,6 +2119,8 @@ jQuery(function() {
     GSType.hover.nlSubscriptionThankYou.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();
+    GSType.hover.homePageNLSubscription.loadDialog();
+    GSType.hover.homePageNLSubscriptionThankYou.loadDialog();
 
     GSType.hover.compareSchoolsLimitReached.loadDialog();
     GSType.hover.reportContentHover.loadDialog();
@@ -2337,10 +2415,11 @@ jQuery(function() {
         GSType.hover.espProvisionalReminder.show();
     }else if (showHover == "YoutubeVideoLightbox") {
         GSType.hover.YoutubeVideoLightbox.show();
+    }
 // else if (showHover == "clickToReviewYourSchool") {
 //        GSType.hover.clickToReviewYourSchool.show();
 //    }
-    }
+//    }
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
     //Omniture tracking for facebook share button on school review hovers.GS-12508
@@ -2353,7 +2432,6 @@ jQuery(function() {
         }
         GSType.hover.schoolReviewPosted.hide();
     });
-
 });
 
 

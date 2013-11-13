@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.data.community.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.util.ExactTargetUtil;
@@ -26,6 +27,10 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
     protected final Log _log = LogFactory.getLog(getClass());
     private ISubscriptionDao _subscriptionDao;
     private EmailVerificationEmail _emailVerificationEmail;
+
+    private ExactTargetAPI _exactTargetAPI;
+
+    public static final String EXACT_TARGET_HOME_PAGE_PITCH_KEY = "offer_download_trigger";
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
@@ -78,8 +83,18 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
                 user.setEmail(email);
                 user.setHow("hover_article");
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                if(nlSubCmd.isNlSignUpFromHomePage() == true){
+                    user.setEmailVerified(true);
+                }
                 _userDao.saveUser(user);
-                shouldSendVerificationEmail = true;
+
+                if (nlSubCmd.isNlSignUpFromHomePage() == true){
+                    shouldSendVerificationEmail = false;
+                    _exactTargetAPI.sendTriggeredEmail(EXACT_TARGET_HOME_PAGE_PITCH_KEY, user);
+                }else{
+                    shouldSendVerificationEmail = true;
+                }
+
 
                 addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
                 addedParentAdvisorSubscription = true;
@@ -153,4 +168,11 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
         _subscriptionDao = subscriptionDao;
     }
 
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
+    }
 }
