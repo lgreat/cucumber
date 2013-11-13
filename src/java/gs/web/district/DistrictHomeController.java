@@ -3,6 +3,10 @@ package gs.web.district;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubCityMapping;
+import gs.data.hubs.HubConfig;
+import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -16,6 +20,7 @@ import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.zillow.ZillowRegionDao;
+import gs.web.geo.CityHubHelper;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -26,6 +31,7 @@ import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -64,6 +70,13 @@ public class DistrictHomeController extends AbstractController  implements IDire
 
     @Autowired
     private ZillowRegionDao _zillowDao;
+
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
+
+
+    @Autowired
+    private IHubConfigDao _hubConfigDao;
 
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
@@ -192,18 +205,35 @@ public class DistrictHomeController extends AbstractController  implements IDire
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
         model.put("model", pageModel);
 
+
+
+
         // Google ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        pageHelper.addAdKeyword("state", state.getAbbreviation());
-        pageHelper.addAdKeyword("city", city.getName());
-        if (city.getCountyFips() != null) {
-            ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
-            if (county != null) {
-                pageHelper.addAdKeyword("county", county.getName());
+
+
+        if (pageHelper != null) {
+            final String stateAbr = state.getAbbreviation();
+            final String cityName = WordUtils.capitalizeFully(city.getName());
+            final Integer collectionID = _hubCityMappingDao.getCollectionIdFromCityAndState(cityName, state);
+            if (collectionID != null) {
+                pageHelper.clearHubCookiesForNavBar(request, response);
+                pageHelper.setHubCookiesForNavBar(request, response, stateAbr, cityName);
+                pageHelper.setHubUserCookie(request, response);
+                model.put("isHubUserSet", "y");
+                final HubConfig addhubConfig = _hubConfigDao.getConfigFromCollectionIdAndKey(collectionID, CityHubHelper.SHOW_ADS_KEY);
+                if (addhubConfig != null && "false".equals(addhubConfig.getValue())) {
+                    pageHelper.setHideAds(true);
+                } else {
+                    setAddKeyWords(state, district, city, pageHelper);
+                }
+         } else {
+                setAddKeyWords(state, district, city, pageHelper);
+
             }
+
         }
-        pageHelper.addAdKeyword("district_name", district.getName());
-        pageHelper.addAdKeyword("district_id", district.getId().toString());
+
 
         _stateSpecificFooterHelper.displayPopularCitiesForState(state, model);
 
@@ -214,6 +244,19 @@ public class DistrictHomeController extends AbstractController  implements IDire
         model.put("regionID",zillowRegionId)  ;
 
         return new ModelAndView(getViewName(), model);
+    }
+
+    private void setAddKeyWords(State state, District district, City city, PageHelper pageHelper) {
+        pageHelper.addAdKeyword("state", state.getAbbreviation());
+        pageHelper.addAdKeyword("city", city.getName());
+        if (city.getCountyFips() != null) {
+            ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
+            if (county != null) {
+                pageHelper.addAdKeyword("county", county.getName());
+            }
+        }
+        pageHelper.addAdKeyword("district_name", district.getName());
+        pageHelper.addAdKeyword("district_id", district.getId().toString());
     }
 
     protected void getBoilerPlateForDistrict(District district, Map<String, Object> model){
