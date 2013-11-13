@@ -8,6 +8,9 @@ package gs.web.util.context;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.geo.City;
+import gs.data.school.EspMembership;
+import gs.data.school.EspMembershipStatus;
+import gs.data.school.IEspMembershipDao;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -21,6 +24,7 @@ import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -132,6 +136,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
     public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.org:8000";
+
+    @Autowired
+    protected IEspMembershipDao _espMembershipDao;
 
     public void readCookies(HttpServletRequest httpServletRequest,
                                final SessionContext context) {
@@ -815,7 +822,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash, boolean rememberMe) {
         if (user != null) {
             setUserIsMember(request, response);
-            if(user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
+            if((user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) || isProvisionalEspMember(user)) {
                 if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                     _isOspMemberCookieGenerator.setCookieDomain(".greatschools.org");
                 }
@@ -947,5 +954,28 @@ public class SessionContextUtil implements ApplicationContextAware {
             LONG_STATE_URI_PATTERN = Pattern.compile(longStatePattern.toString(), Pattern.CASE_INSENSITIVE);
         }
         return LONG_STATE_URI_PATTERN;
+    }
+
+    public boolean isProvisionalEspMember(User user) {
+        boolean isAllowedToEditSchoolProfile = false;
+        if(user != null) {
+            List<EspMembership> espMemberships =
+                    _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
+
+            for(EspMembership espMembership : espMemberships) {
+                if(EspMembershipStatus.PROVISIONAL.equals(espMembership.getStatus())) {
+                    isAllowedToEditSchoolProfile = true;
+                }
+            }
+        }
+        return isAllowedToEditSchoolProfile;
+    }
+
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
     }
 }
