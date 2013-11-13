@@ -35,6 +35,9 @@
                         </c:choose>
                     </li>
                     <li>
+                        <a href="/catalog/pdf/GreatSchoolsCoreValues.pdf" target="_blank">Core Values</a>
+                    </li>
+                    <li>
                         <c:choose>
                             <c:when test="${pageScope.selected eq 'management'}">
                                 <span class="text2">Our People</span>

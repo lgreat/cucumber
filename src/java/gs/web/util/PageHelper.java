@@ -1201,4 +1201,12 @@ public class PageHelper {
         // the logic for setting this template value is in SchoolProfileController - just search for "template"
         return hasAdKeywordWithValue("template","SchoolProf");
     }
+
+    public static String getOptimizelyUrl() {
+        return System.getProperty("optimizely_tag");
+    }
+
+    public String getOptimizelyTag() {
+        return System.getProperty("optimizely_tag");
+    }
 }

@@ -45,6 +45,10 @@
                 compressedScripts="${param.compressedScripts}"
                 serverName="${pageContext.request.serverName}"/>
 
+        <c:if test="${not empty requestScope.pageHelper.optimizelyTag}">
+            <![CDATA[<script type="text/javascript" src="${requestScope.pageHelper.optimizelyTag}"></script>]]>
+        </c:if>
+
         <c:forEach var="entry" items="${requestScope.pageHelper.metaProperties}">
             <meta property="${entry.key}" content="${entry.value}"/>
         </c:forEach>

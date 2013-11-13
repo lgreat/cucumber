@@ -20,7 +20,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:externalJavascript file="http://api.recaptcha.net/js/recaptcha_ajax.js"/>
+<pageHelper:externalJavascript file="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"/>
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
 <head>

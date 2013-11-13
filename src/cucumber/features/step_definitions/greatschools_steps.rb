@@ -87,6 +87,6 @@ Then "the MSS Email Validation hover is visible" do
   }
 end
 
-When /^I wait (\d+) seconds/ do |seconds|
+When /^I wait (\d+) second[s]?/ do |seconds|
   sleep seconds.to_i
 end

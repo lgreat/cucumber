@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        >
+    <jsp:directive.attribute name="censusDataSet" type="gs.data.school.census.CensusDataSet" required="true"/>
+    <jsp:directive.attribute name="label" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="schoolLabel" type="java.lang.String" required="false"/>
+    <jsp:directive.attribute name="districtLabel" type="java.lang.String" required="false"/>
+    <jsp:directive.attribute name="maxValue" type="java.lang.Float" required="false"/>
+    <jsp:directive.attribute name="maxFractionDigits" type="java.lang.Integer" required="false"/>
+
+    <c:if test="${empty maxValue}">
+        <c:set var="maxValue" value="10"/>
+    </c:if>
+    <c:if test="${empty maxFractionDigits}">
+        <c:set var="maxFractionDigits" value="1"/>
+    </c:if>
+    <c:if test="${empty schoolLabel}">
+        <c:set var="schoolLabel" value="This school"/>
+    </c:if>
+    <c:if test="${empty districtLabel}">
+        <c:set var="districtLabel" value="District average"/>
+    </c:if>
+
+    <div class="unit size20of100 bold">${label}</div>
+    <div class="unit size80of100">
+        <c:if test="${censusDataSet.schoolOverrideOrSchoolValue ne null}">
+            <c:set var="censusSchoolValue" value="${censusDataSet.schoolOverrideOrSchoolValue}"/>
+
+            <div class="line">
+                <div class="unit size25of100">
+                    <p class="small_bold bottom">${schoolLabel}</p>
+                </div>
+                <div class="unit size4of100">&amp;nbsp;</div>
+                <div class="unit size10of100 small_bold bottom">
+                    <fmt:formatNumber var="roundedValue" maxFractionDigits="1" minFractionDigits="1" value="${censusSchoolValue.valueFloat}"/>
+                    ${roundedValue}
+                </div>
+                <div class="unit size4of100">&amp;nbsp;</div>
+                <div class="unit size57of100 lastUnit">
+                    <div class="bar_container thin blue">
+                        <div style="width:${censusSchoolValue.valueFloat/maxValue*100}%"><!-- not empty --></div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${not empty censusDataSet.districtData}">
+            <c:forEach items="${censusDataSet.districtData}" var="districtAverage" end="1">
+                <div class="line">
+                    <div class="unit size25of100">
+                        <p class="small bottom">${districtLabel}</p>
+                    </div>
+                    <div class="unit size4of100">&amp;nbsp;</div>
+                    <div class="unit size10of100 small bottom">
+                        <fmt:formatNumber var="roundedValue" maxFractionDigits="1" minFractionDigits="1"
+                                          value="${districtAverage.valueFloat}"/>
+                        ${roundedValue}
+                    </div>
+                    <div class="unit size4of100">&amp;nbsp;</div>
+                    <div class="unit size57of100 lastUnit">
+                        <div class="bar_container thin light_blue">
+                            <div style="width:${districtAverage.valueFloat/maxValue*100}%"><!-- not empty --></div>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:if>
+
+        <!--<c:if test="${censusDataSet.stateCensusValue ne null}">-->
+        <!--<div class="line">-->
+        <!--<div class="unit size25of100">-->
+        <!--<p class="small_bold bottom make-787878">State Average</p>-->
+        <!--</div>-->
+        <!--<div class="unit size4of100">&amp;nbsp;</div>-->
+        <!--<div class="unit size57of100">-->
+        <!--<div class="bar_container thin make-787878">-->
+        <!--<div style="width:${censusDataSet.stateCensusValue.valueFloat/maxValue*100}%">&lt;!&ndash; not empty &ndash;&gt;</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="unit size3of100">&amp;nbsp;</div>-->
+        <!--<div class="unit size15of100 small lastUnit small_bold bottom make-787878">-->
+        <!--${censusDataSet.stateCensusValue.valueInteger}%-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</c:if>-->
+    </div>
+    <div class="clearfix"><!-- not empty --></div>
+</jsp:root>

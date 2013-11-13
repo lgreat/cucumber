@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:censusDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/censusDisplay"
+        >
+    <c:if test="${climateData ne null and fn:length(climateData) gt 0}">
+        <div>
+            <c:if test="${not empty dataDescriptions['climate_about_learning_environment'] or not empty dataDescriptions['climate_learn_more_url']}">
+                <div class="containerOrangeBox pal">
+                    <p class="mbn">
+                        ${dataDescriptions['climate_about_learning_environment']}
+                        <c:choose>
+                            <c:when test="${not empty dataDescriptions['climate_learn_more_body']}">
+                                <a href="#" onclick="return false;" class="js-climateLearnMoreExpando">Learn more</a>
+                            </c:when>
+                            <c:when test="${not empty dataDescriptions['climate_learn_more_url']}">
+                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
+                            </c:when>
+                        </c:choose>
+                    </p>
+                    <c:if test="${not empty dataDescriptions['climate_learn_more_body']}">
+                        <p class="dn mtm mbn js-climateLearnMoreBody">${dataDescriptions['climate_learn_more_body']}
+                            <c:if test="${not empty dataDescriptions['climate_learn_more_url']}">
+                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
+                            </c:if>
+                        </p>
+                    </c:if>
+                </div>
+            </c:if>
+            <div class="ptl">
+                <c:if test="${not empty climateTotalResponses}">
+                    <span class="fr small mtm">Based on <strong>${climateTotalResponses}</strong> responses</span>
+                </c:if>
+                <h2>This school provides ... <c:if test="${not empty dataDescriptions['climate_source1']}"><sup class="small">1</sup></c:if></h2>
+            </div>
+            <c:forEach items="${climateData}" var="climateBean">
+                <censusDisplay:parentStudentTeacherBox totalDS="${climateBean.total}" breakdowns="${climateBean.breakdowns}"
+                                                       intro="${climateBean.title}" description="${climateBean.description}"/>
+            </c:forEach>
+
+            <c:if test="${not empty climateResponseCounts}">
+
+                <div class="clear mbl"><!-- not empty --></div>
+                <hr class="keyline1"/>
+                <div class="clear mbl"><!-- not empty --></div>
+
+                <h2>Based on surveys from:</h2>
+
+                <div class="standard_1-4">
+                    <table class="inner">
+                        <thead>
+                        <tr>
+                            <th>&amp;nbsp;</th>
+                            <th class="tac"># of responses</th>
+                            <th class="tac">Response rate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${climateResponseCounts}" var="responseCount">
+                            <tr>
+                                <td>${responseCount.respondentType.label}</td>
+                                <td class="tac">${not empty responseCount.numberOfResponses ? responseCount.numberOfResponses.schoolOverrideOrSchoolValue.valueInteger : 'Not reported'}</td>
+                                <c:choose>
+                                    <c:when test="${not empty responseCount.responseRate}">
+                                        <fmt:formatNumber
+                                                value="${responseCount.responseRate.schoolOverrideOrSchoolValue.valueFloat}"
+                                                maxFractionDigits="0" var="roundedValue"/>
+                                        <c:set var="roundedValue" value="${roundedValue}%"/>
+                                    </c:when>
+                                    <c:otherwise><c:set var="roundedValue" value="Not reported"/></c:otherwise>
+                                </c:choose>
+                                <td class="tac">${roundedValue}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clear mbl"><!-- not empty --></div>
+            </c:if>
+
+            <c:if test="${not empty dataDescriptions['climate_source1']}">
+                <div class="clear mbl"><!-- not empty --></div>
+                <hr class="keyline1"/>
+                <div class="clear mbl"><!-- not empty --></div>
+
+                <div class="smaller pbm make-999999">
+                    <sup>1</sup>${dataDescriptions['climate_source1']}
+                </div>
+            </c:if>
+
+            <div class="clear mbl"><!-- not empty --></div>
+
+            <mod:deferredTracking key="climate" pageName="Climate"
+                                  hier1="School,SchoolProfileSuite,Climate"/>
+        </div>
+    </c:if>
+</jsp:root>

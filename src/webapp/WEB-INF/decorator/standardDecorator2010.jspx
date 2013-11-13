@@ -57,6 +57,10 @@
                 compressedScripts="${param.compressedScripts}"
                 serverName="${pageContext.request.serverName}"/>
 
+        <c:if test="${not empty requestScope.pageHelper.optimizelyTag}">
+            <![CDATA[<script type="text/javascript" src="${requestScope.pageHelper.optimizelyTag}"></script>]]>
+        </c:if>
+
         <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
             <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER" allowCdn="true"/>

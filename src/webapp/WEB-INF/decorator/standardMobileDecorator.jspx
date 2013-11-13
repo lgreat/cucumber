@@ -65,6 +65,10 @@
 
         <script src="/res/js/jquery/jquery-1.9.1.min.js" type="text/javascript">/* do not collapse  */</script>
 
+        <c:if test="${not empty requestScope.pageHelper.optimizelyTag}">
+            <![CDATA[<script type="text/javascript" src="${requestScope.pageHelper.optimizelyTag}"></script>]]>
+        </c:if>
+
         <pageHelper:ifAdsOnPage>
             <ad:xGPTMobileSetup/>
         </pageHelper:ifAdsOnPage>

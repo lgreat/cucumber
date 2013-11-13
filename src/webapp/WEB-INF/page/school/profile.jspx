@@ -380,7 +380,7 @@
     <c:if test="${param.tab eq 'demographics' or param.tab eq 'teachers'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="students-teachers-master" value="selected"/>
     </c:if>
-    <c:if test="${param.tab eq 'programs-culture' or param.tab eq 'culture' or param.tab eq 'programs-resources' or param.tab eq 'extracurriculars'}">
+    <c:if test="${param.tab eq 'programs-culture' or param.tab eq 'climate' or param.tab eq 'culture' or param.tab eq 'programs-resources' or param.tab eq 'extracurriculars'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="programs-master" value="selected"/>
     </c:if>
     <c:if test="${param.tab eq 'enrollment'}">

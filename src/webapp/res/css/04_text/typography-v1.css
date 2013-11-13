@@ -108,6 +108,7 @@ p,
 .default     { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .largest     { font: bold 25px/21px Arial, Helvetica, sans-serif; text-shadow: 0 1px 0 #fff; margin-bottom: 20px;}
 .big         { font: normal 36px/40px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.larger      { font: normal 16px/24px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
