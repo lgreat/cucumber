@@ -35,7 +35,7 @@
                 </div>
                 <div class="unit size4of100">&amp;nbsp;</div>
                 <div class="unit size10of100 small_bold bottom">
-                    <fmt:formatNumber var="roundedValue" maxFractionDigits="1" value="${censusSchoolValue.valueFloat}"/>
+                    <fmt:formatNumber var="roundedValue" maxFractionDigits="1" minFractionDigits="1" value="${censusSchoolValue.valueFloat}"/>
                     ${roundedValue}
                 </div>
                 <div class="unit size4of100">&amp;nbsp;</div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="unit size4of100">&amp;nbsp;</div>
                     <div class="unit size10of100 small bottom">
-                        <fmt:formatNumber var="roundedValue" maxFractionDigits="1"
+                        <fmt:formatNumber var="roundedValue" maxFractionDigits="1" minFractionDigits="1"
                                           value="${districtAverage.valueFloat}"/>
                         ${roundedValue}
                     </div>

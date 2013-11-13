@@ -23,7 +23,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
-    /** What respondent type corresponds to each breakdown data type */
+    /** What respondent type corresponds to each breakdown data type, used for view labeling. */
     public static Map<CensusDataType, ClimateRespondentType> BREAKDOWN_TO_RESPONDENT_TYPE = new HashMap<CensusDataType, ClimateRespondentType>() {
         {
             put(CensusDataType.CLIMATE_COMMUNICATION_SCORE_PARENT, ClimateRespondentType.parents);
@@ -56,7 +56,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         }
     };
 
-    /** Which breakdown data types belong to which total data types */
+    /** Which breakdown data types belong to which total data types, used to construct hierarchical view bean objects */
     public static Map<CensusDataType, List<CensusDataType>> TOTAL_TO_BREAKDOWN_MAP = new HashMap<CensusDataType, List<CensusDataType>>() {
         {
             put(CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL, Arrays.asList(
@@ -102,6 +102,9 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         }
     };
 
+    /**
+     * Configures the order in which various data types appear on the climate tab.
+     */
     public static Map<CensusDataType, Integer> TOTAL_DATA_TYPE_ORDER_MAP = new HashMap<CensusDataType, Integer>() {
         {
             put(CensusDataType.CLIMATE_SAFETY_RESPECT_SCORE_TOTAL, 10);
@@ -204,8 +207,14 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
                     CensusDataType.CLIMATE_RESPONSE_RATE_SCHOOL_EMPLOYEE, CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_SCHOOL_EMPLOYEE);
             Collections.sort(responseCounts);
 
+            int totalResponses = 0;
+            for (ClimateResponseCount responseCount: responseCounts) {
+                if (responseCount.getNumberOfResponses() != null && responseCount.getNumberOfResponses().getSchoolOverrideOrSchoolValue() != null && responseCount.getNumberOfResponses().getSchoolOverrideOrSchoolValue().getValueInteger() != null) {
+                    totalResponses += responseCount.getNumberOfResponses().getSchoolOverrideOrSchoolValue().getValueInteger();
+                }
+            }
             modelMap.put("climateResponseCounts", responseCounts);
-
+            modelMap.put("climateTotalResponses", totalResponses);
             modelMap.put("dataDescriptions", dataDescription.getDescriptions());
         }
 
@@ -216,11 +225,11 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
      * Add in one or both data sets to a new ClimateResponseCount object and add to list. Does nothing if both
      * data sets are null.
      */
-    protected static void addInResponseCount(List<ClimateResponseCount> responseCounts, Map<Integer, CensusDataSet> dataSets,
+    protected static void addInResponseCount(List<ClimateResponseCount> responseCounts, Map<Integer, CensusDataSet> dataTypeIdToDataSet,
                                              ClimateRespondentType respondentType, CensusDataType responseRateDT,
                                              CensusDataType numberOfResponsesDT) {
-        CensusDataSet responseRate = dataSets.get(responseRateDT.getId());
-        CensusDataSet numberOfResponses = dataSets.get(numberOfResponsesDT.getId());
+        CensusDataSet responseRate = dataTypeIdToDataSet.get(responseRateDT.getId());
+        CensusDataSet numberOfResponses = dataTypeIdToDataSet.get(numberOfResponsesDT.getId());
         if (responseRate != null || numberOfResponses != null) {
             responseCounts.add(new ClimateResponseCount(responseRate, numberOfResponses, respondentType));
         }
@@ -229,13 +238,27 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
     /**
      * Adds value to the list using key on mapOfLists. Handles creating the list for the first value.
      */
-    protected static <K, V> void addToMapOfLists(Map<K, List<V>> mapOfLists, K key, V value) {
+    public static <K, V> void addToMapOfLists(Map<K, List<V>> mapOfLists, K key, V value) {
         List<V> valueList = mapOfLists.get(key);
         if (valueList == null) {
             valueList = new ArrayList<V>();
             mapOfLists.put(key, valueList);
         }
         valueList.add(value);
+    }
+
+    protected static boolean isDataTypeForClimate(CensusDataType censusDataType) {
+        return censusDataType != null && (
+                BREAKDOWN_TO_TOTAL_MAP.keySet().contains(censusDataType) ||
+                        TOTAL_TO_BREAKDOWN_MAP.keySet().contains(censusDataType) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_PARENT) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_PARENT) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_STUDENT) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_STUDENT) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_TEACHER) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_TEACHER) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_SCHOOL_EMPLOYEE) ||
+                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_SCHOOL_EMPLOYEE));
     }
 
     /**
@@ -368,33 +391,35 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         }
     }
 
-    protected static boolean isDataTypeForClimate(CensusDataType censusDataType) {
-        return censusDataType != null && (
-                BREAKDOWN_TO_TOTAL_MAP.keySet().contains(censusDataType) ||
-                        TOTAL_TO_BREAKDOWN_MAP.keySet().contains(censusDataType) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_PARENT) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_PARENT) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_STUDENT) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_STUDENT) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_TEACHER) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_TEACHER) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_SCHOOL_EMPLOYEE) ||
-                        censusDataType.equals(CensusDataType.CLIMATE_RESPONSE_RATE_SCHOOL_EMPLOYEE));
+    // For unit tests
+    protected void setSchoolProfileCensusHelper(SchoolProfileCensusHelper schoolProfileCensusHelper) {
+        _schoolProfileCensusHelper = schoolProfileCensusHelper;
+    }
+
+    protected SchoolProfileCensusHelper getSchoolProfileCensusHelper() {
+        return _schoolProfileCensusHelper;
     }
 
     public DataDescription getDataDescription(State state) {
         Map<String, String> descriptions = new HashMap<String, String>();
         if (state == State.CA) {
-            descriptions.put("climate_about_learning_environment", "The Los Angeles Unified School District asked, parents, students and employees about their school's learning environment across various content areas.");
+            descriptions.put("climate_source1", "2012-2013 New York City Department of Education School Survey");
+            descriptions.put("climate_about_learning_environment", "The Los Angeles Unified School District asked parents, students and employees about their school's learning environment across various content areas.");
+            descriptions.put("climate_learn_more_url", "http://notebook.lausd.net/portal/page?_pageid=33,1052381&_dad=ptl&_schema=PTL_EP");
+            descriptions.put("climate_learn_more_text", "Learn more about the LAUSD survey");
+            descriptions.put("climate_learn_more_body", "Here is some text describing the LAUSD survey");
         } else if (state == State.NY) {
+            descriptions.put("climate_source1", "2012-13 Los Angeles Unified School District School Experience Survey");
             descriptions.put("climate_about_learning_environment", "The NYC Department of Education asked parents, teachers and students about their school's learning environment across four categories.");
-            descriptions.put("climate_learn_more_url", "#");
-            descriptions.put("climate_learn_more_text", "Learn more about the NYDOE survey");
+            descriptions.put("climate_learn_more_url", "http://schools.nyc.gov/NR/rdonlyres/C5971763-B938-43CF-A525-0DBCCED94AA0/0/2013NYCSchoolSurveyScoringGuide.pdf");
+            descriptions.put("climate_learn_more_text", "Learn more about the NYCDOE survey.");
+            descriptions.put("climate_learn_more_body", "Here is some text describing the NY survey.");
+            descriptions.put("climate_district_average_label", "City average");
         }
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_title", "High academic expectations for all students");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_description", "This score measures how well parents, students and teachers feel that the school develops rigorous and meaningful academic goals that encourage students to do their best.");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL.getId() + "_title", "Clear, useful communication about educational goals");
-        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL.getId() + "_description", "This score measures whether parents, students and teachers feel that the school provides information about the school's educational goals and offers appropriate feedback on each student's learning outcomes.");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_COMMUNICATION_SCORE_TOTAL.getId() + "_description", "This score measures whether parents, students and teachers feel that the school provides information about the school's educational goals and offers appropriate feedback on each student's learning outcome.");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ENGAGEMENT_SCORE_TOTAL.getId() + "_title", "Strong parent, teacher and student engagement");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ENGAGEMENT_SCORE_TOTAL.getId() + "_description", "This score measures how engaged parents, students and teachers feel they are in an active and vibrant partnership to promote student learning.");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_RESPECT_SCORE_TOTAL.getId() + "_title", "A safe and respectful environment");
@@ -403,13 +428,13 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_PERCENT_AGREE_TOTAL.getId() + "_title", "High academic expectations for all students");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents and students that agree to strongly agree that this school sets high academic expectations for its students and expects them to be college-bound. This score is based on the average of the following LAUSD survey Content Areas: School Future Expectations (Parents), School Quality (Parents), Future Plans (Parents), Opportunities For Learning (Students), Future Plans (Students).");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_FAMILY_ENGAGEMENT_PERCENT_AGREE_TOTAL.getId() + "_title", "Strong family engagement");
-        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_FAMILY_ENGAGEMENT_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents and employees that agree to strongly agree that this school engages parents and communicates with families to promote student learning. This score is based on the average of the following LAUSD survey Content Areas: Evaluation (Employees), Opportunities for Involvement (Employees), Professional Development (Employees), Resource Allocation (Employees), Teacher Collaboration and Data Use (Employees).");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_FAMILY_ENGAGEMENT_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents and employees that agree to strongly agree that this school engages parents and communicates with families to promote student learning. This score is based on the average of the following LAUSD survey Content Areas: Parent Involvement (Employees), Feeling of Welcome (Parents), School Involvement (Parents), Teacher to Parent Communication (Parents).");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_RESPECT_RELATIONSHIPS_PERCENT_AGREE_TOTAL.getId() + "_title", "Healthy, respectful relationships");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_RESPECT_RELATIONSHIPS_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of  students and employees that agree to strongly agree that this school has a positive learning environment and cultivates an atmosphere of respect. This score is based on the average of the following LAUSD survey Content Areas: School Support, Commitment and Collaboration (Employees), Satisfaction (Students), School Support (Students).");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_CLEANLINESS_PERCENT_AGREE_TOTAL.getId() + "_title", "A safe, clean and orderly environment");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_SAFETY_CLEANLINESS_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of parents, students and employees that agree to strongly agree that this school has a well-kept facility and a safe environment conducive to learning. This score is based on the average of the following LAUSD survey Content Areas: School Cleanliness (Employees), School Safety (Employees), Safety (Parents), School Cleanliness (Students), School Safety (Students).");
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_TEACHER_COLLABORATION_SUPPORT_PERCENT_AGREE_TOTAL.getId() + "_title", "Teacher support and collaboration opportunities");
-        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_TEACHER_COLLABORATION_SUPPORT_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of employees that agree to strongly agree that this school ensures that teachers work well together, learn from one another, have opportunities for professional development and feel supported by the administration.");
+        descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_TEACHER_COLLABORATION_SUPPORT_PERCENT_AGREE_TOTAL.getId() + "_description", "This score measures the percent of employees that agree to strongly agree that this school ensures that teachers work well together, learn from one another, have opportunities for professional development and feel supported by the administration. This score is based on the average of the following LAUSD survey Content Areas: Evaluation (Employees), Opportunities for Involvement (Employees), Professional Development (Employees), Resource Allocation (Employees), Teacher Collaboration and Data Use (Employees).");
 
         return new DataDescription(descriptions);
     }
