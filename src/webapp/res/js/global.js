@@ -615,6 +615,21 @@ GS.util.isWebkit = function(){
     return (jQuery("html").hasClass("safari") || jQuery("html").hasClass("chrome"));
 };
 
+// same as isDeveloperWorkstation(String hostName) in UrlUtil.java, please update both for any changes.
+GS.util.isDeveloperWorkstation = function() {
+    var hostname = window.location.hostname;
+    return hostname.indexOf("localhost") > -1 ||
+        hostname.indexOf("127.0.0.1") > -1 ||
+        hostname.match(/^172.18.1.*/) !== null ||
+        hostname.match(/^172.21.1.*/) !== null ||
+        hostname.indexOf("samson.") != -1 ||
+        hostname.indexOf("mitchtest.") != -1 ||
+        hostname.indexOf("rcox.office.") != -1 ||
+        (hostname.match(/.+office.*/) !== null && hostname.indexOf("cpickslay.office") == -1) ||
+        hostname.indexOf("vpn.greatschools.org") != -1 ||
+        hostname.indexOf("macbook") > -1;
+};
+
 
 var GS = GS || {};
 GS.ad = GS.ad || {};
@@ -679,7 +694,11 @@ GS.hubs.clearLocalUserCookies = function() {
     date.setTime(date.getTime()+(-2*24*60*60*1000));
     var expires = "; expires=" + date.toGMTString();
     var localUserCookieNames = ["hubCity", "hubState", "ishubUser"];
+    var isDeveloperWorkstation = GS.util.isDeveloperWorkstation();
     for(var i = 0; i < localUserCookieNames.length; i++) {
-        document.cookie = localUserCookieNames[i] + "=" + expires + "; path=/";
+        var localUserCookie = "";
+        localUserCookie = localUserCookieNames[i] + "=" + expires + "; path=/";
+        if(!isDeveloperWorkstation) localUserCookie += "; domain=.greatschools.org";
+        document.cookie = localUserCookie;
     }
 };

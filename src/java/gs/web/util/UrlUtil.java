@@ -735,6 +735,7 @@ public final class UrlUtil {
 
     /**
      * Is this code running on a developers workstation?
+     * any changes here must be included in GS.util.isDeveloperWorkstation in global.js
      */
     public static boolean isDeveloperWorkstation(String hostName) {
         return hostName.indexOf("localhost") > -1 ||
