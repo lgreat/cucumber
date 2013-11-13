@@ -61,27 +61,29 @@
                 <!-- TODO: remove the text below -->
                 <!--<p>show ads: ${showAds}</p>-->
             </div>
-            <div class="success-block container_24 clearfix mtl tac">
-                <c:choose>
-                    <c:when test="${not empty announcement}">
-                        <span class="small mrm bold">ANNOUNCEMENT</span>
-                             <span class="make-000000 small">
+            <div class="container_24 clearfix mvl">
+                <div class="success-block">
+                    <c:choose>
+                        <c:when test="${not empty announcement}">
+                            <span class="mrm bold">ANNOUNCEMENT</span>
+                             <span>
                                 ${announcement.content}
                              </span>
-                        <c:choose>
-                            <c:when test="${announcement.link.newWindow eq 'true'}">
-                                <a href="${gsweb:formatUrl(announcement.link.path)}" class="small mls"
-                                   target="_blank">${announcement.link.name}</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${announcement.link.path}" class="small mls">${announcement.link.name}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:when>
-                    <c:otherwise>
-                        <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_announcement</h3>
-                    </c:otherwise>
-                </c:choose>
+                            <c:choose>
+                                <c:when test="${announcement.link.newWindow eq 'true'}">
+                                    <a href="${gsweb:formatUrl(announcement.link.path)}" class="mls"
+                                       target="_blank">${announcement.link.name}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${announcement.link.path}" class="mls">${announcement.link.name}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_announcement</h3>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </c:when>
         <c:otherwise>

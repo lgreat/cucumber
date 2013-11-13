@@ -126,9 +126,9 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         StepModel step1= new StepModel(1, "Think about your needs", "/res/img/cityHubs/choosingStep1.png",
                                           "As you think about choosing a school, consider what matters most to your family. " +
-                                          "What do you value the highest when it comes to your child’s education? " +
+                                          "What do you value the highest when it comes to your child&#39;s education? " +
                                           "How does your choice of school impact your family or your finances? " +
-                                          "We’re here to help you take the first step.");
+                                          "We&#39;re here to help you take the first step.");
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep1 = new ArrayList<FeaturedResourcesModel>();
 
@@ -319,7 +319,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         AdditionalResourcesModel additionalResources4Header2 =   new AdditionalResourcesModel(null, null, null, "1", "Elementary school resources");
         AdditionalResourcesModel additionalResources4Step3 =   new AdditionalResourcesModel("Finding the right elementary school", "/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs", "Video", "1");
-        AdditionalResourcesModel additionalResources4Step4 =   new AdditionalResourcesModel("10 key questions for elementary schools", "/find-a-school/slideshows/3469-choosing-an-elementary-school.gs", "Video", "1");
+        AdditionalResourcesModel additionalResources4Step4 =   new AdditionalResourcesModel("10 key questions for elementary schools", "/find-a-school/slideshows/3469-choosing-an-elementary-school.gs", "Article", "1");
         AdditionalResourcesModel additionalResources4Step5 =   new AdditionalResourcesModel("Insider tricks for assessing elementary schools", "/find-a-school/defining-your-ideal/1628-insider-tricks-for-assessing-elementary-schools.gs", "Article", "1");
         AdditionalResourcesModel additionalResources4Step6 =   new AdditionalResourcesModel("Elementary school visit checklist", "/catalog/pdf/schq_visit_elem.pdf", "Article", "1");
 
@@ -359,9 +359,9 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         stepsInfo.add(step4);
 
 
-        //Adding Step Model for Step 5 -Potential to be Templatized in Future          you&#39;ve
+        //Adding Step Model for Step 5 -Potential to be Templatized in Future
         StepModel step5= new StepModel(5 , "Apply and enroll", "/res/img/cityHubs/choosingStep5.png",
-                        "Once you’ve made your choices, find out the details of the enrollment process for each school " +
+                        "Once you&#39;ve made your choices, find out the details of the enrollment process for each school " +
                         "and give yourself enough time to complete and submit your applications. You may need to gather " +
                         "important documents like a birth certificate or proof of residency.  Also, your first choice " +
                         "school may not be available, so you will want to apply to at least two other schools that meet " +

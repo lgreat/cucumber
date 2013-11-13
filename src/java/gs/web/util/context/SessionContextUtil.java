@@ -958,7 +958,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public boolean isProvisionalEspMember(User user) {
         boolean isAllowedToEditSchoolProfile = false;
-        if(user != null) {
+        if(user != null && _espMembershipDao != null) {
             List<EspMembership> espMemberships =
                     _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
 
