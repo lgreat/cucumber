@@ -9,9 +9,9 @@
 
     <c:if test="${fn:length(reviews) gt 0}">
         <div class="mod standard_1-1">
-            <div class="bd bg-F7F7F7">
-                <div class="container_24 clearfix mvl ptl">
-                    <div class="clearfix">
+            <div class="bg-EEEEEE border-E6E6E6">
+                <div class="container_24 clearfix mvl pvl">
+                    <div class="clearfix ptm">
                         <h3 class="SourceSansPro-Semibold-h3 bottom fl">Recent Reviews</h3>
                         <a href="/school/parentReview.page">
                             <button class="but but-rg but-1 fr">Review Your School</button>
