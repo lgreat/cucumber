@@ -8,7 +8,7 @@
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
     <c:if test="${fn:length(reviews) gt 0}">
-        <div class="mod standard_1-1">
+        <div class="mod standard_1-1 mbl pbl">
             <div class="bg-EEEEEE border-E6E6E6">
                 <div class="container_24 clearfix mvl pvl">
                     <div class="clearfix ptm">
