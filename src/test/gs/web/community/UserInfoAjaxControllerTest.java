@@ -19,7 +19,6 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
     private IAlertWordDao _alertWordDao;
     private IReportContentService _reportContentService;
-    private IEspMembershipDao _espMembershipDao;
 
     @Override
     public void setUp() throws Exception {
@@ -29,7 +28,6 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         _userDao = createStrictMock(IUserDao.class);
         _alertWordDao = createStrictMock(IAlertWordDao.class);
         _reportContentService = createStrictMock(IReportContentService.class);
-        _espMembershipDao = (EspMembershipDaoHibernate) getApplicationContext().getBean(IEspMembershipDao.BEAN_ID);
 
         _controller.setUserDao(_userDao);
         _controller.setAlertWordDao(_alertWordDao);
@@ -127,7 +125,6 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         CookieGenerator communityCG = new CookieGenerator();
         communityCG.setCookieName("community_" + SessionContextUtil.getServerName(getRequest()));
         scu.setCommunityCookieGenerator(communityCG);
-        scu.setEspMembershipDao(_espMembershipDao);
 
         sc.setSessionContextUtil(scu);
         sc.setUser(user);
@@ -171,7 +168,6 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         CookieGenerator communityCG = new CookieGenerator();
         communityCG.setCookieName("community_" + SessionContextUtil.getServerName(getRequest()));
         scu.setCommunityCookieGenerator(communityCG);
-        scu.setEspMembershipDao(_espMembershipDao);
 
         sc.setSessionContextUtil(scu);
         sc.setUser(user);
