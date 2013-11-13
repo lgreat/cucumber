@@ -6,37 +6,39 @@
         >
 
     <h3 class="SourceSansPro-Semibold-h3">Related articles</h3>
-    <div class="alpha grid_2">
-        <c:if test="${not empty cityArticle and not empty cityArticle.heading }">
-            <gsml:img src="/res/img/cityHubs/${collectionId}_CityArticle.png" alt="City of ${city}" width="60"/>
-        </c:if>
-    </div>
-    <div class="grid_10 omega">
-        <div class="medium_bold bottom">
-            <c:choose>
-                <c:when test="${not empty cityArticle and not empty cityArticle.heading }">
+ <c:choose>
+     <c:when test="${not empty cityArticle.articles}">
+         <c:forEach items="${cityArticle.articles}" var="cityArticle">
+             <div class="alpha grid_2">
+                 <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}" width="60"/>
+             </div>
+             <div class="grid_10 omega">
+                 <div class="medium_bold bottom">
+                       <c:choose>
+                         <c:when test="${cityArticle.newwindow eq 'true'}">
+                             <h5 class="SourceSansPro-Semibold-h5 bottom">
+                                 <a href="${cityArticle.articlepath}" target="_blank">${cityArticle.heading}</a>
+                             </h5>
+                             <p class="small bottom">${cityArticle.content}</p>
+                         </c:when>
+                         <c:otherwise>
+                             <h5 class="SourceSansPro-Semibold-h5 bottom">
+                                 <a href="${cityArticle.articlepath}" class="">${cityArticle.heading}</a>
+                             </h5>
+                             <p class="small bottom">${cityArticle.content}</p>
+                         </c:otherwise>
+                     </c:choose>
 
-                    <c:choose>
-                        <c:when test="${cityArticle.link.newwindow eq 'true'}">
-                            <h5 class="SourceSansPro-Semibold-h5 bottom">
-                                <a href="${cityArticle.link.path}" target="_blank">${cityArticle.heading}</a>
-                            </h5>
-                            <p class="small bottom">${cityArticle.content}</p>
-                        </c:when>
-                        <c:otherwise>
-                            <h5 class="SourceSansPro-Semibold-h5 bottom">
-                                <a href="${cityArticle.link.path}" class="">${cityArticle.heading}</a>
-                            </h5>
-                            <p class="small bottom">${cityArticle.content}</p>
-                        </c:otherwise>
-                    </c:choose>
-                </c:when>
-                <c:otherwise>
-                    <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_cityArticle</h3>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </div>
+                 </div>
+             </div>
+          </c:forEach>
+      </c:when>
+     <c:otherwise>
+     <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_cityArticle</h3>
+     </c:otherwise>
+ </c:choose>
+
+
     <div class="alpha prefix_2 grid_12 omega mtm">
         <a href="">More about ${collectionNickname} &#187;</a>
     </div>
