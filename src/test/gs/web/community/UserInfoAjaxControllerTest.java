@@ -1,6 +1,8 @@
 package gs.web.community;
 
 import gs.data.community.*;
+import gs.data.school.EspMembershipDaoHibernate;
+import gs.data.school.IEspMembershipDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -17,7 +19,8 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
     private IAlertWordDao _alertWordDao;
     private IReportContentService _reportContentService;
-    
+    private IEspMembershipDao _espMembershipDao;
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -26,6 +29,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         _userDao = createStrictMock(IUserDao.class);
         _alertWordDao = createStrictMock(IAlertWordDao.class);
         _reportContentService = createStrictMock(IReportContentService.class);
+        _espMembershipDao = (EspMembershipDaoHibernate) getApplicationContext().getBean(IEspMembershipDao.BEAN_ID);
 
         _controller.setUserDao(_userDao);
         _controller.setAlertWordDao(_alertWordDao);
@@ -123,6 +127,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         CookieGenerator communityCG = new CookieGenerator();
         communityCG.setCookieName("community_" + SessionContextUtil.getServerName(getRequest()));
         scu.setCommunityCookieGenerator(communityCG);
+        scu.setEspMembershipDao(_espMembershipDao);
 
         sc.setSessionContextUtil(scu);
         sc.setUser(user);
@@ -130,7 +135,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         getRequest().setCookies(getResponse().getCookies());
         getRequest().setParameter(UserInfoAjaxController.PARAM_ABOUT_ME, "This is about me.");
         getRequest().setParameter(UserInfoAjaxController.PARAM_MEMBER_ID, "1");
-        
+
         _userDao.saveUser(user);
         expect(_alertWordDao.hasAlertWord(getRequest().getParameter(UserInfoAjaxController.PARAM_ABOUT_ME))).andReturn(null);
         replayAllMocks();
@@ -166,6 +171,7 @@ public class UserInfoAjaxControllerTest extends BaseControllerTestCase {
         CookieGenerator communityCG = new CookieGenerator();
         communityCG.setCookieName("community_" + SessionContextUtil.getServerName(getRequest()));
         scu.setCommunityCookieGenerator(communityCG);
+        scu.setEspMembershipDao(_espMembershipDao);
 
         sc.setSessionContextUtil(scu);
         sc.setUser(user);
