@@ -9,30 +9,33 @@
  <c:choose>
      <c:when test="${not empty cityArticle.articles}">
          <c:forEach items="${cityArticle.articles}" var="cityArticle">
-             <div class="alpha grid_2">
-                 <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}" width="60"/>
-             </div>
-             <div class="grid_10 omega">
-                 <div class="medium_bold bottom">
-                       <c:choose>
-                         <c:when test="${cityArticle.newwindow eq 'true'}">
-                             <h5 class="SourceSansPro-Semibold-h5 bottom">
-                                 <a href="${cityArticle.articlepath}" target="_blank">${cityArticle.heading}</a>
-                             </h5>
-                             <p class="small bottom">${cityArticle.content}</p>
-                         </c:when>
-                         <c:otherwise>
-                             <h5 class="SourceSansPro-Semibold-h5 bottom">
-                                 <a href="${cityArticle.articlepath}" class="">${cityArticle.heading}</a>
-                             </h5>
-                             <p class="small bottom">${cityArticle.content}</p>
-                         </c:otherwise>
-                     </c:choose>
+             <div class="clearfix mvl">
+                 <div class="alpha grid_2">
+                     <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}" width="60"/>
+                 </div>
+                 <div class="grid_12 omega">
+                     <div class="medium_bold bottom">
+                         <c:choose>
+                             <c:when test="${cityArticle.newwindow eq 'true'}">
+                                 <h5 class="SourceSansPro-Semibold-h5 bottom">
+                                     <a href="${cityArticle.articlepath}" target="_blank">${cityArticle.heading}</a>
+                                 </h5>
 
+                                 <p class="small bottom">${cityArticle.content}</p>
+                             </c:when>
+                             <c:otherwise>
+                                 <h5 class="SourceSansPro-Semibold-h5 bottom">
+                                     <a href="${cityArticle.articlepath}" class="">${cityArticle.heading}</a>
+                                 </h5>
+
+                                 <p class="small bottom">${cityArticle.content}</p>
+                             </c:otherwise>
+                         </c:choose>
+                     </div>
                  </div>
              </div>
-          </c:forEach>
-      </c:when>
+         </c:forEach>
+     </c:when>
      <c:otherwise>
      <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_cityArticle</h3>
      </c:otherwise>
