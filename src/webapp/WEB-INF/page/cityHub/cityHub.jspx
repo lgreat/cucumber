@@ -48,9 +48,7 @@
         <hub:recentReviews />
 
         <c:if test="${empty requestScope.context.memberId}">
-            <div class="container_24 clearfix">
-              <button onclick="$(function(){GSType.hover.joinHover.showJoinGlobalHeader();}); return false;">Join (Styling is still left)</button>
-            </div>
+            <hub:hubsJoin/>
         </c:if>
         <div class="container_24 clearfix pvl">
             <div class="grid_14">
