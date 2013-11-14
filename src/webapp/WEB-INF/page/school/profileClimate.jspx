@@ -18,14 +18,14 @@
                                 <a href="#" onclick="return false;" class="js-climateLearnMoreExpando">Learn more</a>
                             </c:when>
                             <c:when test="${not empty dataDescriptions['climate_learn_more_url']}">
-                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
+                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_url_text'] ? dataDescriptions['climate_learn_more_url_text'] : 'Learn more'} &amp;raquo;</a>
                             </c:when>
                         </c:choose>
                     </p>
                     <c:if test="${not empty dataDescriptions['climate_learn_more_body']}">
                         <p class="dn mtm mbn js-climateLearnMoreBody">${dataDescriptions['climate_learn_more_body']}
                             <c:if test="${not empty dataDescriptions['climate_learn_more_url']}">
-                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
+                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_url_text'] ? dataDescriptions['climate_learn_more_url_text'] : 'Learn more'} &amp;raquo;</a>
                             </c:if>
                         </p>
                     </c:if>
@@ -55,7 +55,7 @@
                         <thead>
                         <tr>
                             <th>&amp;nbsp;</th>
-                            <th class="tac"># of responses</th>
+                            <th class="tac">Respondents</th>
                             <th class="tac">Response rate</th>
                         </tr>
                         </thead>

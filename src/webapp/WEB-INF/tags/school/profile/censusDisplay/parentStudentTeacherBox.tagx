@@ -6,7 +6,7 @@
           xmlns:censusDisplay="urn:jsptagdir:/WEB-INF/tags/school/profile/censusDisplay"
         >
     <jsp:directive.attribute name="totalDS" type="gs.data.school.census.CensusDataSet" required="true"/>
-    <jsp:directive.attribute name="breakdowns" type="java.util.List" required="false"/>
+    <jsp:directive.attribute name="breakdowns" type="java.util.Set" required="false"/>
     <jsp:directive.attribute name="intro" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="description" type="java.lang.String" required="false"/>
 
@@ -46,7 +46,10 @@
                                 <div class="containerGrayBox2 pal small">
                                     This school<br/>
                                     <span class="larger bold">${roundedValue}${optionalPercent}</span>
-                                    <c:if test="${not isPercentDataType}"><br/>out of 10</c:if>
+                                    <c:choose>
+                                        <c:when test="${not isPercentDataType}"><br/>out of 10</c:when>
+                                        <c:when test="${isPercentDataType}"><br/>agree</c:when>
+                                    </c:choose>
                                 </div>
                             </div>
                             <c:if test="${not empty totalDS.districtData}">
@@ -64,7 +67,10 @@
                                             </c:choose>
                                             ${districtLabel}<br/>
                                             <span class="larger bold">${roundedValue}${optionalPercent}</span>
-                                            <c:if test="${not isPercentDataType}"><br/>out of 10</c:if>
+                                            <c:choose>
+                                                <c:when test="${not isPercentDataType}"><br/>out of 10</c:when>
+                                                <c:when test="${isPercentDataType}"><br/>agree</c:when>
+                                            </c:choose>
                                         </c:forEach>
                                     </div>
                                 </div>
