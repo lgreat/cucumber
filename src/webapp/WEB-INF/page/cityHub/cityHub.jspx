@@ -52,8 +52,10 @@
               <button onclick="$(function(){GSType.hover.joinHover.showJoinGlobalHeader();}); return false;">Join (Styling is still left)</button>
             </div>
         </c:if>
-        <div class="container_24 clearfix">
-            <div class="grid_14"><hub:cityArticle/></div>
+        <div class="container_24 clearfix pvl">
+            <div class="grid_14">
+                <hub:cityArticle/>
+            </div>
             <div class="grid_10">
                 <h3 class="SourceSansPro-Semibold-h3">Near by homes for sale</h3>
                 <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />

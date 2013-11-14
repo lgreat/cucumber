@@ -8,69 +8,69 @@
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
     <c:if test="${fn:length(reviews) gt 0}">
-        <div class="mod standard_1-1 mbl pbl">
-            <div class="bg-EEEEEE border-E6E6E6">
-                <div class="container_24 clearfix mvl pvl">
-                    <div class="clearfix ptm">
-                        <h3 class="SourceSansPro-Semibold-h3 bottom fl">Recent Reviews</h3>
-                        <a href="/school/parentReview.page">
-                            <button class="but but-rg but-1 fr">Review Your School</button>
-                        </a>
-                    </div>
-                    <div class="pvl clearfix">
-                        <c:forEach items="${reviews}" var="review" varStatus="count">
-                            <c:choose>
-                                <c:when test="${count.index eq 0}">
-                                    <div class="alpha grid_12">
-                                        <div class="standard_5-2">
-                                            <div class="bd">
-                                                <div class="mbm">
-                                                    <ratings:stars curSR="${review.stars}"/>
-                                                    <span class="small mlm make-999999">Posted ${review.date}</span>
-                                                </div>
-                                                <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
+        <div class="bg-EEEEEE border-E6E6E6 mbl pbl">
+            <div class="container_24 clearfix mvl pvl">
+                <div class="clearfix ptm">
+                    <h3 class="SourceSansPro-Semibold-h3 bottom fl">Recent Reviews</h3>
+                    <a href="/school/parentReview.page">
+                        <button class="but but-rg but-1 fr">Review Your School</button>
+                    </a>
+                </div>
+                <div class="pvl clearfix">
+                    <c:forEach items="${reviews}" var="review" varStatus="count">
+                        <c:choose>
+                            <c:when test="${count.index eq 0}">
+                                <div class="alpha grid_12">
+                                    <div class="standard_5-2">
+                                        <div class="bd">
+                                            <div class="mbm">
+                                                <ratings:stars curSR="${review.stars}"/>
+                                                <span class="small mlm make-999999">Posted ${review.date}</span>
                                             </div>
+                                            <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
                                         </div>
-                                        <div class="medium_bold mtl bottom">${review.schoolName}</div>
-                                        <link:schoolProfileParentReview school="${review.school}" styleClass="small">
-                                            <c:choose>
-                                                <c:when test="${review.totalReviews > 1 }">
-                                                    <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:out value="Read more" escapeXml="true"/>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </link:schoolProfileParentReview>
                                     </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="grid_12 omega fr">
-                                        <div class="standard_5-2">
-                                            <div class="bd">
-                                                <div class="mbm">
-                                                    <ratings:stars curSR="${review.stars}"/>
-                                                    <span class="small mlm make-999999">Posted ${review.date}</span>
-                                                </div>
-                                                <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
+                                    <div class="medium_bold mtl bottom">${review.schoolName}</div>
+                                    <link:schoolProfileParentReview school="${review.school}" styleClass="small">
+                                        <c:choose>
+                                            <c:when test="${review.totalReviews > 1 }">
+                                                <c:out value=" Read all ${review.totalReviews} reviews"
+                                                       escapeXml="true"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:out value="Read more" escapeXml="true"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="grid_12 omega fr">
+                                    <div class="standard_5-2">
+                                        <div class="bd">
+                                            <div class="mbm">
+                                                <ratings:stars curSR="${review.stars}"/>
+                                                <span class="small mlm make-999999">Posted ${review.date}</span>
                                             </div>
+                                            <p class="bottom">${gsweb:abbreviateAtWhitespace(review.comments, 140)}</p>
                                         </div>
-                                        <div class="medium_bold mtl bottom">${review.schoolName}</div>
-                                        <link:schoolProfileParentReview school="${review.school}" styleClass="small">
-                                            <c:choose>
-                                                <c:when test="${review.totalReviews > 1 }">
-                                                    <c:out value=" Read all ${review.totalReviews} reviews" escapeXml="true"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:out value="Read more" escapeXml="true"/>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </link:schoolProfileParentReview>
                                     </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </div>
+                                    <div class="medium_bold mtl bottom">${review.schoolName}</div>
+                                    <link:schoolProfileParentReview school="${review.school}" styleClass="small">
+                                        <c:choose>
+                                            <c:when test="${review.totalReviews > 1 }">
+                                                <c:out value=" Read all ${review.totalReviews} reviews"
+                                                       escapeXml="true"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:out value="Read more" escapeXml="true"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
                 </div>
             </div>
         </div>
