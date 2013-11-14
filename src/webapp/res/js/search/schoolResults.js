@@ -93,8 +93,10 @@ GS.search.results = GS.search.results || (function() {
 
         $(function() {
             if(typeof Hogan != 'undefined') {
-                infoBoxTemplate = Hogan.compile($('#js-infoBoxTemplate').html());
-                sidebarListTemplate = Hogan.compile($('#js-schoolListTemplate').html());
+                var $infoBoxTemplate = jQuery('#js-infoBoxTemplate');
+                var $schoolListTemplate = jQuery('#js-schoolListTemplate');
+                if($infoBoxTemplate.length > 0) infoBoxTemplate = Hogan.compile($infoBoxTemplate.html());
+                if($schoolListTemplate.length > 0) sidebarListTemplate = Hogan.compile($schoolListTemplate.html());
             }
         });
     };
