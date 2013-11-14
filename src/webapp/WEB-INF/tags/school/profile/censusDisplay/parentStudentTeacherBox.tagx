@@ -22,7 +22,7 @@
                 <div class="inner">
                     <div class="bd clearfix mhl mtl">
                         <div class="mbl">
-                            <span class="prl bold">${intro}</span>
+                            <span class="prl bold larger">${intro}</span>
                             <c:if test="${not empty description}"><a href="#" class="small js-climate-whats-this" data-id="${totalDS.dataType.id}">What's this?</a></c:if>
                         </div>
                         <c:if test="${not empty description}">

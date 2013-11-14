@@ -4,6 +4,8 @@ import gs.data.school.School;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.state.State;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +21,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/school/profileClimate.page")
 public class SchoolProfileClimateController extends AbstractSchoolProfileController {
+    protected static final Log _log = LogFactory.getLog(SchoolProfileClimateController.class.getName());
     public static final String VIEW = "school/profileClimate";
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
@@ -152,7 +155,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
      * Process censusDataSetMap and populate dataTypeToBeanMap with the relevant view beans for the primary data.
      * Also populate otherDataSets with data sets needed for other things like # of responses.
      */
-    protected void processDataSetsAndPopulateModel(Map<Integer, CensusDataSet> censusDataSetMap,
+    protected static void processDataSetsAndPopulateModel(Map<Integer, CensusDataSet> censusDataSetMap,
                                                    Map<String, Object> modelMap, DataDescription dataDescription) {
         // this maps the "total" data types to a display bean
         // the map is easier to deal with right now. Later we convert to a sorted list for the view.
@@ -200,7 +203,10 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
      * Sum up the values in the number of responses data set for each display bean to form a total # of responses.
      * And return it.
      */
-    protected int sumNumberOfResponses(List<ClimateResponseCount> responseCounts) {
+    protected static int sumNumberOfResponses(List<ClimateResponseCount> responseCounts) {
+        if (responseCounts == null || responseCounts.isEmpty()) {
+            return 0;
+        }
         int totalResponses = 0;
         for (ClimateResponseCount responseCount: responseCounts) {
             if (responseCount.getNumberOfResponses() != null && responseCount.getNumberOfResponses().getSchoolOverrideOrSchoolValue() != null && responseCount.getNumberOfResponses().getSchoolOverrideOrSchoolValue().getValueInteger() != null) {
@@ -214,7 +220,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
      * Loop through the data sets in totalDataTypeToBreakdownDataSets, look up the related display bean for each
      * and add the data set into the display bean.
      */
-    protected void addInBreakdowns(Map<CensusDataType, ClimateCategory> dataTypeToBeanMap, Map<CensusDataType, List<CensusDataSet>> totalDataTypeToBreakdownDataSets) {
+    protected static void addInBreakdowns(Map<CensusDataType, ClimateCategory> dataTypeToBeanMap, Map<CensusDataType, List<CensusDataSet>> totalDataTypeToBreakdownDataSets) {
         for (Map.Entry<CensusDataType, List<CensusDataSet>> entry: totalDataTypeToBreakdownDataSets.entrySet()) {
             CensusDataType totalDT = entry.getKey();
             for (CensusDataSet breakdownDS: entry.getValue()) {
@@ -230,7 +236,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
      * Returns true if the breakdown data set meets the criteria for inclusion on the page. Generally this is
      * only false if there is a misconfiguration in code or in the database.
      */
-    protected boolean isValidBreakdownDataSet(Map<CensusDataType, ClimateCategory> dataTypeToBeanMap, CensusDataType totalDT, CensusDataSet breakdownDS) {
+    protected static boolean isValidBreakdownDataSet(Map<CensusDataType, ClimateCategory> dataTypeToBeanMap, CensusDataType totalDT, CensusDataSet breakdownDS) {
         if (!BREAKDOWN_TO_RESPONDENT_TYPE.containsKey(breakdownDS.getDataType())) {
             // need to know the type of breakdown ("respondent type") for view labeling
             // if you're here, add a mapping to BREAKDOWN_TO_RESPONDENT_TYPE.
@@ -470,17 +476,17 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
     public DataDescription getDataDescription(State state) {
         Map<String, String> descriptions = new HashMap<String, String>();
         if (state == State.CA) {
-            descriptions.put("climate_source1", "2012-2013 New York City Department of Education School Survey");
+            descriptions.put("climate_source1", "2012-13 Los Angeles Unified School District School Experience Survey");
             descriptions.put("climate_about_learning_environment", "The Los Angeles Unified School District (LAUSD) School Experience Survey asks parents, students and employees about their school's learning environment. Results provide insight into school climate, such as whether the school is academically rigorous, engaging, safe, and collaborative.");
             descriptions.put("climate_learn_more_url", "http://notebook.lausd.net/portal/page?_pageid=33,1052381&_dad=ptl&_schema=PTL_EP");
             descriptions.put("climate_learn_more_url_text", "Learn more about the LAUSD survey");
-            descriptions.put("climate_learn_more_body", "We organized questions from the LAUSD School Experience Survey to five categories. The group-level results (parents, students, and school employees) show the percent of each respondent group that agree or strongly agree that the school has positive results for that category. Overall school results for each category are calculated by averaging across group-level results, ensuring that each respondent group is equally represented. Alongside the results for each school are the aggregated results across all LAUSD schools, which are provided as a basis for comparisons.");
+            descriptions.put("climate_learn_more_body", "We organized questions from the LAUSD School Experience Survey to five categories. The group-level results (parents, students, and school employees) show the percent of each respondent group that agree or strongly agree that the school has positive results for that category.<br/><br/>Overall school results for each category are calculated by averaging across group-level results, ensuring that each respondent group is equally represented. Alongside the results for each school are the aggregated results across all LAUSD schools, which are provided as a basis for comparisons.");
         } else if (state == State.NY) {
-            descriptions.put("climate_source1", "2012-13 Los Angeles Unified School District School Experience Survey");
+            descriptions.put("climate_source1", "2012-2013 New York City Department of Education School Survey");
             descriptions.put("climate_about_learning_environment", "The NYC Department of Education asked parents, teachers and students about their school's learning environment. Results provide insight into school climate, such as whether the school is academically rigorous, safe, communicative and collaborative.");
             descriptions.put("climate_learn_more_url", "http://schools.nyc.gov/NR/rdonlyres/C5971763-B938-43CF-A525-0DBCCED94AA0/0/2013NYCSchoolSurveyScoringGuide.pdf");
-            descriptions.put("climate_learn_more_url_text", "Learn more about the NYCDOE survey.");
-            descriptions.put("climate_learn_more_body", "The information captured by the survey is designed to support a dialogue among all members of the school community about how to make the school a better place to learn. An overall category score is calculated for each respondent group (parents, teachers, or students) by averaging the scores of the questions within that survey category. Category scores for each of the respondent groups are then combined to form overall category scores. Alongside the results for each school are the aggregated results across all NYC public schools, which are provided as a basis for comparisons.");
+            descriptions.put("climate_learn_more_url_text", "Learn more about the NYC DOE survey");
+            descriptions.put("climate_learn_more_body", "The information captured by the survey is designed to support a dialogue among all members of the school community about how to make the school a better place to learn. An overall category score is calculated for each respondent group (parents, teachers, or students) by averaging the scores of the questions within that survey category.<br/><br/>Category scores for each of the respondent groups are then combined to form overall category scores. Alongside the results for each school are the aggregated results across all NYC public schools, which are provided as a basis for comparisons.");
             descriptions.put("climate_district_average_label", "City average");
         }
         descriptions.put("climate_datatype_" + CensusDataType.CLIMATE_ACADEMIC_EXPECTATIONS_SCORE_TOTAL.getId() + "_title", "High academic expectations for all students");

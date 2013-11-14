@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
+import gs.data.school.census.SchoolCensusValue;
 import gs.web.BaseControllerTestCase;
 
 import java.util.*;
@@ -158,5 +159,46 @@ public class SchoolProfileClimateControllerTest extends BaseControllerTestCase {
             assertEquals("Expect every respondent to be represented in sorted order", respondent, count.getRespondentType());
             index++;
         }
+    }
+
+    public void testSumNumberOfResponses() {
+        List<SchoolProfileClimateController.ClimateResponseCount> responseCounts = null;
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts = new ArrayList<SchoolProfileClimateController.ClimateResponseCount>();
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(null));
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(0));
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(15));
+        assertEquals(15, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(30));
+        assertEquals(45, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(0));
+        assertEquals(45, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(99155));
+        assertEquals(99200, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+    }
+
+//    public void testAddInBreakdowns() {
+//        Map<CensusDataType, SchoolProfileClimateController.ClimateCategory> dataTypeToBean = new HashMap<CensusDataType, SchoolProfileClimateController.ClimateCategory>();
+//        //SchoolProfileClimateController.addInBreakdowns(dataTypeToBean, totalToBreakdowns);
+//    }
+
+    private SchoolProfileClimateController.ClimateResponseCount getResponseCount(Integer numResponses) {
+        SchoolProfileClimateController.ClimateResponseCount rval;
+        CensusDataSet numResponsesDS = null;
+        if (numResponses != null) {
+            numResponsesDS = new CensusDataSet();
+            SchoolCensusValue scv = new SchoolCensusValue();
+            scv.setValueInteger(numResponses);
+            numResponsesDS.addSchoolCensusValue(scv);
+        }
+        CensusDataSet responseRateDS = new CensusDataSet();
+        SchoolCensusValue scv = new SchoolCensusValue();
+        scv.setValueInteger(99);
+        responseRateDS.addSchoolCensusValue(scv);
+
+        return new SchoolProfileClimateController.ClimateResponseCount(responseRateDS, numResponsesDS, SchoolProfileClimateController.ClimateRespondentType.parents);
     }
 }
