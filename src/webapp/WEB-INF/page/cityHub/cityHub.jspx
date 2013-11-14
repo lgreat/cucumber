@@ -46,10 +46,7 @@
         <hub:chooseASchool/>
         <hub:upcomingEvent/>
         <hub:recentReviews />
-
-        <c:if test="${empty requestScope.context.memberId}">
-            <hub:hubsJoin/>
-        </c:if>
+        <hub:hubsJoin/>
         <div class="container_24 clearfix pvl">
             <div class="grid_14">
                 <hub:cityArticle/>
