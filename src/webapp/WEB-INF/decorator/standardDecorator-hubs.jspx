@@ -28,12 +28,16 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title><decorator:title
                 default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
+        <pageHelper:turnOnFacebookInit/>
         <pageHelper:addCss-hubs/>
 
         <pageHelper:addJavaScript-v1
                 uncompressedScripts="${param.uncompressedScripts}"
                 compressedScripts="${param.compressedScripts}"
                 serverName="${pageContext.request.serverName}"/>
+        <c:if test="${not empty requestScope.pageHelper.optimizelyTag}">
+            <![CDATA[<script type="text/javascript" src="${requestScope.pageHelper.optimizelyTag}"></script>]]>
+        </c:if>
 
         <c:forEach var="entry" items="${requestScope.pageHelper.metaProperties}">
             <meta property="${entry.key}" content="${entry.value}"/>
@@ -43,7 +47,6 @@
 
         <ad:xGAMSetup/>
 
-        <pageHelper:turnOnFacebookInit/>
     </head>
 
     <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
