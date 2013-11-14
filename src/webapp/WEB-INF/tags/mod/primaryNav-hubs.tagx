@@ -41,7 +41,7 @@
                 var cookies = document.cookie.split(';');
                 var numCookies = cookies.length;
                 for(var i = 0; i &lt; numCookies; i++) {
-                    var cookie = cookies[i].trim().split('=');
+                    var cookie = jQuery.trim(cookies[i]).split('=');
                     var name = cookie[0];
                     var value = cookie[1];
                     if(name === 'hubState') {
