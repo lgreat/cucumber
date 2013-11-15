@@ -177,7 +177,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         //Adding Step Model for Step 2 -Potential to be Templatized in Future
         StepModel step2= new StepModel(2, "Understand your options", "/res/img/cityHubs/choosingStep2.png",
-                                          "In " + collectionNickName + ", there are a variety of schools to choose from – public, public charter, and " +
+                                          "In " + collectionNickName + ", there are a variety of schools to choose from - public, public charter, and " +
                                           "private. When deciding between schools, learn what makes each type of school different, " +
                                           "and how that fits with your overall needs and goals.");
 
@@ -239,7 +239,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         //Adding Step Model for Step 3 -Potential to be Templatized in Future
         StepModel step3= new StepModel(3 , "Find schools that fit", "/res/img/cityHubs/choosingStep3.png",
-                        "As you search for schools that fit your family, look for information in three key areas – " +
+                        "As you search for schools that fit your family, look for information in three key areas - " +
                         "academic performance, extracurricular programs, and school culture and community. ");
 
 
