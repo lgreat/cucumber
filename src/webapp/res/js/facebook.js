@@ -183,7 +183,7 @@ GS.facebook = GS.facebook || (function () {
 
     // Set up click handler on logout links. Need to synchronize FB and GS logout behavior
     var initLogoutBehavior = function () {
-        $('#utilLinks').on('click', '.js-log-out', function (e) {
+        $('#utilLinks, #utilLinks_hubs').on('click', '.js-log-out', function (e) {
             // 1. get the href the user clicked
             // 2. If possibly logged in, tell FB to log out
             // 3. Stop default link behavior
