@@ -44,7 +44,7 @@ GSType.hover.HoverDialog = function(id,width) {
             this.dialogByWidth();
             this.initialized = true;
         }
-        console.log("layerId:" + this.hoverId);
+
         ModalManager.showModal({
             'layerId' :  this.hoverId
         });
@@ -1404,9 +1404,8 @@ GSType.hover.HomePageNLSubscription = function() {
         this.hier1= "Hovers: Join"
 
     };
-    console.log("hover js very top cookie");
+
     this.showHover = function () {
-        console.log("top cookie");
         subCookie.createAllHoverCookie('showNLHoverOnHomePage',1,30);
         jQuery('.nlHomePageSubEmail_error').hide();
         jQuery('.nlHomePageSubEmail_error_alreadySub').hide();
@@ -1769,8 +1768,7 @@ GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
 //GSType.hover.clickToReviewYourSchool = new GSType.hover.ClickToReviewYourSchool();
 
 GSType.hover.espProvisionalReminder = new GSType.hover.EspProvisionalReminder();
-//cow cow cow
-//creates a new hover instance
+
 GSType.hover.homePageNLSubscription = new GSType.hover.HomePageNLSubscription();
 GSType.hover.homePageNLSubscriptionThankYou = new GSType.hover.HomePageNLSubscriptionThankYou();
 

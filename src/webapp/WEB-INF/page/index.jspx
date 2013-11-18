@@ -261,7 +261,6 @@
 
         jQuery('#hover_nlHomePageSubscriptionSubmit').on("click", function() {
             var validEmail = GSType.hover.homePageNLSubscription.validateEmail();
-            console.log("valid?" + validEmail);
             if(!validEmail || jQuery('.nlHomePageSubEmail').val() === ''){
                 jQuery('.nlHomePageSubEmail_error').show();
             }else if (validEmail) {
