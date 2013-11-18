@@ -20,7 +20,6 @@
         <c:when test="${hasImportantEventsToDisplay and !hideAnnoucmentModule}">
             <div class="container_24 clearfix">
                 <hr class="keyline1"/>
-                <hr class="keyline1"/>
                 <div class="line ptl">
                     <div class="unit size28of100">
                         <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>

@@ -10,7 +10,7 @@
         <div class="grid_10 suffix_2">
             <c:choose>
              <c:when test="${not empty chooseSchool and  fn:length(chooseSchool) gt 0 and not empty chooseSchool.heading }">
-                 <h3 class="SourceSansPro-Semibold-h3 mbm mtl">${chooseSchool.heading}</h3>
+                 <h2 class="SourceSansPro-Semibold-h2 mbm mtl">${chooseSchool.heading}</h2>
                  <p>${chooseSchool.content}</p>
                  <c:forEach items="${chooseSchool.link}" var="link" varStatus="status">
                      <c:choose>
@@ -32,7 +32,7 @@
            </c:choose>
         </div>
         <div class="grid_12">
-            <gsml:img src="/res/img/cityHubs/choose_a_school.png" alt="Choose a School"/>
+            <gsml:img src="/res/img/cityHubs/choose_a_school.png" styleClass="mtl ptm" alt="Choose a School"/>
         </div>
     </div>
 </jsp:root>

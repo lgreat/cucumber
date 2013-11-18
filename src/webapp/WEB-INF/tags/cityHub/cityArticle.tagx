@@ -5,7 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-    <h3 class="SourceSansPro-Semibold-h3">Related articles</h3>
+ <h2 class="SourceSansPro-Semibold-h2">Related articles</h2>
  <c:choose>
      <c:when test="${not empty cityArticle.articles}">
          <c:forEach items="${cityArticle.articles}" var="cityArticle">
@@ -13,22 +13,22 @@
                  <div class="alpha grid_2">
                      <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}" width="60"/>
                  </div>
-                 <div class="grid_12 omega">
+                 <div class="grid_11 suffix_1 omega">
                      <div class="medium_bold bottom">
                          <c:choose>
                              <c:when test="${cityArticle.newwindow eq 'true'}">
-                                 <h5 class="SourceSansPro-Semibold-h5 bottom">
+                                 <h4 class="SourceSansPro-Semibold-h4 bottom">
                                      <a href="${cityArticle.articlepath}" target="_blank">${cityArticle.heading}</a>
-                                 </h5>
+                                 </h4>
 
-                                 <p class="small bottom">${cityArticle.content}</p>
+                                 <p class="bottom">${cityArticle.content}</p>
                              </c:when>
                              <c:otherwise>
-                                 <h5 class="SourceSansPro-Semibold-h5 bottom">
+                                 <h4 class="SourceSansPro-Semibold-h4 bottom">
                                      <a href="${cityArticle.articlepath}" class="">${cityArticle.heading}</a>
-                                 </h5>
+                                 </h4>
 
-                                 <p class="small bottom">${cityArticle.content}</p>
+                                 <p class="bottom">${cityArticle.content}</p>
                              </c:otherwise>
                          </c:choose>
                      </div>

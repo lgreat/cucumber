@@ -4,10 +4,10 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
     <c:if test="${empty requestScope.context.memberId}">
-        <div class="container_24 clearfix">
+        <div class="container_24 clearfix pvl">
             <div class="bg-EEEEEE border-round border-E6E6E6 tac pal">
-                <h2 class="SourceSansPro-Semibold-h2">Join our community</h2>
-                <p>Join us join us Join us join us Join us join us Join us join us Join us join us</p>
+                <h3 class="SourceSansPro-Semibold-h3 bottom">Join our community</h3>
+                <p class="ptm">Join us join us Join us join us Join us join us Join us join us Join us join us</p>
                 <button class="but but-lg but-1" onclick="$(function(){GSType.hover.joinHover.showJoinGlobalHeader();}); return false;">Join</button>
             </div>
         </div>

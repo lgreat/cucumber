@@ -39,7 +39,7 @@
                 <gsml:img src="${stepInfo.imageURL}" alt="step image"/>
             </div>
         </div>
-        <div class="container_24 clearfix mtl">
+        <div class="container_24 clearfix">
             <div class="standard_1-1">
                 <c:if test="${not empty stepInfo.additionalResourcesModel}">
                     <div class="inner">

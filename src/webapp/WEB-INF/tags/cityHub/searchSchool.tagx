@@ -27,12 +27,12 @@
                 <div class="pa" style="top: 5px; right:130px;">
                     <span class="iconx48 i-48-search-city-hubs addMousePointer" id="js-submit"><!-- do not collapse --></span>
                 </div>
-                <a href="/" class="vam small ptm phm fr"
+                <a href="/" class="vam small ptm phm fr make-926100"
                    onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in ${collectionNickname}?</a>
             </div>
             <div class="schoolBreakdown">
                 <c:set var="schoolTypeList" value="${schoolBreakdown.results}"/>
-                <h3 class="SourceSansPro-Semibold-h3 make-ffffff bottom pbm">What kind of school are you looking for?</h3>
+                <h4 class="SourceSansPro-Semibold-h4 make-ffffff bottom pbm">What kind of school are you looking for?</h4>
                 <c:forEach var="list" items="${schoolTypeList}">
                     <button class="but-4 clearfix" type="button" onclick="location.href='${list.hrefXml}'">
                         <div class="fl">${list.contents}</div>

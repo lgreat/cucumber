@@ -52,7 +52,7 @@
                 <hub:cityArticle/>
             </div>
             <div class="grid_10">
-                <h3 class="SourceSansPro-Semibold-h3">Near by homes for sale</h3>
+                <h2 class="SourceSansPro-Semibold-h2">Nearby homes for sale</h2>
                 <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
             </div>
         </div>
