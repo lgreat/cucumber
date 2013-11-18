@@ -85,6 +85,7 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 if(nlSubCmd.isNlSignUpFromHomePage() == true){
                     user.setEmailVerified(true);
+                    user.setHow("hover_offerdownload");
                 }
                 _userDao.saveUser(user);
 
