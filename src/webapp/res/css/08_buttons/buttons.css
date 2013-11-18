@@ -1317,19 +1317,17 @@ Extends button-1 by changing:
     outline: 0; /* Background Gradients */
     white-space: nowrap;
     /* Border Radius */
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background: #F5F5F5; /* for non-css3 browsers */
-    color: #333333;
-    border: 1px solid #B8B8B8;
-    /* border-top-color: #2092C4; /* highlight */
-    /*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);*/
-    -moz-box-shadow: inset 0 0 1px rgba(255, 255, 255, 1);
-    -webkit-box-shadow: inset 0 0px 1px rgba(255, 255, 255, 1);
-    box-shadow: inset 0 0 1px rgba(255, 255, 255, 1);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #FAFAFA; /* for non-css3 browsers */
+    color: #666666;
+    border: 1px solid #CCCCCC;
     padding: 3px 5px;
     margin:0 10px 20px 0;
     font: normal .9em/2.25em 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+}
+.but-4:hover{
+    background-color: #EEEEEE;
 }
 

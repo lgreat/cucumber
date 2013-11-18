@@ -38,8 +38,8 @@
                         <div class="fl">${list.contents}</div>
                         <div class="fr pr">
                             <img src="/res/img/cityHubs/oval.png" alt="Grey oval" class="vam"/>
-                            <div class="pa" style="top:0px; right: 0px; color: #FFFFFF;width: 36px; text-align: center;">
-                            <span class="tac">${list.count}</span>
+                            <div class="pa" style="top:1px; right: 0px; color: #FFFFFF;width: 36px; text-align: center;">
+                                <span class="tac">${list.count}</span>
                             </div>
                         </div>
                     </button>
