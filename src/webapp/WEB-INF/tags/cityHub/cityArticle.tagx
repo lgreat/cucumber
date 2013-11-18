@@ -42,9 +42,9 @@
  </c:choose>
 
 
-    <div class="alpha prefix_2 grid_12 omega mtm">
-        <a href="">More about ${collectionNickname} &#187;</a>
-    </div>
+    <!--<div class="alpha prefix_2 grid_12 omega mtm">-->
+        <!--<a href="">More about ${collectionNickname} &#187;</a>-->
+    <!--</div>-->
 
 </jsp:root>
 
