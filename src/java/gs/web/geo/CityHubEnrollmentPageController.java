@@ -19,6 +19,7 @@ import gs.web.hub.MoreInformationModel;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModelFactory;
 import net.sf.json.JSONArray;
@@ -182,17 +183,13 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         // Tips
         String tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
         Object tipsObject = enrollmentPageModelMap.get(tipsKey);
-
         publicPreschools.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
 
         // More Info
-
-        ArrayList<Anchor>  moreInfoLinksPublicPreschools= new ArrayList<Anchor>();
-        Anchor link = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Preschool,+Pre-Kindergarten+and+Out-of-Boundary+Lottery", "DCPS Preschool and Pre-K information");
-        moreInfoLinksPublicPreschools.add(link);
-        MoreInformationModel  infoPublicPreschools= new MoreInformationModel(moreInfoLinksPublicPreschools);
-        publicPreschools.setMoreInfo(infoPublicPreschools);
+        String moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        Object moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        publicPreschools.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
 
         /**
          * Public Preschool Data End
@@ -219,20 +216,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         setDescriptionFromJsonObject(privatePreschools, jsonDescription, descriptionKey);
 
        // More Info
-       ArrayList<Anchor>  moreInfoLinksPrivatePreschools= new ArrayList<Anchor>();
-       Anchor link1PrivatePreschools = new Anchor("http://site.adw.org/catholic-schools", "Find Archdiocese schools");
-       Anchor link2PrivatePreschools = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools.");
-       Anchor link3PrivatePreschools = new Anchor("http://www.independenteducation.org/", "Independent Private Schools");
-       Anchor link4PrivatePreschools = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
-       Anchor link5PrivatePreschools = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school&#180;s admission details");
-
-        moreInfoLinksPrivatePreschools.add(link1PrivatePreschools);
-        moreInfoLinksPrivatePreschools.add(link2PrivatePreschools);
-        moreInfoLinksPrivatePreschools.add(link3PrivatePreschools);
-        moreInfoLinksPrivatePreschools.add(link4PrivatePreschools);
-        moreInfoLinksPrivatePreschools.add(link5PrivatePreschools);
-        final MoreInformationModel  moreInfoPrivatePreschools= new MoreInformationModel(moreInfoLinksPrivatePreschools);
-        privatePreschools.setMoreInfo(moreInfoPrivatePreschools);
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        privatePreschools.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
 
         tipsKey = keyPrefix + "_" + CityHubHelper.TIPS_CONFIG_KEY_SUFFIX;
         tipsObject = enrollmentPageModelMap.get(tipsKey);
@@ -272,12 +258,13 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         publicElementarySchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        publicElementarySchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
 
         ArrayList<Anchor>  moreInfoLinksPublicElementarySchool= new ArrayList<Anchor>();
         Anchor linkPublicElementarySchool = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Find+Your+Assigned+Schools", "Find your assigned school");
         moreInfoLinksPublicElementarySchool.add(linkPublicElementarySchool);
-        MoreInformationModel  infoPublicElementarySchool= new MoreInformationModel(moreInfoLinksPublicElementarySchool);
-        publicElementarySchool.setMoreInfo(infoPublicElementarySchool);
         /**
          * Public Elementary School Data End
          */
@@ -310,31 +297,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         privateElementarySchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
-
-        ArrayList<Anchor>  moreInfoLinksPrivateElementarySchool= new ArrayList<Anchor>();
-        Anchor linkPrivateElementarySchool1 = new Anchor("http://site.adw.org/catholic-schools", "Find Archdiocese schools");
-        Anchor linkPrivateElementarySchool2 = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools");
-        Anchor linkPrivateElementarySchool3 = new Anchor("http://www.independenteducation.org/", "Learn about Independent Private Schools ");
-        Anchor linkPrivateElementarySchool4 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
-        Anchor linkPrivateElementarySchool5 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school's admission details");
-        Anchor linkPrivateElementarySchool6 = new Anchor("http://www.latinostudentfund.org/", "Latino Student Fund");
-        Anchor linkPrivateElementarySchool7 = new Anchor("http://blackstudentfund.org/wordpress/", "Black Student Fund");
-        Anchor linkPrivateElementarySchool8 = new Anchor("http://www.dcscholarships.org/ ", "Opportunity Scholarship Program ");
-
-
-
-
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool1);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool2);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool3);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool4);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool5);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool6);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool7);
-        moreInfoLinksPrivateElementarySchool.add(linkPrivateElementarySchool8);
-
-        MoreInformationModel  infoPrivateElementarySchool= new MoreInformationModel(moreInfoLinksPrivateElementarySchool);
-        privateElementarySchool.setMoreInfo(infoPrivateElementarySchool);
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        privateElementarySchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
         /**
          * Private Elementary School Data End
          */
@@ -367,12 +332,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         publicMiddleSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
-
-        ArrayList<Anchor>  moreInfoLinksPublicMiddleSchool= new ArrayList<Anchor>();
-        Anchor linkPublicMiddleSchool = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Find+Your+Assigned+Schools", "Find your assigned school");
-        moreInfoLinksPublicMiddleSchool.add(linkPublicMiddleSchool);
-        MoreInformationModel  infoPublicMiddleSchool= new MoreInformationModel(moreInfoLinksPublicMiddleSchool);
-        publicMiddleSchool.setMoreInfo(infoPublicMiddleSchool);
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        publicMiddleSchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
         /**
          * Public Middle School Data End
          */
@@ -405,31 +367,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         privateMiddleSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
-
-        ArrayList<Anchor>  moreInfoLinksPrivateMiddleSchool= new ArrayList<Anchor>();
-        Anchor linkPrivateMiddleSchool1 = new Anchor("http://site.adw.org/catholic-schools", "Find Archdiocese schools");
-        Anchor linkPrivateMiddleSchool2 = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools");
-        Anchor linkPrivateMiddleSchool3 = new Anchor("http://www.independenteducation.org/", "Learn about Independent Private Schools ");
-        Anchor linkPrivateMiddleSchool4 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
-        Anchor linkPrivateMiddleSchool5 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school&#180;s admission details");
-        Anchor linkPrivateMiddleSchool6 = new Anchor("http://www.latinostudentfund.org/", "Latino Student Fund");
-        Anchor linkPrivateMiddleSchool7 = new Anchor("http://blackstudentfund.org/wordpress/", "Black Student Fund");
-        Anchor linkPrivateMiddleSchool8 = new Anchor("http://www.dcscholarships.org/ ", "Opportunity Scholarship Program ");
-
-
-
-
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool1);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool2);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool3);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool4);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool5);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool6);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool7);
-        moreInfoLinksPrivateMiddleSchool.add(linkPrivateMiddleSchool8);
-
-        MoreInformationModel  infoPrivateMiddleSchool= new MoreInformationModel(moreInfoLinksPrivateMiddleSchool);
-        privateMiddleSchool.setMoreInfo(infoPrivateMiddleSchool);
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        privateMiddleSchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
         /**
          * Private Middle School Data End
          */
@@ -463,15 +403,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         publicHighSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
-
-        ArrayList<Anchor>  moreInfoLinksPublicHighSchool= new ArrayList<Anchor>();
-        Anchor linkPublicHighSchool1 = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Find+Your+Assigned+Schools", "Find your assigned school");
-        Anchor linkPublicHighSchool2 = new Anchor("http://www.dcps.dc.gov/DCPS/highschoolapp", "Learn more about specialized high schools");
-
-        moreInfoLinksPublicHighSchool.add(linkPublicHighSchool1);
-        moreInfoLinksPublicHighSchool.add(linkPublicHighSchool2);
-        MoreInformationModel  infoPublicHighSchool= new MoreInformationModel(moreInfoLinksPublicHighSchool);
-        publicHighSchool.setMoreInfo(infoPublicHighSchool);
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        publicHighSchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
         /**
          * Public High School Data End
          */
@@ -504,31 +438,9 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         privateHighSchool.setTipsInfoModel(getTipsFromObject(tipsObject, tipsKey));
 
         // More Info
-
-        ArrayList<Anchor>  moreInfoLinksPrivateHighSchool= new ArrayList<Anchor>();
-        Anchor linkPrivateHighSchool1 = new Anchor("http://site.adw.org/catholic-schools", "Find Archdiocese schools");
-        Anchor linkPrivateHighSchool2 = new Anchor("http://site.adw.org/tuition-assistance", "Learn about tuition assistance at Archdiocese schools");
-        Anchor linkPrivateHighSchool3 = new Anchor("http://site.adw.org/HS-Open-Houses", "Archdiocese open house schedule");
-        Anchor linkPrivateHighSchool4 = new Anchor("http://site.adw.org/hspt-registration-link", "Register for Archdiocese HS placement tests ");
-        Anchor linkPrivateHighSchool5 = new Anchor("https://www.independenteducation.org/", "Learn about Independent Private Schools ");
-        Anchor linkPrivateHighSchool6 = new Anchor("http://www.independenteducation.org/families/common-recommendation-forms-for-student-applicants", "Common recommendation form for select independent schools");
-        Anchor linkPrivateHighSchool7 = new Anchor("https://www.independenteducation.org/File%20Library/Unassigned/Admission-Dates-Survey-Results-in-pre-pdf-format.pdf", "Independent Education school&#180;s admission details");
-        Anchor linkPrivateHighSchool8 = new Anchor("http://www.latinostudentfund.org/ ", "Latino Student Fund");
-
-
-
-
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool1);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool2);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool3);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool4);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool5);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool6);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool7);
-        moreInfoLinksPrivateHighSchool.add(linkPrivateHighSchool8);
-
-        MoreInformationModel  infoPrivateHighSchool= new MoreInformationModel(moreInfoLinksPrivateHighSchool);
-        privateHighSchool.setMoreInfo(infoPrivateHighSchool);
+        moreInfoKey = keyPrefix + "_" + CityHubHelper.MORE_INFO_CONFIG_KEY_SUFFIX;
+        moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
+        privateHighSchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
         /**
          * Private High School Data End
          */
@@ -597,6 +509,63 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         return tips;
     }
 
+    public MoreInformationModel getMoreInfoFromJSONObject(Object moreInfoObject, String moreInfoKey) {
+        MoreInformationModel moreInfoModel = new MoreInformationModel();
+        if(moreInfoObject != null && moreInfoObject instanceof JSONObject &&
+                ((JSONObject) moreInfoObject).has(CityHubHelper.MORE_INFO_JSON_OBJECT_KEY)) {
+            Object jsonMoreInfo = ((JSONObject) moreInfoObject).get(CityHubHelper.MORE_INFO_JSON_OBJECT_KEY);
+            if (jsonMoreInfo != null && jsonMoreInfo instanceof JSONObject &&
+                    ((JSONObject) jsonMoreInfo).get(CityHubHelper.LINK_JSON_OBJECT_KEY) instanceof JSONArray) {
+                JSONArray moreLinksArr = ((JSONObject) jsonMoreInfo).getJSONArray(CityHubHelper.LINK_JSON_OBJECT_KEY);
+                for(int i = 0; i < moreLinksArr.size(); i++) {
+                    JSONObject linkInfo = moreLinksArr.getJSONObject(i);
+                    addLinkInfoFromJsonObjectToModel(linkInfo, moreInfoModel);
+                }
+            }
+            else if(jsonMoreInfo != null && jsonMoreInfo instanceof JSONObject &&
+                    ((JSONObject) jsonMoreInfo).has(CityHubHelper.LINK_JSON_OBJECT_KEY)) {
+                JSONObject linkInfo = (JSONObject) ((JSONObject) jsonMoreInfo).get(CityHubHelper.LINK_JSON_OBJECT_KEY);
+                addLinkInfoFromJsonObjectToModel(linkInfo, moreInfoModel);
+            }
+        }
+        else {
+            Anchor anchor = new Anchor(null, CityHubHelper.NO_DATA_FOUND_PREFIX + moreInfoKey);
+            MoreInformationModel.InfoLinkSource infoLinkSource = moreInfoModel.new InfoLinkSource();
+            infoLinkSource.setLink(anchor);
+            moreInfoModel.getInfoLinkSources().add(infoLinkSource);
+        }
+
+        return moreInfoModel;
+    }
+
+    public void addLinkInfoFromJsonObjectToModel(JSONObject linkInfo, MoreInformationModel moreInfoModel) {
+        MoreInformationModel.InfoLinkSource infoLinkSource = moreInfoModel.new InfoLinkSource();
+        if (isNotEmptyJSONObjectValue(linkInfo, CityHubHelper.LINK_NAME_JSON_OBJECT_KEY)) {
+            Anchor anchor = new Anchor((isNotEmptyJSONObjectValue(linkInfo, CityHubHelper.LINK_PATH_JSON_OBJECT_KEY) ?
+                    UrlUtil.formatUrl(linkInfo.getString(CityHubHelper.LINK_PATH_JSON_OBJECT_KEY)) : null),
+                    linkInfo.getString(CityHubHelper.LINK_NAME_JSON_OBJECT_KEY));
+            boolean isNewWindow = isNotEmptyJSONObjectValue(linkInfo, CityHubHelper.LINK_NEWWINDOW_JSON_OBJECT_KEY) &&
+                    "true".equalsIgnoreCase(linkInfo.getString(CityHubHelper.LINK_NEWWINDOW_JSON_OBJECT_KEY));
+            anchor.setTarget(isNewWindow ? Anchor.Target._blank : Anchor.Target._self);
+            infoLinkSource.setLink(anchor);
+
+            if(isNotEmptyJSONObjectValue(linkInfo, CityHubHelper.CONTACT_JSON_OBJECT_KEY)) {
+                infoLinkSource.setContact(linkInfo.getString(CityHubHelper.CONTACT_JSON_OBJECT_KEY));
+            }
+
+            moreInfoModel.getInfoLinkSources().add(infoLinkSource);
+        }
+    }
+
+    /**
+     * an empty json object key, say name: {}, will be treated as a string with value "{}" by getString method
+     * So checking whether the object returned by get is String or another JSON object or JSON array
+     */
+    public boolean isNotEmptyJSONObjectValue(JSONObject jsonObject, String key) {
+        return (jsonObject != null && ((jsonObject.get(key) instanceof String && !"".equals(jsonObject.getString(key).trim()))
+                || (jsonObject.get(key) instanceof JSONObject && ((JSONObject) jsonObject.get(key)).size() == 0)
+                || (jsonObject.get(key) instanceof JSONArray && ((JSONArray) jsonObject.get(key)).size() == 0)));
+    }
 
     public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
         return fields == null ? false : fields.hasState() && fields.hasCityName() && fields.hasEnrollmentPage()  && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();

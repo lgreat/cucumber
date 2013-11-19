@@ -20,7 +20,22 @@ public class Anchor {
     private String _before; // text that is drawn before the link
     private String _after; // text that is drawn after the link
     private Integer _count;
+    private Target _target;
 
+    public enum Target {
+        _self("_self"),
+        _blank("_blank");
+
+        private final String _target;
+
+        private Target(String target) {
+            _target = target;
+        }
+
+        public String getTarget() {
+            return _target;
+        }
+    }
     /**
      * Constructor.
      *
@@ -138,5 +153,13 @@ public class Anchor {
                 "\">" +
                 _contents +
                 "</a>";
+    }
+
+    public Target getTarget() {
+        return _target;
+    }
+
+    public void setTarget(Target target) {
+        _target = target;
     }
 }

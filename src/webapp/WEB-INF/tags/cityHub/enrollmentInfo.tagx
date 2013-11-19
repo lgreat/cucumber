@@ -20,12 +20,20 @@
                             </h3>
                             <p>${enrollmentInfo.description}</p>
                             <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
-                            <c:if test="${not empty enrollmentInfo.moreInfo.address}">
-                                ${enrollmentInfo.moreInfo.address}<br/>
-                            </c:if>
-                            <c:if test="${not empty enrollmentInfo.moreInfo.link}">
-                                <c:forEach items="${enrollmentInfo.moreInfo.link}" var="link">
-                                    <a href="${link.hrefXml}" target="_blank">${link.contents}</a><br/>
+                            <c:if test="${not empty enrollmentInfo.moreInfo.infoLinkSources}">
+                                <c:forEach items="${enrollmentInfo.moreInfo.infoLinkSources}" var="link">
+                                    <c:choose>
+                                        <c:when test="${not empty link.link.href}">
+                                            <a href="${link.link.href}" target="${link.link.target}">${link.link.contents}</a><br/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${link.link.contents}<br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:if test="${not empty link.contact}">
+                                        ${link.contact}<br/>
+                                    </c:if>
+                                    <br/>
                                 </c:forEach>
                             </c:if>
                         </div>
@@ -61,12 +69,20 @@
                             </h3>
                             <p>${enrollmentInfo.description}</p>
                             <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
-                            <c:if test="${not empty enrollmentInfo.moreInfo.address}">
-                                ${enrollmentInfo.moreInfo.address}<br/>
-                            </c:if>
-                            <c:if test="${not empty enrollmentInfo.moreInfo.link}">
-                                <c:forEach items="${enrollmentInfo.moreInfo.link}" var="link">
-                                    <a href="${link.hrefXml}" target="_blank">${link.contents}</a><br/>
+                            <c:if test="${not empty enrollmentInfo.moreInfo.infoLinkSources}">
+                                <c:forEach items="${enrollmentInfo.moreInfo.infoLinkSources}" var="link">
+                                    <c:choose>
+                                        <c:when test="${not empty link.link.href}">
+                                            <a href="${link.link.href}" target="${link.link.target}">${link.link.contents}</a><br/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${link.link.contents}<br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:if test="${not empty link.contact}">
+                                        ${link.contact}<br/>
+                                    </c:if>
+                                    <br/>
                                 </c:forEach>
                             </c:if>
                         </div>

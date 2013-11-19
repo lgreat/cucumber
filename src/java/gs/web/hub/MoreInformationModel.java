@@ -2,6 +2,7 @@ package gs.web.hub;
 
 import gs.web.util.list.Anchor;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,44 +13,40 @@ import java.util.ArrayList;
  */
 public class MoreInformationModel {
 
-    private String _address;
+    public class InfoLinkSource {
+        private String _contact;
+        private Anchor _link;
 
+        public String getContact() {
+            return _contact;
+        }
 
-    private ArrayList<Anchor> _link;
+        public void setContact(final String contact) {
+            this._contact = contact;
+        }
 
-    public MoreInformationModel(final String address){
-         _address = address;
+        public Anchor getLink() {
+            return _link;
+        }
 
+        public void setLink(final Anchor link) {
+            this._link = link;
+        }
     }
 
-
-    public MoreInformationModel(final ArrayList<Anchor> link){
-         _link= link;
-
+    public List<InfoLinkSource> getInfoLinkSources() {
+        return _infoLinkSources;
     }
 
-    public MoreInformationModel(final String address, final ArrayList<Anchor> link){
-        _address = address;
-        _link= link;
-
+    public void setInfoLinkSources(List<InfoLinkSource> infoLinkSources) {
+        _infoLinkSources = infoLinkSources;
     }
 
-    public String getAddress() {
-        return _address;
+    private List<InfoLinkSource> _infoLinkSources = new ArrayList<InfoLinkSource>();
+
+    public MoreInformationModel(final ArrayList<InfoLinkSource> infoLinkSources){
+         _infoLinkSources = infoLinkSources;
     }
 
-    public void setAddress(final String address) {
-        this._address = address;
-    }
-
-    public ArrayList<Anchor> getLink() {
-        return _link;
-    }
-
-    public void setLink(final ArrayList<Anchor> link) {
-        this._link = link;
-    }
-
-
-
+    public MoreInformationModel() {}
 }
