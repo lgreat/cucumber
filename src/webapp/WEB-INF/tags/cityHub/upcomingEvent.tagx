@@ -5,7 +5,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
         >
-    <jsp:directive.attribute name="hideAnnoucmentModule" required="false" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="hideAnnouncementModule" required="false" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="cityPageEvents" required="false" type="java.lang.Boolean"/>
 
 
@@ -64,7 +64,7 @@
                 <!--<p>show ads: ${showAds}</p>-->
             </div>
         </c:when>
-        <c:when test="${hasImportantEventsToDisplay and !hideAnnoucmentModule}">
+        <c:when test="${hasImportantEventsToDisplay and !hideAnnouncementModule}">
             <div class="container_24 clearfix">
                 <hr class="keyline1"/>
                 <div class="line ptl">

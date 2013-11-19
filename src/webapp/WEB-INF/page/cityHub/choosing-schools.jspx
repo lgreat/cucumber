@@ -20,7 +20,7 @@
     <body>
 
     <hub:searchChoosing/>
-    <hub:upcomingEvent hideAnnoucmentModule="true"/>
+    <hub:upcomingEvent hideAnnouncementModule="true"/>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Choosing a School"/>
     <hub:stepsOverview/>
     <hub:stepsChoosing/>
