@@ -40,7 +40,7 @@
                                          data-index="${index}">
                                         <c:forEach items="${tips}" var="tip">
                                             <c:if test="${not empty tip}">
-                                                <div>${tip}</div>
+                                                <div style="height:125px;">${tip}</div>
                                             </c:if>
                                         </c:forEach>
                                     </div>
