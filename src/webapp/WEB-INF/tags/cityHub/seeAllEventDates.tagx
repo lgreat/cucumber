@@ -12,7 +12,7 @@
     <div class="container_24 clearfix pal">
         <c:choose>
             <c:when test="${hasImportantEventsToDisplay}">
-                <div class="prefix_10 grid_5 suffix_9">
+                <div class="prefix_10 grid_6 suffix_8">
                     <h1 class="SourceSansPro-Semibold-h1 pal bottom">All events</h1>
                 </div>
                 <div class="grid_24 pal">
