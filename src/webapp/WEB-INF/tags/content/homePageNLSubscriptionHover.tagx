@@ -8,6 +8,7 @@
         >
 
     <pageHelper:externalCss file="/res/css/02_module/mod_skins-v1.css"/>
+    <pageHelper:externalCss file="/res/css/05_forms/forms-v1.css"/>
 
 
     <div id="js-removeHomePageSubscriptionFromPage">
