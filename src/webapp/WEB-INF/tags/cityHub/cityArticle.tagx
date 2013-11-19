@@ -11,7 +11,7 @@
          <c:forEach items="${cityArticle.articles}" var="cityArticle">
              <div class="clearfix mvl">
                  <div class="alpha grid_3">
-                     <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}"/>
+                     <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}" width="100" height="70"/>
                  </div>
                  <div class="grid_10 suffix_1 omega">
                      <div class="medium_bold bottom">
