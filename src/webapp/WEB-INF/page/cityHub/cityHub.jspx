@@ -44,7 +44,7 @@
             </div>
         </div>
         <hub:chooseASchool/>
-        <hub:upcomingEvent cityPageEvents="true"/>
+        <hub:upcomingEvent/>
         <hub:recentReviews />
         <hub:hubsJoin/>
         <div class="container_24 clearfix pvl">
