@@ -62,7 +62,7 @@
             return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
         var showHeaderDefault = false;
-        var fromMobile = getParameterByName('fromMobile');
+        var fromMobile = getParameterByName('fromMobile') || '${requestInfo.shouldRenderMobileView}';
         var gs_isTopical = ${isTopical?'true':'false'};
     </script> ]]>
     <c:set var="pageOneDisplay" value=""/>
