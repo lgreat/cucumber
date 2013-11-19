@@ -37,11 +37,16 @@
                                 <hub:enrollmentTips tips="${enrollmentInfo.tipsInfoModel}" index="${status.count}"/>
                             </c:if>
                             <c:if test="${not empty enrollmentInfo.browseLink.count}">
-                            <button class="but-4 clearfix" style="width: auto;" type="button"
-                                    onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
-                                <span class="fl">${enrollmentInfo.browseLink.contents}</span>
-                                <span class="fr plm mlm" style="border-left: 1px solid #b8b8b8">${enrollmentInfo.browseLink.count}</span>
-                            </button>
+                                <button class="but-4 clearfix" style="width: auto;" type="button"
+                                        onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
+                                    <div class="fl">${enrollmentInfo.browseLink.contents}</div>
+                                    <div class="fr pr mlm">
+                                        <img src="/res/img/cityHubs/oval.png" alt="Grey oval" class="vam"/>
+                                        <div class="pa" style="top:1px; right: 0px; color: #FFFFFF;width: 36px; text-align: center;">
+                                            <span class="tac">${enrollmentInfo.browseLink.count}</span>
+                                        </div>
+                                    </div>
+                                </button>
                             </c:if>
                         </div>
                         <hr class="keyline1 mvl"/>
@@ -73,11 +78,16 @@
                                 <hub:enrollmentTips tips="${enrollmentInfo.tipsInfoModel}" index="${status.count}"/>
                             </c:if>
                             <c:if test="${not empty enrollmentInfo.browseLink.count}">
-                            <button class="but-4 clearfix" type="button" style="width: auto;"
-                                    onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
-                                <span class="fl">${enrollmentInfo.browseLink.contents}</span>
-                                <span class="fr plm mlm" style="border-left: 1px solid #b8b8b8">${enrollmentInfo.browseLink.count}</span>
-                            </button>
+                                <button class="but-4 clearfix" type="button" style="width: auto;"
+                                        onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
+                                    <div class="fl">${enrollmentInfo.browseLink.contents}</div>
+                                    <div class="fr pr mlm">
+                                        <img src="/res/img/cityHubs/oval.png" alt="Grey oval" class="vam"/>
+                                        <div class="pa" style="top:1px; right: 0px; color: #FFFFFF;width: 36px; text-align: center;">
+                                            <span class="tac">${enrollmentInfo.browseLink.count}</span>
+                                        </div>
+                                    </div>
+                                </button>
                             </c:if>
                         </div>
                         <hr class="keyline1 mvl"/>
