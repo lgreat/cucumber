@@ -4,7 +4,6 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.geo.IGeoDao;
-import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
@@ -671,5 +670,53 @@ public class SessionContextTest extends BaseTestCase {
         assertFalse(map.containsKey("body"));
         assertFalse(map.containsKey("url"));
         verify(_propertyDao);
+    }
+
+    public void testIsHomepageDownloadHoverEnabled() {
+        expect(_propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0")).andReturn("0").anyTimes();
+        replay(_propertyDao);
+        assertFalse("Expect hover to be disabled when display percent is 0", _sessionContext.isValueValidForHomepageDownloadHover(0));
+        assertFalse("Expect hover to be disabled when display percent is 0", _sessionContext.isValueValidForHomepageDownloadHover(10));
+        assertFalse("Expect hover to be disabled when display percent is 0", _sessionContext.isValueValidForHomepageDownloadHover(99));
+        assertFalse("Expect hover to be disabled when display percent is 0", _sessionContext.isHomepageDownloadHoverEnabled());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+
+        expect(_propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0")).andReturn("1").anyTimes();
+        replay(_propertyDao);
+        assertTrue(_sessionContext.isValueValidForHomepageDownloadHover(0));
+        assertFalse(_sessionContext.isValueValidForHomepageDownloadHover(10));
+        assertFalse(_sessionContext.isValueValidForHomepageDownloadHover(99));
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+
+        expect(_propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0")).andReturn("50").anyTimes();
+        replay(_propertyDao);
+        assertTrue(_sessionContext.isValueValidForHomepageDownloadHover(0));
+        assertTrue(_sessionContext.isValueValidForHomepageDownloadHover(10));
+        assertFalse(_sessionContext.isValueValidForHomepageDownloadHover(99));
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+
+        expect(_propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0")).andReturn("100").anyTimes();
+        replay(_propertyDao);
+        assertTrue("Expect hover to be enabled when display percent is 100", _sessionContext.isValueValidForHomepageDownloadHover(0));
+        assertTrue("Expect hover to be enabled when display percent is 100", _sessionContext.isValueValidForHomepageDownloadHover(10));
+        assertTrue("Expect hover to be enabled when display percent is 100", _sessionContext.isValueValidForHomepageDownloadHover(99));
+        assertTrue("Expect hover to be enabled when display percent is 100", _sessionContext.isHomepageDownloadHoverEnabled());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+
+        expect(_propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0")).andReturn("foo").anyTimes();
+        replay(_propertyDao);
+        assertFalse("Expect hover to be disabled when display percent is NaN", _sessionContext.isValueValidForHomepageDownloadHover(0));
+        assertFalse("Expect hover to be disabled when display percent is NaN", _sessionContext.isValueValidForHomepageDownloadHover(10));
+        assertFalse("Expect hover to be disabled when display percent is NaN", _sessionContext.isValueValidForHomepageDownloadHover(99));
+        verify(_propertyDao);
+
     }
 }
