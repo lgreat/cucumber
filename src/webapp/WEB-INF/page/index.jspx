@@ -250,26 +250,27 @@
     </gsweb:cache>
 </div>
 
-<content:homePageNLSubscriptionHover/>
-<content:homePageNLSubscriptionThankYouHover/>
+<c:if test="${context.homepageDownloadHoverEnabled}">
+    <content:homePageNLSubscriptionHover/>
+    <content:homePageNLSubscriptionThankYouHover/>
 
-<script>
-    if(subCookie.getObjectPropertyIfNotExpired("all_hover", "showNLHoverOnHomePage" ) == null) {
-        setTimeout(function(){
-            GSType.hover.homePageNLSubscription.showHover();
-        }, 3000);
+    <script type="text/javascript">
+        if(subCookie.getObjectPropertyIfNotExpired("all_hover", "showNLHoverOnHomePage" ) == null) {
+            setTimeout(function(){
+                GSType.hover.homePageNLSubscription.showHover();
+            }, 3000);
 
-        jQuery('#hover_nlHomePageSubscriptionSubmit').on("click", function() {
-            var validEmail = GSType.hover.homePageNLSubscription.validateEmail();
-            if(!validEmail || jQuery('.nlHomePageSubEmail').val() === ''){
-                jQuery('.nlHomePageSubEmail_error').show();
-            }else if (validEmail) {
-                GSType.hover.homePageNLSubscription.subscribeUser();
-            }
-        });
-    }
-</script>
-
+            jQuery('#hover_nlHomePageSubscriptionSubmit').on("click", function() {
+                var validEmail = GSType.hover.homePageNLSubscription.validateEmail();
+                if(!validEmail || jQuery('.nlHomePageSubEmail').val() === ''){
+                    jQuery('.nlHomePageSubEmail_error').show();
+                }else if (validEmail) {
+                    GSType.hover.homePageNLSubscription.subscribeUser();
+                }
+            });
+        }
+    </script>
+</c:if>
 
 <mod:tracking pageName="splash" hier1="Home,Splash"/>
 </gsml:body>
