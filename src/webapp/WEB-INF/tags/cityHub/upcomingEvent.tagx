@@ -22,7 +22,7 @@
             <div class="container_24 clearfix">
                 <hr class="keyline1"/>
                 <div class="line pvl">
-                    <div class="unit size28of100">
+                    <div class="unit size30of100">
                         <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
                         <c:if test="${hasImportantEventsToDisplay}">
                             <link:cityHubEventsPage state="${state}" city="${city}"
@@ -40,14 +40,14 @@
                                 <c:set var="monthKey">${keyPrefix}_date_month</c:set>
                                 <c:set var="yearKey">${keyPrefix}_date_year</c:set>
 
-                                <div class="unit size7of100">
-                                                <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
-                                                    <div class="tac mtl">
-                                                        <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
-                                                    </div>
-                                                </span>
+                                <div class="unit size6of100">
+                                    <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
+                                        <div class="tac mtl">
+                                            <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
+                                        </div>
+                                    </span>
                                 </div>
-                                <div class="unit size27of100">
+                                <div class="unit size29of100">
                                     <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
                                     <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
                                 </div>
@@ -68,7 +68,7 @@
             <div class="container_24 clearfix">
                 <hr class="keyline1"/>
                 <div class="line ptl">
-                    <div class="unit size28of100">
+                    <div class="unit size30of100">
                         <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
                         <c:if test="${hasImportantEventsToDisplay}">
                             <link:cityHubEventsPage state="${state}" city="${city}" styleClass="small">See all</link:cityHubEventsPage>
@@ -84,14 +84,14 @@
                                 <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
                                 <c:set var="monthKey">${keyPrefix}_date_month</c:set>
                                 <c:set var="yearKey">${keyPrefix}_date_year</c:set>
-                                <div class="unit size7of100">
+                                <div class="unit size6of100">
                                     <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                                         <div class="tac mtl">
                                             <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
                                         </div>
                                     </span>
                                 </div>
-                                <div class="unit size27of100">
+                                <div class="unit size29of100">
                                     <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
                                     <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
                                 </div>
@@ -135,7 +135,7 @@
         <c:otherwise>
             <div class=" bg-F5F5F5 border-E6E6E6 pvl">
                 <div class="line container_24 clearfix">
-                    <div class="unit size28of100">
+                    <div class="unit size30of100">
                         <h3 class="SourceSansPro-Semibold-h3 bottom">Upcoming events</h3>
                         <c:if test="${hasImportantEventsToDisplay}">
                             <link:cityHubEventsPage state="${state}" city="${city}" styleClass="small">See all</link:cityHubEventsPage>
@@ -150,14 +150,14 @@
                                 <c:set var="dayOfMonthKey">${keyPrefix}_date_dayOfMonth</c:set>
                                 <c:set var="monthKey">${keyPrefix}_date_month</c:set>
                                 <c:set var="yearKey">${keyPrefix}_date_year</c:set>
-                                <div class="unit size7of100">
+                                <div class="unit size6of100">
                                     <span class="iconx48 i-48-calender-month-${importantEvent[monthKey]}">
                                         <div class="tac mtl">
                                             <h3 class="SourceSansPro-Semibold-h3">${importantEvent[dayOfMonthKey]}</h3>
                                         </div>
                                     </span>
                                 </div>
-                                <div class="unit size27of100">
+                                <div class="unit size29of100">
                                     <span class="small_bold">${importantEvent[descriptionKey]}</span><br/>
                                     <a href="${importantEvent[urlKey]}" class="small" target="_blank">Find out more</a>
                                 </div>
