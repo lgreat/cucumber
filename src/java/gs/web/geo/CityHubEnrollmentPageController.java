@@ -563,8 +563,8 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
      */
     public boolean isNotEmptyJSONObjectValue(JSONObject jsonObject, String key) {
         return (jsonObject != null && ((jsonObject.get(key) instanceof String && !"".equals(jsonObject.getString(key).trim()))
-                || (jsonObject.get(key) instanceof JSONObject && ((JSONObject) jsonObject.get(key)).size() == 0)
-                || (jsonObject.get(key) instanceof JSONArray && ((JSONArray) jsonObject.get(key)).size() == 0)));
+                || (jsonObject.get(key) instanceof JSONObject && ((JSONObject) jsonObject.get(key)).size() != 0)
+                || (jsonObject.get(key) instanceof JSONArray && ((JSONArray) jsonObject.get(key)).size() != 0)));
     }
 
     public boolean shouldHandleRequest(final DirectoryStructureUrlFields fields) {
