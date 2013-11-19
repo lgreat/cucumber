@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+
+    <pageHelper:externalCss file="/res/css/02_module/mod_skins-v1.css"/>
+    <pageHelper:externalCss file="/res/css/05_forms/forms-v1.css"/>
+
+
+    <div id="js-removeHomePageSubscriptionFromPage">
+        <div id="js-hover_nlHomePageSubscription" class="dn">
+            <div id="js-hover_nlHomePageSubscription" class="mod modal_1 width_16">
+                <div class="outer bg-homePageSubscription">
+                    <div class="fr">
+                        <span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span>
+                    </div>
+                    <div class="inner">
+                        <div class="nlContent">
+                            <h2>At last! Parenting cheat sheets!</h2>
+                            <div>
+                            <p>Our FREE guides contain tools and tricks to help prepare your child for academic success.</p>
+                            </div>
+                            <div>
+                                <p>Sign up for our newsletter below and get instant access to our guides for elementary, middle, and high school-aged kids.</p>
+                            </div>
+                            <div class="nlSignUp">
+                                <div class="nlHomePageSubEmail_error smaller bottom validEmail error_msg" style="display:none">
+                                    Please enter a valid email address.
+                                </div>
+                                <div id="nlHomePageSubEmail_error_alreadySub" class=" nlHomePageSubEmail_error_alreadySub smaller bottom validEmail error_msg" style="display:none">
+                                    The email address is already in use.
+                                </div>
+                                <span class="nlHomePageEmail">
+                                    <input type="text" id="nlHomePageSubEmail" name="email" class="nlHomePageSubEmail small bottom text input_6 mrm vam"
+                                           onfocus="GS_textSwitch(this, '', '[Your email address]')"
+                                           onblur="GS_textSwitch(this, '[Your email address]', '');"
+                                           value="[Your email address]"/>
+                               </span>
+                                <button class="hover_nlHomePageSubscriptionSubmit but but-rg but-1 vam" type="submit" name="nlHomePageSubSubmit" id="hover_nlHomePageSubscriptionSubmit">
+                                    Sign up
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

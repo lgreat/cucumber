@@ -16,6 +16,7 @@ import gs.data.admin.IPropertyDao;
 import gs.web.community.UploadAvatarHoverController;
 import gs.web.request.RequestInfo;
 import gs.web.search.CmsRelatedFeatureCacheManager;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
 import gs.web.util.UrlUtil;
@@ -254,6 +255,7 @@ public class MonitorController implements ReadWriteController {
             model.put("solr_rw_server_url", System.getProperty("solr.rw.server.url"));
         }
 
+        model.put("optimizely_url", PageHelper.getOptimizelyUrl());
 
         return new ModelAndView(_viewName, model);
     }

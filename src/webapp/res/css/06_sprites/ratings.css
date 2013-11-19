@@ -63,6 +63,11 @@ Created by Mitchell Seltzer
     width:0;
     height:100%;
 }
+.bar_container.light_blue div {
+    background: #7FBED4; /* for non-css3 browsers */
+    width:0;
+    height:100%;
+}
 
 /*************************************************************************************************************************
 

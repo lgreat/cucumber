@@ -9,13 +9,21 @@
     <jsp:directive.tag body-content="empty" description="Used to JavaScript code needed for any page with a K12 traffic driver ad"/>
 
     <pageHelper:externalJavascript file="/res/js/promo/k12.js"/>
-    <c:if test="${not empty requestScope.context.state and gsweb:isValidK12School(requestScope.context.state.name)}">
+    <c:if test="${not empty requestScope.context.state}">
+        <c:choose>
+            <c:when test="${gsweb:isValidK12School(requestScope.context.state.name)}">
+                <c:set var="k12SchoolName" value="${gsweb:getK12SchoolName(requestScope.context.state.name)}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="k12SchoolName" value="${gsweb:getK12SchoolName('INT')}"/>
+            </c:otherwise>
+        </c:choose>
         <script type="text/javascript">
             GS = GS || {};
             GS.promo = GS.promo || {};
             GS.promo.K12 = GS.promo.K12 || {};
             GS.promo.K12.k12StateName = '${requestScope.context.state.longName}';
-            GS.promo.K12.k12SchoolName = '${gsweb:getK12SchoolName(requestScope.context.state.name)}';
+            GS.promo.K12.k12SchoolName = '${k12SchoolName}';
         </script>
     </c:if>
 

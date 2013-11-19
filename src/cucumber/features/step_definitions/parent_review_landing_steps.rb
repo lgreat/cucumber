@@ -1,4 +1,4 @@
-define_page_selectors 'parent review landing', {
+parent_review_landing_page_selectors = {
     'the state dropdown' => '#js-reviewLandingState .arrow_btn',
     'the terms of use checkbox' => '#js-reviewLandingCheckboxTerms .js-checkBoxSpriteOff',
     'who am I box' => '#js-reviewLandingIAm .js-selectBox',
@@ -16,6 +16,17 @@ define_page_selectors 'parent review landing', {
     'email validation' => '.js-email-error',
 
 }
+
+define_page_selectors 'parent review landing', parent_review_landing_page_selectors
+define_page_selectors 'learning issues landing', parent_review_landing_page_selectors
+
+When /^I cannot select "([^\"]+)" in ([A-Z]{2}) to review$/ do |school_name, state|
+  step 'I click on "the state dropdown"'
+  page.find('li', :text=>state).click
+  page.fill_in('js-parentReviewLandingPageSchoolSelectInput', :with => school_name)
+  sleep 3 # for autocomplete
+  page.first('a', :text=>school_name).should be_nil
+end
 
 When /^I select my school to review: "([^\"]+)" in ([A-Z]{2})$/ do |school_name, state|
   step 'I click on "the state dropdown"'

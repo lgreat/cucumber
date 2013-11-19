@@ -620,8 +620,27 @@ General comments:
 .standard_10-2 .inner div.FBSignOutButton:hover{
     background-color: #687FB1;
 }
+
+.containerOrangeBox{
+    background:#FFF0D1;
+    border:1px solid #FFCC67;
+    -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 3px; /* FF1-3.6 */
+    border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
 .containerGrayBox{
     border:1px #F1F1F1 solid;
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 10px;
+    -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 3px; /* FF1-3.6 */
+    border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.containerGrayBox2{
+    border:1px #DDD solid;
     background-color: #F1F1F1;
     text-align: center;
     padding: 10px;
@@ -700,7 +719,8 @@ Used for the none and one cases in the compare module
 .bg-uspPromo-lg { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat; background-position: 374px 23px;}
 .bg-uspPromo-lg-left { background: url("/res/img/usp/kids_promo_220x105.png") no-repeat left bottom;}
 .bg-uspGetStarted { background: url("/res/img/usp/mother_Daughter_267x189.png") no-repeat right bottom;}
-.bg-nlSubscription { background: url(/res/img/nlHover/newsletter-210x260-new.png) no-repeat right bottom;}
+.bg-nlSubscription { background: url("/res/img/nlHover/newsletter-210x260-new.png") no-repeat right bottom;}
+.bg-homePageSubscription { background: url("/res/img/nlHover/welcome-217x260.png") no-repeat right bottom;}
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds colors-------------- */
 

@@ -229,9 +229,10 @@
                         <school:espCheckboxWithLabel key="immersion_language" value="dutch" label="Dutch"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="french" label="French"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="german" label="German"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="hmong" label="Hmong"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="hebrew" label="Hebrew"/>
                     </div>
                     <div class="grid_6 omega">
+                        <school:espCheckboxWithLabel key="immersion_language" value="hmong" label="Hmong"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="italian" label="Italian"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="japanese" label="Japanese"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="korean" label="Korean"/>

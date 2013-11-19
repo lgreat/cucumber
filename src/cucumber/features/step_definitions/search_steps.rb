@@ -1,3 +1,8 @@
+define_page_selectors "GS Home Page", {
+    'By name tab' => '.gsTabs li:nth-child(2) a',
+
+}
+
 HOW_TO_VERIFY_FILTER_MAP = {
     'Public' => 'I see "st=public" in the URL',
     'Private' => 'I see "st=private" in the URL',

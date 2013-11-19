@@ -200,6 +200,8 @@
 
         <![CDATA[
         <script type="text/javascript" > <!--
+            window.optimizely = window.optimizely || [];
+            window.optimizely.push("activateSiteCatalyst");
 
             s.pageName = "${pageName}";
             clickCapture.pageName = "${pageName}";

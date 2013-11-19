@@ -69,13 +69,13 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTelementary.jpg" width="130" height="66" alt="find a school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTfindaschool.gif" width="130" height="66" alt="find a school hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
                         <p>
-                            <a href="/find-a-school/making-the-right-choice/7055-choose-elementary-school-video.gs"
-                               id="PN_P_HT-FindingTheRightElementarySchool" class="small GS_CI9_">Finding the right elementary school</a>
+                            <a href="/find-a-school/7659-what-average-greatschools-ratings-mean.gs"
+                               id="PN_P_HT-TheMurkyMiddle" class="small GS_CI9_">The murky middle: what an<br/>average school rating means</a>
                         </p>
                     </div>
                 </div>
@@ -134,14 +134,16 @@
             <div class="col_2">
                 <div class="ft_content smaller bottom clearfix">
                     <div class="fl ">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTpreschool.jpg" width="130" height="66" alt="preschool hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTpreschool.gif" width="130" height="66" alt="preschool hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
                         <p>
-                            <a href="/parenting/behavior-discipline/slideshows/4379-brain-preschool.gs" id="PN_P_HT-InsideYourPreschoolersBrain"
-                              class="small GS_CI9_">Inside your preschooler's brain</a>
+                            <a href="/parenting/teaching-values/158-teaching-children-to-give.gs" id="PN_P_HT-TeachingChildrenToGive"
+                              class="small GS_CI9_">Teaching children to give</a>
                         </p>
+
+
                     </div>
                 </div>
             </div>
@@ -208,14 +210,14 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTlunch.jpg" width="130" height="66" alt="elementary school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTelementary.gif" width="130" height="66" alt="elementary school hot topic"/>
                     </div>
 
                     <div class="fl"><p class="small_bold make-2b2b2b">Hot Topic</p>
                         <p>
-                            <a href="/parenting/health-nutrition/slideshows/5276-school-lunches-from-around-the-world.gs"
-                               id="PN_E_HT-BeyondPBJ26EasyLunchIdeasWithAGlobalTwist" class="small GS_CI9_">
-                               Beyond PB&amp;J: 26 easy lunch<br/>ideas with a global twist</a>
+                            <a href="/holidays/gifts/373-best-holiday-learning-gifts.gs"
+                               id="PN_E_HT-HolidayGiftsToLearnWith" class="small GS_CI9_">
+                                Holiday gifts to learn with</a>
                         </p>
                     </div>
                 </div>
@@ -270,13 +272,13 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTmathtracking.jpg" width="130" height="66" alt="middle school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HTmiddleschool.gif" width="130" height="66" alt="middle school hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
                         <p>
-                            <a href="/math/7559-algebra-middle-school-math-track.gs" id="PN_M_HT-BewareYourChildIsNowBeingTrackedInMath"
-                               class="small GS_CI9_">Beware: your child is now being<br/>tracked in math</a>
+                            <a href="/holidays/gifts/slideshows/1799-last-minute-holiday-gifts.gs" id="PN_M_HT-7LastMinuteGiftsForKids"
+                               class="small GS_CI9_">7 last-minute gifts for kids</a>
                         </p>
                     </div>
                 </div>
@@ -333,14 +335,15 @@
             <div class="col_2">
                 <div class="ft_content clearfix">
                     <div class="fl">
-                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/130802-HTtech.jpg" width="130" height="66" alt="high school hot topic"/>
+                        <gsml:img styleClass="fltlft" src="/res/img/primaryNav/112613-HThighschool.gif" width="130" height="66" alt="high school hot topic"/>
                     </div>
                     <div class="fl">
                         <p class="small_bold make-2b2b2b">Hot Topic</p>
                         <p>
-                            <a href="/back-to-school/slideshows/7567-back-to-school-learning-digital-devices.gs"
-                               id="PN_H_HT-9TechToolsForYourTeen" class="small GS_CI9_">9 tech tools for your teen</a>
+                            <a href="/holidays/602-five-tips-for-a-healthy-holiday.gs"
+                               id="PN_H_HT-FiveTipsForAHealthyHoliday" class="small GS_CI9_">Five tips for a healthy holiday</a>
                         </p>
+
                     </div>
                 </div>
             </div>

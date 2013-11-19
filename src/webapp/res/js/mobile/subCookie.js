@@ -131,7 +131,7 @@ define(['cookies'],function(cookies) {
 
 
         /*
-         * Creates a cookie with the property.Property names currently in use - showNLHoverOnArticles.
+         * Creates a cookie with the property.Property names currently in use - showNLHoverOnArticles, showNLHoverOnHomePage.
          */
         createAllHoverCookie : function (propertyName, propertyValue, expiryInDays) {
             subCookie.setObjectProperty("all_hover", propertyName, propertyValue, 365);

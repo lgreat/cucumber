@@ -69,6 +69,7 @@ GS.ad.profile.tabNameForAdTargeting = {
     'demographics'       : 'studteach',
     'teachers'           : 'studteach',
     'programs-culture'   : 'progcult',
+    'climate'            : 'progcult',
     'culture'            : 'progcult',
     'programs-resources' : 'progcult',
     'extracurriculars'   : 'progcult',
@@ -763,6 +764,34 @@ jQuery(document).ready(function() {
         // Trigger the test change event.
         testsMenu.change();
     }
+
+    $('.js-climate-whats-this').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        $('.js-climate-description-for-' + id).show('slow');
+        $this.hide();
+        return false;
+    });
+    $('.js-climate-got-it').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        $('.js-climate-description-for-' + id).hide('slow');
+        $('.js-climate-whats-this[data-id=' + id + ']').show('slow');
+        return false;
+    });
+    $('.js-climateLearnMoreExpando').on('click', function() {
+        var $this = $(this);
+        $this.hide();
+        $('.js-climateLearnMoreBody').show('slow');
+        return false;
+    });
+    $('.js-climateLearnMoreCollapso').on('click', function() {
+        var $this = $(this);
+        $('.js-climateLearnMoreBody').hide('slow');
+        $('.js-climateLearnMoreExpando').show('slow');
+        return false;
+    });
+
 });
 
 var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";

@@ -72,6 +72,7 @@ where each entry is the first bean for that section, this allows access to the s
             ${updateThisInfoBlurb}
         </c:if>
     </c:set>
+    <c:set var="climatetab"><school:profileModuleInclude tabName="climate" page="/school/profileClimate.page"/></c:set>
     <c:set var="applicationtab"><c:if test="${fn:length(application_info) gt 0}">
         <div class="ptn">
             <!--<b>Application Information</b>-->
@@ -245,12 +246,16 @@ where each entry is the first bean for that section, this allows access to the s
 
     <!-- Build tabs -->
 
-    <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab || !empty culturetab)}">
+    <c:if test="${(!empty highlightstab || !empty climatetab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab || !empty culturetab)}">
         <div data-gs-tabs="programs-culture-master" class="gsTabs">
             <ul class="tabStyle-5">
                 <c:set var="addDivider" value="false"/>
                 <c:if test="${(!empty highlightstab)}">
                     <profile:gsTab tabName="programs-culture" title="Programs and extras" tabText="Highlights" cssClass="${requestScope.schoolProfileTabMap['programs-culture']}"/>
+                    <c:set var="addDivider" value="true"/>
+                </c:if>
+                <c:if test="${(!empty climatetab)}">
+                    <profile:gsTab tabName="climate" title="School climate" tabText="School climate" cssClass="${requestScope.schoolProfileTabMap['climate']}"/>
                     <c:set var="addDivider" value="true"/>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
@@ -272,6 +277,11 @@ where each entry is the first bean for that section, this allows access to the s
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${highlightstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
+                </div>
+            </c:if>
+            <c:if test="${(!empty climatetab)}">
+                <div class="alpha omega grid_16 ${(!empty requestScope.schoolProfileTabMap['climate'] and requestScope.schoolProfileTabMap['climate'] eq 'selected'?'':'dn')}">
+                    <c:out value='${climatetab}' escapeXml="false" />
                 </div>
             </c:if>
             <c:if test="${(!empty applicationtab)}">
