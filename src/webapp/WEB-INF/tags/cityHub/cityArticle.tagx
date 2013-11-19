@@ -10,24 +10,22 @@
      <c:when test="${not empty cityArticle.articles}">
          <c:forEach items="${cityArticle.articles}" var="cityArticle">
              <div class="clearfix mvl">
-                 <div class="alpha grid_2">
-                     <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}" width="60"/>
+                 <div class="alpha grid_3">
+                     <gsml:img src="${cityArticle.articleImagePath}" alt="City of ${city}"/>
                  </div>
-                 <div class="grid_11 suffix_1 omega">
+                 <div class="grid_10 suffix_1 omega">
                      <div class="medium_bold bottom">
                          <c:choose>
                              <c:when test="${cityArticle.newwindow eq 'true'}">
                                  <h4 class="SourceSansPro-Semibold-h4 bottom">
                                      <a href="${cityArticle.articlepath}" target="_blank">${cityArticle.heading}</a>
                                  </h4>
-
                                  <p class="bottom">${cityArticle.content}</p>
                              </c:when>
                              <c:otherwise>
                                  <h4 class="SourceSansPro-Semibold-h4 bottom">
                                      <a href="${cityArticle.articlepath}" class="">${cityArticle.heading}</a>
                                  </h4>
-
                                  <p class="bottom">${cityArticle.content}</p>
                              </c:otherwise>
                          </c:choose>
