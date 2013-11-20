@@ -81,21 +81,16 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             } else if (user == null) {
                 user = new User();
                 user.setEmail(email);
-                user.setHow("hover_article");
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                if(nlSubCmd.isNlSignUpFromHomePage() == true){
+                if(nlSubCmd.isNlSignUpFromHomePage()){
                     user.setEmailVerified(true);
                     user.setHow("hover_offerdownload");
-                }
-                _userDao.saveUser(user);
-
-                if (nlSubCmd.isNlSignUpFromHomePage() == true){
                     shouldSendVerificationEmail = false;
-                    _exactTargetAPI.sendTriggeredEmail(EXACT_TARGET_HOME_PAGE_PITCH_KEY, user);
-                }else{
+                } else {
+                    user.setHow("hover_article");
                     shouldSendVerificationEmail = true;
                 }
-
+                _userDao.saveUser(user);
 
                 addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
                 addedParentAdvisorSubscription = true;
@@ -115,6 +110,10 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             if (shouldSendVerificationEmail) {
                 sendVerificationEmail(request, user, addedParentAdvisorSubscription, addedSponsorOptInSubscription);
                 thankYouMsg = "Please confirm your subscription(s) by clicking the link in the email we just sent you.";
+            }
+
+            if (nlSubCmd.isNlSignUpFromHomePage()){
+                _exactTargetAPI.sendTriggeredEmail(EXACT_TARGET_HOME_PAGE_PITCH_KEY, user);
             }
 
             if (nlSubCmd.isAjaxRequest()) {

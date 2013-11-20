@@ -1438,17 +1438,13 @@ GSType.hover.HomePageNLSubscription = function() {
             dataType: 'json',
             async: false,
             success: function(data) {
-                if (data.userAlreadySubscribed === true) {
-                    jQuery('.nlHomePageSubEmail_error_alreadySub').show();
-                } else {
-                    GSType.hover.homePageNLSubscription.hide();
-                    s.linkTrackVars = "events";
-                    s.linkTrackEvents = "event83";
-                    pageTracking.clear();
-                    pageTracking.successEvents = 'event83';
-                    pageTracking.send();
-                    GSType.hover.homePageNLSubscriptionThankYou.show();
-                }
+                GSType.hover.homePageNLSubscription.hide();
+                s.linkTrackVars = "events";
+                s.linkTrackEvents = "event83";
+                pageTracking.clear();
+                pageTracking.successEvents = 'event83';
+                pageTracking.send();
+                GSType.hover.homePageNLSubscriptionThankYou.show();
             }
         });
     };
