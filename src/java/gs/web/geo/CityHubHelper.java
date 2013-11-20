@@ -58,6 +58,8 @@ public class CityHubHelper {
     public static final String ENROLLMENT_PAGE_KEY_PREFIX = "enrollmentPage";
     public static final String ENROLLMENT_PAGE_SUBHEADING_MODEL_KEY = "subHeading";
 
+    public static final String CHOOSE_PAGE_KEY_PREFIX = "choosePage";
+
     public static final String CONTENT_JSON_OBJECT_KEY = "content";
     public static final String HEADER_JSON_OBJECT_KEY = "header";
     public static final String MORE_INFO_JSON_OBJECT_KEY = "moreInfo";
@@ -66,9 +68,11 @@ public class CityHubHelper {
     public static final String LINK_NAME_JSON_OBJECT_KEY = "name";
     public static final String LINK_PATH_JSON_OBJECT_KEY = "path";
     public static final String LINK_NEWWINDOW_JSON_OBJECT_KEY = "newWindow";
+
     public static final String TIPS_CONFIG_KEY_SUFFIX = "tips";
     public static final String DESCRIPTION_CONFIG_KEY_SUFFIX = "description";
     public static final String MORE_INFO_CONFIG_KEY_SUFFIX = "moreInfo";
+    public static final String LOCAL_LINKS_CONFIG_KEY_SUFFIX = "localLinks";
 
     public static final String NO_DATA_FOUND_PREFIX = "No Data Found - ";
 

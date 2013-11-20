@@ -17,10 +17,9 @@ import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.util.PageHelper;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang.WordUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -90,6 +89,10 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         modelAndView.addObject("collectionId", collectionId);
 
         List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
+
+        final ModelMap choosePageModelMap = getCityHubHelper().getFilteredConfigMap(configList,
+                CityHubHelper.CHOOSE_PAGE_KEY_PREFIX);
+
         /**
          * Get the important events
          */
@@ -102,7 +105,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         /**
          * Get Step Info  .
          */
-        List<StepModel> stepsInfo = getStepFacades(collectionNickname);
+        List<StepModel> stepsInfo = getStepFacades(collectionNickname, choosePageModelMap);
         modelAndView.addObject("stepsInfo", stepsInfo);
 
         modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
@@ -118,7 +121,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
      * @param  collectionNickName collectionNickName.
      * @return stepsInfo List of StepInfo passed to model.
      */
-    private List<StepModel> getStepFacades(final String collectionNickName) {
+    private List<StepModel> getStepFacades(final String collectionNickName, final ModelMap choosePageModelMap) {
 
         List<StepModel> stepsInfo = new ArrayList<StepModel>();
 
@@ -244,20 +247,36 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep3 = new ArrayList<FeaturedResourcesModel>();
-
         FeaturedResourcesModel feature1Step3= new FeaturedResourcesModel("Try our advanced school search", "../schools/", "Local Page", "GreatSchools provides independent ratings based on a mixture of factors. You should consider GreatSchools ratings along with local and state ratings.");
-        FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel("OSSE Report Cards", "/", "External Page");
-        FeaturedResourcesModel feature3Step3= new FeaturedResourcesModel("PMF Rating", "http://www.dcpcsb.org/SearchSchools.aspx", "External Page");
-        FeaturedResourcesModel feature4Step3= new FeaturedResourcesModel("DCPS scorecard", "http://profiles.dcps.dc.gov/", "External Page");
-
-
-
         featuredResourcesModelStep3.add(feature1Step3);
-        featuredResourcesModelStep3.add(feature2Step3);
-        featuredResourcesModelStep3.add(feature3Step3);
-        featuredResourcesModelStep3.add(feature4Step3);
 
+        String localLinksKey = CityHubHelper.CHOOSE_PAGE_KEY_PREFIX + "_step3_" + CityHubHelper.LOCAL_LINKS_CONFIG_KEY_SUFFIX;
+        JSONObject localLinks = (JSONObject) choosePageModelMap.get(localLinksKey);
+        if (localLinks instanceof JSONObject && localLinks.has(CityHubHelper.LINK_JSON_OBJECT_KEY)) {
+            Object linkObject = localLinks.get(CityHubHelper.LINK_JSON_OBJECT_KEY);
 
+            if (linkObject instanceof JSONObject) {
+                JSONObject link = (JSONObject) linkObject;
+                FeaturedResourcesModel feature2Step3= new FeaturedResourcesModel(link.getString(CityHubHelper.LINK_NAME_JSON_OBJECT_KEY),
+                        link.getString(CityHubHelper.LINK_PATH_JSON_OBJECT_KEY),
+                        "true".equals(link.get(CityHubHelper.LINK_NEWWINDOW_JSON_OBJECT_KEY)) ? "External Page" : "");
+
+                featuredResourcesModelStep3.add(feature2Step3);
+            }
+            else if (linkObject instanceof JSONArray) {
+                JSONArray links = (JSONArray) linkObject;
+                for(int i = 0; i < links.size(); i++) {
+                    JSONObject link = (JSONObject) links.get(i);
+                    if(link != null) {
+                        FeaturedResourcesModel featureStep3= new FeaturedResourcesModel(link.getString(CityHubHelper.LINK_NAME_JSON_OBJECT_KEY),
+                                link.getString(CityHubHelper.LINK_PATH_JSON_OBJECT_KEY),
+                                "true".equals(link.get(CityHubHelper.LINK_NEWWINDOW_JSON_OBJECT_KEY)) ? "External Page" : "");
+
+                        featuredResourcesModelStep3.add(featureStep3);
+                    }
+                }
+            }
+        }
 
         step3.setFeaturedResourcesModel(featuredResourcesModelStep3);
 
