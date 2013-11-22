@@ -262,6 +262,7 @@ public class UserInfoController extends AbstractController {
         // Google Ad Manager ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
+        pageHelper.setHideAds(true);
 
         return new ModelAndView(_viewName, model);
     }

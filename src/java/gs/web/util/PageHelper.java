@@ -125,6 +125,15 @@ public class PageHelper {
         }
     }
 
+    public static void hideAllAds(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
     /**
      * Adds the given code to the onload script of the body tag.
      */

@@ -322,6 +322,10 @@ public class ManagementController extends SimpleFormController implements ReadWr
             User user = new User();
             user.setId(command.getUserId());
             PageHelper.setMemberCookie(request, response, user);
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            if (pageHelper != null) {
+                pageHelper.setHideAds(true);
+            }
             return new ModelAndView("email/management",model);
         }
         

@@ -170,6 +170,11 @@ public class MySchoolListController extends AbstractController implements ReadWr
             createRecentReviewsModel(schools, model);
         }
 
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
+
         return new ModelAndView(view, model);
     }
 
