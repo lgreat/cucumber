@@ -15,6 +15,7 @@ import gs.data.util.CommunityUtil;
 import gs.web.school.usp.UspFormHelper;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -136,6 +137,11 @@ public class OspFormController implements ReadWriteAnnotationController {
         modelMap.put("censusDataTypes", EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()));
 
         modelMap.put("stateLocked", _noEditDao.isStateLocked(state));
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
 
         return VIEW;
     }

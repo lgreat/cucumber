@@ -68,6 +68,12 @@ public class EspSignInController implements ReadWriteAnnotationController {
         if (request.getParameter("email") != null) {
             command.setEmail(request.getParameter("email"));
         }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
+
         return VIEW;
     }
 

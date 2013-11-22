@@ -6,6 +6,7 @@ import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.school.usp.EspStatus;
 import gs.web.school.usp.EspStatusManager;
+import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -158,6 +159,11 @@ public class OspDashboardController implements BeanFactoryAware{
             modelMap.put("pageStarted", pageStartedMap);
             modelMap.put("anyPageStarted", anyPageStarted);
             modelMap.put("isFruitcakeSchool", OspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
+        }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
         }
 
         return VIEW;
