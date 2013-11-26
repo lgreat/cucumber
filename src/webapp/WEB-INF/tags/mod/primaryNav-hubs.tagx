@@ -240,7 +240,7 @@
                     </li>
                     <li class="subMenuItem">
                         <a href="/" class="subMenuItemAnchorText"
-                           onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in {{hubCity}}</a>
+                           onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in {{hubCity}}?</a>
                     </li>
 
                 </ul>
