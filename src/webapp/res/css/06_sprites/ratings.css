@@ -198,6 +198,10 @@ Created by Mitchell Seltzer
 .ratingsYellow {color:#F1AF31;  background-color: #F1AF31;}
 .ratingsGreen { color:#5E9D4C; background-color: #5E9D4C;}
 
+.ratingsRedBg {background-color: #C1423F; }
+.ratingsYellowBg {background-color: #F1AF31;}
+.ratingsGreenBg {background-color: #5E9D4C;}
+
 /* =5 x24
 -------------------------------------------------------------------------------------------*/
 

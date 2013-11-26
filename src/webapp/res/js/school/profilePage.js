@@ -792,6 +792,15 @@ jQuery(document).ready(function() {
         return false;
     });
 
+    $('.js-ratingsExpando').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        console.log($this, id);
+        $('.js-ratings-description-for-' + id).show('slow');
+        $this.hide();
+        return false;
+    });
+
 });
 
 var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";
