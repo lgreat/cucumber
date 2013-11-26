@@ -258,7 +258,7 @@ GS.facebook = GS.facebook || (function () {
         // TODO: do we need this? probably not since the existing logic isn't up-to-date
         if (hostname.match("staging\\.|clone\\.|willow\\.|staging$|clone$|willow$")) {
             communityCookieName = "community_staging";
-        } else if (hostname.match("dev\\.|dev$|clone\\.|clone$|localhost$|samson$|qa\\.|qa$|127\\.0\\.0\\.1|alpha\\.|alpha$")) {
+        } else if (hostname.match("dev\\.|dev$|clone\\.|clone$|localhost$|samson$|qa\\.|qa$|127\\.0\\.0\\.1|alpha.*\\.|alpha$")) {
             communityCookieName = "community_dev";
         } else {
             communityCookieName = "community_www";
