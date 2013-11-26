@@ -10,17 +10,17 @@
         <input type="hidden" name="search_type" value="1"/>
         <div class="">
             <div class="clearfix">
-                <div class="fl pbm">
-                    <h3 class="SourceSansPro-Semibold-h3 make-ffffff fl bottom">Find a School in</h3>
+                <div class="fl">
+                    <h3 class="SourceSansPro-Semibold-h3 make-ffb725 bottom pbs">Find a School in</h3>
+                    <h1 class="SourceSansPro-Semibold-h1-large make-ffffff">${collectionNickname}</h1>
                 </div>
-                <div class="fl pr">
-                    <div class="pa" style="width: 586px;border-top: 1px solid #999999; top:11px; left:15px;"><!--do not colapse--></div>
+                <div class="fr">
+                    <div class="small bottom make-ffffff tac">In partnership with</div>
+                    <img src="/res/img/cityHubs/logo_esd_110x60.png" alt="partner logo"/>
                 </div>
             </div>
-            <div class="mbl" style="font:bold 56px/56px 'SourceSansPro-Semibold',Arial,Helvetica,sans-serif;color:#FFFFFF;
-                text-shadow: 0 0 24px rgba(0,0,0,1)">${collectionNickname}
-            </div>
-            <div class="pas mtm mbl pr border-round" style="background-color: #FFB843;">
+
+            <div class="pas mbl pr border-round" style="background-color: #FFB843;">
                 <gsml:input type="text" styleId="js-findByNameBox" styleClass="text1 text-bigger input_14"
                             name="q" value="School name (e.g. Niles Elementary School)"
                             onfocus="GS_textSwitch(this, '', 'School name (e.g. Niles Elementary School)');"
