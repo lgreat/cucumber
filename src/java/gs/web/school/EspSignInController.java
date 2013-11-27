@@ -69,11 +69,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
             command.setEmail(request.getParameter("email"));
         }
 
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if (pageHelper != null) {
-            pageHelper.setHideAds(true);
-        }
-
+        hideAds(request);
         return VIEW;
     }
 
@@ -82,7 +78,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
                          BindingResult result,
                          HttpServletRequest request,
                          HttpServletResponse response) throws Exception {
-
+        hideAds(request);
         validateFormFields(command, result);
         if (!result.hasErrors()) {
             EspUserStateStruct userState = new EspUserStateStruct();
@@ -193,6 +189,13 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
         }
         return user;
+    }
+
+    public void hideAds(HttpServletRequest request) {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
     }
 
     protected boolean validateEmail(String email) {
