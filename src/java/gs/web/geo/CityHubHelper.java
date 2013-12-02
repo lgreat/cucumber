@@ -54,6 +54,7 @@ public class CityHubHelper {
     public static final String HUB_PARTNER_CAROUSEL_MODEL_KEY = "partnerCarousel";
     public static final String HUB_HOME_KEY_PREFIX = "hubHome";
     public static final String HUB_HOME_ANNOUNCEMENT_MODEL_KEY = "announcement";
+    public static final String HUB_SPONSOR_MODEL_KEY = "sponsor";
 
     public static final String ENROLLMENT_PAGE_KEY_PREFIX = "enrollmentPage";
     public static final String ENROLLMENT_PAGE_SUBHEADING_MODEL_KEY = "subHeading";

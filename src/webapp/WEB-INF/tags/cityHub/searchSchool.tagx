@@ -14,10 +14,12 @@
                     <h3 class="SourceSansPro-Semibold-h3 make-ffb725 bottom pbs">Find a School in</h3>
                     <h1 class="SourceSansPro-Semibold-h1-large make-ffffff">${collectionNickname}</h1>
                 </div>
+                <c:if test="${ not empty sponsor}">
                 <div class="fr">
                     <div class="small bottom make-ffffff tac">In partnership with</div>
-                    <img src="/res/img/cityHubs/logo_esd_110x60.png" alt="partner logo"/>
+                    <img src="${sponsor.sponsor.path}" alt="sponsor logo"/>
                 </div>
+                </c:if>
             </div>
 
             <div class="pas mbl pr border-round" style="background-color: #FFB843;">
