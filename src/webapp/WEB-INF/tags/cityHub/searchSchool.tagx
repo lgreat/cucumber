@@ -16,7 +16,7 @@
                 </div>
                 <c:if test="${ not empty sponsor}">
                 <div class="fr">
-                    <div class="small bottom make-ffffff tac">In partnership with</div>
+                    <div class="small bottom make-ffffff tac">${sponsor.sponsor.text}</div>
                     <img src="${sponsor.sponsor.path}" alt="sponsor logo"/>
                 </div>
                 </c:if>
