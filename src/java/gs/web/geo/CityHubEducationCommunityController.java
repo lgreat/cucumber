@@ -13,6 +13,7 @@ import gs.web.util.list.Anchor;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,10 +74,12 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
         List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(configList));
 
+        ModelMap educationCommunityModelMap = getCityHubHelper().getFilteredConfigMap(configList, CityHubHelper.EDUCATIONCOMMUNITY_PAGE_KEY_PREFIX);
 
-        /**
-         * Get Step Info  .
-         */
+        modelAndView.addObject(CityHubHelper.EDUCATIONCOMMUNITY_PAGE_SUBHEADING_MODEL_KEY,
+                educationCommunityModelMap.get(CityHubHelper.EDUCATIONCOMMUNITY_PAGE_KEY_PREFIX + "_" + CityHubHelper.EDUCATIONCOMMUNITY_PAGE_SUBHEADING_MODEL_KEY));
+
+
         ArrayList<EduCommunityModel> partnersInfo = getPartnerFacades(collectionId);
         modelAndView.addObject("partnersInfo", partnersInfo);
 

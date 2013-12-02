@@ -26,7 +26,10 @@
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Education Community"/>
     <div class="container_24 clearfix">
         <div class="tac mtl pvl">
-            <h1 class="SourceSansPro-Semibold-h1">${state} Education Community</h1>
+            <h1 class="SourceSansPro-Semibold-h1">${collectionNickname} Education Community</h1>
+            <div class="prefix_4 grid_16"><p>${subHeading.content}</p></div>
+
+
         </div>
         <hub:educationPartner/>
     </div>

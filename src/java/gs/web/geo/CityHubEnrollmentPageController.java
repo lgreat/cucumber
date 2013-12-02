@@ -100,9 +100,6 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
         final ModelMap enrollmentPageModelMap = getCityHubHelper().getFilteredConfigMap(configList,
                 CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX);
-        /**
-         * The under heading Text will be templatized for every city in Data Base -Shomi
-         */
 
         String subHeadingModelKey = CityHubHelper.ENROLLMENT_PAGE_KEY_PREFIX + "_" +
                 CityHubHelper.ENROLLMENT_PAGE_SUBHEADING_MODEL_KEY;

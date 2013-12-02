@@ -75,6 +75,10 @@ public class CityHubHelper {
     public static final String MORE_INFO_CONFIG_KEY_SUFFIX = "moreInfo";
     public static final String LOCAL_LINKS_CONFIG_KEY_SUFFIX = "localLinks";
 
+
+    public static final String EDUCATIONCOMMUNITY_PAGE_KEY_PREFIX = "eduCommPage";
+    public static final String EDUCATIONCOMMUNITY_PAGE_SUBHEADING_MODEL_KEY = "subHeading";
+
     public static final String NO_DATA_FOUND_PREFIX = "No Data Found - ";
 
     @Autowired
