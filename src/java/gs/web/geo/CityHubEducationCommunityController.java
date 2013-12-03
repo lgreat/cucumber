@@ -127,7 +127,7 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
 
         StringBuffer logoLocationPartner2 = new StringBuffer(baseLogoLocation).append(collectionId).append(logoNameBase).append("02").append(".png");
         final String descriptionPartner2 = "Detroit Public Schools, the largest school system in Michigan, runs 97 schools in Detroit." +
-                                           "The district is made up of 21 application schools, 13 authorized charters, nine schools that are a part of DPS&#8217; Office of " +
+                                           " The district is made up of 21 application schools, 13 authorized charters, nine schools that are a part of DPS&#8217; Office of " +
                                            "Innovation &#34;Rising&#34; schools program, and the remainder of schools are considered traditional open enrollment programs. Amongst the DPS&#8217; schools," +
                                            " 12 schools are listed in Excellent Schools Detroit&#8217;s Scorecard in the top 20 K-8 schools in Detroit. In partnership with the Detroit Parent Network," +
                                            " there are eight DPS Parent Resource Centers located within schools across the city that offer year round parent training, support groups, and play areas for children. ";
