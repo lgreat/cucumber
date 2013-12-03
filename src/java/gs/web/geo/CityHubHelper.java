@@ -78,6 +78,7 @@ public class CityHubHelper {
 
     public static final String EDUCATIONCOMMUNITY_PAGE_KEY_PREFIX = "eduCommPage";
     public static final String EDUCATIONCOMMUNITY_PAGE_SUBHEADING_MODEL_KEY = "subHeading";
+    public static final String EDUCATIONCOMMUNITY_PAGE_TABDATA_MODEL_KEY = "tab1";
 
     public static final String NO_DATA_FOUND_PREFIX = "No Data Found - ";
 

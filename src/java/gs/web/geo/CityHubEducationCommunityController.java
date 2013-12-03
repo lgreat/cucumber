@@ -78,6 +78,9 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
 
         modelAndView.addObject(CityHubHelper.EDUCATIONCOMMUNITY_PAGE_SUBHEADING_MODEL_KEY,
                 educationCommunityModelMap.get(CityHubHelper.EDUCATIONCOMMUNITY_PAGE_KEY_PREFIX + "_" + CityHubHelper.EDUCATIONCOMMUNITY_PAGE_SUBHEADING_MODEL_KEY));
+        modelAndView.addObject(CityHubHelper.EDUCATIONCOMMUNITY_PAGE_TABDATA_MODEL_KEY,
+                educationCommunityModelMap.get(CityHubHelper.EDUCATIONCOMMUNITY_PAGE_KEY_PREFIX + "_" + CityHubHelper.EDUCATIONCOMMUNITY_PAGE_TABDATA_MODEL_KEY));
+
 
 
         ArrayList<EduCommunityModel> partnersInfo = getPartnerFacades(collectionId);

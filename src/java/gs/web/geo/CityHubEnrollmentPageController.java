@@ -259,9 +259,6 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         moreInfoObject = enrollmentPageModelMap.get(moreInfoKey);
         publicElementarySchool.setMoreInfo(getMoreInfoFromJSONObject(moreInfoObject, moreInfoKey));
 
-        ArrayList<Anchor>  moreInfoLinksPublicElementarySchool= new ArrayList<Anchor>();
-        Anchor linkPublicElementarySchool = new Anchor("http://dcps.dc.gov/DCPS/Learn+About+Schools/Prepare+to+Enroll/Find+Your+Assigned+Schools", "Find your assigned school");
-        moreInfoLinksPublicElementarySchool.add(linkPublicElementarySchool);
         /**
          * Public Elementary School Data End
          */
