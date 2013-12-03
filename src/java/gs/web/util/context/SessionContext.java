@@ -440,6 +440,28 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
     /**
+     * Returns true if a random number from 0-99 inclusive is less than the value of the
+     * IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT database property. Returns false otherwise, or in case of any
+     * error/misconfiguration.
+     */
+    public boolean isHomepageDownloadHoverEnabled() {
+        Random r = new Random();
+        return isValueValidForHomepageDownloadHover(r.nextInt(100));
+    }
+
+    /* Break this out primarily for unit testing */
+    protected boolean isValueValidForHomepageDownloadHover(int randomValue0to99) {
+        int displayRate = 0;
+        try {
+            displayRate = Integer.parseInt(_propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0"));
+        } catch (NumberFormatException nfe) {
+            _log.error("The value in the property table for '" + IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT +
+                    "' is non-numeric: " + _propertyDao.getProperty(IPropertyDao.HOMEPAGE_DOWNLOAD_HOVER_PCT, "0"), nfe);
+        }
+        return randomValue0to99 < displayRate;
+    }
+
+    /**
      * Returns true if Google Publisher Tags are enabled globally in database properties or just for this SessionContext
      * @return
      */

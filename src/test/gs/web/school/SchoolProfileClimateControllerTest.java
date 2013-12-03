@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
+import gs.data.school.census.SchoolCensusValue;
 import gs.web.BaseControllerTestCase;
 
 import java.util.*;
@@ -114,10 +115,90 @@ public class SchoolProfileClimateControllerTest extends BaseControllerTestCase {
         }
     }
 
-//    public void testAddInResponseCount() {
-//        List<SchoolProfileClimateController.ClimateResponseCount> list = new ArrayList<SchoolProfileClimateController.ClimateResponseCount>();
-//        Map<Integer, CensusDataSet> dataTypeIdToDataSet = new HashMap<Integer, CensusDataSet>();
-//
-////        SchoolProfileClimateController.addInResponseCount(list, dataTypeIdToDataSet, respondentTypeEnum, responseRate, numResponses);
+    public void testAddInResponseCount() {
+        List<SchoolProfileClimateController.ClimateResponseCount> list = new ArrayList<SchoolProfileClimateController.ClimateResponseCount>();
+        Map<CensusDataType, CensusDataSet> dataTypeToDataSet = new HashMap<CensusDataType, CensusDataSet>();
+        SchoolProfileClimateController.ClimateRespondentType respondentType = SchoolProfileClimateController.ClimateRespondentType.parents;
+        CensusDataType responseRateDataType = CensusDataType.CLIMATE_RESPONSE_RATE_PARENT;
+        CensusDataType numResponsesDataType = CensusDataType.CLIMATE_NUMBER_OF_RESPONSES_PARENT;
+        CensusDataSet responseRate = new CensusDataSet(responseRateDataType, 2013);
+        CensusDataSet numResponses = new CensusDataSet(numResponsesDataType, 2013);
+        dataTypeToDataSet.put(responseRateDataType, responseRate);
+        dataTypeToDataSet.put(numResponsesDataType, numResponses);
+
+        SchoolProfileClimateController.addInResponseCount(list, dataTypeToDataSet, respondentType, responseRateDataType, numResponsesDataType);
+        assertEquals(1, list.size());
+        SchoolProfileClimateController.ClimateResponseCount rval = list.get(0);
+        assertSame(responseRate, rval.getResponseRate());
+        assertSame(numResponses, rval.getNumberOfResponses());
+        assertSame(respondentType, rval.getRespondentType());
+    }
+
+    public void testGetClimateResponseCounts() {
+        // create a mock map that responds to any get with a data set
+        Map<CensusDataType, CensusDataSet> dataTypeToDataSet = createMock(Map.class);
+        expect(dataTypeToDataSet.get(isA(CensusDataType.class))).andReturn(new CensusDataSet()).anyTimes();
+        replay(dataTypeToDataSet);
+
+        // I expect the following to create a ClimateResponseCount for every respondent type
+        List<SchoolProfileClimateController.ClimateResponseCount> responseCounts =
+                SchoolProfileClimateController.getClimateResponseCounts(dataTypeToDataSet);
+
+        // now verify that every respondent is represented in responseCounts
+        verify(dataTypeToDataSet);
+        List<SchoolProfileClimateController.ClimateRespondentType> sortedRespondentTypes = Arrays.asList(SchoolProfileClimateController.ClimateRespondentType.values());
+        Collections.sort(sortedRespondentTypes, new Comparator<SchoolProfileClimateController.ClimateRespondentType>() {
+            public int compare(SchoolProfileClimateController.ClimateRespondentType o1, SchoolProfileClimateController.ClimateRespondentType o2) {
+                return o1.getSortOrder().compareTo(o2.getSortOrder());
+            }
+        });
+        assertEquals("Expect every respondent to be represented", sortedRespondentTypes.size(), responseCounts.size());
+        int index=0;
+        for (SchoolProfileClimateController.ClimateRespondentType respondent: sortedRespondentTypes) {
+            SchoolProfileClimateController.ClimateResponseCount count = responseCounts.get(index);
+            assertEquals("Expect every respondent to be represented in sorted order", respondent, count.getRespondentType());
+            index++;
+        }
+    }
+
+    public void testSumNumberOfResponses() {
+        List<SchoolProfileClimateController.ClimateResponseCount> responseCounts = null;
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts = new ArrayList<SchoolProfileClimateController.ClimateResponseCount>();
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(null));
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(0));
+        assertEquals(0, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(15));
+        assertEquals(15, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(30));
+        assertEquals(45, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(0));
+        assertEquals(45, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+        responseCounts.add(getResponseCount(99155));
+        assertEquals(99200, SchoolProfileClimateController.sumNumberOfResponses(responseCounts));
+    }
+
+//    public void testAddInBreakdowns() {
+//        Map<CensusDataType, SchoolProfileClimateController.ClimateCategory> dataTypeToBean = new HashMap<CensusDataType, SchoolProfileClimateController.ClimateCategory>();
+//        //SchoolProfileClimateController.addInBreakdowns(dataTypeToBean, totalToBreakdowns);
 //    }
+
+    private SchoolProfileClimateController.ClimateResponseCount getResponseCount(Integer numResponses) {
+        SchoolProfileClimateController.ClimateResponseCount rval;
+        CensusDataSet numResponsesDS = null;
+        if (numResponses != null) {
+            numResponsesDS = new CensusDataSet();
+            SchoolCensusValue scv = new SchoolCensusValue();
+            scv.setValueInteger(numResponses);
+            numResponsesDS.addSchoolCensusValue(scv);
+        }
+        CensusDataSet responseRateDS = new CensusDataSet();
+        SchoolCensusValue scv = new SchoolCensusValue();
+        scv.setValueInteger(99);
+        responseRateDS.addSchoolCensusValue(scv);
+
+        return new SchoolProfileClimateController.ClimateResponseCount(responseRateDS, numResponsesDS, SchoolProfileClimateController.ClimateRespondentType.parents);
+    }
 }

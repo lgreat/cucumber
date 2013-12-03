@@ -24,11 +24,12 @@
                                 </div>
                                 <span class="nlEmail">
                                     <input type="text" id="nlSubEmail" name="email" class="small bottom text input_6 mrm"
+                                           style="font: normal 12px/24px Arial, Helvetica, sans-serif; padding: 3px 5px; height: 17px;"
                                             onfocus="GS_textSwitch(this, '', '[Your email address]')"
                                             onblur="GS_textSwitch(this, '[Your email address]', '');"
                                             value="[Your email address]"/>
                                </span>
-                                <button class="but but-rg but-1" type="submit" name="nlSubSubmit" id="hover_nlSubscriptionSubmit">
+                                <button class="but but-rg but-1 vam" type="submit" name="nlSubSubmit" id="hover_nlSubscriptionSubmit">
                                     Sign up
                                 </button>
                             </div>

@@ -35,7 +35,7 @@
             <div class="line">
                 <div class="unit size40of100">
                     <div id="logoBox" class="ptl pbm">
-                        <gsml:a href="/">
+                        <gsml:a href="/" styleClass="GS_CI9_" id="PN-Logo">
                             <gsml:img id="logo" src="/res/img/logo/logo_header_276x50.png"
                                       alt="GreatSchools: Involved Parents. Successful Kids"/>
                         </gsml:a>

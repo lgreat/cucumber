@@ -192,6 +192,8 @@
         <![CDATA[
         <script type="text/javascript" > <!--
             require(GS.requireConfig, ['tracking'], function(tracking) {
+            window.optimizely = window.optimizely || [];
+            window.optimizely.push("activateSiteCatalyst");
 
             tracking.s.pageName = "${pageName}";
             tracking.clickCapture.pageName = "${pageName}";

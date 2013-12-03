@@ -302,6 +302,10 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
     background-position: -864px 0;
 }
 
+.i-16-adChoice {
+    	    background-position: -880px 0;
+   }
+
 /* row 16 */
 
 .i-16-close:hover {

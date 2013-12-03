@@ -79,3 +79,11 @@ When /^I see "([^\"]+)" test results$/ do |test_name|
   test_header_elem.should be_visible
   test_header_elem.should have_content(test_name)
 end
+
+When 'I see climate data' do
+  step 'I see "Based on surveys from"'
+end
+
+When 'I do not see climate data' do
+  step 'I do not see "Based on surveys from"'
+end

@@ -123,8 +123,9 @@
                 <p class="copyright smaller bottom">GreatSchools, Inc. 160 Spear Street, Suite 1020, San Francisco, CA 94105</p>
                 <p class="copyright smaller bottom">
                     &amp;#169;1998-${currentYear} GreatSchools Inc. All Rights Reserved.
-                    GreatSchools is a 501(c)(3) not-for-profit organization
+                    GreatSchools is a 501(c)(3) not-for-profit organization &#160;&#160;&#160;|<gsml:a href="/privacy/#advertiserNotice">Ad Choices <span class="iconx16 i-16-adChoice vam smaller bottom"></span></gsml:a>
                 </p>
+
             </div>
         </div>
     </c:if>

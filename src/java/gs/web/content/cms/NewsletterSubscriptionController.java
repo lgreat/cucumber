@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.data.community.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.util.ExactTargetUtil;
@@ -26,6 +27,10 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
     protected final Log _log = LogFactory.getLog(getClass());
     private ISubscriptionDao _subscriptionDao;
     private EmailVerificationEmail _emailVerificationEmail;
+
+    private ExactTargetAPI _exactTargetAPI;
+
+    public static final String EXACT_TARGET_HOME_PAGE_PITCH_KEY = "offer_download_trigger";
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
@@ -76,10 +81,16 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             } else if (user == null) {
                 user = new User();
                 user.setEmail(email);
-                user.setHow("hover_article");
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                if(nlSubCmd.isNlSignUpFromHomePage()){
+                    user.setEmailVerified(true);
+                    user.setHow("hover_offerdownload");
+                    shouldSendVerificationEmail = false;
+                } else {
+                    user.setHow("hover_article");
+                    shouldSendVerificationEmail = true;
+                }
                 _userDao.saveUser(user);
-                shouldSendVerificationEmail = true;
 
                 addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
                 addedParentAdvisorSubscription = true;
@@ -99,6 +110,10 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             if (shouldSendVerificationEmail) {
                 sendVerificationEmail(request, user, addedParentAdvisorSubscription, addedSponsorOptInSubscription);
                 thankYouMsg = "Please confirm your subscription(s) by clicking the link in the email we just sent you.";
+            }
+
+            if (nlSubCmd.isNlSignUpFromHomePage()){
+                _exactTargetAPI.sendTriggeredEmail(EXACT_TARGET_HOME_PAGE_PITCH_KEY, user);
             }
 
             if (nlSubCmd.isAjaxRequest()) {
@@ -153,4 +168,11 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
         _subscriptionDao = subscriptionDao;
     }
 
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
+    }
 }

@@ -783,11 +783,26 @@ jQuery(document).ready(function() {
     });
     $('.js-climateLearnMoreExpando').on('click', function() {
         var $this = $(this);
-        var id = $this.data('id');
         $this.hide();
         $('.js-climateLearnMoreBody').show('slow');
         return false;
     });
+    $('.js-climateLearnMoreCollapso').on('click', function() {
+        var $this = $(this);
+        $('.js-climateLearnMoreBody').hide('slow');
+        $('.js-climateLearnMoreExpando').show('slow');
+        return false;
+    });
+
+    $('.js-ratingsExpando').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        console.log($this, id);
+        $('.js-ratings-description-for-' + id).show('slow');
+        $this.hide();
+        return false;
+    });
+
 });
 
 var gs_eventclick = (GS.util.isBrowserTouch()) ? "touchstart" : "click";

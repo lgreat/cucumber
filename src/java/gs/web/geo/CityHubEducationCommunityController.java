@@ -111,9 +111,9 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
 
 
         StringBuffer logoLocationPartner3 = new StringBuffer(baseLogoLocation).append(collectionId).append(logoNameBase).append("03").append(".png");
-        final String descriptionPartner3 =  "Founded by Cardinal Adam Maida, who asked that the community &#34;help build cornerstones for the city.&#34; " +
+        final String descriptionPartner3 =  "Founded by Cardinal Adam Maida, who asked that the community &#34;help build cornerstones for the city&#34;. " +
                                             "One cornerstone was to be a Christ-centered schooling alternative that would provide the children of Detroit with access to a &#34;high-quality&#34;\n" +
-                                            "education.Cornerstone Independent Schools were named a top primary school by Excellent Schools Detroit in 2013. \n.";
+                                            "education. Cornerstone Independent Schools were named a top primary school by Excellent Schools Detroit in 2013.";
 
         ArrayList<Anchor> linksPartner3 = new ArrayList<Anchor>();
         Anchor link1Partner3 = new Anchor("http://www.cornerstonecharters.org", "Learn more about Cornerstone Charters");
@@ -129,7 +129,7 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
         final String descriptionPartner2 = "Detroit Public Schools, the largest school system in Michigan, runs 97 schools in Detroit." +
                                            "The district is made up of 21 application schools, 13 authorized charters, nine schools that are a part of DPS&#8217; Office of " +
                                            "Innovation &#34;Rising&#34; schools program, and the remainder of schools are considered traditional open enrollment programs. Amongst the DPS&#8217; schools," +
-                                           " 12 schools are listed in Excellent Schools Detroit&#8217;s Scorecard in the top 20 K-8 schools in Detroit.In partnership with the Detroit Parent Network," +
+                                           " 12 schools are listed in Excellent Schools Detroit&#8217;s Scorecard in the top 20 K-8 schools in Detroit. In partnership with the Detroit Parent Network," +
                                            " there are eight DPS Parent Resource Centers located within schools across the city that offer year round parent training, support groups, and play areas for children. ";
 
         ArrayList<Anchor> linksPartner2 = new ArrayList<Anchor>();

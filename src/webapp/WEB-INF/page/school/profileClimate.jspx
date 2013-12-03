@@ -11,24 +11,28 @@
         <div>
             <c:if test="${not empty dataDescriptions['climate_about_learning_environment'] or not empty dataDescriptions['climate_learn_more_url']}">
                 <div class="containerOrangeBox pal">
-                    <p class="mbn">
+                    <div class="mbn">
                         ${dataDescriptions['climate_about_learning_environment']}
                         <c:choose>
                             <c:when test="${not empty dataDescriptions['climate_learn_more_body']}">
                                 <a href="#" onclick="return false;" class="js-climateLearnMoreExpando">Learn more</a>
                             </c:when>
                             <c:when test="${not empty dataDescriptions['climate_learn_more_url']}">
-                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
+                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_url_text'] ? dataDescriptions['climate_learn_more_url_text'] : 'Learn more'} &amp;raquo;</a>
                             </c:when>
                         </c:choose>
-                    </p>
-                    <c:if test="${not empty dataDescriptions['climate_learn_more_body']}">
-                        <p class="dn mtm mbn js-climateLearnMoreBody">${dataDescriptions['climate_learn_more_body']}
-                            <c:if test="${not empty dataDescriptions['climate_learn_more_url']}">
-                                <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_text'] ? dataDescriptions['climate_learn_more_text'] : 'Learn more'} &amp;raquo;</a>
-                            </c:if>
-                        </p>
-                    </c:if>
+                        <c:if test="${not empty dataDescriptions['climate_learn_more_body']}">
+                            <div class="js-climateLearnMoreBody dn">
+                                <br/>
+                                ${dataDescriptions['climate_learn_more_body']}
+                                <c:if test="${not empty dataDescriptions['climate_learn_more_url']}">
+                                    <br/><br/>
+                                    <a href="${dataDescriptions['climate_learn_more_url']}" target="_blank">${not empty dataDescriptions['climate_learn_more_url_text'] ? dataDescriptions['climate_learn_more_url_text'] : 'Learn more'} &amp;raquo;</a>
+                                </c:if>
+                                <a href="#" class="fr js-climateLearnMoreCollapso">Close</a>
+                            </div>
+                        </c:if>
+                    </div>
                 </div>
             </c:if>
             <div class="ptl">
@@ -55,7 +59,7 @@
                         <thead>
                         <tr>
                             <th>&amp;nbsp;</th>
-                            <th class="tac"># of responses</th>
+                            <th class="tac">Respondents</th>
                             <th class="tac">Response rate</th>
                         </tr>
                         </thead>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link">
+
+<c:set var="city" value="${school.physicalAddress.city}"/>
+
+<div class="${(!empty requestScope.schoolProfileTabMap.ratings and requestScope.schoolProfileTabMap.ratings eq 'selected'?'':'dn')}">
+    <c:if test="${not empty alternateSitePath}">
+        <a class="dn js-alternateSitePath" href="${alternateSitePath}" data-hide-alternate-site-button="${not empty hideAlternateSiteButton}"><!-- do not collapse --></a>
+    </c:if>
+
+    <div class="alpha grid_16 omega">
+        <h2>What is the GreatSchools Rating?</h2>
+
+        <c:if test="${not empty performanceManagementRatingCopy}">
+            <div class="alert-yellow smaller">
+                <div class="pam clearfix">
+                    <div class="fl">
+                        <span class="iconx16 i-16-notice"><!-- do not collapse --></span>
+                    </div>
+                    <div class="fr" style="width:580px;">
+                        ${performanceManagementRatingCopy}
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
+        <p>The GreatSchools Rating is based on academics including students' test scores, student growth and college readiness.</p>
+
+        <div class="alpha grid_4">&amp;nbsp;<!-- not empty --></div>
+        <div class="grid_8">
+            <div class="pam ratingsGraphicMakesUp ptl">
+                <c:set var="ratingsDescriptor">
+                    <c:choose>
+                        <c:when test="${overallRating lt 4}">Below average</c:when>
+                        <c:when test="${overallRating lt 8}">Average</c:when>
+                        <c:when test="${overallRating lt 4}">Above average</c:when>
+                    </c:choose>
+                </c:set>
+                <div class="iconTop">
+                    <c:set var="overallRatingBadge" value="NR"/>
+                    <c:if test="${not empty overallRating}">
+                        <c:set var="overallRatingBadge" value="${overallRating}"/>
+                    </c:if>
+                    <c:set var="schoolType" value="public"/>
+                    <c:if test="${school.type.schoolTypeName eq 'private'}">
+                        <c:set var="schoolType" value="private"/>
+                    </c:if>
+
+                    <div class="fr mtl medium_bold"><em>${ratingsDescriptor}</em></div>
+
+                    <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom"><!-- do not collapse --></div>
+                </div>
+                <div class="clear mbl"><!-- not empty --></div>
+                <hr class="keyline1"/>
+                <div class="clear mbl"><!-- not empty --></div>
+                <div>
+                    <div class="mbm">
+                        <c:set var="ratingsBgColor" value="${schoolTestScoreRating lt 4 ? 'Red' : schoolTestScoreRating gt 7 ? 'Green' : 'Yellow'}"/>
+                        Test score rating <span class="medium_bold phs mbn fr ratings${ratingsBgColor}Bg make-ffffff">${schoolTestScoreRating}</span>
+                    </div>
+                    <c:if test="${not empty schoolStudentGrowthRating}">
+                        <c:set var="ratingsBgColor" value="${schoolStudentGrowthRating lt 4 ? 'Red' : schoolStudentGrowthRating gt 7 ? 'Green' : 'Yellow'}"/>
+                        <div class="mbm">
+                            Student growth rating <span class="medium_bold phs mbn fr ratings${ratingsBgColor}Bg make-ffffff">${schoolStudentGrowthRating}</span>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty schoolPostSecondaryReadinessRating}">
+                        <c:set var="ratingsBgColor" value="${schoolPostSecondaryReadinessRating lt 4 ? 'Red' : schoolPostSecondaryReadinessRating gt 7 ? 'Green' : 'Yellow'}"/>
+                        <div class="mbm">
+                            College readiness rating <span class="medium_bold phs mbn fr ratings${ratingsBgColor}Bg make-ffffff">${schoolPostSecondaryReadinessRating}</span>
+                        </div>
+                    </c:if>
+                    <div class="clear mbl"><!-- not empty --></div>
+                    <div class="clear mbl"><!-- not empty --></div>
+                    <!-- TODO: mock calls for a new legend. Re-using old one for now. Needs replacement -->
+                    <div class="small ratingsLegend mtl">
+                        <div class="ratingx24-public-RYG r-24-1 fl"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-2 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-3 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-4 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-5 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-6 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-7 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-8 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-9 fl marLeft"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-10 fl marLeft"><!-- do not collapse --></div>
+
+                        <div class="spacerFirst">
+                            <div class="bracketUp3"><!-- do not collapse --></div>
+                            <span>Below<br />average</span>
+                        </div>
+                        <div class="spacerBetween">
+                            <div class="bracketUp4"><!-- do not collapse --></div>
+                            <span>Average</span>
+                        </div>
+                        <div class="spacerBetween">
+                            <div class="bracketUp3"><!-- do not collapse --></div>
+                            <span>Above<br />average</span>
+                        </div>
+
+                    </div>
+
+                    <div class="clear"><!-- do not collapse --></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="omega grid_4">&amp;nbsp;<!-- not empty --></div>
+    </div>
+
+    <div class="clear mbl"><!-- not empty --></div>
+    <hr class="keyline1"/>
+    <div class="clear mbl"><!-- not empty --></div>
+
+    <h2 class="pvm bottom">Breaking down the GreatSchools Rating rating</h2>
+
+    <p class="small">
+        ${section3Copy}
+        <c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
+            ${section3CopyPostSecondaryReadiness}
+        </c:if>
+    </p>
+
+    <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
+        <div class="pvm">
+            <h6 class="mtm medium_bold pbm">
+                Test score rating ${testScoreRatingYear}<sup>1</sup>
+                <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="test-score">What's this?</a>
+            </h6>
+            <div class="dn mvl js-ratings-description-for-test-score">
+                Lorem ipsum test scores dolor sit amet, consectetur adipiscing elit. Proin commodo risus ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper mi vitae convallis rhoncus.
+            </div>
+            <profile:ratingsBarChart ratingDivId="ratingTestResults1"
+                                     schoolRating="${schoolTestScoreRating}"
+                                     cityRating="${cityTestScoreRating}"
+                                     stateRatingShow="${showStateTestScoreRating}"
+                                     stateRating="${stateTestScoreRating}"/>
+        </div>
+        <div class="clear"><!-- not empty --></div>
+        <div class="mvm small">
+            <gslink:linkToTab tabName="test-scores">
+                Learn more about this school's test scores &amp;raquo;
+            </gslink:linkToTab>
+        </div>
+        <div class="clear mbl"><!-- not empty --></div>
+        <hr class="keyline2"/>
+    </c:if>
+
+    <c:if test="${(schoolStudentGrowthRating != null) or (schoolStudentGrowthRatingBreakdown != null and cityStudentGrowthRating != null
+                    and stateStudentGrowthRating != null)}">
+        <div class="pvm">
+            <h6 class="mtm medium_bold pbm">
+                Student growth rating ${studentGrowthRatingYear}<sup>2</sup>
+                <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="growth">What's this?</a>
+            </h6>
+            <div class="dn mvl js-ratings-description-for-growth">
+                Lorem ipsum growth dolor sit amet, consectetur adipiscing elit. Proin commodo risus ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper mi vitae convallis rhoncus.
+            </div>
+            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                     schoolRating="${schoolStudentGrowthRating}"
+                                     cityRating="${cityStudentGrowthRating}"
+                                     stateRatingShow="${showStateStudentGrowthRating}"
+                                     stateRating="${stateStudentGrowthRating}"/>
+
+        </div>
+        <div class="clear"><!-- not empty --></div>
+        <c:if test="${schoolStudentGrowthRatingBreakdown != null}">
+            <div class="pvm mbl">
+                <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}" varStatus="loopStatus">
+                    <div class="containerGrayBox2 small fl phl tac mbn ${loopStatus.last?'':'mrl'}">
+                        <p class="mbs">${entry.key} at this school</p>
+                        <p class="bottom larger"><strong>${entry.value}</strong></p>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
+        <div class="clear mbl"><!-- not empty --></div>
+        <hr class="keyline2"/>
+
+    </c:if>
+
+    <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
+        <div class="pvm">
+            <h6 class="mtm medium_bold pbm">
+                College readiness rating ${postSecondaryReadinessRatingYear}
+                <sup>3</sup>
+                <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="post-secondary">What's this?</a>
+            </h6>
+            <div class="dn mvl js-ratings-description-for-post-secondary">
+                Lorem ipsum college readiness dolor sit amet, consectetur adipiscing elit. Proin commodo risus ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper mi vitae convallis rhoncus.
+            </div>
+            <profile:ratingsBarChart ratingDivId="ratingTestResults3"
+                                     schoolRating="${schoolPostSecondaryReadinessRating}"
+                                     cityRating="${cityPostSecondaryReadinessRating}"
+                                     stateRatingShow="${showStatePostSecondaryReadinessRating}"
+                                     stateRating="${statePostSecondaryReadinessRating}"/>
+        </div>
+
+        <div class="clear"><!-- not empty --></div>
+
+        <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
+            <div class="pvm mbl">
+                <div class="containerGrayBox2 small fl phl tac mbn mrl">
+                    <p class="mbs">${postSecondaryReadinessBreakdownPercentTestedLabel}</p>
+                    <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong></p>
+                </div>
+                <div class="containerGrayBox2 small fl phl tac mbn">
+                    <p class="mbs">{postSecondaryReadinessBreakdownTestScoreLabel}</p>
+                    <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
+                            test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong></p>
+                </div>
+            </div>
+        </c:if>
+        <div class="clear mbl"><!-- not empty --></div>
+        <hr class="keyline2"/>
+    </c:if>
+
+    <c:if test="${schoolTestScoreRating != null and not empty testScoreRatingSource}">
+        <p class="smaller bottom pts">1${testScoreRatingSource}</p>
+    </c:if>
+
+    <c:if test="${((schoolStudentGrowthRating != null) or (schoolStudentGrowthRatingBreakdown != null and cityStudentGrowthRating != null
+                    and stateStudentGrowthRating != null)) and not empty studentGrowthRatingSource}">
+        <p class="smaller bottom">2${studentGrowthRatingSource}</p>
+    </c:if>
+
+    <c:if test="${schoolPostSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
+        <p class="smaller bottom">3${postSecondaryReadinessSource}</p>
+    </c:if>
+
+</div>
+
+<mod:deferredTracking key="ratings" pageName="Ratings" hier1="School,SchoolProfileSuite,Ratings"/>
+
+</jsp:root>

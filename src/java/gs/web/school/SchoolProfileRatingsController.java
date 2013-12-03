@@ -32,6 +32,7 @@ import java.util.*;
 public class SchoolProfileRatingsController extends AbstractSchoolProfileController implements ReadWriteAnnotationController, IControllerFamilySpecifier {
     private static final Log _log = LogFactory.getLog(SchoolProfileRatingsController.class);
     public static final String VIEW = "school/profileRatings";
+    public static final String NEW_VIEW = "school/profileRatings2013";
     public static final String MOBILE_VIEW = "school/profileRatings-mobile";
     private ControllerFamily _controllerFamily;
 
@@ -314,6 +315,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             return MOBILE_VIEW;
         }
 
+        if (school.getIsNewerGSRating()) {
+            return NEW_VIEW;
+        }
         return VIEW;
     }
 
