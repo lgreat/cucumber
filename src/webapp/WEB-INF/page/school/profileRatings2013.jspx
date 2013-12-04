@@ -53,7 +53,7 @@
                         <c:set var="schoolType" value="private"/>
                     </c:if>
 
-                    <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom mrl fl"><!-- do not collapse --></div>
+                    <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom mhl fl"><!-- do not collapse --></div>
                     <div class="img bd mtl defaul bold"><em>${ratingsDescriptor}</em></div>
 
 
