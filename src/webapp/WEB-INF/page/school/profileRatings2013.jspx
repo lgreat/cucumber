@@ -75,7 +75,7 @@
                     <c:if test="${not empty schoolPostSecondaryReadinessRating}">
                         <!--<c:set var="ratingsBgColor" value="${schoolPostSecondaryReadinessRating lt 4 ? 'Red' : schoolPostSecondaryReadinessRating gt 7 ? 'Green' : 'Yellow'}"/>-->
                         <div class="mbm">
-                            College readiness rating <span class="medium_bold mbn fr ratingx24-public-RYG r-24-${schoolStudentGrowthRating}"></span>
+                            College readiness rating <span class="medium_bold mbn fr ratingx24-public-RYG r-24-${schoolPostSecondaryReadinessRating}"></span>
                         </div>
                     </c:if>
                     <div class="clear mbl"><!-- not empty --></div>
