@@ -145,7 +145,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This rating encompasses five elements of school climate: safety and cleanliness, respect and " +
                     "relationships, expectations for students, teacher collaboration and support, and parent " +
                     "involvement. This school's climate ratings are the result of GreatSchools' analysis of teacher " +
-                    "survey data from the Spring 2012 School Climate Survey developed by Milwaukee Public Schools.";
+                    "survey data from the Spring 2013 School Climate Survey developed by Milwaukee Public Schools.";
     public static final String SECTION_4_COPY_DATA_UNAVAILABLE_WI =
            "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
     public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
