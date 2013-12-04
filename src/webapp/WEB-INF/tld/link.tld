@@ -533,6 +533,13 @@
             <type>java.lang.String</type>
             <description>onclick handler</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
     </tag>
     <tag>
         <name>mySchoolListLogin</name>
@@ -2002,6 +2009,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>rel attribute, for nofollow links</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
     <tag>
@@ -4442,6 +4456,13 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
     </tag>
     <tag>
         <name>recentActivity</name>
@@ -4635,6 +4656,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.school.School</type>
             <description>School</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
     <tag>
@@ -4839,6 +4867,13 @@
             <type>java.lang.String</type>
             <description>city name</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
     </tag>
 
     <tag>
@@ -4869,6 +4904,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
 
@@ -4901,6 +4943,13 @@
             <type>java.lang.String</type>
             <description>city name</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
     </tag>
     <tag>
         <name>cityHubEnrollmentPage</name>
@@ -4930,6 +4979,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
 
@@ -4961,6 +5017,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
 </taglib>

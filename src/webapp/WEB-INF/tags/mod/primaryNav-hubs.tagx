@@ -93,28 +93,37 @@
                                 <div class="dropdown_1">
                                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                                         <li class="subMenuItem">
-                                            <link:cityHubHome state="${hubStateObject}" styleClass="subMenuItemAnchorText"
-                                                              city="${hubCity}">${hubCity} Home</link:cityHubHome>
+                                            <link:cityHubHome state="${hubStateObject}"
+                                                              styleClass="subMenuItemAnchorText GS_CI9_"
+                                                              city="${hubCity}"
+                                                              id="N2_C-CityHome">${hubCity} Home</link:cityHubHome>
                                         </li>
 
                                         <li class="subMenuItem">
-                                            <link:cityHubChooseSchoolsPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
-                                                                           city="${hubCity}">Choosing a school</link:cityHubChooseSchoolsPage>
+                                            <link:cityHubChooseSchoolsPage state="${hubStateObject}"
+                                                                           styleClass="subMenuItemAnchorText GS_CI9_"
+                                                                           city="${hubCity}"
+                                                                           id="N2_C-ChoosingASchool">Choosing a school</link:cityHubChooseSchoolsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEduCommunityPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
-                                                                          city="${hubCity}">Education Community</link:cityHubEduCommunityPage>
+                                            <link:cityHubEduCommunityPage state="${hubStateObject}"
+                                                                          styleClass="subMenuItemAnchorText GS_CI9_"
+                                                                          city="${hubCity}"
+                                                                          id="N2_C-EducationCommunity">Education Community</link:cityHubEduCommunityPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEnrollmentPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
-                                                                        city="${hubCity}">Enrollment Information</link:cityHubEnrollmentPage>
+                                            <link:cityHubEnrollmentPage state="${hubStateObject}"
+                                                                        styleClass="subMenuItemAnchorText GS_CI9_"
+                                                                        city="${hubCity}"
+                                                                        id="N2_C-EnrollmentInformation">Enrollment Information</link:cityHubEnrollmentPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <link:cityHubEventsPage state="${hubStateObject}" styleClass="subMenuItemAnchorText"
-                                                                    city="${hubCity}">Events</link:cityHubEventsPage>
+                                            <link:cityHubEventsPage state="${hubStateObject}"
+                                                                    styleClass="subMenuItemAnchorText GS_CI9_"
+                                                                    city="${hubCity}" id="N2_C-Events">Events</link:cityHubEventsPage>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/" class="subMenuItemAnchorText"
+                                            <a id="N2_C-NotInCity" href="/" class="subMenuItemAnchorText GS_CI9_"
                                                onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in ${hubCity}?</a>
                                         </li>
 
@@ -125,12 +134,15 @@
                        </c:if >
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <link:findASchool id="PN-FindASchool" styleClass="menuItemAnchorText">Find a School</link:findASchool>
+                                <link:findASchool id="N2-FindASchool" styleClass="menuItemAnchorText GS_CI9_">
+                                    Find a School</link:findASchool>
                             </div>
                         </td>
                         <td class="menuItem">
                             <div class="dropdownReference">
-                                <a href="/school/parentReview.page" id="PN-ReviewYourSchool" class="menuItemAnchorText">Review Your School</a>
+                                <a href="/school/parentReview.page" id="N2-ReviewYourSchool"
+                                   class="menuItemAnchorText GS_CI9_">
+                                    Review Your School</a>
                             </div>
                         </td>
                         <td class="menuItem">
@@ -141,16 +153,20 @@
                                 <div class="dropdown_2">
                                     <ul class="none">
                                         <li class="subMenuItem">
-                                            <a href="/worksheets-activities.topic?content=4313" class="subMenuItemAnchorText">Worksheets &amp; Activities</a>
+                                            <a href="/worksheets-activities.topic?content=4313" class="subMenuItemAnchorText GS_CI9_"
+                                                    id="N2_R-Worksheets&amp;Activities">Worksheets &amp; Activities</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting-dilemmas.topic?content=4321" class="subMenuItemAnchorText">Parenting Dilemmas</a>
+                                            <a href="/parenting-dilemmas.topic?content=4321" class="subMenuItemAnchorText GS_CI9_"
+                                                    id="N2_R-ParentingDilemmas">Parenting Dilemmas</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/special-education.topic?content=1541" class="subMenuItemAnchorText">Learning Difficulties</a>
+                                            <a href="/special-education.topic?content=1541" class="subMenuItemAnchorText GS_CI9_"
+                                                    id="N2_R-LearningDifficulties">Learning Difficulties</a>
                                         </li>
                                         <li class="subMenuItem">
-                                            <a href="/parenting.topic?content=1539" class="subMenuItemAnchorText">Health &amp; Behavior</a>
+                                            <a href="/parenting.topic?content=1539" class="subMenuItemAnchorText GS_CI9_"
+                                                    id="N2_R-Health&amp;Behaviors">Health &amp; Behavior</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -161,8 +177,8 @@
                                 <c:choose>
                                     <c:when test="${empty requestScope.context.memberId}">
                                         <div id="utilLinksUnsignedIn">
-                                            <link:loginOrRegister email="${requestScope.context.email}"
-                                                                  styleClass="menuItemAnchorText last"
+                                            <link:loginOrRegister id="N2-SignIn" email="${requestScope.context.email}"
+                                                                  styleClass="menuItemAnchorText last GS_CI9_"
                                                                   onclick="{GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader)};return false;"
                                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
 
@@ -187,18 +203,25 @@
                                                 <ul class="none">
                                                     <c:if test="${isOSP}">
                                                         <li class="subMenuItem">
-                                                            <link:schoolEspDashboard styleClass="subMenuItemAnchorText">Edit school profile</link:schoolEspDashboard>
+                                                            <link:schoolEspDashboard id="N2_A-EditProfile"
+                                                                                     styleClass="subMenuItemAnchorText GS_CI9_">
+                                                                Edit school profile</link:schoolEspDashboard>
                                                         </li>
                                                     </c:if>
                                                     <li class="subMenuItem">
-                                                        <link:mySchoolList styleClass="subMenuItemAnchorText">My School List (${requestScope.context.mslCount}) </link:mySchoolList>
+                                                        <link:mySchoolList id="N2_A-MySchoolList"
+                                                                           styleClass="subMenuItemAnchorText GS_CI9_">
+                                                            My School List (${requestScope.context.mslCount}) </link:mySchoolList>
                                                     </li>
                                                     <li class="subMenuItem">
-                                                        <link:userAccount styleClass="subMenuItemAnchorText">Account Settings</link:userAccount>
+                                                        <link:userAccount id="N2_A-AccountSettings"
+                                                                          styleClass="subMenuItemAnchorText GS_CI9_">
+                                                            Account Settings</link:userAccount>
                                                     </li>
 
                                                     <li class="subMenuItem">
-                                                        <gsml:a styleClass="js-log-out subMenuItemAnchorText" href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
+                                                        <gsml:a id="N2_A-SignOut" styleClass="js-log-out subMenuItemAnchorText GS_CI9_"
+                                                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}${requestScope.referrer}">Sign Out</gsml:a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -223,24 +246,36 @@
             <div class="dropdown_1">
                 <ul class="none"> <!-- bullet type: disc/square/circle-->
                     <li class="subMenuItem">
-                        <a href="/{{hubState}}/{{hubCityLowerCase}}" class="subMenuItemAnchorText">{{hubCity}} Home</a>
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}"
+                           class="subMenuItemAnchorText"
+                           onclick="clickCapture.capture('prop9', 'N2_C-CityHome');">
+                            {{hubCity}} Home</a>
                     </li>
 
                     <li class="subMenuItem">
-                        <a href="/{{hubState}}/{{hubCityLowerCase}}/choosing-schools" class="subMenuItemAnchorText">Choosing a School</a>
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/choosing-schools"
+                           class="subMenuItemAnchorText"
+                           onclick="clickCapture.capture('prop9', 'N2_C-ChoosingASchool');">Choosing a School</a>
                     </li>
                     <li class="subMenuItem">
-                        <a href="/{{hubState}}/{{hubCityLowerCase}}/education-community" class="subMenuItemAnchorText">Education Community</a>
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/education-community"
+                           class="subMenuItemAnchorText"
+                           onclick="clickCapture.capture('prop9', 'N2_C-EducationCommunity');">Education Community</a>
                     </li>
                     <li class="subMenuItem">
-                        <a href="/{{hubState}}/{{hubCityLowerCase}}/enrollment" class="subMenuItemAnchorText">Enrollment Information</a>
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/enrollment"
+                           class="subMenuItemAnchorText"
+                           onclick="clickCapture.capture('prop9', 'N2_C-EnrollmentInformation');">Enrollment Information</a>
                     </li>
                     <li class="subMenuItem">
-                        <a href="/{{hubState}}/{{hubCityLowerCase}}/events" class="subMenuItemAnchorText">Events</a>
+                        <a href="/{{hubState}}/{{hubCityLowerCase}}/events"
+                           class="subMenuItemAnchorText"
+                           onclick="clickCapture.capture('prop9', 'N2_C-Events');">Events</a>
                     </li>
                     <li class="subMenuItem">
                         <a href="/" class="subMenuItemAnchorText"
-                           onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in {{hubCity}}?</a>
+                           onclick="javascript:GS.hubs.clearLocalUserCookies(); clickCapture.capture('prop9', 'N2_C-NotInCity');">
+                            Not in {{hubCity}}</a>
                     </li>
 
                 </ul>
