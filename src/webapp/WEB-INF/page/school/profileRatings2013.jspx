@@ -122,29 +122,49 @@
     <hr class="keyline1"/>
     <div class="clear mbl"><!-- not empty --></div>
 
-    <h2 class="pvm bottom">Breaking down the GreatSchools Rating rating</h2>
+    <h2 class="pvm bottom">Breaking down the GreatSchools Rating</h2>
 
     <p class="small">
-        ${section3Copy}
-        <c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
-            ${section3CopyPostSecondaryReadiness}
-        </c:if>
+        ${dataCopy['breaking_down_gs_rating_summary']}
+        <c:choose>
+            <c:when test="${empty schoolTestScoreRating and empty schoolStudentGrowthRating and empty schoolPostSecondaryReadinessRating}">
+                ${dataCopy['breaking_down_gs_rating_summary_no_data']}
+            </c:when>
+            <c:otherwise>
+                ${dataCopy['breaking_down_gs_rating_summary_yes_data']}
+            </c:otherwise>
+        </c:choose>
     </p>
+    <c:set var="currentFootnoteNumeral" value="${1}"/>
 
     <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
+        <c:set var="testScoreFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+        <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
+
         <div class="pvm">
             <h6 class="mtm medium_bold pbm">
-                Test score rating ${testScoreRatingYear}<sup>1</sup>
+                Test score rating ${testScoreRatingYear}<sup>${testScoreFootnoteNumeral}</sup>
                 <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="test-score">What's this?</a>
             </h6>
             <div class="dn mvl js-ratings-description-for-test-score">
-                Lorem ipsum test scores dolor sit amet, consectetur adipiscing elit. Proin commodo risus ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper mi vitae convallis rhoncus.
+                ${dataCopy['whats_this_test_scores']}
             </div>
-            <profile:ratingsBarChart ratingDivId="ratingTestResults1"
-                                     schoolRating="${schoolTestScoreRating}"
-                                     cityRating="${cityTestScoreRating}"
-                                     stateRatingShow="${showStateTestScoreRating}"
-                                     stateRating="${stateTestScoreRating}"/>
+            <c:choose>
+                <c:when test="${school.databaseState eq 'DC'}">
+                    <profile:ratingsBarChart ratingDivId="ratingTestResults1"
+                                             schoolRating="${schoolTestScoreRating}"
+                                             cityRating="${cityTestScoreRating}"
+                                             stateRatingShow="${showStateTestScoreRating}"
+                                             stateRating="${stateTestScoreRating}"/>
+                </c:when>
+                <c:otherwise>
+                    <profile:ratingsBarChart ratingDivId="ratingTestResults1"
+                                             schoolRating="${schoolTestScoreRating}"
+                                             districtRating="${districtTestScoreRating}"
+                                             stateRatingShow="${showStateTestScoreRating}"
+                                             stateRating="${stateTestScoreRating}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="clear"><!-- not empty --></div>
         <div class="mvm small">
@@ -158,20 +178,32 @@
 
     <c:if test="${(schoolStudentGrowthRating != null) or (schoolStudentGrowthRatingBreakdown != null and cityStudentGrowthRating != null
                     and stateStudentGrowthRating != null)}">
+        <c:set var="growthFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+        <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
         <div class="pvm">
             <h6 class="mtm medium_bold pbm">
-                Student growth rating ${studentGrowthRatingYear}<sup>2</sup>
+                Student growth rating ${studentGrowthRatingYear}<sup>${growthFootnoteNumeral}</sup>
                 <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="growth">What's this?</a>
             </h6>
             <div class="dn mvl js-ratings-description-for-growth">
-                Lorem ipsum growth dolor sit amet, consectetur adipiscing elit. Proin commodo risus ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper mi vitae convallis rhoncus.
+                ${dataCopy['whats_this_growth']}
             </div>
-            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
-                                     schoolRating="${schoolStudentGrowthRating}"
-                                     cityRating="${cityStudentGrowthRating}"
-                                     stateRatingShow="${showStateStudentGrowthRating}"
-                                     stateRating="${stateStudentGrowthRating}"/>
-
+            <c:choose>
+                <c:when test="${school.databaseState eq 'DC'}">
+                    <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                             schoolRating="${schoolStudentGrowthRating}"
+                                             cityRating="${cityStudentGrowthRating}"
+                                             stateRatingShow="${showStateStudentGrowthRating}"
+                                             stateRating="${stateStudentGrowthRating}"/>
+                </c:when>
+                <c:otherwise>
+                    <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                             schoolRating="${schoolStudentGrowthRating}"
+                                             districtRating="${districtStudentGrowthRating}"
+                                             stateRatingShow="${showStateStudentGrowthRating}"
+                                             stateRating="${stateStudentGrowthRating}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="clear"><!-- not empty --></div>
         <c:if test="${schoolStudentGrowthRatingBreakdown != null}">
@@ -190,20 +222,32 @@
     </c:if>
 
     <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
+        <c:set var="psrFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+        <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
         <div class="pvm">
             <h6 class="mtm medium_bold pbm">
-                College readiness rating ${postSecondaryReadinessRatingYear}
-                <sup>3</sup>
+                College readiness rating ${postSecondaryReadinessRatingYear}<sup>${psrFootnoteNumeral}</sup>
                 <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="post-secondary">What's this?</a>
             </h6>
             <div class="dn mvl js-ratings-description-for-post-secondary">
-                Lorem ipsum college readiness dolor sit amet, consectetur adipiscing elit. Proin commodo risus ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper mi vitae convallis rhoncus.
+                ${dataCopy['whats_this_psr']}
             </div>
-            <profile:ratingsBarChart ratingDivId="ratingTestResults3"
-                                     schoolRating="${schoolPostSecondaryReadinessRating}"
-                                     cityRating="${cityPostSecondaryReadinessRating}"
-                                     stateRatingShow="${showStatePostSecondaryReadinessRating}"
-                                     stateRating="${statePostSecondaryReadinessRating}"/>
+            <c:choose>
+                <c:when test="${school.databaseState eq 'DC'}">
+                    <profile:ratingsBarChart ratingDivId="ratingTestResults3"
+                                             schoolRating="${schoolPostSecondaryReadinessRating}"
+                                             cityRating="${cityPostSecondaryReadinessRating}"
+                                             stateRatingShow="${showStatePostSecondaryReadinessRating}"
+                                             stateRating="${statePostSecondaryReadinessRating}"/>
+                </c:when>
+                <c:otherwise>
+                    <profile:ratingsBarChart ratingDivId="ratingTestResults3"
+                                             schoolRating="${schoolPostSecondaryReadinessRating}"
+                                             districtRating="${districtPostSecondaryReadinessRating}"
+                                             stateRatingShow="${showStatePostSecondaryReadinessRating}"
+                                             stateRating="${statePostSecondaryReadinessRating}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <div class="clear"><!-- not empty --></div>
@@ -215,7 +259,7 @@
                     <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong></p>
                 </div>
                 <div class="containerGrayBox2 small fl phl tac mbn">
-                    <p class="mbs">{postSecondaryReadinessBreakdownTestScoreLabel}</p>
+                    <p class="mbs">${postSecondaryReadinessBreakdownTestScoreLabel}</p>
                     <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
                             test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong></p>
                 </div>
@@ -226,16 +270,16 @@
     </c:if>
 
     <c:if test="${schoolTestScoreRating != null and not empty testScoreRatingSource}">
-        <p class="smaller bottom pts">1${testScoreRatingSource}</p>
+        <p class="smaller bottom pts">${testScoreFootnoteNumeral} ${dataCopy['footnote_test_scores']}</p>
     </c:if>
 
     <c:if test="${((schoolStudentGrowthRating != null) or (schoolStudentGrowthRatingBreakdown != null and cityStudentGrowthRating != null
                     and stateStudentGrowthRating != null)) and not empty studentGrowthRatingSource}">
-        <p class="smaller bottom">2${studentGrowthRatingSource}</p>
+        <p class="smaller bottom">${growthFootnoteNumeral} ${dataCopy['footnote_growth']}</p>
     </c:if>
 
     <c:if test="${schoolPostSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
-        <p class="smaller bottom">3${postSecondaryReadinessSource}</p>
+        <p class="smaller bottom">${psrFootnoteNumeral} ${dataCopy['footnote_psr']}</p>
     </c:if>
 
 </div>
