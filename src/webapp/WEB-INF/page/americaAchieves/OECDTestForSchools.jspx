@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -20,22 +21,22 @@
 
     <style type="text/css">
 
-        .americaAchieves .font12px {
+        .americaAchieves .font13px {
             font-family: sourceSansPro-Regular, arial;
-            font-size: 12px;
-            line-height: 1.4em;
+            font-size: 13px;
+            line-height: 1.5em;
         }
 
        .americaAchieves .font15px {
            font-family: sourceSansPro-Regular, arial;
            font-size: 15px;
-           line-height: 1.4em;
+           line-height: 1.5em;
        }
 
        .americaAchieves .font17px {
            font-family: sourceSansPro-Regular, arial;
            font-size: 17px;
-           line-height: 1.4em;
+           line-height: 1.5em;
        }
 
        .americaAchieves .font20px {
@@ -43,6 +44,22 @@
            font-size: 20px;
            line-height: 1.3em;
        }
+
+        .americaAchieves .font25px {
+            font-family: sourceSansPro-Regular, arial;
+            font-size: 25px;
+            line-height: 1.3em;
+        }
+
+        .americaAchieves .aa_line {
+            background:#FF8000;
+            color:#FF8000;
+            clear:both;
+            float:none;
+            width:65%;
+            height:3px;
+            border:none;
+        }
     </style>
     </head>
     <body>
@@ -51,27 +68,28 @@
     <div class="imageBgScale">
         <div class="pr" style="height:150px;">
             <div class="headerBar">
-                <p style="font-family: SourceSansPro-Semibold, arial; font-size:48px; color: #FFFFFF; padding: 47px 0 14px 0;
-        text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">The OECD Test for Schools</p>
-                <p style="font-family: SourceSansPro-It, arial; font-size:16px;  color: #996E18; padding-bottom: 60px;">
-                    Is your high school preparing students for the world ahead?</p>
+                <p style="font-family: sourceSansPro-Regular, arial; font-size:40px; color: #FFFFFF; padding: 47px 0 14px 0;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">Is your high school preparing students for the world ahead?</p>
+                <p style="font-family: SourceSansPro-It, arial; font-size:19px;  color: #996E18; padding-bottom: 60px;">
+                    The OECD Test for Schools is a proven way to know</p>
             </div>
         </div>
-        <!--<div class="tac pr"><img src="/res/img/content/gallup/gallup_hero_image_611x299.png" alt="" /></div>-->
-        <div class="tac pr"><img src="http://placekitten.com/611/299" alt="" /></div>
+
+        <div class="tac pr"><gsml:img src="/res/img/americaAchieves/aa_hero.png" alt="Is your high school preparing students for the world ahead?" /></div>
     </div>
 
-    <div class="container_24 clearfix americaAchieves">
-        <div class="grid_4 suffix_1">
+    <div class="container_24 clearfix mbl pbl americaAchieves">
+        <div class="grid_4 suffix_1 mtl ptl">
+            <div class="aa_line mbl"><!-- do not collapse --></div>
             <div class="font20px mbl">
                 "...any high school in America will be able to benchmark itself against the world’s best schools..."
             </div>
-            <div class="font12px">
+            <div class="font13px">
                 &#8212; <a href="">Thomas Freidman, New York Times</a> columnist and Pulitzer Prize winning author of The World is Flat
             </div>
         </div>
         <div class="grid_19 mvl pvl">
-            <div class="mtl font17px">
+            <div class="font17px">
                 Today’s high schools must prepare students for a complex global future, where they’ll need traditional
                 academic strengths and crucial skills like critical thinking. After they graduate, your kids will work –
                 and compete – with students from around the world. Will your high school prepare your kids for their global future?
@@ -83,6 +101,40 @@
                 kid’s school with high-performing schools from Shanghai to Finland with the Organisation for Economic
                 Co-operation and Development (OECD) Test for Schools.
             </div>
+            <div class="mtl">
+                <script type="text/javascript">
+//                    var imageLightBox =
+                    GSType.hover.imageLightBox = function() {
+                        jQuery(document).ready(function(){
+                            jQuery('#js-aaChart').click(function(){
+                                GSType.hover.imageLightbox.show();
+                            });
+                        });
+                    });
+
+                    GSType.hover.ImageLightbox.prototype = new GSType.hover.HoverDialog('#js-aaImageLightbox');
+                    GSType.hover.imageLightbox = new GSType.hover.ImageLightbox();
+
+                </script>
+
+                <div>
+                    <gsml:img id='js-aaChart' src="/res/img/americaAchieves/aa_chart.png" alt="America Achieves testing chart"/>
+                </div>
+                <div class="font13px make-999999 bottom">
+                    Click to expand
+                </div>
+                <div id="js-aaImageLightbox" class="dn">
+                    <div class="mod modal_1 width_13">
+                        <div class="outer">
+                            <div class="fr"><span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
+                            <div class="inner tac pam">
+                                <!--pass in height, idth, and id for video with variables-->
+                                <div class="js-imageLightbox" width="420" height="315" src="" frameborder="0" allowfullscreen="true"><!-- do not collapse --></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="alpha font15px mtl">
                 The OECD Test for Schools is a voluntary no-stakes assessment developed by the OECD and based on the
                 PISA (<a href="">Programme for International Student Assessment</a>) tests given to 15-year-olds in more than
@@ -93,23 +145,26 @@
             </div>
             <div class="alpha font15px mtl">
                 The OECD Test for Schools is very manageable – for schools and students. A sample group of 15-year-old
-                students (85 students in most schools and 49 students in small schools) take the test. Students need
-                only 3.5 hours to complete the test, and the results provide a rich assessment of student knowledge of
-                math, reading, and science. What’s more, the test includes a student survey to measure critical factors
-                like engagement, motivation, and school climate.
+                students (85 students in most schools and 49 students in small schools) take the test.
             </div>
         </div>
         <div class="grid_9 clearfix">
-            <div class="">
-                <div class="grid_3">
-                    <img src="http://placekitten.com/150/100"/>
+            <div>
+                <div class="alpha grid_3">
+                    <gsml:img src="/res/img/americaAchieves/americaachieves_logo.png" alt="America Achieves logo"/>
                 </div>
-                <!--<div class="prefix_1 grid_1 suffix_1">-->
-                    <!--&amp;-->
-                <!--</div>-->
-                <div class="prefix_1 grid_3">
-                    <img src="http://placekitten.com/150/100"/>
+                <div class="prefix_1 grid_1">
+                    <p class="font25px mtl mlm make-b8b8b8">&amp;</p>
                 </div>
+                <div class="grid_3 fl">
+                    <gsml:img src="/res/img/americaAchieves/gslogo_aa.png" alt="GreatSchools: Involved Parents. Successful Kids" styleClass="mtl" />
+                </div>
+            </div>
+
+            <div class="grid_9 font15px mtl">
+                Students need only 3.5 hours to complete the test, and the results provide a rich assessment of student knowledge of
+                math, reading, and science. What’s more, the test includes a student survey to measure critical factors
+                like engagement, motivation, and school climate.
             </div>
 
             <div class="grid_9 font15px mtl">
