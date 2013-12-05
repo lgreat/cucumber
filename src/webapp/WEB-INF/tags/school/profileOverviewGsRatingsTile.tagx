@@ -29,10 +29,37 @@
                 <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger" tileName="gsNewRate">
                     <school:profileOverviewCell1 title="${t1dc}">
                         <div class="mhm">
-                            <c:set var="testScoreRating" value="${gsRatingsModel.testScoreRating}"/>
-                            <c:set var="growthRating" value="${gsRatingsModel.growthRating}"/>
-                            <c:set var="psrRating" value="${gsRatingsModel.psrRating}"/>
+                            <!--<c:set var="testScoreRating" value="${gsRatingsModel.testScoreRating}"/>-->
+                            <!--<c:set var="growthRating" value="${gsRatingsModel.growthRating}"/>-->
+                            <!--<c:set var="psrRating" value="${gsRatingsModel.psrRating}"/>-->
                             <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
+
+                            <c:choose>
+                                <c:when test="${not empty gsRatingsModel.testScoreRating}">
+                                    <c:set var="testScoreRating" value="${gsRatingsModel.testScoreRating}  / 10"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="testScoreRating">N / A</c:set>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:choose>
+                                <c:when test="${not empty gsRatingsModel.growthRating}">
+                                    <c:set var="growthRating" value="${gsRatingsModel.growthRating} / 10"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="growthRating">N / A</c:set>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:choose>
+                                <c:when test="${not empty gsRatingsModel.psrRating}">
+                                    <c:set var="psrRating" value="${gsRatingsModel.psrRating}  / 10"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="psrRating">N / A</c:set>
+                                </c:otherwise>
+                            </c:choose>
 
                             <c:set var="schoolSpriteType" value="${schoolType}" />
                             <c:if test="${schoolType eq 'charter'}">
@@ -42,11 +69,11 @@
                             <div class="pts clearfix ie-mp0"><span class="ratingx24-${schoolSpriteType}-RYG r-24-${overallRating} db mha mvm"><!-- do not collapse --></span></div>
                             <hr class="keyline2"/>
 
-                            <div class="pbs ptm clearfix ie-over-ratings0"><span class="small bottom fl">Test score rating</span><span class="small_bold bottom fr mrs"><strong>${testScoreRating} / 10</strong></span></div>
+                            <div class="pbs ptm clearfix ie-over-ratings0"><span class="small bottom fl">Test score rating</span><span class="small_bold bottom fr mrs"><strong>${testScoreRating}</strong></span></div>
 
-                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl">Student growth rating</span><span class="small_bold bottom fr mrs"><strong>${growthRating} / 10</strong></span></div>
+                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl">Student growth rating</span><span class="small_bold bottom fr mrs"><strong>${growthRating}</strong></span></div>
 
-                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl mbm">College readiness rating</span><span class="small_bold bottom fr mrs"><strong>${psrRating} / 10</strong></span></div>
+                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl mbm">College readiness rating</span><span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span></div>
                         </div>
                     </school:profileOverviewCell1>
                 </gslink:linkToTab>
