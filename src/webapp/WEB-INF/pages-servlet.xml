@@ -3168,10 +3168,10 @@
         </property>
     </bean>
 
-    <bean name="/americaAchieves/OECDTestForSchools.page"
+    <bean name="/OECDTestForSchools.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
-            <value>/americaAchieves/OECDTestForSchools</value>
+            <value>/OECDTestForSchools</value>
         </property>
     </bean>
 

@@ -3,9 +3,10 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0"
+
         >
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <jsp:directive.page contentType="text/html"/>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -16,7 +17,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta content="America"/>
 
-        <!--<meta property="og:url" content="http://www.greatschools.org/americaAchieves/OECDTestForSchools.page" />-->
         <title>America Achieves-GreatSchools Partnership | GreatSchools</title>
 
     <style type="text/css">
@@ -27,9 +27,9 @@
             line-height: 1.5em;
         }
 
-       .americaAchieves .font15px {
+       .americaAchieves .font16px {
            font-family: sourceSansPro-Regular, arial;
-           font-size: 15px;
+           font-size: 16px;
            line-height: 1.5em;
        }
 
@@ -80,12 +80,15 @@
 
     <div class="container_24 clearfix mbl pbl americaAchieves">
         <div class="grid_4 suffix_1 mtl ptl">
-            <div class="aa_line mbl"><!-- do not collapse --></div>
+            <div class="aa_line mts mbl"><!-- do not collapse --></div>
             <div class="font20px mbl">
                 "...any high school in America will be able to benchmark itself against the world’s best schools..."
             </div>
             <div class="font13px">
-                &#8212; <a href="">Thomas Freidman, New York Times</a> columnist and Pulitzer Prize winning author of The World is Flat
+
+                &#8212; <a href="http://www.nytimes.com/2013/04/03/opinion/friedman-my-little-global-school.html?_r=0" target="_blank">
+                Thomas Friedman, New York Times</a> columnist and Pulitzer Prize winning author of The World is Flat
+
             </div>
         </div>
         <div class="grid_19 mvl pvl">
@@ -96,25 +99,31 @@
             </div>
         </div>
         <div class="grid_9 suffix_1 clearfix">
-            <div class="alpha font15px">
+            <div class="alpha font16px">
                 In the past, we compared our schools with others in the city. Now, you have a chance to compare your
                 kid’s school with high-performing schools from Shanghai to Finland with the Organisation for Economic
                 Co-operation and Development (OECD) Test for Schools.
             </div>
             <div class="mtl">
+                <!--will need to move this script to hover-v1.js if this is to be reused.-->
                 <script type="text/javascript">
-//                    var imageLightBox =
-                    GSType.hover.imageLightBox = function() {
-                        jQuery(document).ready(function(){
-                            jQuery('#js-aaChart').click(function(){
-                                GSType.hover.imageLightbox.show();
-                            });
-                        });
-                    });
-
-                    GSType.hover.ImageLightbox.prototype = new GSType.hover.HoverDialog('#js-aaImageLightbox');
+                    GSType.hover.ImageLightbox = function () {
+                        this.showHover = function (url, width, height) {
+                            var theImg = $(".js-imageLightboxImage");
+                            theImg.attr("width", width);
+                            theImg.attr("height", height);
+                            theImg.attr("src", url);
+                            this.show();
+                        };
+                    };
+                    GSType.hover.ImageLightbox.prototype = new GSType.hover.HoverDialog('js-ImageLightbox', 3000);
                     GSType.hover.imageLightbox = new GSType.hover.ImageLightbox();
 
+                    jQuery(document).ready(function(){
+                        jQuery('#js-aaChart').click(function(){
+                            GSType.hover.imageLightbox.showHover('/res/img/americaAchieves/aa_chart_large.jpg', 576, 266);
+                        });
+                    });
                 </script>
 
                 <div>
@@ -123,27 +132,26 @@
                 <div class="font13px make-999999 bottom">
                     Click to expand
                 </div>
-                <div id="js-aaImageLightbox" class="dn">
-                    <div class="mod modal_1 width_13">
+                <div id="js-ImageLightbox" class="dn">
+                    <div id="js-ImageLightbox" class="mod modal_1 width_17">
                         <div class="outer">
                             <div class="fr"><span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
                             <div class="inner tac pam">
-                                <!--pass in height, idth, and id for video with variables-->
-                                <div class="js-imageLightbox" width="420" height="315" src="" frameborder="0" allowfullscreen="true"><!-- do not collapse --></div>
+                                <img class="js-imageLightboxImage" width="1" height="1" src="" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="alpha font15px mtl">
+            <div class="alpha font16px mtl">
                 The OECD Test for Schools is a voluntary no-stakes assessment developed by the OECD and based on the
-                PISA (<a href="">Programme for International Student Assessment</a>) tests given to 15-year-olds in more than
-                70 countries, including the U.S. <a href="">America Achieves</a>, a national nonprofit organization helping communities
-                prepare young people for success in college, career, and citizenship, partnered with the OECD to pilot
-                this assessment in more than 100 U.S. schools in 2012. Following this pilot, the assessment is now
-                available to every high school in the country.
+                PISA (<a href="http://www.oecd.org/pisa" target="_blank">Programme for International Student Assessment</a>) tests given to 15-year-olds in more than
+                70 countries, including the U.S. <a href="http://www.americaachieves.org/oecd" target="_blank">America Achieves</a>, a
+                national nonprofit organization helping communities prepare young people for success in college, career,
+                and citizenship, partnered with the OECD to pilot this assessment in more than 100 U.S. schools in 2012.
+                Following this pilot, the assessment is now available to every high school in the country.
             </div>
-            <div class="alpha font15px mtl">
+            <div class="alpha font16px mtl">
                 The OECD Test for Schools is very manageable – for schools and students. A sample group of 15-year-old
                 students (85 students in most schools and 49 students in small schools) take the test.
             </div>
@@ -161,13 +169,13 @@
                 </div>
             </div>
 
-            <div class="grid_9 font15px mtl">
+            <div class="grid_9 font16px mtl">
                 Students need only 3.5 hours to complete the test, and the results provide a rich assessment of student knowledge of
                 math, reading, and science. What’s more, the test includes a student survey to measure critical factors
                 like engagement, motivation, and school climate.
             </div>
 
-            <div class="grid_9 font15px mtl">
+            <div class="grid_9 font16px mtl">
                 GreatSchools is partnering with America Achieves to let parents and educators know about this unique
                 opportunity to compare their schools with the highest-performing schools in the world. High schools will
                 have the option of sharing key test results and student survey data on their GreatSchools profile so
@@ -175,16 +183,16 @@
                 Schools will also be invited to join a global learning community where they can get insights and tools to
                 continue improving the education they provide – to your kids and other students.
             </div>
-            <div class="grid_9 font15px mtl">
+            <div class="grid_9 font16px mtl">
                 For more information, or to encourage your school to register for the assessment, contact
-                <a href="">America Achieves</a>.
+                <a href="http://www.americaachieves.org/oecd" target="_blank">America Achieves</a>.
             </div>
 
         </div>
     </div>
 
     <mod:tracking pageName="America Achieves Landing Page"
-                  hier1="Partnerships, America Achieves"
+                  hier1="Marketing"
             />
     </body>
     </html>
