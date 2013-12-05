@@ -64,7 +64,7 @@ public class CityHubImportantDatesController  implements IDirectoryStructureUrlC
             pageHelper.setHubUserCookie(request, response);
 
         }
-
+        modelAndView.addObject("isHubUserSet", "y");
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
 

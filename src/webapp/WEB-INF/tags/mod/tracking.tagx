@@ -158,8 +158,12 @@
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
+<jsp:directive.tag import="gs.web.util.CookieUtil"/>
     <jsp:scriptlet>
         request.setAttribute("scheme", request.getScheme());
+
+        request.setAttribute("isHubUser", gs.web.util.CookieUtil.getCookieValue(request, "ishubUser"));
+
         if (null != school) {
             try {
                 jspContext.setAttribute("id", school.getId().toString());
@@ -184,6 +188,9 @@
             }
         }
     </jsp:scriptlet>
+<c:if test="${not empty isHubUser or not empty isHubUserSet}">
+    <c:set var="navBar" value="N2" scope="request"/>
+</c:if>
     <c:if test="${!requestScope.context.crawler}">
         <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
         <c:if test="${requestScope.pageHelper.devEnvironment}">
@@ -202,7 +209,6 @@
         <script type="text/javascript" > <!--
             window.optimizely = window.optimizely || [];
             window.optimizely.push("activateSiteCatalyst");
-
             s.pageName = "${pageName}";
             clickCapture.pageName = "${pageName}";
 
@@ -217,7 +223,7 @@
             s.prop5 = clickCapture.getProp(5,"${not empty(requestScope.context.userHash) ? (requestInfo.signedInWithFacebook? 'Facebook and GS logged in' :'Registered') : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}");
             s.prop6 = clickCapture.getProp(6,"${query}");
             s.prop7 = clickCapture.getProp(7,"${pageName}:${requestScope.context.ABVersion}");
-
+            s.prop58 = clickCapture.getProp(58,"${navBar}");
             s.prop8 = clickCapture.getProp(8,"${param.cpn}");
             if (s.prop8 == '' ){
                 s.prop8 = s.pageName ;

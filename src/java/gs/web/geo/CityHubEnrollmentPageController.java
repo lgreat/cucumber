@@ -94,7 +94,7 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
             pageHelper.setHubUserCookie(request, response);
 
         }
-
+        modelAndView.addObject("isHubUserSet", "y");
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
 

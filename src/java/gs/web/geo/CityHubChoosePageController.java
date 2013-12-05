@@ -83,6 +83,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
             pageHelper.setHubUserCookie(request, response);
         }
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
+        modelAndView.addObject("isHubUserSet", "y");
         modelAndView.addObject("city", WordUtils.capitalizeFully(city));
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);
