@@ -249,6 +249,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON = "hideAlternateSiteButton";
     public static final String MODEL_KEY_ALTERNATE_SITE_PATH = "alternateSitePath";
 
+    public static final String MODEL_KEY_STATE_DISTRIBUTION_BELOW = "stateDistributionPercentBelow";
+    public static final String MODEL_KEY_STATE_DISTRIBUTION_AVERAGE = "stateDistributionPercentAverage";
+    public static final String MODEL_KEY_STATE_DISTRIBUTION_ABOVE = "stateDistributionPercentAbove";
+
 
     // ===================== DATA ===================================
 
@@ -315,6 +319,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         getPerformanceManagementRatingText(school,request,modelMap);
 
+        populateStateDistributions(dataMap, modelMap); // for enhanced ratings
+
         modelMap.put("dataCopy", _schoolProfileDataHelper.getDataDescriptions(request).get(IDataDescriptionDao.TARGET_RATINGS_TAB));
         // need to check which view to return
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
@@ -326,6 +332,16 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             return NEW_VIEW;
         }
         return VIEW;
+    }
+
+    protected void populateStateDistributions(Map<String, Object> dataMap, ModelMap modelMap) {
+        if (dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_ABOVE) != null &&
+                dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_AVERAGE) != null &&
+                dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_BELOW) != null) {
+            modelMap.put(MODEL_KEY_STATE_DISTRIBUTION_BELOW, dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_BELOW));
+            modelMap.put(MODEL_KEY_STATE_DISTRIBUTION_AVERAGE, dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_AVERAGE));
+            modelMap.put(MODEL_KEY_STATE_DISTRIBUTION_ABOVE, dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_ABOVE));
+        }
     }
 
     //===================== Data ===================================
