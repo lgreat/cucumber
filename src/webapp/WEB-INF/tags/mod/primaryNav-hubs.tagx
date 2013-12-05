@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.org/taglib/link"
 >
@@ -189,7 +190,15 @@
                                             <div class="menuItemAnchorText">   <c:choose>
 
                                                 <c:when test="${not empty requestScope.context.firstName}">
-                                                   Welcome, ${requestScope.context.firstName}
+                                                   <c:choose>
+                                                       <c:when test="${fn:length(requestScope.context.firstName) gt 12}">
+                                                           Welcome, ${fn:substring(requestScope.context.firstName,0,12)}...
+                                                       </c:when>
+                                                       <c:otherwise>
+                                                           Welcome, ${requestScope.context.firstName}
+                                                       </c:otherwise>
+                                                   </c:choose>
+
                                                     <span class="iconx16 i-16-yellow-dropdown-arrow vam mls"><!--Do not collapse--></span>
                                                 </c:when>
                                                 <c:otherwise>
