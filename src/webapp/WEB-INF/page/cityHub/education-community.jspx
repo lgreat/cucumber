@@ -13,6 +13,7 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <c:set var="pageName" value="Education Community" scope="request"/>
+    <c:set var="keyTemplateNameEduCommu" value="eduCommPage" scope="request"/>
     <head>
         <meta name="decorator" content="standardDecorator-hubs"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
