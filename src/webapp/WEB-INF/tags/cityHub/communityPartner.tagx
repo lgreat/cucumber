@@ -41,11 +41,10 @@
                                  data-cycle-prev="#prev">
                                 <c:forEach items="${partnerCarousel.partnerLogos}" var="logo">
                                     <div>
-                                        <!-- Once Edu commmunity page is templatized the link should be accordingly changed to correct anchor on edu page -->
-                                        <link:cityHubEduCommunityPage state="${state}" city="${city}">
-                                            <gsml:img src="${logo.logoPath}" alt="${logo.partnerName}" styleClass="mrm border-round border-E6E6E6"/>
-                                        </link:cityHubEduCommunityPage>
-                                    </div>
+
+                                        <a href="education-community/#${logo.anchoredLink}">
+                                            <gsml:img src="${logo.logoPath}" alt="${logo.partnerName}" styleClass="mrm border-round border-E6E6E6"/></a>
+                                     </div>
                                 </c:forEach>
                             </div>
                         </div>

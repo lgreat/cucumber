@@ -13,12 +13,12 @@
         </c:if>
         <c:forEach items="${tab1.partners}" var="partner">
             <hr class="keyline1"/>
-            <div class="clearfix mvl pvl">
+             <div class="clearfix mvl pvl">
                 <div class="grid_5">
                     <gsml:img alt="Partner Logo" src="${partner.logo}"/>
                 </div>
                 <div class="grid_19">
-                    <h3 class="SourceSansPro-Semibold-h3 bottom">${partner.heading}</h3>
+                    <![CDATA[ <a name="${partner.anchor}"></a>  ]]> <h3 class="SourceSansPro-Semibold-h3 bottom">${partner.heading}</h3>
                    <p>${partner.description}</p>
                     <c:forEach items="${partner.links}" var="link">
                         <c:choose>
