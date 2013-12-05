@@ -7,19 +7,26 @@
         >
 
     <div class="container_24 clearfix mbl">
-        <c:forEach items="${partnersInfo}" var="partnerInfo">
+        <c:forEach items="${tab1.partners}" var="partner">
             <hr class="keyline1"/>
             <div class="clearfix mvl pvl">
                 <div class="grid_5">
-                    <gsml:img alt="Partner Logo" src="${partnerInfo.logoLocation}"/>
+                    <gsml:img alt="Partner Logo" src="${partner.logo}"/>
                 </div>
                 <div class="grid_19">
-                    <h3 class="SourceSansPro-Semibold-h3 bottom">${partnerInfo.heading}</h3>
-                   <p>${partnerInfo.description}</p>
-                    <c:forEach items="${partnerInfo.links}" var="link">
-                    <a href="${link.hrefXml}" target="_blank">${link.contents}</a><br/>
+                    <h3 class="SourceSansPro-Semibold-h3 bottom">${partner.heading}</h3>
+                   <p>${partner.description}</p>
+                    <c:forEach items="${partner.links}" var="link">
+                        <c:choose>
+                            <c:when test="${link.newwindow eq 'true'}">
+                                <a href="${link.url}" target="_blank">${link.heading}</a><br/>
+                             </c:when>
+                            <c:otherwise>
+                                <a href="${link.url}" >${link.heading}</a><br/>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
-                </div>
+              </div>
             </div>
         </c:forEach>
     </div>
