@@ -31,7 +31,7 @@
             </div>
         </c:if>
 
-        <p>The GreatSchools Rating is based on academics including students' test scores, student growth and college readiness.</p>
+        <p>${dataCopy['what_is_gs_rating_summary']}</p>
 
         <div class="alpha grid_2">&amp;nbsp;</div>
         <div class="grid_11">

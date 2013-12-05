@@ -589,7 +589,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     protected static String getGradeText(Grade grade) {
         String rval = "";
         if (grade != null) {
-            if (grade.getValue() == 11) {
+            if (grade.getValue() == 9) {
+                rval = "9th graders";
+            } else if (grade.getValue() == 10) {
+                rval = "10th graders";
+            } else if (grade.getValue() == 11) {
                 rval = "11th graders";
             } else if (grade.getValue() == 12) {
                 rval = "12th graders";
