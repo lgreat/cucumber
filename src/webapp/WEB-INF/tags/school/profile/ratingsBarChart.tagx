@@ -124,10 +124,6 @@
                     </c:if>
                     <c:if test="${stateRatingShow and stateRating ne ''}">
                         <div class="barContainer state" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
-                   </c:if>
-                    <c:if test="${stateRatingShow}">
-                        <div class="barContainer state" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
-
                     </c:if>
                 </div>
                 <div class="spacerFirst"><!-- do not collapse --></div>
