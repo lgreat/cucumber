@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0"
 
         >
@@ -16,6 +17,8 @@
         <meta name="decorator" content="standardDecorator-v1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta content="America"/>
+
+        <pageHelper:hideFooterAd/>
 
         <title>America Achieves-GreatSchools Partnership | GreatSchools</title>
 
