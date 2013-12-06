@@ -117,15 +117,18 @@
                         <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${not empty cityRating}">
-                        <div class="barContainer" style="width:${cityWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
+                        <div class="barContainer" style="width:${cityWidth}px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${not empty districtRating}">
-
                         <div class="barContainer district" style="width:${districtWidth}px"><div class="${districtRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${stateRatingShow and stateRating ne ''}">
                         <div class="barContainer state" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
-                 </c:if>
+                   </c:if>
+                    <c:if test="${stateRatingShow}">
+                        <div class="barContainer state" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
+
+                    </c:if>
                 </div>
                 <div class="spacerFirst"><!-- do not collapse --></div>
                 <div class="spacerW"><!-- do not collapse --></div>
