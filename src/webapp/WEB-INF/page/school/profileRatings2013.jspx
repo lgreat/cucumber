@@ -45,7 +45,7 @@
                     <c:choose>
                         <c:when test="${overallRating lt 4}">Below average</c:when>
                         <c:when test="${overallRating lt 8}">Average</c:when>
-                        <c:when test="${overallRating lt 4}">Above average</c:when>
+                        <c:when test="${overallRating gt 7}">Above average</c:when>
                     </c:choose>
                 </c:set>
                 <div class="iconTop media">
