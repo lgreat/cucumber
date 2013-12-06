@@ -100,10 +100,10 @@
                         <div class="barContainer" style="width:${cityWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${not empty districtRating}">
-                        <div class="barContainer" style="width:${districtWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
+                        <div class="barContainer district" style="width:${districtWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
                     </c:if>
-                    <c:if test="${stateRatingShow}">
-                        <div class="barContainer" style="width:${stateWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
+                    <c:if test="${stateRatingShow and stateRating ne ''}">
+                        <div class="barContainer state" style="width:${stateWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
                     </c:if>
                 </div>
                 <div class="spacerFirst"><!-- do not collapse --></div>
