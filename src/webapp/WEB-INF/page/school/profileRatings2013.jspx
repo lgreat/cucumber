@@ -183,14 +183,16 @@
                                              schoolRating="${schoolTestScoreRating}"
                                              cityRating="${cityTestScoreRating}"
                                              stateRatingShow="${showStateTestScoreRating}"
-                                             stateRating="${stateTestScoreRating}"/>
+                                             stateRating="${stateTestScoreRating}"
+                                             gsNewRatingsModel="true"/>
                 </c:when>
                 <c:otherwise>
                     <profile:ratingsBarChart ratingDivId="ratingTestResults1"
                                              schoolRating="${schoolTestScoreRating}"
                                              districtRating="${districtTestScoreRating}"
                                              stateRatingShow="${showStateTestScoreRating}"
-                                             stateRating="${stateTestScoreRating}"/>
+                                             stateRating="${stateTestScoreRating}"
+                                             gsNewRatingsModel="true"/>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -222,14 +224,16 @@
                                              schoolRating="${schoolStudentGrowthRating}"
                                              cityRating="${cityStudentGrowthRating}"
                                              stateRatingShow="${showStateStudentGrowthRating}"
-                                             stateRating="${stateStudentGrowthRating}"/>
+                                             stateRating="${stateStudentGrowthRating}"
+                                             gsNewRatingsModel="true"/>
                 </c:when>
                 <c:otherwise>
                     <profile:ratingsBarChart ratingDivId="ratingTestResults2"
                                              schoolRating="${schoolStudentGrowthRating}"
                                              districtRating="${districtStudentGrowthRating}"
                                              stateRatingShow="${showStateStudentGrowthRating}"
-                                             stateRating="${stateStudentGrowthRating}"/>
+                                             stateRating="${stateStudentGrowthRating}"
+                                             gsNewRatingsModel="true"/>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -266,14 +270,16 @@
                                              schoolRating="${schoolPostSecondaryReadinessRating}"
                                              cityRating="${cityPostSecondaryReadinessRating}"
                                              stateRatingShow="${showStatePostSecondaryReadinessRating}"
-                                             stateRating="${statePostSecondaryReadinessRating}"/>
+                                             stateRating="${statePostSecondaryReadinessRating}"
+                                             gsNewRatingsModel="true"/>
                 </c:when>
                 <c:otherwise>
                     <profile:ratingsBarChart ratingDivId="ratingTestResults3"
                                              schoolRating="${schoolPostSecondaryReadinessRating}"
                                              districtRating="${districtPostSecondaryReadinessRating}"
                                              stateRatingShow="${showStatePostSecondaryReadinessRating}"
-                                             stateRating="${statePostSecondaryReadinessRating}"/>
+                                             stateRating="${statePostSecondaryReadinessRating}"
+                                             gsNewRatingsModel="true"/>
                 </c:otherwise>
             </c:choose>
         </div>
