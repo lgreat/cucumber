@@ -926,6 +926,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.SAT_PERCENT_TESTED);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_SAT_PARTICIPATION);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_SAT_COLLEGE_READY);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.HIGH_SCHOOL_GRADUATION_RATE);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_PERFORMANCE_MANAGEMENT);
     }
 
@@ -977,6 +978,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     public static final String DATA_SCHOOL_ACT_SAT_GRADE = "schoolACTSATGrade";
     public static final String DATA_SCHOOL_ACT_SAT_PARTICIPATION = "schoolACTSATParticipation"; // TestDataType.id = 181
     public static final String DATA_SCHOOL_ACT_SAT_COLLEGE_READY = "schoolACTSATCollegeReady"; // TestDataType.id = 182
+    public static final String DATA_HIGH_SCHOOL_GRADUATION_RATE = "schoolHighSchoolGraduationRate"; // TestDataType.id = 202
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -1154,6 +1156,18 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
                         dataMap.put(DATA_SCHOOL_ACT_SAT_COLLEGE_READY, Math.round(value.getValueFloat()));
                     }
                     break;
+                case TestDataType.HIGH_SCHOOL_GRADUATION_RATE:
+                    if (StringUtils.isNotBlank(value.getValueText())) {
+                        String pct = value.getValueText();
+                        if (StringUtils.endsWith(pct, "%")) {
+                            // we're good
+                            dataMap.put(DATA_HIGH_SCHOOL_GRADUATION_RATE, value.getValueText());
+                        } else {
+                            // add one on
+                            dataMap.put(DATA_HIGH_SCHOOL_GRADUATION_RATE, value.getValueText() + "%");
+                        }
+
+                    }
                 case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
                     LevelCode levelCode = dataSet.getLevelCode();
                     if (levelCode != null && value.getValueFloat() != null) {

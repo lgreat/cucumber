@@ -221,6 +221,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL = "postSecondaryReadinessBreakdownTestScoreLabel";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL = "postSecondaryReadinessBreakdownPercentTestedLabel";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT = "postSecondaryReadinessBreakdownTestScoreMeasurement";
+    public static final String MODEL_HIGH_SCHOOL_GRADUATION_RATE = "highSchoolGraduationRate";
 
     public static final String MODEL_TEST_SCORE_RATING_SOURCE = "testScoreRatingSource";
 
@@ -600,6 +601,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_SAT_GRADE), ACT_OR_SAT_TEST_NAME));
             model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT, "percent");
         }
+
+        model.put(MODEL_HIGH_SCHOOL_GRADUATION_RATE, dataMap.get(SchoolProfileDataHelper.DATA_HIGH_SCHOOL_GRADUATION_RATE));
     }
 
     protected static String getGradeText(Grade grade) {
