@@ -128,19 +128,19 @@
                 <fmt:formatNumber var="stateDistributionPercentBelowRounded" value="${stateDistributionPercentBelow}" maxFractionDigits="0"/>
                 <span class="larger"><strong>${stateDistributionPercentBelowRounded}%</strong></span><br/>
                 of schools in the state
-                are <strong>Below average</strong>
+                are <strong><em>Below average</em></strong>
             </div>
             <div class="grid_4 containerGrayBox2 medium phl tac">
                 <fmt:formatNumber var="stateDistributionPercentAverageRounded" value="${stateDistributionPercentAverage}" maxFractionDigits="0"/>
                 <span class="larger"><strong>${stateDistributionPercentAverageRounded}%</strong></span><br/>
                 of schools in the state
-                are <strong>Average</strong>
+                are <strong><em>Average</em></strong>
             </div>
             <div class="omega grid_4 containerGrayBox2 medium phl tac">
                 <fmt:formatNumber var="stateDistributionPercentAboveRounded" value="${stateDistributionPercentAbove}" maxFractionDigits="0"/>
                 <span class="larger"><strong>${stateDistributionPercentAboveRounded}%</strong></span><br/>
                 of schools in the state
-                are <strong>Above average</strong>
+                are <strong><em>Above average</em></strong>
             </div>
             <div class="clear"><!-- do not collapse --></div>
         </c:if>
