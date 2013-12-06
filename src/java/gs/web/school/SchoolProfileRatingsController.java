@@ -34,6 +34,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String VIEW = "school/profileRatings";
     public static final String NEW_VIEW = "school/profileRatings2013";
     public static final String MOBILE_VIEW = "school/profileRatings-mobile";
+    public static final String NEW_MOBILE_VIEW = "school/profileRatings2013-mobile";
     private ControllerFamily _controllerFamily;
 
     @Autowired
@@ -326,6 +327,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // need to check which view to return
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
         if (requestInfo != null && requestInfo.shouldRenderMobileView()) {
+            if (school.getIsNewerGSRating()) {
+                return NEW_MOBILE_VIEW;
+            }
             return MOBILE_VIEW;
         }
 

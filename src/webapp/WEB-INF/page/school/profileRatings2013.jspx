@@ -121,8 +121,8 @@
         <div class="omega grid_4">&amp;nbsp;</div>
     </div>
 
-    <div class="alpha grid_16 omega">
-        <c:if test="${hasBreakdownRatings and hasStateDistributions}">
+    <c:if test="${hasBreakdownRatings and hasStateDistributions}">
+        <div class="alpha grid_16 omega">
             <p><strong>How schools in the state rate:</strong></p>
             <div class="alpha grid_4 containerGrayBox2 medium phl tac">
                 <fmt:formatNumber var="stateDistributionPercentBelowRounded" value="${stateDistributionPercentBelow}" maxFractionDigits="0"/>
@@ -143,8 +143,8 @@
                 are <strong><em>Above average</em></strong>
             </div>
             <div class="clear"><!-- do not collapse --></div>
-        </c:if>
-    </div>
+        </div>
+    </c:if>
 
     <div class="clear mbl"><!-- not empty --></div>
     <hr class="keyline1"/>

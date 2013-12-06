@@ -245,7 +245,7 @@ General comments:
 
 
 /************  Ratings Legend **************************/
-.ratingsLegend{width:310px;}
+.ratingsLegend{width:310px; margin-left: 15px;}
 .ratingsLegend .marLeft{margin-left: 4px;}
 .ratingsLegend .bracketUp3 { border: 1px solid #999999; border-top: none; height:9px; width:56px; margin-top: 4px;}
 .ratingsLegend .bracketUp4 { border: 1px solid #999999; border-top: none; height:9px; width:84px; margin-top: 4px;}
@@ -312,6 +312,7 @@ General comments:
 .ratingsYellow {color:#F1AF31;  background-color: #F1AF31;}
 .ratingsGreen { color:#5E9D4C; background-color: #5E9D4C;}
 
+.ratingsGray { color:#999999; background-color: #999999;}
 
 
 
@@ -531,3 +532,8 @@ General comments:
 /*.bargraph .graphContainer .barContainer .lineGreen { background-color:#5E9D4C }*/
 /*.bargraph .graphContainer .barContainer .lineRed { background-color:#C1423F }*/
 /*.bargraph .graphContainer .barContainer .lineYellow { background-color:#F1AF31 }*/
+
+.ratingsBreakdownSummary {
+    width: 232px;
+    margin-left: 45px;
+}
