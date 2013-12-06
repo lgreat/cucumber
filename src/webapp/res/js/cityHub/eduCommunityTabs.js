@@ -34,7 +34,7 @@ GS.genericTabHandler = (function($){
             window.History.Adapter.bind(window, 'statechange', function() {
                 var state = History.getState();
                 if (state && state.url) {
-//                    var tab = 'Preschools';
+                    var tab = 'Community';
                     if (state.url.indexOf('?') > -1) {
                         var queryString = state.url.substr(state.url.indexOf('?') + 1);
                         if (queryString.indexOf('#') > -1) {
@@ -72,8 +72,7 @@ GS.genericTabHandler = (function($){
             } else {
                 $(this).addClass("selected");
                 var url = '?';
-//                if(tabName !== 'Preschools')
-                url += 'tab=' + tabName;
+                if(tabName !== 'Community') url += 'tab=' + tabName;
                 window.History.pushState(null, null, url);
             }
         });
@@ -92,14 +91,14 @@ GS.genericTabHandler = (function($){
 
     var updateHistoryEntryWithCurrentTab = function(currentTabName) {
         if (isHistoryAPIAvailable) {
-//            var isPreschoolsTab = (currentTabName === 'Preschools');
+            var isCommunityTab = (currentTabName === 'Community');
             var queryString = window.location.search;
-//            if (isPreschoolsTab) {
-//                queryString = GS.uri.Uri.removeFromQueryString(queryString, "tab");
-//            }
-//            else {
+            if (isCommunityTab) {
+                queryString = GS.uri.Uri.removeFromQueryString(queryString, "tab");
+            }
+            else {
                 queryString = GS.uri.Uri.putIntoQueryString(queryString, "tab", currentTabName, true);
-//            }
+            }
             window.History.replaceState(null, null, queryString);
         }
     };

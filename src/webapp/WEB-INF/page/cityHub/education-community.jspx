@@ -19,6 +19,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Education Community</title>
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
+        <gsml:javascript src="/res/js/history.min.js"/>
+        <gsml:javascript src="/res/js/cityHub/genericTabs.js"/>
     </head>
 
     <body>
@@ -32,8 +34,10 @@
 
 
         </div>
-        <hub:educationPartner/>
+
     </div>
+    <hub:eduCommunityTabs/>
+    <hub:educationPartner/>
     <mod:tracking pageName="${pageName}"
                   locale="${city}"
                   hier1="Home,city Education Community Page,${city}-${state.abbreviation}"/>

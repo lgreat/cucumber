@@ -6,32 +6,65 @@
 
         >
 
-    <div class="container_24 clearfix mbl">
-        <c:if test="${empty tab1.partners}">
+    <div class="tab-content-container container_24 clearfix mbl">
+        <c:if test="${empty partnerData.partners}">
             <hr class="keyline1"/>
-            <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateNameEduCommu}_tab1</h3>
+            <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateNameEduCommu}_partnerData</h3>
         </c:if>
-        <c:forEach items="${tab1.partners}" var="partner">
-            <hr class="keyline1"/>
-             <div class="clearfix mvl pvl">
-                <div class="grid_5">
-                    <gsml:img alt="Partner Logo" src="${partner.logo}"/>
-                </div>
-                <div class="grid_19">
-                    <![CDATA[ <a name="${partner.anchor}"></a>  ]]> <h3 class="SourceSansPro-Semibold-h3 bottom">${partner.heading}</h3>
-                   <p>${partner.description}</p>
-                    <c:forEach items="${partner.links}" var="link">
-                        <c:choose>
-                            <c:when test="${link.newwindow eq 'true'}">
-                                <a href="${link.url}" target="_blank">${link.heading}</a><br/>
-                             </c:when>
-                            <c:otherwise>
-                                <a href="${link.url}" >${link.heading}</a><br/>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-              </div>
-            </div>
+        <c:forEach items="${partnerData.partners}" var="partner">
+
+            <c:choose>
+                <c:when test="${(defaultTab == partner.tabName and empty param.tab) or param.tab == partner.tabName}">
+                    <div class="container_24 clearfix mvl pvl" data-gs-tab-content="${partner.tabName}"
+                         data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
+                      <hr class="keyline1"/>
+                        <div class="clearfix mvl pvl">
+                            <div class="grid_5">
+                                <gsml:img alt="Partner Logo" src="${partner.logo}"/>
+                            </div>
+                            <div class="grid_19">
+                                <![CDATA[ <a name="${partner.anchor}"></a>  ]]> <h3 class="SourceSansPro-Semibold-h3 bottom">${partner.heading}</h3>
+                                <p>${partner.description}</p>
+                                <c:forEach items="${partner.links}" var="link">
+                                    <c:choose>
+                                        <c:when test="${link.newwindow eq 'true'}">
+                                            <a href="${link.url}" target="_blank">${link.heading}</a><br/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="${link.url}" >${link.heading}</a><br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </div>
+                        </div>
+                     </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="container_24 clearfix mvl dn pvl" data-gs-tab-content="${partner.tabName}"
+                         data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
+                        <hr class="keyline1"/>
+                        <div class="clearfix mvl pvl">
+                            <div class="grid_5">
+                                <gsml:img alt="Partner Logo" src="${partner.logo}"/>
+                            </div>
+                            <div class="grid_19">
+                                <![CDATA[ <a name="${partner.anchor}"></a>  ]]> <h3 class="SourceSansPro-Semibold-h3 bottom">${partner.heading}</h3>
+                                <p>${partner.description}</p>
+                                <c:forEach items="${partner.links}" var="link">
+                                    <c:choose>
+                                        <c:when test="${link.newwindow eq 'true'}">
+                                            <a href="${link.url}" target="_blank">${link.heading}</a><br/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="${link.url}" >${link.heading}</a><br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
     </div>
 </jsp:root>

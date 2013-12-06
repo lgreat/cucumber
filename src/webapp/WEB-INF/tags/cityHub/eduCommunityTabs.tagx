@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+
+        >
+    <div class="container_24 clearfix mtl">
+        <div class="prefix_7 grid_17">
+            <div class="tab-control-container">
+                <c:forEach items="${tabs}" var="tab">
+                    <c:choose>
+                        <c:when test="${(defaultTab == tab and empty param.tab) or param.tab == tab}">
+                            <a id="js-${tab}"
+                               href="${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}">
+                                <div class="active-tab-control tabStyle-9 selected" data-gs-tab-control="${tab}"
+                                     data-gs-tab-group="groupOne"
+                                     data-gs-tab-active="active-tab-control"
+                                     data-gs-tab-inactive="inactive-tab-control">
+                                    ${tab}
+                                </div>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="href">
+                                <c:choose>
+                                    <c:when test="${defaultTab == tab}">
+                                        ${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tab)}
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:set>
+                            <a id="js-${tab}" href="${href}">
+                                <div data-gs-tab-control="${tab}" class="tabStyle-9" data-gs-tab-group="groupOne"
+                                     data-gs-tab-active="active-tab-control"
+                                     data-gs-tab-inactive="inactive-tab-control">
+                                    ${tab}
+                                </div>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</jsp:root>

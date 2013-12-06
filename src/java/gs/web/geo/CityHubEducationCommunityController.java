@@ -1,5 +1,6 @@
 package gs.web.geo;
 
+import com.google.common.collect.ImmutableList;
 import gs.data.hubs.HubConfig;
 import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
@@ -34,7 +35,14 @@ import java.util.List;
  */
 @Controller
 public class CityHubEducationCommunityController  implements IDirectoryStructureUrlController {
+
     public static final String EDUCATION_COMMUNITY_VIEW = "/cityHub/education-community";
+    private static final String TAB1 = "Community";
+    private static final String TAB2 = "Education";
+    private static final String TAB3 = "Funders";
+
+    private static final List<String> tabs = ImmutableList.of(TAB1, TAB2, TAB3);
+
 
     @Autowired
     private CityHubHelper _cityHubHelper;
@@ -89,6 +97,8 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
 
         modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
                 getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
+        modelAndView.addObject("defaultTab", TAB1);
+        modelAndView.addObject("tabs", tabs);
 
         return modelAndView;
     }

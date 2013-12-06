@@ -6,7 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     
-    <div class="container_24 clearfix mvl pvl">
+    <div class="container_24 clearfix mvl pvl" data-gs-tab-control="TEST">
         <div class="grid_10 suffix_2">
             <c:choose>
              <c:when test="${not empty chooseSchool and  fn:length(chooseSchool) gt 0 and not empty chooseSchool.heading }">
