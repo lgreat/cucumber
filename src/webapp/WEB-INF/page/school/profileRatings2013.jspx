@@ -175,7 +175,9 @@
                 <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="test-score">What's this?</a>
             </h6>
             <div class="dn mvl js-ratings-description-for-test-score">
-                ${dataCopy['whats_this_test_scores']}
+                <p class="mbn">${dataCopy['whats_this_test_scores']}</p>
+                <a href="#" onclick="return false;" data-id="test-score" class="fr small js-ratingsCollapso">Close</a>
+                <div class="clearfix"><!-- not empty --></div>
             </div>
             <c:choose>
                 <c:when test="${school.databaseState eq 'DC'}">
@@ -202,7 +204,7 @@
                 Learn more about this school's test scores &amp;raquo;
             </gslink:linkToTab>
         </div>
-        <div class="clear mbl"><!-- not empty --></div>
+        <div class="clear mbs"><!-- not empty --></div>
         <hr class="keyline2"/>
     </c:if>
 
@@ -216,7 +218,9 @@
                 <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="growth">What's this?</a>
             </h6>
             <div class="dn mvl js-ratings-description-for-growth">
-                ${dataCopy['whats_this_growth']}
+                <p class="mbn">${dataCopy['whats_this_growth']}</p>
+                <a href="#" onclick="return false;" data-id="growth" class="fr small js-ratingsCollapso">Close</a>
+                <div class="clearfix"><!-- not empty --></div>
             </div>
             <c:choose>
                 <c:when test="${school.databaseState eq 'DC'}">
@@ -250,7 +254,6 @@
         </c:if>
         <div class="clear mbl"><!-- not empty --></div>
         <hr class="keyline2"/>
-
     </c:if>
 
     <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
@@ -262,7 +265,9 @@
                 <a href="#" onclick="return false;" class="js-ratingsExpando medium mls" data-id="post-secondary">What's this?</a>
             </h6>
             <div class="dn mvl js-ratings-description-for-post-secondary">
-                ${dataCopy['whats_this_psr']}
+                <p class="mbn">${dataCopy['whats_this_psr']}</p>
+                <a href="#" onclick="return false;" data-id="post-secondary" class="fr small js-ratingsCollapso">Close</a>
+                <div class="clearfix"><!-- not empty --></div>
             </div>
             <c:choose>
                 <c:when test="${school.databaseState eq 'DC'}">
