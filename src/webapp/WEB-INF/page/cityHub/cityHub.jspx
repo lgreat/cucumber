@@ -44,7 +44,15 @@
             </div>
         </div>
         <hub:chooseASchool/>
-        <hub:upcomingEvent/>
+        <c:choose>
+            <c:when test="${showannouncement or showannouncement ne 'false' }">
+                <hub:upcomingEvent/>
+            </c:when>
+            <c:otherwise>
+                <hub:upcomingEvent hideAnnouncementModule="true"/>
+            </c:otherwise>
+        </c:choose>
+
         <hub:recentReviews />
         <hub:hubsJoin/>
         <div class="container_24 clearfix pvl">

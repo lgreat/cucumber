@@ -141,6 +141,9 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
             modelAndView.addObject(CityHubHelper.HUB_SPONSOR_MODEL_KEY,
                     hubHomeModelMap.get(CityHubHelper.HUB_HOME_KEY_PREFIX + "_" + CityHubHelper.HUB_SPONSOR_MODEL_KEY));
 
+            modelAndView.addObject(CityHubHelper.HUB_HOME_SHOULD_SHOW_ANNOUCMENT,
+                    hubHomeModelMap.get(CityHubHelper.HUB_HOME_KEY_PREFIX + "_" + CityHubHelper.HUB_HOME_SHOULD_SHOW_ANNOUCMENT));
+
             modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
                 getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
         }
