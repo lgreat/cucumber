@@ -188,9 +188,15 @@
             }
         }
     </jsp:scriptlet>
-<c:if test="${not empty isHubUser or not empty isHubUserSet}">
-    <c:set var="navBar" value="N2" scope="request"/>
-</c:if>
+<c:choose>
+    <c:when test="${not empty isHubUser or not empty isHubUserSet}">
+        <c:set var="navBar" value="N2" scope="request"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="navBar" value="PN" scope="request"/>
+    </c:otherwise>
+</c:choose>
+
     <c:if test="${!requestScope.context.crawler}">
         <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
         <c:if test="${requestScope.pageHelper.devEnvironment}">
