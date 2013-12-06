@@ -45,7 +45,7 @@
                     <c:choose>
                         <c:when test="${overallRating lt 4}">Below average</c:when>
                         <c:when test="${overallRating lt 8}">Average</c:when>
-                        <c:when test="${overallRating lt 4}">Above average</c:when>
+                        <c:when test="${overallRating gt 7}">Above average</c:when>
                     </c:choose>
                 </c:set>
                 <div class="iconTop media">
@@ -289,14 +289,20 @@
         <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
             <div class="pvm mbl">
                 <div class="containerGrayBox2 small fl phl tac mbn mrl">
-                    <p class="mbs">${postSecondaryReadinessBreakdownPercentTestedLabel}</p>
+                    <p class="mbs">${dataCopy['psr_breakdown_participation_label']}</p>
                     <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong></p>
                 </div>
-                <div class="containerGrayBox2 small fl phl tac mbn">
-                    <p class="mbs">${postSecondaryReadinessBreakdownTestScoreLabel}</p>
+                <div class="containerGrayBox2 small fl phl tac mbn mrl">
+                    <p class="mbs">${dataCopy['psr_breakdown_score_label']}</p>
                     <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
                             test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong></p>
                 </div>
+                <c:if test="${not empty highSchoolGraduationRate}">
+                    <div class="containerGrayBox2 small fl phl tac mbn">
+                        <p class="mbs">${dataCopy['psr_breakdown_graduation_rate_label']}</p>
+                        <p class="bottom larger"><strong>${highSchoolGraduationRate}</strong></p>
+                    </div>
+                </c:if>
             </div>
         </c:if>
         <div class="clear mbl"><!-- not empty --></div>
