@@ -117,7 +117,7 @@
                         <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${not empty cityRating}">
-                        <div class="barContainer" style="width:${cityWidth}px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
+                        <div class="barContainer" style="width:${cityWidth}px"><div class="ratingsGray"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${not empty districtRating}">
 
