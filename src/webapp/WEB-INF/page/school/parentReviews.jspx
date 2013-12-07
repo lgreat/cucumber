@@ -637,6 +637,7 @@ FB.share file gets loaded before all.js.This was a quick an dirty way to do this
 <mod:tracking pageName="${pageName}"
               hier1="School,Parent Reviews,Read Reviews"
               school="${school}" schoolGSRating="${gs_rating}"
+              localPageName="${isLocal ? pageName : ''}"
         />
 </gsml:body>
 </html>

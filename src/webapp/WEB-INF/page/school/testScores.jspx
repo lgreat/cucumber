@@ -42,7 +42,8 @@
         </div>
     </school:profile2010>
     <mod:tracking pageName="${pageName}"
-                  hier1="School,TestScores,MainTestScorePage" schoolGSRating="${gs_rating}"/>
+                  hier1="School,TestScores,MainTestScorePage" schoolGSRating="${gs_rating}"
+                  localPageName="${isLocal ? pageName : ''}"/>
 </gsml:body>
 </html>
 </jsp:root>

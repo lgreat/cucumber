@@ -59,7 +59,7 @@
         <hub:communityPartner/>
         <mod:tracking pageName="${pageName}"
                       locale="${city}"
-                      hier1="Home,city home,${city}-${state.abbreviation}"/>
+                      hier1="Home,city home,${city}-${state.abbreviation}" localPageName="${pageName}"/>
     </body>
     </html>
 </jsp:root>

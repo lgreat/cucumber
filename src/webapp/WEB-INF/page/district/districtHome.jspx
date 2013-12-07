@@ -110,6 +110,7 @@
      <mod:tracking pageName="${pageName}"
                   hier1="District,District Home,${district.name}"
                   locale="${not empty district.physicalAddress ? district.physicalAddress.city : null}"
+                  localPageName="${isLocal ? pageName : ''}"
              />
 
 </gsml:body>

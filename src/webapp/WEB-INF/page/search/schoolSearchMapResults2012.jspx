@@ -862,6 +862,7 @@ that this is updated for ajax refresh -->
               findASchoolByAddress="${omnitureAddressSearch}"
               findASchoolByName="${omnitureNameSearch}"
               locale="${omnitureLocale}"
+              localPageName="${isLocal ? omniturePageName : ''}"
         />
 </gsml:body>
 </jsp:root>
