@@ -60,6 +60,7 @@
                     }
 
                     props.prop9 = prop9;
+                    props.prop57 = clickCapture.getProp(57,"${isLocal ? pageScope.pageName : ''}");
                 }
 
                 return props;

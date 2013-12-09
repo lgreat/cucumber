@@ -165,7 +165,8 @@
 
         <mod:tracking pageName="${pageName}"
                       hier1="School,Map"
-                      school="${school}" schoolGSRating="${gs_rating}"/>
+                      school="${school}" schoolGSRating="${gs_rating}"
+                      localPageName="${isLocal ? pageName : ''}"/>
     </gsml:body>
     </html>
 </jsp:root>

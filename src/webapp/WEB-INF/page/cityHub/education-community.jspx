@@ -46,7 +46,8 @@
 
     <mod:tracking pageName="${pageName}"
                   locale="${city}"
-                  hier1="Home,city Education Community Page,${city}-${state.abbreviation}"/>
+                  hier1="Home,city Education Community Page,${city}-${state.abbreviation}"
+                  localPageName="${pageName}"/>
     </body>
 
     </html>

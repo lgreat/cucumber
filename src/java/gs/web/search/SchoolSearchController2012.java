@@ -280,19 +280,19 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 //            pageHelper.clearHubUserCookie(request, response);
 //
 //        }
-        if (pageHelper != null && isHubsLocalSearch){
-
-            final String collectionID= commandAndFields.getCollectionId();
-            if (collectionID != null) {
+        final String collectionID= commandAndFields.getCollectionId();
+        if (collectionID != null && isHubsLocalSearch) {
             final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(Integer.parseInt(collectionID));
-            if (hubInfo != null){
-            pageHelper.clearHubCookiesForNavBar(request, response);
-            pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+            if(hubInfo != null) {
+                model.put("isLocal", hubInfo != null);
+                if(pageHelper != null) {
+                    pageHelper.clearHubCookiesForNavBar(request, response);
+                    pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+                }
+                pageHelper.setHubUserCookie(request, response);
+                model.put("isHubUserSet", "y");
             }
         }
-             pageHelper.setHubUserCookie(request, response);
-             model.put("isHubUserSet", "y");
-       }
         if (pageHelper != null && isHubsLocalSearch && isAdFreeHub) {
             pageHelper.setHideAds(true);
         }

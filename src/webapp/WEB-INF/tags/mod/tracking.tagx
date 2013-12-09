@@ -154,6 +154,10 @@
         name="distanceRadius"
         description="The distance set for by location search"
         required="false"/>
+    <jsp:directive.attribute
+        name="localPageName"
+        description="Page name of any page that is considered as a part of local experience."
+        required="false"/>
     <jsp:directive.attribute name="augmentInitialRequestWithDataForTab" description="If set, will append S with extra data that has been stored in a hash" required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
@@ -275,6 +279,7 @@
             s.prop46 = clickCapture.getProp(46,"${gradeLevelFilter}");
             s.prop47 = clickCapture.getProp(47,"${distanceRadius}");
             s.prop50 = clickCapture.getProp(50,"${school.schoolForNewProfile ? 'Chooser School' : ''}");
+            s.prop57 = clickCapture.getProp(57,"${localPageName}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

@@ -140,10 +140,12 @@ public class SchoolProfileHeaderHelper {
                 model.put("isInAdFreeHub", isSchoolInAdFreeHub);
 
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-                if (pageHelper != null) {
+                final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
+                final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
 
-                    final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
-                    final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
+                model.put("isLocal", hubInfo != null);
+
+                if (pageHelper != null) {
 //                    pageHelper.clearHubUserCookie(request, response);
                     pageHelper.setHideAds(isSchoolInAdFreeHub);
                         if (collectionID != null && hubInfo != null)  {

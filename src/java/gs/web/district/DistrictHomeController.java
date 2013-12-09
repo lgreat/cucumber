@@ -211,11 +211,15 @@ public class DistrictHomeController extends AbstractController  implements IDire
         // Google ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
+        final String stateAbr = state.getAbbreviation();
+        final String cityName = WordUtils.capitalizeFully(city.getName());
+        final Integer collectionID = _hubCityMappingDao.getCollectionIdFromCityAndState(cityName, state);
+
+        if(collectionID != null) {
+            model.put("isLocal", true);
+        }
 
         if (pageHelper != null) {
-            final String stateAbr = state.getAbbreviation();
-            final String cityName = WordUtils.capitalizeFully(city.getName());
-            final Integer collectionID = _hubCityMappingDao.getCollectionIdFromCityAndState(cityName, state);
             if (collectionID != null) {
                 pageHelper.clearHubCookiesForNavBar(request, response);
                 pageHelper.setHubCookiesForNavBar(request, response, stateAbr, cityName);
@@ -224,14 +228,10 @@ public class DistrictHomeController extends AbstractController  implements IDire
                 final HubConfig addhubConfig = _hubConfigDao.getConfigFromCollectionIdAndKey(collectionID, CityHubHelper.SHOW_ADS_KEY);
                 if (addhubConfig != null && "false".equals(addhubConfig.getValue())) {
                     pageHelper.setHideAds(true);
-                } else {
-                    setAddKeyWords(state, district, city, pageHelper);
                 }
          } else {
                 setAddKeyWords(state, district, city, pageHelper);
-
             }
-
         }
 
 

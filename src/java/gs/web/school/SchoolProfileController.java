@@ -138,12 +138,9 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // since e.g. profileTestScores.jspx doesn't have direct access to the request params of original/parent request
         model.put("debug", request.getParameter("gs_debug"));
 
-
-
+        final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
+        final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
         if (pageHelper != null) {
-
-            final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
-            final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page
 //            pageHelper.clearHubUserCookie(request, response);
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
@@ -169,6 +166,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         }
 
         model.put(SCHOOL_CALENDAR_ENABLED, _schoolProfileDataHelper.isSchoolCalendarEnabled(school));
+        model.put("isLocal", hubInfo != null);
 
         return new ModelAndView(_viewName, model);
     }

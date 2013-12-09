@@ -21,7 +21,8 @@
         <hub:breadcrumbs city="${city}" state="${state}" pageName="Events"/>
         <hub:seeAllEventDates/>
         <mod:tracking pageName="${pageName}"
-                      locale="${city}"/>
+                      locale="${city}"
+                      localPageName="${pageName}"/>
     </body>
     </html>
 </jsp:root>

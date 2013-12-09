@@ -244,6 +244,7 @@
                   findASchoolByAddress="${omnitureAddressSearch}"
                   findASchoolByName="${omnitureNameSearch}"
                   locale="${omnitureLocale}"
+                  localPageName="${isLocal ? omniturePageName : ''}"
      />
     </div>
 
