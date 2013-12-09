@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="contain_1-2 bd">
-            <div class="pam ratingsGraphicMakesUp ptl">
+            <div class="pam newRatingsGraphicMakesUp ptl">
                 <div class="iconTop">
                     <c:set var="overallRatingBadge" value="NR"/>
                     <c:if test="${not empty overallRating}">
