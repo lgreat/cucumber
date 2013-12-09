@@ -267,6 +267,11 @@ GS.facebook = GS.facebook || (function () {
         deleteCookie(communityCookieName, ".greatschools.org");
 
         window.location.href = redirectUrl;
+        if (window.history && window.history.pushState ) {
+            window.history.pushState('', '', window.location.pathname)
+        } else {
+            window.location.href = window.location.href.replace(/#.*$/, '#');
+        }
     };
 
     var deleteCookie = function(name, domain) {
