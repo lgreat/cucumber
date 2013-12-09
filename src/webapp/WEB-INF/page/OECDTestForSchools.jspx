@@ -72,9 +72,10 @@
     <div class="imageBgScale">
         <div class="pr" style="height:150px;">
             <div class="headerBar">
-                <p style="font-family: sourceSansPro-Regular, arial; font-size:40px; color: #FFFFFF; padding: 47px 0 14px 0;
+                <p style="font: 40px/48px 'SourceSansPro-Regular', Arial, sans-serif; color: #FFFFFF; padding: 47px 0 14px 0;
         text-shadow: 0 -1px 0 rgba(0,0,0,0.25)">Is your high school preparing students for the world ahead?</p>
-                <p style="font-family: SourceSansPro-It, arial; font-size:19px;  color: #996E18; padding-bottom: 60px;">
+                <!--<p style="font-family: 'SourceSansPro-It', Arial, sans-serif; font-size:19px;  color: #996E18; padding-bottom: 60px;">-->
+                <p style="font: 19px 'SourceSansPro-It', Arial, sans-serif; color: #996E18; padding-bottom: 60px;">
                     The OECD Test for Schools is a proven way to know</p>
             </div>
         </div>
