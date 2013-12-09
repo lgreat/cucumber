@@ -25,13 +25,12 @@
                 <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
                 <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
-            <div id="js-tile-1-1">
+            <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'gsrate')}" scope="request"/>
+            <div id="js-tile-1-3">
                 <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger" tileName="gsNewRate">
                     <school:profileOverviewCell1 title="${t1dc}">
                         <div class="mhm">
-                            <!--<c:set var="testScoreRating" value="${gsRatingsModel.testScoreRating}"/>-->
-                            <!--<c:set var="growthRating" value="${gsRatingsModel.growthRating}"/>-->
-                            <!--<c:set var="psrRating" value="${gsRatingsModel.psrRating}"/>-->
+
                             <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
 
                             <c:choose>
