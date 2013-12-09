@@ -1541,6 +1541,9 @@ GS.community.MySchoolListHelper = function() {
 
     this.incrementCountInHeader = function() {
         var mslCountInHeader = jQuery('#utilLinks .last a');
+        if (typeof mslCountInHeader === "undefined" || mslCountInHeader.size() <=0){
+            mslCountInHeader = jQuery('#N2_A-MySchoolList');
+        }
         var mslCount = Number(mslCountInHeader.html().replace(/[^0-9]/g,''));
         mslCount = mslCount + 1;
         mslCountInHeader.html("My School List (" + mslCount + ")");
