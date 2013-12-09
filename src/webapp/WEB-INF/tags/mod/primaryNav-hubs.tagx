@@ -178,9 +178,9 @@
                                 <c:choose>
                                     <c:when test="${empty requestScope.context.memberId}">
                                         <div id="utilLinksUnsignedIn">
-                                            <link:loginOrRegister id="N2-SignIn" email="${requestScope.context.email}"
+                                            <link:loginOrRegister id="" email="${requestScope.context.email}"
                                                                   styleClass="menuItemAnchorText last GS_CI9_"
-                                                                  onclick="{GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader)};return false;"
+                                                                  onclick=" { if (s.tl) {s.tl(this,'o', 'N2-SignIn');} GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader)};return false;"
                                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
 
                                         </div>
