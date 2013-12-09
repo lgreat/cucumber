@@ -167,24 +167,26 @@
 
                 <c:if test="${hasBreakdownRatings and hasStateDistributions}">
                     <p class="mtl"><strong>How schools in the state rate:</strong></p>
-                    <p class="small">
-                        <fmt:formatNumber var="stateDistributionPercentBelowRounded" value="${stateDistributionPercentBelow}" maxFractionDigits="0"/>
-                        <span class="larger"><strong>${stateDistributionPercentBelowRounded}%</strong></span>
-                        of schools in the state
-                        are <strong><em>Below average</em></strong>
-                    </p>
-                    <p class="small">
-                        <fmt:formatNumber var="stateDistributionPercentAverageRounded" value="${stateDistributionPercentAverage}" maxFractionDigits="0"/>
-                        <span class="larger"><strong>${stateDistributionPercentAverageRounded}%</strong></span>
-                        of schools in the state
-                        are <strong><em>Average</em></strong>
-                    </p>
-                    <p class="small">
-                        <fmt:formatNumber var="stateDistributionPercentAboveRounded" value="${stateDistributionPercentAbove}" maxFractionDigits="0"/>
-                        <span class="larger"><strong>${stateDistributionPercentAboveRounded}%</strong></span>
-                        of schools in the state
-                        are <strong><em>Above average</em></strong>
-                    </p>
+                    <div class="pls small">
+                        <p>
+                            <fmt:formatNumber var="stateDistributionPercentBelowRounded" value="${stateDistributionPercentBelow}" maxFractionDigits="0"/>
+                            <span class="larger"><strong>${stateDistributionPercentBelowRounded}%</strong></span>
+                            of schools
+                            are <strong><em>Below average</em></strong>
+                        </p>
+                        <p>
+                            <fmt:formatNumber var="stateDistributionPercentAverageRounded" value="${stateDistributionPercentAverage}" maxFractionDigits="0"/>
+                            <span class="larger"><strong>${stateDistributionPercentAverageRounded}%</strong></span>
+                            of schools
+                            are <strong><em>Average</em></strong>
+                        </p>
+                        <p>
+                            <fmt:formatNumber var="stateDistributionPercentAboveRounded" value="${stateDistributionPercentAbove}" maxFractionDigits="0"/>
+                            <span class="larger"><strong>${stateDistributionPercentAboveRounded}%</strong></span>
+                            of schools
+                            are <strong><em>Above average</em></strong>
+                        </p>
+                    </div>
                 </c:if>
 
             </div>
@@ -192,11 +194,13 @@
     </div>
 </div>
 
+<c:set var="currentFootnoteNumeral" value="${1}"/>
+
 <div class="mod standard_6-1 mt">
     <div class="inner">
         <div class="hd plm">
             <div class="fl">
-                <h2>Breaking down the GreatSchools rating</h2>
+                <h2>Breaking down the rating</h2>
             </div>
         </div>
         <div class="bd pam ptm">
@@ -214,8 +218,10 @@
             <hr class="keyline2"/>
 
             <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
+                <c:set var="testScoreFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+                <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
                 <div class="pvm fl">
-                    <h3 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}*</h3>
+                    <h3 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}<sup>${testScoreFootnoteNumeral}</sup></h3>
                     <c:choose>
                         <c:when test="${school.databaseState eq 'DC'}">
                             <profile:ratingsBarChart ratingDivId="ratingTestResults1"
@@ -225,6 +231,7 @@
                                                      stateRating="${stateTestScoreRating}"
                                                      showLabels="${true}"
                                                      mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
                                     />
                         </c:when>
                         <c:otherwise>
@@ -235,6 +242,7 @@
                                                      stateRating="${stateTestScoreRating}"
                                                      showLabels="${true}"
                                                      mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
                                     />
                         </c:otherwise>
                     </c:choose>
@@ -244,8 +252,10 @@
             </c:if>
 
             <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
+                <c:set var="growthFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+                <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
                 <div class="pbm ptm">
-                    <h3 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h3>
+                    <h3 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}<sup>${growthFootnoteNumeral}</sup></h3>
                     <c:choose>
                         <c:when test="${school.databaseState eq 'DC'}">
                             <profile:ratingsBarChart ratingDivId="ratingTestResults2"
@@ -255,6 +265,7 @@
                                                      stateRating="${stateStudentGrowthRating}"
                                                      showLabels="${true}"
                                                      mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
                                     />
                         </c:when>
                         <c:otherwise>
@@ -265,6 +276,7 @@
                                                      stateRating="${stateStudentGrowthRating}"
                                                      showLabels="${true}"
                                                      mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
                                     />
                         </c:otherwise>
                     </c:choose>
@@ -275,10 +287,10 @@
                     <div class="clearfix mtm"><!-- not empty --></div>
                     <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}" varStatus="loopStatus">
                         <div class="grayBox tac mbm">
-                            <div class="clearfix phm pvm">
-                                <div class="fl small">${entry.key} at this school</div>
-                                <div class="fr tal">
-                                    <em class="small lh1"><strong>${entry.value}</strong></em>
+                            <div class="clearfix phm pvm tac">
+                                <div class="small">${entry.key} at this school</div>
+                                <div class="small mts">
+                                    <em><strong>${entry.value}</strong></em>
                                 </div>
                             </div>
                         </div>
@@ -289,8 +301,10 @@
             </c:if>
 
             <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
+                <c:set var="psrFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+                <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
                 <div class="pbm ptm">
-                    <h3 class="mtm medium_bold bottom pbm">College readiness rating ${postSecondaryReadinessRatingYear}***</h3>
+                    <h3 class="mtm medium_bold bottom pbm">College readiness rating ${postSecondaryReadinessRatingYear}<sup>${psrFootnoteNumeral}</sup></h3>
 
                     <c:choose>
                         <c:when test="${school.databaseState eq 'DC'}">
@@ -300,6 +314,7 @@
                                                      stateRatingShow="${showStatePostSecondaryReadinessRating}"
                                                      stateRating="${statePostSecondaryReadinessRating}"
                                                      showLabels="${true}"
+                                                     gsNewRatingsModel="true"
                                                      mobileDisplay="${true}"/>
                         </c:when>
                         <c:otherwise>
@@ -309,6 +324,7 @@
                                                      stateRatingShow="${showStatePostSecondaryReadinessRating}"
                                                      stateRating="${statePostSecondaryReadinessRating}"
                                                      showLabels="${true}"
+                                                     gsNewRatingsModel="true"
                                                      mobileDisplay="${true}"/>
                         </c:otherwise>
                     </c:choose>
@@ -346,15 +362,15 @@
             </c:if>
 
             <c:if test="${schoolTestScoreRating != null and not empty testScoreRatingSource}">
-                <p class="smaller bottom pts">*${dataCopy['footnote_test_scores']}</p>
+                <p class="smaller bottom pts">${testScoreFootnoteNumeral} ${dataCopy['footnote_test_scores']}</p>
             </c:if>
 
             <c:if test="${schoolStudentGrowthRating != null and not empty studentGrowthRatingSource}">
-                <p class="smaller bottom">**${dataCopy['footnote_growth']}</p>
+                <p class="smaller bottom">${growthFootnoteNumeral} ${dataCopy['footnote_growth']}</p>
             </c:if>
 
             <c:if test="${schoolPostSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
-                <p class="smaller bottom">***${dataCopy['footnote_psr']}</p>
+                <p class="smaller bottom">${psrFootnoteNumeral} ${dataCopy['footnote_psr']}</p>
             </c:if>
 
         </div>
