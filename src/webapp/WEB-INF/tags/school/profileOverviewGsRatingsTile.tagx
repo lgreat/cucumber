@@ -73,7 +73,7 @@
 
                             <div class="pvs clearfix ie-mp0"><span class="small bottom fl">Student growth rating</span><span class="small_bold bottom fr mrs"><strong>${growthRating}</strong></span></div>
 
-                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl mbm">College readiness rating</span><span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span></div>
+                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl mbm">College readiness</span><span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span></div>
                         </div>
                     </school:profileOverviewCell1>
                 </gslink:linkToTab>
