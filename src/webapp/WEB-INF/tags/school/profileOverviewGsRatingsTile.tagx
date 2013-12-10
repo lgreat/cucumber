@@ -52,11 +52,20 @@
                             </c:choose>
 
                             <c:choose>
+                                <!-- Display rating if present -->
                                 <c:when test="${not empty gsRatingsModel.psrRating}">
                                     <c:set var="psrRating" value="${gsRatingsModel.psrRating}  / 10"/>
+                                    <c:set var="psrRatingLabel" value="College readiness"/>
                                 </c:when>
-                                <c:otherwise>
+                                <!-- For high schools, display an N / A if no rating is present -->
+                                <c:when test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0)}">
                                     <c:set var="psrRating">N / A</c:set>
+                                    <c:set var="psrRatingLabel" value="College readiness"/>
+                                </c:when>
+                                <!-- For non-high schools, hide the college readiness line -->
+                                <c:otherwise>
+                                    <c:set var="psrRating">&amp;nbsp;</c:set>
+                                    <c:set var="psrRatingLabel">&amp;nbsp;</c:set>
                                 </c:otherwise>
                             </c:choose>
 
@@ -72,7 +81,7 @@
 
                             <div class="pvs clearfix ie-mp0"><span class="small bottom fl">Student growth rating</span><span class="small_bold bottom fr mrs"><strong>${growthRating}</strong></span></div>
 
-                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl mbm">College readiness</span><span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span></div>
+                            <div class="pvs clearfix ie-mp0"><span class="small bottom fl mbm">${psrRatingLabel}</span><span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span></div>
                         </div>
                     </school:profileOverviewCell1>
                 </gslink:linkToTab>
