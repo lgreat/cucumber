@@ -1055,6 +1055,27 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>districtId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>District ID</description>
+        </attribute>
+        <attribute>
+            <name>countyName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>County name</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>State</description>
+        </attribute>
     </tag>
     <tag>
         <name>espFeedback</name>

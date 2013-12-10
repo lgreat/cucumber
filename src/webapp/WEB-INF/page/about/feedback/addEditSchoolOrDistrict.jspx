@@ -668,6 +668,8 @@ $(document).ready(function(){
     if ($('#addEditSchoolOrDistrictCommand_schoolId').val() != '') {
         // if a school is pre-selected, force an ajax call to fetch the details
         $('#addEditSchoolOrDistrictCommand_schoolId').trigger('change');
+    } else if ($('#addEditSchoolOrDistrictCommand_districtId').val() != '') {
+        $('#addEditSchoolOrDistrictCommand_districtId').trigger('change');
     }
     //var county=  $("#addEditSchoolOrDistrictCommand_county").val();
     //$("#addEditSchoolOrDistrictCommand_county").val("");
