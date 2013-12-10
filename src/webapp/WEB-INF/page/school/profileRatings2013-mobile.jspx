@@ -127,10 +127,12 @@
                         <span class="small_bold bottom fr mrs"><strong>${growthRating}</strong></span>
                     </div>
 
-                    <div class="pvs clearfix">
-                        <span class="small bottom fl mbm">College readiness rating</span>
-                        <span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span>
-                    </div>
+                    <c:if test="${schoolPostSecondaryReadinessRating != null or (not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0))}">
+                        <div class="pvs clearfix">
+                            <span class="small bottom fl mbm">College readiness rating</span>
+                            <span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span>
+                        </div>
+                    </c:if>
                 </div>
 
                 <div class="small ratingsLegend">
