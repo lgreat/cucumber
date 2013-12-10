@@ -135,7 +135,7 @@
                         <c:otherwise>
                             <p class="text3">
                                 Notice an inaccuracy?
-                                <link:schoolFeedback>Let us know</link:schoolFeedback>
+                                <link:schoolFeedback state="${state}">Let us know</link:schoolFeedback>
                             </p>
                         </c:otherwise>
                     </c:choose>

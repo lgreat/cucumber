@@ -665,6 +665,10 @@ $(document).ready(function(){
     showWhenApplicable();
     doWhenOpen();
     doPKOnly();
+    if ($('#addEditSchoolOrDistrictCommand_schoolId').val() != '') {
+        // if a school is pre-selected, force an ajax call to fetch the details
+        $('#addEditSchoolOrDistrictCommand_schoolId').trigger('change');
+    }
     //var county=  $("#addEditSchoolOrDistrictCommand_county").val();
     //$("#addEditSchoolOrDistrictCommand_county").val("");
     //$("#addEditSchoolOrDistrictCommand_county").val(county);

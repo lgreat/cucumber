@@ -411,10 +411,25 @@ public class LinkTagHandlerTest extends BaseTestCase {
         SchoolFeedbackTagHandler tagHandler = new SchoolFeedbackTagHandler();
         tagHandler.setPageContext(new MockPageContext());
 
-        String relativeUrl = "/about/feedback.page?feedbackType=incorrectSchoolDistrictInfo_incorrectSchool";
+        String relativeUrl = "/about/feedback/addEditSchoolOrDistrict.page?addEdit=edit&schoolOrDistrict=school";
         UrlBuilder builder;
 
         builder = tagHandler.createUrlBuilder();
+        assertEquals(relativeUrl,builder.asSiteRelative(null));
+
+        tagHandler.setState(State.CA);
+        builder = tagHandler.createUrlBuilder();
+        relativeUrl = "/about/feedback/addEditSchoolOrDistrict.page?addEdit=edit&schoolOrDistrict=school&state=ca";
+        assertEquals(relativeUrl,builder.asSiteRelative(null));
+
+        tagHandler.setCityName("Alameda");
+        builder = tagHandler.createUrlBuilder();
+        relativeUrl = "/about/feedback/addEditSchoolOrDistrict.page?addEdit=edit&cityName=Alameda&schoolOrDistrict=school&state=ca";
+        assertEquals(relativeUrl,builder.asSiteRelative(null));
+
+        tagHandler.setSchoolId(1);
+        builder = tagHandler.createUrlBuilder();
+        relativeUrl = "/about/feedback/addEditSchoolOrDistrict.page?addEdit=edit&cityName=Alameda&schoolId=1&schoolOrDistrict=school&state=ca";
         assertEquals(relativeUrl,builder.asSiteRelative(null));
     }
 
