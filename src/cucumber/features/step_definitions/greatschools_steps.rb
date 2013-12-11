@@ -16,6 +16,7 @@ URLS = {
   'an article' => '/students/travel/635-flying-with-kids.gs',
   'parent review landing' => '/school/parentReview.page',
   'learning issues landing' => '/school/parentReview.page?topicId=1',
+  'OECD test for schools' => '/OECDTestForSchools.page',
 }
 
 if defined? Capybara && Capybara.app_host=~/localhost/
