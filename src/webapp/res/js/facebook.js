@@ -239,7 +239,7 @@ GS.facebook = GS.facebook || (function () {
             redirectUrl = currentUrl;
         }
 
-        return redirectUrl;
+        return redirectUrl.replace(/#.*$/, '#');;
     };
 
     // Logs out of GS. Deletes the appropriate cookies and redirects if needed
