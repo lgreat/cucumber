@@ -169,10 +169,10 @@
                             </div>
                         </c:otherwise>
                     </c:choose>
+
                 </div>
-                <!-- TODO: remove the text below -->
-                <!--<p>show ads: ${showAds}</p>-->
             </div>
+          <br/><br/>
         </c:otherwise>
     </c:choose>
 </jsp:root>
