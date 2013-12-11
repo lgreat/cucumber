@@ -209,11 +209,11 @@ GS.facebook = GS.facebook || (function () {
                 if (response.status === "connected") {
                     FB.logout(function (response) {
                         logout();
-
+                        window.location.reload();
                     });
                 } else {
                     logout();
-
+                    window.location.reload();
                 }
             });
         });
@@ -267,12 +267,6 @@ GS.facebook = GS.facebook || (function () {
         deleteCookie(communityCookieName, ".greatschools.org");
 
         window.location.href = redirectUrl;
-        if (window.history && window.history.pushState ) {
-            window.history.pushState('', '', window.location.pathname)
-        } else {
-            window.location.href = window.location.href.replace(/#.*$/, '#');
-        }
-        window.location.reload;
     };
 
     var deleteCookie = function(name, domain) {
