@@ -5,8 +5,8 @@
           xmlns:gsweb="gstaglib"
 
         >
-    <div class="container_24 clearfix mtl">
-        <div class="prefix_7 grid_17">
+    <div class="container_24 clearfix mtl ">
+        <div class="prefix_7 grid_17 pbl">
             <div class="tab-control-container">
                 <c:forEach items="${tabs}" var="tab">
                     <c:choose>

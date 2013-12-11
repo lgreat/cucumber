@@ -7,7 +7,7 @@
 
         >
 
-    <div class="tab-content-container container_24 clearfix mbl">
+    <div class="tab-content-container container_24 clearfix">
         <c:if test="${empty partnerData.partners}">
             <hr class="keyline1"/>
             <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateNameEduCommu}_partnerData</h3>
@@ -16,10 +16,10 @@
 
             <c:choose>
                 <c:when test="${(defaultTab == partner.tabName and empty param.tab) or param.tab == partner.tabName}">
-                    <div class="container_24 clearfix mvl pvl" data-gs-tab-content="${partner.tabName}"
+                    <div class="container_24 clearfix" data-gs-tab-content="${partner.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
                       <hr class="keyline1"/>
-                        <div class="clearfix mvl pvl">
+                        <div class="clearfix  pvl">
                             <div class="grid_5">
                                 <gsml:img alt="Partner Logo" src="${partner.logo}"/>
                             </div>
