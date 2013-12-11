@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 
         >
 
@@ -28,7 +29,14 @@
                                 <c:forEach items="${partner.links}" var="link">
                                     <c:choose>
                                         <c:when test="${link.newwindow eq 'true'}">
-                                            <a href="${link.url}" target="_blank">${link.heading}</a><br/>
+                                             <c:choose>
+                                                 <c:when test="${fn:startsWith(link.url, 'http://')}">
+                                                     <a href="${link.url}"  target="_blank" >${link.heading}</a><br/>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <a href="http://${link.url}"   target="_blank">${link.heading}</a><br/>
+                                                 </c:otherwise>
+                                             </c:choose>
                                         </c:when>
                                         <c:otherwise>
                                             <a href="${link.url}" >${link.heading}</a><br/>
@@ -53,7 +61,14 @@
                                 <c:forEach items="${partner.links}" var="link">
                                     <c:choose>
                                         <c:when test="${link.newwindow eq 'true'}">
-                                            <a href="${link.url}" target="_blank">${link.heading}</a><br/>
+                                            <c:choose>
+                                                <c:when test="${fn:startsWith(link.url, 'http://')}">
+                                                    <a href="${link.url}" target="_blank">${link.heading}</a><br/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="http://${link.url}"  target="_blank" >${link.heading}</a><br/>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
                                             <a href="${link.url}" >${link.heading}</a><br/>
