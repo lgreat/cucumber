@@ -35,7 +35,8 @@
                                     The email address is already in use.
                                 </div>
                                 <span class="nlHomePageEmail">
-                                    <input type="text" id="nlHomePageSubEmail" name="email" class="nlHomePageSubEmail small bottom text input_6 mrm vam" style="font: normal 12px/24px Arial, Helvetica, sans-serif; padding: 3px 5px; height: 17px;"
+                                    <input type="text" id="nlHomePageSubEmail" name="email" class="nlHomePageSubEmail small mbn text input_6 mrm vam"
+                                           style="line-height: 15px;"
                                            onfocus="GS_textSwitch(this, '', '[Your email address]')"
                                            onblur="GS_textSwitch(this, '[Your email address]', '');"
                                            value="[Your email address]"/>
