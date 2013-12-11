@@ -293,17 +293,17 @@
 
         <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
             <div class="pvm mbl">
-                <div class="containerGrayBox2 small fl phl tac mbn mrl">
+                <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
                     <p class="mbs">${dataCopy['psr_breakdown_participation_label']}</p>
                     <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong></p>
                 </div>
-                <div class="containerGrayBox2 small fl phl tac mbn mrl">
+                <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
                     <p class="mbs">${dataCopy['psr_breakdown_score_label']}</p>
                     <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
                             test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong></p>
                 </div>
                 <c:if test="${not empty highSchoolGraduationRate}">
-                    <div class="containerGrayBox2 small fl phl tac mbn">
+                    <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
                         <p class="mbs">${dataCopy['psr_breakdown_graduation_rate_label']}</p>
                         <p class="bottom larger"><strong>${highSchoolGraduationRate}</strong></p>
                     </div>
