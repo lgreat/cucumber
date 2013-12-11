@@ -732,6 +732,15 @@
         <!--</init-param>-->
     </filter>
 
+    <filter>
+        <filter-name>accessControlAllowOriginStarHeader</filter-name>
+        <filter-class>gs.web.util.AccessControlAllowOriginStarFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>accessControlAllowOriginStarHeader</filter-name>
+        <url-pattern>/res/css/04_text/fonts/*</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>httpcacheheader</filter-name>

@@ -1,6 +1,6 @@
 Feature: OSP Registration
     
-  @javascript
+  @javascript @readwrite
   Scenario: Submit for a school's OSP
     Given I am on "GS Home Page" page
     And I click on the "School Officials" link

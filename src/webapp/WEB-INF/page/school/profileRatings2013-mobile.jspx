@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile">
+<html lang="en">
+<jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+<jsp:output omit-xml-declaration="true"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+<head>
+    <c:set var="gomezPageId" scope="request">SchoolProfileRatings</c:set>
+    <meta name="decorator" content="standardMobileDecorator"/>
+
+    <meta name="description" content="${gsweb:schoolPageDescriptionMobile(school)}"/>
+
+    <title>${gsweb:schoolPageTitleMobile(school)}</title>
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
+    <!--<script type="text/javascript">
+        require(['schoolOverview'], function (schoolOverview) {
+            $(function () {
+                schoolOverview.init('${school.databaseState}', '${school.id}');
+            });
+        });
+    </script>-->
+
+    <c:choose>
+        <c:when test="${school.preschoolOnly}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Preschool_TODO:Ratings"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName eq 'private'}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Private_School_TODO:Ratings"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName eq 'public'}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_TODO:Ratings"/>
+        </c:when>
+        <c:otherwise>
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_TODO:Ratings"/>
+        </c:otherwise>
+    </c:choose>
+
+</head>
+
+<c:set var="hasBreakdownRatings" value="${(schoolTestScoreRating != null and testScoreRatingYear != null) or not empty schoolStudentGrowthRating or not empty schoolPostSecondaryReadinessRating}"/>
+<c:set var="hasStateDistributions" value="${not empty stateDistributionPercentBelow and not empty stateDistributionPercentAverage and not empty stateDistributionPercentAbove}"/>
+
+<body>
+<div style="min-width: 320px;">
+<div class="contain_1-2">
+    <div>
+        <h6>RATINGS DETAILS</h6>
+    </div>
+    <mobile:schoolProfileIntro school="${school}" linkSchool="${true}"/>
+</div>
+<div class="mod standard_6-1 mts">
+    <div class="inner">
+        <div class="hd plm">
+            <div class="fl">
+                <h2>What makes up this rating?</h2>
+            </div>
+        </div>
+        <div class="contain_1-2 bd">
+            <div class="pam newRatingsGraphicMakesUp ptl">
+                <div class="iconTop">
+                    <c:set var="overallRatingBadge" value="NR"/>
+                    <c:if test="${not empty overallRating}">
+                        <c:set var="overallRatingBadge" value="${overallRating}"/>
+                    </c:if>
+                    <c:set var="schoolType" value="public"/>
+                    <c:if test="${school.type.schoolTypeName eq 'private'}">
+                        <c:set var="schoolType" value="private"/>
+                    </c:if>
+                    <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom"><!-- do not collapse --></div>
+                </div>
+                <div class="clearfix"><!-- do not collapse --></div>
+                <c:choose>
+                    <c:when test="${schoolTestScoreRating != null  and testScoreRatingYear != null}">
+                        <c:set var="testScoreRating" value="${schoolTestScoreRating}  / 10"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="testScoreRating">N / A</c:set>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                    <c:when test="${schoolStudentGrowthRating != null}">
+                        <c:set var="growthRating" value="${schoolStudentGrowthRating} / 10"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="growthRating">N / A</c:set>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                    <c:when test="${schoolPostSecondaryReadinessRating != null}">
+                        <c:set var="psrRating" value="${schoolPostSecondaryReadinessRating}  / 10"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="psrRating">N / A</c:set>
+                    </c:otherwise>
+                </c:choose>
+
+                <div class="ratingsBreakdownSummary">
+                    <div class="pbs ptm clearfix">
+                        <span class="small bottom fl">Test score rating</span>
+                        <span class="small_bold bottom fr mrs"><strong>${testScoreRating}</strong></span>
+                    </div>
+
+                    <div class="pvs clearfix">
+                        <span class="small bottom fl">Student growth rating</span>
+                        <span class="small_bold bottom fr mrs"><strong>${growthRating}</strong></span>
+                    </div>
+
+                    <c:if test="${schoolPostSecondaryReadinessRating != null or (not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0))}">
+                        <div class="pvs clearfix">
+                            <span class="small bottom fl mbm">College readiness rating</span>
+                            <span class="small_bold bottom fr mrs"><strong>${psrRating}</strong></span>
+                        </div>
+                    </c:if>
+                </div>
+
+                <div class="small ratingsLegend">
+
+                    <div class="ratingx24-public-RYG r-24-1 fl"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-2 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-3 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-4 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-5 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-6 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-7 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-8 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-9 fl marLeft"><!-- do not collapse --></div>
+                    <div class="ratingx24-public-RYG r-24-10 fl marLeft"><!-- do not collapse --></div>
+
+                    <div class="spacerFirst">
+                        <div class="bracketUp3"><!-- do not collapse --></div>
+                        <span class="smaller">Below<br />average</span>
+                    </div>
+                    <div class="spacerBetween">
+                        <div class="bracketUp4"><!-- do not collapse --></div>
+                        <span class="smaller">Average</span>
+                    </div>
+                    <div class="spacerBetween">
+                        <div class="bracketUp3"><!-- do not collapse --></div>
+                        <span class="smaller">Above<br />average</span>
+                    </div>
+
+                </div>
+                <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
+                <p class="small bottom mtl">
+                    ${dataCopy['what_is_gs_rating_summary']}
+                </p>
+
+                <c:if test="${hasBreakdownRatings and hasStateDistributions}">
+                    <p class="mtl"><strong>How schools in the state rate:</strong></p>
+                    <div class="pls small">
+                        <p>
+                            <fmt:formatNumber var="stateDistributionPercentBelowRounded" value="${stateDistributionPercentBelow}" maxFractionDigits="0"/>
+                            <span class="larger"><strong>${stateDistributionPercentBelowRounded}%</strong></span>
+                            of schools
+                            are <strong><em>Below average</em></strong>
+                        </p>
+                        <p>
+                            <fmt:formatNumber var="stateDistributionPercentAverageRounded" value="${stateDistributionPercentAverage}" maxFractionDigits="0"/>
+                            <span class="larger"><strong>${stateDistributionPercentAverageRounded}%</strong></span>
+                            of schools
+                            are <strong><em>Average</em></strong>
+                        </p>
+                        <p>
+                            <fmt:formatNumber var="stateDistributionPercentAboveRounded" value="${stateDistributionPercentAbove}" maxFractionDigits="0"/>
+                            <span class="larger"><strong>${stateDistributionPercentAboveRounded}%</strong></span>
+                            of schools
+                            are <strong><em>Above average</em></strong>
+                        </p>
+                    </div>
+                </c:if>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<c:set var="currentFootnoteNumeral" value="${1}"/>
+
+<div class="mod standard_6-1 mt">
+    <div class="inner">
+        <div class="hd plm">
+            <div class="fl">
+                <h2>Breaking down the rating</h2>
+            </div>
+        </div>
+        <div class="bd pam ptm">
+            <p class="mbm">
+                ${dataCopy['breaking_down_gs_rating_summary']}
+                <c:choose>
+                    <c:when test="${empty schoolTestScoreRating and empty schoolStudentGrowthRating and empty schoolPostSecondaryReadinessRating}">
+                        ${dataCopy['breaking_down_gs_rating_summary_no_data']}
+                    </c:when>
+                    <c:otherwise>
+                        ${dataCopy['breaking_down_gs_rating_summary_yes_data']}
+                    </c:otherwise>
+                </c:choose>
+            </p>
+            <hr class="keyline2"/>
+
+            <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
+                <c:set var="testScoreFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+                <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
+                <div class="pvm fl">
+                    <h3 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}<sup>${testScoreFootnoteNumeral}</sup></h3>
+                    <c:choose>
+                        <c:when test="${school.databaseState eq 'DC'}">
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults1"
+                                                     schoolRating="${schoolTestScoreRating}"
+                                                     cityRating="${cityTestScoreRating}"
+                                                     stateRatingShow="${showStateTestScoreRating}"
+                                                     stateRating="${stateTestScoreRating}"
+                                                     showLabels="${true}"
+                                                     mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
+                                    />
+                        </c:when>
+                        <c:otherwise>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults1"
+                                                     schoolRating="${schoolTestScoreRating}"
+                                                     districtRating="${districtTestScoreRating}"
+                                                     stateRatingShow="${showStateTestScoreRating}"
+                                                     stateRating="${stateTestScoreRating}"
+                                                     showLabels="${true}"
+                                                     mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
+                                    />
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+                <hr class="keyline2"/>
+            </c:if>
+
+            <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
+                <c:set var="growthFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+                <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
+                <div class="pbm ptm">
+                    <h3 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}<sup>${growthFootnoteNumeral}</sup></h3>
+                    <c:choose>
+                        <c:when test="${school.databaseState eq 'DC'}">
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                                     schoolRating="${schoolStudentGrowthRating}"
+                                                     cityRating="${cityStudentGrowthRating}"
+                                                     stateRatingShow="${showStateStudentGrowthRating}"
+                                                     stateRating="${stateStudentGrowthRating}"
+                                                     showLabels="${true}"
+                                                     mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
+                                    />
+                        </c:when>
+                        <c:otherwise>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                                     schoolRating="${schoolStudentGrowthRating}"
+                                                     districtRating="${districtStudentGrowthRating}"
+                                                     stateRatingShow="${showStateStudentGrowthRating}"
+                                                     stateRating="${stateStudentGrowthRating}"
+                                                     showLabels="${true}"
+                                                     mobileDisplay="${true}"
+                                                     gsNewRatingsModel="true"
+                                    />
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+                <div class="clearfix"><!-- not empty --></div>
+                <c:if test="${schoolStudentGrowthRatingBreakdown != null}">
+                    <div class="clearfix mtm"><!-- not empty --></div>
+                    <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}" varStatus="loopStatus">
+                        <div class="grayBox tac mbm">
+                            <div class="clearfix phm pvm tac">
+                                <div class="small">${entry.key} at this school</div>
+                                <div class="small mts">
+                                    <em><strong>${entry.value}</strong></em>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
+
+                <hr class="keyline2"/>
+            </c:if>
+
+            <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
+                <c:set var="psrFootnoteNumeral" value="${currentFootnoteNumeral}"/>
+                <c:set var="currentFootnoteNumeral" value="${currentFootnoteNumeral+1}"/>
+                <div class="pbm ptm">
+                    <h3 class="mtm medium_bold bottom pbm">College readiness rating ${postSecondaryReadinessRatingYear}<sup>${psrFootnoteNumeral}</sup></h3>
+
+                    <c:choose>
+                        <c:when test="${school.databaseState eq 'DC'}">
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults3"
+                                                     schoolRating="${schoolPostSecondaryReadinessRating}"
+                                                     cityRating="${cityPostSecondaryReadinessRating}"
+                                                     stateRatingShow="${showStatePostSecondaryReadinessRating}"
+                                                     stateRating="${statePostSecondaryReadinessRating}"
+                                                     showLabels="${true}"
+                                                     gsNewRatingsModel="true"
+                                                     mobileDisplay="${true}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults3"
+                                                     schoolRating="${schoolPostSecondaryReadinessRating}"
+                                                     districtRating="${districtPostSecondaryReadinessRating}"
+                                                     stateRatingShow="${showStatePostSecondaryReadinessRating}"
+                                                     stateRating="${statePostSecondaryReadinessRating}"
+                                                     showLabels="${true}"
+                                                     gsNewRatingsModel="true"
+                                                     mobileDisplay="${true}"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
+                        <div class="clearfix"><!-- not empty --></div>
+                        <div class="grayBox tac mbm">
+                            <div class="clearfix phm pvm">
+                                <div class="fl small">${dataCopy['psr_breakdown_participation_label']}</div>
+                                <div class="fr tal"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grayBox tac mbm">
+                            <div class="clearfix phm pvm">
+                                <div class="fl small">${dataCopy['psr_breakdown_score_label']}</div>
+                                <div class="fr tal"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
+                                        test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong>
+                                </div>
+                            </div>
+                        </div>
+                        <c:if test="${not empty highSchoolGraduationRate}">
+                            <div class="grayBox tac mbm">
+                                <div class="clearfix phm pvm">
+                                    <div class="fl small">${dataCopy['psr_breakdown_graduation_rate_label']}</div>
+                                    <div class="fr tal"><strong>${highSchoolGraduationRate}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:if>
+                </div>
+
+                <hr class="keyline2"/>
+            </c:if>
+
+            <c:if test="${schoolTestScoreRating != null and not empty testScoreRatingSource}">
+                <p class="smaller bottom pts">${testScoreFootnoteNumeral} ${dataCopy['footnote_test_scores']}</p>
+            </c:if>
+
+            <c:if test="${schoolStudentGrowthRating != null and not empty studentGrowthRatingSource}">
+                <p class="smaller bottom">${growthFootnoteNumeral} ${dataCopy['footnote_growth']}</p>
+            </c:if>
+
+            <c:if test="${schoolPostSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
+                <p class="smaller bottom">${psrFootnoteNumeral} ${dataCopy['footnote_psr']}</p>
+            </c:if>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<mod:mobileTracking pageName="Ratings" hier1="School,Ratings" school="${school}" schoolGSRating="${overallRating}"/>
+
+</body>
+</html>
+</jsp:root>

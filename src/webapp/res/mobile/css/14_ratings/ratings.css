@@ -232,6 +232,12 @@ General comments:
 .ratingsGraphicMakesUp .iconTop {
     padding-left: 105px; height: 72px;
 }
+.newRatingsGraphicMakesUp .iconTop {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
+    padding-right: 4px;
+}
 .ratingsRightSide{ width:150px; float: right; margin: 0; padding: 0;}
 .ratingsRightSide .grayBox{
     border:1px #DDDDDD solid;
@@ -245,7 +251,8 @@ General comments:
 
 
 /************  Ratings Legend **************************/
-.ratingsLegend{width:310px;}
+.ratingsLegend{width:310px; margin-left: 15px;}
+.newRatingsGraphicMakesUp .ratingsLegend {width:280px; margin: 0 auto;}
 .ratingsLegend .marLeft{margin-left: 4px;}
 .ratingsLegend .bracketUp3 { border: 1px solid #999999; border-top: none; height:9px; width:56px; margin-top: 4px;}
 .ratingsLegend .bracketUp4 { border: 1px solid #999999; border-top: none; height:9px; width:84px; margin-top: 4px;}
@@ -312,6 +319,7 @@ General comments:
 .ratingsYellow {color:#F1AF31;  background-color: #F1AF31;}
 .ratingsGreen { color:#5E9D4C; background-color: #5E9D4C;}
 
+.ratingsGray { color:#999999; background-color: #999999;}
 
 
 
@@ -531,3 +539,8 @@ General comments:
 /*.bargraph .graphContainer .barContainer .lineGreen { background-color:#5E9D4C }*/
 /*.bargraph .graphContainer .barContainer .lineRed { background-color:#C1423F }*/
 /*.bargraph .graphContainer .barContainer .lineYellow { background-color:#F1AF31 }*/
+
+.ratingsBreakdownSummary {
+    width: 232px;
+    margin: 0 auto;
+}

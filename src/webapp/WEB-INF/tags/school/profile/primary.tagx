@@ -160,6 +160,6 @@
     </div>
     <!-- FRONTEND - This needs to be styled - it should appear to the right of the Last modified -->
     <div id="schoolInaccuracy" class="small bottom fr">Notice an inaccuracy? <link:schoolFeedback
-            schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!
+            schoolId="${school.id}" cityName="${school.city}" state="${school.databaseState}">Let us know</link:schoolFeedback>!
     </div>
 </jsp:root>

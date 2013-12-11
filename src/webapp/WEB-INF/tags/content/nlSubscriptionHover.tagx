@@ -23,7 +23,8 @@
                                     The email address is already in use.
                                 </div>
                                 <span class="nlEmail">
-                                    <input type="text" id="nlSubEmail" name="email" class="small bottom text input_6 mrm"
+                                    <input type="text" id="nlSubEmail" name="email" class="small mbn text input_6 mrm vam"
+                                           style="line-height: 15px;"
                                             onfocus="GS_textSwitch(this, '', '[Your email address]')"
                                             onblur="GS_textSwitch(this, '[Your email address]', '');"
                                             value="[Your email address]"/>
