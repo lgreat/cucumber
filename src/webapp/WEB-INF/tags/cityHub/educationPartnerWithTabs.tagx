@@ -13,7 +13,6 @@
             <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateNameEduCommu}_partnerData</h3>
         </c:if>
         <c:forEach items="${partnerData.partners}" var="partner">
-
             <c:choose>
                 <c:when test="${(defaultTab == partner.tabName and empty param.tab) or param.tab == partner.tabName}">
                     <div class="container_24 clearfix" data-gs-tab-content="${partner.tabName}"
@@ -48,7 +47,7 @@
                      </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="container_24 clearfix" data-gs-tab-content="${partner.tabName}"
+                    <div class="container_24 clearfix dn" data-gs-tab-content="${partner.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
                         <hr class="keyline1"/>
                         <div class="clearfix pvl">
