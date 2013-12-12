@@ -48,10 +48,10 @@
                      </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="container_24 clearfix mvl dn pvl" data-gs-tab-content="${partner.tabName}"
+                    <div class="container_24 clearfix" data-gs-tab-content="${partner.tabName}"
                          data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
                         <hr class="keyline1"/>
-                        <div class="clearfix mvl pvl">
+                        <div class="clearfix pvl">
                             <div class="grid_5">
                                 <gsml:img alt="Partner Logo" src="${partner.logo}"/>
                             </div>
