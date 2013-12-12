@@ -42,7 +42,7 @@
                                 <c:forEach items="${partnerCarousel.partnerLogos}" var="logo">
                                     <div>
 
-                                        <a href="education-community/#${logo.anchoredLink}">
+                                        <a href="education-community/${logo.anchoredLink}">
                                             <gsml:img src="${logo.logoPath}" alt="${logo.partnerName}" styleClass="mrm border-round border-E6E6E6"/></a>
                                      </div>
                                 </c:forEach>
