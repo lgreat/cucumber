@@ -30,6 +30,7 @@ Capybara.register_driver :mechanize_iphone do |app|
   driver
 end
 
+Capybara.app = "Our website"
 Capybara.app_host = "http://localhost" # Do not edit this line! See below
 # Set the following environment variable to point cucumber at various hosts.
 # Please note the host should not end in a slash

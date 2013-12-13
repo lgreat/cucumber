@@ -62,7 +62,7 @@ When /^I see "([^\"]+)" in the URL$/ do |substring|
 end
 
 When /^I (?:can )?click on the "([^\"]+)" link$/ do |link_name|
-  page.click_link link_name
+  page.click_link link_name, :match => :prefer_exact
 end
 
 When /^I click the button "([^\"]+)"$/ do |button_name|
@@ -77,7 +77,7 @@ When /^I type "([^\"]*)" into "([^\"]*)"$/ do |text, field|
   value_to_enter = text
   timestamp = Time.new.to_time.to_i.to_s
   value_to_enter.gsub! '[TIMESTAMP]', timestamp
-  fill_in field, :with => value_to_enter
+  fill_in field, :with => value_to_enter, :match => :prefer_exact
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)"$/ do |label, selector|
@@ -107,13 +107,7 @@ When /^I do not see "([^\"]*)"$/ do |text|
 end
 
 When /^the title has "(.*?)"$/ do |title|
-  # Current version of capybara has inconsistent methods of accessing page title depending on driver
-  title_elem = page.find(:xpath, '//title')
-  title_text = title_elem.text
-  if title_text.nil? || title_text.empty?
-    title_text = title_elem[:text]
-  end
-  title_text.should include title
+  page.title.should include title
 end
 
 When /^I see an alert with "(.*?)"$/ do |alert_expected|
