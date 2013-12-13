@@ -45,11 +45,11 @@
         </div>
         <hub:chooseASchool/>
         <c:choose>
-            <c:when test="${showannouncement or showannouncement ne 'false' }">
-                <hub:upcomingEvent/>
+            <c:when test="${showannouncement ne 'true' }">
+                <hub:upcomingEvent hideAnnouncementModule="true" hideAnnouncementCityPage="true"/>
             </c:when>
             <c:otherwise>
-                <hub:upcomingEvent hideAnnouncementModule="true"/>
+                <hub:upcomingEvent/>
             </c:otherwise>
         </c:choose>
 
