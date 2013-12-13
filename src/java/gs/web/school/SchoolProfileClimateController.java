@@ -4,6 +4,7 @@ import gs.data.school.School;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.state.State;
+import gs.data.util.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,7 +178,7 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
                     // this is a breakdown data type, store it for later
                     // I don't process it right away because we might not have come across the respective total
                     // and therefore the view bean may not be instantiated. Simpler to just handle these after
-                    addToMapOfLists(totalDataTypeToBreakdownDataSets, BREAKDOWN_TO_TOTAL_MAP.get(myDataType), censusDataSet);
+                    ListUtils.addToMapOfLists(totalDataTypeToBreakdownDataSets, BREAKDOWN_TO_TOTAL_MAP.get(myDataType), censusDataSet);
                 } else {
                     // Not a total or breakdown, probably a # of responses or response rate. Store it for later
                     otherDataSets.put(myDataType, censusDataSet);
@@ -280,18 +281,6 @@ public class SchoolProfileClimateController extends AbstractSchoolProfileControl
         if (responseRate != null || numberOfResponses != null) {
             responseCounts.add(new ClimateResponseCount(responseRate, numberOfResponses, respondentType));
         }
-    }
-
-    /**
-     * Adds value to the list using key on mapOfLists. Handles creating the list for the first value.
-     */
-    public static <K, V> void addToMapOfLists(Map<K, List<V>> mapOfLists, K key, V value) {
-        List<V> valueList = mapOfLists.get(key);
-        if (valueList == null) {
-            valueList = new ArrayList<V>();
-            mapOfLists.put(key, valueList);
-        }
-        valueList.add(value);
     }
 
     protected static boolean isDataTypeForClimate(CensusDataType censusDataType) {

@@ -1,7 +1,7 @@
 package gs.web.school;
 
+import gs.data.data.IDataDescriptionDao;
 import gs.data.school.Grade;
-import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.*;
@@ -34,6 +34,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String VIEW = "school/profileRatings";
     public static final String NEW_VIEW = "school/profileRatings2013";
     public static final String MOBILE_VIEW = "school/profileRatings-mobile";
+    public static final String NEW_MOBILE_VIEW = "school/profileRatings2013-mobile";
     private ControllerFamily _controllerFamily;
 
     @Autowired
@@ -145,7 +146,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This rating encompasses five elements of school climate: safety and cleanliness, respect and " +
                     "relationships, expectations for students, teacher collaboration and support, and parent " +
                     "involvement. This school's climate ratings are the result of GreatSchools' analysis of teacher " +
-                    "survey data from the Spring 2012 School Climate Survey developed by Milwaukee Public Schools.";
+                    "survey data from the Spring 2013 School Climate Survey developed by Milwaukee Public Schools.";
     public static final String SECTION_4_COPY_DATA_UNAVAILABLE_WI =
            "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
     public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
@@ -198,12 +199,14 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_TEST_SCORE_RATING_YEAR = "testScoreRatingYear";
     public static final String MODEL_SCHOOL_TEST_SCORE_RATING = "schoolTestScoreRating";
     public static final String MODEL_CITY_TEST_SCORE_RATING = "cityTestScoreRating";
+    public static final String MODEL_DISTRICT_TEST_SCORE_RATING = "districtTestScoreRating";
     public static final String MODEL_STATE_TEST_SCORE_RATING = "stateTestScoreRating";
     public static final String MODEL_SHOW_STATE_TEST_SCORE_RATING = "showStateTestScoreRating";
 
     public static final String MODEL_STUDENT_GROWTH_RATING_YEAR = "studentGrowthRatingYear";
     public static final String MODEL_SCHOOL_STUDENT_GROWTH_RATING = "schoolStudentGrowthRating";
     public static final String MODEL_CITY_STUDENT_GROWTH_RATING = "cityStudentGrowthRating";
+    public static final String MODEL_DISTRICT_STUDENT_GROWTH_RATING = "districtStudentGrowthRating";
     public static final String MODEL_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating";
     public static final String MODEL_SHOW_STATE_STUDENT_GROWTH_RATING = "showStateStudentGrowthRating";
     public static final String MODEL_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP = "schoolStudentGrowthRatingBreakdown"; // TestDataType.id = 165 with Reading and Math as subjects
@@ -211,6 +214,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear";
     public static final String MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating";
     public static final String MODEL_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating";
+    public static final String MODEL_DISTRICT_POST_SECONDARY_READINESS_RATING = "districtPostSecondaryReadinessRating";
     public static final String MODEL_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating";
     public static final String MODEL_SHOW_STATE_POST_SECONDARY_READINESS_RATING  = "showStatePostSecondaryReadinessRating";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE = "postSecondaryReadinessBreakdownTestScore";
@@ -218,6 +222,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL = "postSecondaryReadinessBreakdownTestScoreLabel";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL = "postSecondaryReadinessBreakdownPercentTestedLabel";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT = "postSecondaryReadinessBreakdownTestScoreMeasurement";
+    public static final String MODEL_HIGH_SCHOOL_GRADUATION_RATE = "highSchoolGraduationRate";
 
     public static final String MODEL_TEST_SCORE_RATING_SOURCE = "testScoreRatingSource";
 
@@ -246,6 +251,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON = "hideAlternateSiteButton";
     public static final String MODEL_KEY_ALTERNATE_SITE_PATH = "alternateSitePath";
 
+    public static final String MODEL_KEY_STATE_DISTRIBUTION_BELOW = "stateDistributionPercentBelow";
+    public static final String MODEL_KEY_STATE_DISTRIBUTION_AVERAGE = "stateDistributionPercentAverage";
+    public static final String MODEL_KEY_STATE_DISTRIBUTION_ABOVE = "stateDistributionPercentAbove";
+
 
     // ===================== DATA ===================================
 
@@ -256,17 +265,20 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_TEST_SCORE_RATING_YEAR = "testScoreRatingYear"; // TestDataType.id = 164 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_TEST_SCORE_RATING = "schoolTestScoreRating";  // TestDataType.id = 164
     public static final String DATA_CITY_TEST_SCORE_RATING = "cityTestScoreRating"; // TBD
+    public static final String DATA_DISTRICT_TEST_SCORE_RATING = "districtTestScoreRating"; // TestDataType.id = 164
     public static final String DATA_STATE_TEST_SCORE_RATING = "stateTestScoreRating";  // TestDataType.id = 164
 
     public static final String DATA_STUDENT_GROWTH_RATING_YEAR = "studentGrowthRatingYear"; // TestDataType.id = 165 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING = "schoolStudentGrowthRating"; // TestDataType.id = 165
     public static final String DATA_CITY_STUDENT_GROWTH_RATING = "cityStudentGrowthRating"; // TBD
+    public static final String DATA_DISTRICT_STUDENT_GROWTH_RATING = "districtStudentGrowthRating"; // TestDataType.id = 165
     public static final String DATA_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating"; // TestDataType.id = 165
     public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP = "schoolStudentGrowthRatingBreakdown"; // TestDataType.id = 165 with Reading and Math as subjects
 
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
     public static final String DATA_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating"; // TBD
+    public static final String DATA_DISTRICT_POST_SECONDARY_READINESS_RATING = "districtPostSecondaryReadinessRating"; // TBD
     public static final String DATA_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating"; // TestDataType.id = 166
     public static final String DATA_SCHOOL_ACT_SCORE = "schoolACTScore"; // TestDataType.id = 120
     public static final String DATA_SCHOOL_ACT_PERCENT_TAKING_TEST = "schoolACTPercentTakingTest"; // TestDataType.id = 175
@@ -309,9 +321,15 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         getPerformanceManagementRatingText(school,request,modelMap);
 
+        populateStateDistributions(dataMap, modelMap); // for enhanced ratings
+
+        modelMap.put("dataCopy", _schoolProfileDataHelper.getDataDescriptions(request).get(IDataDescriptionDao.TARGET_RATINGS_TAB));
         // need to check which view to return
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
         if (requestInfo != null && requestInfo.shouldRenderMobileView()) {
+            if (school.getIsNewerGSRating()) {
+                return NEW_MOBILE_VIEW;
+            }
             return MOBILE_VIEW;
         }
 
@@ -319,6 +337,16 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             return NEW_VIEW;
         }
         return VIEW;
+    }
+
+    protected void populateStateDistributions(Map<String, Object> dataMap, ModelMap modelMap) {
+        if (dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_ABOVE) != null &&
+                dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_AVERAGE) != null &&
+                dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_BELOW) != null) {
+            modelMap.put(MODEL_KEY_STATE_DISTRIBUTION_BELOW, dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_BELOW));
+            modelMap.put(MODEL_KEY_STATE_DISTRIBUTION_AVERAGE, dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_AVERAGE));
+            modelMap.put(MODEL_KEY_STATE_DISTRIBUTION_ABOVE, dataMap.get(SchoolProfileDataHelper.DATA_STATE_DISTRIBUTION_PERCENT_ABOVE));
+        }
     }
 
     //===================== Data ===================================
@@ -494,6 +522,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
             model.put(MODEL_TEST_SCORE_RATING_YEAR, dataMap.get(DATA_TEST_SCORE_RATING_YEAR));
             model.put(MODEL_SCHOOL_TEST_SCORE_RATING, dataMap.get(DATA_SCHOOL_TEST_SCORE_RATING));
+            model.put(MODEL_DISTRICT_TEST_SCORE_RATING, dataMap.get(DATA_DISTRICT_TEST_SCORE_RATING));
             model.put(MODEL_CITY_TEST_SCORE_RATING, dataMap.get(DATA_CITY_TEST_SCORE_RATING));
 
             if (showStateRating) {
@@ -512,6 +541,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
         if (dataMap.containsKey(DATA_CITY_STUDENT_GROWTH_RATING)) {
             model.put(MODEL_CITY_STUDENT_GROWTH_RATING, dataMap.get(DATA_CITY_STUDENT_GROWTH_RATING));
+        }
+        if (dataMap.containsKey(DATA_DISTRICT_STUDENT_GROWTH_RATING)) {
+            model.put(MODEL_DISTRICT_STUDENT_GROWTH_RATING, dataMap.get(DATA_DISTRICT_STUDENT_GROWTH_RATING));
         }
         if (showStateRating && dataMap.containsKey(DATA_STATE_STUDENT_GROWTH_RATING)) {
             model.put(MODEL_STATE_STUDENT_GROWTH_RATING, dataMap.get(DATA_STATE_STUDENT_GROWTH_RATING));
@@ -532,6 +564,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             model.put(MODEL_POST_SECONDARY_READINESS_RATING_YEAR, dataMap.get(DATA_POST_SECONDARY_READINESS_RATING_YEAR));
             model.put(MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING));
             model.put(MODEL_CITY_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_CITY_POST_SECONDARY_READINESS_RATING));
+            model.put(MODEL_DISTRICT_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_DISTRICT_POST_SECONDARY_READINESS_RATING));
             if (showStateRating) {
                 model.put(MODEL_STATE_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_STATE_POST_SECONDARY_READINESS_RATING));
             }
@@ -572,12 +605,18 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_SAT_GRADE), ACT_OR_SAT_TEST_NAME));
             model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT, "percent");
         }
+
+        model.put(MODEL_HIGH_SCHOOL_GRADUATION_RATE, dataMap.get(SchoolProfileDataHelper.DATA_HIGH_SCHOOL_GRADUATION_RATE));
     }
 
     protected static String getGradeText(Grade grade) {
         String rval = "";
         if (grade != null) {
-            if (grade.getValue() == 11) {
+            if (grade.getValue() == 9) {
+                rval = "9th graders";
+            } else if (grade.getValue() == 10) {
+                rval = "10th graders";
+            } else if (grade.getValue() == 11) {
                 rval = "11th graders";
             } else if (grade.getValue() == 12) {
                 rval = "12th graders";

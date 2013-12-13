@@ -797,9 +797,16 @@ jQuery(document).ready(function() {
     $('.js-ratingsExpando').on('click', function() {
         var $this = $(this);
         var id = $this.data('id');
-        console.log($this, id);
         $('.js-ratings-description-for-' + id).show('slow');
         $this.hide();
+        return false;
+    });
+
+    $('.js-ratingsCollapso').on('click', function() {
+        var $this = $(this);
+        var id = $this.data('id');
+        $('.js-ratings-description-for-' + id).hide('slow');
+        $('.js-ratingsExpando[data-id=' + id + ']').show('slow');
         return false;
     });
 

@@ -263,7 +263,7 @@
     <div class="spacer_15"><!-- do not collapse --></div>
 
         <div class="grid_16">
-            <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
+            <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}" state="${school.databaseState}">Let us know</link:schoolFeedback>!</div>
 
             <div id="schoolProfileTabsWrapper">
                 <div id="schoolProfileTabBar" class="gradient-1 rnd-top-4"><!-- do not collapse --></div>

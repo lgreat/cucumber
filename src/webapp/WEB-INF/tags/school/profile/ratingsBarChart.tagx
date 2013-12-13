@@ -2,24 +2,19 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-
-          xmlns:gsweb="gstaglib"
         >
 
     <jsp:directive.attribute name="ratingDivId" type="java.lang.String" required="true" description="Where to draw the bar chart"/>
     <jsp:directive.attribute name="schoolRating" type="java.lang.String" required="true" description="School rating value"/>
-    <jsp:directive.attribute name="cityRating" type="java.lang.Float" required="true" description="City rating value"/>
+    <jsp:directive.attribute name="cityRating" type="java.lang.Float" required="false" description="City rating value"/>
+    <jsp:directive.attribute name="districtRating" type="java.lang.Float" required="false" description="District rating value"/>
     <jsp:directive.attribute name="stateRatingShow" type="java.lang.String" required="true" description="Do we show the state rating"/>
     <jsp:directive.attribute name="stateRating" type="java.lang.Float" required="true" description="State rating value"/>
     <jsp:directive.attribute name="showLabels" type="java.lang.Boolean" required="false" description="Defaults true"/>
     <jsp:directive.attribute name="mobileDisplay" type="java.lang.Boolean" required="false" description="Defaults false"/>
+    <jsp:directive.attribute name="gsNewRatingsModel" type="java.lang.Boolean" required="false"/>
 
     <c:set var="showLabels" scope="page" value="${empty showLabels? true:showLabels}"/>
-
     <!--ratings div = ${ratingDivId}<br />-->
     <!--${schoolRating}             <br />-->
     <!--${cityRating}                     <br />-->
@@ -54,20 +49,49 @@
     <c:set var="schoolRatingColor"><c:if test="${schoolRating le 3}">ratingsRed</c:if><c:if test="${schoolRating ge 4 and schoolRating le 7}">ratingsYellow</c:if><c:if test="${schoolRating ge 8}">ratingsGreen</c:if></c:set>
 
     <c:set var="cityWidth" value=""/>
+    <c:set var="districtWidth" value=""/>
     <c:set var="stateWidth" value=""/>
 
-    <c:if test="${cityRating ne ''}">
+    <c:if test="${not empty cityRating}">
+
         <c:set var="cityWidth" value="${cityRating * DEFINED_HORIZONTAL_SPACER - 1}"/>
         <c:set var="barChartHeight" value="${barChartHeight +20}"/>
-        <c:set var="cityRatingColor"><c:if test="${cityRating le 3}">ratingsRed</c:if><c:if test="${cityRating ge 4 and cityRating le 7}">ratingsYellow</c:if><c:if test="${cityRating ge 8}">ratingsGreen</c:if></c:set>
+        <c:choose>
+            <c:when test="${gsNewRatingsModel eq 'true'}">
+                <c:set var="cityRatingColor" value="ratingsGray"/>
+            </c:when>
+            <c:when test="${gsNewRatingsModel ne 'true'}">
+                <c:set var="cityRatingColor"><c:if test="${cityRating le 3}">ratingsRed</c:if><c:if test="${cityRating ge 4 and cityRating le 7}">ratingsYellow</c:if><c:if test="${cityRating ge 8}">ratingsGreen</c:if></c:set>
+            </c:when>
+        </c:choose>
+    </c:if>
+    <c:if test="${not empty districtRating}">
+        <c:set var="districtWidth" value="${districtRating * DEFINED_HORIZONTAL_SPACER - 1}"/>
+        <c:set var="barChartHeight" value="${barChartHeight +20}"/>
+        <c:choose>
+            <c:when test="${gsNewRatingsModel eq 'true'}">
+                <c:set var="districtRatingColor" value="ratingsGray"/>
+            </c:when>
+            <c:when test="${gsNewRatingsModel ne 'true'}">
+                <c:set var="districtRatingColor"><c:if test="${districtRating le 3}">ratingsGray</c:if><c:if test="${districtRating ge 4 and districtRating le 7}">ratingsGray</c:if><c:if test="${districtRating ge 8}">ratingsGray</c:if></c:set>
+            </c:when>
+
+        </c:choose>
     </c:if>
     <c:if test="${stateRatingShow and stateRating ne ''}">
         <c:set var="stateWidth" value="${stateRating * DEFINED_HORIZONTAL_SPACER - 1}"/>
         <c:set var="barChartHeight" value="${barChartHeight +20}"/>
-        <c:set var="stateRatingColor"><c:if test="${stateRating le 3}">ratingsRed</c:if><c:if test="${stateRating ge 4 and stateRating le 7}">ratingsYellow</c:if><c:if test="${stateRating ge 8}">ratingsGreen</c:if></c:set>
+        <c:choose>
+            <c:when test="${gsNewRatingsModel eq 'true'}">
+                <c:set var="stateRatingColor" value="ratingsGray"/>
+            </c:when>
+            <c:when test="${gsNewRatingsModel ne 'true'}">
+                <c:set var="stateRatingColor"><c:if test="${stateRating le 3}">ratingsRed</c:if><c:if test="${stateRating ge 4 and stateRating le 7}">ratingsYellow</c:if><c:if test="${stateRating ge 8}">ratingsGreen</c:if></c:set>
+            </c:when>
+        </c:choose>
     </c:if>
 
-    <c:if test="${!(schoolRating eq '0') or (cityRating ne '') or (stateRatingShow and stateRating ne '')}">
+    <c:if test="${!(schoolRating eq '0') or (not empty cityRating) or (not empty districtRating) or (stateRatingShow and stateRating ne '')}">
 
     <div class="bargraph" id="${ratingDivId}">
         <div class="graphLabelsY">
@@ -75,8 +99,11 @@
                 <c:if test="${!(schoolRating eq '0')}">
                     <div class="spacerLabel smaller bottom">This school</div>
                 </c:if>
-                <c:if test="${cityRating ne ''}">
+                <c:if test="${not empty cityRating}">
                     <div class="spacerLabel smaller bottom">City</div>
+                </c:if>
+                <c:if test="${not empty districtRating}">
+                    <div class="spacerLabel smaller bottom">District</div>
                 </c:if>
                 <c:if test="${stateRatingShow and stateRating ne ''}">
                     <div class="spacerLabel smaller bottom">State</div>
@@ -89,11 +116,14 @@
                     <c:if test="${!(schoolRating eq '0')}">
                         <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
-                    <c:if test="${cityRating ne ''}">
+                    <c:if test="${not empty cityRating}">
                         <div class="barContainer" style="width:${cityWidth}px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
-                    <c:if test="${stateRatingShow}">
-                        <div class="barContainer" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
+                    <c:if test="${not empty districtRating}">
+                        <div class="barContainer district" style="width:${districtWidth}px"><div class="${districtRatingColor}"><!-- do not collapse --></div></div>
+                    </c:if>
+                    <c:if test="${stateRatingShow and stateRating ne ''}">
+                        <div class="barContainer state" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                 </div>
                 <div class="spacerFirst"><!-- do not collapse --></div>

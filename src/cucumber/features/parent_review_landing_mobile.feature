@@ -13,7 +13,7 @@ Feature: GreatSchools Mobile Parent Review Landing Page Test
   Then I see "You know your school best!"
 
   @javascript
-  Scenario: I can select a school to review from mobile school profile @cliu
+  Scenario: I can select a school to review from mobile school profile
     When I type "1651 Union Street, San Francisco CA 94123" into "searchString"
      And I click the button "Search"
     Then the title has "Search Results"

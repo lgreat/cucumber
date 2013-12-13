@@ -15,10 +15,6 @@
                 <a href="javascript:void(0);" style="display:none;" data-alternate-site-path="${alternateSitePath}"
                    class="but but-sm but-3" id="mobile-footer-view-full-site">View full site</a>
             </c:if>
-        <c:if test="${requestInfo.device.iphone}">
-            <a href="${requestScope.context.iphoneAppItunesStoreUrl}" data-role="button" data-inline="true"
-               class="but but-sm but-3 mls" id="mobile-footer-iphone-app" target="_blank">Get iPhone app</a>
-        </c:if>
         </div>
 
         <hr class="keyline3"/>

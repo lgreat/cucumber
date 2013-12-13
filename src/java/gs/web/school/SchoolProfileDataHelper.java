@@ -3,6 +3,8 @@ package gs.web.school;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
+import gs.data.data.DataDescriptions;
+import gs.data.data.IDataDescriptionDao;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
@@ -67,6 +69,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     private final static String CMS_ARTICLES = "cmsArticles";
     private final static String SCHOOL_VIDEOS = "schoolVideos";
     private final static String OSP_STATUS = "ospStatus";
+    private final static String DATA_DESCRIPTION = "dataDescription";
 //    private static final String FACEBOOK_MODEL_KEY = "facebook";
 
     private final static String CENSUS_DATA = "censusData";
@@ -124,6 +127,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     private ITestDataStateValueDao _testDataStateValueDao;
 
     @Autowired
+    private ITestDataDistrictValueDao _testDataDistrictValueDao;
+
+    @Autowired
     private ParentReviewHelper _parentReviewHelper;
 
     @Autowired
@@ -137,6 +143,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
 
     @Autowired
     private SchoolCalendarAjaxController _schoolCalendarAjaxController;
+
+    @Autowired
+    private IDataDescriptionDao _dataDescriptionDao;
 
     public Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -917,6 +926,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.SAT_PERCENT_TESTED);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_SAT_PARTICIPATION);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_SAT_COLLEGE_READY);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.HIGH_SCHOOL_GRADUATION_RATE);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_PERFORMANCE_MANAGEMENT);
     }
 
@@ -927,6 +937,16 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
         STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
         STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
         STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS);
+        STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL); // for state distributions
+    }
+
+    // test data types for state ratings
+    private static final Set<Integer> DISTRICT_RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
+
+    static {
+        DISTRICT_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
+        DISTRICT_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
+        DISTRICT_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS);
     }
 // ===================== DATA ===================================
 
@@ -936,15 +956,18 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
 
     public static final String DATA_TEST_SCORE_RATING_YEAR = "testScoreRatingYear"; // TestDataType.id = 164 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_TEST_SCORE_RATING = "schoolTestScoreRating";  // TestDataType.id = 164
+    public static final String DATA_DISTRICT_TEST_SCORE_RATING = "districtTestScoreRating";  // TestDataType.id = 164
     public static final String DATA_STATE_TEST_SCORE_RATING = "stateTestScoreRating";  // TestDataType.id = 164
 
     public static final String DATA_STUDENT_GROWTH_RATING_YEAR = "studentGrowthRatingYear"; // TestDataType.id = 165 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING = "schoolStudentGrowthRating"; // TestDataType.id = 165
     public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP = "schoolStudentGrowthRatingBreakdown"; // TestDataType.id = 165 with Reading and Math as subjects
+    public static final String DATA_DISTRICT_STUDENT_GROWTH_RATING = "districtStudentGrowthRating"; // TestDataType.id = 165
     public static final String DATA_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating"; // TestDataType.id = 165
 
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_DISTRICT_POST_SECONDARY_READINESS_RATING = "districtPostSecondaryReadinessRating"; // TestDataType.id = 166
     public static final String DATA_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating"; // TestDataType.id = 166
     public static final String DATA_SCHOOL_ACT_SCORE = "schoolACTScore"; // TestDataType.id = 120
     public static final String DATA_SCHOOL_ACT_PERCENT_TAKING_TEST = "schoolACTPercentTakingTest"; // TestDataType.id = 175
@@ -955,6 +978,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     public static final String DATA_SCHOOL_ACT_SAT_GRADE = "schoolACTSATGrade";
     public static final String DATA_SCHOOL_ACT_SAT_PARTICIPATION = "schoolACTSATParticipation"; // TestDataType.id = 181
     public static final String DATA_SCHOOL_ACT_SAT_COLLEGE_READY = "schoolACTSATCollegeReady"; // TestDataType.id = 182
+    public static final String DATA_HIGH_SCHOOL_GRADUATION_RATE = "schoolHighSchoolGraduationRate"; // TestDataType.id = 202
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -964,6 +988,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     public static final String DATA_FAMILY_ENGAGEMENT_RATING = "familyEngagementRating"; // TestDataType.id = 169
 
     public static final String DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST = "schoolPerformanceManagementRating"; // TestDataType.id = 180
+
+    public static final String DATA_STATE_DISTRIBUTION_PERCENT_BELOW = "stateDistributionPercentBelow"; // TestDataType.id = 174
+    public static final String DATA_STATE_DISTRIBUTION_PERCENT_AVERAGE = "stateDistributionPercentAverage"; // TestDataType.id = 174
+    public static final String DATA_STATE_DISTRIBUTION_PERCENT_ABOVE = "stateDistributionPercentAbove"; // TestDataType.id = 174
 
     public Map<String, Object> getGsRatings(HttpServletRequest request) {
 
@@ -1000,7 +1028,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
     }
 
     public Map<String, Object> getDataMap(School school, Set<String> displayTarget) {
-        Map<String,Object> dataMap = null;
+        Map<String,Object> dataMap = new HashMap<String, Object>();
 
         //Get the test data sets for all the data type ids(school and state data type ids).
         List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
@@ -1023,8 +1051,11 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
             }
         }
 
-        if (!schoolTestValues.isEmpty() || !stateTestDataSets.isEmpty()) {
-            dataMap = new HashMap<String, Object>();
+        List<TestDataSet> districtTestDataSets = new ArrayList<TestDataSet>();
+        for (TestDataSet dataSet : testDataSets) {
+            if (DISTRICT_RATING_TEST_DATA_TYPE_IDS.contains(dataSet.getDataTypeId())) {
+                districtTestDataSets.add(dataSet);
+            }
         }
 
         Map<String,String> subjectLabelToValueMap = new HashMap<String,String>();
@@ -1125,6 +1156,18 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
                         dataMap.put(DATA_SCHOOL_ACT_SAT_COLLEGE_READY, Math.round(value.getValueFloat()));
                     }
                     break;
+                case TestDataType.HIGH_SCHOOL_GRADUATION_RATE:
+                    if (StringUtils.isNotBlank(value.getValueText())) {
+                        String pct = value.getValueText();
+                        if (StringUtils.endsWith(pct, "%")) {
+                            // we're good
+                            dataMap.put(DATA_HIGH_SCHOOL_GRADUATION_RATE, value.getValueText());
+                        } else {
+                            // add one on
+                            dataMap.put(DATA_HIGH_SCHOOL_GRADUATION_RATE, value.getValueText() + "%");
+                        }
+
+                    }
                 case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
                     LevelCode levelCode = dataSet.getLevelCode();
                     if (levelCode != null && value.getValueFloat() != null) {
@@ -1144,6 +1187,35 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
             dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST, performanceManagementRatingList);
         }
 
+
+        if (!districtTestDataSets.isEmpty()) {
+
+            List<DistrictTestValue> districtTestValues = _testDataDistrictValueDao.findValues(districtTestDataSets, school.getDatabaseState());
+            for (DistrictTestValue value : districtTestValues) {
+                switch (value.getDataSet().getDataTypeId()) {
+                    case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
+                        //Get the district test score only if there is school test score info.
+                        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
+                            dataMap.put(DATA_DISTRICT_TEST_SCORE_RATING, value.getValueFloat());
+                        }
+                        break;
+                    case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
+                        //Get the year for the Rating from the data set for the state value.
+                        if(!dataMap.containsKey(DATA_STUDENT_GROWTH_RATING_YEAR)){
+                            dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
+                        }
+                        //Get the district growth rating even if there is no school growth rating.
+                        dataMap.put(DATA_DISTRICT_STUDENT_GROWTH_RATING, value.getValueFloat());
+                        break;
+                    case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
+                        //Get the district psr score only if there is school post secondary info.
+                        if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING)) {
+                            dataMap.put(DATA_DISTRICT_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
+                        }
+                        break;
+                }
+            }
+        }
 
         if (!stateTestDataSets.isEmpty() && (SchoolProfileRatingsController.isShowStateTestScoreRating(school.getDatabaseState())
                 || SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState())
@@ -1172,11 +1244,39 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
                             dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
                         }
                         break;
+                    case TestDataType.RATING_OVERALL:
+                        String distribution = value.getValueText();
+                        if (StringUtils.isNotBlank(distribution)) {
+                            String[] distributionArray = distribution.split(",");
+                            if (distributionArray.length == 3) {
+                                try {
+                                    dataMap.put(DATA_STATE_DISTRIBUTION_PERCENT_BELOW, Float.parseFloat(distributionArray[0]));
+                                    dataMap.put(DATA_STATE_DISTRIBUTION_PERCENT_AVERAGE, Float.parseFloat(distributionArray[1]));
+                                    dataMap.put(DATA_STATE_DISTRIBUTION_PERCENT_ABOVE, Float.parseFloat(distributionArray[2]));
+                                } catch (NumberFormatException nfe) {
+                                    _log.error("Error in TestDataStateValue for data type 174, distribution is not convertible to float: " + nfe, nfe);
+                                }
+                            }
+                        }
+                        break;
                 }
             }
         }
 
         return dataMap;
+    }
+
+    public Map<String, DataDescriptions> getDataDescriptions(HttpServletRequest request) {
+        School school = _requestAttributeHelper.getSchool(request);
+
+        Map<String, DataDescriptions> dataDescriptionMap = (Map<String, DataDescriptions>) getSharedData(request, DATA_DESCRIPTION);
+        if (dataDescriptionMap == null) {
+            dataDescriptionMap = _dataDescriptionDao.getDataDescriptions(school.getDatabaseState());
+
+            setSharedData(request, DATA_DESCRIPTION, dataDescriptionMap);
+        }
+
+        return dataDescriptionMap;
     }
 
     protected EspStatus getOspStatus( HttpServletRequest request ) {
@@ -1343,6 +1443,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper implements BeanF
 
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         _beanFactory = beanFactory;
+    }
+    public void setDataDescriptionDao(IDataDescriptionDao dataDescriptionDao) throws BeansException {
+        _dataDescriptionDao = dataDescriptionDao;
     }
 }
 

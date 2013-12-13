@@ -87,3 +87,17 @@ end
 When 'I do not see climate data' do
   step 'I do not see "Based on surveys from"'
 end
+
+When /^I see enhanced ratings including test scores and ([^\"]+)* ratings$/ do |breakdowns|
+  step 'I see "What is the GreatSchools Rating?"'
+  step 'I see "Breaking down the GreatSchools Rating"'
+  step 'I see "How schools in the state rate"'
+  step 'I see "Test score rating 20"'
+  step 'I do not see "Climate ratings"'
+  if breakdowns.match('growth')
+    step 'I see "Student growth rating 20"'
+  end
+  if breakdowns.match('college')
+    step 'I see "College readiness rating 20"'
+  end
+end

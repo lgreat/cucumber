@@ -86,6 +86,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     public  static final  String MODEL_CLIMATE_RATING = "climateRating";
     public  static final  String MODEL_CLIMATE_RATING_NUMERIC = "climateRatingNumeric";
     public  static final  String MODEL_ACADEMIC_RATING = "academicRating";
+    public  static final  String MODEL_TEST_SCORE_RATING = "testScoreRating";
+    public  static final  String MODEL_GROWTH_RATING = "growthRating";
+    public  static final  String MODEL_PSR_RATING = "psrRating";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT = "Data not available";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_DC = "Coming 2013";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_IN = "Coming soon";
@@ -433,7 +436,19 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
         //Only display ratings tile if there is overall rating and academic rating, and if school should show new rating
-        if (Boolean.TRUE == school.getIsNewGSRating() && ratingsMap != null && !ratingsMap.isEmpty()
+        if (Boolean.TRUE == school.getIsNewerGSRating() && ratingsMap != null && !ratingsMap.isEmpty()
+                && ratingsMap.get(SchoolProfileDataHelper.DATA_OVERALL_RATING) != null
+                && (ratingsMap.get(SchoolProfileDataHelper.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING) != null
+                    || ratingsMap.get(SchoolProfileDataHelper.DATA_SCHOOL_TEST_SCORE_RATING) != null
+                    || ratingsMap.get(SchoolProfileDataHelper.DATA_SCHOOL_STUDENT_GROWTH_RATING) != null)) {
+            model = new HashMap<String, Object>();
+            model.put(MODEL_OVERALL_RATING, ratingsMap.get(SchoolProfileDataHelper.DATA_OVERALL_RATING));
+            model.put(MODEL_TEST_SCORE_RATING, ratingsMap.get(SchoolProfileDataHelper.DATA_SCHOOL_TEST_SCORE_RATING));
+            model.put(MODEL_GROWTH_RATING, ratingsMap.get(SchoolProfileDataHelper.DATA_SCHOOL_STUDENT_GROWTH_RATING));
+            model.put(MODEL_PSR_RATING, ratingsMap.get(SchoolProfileDataHelper.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING));
+
+            model.put("content", "NewGsRatings");
+        } else if (Boolean.TRUE == school.getIsNewGSRating() && ratingsMap != null && !ratingsMap.isEmpty()
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING) != null
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING) != null) {
             model = new HashMap<String, Object>(5);

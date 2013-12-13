@@ -61,7 +61,7 @@ When /^I see "([^\"]+)" in the URL$/ do |substring|
   page.current_url.should include substring
 end
 
-When /^I click on the "([^\"]+)" link$/ do |link_name|
+When /^I (?:can )?click on the "([^\"]+)" link$/ do |link_name|
   page.click_link link_name
 end
 
