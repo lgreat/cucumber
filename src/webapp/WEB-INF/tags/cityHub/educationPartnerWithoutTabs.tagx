@@ -7,14 +7,14 @@
 
         >
 
-    <div class="container_24 clearfix mbl">
+    <div class="container_24 clearfix">
         <c:if test="${empty partnerData.partners}">
             <hr class="keyline1"/>
             <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateNameEduCommu}_partnerData</h3>
         </c:if>
         <c:forEach items="${partnerData.partners}" var="partner">
 
-                    <div class="container_24 clearfix mvl pvl" >
+                    <div class="container_24 clearfix " >
                         <hr class="keyline1"/>
                         <div class="clearfix mvl pvl">
                             <div class="grid_5">
