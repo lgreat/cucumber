@@ -206,7 +206,21 @@
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generateMetaKeywords(java.lang.String,gs.data.state.State)</function-signature>
     </function>
-
+    <function>
+        <name>choosePageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleChoosingPage(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
+    <function>
+        <name>choosePageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionChoosingPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>choosePageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsChoosingPage(java.lang.String)</function-signature>
+    </function>
     <function>
         <name>districtPageTitle</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
