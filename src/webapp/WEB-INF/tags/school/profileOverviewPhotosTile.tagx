@@ -97,7 +97,7 @@
                             <c:set var="omnitureTileName" value="piccta"/>
                             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
                             <link:schoolEspRegister styleClass="no_interrupt tdn" school="${school}">
-                                <div class="mod standard_3-1" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
+                                <div id="no-osp-add-pictures" class="mod standard_3-1" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                                     <div class="outer">
                                         <div class="inner bg-addPhotos ie-moduleHeight-162">
                                             <div class="hd">

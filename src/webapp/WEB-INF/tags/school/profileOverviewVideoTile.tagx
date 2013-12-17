@@ -72,7 +72,7 @@
             </c:if>
             <c:set var="omnitureTileName" value="bounds"/>
             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, omnitureTileName)}" scope="request"/>
-            <link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
+            <link:districtBoundaryTool styleClass="tdn js-tile-3-0" school="${school}" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-districtMap ie-moduleHeight-162">

@@ -12,9 +12,11 @@ DEFAULT_SELECTORS = {
     'the search results filter by rating dialog' => '#js-ratingsDropDown',
     'primary nav' => '#gs-primary',
     'secondary nav' => '#gs-secondary',
+
 }
 PAGE_SELECTORS ||= {}
 CURRENT_SELECTORS ||= {}
+CURRENT_SELECTORS.merge! DEFAULT_SELECTORS
 
 def setup_selectors(page_name)
   CURRENT_SELECTORS.clear
