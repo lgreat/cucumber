@@ -14,9 +14,9 @@
         </c:if>
         <c:forEach items="${partnerData.partners}" var="partner">
 
-                    <div class="container_24 clearfix " >
+                    <div class="container_24 clearfix mvl" >
                         <hr class="keyline1"/>
-                        <div class="clearfix mvl pvl">
+                        <div class="clearfix pvl">
                             <div class="grid_5">
                                 <gsml:img alt="Partner Logo" src="${partner.logo}"/>
                             </div>
