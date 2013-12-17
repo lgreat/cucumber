@@ -222,6 +222,21 @@
         <function-signature>java.lang.String generateMetaKeywordsChoosingPage(java.lang.String)</function-signature>
     </function>
     <function>
+        <name>enrollmentPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleEnrollmentPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>enrollmentPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionEnrollmentPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>enrollmentPageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsEnrollmentPage(java.lang.String)</function-signature>
+    </function>
+    <function>
         <name>districtPageTitle</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generatePageTitle(gs.data.school.district.District, gs.data.school.LevelCode, java.lang.String[])</function-signature>
