@@ -61,8 +61,6 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <!-- TODO: remove the text below -->
-                <!--<p>show ads: ${showAds}</p>-->
             </div>
         </c:when>
         <c:when test="${hasImportantEventsToDisplay and !hideAnnouncementModule and  !hideAnnouncementCityPage}">
@@ -173,10 +171,8 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <!-- TODO: remove the text below -->
-                <!--<p>show ads: ${showAds}</p>-->
             </div>
-            <div class="container_24 clearfix mvl">
+            <div class="clearfix mvl">
             </div>
         </c:when>
         <c:otherwise>
