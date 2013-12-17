@@ -237,6 +237,21 @@
         <function-signature>java.lang.String generateMetaKeywordsEnrollmentPage(java.lang.String)</function-signature>
     </function>
     <function>
+        <name>eduPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleEduPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>eduPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionEduPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>eduPageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsEduPage(java.lang.String)</function-signature>
+    </function>
+    <function>
         <name>districtPageTitle</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generatePageTitle(gs.data.school.district.District, gs.data.school.LevelCode, java.lang.String[])</function-signature>
