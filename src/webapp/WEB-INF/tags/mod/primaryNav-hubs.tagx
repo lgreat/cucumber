@@ -177,12 +177,13 @@
                             <div class="dropdownReference">
                                 <c:choose>
                                     <c:when test="${empty requestScope.context.memberId}">
-                                        <div id="utilLinksUnsignedIn">
+                                        <div id="utilLinks_hubs" >
+                                        <div id="welcomeName">
                                             <link:loginOrRegister id="" email="${requestScope.context.email}"
                                                                   styleClass="menuItemAnchorText last GS_CI9_"
                                                                   onclick=" { if (s.tl) {s.tl(this,'o', 'N2-SignIn');} GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader)};return false;"
                                                                   redirect="${myUrl}">Sign In</link:loginOrRegister>
-
+                                          </div>
                                         </div>
                                     </c:when>
                                     <c:otherwise>

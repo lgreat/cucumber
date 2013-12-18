@@ -64,7 +64,25 @@ GS.facebook = GS.facebook || (function () {
         var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
         return html;
     };
+
+
+    var firstLinkSelectorNewNavBar = "#welcomeName";
+    var secondLinkSelector = "#utilLinks a:eq(1)";
+    var thirdLinkSelector = "#utilLinks a:eq(2)";
+
+
     var updateUIForLogin = function (userId, email, firstName, numberMSLItems) {
+
+        $(firstLinkSelectorNewNavBar).addClass("menuItemAnchorText");
+        $(firstLinkSelectorNewNavBar).html("Welcome, " + firstName+"<span class=\"iconx16 i-16-yellow-dropdown-arrow vam mls\"><!--Do not collapse--></span>");
+        $("#utilLinks_hubs").append(" <div class=\"dropdown_3 dropdown_align_right\">"+
+            " <ul class=\"none\" > "+
+            "  <li class=\"subMenuItem\" >" +
+            "  <a id=\"N2_A-MySchoolList\"   class=\"subMenuItemAnchorText GS_CI9_\" rel=\"nofollow\" href=\"/mySchoolList.page\">" +
+            "   My School List("+ numberMSLItems +") </a> </li><li class=\"subMenuItem\"  >"+
+            "   <a id=\"N2_A-AccountSettings\"    class=\"subMenuItemAnchorText GS_CI9_\" href=\"/account\" >Account Settings</a></li>"+
+            "  <li class=\"subMenuItem\"> <a id=\"N2_A-SignOut\" class=\"js-log-out subMenuItemAnchorText GS_CI9_\" href="+ getSignOutLink(email, userId) + ">Sign Out</a>"+
+            "  </li> </ul></div>");
         $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(firstName));
         $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
         $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
@@ -316,7 +334,7 @@ GS.facebook = GS.facebook || (function () {
                         // Backed out from r226
                         $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                             if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
-                                location.reload();
+//                                location.reload();
                                 if (regLoginResponse.GSAccountCreated === "true") {
                                     trackGSAccountCreated();
                                 }
