@@ -1,3 +1,34 @@
+school_profile_page_selectors = {
+    'GreatSchools ratings' => '#js-tile-1-3 .js-trigger',
+    'USP promo' => '.js-tile-2-0',
+    'District boundary' => '.js-tile-3-0',
+    'District information' => '#js-tile-13-1 .js-trigger',
+    'Community rating' => '#js-tile-4-0 .js-trigger',
+    'Community reviews' => '#js-tile-5-0 .js-trigger',
+    'Student diversity' => '#js-tile-7-0 .js-trigger',
+    'Staff' => '#js-tile-8-1 .js-trigger',
+    'Students per teacher' => '#js-tile-9-1-1 .js-trigger',
+    'Highlights' => '#js-tile-10-2 .js-trigger',
+    'Special education' => '#js-tile-8-0-1 .js-trigger',
+    'Extended care' => '#js-tile-8-0-2 .js-trigger',
+    'Transportation' => '#js-tile-9-0 .js-trigger',
+    'Programs' => '#js-tile-10-0 .js-trigger',
+    'Getting In' => '#js-tile-11-1 .js-trigger',
+    'Extracurriculars' => '#js-tile-14-0 .js-trigger',
+    'Finding the right school' => '.js-tile-4-3',
+    'Tandem' => '#js-tile-tandem .js-trigger',
+    'About the school' => '#js-tile-1-2 .js-trigger',
+    'Awards & recognition' => '#js-tile-1-1 .js-trigger',
+    'Add photos' => '#no-osp-add-pictures',
+    'Be sure to visit' => '#js-tile-11-0',
+    'Best known for' => '.bestKnownFor',
+    'Neighborhood Info' => '#js-tile-13-2',
+    'Facebook' => '#js_facebookModuleOverviewPage',
+    #'' => '',
+}
+
+define_page_selectors 'school profiles', school_profile_page_selectors
+
 When /^I click on the "([^\"]+)" tab$/ do |tab_name|
   page.find(:xpath, "//*/li[@data-gs-tab]/a[text() = '#{tab_name}']").click
 end
@@ -51,6 +82,7 @@ When /^I am on "([^\"]+)" page "([^\"]+)" tab$/ do |page_name, tab_name|
 end
 
 When /^I am on the profile page for ([a-zA-Z\-]+)-(\d+) "([^\"]+)" tab$/ do |state, id, tab|
+  setup_selectors "school profiles"
   visit "/#{state}/city/#{id}-school/?tab=#{tab}"
 end
 
@@ -101,3 +133,11 @@ When /^I see enhanced ratings including test scores and ([^\"]+)* ratings$/ do |
     step 'I see "College readiness rating 20"'
   end
 end
+
+When /^I follow the "([^\"]*)" link in "([^\"]*)"$/ do |name, element|
+  #blah = page.find(:css, element)
+  within(find(selector_for(element))) do
+    click_link(name)
+  end
+end
+

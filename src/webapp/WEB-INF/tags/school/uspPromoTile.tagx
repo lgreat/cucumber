@@ -14,7 +14,7 @@
 
     <c:set var="moduleHeight" value="height:120px;" />
 
-    <link:uspForm school="${school}" styleClass="tdn" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');">
+    <link:uspForm school="${school}" styleClass="tdn js-tile-2-0" onclick="clickCapture.capture('prop9', 'TILE-${omnitureTileName}');">
         <div class="mod standard_3-1">
 
             <div class="outer" style="padding-bottom: 4px; padding-top: 4px; padding-left: 4px; padding-right: 4px;">

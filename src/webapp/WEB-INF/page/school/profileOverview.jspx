@@ -171,6 +171,7 @@
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
                             <div class="unit size2of100">&amp;nbsp;</div>
+                            <!--<div id="js-tile-4-3" class="unit size32of100 lastUnit">-->
                             <div class="unit size32of100 lastUnit">
                                 <!-- Single wide school video tour -->
                                 <school:profileOverviewTourVideoTile tourModel="${applInfo}" />
