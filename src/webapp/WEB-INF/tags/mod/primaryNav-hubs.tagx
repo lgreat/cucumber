@@ -284,7 +284,7 @@
                     <li class="subMenuItem">
                         <a href="/" class="subMenuItemAnchorText"
                            onclick="javascript:GS.hubs.clearLocalUserCookies(); clickCapture.capture('prop9', 'N2_C-NotInCity');">
-                            Not in {{hubCity}} ?</a>
+                            Not in {{hubCity}}?</a>
                     </li>
 
                 </ul>
