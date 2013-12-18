@@ -1,12 +1,7 @@
-Feature: GreatSchools School Overview
+Feature: GreatSchools School Overview    @cliu
   As a parent
   I want to quickly access school data and reviews
   So that I can educate myself
-
-#  Background: I am on the "GreatSchools School Overview" page
-#    Given I am on the profile page for Ohio-2755 "overview" tab
-
-#  Scenario: I can navigate the GreatSchools ratings tile         @cliu
 
 @data_brittle
 Scenario Outline: I can click through tiles to see detailed views on sub-tabs
@@ -46,11 +41,11 @@ Scenario Outline: I can click through tiles to see detailed views on sub-tabs
 
    Examples:
 
-     | state | id   | tile                 | url_fragment                   | text                                 |
-     | ohio  | 2755 | USP promo            | QandA                          | Help others by sharing what you know |
-     | ohio  | 2755 | District boundary    | school-district-boundaries-map | School and District Boundaries Map   |
-     | ohio  | 2755 | District information | school-district-boundaries-map | School and District Boundaries Map   |
-#      | california | 1 |       Finding the right school        | school-choice |   How to choose the right          |
+     | state      | id   | tile                     | url_fragment                   | text                                 |
+     | ohio       | 2755 | USP promo                | QandA                          | Help others by sharing what you know |
+     | ohio       | 2755 | District boundary        | school-district-boundaries-map | School and District Boundaries Map   |
+     | ohio       | 2755 | District information     | school-district-boundaries-map | School and District Boundaries Map   |
+#     | california | 1    | Finding the right school | school-choice                  | How to choose the right              |
 #     | california | 11902 | Add photos        | official-school-profile        | Request a school administrator account |   url not going to alameda
 #| wisconsin| 1110 | Finding the right school |  school-choice       |    Finding the right elementary school |   not passing, cant find tile id
 
@@ -69,30 +64,15 @@ Examples:
   | california | 1    | Be sure to visit | High school       | high-school-checklist.pdf       |
 
 @data_brittle
-Scenario Outline: I can see the tiles on the overview page      @cliu
+Scenario Outline: I can see the tiles on the overview page
   Given I am on the profile page for <state>-<id> "overview" tab
   Then "<tile>" is visible
 
 Examples:
-  | state      | id   | tile |
-  | wisconsin  | 3425 |   Best known for       |
-  | wisconsin  | 3425 |   Neighborhood Info      |
-  | wisconsin  | 3425 |   Facebook      |
-
-
-
-#  Scenario: I am on the school overview page
-#   Given I am on the profile page for Ohio-2755 "overview" tab
-#    And I click on "GreatSchools ratings"
-#    Then the title has "School Ratings for "
-#   Then I see "What is the GreatSchools Rating?"
-#
-# @javascript @data_brittle
-# Scenario: I am on the school overview page         @cliu
-#   Given I am on the profile page for Ohio-2755 "overview" tab
-#    And I click on ""
-#    Then the title has " "
-#   Then I see ""
+  | state     | id   | tile              |
+  | wisconsin | 3425 | Best known for    |
+  | wisconsin | 3425 | Neighborhood Info |
+  | wisconsin | 3425 | Facebook          |
 
 
 
