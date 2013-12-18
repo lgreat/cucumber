@@ -72,7 +72,7 @@
         <div class="container_24 clearfix">
 
             <div class="grid_5">
-                <gsml:a href="/" styleClass="mtl">
+                <gsml:a href="/" styleClass="mtl GS_CI9_"  id="N2-Logo">
                     <gsml:img id="logo" src="/res/img/logo/GS_logo_189x38.png" styleClass="mtm"
                               alt="GreatSchools: Involved Parents. Successful Kids"/>
                 </gsml:a>
