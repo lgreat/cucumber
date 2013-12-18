@@ -24,6 +24,7 @@
         <hub:seeAllEventDates/>
         <mod:tracking pageName="${pageName}"
                       locale="${city}"
+                      hier1="Education Events in ${city}, ${state.abbreviation}"
                       localPageName="${pageName}"/>
     </body>
     </html>

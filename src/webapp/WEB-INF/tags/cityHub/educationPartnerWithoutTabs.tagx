@@ -14,7 +14,7 @@
         </c:if>
         <c:forEach items="${partnerData.partners}" var="partner">
 
-                    <div class="container_24 clearfix mvl" >
+                    <div class="container_24 clearfix" >
                         <hr class="keyline1"/>
                         <div class="clearfix pvl">
                             <div class="grid_5">

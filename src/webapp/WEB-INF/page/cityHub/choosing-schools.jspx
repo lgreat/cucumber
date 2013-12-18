@@ -29,7 +29,7 @@
     <hub:stepsChoosing/>
     <mod:tracking pageName="${pageName}"
                   locale="${city}"
-                  hier1="Home,city Choose Page,${city}-${state.abbreviation}"
+                  hier1="Choosing a school in ${city}"
                   localPageName="${pageName}"/>
     </body>
     </html>
