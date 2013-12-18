@@ -120,6 +120,15 @@
                     </div>
                 </div>
                         <p class="pam small bottom tal">${section1Copy}</p>
+                <c:if test="${school.databaseState eq 'WI' and school.type.schoolTypeName eq 'private'}">
+                    <p class="pam small tal">
+                        For private schools, the GreatSchools academic rating is based on test scores and student growth
+                        measures from students participating in the Milwaukee Parental Choice Program and
+                        <em>is not necessarily reflective of performance for all students at a private school</em>.
+                        GreatSchools is working with state education officials in the hopes of presenting a more
+                        comprehensive picture of student performance at private schools in the future.
+                    </p>
+                </c:if>
 
 
             </div>

@@ -16,10 +16,11 @@ Feature: GreatSchools Mobile Parent Review Landing Page Test
   Scenario: I can select a school to review from mobile school profile
     When I type "1651 Union Street, San Francisco CA 94123" into "searchString"
      And I click the button "Search"
+     And I wait 1 second for the JavaScript to execute
     Then the title has "Search Results"
      And I click on the "Sherman Elementary School" link
      And I click on the "Write a review" link
-    Then I see "You know your school best!"
+    Then I see "Rate this school"
 
 #  @javascript
 #  Scenario Outline: I can navigate the mobile navigational menu

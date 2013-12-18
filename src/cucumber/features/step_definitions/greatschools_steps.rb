@@ -24,11 +24,12 @@ if defined? Capybara && Capybara.app_host=~/localhost/
 end
 
 When /^I global search for "([^\"]*)" in ([a-zA-Z-][a-zA-Z-])$/ do |query, state|
-  fill_in("qNew", :with => query)
+  # duplicate id on page, so use this to select out the right one
+  page.find('#topnav_search_school').find('#qNew').set query
   if state == '--'
-    page.select "State", :from => 'stateSelector'
+    page.find('#topnav_search_school .stateSelect option', :text => 'State').select_option
   else
-    page.select state, :from => 'stateSelector'
+    page.find('#topnav_search_school .stateSelect option', :text => state).select_option
   end
   page.find(:css, "#topnav_search .searchBarSchool button").click
 end
@@ -38,9 +39,6 @@ When /^I pick:$/ do |table|
     page.select value, :from => field	
   end 
 end
-#When /^I sign in$/ do
-#  click_button "signinBtn"
-#end
 
 When /^I sign in as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
   page.click_link "Sign In"
@@ -56,7 +54,7 @@ When /^I fill in:$/ do |table|
     timestamp = Time.new.to_time.to_i.to_s
     value.gsub! '[TIMESTAMP]', timestamp
 
-    fill_in field, :with => value
+    fill_in field, :with => value, :match => :prefer_exact
   end
 end
 

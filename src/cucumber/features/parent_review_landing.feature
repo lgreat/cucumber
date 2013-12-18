@@ -15,6 +15,7 @@ Feature: Parent Review Landing Page (The Scoop)
   Scenario: I can select a preschool to topically review
     Given I am on "parent review landing" page
       And I select my school to review: "Tots University" in CA
+    And I wait 2 seconds for the school to load
     Then I see "Tots University"
       And I see "PK"
 

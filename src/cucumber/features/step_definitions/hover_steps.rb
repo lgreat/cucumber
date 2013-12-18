@@ -17,8 +17,8 @@ end
 =end
 
 Then /^I (?:should )?see the (.+) hover$/ do |name|
-  find(:css, selector_for("#{name} hover")).visible?.should be_true
-  find(:css, selector_for("#{name} hover")).should have_content(HOVER_TITLES[name])
+  find(:css, selector_for("#{name} hover"), :match => :prefer_exact).visible?.should be_true
+  find(:css, selector_for("#{name} hover"), :match => :prefer_exact).should have_content(HOVER_TITLES[name])
 end
 
 When "I click on the $link_name link in the hover" do |link_name|
@@ -33,7 +33,7 @@ Then /^the mss hover is "(.*?)"$/ do |visibility|
   else
     should_be = true
   end
-  page.find(:css, "#joinHover", :visible => false).visible?.should == should_be
+  page.find(:css, "#joinHover", :visible => false, :match => :prefer_exact).visible?.should == should_be
 end
 
 Then /^the sign in hover is (\w+)$/ do |visibility|
@@ -42,7 +42,7 @@ Then /^the sign in hover is (\w+)$/ do |visibility|
   else
     should_be = true
   end
-  page.find(:css, "#signInHover", :visible => false).visible?.should == should_be
+  page.find(:css, "#signInHover", :visible => false, :match => :prefer_exact).visible?.should == should_be
 end
 
 Then /^the forgot password hover is (\w+)$/ do |visibility|
@@ -51,7 +51,7 @@ Then /^the forgot password hover is (\w+)$/ do |visibility|
   else
     should_be = true
   end
-  page.find(:css, "#hover_forgotPassword", :visible => false).visible?.should == should_be
+  page.find(:css, "#hover_forgotPassword", :visible => false, :match => :prefer_exact).visible?.should == should_be
 end
 
 Then /^the almost there hover is (\w+)$/ do |visibility|	
@@ -60,7 +60,7 @@ Then /^the almost there hover is (\w+)$/ do |visibility|
   else
     should_be = true
   end  
-  page.find(:css, "#schoolEspThankYou", :visible => false).visible?.should == should_be
+  page.find(:css, "#schoolEspThankYou", :visible => false, :match => :prefer_exact).visible?.should == should_be
 end
 
 Then /^the join us hover is (\w+)$/ do |visibility|
@@ -69,7 +69,7 @@ Then /^the join us hover is (\w+)$/ do |visibility|
   else
     shouldBe = true
   end
-  page.find(:css, "#joinHover", :visible => false).visible?.should == shouldBe
+  page.find(:css, "#joinHover", :visible => false, :match => :prefer_exact).visible?.should == shouldBe
 end
 
 Then /^the Validate Email hover is visible$/ do

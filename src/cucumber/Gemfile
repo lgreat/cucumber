@@ -2,8 +2,8 @@ source "http://rubygems.org"
 
 group(:test) do
   gem 'cucumber'
-  gem 'capybara', '<=1.9'
-  gem 'capybara-mechanize', '<=0.9'
+  gem 'capybara'
+  gem 'capybara-mechanize'
   gem 'selenium-webdriver'
   gem 'rspec'
 end

@@ -4,8 +4,8 @@ When /^I do a by name search for (.+) in (.+)$/ do |query, state|
   page.find(:css, "#byNameTab.small_bold").click
   steps %Q{
     And I type "#{query}" into "js-findByNameBox"
-    And I select "#{state}" from "js-findByNameStateSelect"
   }
+  page.find('#jq-findByNameForm .stateSelect option', :text => state).select_option
   page.find(:css, "button.button-4.searchSubmit").click
 end
 
