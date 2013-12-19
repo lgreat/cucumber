@@ -143,6 +143,8 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
         modelAndView.addObject(CityHubHelper.COLLECTION_NICKNAME_MODEL_KEY,
                 getCityHubHelper().getCollectionNicknameFromConfigList(configList, collectionId));
 
+
+        response.setHeader("Cache-Control", "no-cache, max-age=0, must-revalidate, no-store");
         return modelAndView;
     }
 

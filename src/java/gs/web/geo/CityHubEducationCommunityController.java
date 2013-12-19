@@ -102,6 +102,8 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
         modelAndView.addObject("defaultTab", TAB1);
         modelAndView.addObject("tabs", tabs);
 
+
+        response.setHeader("Cache-Control", "no-cache, max-age=0, must-revalidate, no-store");
         return modelAndView;
     }
 
