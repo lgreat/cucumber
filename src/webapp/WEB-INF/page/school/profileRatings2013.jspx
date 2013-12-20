@@ -291,17 +291,21 @@
 
         <div class="clear"><!-- not empty --></div>
 
-        <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
+        <c:if test="${postSecondaryReadinessBreakdownTestScore != null or postSecondaryReadinessBreakdownPercentTested != null or highSchoolGraduationRate != null}">
             <div class="pvm mbl">
-                <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
-                    <p class="mbs">${dataCopy['psr_breakdown_participation_label']}</p>
-                    <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong></p>
-                </div>
-                <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
-                    <p class="mbs">${dataCopy['psr_breakdown_score_label']}</p>
-                    <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
-                            test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong></p>
-                </div>
+                <c:if test="${not empty postSecondaryReadinessBreakdownPercentTested}">
+                    <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
+                        <p class="mbs">${dataCopy['psr_breakdown_participation_label']}</p>
+                        <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong></p>
+                    </div>
+                </c:if>
+                <c:if test="${not empty postSecondaryReadinessBreakdownTestScore}">
+                    <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
+                        <p class="mbs">${dataCopy['psr_breakdown_score_label']}</p>
+                        <p class="bottom larger"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
+                                test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong></p>
+                    </div>
+                </c:if>
                 <c:if test="${not empty highSchoolGraduationRate}">
                     <div class="grid_4 containerGrayBox2 small fl phl tac mbn">
                         <p class="mbs">${dataCopy['psr_breakdown_graduation_rate_label']}</p>

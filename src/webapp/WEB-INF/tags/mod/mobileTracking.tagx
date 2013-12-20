@@ -277,7 +277,11 @@
             tracking.s.eVar5 = clickCapture.getEVar(5);
             tracking.s.eVar6 = "${microsite}";
             tracking.s.eVar7 = clickCapture.getEVar(7);
-            tracking.s.eVar8 = clickCapture.getEVar(8);
+
+            if (tracking.s.pageName !== tracking.s.prop9.trim()){
+                tracking.s.eVar8 = tracking.s.prop9;
+            }
+
             tracking.s.eVar9 = clickCapture.getEVar(9);
             tracking.s.eVar10 = clickCapture.getEVar(10);
             GS.log('done setting s. props,hier1,evars:', s);

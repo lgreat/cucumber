@@ -246,7 +246,7 @@
                 s.prop9 = s.pageName + ' ' + locationAnchor;
             } else {
                 s.prop9 = s.pageName + ' ' + clickCapture.getProp(9);
-            } 
+            }
 
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
             s.prop11 = clickCapture.getProp(11,"${community?'Community':'GreatSchools'}");
@@ -291,7 +291,11 @@
             s.eVar5 = clickCapture.getEVar(5);
             s.eVar6 = "${microsite}";
             s.eVar7 = clickCapture.getEVar(7);
-            s.eVar8 = clickCapture.getEVar(8);
+
+            if (s.pageName !== s.prop9.trim()){
+                s.eVar8 = s.prop9;
+            }
+
             s.eVar9 = clickCapture.getEVar(9);
             s.eVar10 = clickCapture.getEVar(10);
         //--></script>

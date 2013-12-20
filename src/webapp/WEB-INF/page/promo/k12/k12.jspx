@@ -232,6 +232,31 @@
                 </div>
             </div>
         </div>
+
+        <!--Youtube video light box, please uncomment from hover-v1.js if needed anywhere else-->
+        <script type="text/javascript">
+            GSType.hover.YoutubeVideoLightbox = function() {
+                this.showHover = function(url, width, height) {
+                    $(".js-youTubeVideoModal").attr("src", url);
+                    this.show();
+                };
+            };
+            GSType.hover.YoutubeVideoLightbox.prototype = new GSType.hover.HoverDialog('js-youtubeVideoLightbox');
+            GSType.hover.youtubeVideoLightbox = new GSType.hover.YoutubeVideoLightbox();
+
+        </script>
+        <div id="js-youtubeVideoLightbox" class="dn">
+            <div class="mod modal_1 width_13" id="js-youtubeVideoLightbox">
+                <div class="outer">
+                    <div class="fr"><span class="iconx24 i-24-close js_closeHover"><!-- do not collapse --></span></div>
+                    <div class="inner tac pam">
+                        <!--pass in height, idth, and id for video with variables-->
+                        <iframe class="js-youTubeVideoModal" width="420" height="315" src="" frameborder="0" allowfullscreen="true"><!-- do not collapse --></iframe>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="clearfix"><!-- not empty --></div>
