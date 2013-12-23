@@ -331,6 +331,28 @@
         <p class="smaller bottom">${psrFootnoteNumeral} ${dataCopy['footnote_psr']}</p>
     </c:if>
 
+    <c:choose>
+        <c:when test="${state eq 'DC' and city eq 'Washington'}">
+            <c:set var="methodologyLink" value="/catalog/pdf/New_Ratings_Methodology_DC.pdf"/>
+        </c:when>
+        <c:when test="${state eq 'WI' and city eq 'Milwaukee'}">
+            <c:set var="methodologyLink" value="/catalog/pdf/New_Ratings_Methodology_MKE.pdf"/>
+        </c:when>
+        <c:when test="${state eq 'IN'}">
+            <c:set var="methodologyLink" value="/catalog/pdf/New_Ratings_Methodology_IN.pdf"/>
+        </c:when>
+    </c:choose>
+    <c:if test="${methodologyLink ne null}">
+        <div class="clear mbm"><!-- not empty --></div>
+        <div class="alpha grid_6 omega">
+            <div class="small bottom">
+            <a href="${methodologyLink}">
+                <span class="iconx16 i-16-pdf pa"><!-- do not collapse --></span>
+                <span class="pll">Learn more about our methodology</span>
+            </a>
+            </div>
+        </div>
+    </c:if>
 </div>
 
 <mod:deferredTracking key="ratings" pageName="Ratings" hier1="School,SchoolProfileSuite,Ratings"/>
