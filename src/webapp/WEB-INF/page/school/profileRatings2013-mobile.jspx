@@ -330,24 +330,28 @@
                                                      mobileDisplay="${true}"/>
                         </c:otherwise>
                     </c:choose>
-
-                    <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
+                    <c:if test="${postSecondaryReadinessBreakdownTestScore != null or postSecondaryReadinessBreakdownPercentTested != null or highSchoolGraduationRate != null}">
                         <div class="clearfix"><!-- not empty --></div>
-                        <div class="grayBox tac mbm">
-                            <div class="clearfix phm pvm">
-                                <div class="fl small">${dataCopy['psr_breakdown_participation_label']}</div>
-                                <div class="fr tal"><strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
+                        <c:if test="${not empty postSecondaryReadinessBreakdownPercentTested}">
+                            <div class="grayBox tac mbm">
+                                <div class="clearfix phm pvm">
+                                    <div class="fl small">${dataCopy['psr_breakdown_participation_label']}</div>
+                                    <div class="fr tal">
+                                        <strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="grayBox tac mbm">
-                            <div class="clearfix phm pvm">
-                                <div class="fl small">${dataCopy['psr_breakdown_score_label']}</div>
-                                <div class="fr tal"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
-                                        test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong>
+                        </c:if>
+                        <c:if test="${not empty postSecondaryReadinessBreakdownTestScore}">
+                            <div class="grayBox tac mbm">
+                                <div class="clearfix phm pvm">
+                                    <div class="fl small">${dataCopy['psr_breakdown_score_label']}</div>
+                                    <div class="fr tal"><strong>${postSecondaryReadinessBreakdownTestScore}<c:if
+                                            test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if></strong>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
                         <c:if test="${not empty highSchoolGraduationRate}">
                             <div class="grayBox tac mbm">
                                 <div class="clearfix phm pvm">
