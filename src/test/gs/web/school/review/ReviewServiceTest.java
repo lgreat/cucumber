@@ -292,7 +292,7 @@ public class ReviewServiceTest extends BaseTestCase {
         assertNotNull(summary);
         assertNotNull(summary.getUpgradedReviews());
         assertEquals(6, summary.getUpgradedReviews().size());
-        assertEquals(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED, summary.getStatus());
+        assertEquals(ReviewService.ReviewUpgradeStatus.TOPICAL_REVIEW_UPGRADED_PUBLISHED, summary.getStatus());
         assertNotNull(summary.getFirstPublishedReview());
         assertSame(topicalReview3, summary.getFirstPublishedReview());
     }
@@ -317,6 +317,7 @@ public class ReviewServiceTest extends BaseTestCase {
         rval.setStatus(status);
         rval.setUser(user);
         rval.setCreated(posted);
+        rval.setTopic(new ReviewTopic());
         return rval;
     }
 

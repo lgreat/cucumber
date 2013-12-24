@@ -159,6 +159,10 @@
         description="Page name of any page that is considered as a part of local experience."
         required="false"/>
     <jsp:directive.attribute name="augmentInitialRequestWithDataForTab" description="If set, will append S with extra data that has been stored in a hash" required="false"/>
+    <jsp:directive.attribute
+        name="funnelCategory"
+        description="Value for funnel category prop"
+        required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -280,6 +284,9 @@
             s.prop47 = clickCapture.getProp(47,"${distanceRadius}");
             s.prop50 = clickCapture.getProp(50,"${school.schoolForNewProfile ? 'Chooser School' : ''}");
             s.prop57 = clickCapture.getProp(57,"${localPageName}");
+            s.prop59 = clickCapture.getProp(59,"${requestInfo ne null?gsweb:getRequestHostAndPath(requestInfo.request):''}");
+            s.prop60 = clickCapture.getProp(60,"${requestInfo ne null?requestInfo.request.queryString:''}");
+            s.prop61 = clickCapture.getProp(61,"${funnelCategory}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
