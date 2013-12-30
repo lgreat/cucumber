@@ -221,8 +221,6 @@
             <c:set var="defaultState" value="${city.state}"/>
         </c:if>
         <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
-        <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-        <ad:BelowFold_Top_300x125/>
   </div>
     </div>
 
