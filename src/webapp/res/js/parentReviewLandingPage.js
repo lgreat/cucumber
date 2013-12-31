@@ -626,15 +626,30 @@ function GS_schoolReviewFormLandingPage(id) {
             trackReviewSubmitted();
             if (forFacebook === true) {
                 setHoverCookie(data);
+                if (data.reviewPosted !== undefined && data.reviewPosted === 'true' && data.topicalReview !== undefined && typeof window.clickCapture !== 'undefined') {
+                    clickCapture.capture("prop61", "Topical Review");
+                }
                 if (data.redirectUrl) {
                     window.location.href = data.redirectUrl;
                 } else {
                     window.location.reload();
                 }
             } else {
-                $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
-                    $('.js-pageThreeReviewLandingPage').fadeIn('fast');
-                });
+                if (data.reviewPosted !== undefined && data.reviewPosted === 'true') {
+                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPosted", 3);
+                    if (data.topicalReview !== undefined && typeof window.clickCapture !== 'undefined') {
+                        clickCapture.capture("prop61", "Topical Review");
+                    }
+                    if (data.redirectUrl) {
+                        window.location.href = data.redirectUrl;
+                    } else {
+                        window.location.reload();
+                    }
+                } else {
+                    $('.js-pageTwoReviewLandingPage').fadeOut('slow', function() {
+                        $('.js-pageThreeReviewLandingPage').fadeIn('fast');
+                    });
+                }
             }
         }).error(function() {
             alert("Sorry, but an error occurred with your review submission. Please try again soon.");

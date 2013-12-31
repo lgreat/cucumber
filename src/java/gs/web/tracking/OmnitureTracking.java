@@ -86,7 +86,7 @@ public abstract class  OmnitureTracking {
 
     public enum PropNumber {
         IncomingMobileQuery(44),
-        FunnelCategory(60);
+        FunnelCategory(61);
 
         private int _number;
 
