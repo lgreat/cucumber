@@ -5,7 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
- <h2 class="SourceSansPro-Semibold-h2">Related articles</h2>
+ <h2 class="SourceSansPro-Semibold-h2">Featured articles</h2>
  <c:choose>
      <c:when test="${not empty cityArticle.articles}">
          <c:forEach items="${cityArticle.articles}" var="cityArticle">
