@@ -268,6 +268,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
         }
         responseValues.put("reviewPosted", String.valueOf(reviewPosted));
+        responseValues.put("topicalReview", "true");
         responseValues.put("userId", user.getId().toString());
         responseValues.put("redirectUrl", urlBuilder.asFullUrl(request));
 

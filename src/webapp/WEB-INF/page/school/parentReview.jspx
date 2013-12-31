@@ -822,7 +822,7 @@
 
 <mod:tracking pageName="Rating Review Marketing Landing Page"
               hier1="School,Parent Reviews, Rating Review Marketing Landing Page "
-              funnelCategory="${isTopical?'TopicalReview':''}"
+              funnelCategory="${isTopical?'Topical Review':''}"
         />
 
 </gsml:body>

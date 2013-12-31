@@ -127,27 +127,28 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 if ("true".equalsIgnoreCase(request.getParameter("upgradeProvisional"))) {
                     summary = getReviewService().upgradeProvisionalReviewsAndSummarize(user);
                     switch (summary.getStatus()) {
-                        case REVIEW_UPGRADED_PUBLISHED:
                         case TOPICAL_REVIEW_UPGRADED_PUBLISHED:
+                            new CookieBasedOmnitureTracking(request, response).addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.FunnelCategory, "Topical Review"));
+                        case REVIEW_UPGRADED_PUBLISHED:
                             sendReviewPostedEmail(request, summary.getFirstPublishedReview());
                             hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_POSTED);
                             urlBuilder = new UrlBuilder(summary.getFirstPublishedReview().getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                            viewName = urlBuilder.asFullUrl(request);
+                            viewName = "redirect:" + urlBuilder.asFullUrl(request);
                             break;
 
                         case REVIEW_UPGRADED_NOT_PUBLISHED:
                         case TOPICAL_REVIEW_UPGRADED_NOT_PUBLISHED:
                             hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED);
                             urlBuilder = new UrlBuilder(summary.getUpgradedReviews().get(0).getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                            viewName = urlBuilder.asFullUrl(request);
+                            viewName = "redirect:" + urlBuilder.asFullUrl(request);
                             break;
 
                         case NO_REVIEW_UPGRADED:  //This should not happen except with MSL users, since an email-only user
                             //created from review process would have a review to upgrade
                             if (StringUtils.isNotBlank(requestedRedirect)) {
-                                viewName = requestedRedirect;
+                                viewName = "redirect:" + requestedRedirect;
                             } else {
-                                viewName = "/account/";
+                                viewName = "redirect:/account/";
                             }
                             break;
 
@@ -155,7 +156,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                     }
                 }
 
-                return new ModelAndView(new RedirectView(viewName)); // E A R L Y   E X I T
+                return new ModelAndView(viewName); // E A R L Y   E X I T
 
             case PROVISIONAL:
 
