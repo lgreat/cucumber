@@ -187,7 +187,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep2 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel(collectionNickName+ " education system", "../education-community", "Local Page");
+        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel(collectionNickName+ " education system", "/school-choice/6987-public-private-charter-schools.gs", "Local Page");
 
         FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel(collectionNickName+ " enrollment information", "../enrollment", "Local Page");
 
@@ -389,7 +389,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep5 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel(collectionNickName+ " Enrollment Info", "../enrollment", "Local Page");
+        FeaturedResourcesModel feature1Step5= new FeaturedResourcesModel(collectionNickName+ " enrollment information", "../enrollment", "Local Page");
         featuredResourcesModelStep5.add(feature1Step5);
         step5.setFeaturedResourcesModel(featuredResourcesModelStep5);
         stepsInfo.add(step5);
