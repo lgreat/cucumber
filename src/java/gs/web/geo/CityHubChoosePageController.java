@@ -187,7 +187,7 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         ArrayList<FeaturedResourcesModel> featuredResourcesModelStep2 = new ArrayList<FeaturedResourcesModel>();
 
-        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel(collectionNickName+ " education system", "/school-choice/6987-public-private-charter-schools.gs", "Local Page");
+        FeaturedResourcesModel feature1Step2= new FeaturedResourcesModel("Public vs. private vs. charter schools", "/school-choice/6987-public-private-charter-schools.gs", "Local Page");
 
         FeaturedResourcesModel feature2Step2= new FeaturedResourcesModel(collectionNickName+ " enrollment information", "../enrollment", "Local Page");
 
@@ -204,7 +204,6 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         AdditionalResourcesModel additionalResources2Header1 =  new AdditionalResourcesModel(null, null, null, "1", "Overview of options");
         AdditionalResourcesModel additionalResources2Step1 =  new AdditionalResourcesModel("School choice: what are your options?", "/find-a-school/defining-your-ideal/1163-school-choice-your-options.gs", "Article", "1");
-        AdditionalResourcesModel additionalResources2Step2 =  new AdditionalResourcesModel("Public vs. private vs. charter schools", "/school-choice/6987-public-private-charter-schools.gs", "Article", "1");
         AdditionalResourcesModel additionalResources2Step3 =  new AdditionalResourcesModel("Private vs. public", "/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs", "Article", "1");
         AdditionalResourcesModel additionalResources2Step4 =  new AdditionalResourcesModel("School choice terminology", "/find-a-school/2424-school-terminology.gs", "Article", "1");
 
@@ -221,7 +220,6 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
 
         additionalResourcesModelStep2.add(additionalResources2Header1);
         additionalResourcesModelStep2.add(additionalResources2Step1);
-        additionalResourcesModelStep2.add(additionalResources2Step2);
         additionalResourcesModelStep2.add(additionalResources2Step3);
         additionalResourcesModelStep2.add(additionalResources2Step4);
         additionalResourcesModelStep2.add(additionalResources2Header2);
