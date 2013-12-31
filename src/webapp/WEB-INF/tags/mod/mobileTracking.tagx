@@ -267,6 +267,10 @@
 
             tracking.s.prop44 = clickCapture.getProp(44, "${incomingMobileQuery}");
 
+            tracking.s.prop59 = clickCapture.getProp(59,"${requestInfo ne null?gsweb:getRequestHostAndPath(requestInfo.request):''}");
+            tracking.s.prop60 = clickCapture.getProp(60,"${requestInfo ne null?fn:replace(requestInfo.request.queryString,'&',','):''}");
+            tracking.s.prop61 = clickCapture.getProp(61,"");
+
             tracking.s.events = clickCapture.getEvents("${events}");
             tracking.s.hier1 = "${hier1}";
 

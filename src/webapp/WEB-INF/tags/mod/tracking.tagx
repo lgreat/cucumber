@@ -285,7 +285,7 @@
             s.prop50 = clickCapture.getProp(50,"${school.schoolForNewProfile ? 'Chooser School' : ''}");
             s.prop57 = clickCapture.getProp(57,"${localPageName}");
             s.prop59 = clickCapture.getProp(59,"${requestInfo ne null?gsweb:getRequestHostAndPath(requestInfo.request):''}");
-            s.prop60 = clickCapture.getProp(60,"${requestInfo ne null?requestInfo.request.queryString:''}");
+            s.prop60 = clickCapture.getProp(60,"${requestInfo ne null?fn:replace(requestInfo.request.queryString,'&',','):''}");
             s.prop61 = clickCapture.getProp(61,"${funnelCategory}");
 
             s.events = clickCapture.getEvents("${events}");
