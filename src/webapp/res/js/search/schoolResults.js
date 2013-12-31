@@ -93,8 +93,10 @@ GS.search.results = GS.search.results || (function() {
 
         $(function() {
             if(typeof Hogan != 'undefined') {
-                infoBoxTemplate = Hogan.compile($('#js-infoBoxTemplate').html());
-                sidebarListTemplate = Hogan.compile($('#js-schoolListTemplate').html());
+                var $infoBoxTemplate = jQuery('#js-infoBoxTemplate');
+                var $schoolListTemplate = jQuery('#js-schoolListTemplate');
+                if($infoBoxTemplate.length > 0) infoBoxTemplate = Hogan.compile($infoBoxTemplate.html());
+                if($schoolListTemplate.length > 0) sidebarListTemplate = Hogan.compile($schoolListTemplate.html());
             }
         });
     };
@@ -749,16 +751,15 @@ GS.search.results = GS.search.results || (function() {
 
     var refreshAds = function() {
         var adSlotKeys = ['Search_Site_Footer_728x90', 'Search_Site_Header_728x90', 'Search_Site_AboveFold_300x250',
-            'Search_Site_BelowFold_Top_300x125', 'Search_Site_Sponsor_630x40'];
+            'Search_Site_Sponsor_630x40'];
         GS.ad.unhideGhostTextForAdSlots(adSlotKeys);
-        GS.ad.refreshAds(adSlotKeys);
+        if(GS.ad.refreshAds) GS.ad.refreshAds(adSlotKeys);
     };
     
     var refreshMapAds = function() {
-        var adSlotKeys = ['Search_Results_Map_Footer_728x90', 'Search_Results_Map_Header_728x90', 'Search_Results_Map_AboveFold_300x250',
-            'Search_Results_Map_BelowFold_Top_300x125'];
+        var adSlotKeys = ['Search_Results_Map_Footer_728x90', 'Search_Results_Map_Header_728x90', 'Search_Results_Map_AboveFold_300x250'];
         GS.ad.unhideGhostTextForAdSlots(adSlotKeys);
-        GS.ad.refreshAds(adSlotKeys);
+        if(GS.ad.refreshAds) GS.ad.refreshAds(adSlotKeys);
     };
 
     var showFacebookFriendsForResults = function() {

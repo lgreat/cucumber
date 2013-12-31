@@ -1804,7 +1804,7 @@ GS.getServerName = function() {
     // check for staging
     if (location.hostname.match(/staging\.|staging$|clone/)) {
         serverName = 'staging';
-    } else if (location.hostname.match(/dev\.|dev$|\.office\.|cmsqa|localhost|127\.0\.0\.1|macbook|qaapp-1\.|qaapp-2\.|qaadmin-1\.|qa\.|qa-preview\./)) {
+    } else if (location.hostname.match("dev\.|dev$|alpha.*\\.|alpha$|\.office\.|cmsqa|localhost|127\.0\.0\.1|macbook|qaapp-1\.|qaapp-2\.|qaadmin-1\.|qa\.|qa-preview\.")) {
         serverName = 'dev';
     }
 
@@ -2063,6 +2063,9 @@ GS.community.MySchoolListHelper = function() {
 
     this.incrementCountInHeader = function() {
         var mslCountInHeader = jQuery('#utilLinks .last a');
+        if (typeof mslCountInHeader === "undefined" || mslCountInHeader.size() <=0){
+            mslCountInHeader = jQuery('#N2_A-MySchoolList');
+        }
         var mslCount = Number(mslCountInHeader.html().replace(/[^0-9]/g,''));
         mslCount = mslCount + 1;
         mslCountInHeader.html("My School List (" + mslCount + ")");
@@ -2406,9 +2409,10 @@ jQuery(function() {
         GSType.hover.schoolReviewPosted.show();
     } else if (showHover == "espProvisionalReminder") {
         GSType.hover.espProvisionalReminder.show();
-    }else if (showHover == "YoutubeVideoLightbox") {
-        GSType.hover.YoutubeVideoLightbox.show();
     }
+//    }else if (showHover == "YoutubeVideoLightbox") {
+//        GSType.hover.YoutubeVideoLightbox.show();
+//    }
 // else if (showHover == "clickToReviewYourSchool") {
 //        GSType.hover.clickToReviewYourSchool.show();
 //    }
@@ -2481,14 +2485,14 @@ GSType.hover.VerifyYourEmailAddressUSP = function() {};
 GSType.hover.VerifyYourEmailAddressUSP.prototype = new GSType.hover.HoverDialog('js-verifyYourEmailAddressUSP');
 GSType.hover.verifyYourEmailAddressUSP = new GSType.hover.VerifyYourEmailAddressUSP();
 
-GSType.hover.YoutubeVideoLightbox = function(evt) {
-    this.showHover = function(url, width, height) {
-        $(".js-youTubeVideoModal").attr("src", url);
-        this.show();
-    };
-};
-GSType.hover.YoutubeVideoLightbox.prototype = new GSType.hover.HoverDialog('js-youtubeVideoLightbox');
-GSType.hover.youtubeVideoLightbox = new GSType.hover.YoutubeVideoLightbox();
+//GSType.hover.YoutubeVideoLightbox = function(evt) {
+//    this.showHover = function(url, width, height) {
+//        $(".js-youTubeVideoModal").attr("src", url);
+//        this.show();
+//    };
+//};
+//GSType.hover.YoutubeVideoLightbox.prototype = new GSType.hover.HoverDialog('js-youtubeVideoLightbox');
+//GSType.hover.youtubeVideoLightbox = new GSType.hover.YoutubeVideoLightbox();
 
 
 GSType.hover.SendMeUpdates = function() {

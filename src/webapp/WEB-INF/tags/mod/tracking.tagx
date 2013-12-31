@@ -154,12 +154,24 @@
         name="distanceRadius"
         description="The distance set for by location search"
         required="false"/>
+    <jsp:directive.attribute
+        name="localPageName"
+        description="Page name of any page that is considered as a part of local experience."
+        required="false"/>
     <jsp:directive.attribute name="augmentInitialRequestWithDataForTab" description="If set, will append S with extra data that has been stored in a hash" required="false"/>
+    <jsp:directive.attribute
+        name="funnelCategory"
+        description="Value for funnel category prop"
+        required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
+<jsp:directive.tag import="gs.web.util.CookieUtil"/>
     <jsp:scriptlet>
         request.setAttribute("scheme", request.getScheme());
+
+        request.setAttribute("isHubUser", gs.web.util.CookieUtil.getCookieValue(request, "ishubUser"));
+
         if (null != school) {
             try {
                 jspContext.setAttribute("id", school.getId().toString());
@@ -184,6 +196,15 @@
             }
         }
     </jsp:scriptlet>
+<c:choose>
+    <c:when test="${not empty isHubUser or not empty isHubUserSet}">
+        <c:set var="navBar" value="N2" scope="request"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="navBar" value="PN" scope="request"/>
+    </c:otherwise>
+</c:choose>
+
     <c:if test="${!requestScope.context.crawler}">
         <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
         <c:if test="${requestScope.pageHelper.devEnvironment}">
@@ -202,7 +223,6 @@
         <script type="text/javascript" > <!--
             window.optimizely = window.optimizely || [];
             window.optimizely.push("activateSiteCatalyst");
-
             s.pageName = "${pageName}";
             clickCapture.pageName = "${pageName}";
 
@@ -217,7 +237,7 @@
             s.prop5 = clickCapture.getProp(5,"${not empty(requestScope.context.userHash) ? (requestInfo.signedInWithFacebook? 'Facebook and GS logged in' :'Registered') : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}");
             s.prop6 = clickCapture.getProp(6,"${query}");
             s.prop7 = clickCapture.getProp(7,"${pageName}:${requestScope.context.ABVersion}");
-
+            s.prop58 = clickCapture.getProp(58,"${navBar}");
             s.prop8 = clickCapture.getProp(8,"${param.cpn}");
             if (s.prop8 == '' ){
                 s.prop8 = s.pageName ;
@@ -230,7 +250,7 @@
                 s.prop9 = s.pageName + ' ' + locationAnchor;
             } else {
                 s.prop9 = s.pageName + ' ' + clickCapture.getProp(9);
-            } 
+            }
 
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
             s.prop11 = clickCapture.getProp(11,"${community?'Community':'GreatSchools'}");
@@ -263,6 +283,10 @@
             s.prop46 = clickCapture.getProp(46,"${gradeLevelFilter}");
             s.prop47 = clickCapture.getProp(47,"${distanceRadius}");
             s.prop50 = clickCapture.getProp(50,"${school.schoolForNewProfile ? 'Chooser School' : ''}");
+            s.prop57 = clickCapture.getProp(57,"${localPageName}");
+            s.prop59 = clickCapture.getProp(59,"${requestInfo ne null?gsweb:getRequestHostAndPath(requestInfo.request):''}");
+            s.prop60 = clickCapture.getProp(60,"${requestInfo ne null?fn:replace(requestInfo.request.queryString,'&',','):''}");
+            s.prop61 = clickCapture.getProp(61,"${funnelCategory}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
@@ -274,7 +298,11 @@
             s.eVar5 = clickCapture.getEVar(5);
             s.eVar6 = "${microsite}";
             s.eVar7 = clickCapture.getEVar(7);
-            s.eVar8 = clickCapture.getEVar(8);
+
+            if (s.pageName !== s.prop9.trim()){
+                s.eVar8 = s.prop9;
+            }
+
             s.eVar9 = clickCapture.getEVar(9);
             s.eVar10 = clickCapture.getEVar(10);
         //--></script>

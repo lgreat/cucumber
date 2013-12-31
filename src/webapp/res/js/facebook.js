@@ -64,7 +64,25 @@ GS.facebook = GS.facebook || (function () {
         var html = '<a rel="nofollow" href="/mySchoolList.page">My School List (' + numberMSLItems + ')</a>';
         return html;
     };
+
+
+    var firstLinkSelectorNewNavBar = "#welcomeName";
+    var secondLinkSelector = "#utilLinks a:eq(1)";
+    var thirdLinkSelector = "#utilLinks a:eq(2)";
+
+
     var updateUIForLogin = function (userId, email, firstName, numberMSLItems) {
+
+        $(firstLinkSelectorNewNavBar).addClass("menuItemAnchorText");
+        $(firstLinkSelectorNewNavBar).html("Welcome, " + firstName+"<span class=\"iconx16 i-16-yellow-dropdown-arrow vam mls\"><!--Do not collapse--></span>");
+        $("#utilLinks_hubs").append(" <div class=\"dropdown_3 dropdown_align_right\">"+
+            " <ul class=\"none\" > "+
+            "  <li class=\"subMenuItem\" >" +
+            "  <a id=\"N2_A-MySchoolList\"   class=\"subMenuItemAnchorText GS_CI9_\" rel=\"nofollow\" href=\"/mySchoolList.page\">" +
+            "   My School List("+ numberMSLItems +") </a> </li><li class=\"subMenuItem\"  >"+
+            "   <a id=\"N2_A-AccountSettings\"    class=\"subMenuItemAnchorText GS_CI9_\" href=\"/account\" >Account Settings</a></li>"+
+            "  <li class=\"subMenuItem\"> <a id=\"N2_A-SignOut\" class=\"js-log-out subMenuItemAnchorText GS_CI9_\" href="+ getSignOutLink(email, userId) + ">Sign Out</a>"+
+            "  </li> </ul></div>");
         $(firstLinkSelector).parent().replaceWith(getWelcomeHtml(firstName));
         $(secondLinkSelector).replaceWith(getSignOutLinkHtml(email, userId));
         $(thirdLinkSelector).replaceWith(getMySchoolListHtml(numberMSLItems));
@@ -183,7 +201,7 @@ GS.facebook = GS.facebook || (function () {
 
     // Set up click handler on logout links. Need to synchronize FB and GS logout behavior
     var initLogoutBehavior = function () {
-        $('#utilLinks').on('click', '.js-log-out', function (e) {
+        $('#utilLinks, #utilLinks_hubs').on('click', '.js-log-out', function (e) {
             // 1. get the href the user clicked
             // 2. If possibly logged in, tell FB to log out
             // 3. Stop default link behavior
@@ -239,7 +257,7 @@ GS.facebook = GS.facebook || (function () {
             redirectUrl = currentUrl;
         }
 
-        return redirectUrl;
+        return redirectUrl.replace(/#.*$/, '');
     };
 
     // Logs out of GS. Deletes the appropriate cookies and redirects if needed
@@ -250,6 +268,7 @@ GS.facebook = GS.facebook || (function () {
         deleteCookie("MEMBER"); // subscriber login
         deleteCookie("MEMID", ".greatschools.org"); // MSL
         deleteCookie("SESSION_CACHE"); //
+        deleteCookie("IS_OSP_MEMBER",".greatschools.org");
 
         var communityCookieName = "community_www";
 
@@ -257,7 +276,7 @@ GS.facebook = GS.facebook || (function () {
         // TODO: do we need this? probably not since the existing logic isn't up-to-date
         if (hostname.match("staging\\.|clone\\.|willow\\.|staging$|clone$|willow$")) {
             communityCookieName = "community_staging";
-        } else if (hostname.match("dev\\.|dev$|clone\\.|clone$|localhost$|samson$|qa\\.|qa$|127\\.0\\.0\\.1")) {
+        } else if (hostname.match("dev\\.|dev$|clone\\.|clone$|localhost$|samson$|qa\\.|qa$|127\\.0\\.0\\.1|alpha.*\\.|alpha$")) {
             communityCookieName = "community_dev";
         } else {
             communityCookieName = "community_www";
@@ -285,13 +304,17 @@ GS.facebook = GS.facebook || (function () {
     // resolves deferreds and updates login flags
     var login = function () {
 
+
+
         // any time a login call completes successfully, resolve the single loginDeferred for this module.
         var loginAttemptDeferred = $.Deferred().done(function() {
+
             successfulLoginDeferred.resolve();
             firstSuccessfulLoginDeferred.resolve();
         });
-
+        ;
         FB.login(function (response) {
+
             if (response.authResponse) {
                 FB.api('/me', function (data) {
                     if (!data || data.error) {
@@ -311,10 +334,12 @@ GS.facebook = GS.facebook || (function () {
                         // Backed out from r226
                         $.post(registrationAndLoginUrl, obj).done(function (regLoginResponse) {
                             if (regLoginResponse !== undefined && regLoginResponse.success && regLoginResponse.success === 'true') {
+//                                location.reload();
                                 if (regLoginResponse.GSAccountCreated === "true") {
                                     trackGSAccountCreated();
                                 }
                                 updateUIForLogin(regLoginResponse.userId, regLoginResponse.email, regLoginResponse.firstName, regLoginResponse.numberMSLItems);
+
                             }
                             loginAttemptDeferred.resolve(data);
                         }).fail(function() {
@@ -331,6 +356,7 @@ GS.facebook = GS.facebook || (function () {
         });
 
         trackLoginClicked();
+
 
         return loginAttemptDeferred;
     };

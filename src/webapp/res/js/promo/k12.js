@@ -55,8 +55,7 @@ GS.promo.K12.TrafficDriver = function() {
     };
 
     this.isK12State = function(stateAbbrev) {
-        var k12StatePattern = /AK|AR|AZ|CA|CO|DC|FL|GA|HI|IA|ID|IL|IN|KS|LA|MA|MI|MN|NJ|NM|NV|OH|OK|OR|PA|SC|TN|TX|UT|VA|WA|WI|WY/;
-        return (stateAbbrev != null && stateAbbrev.match(k12StatePattern) != null);
+        return true;
     };
 
     this.getK12School = function(gamStateAttr) {

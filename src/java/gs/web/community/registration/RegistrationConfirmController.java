@@ -105,7 +105,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         // there are two methods which *should* do the same thing.
         user.setEmailVerified(true);
 
-        ReviewService.ReviewUpgradeSummary summary;
+        ReviewService.ReviewUpgradeSummary summary = null;
 
         switch (userState) {
             case REGISTERED:
@@ -128,6 +128,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                     summary = getReviewService().upgradeProvisionalReviewsAndSummarize(user);
                     switch (summary.getStatus()) {
                         case REVIEW_UPGRADED_PUBLISHED:
+                        case TOPICAL_REVIEW_UPGRADED_PUBLISHED:
                             sendReviewPostedEmail(request, summary.getFirstPublishedReview());
                             hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_POSTED);
                             urlBuilder = new UrlBuilder(summary.getFirstPublishedReview().getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
@@ -135,6 +136,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                             break;
 
                         case REVIEW_UPGRADED_NOT_PUBLISHED:
+                        case TOPICAL_REVIEW_UPGRADED_NOT_PUBLISHED:
                             hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED);
                             urlBuilder = new UrlBuilder(summary.getUpgradedReviews().get(0).getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
                             viewName = urlBuilder.asFullUrl(request);
@@ -164,6 +166,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 // but only users who haven't already been sent one
                 switch(summary.getStatus()) {
                     case REVIEW_UPGRADED_PUBLISHED:
+                    case TOPICAL_REVIEW_UPGRADED_PUBLISHED:
                         user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                         sendReviewPostedWelcomeEmail(request, summary.getFirstPublishedReview());
                         hoverHelper.setHoverCookie(HoverHelper.Hover.EMAIL_VERIFIED_SCHOOL_REVIEW_POSTED);
@@ -172,6 +175,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                         break;
 
                     case REVIEW_UPGRADED_NOT_PUBLISHED:
+                    case TOPICAL_REVIEW_UPGRADED_NOT_PUBLISHED:
                         if (user.getWelcomeMessageStatus().equals(WelcomeMessageStatus.DO_NOT_SEND)) {
                             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEED_TO_SEND);
                             hoverHelper.setHoverCookie(HoverHelper.Hover.EMAIL_VERIFIED_SCHOOL_REVIEW_QUEUED);
@@ -232,6 +236,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
                 switch (summary.getStatus()) {
                     case REVIEW_UPGRADED_PUBLISHED:
+                    case TOPICAL_REVIEW_UPGRADED_PUBLISHED:
                         sendReviewPostedEmail(request, summary.getFirstPublishedReview());
                         hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_POSTED);
                         urlBuilder = new UrlBuilder(summary.getFirstPublishedReview().getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
@@ -239,6 +244,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                         break;
 
                     case REVIEW_UPGRADED_NOT_PUBLISHED:
+                    case TOPICAL_REVIEW_UPGRADED_NOT_PUBLISHED:
                         hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED);
                         urlBuilder = new UrlBuilder(summary.getUpgradedReviews().get(0).getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
                         viewName = "redirect:" + urlBuilder.asFullUrl(request);
@@ -279,6 +285,9 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         processPendingSubscriptions(user, ot, hoverHelper, requestedRedirect);
         sendTriggeredEmails(request, user);
 
+        if (summary != null && summary.getStatus() == ReviewService.ReviewUpgradeStatus.TOPICAL_REVIEW_UPGRADED_PUBLISHED) {
+            ot.addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.FunnelCategory, "Topical Review"));
+        }
 
         _log.info("Email confirmed, forwarding user to " + viewName);
         return new ModelAndView(viewName);

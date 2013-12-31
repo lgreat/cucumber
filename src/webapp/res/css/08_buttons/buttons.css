@@ -1304,3 +1304,30 @@ Extends button-1 by changing:
 }
 
 .cp{ cursor:pointer; }
+
+
+/*****************button-4 Cityhubs***********************/
+.but-4{
+    width: 172px;
+    overflow: visible; /* for button width bug in IE */
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    outline: 0; /* Background Gradients */
+    white-space: nowrap;
+    /* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #FAFAFA; /* for non-css3 browsers */
+    color: #666666;
+    border: 1px solid #CCCCCC;
+    padding: 3px 5px;
+    margin:0 10px 20px 0;
+    font: normal .9em/2.25em 'SourceSansPro-Regular', Arial, Helvetica, sans-serif;
+}
+.but-4:hover{
+    background-color: #EEEEEE;
+}
+

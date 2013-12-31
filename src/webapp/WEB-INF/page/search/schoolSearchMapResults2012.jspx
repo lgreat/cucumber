@@ -19,15 +19,26 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+</jsp:scriptlet>
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <c:choose>
+        <c:when test="${not empty isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
     <c:if test="${not empty title}">
         <title>${title}</title>
     </c:if>
@@ -74,7 +85,7 @@
     <!-- Allow interstitials for this page.
    Note the property in the db must still be enabled for an interstitial to appear
    GS-3852 -->
-    <c:if test="${requestScope.context.interstitialEnabled}">
+    <c:if test="${requestScope.context.interstitialEnabled and not isAdFreeHub}">
         <gsml:javascript src="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
     </c:if>
@@ -827,9 +838,6 @@ that this is updated for ajax refresh -->
 
 <!--<jsp:include page="/promo/emailSignUp.module?style=2012"/>-->
 <promo:emailSignUp-v1 userIsAlreadySignedUp="false"/>
-
-<ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-<ad:BelowFold_Top_300x125/>
 </div>
 </div>
 </div>
@@ -851,6 +859,7 @@ that this is updated for ajax refresh -->
               findASchoolByAddress="${omnitureAddressSearch}"
               findASchoolByName="${omnitureNameSearch}"
               locale="${omnitureLocale}"
+              localPageName="${isLocal ? omniturePageName : ''}"
         />
 </gsml:body>
 </jsp:root>

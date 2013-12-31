@@ -4,6 +4,8 @@ import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubConfig;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -16,6 +18,7 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.geo.CityHubHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -25,6 +28,7 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -72,6 +76,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     private int _pageSize = DEFAULT_PAGE_SIZE;
     private ITestDataSetDao _testDataSetDao;
 
+    @Autowired
+    private IHubConfigDao _hubConfigDao;
+
     @Override
     /**
      * Handles common behavior, such as validation, error-handling, and pagination.
@@ -98,6 +105,14 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             _log.error(e, e);
             return getErrorResponse("unknown exception",response);
         }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        boolean shouldHideAds = shouldHideAds(schools);
+
+        if(pageHelper != null) {
+            pageHelper.setHideAds(shouldHideAds);
+        }
+
         return new ModelAndView(getSuccessView(), model);
     }
 
@@ -607,6 +622,56 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return builder;
     }
 
+    /**
+     * Get the set of collection ids to which each school in the compare list belongs to from school metadata. From the
+     * set of collection ids get the hub config records with key "showAds". Hide if the value is "false". Show ads if
+     * doesn't exist or if the value is "true".
+     */
+    public boolean shouldHideAds(List<ComparedSchoolBaseStruct> schools) {
+        boolean shouldHideAds = false;
+        if (schools != null) {
+            Set<Integer> collectionIds = getCollectionIdsFromCompareList(schools);
+
+            if(!collectionIds.isEmpty()) {
+                List<HubConfig> hubConfigs = _hubConfigDao.getConfigFromCollectionIdsAndKey(collectionIds, CityHubHelper.SHOW_ADS_KEY);
+
+                if(hubConfigs != null) {
+                    for(int i = 0; i < hubConfigs.size(); i++) {
+                        HubConfig hubConfig = hubConfigs.get(i);
+
+                        if(hubConfig != null && CityHubHelper.SHOW_ADS_KEY.equals(hubConfig.getQuay()) &&
+                                "false".equals(hubConfig.getValue())) {
+                            shouldHideAds = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return shouldHideAds;
+    }
+
+    public Set<Integer> getCollectionIdsFromCompareList(List<ComparedSchoolBaseStruct> schools) {
+        Set<Integer> collectionIds = new HashSet<Integer>();
+        for (int i = 0; i < schools.size(); i++) {
+            ComparedSchoolBaseStruct schoolBaseStruct = schools.get(i);
+            School school = schoolBaseStruct.getSchool();
+            String collectionIdAsString = school.getMetadataValue(School.METADATA_COLLECTION_ID_KEY);
+            if(collectionIdAsString != null) {
+                try {
+                    Integer collectionId = Integer.parseInt(collectionIdAsString);
+                    collectionIds.add(collectionId);
+                }
+                catch (NumberFormatException ex) {
+                    _log.error("AbstractCompareSchoolController - Error while trying to convert collection id in" +
+                            "string to integer.\n", ex.fillInStackTrace());
+                }
+            }
+        }
+
+        return collectionIds;
+    }
+
     // FIELD ACCESSOR/MUTATORS
 
     public ISchoolDao getSchoolDao() {
@@ -671,5 +736,13 @@ public abstract class AbstractCompareSchoolController extends AbstractController
 
     public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
         _testDataSetDao = testDataSetDao;
+    }
+
+    public IHubConfigDao getHubConfigDao() {
+        return _hubConfigDao;
+    }
+
+    public void setHubConfigDao(IHubConfigDao hubConfigDao) {
+        _hubConfigDao = hubConfigDao;
     }
 }

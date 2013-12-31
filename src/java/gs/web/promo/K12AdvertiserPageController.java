@@ -1,16 +1,20 @@
 package gs.web.promo;
 
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,13 +30,43 @@ public class K12AdvertiserPageController {
     final public static String MODEL_STATE = "state";
     final public static String OTHER_TRAFFIC_DRIVER = "ot";
 
+    @Autowired
+    private ISchoolDao _schoolDao;
+
     @RequestMapping(value = "/online-education.page", method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
         String trafficDriverParam = request.getParameter(PARAM_TRAFFIC_DRIVER);
-        String schoolParam = request.getParameter(PARAM_SCHOOL);
-        if (!K12AdvertiserPageHelper.isValidK12School(schoolParam)) {
-            return new ModelAndView(new RedirectView301("/online-education.page?school=INT"));
+        String page;
+        if (StringUtils.isNotBlank(request.getHeader("referer")) && trafficDriverParam != null && trafficDriverParam.matches("^\\w{2}$")) {
+            page = trafficDriverParam;
+        } else {
+            page = OTHER_TRAFFIC_DRIVER;
         }
+        // Redirect requests for state specific pages to the appropriate k12 school profile in that state.
+        try {
+            State stateFromParam = State.fromString(request.getParameter(PARAM_SCHOOL)); // this will fail for INT
+            if (stateFromParam == State.CA) {
+                // Special handling: CA has multiple k12 schools. Go instead to a search results page.
+                UrlBuilder searchUrl = new UrlBuilder(UrlBuilder.SCHOOL_SEARCH, State.CA, "California Virtual Academies");
+                return new ModelAndView(new RedirectView301(searchUrl.asSiteRelative(request)));
+            }
+            Integer schoolId = K12AdvertiserPageHelper.K12_STATE_TO_SCHOOL_ID.get(stateFromParam);
+            if (schoolId == null) {
+                return new ModelAndView(new RedirectView301("/online-education.page?school=INT&page=" + page));
+            }
+            try {
+                School s = _schoolDao.getSchoolById(stateFromParam, schoolId);
+                UrlBuilder schoolUrl = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
+                return new ModelAndView(new RedirectView301(schoolUrl.asSiteRelative(request)));
+            } catch (ObjectRetrievalFailureException orfe) {
+                return new ModelAndView(new RedirectView301("/online-education.page?school=INT&page=" + page));
+            }
+        } catch (IllegalArgumentException iae) {
+            if (!StringUtils.equals("INT", request.getParameter(PARAM_SCHOOL))) {
+                return new ModelAndView(new RedirectView301("/online-education.page?school=INT&page=" + page));
+            }
+        }
+        String schoolParam = request.getParameter(PARAM_SCHOOL);
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(MODEL_K12_SCHOOL, schoolParam);
@@ -46,15 +80,6 @@ public class K12AdvertiserPageController {
             // INT has no state
         }
 
-        String referrer = request.getHeader("referer");
-        boolean hasReferrer = StringUtils.isNotBlank(referrer);
-
-        String page;
-        if (hasReferrer && trafficDriverParam != null && trafficDriverParam.matches("^\\w{2}$")) {
-            page = trafficDriverParam;
-        } else {
-            page = OTHER_TRAFFIC_DRIVER;
-        }
         String clickthruSchoolParam = K12AdvertiserPageHelper.getClickthruSchoolParam(schoolParam);
         model.put(MODEL_SCHOOL_CODE, clickthruSchoolParam);
 

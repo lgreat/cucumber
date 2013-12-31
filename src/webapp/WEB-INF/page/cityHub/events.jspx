@@ -1,0 +1,31 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
+          xmlns:gsweb="gstaglib"
+          version="2.0">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <c:set var="pageName" value="Important Dates" scope="request"/>
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <meta name="decorator" content="standardDecorator-hubs"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="${gsweb:eventsPageDescription()}"/>
+        <meta name="keywords" content="${gsweb:eventsPageKeyWords(city)}"/>
+        <title>${gsweb:eventsPageTitle(city,state)}</title>
+        <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
+    </head>
+
+    <body>
+        <hub:searchChoosing/>
+        <hub:breadcrumbs city="${city}" state="${state}" pageName="Events"/>
+        <hub:seeAllEventDates/>
+        <mod:tracking pageName="${pageName}"
+                      locale="${city}"
+                      hier1="Education Events in ${city}, ${state.abbreviation}"
+                      localPageName="${pageName}"/>
+    </body>
+    </html>
+</jsp:root>

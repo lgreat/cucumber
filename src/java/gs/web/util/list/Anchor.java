@@ -19,7 +19,23 @@ public class Anchor {
     private String _styleClass; // CSS class, or null
     private String _before; // text that is drawn before the link
     private String _after; // text that is drawn after the link
+    private Integer _count;
+    private Target _target;
 
+    public enum Target {
+        _self("_self"),
+        _blank("_blank");
+
+        private final String _target;
+
+        private Target(String target) {
+            _target = target;
+        }
+
+        public String getTarget() {
+            return _target;
+        }
+    }
     /**
      * Constructor.
      *
@@ -31,6 +47,14 @@ public class Anchor {
         _contents = contents;
         _styleClass = null;
         _image = null;
+    }
+
+    public Anchor(final String href, final String contents, final Integer count) {
+        _href = href;
+        _contents = contents;
+        _styleClass = null;
+        _image = null;
+        _count= count;
     }
 
     /**
@@ -114,6 +138,14 @@ public class Anchor {
         _after = after;
     }
 
+    public Integer getCount() {
+        return _count;
+    }
+
+    public void setCount(final Integer count) {
+        _count = count;
+    }
+
     public String asATag() {
         return "<a" +
                 " href=\"" +
@@ -121,5 +153,13 @@ public class Anchor {
                 "\">" +
                 _contents +
                 "</a>";
+    }
+
+    public Target getTarget() {
+        return _target;
+    }
+
+    public void setTarget(Target target) {
+        _target = target;
     }
 }

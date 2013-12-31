@@ -92,7 +92,6 @@ GS.profile = GS.profile || (function() {
         'School_Profile_Page_Header_Branded_Tandem_728x90',
         'School_Profile_Page_Community_Ad_300x50',
         'School_Profile_Page_BelowFold_300x250',
-        'School_Profile_Page_BelowFold_Top_300x125',
         'School_Profile_Page_AboveFold_300x600',
         'School_Profile_Page_AboveFold_300x600',
         'School_Profile_Page_Branded_Tandem_Tile_150x30',
@@ -109,15 +108,13 @@ GS.profile = GS.profile || (function() {
         'School_Profile_Page_Header_728x90',
         'School_Profile_Page_Community_Ad_300x50',
         'School_Profile_Page_BelowFold_300x250',
-        'School_Profile_Page_BelowFold_Top_300x125',
         'School_Profile_Page_AboveFold_300x600'
     ];
     var refreshableOverviewAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
     var refreshableReviewsAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
 
     var refreshableCultureAdSlotKeys = [
-        'School_Profile_Page_Community_Ad_300x50',
-        'School_Profile_Page_BelowFold_Top_300x125'
+        'School_Profile_Page_Community_Ad_300x50'
     ];
 
     var refreshableCultureBranding = [
@@ -496,6 +493,8 @@ GS.profile = GS.profile || (function() {
         var numberAdSlots = adslots.length;
         var i, slot, slotName;
         var slotsLeftToRefresh = [];
+
+        if(GS.ad.slots === undefined) return;
 
         for (i = 0; i < numberAdSlots; i++) {
             slotName = adslots[i];

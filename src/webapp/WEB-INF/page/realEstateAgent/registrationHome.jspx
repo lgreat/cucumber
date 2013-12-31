@@ -7,13 +7,23 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
           version="2.0">
+    <jsp:directive.page import="gs.web.util.CookieUtil"/>
 
     <html>
     <jsp:directive.page contentType="text/html"/>
-
+    <jsp:scriptlet>
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+    </jsp:scriptlet>
 
     <head>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <c:choose>
+            <c:when test="${not empty isHubUser}">
+                <meta name="decorator" content="standardDecorator-hubs"/>
+            </c:when>
+            <c:otherwise>
+                <meta name="decorator" content="standardDecorator-v1"/>
+            </c:otherwise>
+        </c:choose>
         <meta name="description" content="GreatSchools Radar makes it easy for real estate pros to create customized 
         neighborhood school guides for their home listings"/>
         <meta name="keywords" content="school reports, school guides, real estate schools, school reports for real

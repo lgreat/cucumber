@@ -3,14 +3,24 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:realEstate="urn:jsptagdir:/WEB-INF/tags/realEstateAgent"
         >
+    <jsp:directive.page import="gs.web.util.CookieUtil"/>
     <html>
     <jsp:directive.page contentType="text/html"/>
-
+    <jsp:scriptlet>
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+    </jsp:scriptlet>
     <c:set var="countPerPage" value="5"/>
 
     <head>
         <title>Real Estate School Report | GreatSchools</title>
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <c:choose>
+            <c:when test="${not empty isHubUser}">
+                <meta name="decorator" content="standardDecorator-hubs"/>
+            </c:when>
+            <c:otherwise>
+                <meta name="decorator" content="standardDecorator-v1"/>
+            </c:otherwise>
+        </c:choose>
         <link href="/res/css/15_pdf/realEstate.css" rel="stylesheet" type="text/css" />
         <!--<link href="/res/css/06_sprites/icon.css" rel="stylesheet" type="text/css" />-->
     </head>

@@ -1,5 +1,6 @@
 package gs.web.promo;
 
+import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
@@ -44,6 +45,68 @@ public class K12AdvertiserPageHelper {
         K12_SCHOOL_INFO.put("WI", new K12SchoolInfo("wiva", "Wisconsin Virtual Academy"));
         K12_SCHOOL_INFO.put("WY", new K12SchoolInfo("wyva", "Wyoming Virtual Academy", false));
     }
+
+    /**
+     * Per PT-128, send requests to state-specific state landing pages instead to the profile page for that
+     * state's k12 school. This map contains the school id for each state's k12 school.
+     *
+     * California is not included because California has more than one k12 school. The controller should instead
+     * redirect to a search results page.
+     */
+    public static final Map<State, Integer> K12_STATE_TO_SCHOOL_ID = new HashMap<State, Integer>(50) {
+        {
+            put(State.AK, 941);
+            put(State.AL, 3688);
+            put(State.AR, 3207);
+            put(State.AZ, 2805);
+            put(State.CO, 2328);
+            put(State.CT, 3181);
+            put(State.DC, 562);
+            put(State.DE, 984);
+            put(State.FL, 13481);
+            put(State.GA, 6653);
+            put(State.HI, 673);
+            put(State.IA, 3369);
+            put(State.ID, 914);
+            put(State.IL, 7579);
+            put(State.IN, 4716);
+            put(State.KS, 1798);
+            put(State.KY, 4118);
+            put(State.LA, 4099);
+            put(State.MA, 5290);
+            put(State.MD, 4156);
+            put(State.ME, 2185);
+            put(State.MI, 9055);
+            put(State.MN, 3354);
+            put(State.MO, 5582);
+            put(State.MS, 2758);
+            put(State.MT, 1232);
+            put(State.NC, 7992);
+            put(State.ND, 1120);
+            put(State.NE, 4301);
+            put(State.NH, 1698);
+            put(State.NJ, 7039);
+            put(State.NM, 1999);
+            put(State.NV, 859);
+            put(State.NY, 13545);
+            put(State.OH, 5039);
+            put(State.OK, 3492);
+            put(State.OR, 3093);
+            put(State.PA, 6375);
+            put(State.RI, 894);
+            put(State.SC, 3488);
+            put(State.SD, 1807);
+            put(State.TN, 5210);
+            put(State.TX, 20807);
+            put(State.UT, 1964);
+            put(State.VA, 5222);
+            put(State.VT, 1000);
+            put(State.WA, 3740);
+            put(State.WI, 5989);
+            put(State.WV, 1620);
+            put(State.WY, 1093);
+        }
+    };
 
     public static String getClickthruSchoolParam(String state) {
         K12SchoolInfo schoolInfo;

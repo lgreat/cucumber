@@ -177,6 +177,11 @@
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generatePageTitle(gs.data.geo.City)</function-signature>
     </function>
+    <function>
+        <name>cityPageTitleHub</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitle(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
 
     <function>
         <name>cityPageDescription</name>
@@ -184,12 +189,83 @@
         <function-signature>java.lang.String generateMetaDescription(gs.data.geo.City)</function-signature>
     </function>
 
+
+    <function>
+        <name>cityPageHubDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescription(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
+
     <function>
         <name>cityPageKeywords</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generateMetaKeywords(gs.data.geo.City)</function-signature>
     </function>
-
+    <function>
+        <name>cityPageKeywordsHub</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywords(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
+    <function>
+        <name>choosePageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleChoosingPage(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
+    <function>
+        <name>choosePageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionChoosingPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>choosePageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsChoosingPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>enrollmentPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleEnrollmentPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>enrollmentPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionEnrollmentPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>enrollmentPageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsEnrollmentPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>eduPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleEduPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>eduPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionEduPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>eduPageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsEduPage(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>eventsPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleEventsPage(java.lang.String,gs.data.state.State)</function-signature>
+    </function>
+    <function>
+        <name>eventsPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageDescriptionEventsPage()</function-signature>
+    </function>
+    <function>
+        <name>eventsPageKeyWords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywordsEventsPage(java.lang.String)</function-signature>
+    </function>
     <function>
         <name>districtPageTitle</name>
         <function-class>gs.data.seo.SeoUtil</function-class>

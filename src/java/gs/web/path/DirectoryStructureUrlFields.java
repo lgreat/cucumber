@@ -22,7 +22,16 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:yfan@greatschools.org">Young Fan</a>
  */
 public class DirectoryStructureUrlFields {
-    
+
+    public static final String CHOOSING_SCHOOLS_PAGE = "choosing-schools";
+
+
+    public static final String ENROLLMENT_SCHOOLS_PAGE = "enrollment";
+
+    public static final String EDUCATION_COMMUNITY_SCHOOLS_PAGE = "education-community";
+
+    public static final String EVENTS_SCHOOLS_PAGE = "events";
+
     /**
      * Identifier providing additional information for identifying a single url
      * resource wrt the {@link DirectoryStructureUrlFields} approach.
@@ -46,6 +55,17 @@ public class DirectoryStructureUrlFields {
     private String _schoolName = null;
     private String _schoolID = null; 
     private boolean _hasSchoolsLabel = false;
+
+    private boolean _isChoosePage= false;
+
+    private boolean _isEnrollmentPage= false;
+
+
+    private boolean _isEducationCommunityPage= false;
+
+
+    private boolean _isEventsPage= false;
+
     private ExtraResourceIdentifier _eri;
 
     public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
@@ -88,6 +108,10 @@ public class DirectoryStructureUrlFields {
         _schoolName = null;
         _schoolID = null; 
         _hasSchoolsLabel = false;
+        _isChoosePage= false;
+        _isEnrollmentPage= false;
+        _isEducationCommunityPage= false;
+        _isEventsPage= false;
         _eri = null;
     }
     
@@ -110,6 +134,21 @@ public class DirectoryStructureUrlFields {
             // or /california/san-francisco/San-Francisco-Unified-School-District/
             // or /california/alameda/1-Alameda-High-School/
             _cityName = pathComponents[2];
+            if (pathComponents[3].equalsIgnoreCase(CHOOSING_SCHOOLS_PAGE)) {
+                _isChoosePage= true;
+            } else if (pathComponents[3].equalsIgnoreCase(ENROLLMENT_SCHOOLS_PAGE))
+            {
+                _isEnrollmentPage= true;
+            } else if (pathComponents[3].equalsIgnoreCase(EDUCATION_COMMUNITY_SCHOOLS_PAGE))
+            {
+                _isEducationCommunityPage= true;
+            } else if (pathComponents[3].equalsIgnoreCase(EVENTS_SCHOOLS_PAGE))
+            {
+                _isEventsPage= true;
+            }
+            else
+            {
+
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
             Matcher schoolNameMatcher = SCHOOL_NAME_OVERVIEW_PATTERN.matcher(pathComponents[3]);
@@ -127,7 +166,8 @@ public class DirectoryStructureUrlFields {
                     _districtName = pathComponents[3];
                 }
             }
-        } else if (pathComponents.length == 5) {
+            }
+        } else if (pathComponents.length == 5 ) {
             // /california/sonoma/public-charter/schools/ or
             // /california/san-francisco/San-Francisco-Unified-School-District/schools/ or
             // /california/alameda/1-Alameda-High-School/{eri}
@@ -322,6 +362,26 @@ public class DirectoryStructureUrlFields {
         return _hasSchoolsLabel;
     }
 
+    public boolean hasChoosePage() {
+        return _isChoosePage;
+    }
+
+
+    public boolean hasEnrollmentPage() {
+        return _isEnrollmentPage;
+    }
+
+    public boolean hasEducationCommunityPage() {
+        return _isEducationCommunityPage;
+    }
+
+    public boolean hasEventsPage() {
+        return _isEventsPage;
+    }
+
+
+
+
     public String getSchoolID() {
         return _schoolID;
     }
@@ -336,7 +396,7 @@ public class DirectoryStructureUrlFields {
 
     @Override
     public String toString() {
-        return "hasState: " + hasState() + ", hasCityName: " + hasCityName() + ", hasSchoolTypes: " + hasSchoolTypes() +
+        return "hasState: " + hasState() + ", hasCityName: " + hasCityName() + ", hasChoosePage " + hasChoosePage() + ", hasSchoolTypes: " + hasSchoolTypes() +
                 ", hasLevelCode: " + hasLevelCode() + ", hasSchoolsLabel: " + hasSchoolsLabel() + ", hasSchoolName: " + hasSchoolName() +
                 ", hasSchoolID: " + hasSchoolID() + ", schoolName: " + getSchoolName() + ", schoolID: " + getSchoolID() +
                 ", cityName: " + getCityName() + (hasState()?", state: " + getState().getAbbreviation():"") +

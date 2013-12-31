@@ -8,19 +8,23 @@ package gs.web.util.context;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.geo.City;
+import gs.data.school.EspMembership;
+import gs.data.school.EspMembershipStatus;
+import gs.data.school.IEspMembershipDao;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.auth.FacebookHelper;
 import gs.web.auth.FacebookSession;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
-import gs.web.request.RequestAttributeHelper;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -122,10 +126,19 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _kindercareLeadGenCookieGenerator;
     private CookieGenerator _care2PromoCookieGenerator;
     private CookieGenerator _searchResultsCookieGenerator;
+    private CookieGenerator _isOspMemberCookieGenerator;
+    private CookieGenerator _hubCityCookieGenerator;
+    private CookieGenerator _hubStateCookieGenerator;
+    private CookieGenerator _isHubUserCookieGenerator;
+
+
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.org";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.org";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
     public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.org:8000";
+
+    @Autowired
+    protected IEspMembershipDao _espMembershipDao;
 
     public void readCookies(HttpServletRequest httpServletRequest,
                                final SessionContext context) {
@@ -221,6 +234,8 @@ public class SessionContextUtil implements ApplicationContextAware {
                     String message = thisCookie.getValue();
                     context.setTempMsg(message);
                 }
+
+
                 // If new state cookie is not set, check for old state cookie and use that value if present
                 if (cookiedState == null && oldCookiedState != null) {
                     context.setState(oldCookiedState);
@@ -530,6 +545,48 @@ public class SessionContextUtil implements ApplicationContextAware {
         _searchResultsCookieGenerator = searchResultsCookieGenerator;
     }
 
+    public CookieGenerator getIsOspMemberCookieGenerator() {
+        return _isOspMemberCookieGenerator;
+    }
+
+    public void setIsOspMemberCookieGenerator(CookieGenerator ospMemberCookieGenerator) {
+        _isOspMemberCookieGenerator = ospMemberCookieGenerator;
+    }
+
+    public CookieGenerator getHubStateCookieGenerator() {
+        return _hubStateCookieGenerator;
+    }
+
+    public void setHubStateCookieGenerator(CookieGenerator hubStateCookieGenerator) {
+        this._hubStateCookieGenerator = hubStateCookieGenerator;
+    }
+
+    public CookieGenerator getHubCityCookieGenerator() {
+        return _hubCityCookieGenerator;
+    }
+
+    public void setHubCityCookieGenerator(CookieGenerator hubCityCookieGenerator) {
+        this._hubCityCookieGenerator = hubCityCookieGenerator;
+    }
+    public CookieGenerator getIsHubUserCookieGenerator() {
+        return _isHubUserCookieGenerator;
+    }
+
+    public void setIsHubUserCookieGenerator(CookieGenerator isHubUserCookieGenerator) {
+        this._isHubUserCookieGenerator = isHubUserCookieGenerator;
+    }
+
+    public void clearIsHubUserCookie(HttpServletResponse response) {
+        _isHubUserCookieGenerator.removeCookie(response);
+    }
+
+    public void setIsHubUserCookie(final HttpServletResponse response, final HttpServletRequest request) {
+        _isHubUserCookieGenerator.addCookie(response, "y");
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            _isHubUserCookieGenerator.setCookieDomain(".greatschools.org");
+        }
+    }
+
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
      *
@@ -765,6 +822,12 @@ public class SessionContextUtil implements ApplicationContextAware {
     public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash, boolean rememberMe) {
         if (user != null) {
             setUserIsMember(request, response);
+            if((user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) || isProvisionalEspMember(user)) {
+                if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                    _isOspMemberCookieGenerator.setCookieDomain(".greatschools.org");
+                }
+                _isOspMemberCookieGenerator.addCookie(response, "y");
+            }
             ClientSideSessionCache cache = new ClientSideSessionCache(user);
             cache.setUserHash(hash);
             if (user.getUserProfile() != null) {
@@ -848,10 +911,34 @@ public class SessionContextUtil implements ApplicationContextAware {
         _memberIdCookieGenerator.removeCookie(response);
         _sessionCacheCookieGenerator.removeCookie(response);
         _memberCookieGenerator.removeCookie(response);
+        _isOspMemberCookieGenerator.removeCookie(response);
+
         // Before a user logs into community, the name of the community cookie is blank. Thus, we
         // do this check in order to avoid a NPE.
         if (!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {
             _communityCookieGenerator.removeCookie(response);
+        }
+    }
+
+    public void clearHubCityCookie(HttpServletResponse response) {
+        _hubCityCookieGenerator.removeCookie(response);
+    }
+
+    public void setHubCityCookie(final HttpServletResponse response, final HttpServletRequest request , final String cookieValue) {
+        _hubCityCookieGenerator.addCookie(response, cookieValue);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            _hubCityCookieGenerator.setCookieDomain(".greatschools.org");
+        }
+    }
+
+    public void clearHubStateCookie(HttpServletResponse response) {
+        _hubStateCookieGenerator.removeCookie(response);
+    }
+
+    public void setHubStateCookie(final HttpServletResponse response, final HttpServletRequest request , final String cookieValue) {
+        _hubStateCookieGenerator.addCookie(response, cookieValue);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            _hubStateCookieGenerator.setCookieDomain(".greatschools.org");
         }
     }
 
@@ -867,5 +954,28 @@ public class SessionContextUtil implements ApplicationContextAware {
             LONG_STATE_URI_PATTERN = Pattern.compile(longStatePattern.toString(), Pattern.CASE_INSENSITIVE);
         }
         return LONG_STATE_URI_PATTERN;
+    }
+
+    public boolean isProvisionalEspMember(User user) {
+        boolean isAllowedToEditSchoolProfile = false;
+        if(user != null && _espMembershipDao != null) {
+            List<EspMembership> espMemberships =
+                    _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
+
+            for(EspMembership espMembership : espMemberships) {
+                if(EspMembershipStatus.PROVISIONAL.equals(espMembership.getStatus())) {
+                    isAllowedToEditSchoolProfile = true;
+                }
+            }
+        }
+        return isAllowedToEditSchoolProfile;
+    }
+
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
     }
 }

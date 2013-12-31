@@ -9,8 +9,12 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           version="2.0">
+    <jsp:directive.page import="gs.web.util.CookieUtil"/>
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
+    <jsp:scriptlet>
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+    </jsp:scriptlet>
 
     <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}" imageUrl="${feature.imageUrl}"/>
 
@@ -20,7 +24,14 @@
     <head>
         <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}" primaryCategoryName="${feature.primaryKategory.name}"/>
 
-        <meta name="decorator" content="standardDecorator-v1"/>
+        <c:choose>
+            <c:when test="${not empty isHubUser}">
+                <meta name="decorator" content="standardDecorator-hubs"/>
+            </c:when>
+            <c:otherwise>
+                <meta name="decorator" content="standardDecorator-v1"/>
+            </c:otherwise>
+        </c:choose>
         <meta name="description"
               content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
         <meta name="keywords" content="${feature.metaKeywords}"/>

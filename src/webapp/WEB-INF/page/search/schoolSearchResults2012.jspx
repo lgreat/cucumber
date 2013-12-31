@@ -19,15 +19,27 @@
           xmlns:pagination="pagination"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+</jsp:scriptlet>
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <c:choose>
+        <c:when test="${not empty isHubUser or  not empty isHubUserSet}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
+
     <c:if test="${not empty title}">
         <title>${title}</title>
     </c:if>
@@ -82,7 +94,7 @@
     <!-- Allow interstitials for this page.
      Note the property in the db must still be enabled for an interstitial to appear
      GS-3852 -->
-    <c:if test="${requestScope.context.interstitialEnabled}">
+    <c:if test="${requestScope.context.interstitialEnabled and not isAdFreeHub}">
         <gsml:javascript src="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
     </c:if>
@@ -209,8 +221,6 @@
             <c:set var="defaultState" value="${city.state}"/>
         </c:if>
         <promo:zillow formattedUrl="${formattedUrl}" regionId="${regionID}" />
-        <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-        <ad:BelowFold_Top_300x125/>
   </div>
     </div>
 
@@ -232,7 +242,8 @@
                   findASchoolByAddress="${omnitureAddressSearch}"
                   findASchoolByName="${omnitureNameSearch}"
                   locale="${omnitureLocale}"
-            />
+                  localPageName="${isLocal ? omniturePageName : ''}"
+     />
     </div>
 
 </gsml:body>

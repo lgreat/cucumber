@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:hub="urn:jsptagdir:/WEB-INF/tags/cityHub"
+>
+
+
+    <div class="tab-content-container pbl">
+        <c:forEach items="${enrollmentsInfo}" var="enrollmentInfo">
+            <c:choose>
+                <c:when test="${(defaultTab == enrollmentInfo.tabName and empty param.tab) or param.tab == enrollmentInfo.tabName}">
+                    <div class="container_24 clearfix mvl pvl" data-gs-tab-content="${enrollmentInfo.tabName}"
+                         data-gs-tab-group="groupOne" data-gs-tab-inactive="inactive-tab-content">
+                        <div class="alpha grid_12 suffix_1 mbl pbl">
+                            <h3 class="SourceSansPro-Semibold-h3">
+                                ${enrollmentInfo.header}
+                            </h3>
+                            <p>${enrollmentInfo.description}</p>
+                            <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
+                            <c:if test="${not empty enrollmentInfo.moreInfo.infoLinkSources}">
+                                <c:forEach items="${enrollmentInfo.moreInfo.infoLinkSources}" var="link">
+                                    <c:choose>
+                                        <c:when test="${not empty link.link.href}">
+                                            <a href="${link.link.href}" target="${link.link.target}">${link.link.contents}</a><br/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${link.link.contents}<br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:if test="${not empty link.contact}">
+                                        ${link.contact}<br/>
+                                    </c:if>
+                                    <br/>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                        <div class="grid_11 omega">
+                            <hub:enrollmentKeyDates
+                                    schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}"
+                                    gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+                            <c:if test="${not empty enrollmentInfo.tipsInfoModel}">
+                                <hub:enrollmentTips tips="${enrollmentInfo.tipsInfoModel}" index="${status.count}"/>
+                            </c:if>
+                            <c:if test="${not empty enrollmentInfo.browseLink.count}">
+                                <button class="but-4 clearfix" style="width: auto;" type="button"
+                                        onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
+                                    <div class="fl">${enrollmentInfo.browseLink.contents}</div>
+                                    <div class="fr pr mlm">
+                                        <img src="/res/img/cityHubs/oval.png" alt="Grey oval" class="vam"/>
+                                        <div class="pa" style="top:1px; right: 0px; color: #FFFFFF;width: 36px; text-align: center;">
+                                            <span class="tac">${enrollmentInfo.browseLink.count}</span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </c:if>
+                        </div>
+                        <hr class="keyline1 mvl"/>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="container_24 clearfix mvl dn pvl" data-gs-tab-content="${enrollmentInfo.tabName}"
+                         data-gs-tab-group="groupOne" data-gs-tab-inactive="dn">
+                        <div class="alpha grid_12 suffix_1 mbl pbl">
+                            <h3 class="SourceSansPro-Semibold-h3">
+                                ${enrollmentInfo.header}
+                            </h3>
+                            <p>${enrollmentInfo.description}</p>
+                            <h4 class="SourceSansPro-Semibold-h4">For more information:</h4>
+                            <c:if test="${not empty enrollmentInfo.moreInfo.infoLinkSources}">
+                                <c:forEach items="${enrollmentInfo.moreInfo.infoLinkSources}" var="link">
+                                    <c:choose>
+                                        <c:when test="${not empty link.link.href}">
+                                            <a href="${link.link.href}" target="${link.link.target}">${link.link.contents}</a><br/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${link.link.contents}<br/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:if test="${not empty link.contact}">
+                                        ${link.contact}<br/>
+                                    </c:if>
+                                    <br/>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                        <div class="grid_11 omega">
+                            <hub:enrollmentKeyDates
+                                    schoolType="${gsweb:toLowerCase(enrollmentInfo.schoolType.schoolTypeName)}"
+                                    gradeLevel="${gsweb:toLowerCase(enrollmentInfo.levelCode.lowestLevel.longName)}"/>
+                            <c:if test="${not empty enrollmentInfo.tipsInfoModel}">
+                                <hub:enrollmentTips tips="${enrollmentInfo.tipsInfoModel}" index="${status.count}"/>
+                            </c:if>
+                            <c:if test="${not empty enrollmentInfo.browseLink.count}">
+                                <button class="but-4 clearfix" type="button" style="width: auto;"
+                                        onclick="location.href='${enrollmentInfo.browseLink.hrefXml}'">
+                                    <div class="fl">${enrollmentInfo.browseLink.contents}</div>
+                                    <div class="fr pr mlm">
+                                        <img src="/res/img/cityHubs/oval.png" alt="Grey oval" class="vam"/>
+                                        <div class="pa" style="top:1px; right: 0px; color: #FFFFFF;width: 36px; text-align: center;">
+                                            <span class="tac">${enrollmentInfo.browseLink.count}</span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </c:if>
+                        </div>
+                        <hr class="keyline1 mvl"/>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </div>
+
+</jsp:root>

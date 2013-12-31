@@ -21,7 +21,6 @@ import org.springframework.context.ApplicationContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -126,6 +125,15 @@ public class PageHelper {
         }
     }
 
+    public static void hideAllAds(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
     /**
      * Adds the given code to the onload script of the body tag.
      */
@@ -222,6 +230,15 @@ public class PageHelper {
     private boolean _showingLeaderboard = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
+
+    public boolean isAdsHidden() {
+        return _hideAds;
+    }
+
+    public void setHideAds(boolean _hideAds) {
+        this._hideAds = _hideAds;
+    }
+
     private boolean _showingBelowNavAds = true;
     private boolean _betaPage = false;
     private String _pageName = "";
@@ -233,6 +250,9 @@ public class PageHelper {
     private String _onload = "";
     private String _onunload = "";
     private boolean _showingNthGraderHover = false;
+
+
+    private boolean _hideAds = false;
 
 
     private Set<String> _javascriptFileSources; // Unique set of files to include on page
@@ -608,7 +628,7 @@ public class PageHelper {
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return !_sessionContext.isAdvertisingOnline() ||
+        return   _hideAds || !_sessionContext.isAdvertisingOnline() ||
                 (_sessionContext.getCobrand() != null &&
                  _sessionContext.getCobrand().matches("mcguire|framed|vreo|e-agent|homegain|envirian|connectingneighbors|test")
                 ) ||
@@ -960,6 +980,41 @@ public class PageHelper {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changePathway(context, response, (String) pageIds.get(pathway));
+    }
+
+    public static void setHubCookiesForNavBar(HttpServletRequest request, HttpServletResponse response, String state,String city) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.setHubStateCookie(response, request, state);
+        util.setHubCityCookie(response, request, city);
+    }
+
+    public static void clearHubCookiesForNavBar(final HttpServletRequest request, final HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for( Cookie cookie : cookies) {
+                if( "hubCity".equals(cookie.getName()) || "hubState".equals(cookie.getName())) {
+                    cookie.setValue(null);
+                }
+            }
+        }
+        util.clearHubCityCookie(response);
+        util.clearHubStateCookie(response);
+    }
+
+    public static void setHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.setIsHubUserCookie(response, request);
+
+    }
+    public static void clearHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.clearIsHubUserCookie(response);
+
     }
 
     public static void setHasSearchedCookie(HttpServletRequest request, HttpServletResponse response) {

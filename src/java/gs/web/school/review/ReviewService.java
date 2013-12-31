@@ -17,6 +17,8 @@ public class ReviewService {
     public static enum ReviewUpgradeStatus {
         REVIEW_UPGRADED_NOT_PUBLISHED,
         REVIEW_UPGRADED_PUBLISHED,
+        TOPICAL_REVIEW_UPGRADED_NOT_PUBLISHED,
+        TOPICAL_REVIEW_UPGRADED_PUBLISHED,
         NO_REVIEW_UPGRADED
     }
 
@@ -121,10 +123,20 @@ public class ReviewService {
             List<ISchoolReview> publishedReviews = findPublishedReviews(upgradedReviews);
 
             if (publishedReviews.size() > 0) {
+                ISchoolReview firstPublishedReview = publishedReviews.get(0);
                 summary.setFirstPublishedReview(publishedReviews.get(0));
-                status = ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED;
+                if (firstPublishedReview.getTopic() != null) {
+                    status = ReviewUpgradeStatus.TOPICAL_REVIEW_UPGRADED_PUBLISHED;
+                } else {
+                    status = ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED;
+                }
             } else {
-                status = ReviewUpgradeStatus.REVIEW_UPGRADED_NOT_PUBLISHED;
+                ISchoolReview firstUpgradedReview = upgradedReviews.get(0);
+                if (firstUpgradedReview.getTopic() != null) {
+                    status = ReviewUpgradeStatus.TOPICAL_REVIEW_UPGRADED_NOT_PUBLISHED;
+                } else {
+                    status = ReviewUpgradeStatus.REVIEW_UPGRADED_NOT_PUBLISHED;
+                }
             }
         } else {
             status = ReviewUpgradeStatus.NO_REVIEW_UPGRADED;

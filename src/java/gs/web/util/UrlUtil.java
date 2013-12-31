@@ -451,6 +451,8 @@ public final class UrlUtil {
     }
 
     public static final String[] COBRAND_IGNORE_URL_PREFIXES = {
+        "alpha",
+        "alpha-demo",
         "secure",
         "res1",
         "res2",
@@ -733,6 +735,7 @@ public final class UrlUtil {
 
     /**
      * Is this code running on a developers workstation?
+     * any changes here must be included in GS.util.isDeveloperWorkstation in global.js
      */
     public static boolean isDeveloperWorkstation(String hostName) {
         return hostName.indexOf("localhost") > -1 ||
@@ -759,6 +762,7 @@ public final class UrlUtil {
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("cmsqa") != -1 ||
                 hostName.indexOf("qa") != -1 ||
+                hostName.indexOf("alpha") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches(".*carbonfive.com") ||
@@ -783,6 +787,10 @@ public final class UrlUtil {
 
     public static boolean isPreReleaseServer(String hostName) {
         return hostName.indexOf("rithmatic") != -1;
+    }
+
+    public static boolean isAlphaEnvironment(String hostName) {
+        return hostName.indexOf("alpha.") != -1 ;
     }
 
     public static String getApiHostname(String hostName) {

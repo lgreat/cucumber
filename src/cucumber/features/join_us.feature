@@ -18,4 +18,5 @@ Scenario: Sign up with valid data
   | jpword | abc123 |
   | cpword | abc123 |
   And I click the button "Join now"
+  And I wait 2 seconds for the registration to succeed
   Then the Validate Email hover is visible

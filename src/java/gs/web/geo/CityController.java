@@ -21,13 +21,15 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.zillow.ZillowRegionDao;
-import gs.web.content.cms.CmsHomepageController;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -44,7 +46,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -54,7 +55,7 @@ import java.util.regex.Pattern;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
-public class CityController extends AbstractController  implements IDirectoryStructureUrlController {
+public class CityController extends AbstractController  implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     public static final String PARAM_CITY = "city";
 
@@ -89,9 +90,12 @@ public class CityController extends AbstractController  implements IDirectoryStr
     private AnchorListModelFactory _anchorListModelFactory;
     private ILocalBoardDao _localBoardDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    private ControllerFamily _controllerFamily;
 
     @Autowired
     private ZillowRegionDao _zillowDao;
+    @Autowired
+    private CityHubHelper _cityHubHelper;
 
     public static final int MAX_SCHOOLS = 10;
 
@@ -205,16 +209,18 @@ public class CityController extends AbstractController  implements IDirectoryStr
             model.put(MODEL_DISCUSSION_BOARD_ID, localBoard.getBoardId());
         }
 
-        int schoolCount = _schoolDao.countSchools(state, null, null, city.getName());
-        model.put(MODEL_SCHOOL_COUNT, schoolCount);
-
-        if (schoolCount > 0) {
-            AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, cityNameParam, cityDisplayName, request);
-            model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
-
-            //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
-            //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
+        AnchorListModel schoolBreakdownAnchorList = getCityHubHelper().getCollectionBrowseLinks(request, null, city.getName(), state);
+        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
+        List breakdownList = schoolBreakdownAnchorList.getResults();
+        int schoolCount = 0;
+        for(int i = 0; i < breakdownList.size(); i++) {
+            Anchor anchor = (Anchor) breakdownList.get(i);
+            // Public schools include public + charter
+            if("Public Schools".equals(anchor.getContents()) || "Private Schools".equals(anchor.getContents())) {
+                schoolCount += anchor.getCount();
+            }
         }
+        model.put(MODEL_SCHOOL_COUNT, schoolCount);
 
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
@@ -384,5 +390,22 @@ public class CityController extends AbstractController  implements IDirectoryStr
      */
     public void setZillowDao(ZillowRegionDao zillowDao) {
         _zillowDao = zillowDao;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
+    }
+
+    public CityHubHelper getCityHubHelper() {
+        return _cityHubHelper;
+    }
+
+    public void setCityHubHelper(CityHubHelper _cityHubHelper) {
+        this._cityHubHelper = _cityHubHelper;
     }
 }

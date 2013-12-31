@@ -533,6 +533,13 @@
             <type>java.lang.String</type>
             <description>onclick handler</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
     </tag>
     <tag>
         <name>mySchoolListLogin</name>
@@ -2030,6 +2037,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>rel attribute, for nofollow links</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
     <tag>
@@ -4470,6 +4484,13 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
     </tag>
     <tag>
         <name>recentActivity</name>
@@ -4651,11 +4672,25 @@
             <![CDATA[ESP Form page]]>
         </description>
         <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
             <name>school</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.school.School</type>
             <description>School</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
     <tag>
@@ -4829,6 +4864,194 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>JavaScript onclick attribute</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>cityHubHome</name>
+        <tag-class>gs.web.jsp.link.CityHubHomeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>City Hub Home</display-name>
+        <description>
+            <![CDATA[Hub home page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML class attribute</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>state</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>cityHubChooseSchoolsPage</name>
+        <tag-class>gs.web.jsp.link.CityHubChoosePageLinkTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>cityHubChooseSchoolsPage</display-name>
+        <description>
+            <![CDATA[Hub Choose page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>state</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>cityHubEduCommunityPage</name>
+        <tag-class>gs.web.jsp.link.CityHubEducationCommunityPageLinkTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>cityHubEduCommunityPage</display-name>
+        <description>
+            <![CDATA[Hub EduCommunity page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>state</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>cityHubEnrollmentPage</name>
+        <tag-class>gs.web.jsp.link.CityHubEnrollmentPageLinkTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>cityHubEnrollmentPage</display-name>
+        <description>
+            <![CDATA[Hub Enrollment page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>state</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>cityHubEventsPage</name>
+        <tag-class>gs.web.jsp.link.CityHubEventsPageLinkTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>cityHubEventsPage</display-name>
+        <description>
+            <![CDATA[Hub Events page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>state</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>city name</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
         </attribute>
     </tag>
 </taglib>

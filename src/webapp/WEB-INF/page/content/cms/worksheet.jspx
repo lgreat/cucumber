@@ -15,8 +15,12 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
           version="2.0">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
+</jsp:scriptlet>
 
 <pageHelper:addFacebookWorksheetMetaTags deck="${feature.summary}" title="${feature.title}"
                                         permalink="${feature.permaLink}"/>
@@ -37,7 +41,14 @@
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
 
-    <meta name="decorator" content="standardDecorator-v1" />
+    <c:choose>
+        <c:when test="${not empty isHubUser}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 

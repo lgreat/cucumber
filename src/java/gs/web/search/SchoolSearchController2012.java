@@ -5,6 +5,9 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubCityMapping;
+import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.pagination.DefaultPaginationConfig;
@@ -51,7 +54,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.view.RedirectView;
-import com.google.common.annotations.VisibleForTesting;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,6 +85,10 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     @Autowired
     private ZillowRegionDao _zillowDao;
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
+    @Autowired
+    private IHubConfigDao _hubConfigDao;
 
     private String _noResultsViewName;
     private String _noResultsAjaxViewName;
@@ -131,6 +137,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final int MAX_PAGE_SIZE = 100;
 
     protected static final String VIEW_NOT_FOUND = "/status/error404.page";
+    public static final String MODEL_IS_HUBS_LOCAL_SEARCH = "isHubsLocalSearch";
+    public static final String MODEL_IS_AD_FREE_HUB = "isAdFreeHub";
 
     public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
 
@@ -262,6 +270,33 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         boolean isSearch = !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse();
         model.put(MODEL_IS_SEARCH, isSearch);
 
+        boolean isHubsLocalSearch = commandAndFields.isHubsLocalSearch();
+        model.put(MODEL_IS_HUBS_LOCAL_SEARCH, isHubsLocalSearch);
+        boolean isAdFreeHub = commandAndFields.isHubAdsFree();
+        model.put(MODEL_IS_AD_FREE_HUB, (isHubsLocalSearch && isAdFreeHub));
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+//        if (pageHelper != null){
+//            pageHelper.clearHubUserCookie(request, response);
+//
+//        }
+        final String collectionID= commandAndFields.getCollectionId();
+        if (collectionID != null && isHubsLocalSearch) {
+            final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(Integer.parseInt(collectionID));
+            if(hubInfo != null) {
+                model.put("isLocal", hubInfo != null);
+                if(pageHelper != null) {
+                    pageHelper.clearHubCookiesForNavBar(request, response);
+                    pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+                }
+                pageHelper.setHubUserCookie(request, response);
+                model.put("isHubUserSet", "y");
+            }
+        }
+        if (pageHelper != null && isHubsLocalSearch && isAdFreeHub) {
+            pageHelper.setHideAds(true);
+        }
+
         // City Browse Specific: Include facebook "facepile" functionality if on pilot city
         // Added here for now, so that we can force facepiles to be included with a url param, even on non-city-browse
         // search results pages
@@ -309,7 +344,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     }
 
     protected boolean shouldRedirectFromByNameToCityBrowse(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandAndFields) {
-        if(!schoolSearchCommand.isNearbySearch() && !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse()) {
+        if(commandAndFields.isByNameSearch() && schoolSearchCommand.getCollectionId() == null) {
             String stateAbb = schoolSearchCommand.getState();
             String city = schoolSearchCommand.getSearchString();
             if(city != null && stateAbb !=null && (SchoolHelper.isLocal(city, stateAbb) || SchoolHelper.isNewAdvanceSearch(city, stateAbb))) {
@@ -635,13 +670,16 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         // handle logic that used to be taken care of with old "FieldConstraints"
-        // Filter on school's district ID or city name
+        // Filter on school's district ID or city name or collection id
         District district = commandAndFields.getDistrict();
         City city = commandAndFields.getCity();
+        boolean useCollectionIdAsSolrFilter = (commandAndFields.isHubsLocalSearch() && commandAndFields.getCollectionId() != null);
         if (district != null) {
             q.filter(SchoolFields.SCHOOL_DISTRICT_ID, String.valueOf(district.getId()));
-        } else if (city != null) {
+        } else if (city != null && !useCollectionIdAsSolrFilter) {
             q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + city.getName().toLowerCase() + "\"");
+        } else if(useCollectionIdAsSolrFilter) {
+            q.filter(SchoolFields.SCHOOL_COLLECTION_ID, "\"" + commandAndFields.getCollectionId() + "\"");
         }
 
         if (schoolSearchCommand.getMinCommunityRating() != null) {
@@ -1066,6 +1104,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
         commandAndFields.setDistrictDao(_districtDao);
         commandAndFields.setGeoDao(_geoDao);
+        commandAndFields.setHubCityMappingDao(_hubCityMappingDao);
+        commandAndFields.setHubConfigDao(_hubConfigDao);
         return commandAndFields;
     }
 

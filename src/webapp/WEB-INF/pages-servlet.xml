@@ -37,6 +37,7 @@
     <context:component-scan base-package="gs.web.gallup" />
     <context:component-scan base-package="gs.web.auth" />
     <context:component-scan base-package="gs.web.community.registration.popup" />
+    <context:component-scan base-package="gs.web.util.list" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -297,11 +298,13 @@
     <bean name="mobileControllerFamilyResolver" class="gs.web.DeviceSpecificControllerFamilyResolver" />
     <bean name="fruitcakeControllerFamilyResolver" class="gs.web.FruitcakeControllerFamilyResolver" />
     <bean name="mobileFruitcakeControllerFamilyResolver" class="gs.web.MobileFruitcakeControllerFamilyResolver" />
+    <bean name="cityHubControllerFamilyResolver" class="gs.web.CityHubControllerFamilyResolver" />
     <bean name="controllerFamilyFactory" class="gs.web.GenericControllerFamilyFactory" lazy-init="true">
         <property name="resolvers">
             <list>
                 <ref bean="mobileControllerFamilyResolver"/>
                 <ref bean="fruitcakeControllerFamilyResolver"/>
+                <ref bean="cityHubControllerFamilyResolver"/>
             </list>
         </property>
         <aop:scoped-proxy proxy-target-class="false"/>
@@ -1398,9 +1401,11 @@
         <property name="showAdTargeting" value="true"/>
     </bean>
 
-    <bean name="/city.page"
+    <bean name="cityDefaultController"
           class="gs.web.geo.CityController"
-          autowire="byName" lazy-init="true"/>
+          autowire="byName" lazy-init="true">
+    <property name="controllerFamily" value="CITY_DEFAULT"/>
+    </bean>
 
     <bean name="/city/"
           class="gs.web.geo.CityController"
@@ -2217,6 +2222,36 @@
         </property>
     </bean>
 
+    <bean name="cityLocalController" class="gs.web.geo.CityHubController" lazy-init="true">
+        <property name="controllerFamily" value="CITY_LOCAL"/>
+   </bean>
+
+    <bean name="/cityHub/enrollment.page"
+          class="gs.web.geo.CityHubEnrollmentPageController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/cityHub/choosing-schools.page"
+          class="gs.web.geo.CityHubChoosePageController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/cityHub/education-community.page"
+          class="gs.web.geo.CityHubEducationCommunityController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/cityHub/events.page"
+          class="gs.web.geo.CityHubImportantDatesController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/city.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="cityDefaultController"/>
+                <ref bean="cityLocalController"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+
     <bean name="/school/overview.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
@@ -2226,6 +2261,7 @@
             </list>
         </constructor-arg>
     </bean>
+
 
     <!-- FOR TESTING ONLY -->
     <bean name="desktopSchoolProfileController" class="gs.web.school.SchoolProfileController" lazy-init="true">
@@ -2594,6 +2630,10 @@
                 <ref bean="/school/overview.page"/>
                 <ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>
+                <ref bean="/cityHub/choosing-schools.page"/>
+                <ref bean="/cityHub/education-community.page"/>
+                <ref bean="/cityHub/enrollment.page"/>
+                <ref bean="/cityHub/events.page"/>
                 <ref bean="/school/research.page"/>
             </list>
         </property>
@@ -3191,5 +3231,9 @@
             <value>/geo/districtBoundary</value>
         </property>
     </bean>
+
+
+
+
 
 </beans>

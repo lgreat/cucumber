@@ -12,20 +12,28 @@ import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.search.*;
+import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.search.fields.AddressFields;
+import gs.data.search.fields.SchoolFields;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.util.Address;
-import gs.data.search.Indexer;
 import gs.web.geo.NearbyCitiesController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -40,6 +48,7 @@ import java.util.*;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
+@Component
 public class AnchorListModelFactory {
 
     public static final String BEAN_ID = "anchorListModelFactory";
@@ -49,6 +58,9 @@ public class AnchorListModelFactory {
     private StateManager _stateManager;
     private final UrlUtil _urlUtil = new UrlUtil();
 
+    private static final Logger _log = Logger.getLogger(AnchorListModelFactory.class);
+    @Autowired
+    private GsSolrSearcher _gsSolrSearcher;
 
     /**
      * Provides a list of districts in a city. Currently it caps the list at 5. If there are
@@ -124,6 +136,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Preschools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -133,6 +146,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -142,6 +156,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Middle Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -151,6 +166,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "High Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -164,6 +180,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Public Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -175,6 +192,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Private Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -186,6 +204,7 @@ public class AnchorListModelFactory {
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Charter Schools");
             anchor.setAfter(" (" + sc + ")");
+            anchor.setCount(sc);
             schoolBreakdownAnchorList.add(anchor);
         }
 
@@ -465,6 +484,99 @@ public class AnchorListModelFactory {
         return anchorListModel;
     }
 
+    public Anchor createBrowseLinksWithFilter(final HttpServletRequest request, final Integer collectionId, final Object[] filters,
+                                            final State state, final String cityName, final String anchorContent) {
+        Anchor anchor = null;
+
+        if(state != null && (collectionId != null || cityName != null)) {
+            String path;
+            Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+            LevelCode levelCode = null;
+            GsSolrQuery q = createGsSolrQuery();
+
+            if(filters != null) {
+                for(Object filter : filters) {
+                    if(filter instanceof SchoolType) {
+                        SchoolType schoolType = (SchoolType) filter;
+                        schoolTypes.add(schoolType);
+                    }
+                    else if(filter instanceof LevelCode) {
+                        levelCode = (LevelCode) filter;
+                    }
+                }
+            }
+
+            if(!schoolTypes.isEmpty()) {
+                String[] filterSchoolTypes = new String[schoolTypes.size()];
+                SchoolType[] st = schoolTypes.toArray(new SchoolType[0]);
+                for(int i = 0; i < schoolTypes.size(); i++) {
+                    filterSchoolTypes[i] = st[i].getSchoolTypeName();
+                }
+                q.filter(SchoolFields.SCHOOL_TYPE, filterSchoolTypes);
+            }
+
+            if(levelCode != null) {
+                String[] filterLevelCode = levelCode.getCommaSeparatedString().split(",");
+                q.filter(SchoolFields.GRADE_LEVEL, filterLevelCode);
+            }
+
+            SearchResultsPage schoolSearchResult = searchForSchools(q, collectionId, cityName, state);
+
+            path = getSiteRelativePath(request, state, cityName, schoolTypes, levelCode);
+            if(schoolSearchResult != null && schoolSearchResult.getTotalResults() > 0 && path != null) {
+                anchor = new Anchor(path, anchorContent);
+                anchor.setCount(schoolSearchResult.getTotalResults());
+                anchor.setAfter(" (" + schoolSearchResult.getTotalResults() + ")");
+            }
+        }
+
+        return anchor;
+    }
+
+
+    public SearchResultsPage<SolrSchoolSearchResult> searchForSchools(GsSolrQuery q, Integer collectionId, String cityName,
+                                                                      State state) {
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
+
+        if(collectionId != null) {
+            q.filter(SchoolFields.SCHOOL_COLLECTION_ID, "\"" + collectionId + "\"");
+        }
+        else if(cityName != null && state != null) {
+            q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + cityName.toLowerCase() + "\"");
+            q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
+        }
+
+        try {
+            searchResultsPage = _gsSolrSearcher.search(q, SolrSchoolSearchResult.class, false);
+        } catch (SearchException e) {
+            String msg = "unknown query filter";
+            if(collectionId != null) msg = "collection id " + collectionId;
+            else if(cityName != null && state != null) msg = "city " + cityName + " in state " + state.getAbbreviation();
+            _log.error("AnchorListModelFactory - Problem getting schools for " + msg, e);
+        }
+
+        return searchResultsPage;
+    }
+
+    public GsSolrQuery createGsSolrQuery() {
+        return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
+    }
+
+    public String getSiteRelativePath(HttpServletRequest request, State state, String city, Set<SchoolType> schoolTypes,
+                                      LevelCode levelCode) {
+        String href = null;
+        try {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city, schoolTypes, levelCode);
+            href = urlBuilder.asSiteRelative(request);
+        }
+        catch (IllegalArgumentException ex) {
+            _log.error("AnchorListModelFactory - unable to build city path for " + city + ", " + state + " with" +
+                     schoolTypes != null && schoolTypes.size() > 0 ? " school types (" + StringUtils.join(schoolTypes, ",") + ")" : "" +
+                     levelCode != null ? " and level codes " + levelCode.getCommaSeparatedString() : "", ex.getCause());
+        }
+        return href;
+    }
+
     public void setGeoDao(IGeoDao geoDao) {
     }
 
@@ -482,5 +594,9 @@ public class AnchorListModelFactory {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
     }
 }

@@ -20,7 +20,7 @@ Then /^I clear my school list$/ do
   count = step('I should see the MSL count')
   if !count.nil? && count > 0
       (1..count).each do
-        find('.fr .media a').click
+        first('.fr .media a').click
       end
   end
 end

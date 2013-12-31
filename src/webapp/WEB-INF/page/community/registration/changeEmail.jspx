@@ -12,6 +12,8 @@
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.page contentType="text/html"/><html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
+  <pageHelper:hideAllAds/>
+
   <head>
       <title>Change My Email - GreatSchools</title>
   </head>

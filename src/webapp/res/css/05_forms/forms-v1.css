@@ -175,7 +175,7 @@ select.stateSelect option {
 input.text {padding:5px 5px;}
 input.searchText {padding:5px 5px;}
 input.text-smaller {padding:2px;}
-input.text-bigger {padding: 5px;height: 26px;}
+input.text-bigger {padding: 6px 5px;height: 26px;}
 /*.ie7 .slFormsV1-0 input.text-bigger, .ie8 .slFormsV1-0 input.text-bigger {padding: 7px 5px 5px 5px;height: 23px;}*/
 textarea {padding:5px;resize:none;overflow:auto;}
 textarea.height-1{height:69px;}
@@ -191,17 +191,39 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
 .notice-block,
 .error-block,
 .alert-block {
-    font: normal 11px/16px Arial, Helvetica, sans-serif;
-    padding: 10px;
+    font: normal 12px/16px Arial, Helvetica, sans-serif;
+    padding: 15px;
     margin-bottom: 20px;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 
-.info-block 			{ background: #F3F9FD; border-color: #BBDDED; color: #2b2b2b; }
-.success-block    { background: #E7F3E5; border-color: #B7DBB2; color: #118800; }
-.notice-block     { background: #FCEFE7; border-color: #F3CAAC; color: #dd6611; }
-.error-block, .alert-block { background: #FAE5EA; border-color: #EDA6B8; color: #cc0033; }
+.info-block {
+    background: #D9EDF7;
+    border-color: #BCE6EF;
+    color: #3A87AC;
+}
+
+.success-block {
+    background: #DFF0D8;
+    border-color: #D6E9C5;
+    color: #468846;
+}
+
+.notice-block {
+    background: #FCF8E3;
+    border-color: #FAEBCC;
+    color: #C09853;
+}
+
+.error-block,
+.alert-block {
+    background: #F2DEDE;
+    border-color: #ECCCD1;
+    color: #B94947;
+}
 
 /* Notifications */
 .error, .error2, .alert, .notice, .success, .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}

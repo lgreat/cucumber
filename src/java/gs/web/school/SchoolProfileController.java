@@ -2,12 +2,17 @@ package gs.web.school;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
+import gs.data.hubs.HubCityMapping;
+import gs.data.hubs.IHubCityMappingDao;
+import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.Review;
 import gs.data.school.review.TopicalSchoolReview;
+import gs.data.state.State;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
+import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
 import gs.web.util.AdUtil;
@@ -17,8 +22,10 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +43,22 @@ public class SchoolProfileController extends AbstractSchoolController implements
     private SchoolProfileDataHelper _schoolProfileDataHelper;
     private SchoolProfileHelper _schoolProfileHelper;
     public static final String SCHOOL_CALENDAR_ENABLED = "schoolCalendarEnabled";
+    @Autowired
+    private ISchoolDao _schoolDao;
+
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
         School school = _requestAttributeHelper.getSchool(request);
+
+
+
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         school.getMetadataValue("gs_rating"); // force lazy initialization
         model.put("school", school);
 
@@ -121,12 +138,20 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // since e.g. profileTestScores.jspx doesn't have direct access to the request params of original/parent request
         model.put("debug", request.getParameter("gs_debug"));
 
-        // Google Ad Manager ad keywords
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-
+        final Integer collectionID= _schoolProfileHelper.getCollectionIdForSchool(school);
+        final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionID);
         if (pageHelper != null) {
             // WARNING: AdTagHandler and PageHelper checks the value of this template keyword when writing out JS calls on the page
+//            pageHelper.clearHubUserCookie(request, response);
             pageHelper.addAdKeywordMulti("template", "SchoolProf");
+            pageHelper.setHideAds(_schoolProfileHelper.isSchoolInAdFreeHub(school));
+            if (collectionID != null && hubInfo != null)  {
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+            pageHelper.setHubUserCookie(request, response);
+            model.put("isHubUserSet", "y");
+
+            }
         }
 
         if (school.getIsNewGSRating()) {
@@ -141,6 +166,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         }
 
         model.put(SCHOOL_CALENDAR_ENABLED, _schoolProfileDataHelper.isSchoolCalendarEnabled(school));
+        model.put("isLocal", hubInfo != null);
 
         return new ModelAndView(_viewName, model);
     }
@@ -176,5 +202,13 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
     public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
         _schoolProfileHelper = schoolProfileHelper;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

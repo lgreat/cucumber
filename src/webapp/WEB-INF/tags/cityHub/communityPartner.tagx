@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <div class="bg-EEEEEE border-E6E6E6 mtl pbl">
+        <div class="container_24 clearfix mvl pvl">
+            <c:choose>
+                <c:when test="${not empty partnerCarousel and not empty partnerCarousel.heading }">
+                    <div class="clearfix">
+                        <div class="fl">
+                            <h2 class="SourceSansPro-Semibold-h2">${partnerCarousel.heading}</h2>
+                        </div>
+                        <div class="fr">
+                            <link:cityHubEduCommunityPage state="${state}" city="${city}">
+                                See the entire education community &amp;#187;
+                            </link:cityHubEduCommunityPage>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="fl mrl" style="margin-top: 65px;">
+                            <a href="#" id="prev">
+                                <span class="iconx32g i-32-carouselLeft"><!-- do not collapse --></span>
+                            </a>
+                        </div>
+                        <div class="fl">
+                            <div class="cycle-slideshow cycle-autoinit"
+                                 data-cycle-fx="carousel"
+                                 data-cycle-slides="> div"
+                                 data-cycle-loader="wait"
+                                 data-cycle-speed="1000"
+                                 data-cycle-pause-on-hover="true"
+                                 data-cycle-timeout="1000"
+                                 data-cycle-easing="linear"
+                                 data-cycle-carousel-visible="6"
+                                 data-cycle-slideshow="true"
+                                 data-cycle-next="#next"
+                                 data-cycle-prev="#prev">
+                                <c:forEach items="${partnerCarousel.partnerLogos}" var="logo">
+                                    <div>
+
+                                        <a href="education-community/${logo.anchoredLink}">
+                                            <gsml:img src="${logo.logoPath}" alt="${logo.partnerName}" styleClass="mrm border-round border-E6E6E6"/></a>
+                                     </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <div class="fl" style="margin-top: 65px; margin-left: 25px;">
+                            <a href="#" id="next">
+                                <span class="iconx32g i-32-carouselRight vam"><!-- do not collapse --></span>
+                            </a>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <h3 class="SourceSansPro-Semibold-h3 mbm mtl">No Data Found - Key ${keyTemplateName}_partnerCarousel</h3>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</jsp:root>

@@ -20,6 +20,7 @@
         >
 <jsp:directive.page import="gs.data.school.School"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 
 
@@ -50,12 +51,20 @@
 </c:choose>
 <jsp:scriptlet>
     PageHelper.setPageName(request, "spp_overview");
+    request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
 </jsp:scriptlet>
 
 <pageHelper:includeQualarooJS/>
 
 <head>
-    <meta name="decorator" content="standardDecorator-v1"/>
+    <c:choose>
+        <c:when test="${not empty isHubUser or  not empty isHubUserSet}">
+            <meta name="decorator" content="standardDecorator-hubs"/>
+        </c:when>
+        <c:otherwise>
+            <meta name="decorator" content="standardDecorator-v1"/>
+        </c:otherwise>
+    </c:choose>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
     <c:choose>
@@ -134,7 +143,6 @@
     <ad:disableGptGhostTextHiding position="Footer_Branded_Tandem_728x90"/>
     <ad:disableGptGhostTextHiding position="AboveFold_Branded_Tandem_300x600"/>
     <ad:disableGptGhostTextHiding position="BelowFold_Branded_Tandem_300x250"/>
-    <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 
 
@@ -503,8 +511,6 @@
                     style="2012"
                     />
         </c:if>
-
-        <ad:BelowFold_Top_300x125/>
 
     </div>
 </div>

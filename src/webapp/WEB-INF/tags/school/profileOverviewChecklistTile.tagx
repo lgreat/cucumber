@@ -19,7 +19,7 @@
     <c:set var="checklist" value="${checklistModel['checklist']}" scope="page"/>
 
     <div class="mod standard_3-1">
-        <div class="outer">
+        <div id="js-tile-11-0" class="outer">
             <c:set var="pageTiles" value="${gsweb:addToOmnitureList(pageTiles, 'visit')}" scope="request"/>
             <div class="inner bg-checklist ie-moduleHeight-171">
                 <div class="hd">

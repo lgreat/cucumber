@@ -128,6 +128,8 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private FacebookSession _facebookSession = null;
     private boolean _gptSingleRequestMode = true;
 
+    private boolean _isHubUser=false ;
+
     /**
      * GS-14332 Added the method to check if the Sweep Stakes Module should be on or off based on the property value - Shomi Arora .
      * Please note that the property gets cached in hibernated so the change will be effective 5 min after making the change in property table  value.
@@ -744,6 +746,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setIsTopicPage(boolean topicPage) {
         _isTopicPage = topicPage;
+    }
+
+    public boolean getHubUser() {
+        return _isHubUser;
+    }
+
+    public void setIsHubUser(boolean isHubUser) {
+        _isHubUser = isHubUser;
     }
 
     //A temporary message

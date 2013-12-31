@@ -14,9 +14,23 @@ public class ReviewFacade implements IParentReviewModel {
     private final School _school;
     private final Review _review;
 
+    private Integer _totalReviews=0 ;
+
     public ReviewFacade(School school, Review review) {
         _school = school;
         _review = review;
+    }
+
+    /**
+     * The constructor with total reviews that needs to be passed to the model - GS-14484
+     * @param school
+     * @param review
+     * @param totalReviews
+     */
+    public ReviewFacade(final School school, final Review review, final Integer totalReviews) {
+        _school = school;
+        _review = review;
+        _totalReviews= totalReviews;
     }
 
     public String getSchoolName() {
@@ -63,11 +77,20 @@ public class ReviewFacade implements IParentReviewModel {
         return StringUtils.abbreviate(c, 90);
     }
 
+    public String getComments() {
+        return _review.getComments();
+
+    }
+
     public School getSchool() {
         return _school;
     }
 
     public Review getReview() {
         return _review;
+    }
+
+    public  Integer getTotalReviews(){
+        return _totalReviews;
     }
 }

@@ -17,6 +17,7 @@
         xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <jsp:directive.page import="gs.web.util.CookieUtil"/>
     <pageHelper:bodyClass/>
 
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml"
@@ -36,6 +37,7 @@
 
     <jsp:scriptlet>
         request.setAttribute("tabs", PageHelper.pageIds);
+        request.setAttribute("isHubUser", CookieUtil.getCookieValue(request, "ishubUser"));
     </jsp:scriptlet>
     <c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
 
@@ -106,9 +108,20 @@
                 </c:if>
                 <cobrand:header/>
                 <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                    <mod:header/>
-                    <mod:primaryNav/>
-                    <mod:secondaryNav/>
+                   <c:choose>
+                       <c:when test="${not empty isHubUser or not empty isHubUserSet}">
+                           <mod:primaryNav-hubs/>
+                       </c:when>
+                       <c:otherwise>
+                           <mod:header/>
+                           <mod:primaryNav/>
+                           <mod:secondaryNav/>
+                       </c:otherwise>
+
+                   </c:choose>
+
+
+
                 </c:if>
             </div>
             <pageHelper:addFacebookInit/>

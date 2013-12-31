@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+>
+
+    <div class="bg-005877 pvm">
+        <div class="container_24 clearfix">
+            <form name="searchBySchoolNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
+                <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
+                <input type="hidden" name="search_type" value="1"/>
+                <input type="hidden" name="state" id="jq-state" value="${state.abbreviation}"/>
+                <input type="hidden" name="collectionId" id="jq-collectionId" value="${collectionId}"/>
+                <div class="prefix_2 grid_19 pr">
+                    <div class="line">
+                        <div class="unit size33of100">
+                            <h4 class="SourceSansPro-Semibold-h4 make-ffffff bottom mtm fr">Find a school in ${collectionNickname}</h4>
+                        </div>
+                        <div class="unit size64of100">
+                            <gsml:input type="text" styleId="js-findByNameBox" styleClass="text1 text-bigger input_8 mlm"
+                                        name="q" value="School name (e.g. Niles Elementary School)"
+                                        onfocus="GS_textSwitch(this, '', 'School name (e.g. Niles Elementary School)');"
+                                        onblur="GS_textSwitch(this, 'School name (e.g. Niles Elementary School)', '');"
+                                        placeholder="School name (e.g. Niles Elementary School)"/>
+                            <div class="pa" style="right: 185px;top: 8px;">
+                            <span class="iconx24 i-24-search-lens addMousePointer"
+                                  id="js-submit"><!-- do not collapse --></span>
+                            </div>
+                            <a href="/" class="small make-ffffff mlm"
+                               onclick="javascript:GS.hubs.clearLocalUserCookies();">Not in ${collectionNickname}?</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</jsp:root>

@@ -17,7 +17,6 @@ import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
-import gs.web.content.cms.CmsHomepageController;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
@@ -28,12 +27,11 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 
 /**

@@ -33,7 +33,7 @@ Misc classes
 
 body {
     font: normal 14px/20px Arial, Helvetica, sans-serif;
-    color: #555;
+    color: #666666;
     /*background: #fff;*/
 }
 
@@ -66,7 +66,7 @@ h2,
 h3,
 h4,
 h5,
-h6 { font-weight: normal; color: #2b2b2b; }
+h6 { font-weight: normal; color: #333333; }
 /*h1 {color: #FF8000; }*/
 
 h1 { font: normal 24px/30px  Arial, Helvetica, sans-serif; margin-bottom: 20px; }
@@ -74,9 +74,20 @@ h1.SourceSansPro-Semibold    { font: normal 24px/30px 'SourceSansPro-Semibold', 
 h2 { font: normal 21px/25px  Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .SourceSansPro-Semibold-h2    { font: normal 21px/25px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; }
 h3 { font: normal 18px/25px  Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.SourceSansPro-Semibold-h3    { font: normal 18px/25px 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif; }
 h4 { font: normal 16px/20px  Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h5 { font: normal 14px/20px  Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h6 { font: normal 14px/20px  Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+
+h1.SourceSansPro-Semibold-h1-large{ font: normal 60px/110% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h1.SourceSansPro-Semibold-h1-med{ font: normal 44px/110% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h1.SourceSansPro-Semibold-h1    { font: normal 36px/110% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h2.SourceSansPro-Semibold-h2    { font: normal 26px/125% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h3.SourceSansPro-Semibold-h3    { font: normal 20px/125% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h4.SourceSansPro-Semibold-h4    { font: normal 16px/125% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h5.SourceSansPro-Semibold-h5    { font: normal 14px/125% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;}
+h6.SourceSansPro-Semibold-h6    { font: normal 13px/125% 'SourceSansPro-Semibold', Arial, Helvetica, sans-serif;
+                                  text-transform: uppercase; letter-spacing: 0.1em;}
 
 h1 img,
 h2 img,
@@ -117,7 +128,7 @@ p .right 		{ margin: 1.5em 0 1.5em 1.5em; padding: 0; }*/
 
 a:focus,
 a:hover     { text-decoration: underline; }
-a           { color: #06b; text-decoration: none; }
+a           { color: #007EAA; text-decoration: none; }
 a:hover.noUnderline {text-decoration: none;}
 a.noUnderline { color: #2B2B2B; text-decoration: none; }
 
@@ -177,7 +188,7 @@ tbody tr.odd td,
 
 tbody tr.even td,
 .tableType1 tbody tr.even td {
-    background-color: #f5f5f5;
+    background-color: #F8F8F8;
 }
 
 tbody tr:nth-child(odd) td,
@@ -187,7 +198,7 @@ tbody tr:nth-child(odd) td,
 
 tbody tr:nth-child(even) td,
 .tableType1 tbody tr:nth-child(even) td{
-    background-color: #f5f5f5;
+    background-color: #F8F8F8;
 }
 
 /*
@@ -196,24 +207,12 @@ tbody tr:nth-child(even) td,
    of other elements.
 */
 
-table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 16px; width:100%; color: #2b2b2b;
-    /*margin-bottom: 4px; */
-    /*border:1px solid #cccccc; border-collapse: collapse;*/
-    /*-webkit-border-radius: 4px;*/
-    /*-moz-border-radius: 4px;*/
-    /*border-radius: 4px;*/
+table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 18px; width:100%; color: #555555;
 }
 th, .tableType1 th          { font-weight: bold; color:#787878; text-align:left; }
 th, thead th, .tableType1 th, .tableType1 thead th    {
-    background-color: #F6F6F6; /* for non-css3 browsers */
+    background-color: #f8f8f8; /* for non-css3 browsers */
     border-bottom: #DDDDDD 1px solid;
-    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#777777)); *//* Saf4+, Chrome */
-    /*background-image: -webkit-linear-gradient(top, #999999, #777777); *//* Chrome 10+, Saf5.1+, iOS 5+ */
-    /*background-image:    -moz-linear-gradient(top, #999999, #777777); *//* FF3.6 */
-    /*background-image:     -ms-linear-gradient(top, #999999, #777777); *//* IE10 */
-    /*background-image:      -o-linear-gradient(top, #999999, #777777); *//* Opera 11.10+ */
-    /*background-image:         linear-gradient(top, #999999, #777777); *//* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#999999', EndColorStr='#777777'); *//* IE6-IE9 */
 }
 tr.subhead th, .tableType1 tr.subhead th          { font-weight: normal; color:#2b2b2b; text-align:left; }
 tr.subhead th, thead tr.subhead th, .tableType1 tr.subhead th, .tableType1 thead tr.subhead th    {
@@ -226,7 +225,7 @@ tr.subhead th, thead tr.subhead th, .tableType1 tr.subhead th, .tableType1 thead
     background-image:         linear-gradient(top, #dddddd, #cccccc); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6-IE9 */
 }
-th, .tableType1 th      { padding: 3px 10px 3px 10px; vertical-align: top; word-wrap: break-word;}
+th, .tableType1 th      { padding: 5px 10px 5px 10px; vertical-align: top; word-wrap: break-word;}
 td, .tableType1 td       { padding: 10px; vertical-align: top; word-wrap: break-word;}
 tfoot, .tableType1 tfoot       { font-style: italic; }
 caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
@@ -275,7 +274,9 @@ table.tableLayout1 .ohValueMet { color: #555555; }
 .make-f8f8f8 { color: #f8f8f8; }
 .make-ffffff { color: #ffffff; }
 
-
+.make-0578AA{ color: #0578AA;}
+.make-ffb725{ color: #ffb725;}
+.make-926100{ color: #926100;}
 /*** headerCobrand header tables needs to retain old table styling
 -------------------------------------------------------------- */
 

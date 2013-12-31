@@ -2,8 +2,12 @@ package gs.web.school;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubConfig;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.review.Review;
+import gs.web.geo.CityHubHelper;
 import gs.data.school.review.ISchoolReview;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
@@ -28,6 +32,8 @@ public class SchoolProfileHelper {
 
     @Autowired
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    @Autowired
+    private IHubConfigDao _hubConfigDao;
 
     // ===================== main methods ===================================
 
@@ -48,6 +54,27 @@ public class SchoolProfileHelper {
             _log.error("Error fetching data for school profile: " + e, e);
         }
 
+    }
+
+    public boolean isSchoolInAdFreeHub(School school) {
+        Integer collectionId = getCollectionIdForSchool(school);
+
+        HubConfig hubConfig = getHubConfigDao().getConfigFromCollectionIdAndKey(collectionId, CityHubHelper.SHOW_ADS_KEY);
+        return  (hubConfig != null && "false".equals(hubConfig.getValue()));
+    }
+
+    public Integer getCollectionIdForSchool(School school) {
+        Integer collectionId = null;
+        try {
+            String collectionIdAsString = school.getMetadataValue(School.METADATA_COLLECTION_ID_KEY);
+            if(collectionIdAsString != null) collectionId = new Integer(collectionIdAsString);
+        }
+        catch (NumberFormatException ex) {
+            _log.error("School Profile Helper - unable to convert the collection id meta value in string to integer " +
+                    "for the school id " + school.getId() + " in state " + school.getDatabaseState().getAbbreviation()
+                    + "\n", ex.fillInStackTrace());
+        }
+        return collectionId;
     }
 
     // ===================== helper methods ===================================
@@ -151,5 +178,13 @@ public class SchoolProfileHelper {
 
     public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
+
+    public IHubConfigDao getHubConfigDao() {
+        return _hubConfigDao;
+    }
+
+    public void setHubConfigDao(IHubConfigDao _hubConfigDao) {
+        this._hubConfigDao = _hubConfigDao;
     }
 }

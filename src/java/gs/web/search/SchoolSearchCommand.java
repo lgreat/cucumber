@@ -40,6 +40,7 @@ public class SchoolSearchCommand {
     private Integer minCommunityRating;
     private String _zipCode;
     private String _city;
+    private String _collectionId;
     // a view override, that is needed to allow switching peacefully between city/district browse list view and map view
     private String _view;
 
@@ -515,6 +516,14 @@ public class SchoolSearchCommand {
 
     public void setServices(String[] _services) {
         this._services = _services;
+    }
+
+    public String getCollectionId() {
+        return _collectionId;
+    }
+
+    public void setCollectionId(String _collectionId) {
+        this._collectionId = _collectionId;
     }
 }
 

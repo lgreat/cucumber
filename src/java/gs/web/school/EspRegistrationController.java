@@ -10,10 +10,7 @@ import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
-import gs.web.util.HttpCacheInterceptor;
-import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.SitePrefCookie;
-import gs.web.util.UrlBuilder;
+import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.UserCommandValidator;
@@ -145,6 +142,12 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         }
 
         modelMap.addAttribute("espRegistrationCommand", command);
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.setHideAds(true);
+        }
+
         return VIEW;
     }
 

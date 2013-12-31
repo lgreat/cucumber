@@ -22,7 +22,7 @@ define_page_selectors 'learning issues landing', parent_review_landing_page_sele
 
 When /^I cannot select "([^\"]+)" in ([A-Z]{2}) to review$/ do |school_name, state|
   step 'I click on "the state dropdown"'
-  page.find('li', :text=>state).click
+  page.find('li', :text=>state, :match => :prefer_exact).click
   page.fill_in('js-parentReviewLandingPageSchoolSelectInput', :with => school_name)
   sleep 3 # for autocomplete
   page.first('a', :text=>school_name).should be_nil
@@ -30,7 +30,8 @@ end
 
 When /^I select my school to review: "([^\"]+)" in ([A-Z]{2})$/ do |school_name, state|
   step 'I click on "the state dropdown"'
-  page.find('li', :text=>state).click
+  page.find('li', :text=>state, :match => :prefer_exact).click
+  sleep 1
   page.fill_in('js-parentReviewLandingPageSchoolSelectInput', :with => school_name)
   sleep 3 # for autocomplete
   page.find('a', :text=>school_name).click
@@ -49,7 +50,7 @@ end
 When /^the monthly email updates box is by default already checked$/ do
   my_selector = selector_for('monthly email updates box')
   find(:css, my_selector +' .js-checkBoxSpriteOn').should be_visible
-  find(:css, my_selector + ' .js-checkBoxSpriteOff').should_not be_visible
+  find(:css, my_selector + ' .js-checkBoxSpriteOff', :visible => false).should_not be_visible
 end
 
 When /^I see the following content:$/ do |table|

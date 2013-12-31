@@ -2,11 +2,15 @@ package gs.web.search;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubConfig;
+import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.FieldSort;
 import gs.data.state.State;
+import gs.web.geo.CityHubHelper;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
@@ -28,8 +32,14 @@ public class SchoolSearchCommandWithFields {
     private City _cityFromSearchString;
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
+    private IHubCityMappingDao _hubMappingDao;
+    private IHubConfigDao _hubConfigDao;
 
     private boolean _hasAlreadyLookedForCityInSearchString;
+    private boolean _hasAlreadyCheckedForIsHubLocalSearch;
+    private boolean _isHubsLocalSearch;
+    private String _collectionId;
+    private String _collectionIdFromUrlParam;
 
     public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields) {
         _command = command;
@@ -105,6 +115,69 @@ public class SchoolSearchCommandWithFields {
         return _fields != null
                 && StringUtils.isNotBlank(_fields.getCityName())
                 && StringUtils.isBlank(_fields.getDistrictName());
+    }
+
+    /**
+     * for by name search the "q" param is set, searchString on the command will be set to that value. Any search with
+     * that set and is not location search or city or district browse can be considered as by name search.
+     * @return
+     */
+    public boolean isByNameSearch() {
+        return _command.getSearchString() != null && !_command.isNearbySearch() && !isCityBrowse() && !isDistrictBrowse();
+    }
+
+    public boolean isCityHubSearchSchoolByName() {
+        return isByNameSearch() && _command.getCollectionId() != null;
+    }
+
+    public boolean isHubsLocalSearch() {
+        if(_hasAlreadyCheckedForIsHubLocalSearch) {
+            return _isHubsLocalSearch;
+        }
+        else {
+            if(isCityHubSearchSchoolByName()) {
+                _isHubsLocalSearch = true;
+                _collectionId = _command.getCollectionId();
+            }
+            else {
+                Integer collectionId = null;
+                if(isCityBrowse()) {
+                    String city = _fields.getCityName();
+                    State state = _fields.getState();
+                    collectionId = getCollectionId(city, state);
+                }
+                else if(isNearbySearchByLocation()) {
+                    String city = _command.getCity();
+                    State state = State.fromString(_command.getState());
+                    collectionId = getCollectionId(city, state);
+                }
+                else if(isDistrictBrowse()) {
+                    String city = _fields.getCityName();
+                    State state = _fields.getState();
+                    collectionId = getCollectionId(city, state);
+                }
+                _isHubsLocalSearch = (collectionId != null ? true : false);
+                if(collectionId != null) _collectionId = collectionId.toString();
+            }
+        }
+
+        _hasAlreadyCheckedForIsHubLocalSearch = true;
+         return _isHubsLocalSearch;
+    }
+
+    public Integer getCollectionId(String city, State state) {
+        return getHubMappingDao().getCollectionIdFromCityAndState(city, state);
+    }
+
+    /**
+     * Should be called only after checking for isLocalHubSearch
+     * @return
+     */
+    public boolean isHubAdsFree() {
+        Integer collectionId = _collectionId != null ? new Integer(_collectionId) : null;
+        HubConfig hubConfig = getHubConfigDao().getConfigFromCollectionIdAndKey(collectionId, CityHubHelper.SHOW_ADS_KEY);
+
+        return  (hubConfig != null && "false".equals(hubConfig.getValue()));
     }
 
     /**
@@ -186,6 +259,15 @@ public class SchoolSearchCommandWithFields {
             }
         }
         return _cityFromSearchString;
+    }
+
+    public String getCollectionIdFromUrlParam() {
+        if (_collectionIdFromUrlParam == null) {
+            if (_command != null && _command.getCollectionId() != null) {
+                _collectionIdFromUrlParam = _command.getCollectionId();
+            }
+        }
+        return _collectionIdFromUrlParam;
     }
 
     public City getCity() {
@@ -337,5 +419,29 @@ public class SchoolSearchCommandWithFields {
 
     public Map getNearbySearchInfo() {
         return _nearbySearchInfo;
+    }
+
+    public boolean getHasAlreadyCheckedForIsHubLocalSearch() {
+        return _hasAlreadyCheckedForIsHubLocalSearch;
+    }
+
+    public String getCollectionId() {
+        return _collectionId;
+    }
+
+    public IHubCityMappingDao getHubMappingDao() {
+        return _hubMappingDao;
+    }
+
+    public void setHubCityMappingDao(IHubCityMappingDao _hubMappingDao) {
+        this._hubMappingDao = _hubMappingDao;
+    }
+
+    public IHubConfigDao getHubConfigDao() {
+        return _hubConfigDao;
+    }
+
+    public void setHubConfigDao(IHubConfigDao _hubConfigDao) {
+        this._hubConfigDao = _hubConfigDao;
     }
 }

@@ -64,7 +64,13 @@ General comments:
 }
 
 .standard_1-1 .bd{
-    background-color: #ffffff;
+    background-color: #FFFFFF;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+.standard_1-1 .bd.bg-F7F7F7{
+    background-color: #F7F7F7;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
@@ -152,17 +158,46 @@ General comments:
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
-/* ---------------- standard_2-1 ----------------- */
-.standard_2-1{
-  margin-bottom:10px;
+/* ---------------- standard_1-5 ----------------- */
+.standard_1-5{
+    margin-bottom:10px;
 }
-.standard_2-1 .inner{
-  border:1px solid #dddddd; 
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#fafafa;
-  padding:10px;
+.standard_1-5 .inner{
+    -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
+    border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    border:1px solid #0083B2;
+}
+
+.standard_1-5 .hd{
+    color: #FFFFFF;
+    background-color: #0083B2; /* for non-css3 browsers */
+}
+
+.standard_1-5 .bd{
+    background-color: #FFFFFF;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.standard_1-5 .ft{
+    background-color: #f5f5f5;
+}
+
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_2-1 ----------------- */
+.standard_2-1 {
+    margin-bottom: 10px;
+}
+.standard_2-1 .inner {
+    background-color: #F5F5F5;
+    border: 1px solid #E6E6E6;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    padding: 10px;
 }
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_2-2 ----------------- */
@@ -362,6 +397,26 @@ General comments:
     border-top: 14px solid #FFFFFF;
 }
 
+
+/* ---------------- standard_5-2 ----------------- */
+/*---------------City hubs review modules----------------*/
+.standard_5-2 {
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  -webkit-border-radius: 4px;  /* Saf3-4, iOS 1-3.2, Android <1.6*/
+     -moz-border-radius: 4px;  /* FF1-3.6 */
+          border-radius: 4px;  /*Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+*/
+}
+
+.standard_5-2 .bd{
+    padding: 20px 15px;
+    height: 91px;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+         -moz-border-radius: 4px; /* FF1-3.6 */
+              border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_6-1 ----------------- */
 /* ------------- principal's point of view ------- */
@@ -452,8 +507,6 @@ General comments:
     -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
     border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
-
-
 
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
@@ -725,15 +778,29 @@ Used for the none and one cases in the compare module
 /* ------------- module backgrounds colors-------------- */
 
 .bg-F5F5F5 { background-color: #F5F5F5;}
+.bg-005877 { background-color: #005877;}
+.bg-F7F7F7 { background-color: #F7F7F7;}
+.bg-EEEEEE { background-color: #EEEEEE;}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module borders style and colors-------------- */
 
+.border-round {
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
 .border-DDDDDD {
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     border: 1px solid #dddddd;
+}
+.border-E6E6E6 {
+    border:1px solid #E6E6E6;
+}
+.border-FFB843 {
+    border:1px solid #FFB843;
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
@@ -1515,8 +1582,18 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
     padding: 40px;
 }
 
-.moduleHeight-560{height:560px;}
+.cityHubs_bg{
+    background: url('/res/img/cityHubs/greyBackground.png') no-repeat;
+    height: 340px;
+    width: 730px;
+    margin: auto;
+    padding: 30px;
+}
+
+.moduleHeight-500{height:500px;}
 .moduleHeight-1040{height:1040px;}
+.moduleHeight-560{height:560px;}
+.moduleTop-50{top:50px;}
 .moduleTop-125{top:125px;}
 .moduleTop-150{top:150px;}
 .moduleTop-250{top:250px;}
@@ -1567,7 +1644,7 @@ height adjustments for modules --- you can find these overwritten for ie7 in adv
 
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
-/* ---------------- standard_5-1 ----------------- */
+/* ---------------- standard_11-1 ----------------- */
 /*---------------Map hover modules----------------*/
 .standard_11-1 {
     background: #FFF;
