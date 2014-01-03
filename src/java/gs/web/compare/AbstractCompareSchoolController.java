@@ -4,7 +4,9 @@ import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.hubs.HubCityMapping;
 import gs.data.hubs.HubConfig;
+import gs.data.hubs.IHubCityMappingDao;
 import gs.data.hubs.IHubConfigDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
@@ -79,6 +81,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     @Autowired
     private IHubConfigDao _hubConfigDao;
 
+    @Autowired
+    private IHubCityMappingDao _hubCityMappingDao;
+
     @Override
     /**
      * Handles common behavior, such as validation, error-handling, and pagination.
@@ -107,13 +112,17 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         }
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        boolean shouldHideAds = shouldHideAds(schools);
-
-        if(pageHelper != null) {
+        Set<Integer> collectionIds = getCollectionIdsFromCompareList(schools);
+        if (schools != null && !collectionIds.isEmpty() && pageHelper != null)   {
+            boolean shouldHideAds = findIfAddsShouldbeHiddenOnPage(collectionIds);
             pageHelper.setHideAds(shouldHideAds);
+            final HubCityMapping hubInfo= _hubCityMappingDao.getMappingObjectByCollectionID(collectionIds.iterator().next());
+            pageHelper.clearHubCookiesForNavBar(request, response);
+            pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
+            pageHelper.setHubUserCookie(request, response);
+            model.put("isHubUserSet", "y");
         }
-
-        return new ModelAndView(getSuccessView(), model);
+      return new ModelAndView(getSuccessView(), model);
     }
 
     protected void handleMSL(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) {
@@ -622,32 +631,27 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return builder;
     }
 
-    /**
+    /** @param collectionIds listofSchoolCollectionIDs
      * Get the set of collection ids to which each school in the compare list belongs to from school metadata. From the
      * set of collection ids get the hub config records with key "showAds". Hide if the value is "false". Show ads if
      * doesn't exist or if the value is "true".
      */
-    public boolean shouldHideAds(List<ComparedSchoolBaseStruct> schools) {
+    public boolean findIfAddsShouldbeHiddenOnPage(final Set<Integer> collectionIds) {
         boolean shouldHideAds = false;
-        if (schools != null) {
-            Set<Integer> collectionIds = getCollectionIdsFromCompareList(schools);
-
-            if(!collectionIds.isEmpty()) {
                 List<HubConfig> hubConfigs = _hubConfigDao.getConfigFromCollectionIdsAndKey(collectionIds, CityHubHelper.SHOW_ADS_KEY);
-
-                if(hubConfigs != null) {
-                    for(int i = 0; i < hubConfigs.size(); i++) {
+                if (hubConfigs != null) {
+                    for (int i = 0; i < hubConfigs.size(); i++) {
                         HubConfig hubConfig = hubConfigs.get(i);
 
-                        if(hubConfig != null && CityHubHelper.SHOW_ADS_KEY.equals(hubConfig.getQuay()) &&
-                                "false".equals(hubConfig.getValue())) {
+                        if (hubConfig != null && CityHubHelper.SHOW_ADS_KEY.equals(hubConfig.getQuay())
+                                &&   "false".equals(hubConfig.getValue())) {
                             shouldHideAds = true;
                             break;
                         }
                     }
                 }
-            }
-        }
+
+
         return shouldHideAds;
     }
 
