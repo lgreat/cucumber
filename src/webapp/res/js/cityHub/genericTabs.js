@@ -88,6 +88,8 @@ GS.genericTabHandler = (function($){
                 $(this).removeClass("dn");
             }
         });
+        window.location.reload();
+
     };
 
     var updateHistoryEntryWithCurrentTab = function(currentTabName) {
