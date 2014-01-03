@@ -265,7 +265,7 @@
     <br class="clearBoth"/>
 
     <div id="tracking">
-        <mod:tracking pageName="${pageName}" hier1="${hier1}" compareNumSchools="${totalSchools}"/>
+        <mod:tracking pageName="${pageName}" hier1="${hier1}" compareNumSchools="${totalSchools}"   localPageName="${isLocal ? pageName : ''}"/>
     </div>
 
 </jsp:root>
