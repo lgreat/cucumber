@@ -121,6 +121,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             pageHelper.setHubCookiesForNavBar(request, response, hubInfo.getState(), hubInfo.getCity());
             pageHelper.setHubUserCookie(request, response);
             model.put("isHubUserSet", "y");
+            model.put("isLocal", hubInfo != null);
         }
       return new ModelAndView(getSuccessView(), model);
     }
