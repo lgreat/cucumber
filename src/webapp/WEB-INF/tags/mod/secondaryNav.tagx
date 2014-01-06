@@ -45,7 +45,10 @@
                                class="subMenuItemAnchorText GS_CI9_">New Year's Resolutions: your children's healthiest year ever!</a>
                         </li>
                         <li class="subMenuItem">
-                            <a href="http://blogs.greatschools.org/greatschoolsblog/2013/08/why-i-wont-be-as-permissive-as-my-mother-about-teen-sex.html" id="SN_HT-BestBlogOf2013"
+                            <a href="http://blogs.greatschools.org/greatschoolsblog/2013/08/why-i-wont-be-as-permissive-as-my-mother-about-teen-sex.html"
+                               onclick="Popup=window.open('http://blogs.greatschools.org/greatschoolsblog/2013/08/why-i-wont-be-as-permissive-as-my-mother-about-teen-sex.html',
+                               'Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50');
+                               return false;"  id="SN_HT-BestBlogOf2013"
                                class="subMenuItemAnchorText GS_CI9_">Best blog of 2013: Teen sex under your roof</a>
                         </li>
                         <li class="subMenuItem">
