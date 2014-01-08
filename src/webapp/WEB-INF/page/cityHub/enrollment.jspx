@@ -18,7 +18,6 @@
         <meta name="description" content="${gsweb:enrollmentPageDescription(city)}"/>
         <meta name="keywords" content="${gsweb:enrollmentPageKeyWords(city)}"/>
         <title>${gsweb:enrollmentPageTitle(city)}</title>
-        <gsml:javascript src="/res/js/history.min.js"/>
         <gsml:javascript src="/res/js/cityHub/schoolSearch.js"/>
         <gsml:javascript src="/res/js/cityHub/genericTabs.js"/>
         <gsml:javascript src="/res/js/jquery.cycle2.min.js" />
