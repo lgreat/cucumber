@@ -56,11 +56,8 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
     private static final String HIGH_SCHOOLS_TAB_NAME = "High schools";
     private static final List<String> tabs = ImmutableList.of(PRESCHOOLS_TAB_NAME, ELEMENTARY_SCHOOLS_TAB_NAME, MIDDLE_SCHOOLS_TAB_NAME, HIGH_SCHOOLS_TAB_NAME);
 
-    private static final String PARAM_CITY = "city";
-
-
-
-
+    @Autowired
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
     @Autowired
     private CityHubHelper _cityHubHelper;
     @Autowired
@@ -95,6 +92,7 @@ public class CityHubEnrollmentPageController   implements IDirectoryStructureUrl
 
         }
         modelAndView.addObject("isHubUserSet", "y");
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, modelAndView);
         final Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         final List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
 

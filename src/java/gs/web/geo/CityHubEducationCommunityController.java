@@ -46,6 +46,8 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
 
     @Autowired
     private CityHubHelper _cityHubHelper;
+    @Autowired
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) {
@@ -79,6 +81,7 @@ public class CityHubEducationCommunityController  implements IDirectoryStructure
 
         Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("collectionId", collectionId);
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, modelAndView);
 
         List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
         modelAndView.addObject(CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX, getCityHubHelper().getImportantModuleMap(configList));

@@ -35,6 +35,8 @@ public class CityHubImportantDatesController  implements IDirectoryStructureUrlC
 
     @Autowired
     private CityHubHelper _cityHubHelper;
+    @Autowired
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) {
@@ -70,6 +72,7 @@ public class CityHubImportantDatesController  implements IDirectoryStructureUrlC
 
         Integer collectionId = getCityHubHelper().getCollectionId(city, state);
         modelAndView.addObject("collectionId", collectionId);
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, modelAndView);
 
         List<HubConfig> configList = getCityHubHelper().getHubConfig(city, state);
         ModelMap importantEventsMap = getCityHubHelper().getFilteredConfigMap(configList,  CityHubHelper.IMPORTANT_EVENT_KEY_PREFIX);

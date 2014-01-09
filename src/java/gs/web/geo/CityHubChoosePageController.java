@@ -46,7 +46,9 @@ import java.util.List;
 public class CityHubChoosePageController  implements IDirectoryStructureUrlController {
 
 
-    private  static final String PARAM_CITY = "city";
+
+    @Autowired
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
 
 
@@ -88,6 +90,8 @@ public class CityHubChoosePageController  implements IDirectoryStructureUrlContr
         modelAndView.addObject("state", state);
         modelAndView.addObject("hubId", collectionId);
         modelAndView.addObject("collectionId", collectionId);
+
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, modelAndView);
 
         List<HubConfig> configList = getCityHubHelper().getConfigListFromCollectionId(collectionId);
 

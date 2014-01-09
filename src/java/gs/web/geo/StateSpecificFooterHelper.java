@@ -12,6 +12,7 @@ import net.sf.ehcache.Element;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.QueryParser;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -95,6 +96,11 @@ public class StateSpecificFooterHelper {
 
     public void displayPopularCitiesForState(State s, Map model) {
         model.put(STATE_FOR_POPULAR_CITIES, s);
+    }
+
+    public void displayPopularCitiesForState(final State s, final ModelAndView modelAndView) {
+        modelAndView.addObject(STATE_FOR_POPULAR_CITIES, s);
+
     }
 
     /**

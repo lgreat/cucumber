@@ -46,9 +46,11 @@ import java.util.*;
 @Controller
 public class CityHubController   implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
     private static Logger _logger = Logger.getLogger(CityHubController.class);
-    private  static final String PARAM_CITY = "city";
 
     private ControllerFamily _controllerFamily;
+
+    @Autowired
+    private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
     @Autowired
     private IReviewDao _reviewDao;
@@ -97,7 +99,7 @@ public class CityHubController   implements IDirectoryStructureUrlController, IC
         modelAndView.addObject("collectionId", collectionId);
         modelAndView.addObject("schoolBreakdown", getCityHubHelper().getCollectionBrowseLinks(request, collectionId, city, state));
 
-
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, modelAndView);
 
         if (collectionId != null)  {
 
