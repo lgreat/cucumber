@@ -58,7 +58,7 @@
 //        SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
     </jsp:scriptlet>
 
-    <!--<c:if test= "${isSurveyCookieSet eq false}">-->
+    <c:if test= "${isSurveyCookieSet eq false}">
         <div id="js-mobileCustomerSurvey" class="fixed-header-popup contain_8-1 dn" data-survey-url="${surveyPopupDetails['url']} http://localhost:8080/index.page?site_preference=mobile">
             <!--<div><span class="fr mrl iconx24 i-24-close_x js_closeHover"/></div>-->
 
@@ -67,6 +67,6 @@
                 Tell us for the chance to win a $250 gift card! »
             </div>
         </div>
-    <!--</c:if>-->
+    </c:if>
 
 </jsp:root>
