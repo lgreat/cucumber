@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * Interceptor to set http response headers
@@ -29,6 +30,10 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
         // We don't set cookies for cacheable pages
         if (!(o instanceof CacheablePageController)) {
             Cookie trackingNumber = buildTrackingNumberCookie(request, response);
+            Cookie analyticsId = setAnalyticsIdCookieIfNecessary(request, response);
+            if (analyticsId != null) {
+                sessionContext.setAnalyticsId(analyticsId.getValue());
+            }
             buildCobrandCookie(request, sessionContext, response);
             // TODO-7664
             buildCobrandTypeCookie(request, sessionContext, response);
@@ -94,6 +99,24 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
             cookie = new Cookie(SessionContextUtil.TRACKING_NUMBER, cookieValue);
             cookie.setPath("/");
             cookie.setMaxAge(-1);
+            if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                // don't set domain for developer workstations so they can still access the cookie!!
+                cookie.setDomain(".greatschools.org");
+            }
+            response.addCookie(cookie);
+        }
+
+        return cookie;
+    }
+
+    protected Cookie setAnalyticsIdCookieIfNecessary(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = getCookie(request, SessionContextUtil.ANALYTICS_ID_COOKIE_NAME);
+
+        if (cookie == null) {
+            String cookieValue = UUID.randomUUID().toString();
+            cookie = new Cookie(SessionContextUtil.ANALYTICS_ID_COOKIE_NAME, cookieValue);
+            cookie.setPath("/");
+            cookie.setMaxAge(EXPIRE_AT_END_OF_SESSION);
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 // don't set domain for developer workstations so they can still access the cookie!!
                 cookie.setDomain(".greatschools.org");

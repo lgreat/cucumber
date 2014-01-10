@@ -52,6 +52,7 @@
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
+    <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>
 
     <link rel="stylesheet" href="/res/css/04_text/articles-v1.css?v=$RELEASE_NUMBER" type="text/css" />
@@ -266,25 +267,7 @@
               worksheetLicensorName="${feature.licensorName}"
         />
 
-<!-- even though this is the video template, surveyType should remain "article" -->
-<communityHover:interruptSurvey surveyType="article"/>
-<c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari}">
-    <script type="text/javascript">
-        setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
-    </script>
-</c:if>
-
-<pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-
-<script type="text/javascript">
-    //requires /res/js/omnitureEventNotifier.js
-    /*jQuery('#js-ccs-links .js-ccs-link').click(function() {
-     omnitureEventNotifier.clear();
-     omnitureEventNotifier.successEvents = "event51;";
-     omnitureEventNotifier.send();
-     return true;
-     });*/
-</script>
+<article:hoverBody feature="${feature}"/>
 
 </body>
 </html>

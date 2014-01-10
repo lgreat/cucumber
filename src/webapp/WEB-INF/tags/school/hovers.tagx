@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
@@ -47,7 +47,7 @@
         </c:if>
         <c:if test="${showSurvey and not empty surveyUrl}">
             <script type="text/javascript">
-                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${gsweb:escapeJavaScript(surveyUrl)}')", 7000);
+                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${gsweb:putQueryParamIntoUrl(gsweb:escapeJavaScript(surveyUrl), 'aID', requestScope.context.analyticsId)}')", 7000);
             </script>
         </c:if>
     </c:if>
