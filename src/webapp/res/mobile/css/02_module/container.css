@@ -160,3 +160,11 @@ Example:
 .prel{
     position:relative;
 }
+
+/* Container 8 - below-nav popup */
+.contain_8-1{
+    width: 100%;
+    background:#BCDEED;
+    border-bottom: solid 1px #A6D3E7;
+    padding:8px;
+}

@@ -68,6 +68,21 @@ z-index: 2;}
 .page_1-1 .footer{background-color: #555555;padding: 15px 10px;}
 .page_1-1 .footer a{color: #e5e5e5;}
 
+.page_1-1 .fixed-header-popup {
+    position: fixed;
+    top: 44px;
+    height: 45px;
+    width: 100%;
+    z-index: 2;
+}
+.page_1-1 .fixed-header-and-popup { margin-top: 115px; }
+
+.page_1-1 .popup-spacer {
+    height: 61px;
+    background: #F8F8F8;
+
+}
+
 
 /* Module 6 - blue gradient header white content area
 -----------------------------------------------------------------------------*/

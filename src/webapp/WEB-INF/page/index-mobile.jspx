@@ -45,6 +45,8 @@
 
 
     <div class="contain_1-1">
+        <div id="js-popup-spacer" class="popup-spacer dn"><!-- not empty --></div>
+
             <h1 class="pbs">Find a School</h1>
             <c:if test="${totalResults eq 0}">
                 <c:set var="omniturePagename" value="School Search:no_results"/>
