@@ -51,13 +51,13 @@
         var config = {mouseDownOnSelect:false};
         var select = $.Autocompleter.Select(options, input, selectCurrent, config);
         var blockSubmit;
-        GS.util.isBrowserOpera() && $(input.form).bind("submit.autocomplete", function () {
+        $(input.form).bind("submit.autocomplete", function () {
             if (blockSubmit) {
                 blockSubmit = false;
                 return false;
             }
         });
-        $input.bind((GS.util.isBrowserOpera() ? "keypress" : "keydown") + ".autocomplete",
+        $input.bind("keydown.autocomplete",
                 function (event) {
                     lastKeyPressCode = event.keyCode;
                     switch (event.keyCode) {
@@ -530,17 +530,6 @@
             if (options.scroll) {
                 list.scrollTop(0);
                 list.css({maxHeight:options.scrollHeight, overflow:'auto'});
-                if (GS.util.isBrowserIE() && typeof document.body.style.maxHeight === "undefined") {
-                    var listHeight = 0;
-                    listItems.each(function () {
-                        listHeight += this.offsetHeight;
-                    });
-                    var scrollbarsVisible = listHeight > options.scrollHeight;
-                    list.css('height', scrollbarsVisible ? options.scrollHeight : listHeight);
-                    if (!scrollbarsVisible) {
-                        listItems.width(list.width() - parseInt(listItems.css("padding-left")) - parseInt(listItems.css("padding-right")));
-                    }
-                }
             }
         }, selected:function () {
             var selected = listItems && listItems.filter("." + CLASSES.ACTIVE).removeClass(CLASSES.ACTIVE);
