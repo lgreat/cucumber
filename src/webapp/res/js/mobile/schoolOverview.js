@@ -1,4 +1,4 @@
-define(['truncate', 'schoolSave', 'nearbyCitiesList', 'nearbyDistrictsList'], function(truncate, schoolSave) {
+define(['truncate', 'schoolSave', 'surveyPopup', 'nearbyCitiesList', 'nearbyDistrictsList'], function(truncate, schoolSave, surveyPopup) {
     var init = function(state, schoolId) {
         truncate.init();
         schoolSave.init(state + '_' + schoolId);
@@ -8,6 +8,8 @@ define(['truncate', 'schoolSave', 'nearbyCitiesList', 'nearbyDistrictsList'], fu
         var $schoolStaticMap = $('#schoolStaticMap');
         $schoolStaticMap.attr('src', $schoolStaticMap.attr('data-src'));
         $schoolStaticMap.attr('alt', 'School map');
+
+        surveyPopup.init();
     };
 
     var fetchAndDisplayTestScoreSnippet = function(state, schoolId) {

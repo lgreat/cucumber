@@ -379,6 +379,8 @@ public class SessionContext implements ApplicationContextAware, Serializable {
             property = IPropertyDao.SURVEY_DETAILS_OVERVIEW;
         } else if ("article".equals(surveyType)) {
             property = IPropertyDao.SURVEY_DETAILS_ARTICLE;
+        } else if ("mobile".equals(surveyType)) {
+            property = IPropertyDao.SURVEY_DETAILS_MOBILE;
         }
 
         JSONObject obj = null;

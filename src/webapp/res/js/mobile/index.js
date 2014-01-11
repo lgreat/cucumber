@@ -1,4 +1,4 @@
-define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete', 'surveyPopup'], function(uri, geocoder, validation, geolocation, autocom, surveyPopup) {
+define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], function(uri, geocoder, validation, geolocation) {
     var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
     var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
     var BY_NAME_FORM_SELECTOR = '#search-form';
@@ -163,7 +163,6 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete', '
                 $searchByLocationField.unbind(".autocomplete");
                 attachCityAutocomplete('.js-searchByLocationQuery');
             });
-            surveyPopup.init();
         });
     };
 

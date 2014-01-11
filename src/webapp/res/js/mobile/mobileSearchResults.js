@@ -1,4 +1,4 @@
-define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchResultFilters, modal) {
+define (['uri','searchResultFilters', 'modal', 'surveyPopup' ,'history'], function(uri,searchResultFilters, modal, surveyPopup) {
 
     // set value each time module is initialized
     var $sortSelect = undefined;
@@ -32,6 +32,8 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
                 loadMore();
             });
             attachEventHandlers();
+
+            surveyPopup.init();
         });
     };
 

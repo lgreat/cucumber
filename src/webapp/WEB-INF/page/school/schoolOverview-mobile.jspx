@@ -69,7 +69,11 @@
 </head>
 
 <body>
+<div id="js-popup-spacer" class="popup-spacer dn"><!-- not empty --></div>
+
 <div class="contain_1-2 clearfix">
+
+
 
     <mobile:schoolProfileIntro school="${school}" linkSchool="${false}"/>
 

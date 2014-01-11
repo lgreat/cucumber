@@ -75,6 +75,15 @@ z-index: 2;}
     width: 100%;
     z-index: 2;
 }
+
+.page_1-1 .fixed-header-popup-2 {
+    position: fixed;
+    top: 90px;
+    height: 45px;
+    width: 100%;
+    z-index: 2;
+}
+
 .page_1-1 .fixed-header-and-popup { margin-top: 115px; }
 
 .page_1-1 .popup-spacer {
