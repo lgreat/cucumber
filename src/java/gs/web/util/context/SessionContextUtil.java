@@ -83,6 +83,11 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String TRACKING_NUMBER = "TRACKING_NUMBER";
 
     /**
+     *
+     */
+    public static final String ANALYTICS_ID_COOKIE_NAME = "gs_aid";
+
+    /**
      * Cookie we set to track what cobrand a user is on
      */
     public static final String COBRAND_COOKIE = "COBRAND";

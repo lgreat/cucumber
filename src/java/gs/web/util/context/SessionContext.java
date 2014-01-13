@@ -129,6 +129,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _gptSingleRequestMode = true;
 
     private boolean _isHubUser=false ;
+    private String _analyticsId;
 
     /**
      * GS-14332 Added the method to check if the Sweep Stakes Module should be on or off based on the property value - Shomi Arora .
@@ -801,6 +802,15 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         } else {
             _cityId = null;
         }
+    }
+
+    /** Set by CookieInterceptor */
+    public void setAnalyticsId(String analyticsId) {
+        _analyticsId = analyticsId;
+    }
+
+    public String getAnalyticsId() {
+        return _analyticsId;
     }
 
     public void setCityId(Integer cityId) {

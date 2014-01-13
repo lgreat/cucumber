@@ -2,7 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsweb="gstaglib"
         >
@@ -21,7 +21,7 @@
     <communityHover:interruptSurvey surveyType="article"/>
     <c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari}">
         <script type="text/javascript">
-            setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
+            setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:putQueryParamIntoUrl(gsweb:escapeJavaScript(surveyDetails['url']), 'aID', requestScope.context.analyticsId)}')", 7000);
         </script>
     </c:if>
 

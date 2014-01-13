@@ -41,7 +41,7 @@ define(['sessionStorage'], function(sessionStorage) {
         });
 
         // check to see if we already got a geolocation response from the browser
-        if (!deferred.isResolved()) {
+        if (deferred.state() != 'resolved') {
             // if
             if (geolocationRequested === false) {
                 geolocationRequested = true;

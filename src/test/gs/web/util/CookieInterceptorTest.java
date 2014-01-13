@@ -249,6 +249,22 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         assertNull(cobrandCookie);
     }
 
+    public void testSetAnalyticsIdCookieIfNecessarySetsCookie() {
+        Cookie cookie = _interceptor.setAnalyticsIdCookieIfNecessary(_request, _response);
+        assertNotNull(cookie);
+        assertTrue("Expect a uuid of at least 10 characters", cookie.getValue().length() > 10);
+        assertEquals(SessionContextUtil.ANALYTICS_ID_COOKIE_NAME, cookie.getName());
+    }
+
+    public void testSetAnalyticsIdCookieIfNecessaryReadsExistingCookie() {
+        _request.setCookies(new Cookie(SessionContextUtil.ANALYTICS_ID_COOKIE_NAME, "1234567"));
+        setUpSessionContext(true, true);
+        Cookie cookie = _interceptor.setAnalyticsIdCookieIfNecessary(_request, _response);
+        assertNotNull(cookie);
+        assertEquals("1234567", cookie.getValue());
+        assertEquals(SessionContextUtil.ANALYTICS_ID_COOKIE_NAME, cookie.getName());
+    }
+
     private Cookie findCobrandCookie() {
         Cookie cookies[] = _response.getCookies();
         if (cookies != null) {

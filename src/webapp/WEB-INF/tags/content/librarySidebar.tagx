@@ -7,18 +7,8 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="scriptless"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
-    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
     <pageHelper:externalCss file="/res/css/content/librarySidebar.css" />
     <jsp:directive.attribute name="cssClass" required="false" description="Style class to be added the top-level div" />
-    <jsp:directive.attribute name="collapseTopicTips" type="java.lang.Boolean"
-        description="Whether or not to collapse topic tips" required="false"/>
-    <jsp:directive.attribute name="collapseGradeTips" type="java.lang.Boolean"
-        description="Whether or not to collapse grade tips" required="false"/>
-
-    <c:set var="collapseTopicTips" value="${not empty collapseTopicTips ? collapseTopicTips : false}"/>
-    <c:set var="collapseGradeTips" value="${not empty collapseGradeTips ? collapseGradeTips : false}"/>
 
     <div id="librarySidebar" class="${cssClass}">
         <div class="box">
@@ -27,7 +17,7 @@
                 <div class="inner-links">
                 <ul id="browse-tips">
                     <li class="last">
-                        <a href="#grade-tips" id="gradeTips">By Grade</a>
+                        <a href="#grade-tips" id="gradeTips" onclick="return false;">By Grade</a>
                         <div class="toggle">
                             <ul id="grade-tips">
                                 <li><link:preschool>Preschool</link:preschool></li>
@@ -47,15 +37,4 @@
             </div>
         </div>
     </div>
-
-    <c:if test="${collapseTopicTips}">
-        <script type="text/javascript">
-            document.getElementById('topicTips').className = 'closed';
-        </script>
-    </c:if>
-    <c:if test="${collapseGradeTips}">
-        <script type="text/javascript">
-            document.getElementById('gradeTips').className = 'closed';
-        </script>
-    </c:if>
 </jsp:root>

@@ -32,9 +32,6 @@
 <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>
 <pageHelper:externalCss file="/res/css/content/articleCategory.css"/>
-<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
-<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
-<pageHelper:externalJavascript file="/res/js/library/interface.js"/>
 
 <!-- total results -->
 <c:set var="total" value="${requestScope.total}"/>

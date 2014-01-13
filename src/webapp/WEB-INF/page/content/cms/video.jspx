@@ -76,6 +76,7 @@
             }
         </script>
     </c:if>
+    <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>
 
     <c:choose>
@@ -380,13 +381,7 @@
               events="event47"
         />
 
-<!-- even though this is the video template, surveyType should remain "article" -->
-<communityHover:interruptSurvey surveyType="article"/>
-<c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari}">
-    <script type="text/javascript">
-        setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
-    </script>
-</c:if>
+<article:hoverBody feature="${feature}"/>
 
 </body>
 </html>

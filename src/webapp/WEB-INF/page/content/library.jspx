@@ -34,10 +34,7 @@
     <![endif]-->
     ]]>
 
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
-    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
-    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
 </head>
 
 
