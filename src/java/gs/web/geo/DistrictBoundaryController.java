@@ -55,13 +55,13 @@ public class DistrictBoundaryController {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         String  isHubUserSet= null;
         //Check is User has been cookied so when coming back on Page new nav bar should show and Ads should be hidden.
-        isHubUserSet= pageHelper.checkHubCookiesForNavBar(request) ? "y": null;
-        if (isHubUserSet != null){
-            pageHelper.setHideAds(true);
-//            pageHelper.clearHubCookiesForNavBar(request, response);
-//            pageHelper.setHubCookiesForNavBar(request, response, pageHelper.getHubStateCookieValue(request), pageHelper.getHubCityCookieValue(request));
-
-        }
+//        isHubUserSet= pageHelper.checkHubCookiesForNavBar(request) ? "y": null;
+//        if (isHubUserSet != null){
+//             pageHelper.setHideAds(true);
+////            pageHelper.clearHubCookiesForNavBar(request, response);
+////            pageHelper.setHubCookiesForNavBar(request, response, pageHelper.getHubStateCookieValue(request), pageHelper.getHubCityCookieValue(request));
+//
+//        }
         // For SchoolID based District Map
         final School schoolFromRequest = _requestAttributeHelper.getSchool(request);
         Integer collectionID= null;
