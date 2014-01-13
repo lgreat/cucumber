@@ -3226,12 +3226,8 @@
     <!-- END demo pages -->
 
     <bean name="/school-district-boundaries-map/"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>/geo/districtBoundary</value>
-        </property>
-    </bean>
-
+          class="gs.web.geo.DistrictBoundaryController"
+          autowire="byName" lazy-init="true"/>
 
 
 

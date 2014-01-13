@@ -1004,6 +1004,23 @@ public class PageHelper {
         util.clearHubStateCookie(response);
     }
 
+    public static boolean checkHubCookiesForNavBar(final HttpServletRequest request, final HttpServletResponse response) {
+        boolean cookiesSet= false;
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("hubCity".equals(cookie.getName()) || "hubState".equals(cookie.getName())) {
+                    cookiesSet= true;
+                    break;
+                }
+            }
+        }
+        return cookiesSet;
+
+    }
+
     public static void setHubUserCookie(HttpServletRequest request, HttpServletResponse response) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();

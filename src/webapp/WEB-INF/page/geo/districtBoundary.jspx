@@ -18,7 +18,7 @@
 </jsp:scriptlet>
 <head>
     <c:choose>
-        <c:when test="${not empty isHubUser}">
+        <c:when test="${not empty isHubUser or not empty isHubUserSet}">
             <meta name="decorator" content="standardDecorator-hubs"/>
         </c:when>
         <c:otherwise>
@@ -398,7 +398,7 @@
 </div>
 
 <div style="display:none;">
-    <mod:tracking pageName="BoundariesMap" hier1="Search, DistrictBoundaries" boundariesSearchQuery="${param.address}" gradeLevelFilter="${(!empty param.level) ? param.level : 'e'}" />
+    <mod:tracking pageName="BoundariesMap" hier1="Search, DistrictBoundaries" boundariesSearchQuery="${param.address}" gradeLevelFilter="${(!empty param.level) ? param.level : 'e'}"   localPageName="${isLocal ? pageName : ''}" />
 </div>
 </div>
 </div>
