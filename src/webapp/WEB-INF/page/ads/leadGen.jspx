@@ -53,6 +53,9 @@
                 <c:when test="${campaignCode eq 'primrose-family-2013' or campaignCode eq 'primrose-mom-daughter-2013'}">
                     <ad:leadGen_primrose2013 campaignCode="${campaignCode}"/>
                 </c:when>
+                <c:when test="${campaignCode eq 'the-international-school-2013' or campaignCode eq 'the-international-school-2013'}">
+                    <ad:leadGen_default_bottomtext campaignCode="${campaignCode}"/>
+                </c:when>
                 <c:otherwise>
                     <ad:leadGen_default campaignCode="${campaignCode}"/>
                 </c:otherwise>

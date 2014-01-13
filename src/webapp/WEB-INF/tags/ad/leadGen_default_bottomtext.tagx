@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="campaignCode" description="Campaign code" required="true"/>
+
+    <div class="inner">
+        <div class="hd wrapper"><!-- do not collapse --></div>
+        <div class="bd wrapper">
+
+            <div class="leadGenPrelimText_bottomtext jq-leadGenPrelimText">
+                A representative from the
+                school will contact you.
+            </div>
+
+            <div class="leadGenErrors">
+                <div class="hidden media jq-leadGenError jq-leadGenError-all">
+                    <div class="iconx16 i-16-alert img"><!-- do not collapse --></div>
+                    <div class="bd">
+                        Please enter:<br/>
+                        first name, last name,<br/>
+                        email and grade level.
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden jq-leadGenThankYou leadGenThankYou">
+                Thank you for submitting your information!<br/>
+                A representative from the school will be in<br/>
+                contact with you soon.
+            </div>
+
+            <form class="jq-leadGenForm" action="#" method="POST">
+                <input type="hidden" class="jq-leadGenCampaign" name="campaign" value="${campaignCode}"/>
+                <fieldset class="contact">
+                    <div class="line">
+                        <input type="text" class="jq-leadGenFullName unit lastUnit" name="fullName"
+                               placeholder="First name, last name"/>
+                    </div>
+
+                    <div class="line">
+                        <input type="text" class="jq-leadGenEmail unit lastUnit" name="email"
+                               placeholder="Email address"/>
+                    </div>
+
+                    <div class="line">
+                        <input type="text" class="jq-leadGenPhone unit lastUnit" name="phone"
+                               placeholder="Phone number"/>
+                    </div>
+
+                    <div class="line">
+                        <select name="gradeLevel" class="jq-leadGenGradeLevel unit lastUnit">
+                            <option value="" selected="selected">Grade level</option>
+                            <option value="p">Preschool</option>
+                            <option value="e">Elementary</option>
+                            <option value="m">Middle</option>
+                            <option value="h">High</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset class="submit">
+                    <div class="line">
+                        <div class="unit lastunit">
+                            <button class="button-6 jq-leadGenSubmit" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</jsp:root>
