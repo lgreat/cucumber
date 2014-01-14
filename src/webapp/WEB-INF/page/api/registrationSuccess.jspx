@@ -4,6 +4,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
 
 <c:set var="pageName" value="API Registration" />
@@ -25,6 +26,7 @@
 
 <body >
     <div>Api Registration Request Email Sent</div>
+    <div class="dn"><mod:tracking pageName="API Registration Success" hier1="API,Registration"/></div>
 </body>
 </html>
 </jsp:root>
