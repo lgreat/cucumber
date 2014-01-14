@@ -3,10 +3,13 @@ package gs.web.geo;
 import gs.data.geo.ISchoolBoundaryDao;
 import gs.data.geo.SchoolBoundary;
 import gs.data.hubs.HubCityMapping;
+import gs.data.hubs.HubConfig;
 import gs.data.hubs.IHubCityMappingDao;
+import gs.data.hubs.IHubConfigDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.state.State;
 import gs.web.school.SchoolProfileHelper;
 import gs.web.util.PageHelper;
 import gs.web.request.RequestAttributeHelper;
@@ -42,6 +45,8 @@ public class DistrictBoundaryController {
     @Autowired
     private IHubCityMappingDao _hubCityMappingDao;
     @Autowired
+    private IHubConfigDao      _hubConfigDao;
+    @Autowired
     private RequestAttributeHelper _requestAttributeHelper;
     @Autowired
     private ISchoolBoundaryDao _schoolBoundaryDao;
@@ -53,17 +58,30 @@ public class DistrictBoundaryController {
                                          @RequestParam(value = "level", required = false) String levelParam, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/geo/districtBoundary");
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        String  isHubUserSet= null;
-        //Check is User has been cookied so when coming back on Page new nav bar should show and Ads should be hidden.
-//        isHubUserSet= pageHelper.checkHubCookiesForNavBar(request) ? "y": null;
-//        if (isHubUserSet != null){
-//             pageHelper.setHideAds(true);
-////            pageHelper.clearHubCookiesForNavBar(request, response);
-////            pageHelper.setHubCookiesForNavBar(request, response, pageHelper.getHubStateCookieValue(request), pageHelper.getHubCityCookieValue(request));
-//
-//        }
-        // For SchoolID based District Map
         final School schoolFromRequest = _requestAttributeHelper.getSchool(request);
+        LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
+        List<SchoolBoundary> schoolBoundaries= new ArrayList<SchoolBoundary>();
+        if (lat != null && lon != null){
+            schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
+        }
+        String  isHubUserSet= null;
+
+        //Check is User has been cookied so when coming back on Page new nav bar should show and Ads should be hidden.
+        boolean isLocalBarCookied= pageHelper.checkHubCookiesForNavBar(request);
+        if (isLocalBarCookied && schoolFromRequest == null && schoolBoundaries.isEmpty()){
+            final String hubStateCookieValue= pageHelper.getHubStateCookieValue(request);
+            final String hubCityCookieValue=  pageHelper.getHubCityCookieValue(request);
+            final Integer hubCollectionID = _hubCityMappingDao.getCollectionIdFromCityAndState(hubCityCookieValue, State.fromString(hubStateCookieValue));
+            HubConfig adHubConfig = _hubConfigDao.getConfigFromCollectionIdAndKey(hubCollectionID, CityHubHelper.SHOW_ADS_KEY);
+            pageHelper.setHideAds(adHubConfig != null && "false".equals(adHubConfig.getValue()));
+            modelAndView.addObject("isHubUserSet", "y");
+            modelAndView.addObject("isLocal", "y");
+
+        }
+
+
+        // For SchoolID based District Map
+
         Integer collectionID= null;
         if (schoolFromRequest != null)
         {
@@ -71,11 +89,7 @@ public class DistrictBoundaryController {
         isHubUserSet = setHubParameters(request, response, pageHelper, isHubUserSet, schoolFromRequest, collectionID);
        }
         // For District Map Search
-        LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
-        List<SchoolBoundary> schoolBoundaries= new ArrayList<SchoolBoundary>();
-        if (lat != null && lon != null){
-         schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
-        }
+
         List<School> schools = new ArrayList<School>(schoolBoundaries.size());
         for (SchoolBoundary boundary: schoolBoundaries)
         {
@@ -93,6 +107,8 @@ public class DistrictBoundaryController {
                 isHubUserSet = setHubParameters(request, response, pageHelper, isHubUserSet, school, collectionIDForSchool);
                 }
         }
+
+
         if (isHubUserSet != null){
         modelAndView.addObject("isHubUserSet", "y");
         modelAndView.addObject("isLocal", "y");
