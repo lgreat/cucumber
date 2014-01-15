@@ -29,7 +29,7 @@
                                     <c:choose>
                                         <c:when test="${link.newwindow eq 'true'}">
                                              <c:choose>
-                                                 <c:when test="${fn:startsWith(link.url, 'http://')}">
+                                                 <c:when test="${fn:startsWith(link.url, 'http://') or fn:startsWith(link.url, 'https://') }">
                                                      <a href="${link.url}"  target="_blank" >${link.heading}</a><br/>
                                                  </c:when>
                                                  <c:otherwise>
@@ -61,7 +61,7 @@
                                     <c:choose>
                                         <c:when test="${link.newwindow eq 'true'}">
                                             <c:choose>
-                                                <c:when test="${fn:startsWith(link.url, 'http://')}">
+                                                <c:when test="${fn:startsWith(link.url, 'http://') or fn:startsWith(link.url, 'https://')}">
                                                     <a href="${link.url}" target="_blank">${link.heading}</a><br/>
                                                 </c:when>
                                                 <c:otherwise>

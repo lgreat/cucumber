@@ -66,16 +66,16 @@ public class DistrictBoundaryController {
         }
         String  isHubUserSet= null;
 
-        //Check is User has been cookied so when coming back on Page new nav bar should show and Ads should be hidden.
+        //Check is User has been cookied so when coming back on Page new nav bar should show and Ads should be hidden.-Commenting this code as approval needs to be taken from marketing.
         boolean isLocalBarCookied= pageHelper.checkHubCookiesForNavBar(request);
         if (isLocalBarCookied && schoolFromRequest == null && schoolBoundaries.isEmpty()){
-            final String hubStateCookieValue= pageHelper.getHubStateCookieValue(request);
-            final String hubCityCookieValue=  pageHelper.getHubCityCookieValue(request);
-            final Integer hubCollectionID = _hubCityMappingDao.getCollectionIdFromCityAndState(hubCityCookieValue, State.fromString(hubStateCookieValue));
-            HubConfig adHubConfig = _hubConfigDao.getConfigFromCollectionIdAndKey(hubCollectionID, CityHubHelper.SHOW_ADS_KEY);
-            pageHelper.setHideAds(adHubConfig != null && "false".equals(adHubConfig.getValue()));
-            modelAndView.addObject("isHubUserSet", "y");
-            modelAndView.addObject("isLocal", "y");
+//            final String hubStateCookieValue= pageHelper.getHubStateCookieValue(request);
+//            final String hubCityCookieValue=  pageHelper.getHubCityCookieValue(request);
+//            final Integer hubCollectionID = _hubCityMappingDao.getCollectionIdFromCityAndState(hubCityCookieValue, State.fromString(hubStateCookieValue));
+//            HubConfig adHubConfig = _hubConfigDao.getConfigFromCollectionIdAndKey(hubCollectionID, CityHubHelper.SHOW_ADS_KEY);
+//            pageHelper.setHideAds(adHubConfig != null && "false".equals(adHubConfig.getValue()));
+//            modelAndView.addObject("isHubUserSet", "y");
+//            modelAndView.addObject("isLocal", "y");
 
         }
 
