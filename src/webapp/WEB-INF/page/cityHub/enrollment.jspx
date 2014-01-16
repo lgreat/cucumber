@@ -27,7 +27,9 @@
 
     <body>
     <hub:searchChoosing/>
+    <c:if test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
     <hub:upcomingEvent hideAnnouncementModule="true"/>
+    </c:if>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Enrollment Information"/>
     <hub:enrollmentHeader/>
     <hub:enrollmentTabs/>
