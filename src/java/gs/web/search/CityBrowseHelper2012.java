@@ -178,7 +178,6 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
 
 
         if (districtDisplayName == null) {
-            cityWithModifier.append(cityDisplayName).append(" ").append(modifier);
             // for preschools, do a special SEO meta description
             if (levelCode != null &&
                     levelCode.getCommaSeparatedString().length() == 1 &&
@@ -192,6 +191,9 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
                 }
                 sb.append(" - view preschool ratings, reviews and map locations.");
             } else {
+                // cityWithModifier.append(cityDisplayName).append(state.abbr).append(commaspace).append(modifier)
+                cityWithModifier.append(cityDisplayName).append(", ").
+                        append(state.getAbbreviation()).append(" ").append(modifier);
                 sb.append("View and map all ").append(cityWithModifier).
                         append("schools. Plus, compare or save ").
                         append(modifier).append("schools.");
@@ -199,6 +201,7 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
         } else {
             sb.append("View and map all ").append(modifier).
                     append("schools in the ").append(districtDisplayName).
+                    append(", ").append(state.getAbbreviation()).
                     append(". Plus, compare or save ").append(modifier).
                     append("schools in this district.");
         }
