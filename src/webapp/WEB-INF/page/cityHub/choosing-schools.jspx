@@ -23,7 +23,7 @@
     <body>
 
     <hub:searchChoosing/>
-    <c:if test="${not empty configKeyPrefixListWithIndex and maxImportantEventsToDisplay > 0}">
+    <c:if test="${not empty importantEvent.configKeyPrefixListWithIndex and importantEvent.maxImportantEventsToDisplay > 0}">
     <hub:upcomingEvent hideAnnouncementModule="true"/>
     </c:if>
     <hub:breadcrumbs city="${city}" state="${state}" pageName="Choosing a School"/>
