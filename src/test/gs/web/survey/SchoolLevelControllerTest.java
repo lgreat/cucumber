@@ -4,79 +4,57 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.request.RequestInfo;
 import gs.web.school.SchoolPageInterceptor;
-import gs.web.school.SchoolProfileHeaderHelper;
-import org.springframework.validation.BindException;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-import static org.easymock.classextension.EasyMock.*;
+import javax.servlet.http.HttpServletResponse;
 
 public class SchoolLevelControllerTest extends BaseControllerTestCase {
     private SchoolLevelController _controller = new SchoolLevelController();
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
-        _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
-    }
-
-    public void testControllerRedirectsWithNoLevelForSingleLevelSchools() throws Exception {
-        School school = createSchool(345, State.AZ, LevelCode.ELEMENTARY);
-
-        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
-        getRequest().setMethod("GET");
-
-        ModelAndView modelAndView = _controller.handleRequest(getRequest(), getResponse());
-        assertEquals("Expected survey view for single-level school", _controller.getSuccessView(), modelAndView.getView());
-    }
-
-    public void testShouldReturnFormViewForMultiLevelSchools() throws Exception {
-        School school = createSchool(345, State.AZ, LevelCode.ELEMENTARY_MIDDLE);
-
-        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
-        getRequest().setMethod("GET");
-
-        ModelAndView modelAndView = _controller.handleRequest(getRequest(), getResponse());
-        assertEquals("Expected form view for multi-level school", _controller.getFormView(), modelAndView.getView());
-    }
-
-    public void testShouldForwardToSuccessViewOnSubmitWithLevel() throws Exception {
-        School school = createSchool(345, State.AZ, LevelCode.ELEMENTARY_MIDDLE);
-
-        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
-        getRequest().setMethod("POST");
-        getRequest().addParameter("level", "m");
-
-        ModelAndView modelAndView = _controller.handleRequest(getRequest(), getResponse());
-        assertEquals("Expected success view on submit", _controller.getSuccessView(), modelAndView.getView());
-        assertEquals("Expected level to be set in model", "m", modelAndView.getModel().get("level"));
-        assertEquals("Expected school id in model", 345, modelAndView.getModel().get("id"));
-        assertEquals("Expected state in model", "AZ", modelAndView.getModel().get("state"));
-    }
-
-    public void testShouldReturnFormViewIfNoLevelSubmitted() throws Exception {
-        School school = createSchool(345, State.AZ, LevelCode.ELEMENTARY_MIDDLE);
-
-        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
-        getRequest().setMethod("POST");
-
-        ModelAndView modelAndView = _controller.handleRequest(getRequest(), getResponse());
-        assertEquals("Expected form view when no level is submitted", _controller.getFormView(), modelAndView.getView());
-    }
-
-    public void testMustSelectALevel() throws Exception {
-        SchoolLevelCommand command = new SchoolLevelCommand();
-        BindException errors = new BindException(command, "");
-        _controller.onBind(getRequest(), command, errors);
-        assertTrue("Expected level error message", errors.hasFieldErrors("level"));
-    }
-
-    private School createSchool(int schoolId, State state, LevelCode level) {
+    public void testHandleRequest_RedirectForNewSchoolProfile() throws Exception {
         School school = new School();
-        school.setId(schoolId);
-        school.setStateAbbreviation(state);
-        school.setLevelCode(level);
-        return school;
+        school.setId(1);
+        school.setNewProfileSchool(School.ProfileAndRatingFlag.NEW_PROFILE_OLD_RATING.value);
+        school.setDatabaseState(State.CA);
+        school.setLevelCode(LevelCode.HIGH);
+        school.setCity("Alameda");
+        school.setName("Alameda High School");
+        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+
+        ModelAndView modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+
+        assertTrue(modelAndView.getView() instanceof RedirectView);
+        assertTrue("Expect redirect to overview page",
+                ((RedirectView) modelAndView.getView()).getUrl().contains("1-Alameda-High-School"));
+        assertFalse("Expect this URL to be a k-12 style",
+                ((RedirectView) modelAndView.getView()).getUrl().contains("preschools"));
+    }
+
+    public void testRedirectAllRequestsToOverviewPage() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        HttpServletResponse response = getResponse();
+        RequestInfo requestInfo = new RequestInfo(request);
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setCity("Oakland");
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        school.setName("Roy's School for Tots");
+        request.setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+
+        request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, requestInfo);
+
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, response);
+
+        assertTrue(modelAndView.getView() instanceof RedirectView);
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("Expect redirect to overview page",
+                urlBuilder.asSiteRelative(request), ((RedirectView) modelAndView.getView()).getUrl());
     }
 }

@@ -11,7 +11,6 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
-import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
@@ -40,7 +39,6 @@ public class SchoolProfileHeaderHelper {
     private static final Log _log = LogFactory.getLog(SchoolProfileHeaderHelper.class);
 
     private ITestDataSetDao _testDataSetDao;
-    private ISurveyDao _surveyDao;
     private ILocalBoardDao _localBoardDao;
     private IGeoDao _geoDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
@@ -60,7 +58,6 @@ public class SchoolProfileHeaderHelper {
     public static final String PQ_HOURS = "pq_hours";
     public static final String HAS_SCHOOL_STATS = "hasSchoolStats";
     public static final String HAS_TEST_SCORES = "hasTestScores";
-    public static final String HAS_SURVEY_DATA = "hasSurveyData";
     public static final String HAS_PQ = "hasPq";
     public static final String DISCUSSION_BOARD_ID = "discussionBoardId";
     public static final String DISCUSSION_TOPIC = "discussionTopic";
@@ -95,10 +92,6 @@ public class SchoolProfileHeaderHelper {
                         model.put(HAS_SCHOOL_STATS, true);
                     }
                 }
-
-                startTime = System.currentTimeMillis();
-                determineSurveyResults(school, model); // Determine survey results
-                logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
                 startTime = System.currentTimeMillis();
                 City city = handleCommunitySidebar(school, model); // Determine community module
@@ -210,17 +203,6 @@ public class SchoolProfileHeaderHelper {
         }
     }
 
-    protected void determineSurveyResults(School school, Map<String, Object> model) {
-        Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
-        if (surveyId != null) {
-            String levelCode = _surveyDao.findSurveyLevelCodeById(surveyId);
-            model.put(SURVEY_LEVEL_CODE, levelCode);
-            model.put(HAS_SURVEY_DATA, true);
-        } else {
-            model.put(HAS_SURVEY_DATA, false);
-        }
-    }
-
     protected void determineTestScores(School school, Map<String, Object> model) {
         boolean hasTestScores = true;
         if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
@@ -303,14 +285,6 @@ public class SchoolProfileHeaderHelper {
 
     public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
         _testDataSetDao = testDataSetDao;
-    }
-
-    public ISurveyDao getSurveyDao() {
-        return _surveyDao;
-    }
-
-    public void setSurveyDao(ISurveyDao surveyDao) {
-        _surveyDao = surveyDao;
     }
 
     public ILocalBoardDao getLocalBoardDao() {

@@ -98,17 +98,9 @@
                                                     This information is based on a survey by the <strong>principal</strong>.
                                                 </p>
                                             </c:when>
-                                            <c:when test="${school.numResponses gt 0}">
-                                                <p>
-                                                    This information is based on surveys from
-                                                    <strong>${school.numResponses} ${gsweb:pluralize(school.numResponses, 'parent')}</strong>.
-                                                </p>
-                                            </c:when>
                                             <c:otherwise>
                                                 <p class="smallText1-italic">
-                                                    No program information available. Parents, update this
-                                                    <link:schoolStartSurvey
-                                                            school="${school.school}">school's information</link:schoolStartSurvey>.
+                                                    No program information available.
                                                 </p>
                                             </c:otherwise>
                                         </c:choose>
@@ -211,11 +203,6 @@
                                                         <link:schoolProfilePrincipalView school="${school.school}">
                                                             View more programs &amp;amp; extracurriculars
                                                         </link:schoolProfilePrincipalView>
-                                                    </c:when>
-                                                    <c:when test="${school.numResponses gt 0}">
-                                                        <link:startSurveyResults school="${school.school}">
-                                                            View more programs &amp;amp; extracurriculars
-                                                        </link:startSurveyResults>
                                                     </c:when>
                                                     <c:otherwise>
                                                         &amp;nbsp;

@@ -2,7 +2,6 @@ package gs.web.compare;
 
 import gs.data.school.*;
 import gs.data.state.State;
-import gs.data.survey.*;
 import gs.web.BaseControllerTestCase;
 import org.apache.commons.lang.WordUtils;
 
@@ -16,7 +15,6 @@ import static org.easymock.EasyMock.*;
  */
 public class CompareProgramsExtracurricularsControllerTest extends BaseControllerTestCase {
     private CompareProgramsExtracurricularsController _controller;
-    private ISurveyDao _surveyDao;
     private IEspResponseDao _espResponseDao;
 
     private ComparedSchoolProgramsExtracurricularsStruct _struct;
@@ -27,10 +25,8 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
 
         _controller = new CompareProgramsExtracurricularsController();
 
-        _surveyDao = createStrictMock(ISurveyDao.class);
         _espResponseDao = createStrictMock(IEspResponseDao.class);
 
-        _controller.setSurveyDao(_surveyDao);
         _controller.setEspResponseDao(_espResponseDao);
         _controller.setSuccessView("success");
 
@@ -38,15 +34,14 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
     }
     
     public void replayAllMocks() {
-        replayMocks(_surveyDao, _espResponseDao);
+        replayMocks(_espResponseDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_surveyDao, _espResponseDao);
+        verifyMocks(_espResponseDao);
     }
 
     public void testBasics() {
-        assertSame(_surveyDao, _controller.getSurveyDao());
         assertSame(_espResponseDao, _controller.getEspResponseDao());
         assertEquals("success", _controller.getSuccessView());
         assertEquals(ComparedSchoolProgramsExtracurricularsStruct.class, _controller.getStruct().getClass());
@@ -180,10 +175,7 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         Map<String, Object> model = new HashMap<String, Object>();
 
         expect(_espResponseDao.getResponses(school1)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("e", school1)).andReturn(null);
         expect(_espResponseDao.getResponses(school2)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("e", school2)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("m", school2)).andReturn(null);
         replayAllMocks();
         _controller.handleCompareRequest(getRequest(), getResponse(), structs, model);
         verifyAllMocks();
@@ -218,8 +210,6 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         expect(_espResponseDao.getResponses(school1)).andReturn(null);
         // surveyDao is never checked for school1 since it is a new profile school
         expect(_espResponseDao.getResponses(school2)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("e", school2)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("m", school2)).andReturn(null);
         replayAllMocks();
         _controller.handleCompareRequest(getRequest(), getResponse(), structs, model);
         verifyAllMocks();
@@ -251,8 +241,6 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         expect(_espResponseDao.getResponses(school1)).andReturn(getEspResponseListWithKey("arts_media", "band", "chorus", "drawing/painting"));
         // surveyDao is never checked for school1 since there is a valid pq
         expect(_espResponseDao.getResponses(school2)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("e", school2)).andReturn(null);
-        expect(_surveyDao.getSurveyResultsForSchool("m", school2)).andReturn(null);
         replayAllMocks();
         _controller.handleCompareRequest(getRequest(), getResponse(), structs, model);
         verifyAllMocks();
@@ -265,60 +253,5 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         assertEquals("Band", responses.toArray()[0]);
         assertEquals("Chorus", responses.toArray()[1]);
         assertEquals("Drawing/painting", responses.toArray()[2]);
-    }
-
-    public void testProcessSurveyResults() {
-        _struct.setCategoryResponses(new HashMap<String, Set<String>>());
-        _struct.getCategoryResponses().put(ROW_LABEL_ARTS, new TreeSet<String>());
-        
-        List<SurveyResults> surveyResultsList = new ArrayList<SurveyResults>();
-        SurveyResults surveyResults = new SurveyResults();
-        surveyResultsList.add(surveyResults);
-        surveyResults.setTotalResponses(1);
-        List<SurveyResultPage> pages = new ArrayList<SurveyResultPage>();
-        surveyResults.setPages(pages);
-        SurveyResultPage page1 = new SurveyResultPage();
-        pages.add(page1);
-        List<SurveyResultGroup> groups1 = new ArrayList<SurveyResultGroup>();
-        page1.setGroups(groups1);
-        SurveyResultGroup group1 = new SurveyResultGroup();
-        groups1.add(group1);
-        List<SurveyResultQuestion> questions1 = new ArrayList<SurveyResultQuestion>();
-        group1.setQuestions(questions1);
-        SurveyResultQuestion question1 = new SurveyResultComplexQuestion();
-        questions1.add(question1);
-        question1.setDisplayType("COMPLEX");
-        Question q1 = new Question();
-        q1.setId(1);
-        question1.setQuestion(q1);
-        List<Answer> answers1 = new ArrayList<Answer>();
-        q1.setAnswers(answers1);
-        Answer a1 = new Answer();
-        a1.setId(1); // Arts
-        answers1.add(a1);
-        List<AnswerValue> answerValues1 = new ArrayList<AnswerValue>();
-        a1.setAnswerValues(answerValues1);
-        AnswerValue answerValue1 = new AnswerValue();
-        answerValues1.add(answerValue1);
-        answerValue1.setSymbol("band");
-        answerValue1.setDisplay("Band");
-
-        List<UserResponse> userResponses = new ArrayList<UserResponse>();
-        question1.setResponses(userResponses);
-        UserResponse response1 = new UserResponse();
-        response1.setQuestionId(1);
-        response1.setAnswerId(1);
-        response1.setResponseValue("band");
-        userResponses.add(response1);
-
-        replayAllMocks();
-        _controller.processSurveyResults(_struct, surveyResultsList);
-        verifyAllMocks();
-
-        Set<String> responses = _struct.getCategoryResponses().get(ROW_LABEL_ARTS);
-        assertNotNull(responses);
-        assertEquals(1, responses.size());
-        assertEquals("Band", responses.toArray()[0]);
-
     }
 }

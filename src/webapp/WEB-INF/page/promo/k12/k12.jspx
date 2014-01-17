@@ -134,6 +134,9 @@
         <!--form module and virtual student-->
         <div class="grid_7 omega">
             <div class="mod standard_1-1">
+                <iframe width="300" height="250" src="/res/html/testK12Form.html"><!-- not empty --></iframe>
+            </div>
+            <div class="mod standard_1-1">
                 <k12:formCode/>
             </div>
             <!--more virtual student module-->

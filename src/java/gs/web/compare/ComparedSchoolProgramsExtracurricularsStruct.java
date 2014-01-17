@@ -15,7 +15,6 @@ public class ComparedSchoolProgramsExtracurricularsStruct extends ComparedSchool
     }
 
     private SourceType _programSource = Parents;
-    private int _numResponses = 0;
     private Map<String, Set<String>> _categoryResponses;
 
     public SourceType getProgramSource() {
@@ -24,14 +23,6 @@ public class ComparedSchoolProgramsExtracurricularsStruct extends ComparedSchool
 
     public void setProgramSource(SourceType programSource) {
         _programSource = programSource;
-    }
-
-    public int getNumResponses() {
-        return _numResponses;
-    }
-
-    public void setNumResponses(int numResponses) {
-        _numResponses = numResponses;
     }
 
     public Map<String, Set<String>> getCategoryResponses() {

@@ -126,19 +126,10 @@
         <div class="footerInfo clearBoth">
             <div class="line">
                 <div class="unit size2of3">
-                    <c:choose>
-                        <c:when test="${tab eq 'programsExtracurriculars'}">
-                            <p class="text3italic">
-                                Program information provided by parent surveys may not be completely accurate.
-                            </p>
-                        </c:when>
-                        <c:otherwise>
-                            <p class="text3">
-                                Notice an inaccuracy?
-                                <link:schoolFeedback state="${state}">Let us know</link:schoolFeedback>
-                            </p>
-                        </c:otherwise>
-                    </c:choose>
+                    <p class="text3">
+                        Notice an inaccuracy?
+                        <link:schoolFeedback state="${state}">Let us know</link:schoolFeedback>
+                    </p>
                 </div>
                 <div class="unit size1of3 lastUnit">
                     <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"

@@ -2467,15 +2467,6 @@
 
     <bean name="surveyController"
           class="gs.web.survey.SurveyController" autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="userResponseCommand"/>
-        <property name="commandClass" value="gs.web.survey.UserResponseCommand"/>
-        <property name="formView" value="survey/form"/>
-        <property name="validators">
-            <list>
-                <ref bean="emailValidator"/>
-            </list>
-        </property>
     </bean>
 
     <bean name="surveyResultsController"
@@ -2484,19 +2475,10 @@
 
     <bean name="surveySchoolLevelController"
           class="gs.web.survey.SchoolLevelController" autowire="byName" lazy-init="true">
-        <!--<property name="bindOnNewForm" value="true"/>-->
-        <property name="commandName" value="schoolLevelCommand"/>
-        <property name="commandClass" value="gs.web.survey.SchoolLevelCommand"/>
-        <property name="formView" value="survey/selectLevel"/>
-        <property name="successView" value="redirect:/survey/form.page"/>
     </bean>
 
     <bean name="resultsSchoolLevelController"
           class="gs.web.survey.SchoolLevelController" autowire="byName" lazy-init="true">
-        <property name="commandName" value="schoolLevelCommand"/>
-        <property name="commandClass" value="gs.web.survey.SchoolLevelCommand"/>
-        <property name="formView" value="survey/selectLevel"/>
-        <property name="successView" value="redirect:/survey/results.page"/>
     </bean>
 
     <bean name="/school/ajaxFindSchoolAndCity.page"

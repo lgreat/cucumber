@@ -7,7 +7,6 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.state.State;
-import gs.data.survey.ISurveyDao;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
@@ -29,7 +28,6 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     private SchoolProfileHeaderHelper _helper;
     private IEspResponseDao _espResponseDao;
     private ITestDataSetDao _testDataSetDao;
-    private ISurveyDao _surveyDao;
     private ILocalBoardDao _localBoardDao;
     private IGeoDao _geoDao;
     private ICensusInfo _censusInfo;
@@ -49,7 +47,6 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
 
         _espResponseDao = createStrictMock(IEspResponseDao.class);
         _testDataSetDao = createStrictMock(ITestDataSetDao.class);
-        _surveyDao = createStrictMock(ISurveyDao.class);
         _localBoardDao = createStrictMock(ILocalBoardDao.class);
         _geoDao = createStrictMock(IGeoDao.class);
         _censusInfo = createStrictMock(ICensusInfo.class);
@@ -60,7 +57,6 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
 
         _helper.setEspResponseDao(_espResponseDao);
         _helper.setTestDataSetDao(_testDataSetDao);
-        _helper.setSurveyDao(_surveyDao);
         _helper.setLocalBoardDao(_localBoardDao);
         _helper.setGeoDao(_geoDao);
         _helper.setStateSpecificFooterHelper(_stateSpecificFooterHelper);
@@ -75,17 +71,16 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
     
     private void replayAllMocks() {
-        replayMocks(_espResponseDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
+        replayMocks(_espResponseDao, _testDataSetDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_espResponseDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
+        verifyMocks(_espResponseDao, _testDataSetDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
     }
 
     public void testBasics() {
         assertSame(_espResponseDao, _helper.getEspResponseDao());
         assertSame(_testDataSetDao, _helper.getTestDataSetDao());
-        assertSame(_surveyDao, _helper.getSurveyDao());
         assertSame(_localBoardDao, _helper.getLocalBoardDao());
         assertSame(_geoDao, _helper.getGeoDao());
         assertSame(_schoolDao, _helper.getSchoolDao());
@@ -140,29 +135,6 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         assertEquals("8:00", _model.get(PQ_START_TIME));
         assertEquals("8:00 - 3:30", _model.get(PQ_HOURS));
         assertEquals("3:30", _model.get(PQ_END_TIME));
-    }
-
-    public void testDetermineSurveyResultsNone() {
-        expect(_surveyDao.findSurveyIdWithMostResultsForSchool(_school)).andReturn(null);
-
-        replayAllMocks();
-        _helper.determineSurveyResults(_school, _model);
-        verifyAllMocks();
-
-        assertEquals(false, _model.get(HAS_SURVEY_DATA));
-        assertNull(_model.get(SURVEY_LEVEL_CODE));
-    }
-
-    public void testDetermineSurveyResults() {
-        expect(_surveyDao.findSurveyIdWithMostResultsForSchool(_school)).andReturn(3);
-        expect(_surveyDao.findSurveyLevelCodeById(3)).andReturn("e");
-
-        replayAllMocks();
-        _helper.determineSurveyResults(_school, _model);
-        verifyAllMocks();
-
-        assertEquals(true, _model.get(HAS_SURVEY_DATA));
-        assertEquals("e", _model.get(SURVEY_LEVEL_CODE));
     }
 
     public void testDetermineTestScoresPublic() {

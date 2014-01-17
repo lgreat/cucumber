@@ -21,10 +21,8 @@ import gs.data.util.CmsUtil;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.request.RequestInfo;
-import gs.web.request.Subdomain;
 import gs.web.widget.CustomizeSchoolSearchWidgetController;
 import gs.web.widget.SchoolSearchWidgetController;
-import junit.framework.TestCase;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -283,10 +281,7 @@ public class UrlBuilderSaTest extends BaseTestCase {
         school.setId(1);
         school.setLevelCode(LevelCode.HIGH);
 
-        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.START_SURVEY_RESULTS);
-        assertEquals("/survey/startResults.page?id=1&amp;state=CA", builder.asSiteRelativeXml(null));
-
-        builder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
         assertEquals("/survey/results.page?id=1&amp;state=CA", builder.asSiteRelativeXml(null));
     }
 

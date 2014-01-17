@@ -290,13 +290,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
     <div>
         <div class="text2 fltlft">${schoolHighlights}</div>
-        <span class="iblock fltrt smallAlertText">
-            <c:if test="${hasSurveyData}">
-                <link:surveyResults school="${school}" level="${surveyLevelCode}">
-                    More <span class="alertDoubleArrow">&#187;</span>
-                </link:surveyResults>
-            </c:if>
-        </span>
     </div>
 </c:if>
 

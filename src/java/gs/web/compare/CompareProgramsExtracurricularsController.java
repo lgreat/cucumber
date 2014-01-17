@@ -1,8 +1,6 @@
 package gs.web.compare;
 
 import gs.data.school.*;
-import gs.data.survey.*;
-import gs.data.util.NameValuePair;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +18,6 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     private final Log _log = LogFactory.getLog(getClass());
     public static final String TAB_NAME = "programsExtracurriculars";
     private String _successView;
-    private ISurveyDao _surveyDao;
     private IEspResponseDao _espResponseDao;
 
     public static final String ROW_LABEL_ARTS = "Arts &amp; activities";
@@ -87,23 +84,10 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
             School school = baseStruct.getSchool();
             List<EspResponse> espResponses = _espResponseDao.getResponses(school);
             Map<String, List<EspResponse>> keyToResponseListMap = EspResponse.rollup(espResponses);
-            // PQ takes precedence over parent surveys
             if (!keyToResponseListMap.isEmpty()) {
 //                _log.warn("  Found PQ");
                 struct.setProgramSource(Principal);
                 processESPResults(struct, keyToResponseListMap);
-            } else if (!school.isSchoolForNewProfile()) { // GS-13226
-//                _log.warn("  Did not find PQ, checking for survey results");
-                Set<LevelCode.Level> levels = school.getLevelCode().getIndividualLevelCodes();
-                List<SurveyResults> allResultsForSchool = new ArrayList<SurveyResults>();
-                for (LevelCode.Level level: levels) {
-//                    _log.warn("  Looking for " + level.getLongName() + " surveys");
-                    SurveyResults results = _surveyDao.getSurveyResultsForSchool(level.getName(), baseStruct.getSchool());
-                    if (results != null && results.getTotalResponses() > 0) {
-                        allResultsForSchool.add(results);
-                    }
-                }
-                processSurveyResults(struct, allResultsForSchool);
             }
             // now determine which categories have results for this school
             for (String category: categories) {
@@ -174,89 +158,6 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         }
     }
 
-    protected void processSurveyResults(ComparedSchoolProgramsExtracurricularsStruct school,
-                                        List<SurveyResults> allResultsForSchool) {
-//        _log.warn("  Found " + allResultsForSchool.size() + " survey result(s)");
-
-        for (SurveyResults results: allResultsForSchool) {
-//            _log.warn("  Processing survey results with " + results.getTotalResponses() + " response(s)");
-            school.setNumResponses(school.getNumResponses() + results.getTotalResponses());
-            for (SurveyResultPage page: results.getPages()) {
-//                _log.warn("    Processing page " + page.getName());
-                for (SurveyResultGroup group: page.getGroups()) {
-//                    _log.warn("      Processing group " + group.getDisplayText());
-                    for (SurveyResultQuestion question: group.getQuestions()) {
-//                        _log.warn("        Processing question " + question.getQuestion().getId());
-                        try {
-                            if ("COMPLEX".equals(question.getDisplayType())) {
-                                for (Answer answer: question.getQuestion().getAnswers()) {
-                                    String key = "q" + question.getQuestion().getId() + "a" + answer.getId();
-                                    if (_questionAnswerToLabelMap.get(key) != null) {
-//                                        _log.warn("          Found " + key);
-                                        Map<Object, Integer> responseValuesMap = question.getResponseValuesAsMap();
-                                        for (AnswerValue answerValue: answer.getAnswerValues()) {
-                                            Integer numPositiveResponses = responseValuesMap.get(answerValue.getSymbol());
-                                            if (numPositiveResponses != null && numPositiveResponses > 0) {
-//                                                _log.warn("            Adding \"" + answerValue.getDisplay() + "\" to " + _questionAnswerToLabelMap.get(key));
-                                                school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add(answerValue.getDisplay());
-                                            }
-                                        }
-                                    }
-                                }
-                            } else if ("LINKED".equals(question.getDisplayType())) {
-                                SurveyResultLinkedQuestion linkedQuestion = (SurveyResultLinkedQuestion) question;
-                                String key = "q" + linkedQuestion.getQuestion1().getId();
-                                if (StringUtils.equals(_questionAnswerToLabelMap.get(key), ROW_LABEL_BEFORE_AFTER_SCHOOL)) {
-//                                    _log.warn("          Found " + key);
-                                    if (linkedQuestion.isShowResponses()) {
-                                        for (String answerValue: linkedQuestion.getQuestion1ResponseValuesAsMap().keySet()) {
-                                            if (linkedQuestion.getQuestion1ResponseValuesAsMap().get(answerValue) > 0) {
-                                                if (StringUtils.equalsIgnoreCase("before school", answerValue)) {
-                                                    school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add("Before-school care");
-                                                } else if (StringUtils.equalsIgnoreCase("after school", answerValue)) {
-                                                    school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add("After-school care");
-                                                } else if (StringUtils.equalsIgnoreCase("none", answerValue)) {
-                                                    school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add("No extended care");
-                                                }
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    key = "q" + linkedQuestion.getQuestion2().getId();
-                                    if (_questionAnswerToLabelMap.get(key) != null) {
-//                                        _log.warn("          Found " + key);
-                                        if (linkedQuestion.isShowResponses()) {
-                                            for (NameValuePair<String, Integer> answerValue: linkedQuestion.getResponseValuesAsList()) {
-//                                                _log.warn("            " + answerValue.getKey() + ":" + answerValue.getValue());
-                                                if (answerValue.getValue() > 0) {
-                                                    if (StringUtils.contains(answerValue.getKey(), "self-contained")) {
-                                                        school.getCategoryResponses()
-                                                                .get(_questionAnswerToLabelMap.get(key))
-                                                                .add("Self-contained");
-                                                    } else if (StringUtils.contains(answerValue.getKey(), "pull-out")) {
-                                                        school.getCategoryResponses()
-                                                                .get(_questionAnswerToLabelMap.get(key))
-                                                                .add("Pull-out");
-                                                    } else if (StringUtils.contains(answerValue.getKey(), "full inclusion")) {
-                                                        school.getCategoryResponses()
-                                                                .get(_questionAnswerToLabelMap.get(key))
-                                                                .add("Full inclusion");
-                                                    }
-                                                }
-                                            }
-                                        }
-                                   }
-                                }
-                            }
-                        } catch (Exception e) {
-                            _log.error("Error processing question " + question.getQuestion().getId() + ": " + e, e);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public String getSuccessView() {
         return _successView;
@@ -269,14 +170,6 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     @Override
     protected ComparedSchoolBaseStruct getStruct() {
         return new ComparedSchoolProgramsExtracurricularsStruct();
-    }
-
-    public ISurveyDao getSurveyDao() {
-        return _surveyDao;
-    }
-
-    public void setSurveyDao(ISurveyDao surveyDao) {
-        _surveyDao = surveyDao;
     }
 
     public IEspResponseDao getEspResponseDao() {

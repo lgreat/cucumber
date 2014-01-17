@@ -281,12 +281,6 @@
                                     <c:set var="sptab3_name" value="School Stats"/>
                                     <c:set var="sptab3_link"><link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">${sptab3_name}</link:schoolProfileCensus></c:set>
                                 </c:when>
-                                <c:when test="${requestScope.hasSurveyData}">
-                                    <c:set var="sptab3_name" value="Program Details"/>
-                                    <c:set var="sptab3_link"><link:surveyResults
-                                            school="${school}" level="${surveyLevelCode}"
-                                            styleClass="GS_CI9_">${sptab3_name}</link:surveyResults></c:set>
-                                </c:when>
                             </c:choose>
                         </c:when>
                         <c:when test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
@@ -312,8 +306,8 @@
 
             <c:set var="subtab1" value="${requestScope.hasTestScores}"/>
             <c:set var="subtab2" value="${school.type.name ne 'private'}"/>
-            <c:set var="subtab3" value="${school.levelCode ne 'p' or (requestScope.hasSchoolStats and requestScope.hasSurveyData)}"/>
-            <c:set var="subtab4" value="${requestScope.hasSurveyData}"/>
+            <c:set var="subtab3" value="${school.levelCode ne 'p' or requestScope.hasSchoolStats}"/>
+            <c:set var="subtab4" value="${false}"/> <!-- No more parent survey -->
             <c:set var="subtab5" value="${hasPq}"/>
             <c:set var="subtabCount" value="0"/>
 
@@ -329,8 +323,8 @@
 
 
                 <c:if test="${tab eq 'schoolStats' and subtabCount gt 1
-                            and ((school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
-                                or (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))
+                            and ((school.type.name ne 'private' or requestScope.hasTestScores)
+                                or (school.levelCode ne 'p' or requestScope.hasSchoolStats)
                                 or hasPq)}">
                     <div id="schoolProfileSubTabsWrapper">
                         <ul id="schoolProfileSubTabs" class="text3">
@@ -366,26 +360,6 @@
                                         <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
                                         <c:otherwise>
                                             <link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">Teachers &amp;amp; Students</link:schoolProfileCensus>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </li>
-                            </c:if>
-                            <c:if test="${subtab4}">
-
-                                <c:set var="spstab4_name"
-                                       value="${school.levelCode eq 'p' ? 'Program Details' : 'Programs &amp;amp; Extracurriculars'}"/>
-
-                                <li id="spstab4"
-                                    class="${(subtab eq 'survey')?'active text3bold-d61':'inactive text3-06b'}">
-                                    <c:if test="${showPipe4}">
-                                        <span class="pipes">|</span>
-                                    </c:if>
-                                    <c:choose>
-                                        <c:when test="${subtab eq 'survey'}">${spstab4_name}</c:when>
-                                        <c:otherwise>
-                                            <link:surveyResults school="${school}"
-                                                                level="${surveyLevelCode}"
-                                                                styleClass="GS_CI9_">${spstab4_name}</link:surveyResults>
                                         </c:otherwise>
                                     </c:choose>
                                 </li>

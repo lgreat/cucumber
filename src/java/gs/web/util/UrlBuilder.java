@@ -208,7 +208,6 @@ public class UrlBuilder {
 
     public static final VPage SCHOOL_START_SURVEY = new VPage("vpage:schoolStartSurvey");
     public static final VPage SCHOOL_TAKE_SURVEY = new VPage("vpage:schoolTakeSurvey");
-    public static final VPage START_SURVEY_RESULTS = new VPage("vpage:startSurveyResults");
     public static final VPage SURVEY_RESULTS = new VPage("vpage:surveyResults");
 
     public static final VPage SCHOOL_MAP = new VPage("vpage:schoolMap");
@@ -754,11 +753,6 @@ public class UrlBuilder {
         } else if (SCHOOL_START_SURVEY.equals(page)) {
             _perlPage = false;
             _path = "/survey/start.page";
-            setParameter("id", String.valueOf(school.getId().intValue()));
-            setParameter("state", school.getDatabaseState().getAbbreviation());
-        } else if (START_SURVEY_RESULTS.equals(page)) {
-            _perlPage = false;
-            _path = "/survey/startResults.page";
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
         } else if (SURVEY_RESULTS.equals(page)) {
