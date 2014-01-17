@@ -8,10 +8,6 @@ import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
-import gs.data.survey.Answer;
-import gs.data.survey.ISurveyDao;
-import gs.data.survey.Question;
-import gs.data.survey.Survey;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
@@ -27,7 +23,6 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +43,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
-    private ISurveyDao _surveyDao;
     private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
     private IGeoDao _geoDao;
@@ -258,56 +252,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             highlights.add("Associations: " + school.getAssociation());
         }
 
-        for (String answer : SURVEY_ANSWERS_TO_SAMPLE) {
-            String token = StringUtils.trimToNull(getOneResponseTokenForAnswer(school, answer));
-            if (token != null) {
-                highlights.add(token);
-            }
-        }
-
         model.put(SCHOOL_HIGHLIGHTS_ATTRIBUTE, StringUtils.join(highlights, "; "));
-    }
-
-    /**
-     * Fetches a Map of questions and answers from the survey dao, using the given answer bean title property.
-     * Uses the first question and answer in map to fetch a list of responses from the dao. Throws away all
-     * but the first response. Splits the response on comma, and returns the first token.
-     *
-     * @param school
-     * @param answerTitle
-     * @return
-     */
-    public String getOneResponseTokenForAnswer(School school, String answerTitle) {
-
-        Integer surveyId = _surveyDao.findSurveyIdWithMostResultsForSchool(school);
-
-        Survey survey = _surveyDao.findSurveyById(surveyId);
-
-        Map<Question, Answer> qAndA = _surveyDao.extractQuestionAnswerMapByAnswerTitle(survey, answerTitle);
-
-        List<List<String>> responses = new ArrayList<List<String>>();
-
-        if (qAndA != null && qAndA.size() > 0) {
-            Set<Map.Entry<Question, Answer>> entrySet = qAndA.entrySet();
-            for (Map.Entry<Question, Answer> entry : entrySet) {
-                responses = _surveyDao.findFriendlyResultsBySchoolQuestionAnswer(school, entry.getKey().getId(), entry.getValue().getId(), surveyId);
-                if (responses != null && responses.size() > 0) {
-                    break;
-                }
-            }
-        }
-
-        String item = null;
-        List<String> tokens;
-
-        if (responses.size() > 0) {
-            tokens = responses.get(0);
-            if (tokens != null && tokens.size() > 0) {
-                item = tokens.get(0);
-            }
-        }
-
-        return item;
     }
 
     public String getViewName() {
@@ -356,14 +301,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setTestManager(TestManager testManager) {
         _testManager = testManager;
-    }
-
-    public ISurveyDao getSurveyDao() {
-        return _surveyDao;
-    }
-
-    public void setSurveyDao(ISurveyDao surveyDao) {
-        _surveyDao = surveyDao;
     }
 
     public NearbySchoolsHelper getNearbySchoolsHelper() {
