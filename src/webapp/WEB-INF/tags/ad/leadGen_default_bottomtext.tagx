@@ -8,10 +8,10 @@
         <div class="hd wrapper"><!-- do not collapse --></div>
         <div class="bd wrapper">
 
-            <div class="leadGenPrelimText_bottomtext jq-leadGenPrelimText">
+            <!-- <div class="leadGenPrelimText_bottomtext jq-leadGenPrelimText">
                 A representative from the
                 school will contact you.
-            </div>
+            </div>  -->
 
             <div class="leadGenErrors">
                 <div class="hidden media jq-leadGenError jq-leadGenError-all">
