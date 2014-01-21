@@ -12,7 +12,6 @@
     <!-- set hotline# & Outsmarting CMS ID-->
     <c:choose>
         <c:when test="${fn:toLowerCase(city) eq 'washington'}">
-            <c:set var="hotlinePhoneNbr" value="202-431-5538" scope="page"/>
             <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/3775-outsmarting-the-system-dc.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" scope="page"/>
             <c:set var="titleCity" value="Washington, D.C." scope="page"/>
