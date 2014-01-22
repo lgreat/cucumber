@@ -38,3 +38,4 @@ src/webapp/res/mobile/css/*combined.css
 src/webapp/res/mobile/css/*.combined.*.css
 src/webapp/res/js/school-profile.js
 src/webapp/res/js/school-profile.min.js
+.idea/
