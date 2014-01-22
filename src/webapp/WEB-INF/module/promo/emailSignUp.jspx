@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns="http://www.w3c.org/1999/xhtml"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo">
-
-        <promo:emailSignUp userIsAlreadySignedUp="${userIsAlreadySignedUp}" style="${style}"/>
-
-</jsp:root>

@@ -1,1 +1,0 @@
-// contents moved to global.js. No pages should import this file!

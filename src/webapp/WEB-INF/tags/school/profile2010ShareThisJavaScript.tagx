@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page">
-<jsp:directive.tag body-content="scriptless"/>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"><!-- do not collapse --></script>
-    <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04',autoclose:'true'});</script>
-</jsp:root>

@@ -1,6 +1,0 @@
-/* GS-7087: Serves to verify externalCss parameter in editorialWidget.jspx */
-/* Used on sandbox/widget.jspx for PM review */
-/* If you are reading this, it's probably safe to delete. But check with aroy anyway! */
-body, div.wrapper {
-    background-color: #CCC;
-}

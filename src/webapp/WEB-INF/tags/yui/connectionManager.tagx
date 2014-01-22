@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jsp:root version="2.0"
-    xmlns:jsp="http://java.sun.com/JSP/Page"
-    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
-    <jsp:directive.tag body-content="scriptless"/>
-    <pageHelper:externalJavascript file="/res/js/json.js"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/connection/connection-min.js"/>
-</jsp:root>
